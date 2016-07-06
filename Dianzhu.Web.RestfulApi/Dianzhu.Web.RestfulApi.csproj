@@ -219,6 +219,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\InstallerRestfulApi.cs" />
+    <Compile Include="App_Start\MySectionCollection.cs" />
+    <Compile Include="App_Start\MySectionKeyValue.cs" />
+    <Compile Include="App_Start\MySectionKeyValueSettings.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />

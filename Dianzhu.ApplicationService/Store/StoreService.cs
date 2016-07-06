@@ -40,6 +40,10 @@ namespace Dianzhu.ApplicationService.Store
                     storeobj.showImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
                 }
             }
+            if (storeobj.location == null)
+            {
+                storeobj.location = new locationObj();
+            }
             storeobj.location.latitude = business.Latitude.ToString();
             storeobj.location.longitude = business.Longitude.ToString();
             storeobj.location.address = business.RawAddressFromMapAPI;

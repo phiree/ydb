@@ -36,7 +36,8 @@ namespace Dianzhu.ApplicationService.Client
         {
             if (!dzmp.ValidateUser(username, password))
             {
-                throw new Exception("用户名或密码错误！");
+                //throw new Exception("用户名或密码错误！");
+                throw new Exception("001002");
             }
             Model.DZMembership dzm = dzmp.GetUserByName(username);
             string userUri = "";
@@ -60,8 +61,8 @@ namespace Dianzhu.ApplicationService.Client
             customer.password = password;
             UserTokentDTO usertokendto = new UserTokentDTO();
             usertokendto.userEndpoint = userUri;
-            usertokendto.Token= JWT.JsonWebToken.Encode(customer, apiKey, JWT.JwtHashAlgorithm.HS256);
-            Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.Token, Flag = 1, CreatedTime = DateTime.Now };
+            usertokendto.token= JWT.JsonWebToken.Encode(customer, apiKey, JWT.JwtHashAlgorithm.HS256);
+            Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.token, Flag = 1, CreatedTime = DateTime.Now };
             if (bllusertoken.addToken(usertoken))
             {
                 throw new Exception("Token保存失败！");
@@ -69,7 +70,7 @@ namespace Dianzhu.ApplicationService.Client
             DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Local);
             TimeSpan currentTs = DateTime.Now - epochStart;
             string requestTimeStamp = currentTs.TotalSeconds.ToString ();
-            System.Runtime.Caching.MemoryCache.Default.Add(usertokendto.Token, requestTimeStamp, DateTimeOffset.UtcNow.AddSeconds(172800));
+            System.Runtime.Caching.MemoryCache.Default.Add(usertokendto.token, requestTimeStamp, DateTimeOffset.UtcNow.AddSeconds(172800));
             return usertokendto;
         }
 

@@ -597,11 +597,23 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 客服
         /// </summary>
-        customerService,
+        //customerService,
         /// <summary>
         /// 店铺
         /// </summary>
-        store
+        //store
+        /// <summary>
+        /// 与平台客服聊天类型
+        /// </summary>
+        cer,
+        /// <summary>
+        /// 与商家客服聊天类型
+        /// </summary>
+        store,
+        /// <summary>
+        /// 用户
+        /// </summary>
+        user,
     }
 
     /// <summary>

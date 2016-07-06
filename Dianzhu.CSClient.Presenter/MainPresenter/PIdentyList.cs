@@ -27,21 +27,70 @@ namespace Dianzhu.CSClient.Presenter
         IViewChatList iViewChatList;
         IDAL.IDALReceptionChat dalReceptionChat;
         IViewOrder iViewOrder;
-        public PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList, IViewOrder iViewOrder, InstantMessage iIM)
-            : this(iView, iViewChatList, iViewOrder, iIM, new DALReceptionChat())
-        {
+        InstantMessage iIM;
+        IViewChatSend iViewChatSend;
+        IBLLServiceOrder bllServiceOrder;
+        IViewOrderHistory iViewOrderHistory;
 
-        }
+        IDAL.IDALReceptionStatus dalReceptionStatus;
 
-        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,IViewOrder iViewOrder, InstantMessage iIM, IDAL.IDALReceptionChat dalReceptionChat)
+        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,IViewOrder iViewOrder, InstantMessage iIM, IDAL.IDALReceptionChat dalReceptionChat,IViewChatSend iViewChatSend,IBLLServiceOrder bllServiceOrder,IViewOrderHistory iViewOrderHistory,IDAL.IDALReceptionStatus dalReceptionStatus)
         {
             this.iView = iView;
             this.iViewOrder = iViewOrder;
+            this.iIM = iIM;
             this.iViewChatList = iViewChatList;
             this.dalReceptionChat = dalReceptionChat;
+            this.iViewChatSend = iViewChatSend;
+            this.bllServiceOrder = bllServiceOrder;
+            this.iViewOrderHistory = iViewOrderHistory;
+            this.dalReceptionStatus = dalReceptionStatus;
 
             iView.IdentityClick += IView_IdentityClick;
+            iView.FinalChatTimerTick += IView_FinalChatTimerTick;
+            iViewChatSend.FinalChatTimerSend += IViewChatSend_FinalChatTimerSend;
+
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
+        }
+
+        private void IViewChatSend_FinalChatTimerSend()
+        {
+            iView.IdleTimerStart(IdentityManager.CurrentIdentity.Id);
+        }
+
+        private void IView_FinalChatTimerTick(Guid orderId)
+        {
+            log.Debug("计时结束，orderId：" + orderId);
+
+            ServiceOrder order = bllServiceOrder.GetOne(orderId);
+            string errMsg = string.Empty;
+            if (IdentityManager.CurrentIdentity.Id == order.Id)
+            {
+                iViewChatList.ChatList = null;
+                iViewOrderHistory.OrderList = null;
+
+                //删除分配表中用户和客服的关系
+                ReceptionStatus rs = dalReceptionStatus.GetOneByCustomerAndCS(order.CustomerService, order.Customer);
+                dalReceptionStatus.Delete(rs);
+
+                //发送客服离线消息给用户
+                string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
+                string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
+                                                  <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:cer:offline""></ext></message>",
+                                                  order.Customer.Id + "@" + server, order.CustomerService.Id, Guid.NewGuid() + "@" + server);
+                iIM.SendMessage(noticeDraftNew);
+            }
+
+            if (IdentityManager.DeleteIdentity(order))
+            {
+                RemoveIdentity(order);
+            }
+            else
+            {
+                errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
+                log.Error(errMsg);
+                throw new NotImplementedException(errMsg);
+            }
         }
 
         private void IIM_IMReceivedMessage(ReceptionChat chat)
@@ -65,7 +114,8 @@ namespace Dianzhu.CSClient.Presenter
                     ((ReceptionChatMedia)chat).MedialUrl = fileName;
                 }
                 dalReceptionChat.Add(chat);
- 
+
+                iView.IdleTimerStop(chat.ServiceOrder.Id);
             }
             else if (chat.ChatType== enum_ChatType.UserStatus)
             {
