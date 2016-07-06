@@ -267,7 +267,7 @@ namespace Dianzhu.BLL
             log.Debug("待分配的客服id：" + assigned[customer].Id.ToString());
             
             dalRS.Add(newRs);
-            NHibernateUnitOfWork.UnitOfWork.Current.Flush();
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             return assigned;
         }
@@ -299,14 +299,14 @@ namespace Dianzhu.BLL
                     LastUpdateTime = DateTime.Now
                 };
                 dalRS.Add(rs);
-                NHibernateUnitOfWork.UnitOfWork.Current.Flush();
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             }
 
             // delete old assign to database
             foreach (ReceptionStatus oldrs in customerWithCS)
             {
                 dalRS.Delete(oldrs);
-                NHibernateUnitOfWork.UnitOfWork.Current.Flush();
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             }
 
             //return new assign

@@ -793,7 +793,7 @@ namespace Dianzhu.BLL
                     log.Debug("订单为Created，取消成功");
                     //order.OrderStatus = oldStatus;
                     ChangeStatus(order, enum_OrderStatus.Canceled);
-                    NHibernateUnitOfWork.UnitOfWork.Current.Flush();
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                     ChangeStatus(order, enum_OrderStatus.EndCancel);
                     isCanceled = true;
                     break;
@@ -826,9 +826,9 @@ namespace Dianzhu.BLL
                                 log.Debug("更新订单状态");
                                 //order.OrderStatus = oldStatus;
                                 ChangeStatus(order, enum_OrderStatus.Canceled);
-                                NHibernateUnitOfWork.UnitOfWork.Current.Flush();
+                                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                                 ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
-                                NHibernateUnitOfWork.UnitOfWork.Current.Flush();
+                                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                                 ChangeStatus(order, enum_OrderStatus.EndCancel);
 
                                 isCanceled = true;
@@ -844,7 +844,7 @@ namespace Dianzhu.BLL
                             //扣除定金，取消成功
                             //order.OrderStatus = oldStatus;
                             ChangeStatus(order, enum_OrderStatus.Canceled);
-                            NHibernateUnitOfWork.UnitOfWork.Current.Flush();
+                            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                             ChangeStatus(order, enum_OrderStatus.EndCancel);
                             isCanceled = true;
                         }
@@ -855,7 +855,7 @@ namespace Dianzhu.BLL
                         //扣除定金，取消成功
                         //order.OrderStatus = oldStatus;
                         ChangeStatus(order, enum_OrderStatus.Canceled);
-                        NHibernateUnitOfWork.UnitOfWork.Current.Flush();
+                        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                         ChangeStatus(order, enum_OrderStatus.EndCancel);
                         isCanceled = true;
                     }
