@@ -149,16 +149,16 @@ namespace Dianzhu.CSClient.Presenter
             NHibernateUnitOfWork.With.Transaction(ac);
         }
 
-        private void ViewSearchResult_PushServices(IList<Model.DZService> pushedServices)
+        private ReceptionChat ViewSearchResult_PushServices(IList<Model.DZService> pushedServices)
         {
           
             if (pushedServices.Count == 0)
             {
-                return;
+                return null;
             }
             if (IdentityManager.CurrentIdentity == null)
             {
-                return;
+                return null;
             }
             
             //禁用推送按钮
@@ -168,7 +168,7 @@ namespace Dianzhu.CSClient.Presenter
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
             foreach (DZService service in pushedServices)
             {
-                NHibernateUnitOfWork.UnitOfWork.Current.Refresh(service);//来自上个session，需刷新
+                 NHibernateUnitOfWork.UnitOfWork.Current.Refresh(service);//来自上个session，需刷新
 
                 serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount,viewSearch.ServiceAddress, viewSearch.SearchKeywordTime ));
             }
@@ -188,7 +188,7 @@ namespace Dianzhu.CSClient.Presenter
 
             };
             dalReceptionChat.Add(chat);
-            iIM.SendMessage(chat);
+          
 
             //加到缓存数组中
             //if (PChatList.chatHistoryAll != null)
@@ -231,7 +231,10 @@ namespace Dianzhu.CSClient.Presenter
 
             //清空搜索选项 todo:为了测试方便，先注释掉
             //viewSearch.ClearData();
+            //发送订单通知.
 
+            return chat;
+            iIM.SendMessage(chat);
             //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             //NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
         }
