@@ -62,7 +62,7 @@ namespace Dianzhu.BLL
         
 
         DAL.Finance.DALServiceTypePoint dalPoint = new DAL.Finance.DALServiceTypePoint();
-        BLL.Finance.BLLServiceTypePoint bllPoint = new Finance.BLLServiceTypePoint();
+        
         public void Import(System.IO.Stream excelFileStream)
         {
             PHSuit.ReadExcelToDataTable rtdt = new ReadExcelToDataTable(excelFileStream, false, false, 0);

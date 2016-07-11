@@ -22,9 +22,11 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class UC_SearchResult : UserControl,IView.IViewSearchResult
     {
-        public UC_SearchResult()
+        IInstantMessage.InstantMessage iIm;
+        public UC_SearchResult(IInstantMessage.InstantMessage iIm)
         {
             InitializeComponent();
+            this.iIm = iIm;
         }
 
         IList<DZService> searchedService;
@@ -69,14 +71,23 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void ShelfService_PushShelfService(DZService pushedService)
         {
+            ReceptionChat chat = null;
             Action ac = () =>
             {
                 //NHibernateUnitOfWork.UnitOfWork.Start();
-                PushServices(new List<DZService>() { pushedService });
+                chat=  PushServices(new List<DZService>() { pushedService });
+                
                 //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 //NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
             };
             NHibernateUnitOfWork.With.Transaction(ac);
+            if (chat != null)
+            {
+                
+                NHibernateUnitOfWork.With.Transaction(() => {
+                    NHibernateUnitOfWork.UnitOfWork.Current.Refresh(chat);
+                    iIm.SendMessage(chat); });
+            }
         }
 
         //public bool BtnPush

@@ -47,7 +47,7 @@ namespace Dianzhu.CSClient.IView
     }
    
     public delegate void SelectService(DZService selectedService);
-    public delegate void PushServices(IList<DZService> pushedServices);
+    public delegate ReceptionChat PushServices(IList<DZService> pushedServices);
 
 
 }

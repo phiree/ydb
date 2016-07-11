@@ -30,17 +30,30 @@ namespace Dianzhu.Web.Common
 
         private void Error(object sender, EventArgs e)
         {
-           
+            
         }
 
         private void EndRequest(object sender, EventArgs e)
         {
+            if (!httpApplication.Request.CurrentExecutionFilePath.EndsWith(".aspx")
+                && !httpApplication.Request.CurrentExecutionFilePath.EndsWith(".ashx")
+                )
+            {
+                return;
+            }
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         private void BeginRequest(object sender, EventArgs e)
         {
-            NHibernateUnitOfWork.UnitOfWork.Start();
+            if (!httpApplication.Request.CurrentExecutionFilePath.EndsWith(".aspx")
+               && !httpApplication.Request.CurrentExecutionFilePath.EndsWith(".ashx")
+               )
+            {
+                return;
+            }
+                NHibernateUnitOfWork.UnitOfWork.Start();
         }
 
         

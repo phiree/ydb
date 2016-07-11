@@ -66,21 +66,18 @@ namespace Dianzhu.Model
     {
         public Business()
         {
-            AreaServiceTo = new List<Area>();
+            
             BusinessImages = new List<BusinessImage>();
             ServiceType = new List<ServiceType>();
-            CashTicketTemplates = new List<CashTicketTemplate>();
-            
+           
             
         }
         /// <summary>
         ///  所在辖区
         /// </summary>
         public virtual Area AreaBelongTo { get; set; }
-        /// <summary>
-        ///  服务范围
-        /// </summary>
-        public virtual IList<Area> AreaServiceTo { get; set; }
+        
+       
         /// <summary>
         ///  地址
         /// </summary>
@@ -323,75 +320,10 @@ namespace Dianzhu.Model
                 return percent;
             }
         }
-        /// <summary>
-        /// 现金券模板列表
-        /// </summary>
-        public virtual IList<CashTicketTemplate> CashTicketTemplates
-        {
-            get;
-            set;
-        }
-        /// <summary>
-        /// 现金券
-        /// </summary>
-        public virtual IList<CashTicket> CashTickets
-        {
-            get {
-                IList<CashTicket> cashtickets = new List<CashTicket>();
-                foreach (CashTicketTemplate temp in CashTicketTemplates)
-                {
-                    foreach (CashTicket cashticket in temp.CashTickets)
-                    {
-                        cashtickets.Add(cashticket);
-                    }
-                }
-                return cashtickets;
-            }
-        }
-        /// <summary>
-        /// 可供分配的现金券
-        /// </summary>
-        public virtual IList<CashTicket> CashTicketsAvaiableToAssign
-        {
-            get
-            {
-                IList<CashTicket> cashtickets = new List<CashTicket>();
-                foreach (CashTicketTemplate temp in CashTicketTemplates)
-                {
-                    if (!temp.Enabled) continue;
-                    foreach (CashTicket cashticket in temp.CashTickets)
-                    {
-                        if (cashticket.UserAssigned != null) continue;
-                        cashtickets.Add(cashticket);
-                    }
-                }
-                return cashtickets;
-            }
-        }
-        /// <summary>
-        /// 可供分配的现金券的总金额
-        /// </summary>
-        public virtual int CashTicketsAvaiableToAssignAmount
-        {
-            get
-            {
-                int amount = 0;
-                IList<CashTicket> cashtickets = new List<CashTicket>();
-                foreach (CashTicketTemplate temp in CashTicketTemplates)
-                {
-                    if (!temp.Enabled) continue;
-                    foreach (CashTicket cashticket in temp.CashTickets)
-                    {
-                        if (cashticket.UserAssigned != null) continue;
-                        amount += temp.Amount;
-                         
-                    }
-                }
-                return amount;
-            }
-        }
-
-        /// <summary>
+        
+        
+      
+         /// <summary>
         /// 拷贝
         /// </summary>
         /// <param name="newBusiness"></param>
@@ -420,7 +352,7 @@ namespace Dianzhu.Model
         {
             IsCurrent = false;
         }
-        public virtual Guid Id { get; set; }
+     
         /// <summary>
         /// 图片名称,图片存储路径由配置确定.
         /// </summary>
