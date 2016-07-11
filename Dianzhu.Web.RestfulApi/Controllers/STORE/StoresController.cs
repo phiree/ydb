@@ -69,7 +69,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORE
         /// </summary>
         /// <param name="storefilter"></param>
         /// <returns></returns>
-        [Route("api/stores/count")]
+        [Route("api/v1/stores/count")]
         public IHttpActionResult GetStoresCount([FromUri]common_Trait_StoreFiltering storefilter)
         {
             try

@@ -10,15 +10,22 @@ public class FileUploader : IHttpHandler {
     BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
     BLLBusinessImage bllBusinessImage =Bootstrap.Container.Resolve<BLLBusinessImage>();
     public void ProcessRequest (HttpContext context) {
+        if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
+        {
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+
+        }
+        NHibernateUnitOfWork.UnitOfWork.Start();
         context.Response.ContentType = "text/plain";
-        
+
         HttpFileCollection files = context.Request.Files;
-    
+
         string strBusinessId = context.Request["businessId"];
         Business b = bllBusiness.GetOne(new Guid(strBusinessId));
         string imageType = context.Request["imageType"];
         enum_ImageType enum_imagetype = enum_ImageType.Business_Show;
-        
+
         switch (imageType)
         {
             case "businesslicense":
@@ -56,12 +63,14 @@ public class FileUploader : IHttpHandler {
             context.Response.Write("F,图片大小不能超过2M");
             context.Response.End();
         }
-          string imagePath=  bllBusinessImage.Save(new Guid(strBusinessId), posted, enum_imagetype);
+        string imagePath=  bllBusinessImage.Save(new Guid(strBusinessId), posted, enum_imagetype);
 
-          context.Response.Write(imagePath);
-        
+        context.Response.Write(imagePath);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+           
+
     }
- 
+
     public bool IsReusable {
         get {
             return false;

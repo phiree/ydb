@@ -52,44 +52,74 @@ namespace Dianzhu.ApplicationService.Order
         void changeObj(orderObj orderobj, Model.ServiceOrder serviceorder)
         {
             Model.ServiceOrderStateChangeHis statehis = bllstatehis.GetMaxNumberOrderHis(serviceorder);
+            if (orderobj.currentStatusObj == null)
+            {
+                orderobj.currentStatusObj = new orderStatusObj();
+            }
             orderobj.currentStatusObj = Mapper.Map<Model.ServiceOrderStateChangeHis, orderStatusObj>(statehis);
-
+            if (orderobj.serviceSnapshotObj == null)
+            {
+                orderobj.serviceSnapshotObj = new servicesObj();
+            }
             orderobj.serviceSnapshotObj = Mapper.Map<Model.DZService, servicesObj>(serviceorder.Service);
+            if (orderobj.userObj == null)
+            {
+                orderobj.userObj = new userObj();
+            }
             orderobj.userObj = Mapper.Map<Model.DZMembership, userObj>(serviceorder.Customer);
+            if (orderobj.storeObj == null)
+            {
+                orderobj.storeObj = new storeObj();
+            }
             orderobj.storeObj = Mapper.Map<Model.Business, storeObj>(serviceorder.Business);
-
-            orderobj.serviceSnapshotObj.location.longitude = serviceorder.Business.Longitude.ToString();
-            orderobj.serviceSnapshotObj.location.latitude = serviceorder.Business.Latitude.ToString();
-            orderobj.serviceSnapshotObj.location.address = serviceorder.Business.RawAddressFromMapAPI;
-
-            foreach (Model.BusinessImage bimg in serviceorder.Business.ChargePersonIdCards)
+            if (serviceorder.Business != null)
             {
-                if (bimg.ImageName != null)
+                foreach (Model.BusinessImage bimg in serviceorder.Business.ChargePersonIdCards)
                 {
-                    orderobj.storeObj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
+                    if (bimg.ImageName != null)
+                    {
+                        orderobj.storeObj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
+                    }
                 }
+                foreach (Model.BusinessImage bimg in serviceorder.Business.BusinessLicenses)
+                {
+                    if (bimg.ImageName != null)
+                    {
+                        orderobj.storeObj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
+                    }
+                }
+                foreach (Model.BusinessImage bimg in serviceorder.Business.BusinessShows)
+                {
+                    if (bimg.ImageName != null)
+                    {
+                        orderobj.storeObj.showImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
+                    }
+                }
+                if (orderobj.serviceSnapshotObj.location == null)
+                {
+                    orderobj.serviceSnapshotObj.location = new locationObj();
+                }
+                orderobj.serviceSnapshotObj.location.longitude = serviceorder.Business.Longitude.ToString();
+                orderobj.serviceSnapshotObj.location.latitude = serviceorder.Business.Latitude.ToString();
+                orderobj.serviceSnapshotObj.location.address = serviceorder.Business.RawAddressFromMapAPI;
+                if (orderobj.storeObj.location == null)
+                {
+                    orderobj.storeObj.location = new locationObj();
+                }
+                orderobj.storeObj.location.latitude = serviceorder.Business.Latitude.ToString();
+                orderobj.storeObj.location.longitude = serviceorder.Business.Longitude.ToString();
+                orderobj.storeObj.location.address = serviceorder.Business.RawAddressFromMapAPI;
             }
-            foreach (Model.BusinessImage bimg in serviceorder.Business.BusinessLicenses)
+            if (serviceorder.Customer != null)
             {
-                if (bimg.ImageName != null)
+                if (orderobj.customerServicesObj == null)
                 {
-                    orderobj.storeObj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
+                    orderobj.customerServicesObj = new customerServicesObj();
                 }
+                orderobj.customerServicesObj.id = serviceorder.Customer.Id.ToString();
+                orderobj.customerServicesObj.alias = serviceorder.Customer.DisplayName;
+                orderobj.customerServicesObj.imgUrl = serviceorder.Customer.AvatarUrl;
             }
-            foreach (Model.BusinessImage bimg in serviceorder.Business.BusinessShows)
-            {
-                if (bimg.ImageName != null)
-                {
-                    orderobj.storeObj.showImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
-                }
-            }
-            orderobj.storeObj.location.latitude = serviceorder.Business.Latitude.ToString();
-            orderobj.storeObj.location.longitude = serviceorder.Business.Longitude.ToString();
-            orderobj.storeObj.location.address = serviceorder.Business.RawAddressFromMapAPI;
-
-            orderobj.customerServicesObj.id = serviceorder.Customer.Id.ToString();
-            orderobj.customerServicesObj.alias = serviceorder.Customer.DisplayName;
-            orderobj.customerServicesObj.imgUrl = serviceorder.Customer.AvatarUrl;
             
         }
 

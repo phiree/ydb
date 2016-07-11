@@ -103,7 +103,7 @@ namespace Dianzhu.CSClient.Presenter
                         if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
                         { 
 
-                            NHibernateUnitOfWork.UnitOfWork.CurrentSession.Load(type,type.Id);
+                            NHibernateUnitOfWork.UnitOfWork.CurrentSession.Refresh(type);
                         }
                     ServiceTypeSecond = type;
                     ServiceTypeThird = null;
@@ -149,26 +149,26 @@ namespace Dianzhu.CSClient.Presenter
             NHibernateUnitOfWork.With.Transaction(ac);
         }
 
-        private void ViewSearchResult_PushServices(IList<Model.DZService> pushedServices)
+        private ReceptionChat ViewSearchResult_PushServices(IList<Model.DZService> pushedServices)
         {
           
             if (pushedServices.Count == 0)
             {
-                return;
+                return null;
             }
             if (IdentityManager.CurrentIdentity == null)
             {
-                return;
+                return null;
             }
             
             //禁用推送按钮
             //viewSearchResult.BtnPush = false;
 
-            NHibernateUnitOfWork.UnitOfWork.Start();
+            //NHibernateUnitOfWork.UnitOfWork.Start();
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
             foreach (DZService service in pushedServices)
             {
-                NHibernateUnitOfWork.UnitOfWork.Current.Refresh(service);//来自上个session，需刷新
+                 NHibernateUnitOfWork.UnitOfWork.Current.Refresh(service);//来自上个session，需刷新
 
                 serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount,viewSearch.ServiceAddress, viewSearch.SearchKeywordTime ));
             }
@@ -188,13 +188,13 @@ namespace Dianzhu.CSClient.Presenter
 
             };
             dalReceptionChat.Add(chat);
-            iIM.SendMessage(chat);
+          
 
             //加到缓存数组中
-            if (PChatList.chatHistoryAll != null)
-            {
-                PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
-            }
+            //if (PChatList.chatHistoryAll != null)
+            //{
+            //    PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
+            //}
 
             log.Debug("推送的订单：" + IdentityManager.CurrentIdentity.Id.ToString());
 
@@ -213,6 +213,8 @@ namespace Dianzhu.CSClient.Presenter
 
             //获取之前orderid
             ServiceOrder oldOrder = IdentityManager.CurrentIdentity;
+            //NHibernateUnitOfWork.UnitOfWork.Current.Refresh(oldOrder);//来自上个session，需刷新
+            //oldOrder.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
             bllServiceOrder.Update(oldOrder);
 
             //更新当前订单
@@ -229,9 +231,12 @@ namespace Dianzhu.CSClient.Presenter
 
             //清空搜索选项 todo:为了测试方便，先注释掉
             //viewSearch.ClearData();
+            //发送订单通知.
 
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
+            return chat;
+            iIM.SendMessage(chat);
+            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            //NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
         }
 
         private void ViewSearchResult_SelectService(Model.DZService selectedService)
@@ -251,8 +256,8 @@ namespace Dianzhu.CSClient.Presenter
         #endregion
         private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId)
         {
-            Action a = () =>
-            {
+            //Action a = () =>
+            //{
                 int total;
 
                 IList<Model.DZService> services = dalDzService.SearchService(minPrice, maxPrice, servieTypeId, targetTime, 0, 10, out total);
@@ -261,9 +266,9 @@ namespace Dianzhu.CSClient.Presenter
                     
                 }
                 viewSearchResult.SearchedService = services;
-            };
+            //};
 
-            NHibernateUnitOfWork.With.Transaction(a);
+            //NHibernateUnitOfWork.With.Transaction(a);
 
             //foreach (DZService s in services)
             //{

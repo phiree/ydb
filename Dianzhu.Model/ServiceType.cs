@@ -17,8 +17,10 @@ namespace Dianzhu.Model
             Children = new List<ServiceType>();
            
         }
-       
-
+        [JsonProperty(PropertyName = "id")]
+        public virtual Guid TypeId {
+            get { return this.Id; }
+        }
         
         [JsonProperty(PropertyName = "name")]
         public virtual string Name { get; set; }

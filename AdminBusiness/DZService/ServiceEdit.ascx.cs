@@ -266,6 +266,8 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
             //  Response.Redirect("/dzservice/default.aspx?&businessid="+Request["businessid"]);
             //             PHSuit.Notification.Alert(Page, "保存成功", redirectUrl);
             //   Response.Redirect(redirectUrl);//PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl);
+
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             Response.Redirect("/dzservice/Service_Edit.aspx?&businessid=" + Request["businessid"] + "&serviceid=" + CurrentService.Id + "&step=4" );
         }   
         else

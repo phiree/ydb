@@ -11,7 +11,7 @@ public partial class servicetype_Edit : BasePage
 {
     private Guid TypeId=Guid.Empty;
     BLLServiceType bllServiceType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
-    BLLServiceTypePoint bllPoint = new BLLServiceTypePoint();
+    Dianzhu.BLL.Finance.IBLLServiceTypePoint bllPoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBLLServiceTypePoint>();
     private bool IsNew {
         get {
             return TypeId == Guid.Empty;

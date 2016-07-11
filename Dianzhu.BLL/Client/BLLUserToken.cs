@@ -41,7 +41,7 @@ namespace Dianzhu.BLL.Client
             var where = PredicateBuilder.True<UserToken>();
             where = where.And(x => x.Token == token && x.Flag == 1);
             UserToken usertokenOld = dalusertoken.FindOne(where);
-            if (usertokenOld != null)
+            if (usertokenOld == null)
             {
                 return true;
             }

@@ -56,7 +56,7 @@ namespace Dianzhu.BLL
                 };
                 b.BusinessImages.Add(biImage);
             }
-            dalBusiness.Update(b);
+            dalBusiness.SaveOrUpdate(b);
             return "/media/business/original/" + imageName;
         }
 

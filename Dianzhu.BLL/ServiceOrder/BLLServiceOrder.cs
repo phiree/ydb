@@ -178,7 +178,8 @@ namespace Dianzhu.BLL
                     break;
             }
             long totalRecord;
-            return repoServiceOrder.Find(where, pageNum, pageSize, out totalRecord).ToList();
+            var list = pageSize == 0 ? repoServiceOrder.Find(where).ToList() : repoServiceOrder.Find(where, pageNum, pageSize, out totalRecord).ToList();
+            return list;
 
             // return DALServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
         }
@@ -754,6 +755,7 @@ namespace Dianzhu.BLL
             //更新订单状态
             order.OrderStatus = targetStatus;
             Update(order);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             log.Debug("当前订单状态为:" + targetStatus);
 
             log.Debug("调用IMServer,发送订单状态变更通知");
@@ -792,6 +794,7 @@ namespace Dianzhu.BLL
                     log.Debug("订单为Created，取消成功");
                     //order.OrderStatus = oldStatus;
                     ChangeStatus(order, enum_OrderStatus.Canceled);
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                     ChangeStatus(order, enum_OrderStatus.EndCancel);
                     isCanceled = true;
                     break;
@@ -824,9 +827,9 @@ namespace Dianzhu.BLL
                                 log.Debug("更新订单状态");
                                 //order.OrderStatus = oldStatus;
                                 ChangeStatus(order, enum_OrderStatus.Canceled);
-                                NHibernateUnitOfWork.UnitOfWork.Current.Flush();
+                                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                                 ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
-                                NHibernateUnitOfWork.UnitOfWork.Current.Flush();
+                                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                                 ChangeStatus(order, enum_OrderStatus.EndCancel);
 
                                 isCanceled = true;
@@ -842,6 +845,7 @@ namespace Dianzhu.BLL
                             //扣除定金，取消成功
                             //order.OrderStatus = oldStatus;
                             ChangeStatus(order, enum_OrderStatus.Canceled);
+                            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                             ChangeStatus(order, enum_OrderStatus.EndCancel);
                             isCanceled = true;
                         }
@@ -852,6 +856,7 @@ namespace Dianzhu.BLL
                         //扣除定金，取消成功
                         //order.OrderStatus = oldStatus;
                         ChangeStatus(order, enum_OrderStatus.Canceled);
+                        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                         ChangeStatus(order, enum_OrderStatus.EndCancel);
                         isCanceled = true;
                     }

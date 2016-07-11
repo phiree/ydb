@@ -36,24 +36,6 @@ namespace Dianzhu.CSClient.Presenter
 
             viewOrderHistory.SearchOrderHistoryClick += ViewOrderHistory_SearchOrderHistoryClick;
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
-            iIM.IMReceivedMessage += IIM_IMReceivedMessage;
-        }
-
-        private void IIM_IMReceivedMessage(ReceptionChat chat)
-        {
-            //判断信息类型
-            //if(chat.ChatType== enum_ChatType.UserStatus)
-            //{
-            //    ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
-
-            //    if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
-            //    {
-            //        if (IdentityManager.CurrentIdentity == null || IdentityManager.CurrentIdentity == chat.ServiceOrder)
-            //        {
-            //            ClearSearchList();
-            //        }
-            //    }
-            //}
         }
 
         private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)

@@ -36,32 +36,33 @@ namespace Dianzhu.ApplicationService.Client
         {
             if (!dzmp.ValidateUser(username, password))
             {
-                throw new Exception("用户名或密码错误！");
+                //throw new Exception("用户名或密码错误！");
+                throw new Exception("001002");
             }
             Model.DZMembership dzm = dzmp.GetUserByName(username);
             string userUri = "";
             switch (dzm.UserType.ToString())
             {
                 case "customer":
-                    userUri = strPath+"/api/customers/" +dzm.Id;
+                    userUri = strPath+"/api/v1/customers/" +dzm.Id;
                     break;
                 case "business":
-                    userUri = strPath + "/api/merchants/" + dzm.Id;
+                    userUri = strPath + "/api/v1/merchants/" + dzm.Id;
                     break;
                 case "staff":
                     Model.Staff staff = new Model.Staff();
-                    userUri = strPath + "/api/stores/" + staff.Belongto.Id+"/staffs/" + staff.Id;
+                    userUri = strPath + "/api/v1/stores/" + staff.Belongto.Id+"/staffs/" + staff.Id;
                     break;
                 default:
                     throw new Exception("用户类型不正确！");
             }
             Customer customer = new Customer();
-            customer.username = username;
+            customer.loginName = username;
             customer.password = password;
             UserTokentDTO usertokendto = new UserTokentDTO();
-            usertokendto.UserUri = userUri;
-            usertokendto.Token= JWT.JsonWebToken.Encode(customer, apiKey, JWT.JwtHashAlgorithm.HS256);
-            Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.Token, Flag = 1, CreatedTime = DateTime.Now };
+            usertokendto.userEndpoint = userUri;
+            usertokendto.token= JWT.JsonWebToken.Encode(customer, apiKey, JWT.JwtHashAlgorithm.HS256);
+            Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.token, Flag = 1, CreatedTime = DateTime.Now };
             if (bllusertoken.addToken(usertoken))
             {
                 throw new Exception("Token保存失败！");
@@ -69,7 +70,7 @@ namespace Dianzhu.ApplicationService.Client
             DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Local);
             TimeSpan currentTs = DateTime.Now - epochStart;
             string requestTimeStamp = currentTs.TotalSeconds.ToString ();
-            System.Runtime.Caching.MemoryCache.Default.Add(usertokendto.Token, requestTimeStamp, DateTimeOffset.UtcNow.AddSeconds(172800));
+            System.Runtime.Caching.MemoryCache.Default.Add(usertokendto.token, requestTimeStamp, DateTimeOffset.UtcNow.AddSeconds(172800));
             return usertokendto;
         }
 

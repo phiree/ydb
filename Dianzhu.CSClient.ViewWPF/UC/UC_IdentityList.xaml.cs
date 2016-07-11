@@ -31,6 +31,7 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         public event IdentityClick IdentityClick;
+        public event FinalChatTimerTick FinalChatTimerTick;
 
         public void AddIdentity(ServiceOrder serviceOrder)
         {
@@ -43,7 +44,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 if (ucIdentity == null)
                 {
                     //btnIdentity = new Button { Content = serviceOrder.Customer.DisplayName };
-                    ucIdentity = new UC_Customer(serviceOrder.Customer);
+                    ucIdentity = new UC_Customer(serviceOrder);
                     //btnIdentity.Tag = serviceOrder;
                     ucIdentity.btnCustomer.Tag = serviceOrder;
 
@@ -51,6 +52,7 @@ namespace Dianzhu.CSClient.ViewWPF
                     ucIdentity.Name = ctrlName;
                     //btnIdentity.Click += BtnIdentity_Click;
                     ucIdentity.btnCustomer.Click += BtnIdentity_Click;
+                    ucIdentity.IdleTimerOut += UcIdentity_IdleTimerOut;
                     //pnlIdentityList.Children.Add(btnIdentity);
                     pnlIdentityList.Children.Add(ucIdentity);
                     //pnlIdentityList.RegisterName(btnIdentity.Name, btnIdentity);
@@ -64,13 +66,65 @@ namespace Dianzhu.CSClient.ViewWPF
             else { lambda(); }
         }
 
+        public void IdleTimerStart(Guid orderId)
+        {
+            Action lambda = () =>
+            {
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(orderId.ToString());
+                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                if (ucIdentity != null)
+                {
+                    ucIdentity.TimerStart();
+                    log.Debug("计时开始");
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
+        }
+
+        public void IdleTimerStop(Guid orderId)
+        {
+            Action lambda = () =>
+            {
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(orderId.ToString());
+                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                if (ucIdentity != null)
+                {
+                    ucIdentity.TimerStop();
+                    log.Debug("计时停止");
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
+        }
+
+        private void UcIdentity_IdleTimerOut(Guid orderId)
+        {
+            Action ac = () =>
+            {
+                FinalChatTimerTick(orderId);
+            };
+            NHibernateUnitOfWork.With.Transaction(ac);
+        }
+
         private void BtnIdentity_Click(object sender, RoutedEventArgs e)
         {
             if (IdentityClick != null)
             {
-                ServiceOrder order = (ServiceOrder)((Button)sender).Tag;
-                IdentityClick(order);
-                SetIdentityReaded(order);
+                Action ac = () =>
+                {
+                    ServiceOrder order = (ServiceOrder)((Button)sender).Tag;
+                    NHibernateUnitOfWork.UnitOfWork.Current.Refresh(order);
+                    IdentityClick(order);
+                    SetIdentityReaded(order);
+                };
+                NHibernateUnitOfWork.With.Transaction(ac);
             }
         }
 

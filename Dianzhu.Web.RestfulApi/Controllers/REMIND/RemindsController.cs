@@ -78,7 +78,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
         /// </summary>
         /// <param name="remind"></param>
         /// <returns></returns>
-        [Route("api/Reminds/count")]
+        [Route("api/v1/Reminds/count")]
         public IHttpActionResult GetRemindsCount([FromUri]common_Trait_RemindFiltering remind)
         {
             try

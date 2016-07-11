@@ -8,7 +8,7 @@ namespace Dianzhu.ApplicationService
 {
     public class Customer
     {
-        public string username { get; set; }
+        public string loginName { get; set; }
         public string password { get; set; }
     }
 }

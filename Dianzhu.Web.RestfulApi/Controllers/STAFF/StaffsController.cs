@@ -23,7 +23,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
         /// <param name="storeID"></param>
         /// <param name="staffobj"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/staffs")]
+        [Route("api/v1/stores/{storeID}/staffs")]
         public IHttpActionResult PostStaff(string storeID, [FromBody]staffObj staffobj)
         {
             try
@@ -47,7 +47,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
         /// <param name="filter"></param>
         /// <param name="staff"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/staffs")]
+        [Route("api/v1/stores/{storeID}/staffs")]
         public IHttpActionResult GetStaffs(string storeID, [FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_StaffFiltering stafffilter)
         {
             try
@@ -74,7 +74,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
         /// <param name="storeID"></param>
         /// <param name="stafffilter"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/staffs/count")]
+        [Route("api/v1/stores/{storeID}/staffs/count")]
         public IHttpActionResult GetStaffsCount(string storeID, [FromUri]common_Trait_StaffFiltering stafffilter)
         {
             try
@@ -97,7 +97,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
         /// <param name="storeID"></param>
         /// <param name="staffID"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/staffs/{staffID}")]
+        [Route("api/v1/stores/{storeID}/staffs/{staffID}")]
         public IHttpActionResult GetStaff(string storeID, string staffID)
         {
             try
@@ -117,7 +117,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
         /// <param name="staffID"></param>
         /// <param name="staffobj"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/staffs/{staffID}")]
+        [Route("api/v1/stores/{storeID}/staffs/{staffID}")]
         public IHttpActionResult PatchStaff(string storeID, string staffID, [FromBody]staffObj staffobj)
         {
             try
@@ -140,7 +140,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
         /// <param name="storeID"></param>
         /// <param name="staffID"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/staffs/{staffID}")]
+        [Route("api/v1/stores/{storeID}/staffs/{staffID}")]
         public IHttpActionResult DeleteStaff(string storeID, string staffID)
         {
             try

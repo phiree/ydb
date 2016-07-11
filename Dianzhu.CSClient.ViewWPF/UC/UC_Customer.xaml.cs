@@ -13,19 +13,59 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dianzhu.Model;
+using System.Windows.Threading;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
+    public delegate void IdleTimerOut(Guid orderId);
     /// <summary>
     /// UC_Customer.xaml 的交互逻辑
     /// </summary>
     public partial class UC_Customer : UserControl
     {
-        public UC_Customer(DZMembership customer)
+        public event IdleTimerOut IdleTimerOut;
+
+        DispatcherTimer FinalChatTimer;
+        ServiceOrder OrderTemp;
+        public UC_Customer(ServiceOrder order)
         {
             InitializeComponent();
 
-            LoadData(customer);
+            OrderTemp = order;
+
+            LoadData(order.Customer);
+            TimerLoad();
+        }
+
+        protected void TimerLoad()
+        {
+            FinalChatTimer = new DispatcherTimer();
+            FinalChatTimer.Interval = TimeSpan.FromMinutes(30);
+            FinalChatTimer.Tick += FinalChatTimer_Tick;
+        }
+
+        public void TimerStart()
+        {
+            if (FinalChatTimer != null)
+            {
+                FinalChatTimer.Stop();
+                TimerLoad();
+                FinalChatTimer.Start();
+            }            
+        }
+
+        public void TimerStop()
+        {
+            if (FinalChatTimer != null)
+            {
+                FinalChatTimer.Stop();
+            }            
+        }
+
+        private void FinalChatTimer_Tick(object sender, EventArgs e)
+        {
+            IdleTimerOut(OrderTemp.Id);
+            TimerStop();
         }
 
         public void LoadData(DZMembership customer)
