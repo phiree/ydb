@@ -22,7 +22,7 @@ namespace Dianzhu.Api.Model
 
         public RespDataSHM_snapshotObj Adap(IList<ServiceOrder> orderList)
         {
-            IList<DateTime> dates = orderList.Select(x => x.OrderCreated.Date).ToList();
+            IList<DateTime> dates = orderList.Select(x => x.OrderCreated.Date).Distinct().ToList();
 
             foreach (DateTime date in dates)
             {
