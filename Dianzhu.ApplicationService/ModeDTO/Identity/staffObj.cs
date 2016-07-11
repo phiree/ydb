@@ -16,6 +16,12 @@ namespace Dianzhu.ApplicationService
         public string id { get; set; }
 
         /// <summary>
+        /// 员工编号
+        /// </summary>
+        /// <type>string</type>
+        public string number { get; set; }
+
+        /// <summary>
         /// 昵称
         /// </summary>
         /// <type>string</type>
@@ -65,5 +71,11 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <type>string</type>
         public string identity { get; set; }
+
+        /// <summary>
+        /// 与店铺相关数据
+        /// </summary>
+        /// <type>string</type>
+        public storeDataObj storeData { get; set; }
     }
 }

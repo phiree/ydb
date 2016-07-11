@@ -78,6 +78,7 @@ namespace Dianzhu.DAL
             return Find(where, 1, 999, out totalRecord);
         }
 
+
         public IList<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords)
         {
             IList<TEntity> result;
@@ -96,6 +97,64 @@ namespace Dianzhu.DAL
                 
 
 
+            return result;
+        }
+
+        /// <summary>
+        /// orderby and skip
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="ascending"></param>
+        /// <param name="offset"></param>
+        /// <param name="baseone"></param>
+        /// <returns></returns>
+        public IList<TEntity> Find(Expression<Func<TEntity, bool>> where, string sortBy,bool ascending,int offset, TEntity baseone)
+        {
+            long totalRecord;
+            return Find(where, 1, 999, out totalRecord, sortBy, ascending,offset, baseone);
+        }
+        /// <summary>
+        /// orderby and skip
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="totalRecords"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="ascending"></param>
+        /// <param name="offset"></param>
+        /// <param name="baseone"></param>
+        /// <returns></returns>
+        public IList<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords, string sortBy, bool ascending, int offset, TEntity baseone)
+        {
+            IList<TEntity> result;
+            var query = Session.Query<TEntity>().Where(where);
+            totalRecords = query.Count();
+            //排序
+            if (sortBy != "")
+            {
+                query = query.OrderBy(sortBy, ascending);
+            }
+            //跳过
+            //query = query.Skip(offset);
+            //从baseID开始
+            int baseIndex = 0;
+            if (baseone != null)
+            {
+                baseIndex = query.ToList().IndexOf(baseone) + 1;
+            }
+            //query = query.Skip(baseIndex);
+            if (baseIndex < offset)
+            {
+                baseIndex = offset;
+            }
+            //分页
+            if (pageIndex <= 0)
+            {
+                pageIndex = 1;
+            }
+            result = query.Skip(pageSize * (pageIndex - 1)+baseIndex).Take(pageSize).ToList();
             return result;
         }
 
@@ -144,5 +203,9 @@ namespace Dianzhu.DAL
         {
             Session.SaveOrUpdate(t);
         }
+
+
+
+       
     }
 }

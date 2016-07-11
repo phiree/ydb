@@ -50,13 +50,12 @@ namespace Dianzhu.BLL
         /// <summary>
         /// 条件读取聊天记录
         /// </summary>
-        /// <param name="pagesize"></param>
-        /// <param name="pagenum"></param>
+        /// <param name="filter"></param>
         /// <param name="type"></param>
         /// <param name="fromTarget"></param>
         /// <param name="orderID"></param>
         /// <returns></returns>
-        public IList<ReceptionChat> GetChats(int pagesize, int pagenum, string type, string fromTarget,  Guid orderID)
+        public IList<ReceptionChat> GetChats(Model.Trait_Filtering filter, string type, string fromTarget,  Guid orderID)
         {
             var where = PredicateBuilder.True<ReceptionChat>();
             if (orderID != Guid.Empty)
@@ -71,8 +70,21 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.From.UserType.ToString() == fromTarget);
             }
+
+            ReceptionChat baseone = null;
+            if (filter.baseID != null && filter.baseID != "")
+            {
+                try
+                {
+                    baseone = DALReceptionChat.FindById(new Guid(filter.baseID));
+                }
+                catch
+                {
+                    baseone = null;
+                }
+            }
             long t = 0;
-            var list = pagesize == 0 ? DALReceptionChat.Find(where).ToList() : DALReceptionChat.Find(where, pagenum, pagesize, out t).ToList();
+            var list = filter.pageSize == 0 ? DALReceptionChat.Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList() : DALReceptionChat.Find(where, filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
             return list;
         }
 

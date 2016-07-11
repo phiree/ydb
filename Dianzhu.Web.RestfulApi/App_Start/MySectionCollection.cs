@@ -12,4 +12,15 @@ namespace Dianzhu.Web.RestfulApi
             get { return (MySectionKeyValue)base[property]; }
         }
     }
+
+    public class MySectionCollection1 : ConfigurationSection
+    {
+        private static readonly ConfigurationProperty property = new ConfigurationProperty(string.Empty, typeof(MySectionKeyValue), null, ConfigurationPropertyOptions.IsDefaultCollection);
+
+        [ConfigurationProperty("", Options = ConfigurationPropertyOptions.IsDefaultCollection)]
+        public MySectionKeyValue KeyValues
+        {
+            get { return (MySectionKeyValue)base[property]; }
+        }
+    }
 }

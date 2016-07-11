@@ -10,7 +10,7 @@ namespace Dianzhu.ApplicationService
     {
 
         /// <summary>
-        /// 员工ID
+        /// 客服ID
         /// </summary>
         /// <type>string</type>
         public string id { get; set; }
@@ -31,7 +31,7 @@ namespace Dianzhu.ApplicationService
         /// 草稿订单 ID
         /// </summary>
         /// <type>string</type>
-        public string draftOrderID { get; set; }
+        //public string draftOrderID { get; set; }
 
     }
 }

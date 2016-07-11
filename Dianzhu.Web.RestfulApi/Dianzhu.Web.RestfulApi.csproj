@@ -218,6 +218,7 @@
     <Compile Include="App_Start\Bootstrap.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\GetRequestHeader.cs" />
     <Compile Include="App_Start\InstallerRestfulApi.cs" />
     <Compile Include="App_Start\MySectionCollection.cs" />
     <Compile Include="App_Start\MySectionKeyValue.cs" />

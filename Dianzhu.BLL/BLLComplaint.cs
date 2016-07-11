@@ -40,8 +40,12 @@ namespace Dianzhu.BLL
         /// <summary>
         /// 条件读取投诉
         /// </summary>
-        /// <returns>area实体list</returns>
-        public IList<Model.Complaint> GetComplaints(int pagesize, int pagenum, Guid orderID, Guid storeID, Guid customerServiceID)
+        /// <param name="filter"></param>
+        /// <param name="orderID"></param>
+        /// <param name="storeID"></param>
+        /// <param name="customerServiceID"></param>
+        /// <returns></returns>
+        public IList<Model.Complaint> GetComplaints(Model.Trait_Filtering filter, Guid orderID, Guid storeID, Guid customerServiceID)
         {
             var where = PredicateBuilder.True<Complaint>();
             if(orderID != Guid.Empty)
@@ -56,8 +60,20 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.Order.CustomerService.Id== customerServiceID);
             }
+            Model.Complaint baseone = null;
+            if (filter.baseID != null && filter.baseID != "")
+            {
+                try
+                {
+                    baseone = dalComplaint.FindById(new Guid(filter.baseID));
+                }
+                catch
+                {
+                    baseone = null;
+                }
+            }
             long t = 0;
-            var list = pagesize == 0 ? dalComplaint.Find(where).ToList() : dalComplaint.Find(where, pagenum, pagesize, out t).ToList();
+            var list = filter.pageSize == 0 ? dalComplaint.Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList() : dalComplaint.Find(where, filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
             return list;
 
         }

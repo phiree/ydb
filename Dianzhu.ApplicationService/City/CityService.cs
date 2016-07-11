@@ -67,8 +67,8 @@ namespace Dianzhu.ApplicationService.City
                 }
                 else
                 {
-                    int[] page = utils.CheckFilter(filter);
-                    listarea = bllarea.GetAllCity(page[0],page[1]);
+                    Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Area");
+                    listarea = bllarea.GetAllCity(filter1);
                 }
             }
             if (listarea == null)

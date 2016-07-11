@@ -56,7 +56,9 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORE
                 {
                     storefilter = new common_Trait_StoreFiltering();
                 }
-                return Json(istore.GetStores(filter, storefilter));
+                
+                //return Json(istore.GetStores(filter, storefilter));
+                return Json(istore.GetStores(filter, storefilter,GetRequestHeader.GetTraitHeaders()));
             }
             catch (Exception ex)
             {

@@ -29,8 +29,8 @@ namespace Dianzhu.ApplicationService.Chat
         public IList<chatObj> GetChats(string orderID, common_Trait_Filtering filter, common_Trait_ChatFiltering chatfilter)
         {
             IList<Model.ReceptionChat> chat = null;
-            int[] page = utils.CheckFilter(filter);
-            chat = bllChat.GetChats(page[0], page[1], chatfilter.type, chatfilter.fromTarget, utils.CheckGuidID(orderID, "orderID"));
+            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ReceptionChat");
+            chat = bllChat.GetChats(filter1, chatfilter.type, chatfilter.fromTarget, utils.CheckGuidID(orderID, "orderID"));
             if (chat == null)
             {
                 throw new Exception(Dicts.StateCode[4]);

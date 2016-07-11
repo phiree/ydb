@@ -10,6 +10,12 @@ namespace Dianzhu.ApplicationService
     public class complaintObj
     {
         /// <summary>
+        /// 投诉的ID
+        /// </summary>
+        /// <type>string</type>
+        public string id { get; set; }
+
+        /// <summary>
         /// 发送者ID
         /// </summary>
         /// <type>string</type>
@@ -22,7 +28,7 @@ namespace Dianzhu.ApplicationService
         public string orderID { get; set; }
 
         /// <summary>
-        /// 投诉的目标("customerService":[客服]，"store":[商铺])
+        /// 投诉的目标("cer":[客服]，"store":[商铺])
         /// </summary>
         /// <type>string</type>
         public Model.Enums.enum_ComplaintTarget target { get; set; }

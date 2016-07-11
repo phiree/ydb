@@ -131,6 +131,7 @@
     <Compile Include="Common\common_Trait_RefundFiltering.cs" />
     <Compile Include="Common\common_Trait_RemindFiltering.cs" />
     <Compile Include="Common\common_Trait_ServiceFiltering.cs" />
+    <Compile Include="Common\common_Trait_Simple_Headers.cs" />
     <Compile Include="Common\common_Trait_SnapshotFiltering.cs" />
     <Compile Include="Common\common_Trait_StaffFiltering.cs" />
     <Compile Include="Common\common_Trait_StoreFiltering.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\DtoToModelMappingProfile.cs" />
     <Compile Include="Mapping\ModelToDtoMappingProfile.cs" />
+    <Compile Include="Mapping\SortMapping.cs" />
     <Compile Include="ModeDTO\Client\ClientDTO.cs" />
     <Compile Include="ModeDTO\Client\Customer.cs" />
     <Compile Include="ModeDTO\Client\RefreshTokenDTO.cs" />
@@ -176,8 +178,9 @@
     <Compile Include="ModeDTO\Identity\servicesObj.cs" />
     <Compile Include="ModeDTO\Identity\snapshortsObj.cs" />
     <Compile Include="ModeDTO\Identity\staffObj.cs" />
+    <Compile Include="ModeDTO\Identity\storeDataObj.cs" />
     <Compile Include="ModeDTO\Identity\storeObj.cs" />
-    <Compile Include="ModeDTO\Identity\userObj.cs" />
+    <Compile Include="ModeDTO\Identity\customerObj.cs" />
     <Compile Include="ModeDTO\Identity\workTimeObj.cs" />
     <Compile Include="Order\IOrderService.cs" />
     <Compile Include="Order\OrderService.cs" />

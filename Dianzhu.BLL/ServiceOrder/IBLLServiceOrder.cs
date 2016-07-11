@@ -34,12 +34,11 @@ namespace Dianzhu.BLL
         /// <summary>
         /// 查询订单合集
         /// </summary>
-        /// <param name="pageSize"></param>
-        /// <param name="pageNum"></param>
+        /// <param name="filter"></param>
         /// <param name="searchType"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        IList<ServiceOrder> GetOrders(int pageSize, int pageNum, Dianzhu.Model.Enums.enum_OrderSearchType searchType, string status);
+        IList<ServiceOrder> GetOrders(Trait_Filtering filter, Dianzhu.Model.Enums.enum_OrderSearchType searchType, string status);
 
         /// <summary>
         /// 查询订单数量

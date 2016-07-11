@@ -20,6 +20,8 @@ namespace Dianzhu.ApplicationService.Mapping
 
         protected override void Configure()
         {
+            //Mapper.CreateMap<common_Trait_Filtering, Model.Trait_Filtering>()
+            //.ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<ClientDTO, Model.Client>()
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
@@ -27,7 +29,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<RefreshTokenDTO, RefreshToken>()
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<userObj, DZMembership>()
+            Mapper.CreateMap<customerObj, DZMembership>()
             .ForMember(x => x.NickName, opt => opt.MapFrom(source => source.alias))
             .ForMember(x => x.AvatarUrl, opt => opt.MapFrom(source => source.imgUrl))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
@@ -49,7 +51,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<remindObj, Model.ServiceOrderRemind>()
-            .ForMember(x => x.RemindTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.time, "yyyyMMddHHmmss", "remindObj.time")))
+            .ForMember(x => x.RemindTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.remindTime, "yyyyMMddHHmmss", "remindObj.time")))
             .ForMember(x => x.Open, opt => opt.MapFrom(source => source.bOpen))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
@@ -80,6 +82,7 @@ namespace Dianzhu.ApplicationService.Mapping
 
             Mapper.CreateMap<staffObj, Model.Staff>()
             .ForMember(x => x.NickName, opt => opt.MapFrom(source => source.alias))
+            .ForMember(x => x.Code, opt => opt.MapFrom(source => source.number))
             .ForMember(x => x.Photo, opt => opt.MapFrom(source => source.imgUrl))
             .ForMember(x => x.Gender, opt => opt.MapFrom(source => source.sex?"女":"男"))
             .ForMember(x => x.Name, opt => opt.MapFrom(source => source.realName))
@@ -87,10 +90,11 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<storeObj, Model.Business>()
-            .ForMember(x => x.Name, opt => opt.MapFrom(source => source.alias))
             .ForMember(x => x.Description, opt => opt.MapFrom(source => source.introduction))
             .ForMember(x => x.Phone, opt => opt.MapFrom(source => source.storePhone))
             .ForMember(x => x.Contact, opt => opt.MapFrom(source => source.linkMan))
+            .ForMember(x => x.WorkingYears, opt => opt.MapFrom(source => source.vintage))
+            .ForMember(x => x.StaffAmount, opt => opt.MapFrom(source => source.headCount))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
 
