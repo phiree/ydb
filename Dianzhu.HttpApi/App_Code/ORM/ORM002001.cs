@@ -17,12 +17,12 @@ public class ResponseORM002001 : BaseResponse
 {
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
     public ResponseORM002001(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+    
     protected override void BuildRespData()
     {
         ReqDataORM002001 requestData = this.request.ReqData.ToObject<ReqDataORM002001>();
 
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLReceptionStatus bllReceptionStatus =      Bootstrap.Container.Resolve<BLLReceptionStatus>();
       

@@ -34,6 +34,11 @@ namespace Dianzhu.DAL.Mapping
                 m.Map(x => x.PeriodEnd);
             }
             );
+            Component<ServiceOpenTimeSnapshot>(x => x.ServiceOpentimeSnapshot, 
+                m => {
+                    m.Map(x => x.MaxOrderForDay);
+            }
+                );
 
             #region 服务项需求
 

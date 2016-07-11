@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSClient", "CSClient", "{8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}"
 EndProject
@@ -226,8 +226,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{E4338C9B-90F1-4640-A650-F903E722C878}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Api.Model", "Dianzhu.Api.Model\Dianzhu.Api.Model.csproj", "{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{E81BA076-1871-4FBB-A593-FDD828856D53}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.ViewWPF", "Dianzhu.CSClient.ViewWPF\Dianzhu.CSClient.ViewWPF.csproj", "{97792986-3421-464A-8711-0FC6EABA9BCB}"
 EndProject
