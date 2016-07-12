@@ -10,9 +10,9 @@ namespace Dianzhu.ApplicationService
 {
     public class SortMapping
     {
-        public static string SortMap(string sortby,string TName)
+        public static string SortMap(string sortby, string TName)
         {
-            if (sortby == "")
+            if (sortby==null || sortby == "" )
             {
                 return "";
             }
@@ -46,9 +46,6 @@ namespace Dianzhu.ApplicationService
             {
                 switch (sortby)
                 {
-                    case "id":
-                        sort = "Id";
-                        break;
                     case "sendTime":
                         sort = "SendTime";
                         break;
@@ -74,23 +71,12 @@ namespace Dianzhu.ApplicationService
             }
             if (TName == "Complaint")
             {
-                switch (sortby)
-                {
-                    case "id":
-                        sort = "Id";
-                        break;
-                    default:
-                        sort = "CreatTime";
-                        break;
-                }
+                sort = "CreatTime";
             }
             if (TName == "ServiceOrder")
             {
                 switch (sortby)
                 {
-                    case "id":
-                        sort = "Id";
-                        break;
                     case "title":
                         sort = "Title";
                         break;
@@ -112,9 +98,6 @@ namespace Dianzhu.ApplicationService
             {
                 switch (sortby)
                 {
-                    case "id":
-                        sort = "Id";
-                        break;
                     case "amount":
                         sort = "Amount";
                         break;
@@ -140,7 +123,7 @@ namespace Dianzhu.ApplicationService
                         sort = "MinPrice";
                         break;
                     default:
-                        sort = "Id";
+                        sort = "CreatedTime";
                         break;
                 }
             }
@@ -158,7 +141,7 @@ namespace Dianzhu.ApplicationService
                         sort = "Phone";
                         break;
                     default:
-                        sort = "Id";
+                        sort = "Code";
                         break;
                 }
             }
@@ -168,9 +151,6 @@ namespace Dianzhu.ApplicationService
                 {
                     case "title":
                         sort = "Title";
-                        break;
-                    case "id":
-                        sort = "Id";
                         break;
                     case "remindTime":
                         sort = "RemindTime";
@@ -184,9 +164,6 @@ namespace Dianzhu.ApplicationService
             {
                 switch (sortby)
                 {
-                    case "id":
-                        sort = "Id";
-                        break;
                     case "alias":
                         sort = "DisplayName";
                         break;
