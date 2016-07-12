@@ -17,7 +17,7 @@ public class ResponseORM001008 : BaseResponse
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.HttpApi.ORM001008");
 
     public ResponseORM001008(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+    
     protected override void BuildRespData()
     {
         ReqDataORM001008 requestData = this.request.ReqData.ToObject<ReqDataORM001008>();
@@ -30,9 +30,9 @@ public class ResponseORM001008 : BaseResponse
 
         BLLServiceOrderRemind bllServiceOrderRemind = Bootstrap.Container.Resolve<BLLServiceOrderRemind>();
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<BLLServiceOrderStateChangeHis>();
- 
 
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
 
         try
         {

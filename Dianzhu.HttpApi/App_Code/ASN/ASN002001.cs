@@ -17,7 +17,7 @@ public class ResponseASN002001 : BaseResponse
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
     public ResponseASN002001(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+   
     protected override void BuildRespData()
     {
         ReqDataASN002001 requestData = this.request.ReqData.ToObject<ReqDataASN002001>();
@@ -29,9 +29,9 @@ public class ResponseASN002001 : BaseResponse
 
 
         IDALOrderAssignment bllOrderAssignment = Bootstrap.Container.Resolve<IDALOrderAssignment>();
- 
 
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
 
         try
         {

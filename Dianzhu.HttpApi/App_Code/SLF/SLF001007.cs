@@ -18,13 +18,13 @@ public class ResponseSLF001007:BaseResponse
         // TODO: Add constructor logic here
         //
     }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+    
     protected override void BuildRespData()
     {
         ReqDataSLF001007 requestData = this.request.ReqData.ToObject<ReqDataSLF001007>();
 
         BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
 
         string service_Id = requestData.serviceId;
 
