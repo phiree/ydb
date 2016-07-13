@@ -20,8 +20,10 @@ namespace Dianzhu.ApplicationService.Store
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="storefilter"></param>
+        /// <param name="headers"></param>
         /// <returns></returns>
-        IList<storeObj> GetStores(common_Trait_Filtering filter, common_Trait_StoreFiltering storefilter);
+        IList<storeObj> GetStores(common_Trait_Filtering filter, common_Trait_StoreFiltering storefilter, common_Trait_Headers headers);
+
 
         /// <summary>
         /// 统计店铺数量

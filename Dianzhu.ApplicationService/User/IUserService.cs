@@ -21,7 +21,7 @@ namespace Dianzhu.ApplicationService.User
         /// </summary>
         /// <param name="userID"></param>
         /// <returns></returns>
-        userObj GetUserById(string userID, string userType);
+        customerObj GetUserById(string userID, string userType);
 
         /// <summary>
         /// 根据用户信息获取user
@@ -30,7 +30,7 @@ namespace Dianzhu.ApplicationService.User
         /// <param name="userFilter"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        IList<userObj> GetUsers(common_Trait_Filtering filter, common_Trait_UserFiltering userFilter, string userType);
+        IList<customerObj> GetUsers(common_Trait_Filtering filter, common_Trait_UserFiltering userFilter, string userType);
 
         /// <summary>
         /// 注册新用户

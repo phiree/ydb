@@ -19,5 +19,11 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <type>string</type>
         public string status { get; set; }
+
+        /// <summary>
+        /// 相关店铺 ID
+        /// </summary>
+        /// <type>string</type>
+        public string storeID { get; set; }
     }
 }

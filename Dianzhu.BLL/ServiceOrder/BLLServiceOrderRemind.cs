@@ -59,7 +59,13 @@ namespace Dianzhu.BLL
         /// <summary>
         /// 条件读取提醒
         /// </summary>
-        public IList<Model.ServiceOrderRemind> GetReminds(int pagesize, int pagenum, Guid orderID, Guid userId, DateTime startTime, DateTime endTime)
+        /// <param name="filter"></param>
+        /// <param name="orderID"></param>
+        /// <param name="userId"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
+        public IList<Model.ServiceOrderRemind> GetReminds(Model.Trait_Filtering filter, Guid orderID, Guid userId, DateTime startTime, DateTime endTime)
         {
             var where = PredicateBuilder.True<ServiceOrderRemind>();
             if (orderID != Guid.Empty)
@@ -78,8 +84,21 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.RemindTime <= endTime);
             }
+
+            ServiceOrderRemind baseone = null;
+            if (filter.baseID != null && filter.baseID != "")
+            {
+                try
+                {
+                    baseone = dalServiceOrderRemind.FindById(new Guid(filter.baseID));
+                }
+                catch
+                {
+                    baseone = null;
+                }
+            }
             long t = 0;
-            var list = pagesize == 0 ? dalServiceOrderRemind.Find(where).ToList() : dalServiceOrderRemind.Find(where, pagenum, pagesize, out t).ToList();
+            var list = filter.pageSize == 0 ? dalServiceOrderRemind.Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList() : dalServiceOrderRemind.Find(where, filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
             return list;
 
         }

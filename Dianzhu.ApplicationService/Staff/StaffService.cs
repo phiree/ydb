@@ -58,8 +58,8 @@ namespace Dianzhu.ApplicationService.Staff
         public IList<staffObj> GetStaffs(string storeID, common_Trait_Filtering filter, common_Trait_StaffFiltering stafffilter)
         {
             IList<Model.Staff> staff = null;
-            int[] page = utils.CheckFilter(filter);
-            staff = bllStaff.GetStaffs(page[0], page[1], stafffilter.alias, stafffilter.email, stafffilter.phone, stafffilter.sex, stafffilter.specialty, stafffilter.realName, utils.CheckGuidID(storeID, "storeID"));
+            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Staff");
+            staff = bllStaff.GetStaffs(filter1, stafffilter.alias, stafffilter.email, stafffilter.phone, stafffilter.sex, stafffilter.specialty, stafffilter.realName, utils.CheckGuidID(storeID, "storeID"));
             if (staff == null)
             {
                 throw new Exception(Dicts.StateCode[4]);

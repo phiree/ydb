@@ -55,17 +55,16 @@ namespace Dianzhu.BLL
         {
             return DALOrderAssignment.FindById(AssignId);
         }
-        
+
         /// <summary>
         /// 条件读取指派
         /// </summary>
-        /// <param name="pagesize"></param>
-        /// <param name="pagenum"></param>
+        /// <param name="filter"></param>
         /// <param name="staffID"></param>
         /// <param name="orderID"></param>
         /// <param name="storeID"></param>
         /// <returns></returns>
-        public IList<Model.OrderAssignment> GetAssigns(int pagesize, int pagenum, Guid staffID, Guid orderID, Guid storeID)
+        public IList<Model.OrderAssignment> GetAssigns(Trait_Filtering filter,  Guid staffID, Guid orderID, Guid storeID)
         {
             var where = PredicateBuilder.True<OrderAssignment>();
             if (staffID != Guid.Empty)
@@ -80,8 +79,21 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.Order.Business.Id == storeID);
             }
+
+            OrderAssignment baseone = null;
+            if (filter.baseID != null && filter.baseID != "")
+            {
+                try
+                {
+                    baseone = DALOrderAssignment.FindById(new Guid(filter.baseID));
+                }
+                catch
+                {
+                    baseone = null;
+                }
+            }
             long t = 0;
-            var list = pagesize == 0 ? DALOrderAssignment.Find(where).ToList() : DALOrderAssignment.Find(where, pagenum, pagesize, out t).ToList();
+            var list = filter.pageSize == 0 ? DALOrderAssignment.Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList() : DALOrderAssignment.Find(where, filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
             return list;
 
         }

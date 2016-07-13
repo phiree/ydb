@@ -33,6 +33,18 @@ namespace Dianzhu.ApplicationService
         public string closeTime { get; set; }
 
         /// <summary>
+        /// 订单服务的时间（yyyyMMddHHmmss）
+        /// </summary>
+        /// <type>string</type>
+        public string serviceTime { get; set; }
+
+        /// <summary>
+        /// 订单服务完成时间（yyyyMMddHHmmss）
+        /// </summary>
+        /// <type>string</type>
+        public string doneTime { get; set; }
+
+        /// <summary>
         /// 备注
         /// </summary>
         /// <type>string</type>
@@ -72,7 +84,7 @@ namespace Dianzhu.ApplicationService
         /// 用户模型
         /// </summary>
         /// <type>userObj</type>
-        public userObj userObj { get; set; }
+        public customerObj customerObj { get; set; }
 
         /// <summary>
         /// 店铺模型
@@ -85,5 +97,11 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <type>customerServicesObj</type>
         public customerServicesObj customerServicesObj { get; set; }
+
+        /// <summary>
+        /// 员工模型_负责人
+        /// </summary>
+        /// <type>customerServicesObj</type>
+        public staffObj formanObj { get; set; }
     }
 }

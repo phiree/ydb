@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using System.Linq.Expressions;
 using DDDCommon;
+using System.Reflection;
 namespace Dianzhu.BLL
 {
     /// <summary>
@@ -104,24 +105,32 @@ namespace Dianzhu.BLL
         /// <summary>
         /// 条件读取店铺
         /// </summary>
-        /// <param name="pagesize"></param>
-        /// <param name="pagenum"></param>
-        /// <param name="alias"></param>
-        /// <param name="ownerId"></param>
+        /// <param name="filter"></param>
+        /// <param name="strName"></param>
+        /// <param name="loginName"></param>
         /// <returns></returns>
-        public IList<Business> GetStores(int pagesize, int pagenum, string alias, Guid ownerId)
+        public IList<Business> GetStores(Trait_Filtering filter, string strName, string UserID)
         {
             var where = PredicateBuilder.True<Business>();
-            if (ownerId != Guid.Empty)
+            where = where.And(x => x.Owner.Id == new Guid(UserID));
+            if (strName != null && strName != "")
             {
-                where = where.And(x => x.Owner.Id == ownerId);
+                where = where.And(x => x.Name.Contains(strName));
             }
-            if (alias != null && alias != "")
+            Business baseone = null;
+            if (filter.baseID != null && filter.baseID != "")
             {
-                where = where.And(x => x.Name.Contains(alias));
+                try
+                {
+                    baseone = dalBusiness.FindById(new Guid(filter.baseID));
+                }
+                catch
+                {
+                    baseone = null;
+                }
             }
             long t = 0;
-            var list = pagesize == 0 ? dalBusiness.Find(where).ToList() : dalBusiness.Find(where, pagenum, pagesize, out t).ToList();
+            var list = filter.pageSize == 0 ? dalBusiness.Find(where,filter.sortby, filter.ascending,filter.offset,baseone).ToList() : dalBusiness.Find(where,filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending,filter.offset, baseone).ToList();
             return list;
         }
 

@@ -17,6 +17,7 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using System.Configuration;
 using System.Web.Configuration;
+using Dianzhu.ApplicationService;
 
 namespace Dianzhu.Web.RestfulApi
 {
@@ -41,6 +42,7 @@ namespace Dianzhu.Web.RestfulApi
                 //allowedApps.Add("CA660838f88147463CAF3a52bae6c30cbd", "suSjG+pPCu0gwXOqamNdp0zE3sY29vcHJHe1S429hNU=");//Android客户版 Android_CustomerService
                 //allowedApps.Add("JS1adBF8cbaf594d1ab2f1A68755e70440", "FJXTdZVLhmFLHO5M3Xweo5kHRmLH3qFdRzLyGFZLeBc=");//js客户端
                 MySectionCollection sectionCollection = (MySectionCollection)ConfigurationManager.GetSection("MySectionCollection");
+                //sectionCollection.KeyValues[]
                 foreach (MySectionKeyValueSettings kv in sectionCollection.KeyValues.Cast<MySectionKeyValueSettings>())
                 {
                     allowedApps.Add(kv.Key, kv.Value);
@@ -193,6 +195,16 @@ namespace Dianzhu.Web.RestfulApi
                 return false;
             }
             var sharedKey = allowedApps[appName];
+            if (appName == "JS1adBF8cbaf594d1ab2f1A68755e70440")
+            {
+                string[] stringToken = token.Split('.');
+                if (stringToken.Length != 4)
+                {
+                    return false;
+                }
+                sharedKey = allowedApps[stringToken[3]];
+                token = stringToken[0] + "." + stringToken[1] + "." + stringToken[2];
+            }
             ilog.Debug("Request(apiKey):" + sharedKey);
             if (isReplayRequest(sign, stamp_TIMES))
             {
@@ -204,7 +216,18 @@ namespace Dianzhu.Web.RestfulApi
             { }
             else
             {
-                if (!System.Runtime.Caching.MemoryCache.Default.Contains(token))
+                ApplicationService.Customer customer = new ApplicationService.Customer();
+                try { customer = customer.getCustomer(token, sharedKey, true); }
+                catch { return false; }
+                if (System.Runtime.Caching.MemoryCache.Default.Contains(customer.UserID))
+                {
+                    string strToken = System.Runtime.Caching.MemoryCache.Default[customer.UserID].ToString();
+                    if (token != strToken)
+                    {
+                        return false;
+                    }
+                }
+                else
                 {
                     BLL.Client.BLLUserToken bllusertoken = Bootstrap.Container.Resolve<BLL.Client.BLLUserToken>();
                     //NHibernateUnitOfWork.UnitOfWork.Start();
@@ -213,42 +236,67 @@ namespace Dianzhu.Web.RestfulApi
                         //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                         return false;
                     }
-                    System.Runtime.Caching.MemoryCache.Default.Add(token, stamp_TIMES, DateTimeOffset.UtcNow.AddSeconds(172800));
+                    System.Runtime.Caching.MemoryCache.Default.Add(customer.UserID,token,DateTimeOffset.UtcNow.AddSeconds(172800));
                     //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 }
             }
+
+            byte[] hash = await ComputeHash(req.Content);
+            StringBuilder sb = new StringBuilder();
+            if (hash != null)
+            {
+                //string str = Encoding.Default.GetString(hash);
+                for (int i = 0; i < hash.Length; i++)
+                { sb.Append(hash[i].ToString("x2")); }
+                requestContentBase64String = sb.ToString();
+                //byte[] baseBuffer = Encoding.UTF8.GetBytes(sb.ToString()); //把转码后的MD5 32位密文转成byte[ ] txtNeed.Text = Convert.ToBase64String(baseBuffer); //这个要注意，不要在newbuffer就转，你解密的时候会乱码（有时候）
+                //requestContentBase64String = Convert.ToBase64String(baseBuffer);
+                ilog.Debug("Create(requestContentBase64String):" + requestContentBase64String);
+            }
+            string data = String.Format("{0}{1}{2}{3}{4}", appName, token, requestContentBase64String, stamp_TIMES, requestUri);
+            byte[] signature = Encoding.UTF8.GetBytes(data);
+            sb = new StringBuilder();
+            byte[] baseBuffer = null;
             if (appName == "JS1adBF8cbaf594d1ab2f1A68755e70440")
             {
-                string strIP= ConfigurationManager.AppSettings[appName];
-                HttpContext.Current.Response.Headers.Add("Access-Control-Allow-Origin", strIP);
-                return (strIP.Equals(IP4Address, StringComparison.Ordinal));
+                //sign = hybrid端appName +
+                //移动端token + "." + 移动端的appName +
+                //请求参数requestContent(转json字符串， MD5) +
+                //stamp_TIMES时间戳 +
+                //endpoint请求API路径（URL编码）
+                //对sign在进行MD5后进行Base64加密
+                //请求时添加 token 和 sign 到header进行请求
+                string strsb = "";
+                using (MD5 md5 = MD5.Create())
+                {
+                    byte[] hashMD5 = md5.ComputeHash(signature);
+                    for (int i = 0; i < hashMD5.Length; i++)
+                    { sb.Append(hashMD5[i].ToString("x2")); }
+                    baseBuffer = Encoding.UTF8.GetBytes(sb.ToString());
+                    strsb = Convert.ToBase64String(baseBuffer); 
+                }
+                if (sign.Equals(strsb, StringComparison.Ordinal))
+                {
+                    string strIP = ConfigurationManager.AppSettings[appName];
+                    HttpContext.Current.Response.Headers.Add("Access-Control-Allow-Origin", strIP);
+                    return (strIP.Equals(IP4Address, StringComparison.Ordinal));
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                byte[] hash = await ComputeHash(req.Content);
-                if (hash != null)
-                {
-                    //string str = Encoding.Default.GetString(hash);
-                    StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i < hash.Length; i++)
-                    { sb.Append(hash[i].ToString("x2")); }
-                    requestContentBase64String = sb.ToString();
-                    //byte[] baseBuffer = Encoding.UTF8.GetBytes(sb.ToString()); //把转码后的MD5 32位密文转成byte[ ] txtNeed.Text = Convert.ToBase64String(baseBuffer); //这个要注意，不要在newbuffer就转，你解密的时候会乱码（有时候）
-                    //requestContentBase64String = Convert.ToBase64String(baseBuffer);
-                    ilog.Debug("Create(requestContentBase64String):" + requestContentBase64String);
-                }
-                string data = String.Format("{0}{1}{2}{3}{4}", appName, token, requestContentBase64String, stamp_TIMES, requestUri);
                 //var secretKeyBytes = Convert.FromBase64String(sharedKey);
                 byte[] signature22 = Encoding.UTF8.GetBytes(sharedKey);
-                byte[] signature = Encoding.UTF8.GetBytes(data);
                 using (HMACSHA256 hmac = new HMACSHA256(signature22))
                 {
                     byte[] signatureBytes = hmac.ComputeHash(signature);
-                    StringBuilder sb = new StringBuilder();
                     for (int i = 0; i < signatureBytes.Length; i++)
                     { sb.Append(signatureBytes[i].ToString("x2")); }
-                    string strsb = sb.ToString();
-                    byte[] baseBuffer = Encoding.UTF8.GetBytes(sb.ToString());
+                    //string strsb = sb.ToString();
+                    baseBuffer = Encoding.UTF8.GetBytes(sb.ToString());
                     string tt = Convert.ToBase64String(baseBuffer);
                     ilog.Debug("Create(sign):" + tt);
                     return (sign.Equals(tt, StringComparison.Ordinal));

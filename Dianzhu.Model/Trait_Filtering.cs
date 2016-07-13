@@ -3,28 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
 
-namespace Dianzhu.ApplicationService
+namespace Dianzhu.Model
 {
-    public class common_Trait_Filtering
+    public class Trait_Filtering
     {
         /// <summary>
-        /// 每页的长度（>0）
+        /// 每页的长度（>0）ygggghhg
         /// </summary>
         /// <type>string</type>
-        public string pageSize { get; set; }
+        public int pageSize { get; set; }
 
         /// <summary>
         /// 页数（>=1）
         /// </summary>
-        /// <type>string</type>
-        public string pageNum { get; set; }
+        /// <type>strigng</type>
+        public int pageNum { get; set; }
 
         /// <summary>
         /// 距离第一项的偏移值
         /// </summary>
         /// <type>string</type>
-        public string offset { get; set; }
+        public int offset { get; set; }
 
         /// <summary>
         /// 是否升序，默认降序（true Or false）

@@ -6,31 +6,30 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.ApplicationService
 {
-    public class common_Trait_UserFiltering
+    public class storeDataObj
     {
         /// <summary>
-        /// 手机号
+        /// 店铺ID
         /// </summary>
         /// <type>string</type>
-        public string phone { get; set; }
+        public string storeID { get; set; }
 
         /// <summary>
-        /// 邮箱
+        /// 正在处理的订单数
         /// </summary>
         /// <type>string</type>
-        public string email { get; set; }
+        public string handleCount { get; set; }
 
         /// <summary>
-        /// 昵称
+        /// 完成的订单数
         /// </summary>
         /// <type>string</type>
-        public string alias { get; set; }
+        public string finishCount { get; set; }
 
         /// <summary>
-        /// 注册的平台（"WeChat":[微信]，"SinaWeiBo":[新浪微博]，"TencentQQ":[腾讯QQ]，"system":[系统]）
+        /// 总单数
         /// </summary>
         /// <type>string</type>
-        public string platform { get; set; }
-        
+        public string allCount { get; set; }
     }
 }

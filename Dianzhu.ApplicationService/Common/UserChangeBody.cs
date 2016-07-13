@@ -30,7 +30,7 @@ namespace Dianzhu.ApplicationService
         public string phone { get; set; }
 
         /// <summary>
-        ///头像
+        /// 头像
         /// </summary>
         /// <type>string</type>
         public string imgUrl { get; set; }

@@ -193,15 +193,14 @@ namespace Dianzhu.BLL
         }
 
         /// <summary>
-        /// 条件读取支付项
+        ///  条件读取支付项
         /// </summary>
-        /// <param name="pagesize"></param>
-        /// <param name="pagenum"></param>
+        /// <param name="filter"></param>
         /// <param name="payStatus"></param>
         /// <param name="payType"></param>
         /// <param name="orderID"></param>
         /// <returns></returns>
-        public IList<Payment> GetPays(int pagesize, int pagenum, string payStatus, string payType, Guid orderID)
+        public IList<Payment> GetPays(Model.Trait_Filtering filter, string payStatus, string payType, Guid orderID)
         {
             var where = PredicateBuilder.True<Payment>();
             if (orderID != Guid.Empty)
@@ -216,8 +215,20 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.PayTarget.ToString() == payType);
             }
+            Payment baseone = null;
+            if (filter.baseID != null && filter.baseID != "")
+            {
+                try
+                {
+                    baseone = dal.FindById(new Guid(filter.baseID));
+                }
+                catch
+                {
+                    baseone = null;
+                }
+            }
             long t = 0;
-            var list = pagesize == 0 ? dal.Find(where).ToList() : dal.Find(where, pagenum, pagesize, out t).ToList();
+            var list = filter.pageSize == 0 ? dal.Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList() : dal.Find(where, filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
             return list;
         }
 

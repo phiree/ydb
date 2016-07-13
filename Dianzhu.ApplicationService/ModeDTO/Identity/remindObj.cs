@@ -24,7 +24,7 @@ namespace Dianzhu.ApplicationService
         /// 提醒时间（yyyyMMddHHmmss）
         /// </summary>
         /// <type>string</type>
-        public string time { get; set; }
+        public string remindTime { get; set; }
 
         /// <summary>
         /// 描述

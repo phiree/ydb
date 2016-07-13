@@ -32,14 +32,14 @@ namespace Dianzhu.ApplicationService.Client
         /// <param name="apiKey"></param>
         /// <param name="strPath"></param>
         /// <returns></returns>
-        public UserTokentDTO CreateToken(string username,string password,string apiKey,string strPath)
+        public UserTokentDTO CreateToken(string loginName, string password,string apiKey,string strPath)
         {
-            if (!dzmp.ValidateUser(username, password))
+            if (!dzmp.ValidateUser(loginName, password))
             {
                 //throw new Exception("用户名或密码错误！");
                 throw new Exception("001002");
             }
-            Model.DZMembership dzm = dzmp.GetUserByName(username);
+            Model.DZMembership dzm = dzmp.GetUserByName(loginName);
             string userUri = "";
             switch (dzm.UserType.ToString())
             {
@@ -57,8 +57,10 @@ namespace Dianzhu.ApplicationService.Client
                     throw new Exception("用户类型不正确！");
             }
             Customer customer = new Customer();
-            customer.loginName = username;
+            customer.loginName = loginName;
             customer.password = password;
+            customer.UserType = dzm.UserType.ToString();
+            customer.UserID = dzm.Id.ToString();
             UserTokentDTO usertokendto = new UserTokentDTO();
             usertokendto.userEndpoint = userUri;
             usertokendto.token= JWT.JsonWebToken.Encode(customer, apiKey, JWT.JwtHashAlgorithm.HS256);
@@ -70,7 +72,8 @@ namespace Dianzhu.ApplicationService.Client
             DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Local);
             TimeSpan currentTs = DateTime.Now - epochStart;
             string requestTimeStamp = currentTs.TotalSeconds.ToString ();
-            System.Runtime.Caching.MemoryCache.Default.Add(usertokendto.token, requestTimeStamp, DateTimeOffset.UtcNow.AddSeconds(172800));
+            System.Runtime.Caching.MemoryCache.Default.Remove(dzm.Id.ToString());
+            System.Runtime.Caching.MemoryCache.Default.Add(dzm.Id.ToString(), usertokendto.token, DateTimeOffset.UtcNow.AddSeconds(172800));
             return usertokendto;
         }
 

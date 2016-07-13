@@ -91,8 +91,7 @@ namespace Dianzhu.BLL
         /// <summary>
         /// 条件读取员工
         /// </summary>
-        /// <param name="pagesize"></param>
-        /// <param name="pagenum"></param>
+        /// <param name="filter"></param>
         /// <param name="alias"></param>
         /// <param name="email"></param>
         /// <param name="phone"></param>
@@ -101,7 +100,7 @@ namespace Dianzhu.BLL
         /// <param name="realName"></param>
         /// <param name="storeID"></param>
         /// <returns></returns>
-        public IList<Staff> GetStaffs(int pagesize, int pagenum, string alias, string email, string phone, string sex, string specialty, string realName, Guid storeID)
+        public IList<Staff> GetStaffs(Model.Trait_Filtering filter, string alias, string email, string phone, string sex, string specialty, string realName, Guid storeID)
         {
             var where = PredicateBuilder.True<Staff>();
             if (storeID != Guid.Empty)
@@ -131,8 +130,20 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.Name == realName);
             }
+            Staff baseone = null;
+            if (filter.baseID != null && filter.baseID != "")
+            {
+                try
+                {
+                    baseone = dalStaff.FindById(new Guid(filter.baseID));
+                }
+                catch
+                {
+                    baseone = null;
+                }
+            }
             long t = 0;
-            var list = pagesize == 0 ? dalStaff.Find(where).ToList() : dalStaff.Find(where, pagenum, pagesize, out t).ToList();
+            var list = filter.pageSize == 0 ? dalStaff.Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList() : dalStaff.Find(where, filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
             return list;
         }
 

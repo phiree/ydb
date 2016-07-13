@@ -111,15 +111,14 @@ namespace Dianzhu.BLL
         /// <summary>
         /// 条件读取店铺
         /// </summary>
-        /// <param name="pagesize"></param>
-        /// <param name="pagenum"></param>
+        /// <param name="filter"></param>
         /// <param name="typeId"></param>
         /// <param name="strName"></param>
         /// <param name="introduce"></param>
         /// <param name="startAt"></param>
         /// <param name="storeID"></param>
         /// <returns></returns>
-        public IList<DZService> GetServices(int pagesize, int pagenum, Guid typeId, string strName, string introduce, decimal startAt, Guid storeID)
+        public IList<DZService> GetServices(Model.Trait_Filtering filter, Guid typeId, string strName, string introduce, decimal startAt, Guid storeID)
         {
             var where = PredicateBuilder.True<DZService>();
             if (typeId != Guid.Empty)
@@ -142,8 +141,21 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.MinPrice==startAt);
             }
+
+            DZService baseone = null;
+            if (filter.baseID != null && filter.baseID != "")
+            {
+                try
+                {
+                    baseone = DALDZService.FindById(new Guid(filter.baseID));
+                }
+                catch
+                {
+                    baseone = null;
+                }
+            }
             long t = 0;
-            var list = pagesize == 0 ? DALDZService.Find(where).ToList() : DALDZService.Find(where, pagenum, pagesize, out t).ToList();
+            var list = filter.pageSize == 0 ? DALDZService.Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList() : DALDZService.Find(where, filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
             return list;
         }
 
