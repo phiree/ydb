@@ -55,6 +55,10 @@
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Dianzhu.ApplicationService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dianzhu.ApplicationService\bin\Debug\Dianzhu.ApplicationService.dll</HintPath>
+    </Reference>
     <Reference Include="Dianzhu.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dianzhu.Model\bin\Debug\Dianzhu.Model.dll</HintPath>
@@ -271,7 +275,7 @@
     <Compile Include="Controllers\STORE\StoresController.cs" />
     <Compile Include="Controllers\USER\CustomerServicesController.cs" />
     <Compile Include="Controllers\USER\MerchantsController.cs" />
-    <Compile Include="Controllers\USER\UsersController.cs" />
+    <Compile Include="Controllers\USER\CustomersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\WORKTIME\WorkTimesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -340,10 +344,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dianzhu.ApplicationService\Dianzhu.ApplicationService.csproj">
-      <Project>{417ac2d5-58e5-4cbc-b14f-c5747274a846}</Project>
-      <Name>Dianzhu.ApplicationService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
       <Project>{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}</Project>
       <Name>Dianzhu.BLL</Name>
@@ -369,6 +369,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
