@@ -75,8 +75,8 @@ namespace Dianzhu.ApplicationService.Assign
         public IList<assignObj> GetAssigns(common_Trait_Filtering filter, common_Trait_AssignFiltering assign)
         {
             IList<Model.OrderAssignment> listassign = null;
-            int[] page = utils.CheckFilter(filter);
-            listassign = bllassign.GetAssigns(page[0], page[1], utils.CheckGuidID(assign.staffID, "customerServiceID"), utils.CheckGuidID(assign.orderID, "orderID"), utils.CheckGuidID(assign.storeID, "storeID"));
+            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "OrderAssignment");
+            listassign = bllassign.GetAssigns(filter1, utils.CheckGuidID(assign.staffID, "customerServiceID"), utils.CheckGuidID(assign.orderID, "orderID"), utils.CheckGuidID(assign.storeID, "storeID"));
             if (listassign == null)
             {
                 throw new Exception(Dicts.StateCode[4]);

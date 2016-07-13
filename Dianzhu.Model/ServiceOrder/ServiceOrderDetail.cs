@@ -25,6 +25,8 @@ namespace Dianzhu.Model
             this.ServieSnapShot = service.GetServiceSnapShot();
 
             this.OpenTimeSnapShot = service.GetOpenTimeSnapShot(targetTime);
+            this.ServiceOpentimeSnapshot = service.GetServiceOpenTimeSnapshot(targetTime);
+
             this.UnitAmount = unitAmount ;
             this.TargetAddress = targetAddress;
             this.TargetTime = targetTime;
@@ -41,8 +43,11 @@ namespace Dianzhu.Model
         public virtual DZService OriginalService { get; set; }
         //screenshot of the service
         public virtual ServiceSnapShotForOrder ServieSnapShot { get; protected set; }
+
+        public virtual ServiceOpenTimeSnapshot ServiceOpentimeSnapshot { get; protected set; }
         #endregion
 
+        
         #region 服务项需求
       
         /// <summary>

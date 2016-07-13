@@ -37,13 +37,13 @@ namespace Dianzhu.ApplicationService.User
         /// </summary>
         /// <param name="userID"></param>
         /// <returns></returns>
-        public userObj GetUserById(string userID,string userType)
+        public customerObj GetUserById(string userID,string userType)
         {
             Dianzhu.Model.DZMembership dzm =dzmsp .GetUserById(utils.CheckGuidID(userID, "userID"));
-            userObj userobj = null;
+            customerObj userobj = null;
             if (dzm.UserType.ToString()== userType)//customer=1"customer"
             {
-                userobj = Mapper.Map<Dianzhu.Model.DZMembership, userObj>(dzm);
+                userobj = Mapper.Map<Dianzhu.Model.DZMembership, customerObj>(dzm);
             }
             if (userobj == null)
             {
@@ -59,16 +59,16 @@ namespace Dianzhu.ApplicationService.User
         /// <param name="userFilter"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        public IList<userObj> GetUsers(common_Trait_Filtering filter,common_Trait_UserFiltering userFilter, string userType)
+        public IList<customerObj> GetUsers(common_Trait_Filtering filter,common_Trait_UserFiltering userFilter, string userType)
         {
-            int[] page = utils.CheckFilter(filter);
-            IList<Dianzhu.Model.DZMembership> dzm = dzmsp.GetUsers(page[0], page[1], userFilter.alias, userFilter.email, userFilter.phone, userFilter.ascending, userType);
+            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "DZMembership");
+            IList<Dianzhu.Model.DZMembership> dzm = dzmsp.GetUsers(filter1, userFilter.alias, userFilter.email, userFilter.phone, userFilter.platform, userType);
             if (dzm == null)
             {
                 throw new Exception(Dicts.StateCode[4]);
             }
-            IList<userObj> userobj = Mapper.Map<IList<Dianzhu.Model.DZMembership>, IList<userObj>>(dzm);
-            return userobj;
+            IList<customerObj> customerobj = Mapper.Map<IList<Dianzhu.Model.DZMembership>, IList<customerObj>>(dzm);
+            return customerobj;
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Dianzhu.ApplicationService.User
         public countObj GetUsersCount(common_Trait_UserFiltering userFilter, string userType)
         {
             countObj c = new countObj();
-            c.count = dzmsp.GetUsersCount(userFilter.alias, userFilter.email, userFilter.phone, userFilter.ascending, userType).ToString();
+            c.count = dzmsp.GetUsersCount(userFilter.alias, userFilter.email, userFilter.phone, userFilter.platform, userType).ToString();
             return c;
         }
 
@@ -124,8 +124,8 @@ namespace Dianzhu.ApplicationService.User
             }
             if (userType == "customer")
             {
-                userObj userobj = Mapper.Map<Dianzhu.Model.DZMembership, userObj>(dzm);
-                return userobj;
+                customerObj customerobj = Mapper.Map<Dianzhu.Model.DZMembership, customerObj>(dzm);
+                return customerobj;
             }
             else
             {
@@ -165,8 +165,8 @@ namespace Dianzhu.ApplicationService.User
             }
             if (userType == "customer")
             {
-                userObj userobj = Mapper.Map<Dianzhu.Model.DZMembership, userObj>(dzm);
-                return userobj;
+                customerObj customerobj = Mapper.Map<Dianzhu.Model.DZMembership, customerObj>(dzm);
+                return customerobj;
             }
             else
             {
@@ -236,8 +236,8 @@ namespace Dianzhu.ApplicationService.User
             }
             if (userType == "customer")
             {
-                userObj userobj = Mapper.Map<Dianzhu.Model.DZMembership, userObj>(dzm);
-                return userobj;
+                customerObj customerobj = Mapper.Map<Dianzhu.Model.DZMembership, customerObj>(dzm);
+                return customerobj;
             }
             else
             {

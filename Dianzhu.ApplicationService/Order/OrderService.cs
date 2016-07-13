@@ -62,11 +62,11 @@ namespace Dianzhu.ApplicationService.Order
                 orderobj.serviceSnapshotObj = new servicesObj();
             }
             orderobj.serviceSnapshotObj = Mapper.Map<Model.DZService, servicesObj>(serviceorder.Service);
-            if (orderobj.userObj == null)
+            if (orderobj.customerObj == null)
             {
-                orderobj.userObj = new userObj();
+                orderobj.customerObj = new customerObj();
             }
-            orderobj.userObj = Mapper.Map<Model.DZMembership, userObj>(serviceorder.Customer);
+            orderobj.customerObj = Mapper.Map<Model.DZMembership, customerObj>(serviceorder.Customer);
             if (orderobj.storeObj == null)
             {
                 orderobj.storeObj = new storeObj();
@@ -132,8 +132,8 @@ namespace Dianzhu.ApplicationService.Order
         public IList<orderObj> GetOrders(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter)
         {
             IList<Model.ServiceOrder> order = null;
-            int[] page = utils.CheckFilter(filter);
-            order = ibllserviceorder.GetOrders(page[0], page[1], orderfilter.statusSort, orderfilter.status);
+            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ServiceOrder");
+            order = ibllserviceorder.GetOrders(filter1, orderfilter.statusSort, orderfilter.status);
             if (order == null)
             {
                 throw new Exception(Dicts.StateCode[4]);

@@ -46,8 +46,8 @@ namespace Dianzhu.ApplicationService.Complaint
         public IList<complaintObj> GetComplaints(common_Trait_Filtering filter, common_Trait_ComplainFiltering complaint)
         {
             IList<Model.Complaint> listcomplaint = null;
-            int[] page = utils.CheckFilter(filter);
-            listcomplaint = bllcomplaint.GetComplaints(page[0], page[1],utils.CheckGuidID(complaint.orderID, "orderID"), utils.CheckGuidID(complaint.storeID, "storeID"), utils.CheckGuidID(complaint.customerServiceID, "customerServiceID"));
+            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Complaint");
+            listcomplaint = bllcomplaint.GetComplaints(filter1, utils.CheckGuidID(complaint.orderID, "orderID"), utils.CheckGuidID(complaint.storeID, "storeID"), utils.CheckGuidID(complaint.customerServiceID, "customerServiceID"));
             if (listcomplaint == null)
             {
                 throw new Exception(Dicts.StateCode[4]);

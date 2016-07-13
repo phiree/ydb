@@ -138,22 +138,19 @@ namespace Dianzhu.BLL
         /// <summary>
         /// 查询订单合集
         /// </summary>
-        /// <param name="pageSize"></param>
-        /// <param name="pageNum"></param>
+        /// <param name="filter"></param>
         /// <param name="searchType"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        public IList<ServiceOrder> GetOrders(int pageSize, int pageNum,  Dianzhu.Model.Enums.enum_OrderSearchType searchType,string status)
+        public IList<ServiceOrder> GetOrders(Trait_Filtering filter, Dianzhu.Model.Enums.enum_OrderSearchType searchType,string status)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
             if(status!=null && status!="")
             {
                 where = where.And(x => x.OrderStatus.ToString() == status);
             }
-
             switch (searchType)
             {
-
                 case enum_OrderSearchType.De:
                     where = where.And(x => x.OrderStatus == enum_OrderStatus.Finished
 
@@ -177,8 +174,20 @@ namespace Dianzhu.BLL
                       ;
                     break;
             }
+            ServiceOrder baseone = null;
+            if (filter.baseID != null && filter.baseID != "")
+            {
+                try
+                {
+                    baseone = repoServiceOrder.FindById(new Guid(filter.baseID));
+                }
+                catch
+                {
+                    baseone = null;
+                }
+            }
             long totalRecord;
-            var list = pageSize == 0 ? repoServiceOrder.Find(where).ToList() : repoServiceOrder.Find(where, pageNum, pageSize, out totalRecord).ToList();
+            var list = filter.pageSize == 0 ? repoServiceOrder.Find(where,filter.sortby,filter.ascending,filter.offset,baseone).ToList() : repoServiceOrder.Find(where, filter.pageNum, filter.pageSize, out totalRecord, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
             return list;
 
             // return DALServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
@@ -338,6 +347,19 @@ namespace Dianzhu.BLL
             return repoServiceOrder.Find(where).ToList();
 
             //return DALServiceOrder.GetOrderListByDate(service, date);
+        }
+        public IList<ServiceOrder> GetOrderListByDateRange( DateTime dateBegin, DateTime dateEnd)
+        {
+            var where = PredicateBuilder.True<ServiceOrder>();
+
+             
+
+            where = where.And(x => x.Details.Count>0);
+            //where = where.And(x => x.Details[0].OriginalService!=null);
+            where = where.And(x => x.OrderCreated.Date >= dateBegin);
+            where = where.And(x => x.OrderCreated <= dateEnd);
+
+            return repoServiceOrder.Find(where).ToList();
         }
         public ServiceOrder GetOrderByIdAndCustomer(Guid Id, DZMembership customer)
         {

@@ -20,7 +20,7 @@ namespace Dianzhu.ApplicationService
         /// 店铺名称
         /// </summary>
         /// <type>string</type>
-        public string alias { get; set; }
+        public string name { get; set; }
 
         /// <summary>
         ///简介

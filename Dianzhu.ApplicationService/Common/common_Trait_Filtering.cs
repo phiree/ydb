@@ -27,7 +27,7 @@ namespace Dianzhu.ApplicationService
         public string offset { get; set; }
 
         /// <summary>
-        /// 是否升序，默认jiangxu（true Or false）
+        /// 是否升序，默认降序（true Or false）
         /// </summary>
         /// <type>boolean</type>
         public bool ascending { get; set; }

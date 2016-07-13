@@ -275,6 +275,21 @@ namespace Dianzhu.Model
             
             
         }
-        
+        public virtual ServiceOpenTimeSnapshot GetServiceOpenTimeSnapshot(DateTime targetTime)
+        {
+            var targetOpenTime = OpenTimes.Where(x => x.DayOfWeek == targetTime.DayOfWeek);
+            int count = targetOpenTime.Count();
+            errMsg = "时间项应该有且只有一项";
+            System.Diagnostics.Debug.Assert(count == 1, errMsg);
+            if (count != 1)
+            {
+                log.Error(errMsg);
+                throw new Exception(errMsg);
+            }
+
+            return new ServiceOpenTimeSnapshot { MaxOrderForDay=targetOpenTime.ToList()[0].MaxOrderForDay };
+
+        }
+
     }
 }

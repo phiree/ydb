@@ -7,10 +7,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dianzhu.ApplicationService
 {
-    public class userObj
+    public class customerObj
     {
         /// <summary>
-        /// 用户ID
+        /// 客户ID
         /// </summary>
         /// <type>string</type>
         public string id { get; set; }

@@ -30,7 +30,7 @@ namespace Dianzhu.ApplicationService
         /// 注册的平台（"WeChat":[微信]，"SinaWeiBo":[新浪微博]，"TencentQQ":[腾讯QQ]，"system":[系统]）
         /// </summary>
         /// <type>string</type>
-        public string ascending { get; set; }
+        public string platform { get; set; }
         
     }
 }

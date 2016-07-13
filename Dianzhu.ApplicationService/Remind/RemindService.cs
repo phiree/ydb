@@ -24,8 +24,8 @@ namespace Dianzhu.ApplicationService.Remind
         public IList<remindObj> GetReminds(common_Trait_Filtering filter, common_Trait_RemindFiltering remind)
         {
             IList<Model.ServiceOrderRemind> listremind = null;
-            int[] page = utils.CheckFilter(filter);
-            listremind = bllremind.GetReminds(page[0], page[1], utils.CheckGuidID(remind.orderID, "orderID"), utils.CheckGuidID(filter.userID, "orderID"), utils.CheckDateTime(remind.startTime,"yyyyMMdd", "startTime"), utils.CheckDateTime(remind.endTime, "yyyyMMdd", "startTime"));
+            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ServiceOrderRemind");
+            listremind = bllremind.GetReminds(filter1, utils.CheckGuidID(remind.orderID, "orderID"), utils.CheckGuidID(filter.userID, "orderID"), utils.CheckDateTime(remind.startTime,"yyyyMMdd", "startTime"), utils.CheckDateTime(remind.endTime, "yyyyMMdd", "startTime"));
             if (listremind == null)
             {
                 throw new Exception(Dicts.StateCode[4]);

@@ -13,6 +13,8 @@ using System.Web.Script.Serialization;
 using System.Text.RegularExpressions;
 using System.Collections.Specialized;
 using PHSuit;
+using System.Reflection;
+
 
 namespace Dianzhu.ApplicationService
 {
@@ -168,16 +170,18 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <param name="filtert">通用筛选器</param>
         /// <returns></returns>
-        public static int[] CheckFilter(common_Trait_Filtering filter)
+        public static Model.Trait_Filtering CheckFilter(common_Trait_Filtering filter,string TName)
         {
-            int[] page = { 0, 0 };
-            if (filter.pageSize != null && filter.pageNum != null)
+            Model.Trait_Filtering filter1 = new Model.Trait_Filtering();
+            filter1.baseID = filter.baseID;
+            filter1.ascending = filter.ascending;
+            if (filter.pageSize != null && filter.pageSize != "" && filter.pageNum != null && filter.pageNum != "")
             {
                 try
                 {
-                    page[0] = int.Parse(filter.pageSize);
-                    page[1] = int.Parse(filter.pageNum);
-                    if (page[0] <= 0 || page[1] < 1)
+                    filter1.pageSize = int.Parse(filter.pageSize);
+                    filter1.pageNum = int.Parse(filter.pageNum);
+                    if (filter1.pageSize <= 0 || filter1.pageNum < 1)
                     {
                         throw new FormatException("分页参数pageSize,pageNum错误！");
                     }
@@ -187,7 +191,22 @@ namespace Dianzhu.ApplicationService
                     throw new FormatException("分页参数pageSize,pageNum错误！");
                 }
             }
-            return page;
+            int intN = 0;
+            //if (!int.TryParse(filter.offset, out intN))
+            //{
+            //    filter1.offset = intN;
+            //}
+            int.TryParse(filter.offset, out intN);
+            filter1.offset = intN;
+            try
+            {
+                filter1.sortby = SortMapping.SortMap(filter.sortby,TName);
+            }
+            catch
+            {
+                throw new FormatException("排序参数转换错误！");
+            }
+            return filter1;
         }
 
         /// <summary>
@@ -363,6 +382,54 @@ namespace Dianzhu.ApplicationService
             respData.Add("fileType", strFileType);
 
             return HttpHelper.CreateHttpRequest(url.ToString(), "post", respData);
+        }
+
+        /// <summary>
+        /// json 转为 对象或list
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static IList<T> SortAndFilter<T>(IList<T> _list, common_Trait_Filtering filter)
+        {
+            IList<T> sortedList = new List<T>();
+            if (filter.sortby != null && filter.sortby != "")
+            {
+                if (_list.Count == 0) return _list;
+                PropertyInfo property = typeof(T).GetProperty(filter.sortby);
+                if (property == null)
+                {
+                    return _list;
+                }
+                sortedList = filter.ascending ? _list.OrderBy(x => property.GetValue(x)).ToList() : _list.OrderByDescending(x => property.GetValue(x)).ToList();
+            }
+            else
+            {
+                sortedList = _list;
+            }
+            if (filter.offset != null && filter.offset != "")
+            {
+                int intOffSet = 0;
+                if (int.TryParse(filter.offset, out intOffSet))
+                {
+                    if (intOffSet < sortedList.Count)
+                    {
+                        sortedList= sortedList.Skip(intOffSet).ToList();
+                    }
+                }
+            }
+            if (filter.baseID != null && filter.baseID != "")
+            {
+                int intOffSet = 0;
+                if (int.TryParse(filter.offset, out intOffSet))
+                {
+                    if (intOffSet < sortedList.Count)
+                    {
+                        return sortedList.Skip(intOffSet).ToList();
+                    }
+                }
+            }
+            return sortedList;
         }
     }
 }

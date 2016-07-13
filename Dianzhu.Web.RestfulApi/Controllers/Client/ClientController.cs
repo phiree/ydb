@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Dianzhu.ApplicationService;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.Client
 {
@@ -45,8 +46,12 @@ namespace Dianzhu.Web.RestfulApi.Controllers.Client
                 {
                     customer = new Customer();
                 }
-                HMACAuthenticationAttribute hmac = new HMACAuthenticationAttribute();
-                string apiKey = hmac.getAllowedApps(Request.Headers.GetValues("appName").FirstOrDefault());
+                //HMACAuthenticationAttribute hmac = new HMACAuthenticationAttribute();
+                //string appName = Request.Headers.GetValues("appName").FirstOrDefault();
+                //ConfigurationManager .GetSection
+                MySectionCollection mysection = (MySectionCollection)ConfigurationManager.GetSection("MySectionCollection");
+                //MySectionKeyValueSettings kv = mysection.KeyValues[Request.Headers.GetValues("appName").FirstOrDefault()];
+                string apiKey = mysection.KeyValues[Request.Headers.GetValues("appName").FirstOrDefault()].Value; //hmac.getAllowedApps(Request.Headers.GetValues("appName").FirstOrDefault());
                 return Json(iclientservice.CreateToken(customer.loginName, customer.password, apiKey, "http://"+Request.RequestUri.Authority));
             }
             catch (Exception ex)

@@ -16,12 +16,12 @@ public class ResponsePY001008 : BaseResponse
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
     public ResponsePY001008(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+    
     protected override void BuildRespData()
     {
         ReqDataPY001008 requestData = this.request.ReqData.ToObject<ReqDataPY001008>();
 
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();

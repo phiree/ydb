@@ -120,12 +120,26 @@ namespace Dianzhu.BLL
         /// <summary>
         /// 获得所有city
         /// </summary>
-        /// <returns>area实体list</returns>
-        public IList<Model.Area> GetAllCity(int pagesize,int pagenum)
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public IList<Model.Area> GetAllCity(Model.Trait_Filtering filter)
         {
             Expression<Func<Model.Area, bool>> where = i =>  !i.Code.EndsWith("0000") && i.Code.EndsWith("00");
+
+            Model.Area baseone = null;
+            if (filter.baseID != null && filter.baseID != "")
+            {
+                try
+                {
+                    baseone = repoArea.FindById(int.Parse(filter.baseID));
+                }
+                catch
+                {
+                    baseone = null;
+                }
+            }
             long t = 0;
-            var list = pagesize==0?repoArea.Find(where).ToList(): repoArea.Find(where,pagenum,pagesize,out t).ToList(); 
+            var list = filter.pageSize==0?repoArea.Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList(): repoArea.Find(where,filter.pageNum,filter.pageSize,out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList(); 
             return list;
 
         }

@@ -83,13 +83,13 @@ namespace Dianzhu.ApplicationService.Service
         public IList<servicesObj> GetServices(string storeID, common_Trait_Filtering filter,common_Trait_ServiceFiltering servicefilter)
         {
             IList<Model.DZService> dzservice = null;
-            int[] page = utils.CheckFilter(filter);
+            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "DZService");
             decimal dcStartAt = -1;
             if (!decimal.TryParse(servicefilter.startAt, out dcStartAt))
             {
                 throw new FormatException("起步价必须为大于零的数值！");
             }
-            dzservice = bllDZService.GetServices(page[0], page[1], utils.CheckGuidID(servicefilter.type, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, utils.CheckGuidID(storeID, "storeID"));
+            dzservice = bllDZService.GetServices(filter1, utils.CheckGuidID(servicefilter.type, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, utils.CheckGuidID(storeID, "storeID"));
             if (dzservice == null)
             {
                 throw new Exception(Dicts.StateCode[4]);

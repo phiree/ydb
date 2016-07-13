@@ -17,19 +17,23 @@ namespace Dianzhu.ApplicationService.Mapping
 
         protected override void Configure()
         {
+
+            //Mapper.CreateMap< Model.Trait_Filtering, common_Trait_Filtering>()
+            //.ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
             Mapper.CreateMap<Model.Client, ClientDTO>()
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.RefreshToken, RefreshTokenDTO>()
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
-            Mapper.CreateMap<Model.DZMembership, userObj>()
-            .ForMember(x => x.alias, opt => opt.MapFrom(source => source.NickName))
+            Mapper.CreateMap<Model.DZMembership, customerObj>()
+            .ForMember(x => x.alias, opt => opt.MapFrom(source => source.DisplayName))
             .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.DZMembership, merchantObj>()
-           .ForMember(x => x.alias, opt => opt.MapFrom(source => source.NickName))
+           .ForMember(x => x.alias, opt => opt.MapFrom(source => source.DisplayName))
            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl))
            .ForAllMembers(opt => opt.NullSubstitute(""));
 
@@ -50,7 +54,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.ServiceOrderRemind, remindObj>()
-            .ForMember(x => x.time, opt => opt.MapFrom(source => source.RemindTime.ToString("yyyyMMddHHmmss")))
+            .ForMember(x => x.remindTime, opt => opt.MapFrom(source => source.RemindTime.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.Open))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
@@ -80,7 +84,8 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Staff, staffObj>()
-            .ForMember(x => x.alias, opt => opt.MapFrom(source => source.NickName))
+            .ForMember(x => x.alias, opt => opt.MapFrom(source => source.DisplayName))
+            .ForMember(x => x.number, opt => opt.MapFrom(source => source.Code))
             .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.Photo))
             .ForMember(x => x.sex, opt => opt.MapFrom(source => source.Gender == "女" ? true : false))
             .ForMember(x => x.realName, opt => opt.MapFrom(source => source.Name))
@@ -88,7 +93,6 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Business, storeObj>()
-            .ForMember(x => x.alias, opt => opt.MapFrom(source => source.Name))
             .ForMember(x => x.introduction, opt => opt.MapFrom(source => source.Description))
             .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.BusinessAvatar.ImageName != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.BusinessAvatar.ImageName : ""))
             .ForMember(x => x.storePhone, opt => opt.MapFrom(source => source.Phone))
@@ -96,6 +100,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.linkPhone, opt => opt.MapFrom(source => source.Phone))
             .ForMember(x => x.linkIdentity, opt => opt.MapFrom(source => source.ChargePersonIdCardNo))
             .ForMember(x => x.headCount, opt => opt.MapFrom(source => source.StaffAmount))
+            .ForMember(x => x.vintage, opt => opt.MapFrom(source => source.WorkingYears))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Payment, payObj>()
@@ -118,6 +123,8 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<Model.ServiceOrder, orderObj>()
             .ForMember(x => x.createTime, opt => opt.MapFrom(source => source.OrderCreated.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.closeTime, opt => opt.MapFrom(source => source.OrderFinished.ToString("yyyyMMddHHmmss")))
+            .ForMember(x => x.serviceTime, opt => opt.MapFrom(source => source.OrderServerStartTime.ToString("yyyyMMddHHmmss")))
+            .ForMember(x => x.doneTime, opt => opt.MapFrom(source => source.OrderServerFinishedTime.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.notes, opt => opt.MapFrom(source => source.Memo))
             .ForMember(x => x.serviceAddress, opt => opt.MapFrom(source => source.TargetAddress))
             .ForAllMembers(opt => opt.NullSubstitute(""));

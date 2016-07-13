@@ -36,6 +36,13 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string NickName { get; set; }
         /// <summary>
+        /// 用于客户端显示
+        /// </summary>
+        public virtual string DisplayName
+        {
+            get { return string.IsNullOrEmpty(NickName) ? Name : NickName; }
+        }
+        /// <summary>
         /// 性别
         /// </summary>
         public virtual string Gender { get; set; }

@@ -56,7 +56,7 @@ namespace Dianzhu.ApplicationService.Store
         /// <returns></returns>
         public storeObj PostStore(storeObj storeobj)
         {
-            if (storeobj.alias == null || storeobj.alias == "")
+            if (storeobj.name == null || storeobj.name == "")
             {
                 throw new FormatException("店铺名称不能为空！");
             }
@@ -93,12 +93,16 @@ namespace Dianzhu.ApplicationService.Store
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="storefilter"></param>
+        /// <param name="headers"></param>
         /// <returns></returns>
-        public IList<storeObj> GetStores(common_Trait_Filtering filter, common_Trait_StoreFiltering storefilter)
+        public IList<storeObj> GetStores(common_Trait_Filtering filter, common_Trait_StoreFiltering storefilter,common_Trait_Headers headers)
         {
             IList<Model.Business> business = null;
-            int[] page = utils.CheckFilter(filter);
-            business = bllBusiness.GetStores(page[0], page[1], storefilter.alias,  utils.CheckGuidID(storefilter.merchantID, "merchantID"));
+            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Business");
+            Customer customer = new Customer();
+            customer = customer.getCustomer(headers.token, headers.apiKey, false);
+            //utils.CheckGuidID(storefilter.merchantID, "merchantID"),
+            business = bllBusiness.GetStores(filter1, storefilter.name, customer.UserID);
             if (business == null)
             {
                 throw new Exception(Dicts.StateCode[4]);
@@ -119,7 +123,7 @@ namespace Dianzhu.ApplicationService.Store
         public countObj GetStoresCount(common_Trait_StoreFiltering storefilter)
         {
             countObj c = new countObj();
-            c.count = bllBusiness.GetStoresCount(storefilter.alias, utils.CheckGuidID(storefilter.merchantID, "merchantID")).ToString();
+            c.count = bllBusiness.GetStoresCount(storefilter.name, utils.CheckGuidID(storefilter.merchantID, "merchantID")).ToString();
             return c;
         }
 

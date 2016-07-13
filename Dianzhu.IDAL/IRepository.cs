@@ -33,6 +33,28 @@ namespace Dianzhu.IDAL
         /// <param name="t"></param>
         void SaveOrUpdate(TEntity t);
 
-
+        /// <summary>
+        /// orderby and skip
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="ascending"></param>
+        /// <param name="offset"></param>
+        /// <param name="baseone"></param>
+        /// <returns></returns>
+        IList<TEntity> Find(Expression<Func<TEntity, bool>> where, string sortBy, bool ascending, int offset, TEntity baseone);
+        /// <summary>
+        /// orderby and skip
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="totalRecords"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="ascending"></param>
+        /// <param name="offset"></param>
+        /// <param name="baseone"></param>
+        /// <returns></returns>
+        IList<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords, string sortBy, bool ascending, int offset, TEntity baseone);
     }
 }

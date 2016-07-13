@@ -15,12 +15,12 @@ using Dianzhu.Api.Model;
 public class ResponseORM001004 : BaseResponse
 {
     public ResponseORM001004(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+    
     protected override void BuildRespData()
     {
         ReqDataORM001004 requestData = this.request.ReqData.ToObject<ReqDataORM001004>();
         
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
 
         try
         {

@@ -27,8 +27,8 @@ namespace Dianzhu.ApplicationService.Pay
         public IList<payObj> GetPays(string orderID, common_Trait_Filtering filter, common_Trait_PayFiltering payfilter)
         {
             IList<Model.Payment> payment = null;
-            int[] page = utils.CheckFilter(filter);
-            payment = bllPayment.GetPays(page[0], page[1], payfilter.payStatus, payfilter.payType, utils.CheckGuidID(orderID, "orderID"));
+            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Payment");
+            payment = bllPayment.GetPays(filter1, payfilter.payStatus, payfilter.payType, utils.CheckGuidID(orderID, "orderID"));
             if (payment == null)
             {
                 throw new Exception(Dicts.StateCode[4]);

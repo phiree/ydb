@@ -14,14 +14,14 @@ using Dianzhu.Api.Model;
 public class ResponseORM003007 : BaseResponse
 {
     public ResponseORM003007(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+    
     protected override void BuildRespData()
     {
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
         ReqDataORM003007 requestData = this.request.ReqData.ToObject<ReqDataORM003007>();
 
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
          string user_id = requestData.userID;
