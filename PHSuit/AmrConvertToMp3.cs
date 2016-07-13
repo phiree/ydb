@@ -40,7 +40,7 @@ namespace PHSuit
             try
             {
                 System.Diagnostics.Process process = new System.Diagnostics.Process();
-                process.StartInfo.FileName = "C:\\inetpub\\dianzhu\\cmd.exe";
+                process.StartInfo.FileName = "cmd.exe";//C:\\inetpub\\dianzhu\\cmd.exe
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.RedirectStandardOutput = true;
