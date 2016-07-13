@@ -5,6 +5,7 @@ using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,11 +46,35 @@ namespace Dianzhu.CSClient.Presenter
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             iIM.IMStreamError += IIM_IMStreamError;
             //NHibernateUnitOfWork.UnitOfWork.Start();
-            NHibernateUnitOfWork.With.Transaction(() => SysAssign(3));
+            //NHibernateUnitOfWork.With.Transaction(() => SysAssign(3));
             //SysAssign(3);
             //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             //NHibernateUnitOfWork.UnitOfWork.CurrentSession.Dispose();
             //NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
+
+            //另开线程加载点点的数据
+            BackgroundWorker workerSendMedia = new BackgroundWorker();
+            workerSendMedia.DoWork += WorkerSendMedia_DoWork;
+            workerSendMedia.RunWorkerCompleted += WorkerSendMedia_RunWorkerCompleted;
+            workerSendMedia.RunWorkerAsync();
+        }
+
+        private void WorkerSendMedia_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                log.Debug("操作被取消");
+            }
+            else
+            {
+                log.Debug("点点的数据异步拉取完成");
+            }            
+        }
+
+        private void WorkerSendMedia_DoWork(object sender, DoWorkEventArgs e)
+        {
+            log.Debug("开始异步拉取点点的数据");
+            NHibernateUnitOfWork.With.Transaction(() => SysAssign(3));
         }
 
         /// <summary>
