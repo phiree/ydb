@@ -25,6 +25,10 @@ public partial class DZService_Default : BasePage
     {
         Guid id =new Guid(e.CommandArgument.ToString());
         bllService.Delete(bllService.GetOne(id));
+        if (NHibernateUnitOfWork.UnitOfWork.Current != null)
+        {
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+        }
         Response.Redirect(Request.UrlReferrer.ToString());
 
     }
