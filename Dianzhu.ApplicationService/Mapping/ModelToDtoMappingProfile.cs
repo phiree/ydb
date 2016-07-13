@@ -29,7 +29,7 @@ namespace Dianzhu.ApplicationService.Mapping
 
             Mapper.CreateMap<Model.DZMembership, customerObj>()
             .ForMember(x => x.alias, opt => opt.MapFrom(source => source.DisplayName))
-            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl))
+            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.AvatarUrl : ""))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.DZMembership, merchantObj>()
@@ -86,7 +86,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<Model.Staff, staffObj>()
             .ForMember(x => x.alias, opt => opt.MapFrom(source => source.DisplayName))
             .ForMember(x => x.number, opt => opt.MapFrom(source => source.Code))
-            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.Photo))
+            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.Photo != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.Photo : ""))
             .ForMember(x => x.sex, opt => opt.MapFrom(source => source.Gender == "女" ? true : false))
             .ForMember(x => x.realName, opt => opt.MapFrom(source => source.Name))
             .ForMember(x => x.identity, opt => opt.MapFrom(source => source.Code))

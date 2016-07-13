@@ -12,10 +12,10 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
     [HMACAuthentication]
 
     //[Authorize]
-    public class UsersController : ApiController
+    public class CustomersController : ApiController
     {
         private ApplicationService.User.IUserService iuserservice = null;
-        public UsersController()
+        public CustomersController()
         {
             //this.iuserservice = iuserservice;
             iuserservice= Bootstrap.Container.Resolve<ApplicationService.User.IUserService>();
@@ -115,7 +115,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
         /// </summary>
         /// <param name="userBody"></param>
         /// <returns></returns>
-        [Route("api/v1/user3rds")]
+        [Route("api/v1/customer3rds")]
         public IHttpActionResult PostUser3rds([FromBody]U3RD_Model u3rd_Model)
         {
             try
@@ -137,7 +137,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
         /// </summary>
         /// <param name="userFilter"></param>
         /// <returns></returns>
-        [Route("api/v1/users/count")]
+        [Route("api/v1/customers/count")]
         public IHttpActionResult GetUsersCount([FromUri]common_Trait_UserFiltering userFilter)
         {
             try
@@ -182,7 +182,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
         /// <param name="userID"></param>
         /// <param name="code"></param>
         /// <returns></returns>
-        [Route("api/v1/users/{userID}/currentGeolocation")]
+        [Route("api/v1/customers/{userID}/currentGeolocation")]
         public IHttpActionResult PatchCurrentGeolocation(string userID,[FromBody]string code)
         {
             try
