@@ -45,6 +45,7 @@ namespace PHSuit
             Console.WriteLine("business.ydban.cn:" + PHSuit.Security.Encrypt("data source=business.ydban.cn;uid=ydb;pwd=jsyk2016;database=dianzhu", false));
             Console.WriteLine("115:" + PHSuit.Security.Encrypt("data source=115.159.72.236;uid=ydb;pwd=jsyk2016;database=dianzhu", false));
             Console.WriteLine("Aliyun_Test:" + PHSuit.Security.Encrypt("data source=112.74.198.215;uid=jsyk2016;pwd=IQDv$qefeqFWuq_L;port=4407;database=dianzhu", false));
+            Console.WriteLine("Aliyun_Official:" + PHSuit.Security.Encrypt("data source=112.74.17.34;uid=jsyk2016;pwd=X*G7czoy6twAYIz7;port=4407;database=dianzhu", false));
 
         }
         [Test]

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
+using System.ComponentModel;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -22,6 +23,8 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class UC_SearchResult : UserControl,IView.IViewSearchResult
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_SearchResult");
+
         IInstantMessage.InstantMessage iIm;
         public UC_SearchResult(IInstantMessage.InstantMessage iIm)
         {
@@ -69,25 +72,60 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        BackgroundWorker w;
         private void ShelfService_PushShelfService(DZService pushedService)
         {
-            ReceptionChat chat = null;
-            Action ac = () =>
+            w = new BackgroundWorker();
+            w.DoWork += W_DoWork;
+            w.RunWorkerCompleted += W_RunWorkerCompleted;
+
+            if (w.IsBusy)
             {
-                //NHibernateUnitOfWork.UnitOfWork.Start();
-                chat=  PushServices(new List<DZService>() { pushedService });
+                return;
+            }
+            w.RunWorkerAsync(pushedService);
+            log.Debug("开始推送");
+
+            //ReceptionChat chat = null;
+            
+            //if (chat != null)
+            //{
                 
-                //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                //NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
-            };
-            NHibernateUnitOfWork.With.Transaction(ac);
+            //    NHibernateUnitOfWork.With.Transaction(() => {
+            //        NHibernateUnitOfWork.UnitOfWork.Current.Refresh(chat);
+            //        iIm.SendMessage(chat); });
+            //}
+        }
+
+        public event PushServiceTimerSend PushServiceTimerSend;
+
+        private void W_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            log.Debug("推送完成");
+            PushServiceTimerSend();
+
+            ReceptionChat chat = (ReceptionChat)e.Result;
             if (chat != null)
             {
-                
                 NHibernateUnitOfWork.With.Transaction(() => {
                     NHibernateUnitOfWork.UnitOfWork.Current.Refresh(chat);
-                    iIm.SendMessage(chat); });
+                    log.Debug("开始发送消息");
+                    iIm.SendMessage(chat);
+                    log.Debug("消息发送完成");
+                });
             }
+        }
+
+        private void W_DoWork(object sender, DoWorkEventArgs e)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                Action ac = () =>
+                {
+                    e.Result = PushServices(new List<DZService>() { (DZService)e.Argument });
+                };
+                NHibernateUnitOfWork.With.Transaction(ac);
+            }));
         }
 
         //public bool BtnPush

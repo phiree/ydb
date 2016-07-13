@@ -139,6 +139,7 @@ public partial class Business_Edit : BasePage
         }
         else
         { dalBusiness.Update(b); }
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
         Response.Redirect("/business/detail.aspx?businessid=" + b.Id);
        // Page.ClientScript.RegisterClientScriptBlock(typeof(string), "", @"<script language='javascript' defer>alert('提交成功！');window.document.location.href='" + Request.UrlReferrer.ToString() + "';</script>");
 

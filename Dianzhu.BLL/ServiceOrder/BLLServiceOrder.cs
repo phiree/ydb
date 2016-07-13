@@ -320,7 +320,7 @@ namespace Dianzhu.BLL
         public virtual ServiceOrder GetDraftOrder(DZMembership c, DZMembership cs)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Customer == c && x.CustomerService == cs && x.OrderStatus == enum_OrderStatus.Draft);
+            where = where.And(x => x.Customer.Id == c.Id && x.CustomerService.Id == cs.Id && x.OrderStatus == enum_OrderStatus.Draft);
             ServiceOrder order = null;
             try
             {

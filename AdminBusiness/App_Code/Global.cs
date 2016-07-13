@@ -43,14 +43,10 @@ public class Global:HttpApplication, IContainerAccessor
 
     void Application_Error(object sender, EventArgs e)
     {
-        log4net.ILog log = log4net.LogManager.GetLogger("dz");
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.AdminBusiness");
         Exception exc = Server.GetLastError();
         //Server.ClearError();
-        log.Error(exc.Message);
-        if (exc.InnerException != null)
-        {
-            log.Error(exc.InnerException.Message);
-        }
+        PHSuit.ExceptionLoger.ExceptionLog(log,exc);
 #if DEBUG
     
 #endif

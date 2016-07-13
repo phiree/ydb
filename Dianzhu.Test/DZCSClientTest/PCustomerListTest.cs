@@ -22,6 +22,7 @@ namespace Dianzhu.Test.DZCSClientTest
         IViewChatSend viewChatSend;
         IViewOrderHistory viewOrderHistory;
         IViewOrder viewOrder;
+        IViewSearchResult viewSearchResult;
         IDAL.IDALReceptionChat dalReceptionChat;
         IDAL.IDALReceptionStatus dalReceptionStaus;
         BLL.IBLLServiceOrder bllServiceOrder;
@@ -34,6 +35,7 @@ namespace Dianzhu.Test.DZCSClientTest
             viewChatSend = MockRepository.GenerateStub<IViewChatSend>();
             viewOrderHistory = MockRepository.GenerateStub<IViewOrderHistory>();
             viewOrder =MockRepository.GenerateStub<IViewOrder>();
+            viewSearchResult = MockRepository.GenerateStub<IViewSearchResult>();
             dalReceptionChat = MockRepository.GenerateStub<IDAL.IDALReceptionChat>();
             dalReceptionStaus = MockRepository.GenerateStub<IDAL.IDALReceptionStatus>();
             bllServiceOrder = MockRepository.GenerateStub<BLL.IBLLServiceOrder>();
@@ -57,7 +59,7 @@ namespace Dianzhu.Test.DZCSClientTest
                 .TheNext(1).With(x => x.From = order21.Customer).And(x => x.ServiceOrder =order21)//不同用户，新订单
                 .TheNext(1).With(x => x.From = order11.Customer).And(x => x.ServiceOrder = order11)//已有用户的订单        
                 .Build();
-            PIdentityList pCustomerList = new PIdentityList(viewCustomerList, viewChatList,viewOrder,iIM, dalReceptionChat, viewChatSend, bllServiceOrder, viewOrderHistory, dalReceptionStaus);
+            PIdentityList pCustomerList = new PIdentityList(viewCustomerList, viewChatList,viewOrder,iIM, dalReceptionChat, viewChatSend, bllServiceOrder, viewOrderHistory, dalReceptionStaus, viewSearchResult);
             IdentityTypeOfOrder identityTypeOfOrder;
             IdentityManager.UpdateIdentityList(order11, out identityTypeOfOrder);
 
