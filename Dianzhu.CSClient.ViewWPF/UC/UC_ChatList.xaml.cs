@@ -345,5 +345,11 @@ namespace Dianzhu.CSClient.ViewWPF
                 currentCustomerService = value;
             }
         }
+
+        public void ClearUCData()
+        {
+            this.ChatList = null;
+            this.ChatListCustomerName = string.Empty;
+        }
     }
 }

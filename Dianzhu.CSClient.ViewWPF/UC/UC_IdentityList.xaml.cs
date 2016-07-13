@@ -66,6 +66,25 @@ namespace Dianzhu.CSClient.ViewWPF
             else { lambda(); }
         }
 
+        public void SetCustomerOrder(Guid oldOrderId,Guid newOrderId)
+        {
+            Action lambda = () =>
+            {
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrderId.ToString());
+                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                if (ucIdentity != null)
+                {
+                    ucIdentity.SetOrderTempData(newOrderId);
+                    log.Debug("计时开始");
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
+        }
+
         public void IdleTimerStart(Guid orderId)
         {
             Action lambda = () =>
