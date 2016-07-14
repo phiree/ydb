@@ -10,15 +10,15 @@ namespace Dianzhu.Config
     /// </summary>
     public static partial class Config
     {
-        static int num =5;
-        static int payServerNum =5;
+        static int num =6;
+        static int payServerNum =6;
         #region 服务器定义
-        static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172","192.168.1.150", "112.74.198.215"};
-        static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150", "112.74.198.215" };
-        static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150", "112.74.198.215" };
-        static string[] HttpApiServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150", "112.74.198.215" };
-        static string[] IMNotifyServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150", "112.74.198.215" };
-        static string[] PayServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "jsyklan.asuscomm.com", "112.74.198.215" };
+        static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172","192.168.1.150", "112.74.198.215","112.74.17.34"};
+        static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150", "112.74.198.215", "112.74.17.34" };
+        static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150", "112.74.198.215", "112.74.17.34" };
+        static string[] HttpApiServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150", "112.74.198.215", "112.74.17.34" };
+        static string[] IMNotifyServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150", "112.74.198.215", "112.74.17.34" };
+        static string[] PayServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "jsyklan.asuscomm.com", "112.74.198.215", "112.74.17.34" };
         #endregion
         #region   部署前，只需要手动修改此处 /
 
@@ -41,6 +41,7 @@ namespace Dianzhu.Config
              ,{ "192.168.1.172",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
             ,{ "localhost",new KeyValuePair<string,string>("09be8ea0-f353-4527-81d8-a604009fc5d2","123456") }
             ,{ "112.74.198.215",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
+            ,{ "112.74.17.34",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
                ,{ "192.168.1.150",new KeyValuePair<string,string>("3d9ed306-7b5d-4e0d-8776-a5e50093515f","123456") }
         };
         //通知中心登陆用户账号，不同数据库服务器有不同的值
@@ -51,6 +52,7 @@ namespace Dianzhu.Config
              ,{ "192.168.1.172",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
               ,{ "localhost",new KeyValuePair<string,string>("30d16607-fbac-41a3-b4de-a60500c19756","198989") }
             ,{ "112.74.198.215",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
+            ,{ "112.74.17.34",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
               ,{ "192.168.1.150",new KeyValuePair<string,string>("054c400b-4afb-49f3-bbdf-a5e500939c59","123456") }
         };
          

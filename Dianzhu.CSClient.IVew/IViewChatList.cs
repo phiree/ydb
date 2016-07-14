@@ -27,6 +27,7 @@ namespace Dianzhu.CSClient.IView
         void ShowNoMoreLabel();
 
         string ChatListCustomerName { get; set; }
+        void ClearUCData();
     }
     public delegate void AudioPlay(object audioTag, IntPtr handler);
 

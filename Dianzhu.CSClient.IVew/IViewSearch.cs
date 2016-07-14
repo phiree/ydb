@@ -44,10 +44,11 @@ namespace Dianzhu.CSClient.IView
         string LoadingText { set; }
         void AddSearchItem(IViewShelfService service);
         //bool BtnPush { get; set; }
+        event PushServiceTimerSend PushServiceTimerSend;
     }
    
     public delegate void SelectService(DZService selectedService);
     public delegate ReceptionChat PushServices(IList<DZService> pushedServices);
-
+    public delegate void PushServiceTimerSend();
 
 }

@@ -132,14 +132,15 @@ namespace Dianzhu.Web.RestfulApi
                             break;
                         }
                     }
-                    foreach (IPAddress IPA in Dns.GetHostAddresses(Dns.GetHostName()))
-                    {
-                        if (IPA.AddressFamily.ToString() == "InterNetwork")
-                        {
-                            IP4Address = IPA.ToString();
-                            break;
-                        }
-                    }
+                    //获取本地的IP
+                    //foreach (IPAddress IPA in Dns.GetHostAddresses(Dns.GetHostName()))
+                    //{
+                    //    if (IPA.AddressFamily.ToString() == "InterNetwork")
+                    //    {
+                    //        IP4Address = IPA.ToString();
+                    //        break;
+                    //    }
+                    //}
                 }
                 var isValid = isValidRequest(req, appName, sign, token, stamp_TIMES, IP4Address);
                 if (isValid.Result)

@@ -281,7 +281,7 @@ namespace Dianzhu.BLL
                     NickName = savedUserName,
                     PlainPassword = password,
                     UserNameForOpenFire = userNameForOpenfire,
-                    UserType =userType,
+                    UserType = userType,
                     PlatForm= Model.Enums.enum_PlatFormType.system
                 };
                 if (validateCode != Guid.Empty)

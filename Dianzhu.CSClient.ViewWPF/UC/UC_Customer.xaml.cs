@@ -26,21 +26,26 @@ namespace Dianzhu.CSClient.ViewWPF
         public event IdleTimerOut IdleTimerOut;
 
         DispatcherTimer FinalChatTimer;
-        ServiceOrder OrderTemp;
+        Guid OrderTempId;
         public UC_Customer(ServiceOrder order)
         {
             InitializeComponent();
 
-            OrderTemp = order;
+            OrderTempId = order.Id;
 
             LoadData(order.Customer);
             TimerLoad();
         }
 
+        public void SetOrderTempData(Guid orderId)
+        {
+            OrderTempId = orderId;
+        }
+
         protected void TimerLoad()
         {
             FinalChatTimer = new DispatcherTimer();
-            FinalChatTimer.Interval = TimeSpan.FromMinutes(30);
+            FinalChatTimer.Interval = new TimeSpan(0, 30, 0);
             FinalChatTimer.Tick += FinalChatTimer_Tick;
         }
 
@@ -64,7 +69,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void FinalChatTimer_Tick(object sender, EventArgs e)
         {
-            IdleTimerOut(OrderTemp.Id);
+            IdleTimerOut(OrderTempId);
             TimerStop();
         }
 

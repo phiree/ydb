@@ -31,6 +31,7 @@ namespace Dianzhu.CSClient.IView
 
         void IdleTimerStart(Guid orderId);
         void IdleTimerStop(Guid orderId);
+        void SetCustomerOrder(Guid oldOrderId,Guid newOrderId);
         event FinalChatTimerTick FinalChatTimerTick;
     }
     /// <summary>

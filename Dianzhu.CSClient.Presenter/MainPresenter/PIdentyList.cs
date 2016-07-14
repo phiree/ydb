@@ -33,8 +33,9 @@ namespace Dianzhu.CSClient.Presenter
         IViewOrderHistory iViewOrderHistory;
 
         IDAL.IDALReceptionStatus dalReceptionStatus;
+        IViewSearchResult viewSearchResult;
 
-        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,IViewOrder iViewOrder, InstantMessage iIM, IDAL.IDALReceptionChat dalReceptionChat,IViewChatSend iViewChatSend,IBLLServiceOrder bllServiceOrder,IViewOrderHistory iViewOrderHistory,IDAL.IDALReceptionStatus dalReceptionStatus)
+        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,IViewOrder iViewOrder, InstantMessage iIM, IDAL.IDALReceptionChat dalReceptionChat,IViewChatSend iViewChatSend,IBLLServiceOrder bllServiceOrder,IViewOrderHistory iViewOrderHistory,IDAL.IDALReceptionStatus dalReceptionStatus,IViewSearchResult viewSearchResult)
         {
             this.iView = iView;
             this.iViewOrder = iViewOrder;
@@ -45,12 +46,19 @@ namespace Dianzhu.CSClient.Presenter
             this.bllServiceOrder = bllServiceOrder;
             this.iViewOrderHistory = iViewOrderHistory;
             this.dalReceptionStatus = dalReceptionStatus;
+            this.viewSearchResult = viewSearchResult;
 
             iView.IdentityClick += IView_IdentityClick;
             iView.FinalChatTimerTick += IView_FinalChatTimerTick;
             iViewChatSend.FinalChatTimerSend += IViewChatSend_FinalChatTimerSend;
 
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
+            viewSearchResult.PushServiceTimerSend += ViewSearchResult_PushServiceTimerSend;
+        }
+
+        private void ViewSearchResult_PushServiceTimerSend()
+        {
+            iView.IdleTimerStart(IdentityManager.CurrentIdentity.Id);
         }
 
         private void IViewChatSend_FinalChatTimerSend()
@@ -66,7 +74,7 @@ namespace Dianzhu.CSClient.Presenter
             string errMsg = string.Empty;
             if (IdentityManager.CurrentIdentity.Id == order.Id)
             {
-                iViewChatList.ChatList = null;
+                iViewChatList.ClearUCData();
                 iViewOrderHistory.OrderList = null;
 
                 //删除分配表中用户和客服的关系

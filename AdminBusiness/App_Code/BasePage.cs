@@ -68,6 +68,10 @@ public class BasePage:  Dianzhu.Web.Common.BasePage
                 }
             }
             currentUser = mp.GetUserById((Guid)mu.ProviderUserKey);
+            if(currentUser.UserType!= Dianzhu.Model.Enums.enum_UserType.business)
+            {
+                Response.Redirect("/login.aspx?returnurl=" + HttpUtility.UrlEncode(Request.RawUrl), true);
+            }
             //if (currentUser == null)
             //{
             //    Response.Redirect("/error.aspx?msg=您不是商户管理员,不能登录", true);
