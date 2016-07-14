@@ -96,6 +96,9 @@
     <Compile Include="UC\UC_Business.xaml.cs">
       <DependentUpon>UC_Business.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\UC_ChatCustomer.xaml.cs">
+      <DependentUpon>UC_ChatCustomer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\UC_ChatImageNoraml.xaml.cs">
       <DependentUpon>UC_ChatImageNoraml.xaml</DependentUpon>
     </Compile>
@@ -160,6 +163,10 @@
       <DependentUpon>FormLogin.xaml</DependentUpon>
     </Compile>
     <Page Include="UC\UC_Business.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_ChatCustomer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
