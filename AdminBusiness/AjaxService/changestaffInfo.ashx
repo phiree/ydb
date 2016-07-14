@@ -11,6 +11,8 @@ public class changepassword : IHttpHandler {
 
     BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>();
     public void ProcessRequest (HttpContext context) {
+
+        Action ac = () => { 
         context.Response.ContentType = "application/json";
 
         string change_field = context.Request["changed_field"];
@@ -37,7 +39,8 @@ public class changepassword : IHttpHandler {
         }
 
         context.Response.Write("{\"result\":\""+is_valid+"\",\"msg\":\""+errMsg+"\",\"data\":\""+staff.IsAssigned+"\"}");
-
+            };
+            NHibernateUnitOfWork.With.Transaction(ac);
     }
 
     public bool IsReusable {
