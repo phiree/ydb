@@ -86,7 +86,6 @@ $(function () {
     business_validate_rules[name_prefix + "tbxBusinessYears"] =
     {
         required: false,
-        range: [1, 1000]
 
     };
     business_validate_messages[name_prefix + "tbxBusinessYears"] =
