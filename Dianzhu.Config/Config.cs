@@ -10,8 +10,6 @@ namespace Dianzhu.Config
     /// </summary>
     public static partial class Config
     {
-        static int num =6;
-        static int payServerNum =6;
         #region 服务器定义
         static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172","192.168.1.150", "112.74.198.215","112.74.17.34"};
         static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150", "112.74.198.215", "112.74.17.34" };
@@ -22,11 +20,11 @@ namespace Dianzhu.Config
         #endregion
         #region   部署前，只需要手动修改此处 /
 
-        static string IMServer = IMServers.GetValue(num).ToString();//即时通讯服务器地址
-        static string IMDomain = IMDomains.GetValue(num).ToString();//即时通讯服务器地址
-        static string HttpApiServer = HttpApiServers.GetValue(num).ToString();//即时通讯服务器地址
-        static string ApplicationServer = ApplicationServers.GetValue(num).ToString();//应用服务器地址
-        static string IMNotifyServer = IMNotifyServers.GetValue(num).ToString();//通知服务服务地址
+        static string IMServer = IMServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();//即时通讯服务器地址
+        static string IMDomain = IMDomains.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();//即时通讯服务器地址
+        static string HttpApiServer = HttpApiServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();//即时通讯服务器地址
+        static string ApplicationServer = ApplicationServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();//应用服务器地址
+        static string IMNotifyServer = IMNotifyServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();//通知服务服务地址
 
         #endregion
         static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");
@@ -69,7 +67,7 @@ namespace Dianzhu.Config
             , {"NoticeSenderId",DictsNotifySenderLogins[IMNotifyServer].Key  }
             , {"NoticeSenderPwd",DictsNotifySenderLogins[IMNotifyServer].Value  }
 
-            , {"PaySite",BuildHttpUrlString(PayServers[payServerNum], 8168)   }
+            , {"PaySite",BuildHttpUrlString(PayServers[int.Parse(ConfigurationManager.AppSettings["PayServerNum"])], 8168)   }
 
             , {"OpenfireRestApiSessionListUrl",BuildHttpUrlString(IMServer, 9090,"plugins/restapi/v1/sessions/")  }
 

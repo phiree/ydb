@@ -8,6 +8,7 @@ namespace PHSuit
 {
     public class MediaConvert
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.PHSuit.MediaConvert");
         /// <summary>
         /// 将Wav音频转成Amr手机音频
         /// </summary>
@@ -45,15 +46,20 @@ namespace PHSuit
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.RedirectStandardInput = true;
+                process.StartInfo.Arguments = " \"cmd /C " + c + "\"";
                 process.Start();
                 process.StandardInput.WriteLine(c);
                 process.StandardInput.AutoFlush = true;
-                process.StandardInput.WriteLine("exit");
+                //process.StandardInput.WriteLine("exit");
+                log.Debug("开始返回");
                 StreamReader reader = process.StandardOutput;//截取输出流           
                 process.WaitForExit();
+                log.Debug("成功返回");
             }
-            catch
-            { }
+            catch(Exception e)
+            {
+                PHSuit.ExceptionLoger.ExceptionLog(log, e);
+            }
         }
         /// <summary>
         /// 获取文件的byte[]
