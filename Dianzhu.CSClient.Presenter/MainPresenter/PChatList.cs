@@ -7,10 +7,9 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
 using Dianzhu.CSClient.IInstantMessage;
-using Dianzhu.BLL;
 using Dianzhu.Model.Enums;
-using Dianzhu.DAL;
 using System.ComponentModel;
+
 namespace Dianzhu.CSClient.Presenter
 {
     /// <summary>
@@ -34,25 +33,16 @@ namespace Dianzhu.CSClient.Presenter
             this.viewChatList = viewChatList;
             this.viewChatSend = viewChatSend;
             this.dalReceptionChat = dalReceptionChat;
-            //     viewCustomerList.IdentityClick += ViewCustomerList_CustomerClick;
             this.iIM = iIM;
-            //   this.iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             this.viewIdentityList = viewCustomerList;
 
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
             viewChatList.CurrentCustomerService = GlobalViables.CurrentCustomerService;
-            viewChatList.AudioPlay += ViewChatList_AudioPlay;
             viewChatList.BtnMoreChat += ViewChatList_BtnMoreChat;
-            viewChatList.TimerTick += ViewChatList_TimerTick;
 
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
 
            // chatHistoryAll = new Dictionary<Guid, IList<ReceptionChat>>();
-        }
-
-        private void ViewChatList_TimerTick()
-        {
-            //清理用户数据
         }
 
         private void ViewChatList_BtnMoreChat()
@@ -103,17 +93,6 @@ namespace Dianzhu.CSClient.Presenter
             }
         }
 
-        PHSuit.Media media = new PHSuit.Media();
-        private void ViewChatList_AudioPlay(object audioTag, IntPtr handle)
-        {
-            string mediaUrl = audioTag.ToString();
-            string fileName = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
-
-            string fileLocalPath = GlobalViables.LocalMediaSaveDir + fileName;
-
-            media.Play(mediaUrl, handle);
-        }
-
         public void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
         {
             try
@@ -147,53 +126,6 @@ namespace Dianzhu.CSClient.Presenter
                 PHSuit.ExceptionLoger.ExceptionLog(log, ex);
 
             }
-        }
-
-        private void BgwChatHistory_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            IList<ReceptionChat> chatHistory = (IList<ReceptionChat>)e.Result;
-             
-            viewChatList.ChatList.Clear();
-            viewChatList.ChatList = chatHistory;
-        }
-
-        private void BgwChatHistory_DoWork(object sender, DoWorkEventArgs e)
-        {
-            ServiceOrder serviceOrder = (ServiceOrder)e.Argument;
-            int rowCount;
-            var chatHistory = dalReceptionChat
-                   //.GetListTest();
-                   .GetReceptionChatList(serviceOrder.Customer, null, Guid.Empty,
-                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
-            
-            e.Result = chatHistory;
-        }
-
-        private void ViewCustomerList_CustomerClick(DZMembership customer)
-        {
-
-            int rowCount;
-            var chatHistory = dalReceptionChat
-            //.GetListTest();
-            .GetReceptionChatList(customer, GlobalViables.CurrentCustomerService,
-           IdentityManager.CurrentIdentity.Id
-            , DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
-
-            viewChatList.ChatList = chatHistory;
-        }
-        public void SendMessage(ReceptionChat chat)
-        {
-
-
-
-        }
-
-        /// <summary>
-        /// 清楚聊天记录
-        /// </summary>
-        public void ClearChatList()
-        {
-            viewChatList.ChatList = null;
         }
     }
 
