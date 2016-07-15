@@ -5412,6 +5412,9 @@ a.time-trigger:hover {
   height: 71px;
   background: url("../images/components/stepByStep/step1_cur.png");
 }
+.steps-list .steps-step {
+  display: none;
+}
 .steps-list .steps-step.cur-step {
   display: block;
 }
@@ -8006,18 +8009,40 @@ a.doReg:hover {
   text-align: left;
   line-height: 1.4em;
 }
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1600px) {
+  .register-panel {
+    width: 45%;
+  }
+  .register-brand {
+    right: 115px;
+  }
+  .register-detail {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 1440px) {
   .register-panel {
     width: 45%;
   }
   .register-brand {
     right: 55px;
   }
-  .register-detail {
-    width: 200px;
+}
+@media screen and (max-width: 1024px) {
+  .register-panel {
+    width: 80%;
+    margin-top: 80px;
+    margin-left: -40%;
+    left: 50%;
+  }
+  .register-brand {
+    text-align: center;
+    width: 100%;
+    top: -100px;
+    right: 0;
   }
 }
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 768px) {
   .register-panel {
     width: 80%;
     margin-left: -40%;
@@ -8028,9 +8053,6 @@ a.doReg:hover {
     width: 100%;
     top: -200px;
     right: 0;
-  }
-  .register-detail {
-    width: 200px;
   }
 }
 .order-list-head {
