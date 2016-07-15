@@ -15,5 +15,6 @@ copy /Y appSettings.config .\dianzhu.web.pay\config\appSettings.config
 copy /Y appSettings.config .\dianzhu.csclient\config\appSettings.config
 copy /Y appSettings.config .\dianzhu.test\config\appSettings.config
 copy /Y appSettings.config .\dianzhu.Web.RestfulApi\config\appSettings.config
-
+copy /Y appSettings.config .\Dianzhu.DemoClient\config\appSettings.config
+copy /Y appSettings.config .\DianzhuService.Diandian\config\appSettings.config
 pause
