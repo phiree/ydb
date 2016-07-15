@@ -9,6 +9,8 @@
     <meta name="description" content="一点办后台管理系统" />
     <meta name="keywords" content="一点办" />
     <title>商家后台主页</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="bookmark" href="/favicon.ico" type="image/x-icon"　/>
     <link href="/css/main.css" rel="stylesheet" type="text/css" />
     <!--有字库连接-->
     <link href='http://api.youziku.com/webfont/CSS/568e353ff629d80f4cd910a7' rel='stylesheet' type='text/css' />
