@@ -19,10 +19,7 @@ namespace Dianzhu.CSClient.IView
         /// 用来确定消息的显示格式.
         /// </summary>
         DZMembership CurrentCustomerService { get; set; }
-        event AudioPlay AudioPlay;
         event BtnMoreChat BtnMoreChat;
-
-        event TimerTick TimerTick;
 
         void ShowNoMoreLabel();
 

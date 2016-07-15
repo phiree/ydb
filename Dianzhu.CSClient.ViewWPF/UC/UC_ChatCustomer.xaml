@@ -1,28 +1,52 @@
-﻿<UserControl x:Class="Dianzhu.CSClient.ViewWPF.UC.UC_ChatCustomer"
+﻿<UserControl x:Class="Dianzhu.CSClient.ViewWPF.UC_ChatCustomer"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF.UC"
+             xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
              mc:Ignorable="d" 
-             d:DesignHeight="40" d:DesignWidth="300">
+             d:DesignHeight="100" d:DesignWidth="300">
     <UserControl.Resources>
         <Style x:Key="TextBlockChat" TargetType="{x:Type TextBlock}">
-            <Setter Property="TextWrapping" Value="NoWrap"/>
-            <Setter Property="TextTrimming" Value="WordEllipsis"/>
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+            <Setter Property="TextTrimming" Value="None"/>
             <Setter Property="FontFamily" Value="微软雅黑"/>
             <Setter Property="FontWeight" Value="Regular"/>
             <Setter Property="Foreground" Value="#FF323232"/>
+            <Setter Property="LineHeight" Value="20"/>
         </Style>
     </UserControl.Resources>
-    <Grid>
+    <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="40"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
-            <Image x:Name="imgAvatar" Width="36" Height="36"></Image>
+            <StackPanel>
+                <Image x:Name="imgAvatarCustomer" Width="32" Height="32">
+                    <Image.ToolTip>
+                        <StackPanel>
+                            <TextBlock x:Name="tbNameCustomer" Text=""/>
+                            <TextBlock x:Name="tbTimeCustomer" Text=""/>
+                        </StackPanel>
+                    </Image.ToolTip>
+                </Image>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <StackPanel>
+                <Image x:Name="imgAvatarCS" Width="32" Height="32">
+                    <Image.ToolTip>
+                        <StackPanel>
+                            <TextBlock x:Name="tbNameCS" Text=""/>
+                            <TextBlock x:Name="tbTimeCS" Text=""/>
+                        </StackPanel>
+                    </Image.ToolTip>
+                </Image>
+            </StackPanel>
         </Grid>
 
         <Grid Grid.Column="1">
@@ -34,10 +58,14 @@
 
             <Grid Grid.Column="0"></Grid>
 
-            <Grid Grid.Column="1" Background="White">
-                <Label VerticalAlignment="Center" MaxWidth="300">
-                    <TextBlock x:Name="tbChat" Style="{DynamicResource TextBlockChat}" Text=""></TextBlock>
-                </Label>
+            <Grid Grid.Column="1">
+                <WrapPanel x:Name="wpnlChat" VerticalAlignment="Center">
+                    <Border x:Name="lblChatBorder" CornerRadius="3" Background="White">
+                        <Label MaxWidth="300" Padding="0">
+                            <TextBlock x:Name="tbChat" Style="{DynamicResource TextBlockChat}" Text=""></TextBlock>
+                        </Label>
+                    </Border>
+                </WrapPanel>
             </Grid>
 
             <Grid Grid.Column="2"></Grid>
