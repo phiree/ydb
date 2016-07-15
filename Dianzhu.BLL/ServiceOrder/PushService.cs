@@ -72,9 +72,7 @@ namespace Dianzhu.BLL
                 //保存订单历史记录
                 bllServiceOrderStateChangeHis.Save(order, enum_OrderStatus.DraftPushed);
 
-                PHSuit.HttpHelper.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice&orderId=" + order.Id.ToString(), "get", null);
-
-                if (order.DepositAmount>0)
+                if (order.DepositAmount > 0)
                 {
                     Payment payment = bllPayment.ApplyPay(order, enum_PayTarget.Deposit);
                 }
@@ -82,6 +80,8 @@ namespace Dianzhu.BLL
                 {
                     bllServiceOrder.OrderFlow_PayDepositAndWaiting(order);
                 }
+
+                PHSuit.HttpHelper.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice&orderId=" + order.Id.ToString(), "get", null);                
             }            
         }
     }
