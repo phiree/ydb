@@ -66,7 +66,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">从业时间</div>
                                                             <div class="col-md-8 model-input col-md-8 model-input-unit">
-                                                                <div id="yearsSelect" class="select select-fluid select-static" data-type="num" data-toggle="tooltip"
+                                                                <div id="yearsSelect" class="select select-fluid select-static" data-type="year" data-toggle="tooltip"
                                                                      data-placement="top" title="选择你从事该行业的时间">
                                                                     <input type="text" class="input-fluid dis-n" runat="server" focusID="yearsSelect"
                                                                            id="tbxBusinessYears" name="workYears"/>
@@ -86,10 +86,8 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">店铺地址</div>
                                                             <div class="col-md-8 model-input">
-                                                                <p>
-                                                                    <input type="text" class="input-fluid" id="tbxAddress" runat="server" name="addressDetail"
-                                                                           data-toggle="tooltip" data-placement="top" title="请填写您详细有效的店铺地址"/>
-                                                                </p>
+                                                                <p><input type="text" class="input-fluid" id="tbxAddress" runat="server" name="addressDetail"
+                                                                           data-toggle="tooltip" data-placement="top" title="请填写您详细有效的店铺地址"/></p>
                                                                 <p><input type="hidden" focusID="setAddress" runat="server" clientidmode="Static" id="hiAddrId"
                                                                           name="addressDetailHide"/></p>
                                                             </div>

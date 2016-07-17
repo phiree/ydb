@@ -5973,15 +5973,15 @@ a.time-trigger:hover {
   border-bottom: 1px solid #C7C7C7;
   padding: 10px;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
-  background: #F4F4F4 ;
+  background: #f4f4f4 ;
   /* Old browsers */
-  background: -moz-linear-gradient(top, #F4F4F4 0%, #eaeaea 100%);
+  background: -moz-linear-gradient(top, #f4f4f4 0%, #eaeaea 100%);
   /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #F4F4F4 0%, #eaeaea 100%);
+  background: -webkit-linear-gradient(top, #f4f4f4 0%, #eaeaea 100%);
   /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #F4F4F4 0%, #eaeaea 100%);
+  background: linear-gradient(to bottom, #f4f4f4 0%, #eaeaea 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F4F4F4 ', endColorstr='#eaeaea', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f4f4f4', endColorstr='#eaeaea', GradientType=0);
   /* IE6-9 */
 }
 .wd-order-edit.editing .wd-maxOrder {
@@ -8009,18 +8009,40 @@ a.doReg:hover {
   text-align: left;
   line-height: 1.4em;
 }
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1600px) {
+  .register-panel {
+    width: 45%;
+  }
+  .register-brand {
+    right: 115px;
+  }
+  .register-detail {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 1440px) {
   .register-panel {
     width: 45%;
   }
   .register-brand {
     right: 55px;
   }
-  .register-detail {
-    width: 200px;
+}
+@media screen and (max-width: 1024px) {
+  .register-panel {
+    width: 80%;
+    margin-top: 80px;
+    margin-left: -40%;
+    left: 50%;
+  }
+  .register-brand {
+    text-align: center;
+    width: 100%;
+    top: -100px;
+    right: 0;
   }
 }
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 768px) {
   .register-panel {
     width: 80%;
     margin-left: -40%;
@@ -8031,9 +8053,6 @@ a.doReg:hover {
     width: 100%;
     top: -200px;
     right: 0;
-  }
-  .register-detail {
-    width: 200px;
   }
 }
 .order-list-head {

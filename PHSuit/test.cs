@@ -36,6 +36,7 @@ namespace PHSuit
         {
 
             Console.WriteLine("172:" + PHSuit.Security.Encrypt("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test", false));
+            Console.WriteLine("172ForUI" + PHSuit.Security.Encrypt("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_for_ui", false));
 
             Console.WriteLine("119:" + PHSuit.Security.Encrypt("data source=119.29.39.211;uid=ydb;pwd=jsyk2016;database=dianzhu", false));
 
