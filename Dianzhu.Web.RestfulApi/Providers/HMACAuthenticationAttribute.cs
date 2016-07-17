@@ -104,6 +104,13 @@ namespace Dianzhu.Web.RestfulApi
             }
             if (b)
             {
+                bool bb = bool.Parse(ConfigurationManager.AppSettings["NoAuthentication"]);
+                if (bool.Parse(ConfigurationManager.AppSettings["NoAuthentication"]))
+                {
+                    var currentPrincipal = new GenericPrincipal(new GenericIdentity(appName), null);
+                    context.Principal = currentPrincipal;
+                    return Task.FromResult(0);
+                }
                 string IP4Address = String.Empty;
                 if (appName == "JS1adBF8cbaf594d1ab2f1A68755e70440")
                 {

@@ -85,9 +85,12 @@ namespace Dianzhu.ApplicationService.Service
             IList<Model.DZService> dzservice = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "DZService");
             decimal dcStartAt = -1;
-            if (!decimal.TryParse(servicefilter.startAt, out dcStartAt))
+            if (servicefilter.startAt != null && servicefilter.startAt != "")
             {
-                throw new FormatException("起步价必须为大于零的数值！");
+                if (!decimal.TryParse(servicefilter.startAt, out dcStartAt))
+                {
+                    throw new FormatException("起步价必须为大于零的数值！");
+                }
             }
             dzservice = bllDZService.GetServices(filter1, utils.CheckGuidID(servicefilter.type, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, utils.CheckGuidID(storeID, "storeID"));
             if (dzservice == null)
@@ -113,9 +116,12 @@ namespace Dianzhu.ApplicationService.Service
         public countObj GetServicesCount(string storeID, common_Trait_ServiceFiltering servicefilter)
         {
             decimal dcStartAt = -1;
-            if (!decimal.TryParse(servicefilter.startAt, out dcStartAt))
+            if (servicefilter.startAt != null && servicefilter.startAt != "")
             {
-                throw new FormatException("起步价必须为大于零的数值！");
+                if (!decimal.TryParse(servicefilter.startAt, out dcStartAt))
+                {
+                    throw new FormatException("起步价必须为大于零的数值！");
+                }
             }
             countObj c = new countObj();
             c.count = bllDZService.GetServicesCount(utils.CheckGuidID(servicefilter.type, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, utils.CheckGuidID(storeID, "storeID")).ToString();

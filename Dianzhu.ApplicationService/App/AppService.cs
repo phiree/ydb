@@ -35,27 +35,47 @@ namespace Dianzhu.ApplicationService.App
             {
                 throw new Exception("Token长度不够64");
             }
-            Model.DeviceBind devicebind = Mapper.Map<appObj, Model.DeviceBind>(appobj);
-            devicebind.IsBinding = true;
+            //Model.DeviceBind devicebind = Mapper.Map<appObj, Model.DeviceBind>(appobj);
+            Model.DeviceBind devicebind = new Model.DeviceBind();
+            Model.DZMembership dzmembership = null;
             if (appobj.userID != null && appobj.userID != "")
             {
                 Guid userId=utils.CheckGuidID(appobj.userID, "UserId");
-                devicebind.DZMembership = dzm.GetUserById(userId);
+                dzmembership = dzm.GetUserById(userId);
             }
-            devicebind.AppUUID = uuId;
             DateTime dt= DateTime.Now;
-            devicebind.SaveTime = dt;
-            devicebind.BindChangedTime = dt;
-            blldevicebind.Update(devicebind);
-            devicebind = blldevicebind.getDevBindByUUID(uuId);
-            if (devicebind!=null && devicebind.BindChangedTime == dt)
+
+            Model.DeviceBind devicebinduuid = blldevicebind.getDevBindByUUID(uuId);
+            if (devicebinduuid == null)
             {
-                return "注册成功！";
+                devicebind.IsBinding = true;
+                devicebind.SaveTime = dt;
+                devicebind.AppUUID = uuId;
+                devicebind.BindChangedTime = dt;
+                devicebind.DZMembership = dzmembership;
+                devicebind.AppName = appobj.appName.ToString();
+                devicebind.AppToken = appobj.appToken;
+                blldevicebind.Save(devicebind);
             }
             else
             {
-                throw new Exception("注册失败");
+                devicebinduuid.IsBinding = true;
+                devicebinduuid.BindChangedTime = dt;
+                devicebinduuid.DZMembership = dzmembership;
+                blldevicebind.Update(devicebinduuid);
             }
+            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            ////NHibernateUnitOfWork.UnitOfWork.Start();
+            //devicebind = blldevicebind.getDevBindByUUID(uuId);
+            //if (devicebind!=null && devicebind.BindChangedTime == dt)
+            //{
+            return "注册成功！";
+            //不用进行判断是否修改成功，若是不出异常，还是没有提交成功那就是底层的错误了。
+            //}
+            //else
+            //{
+            //    throw new Exception("注册失败");
+            //}
         }
 
         /// <summary>

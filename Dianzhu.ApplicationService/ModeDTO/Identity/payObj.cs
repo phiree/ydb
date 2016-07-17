@@ -8,41 +8,107 @@ namespace Dianzhu.ApplicationService
 {
     public class payObj
     {
+        string _id = "";
         /// <summary>
         /// 支付款项的ID
         /// </summary>
         /// <type>string</type>
-        public string id { get; set; }
+        public string id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+            }
+        }
 
+        string _amount = "";
         /// <summary>
         /// 需要支付的金额（元）
         /// </summary>
         /// <type>string</type>
-        public string amount { get; set; }
+        public string amount
+        {
+            get
+            {
+                return _amount;
+            }
+            set
+            {
+                _amount = value;
+            }
+        }
 
+        string _payStatus = "";
         /// <summary>
         /// 支付的状态（"waitForPay":[等待支付]，"waitForVerify":[等待审核]，"success":[支付成功]，"failed":[支付失败]，"invalid":[失效]）
         /// </summary>
         /// <type>string</type>
-        public string payStatus { get; set; }
+        public string payStatus
+        {
+            get
+            {
+                return _payStatus;
+            }
+            set
+            {
+                _payStatus = value;
+            }
+        }
 
+        string _type = "";
         /// <summary>
         /// 类型（"deposit":[订金]，"finalPayment":[尾款]，"compensation":[赔偿金]）
         /// </summary>
         /// <type>string</type>
-        public string type { get; set; }
+        public string type
+        {
+            get
+            {
+                return _type;
+            }
+            set
+            {
+                _type = value;
+            }
+        }
 
+        string _updateTime = "";
         /// <summary>
         /// 更新时间(yyyyMMddHHmmss)
         /// </summary>
         /// <type>string</type>
-        public string updateTime { get; set; }
+        public string updateTime
+        {
+            get
+            {
+                return _updateTime;
+            }
+            set
+            {
+                _updateTime = value;
+            }
+        }
 
+        bool _bOnline = true;
         /// <summary>
         /// 是否在线支付（true Or false）
         /// </summary>
         /// <type>boolean</type>
-        public bool bOnline { get; set; }
-        
+        public bool bOnline
+        {
+            get
+            {
+                return _bOnline;
+            }
+            set
+            {
+                _bOnline = value;
+            }
+        }
+
     }
 }

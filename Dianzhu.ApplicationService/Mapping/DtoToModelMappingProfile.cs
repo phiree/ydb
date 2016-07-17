@@ -46,9 +46,9 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.LastUpdateTime, opt => opt.MapFrom(source => source.updateTime))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<appObj, Model.DeviceBind>()
-            .ForMember(x => x.AppName, opt => opt.MapFrom(source => source.appName .ToString ()))
-            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            //Mapper.CreateMap<appObj, Model.DeviceBind>()
+            //.ForMember(x => x.AppName, opt => opt.MapFrom(source => source.appName .ToString ()))
+            //.ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<remindObj, Model.ServiceOrderRemind>()
             .ForMember(x => x.RemindTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.remindTime, "yyyyMMddHHmmss", "remindObj.time")))
@@ -62,6 +62,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<workTimeObj, Model.ServiceOpenTimeForDay>()
+            //.ForMember(x => x.Id, opt => opt.MapFrom(source => source.id==""?Guid.Empty:utils.CheckGuidID(source.id, "workTimeObj.id")))
             .ForMember(x => x.MaxOrderForOpenTime, opt => opt.MapFrom(source => source.maxCountOrder))
             .ForMember(x => x.Enabled, opt => opt.MapFrom(source => source.bOpen))
             .ForMember(x => x.TimeStart, opt => opt.MapFrom(source => source.startTime))

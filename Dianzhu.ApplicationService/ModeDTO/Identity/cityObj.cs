@@ -8,12 +8,23 @@ namespace Dianzhu.ApplicationService
 {
     public class cityObj
     {
+        string _name = "";
         /// <summary>
         /// 城市名称
         /// </summary>
         /// <type>string</type>
-        public string name { get; set; }
-
+        public string name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+            }
+        }
+        
         /// <summary>
         /// 城市关键字母（如“A”）
         /// </summary>
@@ -28,10 +39,21 @@ namespace Dianzhu.ApplicationService
             set { }
         }
 
+        string _code = "";
         /// <summary>
         /// 城市代码
         /// </summary>
         /// <type>string</type>
-        public string code { get; set; }
+        public string code
+        {
+            get
+            {
+                return _code;
+            }
+            set
+            {
+                _code = value;
+            }
+        }
     }
 }
