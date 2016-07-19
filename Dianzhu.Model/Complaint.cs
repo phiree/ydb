@@ -38,7 +38,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 投诉的图片链接
         /// </summary>
-        public virtual IList<string> ResourcesUrl { get; set; }
+        public virtual IList<string> ComplaitResourcesUrl { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>

@@ -74,10 +74,10 @@ public class ResponseCLM001001 : BaseResponse
                 complaint.Content = requestData.context;
 
                 //20160614_longphui_modify
-                complaint.ResourcesUrl = requestData.resourcesUrl.Split(',').ToList();// requestData.resourcesUrl;
+                complaint.ComplaitResourcesUrl = requestData.resourcesUrl.Split(',').ToList();// requestData.resourcesUrl;
 
                 complaint.Operator = order.Customer;
-                bllComplaint.Save(complaint);
+                bllComplaint.AddComplaint(complaint);
 
                 this.state_CODE = Dicts.StateCode[0];
             }
