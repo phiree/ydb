@@ -255,13 +255,13 @@ namespace Dianzhu.CSClient.Presenter
 
         }
         #endregion
-        private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId)
+        private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId,string name)
         {
             //Action a = () =>
             //{
                 int total;
 
-                IList<Model.DZService> services = dalDzService.SearchService(minPrice, maxPrice, servieTypeId, targetTime, 0, 10, out total);
+                IList<DZService> services = dalDzService.SearchService(name, minPrice, maxPrice, servieTypeId, targetTime, 0, 10, out total);
                 foreach (DZService service in services)
                 {
                     
