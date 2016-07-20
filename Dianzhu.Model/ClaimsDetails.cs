@@ -61,7 +61,7 @@ namespace Dianzhu.Model
         /// </summary>
         /// 20160622_longphui_modify
         ///public virtual string ResourcesUrl { get; set; }
-        public virtual IList<string> ClaimsDetailsResourcesUrl{ get; set; }
+        public virtual IList<string> ClaimsDetailsResourcesUrl { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>

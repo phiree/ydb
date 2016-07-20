@@ -182,6 +182,7 @@ namespace Dianzhu.CSClient.ViewWPF
             Model.ServiceType selectedType = null;
             DateTime targetTime=DateTime.Now;
             decimal minPrice=0, maxPrice=0;
+            string serviceName = string.Empty;
             this.Dispatcher.Invoke((Action)(() =>
             {
                 this.btnSearch.Content = "正在搜索......";
@@ -200,7 +201,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 targetTime = SearchKeywordTime;
                 minPrice = SearchKeywordPriceMin;
                 maxPrice = SearchKeywordPriceMax;
-
+                serviceName = tbxKeywordServiceName.Text.Trim();
             }));
             
 
@@ -208,7 +209,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 Action ac = () =>
                 {
-                    Search(targetTime,minPrice,maxPrice,selectedType.Id);
+                    Search(targetTime,minPrice,maxPrice,selectedType.Id, serviceName);
                 };
                 NHibernateUnitOfWork.With.Transaction(ac);
             }

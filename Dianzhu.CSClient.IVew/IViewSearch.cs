@@ -29,7 +29,7 @@ namespace Dianzhu.CSClient.IView
         event ServiceTypeThird_Select ServiceTypeThird_Select;
         #endregion
     }
-    public delegate void SearchService(DateTime targetTime,decimal minPrice,decimal maxPrice,Guid servieTypeId);
+    public delegate void SearchService(DateTime targetTime,decimal minPrice,decimal maxPrice,Guid servieTypeId,string name);
     public delegate void ServiceTypeFirst_Select(ServiceType type);
     public delegate void ServiceTypeSecond_Select(ServiceType type);
     public delegate void ServiceTypeThird_Select(ServiceType type);

@@ -21,10 +21,12 @@ namespace Dianzhu.BLL
         }
 
        
-
-        public void Save(Complaint c)
-        {
- 
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="c"></param>
+        public void Update(Complaint c)
+        { 
             dalComplaint.Update(c);
         }
 
