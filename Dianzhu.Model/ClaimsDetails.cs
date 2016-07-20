@@ -35,7 +35,7 @@ namespace Dianzhu.Model
             this.Claims = claims;
             this.Context = context;
             this.Amount = amount;
-            this.ResourcesUrl = resourcesUrl;
+            this.ClaimsDetailsResourcesUrl = resourcesUrl;
             this.Target = target;
             this.Member = member;
         }
@@ -61,7 +61,7 @@ namespace Dianzhu.Model
         /// </summary>
         /// 20160622_longphui_modify
         ///public virtual string ResourcesUrl { get; set; }
-        public virtual IList<string> ResourcesUrl { get; set; }
+        public virtual IList<string> ClaimsDetailsResourcesUrl{ get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>

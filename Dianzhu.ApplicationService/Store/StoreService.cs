@@ -119,8 +119,46 @@ namespace Dianzhu.ApplicationService.Store
         /// 统计店铺数量
         /// </summary>
         /// <param name="storefilter"></param>
+        /// <param name="headers"></param>
         /// <returns></returns>
-        public countObj GetStoresCount(common_Trait_StoreFiltering storefilter)
+        public countObj GetStoresCount(common_Trait_StoreFiltering storefilter, common_Trait_Headers headers)
+        {
+            countObj c = new countObj();
+            Customer customer = new Customer();
+            customer = customer.getCustomer(headers.token, headers.apiKey, false);
+            c.count = bllBusiness.GetStoresCount(storefilter.name, utils.CheckGuidID(customer.UserID, "merchantID")).ToString();
+            return c;
+        }
+
+        /// <summary>
+        /// 条件读取所有店铺
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="storefilter"></param>
+        /// <returns></returns>
+        public IList<storeObj> GetAllStores(common_Trait_Filtering filter, common_Trait_StoreFiltering storefilter)
+        {
+            IList<Model.Business> business = null;
+            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Business");
+            business = bllBusiness.GetStores(filter1, storefilter.name, storefilter.merchantID);
+            if (business == null)
+            {
+                throw new Exception(Dicts.StateCode[4]);
+            }
+            IList<storeObj> storeobj = Mapper.Map<IList<Model.Business>, IList<storeObj>>(business);
+            for (int i = 0; i < storeobj.Count; i++)
+            {
+                changeObj(storeobj[i], business[i]);
+            }
+            return storeobj;
+        }
+
+        /// <summary>
+        /// 统计所有店铺数量
+        /// </summary>
+        /// <param name="storefilter"></param>
+        /// <returns></returns>
+        public countObj GetAllStoresCount(common_Trait_StoreFiltering storefilter)
         {
             countObj c = new countObj();
             c.count = bllBusiness.GetStoresCount(storefilter.name, utils.CheckGuidID(storefilter.merchantID, "merchantID")).ToString();

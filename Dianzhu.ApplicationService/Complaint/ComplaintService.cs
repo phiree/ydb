@@ -28,12 +28,16 @@ namespace Dianzhu.ApplicationService.Complaint
             //b = g == complaint.Id;
             // if(complaint.Id==new Guid())
             //complaintobj.status = complaint.Status;
-            complaint = bllcomplaint.GetComplaintById(complaint.Id);
-            if (complaint == null)
-            {
-                throw new Exception("没有获取到新增的数据，可能新增失败！");
-            }
+            //complaint = bllcomplaint.GetComplaintById(complaint.Id);
+            //if (complaint == null)
+            //{
+            //    throw new Exception("没有获取到新增的数据，可能新增失败！");
+            //}
             complaintobj = Mapper.Map<Model.Complaint,complaintObj > (complaint);
+            for (int i = 0; i < complaintobj.resourcesUrl.Count; i++)
+            {
+                complaintobj.resourcesUrl[i] = complaintobj.resourcesUrl[i] != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + complaintobj.resourcesUrl[i] : "";
+            }
             return complaintobj;
         }
 

@@ -42,6 +42,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Complaint, complaintObj>()
+            .ForMember(x => x.resourcesUrl, opt => opt.MapFrom(source => source.ComplaitResourcesUrl))
             .ForMember(x => x.orderID, opt => opt.MapFrom(source => source.Order.Id))
             .ForMember(x => x.senderID, opt => opt.MapFrom(source => source.Operator.Id))
             .ForAllMembers(opt => opt.NullSubstitute(""));
@@ -90,7 +91,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.Photo != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.Photo : ""))
             .ForMember(x => x.sex, opt => opt.MapFrom(source => source.Gender == "女" ? true : false))
             .ForMember(x => x.realName, opt => opt.MapFrom(source => source.Name))
-            .ForMember(x => x.identity, opt => opt.MapFrom(source => source.Code))
+            //.ForMember(x => x.identity, opt => opt.MapFrom(source => source.Code))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Business, storeObj>()

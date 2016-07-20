@@ -9,7 +9,7 @@ namespace Dianzhu.ApplicationService
 {
     public class complaintObj
     {
-        string _id = "";
+        string _id = null;
         /// <summary>
         /// 投诉的ID
         /// </summary>

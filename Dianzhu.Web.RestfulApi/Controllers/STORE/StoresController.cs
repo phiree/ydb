@@ -80,7 +80,60 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORE
                 {
                     storefilter = new common_Trait_StoreFiltering();
                 }
-                return Json(istore.GetStoresCount(storefilter));
+                return Json(istore.GetStoresCount(storefilter,GetRequestHeader.GetTraitHeaders()));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
+        /// 条件读取所有店铺
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="storefilter"></param>
+        /// <returns></returns>
+        [Route("api/v1/allStores")]
+        public IHttpActionResult GetAllStores([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_StoreFiltering storefilter)
+        {
+            try
+            {
+                if (filter == null)
+                {
+                    filter = new common_Trait_Filtering();
+                }
+                if (storefilter == null)
+                {
+                    storefilter = new common_Trait_StoreFiltering();
+                }
+
+                //return Json(istore.GetStores(filter, storefilter));
+                return Json(istore.GetAllStores(filter, storefilter));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
+        /// 统计所有店铺数量
+        /// </summary>
+        /// <param name="storefilter"></param>
+        /// <returns></returns>
+        [Route("api/v1/allStores/count")]
+        public IHttpActionResult GetAllStoresCount([FromUri]common_Trait_StoreFiltering storefilter)
+        {
+            try
+            {
+                if (storefilter == null)
+                {
+                    storefilter = new common_Trait_StoreFiltering();
+                }
+
+                //return Json(istore.GetStores(filter, storefilter));
+                return Json(istore.GetAllStoresCount(storefilter));
             }
             catch (Exception ex)
             {

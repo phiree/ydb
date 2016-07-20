@@ -9,7 +9,7 @@ namespace Dianzhu.ApplicationService
 {
     public class merchantObj
     {
-        string _id = "";
+        string _id = null;
         /// <summary>
         /// 商户ID
         /// </summary>
