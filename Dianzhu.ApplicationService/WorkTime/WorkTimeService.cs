@@ -265,7 +265,7 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <returns></returns>
         public workTimeObj PatchWorkTime(string storeID, string serviceID, string workTimeID, workTimeObj worktimeobj)
         {
-            if ( worktimeobj.startTime != "")
+            if (!string.IsNullOrEmpty(worktimeobj.startTime))
             {
                 try
                 {
@@ -277,7 +277,7 @@ namespace Dianzhu.ApplicationService.WorkTime
                     throw new FormatException("服务开始时间格式不正确！");
                 }
             }
-            if ( worktimeobj.endTime != "")
+            if (!string.IsNullOrEmpty(worktimeobj.endTime))
             {
                 try
                 {
@@ -290,7 +290,7 @@ namespace Dianzhu.ApplicationService.WorkTime
                 }
             }
             int intCount = 0;
-            if (worktimeobj.maxCountOrder != "")
+            if (!string.IsNullOrEmpty(worktimeobj.maxCountOrder))
             {
                 if (!int.TryParse(worktimeobj.maxCountOrder, out intCount))
                 {
@@ -343,11 +343,11 @@ namespace Dianzhu.ApplicationService.WorkTime
                             //{
                             //    sotDay1.Enabled = sotDay.Enabled;
                             //}
-                            if (worktimeobj.tag != "" && worktimeobj.tag != d.Tag)
+                            if (string.IsNullOrEmpty(worktimeobj.tag)== false && worktimeobj.tag != d.Tag)
                             {
                                 d.Tag = worktimeobj.tag;
                             }
-                            if (worktimeobj.startTime != "" && worktimeobj.startTime != d.TimeStart)
+                            if ( worktimeobj.startTime != "" && worktimeobj.startTime != d.TimeStart)
                             {
                                 d.TimeStart = worktimeobj.startTime;
                             }

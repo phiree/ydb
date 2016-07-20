@@ -10,7 +10,7 @@ namespace Dianzhu.ApplicationService
 {
     public class storeObj
     {
-        string _id = "";
+        string _id = null;
         /// <summary>
         /// 店铺ID
         /// </summary>

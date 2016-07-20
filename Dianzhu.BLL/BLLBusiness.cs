@@ -112,13 +112,17 @@ namespace Dianzhu.BLL
         public IList<Business> GetStores(Trait_Filtering filter, string strName, string UserID)
         {
             var where = PredicateBuilder.True<Business>();
-            where = where.And(x => x.Owner.Id == new Guid(UserID));
-            if (strName != null && strName != "")
+            
+            if (!string.IsNullOrEmpty(UserID))
+            {
+                where = where.And(x => x.Owner.Id == new Guid(UserID));
+            }
+            if (!string.IsNullOrEmpty(strName))
             {
                 where = where.And(x => x.Name.Contains(strName));
             }
             Business baseone = null;
-            if (filter.baseID != null && filter.baseID != "")
+            if (!string.IsNullOrEmpty(filter.baseID))
             {
                 try
                 {
@@ -147,7 +151,7 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.Owner.Id == ownerId);
             }
-            if (alias != null && alias != "")
+            if (!string.IsNullOrEmpty(alias))
             {
                 where = where.And(x => x.Name.Contains(alias));
             }

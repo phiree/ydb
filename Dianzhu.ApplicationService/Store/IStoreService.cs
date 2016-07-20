@@ -24,13 +24,27 @@ namespace Dianzhu.ApplicationService.Store
         /// <returns></returns>
         IList<storeObj> GetStores(common_Trait_Filtering filter, common_Trait_StoreFiltering storefilter, common_Trait_Headers headers);
 
-
         /// <summary>
         /// 统计店铺数量
         /// </summary>
         /// <param name="storefilter"></param>
         /// <returns></returns>
-        countObj GetStoresCount(common_Trait_StoreFiltering storefilter);
+        countObj GetStoresCount(common_Trait_StoreFiltering storefilter, common_Trait_Headers headers);
+
+        /// <summary>
+        /// 条件读取所有店铺
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="storefilter"></param>
+        /// <returns></returns>
+        IList<storeObj> GetAllStores(common_Trait_Filtering filter, common_Trait_StoreFiltering storefilter);
+
+        /// <summary>
+        /// 统计所有店铺数量
+        /// </summary>
+        /// <param name="storefilter"></param>
+        /// <returns></returns>
+        countObj GetAllStoresCount(common_Trait_StoreFiltering storefilter);
 
         /// <summary>
         /// 读取店铺 根据ID

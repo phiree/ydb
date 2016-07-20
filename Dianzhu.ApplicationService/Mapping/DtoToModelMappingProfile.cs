@@ -38,6 +38,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<complaintObj, Model.Complaint>()
+            .ForMember(x => x.ComplaitResourcesUrl, opt => opt.MapFrom(source => source.resourcesUrl))
             .ForMember(x => x.Order, opt => opt.MapFrom(source => new DAL.DALServiceOrder().FindById(utils.CheckGuidID(source.orderID, "orderID"))))
             .ForMember(x => x.Operator, opt => opt.MapFrom(source => new DAL.DALMembership().FindById(utils.CheckGuidID(source.senderID, "senderID"))))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
@@ -87,7 +88,6 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.Photo, opt => opt.MapFrom(source => source.imgUrl))
             .ForMember(x => x.Gender, opt => opt.MapFrom(source => source.sex?"女":"男"))
             .ForMember(x => x.Name, opt => opt.MapFrom(source => source.realName))
-            .ForMember(x => x.Code, opt => opt.MapFrom(source => source.identity))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<storeObj, Model.Business>()

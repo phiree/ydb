@@ -8,7 +8,7 @@ namespace Dianzhu.ApplicationService
 {
     public class chatObj
     {
-        string _id = "";
+        string _id = null;
         /// <summary>
         /// 消息ID
         /// </summary>

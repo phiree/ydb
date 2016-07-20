@@ -8,7 +8,7 @@ namespace Dianzhu.ApplicationService
 {
     public class payObj
     {
-        string _id = "";
+        string _id = null;
         /// <summary>
         /// 支付款项的ID
         /// </summary>

@@ -8,7 +8,7 @@ namespace Dianzhu.ApplicationService
 {
     public class orderObj
     {
-        string _id = "";
+        string _id = null;
         /// <summary>
         /// 订单ID
         /// </summary>

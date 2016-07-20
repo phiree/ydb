@@ -9,7 +9,7 @@ namespace Dianzhu.ApplicationService
 {
     public class staffObj
     {
-        string _id = "";
+        string _id = null;
         /// <summary>
         /// 员工ID
         /// </summary>
@@ -23,6 +23,57 @@ namespace Dianzhu.ApplicationService
             set
             {
                 _id = value;
+            }
+        }
+
+        string _loginName = "";
+        /// <summary>
+        /// 员工登录App的用户名
+        /// </summary>
+        /// <type>string</type>
+        public string loginName
+        {
+            get
+            {
+                return _loginName;
+            }
+            set
+            {
+                _loginName = value;
+            }
+        }
+
+        string _userID = "";
+        /// <summary>
+        /// 员工用户ID
+        /// </summary>
+        /// <type>string</type>
+        public string userID
+        {
+            get
+            {
+                return _userID;
+            }
+            set
+            {
+                _userID = value;
+            }
+        }
+
+        string _pWord = "";
+        /// <summary>
+        /// 员工登录App的密码
+        /// </summary>
+        /// <type>string</type>
+        public string pWord
+        {
+            get
+            {
+                return _pWord;
+            }
+            set
+            {
+                _pWord = value;
             }
         }
 

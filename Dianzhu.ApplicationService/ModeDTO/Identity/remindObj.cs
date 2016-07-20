@@ -8,7 +8,7 @@ namespace Dianzhu.ApplicationService
 {
     public class remindObj
     {
-        string _id = "";
+        string _id = null;
         /// <summary>
         /// 提醒ID
         /// </summary>

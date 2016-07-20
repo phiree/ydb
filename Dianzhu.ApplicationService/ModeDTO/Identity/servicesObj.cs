@@ -8,7 +8,7 @@ namespace Dianzhu.ApplicationService
 {
     public class servicesObj
     {
-        string _id = "";
+        string _id = null;
         /// <summary>
         /// 服务ID
         /// </summary>

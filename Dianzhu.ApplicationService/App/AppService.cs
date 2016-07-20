@@ -38,32 +38,39 @@ namespace Dianzhu.ApplicationService.App
             //Model.DeviceBind devicebind = Mapper.Map<appObj, Model.DeviceBind>(appobj);
             Model.DeviceBind devicebind = new Model.DeviceBind();
             Model.DZMembership dzmembership = null;
-            if (appobj.userID != null && appobj.userID != "")
+            if (!string.IsNullOrEmpty(appobj.userID))
             {
                 Guid userId=utils.CheckGuidID(appobj.userID, "UserId");
                 dzmembership = dzm.GetUserById(userId);
             }
             DateTime dt= DateTime.Now;
-
-            Model.DeviceBind devicebinduuid = blldevicebind.getDevBindByUUID(uuId);
-            if (devicebinduuid == null)
-            {
-                devicebind.IsBinding = true;
-                devicebind.SaveTime = dt;
-                devicebind.AppUUID = uuId;
-                devicebind.BindChangedTime = dt;
-                devicebind.DZMembership = dzmembership;
-                devicebind.AppName = appobj.appName.ToString();
-                devicebind.AppToken = appobj.appToken;
-                blldevicebind.Save(devicebind);
-            }
-            else
-            {
-                devicebinduuid.IsBinding = true;
-                devicebinduuid.BindChangedTime = dt;
-                devicebinduuid.DZMembership = dzmembership;
-                blldevicebind.Update(devicebinduuid);
-            }
+            devicebind.IsBinding = true;
+            devicebind.SaveTime = dt;
+            devicebind.AppUUID = uuId;
+            devicebind.BindChangedTime = dt;
+            devicebind.DZMembership = dzmembership;
+            devicebind.AppName = appobj.appName.ToString();
+            devicebind.AppToken = appobj.appToken;
+            blldevicebind.UpdateAndSave(devicebind);
+            //Model.DeviceBind devicebinduuid = blldevicebind.getDevBindByUUID(uuId);
+            //if (devicebinduuid == null)
+            //{
+            //    devicebind.IsBinding = true;
+            //    devicebind.SaveTime = dt;
+            //    devicebind.AppUUID = uuId;
+            //    devicebind.BindChangedTime = dt;
+            //    devicebind.DZMembership = dzmembership;
+            //    devicebind.AppName = appobj.appName.ToString();
+            //    devicebind.AppToken = appobj.appToken;
+            //    blldevicebind.Save(devicebind);
+            //}
+            //else
+            //{
+            //devicebinduuid.IsBinding = true;
+            //devicebinduuid.BindChangedTime = dt;
+            //devicebinduuid.DZMembership = dzmembership;
+            //blldevicebind.Update(devicebinduuid);
+            //}
             //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             ////NHibernateUnitOfWork.UnitOfWork.Start();
             //devicebind = blldevicebind.getDevBindByUUID(uuId);
@@ -94,7 +101,7 @@ namespace Dianzhu.ApplicationService.App
             obj.PushAmount = 0;
             obj.IsBinding = false;
             obj.BindChangedTime = DateTime.Now;
-            blldevicebind.SaveOrUpdate(obj);
+            //blldevicebind.SaveOrUpdate(obj);
             return "删除成功！";
         }
 
@@ -123,7 +130,7 @@ namespace Dianzhu.ApplicationService.App
             }
             obj.PushAmount = c;
             obj.BindChangedTime = DateTime.Now;
-            blldevicebind.SaveOrUpdate(obj);
+            //blldevicebind.SaveOrUpdate(obj);
             return "更新成功！";
         }
     }

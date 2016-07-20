@@ -14,7 +14,8 @@ using System.Text.RegularExpressions;
 using System.Collections.Specialized;
 using PHSuit;
 using System.Reflection;
-
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Web.UI.WebControls;
 
 namespace Dianzhu.ApplicationService
 {
@@ -373,15 +374,57 @@ namespace Dianzhu.ApplicationService
             //respData.Add("originalName", string.Empty);
             //respData.Add("domainType", "StaffAvatar");
             //respData.Add("fileType", "image");
-
+            
             string url = Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl");
             var respData = new NameValueCollection();
-            respData.Add("fileUrl", HttpUtility.UrlEncode(fileUrl));
+            string strUrl = HttpUtility.UrlEncode(fileUrl);
+            if (fileUrl.IndexOf(':') == 1)
+            {
+                respData.Add("fileBase64", ToBase64(fileUrl));
+            }
+            else
+            {
+                respData.Add("fileUrl", strUrl);
+            }
             respData.Add("originalName", strOriginalName);
             respData.Add("domainType", strDomainType);
             respData.Add("fileType", strFileType);
 
             return HttpHelper.CreateHttpRequest(url.ToString(), "post", respData);
+        }
+
+        /// <summary>
+        /// 将图片数据转换为Base64字符串
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static string ToBase64(string fileUrl)
+        {
+            //Image img = new Image();
+            //img.ImageUrl = fileUrl;
+            //BinaryFormatter binFormatter = new BinaryFormatter();
+            //MemoryStream memStream = new MemoryStream();
+            //binFormatter.Serialize(memStream, img);
+            //byte[] bytes = memStream.GetBuffer();
+            //string base64 = Convert.ToBase64String(bytes);
+            string base64Img = Convert.ToBase64String(System.IO.File.ReadAllBytes(fileUrl));
+            return base64Img;
+            
+        }
+
+        /// <summary>
+        /// 将Base64字符串转换为图片
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ToImage(object sender, EventArgs e)
+        {
+            //string base64 = this.richTextBox.Text;
+            //byte[] bytes = Convert.FromBase64String(base64);
+            //MemoryStream memStream = new MemoryStream(bytes);
+            //BinaryFormatter binFormatter = new BinaryFormatter();
+            //Image img = (Image)binFormatter.Deserialize(memStream);
+            //this.pictureBox.Image = img;
         }
 
         /// <summary>
