@@ -29,30 +29,14 @@ namespace Dianzhu.CSClient.ViewWPF
 
             if(chat.From.UserType== Model.Enums.enum_UserType.customer)
             {
-                if (chat.From.AvatarUrl != null)
-                {
-                    imgAvatarCustomer.Source = new BitmapImage(new Uri(chat.From.AvatarUrl));
-                }
-                else
-                {
-                    imgAvatarCustomer.Source = new BitmapImage(new Uri("pack://siteoforigin:,,,/Resources/logourl.png", UriKind.Absolute));
-                }
-
+                imgAvatarCustomer.Source = InitAvatar(chat.From.AvatarUrl);
                 wpnlChat.HorizontalAlignment = HorizontalAlignment.Left;
                 tbNameCustomer.Text = chat.From.DisplayName;
                 tbTimeCustomer.Text = chat.SavedTime.ToString();
             }
             else
             {
-                if (chat.From.AvatarUrl != null)
-                {
-                    imgAvatarCS.Source = new BitmapImage(new Uri(chat.From.AvatarUrl));
-                }
-                else
-                {
-                    imgAvatarCS.Source = new BitmapImage(new Uri("pack://siteoforigin:,,,/Resources/logourl.png", UriKind.Absolute));
-                }
-
+                imgAvatarCS.Source = InitAvatar(chat.From.AvatarUrl);
                 wpnlChat.HorizontalAlignment = HorizontalAlignment.Right;
                 tbNameCS.Text = chat.From.DisplayName;
                 tbTimeCS.Text = chat.SavedTime.ToString();
@@ -61,8 +45,25 @@ namespace Dianzhu.CSClient.ViewWPF
                     lblChatBorder.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFb3d465"));
                 }
             }
-
+            
             InitData(chat);
+        }
+
+        private ImageSource InitAvatar(string avatar)
+        {
+            string uriAvatar = avatar;
+
+            if (uriAvatar != null)
+            {
+                uriAvatar = uriAvatar.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
+                uriAvatar = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + uriAvatar;
+            }
+            else
+            {
+                uriAvatar = "pack://siteoforigin:,,,/Resources/logourl.png";
+            }
+
+            return new BitmapImage(new Uri(uriAvatar, UriKind.Absolute));
         }
 
         private void InitData(ReceptionChat chat)
