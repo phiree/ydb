@@ -110,5 +110,39 @@ namespace Dianzhu.ApplicationService
             }
         }
 
+        string _payTarget = "";
+        /// <summary>
+        /// 支付接口类型:支付宝,微信..
+        /// </summary>
+        /// <type>string</type>
+        public string payTarget
+        {
+            get
+            {
+                return _payTarget;
+            }
+            set
+            {
+                _payTarget = value;
+            }
+        }
+
+        //bool _online = true;
+        ///// <summary>
+        ///// 是否在线支付（true Or false）//修改的参数
+        ///// </summary>
+        ///// <type>boolean</type>
+        //public bool online
+        //{
+        //    get
+        //    {
+        //        return _online;
+        //    }
+        //    set
+        //    {
+        //        _online = value;
+        //    }
+        //}
+
     }
 }

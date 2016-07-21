@@ -103,7 +103,7 @@ namespace Dianzhu.BLL
         public IList<Staff> GetStaffs(Model.Trait_Filtering filter, string alias, string email, string phone, string sex, string specialty, string realName, Guid storeID)
         {
             var where = PredicateBuilder.True<Staff>();
-            where = where.And(x => x.Enable);
+            //where = where.And(x => x.Enable);
             if (storeID != Guid.Empty)
             {
                 where = where.And(x => x.Belongto.Id == storeID);
@@ -162,7 +162,7 @@ namespace Dianzhu.BLL
         public long GetStaffsCount(string alias, string email, string phone, string sex, string specialty, string realName, Guid storeID)
         {
             var where = PredicateBuilder.True<Staff>();
-            where = where.And(x => x.Enable);
+            //where = where.And(x => x.Enable);
             if (storeID != Guid.Empty)
             {
                 where = where.And(x => x.Belongto.Id == storeID);
@@ -203,7 +203,7 @@ namespace Dianzhu.BLL
         public Staff GetStaff(Guid storeID, Guid staffID)
         {
             var where = PredicateBuilder.True<Staff>();
-            where = where.And(x => x.Enable);
+            //where = where.And(x => x.Enable);
             if (staffID != Guid.Empty)
             {
                 where = where.And(x => x.Id == staffID);

@@ -228,7 +228,7 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <returns></returns>
         public workTimeObj GetWorkTime(string storeID, string serviceID, string workTimeID)
         {
-            workTimeObj worktimeobj = new workTimeObj();
+            workTimeObj worktimeobj = null ;
             Model.DZService service = bllDZService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
             if (service == null)
             {
@@ -251,6 +251,10 @@ namespace Dianzhu.ApplicationService.WorkTime
                     worktimeobj = Mapper.Map<Model.ServiceOpenTimeForDay, workTimeObj>(sotdayObj);
                     worktimeobj.week = sotObj.DayOfWeek.ToString();
                 }
+            }
+            if (worktimeobj == null)
+            {
+                throw new Exception(Dicts.StateCode[4]);
             }
             return worktimeobj;
         }

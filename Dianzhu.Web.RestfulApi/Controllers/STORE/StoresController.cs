@@ -30,7 +30,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORE
                 {
                     storeobj = new storeObj();
                 }
-                return Json(istore.PostStore(storeobj));
+                return Json(istore.PostStore(storeobj, GetRequestHeader.GetTraitHeaders()));
             }
             catch (Exception ex)
             {
@@ -172,7 +172,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORE
                 {
                     storeobj = new storeObj();
                 }
-                return Json(istore.PatchStore(id, storeobj));
+                return Json(istore.PatchStore(id, storeobj, GetRequestHeader.GetTraitHeaders()));
             }
             catch (Exception ex)
             {
@@ -189,7 +189,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORE
         {
             try
             {
-                return Json(istore.DeleteStore(id));
+                return Json(istore.DeleteStore(id, GetRequestHeader.GetTraitHeaders()));
             }
             catch (Exception ex)
             {

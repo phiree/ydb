@@ -102,6 +102,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<payObj, Model.Payment>()
             .ForMember(x => x.Status, opt => opt.MapFrom(source => source.payStatus))
             .ForMember(x => x.PayTarget, opt => opt.MapFrom(source => source.type))
+            .ForMember(x => x.PayType, opt => opt.MapFrom(source => source.bOnline? Model.Enums.enum_PayType.Online : Model.Enums.enum_PayType.Offline))
             .ForMember(x => x.LastUpdateTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.updateTime, "yyyyMMddHHmmss", "remindObj.time")))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 

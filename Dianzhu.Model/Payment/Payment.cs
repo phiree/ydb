@@ -66,6 +66,11 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string Memo { get; set; }
 
+        /// <summary>
+        /// 支付类型:是否在线支付
+        /// </summary>
+        public virtual Enums.enum_PayType PayType { get; set; }
+
 
 
 

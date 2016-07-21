@@ -141,11 +141,16 @@ namespace Dianzhu.BLL
         /// <param name="filter"></param>
         /// <param name="searchType"></param>
         /// <param name="status"></param>
+        /// <param name="UserID"></param>
         /// <returns></returns>
-        public IList<ServiceOrder> GetOrders(Trait_Filtering filter, Dianzhu.Model.Enums.enum_OrderSearchType searchType,string status)
+        public IList<ServiceOrder> GetOrders(Trait_Filtering filter, Dianzhu.Model.Enums.enum_OrderSearchType searchType,string status,Guid UserID)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            if(status!=null && status!="")
+            if (UserID != Guid.Empty)
+            {
+                where = where.And(x => x.Business.Owner.Id== UserID);
+            }
+            if(!string.IsNullOrEmpty(status))
             {
                 where = where.And(x => x.OrderStatus.ToString() == status);
             }
@@ -198,10 +203,15 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <param name="searchType"></param>
         /// <param name="status"></param>
+        /// <param name="UserID"></param>
         /// <returns></returns>
-        public long GetOrdersCount(Dianzhu.Model.Enums.enum_OrderSearchType searchType, string status)
+        public long GetOrdersCount(Dianzhu.Model.Enums.enum_OrderSearchType searchType, string status, Guid UserID)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
+            if (UserID != Guid.Empty)
+            {
+                where = where.And(x => x.Business.Owner.Id == UserID);
+            }
             if (status != null && status != "")
             {
                 where = where.And(x => x.OrderStatus.ToString() == status);

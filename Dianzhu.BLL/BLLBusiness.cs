@@ -112,7 +112,7 @@ namespace Dianzhu.BLL
         public IList<Business> GetStores(Trait_Filtering filter, string strName, string UserID)
         {
             var where = PredicateBuilder.True<Business>();
-            
+            //where = where.And(x => x.Enabled);
             if (!string.IsNullOrEmpty(UserID))
             {
                 where = where.And(x => x.Owner.Id == new Guid(UserID));
@@ -147,6 +147,7 @@ namespace Dianzhu.BLL
         public long GetStoresCount(string alias, Guid ownerId)
         {
             var where = PredicateBuilder.True<Business>();
+            //where = where.And(x => x.Enabled);
             if (ownerId != Guid.Empty)
             {
                 where = where.And(x => x.Owner.Id == ownerId);

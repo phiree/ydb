@@ -65,7 +65,7 @@ namespace Dianzhu.ApplicationService.Service
                 servicesobj = Mapper.Map<Model.DZService, servicesObj>(dzservice);
                 servicesobj.location.longitude = dzservice.Business.Longitude.ToString();
                 servicesobj.location.latitude = dzservice.Business.Latitude.ToString();
-                servicesobj.location.address = dzservice.Business.RawAddressFromMapAPI;
+                servicesobj.location.address = dzservice.Business.RawAddressFromMapAPI == null ? "" : dzservice.Business.RawAddressFromMapAPI;
             }
             else
             {
@@ -107,7 +107,7 @@ namespace Dianzhu.ApplicationService.Service
             {
                 serviceobj[i].location.longitude = dzservice[i].Business.Longitude.ToString();
                 serviceobj[i].location.latitude = dzservice[i].Business.Latitude.ToString();
-                serviceobj[i].location.address = dzservice[i].Business.RawAddressFromMapAPI;
+                serviceobj[i].location.address = dzservice[i].Business.RawAddressFromMapAPI == null ? "" : dzservice[i].Business.RawAddressFromMapAPI;
             }
             return serviceobj;
         }
@@ -149,7 +149,7 @@ namespace Dianzhu.ApplicationService.Service
             servicesObj servicesobj = Mapper.Map<Model.DZService, servicesObj>(dzservice);
             servicesobj.location.longitude = dzservice.Business.Longitude.ToString();
             servicesobj.location.latitude = dzservice.Business.Latitude.ToString();
-            servicesobj.location.address = dzservice.Business.RawAddressFromMapAPI;
+            servicesobj.location.address = dzservice.Business.RawAddressFromMapAPI==null?"": dzservice.Business.RawAddressFromMapAPI;
             return servicesobj;
         }
 
@@ -289,7 +289,7 @@ namespace Dianzhu.ApplicationService.Service
             servicesobj = Mapper.Map<Model.DZService, servicesObj>(dzserviceobj);
             servicesobj.location.longitude = dzserviceobj.Business.Longitude.ToString();
             servicesobj.location.latitude = dzserviceobj.Business.Latitude.ToString();
-            servicesobj.location.address = dzserviceobj.Business.RawAddressFromMapAPI;
+            servicesobj.location.address = dzserviceobj.Business.RawAddressFromMapAPI == null ? "" : dzserviceobj.Business.RawAddressFromMapAPI;
             //}
             //else
             //{

@@ -195,11 +195,21 @@ namespace Dianzhu.ApplicationService.Staff
             {
                 throw new Exception("该员工不在职！");
             }
-            staff.Enable = false;
-            //bllStaff.Delete(staff);
+            //staff.Enable = false;
+            bllStaff.Delete(staff);
             //staff = bllStaff.GetStaff(guidStore, guidStaff);
             //if (staff == null)
             //{
+            try
+            {
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            }
+            catch
+            {
+                NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
+                NHibernateUnitOfWork.UnitOfWork.Start();
+                throw new Exception("该员工已经被指派过服务，无法再删除！");
+            }
             return "删除成功！";
             //}
             //else

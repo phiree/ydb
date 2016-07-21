@@ -199,12 +199,12 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _vintage = "";
+        int _vintage = 0;
         /// <summary>
         ///店铺的年份
         /// </summary>
         /// <type>string</type>
-        public string vintage
+        public int vintage
         {
             get
             {
@@ -216,12 +216,12 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _headCount = "";
+        int _headCount = 0;
         /// <summary>
         ///店铺总人数
         /// </summary>
         /// <type>string</type>
-        public string headCount
+        public int headCount
         {
             get
             {

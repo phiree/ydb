@@ -109,7 +109,8 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.payStatus, opt => opt.MapFrom(source => source.Status.ToString()))
             .ForMember(x => x.type, opt => opt.MapFrom(source => source.PayTarget.ToString()))
             .ForMember(x => x.updateTime, opt => opt.MapFrom(source => source.LastUpdateTime.ToString("yyyyMMddHHmmss")))
-            .ForMember(x => x.bOnline, opt => opt.MapFrom(source => source.PayApi!=0))
+            .ForMember(x => x.bOnline, opt => opt.MapFrom(source => source.PayType== Model.Enums.enum_PayType.Online))
+            .ForMember(x => x.payTarget, opt => opt.MapFrom(source => source.PayApi.ToString()))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
 

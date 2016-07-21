@@ -97,11 +97,11 @@ namespace Dianzhu.ApplicationService.Order
                 }
                 orderobj.serviceSnapshotObj.location.longitude = serviceorder.Business.Longitude.ToString();
                 orderobj.serviceSnapshotObj.location.latitude = serviceorder.Business.Latitude.ToString();
-                orderobj.serviceSnapshotObj.location.address = serviceorder.Business.RawAddressFromMapAPI;
+                orderobj.serviceSnapshotObj.location.address = serviceorder.Business.RawAddressFromMapAPI == null ? "" : serviceorder.Business.RawAddressFromMapAPI;
 
                 orderobj.storeObj.location.latitude = serviceorder.Business.Latitude.ToString();
                 orderobj.storeObj.location.longitude = serviceorder.Business.Longitude.ToString();
-                orderobj.storeObj.location.address = serviceorder.Business.RawAddressFromMapAPI;
+                orderobj.storeObj.location.address = serviceorder.Business.RawAddressFromMapAPI==null?"":serviceorder.Business.RawAddressFromMapAPI;
             }
             if (serviceorder.Customer != null)
             {
@@ -117,12 +117,16 @@ namespace Dianzhu.ApplicationService.Order
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="orderfilter"></param>
+        /// <param name="headers"></param>
         /// <returns></returns>
-        public IList<orderObj> GetOrders(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter)
+        public IList<orderObj> GetOrders(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter, common_Trait_Headers headers)
         {
             IList<Model.ServiceOrder> order = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ServiceOrder");
-            order = ibllserviceorder.GetOrders(filter1, orderfilter.statusSort, orderfilter.status);
+            Customer customer = new Customer();
+            customer = customer.getCustomer(headers.token, headers.apiKey, false);
+            Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
+            order = ibllserviceorder.GetOrders(filter1, orderfilter.statusSort, orderfilter.status,guidUser);
             if (order == null)
             {
                 throw new Exception(Dicts.StateCode[4]);
@@ -139,11 +143,15 @@ namespace Dianzhu.ApplicationService.Order
         /// 查询订单数量
         /// </summary>
         /// <param name="orderfilter"></param>
+        /// <param name="headers"></param>
         /// <returns></returns>
-        public countObj GetOrdersCount(common_Trait_OrderFiltering orderfilter)
+        public countObj GetOrdersCount(common_Trait_OrderFiltering orderfilter, common_Trait_Headers headers)
         {
             countObj c = new countObj();
-            c.count = ibllserviceorder.GetOrdersCount(orderfilter.statusSort, orderfilter.status).ToString();
+            Customer customer = new Customer();
+            customer = customer.getCustomer(headers.token, headers.apiKey, false);
+            Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
+            c.count = ibllserviceorder.GetOrdersCount(orderfilter.statusSort, orderfilter.status,guidUser).ToString();
             return c;
         }
 

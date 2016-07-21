@@ -37,16 +37,18 @@ namespace Dianzhu.BLL
         /// <param name="filter"></param>
         /// <param name="searchType"></param>
         /// <param name="status"></param>
+        /// <param name="UserID"></param>
         /// <returns></returns>
-        IList<ServiceOrder> GetOrders(Trait_Filtering filter, Dianzhu.Model.Enums.enum_OrderSearchType searchType, string status);
+        IList<ServiceOrder> GetOrders(Trait_Filtering filter, Dianzhu.Model.Enums.enum_OrderSearchType searchType, string status, Guid UserID);
 
         /// <summary>
         /// 查询订单数量
         /// </summary>
         /// <param name="searchType"></param>
         /// <param name="status"></param>
+        /// <param name="UserID"></param>
         /// <returns></returns>
-        long GetOrdersCount(Dianzhu.Model.Enums.enum_OrderSearchType searchType, string status);
+        long GetOrdersCount(Dianzhu.Model.Enums.enum_OrderSearchType searchType, string status, Guid UserID);
 
         ServiceOrder GetOne(Guid guid);
         void Update(ServiceOrder order);

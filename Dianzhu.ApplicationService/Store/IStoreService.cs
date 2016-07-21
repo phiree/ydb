@@ -12,8 +12,9 @@ namespace Dianzhu.ApplicationService.Store
         /// 新建店铺
         /// </summary>
         /// <param name="storeobj"></param>
+        /// <param name="headers"></param>
         /// <returns></returns>
-        storeObj PostStore(storeObj storeobj);
+        storeObj PostStore(storeObj storeobj, common_Trait_Headers headers);
 
         /// <summary>
         /// 条件读取店铺
@@ -53,21 +54,21 @@ namespace Dianzhu.ApplicationService.Store
         /// <returns></returns>
         storeObj GetStore(string storeID);
 
-
-
         /// <summary>
         /// 删除店铺
         /// </summary>
         /// <param name="storeID"></param>
+        /// <param name="headers"></param>
         /// <returns></returns>
-        object DeleteStore(string storeID);
+        object DeleteStore(string storeID, common_Trait_Headers headers);
 
         /// <summary>
         /// 更新店铺信息
         /// </summary>
         /// <param name="storeID"></param>
         /// <param name="storeobj"></param>
+        /// <param name="headers"></param>
         /// <returns></returns>
-        storeObj PatchStore(string storeID, storeObj storeobj);
+        storeObj PatchStore(string storeID, storeObj storeobj, common_Trait_Headers headers);
     }
 }
