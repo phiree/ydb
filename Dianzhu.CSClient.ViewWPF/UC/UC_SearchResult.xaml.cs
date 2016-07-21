@@ -15,9 +15,30 @@ using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
+    public class EnumToBooleanConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value == null ? false : value.Equals(parameter);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value != null && value.Equals(true) ? parameter : Binding.DoNothing;
+        }
+    }
+
+    public enum SampleEnum
+    {
+        ByDistance,
+        ByPrice,
+        ByApprise
+    }
+
     /// <summary>
     /// UC_SearchResult.xaml 的交互逻辑
     /// </summary>
@@ -30,6 +51,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             InitializeComponent();
             this.iIm = iIm;
+            DataContext = new SampleClass();
         }
 
         IList<DZService> searchedService;
@@ -227,6 +249,51 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             set {
                 lblLoadingText.Content = value;
+            }
+        }
+
+        #region radiobutton 排序
+
+        
+
+        #endregion
+    }
+
+
+    public class SampleClass : INotifyPropertyChanged
+    {
+        private SampleEnum _sampleEnum;
+
+        public SampleEnum SampleEnum
+        {
+            get { return _sampleEnum; }
+            set
+            {
+                _sampleEnum = value;
+                //HitCount++;
+            }
+        }
+
+        //为了显示Set的触发次数
+        //private int _hitCount;
+        //public int HitCount
+        //{
+        //    get { return _hitCount; }
+        //    set
+        //    {
+        //        _hitCount = value;
+        //        OnPropertyChanged("HitCount");
+        //    }
+        //}
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string p_propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(p_propertyName));
             }
         }
     }

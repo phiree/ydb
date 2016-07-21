@@ -55,6 +55,10 @@ namespace Dianzhu.ApplicationService.Remind
         public remindObj GetRemindById(string remindID)
         {
             Model.ServiceOrderRemind remind = bllremind.GetRemindById(utils.CheckGuidID(remindID, "remindID"));
+            if (remind == null)
+            {
+                throw new Exception(Dicts.StateCode[4]);
+            }
             remindObj remindobj = Mapper.Map<Model.ServiceOrderRemind, remindObj>(remind);
             return remindobj;
         }

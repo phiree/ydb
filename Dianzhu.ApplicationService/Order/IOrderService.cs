@@ -20,15 +20,17 @@ namespace Dianzhu.ApplicationService.Order
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="orderfilter"></param>
+        /// <param name="headers"></param>
         /// <returns></returns>
-        IList<orderObj> GetOrders(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter);
+        IList<orderObj> GetOrders(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter, common_Trait_Headers headers);
 
         /// <summary>
         /// 查询订单数量
         /// </summary>
         /// <param name="orderfilter"></param>
+        /// <param name="headers"></param>
         /// <returns></returns>
-        countObj GetOrdersCount(common_Trait_OrderFiltering orderfilter);
+        countObj GetOrdersCount(common_Trait_OrderFiltering orderfilter, common_Trait_Headers headers);
 
         /// <summary>
         /// 根据订单 ID 读取订单

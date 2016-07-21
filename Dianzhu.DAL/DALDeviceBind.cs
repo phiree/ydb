@@ -28,31 +28,44 @@ namespace Dianzhu.DAL
 
         }
 
-
-        public void SaveOrUpdate(DeviceBind devicebind)
+        /// <summary>
+        /// 解除之前所有 apptoken  和 member的绑定,然后保存新的绑定
+        /// </summary>
+        /// <param name="devicebind"></param>
+        public void UpdateAndSave(DeviceBind devicebind)
         {
-            using (var t = Session.BeginTransaction())
+            DeviceBind db= FindOne(x => x.AppUUID == devicebind.AppUUID && x.IsBinding == true && x.DZMembership.Id== devicebind.DZMembership.Id);
+            if (db == null)
             {
-                //解除之前所有 apptoken  和 member的绑定
-                string unbind_sql = "update DeviceBind db set db.IsBinding=0,db.BindChangedTime='" + devicebind.BindChangedTime.ToString("yyyy-MM-dd HH:mm:ss")
-                                + "' where db.IsBinding=1 and( ";
-                if (devicebind.DZMembership == null)
+                using (var t = Session.BeginTransaction())
                 {
-                    unbind_sql += "db.DZMembership.Id is null ";
-                }
-                else
-                {
-                    unbind_sql += "db.DZMembership.Id='" + devicebind.DZMembership.Id + "'";
-                }
-                unbind_sql += " or  db.AppToken='" + devicebind.AppToken + "')";
-                IQuery query = Session.CreateQuery(unbind_sql);
-                query.ExecuteUpdate();
+                    //解除之前所有 apptoken  和 member的绑定
+                    string unbind_sql = "update DeviceBind db set db.IsBinding=0,db.BindChangedTime='" + devicebind.BindChangedTime.ToString("yyyy-MM-dd HH:mm:ss")
+                                    + "' where db.IsBinding=1 and( ";
+                    if (devicebind.DZMembership == null)
+                    {
+                        unbind_sql += "db.DZMembership.Id is null ";
+                    }
+                    else
+                    {
+                        unbind_sql += "db.DZMembership.Id='" + devicebind.DZMembership.Id + "'";
+                    }
+                    unbind_sql += " or  db.AppToken='" + devicebind.AppToken + "')";
+                    IQuery query = Session.CreateQuery(unbind_sql);
+                    query.ExecuteUpdate();
 
-                t.Commit();
+                    t.Commit();
+                }
+
+                //记录本次绑定
+                Add(devicebind);
             }
-
-            //记录本次绑定
-            Add(devicebind);
+            else
+            {
+                db.IsBinding = true;
+                db.BindChangedTime = devicebind.BindChangedTime;
+                //blldevicebind.Update(devicebinduuid);
+            }
 
         }
 

@@ -111,6 +111,13 @@
 
                     <WrapPanel Margin="0,1" VerticalAlignment="Center">
                         <Label>
+                            <TextBlock Text="服务名称" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                        </Label>
+                        <TextBox x:Name="tbxKeywordServiceName" Text="" Style="{DynamicResource TextBoxValue}"/>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0,1" VerticalAlignment="Center">
+                        <Label>
                             <TextBlock Text="价格区间" Style="{DynamicResource TextBlockKey}"></TextBlock>
                         </Label>
                         <!--￥-->
@@ -153,7 +160,7 @@
                             <TextBlock Text="注" Style="{DynamicResource TextBlockKey}"></TextBlock>
                         </Label>
 
-                        <TextBox x:Name="tbxKeywordMemo" Text="XXX" Style="{DynamicResource TextBoxValue}" Height="46" VerticalScrollBarVisibility="Auto"/>
+                        <TextBox x:Name="tbxKeywordMemo" Text="XXX" Style="{DynamicResource TextBoxValue}" VerticalScrollBarVisibility="Auto"/>
                     </WrapPanel>
 
                     <WrapPanel HorizontalAlignment="Center" Margin="0,20,0,0">

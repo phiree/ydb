@@ -80,6 +80,7 @@ namespace Dianzhu.Model
         public virtual void CopyTo(ServiceOpenTimeForDay newSotForDay)
         {
             newSotForDay.Id = Id;
+            newSotForDay.Tag = Tag;
             newSotForDay.MaxOrderForOpenTime = MaxOrderForOpenTime;
             newSotForDay.Enabled = Enabled;
             newSotForDay.ServiceOpenTime = ServiceOpenTime;

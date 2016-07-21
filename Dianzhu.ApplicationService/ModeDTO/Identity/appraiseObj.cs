@@ -8,23 +8,55 @@ namespace Dianzhu.ApplicationService
 {
     public class appraiseObj
     {
-
+        string _target = "";
         /// <summary>
         /// 评价的目标
         /// </summary>
         /// <type>string</type>
-        public string target { get; set; }
+        public string target
+        {
+            get
+            {
+                return _target;
+            }
+            set
+            {
+                _target = value;
+            }
+        }
 
+        string _value = "";
         /// <summary>
         /// 评分值（0~5的整数）
         /// </summary>
         /// <type>string</type>
-        public string value { get; set; }
+        public string value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
 
+        string _content = "";
         /// <summary>
         /// 描述
         /// </summary>
         /// <type>string</type>
-        public string content { get; set; }
+        public string content
+        {
+            get
+            {
+                return _content;
+            }
+            set
+            {
+                _content = value;
+            }
+        }
     }
 }

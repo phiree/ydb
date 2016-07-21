@@ -30,5 +30,15 @@ namespace Dianzhu.Web.RestfulApi
         {
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
         }
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.LastError");
+            Exception ex = Server.GetLastError();
+            if (ex.InnerException != null)
+            {
+                log.Error("InnerException(Global.LastError):" + ex.InnerException.Message);
+            }
+            log.Error("Error(Global.LastError):" + ex.Message);
+        }
     }
 }

@@ -93,9 +93,9 @@ namespace Dianzhu.BLL
         {
             DALDZService.Delete(dz);
         }
-        public IList<DZService> SearchService(decimal priceMin, decimal priceMax, Guid typeId, DateTime datetime, int pageIndex, int pagesize, out int total)
+        public IList<DZService> SearchService(string name, decimal priceMin, decimal priceMax, Guid typeId, DateTime datetime, int pageIndex, int pagesize, out int total)
         {
-            return DALDZService.SearchService(priceMin, priceMax, typeId, datetime, pageIndex, pagesize, out total);
+            return DALDZService.SearchService(name, priceMin, priceMax, typeId, datetime, pageIndex, pagesize, out total);
         }
 
         /// <summary>
@@ -121,6 +121,7 @@ namespace Dianzhu.BLL
         public IList<DZService> GetServices(Model.Trait_Filtering filter, Guid typeId, string strName, string introduce, decimal startAt, Guid storeID)
         {
             var where = PredicateBuilder.True<DZService>();
+            where = where.And(x => x.IsDeleted == false);
             if (typeId != Guid.Empty)
             {
                 where = where.And(x => x.ServiceType.Id == typeId);
@@ -171,6 +172,7 @@ namespace Dianzhu.BLL
         public long GetServicesCount(Guid typeId, string strName, string introduce, decimal startAt, Guid storeID)
         {
             var where = PredicateBuilder.True<DZService>();
+            where = where.And(x => x.IsDeleted == false);
             if (typeId != Guid.Empty)
             {
                 where = where.And(x => x.ServiceType.Id == typeId);
@@ -204,6 +206,7 @@ namespace Dianzhu.BLL
         public DZService GetService(Guid storeID, Guid serviceID)
         {
             var where = PredicateBuilder.True<DZService>();
+            where = where.And(x => x.IsDeleted == false);
             if (serviceID != Guid.Empty)
             {
                 where = where.And(x => x.Id == serviceID);

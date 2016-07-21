@@ -52,26 +52,26 @@ namespace Dianzhu.ApplicationService.Order
         void changeObj(orderObj orderobj, Model.ServiceOrder serviceorder)
         {
             Model.ServiceOrderStateChangeHis statehis = bllstatehis.GetMaxNumberOrderHis(serviceorder);
+            orderobj.currentStatusObj = Mapper.Map<Model.ServiceOrderStateChangeHis, orderStatusObj>(statehis);
             if (orderobj.currentStatusObj == null)
             {
                 orderobj.currentStatusObj = new orderStatusObj();
             }
-            orderobj.currentStatusObj = Mapper.Map<Model.ServiceOrderStateChangeHis, orderStatusObj>(statehis);
+            orderobj.serviceSnapshotObj = Mapper.Map<Model.DZService, servicesObj>(serviceorder.Service);
             if (orderobj.serviceSnapshotObj == null)
             {
                 orderobj.serviceSnapshotObj = new servicesObj();
             }
-            orderobj.serviceSnapshotObj = Mapper.Map<Model.DZService, servicesObj>(serviceorder.Service);
+            orderobj.customerObj = Mapper.Map<Model.DZMembership, customerObj>(serviceorder.Customer);
             if (orderobj.customerObj == null)
             {
                 orderobj.customerObj = new customerObj();
             }
-            orderobj.customerObj = Mapper.Map<Model.DZMembership, customerObj>(serviceorder.Customer);
+            orderobj.storeObj = Mapper.Map<Model.Business, storeObj>(serviceorder.Business);
             if (orderobj.storeObj == null)
             {
                 orderobj.storeObj = new storeObj();
             }
-            orderobj.storeObj = Mapper.Map<Model.Business, storeObj>(serviceorder.Business);
             if (serviceorder.Business != null)
             {
                 foreach (Model.BusinessImage bimg in serviceorder.Business.ChargePersonIdCards)
@@ -95,27 +95,16 @@ namespace Dianzhu.ApplicationService.Order
                         orderobj.storeObj.showImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
                     }
                 }
-                if (orderobj.serviceSnapshotObj.location == null)
-                {
-                    orderobj.serviceSnapshotObj.location = new locationObj();
-                }
                 orderobj.serviceSnapshotObj.location.longitude = serviceorder.Business.Longitude.ToString();
                 orderobj.serviceSnapshotObj.location.latitude = serviceorder.Business.Latitude.ToString();
-                orderobj.serviceSnapshotObj.location.address = serviceorder.Business.RawAddressFromMapAPI;
-                if (orderobj.storeObj.location == null)
-                {
-                    orderobj.storeObj.location = new locationObj();
-                }
+                orderobj.serviceSnapshotObj.location.address = serviceorder.Business.RawAddressFromMapAPI == null ? "" : serviceorder.Business.RawAddressFromMapAPI;
+
                 orderobj.storeObj.location.latitude = serviceorder.Business.Latitude.ToString();
                 orderobj.storeObj.location.longitude = serviceorder.Business.Longitude.ToString();
-                orderobj.storeObj.location.address = serviceorder.Business.RawAddressFromMapAPI;
+                orderobj.storeObj.location.address = serviceorder.Business.RawAddressFromMapAPI==null?"":serviceorder.Business.RawAddressFromMapAPI;
             }
             if (serviceorder.Customer != null)
             {
-                if (orderobj.customerServicesObj == null)
-                {
-                    orderobj.customerServicesObj = new customerServicesObj();
-                }
                 orderobj.customerServicesObj.id = serviceorder.Customer.Id.ToString();
                 orderobj.customerServicesObj.alias = serviceorder.Customer.DisplayName;
                 orderobj.customerServicesObj.imgUrl = serviceorder.Customer.AvatarUrl;
@@ -128,12 +117,16 @@ namespace Dianzhu.ApplicationService.Order
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="orderfilter"></param>
+        /// <param name="headers"></param>
         /// <returns></returns>
-        public IList<orderObj> GetOrders(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter)
+        public IList<orderObj> GetOrders(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter, common_Trait_Headers headers)
         {
             IList<Model.ServiceOrder> order = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ServiceOrder");
-            order = ibllserviceorder.GetOrders(filter1, orderfilter.statusSort, orderfilter.status);
+            Customer customer = new Customer();
+            customer = customer.getCustomer(headers.token, headers.apiKey, false);
+            Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
+            order = ibllserviceorder.GetOrders(filter1, orderfilter.statusSort, orderfilter.status,guidUser);
             if (order == null)
             {
                 throw new Exception(Dicts.StateCode[4]);
@@ -150,11 +143,15 @@ namespace Dianzhu.ApplicationService.Order
         /// 查询订单数量
         /// </summary>
         /// <param name="orderfilter"></param>
+        /// <param name="headers"></param>
         /// <returns></returns>
-        public countObj GetOrdersCount(common_Trait_OrderFiltering orderfilter)
+        public countObj GetOrdersCount(common_Trait_OrderFiltering orderfilter, common_Trait_Headers headers)
         {
             countObj c = new countObj();
-            c.count = ibllserviceorder.GetOrdersCount(orderfilter.statusSort, orderfilter.status).ToString();
+            Customer customer = new Customer();
+            customer = customer.getCustomer(headers.token, headers.apiKey, false);
+            Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
+            c.count = ibllserviceorder.GetOrdersCount(orderfilter.statusSort, orderfilter.status,guidUser).ToString();
             return c;
         }
 

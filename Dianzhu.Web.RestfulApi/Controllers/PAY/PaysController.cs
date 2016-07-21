@@ -119,8 +119,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.PAY
         {
             try
             {
-                //return Json(ipay.GetPay3rd(orderID, payID, payTarget));
-                return Json("4");
+                return Json(ipay.GetPay3rdString(orderID, payID, payTarget));
             }
             catch (Exception ex)
             {

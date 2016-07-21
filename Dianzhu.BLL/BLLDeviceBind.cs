@@ -39,7 +39,17 @@ namespace Dianzhu.BLL
             DALDeviceBind.Update(db);
         }
 
- 
+
+        /// <summary>
+        /// 解除之前所有 apptoken  和 member的绑定,然后保存新的绑定
+        /// </summary>
+        /// <param name="devicebind"></param>
+        public void UpdateAndSave(DeviceBind devicebind)
+        {
+            DALDeviceBind.UpdateAndSave(devicebind);
+        }
+
+
 
         public void Delete(DeviceBind db)
         {

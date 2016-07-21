@@ -8,28 +8,72 @@ namespace Dianzhu.ApplicationService
 {
     public class storeDataObj
     {
+        string _storeID = "";
         /// <summary>
         /// 店铺ID
         /// </summary>
         /// <type>string</type>
-        public string storeID { get; set; }
+        public string storeID
+        {
+            get
+            {
+                return _storeID;
+            }
+            set
+            {
+                _storeID = value;
+            }
+        }
 
+        int _handleCount = 0;
         /// <summary>
         /// 正在处理的订单数
         /// </summary>
-        /// <type>string</type>
-        public string handleCount { get; set; }
+        /// <type>int</type>
+        public int handleCount
+        {
+            get
+            {
+                return _handleCount;
+            }
+            set
+            {
+                _handleCount = value;
+            }
+        }
 
+        int _finishCount = 0;
         /// <summary>
         /// 完成的订单数
         /// </summary>
         /// <type>string</type>
-        public string finishCount { get; set; }
+        public int finishCount
+        {
+            get
+            {
+                return _finishCount;
+            }
+            set
+            {
+                _finishCount = value;
+            }
+        }
 
+        int _allCount = 0;
         /// <summary>
         /// 总单数
         /// </summary>
         /// <type>string</type>
-        public string allCount { get; set; }
+        public int allCount
+        {
+            get
+            {
+                return _allCount;
+            }
+            set
+            {
+                _allCount = value;
+            }
+        }
     }
 }

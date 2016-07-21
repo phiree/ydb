@@ -8,6 +8,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="358" d:DesignWidth="1012">
     <UserControl.Resources>
+        <local:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -146,15 +148,15 @@
                                 </Grid.Background>
 
                                 <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Width="300">
-                                    <RadioButton Margin="14,0" Style="{DynamicResource RadioButtonSort}">
+                                    <RadioButton Margin="14,0" Style="{DynamicResource RadioButtonSort}" IsChecked="{Binding Path=SampleEnum,Converter={StaticResource EnumToBooleanConverter},ConverterParameter={x:Static local:SampleEnum.ByDistance}}">
                                         <TextBlock Text="距离排序"></TextBlock>
                                     </RadioButton>
 
-                                    <RadioButton Margin="14,0" Style="{DynamicResource RadioButtonSort}">
+                                    <RadioButton Margin="14,0" Style="{DynamicResource RadioButtonSort}" IsChecked="{Binding Path=SampleEnum,Converter={StaticResource EnumToBooleanConverter},ConverterParameter={x:Static local:SampleEnum.ByPrice}}">
                                         <TextBlock Text="价格排序"></TextBlock>
                                     </RadioButton>
 
-                                    <RadioButton Margin="14,0" Style="{DynamicResource RadioButtonSort}">
+                                    <RadioButton Margin="14,0" Style="{DynamicResource RadioButtonSort}" IsChecked="{Binding Path=SampleEnum,Converter={StaticResource EnumToBooleanConverter},ConverterParameter={x:Static local:SampleEnum.ByApprise}}">
                                         <TextBlock Text="评价排序"></TextBlock>
                                     </RadioButton>
                                 </WrapPanel>

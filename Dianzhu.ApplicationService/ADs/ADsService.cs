@@ -29,10 +29,7 @@ namespace Dianzhu.ApplicationService.ADs
             {
                 throw new Exception(Dicts.StateCode[4]);
             }
-            if (adf.md5 == null || adf.md5 == "")
-            {
-                throw new Exception("必须传入参数md5！");
-            }
+            
             if (listad.Count > 0)
             {
                 string datetimeStr = "";
@@ -42,17 +39,20 @@ namespace Dianzhu.ApplicationService.ADs
                 }
                 datetimeStr = datetimeStr.TrimEnd(' ');
 
-                //转为MD5
-                string datetimeMd5 = "";
-                MD5 md5Obj = MD5.Create();
-                byte[] d = md5Obj.ComputeHash(Encoding.GetEncoding("Utf-8").GetBytes(datetimeStr));
-                for (int i = 0; i < d.Length; i++)
+                if (adf.md5 != null && adf.md5 != "")
                 {
-                    datetimeMd5 += d[i].ToString("x2");// 2 表示保留2为数字
-                }
-                if (datetimeMd5 == adf.md5.ToLower())
-                {
-                    return new List<adObj>();
+                    //转为MD5
+                    string datetimeMd5 = "";
+                    MD5 md5Obj = MD5.Create();
+                    byte[] d = md5Obj.ComputeHash(Encoding.GetEncoding("Utf-8").GetBytes(datetimeStr));
+                    for (int i = 0; i < d.Length; i++)
+                    {
+                        datetimeMd5 += d[i].ToString("x2");// 2 表示保留2为数字
+                    }
+                    if (datetimeMd5 == adf.md5.ToLower())
+                    {
+                        return new List<adObj>();
+                    }
                 }
             }
             IList<adObj> adobj = Mapper.Map<IList<Model.Advertisement>, IList<adObj>>(listad);

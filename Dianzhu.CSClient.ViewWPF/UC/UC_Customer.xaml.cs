@@ -76,11 +76,12 @@ namespace Dianzhu.CSClient.ViewWPF
         public void LoadData(DZMembership customer)
         {
             tbkCustomerNames.Text = customer.DisplayName;
-            if (customer.AvatarUrl != null)
+            string avatarTemp = customer.AvatarUrl;
+            if (avatarTemp != null)
             {
-                customer.AvatarUrl = customer.AvatarUrl.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
-                customer.AvatarUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + customer.AvatarUrl;
-                imgSource.ImageSource = new BitmapImage(new Uri(customer.AvatarUrl, UriKind.Absolute));
+                avatarTemp = avatarTemp.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
+                avatarTemp = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + avatarTemp;
+                imgSource.ImageSource = new BitmapImage(new Uri(avatarTemp, UriKind.Absolute));
             }
             else
             {

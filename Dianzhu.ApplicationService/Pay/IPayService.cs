@@ -41,5 +41,14 @@ namespace Dianzhu.ApplicationService.Pay
         /// <param name="payobj"></param>
         /// <returns></returns>
         payObj PatchPay(string orderID, string payID, payObj payobj);
+
+        /// <summary>
+        /// 获得第三方支付字符串
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="payID"></param>
+        /// <param name="payTarget"></param>
+        /// <returns></returns>
+        countObj GetPay3rdString(string orderID, string payID, string payTarget);
     }
 }

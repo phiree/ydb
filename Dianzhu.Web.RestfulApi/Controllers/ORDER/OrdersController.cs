@@ -37,7 +37,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     orderfilter = new common_Trait_OrderFiltering();
                 }
-                return Json(iorder.GetOrders(filter, orderfilter));
+                return Json(iorder.GetOrders(filter, orderfilter, GetRequestHeader.GetTraitHeaders()));
             }
             catch (Exception ex)
             {
@@ -59,7 +59,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     orderfilter = new common_Trait_OrderFiltering();
                 }
-                return Json(iorder.GetOrdersCount(orderfilter));
+                return Json(iorder.GetOrdersCount(orderfilter, GetRequestHeader.GetTraitHeaders()));
             }
             catch (Exception ex)
             {

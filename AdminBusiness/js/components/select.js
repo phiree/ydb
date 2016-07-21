@@ -27,14 +27,15 @@
         _Select.DEFAULTS = {};
 
         _Select.prototype._buildDOM = function () {
-            var _this = this;
+            var _this = this,citeText;
 
             // 如容器内已有ul则使用ul里的li,a元素
             if ( this.$el.find("ul").length ){
                 this.$list = this.$el.find("ul");
                 this.$a = this.$list.find("a");
                 this.$a.each(function(index){
-                    $(this).attr({
+                    // 这里有两次赋值，val赋值是为了jquery内容部程序访问得到，value属性赋值是为了a标签正确的设置value属性。可能jQuery这里有bug，暂时不深究。
+                    $(this).val(index).attr({
                         value: index,
                         href: "javascript:void(0);"
                     })
@@ -49,16 +50,31 @@
             this.$input = this.$el.find("input").length && this.$el.find("input");
 
             this.$cite = $("<cite></cite>");
-            this.$cite.html(this.$a.eq(0).html());
 
             this.$el.prepend(this.$cite);
 
-            // 初始化下拉列表的值
+            // 初始化下拉列表标题cite的值
+            // TODO: 逻辑可以优化一下
             if ( !this.$input.val() ) {
+                // 如果input没有值,则input默认为第一个a标签的值
                 this.$input.val(this.$a.eq(0).attr("value"));
+                citeText = this.$a.eq(0).html();
             } else {
-                this.$cite.html(this.$a.eq(this.$input.val()).html());
+                // 如果input有值,则input筛选对应值的a标签的文本为cite的值
+                var val = this.$input.val();
+                var selectedA = this.$a.filter(function(index){
+                    return $(this).val() == val;
+                });
+
+                // 如果找不到对应的a标签, 则默认使用第一个a标签的值
+                if (selectedA.length){
+                    citeText = selectedA.html();
+                } else {
+                    citeText = this.$a.eq(0).html();
+                }
             }
+            this.$cite.html(citeText);
+
         };
 
         function buildTypeList(type){
@@ -69,8 +85,11 @@
                 if (type === "year"){
                     count = 1980; step = -1;
                     for (var i = new Date().getFullYear(); i > count; i += step ) {
-                        this.$list.append("<li><a " + "value=" + i + " href=javascript:void(0); " + ">" + i + "</a></li>");
-                    };
+                        this.$list.append($("<li></li>").append($("<a></a>").html(i).val(i).attr({
+                            value : i,
+                            href: "javascript:void(0);"
+                        })));
+                    }
                 } else {
                     switch ( type ){
                         case "hour" :
@@ -90,8 +109,11 @@
                     }
 
                     for (var i = 0; i < count; i += step ) {
-                        this.$list.append("<li><a " + "value=" + i + " href=javascript:void(0); " + ">" + i + "</a></li>");
-                    };
+                        this.$list.append($("<li></li>").append($("<a></a>").html(i).val(i).attr({
+                            value : i,
+                            href: "javascript:void(0);"
+                        })));
+                    }
                 }
 
                 this.$a = this.$list.find("a");

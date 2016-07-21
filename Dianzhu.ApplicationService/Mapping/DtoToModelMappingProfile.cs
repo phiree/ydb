@@ -38,6 +38,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<complaintObj, Model.Complaint>()
+            .ForMember(x => x.ComplaitResourcesUrl, opt => opt.MapFrom(source => source.resourcesUrl))
             .ForMember(x => x.Order, opt => opt.MapFrom(source => new DAL.DALServiceOrder().FindById(utils.CheckGuidID(source.orderID, "orderID"))))
             .ForMember(x => x.Operator, opt => opt.MapFrom(source => new DAL.DALMembership().FindById(utils.CheckGuidID(source.senderID, "senderID"))))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
@@ -46,9 +47,9 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.LastUpdateTime, opt => opt.MapFrom(source => source.updateTime))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<appObj, Model.DeviceBind>()
-            .ForMember(x => x.AppName, opt => opt.MapFrom(source => source.appName .ToString ()))
-            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            //Mapper.CreateMap<appObj, Model.DeviceBind>()
+            //.ForMember(x => x.AppName, opt => opt.MapFrom(source => source.appName .ToString ()))
+            //.ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<remindObj, Model.ServiceOrderRemind>()
             .ForMember(x => x.RemindTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.remindTime, "yyyyMMddHHmmss", "remindObj.time")))
@@ -62,6 +63,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<workTimeObj, Model.ServiceOpenTimeForDay>()
+            //.ForMember(x => x.Id, opt => opt.MapFrom(source => source.id==""?Guid.Empty:utils.CheckGuidID(source.id, "workTimeObj.id")))
             .ForMember(x => x.MaxOrderForOpenTime, opt => opt.MapFrom(source => source.maxCountOrder))
             .ForMember(x => x.Enabled, opt => opt.MapFrom(source => source.bOpen))
             .ForMember(x => x.TimeStart, opt => opt.MapFrom(source => source.startTime))
@@ -86,7 +88,6 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.Photo, opt => opt.MapFrom(source => source.imgUrl))
             .ForMember(x => x.Gender, opt => opt.MapFrom(source => source.sex?"女":"男"))
             .ForMember(x => x.Name, opt => opt.MapFrom(source => source.realName))
-            .ForMember(x => x.Code, opt => opt.MapFrom(source => source.identity))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<storeObj, Model.Business>()
@@ -101,6 +102,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<payObj, Model.Payment>()
             .ForMember(x => x.Status, opt => opt.MapFrom(source => source.payStatus))
             .ForMember(x => x.PayTarget, opt => opt.MapFrom(source => source.type))
+            .ForMember(x => x.PayType, opt => opt.MapFrom(source => source.bOnline? Model.Enums.enum_PayType.Online : Model.Enums.enum_PayType.Offline))
             .ForMember(x => x.LastUpdateTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.updateTime, "yyyyMMddHHmmss", "remindObj.time")))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 

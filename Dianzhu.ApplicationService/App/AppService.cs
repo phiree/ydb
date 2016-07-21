@@ -35,27 +35,54 @@ namespace Dianzhu.ApplicationService.App
             {
                 throw new Exception("Token长度不够64");
             }
-            Model.DeviceBind devicebind = Mapper.Map<appObj, Model.DeviceBind>(appobj);
-            devicebind.IsBinding = true;
-            if (appobj.userID != null && appobj.userID != "")
+            //Model.DeviceBind devicebind = Mapper.Map<appObj, Model.DeviceBind>(appobj);
+            Model.DeviceBind devicebind = new Model.DeviceBind();
+            Model.DZMembership dzmembership = null;
+            if (!string.IsNullOrEmpty(appobj.userID))
             {
                 Guid userId=utils.CheckGuidID(appobj.userID, "UserId");
-                devicebind.DZMembership = dzm.GetUserById(userId);
+                dzmembership = dzm.GetUserById(userId);
             }
-            devicebind.AppUUID = uuId;
             DateTime dt= DateTime.Now;
+            devicebind.IsBinding = true;
             devicebind.SaveTime = dt;
+            devicebind.AppUUID = uuId;
             devicebind.BindChangedTime = dt;
-            blldevicebind.Update(devicebind);
-            devicebind = blldevicebind.getDevBindByUUID(uuId);
-            if (devicebind!=null && devicebind.BindChangedTime == dt)
-            {
-                return "注册成功！";
-            }
-            else
-            {
-                throw new Exception("注册失败");
-            }
+            devicebind.DZMembership = dzmembership;
+            devicebind.AppName = appobj.appName.ToString();
+            devicebind.AppToken = appobj.appToken;
+            blldevicebind.UpdateAndSave(devicebind);
+            //Model.DeviceBind devicebinduuid = blldevicebind.getDevBindByUUID(uuId);
+            //if (devicebinduuid == null)
+            //{
+            //    devicebind.IsBinding = true;
+            //    devicebind.SaveTime = dt;
+            //    devicebind.AppUUID = uuId;
+            //    devicebind.BindChangedTime = dt;
+            //    devicebind.DZMembership = dzmembership;
+            //    devicebind.AppName = appobj.appName.ToString();
+            //    devicebind.AppToken = appobj.appToken;
+            //    blldevicebind.Save(devicebind);
+            //}
+            //else
+            //{
+            //devicebinduuid.IsBinding = true;
+            //devicebinduuid.BindChangedTime = dt;
+            //devicebinduuid.DZMembership = dzmembership;
+            //blldevicebind.Update(devicebinduuid);
+            //}
+            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            ////NHibernateUnitOfWork.UnitOfWork.Start();
+            //devicebind = blldevicebind.getDevBindByUUID(uuId);
+            //if (devicebind!=null && devicebind.BindChangedTime == dt)
+            //{
+            return "注册成功！";
+            //不用进行判断是否修改成功，若是不出异常，还是没有提交成功那就是底层的错误了。
+            //}
+            //else
+            //{
+            //    throw new Exception("注册失败");
+            //}
         }
 
         /// <summary>
@@ -74,7 +101,7 @@ namespace Dianzhu.ApplicationService.App
             obj.PushAmount = 0;
             obj.IsBinding = false;
             obj.BindChangedTime = DateTime.Now;
-            blldevicebind.SaveOrUpdate(obj);
+            //blldevicebind.SaveOrUpdate(obj);
             return "删除成功！";
         }
 
@@ -103,7 +130,7 @@ namespace Dianzhu.ApplicationService.App
             }
             obj.PushAmount = c;
             obj.BindChangedTime = DateTime.Now;
-            blldevicebind.SaveOrUpdate(obj);
+            //blldevicebind.SaveOrUpdate(obj);
             return "更新成功！";
         }
     }
