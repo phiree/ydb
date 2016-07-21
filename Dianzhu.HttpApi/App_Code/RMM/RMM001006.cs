@@ -70,6 +70,13 @@ public class ResponseRMM001006 : BaseResponse
                 return;
             }
 
+            if (startTime > endTime)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "开始时间不得大于结束时间";
+                return;
+            }
+
             DZMembership member;
             if (request.NeedAuthenticate)
             {
@@ -91,7 +98,7 @@ public class ResponseRMM001006 : BaseResponse
             }
             try
             {
-                IList<ServiceOrderRemind> remindList = bllServiceOrderRemind.GetListByUserIdAndDatetime(userId, startTime, endTime);
+                IList<ServiceOrderRemind> remindList = bllServiceOrderRemind.GetListByUserIdAndDatetime(userId, startTime, endTime.AddDays(1));
 
                 IList<RespDataRMM_remindObj> objList = new List<RespDataRMM_remindObj>();
                 RespDataRMM001006 respData = new RespDataRMM001006();
