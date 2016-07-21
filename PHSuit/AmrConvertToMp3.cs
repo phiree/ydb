@@ -46,7 +46,7 @@ namespace PHSuit
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.RedirectStandardInput = true;
-                process.StartInfo.Arguments = " \"cmd /C " + c + "\"";
+                process.StartInfo.Arguments = " \"cmd /C " + c + "\"";// C表示执行完此次操作后关闭
                 process.Start();
                 process.StandardInput.WriteLine(c);
                 process.StandardInput.AutoFlush = true;
