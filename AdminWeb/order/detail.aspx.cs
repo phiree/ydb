@@ -49,16 +49,24 @@ public partial class order_detail : BasePage
         lblTargetAddress.Text = serviceorder.TargetAddress;
         lblTargetTime.Text = serviceorder.TargetTime;
         //lblStaff.Text = serviceorder.Staff.ToArray().ToString();
-        if (serviceorder.Staff.Count > 0)
+        //if (serviceorder.Staff.Count > 0)
+        //{
+        //    foreach (Staff s in serviceorder.Staff)
+        //    {
+        //        lblStaff.Text = lblStaff.Text + s.Name + ",";
+        //    }
+        //    lblStaff.Text = lblStaff.Text.TrimEnd(',');
+        //}
+        //else
+        //{ lblStaff.Text = ""; }
+        if (serviceorder.Staff == null)
         {
-            foreach (Staff s in serviceorder.Staff)
-            {
-                lblStaff.Text = lblStaff.Text + s.Name + ",";
-            }
-            lblStaff.Text = lblStaff.Text.TrimEnd(',');
+            lblStaff.Text = "";
         }
         else
-        { lblStaff.Text = ""; }
+        {
+            lblStaff.Text = serviceorder.Staff.Name;
+        }
         lblUnitAmount.Text = serviceorder.UnitAmount.ToString();
         lblOrderAmount.Text = serviceorder.OrderAmount.ToString();
         lblDepositAmount.Text = serviceorder.DepositAmount.ToString();

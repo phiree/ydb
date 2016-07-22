@@ -55,14 +55,6 @@
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Dianzhu.ApplicationService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dianzhu.ApplicationService\bin\Debug\Dianzhu.ApplicationService.dll</HintPath>
-    </Reference>
-    <Reference Include="Dianzhu.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dianzhu.Model\bin\Debug\Dianzhu.Model.dll</HintPath>
-    </Reference>
     <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
@@ -131,10 +123,6 @@
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="PHSuit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\PHSuit\bin\Debug\PHSuit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -348,6 +336,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.ApplicationService\Dianzhu.ApplicationService.csproj">
+      <Project>{417ac2d5-58e5-4cbc-b14f-c5747274a846}</Project>
+      <Name>Dianzhu.ApplicationService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
       <Project>{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}</Project>
       <Name>Dianzhu.BLL</Name>
@@ -363,6 +355,14 @@
     <ProjectReference Include="..\Dianzhu.IDAL\Dianzhu.IDAL.csproj">
       <Project>{43e8ffa6-60e9-40ca-a7a8-cec8008519dd}</Project>
       <Name>Dianzhu.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
+      <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
+      <Name>Dianzhu.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PHSuit\PHSuit.csproj">
+      <Project>{0122c6d5-6348-4b65-88b7-3c43a6e642f3}</Project>
+      <Name>PHSuit</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

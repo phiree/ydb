@@ -51,8 +51,16 @@ namespace Dianzhu.ApplicationService.Order
         /// </summary>
         /// <param name="orderID"></param>
         /// <param name="orderobj"></param>
+        /// <param name="headers"></param>
         /// <returns></returns>
-        orderObj PatchOrder(string orderID, orderObj orderobj);
+        orderObj PatchOrder(string orderID, orderObj orderobj, common_Trait_Headers headers);
+
+        /// <summary>
+        /// 获得订单所包含的推送服务
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <returns></returns>
+        IList<servicesObj> GetPushServices(string orderID);
 
         /// <summary>
         /// 草稿单确定服务
@@ -75,7 +83,7 @@ namespace Dianzhu.ApplicationService.Order
         /// </summary>
         /// <param name="orderID"></param>
         /// <returns></returns>
-        string GettLinkMan(string orderID);
+        string GetLinkMan(string orderID);
 
         /// <summary>
         /// 请求变更订单状态

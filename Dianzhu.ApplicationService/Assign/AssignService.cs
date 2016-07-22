@@ -47,23 +47,26 @@ namespace Dianzhu.ApplicationService.Assign
             }
             staff.IsAssigned = true;
             oa.Enabled = true;
-            DateTime dt = oa.CreateTime;
+            DateTime dt = DateTime.Now ;
+            oa.CreateTime = dt;
             oa.AssignedTime = dt;
             oa.Order = order;
             oa.AssignedStaff = staff;
-
+            order.Staff = staff;
+            //oa.Order.Details[0].Staff.Clear();
+            //oa.Order.Details[0].Staff.Add(staff);
             bllassign.Save(oa);
-            bllstaff.Update(staff);
-            oa = bllassign.GetAssignById(oa.Id);
-            if (oa != null && oa.CreateTime == dt)
-            {
-                assignobj = Mapper.Map<Model.OrderAssignment,assignObj>(oa);
-                return assignobj;
-            }
-            else
-            {
-                throw new Exception("新建失败");
-            }
+            //bllstaff.Update(staff);
+            //oa = bllassign.GetAssignById(oa.Id);
+            //if (oa != null && oa.CreateTime == dt)
+            //{
+            assignobj = Mapper.Map<Model.OrderAssignment, assignObj>(oa);
+            return assignobj;
+            //}
+            //else
+            //{
+            //    throw new Exception("新建失败");
+            //}
         }
 
         /// <summary>

@@ -64,6 +64,10 @@ namespace Dianzhu.BLL
             else if (l.Count == 1)
             {
                 ServiceOrderPushedService s = l.Single(x => x.OriginalService.Id == selectedService.Id);
+                if (s==null)
+                {
+                    throw new Exception("该服务不是该订单的推送服务！");
+                }
                 order.AddDetailFromIntelService(s.OriginalService, s.UnitAmount, s.TargetAddress, s.TargetTime);
 
                 order.CreatedFromDraft();

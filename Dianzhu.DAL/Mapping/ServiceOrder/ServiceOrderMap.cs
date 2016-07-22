@@ -26,6 +26,9 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.NegotiateAmount);
 
             Map(x => x.DepositAmount);
+
+            //指派的负责人
+            References<Staff>(x => x.Staff);
         }
     }
 }

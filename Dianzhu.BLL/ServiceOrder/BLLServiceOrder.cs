@@ -109,7 +109,7 @@ namespace Dianzhu.BLL
                 case enum_OrderSearchType.De:
                     where = where.And(x => x.OrderStatus == enum_OrderStatus.Finished
 
-                         && x.OrderStatus == enum_OrderStatus.Appraised)
+                         || x.OrderStatus == enum_OrderStatus.Appraised)
                         ;
                     break;
                 case enum_OrderSearchType.Nt:
@@ -139,11 +139,15 @@ namespace Dianzhu.BLL
         /// 查询订单合集
         /// </summary>
         /// <param name="filter"></param>
-        /// <param name="searchType"></param>
+        /// <param name="statusSort"></param>
         /// <param name="status"></param>
+        /// <param name="storeID"></param>
+        /// <param name="formanID"></param>
+        /// <param name="afterThisTime"></param>
+        /// <param name="beforeThisTime"></param>
         /// <param name="UserID"></param>
         /// <returns></returns>
-        public IList<ServiceOrder> GetOrders(Trait_Filtering filter, Dianzhu.Model.Enums.enum_OrderSearchType searchType,string status,Guid UserID)
+        public IList<ServiceOrder> GetOrders(Trait_Filtering filter, string statusSort, string status,Guid storeID,string formanID,DateTime afterThisTime, DateTime beforeThisTime, Guid UserID)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
             if (UserID != Guid.Empty)
@@ -154,15 +158,18 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.OrderStatus.ToString() == status);
             }
-            switch (searchType)
+            //Dianzhu.Model.Enums.enum_OrderSearchType searchType
+            switch (statusSort)//switch (searchType)
             {
-                case enum_OrderSearchType.De:
+                //case enum_OrderSearchType.De:
+                case "done":
                     where = where.And(x => x.OrderStatus == enum_OrderStatus.Finished
 
-                         && x.OrderStatus == enum_OrderStatus.Appraised)
+                         || x.OrderStatus == enum_OrderStatus.Appraised)
                         ;
                     break;
-                case enum_OrderSearchType.Nt:
+                //case enum_OrderSearchType.Nt:
+                case "pending":
                     where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                          && x.OrderStatus != enum_OrderStatus.DraftPushed
                          && x.OrderStatus != enum_OrderStatus.Finished
@@ -172,15 +179,31 @@ namespace Dianzhu.BLL
 
                     break;
                 default:
-                case enum_OrderSearchType.ALL:
+                //case enum_OrderSearchType.ALL:
                     where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                          && x.OrderStatus != enum_OrderStatus.DraftPushed
                          && x.OrderStatus != enum_OrderStatus.Search)
                       ;
                     break;
             }
+            if (storeID != Guid.Empty)
+            {
+                where = where.And(x => x.Business.Id == storeID);
+            }
+            if (formanID != null)
+            {
+                where = where.And(x => x.Staff.Id == new Guid(formanID));
+            }
+            if (afterThisTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.OrderCreated >= afterThisTime);
+            }
+            if (beforeThisTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.OrderCreated <= beforeThisTime);
+            }
             ServiceOrder baseone = null;
-            if (filter.baseID != null && filter.baseID != "")
+            if (!string.IsNullOrEmpty(filter.baseID))
             {
                 try
                 {
@@ -201,32 +224,38 @@ namespace Dianzhu.BLL
         /// <summary>
         /// 查询订单数量
         /// </summary>
-        /// <param name="searchType"></param>
+        /// <param name="statusSort"></param>
         /// <param name="status"></param>
+        /// <param name="storeID"></param>
+        /// <param name="formanID"></param>
+        /// <param name="afterThisTime"></param>
+        /// <param name="beforeThisTime"></param>
         /// <param name="UserID"></param>
         /// <returns></returns>
-        public long GetOrdersCount(Dianzhu.Model.Enums.enum_OrderSearchType searchType, string status, Guid UserID)
+        public long GetOrdersCount(string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID)
         {
+
             var where = PredicateBuilder.True<ServiceOrder>();
             if (UserID != Guid.Empty)
             {
                 where = where.And(x => x.Business.Owner.Id == UserID);
             }
-            if (status != null && status != "")
+            if (!string.IsNullOrEmpty(status))
             {
                 where = where.And(x => x.OrderStatus.ToString() == status);
             }
-
-            switch (searchType)
+            //Dianzhu.Model.Enums.enum_OrderSearchType searchType
+            switch (statusSort)//switch (searchType)
             {
-
-                case enum_OrderSearchType.De:
+                //case enum_OrderSearchType.De:
+                case "done":
                     where = where.And(x => x.OrderStatus == enum_OrderStatus.Finished
 
-                         && x.OrderStatus == enum_OrderStatus.Appraised)
+                         || x.OrderStatus == enum_OrderStatus.Appraised)
                         ;
                     break;
-                case enum_OrderSearchType.Nt:
+                //case enum_OrderSearchType.Nt:
+                case "pending":
                     where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                          && x.OrderStatus != enum_OrderStatus.DraftPushed
                          && x.OrderStatus != enum_OrderStatus.Finished
@@ -236,15 +265,52 @@ namespace Dianzhu.BLL
 
                     break;
                 default:
-                case enum_OrderSearchType.ALL:
+                    //case enum_OrderSearchType.ALL:
                     where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                          && x.OrderStatus != enum_OrderStatus.DraftPushed
                          && x.OrderStatus != enum_OrderStatus.Search)
                       ;
                     break;
             }
+            if (storeID != Guid.Empty)
+            {
+                where = where.And(x => x.Business.Id == storeID);
+            }
+            if (formanID != null)
+            {
+                where = where.And(x => x.Staff.Id == new Guid(formanID));
+            }
+            if (afterThisTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.OrderCreated >= afterThisTime);
+            }
+            if (beforeThisTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.OrderCreated <= beforeThisTime);
+            }
             long count = repoServiceOrder.GetRowCount(where);
             return count;
+        }
+
+        /// <summary>
+        /// 获取商户的一条订单
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
+        public ServiceOrder GetOneOrder(Guid guid,Guid UserID)
+        {
+            var where = PredicateBuilder.True<ServiceOrder>();
+            if (UserID != Guid.Empty)
+            {
+                where = where.And(x => x.Business.Owner.Id == UserID);
+            }
+            where = where.And(x => x.Id == guid);
+            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                        && x.OrderStatus != enum_OrderStatus.DraftPushed
+                        && x.OrderStatus != enum_OrderStatus.Search)
+                     ;
+            return repoServiceOrder.FindOne(where);
         }
 
         public virtual ServiceOrder GetOne(Guid guid)
@@ -276,8 +342,6 @@ namespace Dianzhu.BLL
 
         public IList<ServiceOrder> GetAllByOrderStatus(Dianzhu.Model.Enums.enum_OrderStatus status, int pageIndex, int pageSize, out long totalRecords)
         {
-
-
             var where = PredicateBuilder.True<ServiceOrder>();
             where = where.And(x => x.OrderStatus == status);
             // iuow.BeginTransaction();
@@ -290,10 +354,6 @@ namespace Dianzhu.BLL
             //   .Where(x => x.OrderStatus == status)
             //   .ToList();
         }
-
-
-
-
 
         public IList<ServiceOrder> GetListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount)
         {

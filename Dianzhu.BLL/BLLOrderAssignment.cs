@@ -67,6 +67,7 @@ namespace Dianzhu.BLL
         public IList<Model.OrderAssignment> GetAssigns(Trait_Filtering filter,  Guid staffID, Guid orderID, Guid storeID)
         {
             var where = PredicateBuilder.True<OrderAssignment>();
+            where = where.And(x => x.Enabled);
             if (staffID != Guid.Empty)
             {
                 where = where.And(x => x.AssignedStaff.Id == staffID);
@@ -109,6 +110,7 @@ namespace Dianzhu.BLL
         public long GetAssignsCount(Guid staffID, Guid orderID, Guid storeID)
         {
             var where = PredicateBuilder.True<OrderAssignment>();
+            where = where.And(x => x.Enabled);
             if (staffID != Guid.Empty)
             {
                 where = where.And(x => x.AssignedStaff.Id == staffID);

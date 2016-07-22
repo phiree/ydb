@@ -112,7 +112,30 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         {
             try
             {
-                return Json(iorder.PatchOrder(id, orderobj));
+                if (orderobj == null)
+                {
+                    orderobj = new orderObj();
+                }
+                return Json(iorder.PatchOrder(id, orderobj, GetRequestHeader.GetTraitHeaders()));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
+        /// 获得订单所包含的推送服务
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="serviceID"></param>
+        /// <returns></returns>
+        [Route("api/v1/orders/{orderID}/pushServices")]
+        public IHttpActionResult GetPushServices(string orderID)
+        {
+            try
+            {
+                return Json(iorder.GetPushServices(orderID));
             }
             catch (Exception ex)
             {
@@ -168,11 +191,11 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// <param name="orderID"></param>
         /// <returns></returns>
         [Route("api/v1/orders/{orderID}/linkMan")]
-        public IHttpActionResult GettLinkMan(string orderID)
+        public IHttpActionResult GetLinkMan(string orderID)
         {
             try
             {
-                return Json(iorder.GettLinkMan(orderID));
+                return Json(iorder.GetLinkMan(orderID));
             }
             catch (Exception ex)
             {
@@ -270,11 +293,16 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// <param name="staffID"></param>
         /// <returns></returns>
         [Route("api/v1/orders/{orderID}/forman")]
-        public IHttpActionResult PatchForman(string orderID,[FromUri]string staffID)
+        public IHttpActionResult PatchForman(string orderID,[FromBody]assignObj assignobj)
         {
             try
             {
-                return Json(iorder.PatchForman(orderID, staffID));
+                string strStaffID = "";
+                if (assignobj != null)
+                {
+                    strStaffID = assignobj.staffID;
+                }
+                return Json(iorder.PatchForman(orderID, strStaffID));
             }
             catch (Exception ex)
             {

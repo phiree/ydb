@@ -206,8 +206,6 @@ namespace Dianzhu.ApplicationService.Staff
             }
             catch
             {
-                NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
-                NHibernateUnitOfWork.UnitOfWork.Start();
                 throw new Exception("该员工已经被指派过服务，无法再删除！");
             }
             return "删除成功！";
