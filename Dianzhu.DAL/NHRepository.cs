@@ -63,10 +63,8 @@ namespace Dianzhu.DAL
 
            
 
-                result = Session.Get<TEntity>(identityId); 
-               
-
-
+                result = Session.Get<TEntity>(identityId);
+            
 
             return result;
 
@@ -181,9 +179,11 @@ namespace Dianzhu.DAL
 
             
 
-                result = Session.Query<TEntity>().Where(where).SingleOrDefault(); 
-                
-            
+                result = Session.Query<TEntity>().Where(where).SingleOrDefault();
+
+            //NHibernateUtil.Initialize(result);
+            //在这里改为立即加载没有作用
+            //Session.Clear();
 
             return result;
         }

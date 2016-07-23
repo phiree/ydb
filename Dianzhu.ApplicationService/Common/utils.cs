@@ -137,6 +137,8 @@ namespace Dianzhu.ApplicationService
         /// <returns></returns>
         public static common_Trait_400_Rsponses SetRes_Error(Exception ex)
         {
+            NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
+            NHibernateUnitOfWork.UnitOfWork.Start();
             common_Trait_400_Rsponses res_Error = new common_Trait_400_Rsponses();
             switch (ex.Message)
             {
@@ -473,6 +475,24 @@ namespace Dianzhu.ApplicationService
                 }
             }
             return sortedList;
+        }
+
+        /// <summary>
+        /// 获取服务类型名称
+        /// </summary>
+        /// <param name="st"></param>
+        /// <returns></returns>
+        public static string getServiceType(Model.ServiceType st)
+        {
+            string str = st.ToString();//Model.ServiceType里面重写了ToString
+            string strType = "";
+            while (st != null)
+            {
+                strType = ">" + strType;
+                strType = st.Name + strType;
+                st = st.Parent;
+            }
+            return strType.TrimEnd('>');
         }
     }
 }

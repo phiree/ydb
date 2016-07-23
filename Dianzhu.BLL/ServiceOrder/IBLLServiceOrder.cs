@@ -35,20 +35,36 @@ namespace Dianzhu.BLL
         /// 查询订单合集
         /// </summary>
         /// <param name="filter"></param>
-        /// <param name="searchType"></param>
+        /// <param name="statusSort"></param>
         /// <param name="status"></param>
+        /// <param name="storeID"></param>
+        /// <param name="formanID"></param>
+        /// <param name="afterThisTime"></param>
+        /// <param name="beforeThisTime"></param>
         /// <param name="UserID"></param>
         /// <returns></returns>
-        IList<ServiceOrder> GetOrders(Trait_Filtering filter, Dianzhu.Model.Enums.enum_OrderSearchType searchType, string status, Guid UserID);
+         IList<ServiceOrder> GetOrders(Trait_Filtering filter, string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID);
 
         /// <summary>
         /// 查询订单数量
         /// </summary>
-        /// <param name="searchType"></param>
+        /// <param name="statusSort"></param>
         /// <param name="status"></param>
+        /// <param name="storeID"></param>
+        /// <param name="formanID"></param>
+        /// <param name="afterThisTime"></param>
+        /// <param name="beforeThisTime"></param>
         /// <param name="UserID"></param>
         /// <returns></returns>
-        long GetOrdersCount(Dianzhu.Model.Enums.enum_OrderSearchType searchType, string status, Guid UserID);
+         long GetOrdersCount(string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID);
+
+        /// <summary>
+        /// 获取商户的一条订单
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
+        ServiceOrder GetOneOrder(Guid guid, Guid UserID);
 
         ServiceOrder GetOne(Guid guid);
         void Update(ServiceOrder order);

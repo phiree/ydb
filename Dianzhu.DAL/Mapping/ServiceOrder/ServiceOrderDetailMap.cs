@@ -55,7 +55,7 @@ namespace Dianzhu.DAL.Mapping
             /// <summary>
             /// 该服务分配的员工.
             /// </summary>
-            HasMany(x => x.Staff);
+            //HasMany(x => x.Staff);//员工不能和订单进行直接绑定
         }
     }
 }

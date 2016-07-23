@@ -74,6 +74,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.DZService, servicesObj>()
+           .ForMember(x => x.type, opt => opt.MapFrom(source => source.ServiceType.ToString()))
            .ForMember(x => x.introduce, opt => opt.MapFrom(source => source.Description))
            .ForMember(x => x.startAt, opt => opt.MapFrom(source => source.MinPrice))
            .ForMember(x => x.deposit, opt => opt.MapFrom(source => source.DepositAmount))
@@ -83,6 +84,20 @@ namespace Dianzhu.ApplicationService.Mapping
            .ForMember(x => x.eSupportPayWay, opt => opt.MapFrom(source => source.AllowedPayType.ToString()))
            .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.Enabled))
            .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.MaxOrdersPerDay))
+            .ForAllMembers(opt => opt.NullSubstitute(""));
+
+            Mapper.CreateMap<Model.ServiceOrderPushedService, servicesObj>()
+           .ForMember(x => x.name, opt => opt.MapFrom(source => source.ServiceName))
+           .ForMember(x => x.type, opt => opt.MapFrom(source => source.OriginalService.ServiceType.ToString()))
+           .ForMember(x => x.introduce, opt => opt.MapFrom(source => source.Description))
+           .ForMember(x => x.startAt, opt => opt.MapFrom(source => source.MinPrice))
+           .ForMember(x => x.deposit, opt => opt.MapFrom(source => source.DepositAmount))
+           .ForMember(x => x.appointmentTime, opt => opt.MapFrom(source => source.TargetTime))
+           .ForMember(x => x.bDoorService, opt => opt.MapFrom(source => source.ServiceMode.ToString() == "ToHouse" ? true : false))
+           .ForMember(x => x.eServiceTarget, opt => opt.MapFrom(source => source.OriginalService.IsForBusiness ? "all" : "company"))
+           .ForMember(x => x.eSupportPayWay, opt => opt.MapFrom(source => source.OriginalService.AllowedPayType.ToString()))
+           .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.OriginalService.Enabled))
+           .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.OriginalService.MaxOrdersPerDay))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Staff, staffObj>()

@@ -200,6 +200,7 @@ namespace Dianzhu.ApplicationService.Store
             //Guid guidUser = new Guid();
             Guid guidStore = utils.CheckGuidID(storeID, "storeID");
             Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, guidUser);
+            Model.Business business1 = new Model.Business();
             if (business == null)
             {
                 throw new Exception("该商户不存在该店铺！");
@@ -279,8 +280,6 @@ namespace Dianzhu.ApplicationService.Store
             }
             catch
             {
-                NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
-                NHibernateUnitOfWork.UnitOfWork.Start();
                 throw new Exception("该店铺已经存在服务，不能再删除！");
             }
             return "删除成功！";

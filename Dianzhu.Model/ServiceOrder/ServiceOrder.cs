@@ -337,14 +337,27 @@ namespace Dianzhu.Model
         /// <summary>
         /// 分配的职员
         /// </summary>
-        public virtual IList<Staff> Staff { get{
+        public virtual Staff Staff {
+            //get {
 
-                var l = from detail in Details
-                        select detail into ds
-                        from child in ds.Staff
-                        select child;
-                return l.ToList();
-            } }
+            //    //var l = from detail in Details
+            //    //        select detail into ds
+            //    //        from child in ds.Staff
+            //    //        select child;
+            //    //return l.ToList();
+            //}
+            get; set;//用于保存指派负责人
+        }
+        /// <summary>
+        /// OpenFire订单联系人
+        /// </summary>
+        public virtual string OpenFireLinkMan
+        {
+            get
+            {
+                return Staff==null?business.Owner.Id.ToString():Staff.UserID;
+            }
+        }
         /// <summary>
         /// 服务总数, 用来计算总价 service.unitprice*unitamount
         /// </summary>
