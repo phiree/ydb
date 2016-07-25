@@ -58,7 +58,10 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewSearchResult_PushServiceTimerSend()
         {
-            iView.IdleTimerStart(IdentityManager.CurrentIdentity.Id);
+            if (IdentityManager.CurrentIdentity != null)
+            {
+                iView.IdleTimerStart(IdentityManager.CurrentIdentity.Id); 
+            }
         }
 
         private void IViewChatSend_FinalChatTimerSend()
