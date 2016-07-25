@@ -82,5 +82,31 @@ namespace Dianzhu.Test.DALTest
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
+        [Test]
+        public void SessionCloseAndOpen()
+        {
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            IDAL.IDALDZService dalService = new DAL.DALDZService();
+            long amount;
+            var s1 = NHibernateUnitOfWork.UnitOfWork.CurrentSession;
+            IList<DZService> serviceList = dalService.Find(x => true, 0, 10, out amount);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            var s2 = NHibernateUnitOfWork.UnitOfWork.CurrentSession;
+            Console.WriteLine(s1.Equals(s2));
+            foreach (DZService service in serviceList)
+            {
+                
+                string businessName = service.Business.Name;
+            }
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+        }
+
     }
+
+
+
 }

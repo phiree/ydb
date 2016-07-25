@@ -62,10 +62,9 @@ public class ResponseSHM001007 : BaseResponse
 
             IList<ServiceOrder> orderList = bllServiceOrder.GetOrderListByDateRange( startTime, endTime);
             orderList = orderList.Where(x => x.Details[0].OriginalService.Id.ToString() == service_id).ToList();
-            RespDataSHM001007 respData = new RespDataSHM001007();
-            respData.snapshotObj = new RespDataSHM_snapshotObj().Adap(orderList);
-
-            this.RespData = respData;
+          //  RespDataSHM001007 respData = new RespDataSHM001007();
+          
+            this.RespData = new RespDataSHM_snapshots().Adap(orderList);
             this.state_CODE = Dicts.StateCode[0];
 
         }

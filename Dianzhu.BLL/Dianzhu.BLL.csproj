@@ -81,6 +81,7 @@
     <Compile Include="BLLBusiness.cs" />
     <Compile Include="BLLAdvertisement.cs" />
     <Compile Include="BLLDeviceBind.cs" />
+    <Compile Include="BLLDZServiceStock.cs" />
     <Compile Include="BLLPaymentLog.cs" />
     <Compile Include="BLLMembershipLoginLog.cs" />
     <Compile Include="BLLRefundLog.cs" />

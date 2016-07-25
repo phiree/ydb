@@ -19,11 +19,11 @@ var test_data = [
 
          "ReqData": {
 
-             "stratTime": "2016-7-1",
+             "stratTime": "2016-7-7",
 
-             "endTime": "2016-7-5",
+             "endTime": "2016-7-15",
 
-             "serviceId": "128bfa9f-7ebd-4b4b-84bb-a63500b37e79",
+             "serviceId": "c733d769-6ff0-46a1-bf26-a63d012d9489",
 
              
 
