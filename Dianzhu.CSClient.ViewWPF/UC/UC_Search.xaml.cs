@@ -207,11 +207,15 @@ namespace Dianzhu.CSClient.ViewWPF
 
             if (Search != null)
             {
-                Action ac = () =>
-                {
+                NHibernateUnitOfWork.UnitOfWork.Start();
+                //Action ac = () =>
+                //{
                     Search(targetTime,minPrice,maxPrice,selectedType.Id, serviceName);
-                };
-                NHibernateUnitOfWork.With.Transaction(ac);
+                //};
+                //NHibernateUnitOfWork.With.Transaction(ac);
+
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
 
 

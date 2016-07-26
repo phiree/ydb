@@ -24,6 +24,7 @@ namespace Dianzhu.CSClient.Presenter
         IDAL.IDALReceptionChat dalReceptionChat;
         IDAL.IDALServiceType dalServiceType;
         BLLReceptionStatus bllReceptionStatus;
+        IList<DZService> SelectedServiceList;
         #region 服务类型数据
         Dictionary<ServiceType, IList<ServiceType>> ServiceTypeCach;
         IList<ServiceType> ServiceTypeListTmp;
@@ -35,8 +36,7 @@ namespace Dianzhu.CSClient.Presenter
  
         public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
             IView.IViewOrder viewOrder, IViewChatList viewChatList,IViewIdentityList viewIdentityList,
-            IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder,IDAL.IDALReceptionChat dalReceptionChat, IDAL.IDALServiceType dalServiceType, 
-                    
+            IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder,IDAL.IDALReceptionChat dalReceptionChat, IDAL.IDALServiceType dalServiceType,                     
                     PushService bllPushService, BLLReceptionStatus bllReceptionStatus)
         {
             this.viewSearch = viewSearch; ;
@@ -62,15 +62,36 @@ namespace Dianzhu.CSClient.Presenter
 
             viewSearchResult.SelectService += ViewSearchResult_SelectService;
             viewSearchResult.PushServices += ViewSearchResult_PushServices;
+            viewSearchResult.FilterByBusinessName += ViewSearchResult_FilterByBusinessName; ;
             viewSearch.ServiceTypeFirst_Select += ViewSearch_ServiceTypeFirst_Select;
             viewSearch.ServiceTypeSecond_Select += ViewSearch_ServiceTypeSecond_Select;
             viewSearch.ServiceTypeThird_Select += ViewSearch_ServiceTypeThird_Select;
            
         }
+
+        private void ViewSearchResult_FilterByBusinessName(string businessName)
+        {
+            if (SelectedServiceList != null)
+            {
+                IList<DZService> list = new List<DZService>();
+                foreach (DZService item in SelectedServiceList)
+                {
+                    if (item.Business.Name.Contains(businessName))
+                    {
+                        list.Add(item);
+                    }
+                }
+
+                viewSearchResult.SearchedService = list; 
+            }
+        }
+
         private void LoadTypes()
         {
-            Action ac = () => { 
-            System.Threading.Thread.Sleep(1000);
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            //Action ac = () =>
+            //{
+                System.Threading.Thread.Sleep(1000);
             if (this.ServiceTypeListTmp != null) { return; }
 
           
@@ -85,8 +106,10 @@ namespace Dianzhu.CSClient.Presenter
                 }
             }
             viewSearch.ServiceTypeFirst = ServiceTypeListTmp;
-            };
-            NHibernateUnitOfWork.With.Transaction(ac);
+            //};
+            //NHibernateUnitOfWork.With.Transaction(ac);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
         private void ViewSearch_ServiceTypeThird_Select(ServiceType type)
         {
@@ -95,58 +118,84 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewSearch_ServiceTypeSecond_Select(ServiceType type)
         {
-            Action ac = () => { 
-            try
-            {
-                if (type != null)
+            //NHibernateUnitOfWork.UnitOfWork.Start();
+            //Action ac = () =>
+            //{
+                try
                 {
-                        if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
-                        { 
-
-                            NHibernateUnitOfWork.UnitOfWork.CurrentSession.Refresh(type);
-                        }
-                    ServiceTypeSecond = type;
-                    ServiceTypeThird = null;
-                    if (!ServiceTypeCach.ContainsKey(type))
+                    if (type != null)
                     {
+
+                        //if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
+                        //{
+
+                        //    NHibernateUnitOfWork.UnitOfWork.CurrentSession.Refresh(type);
+                        //}
+                        ServiceTypeSecond = type;
+                        ServiceTypeThird = null;
+                        if (!ServiceTypeCach.ContainsKey(type))
+                        {
+                        bool isSecondTypeStart = false;
+                        if (!NHibernateUnitOfWork.UnitOfWork.IsStarted)
+                        {
+                            NHibernateUnitOfWork.UnitOfWork.Start();
+                            isSecondTypeStart = true;
+                        }
+                        //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                        //NHibernateUnitOfWork.UnitOfWork.Start();
                         ServiceTypeCach[type] = type.Children;
+                        if (isSecondTypeStart)
+                        {
+                            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                        }
+
                     }
-                    viewSearch.ServiceTypeThird = ServiceTypeCach[type];
+                        viewSearch.ServiceTypeThird = ServiceTypeCach[type];
+
+                    }
                 }
-            }
-            catch {
-
-            }
-            };
-            if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
-            {
-                ac();
-            }
-            else
-            {
-                NHibernateUnitOfWork.With.Transaction(ac);
-            }
-
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            //};
+            //if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
+            //{
+            //    ac();
+            //}
+            //else
+            //{
+            //    NHibernateUnitOfWork.With.Transaction(ac);
+            //}
+            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         private void ViewSearch_ServiceTypeFirst_Select(ServiceType type)
         {
-            Action ac = () => { 
-            if (type != null)
-            {
-                NHibernateUnitOfWork.UnitOfWork.CurrentSession.Refresh(type);
 
-                ServiceTypeFirst = type;
+            //Action ac = () =>
+            //{
+                if (type != null)
+            {
+                    //NHibernateUnitOfWork.UnitOfWork.CurrentSession.Refresh(type);
+
+                    ServiceTypeFirst = type;
                 ServiceTypeSecond = null;
                 ServiceTypeThird = null;
                 if (ServiceTypeCach[type] == null)
                 {
+                    NHibernateUnitOfWork.UnitOfWork.Start();
                     ServiceTypeCach[type] = type.Children;
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                    NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
                 }
                 viewSearch.ServiceTypeSecond = ServiceTypeCach[type];
             }
-            };
-            NHibernateUnitOfWork.With.Transaction(ac);
+            //};
+            //NHibernateUnitOfWork.With.Transaction(ac);
+
         }
 
         private ReceptionChat ViewSearchResult_PushServices(IList<Model.DZService> pushedServices)
@@ -168,7 +217,7 @@ namespace Dianzhu.CSClient.Presenter
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
             foreach (DZService service in pushedServices)
             {
-                 NHibernateUnitOfWork.UnitOfWork.Current.Refresh(service);//来自上个session，需刷新
+                //NHibernateUnitOfWork.UnitOfWork.Current.Refresh(service);//来自上个session，需刷新
 
                 serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount,viewSearch.ServiceAddress, viewSearch.SearchKeywordTime ));
             }
@@ -215,17 +264,20 @@ namespace Dianzhu.CSClient.Presenter
             ServiceOrder oldOrder = IdentityManager.CurrentIdentity;
             //NHibernateUnitOfWork.UnitOfWork.Current.Refresh(oldOrder);//来自上个session，需刷新
             //oldOrder.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
+            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            //NHibernateUnitOfWork.UnitOfWork.Start();
             bllServiceOrder.Update(oldOrder);
+            Guid oldOrderId = IdentityManager.CurrentIdentity.Id;
 
             //更新当前订单
             IdentityTypeOfOrder type;
             log.Debug("更新当前订单");
             IdentityManager.UpdateIdentityList(newOrder, out type);
-            viewIdentityList.SetCustomerOrder(oldOrder.Id, newOrder.Id);
+            viewIdentityList.SetCustomerOrder(oldOrderId, newOrder.Id);
             log.Debug("当前订单的id：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //更新view
-            viewIdentityList.UpdateIdentityBtnName(oldOrder, IdentityManager.CurrentIdentity);
+            viewIdentityList.UpdateIdentityBtnName(oldOrderId, IdentityManager.CurrentIdentity);
 
             //更新接待分配表
             bllReceptionStatus.UpdateOrder(IdentityManager.CurrentIdentity.Customer, GlobalViables.CurrentCustomerService, newOrder);
@@ -267,7 +319,7 @@ namespace Dianzhu.CSClient.Presenter
                     
                 }
                 viewSearchResult.SearchedService = services;
-            //};
+            SelectedServiceList = services;
 
             //NHibernateUnitOfWork.With.Transaction(a);
 

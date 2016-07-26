@@ -719,5 +719,22 @@ namespace Dianzhu.Model.Enums
         intervention=32,
     }
 
-
+    /// <summary>
+    /// 筛选类型
+    /// </summary>
+    public enum enum_FilterType
+    {
+        /// <summary>
+        /// 按距离筛选
+        /// </summary>
+        ByDistance,
+        /// <summary>
+        /// 按价格筛选
+        /// </summary>
+        ByPrice,
+        /// <summary>
+        /// 按评价筛选
+        /// </summary>
+        ByApprise
+    }
 }

@@ -19,26 +19,6 @@ using System.Globalization;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
-    public class EnumToBooleanConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value == null ? false : value.Equals(parameter);
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value != null && value.Equals(true) ? parameter : Binding.DoNothing;
-        }
-    }
-
-    public enum SampleEnum
-    {
-        ByDistance,
-        ByPrice,
-        ByApprise
-    }
-
     /// <summary>
     /// UC_SearchResult.xaml 的交互逻辑
     /// </summary>
@@ -51,7 +31,8 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             InitializeComponent();
             this.iIm = iIm;
-            DataContext = new SampleClass();
+            //DataContext = new SampleClass();
+            SearchedService = null;
         }
 
         IList<DZService> searchedService;
@@ -65,29 +46,42 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 this.Dispatcher.Invoke((Action)(() =>
                 {
-                    searchedService = value;
                     pnlSearchResult.Children.Clear();
-                    //foreach (DZService service in searchedService)
-                    //{
-                    //    LoadServiceToPanel(service);
-                    //}Hashtable ht = (Hashtable)list[i];
-                    UC_ShelfService shelfService;
-                    int num = 1;
-                    foreach (DZService service in searchedService)
+                    if (value == null)
                     {
-                        if (pnlSearchResult.FindName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString())) != null)
-                        {
-                            pnlSearchResult.UnregisterName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString()));
-                        }
-                        //LoadServiceToPanel(service);
-                        shelfService = new UC_ShelfService(service);
-                        // shelfService.LoadData(service, num);
-                        shelfService.PushShelfService += ShelfService_PushShelfService;
-                        pnlSearchResult.Children.Add(shelfService);
-
-                        num++;
+                        wpFilter.IsEnabled = false;
                     }
+                    else if (value.Count == 0)
+                    {
+                        wpFilter.IsEnabled = false;
+                    }
+                    else
+                    {
+                        searchedService = value;
+                        
+                        //foreach (DZService service in searchedService)
+                        //{
+                        //    LoadServiceToPanel(service);
+                        //}Hashtable ht = (Hashtable)list[i];
+                        UC_ShelfService shelfService;
+                        int num = 1;
+                        foreach (DZService service in searchedService)
+                        {
+                            if (pnlSearchResult.FindName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString())) != null)
+                            {
+                                pnlSearchResult.UnregisterName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString()));
+                            }
+                            //LoadServiceToPanel(service);
+                            shelfService = new UC_ShelfService(service);
+                            // shelfService.LoadData(service, num);
+                            shelfService.PushShelfService += ShelfService_PushShelfService;
+                            pnlSearchResult.Children.Add(shelfService);
 
+                            num++;
+                        }
+
+                        wpFilter.IsEnabled = true;
+                    }
 
                 }));
                 
@@ -253,48 +247,114 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         #region radiobutton 排序
-
         
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            Model.Enums.enum_FilterType filterType;
+            filterType = (Model.Enums.enum_FilterType)Enum.Parse(typeof(Model.Enums.enum_FilterType), ((RadioButton)sender).Tag.ToString());
+            switch (filterType)
+            {
+                case Model.Enums.enum_FilterType.ByApprise:
+                    break;
+                case Model.Enums.enum_FilterType.ByDistance:
+                    SearchedService = searchedService.OrderBy(x => x.CreatedTime).ToList();
+                    break;
+                case Model.Enums.enum_FilterType.ByPrice:
+                    SearchedService = searchedService.OrderBy(x => x.UnitPrice).ToList();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        #endregion
+
+        #region 按店铺搜索        
+
+        public event FilterByBusinessName FilterByBusinessName;
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //SearchedService = (IList<DZService>)searchedService.Select(x => x.Business.Name.Contains(txtFilter.Text.Trim())).ToList();
+            //NHibernateUnitOfWork.UnitOfWork.Start();
+            //Action ac = () =>
+            //{
+                FilterByBusinessName(txtFilter.Text.Trim());
+            //};
+            //NHibernateUnitOfWork.With.Transaction(ac);
+            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+
+        }
 
         #endregion
     }
 
+    //public class EnumToBooleanConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        return value == null ? false : value.Equals(parameter);
+    //    }
 
-    public class SampleClass : INotifyPropertyChanged
-    {
-        private SampleEnum _sampleEnum;
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        return value != null && value.Equals(true) ? parameter : Binding.DoNothing;
+    //    }
+    //}
 
-        public SampleEnum SampleEnum
-        {
-            get { return _sampleEnum; }
-            set
-            {
-                _sampleEnum = value;
-                //HitCount++;
-            }
-        }
+    //public enum FilterType
+    //{
+    //    /// <summary>
+    //    /// 按距离筛选
+    //    /// </summary>
+    //    ByDistance,
+    //    /// <summary>
+    //    /// 按价格筛选
+    //    /// </summary>
+    //    ByPrice,
+    //    /// <summary>
+    //    /// 按评价筛选
+    //    /// </summary>
+    //    ByApprise
+    //}
 
-        //为了显示Set的触发次数
-        //private int _hitCount;
-        //public int HitCount
-        //{
-        //    get { return _hitCount; }
-        //    set
-        //    {
-        //        _hitCount = value;
-        //        OnPropertyChanged("HitCount");
-        //    }
-        //}
+    //public class SampleClass : INotifyPropertyChanged
+    //{
+    //    private FilterType _sampleEnum;
+
+    //    public FilterType SampleEnum
+    //    {
+    //        get { return _sampleEnum; }
+    //        set
+    //        {
+    //            _sampleEnum = value;
+    //            HitCount++;
+    //            //OnPropertyChanged(_sampleEnum.ToString());
+    //        }
+    //    }
+
+    //    //为了显示Set的触发次数
+    //    private int _hitCount;
+    //    public int HitCount
+    //    {
+    //        get { return _hitCount; }
+    //        set
+    //        {
+    //            _hitCount = value;
+    //            OnPropertyChanged(SampleEnum.ToString());
+    //        }
+    //    }
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
+    //    public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string p_propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(p_propertyName));
-            }
-        }
-    }
+    //    private void OnPropertyChanged(string p_propertyName)
+    //    {
+    //        if (PropertyChanged != null)
+    //        {
+    //            Console.WriteLine("radiobutton成功触发:"+ _hitCount+",propertyName:"+ p_propertyName);
+    //            PropertyChanged(this, new PropertyChangedEventArgs(p_propertyName));
+    //        }
+    //    }
+    //}
 }
