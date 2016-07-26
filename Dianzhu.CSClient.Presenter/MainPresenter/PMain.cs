@@ -74,7 +74,11 @@ namespace Dianzhu.CSClient.Presenter
         private void WorkerSendMedia_DoWork(object sender, DoWorkEventArgs e)
         {
             log.Debug("开始异步拉取点点的数据");
-            NHibernateUnitOfWork.With.Transaction(() => SysAssign(3));
+            //NHibernateUnitOfWork.With.Transaction(() => SysAssign(3));
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            SysAssign(3);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         /// <summary>

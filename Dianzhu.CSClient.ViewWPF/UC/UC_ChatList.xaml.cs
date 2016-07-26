@@ -113,11 +113,14 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 return;
             }
-            Action ac = () =>
-            {
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            //Action ac = () =>
+            //{
                 BtnMoreChat();
-            };
-            NHibernateUnitOfWork.With.Transaction(ac);
+            //};
+            //NHibernateUnitOfWork.With.Transaction(ac);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         public void AddOneChat(ReceptionChat chat)
