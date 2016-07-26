@@ -32,6 +32,9 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
                 {
                     servicesobj = new servicesObj();
                 }
+                //Request.GetRequestContext()
+                //FromBodyAttribute fba = new FromBodyAttribute();
+                
                 return Json(iservice.PostService(storeID,servicesobj));
             }
             catch (Exception ex)

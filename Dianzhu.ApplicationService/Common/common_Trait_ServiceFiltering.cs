@@ -18,7 +18,7 @@ namespace Dianzhu.ApplicationService
         /// 服务类型
         /// </summary>
         /// <type>string</type>
-        public string type { get; set; }
+        public string serviceTypeID { get; set; }
 
         /// <summary>
         /// 服务简介
