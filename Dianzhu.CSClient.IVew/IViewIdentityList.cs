@@ -16,7 +16,7 @@ namespace Dianzhu.CSClient.IView
         void AddIdentity(ServiceOrder  serviceOrder);
         //删除一个用户
         void RemoveIdentity(ServiceOrder serviceOrder);
-        void UpdateIdentityBtnName(ServiceOrder oldOrder, ServiceOrder newOrder);
+        void UpdateIdentityBtnName(Guid oldOrderId, ServiceOrder newOrder);
         //设置为未读
         void SetIdentityUnread(ServiceOrder serviceOrder, int messageAmount);
         //设置为已读
@@ -25,7 +25,7 @@ namespace Dianzhu.CSClient.IView
         void SetIdentityLoading(ServiceOrder serviceOrder);
         //用户离线
         void SetIdentityLogOff(ServiceOrder serviceOrder);
-        void IdentityLogOffShowMsg(ServiceOrder serviceOrder);
+        void IdentityLogOffShowMsg(Guid serviceOrderId);
         void IdentityLogOnShowMsg(ServiceOrder serviceOrder,string msg);
         void IdentityLogOnShowMsgAndTimer(ServiceOrder serviceOrder, string msg);
 
