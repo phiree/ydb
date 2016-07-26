@@ -91,7 +91,7 @@ namespace Dianzhu.Api.Model
         {
             this.orderID = order.Id.ToString();
             this.title = order.Title;
-            this.status = order.OrderStatusStr;
+            this.status = order.GetStatusTitleFriendly(order.OrderStatus);
             this.startTime = order.OrderConfirmTime.ToString("yyyyMMddHHmmss");
             this.endTime = string.Empty;
             this.exDoc = order.Description;
@@ -168,9 +168,9 @@ namespace Dianzhu.Api.Model
         public string maxOrder{ get; set; }
         public RespDataSHM_snapshots_item_orderSnapshots_item_worktimeObj Adap(ServiceOpenTimeForDaySnapShotForOrder snap)
         {
-            this.startTime = snap.PeriodBegin.ToString();
-            this.endTime = snap.PeriodEnd.ToString();
-            this.week = snap.Date.DayOfWeek.ToString();
+            this.startTime = PHSuit.StringHelper.ConvertPeriodToTimeString(snap.PeriodBegin);//.ToString();
+            this.endTime = PHSuit.StringHelper.ConvertPeriodToTimeString(snap.PeriodEnd);//.ToString();
+            this.week = ((int) snap.Date.DayOfWeek).ToString();
             this.open = "Y";
             this.maxOrder = snap.MaxOrder.ToString();
             return this;

@@ -101,6 +101,18 @@ namespace PHSuit
             string json = JsonHelper.Xml2Json(xml, true);
             Console.Write(json);
         }
+
+        [Test]
+        public void GetTimeString()
+        {
+            Assert.AreEqual("00:00",StringHelper.ConvertPeriodToTimeString(0) );
+            Assert.AreEqual("00:01", StringHelper.ConvertPeriodToTimeString(1));
+            Assert.AreEqual("00:11", StringHelper.ConvertPeriodToTimeString(11));
+            Assert.AreEqual("01:00", StringHelper.ConvertPeriodToTimeString(60));
+            Assert.AreEqual("12:00", StringHelper.ConvertPeriodToTimeString(720));
+            Assert.AreEqual("12:02", StringHelper.ConvertPeriodToTimeString(722));
+            Assert.AreEqual("12:59", StringHelper.ConvertPeriodToTimeString(779));
+        }
     }
 
     [TestFixture]
