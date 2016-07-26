@@ -31,25 +31,25 @@
 <!-- one day template 单日模版 -->
 <script type="text/template" id="day_template">
     <div class="day-title">
-        <div class="day-info"><span>{%= date %}</span><span class="m-l10">今日剩余&nbsp;{%= reOrder %}/{%= maxOrder %}</span></div>
-        <div class="day-control">
-            <div class="day-control-item">
-                <span>服务编辑开关:</span>
-                <div class="round-checkbox">
-                    <input type="checkbox" class="day_edit" {%= "id=" + this.cid + "_dayEdit" %} />
-                    <label {%= "for=" + this.cid + "_dayEdit" %} ></label>
-                    <em></em>
-                </div>
-            </div>
-            <div class="day-control-item">
-                <span >当日服务开关:</span>
-                <div class="round-checkbox">
-                    <input type="checkbox" class="day_enable" checked value="dayEdit" {%= "id=" + this.cid + "_dayEnable" %} />
-                    <label {%= "for=" + this.cid + "_dayEnable" %} ></label>
-                    <em></em>
-                </div>
-            </div>
-        </div>
+        <div class="day-info"><span>{%= date %}</span><span class="m-l10">当日已售&nbsp;&nbsp;{%= reOrder %}&nbsp;当日总量{%= maxOrder %}</span></div>
+        <!--<div class="day-control">-->
+            <!--<div class="day-control-item">-->
+                <!--<span>服务编辑开关:</span>-->
+                <!--<div class="round-checkbox">-->
+                    <!--<input type="checkbox" class="day_edit" {%= "id=" + this.cid + "_dayEdit" %} />-->
+                    <!--<label {%= "for=" + this.cid + "_dayEdit" %} ></label>-->
+                    <!--<em></em>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="day-control-item">-->
+                <!--<span >当日服务开关:</span>-->
+                <!--<div class="round-checkbox">-->
+                    <!--<input type="checkbox" class="day_enable" checked value="dayEdit" {%= "id=" + this.cid + "_dayEnable" %} />-->
+                    <!--<label {%= "for=" + this.cid + "_dayEnable" %} ></label>-->
+                    <!--<em></em>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
     <div class="time-buckets-wrap">
         <!--<div class='time-buckets t-b-close'>-->
@@ -61,10 +61,14 @@
 
 <!-- timeBucket template 时间段模版 -->
 <script type="text/template" id="timeBucket_template">
-        <div class="t-b-top">
+        <div class="t-b-top {%= open%}">
             <div class="t-b-time">
                 <p class="t-b-timeStart">{%= startTime %}</p>
                 <p class="t-b-timeEnd">{%= endTime %}</p>
+            </div>
+            <div>
+                <input class="multiNum" type="number" value="1" title="填写修改量"/>
+                <input class="multiAdd" type="button" value="上架货品"/>
             </div>
             <div class="t-b-switch">
                 <div class="round-checkbox v-m">
