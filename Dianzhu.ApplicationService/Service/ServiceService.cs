@@ -24,6 +24,24 @@ namespace Dianzhu.ApplicationService.Service
         }
 
         /// <summary>
+        /// 对象处理
+        /// </summary>
+        /// <param name="servicesobj"></param>
+        /// <param name="dzservice"></param>
+        void changeObj(servicesObj servicesobj, Model.DZService dzservice)
+        {
+            servicesobj.location.longitude = dzservice.Business.Longitude.ToString();
+            servicesobj.location.latitude = dzservice.Business.Latitude.ToString();
+            servicesobj.location.address = dzservice.Business.RawAddressFromMapAPI == null ? "" : dzservice.Business.RawAddressFromMapAPI;
+            if (dzservice.ServiceType != null)
+            {
+                //servicesobj.serviceType.serviceTypeID = dzservice.ServiceType.Id.ToString();
+                servicesobj.serviceType.fullDescription = dzservice.ServiceType.ToString();
+                //servicesobj.serviceType.superID = dzservice.ServiceType.ParentId.ToString();
+            }
+        }
+
+        /// <summary>
         /// 新建服务
         /// </summary>
         /// <param name="storeID"></param>
@@ -40,9 +58,11 @@ namespace Dianzhu.ApplicationService.Service
             }
 
             //待定是否只传ID过来
-            string[] typeList = servicesobj.type.Split('>');
-            int typeLevel = typeList.Count() > 0 ? typeList.Count() - 1 : 0;
-            Model.ServiceType sType = bllServiceType.GetOneByName(typeList[typeLevel], typeLevel);
+            //string[] typeList = servicesobj.type.Split('>');
+            //int typeLevel = typeList.Count() > 0 ? typeList.Count() - 1 : 0;
+            //Model.ServiceType sType = bllServiceType.GetOneByName(typeList[typeLevel], typeLevel);
+            Guid guidServiceType = utils.CheckGuidID(servicesobj.serviceType.id, "type的ID");
+            Model.ServiceType sType = bllServiceType.GetOne(guidServiceType);
             if (sType == null)
             {
                 throw new Exception("该服务类型有误！");
@@ -55,22 +75,34 @@ namespace Dianzhu.ApplicationService.Service
             dzservice.LastModifiedTime = dt;
             dzservice.Business = business;
             dzservice.ServiceType = sType;
+            dzservice.BusinessAreaCode = "{\"serPointCirle\":{\"lng\":110.31047,\"lat\":20.017031,\"radius\":\"1000\"},\"serPointComp\":{\"streetNumber\":\"\",\"street\":\"海濂路\",\"district\":\"龙华区\",\"city\":\"海口市\",\"province\":\"海南省\"},\"serPointAddress\":\"海南省海口市龙华区海濂路\"}";
             ValidationResult validationResult = new ValidationResult();
             bllDZService.SaveOrUpdate(dzservice, out validationResult);
-
+            if (!validationResult.IsValid)
+            {
+                string strErrors = "[";
+                for (int i = 0;i< validationResult.Errors.Count; i++)
+                {
+                    strErrors += "{";
+                    strErrors += "ErrorCode:" + validationResult.Errors[i].ErrorCode + ",";
+                    strErrors += "ErrorMessage:" +validationResult.Errors[i].ErrorMessage+"";
+                    strErrors += "},";
+                }
+                strErrors.TrimEnd(',');
+                strErrors += "]";
+                throw new Exception(strErrors);
+            }
             string[] tagList = servicesobj.tag.Split('|');
-            dzservice = bllDZService.GetOne(dzservice.Id);
-            if (dzservice != null && dzservice.CreatedTime == dt)
-            {
-                servicesobj = Mapper.Map<Model.DZService, servicesObj>(dzservice);
-                servicesobj.location.longitude = dzservice.Business.Longitude.ToString();
-                servicesobj.location.latitude = dzservice.Business.Latitude.ToString();
-                servicesobj.location.address = dzservice.Business.RawAddressFromMapAPI == null ? "" : dzservice.Business.RawAddressFromMapAPI;
-            }
-            else
-            {
-                throw new Exception("新建失败");
-            }
+            //dzservice = bllDZService.GetOne(dzservice.Id);
+            //if (dzservice != null && dzservice.CreatedTime == dt)
+            //{
+            servicesobj = Mapper.Map<Model.DZService, servicesObj>(dzservice);
+            changeObj(servicesobj, dzservice);
+            //}
+            //else
+            //{
+            //    throw new Exception("新建失败");
+            //}
             for (int i = 0; i < tagList.Count(); i++)
             {
                 bllDZTag.AddTag(tagList[i], dzservice.Id.ToString(), dzservice.Business.Id.ToString(), dzservice.ServiceType.Id.ToString());
@@ -97,7 +129,7 @@ namespace Dianzhu.ApplicationService.Service
                     throw new FormatException("起步价必须为大于零的数值！");
                 }
             }
-            dzservice = bllDZService.GetServices(filter1, utils.CheckGuidID(servicefilter.type, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, utils.CheckGuidID(storeID, "storeID"));
+            dzservice = bllDZService.GetServices(filter1, utils.CheckGuidID(servicefilter.serviceTypeID, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, utils.CheckGuidID(storeID, "storeID"));
             if (dzservice == null)
             {
                 throw new Exception(Dicts.StateCode[4]);
@@ -105,9 +137,7 @@ namespace Dianzhu.ApplicationService.Service
             IList<servicesObj> serviceobj = Mapper.Map<IList<Model.DZService>, IList<servicesObj>>(dzservice);
             for (int i = 0; i < serviceobj.Count; i++)
             {
-                serviceobj[i].location.longitude = dzservice[i].Business.Longitude.ToString();
-                serviceobj[i].location.latitude = dzservice[i].Business.Latitude.ToString();
-                serviceobj[i].location.address = dzservice[i].Business.RawAddressFromMapAPI == null ? "" : dzservice[i].Business.RawAddressFromMapAPI;
+                changeObj(serviceobj[i], dzservice[i]);
             }
             return serviceobj;
         }
@@ -129,7 +159,7 @@ namespace Dianzhu.ApplicationService.Service
                 }
             }
             countObj c = new countObj();
-            c.count = bllDZService.GetServicesCount(utils.CheckGuidID(servicefilter.type, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, utils.CheckGuidID(storeID, "storeID")).ToString();
+            c.count = bllDZService.GetServicesCount(utils.CheckGuidID(servicefilter.serviceTypeID, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, utils.CheckGuidID(storeID, "storeID")).ToString();
             return c;
         }
 
@@ -147,9 +177,7 @@ namespace Dianzhu.ApplicationService.Service
                 throw new Exception(Dicts.StateCode[4]);
             }
             servicesObj servicesobj = Mapper.Map<Model.DZService, servicesObj>(dzservice);
-            servicesobj.location.longitude = dzservice.Business.Longitude.ToString();
-            servicesobj.location.latitude = dzservice.Business.Latitude.ToString();
-            servicesobj.location.address = dzservice.Business.RawAddressFromMapAPI==null?"": dzservice.Business.RawAddressFromMapAPI;
+            changeObj(servicesobj, dzservice);
             return servicesobj;
         }
 
@@ -184,12 +212,14 @@ namespace Dianzhu.ApplicationService.Service
             {
                 dzserviceobj.Name = servicesobj.name;
             }
-            if (!string.IsNullOrEmpty(servicesobj.type))
+            if (!string.IsNullOrEmpty(servicesobj.serviceType.id))
             {
                 //待定是否只传ID过来
-                string[] typeList = servicesobj.type.Split('>');
-                int typeLevel = typeList.Count() > 0 ? typeList.Count() - 1 : 0;
-                Model.ServiceType sType = bllServiceType.GetOneByName(typeList[typeLevel], typeLevel);
+                //string[] typeList = servicesobj.type.Split('>');
+                //int typeLevel = typeList.Count() > 0 ? typeList.Count() - 1 : 0;
+                //Model.ServiceType sType = bllServiceType.GetOneByName(typeList[typeLevel], typeLevel);
+                Guid guidServiceType = utils.CheckGuidID(servicesobj.serviceType.id, "type的ID");
+                Model.ServiceType sType = bllServiceType.GetOne(guidServiceType);
                 if (sType == null)
                 {
                     throw new Exception("该服务类型有误！");
@@ -287,9 +317,7 @@ namespace Dianzhu.ApplicationService.Service
             //if (dzservice != null && dzservice.LastModifiedTime == dt)
             //{
             servicesobj = Mapper.Map<Model.DZService, servicesObj>(dzserviceobj);
-            servicesobj.location.longitude = dzserviceobj.Business.Longitude.ToString();
-            servicesobj.location.latitude = dzserviceobj.Business.Latitude.ToString();
-            servicesobj.location.address = dzserviceobj.Business.RawAddressFromMapAPI == null ? "" : dzserviceobj.Business.RawAddressFromMapAPI;
+            changeObj(servicesobj, dzserviceobj);
             //}
             //else
             //{

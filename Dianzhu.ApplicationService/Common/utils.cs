@@ -368,6 +368,14 @@ namespace Dianzhu.ApplicationService
             return json.Deserialize<T>(data);
         }
 
+        /// <summary>
+        /// Url上传文件
+        /// </summary>
+        /// <param name="fileUrl"></param>
+        /// <param name="strOriginalName"></param>
+        /// <param name="strDomainType"></param>
+        /// <param name="strFileType"></param>
+        /// <returns></returns>
         public static string DownloadToMediaserver(string fileUrl,string strOriginalName,string strDomainType,string strFileType)
         {
             //string url = Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl");
@@ -396,6 +404,25 @@ namespace Dianzhu.ApplicationService
         }
 
         /// <summary>
+        /// base64上传文件
+        /// </summary>
+        /// <param name="fileBase64"></param>
+        /// <param name="strOriginalName"></param>
+        /// <param name="strDomainType"></param>
+        /// <param name="strFileType"></param>
+        /// <returns></returns>
+        public static string DownloadToMediaserver1(string fileBase64, string strOriginalName, string strDomainType, string strFileType)
+        {
+            string url = Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl");
+            var respData = new NameValueCollection();
+            respData.Add("fileBase64", fileBase64);
+            respData.Add("originalName", strOriginalName);
+            respData.Add("domainType", strDomainType);
+            respData.Add("fileType", strFileType);
+            return HttpHelper.CreateHttpRequest(url.ToString(), "post", respData);
+        }
+
+        /// <summary>
         /// 将图片数据转换为Base64字符串
         /// </summary>
         /// <param name="sender"></param>
@@ -419,13 +446,14 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ToImage(object sender, EventArgs e)
+        private void ToImage(string fileBase64)//(object sender, EventArgs e)
         {
-            //string base64 = this.richTextBox.Text;
-            //byte[] bytes = Convert.FromBase64String(base64);
-            //MemoryStream memStream = new MemoryStream(bytes);
-            //BinaryFormatter binFormatter = new BinaryFormatter();
-            //Image img = (Image)binFormatter.Deserialize(memStream);
+            string base64 = fileBase64;//this.richTextBox.Text;
+            byte[] bytes = Convert.FromBase64String(base64);
+            MemoryStream memStream = new MemoryStream(bytes);
+            BinaryFormatter binFormatter = new BinaryFormatter();
+            Image img = (Image)binFormatter.Deserialize(memStream);
+            
             //this.pictureBox.Image = img;
         }
 

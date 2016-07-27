@@ -204,30 +204,13 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
-cdn.zip
- 
-cdn.rar
-AdminBusiness/AdminBusiness.rar
-AdminWeb/AdminWeb.rar
-AdminBusiness/logs/
- 
-Dianzhu.XmppClientWeb/media/
- 
 Dianzhu.AdminBusinessMvc/media/
 Dianzhu.AdminBusinessMvc/image/pic_old/
-AdminBusiness/media/generic_files/7dc6f37c-eae2-47a1-a381-53b43caffcff11.mp3
-AdminBusiness/media/
- 
-Dianzhu.HttpApi/logs/debug.txt
-Dianzhu.HttpApi/logs/
+logs/
 dianzhu.sln.orig
-PHSuit/files/aps_development_Mark.p12
-Dianzhu.CSClient/files/aps_development_Mark.p12
-*/config/connectionStrings.config
-*/media/ChatImage
-*/media/
-/media/ChatAudio/
-*connectionstrings.config
+aps_development_Mark.p12
+aps_development_Mark.p12
+media/
 wrap/
 PHSuit/files/ffmpeg.exe
-appSettings.config
+config/

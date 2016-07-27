@@ -42,20 +42,20 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _type = "";
+        serviceTypeObj _serviceType = new serviceTypeObj();
         /// <summary>
         /// 服务项的类型（“>”分级）
         /// </summary>
         /// <type>string</type>
-        public string type
+        public serviceTypeObj serviceType
         {
             get
             {
-                return _type;
+                return _serviceType;
             }
             set
             {
-                _type = value;
+                _serviceType = value;
             }
         }
 
@@ -93,7 +93,7 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _startAt = "";
+        string _startAt = "0";
         /// <summary>
         ///起步价
         /// </summary>
@@ -110,7 +110,7 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _unitPrice = "";
+        string _unitPrice = "0";
         /// <summary>
         ///单价
         /// </summary>
@@ -127,7 +127,7 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _deposit = "";
+        string _deposit = "0";
         /// <summary>
         ///订金
         /// </summary>
@@ -144,7 +144,7 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _appointmentTime = "";
+        string _appointmentTime = "0";
         /// <summary>
         ///提前预约的时间（分）
         /// </summary>
@@ -246,7 +246,7 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _maxCount = "";
+        string _maxCount = "0";
         /// <summary>
         ///该服务最大接单量
         /// </summary>
@@ -277,6 +277,14 @@ namespace Dianzhu.ApplicationService
             set
             {
                 _chargeUnit = value;
+            }
+        }
+
+        public string serviceTypeID
+        {
+            set
+            {
+                _serviceType.id = value;
             }
         }
     }
