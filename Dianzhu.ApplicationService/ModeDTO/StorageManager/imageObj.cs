@@ -25,9 +25,9 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _height = "";
+        string _height = "0";
         /// <summary>
-        /// 
+        /// 高、长
         /// </summary>
         /// <type>string</type>
         public string height
@@ -42,9 +42,9 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _width = "";
+        string _width = "0";
         /// <summary>
-        /// 
+        /// 宽
         /// </summary>
         /// <type>string</type>
         public string width
@@ -59,20 +59,54 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _url = "";
+        string _lowUrl = "";
         /// <summary>
-        /// 
+        /// 低分辨率头像的完整路径
         /// </summary>
         /// <type>string</type>
-        public string url
+        public string lowUrl
         {
             get
             {
-                return _url;
+                return _lowUrl;
             }
             set
             {
-                _url = value;
+                _lowUrl = value;
+            }
+        }
+
+        string _hdUrl = "";
+        /// <summary>
+        /// 高分辨率的头像完整路径
+        /// </summary>
+        /// <type>string</type>
+        public string hdUrl
+        {
+            get
+            {
+                return _hdUrl;
+            }
+            set
+            {
+                _hdUrl = value;
+            }
+        }
+
+        string _size = "0";
+        /// <summary>
+        /// 文件大小 KB
+        /// </summary>
+        /// <type>string</type>
+        public string size
+        {
+            get
+            {
+                return _size;
+            }
+            set
+            {
+                _size = value;
             }
         }
     }

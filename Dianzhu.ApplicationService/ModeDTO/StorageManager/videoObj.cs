@@ -25,9 +25,9 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _length = "";
+        string _length = "0";
         /// <summary>
-        /// 
+        /// 视频长度
         /// </summary>
         /// <type>string</type>
         public string length
@@ -44,7 +44,7 @@ namespace Dianzhu.ApplicationService
 
         string _url = "";
         /// <summary>
-        /// 
+        /// 完整路径
         /// </summary>
         /// <type>string</type>
         public string url
@@ -59,9 +59,9 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _size = "";
+        string _size = "0";
         /// <summary>
-        /// 
+        /// 视频大小 KB
         /// </summary>
         /// <type>string</type>
         public string size
@@ -76,9 +76,9 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _height = "";
+        string _height = "0";
         /// <summary>
-        /// 
+        /// 高、长
         /// </summary>
         /// <type>string</type>
         public string height
@@ -93,9 +93,9 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _width = "";
+        string _width = "0";
         /// <summary>
-        /// 
+        /// 宽
         /// </summary>
         /// <type>string</type>
         public string width

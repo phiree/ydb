@@ -25,9 +25,9 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _length = "";
+        string _length = "0";
         /// <summary>
-        /// 
+        /// 语音长度
         /// </summary>
         /// <type>string</type>
         public string length
@@ -44,7 +44,7 @@ namespace Dianzhu.ApplicationService
 
         string _url = "";
         /// <summary>
-        /// 
+        /// 完整路径
         /// </summary>
         /// <type>string</type>
         public string url
@@ -59,9 +59,9 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _size = "";
+        string _size = "0";
         /// <summary>
-        /// 
+        /// 文件大小
         /// </summary>
         /// <type>string</type>
         public string size
