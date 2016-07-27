@@ -31,6 +31,9 @@
         SVC001005 : "test.s001005.json"
     };
 
+    /**
+     * 日期对象工具。TODO: 文件内一些日期格式化或反格式化方法还没有包含
+     */
     var dateTools = function(){
         var dateTools = {};
         dateTools.dateFormat = function(dateObj, options){
@@ -666,19 +669,26 @@
         initDayTab : function(){
             var _this = this;
             var reqFormatDate = dateTools.dateFormat(this.reqDate, "YYYYMMDD");
-            var reqDay = this.reqDate.getDay();
             var $tabContainer = this.$('.day-tabs');
+
+            function tranWeek(week){
+                var arr = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
+                return arr[week];
+            }
 
             // 轮询创建日期标签
             for ( var i = 0 ; i < 7 ; i ++){
                 var $tab = $('<input type="button" class="day-tab">');
                 //var date = parseInt(reqFormatDate) + ( i - reqDay + 1);
-                var date = parseInt(reqFormatDate) + i;
+                var dateText = (parseInt(reqFormatDate) + i).toString(), dateTemp = new Date();
 
                 // 为当日标签添加样式
-                if (date.toString() === reqFormatDate) $tab.addClass("active");
+                if (dateText === reqFormatDate) { $tab.addClass("active") }
 
-                $tab.val(date).attr("data-date", date);
+                dateTemp.setFullYear(parseInt(dateText.slice(0, 4)), parseInt(dateText.slice(4, 6)) - 1, parseInt(dateText.slice(6, 8)));
+
+                $tab.val(dateTools.fmt(dateTemp, "yyyy-M-d") + " " + tranWeek(dateTemp.getDay()))
+                    .attr("data-date", dateText);
 
                 // 点击标签时读取请求日期的快照数据。
                 $tab.on("click", function(){

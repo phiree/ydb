@@ -1,4 +1,6 @@
-/* 单日模版样式 */
+// 货架化样式
+
+// 货架化标签tabs样式
 .day-tabs {
   width: 100%;
   overflow-y: hidden;
@@ -9,8 +11,8 @@
     padding: 5px 10px;
     border: 1px solid #C7C7C7;
     border-bottom: 0;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     color: #fff;
     text-shadow: 0 1px 2px rgba(51, 51, 51, 0.26);
     &:nth-of-type(1){
@@ -102,6 +104,9 @@
 
 .day-container {
   .model-base-style();
+  position: relative;
+  background: #f6f6f6;
+  min-height: 500px;
   &.editing {
     .time-bucket.noHis {
       .t-b-edit {
@@ -110,12 +115,23 @@
     }
   }
   &.loading {
-    height: 500px;
-    background: url("@{base-images-url}load.gif") no-repeat center;
+    &:before{
+      content: '';
+      display: block;
+      position: absolute;
+      z-index: 100;
+      height: 100%;
+      width: 100%;
+      background: url("@{base-images-url}load.gif") no-repeat center;
+    }
   }
   &.error {
-    height: 500px;
-    background: url("@{base-images-url}error.jpg") no-repeat center;
+    &:before {
+      content: '';
+      display: block;
+      height: 500px;
+      background: url("@{base-images-url}error.jpg") no-repeat center;
+    }
   }
 }
 
@@ -209,23 +225,26 @@
 }
 
 .time-bucket {
-  border-radius: 8px;
   padding: 10px;
   margin: 10px;
+  position: relative;
   overflow: hidden;
+  background: #ededed;
+  border-radius: 8px;
   border : 2px solid transparent;
   border-bottom: 2px solid #DEDEDE;
   transition: all ease 0.3s ;
   &:hover{
-    border: 2px solid #70E0FF;
-    box-shadow: 0 0 6px 0 #70E0FF;
+    border: 2px solid #3f92e2;
+    box-shadow: 0 0 6px 0 #5aa3ea;
   }
   &.his {
     background: #eee;
   }
 }
 
-.t-b-top {
+// 时间段内部控件样式
+.t-b-main {
   overflow: hidden;
   position: relative;
 }
@@ -238,21 +257,54 @@
   line-height: 1.8em;
 }
 
+.t-b-add {
+  position: absolute;
+  top: 45px;
+  right: 300px;
+  text-align: center;
+  ._num {
+    width: 50px;
+    padding: 2px 3px;
+    border: 1px solid #3399cc;
+    border-radius: 3px;
+  }
+  ._btn {
+    width: 50px;
+    color: #fff;
+    background: #6cabe8;
+    text-shadow: 0 1px 2px #5191CB;
+    border-radius: 5px;
+    border: 1px solid #4d93d6;
+    box-shadow: 0 1px 3px 0 #9a9a9a;
+    padding: 3px 5px;
+  }
+}
+
 .t-b-num {
-  float: right;
-  height: @time-view-height;
-  line-height: @time-view-height;
-  margin: 0 15px;
-  .t-b-num-n {
-    font-size: 38px;
-    margin-right: 15px;
+  position: absolute;
+  right: 140px;
+  top: 35px;
+  ._s {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  ._i {
+    font-size: 16px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  ._n {
+    font-size: 30px;
+    vertical-align: middle;
   }
 }
 
 .t-b-switch {
-  float: right;
-  height: @time-view-height;
-  padding-top: 20px;
+  position: absolute;
+  right: 10px;
+  top: 30px;
   text-align: center;
 }
 
@@ -310,11 +362,25 @@
   }
 }
 
+.t-b-ctrl {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+
 .t-b-window {
   overflow: hidden;
   display: inline-block;
   position: relative;
   margin-left: 150px;
+}
+
+@media screen and ( max-width: 1600px ) {
+  .t-b-ctrl {
+    position: relative;
+    height: 120px;
+  }
 }
 
 @good-height: 80px;
@@ -323,20 +389,15 @@
 @good-delete-size: 20px;
 /* 订单列表样式 */
 .good-list-wrap {
-  width: 910px;
-  height: @good-list-height + 20px;
-  margin-bottom: -20px;
-  float: left;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  /* width: 910px; */
+  //height: 120px;
+  overflow: hidden;
+  /* margin-bottom: -20px; */
+  /* float: left; */
+  /* overflow-x: scroll; */
+  /* overflow-y: hidden; */
   position: relative;
-  transition: all 0.3s;
-}
-
-@media screen and ( max-width: 1500px ) {
-  .good-list-wrap {
-    width: 410px;
-  }
+  /* transition: all 0.3s; */
 }
 
 .good-next,
@@ -346,10 +407,39 @@
   height: @good-list-height;
   line-height: @good-list-height;
 }
+
+.good-reorder,
+.good-total {
+  float: left;
+}
+
+.good-reorder {
+  margin-right: 50px;
+}
+
+.good-title {
+  font-size: 30px;
+  line-height: 90px;
+  float: right;
+  margin-left: 30px;
+  ._t {
+    font-size: 16px;
+  }
+  ._i{
+    font-size: 16px;
+    margin: 5px;
+  }
+  ._m {
+    vertical-align: middle;
+  }
+}
+
 .good-list {
-  height: @good-list-height;
-  width: 1000%;
+  display: inline-block;
   overflow: hidden;
+  //height: @good-list-height;
+  //width: 1000%;
+  //overflow: hidden;
   &.edit {
     .deleteGood {
       display: block;
@@ -367,10 +457,10 @@
   }
   .good {
     display: block;
-    border-radius: 5px;
+    //border-radius: 5px;
     float: left;
-    margin-left: 10px;
-    background: #EEEEEE;
+    //margin-left: 10px;
+    //background: #EEEEEE;
     position: relative;
     width: @good-height;
     height: @good-width;
@@ -379,14 +469,26 @@
     & + .good {
       margin-left: 10px;
     }
-    &.good-on {
-      border: 1px solid #92d7c5;
-      color: #92d7c5;
-    }
     &.good-off {
-      border: 1px solid #ed928f;
-      color: #ed928f;
+      background: url("@{base-images-url}components/shelf/kai.png") no-repeat center;
     }
+    &.good-on {
+      background: url("@{base-images-url}components/shelf/he.png") no-repeat center;
+    }
+    ._text {
+      color: #fff;
+      font-size: 14px;
+      margin-top: 40px;
+      margin-right: 10px;
+    }
+    //&.good-on {
+    //  border: 1px solid #92d7c5;
+    //  color: #92d7c5;
+    //}
+    //&.good-off {
+    //  border: 1px solid #ed928f;
+    //  color: #ed928f;
+    //}
   }
   .good-icon-w {
     width: 40px;
