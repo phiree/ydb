@@ -147,11 +147,14 @@ namespace Dianzhu.CSClient.ViewWPF
             }));
             byte[] fileData = File.ReadAllBytes(dlg.FileName);
 
-            Action ac = () => {
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            //Action ac = () => {
                 SendMediaClick(fileData, domain, mediaType);
                 FinalChatTimerSend();
-            };
-            NHibernateUnitOfWork.With.Transaction(ac);
+            //};
+            //NHibernateUnitOfWork.With.Transaction(ac);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         #region 截图
@@ -223,11 +226,14 @@ namespace Dianzhu.CSClient.ViewWPF
                 bytes= BitmapSource2ByteArray(bmp);
             }));
 
-            Action ac = () =>
-            {
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            //Action ac = () =>
+            //{
                 SendMediaClick(bytes, "ChatImage", "image");
-            };
-            NHibernateUnitOfWork.With.Transaction(ac);
+            //};
+            //NHibernateUnitOfWork.With.Transaction(ac);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         private Byte[] BitmapSource2ByteArray(BitmapSource source)
@@ -252,12 +258,15 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void SendText()
         {
-            Action ac = () =>
-            {
-                SendTextClick();
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            //Action ac = () =>
+            //{
+            SendTextClick();
                 FinalChatTimerSend();
-            };
-            NHibernateUnitOfWork.With.Transaction(ac);
+            //};
+            //NHibernateUnitOfWork.With.Transaction(ac);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
     }
 }

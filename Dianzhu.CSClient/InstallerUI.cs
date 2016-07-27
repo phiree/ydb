@@ -53,7 +53,8 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<IViewOrderHistory>().ImplementedBy<ViewWPF.UC_OrderHistory>());
             container.Register(Component.For<IViewSearch>().ImplementedBy<ViewWPF.UC_Search>());
             container.Register(Component.For<IViewSearchResult>().ImplementedBy<ViewWPF.UC_SearchResult>());
-           // container.Register(Component.For<IViewShelfService>().ImplementedBy<ViewWPF.UC_ShelfService>());
+            container.Register(Component.For<IViewUsefulLinks>().ImplementedBy<ViewWPF.UC_UsefulLinks>());
+            // container.Register(Component.For<IViewShelfService>().ImplementedBy<ViewWPF.UC_ShelfService>());
         }
     }
 }

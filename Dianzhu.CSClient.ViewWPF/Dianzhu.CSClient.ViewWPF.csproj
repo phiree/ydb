@@ -147,6 +147,9 @@
     <Compile Include="UC\UC_TimerControl.xaml.cs">
       <DependentUpon>UC_TimerControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\UC_UsefulLinks.xaml.cs">
+      <DependentUpon>UC_UsefulLinks.xaml</DependentUpon>
+    </Compile>
     <Page Include="ChatImageShow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -239,6 +242,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\UC_TimerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_UsefulLinks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -30,6 +30,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public void LoadData(ServiceOrderPushedService pushService)
         {
+            tbkServiceName.Text = pushService.ServiceName;
             lblUnitPrice.Content = (pushService.UnitPrice * pushService.UnitAmount).ToString("0.00");
             lblDepostiAmount.Content = pushService.DepositAmount.ToString("0.00");
             tbxMemo.Text = pushService.Description;

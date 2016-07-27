@@ -27,17 +27,18 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public FormMain(IViewIdentityList viewIdentityList, IView.IViewChatList viewChatList, IViewChatSend viewChatSend,
             IViewOrder viewOrder, IViewSearch viewSearch, IViewSearchResult viewSearchResult, IViewOrderHistory viewOrderHistory,
-            IViewNotice viewNotice )
+            IViewNotice viewNotice,IViewUsefulLinks viewUseflLinks)
         {
             InitializeComponent();
-            pnlNotice.Children.Add((UC_Notice) viewNotice);
+            //pnlNotice.Children.Add((UC_Notice) viewNotice);
             pnlCustomerList.Children.Add((UC_IdentityList) viewIdentityList);
             pnlSearch.Children.Add((UC_Search) viewSearch);
             pnlChatList.Children.Add((UC_ChatList)viewChatList);
             pnlSearchResult.Children.Add((UC_SearchResult)viewSearchResult);
-            pnlOrder.Children.Add((UC_Order)viewOrder);
+            //pnlOrder.Children.Add((UC_Order)viewOrder);
             pnlChatSend.Children.Add((UC_ChatSend)viewChatSend);
             pnlOrderHistory.Children.Add( (UC_OrderHistory)viewOrderHistory);
+            pnlTools.Children.Add((UC_UsefulLinks)viewUseflLinks);
 
             main = System.Windows.Window.GetWindow(this) as FormMain;
         }

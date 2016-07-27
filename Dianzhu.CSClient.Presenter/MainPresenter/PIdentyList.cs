@@ -58,7 +58,10 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewSearchResult_PushServiceTimerSend()
         {
-            iView.IdleTimerStart(IdentityManager.CurrentIdentity.Id);
+            if (IdentityManager.CurrentIdentity != null)
+            {
+                iView.IdleTimerStart(IdentityManager.CurrentIdentity.Id); 
+            }
         }
 
         private void IViewChatSend_FinalChatTimerSend()
@@ -131,7 +134,7 @@ namespace Dianzhu.CSClient.Presenter
 
                 if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
                 {
-                    IdentityLogOffShowMsg(chat.ServiceOrder);
+                    IdentityLogOffShowMsg(chat.ServiceOrder.Id);
 
                     //if (IdentityManager.CurrentIdentity.Id == chat.ServiceOrder.Id)
                     //{
@@ -278,9 +281,9 @@ namespace Dianzhu.CSClient.Presenter
             iView.RemoveIdentity(order);
         }
 
-        protected void IdentityLogOffShowMsg(ServiceOrder order)
+        protected void IdentityLogOffShowMsg(Guid orderId)
         {
-            iView.IdentityLogOffShowMsg(order);
+            iView.IdentityLogOffShowMsg(orderId);
         }
 
         protected void IdentityLogOnShowMsg(ServiceOrder order,string msg)

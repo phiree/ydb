@@ -17,7 +17,9 @@
 
                 <Grid Grid.Row="0">
                     <DockPanel Background="Gray" LastChildFill="False">
-                        <Label x:Name="lblServiceName" Foreground="White" FontSize="15">维修中心</Label>
+                        <Label Foreground="White" FontSize="15">
+                            <TextBlock x:Name="tbkServiceName" Text="维修中心"></TextBlock>
+                        </Label>
                         <Image Width="30" Height="15" DockPanel.Dock="Right"></Image>
                         <Label DockPanel.Dock="Right" VerticalAlignment="Center">
                             <TextBlock Foreground="White" FontSize="12">已验证</TextBlock>

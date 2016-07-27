@@ -136,14 +136,14 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             if (IdentityClick != null)
             {
-                Action ac = () =>
-                {
+                //Action ac = () =>
+                //{
                     ServiceOrder order = (ServiceOrder)((Button)sender).Tag;
-                    NHibernateUnitOfWork.UnitOfWork.Current.Refresh(order);
+                    //NHibernateUnitOfWork.UnitOfWork.Current.Refresh(order);
                     IdentityClick(order);
                     SetIdentityReaded(order);
-                };
-                NHibernateUnitOfWork.With.Transaction(ac);
+                //};
+                //NHibernateUnitOfWork.With.Transaction(ac);
             }
         }
 
@@ -199,11 +199,11 @@ namespace Dianzhu.CSClient.ViewWPF
             else { lambda(); }
         }
 
-        public void IdentityLogOffShowMsg(ServiceOrder serviceOrder)
+        public void IdentityLogOffShowMsg(Guid serviceOrderId)
         {
             Action lambda = () =>
             {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrderId.ToString());
 
                 UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
 
@@ -243,11 +243,11 @@ namespace Dianzhu.CSClient.ViewWPF
             else { lambda(); }
         }
 
-        public void UpdateIdentityBtnName(ServiceOrder oldOrder, ServiceOrder newOrder)
+        public void UpdateIdentityBtnName(Guid oldOrderId, ServiceOrder newOrder)
         {
             Action lambda = () =>
             {
-                string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrder.Id.ToString());
+                string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrderId.ToString());
                 string ctrNewlName = PHSuit.StringHelper.SafeNameForWpfControl(newOrder.Id.ToString());
                 
                 UC_Customer btnOldIdentity = (UC_Customer)pnlIdentityList.FindName(ctrOldlName);

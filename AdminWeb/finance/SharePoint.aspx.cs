@@ -23,7 +23,7 @@ public partial class finance_SharePoint : BasePage
         }
 
     }
-    BLLSharePoint bllSharePoint = Bootstrap.Container.Resolve<BLLSharePoint>();
+    IBLLSharePoint bllSharePoint = Bootstrap.Container.Resolve<IBLLSharePoint>();
     private void BindSharePoint()
     {
         var list = bllSharePoint.GetAll();

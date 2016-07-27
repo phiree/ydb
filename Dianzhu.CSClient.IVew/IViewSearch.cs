@@ -45,10 +45,12 @@ namespace Dianzhu.CSClient.IView
         void AddSearchItem(IViewShelfService service);
         //bool BtnPush { get; set; }
         event PushServiceTimerSend PushServiceTimerSend;
+        event FilterByBusinessName FilterByBusinessName;
     }
    
     public delegate void SelectService(DZService selectedService);
     public delegate ReceptionChat PushServices(IList<DZService> pushedServices);
     public delegate void PushServiceTimerSend();
+    public delegate void FilterByBusinessName(string businessName);
 
 }

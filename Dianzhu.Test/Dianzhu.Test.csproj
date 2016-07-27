@@ -184,6 +184,8 @@
       <Link>config\connectionStrings.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="config\appSettings.config" />
+    <None Include="config\connectionstrings.config" />
     <None Include="files\aps_development_Mark.p12">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

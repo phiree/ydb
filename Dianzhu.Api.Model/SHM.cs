@@ -7,20 +7,17 @@ using Dianzhu.Model;
 using Dianzhu.Config;
 namespace Dianzhu.Api.Model
 {
-    public class RespDataSHM_snapshotObj
+    public class RespDataSHM_snapshots
     {
 
-        public RespDataSHM_snapshotObj()
+        public RespDataSHM_snapshots()
         {
-            maxOrderDic = new List<RespDataSHM_maxOrderItem>();
-            workTimeDic = new List<RespDataSHM_workTimeDicItem>();
-            OrderDic = new List<RespDataSHM_orderDicItem>();
-        }
-        public IList<RespDataSHM_maxOrderItem> maxOrderDic { get; set; }
-        public IList< RespDataSHM_workTimeDicItem> workTimeDic { get; set; }
-        public IList<RespDataSHM_orderDicItem> OrderDic { get; set; }
+            snapshots = new List<RespDataSHM_snapshots_item>();
 
-        public RespDataSHM_snapshotObj Adap(IList<ServiceOrder> orderList)
+        }
+        public IList<RespDataSHM_snapshots_item> snapshots;
+
+        public RespDataSHM_snapshots Adap(IList<ServiceOrder> orderList)
         {
             IList<DateTime> dates = orderList.Select(x => x.OrderCreated.Date).Distinct().ToList();
 
@@ -28,24 +25,158 @@ namespace Dianzhu.Api.Model
             {
                 IList<ServiceOrder> orderInDateList = orderList.Where(x => x.OrderCreated.Date == date).ToList();
                 //接单量平均值
-                int maxOrder = (int)orderInDateList.Average(x => x.Details[0].OpenTimeSnapShot.MaxOrder);
+             
+                snapshots.Add(
+                    new RespDataSHM_snapshots_item().Adap(date, orderInDateList)
+                    );
+            }
+            return this;
+        }
 
-                RespDataSHM_maxOrderItem maxOrderItem = new RespDataSHM_maxOrderItem(date, maxOrder, orderInDateList.Count);
-                maxOrderDic.Add(maxOrderItem);
 
-                //工作时间快照
 
-                IList<ServiceOpenTimeForDaySnapShotForOrder> snaps = orderInDateList.Select(x => x.Details[0].OpenTimeSnapShot).ToList();
-
-                this.workTimeDic.Add(new RespDataSHM_workTimeDicItem(date,snaps).Adap());
-                //订单快照
-                this.OrderDic.Add(new RespDataSHM_orderDicItem(orderInDateList,date).Adap());
-
+    }
+    public class RespDataSHM_snapshots_item
+    {
+        public RespDataSHM_snapshots_item()
+        {
+            orderSnapshots = new List<RespDataSHM_snapshots_item_orderSnapshots_item>();
+        }
+        public string date { get; set; }
+        public IList<RespDataSHM_snapshots_item_orderSnapshots_item> orderSnapshots;
+        public RespDataSHM_snapshots_item Adap(DateTime date , IList<ServiceOrder> orderList)
+        {
+            this.date = date.ToString("yyyyMMddHHmmss");
+            foreach (ServiceOrder order in orderList)
+            {
+                orderSnapshots.Add(new RespDataSHM_snapshots_item_orderSnapshots_item().Adap(order));
             }
             return this;
         }
     }
+    public class RespDataSHM_snapshots_item_orderSnapshots_item
+    {
+        public RespDataSHM_snapshots_item_orderSnapshots_item_orderObj orderObj;
+        public RespDataSHM_snapshots_item_orderSnapshots_item_worktimeObj worktimeObj;
+        public RespDataSHM_snapshots_item_orderSnapshots_item Adap(ServiceOrder order)
+        {
+            this.orderObj = new RespDataSHM_snapshots_item_orderSnapshots_item_orderObj().Adap(order);
+            this.worktimeObj = new RespDataSHM_snapshots_item_orderSnapshots_item_worktimeObj()
+                            .Adap(order.Service.GetOpenTimeSnapShot(order.Details[0].TargetTime));
+            return this;
+        }
 
+    }
+    public class RespDataSHM_snapshots_item_orderSnapshots_item_orderObj
+    {
+        public string orderID{ get; set; }
+        public string title{ get; set; }
+        public string status{ get; set; }
+        /// <summary>
+        /// 订单的下单时间
+        /// </summary>
+        public string startTime{ get; set; }
+        /// <summary>
+        /// 没有对应的数据, 返回空
+        /// </summary>
+        public string endTime{ get; set; }
+        public string exDoc{ get; set; }
+        public string money{ get; set; }
+        public string address{ get; set; }
+        public string km{ get; set; }
+        public RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_svcObj svcObj{ get; set; }
+        public RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_userObj userObj{ get; set; }
+        public RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_storeObj storeObj{ get; set; }
+        public RespDataSHM_snapshots_item_orderSnapshots_item_orderObj Adap(ServiceOrder order)
+        {
+            this.orderID = order.Id.ToString();
+            this.title = order.Title;
+            this.status = order.GetStatusTitleFriendly(order.OrderStatus);
+            this.startTime = order.OrderConfirmTime.ToString("yyyyMMddHHmmss");
+            this.endTime = string.Empty;
+            this.exDoc = order.Description;
+            this.money = order.NegotiateAmount.ToString();
+            this.address = order.TargetAddress;
+            this.km = string.Empty;
+            this.svcObj = new RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_svcObj().Adap(order.Details[0]);
+            this.userObj = new RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_userObj().Adap(order.Customer);
+            this.storeObj = new RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_storeObj().Adap(order.Business);
+            return this;
+        }
+
+    }
+    public class RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_svcObj
+    {
+        public string svcID{ get; set; }
+        public string name{ get; set; }
+        public string type{ get; set; }
+        /// <summary>
+        /// 服务的预约时间
+        /// </summary>
+        public string startTime{ get; set; }
+        /// <summary>
+        /// 没有对应的数据,现返回空值.
+        /// </summary>
+        public string endTime{ get; set; }
+        public RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_svcObj Adap(ServiceOrderDetail orderDetail)
+        {
+           
+            this.svcID = orderDetail.OriginalService.Id.ToString();
+            this.name = orderDetail.ServieSnapShot.ServiceName;
+            this.type = orderDetail.OriginalService.ServiceType.ToString();
+            
+            this.startTime = orderDetail.TargetTime.ToString("yyyyMMddHHmmss");
+            this.endTime = string.Empty;
+            return this;
+        }
+    }
+    public class RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_userObj
+    {
+        public string userID{ get; set; }
+        public string alias{ get; set; }
+        public string imgUrl{ get; set; }
+        public RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_userObj Adap(DZMembership customer)
+        {
+            this.userID = customer.Id.ToString();
+            this.alias = customer.NickName;
+            this.imgUrl = customer.AvatarUrl;
+            return this;
+        }
+    }
+    public class RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_storeObj
+    {
+        public string userID{ get; set; }
+        public string alias{ get; set; }
+        public string imgUrl{ get; set; }
+        public RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_storeObj Adap(Business b)
+        {
+            this.userID = b.Owner.Id.ToString();
+            this.alias = b.Owner.NickName;
+            this.imgUrl = b.Owner.AvatarUrl;
+            return this;
+        }
+
+    }
+    public class RespDataSHM_snapshots_item_orderSnapshots_item_worktimeObj
+    {
+        
+        public string tag { get; set; }
+        public string startTime{ get; set; }
+        public string endTime{ get; set; }
+        public string week{ get; set; }
+        public string open{ get; set; }
+        public string maxOrder{ get; set; }
+        public RespDataSHM_snapshots_item_orderSnapshots_item_worktimeObj Adap(ServiceOpenTimeForDaySnapShotForOrder snap)
+        {
+            this.startTime = PHSuit.StringHelper.ConvertPeriodToTimeString(snap.PeriodBegin);//.ToString();
+            this.endTime = PHSuit.StringHelper.ConvertPeriodToTimeString(snap.PeriodEnd);//.ToString();
+            this.week = ((int) snap.Date.DayOfWeek).ToString();
+            this.open = "Y";
+            this.maxOrder = snap.MaxOrder.ToString();
+            return this;
+        }
+            }
+    /*
     public class RespDataSHM_maxOrderItem
     {
         public RespDataSHM_maxOrderItem(DateTime date,int maxOrder,int reOrder)
@@ -200,15 +331,17 @@ namespace Dianzhu.Api.Model
             return this;
         }
     }
-    public class ReqDataSHM001007
-{
-    public string stratTime { get; set; }
-    public string endTime { get; set; }
-    public string serviceId { get; set; }
-}
+
 
 public class RespDataSHM001007
 {
     public RespDataSHM_snapshotObj snapshotObj { get; set; }
-}
+}*/
+
+    public class ReqDataSHM001007
+    {
+        public string stratTime { get; set; }
+        public string endTime { get; set; }
+        public string serviceId { get; set; }
+    }
 }

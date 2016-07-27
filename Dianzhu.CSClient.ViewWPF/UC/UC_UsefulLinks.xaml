@@ -1,0 +1,337 @@
+﻿<UserControl x:Class="Dianzhu.CSClient.ViewWPF.UC_UsefulLinks"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="434" d:DesignWidth="442">
+    <UserControl.Resources>
+        <Style x:Key="TextBlockUsefulLinksTitle" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="None"/>
+            <Setter Property="Foreground" Value="#FF919191"/>
+            <Setter Property="FontFamily" Value="微软雅黑"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Margin" Value="0,5,0,5"/>
+        </Style>
+
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="ButtonStyleLink" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="#FF5c95c2"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Margin" Value="10,10,10,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Width="80" Height="20" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="#FF5c95c2" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                                <Setter Property="Cursor" TargetName="border" Value="Hand"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonStyleLinkLong" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="#FF5c95c2"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Margin" Value="10,10,10,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Width="180" Height="20" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="#FF5c95c2" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                                <Setter Property="Cursor" TargetName="border" Value="Hand"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="#FFfafafa" Margin="0,10,0,0">
+        <ScrollViewer x:Name="ScrollViewer" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="0" Grid.Column="0">
+            <StackPanel Margin="0,0,0,20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="#FFebebeb" Margin="10,10,10,0">
+                            <Label Padding="0">
+                                <TextBlock Text="各大搜索引擎" Style="{DynamicResource TextBlockUsefulLinksTitle}"></TextBlock>
+                            </Label>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <WrapPanel Grid.RowSpan="2" Margin="10,0">
+                            <Button Click="Button_Click" Tag="https://www.baidu.com/" Style="{DynamicResource ButtonStyleLink}">
+                                <TextBlock Text="百度"></TextBlock>
+                            </Button>
+
+                            <Button Click="Button_Click" Tag="https://www.sogou.com/" Style="{DynamicResource ButtonStyleLink}">
+                                <TextBlock Text="搜狗"></TextBlock>
+                            </Button>
+
+                            <Button Click="Button_Click" Tag="https://www.so.com/" Style="{DynamicResource ButtonStyleLink}">
+                                <TextBlock Text="360搜索"></TextBlock>
+                            </Button>
+                        </WrapPanel>
+                    </Grid>
+                </Grid>
+                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="#FFebebeb" Margin="10,10,10,0">
+                            <Label Padding="0">
+                                <TextBlock Text="酒店、旅游、机票、火车票、门票预订" Style="{DynamicResource TextBlockUsefulLinksTitle}"></TextBlock>
+                            </Label>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <WrapPanel Grid.RowSpan="2" Margin="10,0">
+                            <Button Click="Button_Click" Tag="http://www.ctrip.com/" Style="{DynamicResource ButtonStyleLink}">
+                                <TextBlock Text="携程"></TextBlock>
+                            </Button>
+
+                            <Button Click="Button_Click" Tag="http://www.qunar.com/" Style="{DynamicResource ButtonStyleLink}">
+                                <TextBlock Text="去哪儿"></TextBlock>
+                            </Button>
+
+                            <Button Click="Button_Click" Tag="http://www.tuniu.com/" Style="{DynamicResource ButtonStyleLink}">
+                                <TextBlock Text="途牛"></TextBlock>
+                            </Button>
+
+                            <Button Click="Button_Click" Tag="http://www.damai.cn/" Style="{DynamicResource ButtonStyleLink}">
+                                <TextBlock Text="大麦网"></TextBlock>
+                            </Button>
+
+                            <Button Click="Button_Click" Tag="http://www.mafengwo.cn/" Style="{DynamicResource ButtonStyleLink}">
+                                <TextBlock Text="马蜂窝"></TextBlock>
+                            </Button>
+
+                            <Button Click="Button_Click" Tag="http://www.lvmama.com/" Style="{DynamicResource ButtonStyleLink}">
+                                <TextBlock Text="驴妈妈"></TextBlock>
+                            </Button>
+
+                            <Button Click="Button_Click" Tag="http://www.12306.cn/" Style="{DynamicResource ButtonStyleLinkLong}">
+                                <TextBlock Text="中国铁路客户服务中心"></TextBlock>
+                            </Button>
+                        </WrapPanel>
+                    </Grid>
+                </Grid>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="#FFebebeb" Margin="10,10,10,0">
+                            <Label Padding="0">
+                                <TextBlock Text="天气查询" Style="{DynamicResource TextBlockUsefulLinksTitle}"></TextBlock>
+                            </Label>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <WrapPanel Grid.RowSpan="2" Margin="10,0">
+                            <Button Click="Button_Click" Tag="http://www.weather.com.cn/" Style="{DynamicResource ButtonStyleLinkLong}">
+                                <TextBlock Text="中国天气网"></TextBlock>
+                            </Button>
+
+                            <Button Click="Button_Click" Tag="http://typhoon.weather.com.cn/" Style="{DynamicResource ButtonStyleLinkLong}">
+                                <TextBlock Text="中国天气台风网"></TextBlock>
+                            </Button>
+                        </WrapPanel>
+                    </Grid>
+                </Grid>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="#FFebebeb" Margin="10,10,10,0">
+                            <Label Padding="0">
+                                <TextBlock Text="生活服务类网站" Style="{DynamicResource TextBlockUsefulLinksTitle}"></TextBlock>
+                            </Label>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <WrapPanel Grid.RowSpan="2" Margin="10,0">
+                            <Button Click="Button_Click" Tag="http://haikou.58.com/" Style="{DynamicResource ButtonStyleLink}">
+                                <TextBlock Text="58同城"></TextBlock>
+                            </Button>
+
+                            <Button Click="Button_Click" Tag="http://hn.ganji.com/" Style="{DynamicResource ButtonStyleLink}">
+                                <TextBlock Text="赶集网"></TextBlock>
+                            </Button>
+
+                            <Button Click="Button_Click" Tag="http://life.hao123.com/" Style="{DynamicResource ButtonStyleLink}">
+                                <TextBlock Text="hao123"></TextBlock>
+                            </Button>
+                        </WrapPanel>
+                    </Grid>
+                </Grid>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="#FFebebeb" Margin="10,10,10,0">
+                            <Label Padding="0">
+                                <TextBlock Text="快递查询大全" Style="{DynamicResource TextBlockUsefulLinksTitle}"></TextBlock>
+                            </Label>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <WrapPanel Grid.RowSpan="2" Margin="10,0">
+                            <Button Click="Button_Click" Tag="http://www.kuaidi100.com/" Style="{DynamicResource ButtonStyleLinkLong}">
+                                <TextBlock Text="快递查询大全"></TextBlock>
+                            </Button>
+                        </WrapPanel>
+                    </Grid>
+                </Grid>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="#FFebebeb" Margin="10,10,10,0">
+                            <Label Padding="0">
+                                <TextBlock Text="水电、油卡、游戏缴费充值" Style="{DynamicResource TextBlockUsefulLinksTitle}"></TextBlock>
+                            </Label>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <WrapPanel Grid.RowSpan="2" Margin="10,0">
+                            <Button Click="Button_Click" Tag="http://www.jiaofei123.com/" Style="{DynamicResource ButtonStyleLink}">
+                                <TextBlock Text="中国缴费网"></TextBlock>
+                            </Button>
+
+                            <Button Click="Button_Click" Tag="https://www.alipay.com/" Style="{DynamicResource ButtonStyleLink}">
+                                <TextBlock Text="支付宝缴费"></TextBlock>
+                            </Button>
+
+                            <Button Click="Button_Click" Tag="http://www.sinopecsales.com/" Style="{DynamicResource ButtonStyleLinkLong}">
+                                <TextBlock Text="中国石化网上营业厅"></TextBlock>
+                            </Button>
+                        </WrapPanel>
+                    </Grid>
+                </Grid>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="#FFebebeb" Margin="10,10,10,0">
+                            <Label Padding="0">
+                                <TextBlock Text="医院挂号网" Style="{DynamicResource TextBlockUsefulLinksTitle}"></TextBlock>
+                            </Label>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <WrapPanel Grid.RowSpan="2" Margin="10,0">
+                            <Button Click="Button_Click" Tag="http://www.guahao.com/" Style="{DynamicResource ButtonStyleLinkLong}">
+                                <TextBlock Text="微医(挂号网)"></TextBlock>
+                            </Button>
+                        </WrapPanel>
+                    </Grid>
+                </Grid>
+                
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
