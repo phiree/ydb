@@ -145,7 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <Content Include="appSettings.config">
+    <Content Include="config\appSettings.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="installService.bat">
