@@ -41,7 +41,7 @@ namespace Dianzhu.BLL
                 case enum_PayTarget.FinalPayment:
                     //只有 已经服务完成的 订单 才能申请 支付尾款 
                     errMsg = "只有 已经服务完成的 订单 才能申请 支付尾款 ";
-                    applyIsValid = order.OrderStatus == enum_OrderStatus.Ended;
+                    applyIsValid = order.OrderStatus == enum_OrderStatus.Ended || order.OrderStatus == enum_OrderStatus.Finished;
                     break;
                 case enum_PayTarget.Compensation:
                     errMsg = "只有已经完成的订单 才能申请赔偿.";
@@ -88,7 +88,7 @@ namespace Dianzhu.BLL
             }
             else if (paymentCount == 0)
             {
-                payment = new Payment { Amount=GetPayAmount(order, payTarget), Order=order, PayTarget= payTarget};
+                payment = new Payment(GetPayAmount(order, payTarget), order, payTarget);
 
                 dal.Add(payment);
             }

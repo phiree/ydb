@@ -570,6 +570,20 @@ namespace Dianzhu.Api.Model
 
     #endregion
 
+    #region ORM003010
+    public class ReqDataORM003010
+    {
+        public string userID { get; set; }
+        public string pWord { get; set; }
+        public string orderID { get; set; }
+    }
+
+    public class RespDataORM003010
+    {
+        public string resultStatus { get; set; }
+    }
+    #endregion
+
     #region ORM005001
 
     public class ReqDataORM005001

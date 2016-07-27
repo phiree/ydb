@@ -9,7 +9,7 @@
 //"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
 //"wtm001001",,"wtm001002","wtm001004","wtm001005","wtm001006"
 //"rmm001003","rmm001004","rmm001005","rmm001006",
-"shm001007"
+"orm002001"
 
 ];
 var test_data = [
@@ -905,6 +905,17 @@ var test_data = [
                    "orderID": "d4bd4bdd-9740-4d4a-9eee-a593014071a8",
                    "appraiseValue": "0.5",
                    "appraiseDocs":"good"
+               },
+               "stamp_TIMES": "1490192929212",
+               "serial_NUMBER": "00147001015869149751"
+           },
+
+           {
+               "protocol_CODE": "ORM003010",
+               "ReqData": {
+                   "userID": "96dda06b-f9db-42ba-9b71-a64300c7cd6f",
+                   "pWord": "123456",
+                   "orderID": "534f1a4d-bfe0-4862-a24c-a65000c197eb",
                },
                "stamp_TIMES": "1490192929212",
                "serial_NUMBER": "00147001015869149751"

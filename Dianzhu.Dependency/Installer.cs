@@ -43,6 +43,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<BLLOrderAssignment>());
 
             container.Register(Component.For<BLLPayment>());
+            container.Register(Component.For<BLLPaymentLog>());
 
             container.Register(Component.For<BLLRefund>());
             container.Register(Component.For<BLLRefundLog>());
