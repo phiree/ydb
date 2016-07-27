@@ -5498,7 +5498,6 @@ a.time-trigger:hover {
 .sidebar-icon-msg {
   background: url("../images/common/sidebar/mess_left_20x22.png") no-repeat center;
 }
-/* 单日模版样式 */
 .day-tabs {
   width: 100%;
   overflow-y: hidden;
@@ -5510,8 +5509,8 @@ a.time-trigger:hover {
   padding: 5px 10px;
   border: 1px solid #C7C7C7;
   border-bottom: 0;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   color: #fff;
   text-shadow: 0 1px 2px rgba(51, 51, 51, 0.26);
 }
@@ -5634,17 +5633,26 @@ a.time-trigger:hover {
 .day-container {
   border-radius: 5px;
   overflow: hidden;
-  background: #f6f6f6;
   border: 1px solid #C7C7C7;
+  position: relative;
+  background: #f6f6f6;
+  min-height: 500px;
 }
 .day-container.editing .time-bucket.noHis .t-b-edit {
   height: 100px;
 }
-.day-container.loading {
-  height: 500px;
+.day-container.loading:before {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: 100;
+  height: 100%;
+  width: 100%;
   background: url("../images/load.gif") no-repeat center;
 }
-.day-container.error {
+.day-container.error:before {
+  content: '';
+  display: block;
   height: 500px;
   background: url("../images/error.jpg") no-repeat center;
 }
@@ -5743,22 +5751,24 @@ a.time-trigger:hover {
   background: #eee;
 }
 .time-bucket {
-  border-radius: 8px;
   padding: 10px;
   margin: 10px;
+  position: relative;
   overflow: hidden;
+  background: #ededed;
+  border-radius: 8px;
   border: 2px solid transparent;
   border-bottom: 2px solid #DEDEDE;
   transition: all ease 0.3s ;
 }
 .time-bucket:hover {
-  border: 2px solid #70E0FF;
-  box-shadow: 0 0 6px 0 #70E0FF;
+  border: 2px solid #3f92e2;
+  box-shadow: 0 0 6px 0 #5aa3ea;
 }
 .time-bucket.his {
   background: #eee;
 }
-.t-b-top {
+.t-b-main {
   overflow: hidden;
   position: relative;
 }
@@ -5769,20 +5779,52 @@ a.time-trigger:hover {
   text-align: center;
   line-height: 1.8em;
 }
-.t-b-num {
-  float: right;
-  height: 100px;
-  line-height: 100px;
-  margin: 0 15px;
+.t-b-add {
+  position: absolute;
+  top: 45px;
+  right: 300px;
+  text-align: center;
 }
-.t-b-num .t-b-num-n {
-  font-size: 38px;
-  margin-right: 15px;
+.t-b-add ._num {
+  width: 50px;
+  padding: 2px 3px;
+  border: 1px solid #3399cc;
+  border-radius: 3px;
+}
+.t-b-add ._btn {
+  width: 50px;
+  color: #fff;
+  background: #6cabe8;
+  text-shadow: 0 1px 2px #5191CB;
+  border-radius: 5px;
+  border: 1px solid #4d93d6;
+  box-shadow: 0 1px 3px 0 #9a9a9a;
+  padding: 3px 5px;
+}
+.t-b-num {
+  position: absolute;
+  right: 140px;
+  top: 35px;
+}
+.t-b-num ._s {
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.t-b-num ._i {
+  font-size: 16px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.t-b-num ._n {
+  font-size: 30px;
+  vertical-align: middle;
 }
 .t-b-switch {
-  float: right;
-  height: 100px;
-  padding-top: 20px;
+  position: absolute;
+  right: 10px;
+  top: 30px;
   text-align: center;
 }
 .t-b-edit {
@@ -5832,27 +5874,34 @@ a.time-trigger:hover {
   padding: 5px;
   margin: 0 10px ;
 }
+.t-b-ctrl {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+}
 .t-b-window {
   overflow: hidden;
   display: inline-block;
   position: relative;
   margin-left: 150px;
 }
+@media screen and (max-width: 1600px) {
+  .t-b-ctrl {
+    position: relative;
+    height: 120px;
+  }
+}
 /* 订单列表样式 */
 .good-list-wrap {
-  width: 910px;
-  height: 120px;
-  margin-bottom: -20px;
-  float: left;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  /* width: 910px; */
+  overflow: hidden;
+  /* margin-bottom: -20px; */
+  /* float: left; */
+  /* overflow-x: scroll; */
+  /* overflow-y: hidden; */
   position: relative;
-  transition: all 0.3s;
-}
-@media screen and (max-width: 1500px) {
-  .good-list-wrap {
-    width: 410px;
-  }
+  /* transition: all 0.3s; */
 }
 .good-next,
 .good-prev {
@@ -5861,9 +5910,31 @@ a.time-trigger:hover {
   height: 100px;
   line-height: 100px;
 }
+.good-reorder,
+.good-total {
+  float: left;
+}
+.good-reorder {
+  margin-right: 50px;
+}
+.good-title {
+  font-size: 30px;
+  line-height: 90px;
+  float: right;
+  margin-left: 30px;
+}
+.good-title ._t {
+  font-size: 16px;
+}
+.good-title ._i {
+  font-size: 16px;
+  margin: 5px;
+}
+.good-title ._m {
+  vertical-align: middle;
+}
 .good-list {
-  height: 100px;
-  width: 1000%;
+  display: inline-block;
   overflow: hidden;
 }
 .good-list.edit .deleteGood {
@@ -5882,10 +5953,7 @@ a.time-trigger:hover {
 }
 .good-list .good {
   display: block;
-  border-radius: 5px;
   float: left;
-  margin-left: 10px;
-  background: #EEEEEE;
   position: relative;
   width: 80px;
   height: 80px;
@@ -5895,13 +5963,17 @@ a.time-trigger:hover {
 .good-list .good + .good {
   margin-left: 10px;
 }
-.good-list .good.good-on {
-  border: 1px solid #92d7c5;
-  color: #92d7c5;
-}
 .good-list .good.good-off {
-  border: 1px solid #ed928f;
-  color: #ed928f;
+  background: url("../images/components/shelf/kai.png") no-repeat center;
+}
+.good-list .good.good-on {
+  background: url("../images/components/shelf/he.png") no-repeat center;
+}
+.good-list .good ._text {
+  color: #fff;
+  font-size: 14px;
+  margin-top: 40px;
+  margin-right: 10px;
 }
 .good-list .good-icon-w {
   width: 40px;
