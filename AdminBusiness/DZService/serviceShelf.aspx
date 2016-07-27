@@ -68,7 +68,7 @@
             </div>
             <div>
                 <input class="multiNum" type="number" value="1" title="填写修改量"/>
-                <input class="multiAdd" type="button" value="上架货品"/>
+                <input class="multiAdd" type="button" value="补货"/>
             </div>
             <div class="t-b-switch">
                 <div class="round-checkbox v-m">
@@ -176,15 +176,16 @@
 </script>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server" >
-    <script src="/js/core/interfaceAdapter.js?v=1.0.0"></script>
     <script src="/js/libs/json2.js"></script>
     <script src="/js/libs/underscore.js"></script>
     <script src="/js/libs/backbone.js"></script>
+    <script src="/js/core/backbone.customApi.js?v=1.0.0"></script>
+    <script src="/js/core/interfaceAdapter.js?v=1.0.0"></script>
     <!--测试时的API接口-->
-    <script src="/js/mock/backbone.customAPI.test.js"></script>
-    <script src="/js/mock/mock.js"></script>
-    <script src="/js/mock/mock.shelf.js"></script>
-    <script src="/js/mock/mock.workTimeSet.js"></script>
+    <!--<script src="/js/mock/backbone.customAPI.test.js"></script>-->
+    <!--<script src="/js/mock/mock.js"></script>-->
+    <!--<script src="/js/mock/mock.shelf.js"></script>-->
+    <!--<script src="/js/mock/mock.workTimeSet.js"></script>-->
     <script src="/js/core/event.js?v=1.0.0"></script>
     <script src="/js/apps/shelf.js?v=1.0.0"></script>
 </asp:Content>

@@ -25,9 +25,9 @@ public class ResponseSHM001007 : BaseResponse
         BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
         BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
 
-        string start_Time = requestData.stratTime;
+        string start_Time = requestData.startTime;
         string end_Time = requestData.endTime;
-        string service_id = requestData.serviceId;
+        string service_id = requestData.svcID;
 
         try
         {
@@ -46,7 +46,7 @@ public class ResponseSHM001007 : BaseResponse
                 return;
             }
 
-            if (startTime >=endTime)
+            if (startTime > endTime)
             {
                 this.state_CODE = Dicts.StateCode[1];
                 this.err_Msg = "startTime不得小于endTime!";

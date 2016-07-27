@@ -11,7 +11,8 @@
     };
 
     // 请求URl
-    var globalReqUrl = "shm001007.json";
+    //var globalApiUrl = "shm001007.json";
+    var globalApiUrl = document.getElementById("hiApiUrl").value;
 
     // 商家ID
     var merchantID = document.getElementById("merchantID").value;
@@ -33,6 +34,12 @@
     var dateTools = function(){
         var dateTools = {};
         dateTools.dateFormat = function(dateObj, options){
+
+            if (arguments.length === 1){
+                options = dateObj;
+                dateObj = new Date();
+            }
+
             var date = dateObj || new Date();
             var option = (typeof options === "string") ? options.toUpperCase() : "YYYYMMDD";
 
@@ -40,8 +47,8 @@
                 case "YYYYMMDD":
                     return ("" + date.getFullYear() + fix((date.getMonth() + 1), 2) + fix(date.getDate(), 2));
                     break;
-                case "YYYYMMDDHHMM":
-                    return ("" + date.getFullYear() + fix((date.getMonth() + 1), 2) + fix(date.getDate(), 2) + fix(date.getHours(), 2) +  fix(date.getMinutes(), 2));
+                case "YYYYMMDDHHMMSS":
+                    return ("" + date.getFullYear() + fix((date.getMonth() + 1), 2) + fix(date.getDate(), 2) + fix(date.getHours(), 2) +  fix(date.getMinutes(), 2) +　fix(date.getSeconds(), 2));
                     break;
                 case "HHMM":
                     return fix((date.getHours()), 2) + fix((date.getMinutes()), 2);
@@ -59,6 +66,28 @@
             var date = dateObj || new Date();
             return ("" + date.getFullYear() + fix((date.getMonth() + 1), 2) + fix((date.getDate() + 7 - date.getDay()), 2));
         };
+        dateTools.fmt = function (dateObj, fmt) { //author: meizz
+
+            if (arguments.length === 1){
+                fmt = dateObj;
+                dateObj = new Date();
+            }
+
+            var o = {
+                "M+": dateObj.getMonth() + 1, //月份
+                "d+": dateObj.getDate(), //日
+                "h+": dateObj.getHours(), //小时
+                "m+": dateObj.getMinutes(), //分
+                "s+": dateObj.getSeconds(), //秒
+                "q+": Math.floor((dateObj.getMonth() + 3) / 3), //季度
+                "S": dateObj.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (dateObj.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+        ;
         return dateTools;
     }();
 
@@ -88,12 +117,15 @@
     };
 
     SnapShots.DEFAULTS = {
-        reqUrl : "shm001007.json",
+        //reqUrl : "shm001007.json",
         queryData : {
-            merchantID : merchantID,
-            svcID : getQueryString("serviceid"),
-            startTime : dateTools.dateFormat(),
-            endTime : dateTools.dateFormat(),
+            //merchantID : merchantID,
+            //svcID : getQueryString("serviceId"),
+            svcID : Adapter.getParameterByName("serviceId"),
+            //startTime : dateTools.dateFormat(""),
+            //endTime : dateTools.dateFormat(""),
+            startTime : dateTools.fmt("yyyy-M-d"),
+            endTime : dateTools.fmt("yyyy-M-d"),
         }
     };
 
@@ -105,11 +137,18 @@
             var success = option.success;
 
             this.fetch({
+                url : globalApiUrl,
+                customApi : true,
+                protocolCode : "SHM001007",
                 data : reqDate,
                 success : function(resp){
-                    if (resp.respCorrect){
-                        _this._init(resp.respData.snapshots);
-                    }
+
+                    // 测试代码
+                    //if (resp.respCorrect){
+                    //    _this._init(resp.respData.snapshots);
+                    //}
+
+                    _this._init(resp.snapshots);
                     prams.callback && prams.callback(_this, resp);
                     _this.trigger("load", _this, resp);
                     success && success();
@@ -117,7 +156,7 @@
             });
         },
         _init: function(snapshots){
-            this.snapShotItems = snapshots;
+            this.snapshotItems = snapshots;
         },
         /**
          * 根据日期筛选快照
@@ -126,11 +165,13 @@
          */
         getOrderSnapshotByDate : function(date){
             var orderSnapshots = [];
-            var items = this.snapShotItems;
+            var items = this.snapshotItems;
 
-            for (var i = 0; i < items.length; i++){
-                if (items[i].date === date){
-                    orderSnapshots.push(items[i].orderSnapshots);
+            if ( items.length ) {
+                for (var i = 0; i < items.length; i++){
+                    if (items[i].date === date){
+                        orderSnapshots.push(items[i].orderSnapshots);
+                    }
                 }
             }
 
@@ -160,9 +201,9 @@
             }
 
             for ( var i = 0; i < stamp.length; i++ ){
-                console.log(parseInt(stamp[i].orderObj.svcObj.startTime));
-                console.log(parseInt(_startTime));
-                console.log(parseInt(_endTime));
+                //console.log(parseInt(stamp[i].orderObj.svcObj.startTime));
+                //console.log(parseInt(_startTime));
+                //console.log(parseInt(_endTime));
 
                 if (parseInt(stamp[i].orderObj.svcObj.startTime) > parseInt(_startTime) && parseInt(stamp[i].orderObj.svcObj.startTime) < parseInt(_endTime)){
                     orderSnapShots.push(stamp[i])
@@ -175,25 +216,33 @@
             var options = option || {};
             var success = options.success;
             options.success = function(resp){
-                var response = Adapter.respUnpack(resp);
-                if(success) success(response);
+
+                // 测试代码
+                //var response = Adapter.respUnpack(resp);
+                //if(success) success(response);
+
+                if(success) success(resp);
             };
             this.sync(options);
         },
         sync : function(options){
-            var xhr = $.ajax({
-                url : globalReqUrl,
-                type : "POST",
-                dataType : "json",
-                //dataType : "text",
-                data : options.data,
-                success : options.success
-            });
-            return xhr;
+
+            return Backbone.sync('read', this, options);
+
+            // 测试代码
+            //var xhr = $.ajax({
+            //    url : options.url,
+            //    type : "POST",
+            //    //dataType : "json",
+            //    dataType : "text",
+            //    data : JSON.stringify(options.data),
+            //    success : options.success
+            //});
+            //return xhr;
         }
     });
 
-    var snapShots = new SnapShots();
+    var snapshots = new SnapShots();
 
     // 工作时间类Model
     var WorkTimeModel = Backbone.Model.extend({
@@ -205,7 +254,8 @@
             week : "0",
             maxOrder : "0"
         },
-        url : testUrl,
+        //url : testUrl,
+        url : globalApiUrl,
         initialize : function(){
             //this.attributes.orders = [];
         },
@@ -271,7 +321,8 @@
 
             /* 通过model自定义的_save函数实现数据保存 */
             this.model._save({
-                url : testUrl.WTM001003,
+                //url : testUrl.WTM001003,
+                url : globalApiUrl,
                 customApi : true,
                 protocolCode : "WTM001003",
                 data : {
@@ -304,7 +355,7 @@
 
             /* 通过model自定义的_save函数实现数据保存 */
             this.model._save({
-                url : testUrl.WTM001003,
+                url : globalApiUrl,
                 customApi : true,
                 protocolCode : "WTM001003",
                 data : {
@@ -325,7 +376,7 @@
             this.model.set({ maxOrder : (parseInt(this.model.get("maxOrder")) + parseInt(num)).toString() });
             /* 通过model自定义的_save函数实现数据保存 */
             this.model._save({
-                url : testUrl.WTM001003,
+                url : globalApiUrl,
                 customApi : true,
                 protocolCode : "WTM001003",
                 data : {
@@ -389,7 +440,7 @@
 
     var WorkDayCollection = Backbone.Collection.extend({
         model : WorkDayModel,
-        url : globalReqUrl,
+        url : globalApiUrl,
         initialize : function(){
             var _this = this;
         },
@@ -450,7 +501,7 @@
                 data : {
                     "merchantID": merchantID,
                     "svcObj": {
-                        "svcID": Adapter.getParameterByName("serviceid"),
+                        "svcID": Adapter.getParameterByName("serviceId"),
                         "maxOrderString": maxOrderString
                     }
                 }
@@ -526,15 +577,15 @@
             var _this = this;
             this.reqDate = new Date();
 
-            this.snapShots = snapShots;
+            this.snapshots = snapshots;
             this.workTimes = new WorkTimeCollection();
             this.workDays = workDays;
 
             this.render();
             this.initDayTab();
 
-            // 注册snapShots的load事件，-对快照进行构建
-            //snapShots.on("load", function(snapShotsObj, response){});
+            // 注册snapshots的load事件，-对快照进行构建
+            //snapshots.on("load", function(snapshotsObj, response){});
 
             // 注册workTime的sync事件，对返回的工作时间数据构建
             this.listenTo(this.workTimes, "sync", function(collection, response, options){
@@ -557,7 +608,7 @@
             var _this = this, reqDate;
 
             if ( typeof reqDateObj !== "undefined" ){
-                reqDate = dateTools.dateFormat(reqDateObj, "YYYYMMDD");
+                reqDate = dateTools.fmt(reqDateObj, "yyyy-M-d");
             } else {
                 return
             }
@@ -565,7 +616,7 @@
             _this.showLoading(true);
 
             // 请求快照数据
-            snapShots.load({
+            snapshots.load({
                 queryData : {
                     "startTime": reqDate,
                     "endTime": reqDate
@@ -574,24 +625,24 @@
 
                     // 请求工作单日数据
                     _this.workDays._fetch({
-                        url : testUrl.SVC001005,
+                        url : globalApiUrl,
                         customApi : true,
                         protocolCode : "SVC001005",
                         data : {
                             "merchantID": merchantID,
-                            "svcID": Adapter.getParameterByName("serviceid")
+                            "svcID": Adapter.getParameterByName("serviceId")
                         },
                         success : function(){
 
                             // 请求工作时间数据
                             _this.workTimes._fetch({
                                 reset : true,
-                                url : testUrl.WTM001006,
+                                url : globalApiUrl,
                                 customApi : true,
                                 protocolCode : "WTM001006",
                                 data : {
                                     "merchantID" : merchantID,
-                                    "svcID" : Adapter.getParameterByName("serviceid"),
+                                    "svcID" : Adapter.getParameterByName("serviceId"),
                                     "week" : reqDateObj.getDay()
                                 },
                                 success: function () {
@@ -669,7 +720,7 @@
                 startTime = model.get("startTime").replace(":", "");
                 endTime = model.get("endTime").replace(":", "");
 
-                orderSSArray = _this.snapShots.getOrderSnapshotByTime(dateStr, startTime, endTime);
+                orderSSArray = _this.snapshots.getOrderSnapshotByTime(dateStr, startTime, endTime);
 
                 model.attributes.orderSSArray = orderSSArray;
                 workTimeView = new WorkTimeView({model: model});
@@ -693,7 +744,7 @@
 
             _.each(collection.models, function(dayModel, index, collection){
                 if (dayOfWeek == index ){
-                    dayModel.attributes.reOrder = _this.snapShots.getOrderSnapshotByDate(dateStr).length;
+                    dayModel.attributes.reOrder = _this.snapshots.getOrderSnapshotByDate(dateStr).length;
                     dayModel.attributes.date = dateStr;
 
                     var workDayView = new WorkDayView({model : dayModel});
