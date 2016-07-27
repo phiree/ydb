@@ -82,6 +82,12 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.MaxOrdersPerDay, opt => opt.MapFrom(source => Int32.Parse(source.maxCount)))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
+            Mapper.CreateMap<serviceTypeObj, Model.ServiceType>()
+            .ForMember(x => x.Id, opt => opt.MapFrom(source => source.id))
+            .ForMember(x => x.ParentId, opt => opt.MapFrom(source => source.superID))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+
             Mapper.CreateMap<staffObj, Model.Staff>()
             .ForMember(x => x.NickName, opt => opt.MapFrom(source => source.alias))
             .ForMember(x => x.Code, opt => opt.MapFrom(source => source.number))

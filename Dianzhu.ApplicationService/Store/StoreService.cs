@@ -47,6 +47,7 @@ namespace Dianzhu.ApplicationService.Store
             storeobj.location.latitude = business.Latitude.ToString();
             storeobj.location.longitude = business.Longitude.ToString();
             storeobj.location.address = business.RawAddressFromMapAPI==null?"":business.RawAddressFromMapAPI;
+            
         }
 
         /// <summary>

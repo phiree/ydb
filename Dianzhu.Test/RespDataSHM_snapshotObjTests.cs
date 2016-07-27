@@ -20,9 +20,9 @@ namespace Dianzhu.Api.Model.Tests
             var fix = new Ploeh.AutoFixture.Fixture();
             fix.Behaviors.Add(new OmitOnRecursionBehavior());
 
-            var resp = fix.Create<RespDataSHM_snapshotObj>(); //Ploeh.AutoFixture.Fixture  Builder<RespDataSHM_snapshotObj>.CreateNew().Build();
-         var jsonStr=            JsonConvert.SerializeObject(resp);
-            Console.WriteLine(jsonStr);
+         //   var resp = fix.Create<RespDataSHM_snapshotObj>(); //Ploeh.AutoFixture.Fixture  Builder<RespDataSHM_snapshotObj>.CreateNew().Build();
+         //var jsonStr=            JsonConvert.SerializeObject(resp);
+         //   Console.WriteLine(jsonStr);
         }
     }
 }
