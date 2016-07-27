@@ -128,21 +128,21 @@ public class ResponseSYS001001:BaseResponse
         {
             chat.ReceiveTime = now;
         }
-        if (chat is ReceptionChatMedia)
-        {
-            if (((ReceptionChatMedia)chat).MediaType != "url")
-            {
-                string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
-                string localFileName = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
+        //if (chat is ReceptionChatMedia)
+        //{
+        //    if (((ReceptionChatMedia)chat).MediaType != "url")
+        //    {
+        //        string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
+        //        //string localFileName = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
 
-                using (var client = new WebClient())
-                {
-                    string savedPath = HttpRuntime.AppDomainAppPath + Dianzhu.Config.Config.GetAppSetting("LocalMediaSaveDir") + localFileName;
-                    PHSuit.IOHelper.EnsureFileDirectory(savedPath);
-                    client.DownloadFile(mediaUrl, savedPath);
-                }
-            }
-        }
+        //        using (var client = new WebClient())
+        //        {
+        //            string savedPath = HttpRuntime.AppDomainAppPath + Dianzhu.Config.Config.GetAppSetting("LocalMediaSaveDir") + mediaUrl;
+        //            PHSuit.IOHelper.EnsureFileDirectory(savedPath);
+        //            client.DownloadFile(savedPath, mediaUrl);
+        //        }
+        //    }
+        //}
 
         ReceptionChatDD chatDD = new ReceptionChatDD();
         chatDD.Id = chat.Id;
