@@ -230,4 +230,7 @@ Dianzhu.CSClient/files/aps_development_Mark.p12
 *connectionstrings.config
 wrap/
 PHSuit/files/ffmpeg.exe
+
+config/
 appSettings.config
+connectionstrings.config
