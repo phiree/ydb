@@ -15,6 +15,12 @@ namespace Dianzhu.BLL.Finance
         {
             this.dalBalanceFlow = dalBalanceFlow;
         }
+
+        public IList<BalanceFlow> GetList()
+        {
+          return  dalBalanceFlow.Find(x => true);
+        }
+
         public void Save(BalanceFlow flow)
         {
             dalBalanceFlow.Add(flow);
