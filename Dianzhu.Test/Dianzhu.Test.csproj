@@ -170,6 +170,7 @@
     <Compile Include="Reception\BLLReceptionTests.cs" />
     <Compile Include="RespDataSHM_snapshotObjTests.cs" />
     <Compile Include="SecurityTest.cs" />
+    <Compile Include="ServiceOrder\DALServiceOrderTests.cs" />
     <Compile Include="tagTest.cs" />
     <Compile Include="test_mainform.cs" />
   </ItemGroup>
@@ -184,7 +185,9 @@
       <Link>config\connectionStrings.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="config\appSettings.config" />
+    <None Include="config\appSettings.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="config\connectionstrings.config" />
     <None Include="files\aps_development_Mark.p12">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

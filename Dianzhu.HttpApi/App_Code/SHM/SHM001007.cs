@@ -60,8 +60,8 @@ public class ResponseSHM001007 : BaseResponse
 
             DZService dzService = bllService.GetOne(new Guid(service_id));
 
-            IList<ServiceOrder> orderList = bllServiceOrder.GetOrderListByDateRange( startTime, endTime);
-            orderList = orderList.Where(x => x.Details[0].OriginalService.Id.ToString() == service_id).ToList();
+            IList<ServiceOrder> orderList = bllServiceOrder.GetOrderListOfServiceByDateRange(new Guid(service_id), startTime, endTime);
+             
           //  RespDataSHM001007 respData = new RespDataSHM001007();
           
             this.RespData = new RespDataSHM_snapshots().Adap(orderList);
