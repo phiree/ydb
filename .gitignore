@@ -214,3 +214,4 @@ media/
 wrap/
 PHSuit/files/ffmpeg.exe
 config/
+connectionstrings.config

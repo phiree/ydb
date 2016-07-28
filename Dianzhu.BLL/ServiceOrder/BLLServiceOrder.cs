@@ -418,18 +418,11 @@ namespace Dianzhu.BLL
 
             //return DALServiceOrder.GetOrderListByDate(service, date);
         }
-        public IList<ServiceOrder> GetOrderListByDateRange( DateTime dateBegin, DateTime dateEnd)
+        public IList<ServiceOrder> GetOrderListOfServiceByDateRange(Guid serviceId, DateTime timeBegin, DateTime timeEnd)
         {
-            var where = PredicateBuilder.True<ServiceOrder>();
 
-             
 
-            where = where.And(x => x.Details.Count>0);
-            //where = where.And(x => x.Details[0].OriginalService!=null);
-            where = where.And(x => x.OrderCreated.Date >= dateBegin);
-            where = where.And(x => x.OrderCreated <= dateEnd);
-
-            return repoServiceOrder.Find(where).ToList();
+            return repoServiceOrder.GetOrderListOfServiceByDateRange(serviceId,timeBegin,timeEnd);
         }
         public ServiceOrder GetOrderByIdAndCustomer(Guid Id, DZMembership customer)
         {

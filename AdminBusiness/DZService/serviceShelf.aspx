@@ -31,7 +31,7 @@
 <!-- one day template 单日模版 -->
 <script type="text/template" id="day_template">
     <div class="day-title">
-        <div class="day-info"><span>{%= date %}</span><span class="m-l10">当日已售&nbsp;&nbsp;{%= reOrder %}&nbsp;当日总量{%= maxOrder %}</span></div>
+        <div class="day-info"><span class="m-l10">当日已售&nbsp;&nbsp;{%= reOrder %}件&nbsp;当日总量&nbsp;{%= maxOrder %}件</span></div>
         <!--<div class="day-control">-->
             <!--<div class="day-control-item">-->
                 <!--<span>服务编辑开关:</span>-->
@@ -61,14 +61,52 @@
 
 <!-- timeBucket template 时间段模版 -->
 <script type="text/template" id="timeBucket_template">
-        <div class="t-b-top {%= open%}">
+        <div class="t-b-main {%= open%}">
             <div class="t-b-time">
                 <p class="t-b-timeStart">{%= startTime %}</p>
                 <p class="t-b-timeEnd">{%= endTime %}</p>
             </div>
-            <div>
-                <input class="multiNum" type="number" value="1" title="填写修改量"/>
-                <input class="multiAdd" type="button" value="补货"/>
+            <div class="t-b-window">
+                <!--<div class="good-prev"></div>-->
+                <div class="good-list-wrap">
+                    <div class="good-reorder">
+                        <ul class="good-list">
+                            {% for ( var i = 0 ; i < 1 ; i++ ){ %}
+                            <li class="good good-off">
+                                <!--<div class="good-icon-w">-->
+                                    <!--<i class="icon"></i>-->
+                                <!--</div>-->
+                                <p class="_text">服务</p>
+                            </li>
+                            {% }; %}
+                        </ul>
+                        <span class="good-title"><strong class="_t">已售服务</strong><span class="_i">X</span><span class="_m">{%= orders.length %}</span>
+</span>
+                    </div>
+                    <div class="good-total">
+                        <ul class="good-list">
+                            {% for ( var i = 0 ; i < 3 ; i++ ){ %}
+                            <li class="good good-on">
+                                <!--<div class="good-icon-w">-->
+                                    <!--<i class="icon"></i>-->
+                                <!--</div>-->
+                                <p class="_text">服务</p>
+                            </li>
+                            {% }; %}
+                        </ul>
+                        <span class="good-title"><strong class="_t">剩余服务</strong><span class="_i">X</span><span class="_m">{%= maxOrder - orders.length %}</span></span>
+                    </div>
+                </div>
+                <!--<div class="good-next"></div>-->
+            </div>
+        </div>
+        <div class="t-b-ctrl">
+            <div class="t-b-add">
+                <input class="_num multiNum" type="number" value="1" title="填写修改量"/>
+                <input class="_btn multiAdd" type="button" value="补货"/>
+            </div>
+            <div class="t-b-num">
+                <span class="_s">服务总量</span><span class="_i">X</span><span class="_n">{%= maxOrder %}</span>
             </div>
             <div class="t-b-switch">
                 <div class="round-checkbox v-m">
@@ -78,45 +116,17 @@
                 </div>
                 <div class="l-h20">该时段服务开关</div>
             </div>
-            <div class="t-b-num">
-                <span class="t-b-num-n">{%= orders.length %}/{%= maxOrder %}</span><span>剩余</span>
-            </div>
-            <div class="t-b-window">
-                <div class="good-prev"><</div>
-                <div class="good-list-wrap">
-                    <ul class="good-list">
-                        <ul class="good-list">
-                            {% _.each(orders, function(order){ %}
-                            <li class="good good-off">
-                                <div class="good-icon-w">
-                                    <i class="icon"></i>
-                                </div>
-                            </li>
-                            {% });%}
-
-                            {% for ( var i = 0 ; i < (maxOrder - orders.length) ; i++ ){ %}
-                            <li class="good good-on">
-                                <div class="good-icon-w">
-                                    <i class="icon"></i>
-                                </div>
-                            </li>
-                            {% }; %}
-                        </ul>
-                    </ul>
-                </div>
-                <div class="good-next"> > </div>
-            </div>
         </div>
-        <div class="t-b-edit">
-            <div class="edit-t">
-                <input class="multiDelete" type="button" value="下架货品"/>
-                <input class="multiNum" type="number" value="1" title="填写修改量"/>
-                <input class="multiAdd" type="button" value="上架货品"/>
-            </div>
-            <div class="edit-b">
-                <span class="l-h20">（填写要添加/删除的服务货品数量）</span>
-            </div>
-        </div>
+        <!--<div class="t-b-edit">-->
+            <!--<div class="edit-t">-->
+                <!--<input class="multiDelete" type="button" value="下架货品"/>-->
+                <!--<input class="multiNum" type="number" value="1" title="填写修改量"/>-->
+                <!--<input class="multiAdd" type="button" value="上架货品"/>-->
+            <!--</div>-->
+            <!--<div class="edit-b">-->
+                <!--<span class="l-h20">（填写要添加/删除的服务货品数量）</span>-->
+            <!--</div>-->
+        <!--</div>-->
 </script>
 
 <!-- 历史时间段模板 -->
