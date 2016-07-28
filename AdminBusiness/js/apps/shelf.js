@@ -204,10 +204,6 @@
             }
 
             for ( var i = 0; i < stamp.length; i++ ){
-                //console.log(parseInt(stamp[i].orderObj.svcObj.startTime));
-                //console.log(parseInt(_startTime));
-                //console.log(parseInt(_endTime));
-
                 if (parseInt(stamp[i].orderObj.svcObj.startTime) > parseInt(_startTime) && parseInt(stamp[i].orderObj.svcObj.startTime) < parseInt(_endTime)){
                     orderSnapShots.push(stamp[i])
                 }
@@ -376,6 +372,14 @@
                 maxOrder : true
             };
 
+            //
+            if ( parseInt(this.model.get("maxOrder")) + parseInt(num) > this.model.attributes.dayEnableOrderCount ){
+                app.showWarnText(true, "时段剩余服务应小于当日剩余服务数量");
+                return false;
+            }
+
+            app.showWarnText(false);
+
             this.model.set({ maxOrder : (parseInt(this.model.get("maxOrder")) + parseInt(num)).toString() });
             /* 通过model自定义的_save函数实现数据保存 */
             this.model._save({
@@ -396,16 +400,17 @@
          */
         renderOrder : function(){
             var orderSSArray = this.model.attributes.orderSSArray;
-            this.model.attributes.orders = [];
+            this.model.attributes.orders = orderSSArray;
+            //this.model.attributes.orders = [];
 
-            for (var i = 0; i < orderSSArray.length ; i++){
-                var startTime = orderSSArray[i].orderObj.svcObj.startTime.slice(-6,-2),
-                    start = this.model.attributes.startTime.replace(":",""),
-                    end = this.model.attributes.endTime.replace(":","");
-                if ( start < startTime && startTime <= end ){
-                    this.model.attributes.orders.push(orderSSArray[i]);
-                }
-            }
+            //for (var i = 0; i < orderSSArray.length ; i++){
+            //    var startTime = orderSSArray[i].orderObj.svcObj.startTime.slice(-6,-2),
+            //        start = this.model.attributes.startTime.replace(":",""),
+            //        end = this.model.attributes.endTime.replace(":","");
+            //    if ( start < startTime && startTime <= end ){
+            //        this.model.attributes.orders.push(orderSSArray[i]);
+            //    }
+            //}
             this.render();
             return this;
         }
@@ -597,6 +602,7 @@
 
             // 注册workDay的sync事件，对返回的工作单日数据处理
             this.listenTo(this.workDays, 'sync', function(collection, response, options){
+
                 _this.buildDaysView(collection)
             });
 
@@ -672,7 +678,7 @@
             var $tabContainer = this.$('.day-tabs');
 
             function tranWeek(week){
-                var arr = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
+                var arr = [ "星期日","星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
                 return arr[week];
             }
 
@@ -732,7 +738,14 @@
 
                 orderSSArray = _this.snapshots.getOrderSnapshotByTime(dateStr, startTime, endTime);
 
+                console.log(_this.reqDate.getDay());
+
+                model.attributes.dayMaxOrderCount = _this.workDays.where({week: (_this.reqDate.getDay() + 1).toString()})[0].attributes.maxOrder;
+                model.attributes.dayReorderCount = _this.snapshots.snapshotItems.length;
+                model.attributes.dayEnableOrderCount = parseInt(model.attributes.dayMaxOrderCount) - parseInt(model.attributes.dayReorderCount);
+
                 model.attributes.orderSSArray = orderSSArray;
+
                 workTimeView = new WorkTimeView({model: model});
 
                 //nowTime = fix((new Date().getHours()), 2) + fix((new Date().getMinutes()), 2);
@@ -768,20 +781,19 @@
             return this;
         },
         renderDay: function(workDayView){
-            this.$el.find(".day-container").append(workDayView.render().$el);
+            return this.$el.find(".day-container").append(workDayView.render().$el);
         },
         renderWorkTime : function(workTimeView){
-            this.$el.find(".time-buckets").append(workTimeView.renderOrder().$el);
+            return this.$el.find(".time-buckets").append(workTimeView.renderOrder().$el);
         },
         showLoading: function(toggle){
-            if (toggle){
-                this.$(".day-container").removeClass("error").addClass("loading");
-            } else {
-                this.$(".day-container").removeClass("loading");
-            }
+            return toggle ? this.$(".day-container").removeClass("error").addClass("loading") : this.$(".day-container").removeClass("loading");
         },
         showError : function(){
             this.$(".day-container").removeClass("loading").addClass("error");
+        },
+        showWarnText : function(show, test){
+            return !show ? this.$("#day-warn").addClass("hi") : this.$("#day-warn").removeClass("hi").html(test);
         }
     });
 

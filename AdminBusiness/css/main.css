@@ -5691,6 +5691,19 @@ a.time-trigger:hover {
   margin-top: -2px;
   margin-left: 10px;
 }
+.day-warn {
+  float: right;
+  color: #f53c3c;
+  line-height: 1.2em;
+  padding: 5px;
+  background: #fff1f1;
+  border-radius: 5px;
+  border: 1px solid #f53c3c;
+  margin-top: 5px;
+}
+.day-warn.hi {
+  visibility: hidden;
+}
 /* 时间段样式 */
 .time-buckets-wrap {
   height: 600px;

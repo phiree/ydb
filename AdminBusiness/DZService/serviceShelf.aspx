@@ -31,7 +31,8 @@
 <!-- one day template 单日模版 -->
 <script type="text/template" id="day_template">
     <div class="day-title">
-        <div class="day-info"><span class="m-l10">当日已售&nbsp;&nbsp;{%= reOrder %}件&nbsp;当日总量&nbsp;{%= maxOrder %}件</span></div>
+        <div class="day-info"><span class="m-l10">当日已售&nbsp;&nbsp;{%= reOrder %}件&nbsp;当日总量&nbsp;{%= maxOrder %}件&nbsp;当日可售&nbsp;&nbsp;{%= maxOrder - reOrder %}件&nbsp;</span></div>
+        <div id="day-warn" class="day-warn hi"></div>
         <!--<div class="day-control">-->
             <!--<div class="day-control-item">-->
                 <!--<span>服务编辑开关:</span>-->
@@ -94,7 +95,7 @@
                             </li>
                             {% }; %}
                         </ul>
-                        <span class="good-title"><strong class="_t">剩余服务</strong><span class="_i">X</span><span class="_m">{%= maxOrder - orders.length %}</span></span>
+                        <span class="good-title"><strong class="_t">可售服务</strong><span class="_i">X</span><span class="_m">{%= maxOrder - orders.length %}</span></span>
                     </div>
                 </div>
                 <!--<div class="good-next"></div>-->
@@ -146,7 +147,7 @@
 
             </div>
             <div class="t-b-num">
-                <span class="t-b-num-n">{%= orders.length %}/{%= maxOrder %}</span><span>剩余</span>
+                <span class="t-b-num-n">{%= orders.length %}/{%= maxOrder %}</span><span>可售</span>
             </div>
             <div class="t-b-window">
                 <div class="good-prev"><<</div>
