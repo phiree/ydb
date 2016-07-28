@@ -266,7 +266,7 @@ namespace Dianzhu.BLL
         void Save(ServiceOrder order);
         //查询可以分账的订单
         IList<ServiceOrder> GetOrdersForShare();
-        IList<ServiceOrder> GetOrderListByDateRange( DateTime dateBegin, DateTime dateEnd);
+        IList<ServiceOrder> GetOrderListOfServiceByDateRange(Guid serviceId, DateTime dateBegin, DateTime dateEnd);
 
 
 

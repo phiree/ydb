@@ -36,17 +36,11 @@ namespace PHSuit
         {
 
             Console.WriteLine("172:" + PHSuit.Security.Encrypt("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test", false));
-            Console.WriteLine("172ForUI" + PHSuit.Security.Encrypt("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_for_ui", false));
-
-            Console.WriteLine("119:" + PHSuit.Security.Encrypt("data source=119.29.39.211;uid=ydb;pwd=jsyk2016;database=dianzhu", false));
-
+             
             Console.WriteLine("localhost" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=new", false));
 
             Console.WriteLine("150:" + PHSuit.Security.Encrypt("data source=192.168.1.150;uid=ydb;pwd=jsyk2016;database=dianzhu_test", false));
-            Console.WriteLine("business.ydban.cn:" + PHSuit.Security.Encrypt("data source=business.ydban.cn;uid=ydb;pwd=jsyk2016;database=dianzhu", false));
-            Console.WriteLine("115:" + PHSuit.Security.Encrypt("data source=115.159.72.236;uid=ydb;pwd=jsyk2016;database=dianzhu", false));
-            Console.WriteLine("Aliyun_Test:" + PHSuit.Security.Encrypt("data source=112.74.198.215;uid=jsyk2016;pwd=IQDv$qefeqFWuq_L;port=4407;database=dianzhu", false));
-            Console.WriteLine("Aliyun_Official:" + PHSuit.Security.Encrypt("data source=112.74.17.34;uid=jsyk2016;pwd=X*G7czoy6twAYIz7;port=4407;database=dianzhu", false));
+               Console.WriteLine("Aliyun_Official:" + PHSuit.Security.Encrypt("data source=112.74.17.34;uid=jsyk2016;pwd=X*G7czoy6twAYIz7;port=4407;database=dianzhu", false));
             Console.WriteLine("Aliyun_Test:" + PHSuit.Security.Encrypt("data source=112.74.198.215;uid=jsyk2016;pwd=IQDv$qefeqFWuq_L;port=4407;database=dianzhu_publish", false));
         }
         [Test]

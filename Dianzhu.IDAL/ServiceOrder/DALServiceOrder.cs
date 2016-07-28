@@ -8,6 +8,9 @@ using Dianzhu.Model.Enums;
 namespace Dianzhu.IDAL
 {
     public interface IDALServiceOrder:IDAL.IRepository<ServiceOrder,Guid>
-    { 
+    {
+        IList<ServiceOrder> GetOrderListOfServiceByDateRange(Guid serviceId, DateTime timeBegin, DateTime dateEnd);
+         
+
     }
 }
