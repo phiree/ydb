@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumButtonType.cs" />
+    <Compile Include="IViewFormShowMessage.cs" />
     <Compile Include="IViewMainForm.cs" />
     <Compile Include="IViewUsefulLinks.cs" />
     <Compile Include="IViewNotice.cs" />

@@ -21,17 +21,17 @@ namespace Dianzhu.CSClient.Presenter
         IDAL.IDALReceptionChatDD dalReceptionChatDD;
         IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve;
         IDAL.IDALIMUserStatus dalIMUserStatus;
-        IView.IViewMainForm viewMainForm;
-
+        IViewMainForm viewMainForm;
+        IViewFormShowMessage viewFormShowMessage;
 
         InstantMessage iIM;
         IViewIdentityList iViewIdentityList;
         IBLLMembershipLoginLog bllLoginLog;
 
-        public PMain(IView.IViewMainForm viewMainForm, InstantMessage iIM, IViewIdentityList iViewIdentityList, IBLLMembershipLoginLog bllLoginLog,
+        public PMain(IViewMainForm viewMainForm, InstantMessage iIM, IViewIdentityList iViewIdentityList, IBLLMembershipLoginLog bllLoginLog,
             IDAL.IDALReceptionStatus dalReceptionStatus, IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve,
              IDAL.IDALReceptionChatDD dalReceptionChatDD, IDAL.IDALReceptionChat dalReceptionChat,
-              IDAL.IDALIMUserStatus dalIMUserStatus)
+              IDAL.IDALIMUserStatus dalIMUserStatus, IViewFormShowMessage viewFormShowMessage)
         {
             this.viewMainForm = viewMainForm;
             this.viewMainForm.FormTitle = GlobalViables.CurrentCustomerService.DisplayName;
@@ -43,8 +43,10 @@ namespace Dianzhu.CSClient.Presenter
             this.dalReceptionStatusArchieve = dalReceptionStatusArchieve;
             this.dalIMUserStatus = dalIMUserStatus;
             this.bllLoginLog = bllLoginLog;
+            this.viewFormShowMessage = viewFormShowMessage;
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             iIM.IMStreamError += IIM_IMStreamError;
+            iIM.IMClosed += IIM_IMClosed;
             //NHibernateUnitOfWork.UnitOfWork.Start();
             //NHibernateUnitOfWork.With.Transaction(() => SysAssign(3));
             //SysAssign(3);
@@ -57,6 +59,15 @@ namespace Dianzhu.CSClient.Presenter
             workerSendMedia.DoWork += WorkerSendMedia_DoWork;
             workerSendMedia.RunWorkerCompleted += WorkerSendMedia_RunWorkerCompleted;
             workerSendMedia.RunWorkerAsync();
+        }
+
+        private void IIM_IMClosed()
+        {
+            log.Debug("openfire已下线");
+            this.viewFormShowMessage.Message = "网络出现异常，请重新登录";
+            this.viewFormShowMessage.ShowDialog();
+            //this.ShowMessage("网络出现异常，请重新登录");
+            this.viewMainForm.CloseApplication();
         }
 
         private void WorkerSendMedia_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
