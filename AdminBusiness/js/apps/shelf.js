@@ -628,7 +628,8 @@
             snapshots.load({
                 queryData : {
                     "startTime": reqDate,
-                    "endTime": reqDate
+                    // 请求数据为一天的数据
+                    "endTime": reqDate + " 23:59:59"
                 },
                 success : function(){
 
