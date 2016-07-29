@@ -29,7 +29,7 @@ namespace Dianzhu.IDAL
                     int pageIndex, int pageSize, enum_ChatTarget target, out int rowCount
                     );
 
-        IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(DZMembership from, DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd,
+        IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(Guid fromId, Guid toId, Guid orderId, DateTime timeBegin, DateTime timeEnd,
          int pageSize, ReceptionChat targetChat, string low, enum_ChatTarget target);
     }
 }

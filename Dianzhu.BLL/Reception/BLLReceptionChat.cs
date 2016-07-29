@@ -124,10 +124,10 @@ namespace Dianzhu.BLL
         {
             return GetReceptionChatList(Guid.Empty, Guid.Empty, orderId, begin, end, pageIndex, pageSize, target, out rowCount);
         }
-        public IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(DZMembership from, DZMembership to, Guid orderId, DateTime begin, DateTime end,
+        public IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(Guid fromId, Guid toId, Guid orderId, DateTime begin, DateTime end,
              int pageSize, ReceptionChat targetChat, string low, enum_ChatTarget target)
         {
-            return DALReceptionChat.GetReceptionChatListByTargetIdAndSize(from, to, orderId, begin, end, pageSize, targetChat, low, target);
+            return DALReceptionChat.GetReceptionChatListByTargetIdAndSize(fromId, toId, orderId, begin, end, pageSize, targetChat, low, target);
 
         }
     }

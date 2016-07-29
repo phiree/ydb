@@ -156,7 +156,7 @@ namespace Dianzhu.DAL
             return receptionChatList;
         }
 
-        public virtual IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(DZMembership from, DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd,
+        public virtual IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(Guid fromId, Guid toId, Guid orderId, DateTime timeBegin, DateTime timeEnd,
              int pageSize, ReceptionChat targetChat, string low, enum_ChatTarget target)
         {
             
@@ -178,15 +178,15 @@ namespace Dianzhu.DAL
                 {
                     result = result.Where(x => x.SavedTime > targetChat.SavedTime).OrderBy(x => x.SavedTime).Desc;
                 }
-                if (to != null)
+                if (toId != Guid.Empty)
                 {
-                    result = result.And(x => (x.From == from && x.To == to) || (x.From == to && x.To == from));
+                    result = result.And(x => (x.From.Id == fromId && x.To.Id == toId) || (x.From.Id == toId && x.To.Id == fromId));
                 }
                 else
                 {
-                    if (from != null)
+                    if (fromId != Guid.Empty)
                     {
-                        result = result.And(x => (x.From == from || x.To == from));
+                        result = result.And(x => (x.From.Id == fromId || x.To.Id == fromId));
                     }
                 }
                 if (orderId != Guid.Empty)
