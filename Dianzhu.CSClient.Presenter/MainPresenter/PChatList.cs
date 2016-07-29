@@ -95,9 +95,26 @@ namespace Dianzhu.CSClient.Presenter
 
         public void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
         {
+            viewChatList.ChatListCustomerName = serviceOrder.Customer.DisplayName;
+
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.RunWorkerAsync(serviceOrder.Customer.Id);
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            log.Debug("异步加载聊天记录成功");
+            viewChatList.ChatList = e.Result as List<ReceptionChat>;
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
             try
             {
-                viewChatList.ChatListCustomerName = serviceOrder.Customer.DisplayName;
+                log.Debug("开始异步加载聊天记录");
+                Guid customerId = Guid.Parse(e.Argument.ToString());
 
                 //if (chatHistoryAll.ContainsKey(serviceOrder.Customer.Id))
                 //{
@@ -105,13 +122,15 @@ namespace Dianzhu.CSClient.Presenter
                 //    return;
                 //}
 
+                NHibernateUnitOfWork.UnitOfWork.Start();
                 int rowCount;
-                var chatHistory = dalReceptionChat
+                e.Result = dalReceptionChat
                        //.GetListTest();
-                       .GetReceptionChatList(serviceOrder.Customer, null, Guid.Empty,
+                       .GetReceptionChatList(customerId, Guid.Empty, Guid.Empty,
                        DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
                 //viewChatList.ChatList.Clear();
-                viewChatList.ChatList = chatHistory;
 
                 //if (chatHistory != null)
                 //{
