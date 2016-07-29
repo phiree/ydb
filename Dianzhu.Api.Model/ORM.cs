@@ -29,6 +29,7 @@ namespace Dianzhu.Api.Model
         public string status { get; set; }
         public string startTime { get; set; }
         public string endTime { get; set; }
+        public string updateTime { get; set; }
         public string exDoc { get; set; }
         public string orderAmount { get; set; }
         public string negotiateAmount { get; set; }
@@ -63,6 +64,7 @@ namespace Dianzhu.Api.Model
             {
                 this.endTime = string.Empty;
             }
+            this.updateTime = string.Format("{0:yyyyMMddHHmmss}", order.LatestOrderUpdated);
             this.exDoc = order.Description ?? string.Empty;
             this.orderAmount = order.OrderAmount.ToString("0.00");
             this.negotiateAmount = order.NegotiateAmount.ToString("0.00");
