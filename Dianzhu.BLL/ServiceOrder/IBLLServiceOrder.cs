@@ -78,7 +78,7 @@ namespace Dianzhu.BLL
 
         IList<ServiceOrder> GetListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount);
 
-        IList<ServiceOrder> GetListForCustomer(DZMembership customer, int pageNum, int pageSize, out int totalAmount);
+        IList<ServiceOrder> GetListForCustomer(Guid customerId, int pageNum, int pageSize, out int totalAmount);
 
         void Delete(ServiceOrder order);
         ServiceOrder GetDraftOrder(DZMembership c, DZMembership cs);

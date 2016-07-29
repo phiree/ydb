@@ -28,7 +28,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
             //UC_OrderHistory_Order order = new UC_OrderHistory_Order();
             //pnlOrderHistory.Children.Add(order);
-            btnSearchEnabled = false;
+            ShowNullListLable();
         }
         
         public event SearchOrderHistoryClick SearchOrderHistoryClick;
@@ -68,7 +68,7 @@ namespace Dianzhu.CSClient.ViewWPF
                             //pnlOrderHistory.Children.Add(ucOrder);
                             ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(ucOrder);
                         }
-                        btnSearchEnabled = true;
+                        HideMsg();
                     }
                     else
                     {
@@ -85,16 +85,25 @@ namespace Dianzhu.CSClient.ViewWPF
         //显示当查询列表为空时的提示语
         private void ShowNullListLable()
         {
-            //btnSearchEnabled = false;
+            tbkHint.Text = "当前用户没有历史订单";
+            tbkHint.Visibility = Visibility.Visible;
+            btnSearchEnabled = false;
+        }
 
-            Label lblNoOrder = new Label
+        public void ShowListLoadingMsg()
+        {
+            this.Dispatcher.Invoke((Action)(() =>
             {
-                Content = "当前用户没有历史订单!",
-                Foreground = new SolidColorBrush(Colors.Gray),
-                Visibility = Visibility.Visible
-            };
-            //pnlOrderHistory.Children.Add(lblNoOrder);
-            ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(lblNoOrder);
+                tbkHint.Text = "加载用户历史订单中...";
+                tbkHint.Visibility = Visibility.Visible;
+                btnSearchEnabled = false;
+            }));
+        }
+
+        private void HideMsg()
+        {
+            tbkHint.Visibility = Visibility.Collapsed;
+            btnSearchEnabled = true;
         }
 
         private bool btnSearchEnabled
@@ -105,6 +114,6 @@ namespace Dianzhu.CSClient.ViewWPF
         private void btnSearchByOrderId_Click(object sender, RoutedEventArgs e)
         {
             SearchOrderHistoryClick();
-        }
+        }        
     }
 }
