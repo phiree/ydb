@@ -164,6 +164,7 @@ public class ResponseOFP001001 : BaseResponse
 
                         //接待关系存档
                         ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(userId);
+                        if (rs == null) return;
                         bllReceptionStatusArchieve.Save(RSToRsa(rs));
 
                         //删掉接待关系
