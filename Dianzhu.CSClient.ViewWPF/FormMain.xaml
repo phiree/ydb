@@ -191,7 +191,7 @@
             </Grid.RowDefinitions>
 
             <!--窗体控制按钮-->
-            <Grid Grid.Row="0" Background="Transparent" MouseDown="Grid_MouseDown">
+            <Grid Grid.Row="0" Background="Transparent" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
                 <WrapPanel VerticalAlignment="Center">
                     <Button Content="开始接单" Width="150" Height="25" Visibility="Collapsed"></Button>
                     <Button Content="开始接单" Width="150" Height="25" Visibility="Collapsed"></Button>
