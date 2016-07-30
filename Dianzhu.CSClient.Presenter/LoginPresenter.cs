@@ -91,9 +91,9 @@ namespace Dianzhu.CSClient.Presenter
 
         public async void Login(string username, string plainPassword)
         {
-
-           Action ac=()=>
-            {
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            //Action ac=()=>
+            //{
 
                 string encryptPassword = encryptService.GetMD5Hash(plainPassword);
                 var member = dalMembership.ValidateUser(username, encryptPassword);
@@ -107,10 +107,12 @@ namespace Dianzhu.CSClient.Presenter
                 {
                     XMPP_IMAuthError();
                 }
-            };
-            NHibernateUnitOfWork.With.Transaction(ac);
+            //};
+            //NHibernateUnitOfWork.With.Transaction(ac);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
 
-    }
+        }
        public  void loginView_ViewLogin()
         {
 
