@@ -37,7 +37,7 @@ namespace Dianzhu.BLL
         /// <param name="targetTime"></param>
         public void Push(ServiceOrder order, IList<ServiceOrderPushedService> services, string targetAddress, DateTime targetTime)
         {
-            order.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
+            //order.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
            
 
             foreach (ServiceOrderPushedService service in services)
