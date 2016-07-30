@@ -44,10 +44,29 @@ namespace Dianzhu.CSClient.Presenter
             if (IdentityManager.CurrentIdentity == null)
             { return; }
 
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += Worker_DoWork;
-            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            worker.RunWorkerAsync(serviceOrder.Customer.Id);            
+            log.Debug("开始异步加载历史订单");
+            //viewOrderHistory.ShowListLoadingMsg();
+
+            int totalAmount;
+            IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(serviceOrder.Customer.Id, 1, 999, out totalAmount);
+            viewOrderHistory.OrderList = orderList;
+            viewOrderHistory.HideMsg();
+            if (orderList.Count > 0)
+            {
+                foreach (ServiceOrder order in orderList)
+                {
+                    viewOrderHistory.AddOneOrder(order);
+                }
+            }
+            else
+            {
+                viewOrderHistory.ShowNullListLable();
+            }
+
+            //BackgroundWorker worker = new BackgroundWorker();
+            //worker.DoWork += Worker_DoWork;
+            //worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            //worker.RunWorkerAsync(serviceOrder.Customer.Id);            
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

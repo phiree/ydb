@@ -38,7 +38,10 @@ namespace Dianzhu.CSClient.ViewWPF
             get { return lblUserName.Content.ToString(); }
             set
             {
-                lblUserName.Content = value;
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    lblUserName.Content = value;
+                }));
             }
         }
 
@@ -61,51 +64,118 @@ namespace Dianzhu.CSClient.ViewWPF
 
             set
             {
-                Action lambda = () =>
-                {
-                    chatList = value;
-                    ((StackPanel)svChatList.FindName("StackPanel")).Children.Clear();
+                chatList = value;
+                //Action lambda = () =>
+                //{
+                //    chatList = value;
+                //    ((StackPanel)svChatList.FindName("StackPanel")).Children.Clear();
 
-                    if (chatList == null)
-                    {
-                        chatList = new List<ReceptionChat>();
-                        return;
-                    }
+                //    if (chatList == null)
+                //    {
+                //        chatList = new List<ReceptionChat>();
+                //        return;
+                //    }
                     
-                    //pnlChatList.Children.Clear();
+                //    //pnlChatList.Children.Clear();
                     
-                    if (chatList.Count > 0)
-                    {
-                        Button btn = new Button();
-                        btn.Content = "查看更多";
-                        btn.Click += Btn_Click;
+                //    if (chatList.Count > 0)
+                //    {
+                //        Button btn = new Button();
+                //        btn.Content = "查看更多";
+                //        btn.Click += Btn_Click;
 
-                        ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(btn);//加载更多按钮
+                //        ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(btn);//加载更多按钮
 
-                        foreach (ReceptionChat chat in chatList)
-                        {
-                            AddOneChat(chat);
-                        }
-                    }
-                };
-                if (!Dispatcher.CheckAccess())
-                {
-                    Dispatcher.Invoke(lambda);
-                }
-                else { lambda(); }
+                //        foreach (ReceptionChat chat in chatList)
+                //        {
+                //            AddOneChat(chat);
+                //        }
+                        
+                //        tbkHint.Visibility = Visibility.Collapsed;
+                //    }
+                //};
+                //if (!Dispatcher.CheckAccess())
+                //{
+                //    Dispatcher.Invoke(lambda);
+                //}
+                //else { lambda(); }
+            }
+        }
+
+        public void ShowMoreLabel()
+        {
+            Action lamda = () =>
+            {
+                Button btn = new Button();
+                btn.Content = "查看更多";
+                btn.Click += Btn_Click;
+
+                ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(btn);//加载更多按钮
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
             }
         }
 
         public void ShowNoMoreLabel()
         {
-            Label lbl = new Label();
-            lbl.Content = "——没有更多消息了——";
-            lbl.HorizontalAlignment = HorizontalAlignment.Center;
+            Action lamda = () =>
+            {
+                Label lbl = new Label();
+                lbl.Content = "——没有更多消息了——";
+                lbl.HorizontalAlignment = HorizontalAlignment.Center;
 
-            ((StackPanel)svChatList.FindName("StackPanel")).Children.RemoveAt(0);
-            ((StackPanel)svChatList.FindName("StackPanel")).Children.Insert(0, lbl);
+                ((StackPanel)svChatList.FindName("StackPanel")).Children.RemoveAt(0);
+                ((StackPanel)svChatList.FindName("StackPanel")).Children.Insert(0, lbl);
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
         }
 
+        public void HideLoadingMsg()
+        {
+            Action lamda = () =>
+            {
+                tbkHint.Text = string.Empty;
+                tbkHint.Visibility = Visibility.Collapsed;
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
+        }
+
+        public void ShowLoadingMsg()
+        {
+            Action lamda = () =>
+            {
+                tbkHint.Text = "加载聊天记录中...";
+                tbkHint.Visibility = Visibility.Visible;
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
+        }
 
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
@@ -144,6 +214,24 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        public void InsertOneChat(ReceptionChat chat)
+        {
+            Action lamda = () =>
+            {
+                UC_ChatCustomer chatCustomer = new UC_ChatCustomer(chat, currentCustomerService);
+                
+                ((StackPanel)svChatList.FindName("StackPanel")).Children.Insert(0,chatCustomer);
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
+        }
+
         DZMembership currentCustomerService;        
         public event BtnMoreChat BtnMoreChat;
 
@@ -162,8 +250,19 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public void ClearUCData()
         {
-            this.ChatList = null;
-            this.ChatListCustomerName = string.Empty;
+            Action lamda = () =>
+            {
+                this.ChatListCustomerName = string.Empty;
+                ((StackPanel)svChatList.FindName("StackPanel")).Children.Clear();
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
         }
     }
 }

@@ -78,7 +78,7 @@ namespace Dianzhu.CSClient.Presenter
             if (IdentityManager.CurrentIdentity.Id == order.Id)
             {
                 iViewChatList.ClearUCData();
-                iViewOrderHistory.OrderList = null;
+                iViewOrderHistory.ShowNullListLable();
 
                 //删除分配表中用户和客服的关系
                 ReceptionStatus rs = dalReceptionStatus.GetOneByCustomerAndCS(order.CustomerService, order.Customer);
@@ -220,7 +220,12 @@ namespace Dianzhu.CSClient.Presenter
             {
                 IdentityManager.CurrentIdentity = serviceOrder;
                 iView.SetIdentityLoading(serviceOrder);
-                
+
+                iViewChatList.ChatListCustomerName = serviceOrder.Customer.DisplayName;
+                iViewChatList.ClearUCData();
+
+                iViewOrderHistory.ShowListLoadingMsg();
+
             }
             catch (Exception ex)
             {

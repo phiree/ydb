@@ -8,7 +8,6 @@ using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
 using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.Model.Enums;
-using System.ComponentModel;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -77,6 +76,12 @@ namespace Dianzhu.CSClient.Presenter
             }
 
             viewChatList.ChatList = list;
+            viewChatList.ClearUCData();
+            viewChatList.ShowMoreLabel();
+            foreach (ReceptionChat chat in list)
+            {
+                viewChatList.AddOneChat(chat);
+            }
 
             //viewChatList.ChatList = chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id];
         }
@@ -95,56 +100,41 @@ namespace Dianzhu.CSClient.Presenter
 
         public void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
         {
-            viewChatList.ChatListCustomerName = serviceOrder.Customer.DisplayName;
+            //viewChatList.ChatListCustomerName = serviceOrder.Customer.DisplayName;
+            //viewChatList.ClearUCData();
+            
+            log.Debug("开始异步加载聊天记录");
+            int rowCount;
+            IList<ReceptionChat> chatList = dalReceptionChat.GetReceptionChatList(serviceOrder.Customer.Id, Guid.Empty, Guid.Empty,
+                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
 
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += Worker_DoWork;
-            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            worker.RunWorkerAsync(serviceOrder.Customer.Id);
-        }
-
-        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            log.Debug("异步加载聊天记录成功");
-            viewChatList.ChatList = e.Result as List<ReceptionChat>;
-        }
-
-        private void Worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            try
+            viewChatList.ChatList = chatList;
+            viewChatList.HideLoadingMsg();
+            if (chatList.Count > 0)
             {
-                log.Debug("开始异步加载聊天记录");
-                Guid customerId = Guid.Parse(e.Argument.ToString());
-
-                //if (chatHistoryAll.ContainsKey(serviceOrder.Customer.Id))
-                //{
-                //    viewChatList.ChatList = chatHistoryAll[serviceOrder.Customer.Id];
-                //    return;
-                //}
-
-                NHibernateUnitOfWork.UnitOfWork.Start();
-                int rowCount;
-                e.Result = dalReceptionChat
-                       //.GetListTest();
-                       .GetReceptionChatList(customerId, Guid.Empty, Guid.Empty,
-                       DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-                //viewChatList.ChatList.Clear();
-
-                //if (chatHistory != null)
-                //{
-                //    viewChatList.ChatOldestId = chatHistory[0].Id;
-                //}                
-
-                //  chatHistoryAll[serviceOrder.Customer.Id] = chatHistory;
+                if (chatList.Count == 20)
+                {
+                    viewChatList.ShowMoreLabel();
+                }
+                else
+                {
+                    viewChatList.ShowNoMoreLabel();
+                }
+                
+                foreach (ReceptionChat chat in chatList)
+                {
+                    viewChatList.AddOneChat(chat);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                log.Error("加载聊天信息失败");
-                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
-
+                viewChatList.ShowNoMoreLabel();
             }
+
+            //BackgroundWorker worker = new BackgroundWorker();
+            //worker.DoWork += Worker_DoWork;
+            //worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            //worker.RunWorkerAsync(serviceOrder.Customer.Id);
         }
     }
 

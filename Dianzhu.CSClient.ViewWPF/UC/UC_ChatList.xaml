@@ -27,6 +27,9 @@
                 </Grid>
 
                 <Grid Grid.Row="1">
+                    <Label HorizontalAlignment="Center">
+                        <TextBlock x:Name="tbkHint" Visibility="Collapsed"></TextBlock>
+                    </Label>
                     <Border BorderBrush="#FFe8e8e8" BorderThickness="1">
                         <UC:UC_ScrollView x:Name="svChatList"/>
                     </Border>
