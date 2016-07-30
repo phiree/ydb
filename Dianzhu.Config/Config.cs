@@ -48,7 +48,7 @@ namespace Dianzhu.Config
               { "119.29.39.211",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
              ,{ "115.159.72.236",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
              ,{ "192.168.1.172",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
-              ,{ "localhost",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","198989") }
+              ,{ "localhost",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
             ,{ "112.74.198.215",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
             ,{ "112.74.17.34",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
               ,{ "192.168.1.150",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
