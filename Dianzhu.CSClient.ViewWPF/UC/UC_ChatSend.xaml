@@ -28,7 +28,7 @@
             <Setter Property="FontFamily" Value="微软雅黑"/>
             <Setter Property="FontWeight" Value="Regular"/>
             <Setter Property="Foreground" Value="#FF323232"/>
-            <Setter Property="MaxLength" Value="200"/>
+            <Setter Property="MaxLength" Value="1000"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
             <Setter Property="Template">
