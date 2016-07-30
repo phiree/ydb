@@ -1,0 +1,89 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AssistantRegister.aspx.cs" Inherits="Assistant_AssistantRegister" %>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="register-html">
+<head runat="server">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="description" content="一点办注册" />
+    <meta name="keywords" content="一点办" />
+    <title>一点办助理注册</title>
+    <link href='http://api.youziku.com/webfont/CSS/568e3429f629d80f4cd910a4' rel='stylesheet' type='text/css' />
+    <link href='http://api.youziku.com/webfont/CSS/568e353ff629d80f4cd910a7' rel='stylesheet' type='text/css' />
+    <link href='//cdn.webfont.youziku.com/webfonts/nomal/27603/46968/57997e8af629d8062c5dd2e3.css' rel='stylesheet' type='text/css' />
+    <link rel="Stylesheet" href="css/main.css" type="text/css" />
+</head>
+<body class="register-body">
+<div class="register-wrap">
+    <form id="form1" runat="server">
+        <div class="register-section">
+            <div class="register-brand">
+                <img id="register-logo" src="images/register/logo_100x100.png" alt="logo" />
+                <div class="brand-head">
+                    <h1 class="css4d4bf94ef6bd3">一点办助理注册</h1>
+                    <p class="cssc0a50b3d46a8">静心观天下·才能发现世界的精彩</p>
+                </div>
+            </div>
+        </div>
+        <div class="register-section">
+            <div class="register-panel">
+                <div class="register-detail reg">
+                    <div class="login_err_msg m-b10" >
+                        <ul>
+
+                        </ul>
+                    </div>
+                    <div class="register-input-w fluid">
+                        <span class="register-input-title">用户名</span>
+                        <label class="register-input-icon" for="tbxUserName">
+                            <i class="usernameIcon"></i>
+                        </label>
+                        <input name="tbxUserName" type="text" id="tbxUserName" class="register-input regUserName" placeholder="请输入电子邮箱注册">
+                        <!--<asp:TextBox runat="server" CssClass="register-input regUserName" ID="tbxUserName" placeholder="请输入电子邮箱注册" ValidationGroup="vg_UserName" ClientIDMode="Static"></asp:TextBox>-->
+                    </div>
+                    <div class="register-input-w fluid">
+                        <span class="register-input-title">密码</span>
+                        <label class="register-input-icon" for="tbxPassword">
+                            <i class="passwordIcon"></i>
+                        </label>
+                        <input name="regPs" type="password" id="regPs" class="register-input">
+                        <!--<asp:TextBox CssClass="register-input" runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password"></asp:TextBox>-->
+                    </div>
+                    <div class="register-input-w fluid thin-b">
+                        <span class="register-input-title">确认密码</span>
+                        <label class="register-input-icon" for="regPsConf">
+                            <i class="passwordIcon"></i>
+                        </label>
+                        <input name="regPsConf" type="password" id="regPsConf" class="register-input">
+                        <!--<asp:TextBox CssClass="register-input" runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"></asp:TextBox>-->
+                    </div>
+                    <div class="loginBox">
+                        <div class="savePass">
+                            <div class="register-agree">
+                                <input id="agreeLic" class="v-m" name="agreeLic" type="checkbox" value="yes" />
+                                <label class="v-m" for="agreeLic">我已阅读过《<a
+                                        class="doReg" id="agreeLicHref" target="_blank" href="protocol.html">点助服务协议</a>》</label>
+                            </div>
+                            <!--<a class="doReg fr m-r10" href="login.aspx">返回登录</a>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="register-go">
+                    <input type="submit" name="regPsSubmit" value="注册" id="assRegPsSubmit" class="register-btn">
+                    <!--<asp:Button runat="server" ID="regPsSubmit"  ClientIDMode="Static" OnClick="assRegPsSubmit_OnClick" CssClass="register-btn"  Text="注册"/>-->
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="footer">
+        <a href="http://www.miibeian.gov.cn/">琼ICP备15000297号-4</a> Copyright © 2015 All Rights Reserved
+    </div>
+</div>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery.form.min.js"></script>
+<script src="js/jquery.validate.js"></script>
+<script src="js/additional-methods.js"></script>
+<script src="js/validation_reg.js"></script>
+</body>
+</html>
