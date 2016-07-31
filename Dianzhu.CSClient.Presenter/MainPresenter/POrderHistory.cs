@@ -48,7 +48,7 @@ namespace Dianzhu.CSClient.Presenter
             //viewOrderHistory.ShowListLoadingMsg();
 
             int totalAmount;
-            IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(serviceOrder.Customer.Id, 1, 999, out totalAmount);
+            IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(serviceOrder.Customer.Id, 1, 5, out totalAmount);
             viewOrderHistory.OrderList = orderList;
             viewOrderHistory.HideMsg();
             if (orderList.Count > 0)

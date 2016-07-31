@@ -220,8 +220,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 IdentityManager.CurrentIdentity = serviceOrder;
                 iView.SetIdentityLoading(serviceOrder);
-
-                iViewChatList.ChatListCustomerName = serviceOrder.Customer.DisplayName;
+                
                 iViewChatList.ClearUCData();
 
                 iViewOrderHistory.ShowListLoadingMsg();

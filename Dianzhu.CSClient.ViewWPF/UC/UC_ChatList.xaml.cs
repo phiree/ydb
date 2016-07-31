@@ -106,11 +106,8 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lamda = () =>
             {
-                Button btn = new Button();
-                btn.Content = "查看更多";
-                btn.Click += Btn_Click;
-
-                ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(btn);//加载更多按钮
+                HideLoadingMsg();
+                btnMoreChat.Visibility = Visibility.Visible;
             };
             if (!Dispatcher.CheckAccess())
             {
@@ -126,12 +123,9 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lamda = () =>
             {
-                Label lbl = new Label();
-                lbl.Content = "——没有更多消息了——";
-                lbl.HorizontalAlignment = HorizontalAlignment.Center;
-
-                ((StackPanel)svChatList.FindName("StackPanel")).Children.RemoveAt(0);
-                ((StackPanel)svChatList.FindName("StackPanel")).Children.Insert(0, lbl);
+                lblHint.Content = "——没有更多消息了——";
+                lblHint.Visibility = Visibility.Visible;
+                btnMoreChat.Visibility = Visibility.Collapsed;
             };
             if (!Dispatcher.CheckAccess())
             {
@@ -147,8 +141,8 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lamda = () =>
             {
-                tbkHint.Text = string.Empty;
-                tbkHint.Visibility = Visibility.Collapsed;
+                lblHint.Content = string.Empty;
+                lblHint.Visibility = Visibility.Collapsed;
             };
             if (!Dispatcher.CheckAccess())
             {
@@ -164,8 +158,8 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lamda = () =>
             {
-                tbkHint.Text = "加载聊天记录中...";
-                tbkHint.Visibility = Visibility.Visible;
+                lblHint.Content = "加载聊天记录中...";
+                lblHint.Visibility = Visibility.Visible;
             };
             if (!Dispatcher.CheckAccess())
             {

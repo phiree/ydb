@@ -104,15 +104,16 @@ namespace Dianzhu.CSClient.Presenter
             //viewChatList.ClearUCData();
             
             log.Debug("开始异步加载聊天记录");
+            viewChatList.ChatListCustomerName = serviceOrder.Customer.DisplayName;
             int rowCount;
             IList<ReceptionChat> chatList = dalReceptionChat.GetReceptionChatList(serviceOrder.Customer.Id, Guid.Empty, Guid.Empty,
-                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
+                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.all, out rowCount);
 
             viewChatList.ChatList = chatList;
             viewChatList.HideLoadingMsg();
             if (chatList.Count > 0)
             {
-                if (chatList.Count == 20)
+                if (chatList.Count == 10)
                 {
                     viewChatList.ShowMoreLabel();
                 }
