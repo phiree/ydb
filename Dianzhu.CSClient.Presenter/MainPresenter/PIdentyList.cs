@@ -222,7 +222,9 @@ namespace Dianzhu.CSClient.Presenter
                 iView.SetIdentityLoading(serviceOrder);
                 
                 iViewChatList.ClearUCData();
+                iViewChatList.ShowLoadingMsg();
 
+                iViewOrderHistory.ClearUCData();
                 iViewOrderHistory.ShowListLoadingMsg();
 
             }

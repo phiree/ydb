@@ -26,7 +26,6 @@ namespace Dianzhu.CSClient.IView
         void ShowNoMoreLabel();
 
         void ShowLoadingMsg();
-        void HideLoadingMsg();
 
         string ChatListCustomerName { get; set; }
         void ClearUCData();        

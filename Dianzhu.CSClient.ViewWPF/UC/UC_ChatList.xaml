@@ -27,23 +27,9 @@
                 </Grid>
 
                 <Grid Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0">
-                        <Label x:Name="lblHint" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                        <Button x:Name="btnMoreChat" Visibility="Collapsed" Click="Btn_Click" Grid.RowSpan="2">
-                            <TextBlock Text="查看更多"></TextBlock>
-                        </Button>
-                    </Grid>
-                    
-                    <Grid Grid.Row="1">
-                        <Border BorderBrush="#FFe8e8e8" BorderThickness="1" Grid.RowSpan="2">
-                            <UC:UC_ScrollView x:Name="svChatList"/>
-                        </Border>
-                    </Grid>
+                    <Border BorderBrush="#FFe8e8e8" BorderThickness="1" Grid.RowSpan="2">
+                        <UC:UC_ScrollView x:Name="svChatList"/>
+                    </Border>
                 </Grid>
             </Grid>
         </Border>

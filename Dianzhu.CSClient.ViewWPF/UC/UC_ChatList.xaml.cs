@@ -23,14 +23,16 @@ namespace Dianzhu.CSClient.ViewWPF
     /// <summary>
     /// ChatList.xaml 的交互逻辑
     /// </summary>
-
     public partial class UC_ChatList : UserControl,IView.IViewChatList
     {
+        UC_Hint hint;
         public UC_ChatList()
         {
             InitializeComponent();
 
             ((StackPanel)svChatList.FindName("StackPanel")).SizeChanged += UC_ChatList_SizeChanged;
+            hint = new UC_Hint(Btn_Click);
+            ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(hint);
         }
 
         public string ChatListCustomerName
@@ -107,7 +109,7 @@ namespace Dianzhu.CSClient.ViewWPF
             Action lamda = () =>
             {
                 HideLoadingMsg();
-                btnMoreChat.Visibility = Visibility.Visible;
+                hint.btnMore.Visibility = Visibility.Visible;
             };
             if (!Dispatcher.CheckAccess())
             {
@@ -123,9 +125,9 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lamda = () =>
             {
-                lblHint.Content = "——没有更多消息了——";
-                lblHint.Visibility = Visibility.Visible;
-                btnMoreChat.Visibility = Visibility.Collapsed;
+                hint.lblHint.Content = "——没有更多消息了——";
+                hint.lblHint.Visibility = Visibility.Visible;
+                hint.btnMore.Visibility = Visibility.Collapsed;
             };
             if (!Dispatcher.CheckAccess())
             {
@@ -141,8 +143,8 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lamda = () =>
             {
-                lblHint.Content = string.Empty;
-                lblHint.Visibility = Visibility.Collapsed;
+                hint.lblHint.Content = string.Empty;
+                hint.lblHint.Visibility = Visibility.Collapsed;
             };
             if (!Dispatcher.CheckAccess())
             {
@@ -158,8 +160,9 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lamda = () =>
             {
-                lblHint.Content = "加载聊天记录中...";
-                lblHint.Visibility = Visibility.Visible;
+                hint.lblHint.Content = "加载聊天记录中...";
+                hint.lblHint.Visibility = Visibility.Visible;
+                hint.btnMore.Visibility = Visibility.Collapsed;
             };
             if (!Dispatcher.CheckAccess())
             {
@@ -248,6 +251,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 this.ChatListCustomerName = string.Empty;
                 ((StackPanel)svChatList.FindName("StackPanel")).Children.Clear();
+                ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(hint);
             };
             if (!Dispatcher.CheckAccess())
             {

@@ -110,7 +110,6 @@ namespace Dianzhu.CSClient.Presenter
                    DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.all, out rowCount);
 
             viewChatList.ChatList = chatList;
-            viewChatList.HideLoadingMsg();
             if (chatList.Count > 0)
             {
                 if (chatList.Count == 10)
