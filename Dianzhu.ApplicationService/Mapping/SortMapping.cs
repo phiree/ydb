@@ -175,6 +175,21 @@ namespace Dianzhu.ApplicationService
                         break;
                 }
             }
+            if (TName == "Snapshots")
+            {
+                switch (sortby)
+                {
+                    case "date":
+                        sort = "DisplayName";
+                        break;
+                    case "phone":
+                        sort = "Phone";
+                        break;
+                    default:
+                        sort = "TimeCreated";
+                        break;
+                }
+            }
             return sort;
         }
 

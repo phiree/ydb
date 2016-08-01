@@ -15,7 +15,7 @@ namespace Dianzhu.ApplicationService.Order
         BLL.IBLLServiceOrder ibllserviceorder;
         BLL.IIMSession imSession;
 
-        BLL.BLLServiceOrderStateChangeHis bllstatehis;
+        static BLL.BLLServiceOrderStateChangeHis bllstatehis;
         BLL.BLLDZService blldzservice;
         BLL.PushService bllpushservice;
         BLL.BLLServiceOrderRemind bllServiceOrderRemind;
@@ -27,7 +27,7 @@ namespace Dianzhu.ApplicationService.Order
         BLL.BLLServiceOrderAppraise bllServiceOrderAppraise, BLL.IIMSession imSession, BLL.BLLOrderAssignment bllOrderAssignment, BLL.DZMembershipProvider bllDZM, BLL.BLLClaims bllClaims)
         {
             this.ibllserviceorder = ibllserviceorder;
-            this.bllstatehis = bllstatehis;
+            OrderService.bllstatehis = bllstatehis;
             this.blldzservice = blldzservice;
             this.bllpushservice = bllpushservice;
             this.bllServiceOrderRemind = bllServiceOrderRemind;
@@ -49,10 +49,12 @@ namespace Dianzhu.ApplicationService.Order
             return orderobj;
         }
 
-        void changeObj(orderObj orderobj, Model.ServiceOrder serviceorder)
+       public static void changeObj(orderObj orderobj, Model.ServiceOrder serviceorder)
         {
             Model.ServiceOrderStateChangeHis statehis = bllstatehis.GetMaxNumberOrderHis(serviceorder);
             orderobj.currentStatusObj = Mapper.Map<Model.ServiceOrderStateChangeHis, orderStatusObj>(statehis);
+            orderobj.currentStatusObj.title = serviceorder.GetStatusTitleFriendly(serviceorder.OrderStatus);
+            orderobj.currentStatusObj.content = serviceorder.GetStatusContextFriendly(serviceorder.OrderStatus);
             orderobj.serviceSnapshotObj = Mapper.Map<Model.DZService, servicesObj>(serviceorder.Service);
             //if (orderobj.serviceSnapshotObj.serviceType != null && serviceorder.Service.ServiceType!=null)
             //{

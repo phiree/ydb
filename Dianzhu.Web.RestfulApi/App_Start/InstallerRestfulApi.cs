@@ -39,5 +39,6 @@ public class InstallerRestfulApi : IWindsorInstaller
         container.Register(Component.For<Dianzhu.ApplicationService.Chat.IChatService>().ImplementedBy<Dianzhu.ApplicationService.Chat.ChatService>());
         container.Register(Component.For<Dianzhu.ApplicationService.Order.IOrderService>().ImplementedBy<Dianzhu.ApplicationService.Order.OrderService>());
         container.Register(Component.For<Dianzhu.ApplicationService.Storage.IStorageService>().ImplementedBy<Dianzhu.ApplicationService.Storage.StorageService>());
+        container.Register(Component.For<Dianzhu.ApplicationService.Snapshot.ISnapshotService>().ImplementedBy<Dianzhu.ApplicationService.Snapshot.SnapshotService>());
     }
 }

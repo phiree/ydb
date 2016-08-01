@@ -25,55 +25,88 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _maxCountOrder = "";
+        IList<orderSnapshot> _ordersnapshot = new List<orderSnapshot>();
         /// <summary>
-        /// 最大订单数
+        /// 订单信息
         /// </summary>
-        /// <type>string</type>
-        public string maxCountOrder
+        public IList<orderSnapshot> ordersnapshot
         {
             get
             {
-                return _maxCountOrder;
+                return _ordersnapshot;
             }
             set
             {
-                _maxCountOrder = value;
+                _ordersnapshot = value;
             }
         }
 
-        string _havaCountOrder = "";
-        /// <summary>
-        /// 已生成服务的订单数量
-        /// </summary>
-        /// <type>string</type>
-        public string havaCountOrder
+
+        public IList<snapshortsObj> Adap(IList<Dianzhu.Model.ServiceOrder> orderList)
         {
-            get
+            IList<snapshortsObj> snapshortsobjs = new List<snapshortsObj>();
+            IList <DateTime> dates = orderList.Select(x => x.OrderCreated.Date).Distinct().ToList();
+            foreach (DateTime date in dates)
             {
-                return _havaCountOrder;
+                IList<Dianzhu.Model.ServiceOrder> orderInDateList = orderList.Where(x => x.OrderCreated.Date == date).ToList();
+                //接单量平均值
+                snapshortsObj snapshortsobj = new snapshortsObj();
+                snapshortsobj.date = date.ToString("yyyyMMdd");
+                snapshortsobj.ordersnapshot = new orderSnapshot().Adap(date, orderInDateList);
+                snapshortsobjs.Add(snapshortsobj);
             }
-            set
-            {
-                _havaCountOrder = value;
-            }
+            return snapshortsobjs;
         }
 
-        IList<workTimeObj> _workTimeArray = new List<workTimeObj>();
-        /// <summary>
-        /// 该快照下包含的工作时间数组
-        /// </summary>
-        /// <type>array[workTimeObj]</type>
-        public IList<workTimeObj> workTimeArray
-        {
-            get
-            {
-                return _workTimeArray;
-            }
-            set
-            {
-                _workTimeArray = value;
-            }
-        }
+        //string _maxCountOrder = "";
+        ///// <summary>
+        ///// 最大订单数
+        ///// </summary>
+        ///// <type>string</type>
+        //public string maxCountOrder
+        //{
+        //    get
+        //    {
+        //        return _maxCountOrder;
+        //    }
+        //    set
+        //    {
+        //        _maxCountOrder = value;
+        //    }
+        //}
+
+        //string _havaCountOrder = "";
+        ///// <summary>
+        ///// 已生成服务的订单数量
+        ///// </summary>
+        ///// <type>string</type>
+        //public string havaCountOrder
+        //{
+        //    get
+        //    {
+        //        return _havaCountOrder;
+        //    }
+        //    set
+        //    {
+        //        _havaCountOrder = value;
+        //    }
+        //}
+
+        //IList<workTimeObj> _workTimeArray = new List<workTimeObj>();
+        ///// <summary>
+        ///// 该快照下包含的工作时间数组
+        ///// </summary>
+        ///// <type>array[workTimeObj]</type>
+        //public IList<workTimeObj> workTimeArray
+        //{
+        //    get
+        //    {
+        //        return _workTimeArray;
+        //    }
+        //    set
+        //    {
+        //        _workTimeArray = value;
+        //    }
+        //}
     }
 }

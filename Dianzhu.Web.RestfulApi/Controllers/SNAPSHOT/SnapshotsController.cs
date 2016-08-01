@@ -13,12 +13,30 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SNAPSHOT
     [HMACAuthentication]
     public class SnapshotsController : ApiController
     {
-        public IHttpActionResult GetSnapshots([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_SnapshotFiltering sna)
+        private ApplicationService.Snapshot.ISnapshotService isnapshot = null;
+        public SnapshotsController()
         {
-            common_Trait_400_Rsponses res_Error = new common_Trait_400_Rsponses();
-            res_Error.errCode = "009001";
-            res_Error.errString = "暂时没有查询方法!";
-            return Content(HttpStatusCode.BadRequest, res_Error);
+            isnapshot = Bootstrap.Container.Resolve<ApplicationService.Snapshot.ISnapshotService>();
+        }
+
+        public IHttpActionResult GetSnapshots(string id, [FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_SnapshotFiltering sna)
+        {
+            try
+            {
+                if (filter == null)
+                {
+                    filter = new common_Trait_Filtering();
+                }
+                if (sna == null)
+                {
+                    sna = new common_Trait_SnapshotFiltering();
+                }
+                return Json(isnapshot.GetSnapshots(id,filter, sna, GetRequestHeader.GetTraitHeaders()));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
         }
     }
 }

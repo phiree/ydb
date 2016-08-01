@@ -160,6 +160,7 @@
     <Compile Include="ModeDTO\Identity\locationObj.cs" />
     <Compile Include="ModeDTO\Identity\merchantObj.cs" />
     <Compile Include="ModeDTO\Identity\orderObj.cs" />
+    <Compile Include="ModeDTO\Identity\orderSnapshot.cs" />
     <Compile Include="ModeDTO\Identity\orderStatusObj.cs" />
     <Compile Include="ModeDTO\Identity\payObj.cs" />
     <Compile Include="ModeDTO\Identity\refundObj.cs" />
@@ -186,6 +187,8 @@
     <Compile Include="Remind\RemindService.cs" />
     <Compile Include="Service\IServiceService.cs" />
     <Compile Include="Service\ServiceService.cs" />
+    <Compile Include="Snapshot\ISnapshotService.cs" />
+    <Compile Include="Snapshot\SnapshotService.cs" />
     <Compile Include="Staff\IStaffService.cs" />
     <Compile Include="Staff\StaffService.cs" />
     <Compile Include="Storage\IStorageService.cs" />
