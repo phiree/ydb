@@ -427,7 +427,7 @@
             var _this = this;
             this.render();
             this.$el.addClass("loading");
-            this.listenTo(workDays, 'sync', function(collection, resp, options){;
+            this.listenTo(workDays, 'sync', function(collection, resp, options){
                 _this.$el.removeClass("loading");
                 _.each(collection.models, function(dayModel){
                     _this.addDayView(dayModel);

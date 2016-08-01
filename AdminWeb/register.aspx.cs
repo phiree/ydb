@@ -17,8 +17,8 @@ public partial class register : BasePage
     protected void btnRegister_Click(object sender, EventArgs e)
     {
         System.Web.Security.MembershipCreateStatus createStatus;
-        bllMember.CreateUser(tbxUserName.Text, string.Empty, string.Empty, tbxPwd.Text,
+        bllMember.CreateUser(tbxUserName.Text,null, null, tbxPwd.Text,
             out createStatus, (Dianzhu.Model.Enums.enum_UserType)(Convert.ToInt16(rblUserType.SelectedValue)));
-        PHSuit.Notification.Show(this, "注册成功", "注册成功", string.Empty);
+        lblMsg.Text = createStatus.ToString();
     }
 }

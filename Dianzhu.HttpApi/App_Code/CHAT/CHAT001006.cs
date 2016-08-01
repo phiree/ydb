@@ -21,11 +21,21 @@ public class ResponseCHAT001006:BaseResponse
     {
         ReqDataCHAT001006 requestData = this.request.ReqData.ToObject<ReqDataCHAT001006>();
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-        string raw_id = requestData.userID;
+        string user_id = requestData.userID;
+
+        Guid userId;
+        bool isUserId = Guid.TryParse(user_id, out userId);
+        if (!isUserId)
+        {
+            this.state_CODE = Dicts.StateCode[1];
+            this.err_Msg = "userId格式有误";
+            return;
+        }
+
         DZMembership member;
         if (request.NeedAuthenticate)
         {
-            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+            bool validated = new Account(p).ValidateUser(userId, requestData.pWord, this, out member);
             if (!validated)
             {
                 return;
@@ -33,8 +43,15 @@ public class ResponseCHAT001006:BaseResponse
         }
         else
         {
-            member = p.GetUserById(new Guid(raw_id));
+            member = p.GetUserById(userId);
         }
+        if (member == null)
+        {
+            this.state_CODE = Dicts.StateCode[1];
+            this.err_Msg = "用户不存在";
+            return;
+        }
+
         BLLReceptionChat bllReceptionChat = Bootstrap.Container.Resolve<BLLReceptionChat>();
         int rowCount;
         Guid orderId;
@@ -63,7 +80,7 @@ public class ResponseCHAT001006:BaseResponse
 
         if (requestData.orderID == "")
         {
-            chatList = bllReceptionChat.GetReceptionChatList(member, null, Guid.Empty, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, chatTarget, out rowCount);
+            chatList = bllReceptionChat.GetReceptionChatList(userId, Guid.Empty, Guid.Empty, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, chatTarget, out rowCount);
         }
         else
         {
@@ -75,7 +92,7 @@ public class ResponseCHAT001006:BaseResponse
                 return;
             }
 
-            chatList = bllReceptionChat.GetReceptionChatList(member, null, orderId, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, chatTarget, out rowCount);
+            chatList = bllReceptionChat.GetReceptionChatList(userId, Guid.Empty, orderId, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, chatTarget, out rowCount);
         }
         
         try

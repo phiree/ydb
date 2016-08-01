@@ -230,6 +230,7 @@ namespace Dianzhu.CSClient.ViewWPF
             //Action ac = () =>
             //{
                 SendMediaClick(bytes, "ChatImage", "image");
+            FinalChatTimerSend();
             //};
             //NHibernateUnitOfWork.With.Transaction(ac);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();

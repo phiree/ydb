@@ -61,11 +61,6 @@ namespace Dianzhu.CSClient.ViewWPF
             MessageBox.Show(message);
         }
 
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            main.DragMove();
-        }
-
         private void btnWindowsClosed_Click(object sender, RoutedEventArgs e)
         {
             main.Close();
@@ -76,5 +71,10 @@ namespace Dianzhu.CSClient.ViewWPF
             main.WindowState = WindowState.Minimized;
         }
         public string FormTitle { set { this.Title = value; } }
+
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            main.DragMove();
+        }
     }
 }

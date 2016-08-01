@@ -385,10 +385,10 @@ namespace Dianzhu.BLL
             // return DALServiceOrder.GetAllOrdersForBusiness(business.Id, pageNum, pageSize, out totalAmount);
         }
 
-        public IList<ServiceOrder> GetListForCustomer(DZMembership customer, int pageNum, int pageSize, out int totalAmount)
+        public IList<ServiceOrder> GetListForCustomer(Guid customerId, int pageNum, int pageSize, out int totalAmount)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Customer == customer);
+            where = where.And(x => x.Customer.Id == customerId);
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
 
             long long_totalAmount;
@@ -435,18 +435,11 @@ namespace Dianzhu.BLL
 
             //return DALServiceOrder.GetOrderListByDate(service, date);
         }
-        public IList<ServiceOrder> GetOrderListByDateRange( DateTime dateBegin, DateTime dateEnd)
+        public IList<ServiceOrder> GetOrderListOfServiceByDateRange(Guid serviceId, DateTime timeBegin, DateTime timeEnd)
         {
-            var where = PredicateBuilder.True<ServiceOrder>();
 
-             
 
-            where = where.And(x => x.Details.Count>0);
-            //where = where.And(x => x.Details[0].OriginalService!=null);
-            where = where.And(x => x.OrderCreated.Date >= dateBegin);
-            where = where.And(x => x.OrderCreated <= dateEnd);
-
-            return repoServiceOrder.Find(where).ToList();
+            return repoServiceOrder.GetOrderListOfServiceByDateRange(serviceId,timeBegin,timeEnd);
         }
         public ServiceOrder GetOrderByIdAndCustomer(Guid Id, DZMembership customer)
         {

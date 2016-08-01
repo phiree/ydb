@@ -57,6 +57,9 @@
         </Grid>
 
         <Grid Grid.Row="1">
+            <Label>
+                <TextBlock x:Name="tbkHint" Foreground="Gray"></TextBlock>
+            </Label>
             <UC:UC_ScrollView x:Name="svChatList"/>
         </Grid>
     </Grid>

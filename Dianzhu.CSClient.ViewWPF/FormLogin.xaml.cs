@@ -50,6 +50,11 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
+            if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+            {
+                MessageBox.Show("无可用网络，登录失败");
+                return;
+            }
             bgw.RunWorkerAsync();
         }
         public string FormText

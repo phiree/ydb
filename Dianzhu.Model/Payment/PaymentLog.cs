@@ -10,6 +10,11 @@ namespace Dianzhu.Model
     /// </summary>
     public class PaymentLog : DDDCommon.Domain.Entity<Guid>
     {
+        public PaymentLog()
+        {
+            LogTime = DateTime.Now;
+        }
+
         /// <summary>
         /// 请求参数 // api回调参数
         /// </summary>

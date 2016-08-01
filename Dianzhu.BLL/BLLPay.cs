@@ -96,6 +96,7 @@ namespace Dianzhu.BLL
                 log.Debug("FAIL,更新支付项,paymentId为：" + businessOrderId);
                 Payment payment = bllPayment.GetOne(new Guid(businessOrderId));
                 payment.Status = enum_PaymentStatus.Fail;
+                payment.PayType = enum_PayType.Online;
                 payment.PayApi = GetPayApi(payLogType);
                 payment.PlatformTradeNo = platformOrderId;
                 bllPayment.Update(payment);
@@ -105,6 +106,7 @@ namespace Dianzhu.BLL
                 log.Debug("TRADE_CLOSED,更新支付项,paymentId为：" + businessOrderId);
                 Payment payment = bllPayment.GetOne(new Guid(businessOrderId));
                 payment.Status = enum_PaymentStatus.Trade_Closed;
+                payment.PayType = enum_PayType.Online;
                 payment.PayApi = GetPayApi(payLogType);
                 payment.PlatformTradeNo = platformOrderId;
                 bllPayment.Update(payment);
@@ -114,6 +116,7 @@ namespace Dianzhu.BLL
                 log.Debug("TRADE_FINISHED,更新支付项,paymentId为：" + businessOrderId);
                 Payment payment = bllPayment.GetOne(new Guid(businessOrderId));
                 payment.Status = enum_PaymentStatus.Trade_Finished;
+                payment.PayType = enum_PayType.Online;
                 payment.PayApi = GetPayApi(payLogType);
                 payment.PlatformTradeNo = platformOrderId;
                 bllPayment.Update(payment);
@@ -140,6 +143,7 @@ namespace Dianzhu.BLL
                 }
                 payment.Status = enum_PaymentStatus.Trade_Success;
                 payment.PayApi = GetPayApi(payLogType);
+                payment.PayType = enum_PayType.Online;
                 payment.PlatformTradeNo = platformOrderId;
                 bllPayment.Update(payment);
 

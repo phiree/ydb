@@ -7,9 +7,11 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
 using Dianzhu.CSClient.IInstantMessage;
- 
+
 using Dianzhu.Model.Enums;
 using Dianzhu.DAL;
+using System.ComponentModel;
+
 namespace Dianzhu.CSClient.Presenter
 {
      /// <summary>
@@ -23,16 +25,15 @@ namespace Dianzhu.CSClient.Presenter
         IViewOrderHistory viewOrderHistory;
         IList<ServiceOrder> orderList;
         IBLLServiceOrder bllServiceOrder;
-        Dictionary<DZMembership, IList<ServiceOrder>> allList;
+        Dictionary<Guid, IList<ServiceOrder>> allList;
            public POrderHistory() { }
 
         public POrderHistory(IViewOrderHistory viewOrderHistory,IViewIdentityList viewIdentityList,IBLLServiceOrder bllServiceOrder,IInstantMessage.InstantMessage iIM)
-
         {
             this.viewOrderHistory = viewOrderHistory;
             this.orderList = new List<ServiceOrder>();
             this.bllServiceOrder = bllServiceOrder;
-            this.allList = new Dictionary<DZMembership, IList<ServiceOrder>>();
+            this.allList = new Dictionary<Guid, IList<ServiceOrder>>();
 
             viewOrderHistory.SearchOrderHistoryClick += ViewOrderHistory_SearchOrderHistoryClick;
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
@@ -40,18 +41,58 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
         {
+            if (IdentityManager.CurrentIdentity == null)
+            { return; }
+
+            log.Debug("开始异步加载历史订单");
+            //viewOrderHistory.ShowListLoadingMsg();
+
+            int totalAmount;
+            IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(serviceOrder.Customer.Id, 1, 5, out totalAmount);
+            viewOrderHistory.OrderList = orderList;
+            viewOrderHistory.HideMsg();
+            if (orderList.Count > 0)
+            {
+                foreach (ServiceOrder order in orderList)
+                {
+                    viewOrderHistory.AddOneOrder(order);
+                }
+            }
+            else
+            {
+                viewOrderHistory.ShowNullListLable();
+            }
+
+            //BackgroundWorker worker = new BackgroundWorker();
+            //worker.DoWork += Worker_DoWork;
+            //worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            //worker.RunWorkerAsync(serviceOrder.Customer.Id);            
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            log.Debug("异步加载历史订单完成");
+            viewOrderHistory.OrderList = e.Result as List<ServiceOrder>;
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
             try
             {
-                if (IdentityManager.CurrentIdentity == null)
-                { return; }
                 //加载历史订单
+                log.Debug("开始异步加载历史订单");
+                viewOrderHistory.ShowListLoadingMsg();
+                Guid customerId = Guid.Parse(e.Argument.ToString());
+                NHibernateUnitOfWork.UnitOfWork.Start();
                 int totalAmount;
-                IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(serviceOrder.Customer, 1, 5, out totalAmount);
-                if (!allList.ContainsKey(serviceOrder.Customer))
+                IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(customerId, 1, 999, out totalAmount);
+                if (!allList.ContainsKey(customerId))
                 {
-                    allList.Add(serviceOrder.Customer, orderList);
+                    allList.Add(customerId, orderList);
                 }
-                viewOrderHistory.OrderList = orderList;
+                e.Result = orderList;
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
             catch (Exception ex)
             {
@@ -67,18 +108,18 @@ namespace Dianzhu.CSClient.Presenter
             {
                 return;
             }
-            if (allList[IdentityManager.CurrentIdentity.Customer].Count == 0)
+            if (allList[IdentityManager.CurrentIdentity.Customer.Id].Count == 0)
             {
                 return;
             }
             IList<ServiceOrder> searchList = new List<ServiceOrder>();
             if (viewOrderHistory.SearchStr == string.Empty)
             {
-                viewOrderHistory.OrderList = allList[IdentityManager.CurrentIdentity.Customer];
+                viewOrderHistory.OrderList = allList[IdentityManager.CurrentIdentity.Customer.Id];
             }
             else
             {
-                foreach (ServiceOrder order in allList[IdentityManager.CurrentIdentity.Customer])
+                foreach (ServiceOrder order in allList[IdentityManager.CurrentIdentity.Customer.Id])
                 {
                     if (order.Details.Count > 0)
                     {

@@ -15,6 +15,11 @@ namespace Dianzhu.CSClient.IView
         string SearchStr { get; set; }
 
         event SearchOrderHistoryClick SearchOrderHistoryClick;
+        void ShowNullListLable();
+        void ShowListLoadingMsg();
+
+        void HideMsg();
+        void AddOneOrder(ServiceOrder order);
     }
 
     /// <summary>

@@ -340,8 +340,8 @@ public class RespDataSHM001007
 
     public class ReqDataSHM001007
     {
-        public string stratTime { get; set; }
+        public string startTime { get; set; }
         public string endTime { get; set; }
-        public string serviceId { get; set; }
+        public string svcID { get; set; }
     }
 }
