@@ -597,13 +597,13 @@
 
             // 注册workTime的sync事件，对返回的工作时间数据构建
             this.listenTo(this.workTimes, "sync", function(collection, response, options){
-                _this.buildWorkTimesView(collection);
+                return _this.buildWorkTimesView(collection);
             });
 
             // 注册workDay的sync事件，对返回的工作单日数据处理
             this.listenTo(this.workDays, 'sync', function(collection, response, options){
 
-                _this.buildDaysView(collection)
+                _this.buildDaysView(collection);
             });
 
             this.loadShelf(this.reqDate);
@@ -622,6 +622,7 @@
                 return
             }
 
+            _this.loading = true;
             _this.showLoading(true);
 
             // 请求快照数据
@@ -702,10 +703,15 @@
                     var reqDate = $(this).attr("data-date");
                     var dateObj = new Date();
 
+                    // 请求锁，loadings时，禁止请求. TODO: 请求锁避免多次请求的多次构造问题，另一种方案是数据暂存；
+                    if ( _this.loading ){ return false }
+
                     $(this).addClass("active").siblings().removeClass("active");
 
                     dateObj.setFullYear(parseInt(reqDate.slice(0, 4)), parseInt(reqDate.slice(4, 6)) - 1, parseInt(reqDate.slice(6, 8)));
+
                     _this.switchDayShelf(dateObj);
+
                 });
 
                 $tabContainer.append($tab);
@@ -716,6 +722,7 @@
          * @param reqDateObj Date()对象
          */
         switchDayShelf : function(reqDateObj){
+
             this.reqDate = reqDateObj;
 
             this.clearDay();
@@ -730,6 +737,8 @@
             var _this = this;
             var dateStr = dateTools.dateFormat(this.reqDate, "YYYYMMDD");
 
+            this.clearWorkTime();
+
             _.each(collection.models, function(model, index, collection){
                 var startTime, endTime, nowTime, workTimeView;
                 var orderSSArray = [];
@@ -738,8 +747,6 @@
                 endTime = model.get("endTime").replace(":", "");
 
                 orderSSArray = _this.snapshots.getOrderSnapshotByTime(dateStr, startTime, endTime);
-
-                console.log(_this.reqDate.getDay());
 
                 model.attributes.dayMaxOrderCount = _this.workDays.where({week: (_this.reqDate.getDay() + 1).toString()})[0].attributes.maxOrder;
                 model.attributes.dayReorderCount = _this.snapshots.snapshotItems.length;
@@ -756,6 +763,9 @@
                 _this.renderWorkTime(workTimeView);
 
             });
+
+            _this.loading = false;
+
         },
         /**
          * 构建单日工作时间，根据dateObj筛选单日的数据
@@ -765,6 +775,8 @@
             var _this = this;
             var dayOfWeek = this.reqDate.getDay();
             var dateStr = dateTools.dateFormat(this.reqDate, "YYYYMMDD");
+
+            this.clearDay();
 
             _.each(collection.models, function(dayModel, index, collection){
                 if (dayOfWeek == index ){
@@ -778,8 +790,10 @@
             });
         },
         clearDay : function(){
-            this.$el.find(".day-container").html("");
-            return this;
+            return this.$el.find(".day-container").html("");
+        },
+        clearWorkTime : function(){
+            return this.$el.find(".time-buckets").html("");
         },
         renderDay: function(workDayView){
             return this.$el.find(".day-container").append(workDayView.render().$el);
@@ -791,7 +805,7 @@
             return toggle ? this.$(".day-container").removeClass("error").addClass("loading") : this.$(".day-container").removeClass("loading");
         },
         showError : function(){
-            this.$(".day-container").removeClass("loading").addClass("error");
+            return this.$(".day-container").removeClass("loading").addClass("error");
         },
         showWarnText : function(show, test){
             return !show ? this.$("#day-warn").addClass("hi") : this.$("#day-warn").removeClass("hi").html(test);
