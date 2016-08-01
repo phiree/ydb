@@ -121,7 +121,7 @@ namespace Dianzhu.ApplicationService
 
             member.NickName = userObj.screen_name;
             member.UserName = userObj.screen_name;
-            member.AvatarUrl = utils.DownloadToMediaserver(userObj.avatar_hd, string.Empty, "UserAvatar", "image"); 
+            member.AvatarUrl = utils.DownloadToMediaserver(userObj.avatar_hd, string.Empty, "image"); 
             member.Address = userObj.location;
             member.PlainPassword = tokenInfo.uid;
             member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(tokenInfo.uid, "MD5");

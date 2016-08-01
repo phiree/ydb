@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
@@ -73,10 +76,12 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -119,9 +124,11 @@
     <Compile Include="Common\common_Trait_StoreFiltering.cs" />
     <Compile Include="Common\common_Trait_UserFiltering.cs" />
     <Compile Include="Common\common_Trait_WorkTimeFiltering.cs" />
+    <Compile Include="Common\FileBase64.cs" />
     <Compile Include="Common\LoginBySinaWeiBo.cs" />
     <Compile Include="Common\LoginByTencentQQ.cs" />
     <Compile Include="Common\LoginByWeChat.cs" />
+    <Compile Include="Common\McisendstringAPI.cs" />
     <Compile Include="Common\U3RD_Model.cs" />
     <Compile Include="Common\UserChangeBody.cs" />
     <Compile Include="Common\utils.cs" />
@@ -181,6 +188,8 @@
     <Compile Include="Service\ServiceService.cs" />
     <Compile Include="Staff\IStaffService.cs" />
     <Compile Include="Staff\StaffService.cs" />
+    <Compile Include="Storage\IStorageService.cs" />
+    <Compile Include="Storage\StorageService.cs" />
     <Compile Include="Store\IStoreService.cs" />
     <Compile Include="Store\StoreService.cs" />
     <Compile Include="User\IUserService.cs" />
@@ -222,7 +231,6 @@
       <Name>PHSuit</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config">

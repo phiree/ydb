@@ -260,6 +260,7 @@
     <Compile Include="Controllers\SERVICE\ServicesController.cs" />
     <Compile Include="Controllers\SNAPSHOT\SnapshotsController.cs" />
     <Compile Include="Controllers\STAFF\StaffsController.cs" />
+    <Compile Include="Controllers\STORAGE\StoragesController.cs" />
     <Compile Include="Controllers\STORE\StoresController.cs" />
     <Compile Include="Controllers\USER\CustomerServicesController.cs" />
     <Compile Include="Controllers\USER\MerchantsController.cs" />

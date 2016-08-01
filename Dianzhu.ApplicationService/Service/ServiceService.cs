@@ -33,12 +33,12 @@ namespace Dianzhu.ApplicationService.Service
             servicesobj.location.longitude = dzservice.Business.Longitude.ToString();
             servicesobj.location.latitude = dzservice.Business.Latitude.ToString();
             servicesobj.location.address = dzservice.Business.RawAddressFromMapAPI == null ? "" : dzservice.Business.RawAddressFromMapAPI;
-            if (dzservice.ServiceType != null)
-            {
+            //if (dzservice.ServiceType != null)
+            //{
                 //servicesobj.serviceType.serviceTypeID = dzservice.ServiceType.Id.ToString();
-                servicesobj.serviceType.fullDescription = dzservice.ServiceType.ToString();
+                //servicesobj.serviceType.fullDescription = dzservice.ServiceType.ToString();
                 //servicesobj.serviceType.superID = dzservice.ServiceType.ParentId.ToString();
-            }
+            //}
         }
 
         /// <summary>

@@ -94,6 +94,7 @@
     <Compile Include="Finance\DALDefaultSharePoint.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Mapping\Client\UserTokenMap.cs" />
+    <Compile Include="Mapping\StorageManager\StorageFileInfoMap.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderRemind.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderAppraise.cs" />
     <Compile Include="Finance\DALSalePoint.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="ServiceOrder\DALServiceOrder.cs" />
     <Compile Include="DALReceptionStatus.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderPushedService.cs" />
+    <Compile Include="StorageManager\DALStorageFileInfo.cs" />
     <Compile Include="UnitOfWork\GenericTransaction.cs" />
     <Compile Include="UnitOfWork\IGenericTransaction.cs" />
     <Compile Include="UnitOfWork\DianzhuUW.cs" />
@@ -208,6 +210,7 @@
     </Content>
     <Content Include="updatescripts\delete_services_not_have_business.sql" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
