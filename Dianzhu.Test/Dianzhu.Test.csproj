@@ -173,6 +173,7 @@
     <Compile Include="ServiceOrder\DALServiceOrderTests.cs" />
     <Compile Include="tagTest.cs" />
     <Compile Include="test_mainform.cs" />
+    <Compile Include="UnitOfWork\UnitOfWorkFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config">
