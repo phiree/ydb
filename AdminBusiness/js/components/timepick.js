@@ -29,7 +29,9 @@
         minuteStep : 5
     };
 
-
+    function fix(num, length){
+        return ('' + num).length < length ? ((new Array(length + 1)).join('0') + num).slice(-length) : '' + num;
+    }
 
     $.extend(TimePick.prototype, {
         initialize : function(){
@@ -56,14 +58,14 @@
         },
         buildPanel : function(){
             var _this = this;
-            var $h_select = $('<select class="tp-h-select" size=' + this.options.selectSize + '>'),
-                $m_select = $('<select class="tp-m-select" size=' + this.options.selectSize + '>'),
+            var $h_select = $('<ul class="tp-h-select" size=' + this.options.selectSize + '>'),
+                $m_select = $('<ul class="tp-m-select" size=' + this.options.selectSize + '>'),
                 $select_wrap = $('<div class="tp-wrap">');
 
             for ( var i = 0 ; i < 24 ; i++ ){
-                var $option = $('<option class="tp-option" >');
+                var $option = $('<li class="tp-option" >');
                 $option.val(fix(i, 2)).html(fix(i, 2));
-                $option.bind("click.timePick", function(e){
+                $option.on("click", function(e){
                     var ele = e.target;
                     _this.select(ele, { hour : true} )
                 });
@@ -71,9 +73,9 @@
             }
 
             for ( var i = 0 ; i < 60 ; i+= _this.options.minuteStep ){
-                var $option = $('<option class="tp-option" >');
+                var $option = $('<li class="tp-option" >');
                 $option.val(fix(i, 2)).html(fix(i, 2));
-                $option.bind("click.timePick", function(e){
+                $option.on("click", function(e){
                     var ele = e.target;
                     _this.select(ele, { minute : true} )
                 });
@@ -81,10 +83,6 @@
             }
 
             $select_wrap.append($h_select).append($m_select);
-
-            function fix(num, length){
-                return ('' + num).length < length ? ((new Array(length + 1)).join('0') + num).slice(-length) : '' + num;
-            }
 
             this.$select = $select_wrap;
             $select_wrap.insertAfter(this.$ele);
@@ -131,11 +129,11 @@
             }
 
             if (option.hour){
-                val = val.replace(/^\d\d/, slc)
+                val = val.replace(/^\d{1,2}/, fix(slc, 2))
             }
 
             if (option.minute){
-                val = val.replace(/\d\d$/, slc)
+                val = val.replace(/\d{1,2}$/, fix(slc, 2))
             }
 
             this.$ele.val(val);
