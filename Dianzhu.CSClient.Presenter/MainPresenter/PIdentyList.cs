@@ -66,7 +66,10 @@ namespace Dianzhu.CSClient.Presenter
 
         private void IViewChatSend_FinalChatTimerSend()
         {
-            iView.IdleTimerStart(IdentityManager.CurrentIdentity.Id);
+            if (IdentityManager.CurrentIdentity != null)
+            {
+                iView.IdleTimerStart(IdentityManager.CurrentIdentity.Id);
+            }
         }
 
         private void IView_FinalChatTimerTick(Guid orderId)
@@ -78,17 +81,19 @@ namespace Dianzhu.CSClient.Presenter
             if (IdentityManager.CurrentIdentity.Id == order.Id)
             {
                 iViewChatList.ClearUCData();
+                iViewChatList.ShowNoChatMsg();
+                iViewOrderHistory.ClearUCData();
                 iViewOrderHistory.ShowNullListLable();
 
                 //删除分配表中用户和客服的关系
-                ReceptionStatus rs = dalReceptionStatus.GetOneByCustomerAndCS(order.CustomerService, order.Customer);
+                ReceptionStatus rs = dalReceptionStatus.GetOneByCustomerAndCS(GlobalViables.CurrentCustomerService, order.Customer);
                 dalReceptionStatus.Delete(rs);
 
                 //发送客服离线消息给用户
                 string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
                 string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
                                                   <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:cer:offline""></ext></message>",
-                                                  order.Customer.Id + "@" + server, order.CustomerService.Id, Guid.NewGuid() + "@" + server);
+                                                  order.Customer.Id + "@" + server, GlobalViables.CurrentCustomerService.Id, Guid.NewGuid() + "@" + server);
                 iIM.SendMessage(noticeDraftNew);
             }
 
@@ -222,7 +227,9 @@ namespace Dianzhu.CSClient.Presenter
                 iView.SetIdentityLoading(serviceOrder);
                 
                 iViewChatList.ClearUCData();
+                iViewChatList.ShowLoadingMsg();
 
+                iViewOrderHistory.ClearUCData();
                 iViewOrderHistory.ShowListLoadingMsg();
 
             }

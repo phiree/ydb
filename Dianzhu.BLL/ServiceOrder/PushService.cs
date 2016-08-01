@@ -82,7 +82,7 @@ namespace Dianzhu.BLL
                 }
                 else
                 {
-                    bllServiceOrder.OrderFlow_PayDepositAndWaiting(order);
+                    bllServiceOrder.OrderFlow_ConfirmDeposit(order);
                 }
 
                 PHSuit.HttpHelper.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice&orderId=" + order.Id.ToString(), "get", null);                

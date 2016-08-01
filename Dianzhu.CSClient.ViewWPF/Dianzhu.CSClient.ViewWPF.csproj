@@ -108,6 +108,9 @@
     <Compile Include="UC\UC_ChatSend.xaml.cs">
       <DependentUpon>UC_ChatSend.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\UC_Hint.xaml.cs">
+      <DependentUpon>UC_Hint.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\UC_MessageVoice.xaml.cs">
       <DependentUpon>UC_MessageVoice.xaml</DependentUpon>
     </Compile>
@@ -189,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\UC_ChatSend.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_Hint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

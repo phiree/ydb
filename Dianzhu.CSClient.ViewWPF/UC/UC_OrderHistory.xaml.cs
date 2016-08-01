@@ -25,16 +25,20 @@ namespace Dianzhu.CSClient.ViewWPF
     public partial class UC_OrderHistory : UserControl, IView.IViewOrderHistory
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_OrderHistory");
+        UC_Hint hint;
         public UC_OrderHistory()
         {
             InitializeComponent();
 
             //UC_OrderHistory_Order order = new UC_OrderHistory_Order();
             //pnlOrderHistory.Children.Add(order);
-            ShowNullListLable();
+
+            hint = new UC_Hint(BtnMore_Click);
+            ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(hint);
         }
         
         public event SearchOrderHistoryClick SearchOrderHistoryClick;
+        public event BtnMoreChat BtnMoreOrder;
 
         public string SearchStr
         {
@@ -95,6 +99,7 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        #region 添加一张订单
         public void AddOneOrder(ServiceOrder order)
         {
             Action lamda = () =>
@@ -113,34 +118,36 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        public void InsertOneOrder(ServiceOrder order)
         {
-            log.Debug("订单界面异步加载完成");
-            HideMsg();
-        }
-
-        private void Worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            log.Debug("开始异步加载订单界面");
-            UC_OrderHistory_Order ucOrder;
-            foreach (ServiceOrder order in orderList)
+            Action lamda = () =>
             {
-                ucOrder = new UC_OrderHistory_Order();
+                UC_OrderHistory_Order ucOrder = new UC_OrderHistory_Order();
                 ucOrder.LoadData(order);
-                //pnlOrderHistory.Children.Add(ucOrder);
-                ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(ucOrder);
+                StackPanel sp = ((StackPanel)svChatList.FindName("StackPanel"));
+                sp.Children.Insert(sp.Children.Count - 1, ucOrder);
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
             }
         }
+        #endregion
 
+        #region 显示提示信息
         //显示当查询列表为空时的提示语
         public void ShowNullListLable()
         {
             this.Dispatcher.Invoke((Action)(() =>
             {
-                tbkHint.Text = "当前用户没有历史订单";
-                tbkHint.Visibility = Visibility.Visible;
+                hint.lblHint.Content = "当前用户没有历史订单";
+                hint.lblHint.Visibility = Visibility.Visible;
+                hint.btnMore.Visibility = Visibility.Collapsed;
                 btnSearchEnabled = false;
-                ((StackPanel)svChatList.FindName("StackPanel")).Children.Clear();
             }));
         }
 
@@ -148,10 +155,41 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             this.Dispatcher.Invoke((Action)(() =>
             {
-                tbkHint.Text = "加载用户历史订单中...";
-                tbkHint.Visibility = Visibility.Visible;
+                hint.lblHint.Content = "加载用户历史订单中...";
+                hint.lblHint.Visibility = Visibility.Visible;
+                hint.btnMore.Visibility = Visibility.Collapsed;
                 btnSearchEnabled = false;
+            }));
+        }
+
+        public void ShowNoMoreOrderList()
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                hint.lblHint.Content = "没有更多历史订单";
+                hint.lblHint.Visibility = Visibility.Visible;
+                hint.btnMore.Visibility = Visibility.Collapsed;
+                btnSearchEnabled = true;
+            }));
+        }
+
+        public void ShowMoreOrderList()
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                HideMsg();
+                hint.btnMore.Visibility = Visibility.Visible;
+                btnSearchEnabled = true;
+            }));
+        }
+        #endregion
+
+        public void ClearUCData()
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
                 ((StackPanel)svChatList.FindName("StackPanel")).Children.Clear();
+                ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(hint);
             }));
         }
 
@@ -159,8 +197,8 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             this.Dispatcher.Invoke((Action)(() =>
             {
-                tbkHint.Visibility = Visibility.Collapsed;
-                btnSearchEnabled = true;
+                hint.lblHint.Content = string.Empty;
+                hint.lblHint.Visibility = Visibility.Collapsed;
             }));
         }
 
@@ -172,6 +210,19 @@ namespace Dianzhu.CSClient.ViewWPF
         private void btnSearchByOrderId_Click(object sender, RoutedEventArgs e)
         {
             SearchOrderHistoryClick();
-        }        
+        }
+
+        private void BtnMore_Click(object sender, RoutedEventArgs e)
+        {
+            if (BtnMoreOrder == null)
+            {
+                return;
+            }
+
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            BtnMoreOrder();
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+        }
     }
 }
