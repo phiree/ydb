@@ -36,7 +36,36 @@ namespace Dianzhu.CSClient.Presenter
             this.allList = new Dictionary<Guid, IList<ServiceOrder>>();
 
             viewOrderHistory.SearchOrderHistoryClick += ViewOrderHistory_SearchOrderHistoryClick;
+            viewOrderHistory.BtnMoreOrder += ViewOrderHistory_BtnMoreOrder;
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
+        }
+
+        private void ViewOrderHistory_BtnMoreOrder()
+        {
+            viewOrderHistory.ShowListLoadingMsg();
+            int totalAmount;
+            IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(IdentityManager.CurrentIdentity.Customer.Id, 1, 5, out totalAmount);
+            if (orderList.Count > 0)
+            {
+                if (orderList.Count == 5)
+                {
+                    viewOrderHistory.ShowMoreOrderList();
+                }
+                else
+                {
+                    viewOrderHistory.ShowNoMoreOrderList();
+                }
+
+                foreach (ServiceOrder order in orderList)
+                {
+                    viewOrderHistory.OrderList.Add(order);
+                    viewOrderHistory.InsertOneOrder(order);
+                }
+            }
+            else
+            {
+                viewOrderHistory.ShowNullListLable();
+            }
         }
 
         private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
@@ -45,59 +74,30 @@ namespace Dianzhu.CSClient.Presenter
             { return; }
 
             log.Debug("开始异步加载历史订单");
-            //viewOrderHistory.ShowListLoadingMsg();
 
             int totalAmount;
             IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(serviceOrder.Customer.Id, 1, 5, out totalAmount);
             viewOrderHistory.OrderList = orderList;
-            viewOrderHistory.HideMsg();
             if (orderList.Count > 0)
             {
+                if (orderList.Count == 5)
+                {
+                    viewOrderHistory.ShowMoreOrderList();
+                }
+                else
+                {
+                    viewOrderHistory.ShowNoMoreOrderList();
+                }
+
                 foreach (ServiceOrder order in orderList)
                 {
-                    viewOrderHistory.AddOneOrder(order);
+                    //viewOrderHistory.OrderList.Add(order);
+                    viewOrderHistory.InsertOneOrder(order);
                 }
             }
             else
             {
                 viewOrderHistory.ShowNullListLable();
-            }
-
-            //BackgroundWorker worker = new BackgroundWorker();
-            //worker.DoWork += Worker_DoWork;
-            //worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            //worker.RunWorkerAsync(serviceOrder.Customer.Id);            
-        }
-
-        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            log.Debug("异步加载历史订单完成");
-            viewOrderHistory.OrderList = e.Result as List<ServiceOrder>;
-        }
-
-        private void Worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            try
-            {
-                //加载历史订单
-                log.Debug("开始异步加载历史订单");
-                viewOrderHistory.ShowListLoadingMsg();
-                Guid customerId = Guid.Parse(e.Argument.ToString());
-                NHibernateUnitOfWork.UnitOfWork.Start();
-                int totalAmount;
-                IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(customerId, 1, 999, out totalAmount);
-                if (!allList.ContainsKey(customerId))
-                {
-                    allList.Add(customerId, orderList);
-                }
-                e.Result = orderList;
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-            }
-            catch (Exception ex)
-            {
-                log.Error("异常");
-                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
             }
         }
 

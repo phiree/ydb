@@ -45,7 +45,7 @@ namespace Dianzhu.CSClient.ViewWPF
         protected void TimerLoad()
         {
             FinalChatTimer = new DispatcherTimer();
-            FinalChatTimer.Interval = new TimeSpan(0, 30, 0);
+            FinalChatTimer.Interval = new TimeSpan(0, 10, 0);
             FinalChatTimer.Tick += FinalChatTimer_Tick;
         }
 
