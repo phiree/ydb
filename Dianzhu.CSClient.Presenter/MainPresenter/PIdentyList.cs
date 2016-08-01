@@ -81,14 +81,14 @@ namespace Dianzhu.CSClient.Presenter
                 iViewOrderHistory.ShowNullListLable();
 
                 //删除分配表中用户和客服的关系
-                ReceptionStatus rs = dalReceptionStatus.GetOneByCustomerAndCS(order.CustomerService, order.Customer);
+                ReceptionStatus rs = dalReceptionStatus.GetOneByCustomerAndCS(GlobalViables.CurrentCustomerService, order.Customer);
                 dalReceptionStatus.Delete(rs);
 
                 //发送客服离线消息给用户
                 string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
                 string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
                                                   <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:cer:offline""></ext></message>",
-                                                  order.Customer.Id + "@" + server, order.CustomerService.Id, Guid.NewGuid() + "@" + server);
+                                                  order.Customer.Id + "@" + server, GlobalViables.CurrentCustomerService.Id, Guid.NewGuid() + "@" + server);
                 iIM.SendMessage(noticeDraftNew);
             }
 
