@@ -62,6 +62,7 @@ namespace Dianzhu.Config
 
             , {"MediaUploadUrl",BuildHttpUrlString(ApplicationServer, 8038,"UploadFile.ashx") }
             , {"MediaGetUrl",BuildHttpUrlString(ApplicationServer, 8038,"GetFile.ashx?fileName=")   }
+            , {"MediaUploadUrlByDate",BuildHttpUrlString(ApplicationServer, 8038,"UploadFileByDate.ashx") }//按日期生成保存路径
 
 
             , {"NoticeSenderId",DictsNotifySenderLogins[IMNotifyServer].Key  }

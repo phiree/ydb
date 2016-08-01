@@ -86,7 +86,7 @@ namespace Dianzhu.ApplicationService
 
             member.NickName = userObj.nickname;
             member.UserName = userObj.nickname;
-            member.AvatarUrl = utils.DownloadToMediaserver(userObj.headimgurl,string.Empty,"UserAvatar","image");
+            member.AvatarUrl = utils.DownloadToMediaserver(userObj.headimgurl,string.Empty,"image");
             member.Address = userObj.province + " " + userObj.city;
             member.PlainPassword = userObj.openid;
             member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(userObj.openid, "MD5");

@@ -59,37 +59,20 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _lowUrl = "";
+        string _url = "";
         /// <summary>
-        /// 低分辨率头像的完整路径
+        /// 路径
         /// </summary>
         /// <type>string</type>
-        public string lowUrl
+        public string url
         {
             get
             {
-                return _lowUrl;
+                return _url;
             }
             set
             {
-                _lowUrl = value;
-            }
-        }
-
-        string _hdUrl = "";
-        /// <summary>
-        /// 高分辨率的头像完整路径
-        /// </summary>
-        /// <type>string</type>
-        public string hdUrl
-        {
-            get
-            {
-                return _hdUrl;
-            }
-            set
-            {
-                _hdUrl = value;
+                _url = value;
             }
         }
 

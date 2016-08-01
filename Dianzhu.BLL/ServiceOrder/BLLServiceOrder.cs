@@ -146,13 +146,23 @@ namespace Dianzhu.BLL
         /// <param name="afterThisTime"></param>
         /// <param name="beforeThisTime"></param>
         /// <param name="UserID"></param>
+        /// <param name="userType"></param>
+        /// <param name="strAssign"></param>
         /// <returns></returns>
-        public IList<ServiceOrder> GetOrders(Trait_Filtering filter, string statusSort, string status,Guid storeID,string formanID,DateTime afterThisTime, DateTime beforeThisTime, Guid UserID)
+        public IList<ServiceOrder> GetOrders(Trait_Filtering filter, string statusSort, string status,Guid storeID,string formanID,DateTime afterThisTime, DateTime beforeThisTime, Guid UserID,string userType,string strAssign)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
+
             if (UserID != Guid.Empty)
             {
-                where = where.And(x => x.Business.Owner.Id== UserID);
+                if (userType == "customer")
+                {
+                    where = where.And(x => x.Customer.Id == UserID);
+                }
+                else
+                {
+                    where = where.And(x => x.Business.Owner.Id == UserID);
+                }
             }
             if(!string.IsNullOrEmpty(status))
             {
@@ -185,6 +195,17 @@ namespace Dianzhu.BLL
                          && x.OrderStatus != enum_OrderStatus.Search)
                       ;
                     break;
+            }
+            if (!string.IsNullOrEmpty(strAssign))
+            {
+                if (strAssign == "false")
+                {
+                    where = where.And(x => x.Staff == null);
+                }
+                else
+                {
+                    where = where.And(x => x.Staff != null);
+                }
             }
             if (storeID != Guid.Empty)
             {
@@ -231,14 +252,23 @@ namespace Dianzhu.BLL
         /// <param name="afterThisTime"></param>
         /// <param name="beforeThisTime"></param>
         /// <param name="UserID"></param>
+        /// <param name="userType"></param>
+        /// <param name="strAssign"></param>
         /// <returns></returns>
-        public long GetOrdersCount(string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID)
+        public long GetOrdersCount(string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID, string userType, string strAssign)
         {
 
             var where = PredicateBuilder.True<ServiceOrder>();
             if (UserID != Guid.Empty)
             {
-                where = where.And(x => x.Business.Owner.Id == UserID);
+                if (userType == "customer")
+                {
+                    where = where.And(x => x.Customer.Id == UserID);
+                }
+                else
+                {
+                    where = where.And(x => x.Business.Owner.Id == UserID);
+                }
             }
             if (!string.IsNullOrEmpty(status))
             {
@@ -271,6 +301,17 @@ namespace Dianzhu.BLL
                          && x.OrderStatus != enum_OrderStatus.Search)
                       ;
                     break;
+            }
+            if (!string.IsNullOrEmpty(strAssign))
+            {
+                if (strAssign == "false")
+                {
+                    where = where.And(x => x.Staff == null);
+                }
+                else
+                {
+                    where = where.And(x => x.Staff != null);
+                }
             }
             if (storeID != Guid.Empty)
             {

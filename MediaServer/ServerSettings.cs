@@ -62,6 +62,30 @@ namespace MediaServer
             return fileName;
 
         }
+
+        /// <summary>
+        /// 文件名生成（字符串），用日期生成文件名
+        /// </summary>
+        /// <param name="originalName"></param>
+        /// <param name="dateToday"></param>
+        /// <param name="fileType"></param>
+        /// <returns></returns>
+        public static string FileNameBuilder(string originalName, DateTime dateToday, FileType fileType)
+        {
+            string fileNameGuid = Guid.NewGuid().ToString();
+            string fileName = string.Format("{1}{0}{2}{0}{3}{0}{4}{0}{5}{0}{6}",
+                seperator,
+                originalName.Replace(".", "_"),
+                fileNameGuid,
+                dateToday.Year.ToString(),
+                dateToday.Month.ToString(),
+                dateToday.Day.ToString(),
+                 fileType.ToString()
+                );
+            return fileName;
+
+        }
+
         /// <summary>
         /// 解析文件名字符串，获取文件类型domainPath，如果是图片，有缩略图大小
         /// </summary>
@@ -96,20 +120,44 @@ namespace MediaServer
             domainType = string.Empty;
            
             string[] arr  = cleanedFileName.Split(new string[] {seperator },  StringSplitOptions.None);
-             
-            if(arr.Length!=4)
+
+            //*******longphui_20160727_兼容按日期生成文件路径的上传******
+
+            //if(arr.Length!=4)
+            //{ //文件名格式有误
+            //    throw new FormatException("文件名格式有误");
+            //}
+            //domainType = arr[2];
+            //string strFileType = arr[3];
+            //strFileType = Path.GetFileNameWithoutExtension(strFileType);
+            //if (!Enum.TryParse(strFileType, out fileType))
+            //{
+            //    throw new FormatException("文件格式有误");
+            //}
+
+            if (arr.Length != 4 && arr.Length != 6)
             { //文件名格式有误
                 throw new FormatException("文件名格式有误");
             }
-            domainType = arr[2];
-            string strFileType = arr[3];
+            string strFileType = "";
+            if (arr.Length == 4)
+            {
+                domainType = DomainPath[arr[2]];
+                strFileType = arr[3];
+            }
+            else
+            {
+                domainType = arr[2] + "\\" + arr[3] + "\\" + arr[4] + "\\";
+                strFileType = arr[5];
+            }
             strFileType = Path.GetFileNameWithoutExtension(strFileType);
             if (!Enum.TryParse(strFileType, out fileType))
             {
                 throw new FormatException("文件格式有误");
             }
-             
-            
+            //*******longphui_20160727_兼容按日期生成文件路径的上传******
+
+
         }
     }
 

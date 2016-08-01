@@ -57,8 +57,10 @@ namespace NHibernateUnitOfWork
 
                         )
                       .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.AreaMap>())
+ 
                        .ExposeConfiguration(BuildSchema)
-                      //.ExposeConfiguration(config=> new SchemaUpdate(config).Execute(false, true))
+ 
+ 
                       .BuildConfiguration();
                       
 

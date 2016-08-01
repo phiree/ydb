@@ -54,6 +54,10 @@ namespace Dianzhu.ApplicationService.Order
             Model.ServiceOrderStateChangeHis statehis = bllstatehis.GetMaxNumberOrderHis(serviceorder);
             orderobj.currentStatusObj = Mapper.Map<Model.ServiceOrderStateChangeHis, orderStatusObj>(statehis);
             orderobj.serviceSnapshotObj = Mapper.Map<Model.DZService, servicesObj>(serviceorder.Service);
+            //if (orderobj.serviceSnapshotObj.serviceType != null && serviceorder.Service.ServiceType!=null)
+            //{
+            //    orderobj.serviceSnapshotObj.serviceType.fullDescription = serviceorder.Service.ServiceType.ToString();
+            //}
             orderobj.customerObj = Mapper.Map<Model.DZMembership, customerObj>(serviceorder.Customer);
             orderobj.storeObj = Mapper.Map<Model.Business, storeObj>(serviceorder.Business);
             orderobj.formanObj = Mapper.Map<Model.Staff, staffObj>(serviceorder.Staff);
@@ -114,8 +118,13 @@ namespace Dianzhu.ApplicationService.Order
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ServiceOrder");
             Customer customer = new Customer();
             customer = customer.getCustomer(headers.token, headers.apiKey, false);
+            if (customer.UserType != "customer" && customer.UserType != "business")
+            {
+                throw new Exception("没有访问权限！");
+            }
             Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
-            order = ibllserviceorder.GetOrders(filter1, orderfilter.statusSort, orderfilter.status,guidStore,strStaffID, dtBefore, dtAfter,guidUser);
+            order = ibllserviceorder.GetOrders(filter1, orderfilter.statusSort, orderfilter.status,guidStore,strStaffID, dtBefore, dtAfter,guidUser,customer.UserType,orderfilter.assign);
+
             if (order == null)
             {
                 throw new Exception(Dicts.StateCode[4]);
@@ -143,8 +152,12 @@ namespace Dianzhu.ApplicationService.Order
             countObj c = new countObj();
             Customer customer = new Customer();
             customer = customer.getCustomer(headers.token, headers.apiKey, false);
+            if (customer.UserType != "customer" && customer.UserType != "business")
+            {
+                throw new Exception("没有访问权限！");
+            }
             Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
-            c.count = ibllserviceorder.GetOrdersCount(orderfilter.statusSort, orderfilter.status, guidStore, strStaffID, dtBefore, dtAfter, guidUser).ToString();
+            c.count = ibllserviceorder.GetOrdersCount(orderfilter.statusSort, orderfilter.status, guidStore, strStaffID, dtBefore, dtAfter, guidUser,customer.UserType, orderfilter.assign).ToString();
             return c;
         }
 

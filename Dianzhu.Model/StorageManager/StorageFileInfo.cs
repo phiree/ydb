@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.Model
 {
-    public class ImageInfo : DDDCommon.Domain.Entity<Guid>
+    public class StorageFileInfo : DDDCommon.Domain.Entity<Guid>
     {
         /// <summary>
         /// 上传时间
@@ -19,14 +19,29 @@ namespace Dianzhu.Model
         public virtual string FileName { get; set; }
 
         /// <summary>
+        /// 实际文件名称
+        /// </summary>
+        public virtual string OriginalFileName { get; set; }
+
+        /// <summary>
+        /// 上传的类型
+        /// </summary>
+        public virtual string DomainType { get; set; }
+
+        /// <summary>
+        /// 文件类型
+        /// </summary>
+        public virtual string FileType { get; set; }
+
+        /// <summary>
         /// 高、长
         /// </summary>
-        public virtual int Height { get; set; }
+        public virtual string Height { get; set; }
 
         /// <summary>
         /// 宽
         /// </summary>
-        public virtual int Width { get; set; }
+        public virtual string Width { get; set; }
 
         ///// <summary>
         ///// 低分辨率头像的完整路径
@@ -47,11 +62,21 @@ namespace Dianzhu.Model
         /// <summary>
         /// 文件大小 KB
         /// </summary>
-        public virtual int Size { get; set; }
+        public virtual string Size { get; set; }
+
+        /// <summary>
+        /// 播放长度
+        /// </summary>
+        public virtual string Length { get; set; }
 
         /// <summary>
         /// 使用时间
         /// </summary>
         public virtual DateTime UseTime { get; set; }
+
+        /// <summary>
+        /// 上传的用户
+        /// </summary>
+        public virtual string UploadUser { get; set; }
     }
 }
