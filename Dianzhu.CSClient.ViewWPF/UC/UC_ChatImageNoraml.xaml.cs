@@ -20,11 +20,13 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class UC_ChatImageNoraml : UserControl
     {
+        Uri uri;
         public UC_ChatImageNoraml(Uri uri)
         {
             InitializeComponent();
+            this.uri = uri;
 
-            gif.Source = uri;
+            gif.Source = new Uri(uri.ToString() + "_150X100");
         }
 
         private void gif_MediaEnded(object sender, RoutedEventArgs e)
@@ -39,7 +41,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void gif_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            ChatImageShow image = new ChatImageShow(gif.Source);
+            ChatImageShow image = new ChatImageShow(uri);
             image.ShowDialog();
         }
     }
