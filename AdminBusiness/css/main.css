@@ -8515,6 +8515,12 @@ a.doReg:hover {
   z-index: 10;
 }
 /* 新建服务时，stepByStep的步骤控制样式 */
+.service-steps .step-ctrl {
+  visibility: hidden;
+}
+.service-steps .step-ctrl.step-1 {
+  visibility: visible;
+}
 .service-steps .step-ctrl.step-1 .step-prev {
   display: none;
 }
@@ -8524,17 +8530,26 @@ a.doReg:hover {
 .service-steps .step-ctrl.step-1 .step-complete {
   display: none;
 }
+.service-steps .step-ctrl.step-2 {
+  visibility: visible;
+}
 .service-steps .step-ctrl.step-2 .step-next-save {
   display: none;
 }
 .service-steps .step-ctrl.step-2 .step-complete {
   display: none;
 }
+.service-steps .step-ctrl.step-3 {
+  visibility: visible;
+}
 .service-steps .step-ctrl.step-3 .step-next {
   display: none;
 }
 .service-steps .step-ctrl.step-3 .step-complete {
   display: none;
+}
+.service-steps .step-ctrl.step-4 {
+  visibility: visible;
 }
 .service-steps .step-ctrl.step-4 .step-next {
   display: none;
