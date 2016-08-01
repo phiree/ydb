@@ -309,7 +309,9 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\connectionstrings.config" />
+    <Content Include="config\connectionstrings.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="files\rsa_private_key.pem" />
     <None Include="Properties\PublishProfiles\RestfulApi.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

@@ -22,6 +22,6 @@ namespace Dianzhu.ApplicationService.Storage
         /// <param name="fileBase4"></param>
         /// <param name="headers"></param>
         /// <returns></returns>
-        imageObj PostAudios(FileBase64 fileBase4, common_Trait_Headers headers);
+        audioObj PostAudios(FileBase64 fileBase4, common_Trait_Headers headers);
     }
 }

@@ -123,7 +123,8 @@ namespace Dianzhu.ApplicationService.Order
                 throw new Exception("没有访问权限！");
             }
             Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
-            order = ibllserviceorder.GetOrders(filter1, orderfilter.statusSort, orderfilter.status,guidStore,strStaffID, dtBefore, dtAfter,guidUser,customer.UserType);
+            order = ibllserviceorder.GetOrders(filter1, orderfilter.statusSort, orderfilter.status,guidStore,strStaffID, dtBefore, dtAfter,guidUser,customer.UserType,orderfilter.assign);
+
             if (order == null)
             {
                 throw new Exception(Dicts.StateCode[4]);
@@ -156,7 +157,7 @@ namespace Dianzhu.ApplicationService.Order
                 throw new Exception("没有访问权限！");
             }
             Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
-            c.count = ibllserviceorder.GetOrdersCount(orderfilter.statusSort, orderfilter.status, guidStore, strStaffID, dtBefore, dtAfter, guidUser,customer.UserType).ToString();
+            c.count = ibllserviceorder.GetOrdersCount(orderfilter.statusSort, orderfilter.status, guidStore, strStaffID, dtBefore, dtAfter, guidUser,customer.UserType, orderfilter.assign).ToString();
             return c;
         }
 

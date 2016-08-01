@@ -147,8 +147,9 @@ namespace Dianzhu.BLL
         /// <param name="beforeThisTime"></param>
         /// <param name="UserID"></param>
         /// <param name="userType"></param>
+        /// <param name="strAssign"></param>
         /// <returns></returns>
-        public IList<ServiceOrder> GetOrders(Trait_Filtering filter, string statusSort, string status,Guid storeID,string formanID,DateTime afterThisTime, DateTime beforeThisTime, Guid UserID,string userType)
+        public IList<ServiceOrder> GetOrders(Trait_Filtering filter, string statusSort, string status,Guid storeID,string formanID,DateTime afterThisTime, DateTime beforeThisTime, Guid UserID,string userType,string strAssign)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
 
@@ -194,6 +195,17 @@ namespace Dianzhu.BLL
                          && x.OrderStatus != enum_OrderStatus.Search)
                       ;
                     break;
+            }
+            if (!string.IsNullOrEmpty(strAssign))
+            {
+                if (strAssign == "false")
+                {
+                    where = where.And(x => x.Staff == null);
+                }
+                else
+                {
+                    where = where.And(x => x.Staff != null);
+                }
             }
             if (storeID != Guid.Empty)
             {
@@ -241,8 +253,9 @@ namespace Dianzhu.BLL
         /// <param name="beforeThisTime"></param>
         /// <param name="UserID"></param>
         /// <param name="userType"></param>
+        /// <param name="strAssign"></param>
         /// <returns></returns>
-        public long GetOrdersCount(string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID, string userType)
+        public long GetOrdersCount(string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID, string userType, string strAssign)
         {
 
             var where = PredicateBuilder.True<ServiceOrder>();
@@ -288,6 +301,17 @@ namespace Dianzhu.BLL
                          && x.OrderStatus != enum_OrderStatus.Search)
                       ;
                     break;
+            }
+            if (!string.IsNullOrEmpty(strAssign))
+            {
+                if (strAssign == "false")
+                {
+                    where = where.And(x => x.Staff == null);
+                }
+                else
+                {
+                    where = where.And(x => x.Staff != null);
+                }
             }
             if (storeID != Guid.Empty)
             {

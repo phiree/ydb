@@ -500,6 +500,18 @@ namespace Dianzhu.ApplicationService
         }
 
         /// <summary>
+        /// 将Base64字符串转换为图片
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void Base64ToAudio(string fileBase64, out string size)//(object sender, EventArgs e)
+        {
+            string base64 = fileBase64;//this.richTextBox.Text;
+            byte[] bytes = Convert.FromBase64String(base64);
+            size = (bytes.Length / 1024).ToString();
+        }
+
+        /// <summary>
         /// json 转为 对象或list
         /// </summary>
         /// <typeparam name="T"></typeparam>

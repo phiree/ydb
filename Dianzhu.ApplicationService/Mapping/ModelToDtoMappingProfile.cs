@@ -164,9 +164,16 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.StorageFileInfo, imageObj>()
-           .ForMember(x => x.hdUrl, opt => opt.MapFrom(source => source.FileName != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.FileName : ""))
-           .ForMember(x => x.lowUrl, opt => opt.MapFrom(source => source.FileName != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.FileName : ""))
+           .ForMember(x => x.url, opt => opt.MapFrom(source => source.FileName != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.FileName : ""))
            .ForAllMembers(opt => opt.NullSubstitute(""));
+
+            Mapper.CreateMap<Model.StorageFileInfo, avatarImageObj>()
+           .ForMember(x => x.url, opt => opt.MapFrom(source => source.FileName != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.FileName : ""))
+           .ForAllMembers(opt => opt.NullSubstitute(""));
+
+            Mapper.CreateMap<Model.StorageFileInfo, audioObj>()
+          .ForMember(x => x.url, opt => opt.MapFrom(source => source.FileName != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.FileName : ""))
+          .ForAllMembers(opt => opt.NullSubstitute(""));
 
             //.ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 

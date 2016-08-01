@@ -43,8 +43,9 @@ namespace Dianzhu.BLL
         /// <param name="beforeThisTime"></param>
         /// <param name="UserID"></param>
         /// <param name="userType"></param>
+        /// <param name="strAssign"></param>
         /// <returns></returns>
-        IList<ServiceOrder> GetOrders(Trait_Filtering filter, string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID, string userType);
+        IList<ServiceOrder> GetOrders(Trait_Filtering filter, string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID, string userType, string strAssign);
 
         /// <summary>
         /// 查询订单数量
@@ -57,8 +58,9 @@ namespace Dianzhu.BLL
         /// <param name="beforeThisTime"></param>
         /// <param name="UserID"></param>
         /// <param name="userType"></param>
+        /// <param name="strAssign"></param>
         /// <returns></returns>
-        long GetOrdersCount(string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID, string userType);
+        long GetOrdersCount(string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID, string userType, string strAssign);
 
         /// <summary>
         /// 获取商户的一条订单

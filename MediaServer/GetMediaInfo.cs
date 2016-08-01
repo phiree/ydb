@@ -29,22 +29,5 @@ namespace MediaServer
             }
         }
 
-        /// <summary>
-        /// 获取图片文件属性信息
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static string GetMediaInfoByType(string path, FileType fileType,string iocm)
-        {
-            try
-            {
-                string strR = GetMediaDetailInfo(path, int.Parse(iocm));
-                return strR;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
     }
 }

@@ -49,7 +49,6 @@ namespace MediaServer
                 log.Debug("fullLocalPath:" + fullLocalPath);
                 log.Debug("targetFileName:" + targetFileName);
             }
-
             return fileName;
         }
 
@@ -64,32 +63,35 @@ namespace MediaServer
         /// <returns></returns>
         public static string Upload(string fileBase64, string originalName, string localSavePathRoot, DateTime dateToday, FileType fileType)
         {
-            //originalName = Path.GetFileName(originalName);
-            //fileBase64 = fileBase64.Replace(" ", "+");
-            //byte[] fileData = Convert.FromBase64String(fileBase64);
-            //string savedPath = string.Empty;
-            //string relativePath = dateToday.Year.ToString() + "\\" + dateToday.Month.ToString() + "\\" + dateToday.Day.ToString() + "\\";
-            //string fileName = ServerSettings.FileNameBuilder(originalName, dateToday, fileType);
-            //string fullLocalPath = localSavePathRoot + relativePath + fileName;
-            //PHSuit.IOHelper.EnsureFileDirectory(fullLocalPath);
-            //FileStream fs = new FileStream(fullLocalPath, FileMode.Create, FileAccess.Write);
+            originalName = Path.GetFileName(originalName);
+            fileBase64 = fileBase64.Replace(" ", "+");
+            byte[] fileData = Convert.FromBase64String(fileBase64);
+            string savedPath = string.Empty;
+            string relativePath = dateToday.Year.ToString() + "\\" + dateToday.Month.ToString() + "\\" + dateToday.Day.ToString() + "\\";
+            string fileName = ServerSettings.FileNameBuilder(originalName, dateToday, fileType);
+            string fullLocalPath = localSavePathRoot + relativePath + fileName;
+            PHSuit.IOHelper.EnsureFileDirectory(fullLocalPath);
+            FileStream fs = new FileStream(fullLocalPath, FileMode.Create, FileAccess.Write);
 
-            //fs.Write(fileData, 0, fileData.Length);
-            //fs.Flush();
-            //fs.Close();
+            fs.Write(fileData, 0, fileData.Length);
+            fs.Flush();
+            fs.Close();
 
-            //if (fileType == FileType.voice)
-            //{
-            //    string targetFileName = localSavePathRoot + relativePath + fileName + ".mp3";
-            //    PHSuit.IOHelper.EnsureFileDirectory(targetFileName);
-            //    PHSuit.MediaConvert tomp3 = new PHSuit.MediaConvert();
-            //    tomp3.ConvertToMp3(HttpContext.Current.Server.MapPath("\\files\\"), fullLocalPath, targetFileName);
-            //    log.Debug("appliacitonPath:" + HttpContext.Current.Server.MapPath("\\files\\"));
-            //    log.Debug("fullLocalPath:" + fullLocalPath);
-            //    log.Debug("targetFileName:" + targetFileName);
-            //}
-            string strR = GetMediaInfo.GetMediaInfoByType("G:\\IHelper_Server\\MediaServerWeb\\media\\2016\\7\\29\\5_$_f2e21016-d6f3-43a0-b26e-af9cc9340df6_$_2016_$_7_$_29_$_image", fileType, originalName);
-            return strR;// +fileName;
+            string strLength = "";
+            if (fileType == FileType.voice)
+            {
+                string targetFileName = localSavePathRoot + relativePath + fileName + ".mp3";
+                PHSuit.IOHelper.EnsureFileDirectory(targetFileName);
+                PHSuit.MediaConvert tomp3 = new PHSuit.MediaConvert();
+                tomp3.ConvertToMp3(HttpContext.Current.Server.MapPath("\\files\\"), fullLocalPath, targetFileName);
+                log.Debug("appliacitonPath:" + HttpContext.Current.Server.MapPath("\\files\\"));
+                log.Debug("fullLocalPath:" + fullLocalPath);
+                log.Debug("targetFileName:" + targetFileName);
+
+                strLength = GetMediaInfo.GetMediaDetailInfo(targetFileName, 27);
+                fileName = fileName + "_length_" + strLength;
+            }
+            return fileName;
         }
 
         /// <summary>
@@ -141,9 +143,8 @@ namespace MediaServer
             fs.Write(fileData, 0, fileData.Length);
             fs.Flush();
             fs.Close();
-
-            string strR = GetMediaInfo.GetMediaInfoByType(fullLocalPath, fileType, originalName);
-            return strR +  fileName;
+            
+            return fileName;
         }
     }
 }

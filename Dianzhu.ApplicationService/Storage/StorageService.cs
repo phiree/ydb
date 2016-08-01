@@ -60,12 +60,12 @@ namespace Dianzhu.ApplicationService.Storage
         /// <param name="fileBase4"></param>
         /// <param name="headers"></param>
         /// <returns></returns>
-        public imageObj PostAudios(FileBase64 fileBase4, common_Trait_Headers headers)
+        public audioObj PostAudios(FileBase64 fileBase4, common_Trait_Headers headers)
         {
-            utils.DownloadToMediaserver(@"G:\file\2.mp3", "", "voice");//1.wav//ring.mp3
+            //utils.DownloadToMediaserver(@"G:\file\2.mp3", "", "voice");//1.wav//ring.mp3
             if (string.IsNullOrEmpty(fileBase4.data))
             {
-                throw new FormatException("图片的base64不能为空！");
+                throw new FormatException("语音的base64不能为空！");
             }
             
             string strFileName = utils.DownloadToMediaserver1(fileBase4.data, "", "voice");
@@ -73,25 +73,23 @@ namespace Dianzhu.ApplicationService.Storage
             {
                 throw new Exception("上传失败！");
             }
-            string strHeight = "";
-            string strWidth = "";
             string strSize = "";
-            utils.Base64ToImage(fileBase4.data, out strHeight, out strWidth, out strSize);
+            utils.Base64ToAudio(fileBase4.data, out strSize);
             Customer customer = new Customer();
             customer = customer.getCustomer(headers.token, headers.apiKey, false);
             //Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
+            string[] strs = strFileName.Split(new string[]{"_length_"}, StringSplitOptions.None);
             Model.StorageFileInfo fileinfo = new Model.StorageFileInfo();
             fileinfo.OriginalFileName = "";
-            fileinfo.FileName = strFileName;
+            fileinfo.FileName = strs[0];
             fileinfo.FileType = "voice";
-            fileinfo.Height = strHeight;
-            fileinfo.Width = strWidth;
             fileinfo.Size = strSize;
+            fileinfo.Length= strs[1];
             fileinfo.UploadTime = DateTime.Now;
             fileinfo.UploadUser = customer.UserID;
             bllFileInfo.Save(fileinfo);
-            imageObj imageobj = Mapper.Map<Model.StorageFileInfo, imageObj>(fileinfo);
-            return imageobj;
+            audioObj audioobj = Mapper.Map<Model.StorageFileInfo, audioObj>(fileinfo);
+            return audioobj;
         }
     }
 }
