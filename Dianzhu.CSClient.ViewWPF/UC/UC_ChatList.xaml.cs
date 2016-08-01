@@ -173,6 +173,24 @@ namespace Dianzhu.CSClient.ViewWPF
                 lamda();
             }
         }
+        public void ShowNoChatMsg()
+        {
+            Action lamda = () =>
+            {
+                hint.lblHint.Content = "没有聊天记录";
+                hint.lblHint.Visibility = Visibility.Visible;
+                hint.btnMore.Visibility = Visibility.Collapsed;
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
+        }
+
 
         private void Btn_Click(object sender, RoutedEventArgs e)
         {

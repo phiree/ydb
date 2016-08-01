@@ -66,7 +66,10 @@ namespace Dianzhu.CSClient.Presenter
 
         private void IViewChatSend_FinalChatTimerSend()
         {
-            iView.IdleTimerStart(IdentityManager.CurrentIdentity.Id);
+            if (IdentityManager.CurrentIdentity != null)
+            {
+                iView.IdleTimerStart(IdentityManager.CurrentIdentity.Id);
+            }
         }
 
         private void IView_FinalChatTimerTick(Guid orderId)
@@ -78,6 +81,8 @@ namespace Dianzhu.CSClient.Presenter
             if (IdentityManager.CurrentIdentity.Id == order.Id)
             {
                 iViewChatList.ClearUCData();
+                iViewChatList.ShowNoChatMsg();
+                iViewOrderHistory.ClearUCData();
                 iViewOrderHistory.ShowNullListLable();
 
                 //删除分配表中用户和客服的关系
