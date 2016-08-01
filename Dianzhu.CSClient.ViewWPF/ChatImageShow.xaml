@@ -8,15 +8,18 @@
         Title="查看图片" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="Transparent">
 
     <Grid x:Name="root">
-        <!--<Button Background="Transparent">-->
-            <MediaElement x:Name="img" MouseWheel="Image_MouseWheel" MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseMove="Image_MouseMove" MediaEnded="img_MediaEnded" >
-                <MediaElement.RenderTransform>
-                    <TransformGroup>
-                        <TranslateTransform x:Name="translate" />
-                        <ScaleTransform x:Name="transform" />
-                    </TransformGroup>
-                </MediaElement.RenderTransform>
-            </MediaElement>
-        <!--</Button>-->        
+        <MediaElement x:Name="img" MouseWheel="Image_MouseWheel" MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseMove="Image_MouseMove" MediaEnded="img_MediaEnded" >
+            <MediaElement.ToolTip>
+                <Grid>
+                    <TextBlock Text="点击可拖动图片，滚轴可以缩放图片"/>
+                </Grid>
+            </MediaElement.ToolTip>
+            <MediaElement.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform x:Name="translate" />
+                    <ScaleTransform x:Name="transform" />
+                </TransformGroup>
+            </MediaElement.RenderTransform>
+        </MediaElement>
     </Grid>
 </Window>
