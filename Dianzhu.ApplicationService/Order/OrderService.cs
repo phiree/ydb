@@ -565,6 +565,10 @@ namespace Dianzhu.ApplicationService.Order
         /// <returns></returns>
         public refundStatusObj PostRefundAction(string orderID, refundObj refundobj)
         {
+            for (int i = 0; i < refundobj.resourcesUrls.Count; i++)
+            {
+                refundobj.resourcesUrls[i] = utils.GetFileName(refundobj.resourcesUrls[i]);
+            }
             Model.Enums.enum_RefundAction action ;
             try
             {

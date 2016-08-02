@@ -37,7 +37,7 @@ namespace Dianzhu.ApplicationService.Snapshot
             }
             Customer customer = new Customer();
             customer = customer.getCustomer(headers.token, headers.apiKey, false);
-            if (customer.UserType != "")
+            if (customer.UserType != "business")
             {
                 throw new Exception("没有访问权限！");
             }

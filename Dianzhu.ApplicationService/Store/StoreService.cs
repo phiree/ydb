@@ -231,7 +231,7 @@ namespace Dianzhu.ApplicationService.Store
                 //   requestData.imgData, "BusinessAvatar", "image");
                 //utils.DownloadToMediaserver(storeobj.imgUrl, string.Empty, "BusinessAvatar", "image");
                 Model.BusinessImage bi = new Model.BusinessImage();
-                bi.ImageName = storeobj.imgUrl;
+                bi.ImageName = utils.GetFileName(storeobj.imgUrl);
                 bi.ImageType = Model.Enums.enum_ImageType.Business_Avatar;
                 bi.IsCurrent = true;
                 business.BusinessAvatar = bi;

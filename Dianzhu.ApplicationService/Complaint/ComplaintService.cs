@@ -22,6 +22,10 @@ namespace Dianzhu.ApplicationService.Complaint
         public complaintObj AddComplaint(complaintObj complaintobj)
         {
             Model.Complaint complaint = Mapper.Map<complaintObj, Model.Complaint>(complaintobj);
+            for (int i = 0; i < complaintobj.resourcesUrl.Count; i++)
+            {
+                complaint.ComplaitResourcesUrl.Add(utils.GetFileName(complaintobj.resourcesUrl[i]));
+            }
             //Guid g = new Guid();
             //bool b = g == complaint.Id;
             bllcomplaint.AddComplaint(complaint);

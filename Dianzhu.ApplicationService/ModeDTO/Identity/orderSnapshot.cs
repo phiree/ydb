@@ -50,7 +50,7 @@ namespace Dianzhu.ApplicationService
             {
                 orderSnapshot ordersnapshot = new orderSnapshot();
                 orderObj orderobj = Mapper.Map<Model.ServiceOrder, orderObj>(order);
-                
+                Order.OrderService.changeObj(orderobj, order);
                 ServiceOpenTimeForDaySnapShotForOrder forday = order.Service.GetOpenTimeSnapShot(order.Details[0].TargetTime);
                 workTimeObj worktimeobj = new workTimeObj();
                 worktimeobj.startTime = PHSuit.StringHelper.ConvertPeriodToTimeString(forday.PeriodBegin);//.ToString();
