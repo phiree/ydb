@@ -13,20 +13,17 @@
 
 ];
 var test_data = [
-    //aliyun_test date
-    { "protocol_CODE": "SHM001007", "ReqData": { "svcID": "9ab2f087-2f15-4c45-86a4-a6510094dfda", "startTime": "2016-7-30", "endTime": "2016-7-30" }, "stamp_TIMES": "1469670705160", "serial_NUMBER": "00986830", "appName": "adminBusiness" },
      {
          // 
          "protocol_CODE": "SHM001007",
 
          "ReqData": {
 
-             "startTime": "2016-7-30",
+             "startTime": "2016-7-7",
 
              "endTime": "2016-7-30 23:59:59",
 
-             "svcID": "c733d769-6ff0-46a1-bf26-a63d012d9489",
-
+             "svcId": "bd513dc6-6c60-481b-8189-a65100b5367e",
 
 
          },
@@ -38,24 +35,24 @@ var test_data = [
      },
     {
         // 
-        "protocol_CODE": "ORM002001",
-
-        "ReqData": {
-
-            "userID": "1d789c3d-962b-473a-8bb0-a594009cf2c0",
-
-            "pWord": "123456",
-
-            "orderID": "",
-
-            "manualAssignedCsId": ""
-
+        "protocol_CODE":  "ORM002001",
+     
+        "ReqData":  {
+         
+            "userID":  "1d789c3d-962b-473a-8bb0-a594009cf2c0",
+         
+            "pWord":  "123456",
+         
+            "orderID":  "",
+        
+            "manualAssignedCsId": ""   
+                    
         },
-
-        "stamp_TIMES": "1466782993228.76",
-
-        "serial_NUMBER": "00147001015869149751"
-
+     
+        "stamp_TIMES":  "1466782993228.76",
+     
+        "serial_NUMBER":  "00147001015869149751" 
+                
     },
     /**********************订单提醒管理*****************************/
     {
@@ -128,8 +125,8 @@ var test_data = [
                 "startTime": "08:04",
                 "endTime": "08:05",
                 "open": "Y",
-                "week": "2",
-                "maxOrder": "1084"
+                "week":"2",
+                "maxOrder":"1084"
             }
         },
         "stamp_TIMES": 1453520313281,
@@ -249,7 +246,7 @@ var test_data = [
                 "area": "海南海口",
                 "startAt": "50",
                 "unitPrice": "55",
-                "deposit": "10",
+                "deposit":"10",
                 "appointmentTime": "60",
                 "doorService": "Y",
                 //"serviceObject": "all",
@@ -352,7 +349,7 @@ var test_data = [
             //"pWord": "123456",
             "storeID": "9ac1a997-d497-426f-9f87-a5f700aa4716"
         },
-        "appName": "Ios",
+        "appName" : "Ios", 
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
     },
@@ -410,7 +407,7 @@ var test_data = [
             "pWord": "123456",
             "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
             "imgData": "iVBORw0KGgoAAAANSUhEUgAAAC0AAAAXCAIAAAAQmVEGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABXSURBVEhLY3wro8IwCAATlB5oMOoOVDDqDlQw6g5UMOoOVDBY3IEo1+9/eWLy4QeETWtgKiC/g4cVygGD0XhBBaP1LSoYdQcqGHUHKhh1ByoYHO5gYAAAC3gJsxon5CAAAAAASUVORK5CYII=",
-            "target": "identificationB"
+            "target":"identificationB"
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -567,7 +564,7 @@ var test_data = [
             "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",//2aed4349-f4e8-4dcb-88a4-a59301132feb
             "pWord": "1234",
             "payID": "50762f6c-d970-40de-8f93-a5c900e80552",
-            "target": "alipay",
+            "target":"alipay",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -593,12 +590,12 @@ var test_data = [
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
     },
-
+ 
     /*********************货架化************************/
      {
          "protocol_CODE": "slf001007",
          "ReqData": {
-             "date": "2016-1-14",
+             "date":"2016-1-14",
              "serviceId": "afb9f649-e6ec-4515-bedf-a59301519c55",
          },
          "stamp_TIMES": "1490192929212",
@@ -608,7 +605,7 @@ var test_data = [
          "protocol_CODE": "slf002003",
          "ReqData": {
              "openTimeForDayId": "518a23e8-c50a-4c8e-84fa-a595010a7b5b",
-             "postData": { "maxNum": "5", "timeEnable": "true" },
+             "postData": { "maxNum": "5", "timeEnable":"true" },
          },
          "stamp_TIMES": "1490192929212",
          "serial_NUMBER": "00147001015869149751"
@@ -626,14 +623,14 @@ var test_data = [
           http://tools.ietf.org/html/rfc6749
           */
     /************** 微信第三方接口oauth2.0管理 *****************/
-
+    
     {
         "protocol_CODE": "U3RD014008",
         "ReqData": {
             "target": "TencentQQ",//"WeChat","SinaWeiBo","TencentQQ"
             "code": "A4940389B88665B374852A6DB1CEB2CB",//"001966da73410caa529196f85a8e098X","2.00Z3eLND_PlJ1Bbb2f92817bWIozsB","A4940389B88665B374852A6DB1CEB2CB"            
         },
-        "appName": "Ios",
+        "appName":"Ios",
         "stamp_TIMES": "1490192929212",
         "serial_NUMBER": "00147001015869149751"
     },
@@ -664,18 +661,18 @@ var test_data = [
     /************** APP 设备认证 *****************/
 
     {
-        "protocol_CODE": "App001001",
+        "protocol_CODE" : "App001001",
         "ReqData": {
             "AppObj": {
                 "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
-                "appUUID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
-                "appName": "IOS_User",
+                "appUUID" : "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                "appName" : "IOS_User",
                 "appToken": "326a866223956ceb2705d8b88758dc77e6420c3ff7ee3cab2388352a461c7b47"
             },
-            "mark": "Y",
+            "mark":"Y",
         },
-        "stamp_TIMES": "1490192929212",
-        "serial_NUMBER": "00147001015869149751"
+        "stamp_TIMES" : "1490192929212",
+        "serial_NUMBER" : "00147001015869149751"
     },
 
     {
@@ -700,7 +697,7 @@ var test_data = [
             "orderID": "81d6c8d5-0562-4075-96a9-a56700a86aaf",
             "msgObj_url": "http://ydban.cn:8038/getfile.ashx?fileName=ｗ_jpg_$_eec27fc1-59f0-4703-b15f-d198fd2444e5_$_ChatImage_$_image",
             "msgObj_type": "image",
-            "chatTarget": "cer",
+            "chatTarget":"cer",
         },
         "stamp_TIMES": "1490192929212",
         "serial_NUMBER": "00147001015869149751"
@@ -726,7 +723,7 @@ var test_data = [
              "orderID": "",
              "target": "cer",
              "pageNum": 0,
-             "pageSize": 30
+             "pageSize":30
          },
          "stamp_TIMES": "1490192929212",
          "serial_NUMBER": "00147001015869149751"
@@ -823,7 +820,7 @@ var test_data = [
                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf", //13022222222
                   "pWord": "123456",
                   "orderID": "",
-
+                  
               },
               "stamp_TIMES": "1490192929212",
               "serial_NUMBER": "70100de2-b5ed-405a-93f6-d11b21c44cc2"
@@ -906,18 +903,7 @@ var test_data = [
                    "pWord": "123456",
                    "orderID": "d4bd4bdd-9740-4d4a-9eee-a593014071a8",
                    "appraiseValue": "0.5",
-                   "appraiseDocs": "good"
-               },
-               "stamp_TIMES": "1490192929212",
-               "serial_NUMBER": "00147001015869149751"
-           },
-
-           {
-               "protocol_CODE": "ORM003010",
-               "ReqData": {
-                   "userID": "96dda06b-f9db-42ba-9b71-a64300c7cd6f",
-                   "pWord": "123456",
-                   "orderID": "534f1a4d-bfe0-4862-a24c-a65000c197eb",
+                   "appraiseDocs":"good"
                },
                "stamp_TIMES": "1490192929212",
                "serial_NUMBER": "00147001015869149751"
@@ -974,7 +960,7 @@ var test_data = [
                           "userID": "c0896508-e699-4bd6-8bd4-a53600f72844",
                           "pWord": "a1124653910",
                           "alias": "13666",
-
+                          
 
 
                       },
@@ -1063,7 +1049,7 @@ var test_data = [
                          "userID": "1d789c3d-962b-473a-8bb0-a594009cf2c0",
                          "pWord": "123456",
                          "type": "voice",
-                         "orderID": "2ec605e4-3149-4e18-9093-a603011fda49",
+                         "orderID":"2ec605e4-3149-4e18-9093-a603011fda49",
                          "Resource": "IyFBTVIKPIsXFrsJOYGIieevxEAERIAAYCDTTAAAAAMZZppgAAA8QncklmZ4YGAB57owAAAAwAAAAAAAAAAAAAAAAAAAADxhAIi2Znnh4AHnz\/AAAACAAAAAAAAAAAAAAAAAAAAAPE75H5ZmeeHgAeeK8AAAAMAAAAAAAAAAAAAAAAAAAAA8VP0ftmZ54eAB58\/wAAAAgAAAAAAAAAAAAAAAAAAAADwCHBoIeWmJ0a2x0vr0yDJV9K1YX0U+F7P4RzFMxebQPDpkXzroSARh6NQq8XW4jRA4JZ30epZjwHkNFaz+mVA8BB4hHW4yjolkM9zdXSqG4T6HM5ATUNeFy9YSXiXIEDw082MhOYLHhav4qY\/Hz40htUMTNadyjfIJFea\/qExAPA4zgEdeKA0h\/2qsshnTGfUEOtp1wvNMCeAhaMoUfaA8MHJXfWbuBoW7g1XAf0lIQv\/5vxSCGV9DIKbEMcggADwOWnk3CUqNAf18Cr8xGZQmV2KO9pUvPBIqpTMei4RQPBptdBrnfwSJci4cWr+gKT6Nb90O8LjqffcCbcX\/PRA8RHtjR+\/4KQH\/tithSG1a873ykuz3+jWkBuIB5E58IDwwaYd6+mQaSXZhOxI6b6Tidn1rldgHyf5Zyn\/yvicgPAgnbEXFNghB\/0lMorz9hCDW9APyQgpgEri1j4VcfrA8LnBsNdiOBaH\/wSRCFZdNR67i7QxEx3XBO\/6VTw3j4DwKuFMfo+ZIYf8p25ikPX9MN4IDIJITRea+1wxwkS+QPLUvjYpUkM24b96E4\/VajNxY+mtjxsH4EUG2\/oNKdgA8ALpaJINiBLLM9zWizBsGdALYi2YF86Bj2OYBM\/GS0DxCcYE9eexE5bOI8xhycJhheJIBsqoOAGELi6NceR5gPAyJayr7DDJB7to73x3NYWgZBMbZ3z6eNi8fphs4vHA8NHJnVEVAMqH\/CKJLpAio8+FZE5FDTW00xmgUsENcsDxI+iAsF3AJaXZ7dUUo9mNyTKaBHqw8i6G\/LcRCWWogPAYyXUl2ngyB\/xn8hdZQ3Qx7OiBEaX5MEYnIJNXsQcA8NOpkR\/IOFoH\/pcIFUgqzRkxa\/7xn4XSdNPlFM+lqMDwWrV9GBGpFge5bS9wlkF5AzHnfDR1cdQvLexpa67RgPChneShdx4kB\/lQH\/fJd24zMrOQQByRf+oCo\/ajDX6A8FMllR146AwH6O+TjNKZeEYjIY4Pej2nHiyqA4FK1MDwWcGQidYiTgfb1ez5d8MNkoDxz3F154vsUm+lecaZAPBY\/ekWCKAnh\/x7sGhVCB0O1MGwjM\/nr0QVgJ7qRxxA8RHhjJ\/tEEiH\/5vtqVjwoXM5s3bkrjRj7yUDtNJuvQDwcyCiORWQQ4e5km65Oimt+zPlmE8g3FzGYTCBX7ZHgPCBxdHVs\/glB\/0BbfQV1PFUdTjkGGqnKTJmPApch\/6A8LrpkiqK+AUH\/apzaJBV7GAn0wGMWWLOWybVbGxL94Dzg2iga9h8C4f4Ielk49o7vAuV5d56Lv290jYQ0wnQQPB57g0mNdhaB\/WiMK6wUbTI0r3PCvSkn4LtRgobJCbA8Gmd3Lc3EDwPZH\/qb9qJNxHTTlzjMTMr0AePBI1RS0Dwue3pMJl9Epbkb+wGIvjY2iF+029JyGETvxlhr0oiQPCBxeT3T1gnpdzLcAvaJTVE3cKXdDD\/xzZ9Gs2Ko6rA82KwdQDtiBsH9yZcPiUn+C3FQCuPAaSyhQ+QsqBvGsDwY6i8mWfAB6XYUK3MAX09fG4KDsi\/M\/rdSxb1GFuSgPERzXziVqRUh\/ta8rlA7zTsB5oelnvUSF3jgbYOd0rA8Jm2hPWeYAaH+kmRrEmvTFZ0mw\/bgq+tOHt7ECWDIwDxC8YAl3tYJ4f8tvBYR110y7spE5Zjz4jkAbhwCbwLgPBo0Fxv3NlOw75c0MaonfAsUgH5iQIosbyXNpfojCxA8YOoXHkTmFaH+w1wbeP7gK3YV3Cb\/0UHLk3jQ1qhIgDwINho7t0oD4efcEi8SymbTmd\/S5o6ItQMhJj2nXbXAPDBxfH1lfB0B\/ZY7E+DC3FTfuUhKKniBkWg1wQ9RaWA83jV4Q493SMH6Nbwalt0G7ZV3tM\/4fCTnSSmBibWrYDwSWmQY7OmQYftU6+qmE4tAVpnRD1PFjayeZVi7xkpAPNhkJ0f5pkXh\/1QsBM6maztLui9jVxOGfbAdqURH19A8FLeAFXyWEKH+1vtw0Q9mQq9N4a27mWnvcFrQUDRpIDwTgEFTlhju612CzPBHrP07rP9t3nPR9KZC6Lbaz9vwPB4cNCcMBSPnnQvLkl0TrkTeCncoQhtLW4RhugRRHxA8E4A8WwxQKytFvjoeGC70BWYUAVKQFTgFPPbRKlF9IDweEEU2eJqlEO14ix1FDOp6bTesOVb2kwngWMQ0m38wPCV7r05yu\/3Q75H693oRwP5KOcvSSD5UfHuA49WsznA8IBO9JmfWtUtBgyz7SunzElAmpPb4A+CDT2Mj69jWsDwpeANeZy1a5Lspm\/sByoVmpy2LUnKB1H\/sSCEvgpxwPCl5vk5nmemB\/y18540+ZQIZnzgIhby4cmRdgjl7o+A8IDwEVmel1gWrKbwaO9ys1cqRKvGllcic5q+ZckKzYDwoPAteYXv47TDUsuHppxSYKGqgizJnX0FYoMIrQ9CQPB45wR5K2+aSztE9prDsdLD3E0MNqe9sM8BmocCfoCA8ICgdXh0L2s07K+3Qqx1BhIBU9GwVo35caHbr3+MTgDweKG8WEq\/x61R8iy9NGmtGCt4v2hnLTkYgtJEMjZxQPCAoaV4HL+wvEYU8yG4gmcJO\/Zq8+vQTsadHPqhyLiA8LrjWFgW9\/HwizezxLm0w2FB7aNEDkKZtl5F1vdf+0DwoNBxeAx\/pXgkoPTCE5uukl8ku9JAmQL2kQklPJTGAPDRbsRdT46WTzzkR8tRkslxzicaDh11owwB1nOHdfdA8KDwOdhLOfAtVg+2H+klJgD16Vr6P4thkxEGJ3THA8Dw0QAYOviyXLxBr3VB0OYmEQZMhHBoGdCxQh40SztCQPCg8CXYeDJ8D1J1qruNrwsbEoaJ7UGCo4JpegAPxS5A8IEezFhnzDqPcW80s6nhVh+NvoWuopDKsICmHRkob8DwgPZgWMPIRBboAenhIgFvY3iveWIRV0uNvS6CEyQOAPESDe1dcEB4LVHC8KHWvqMKuxcka0rgyF2AupKwAOjA8KGljKpKSCOl3xRoLrS9KBWfn2qLlPylrWLk4oXjiMDxCbCQglKIB61TDrFq\/j0Yf9d+LsQrN2KqhdiAsh8PwPDZnoR\/6AAFB\/8Qb20jlcWSGNVh+JcSJXKU7642xUlA8QkGeHcVMM6Pe0+04Z+awrLG4Dz\/te7mXScyJHzDOQDwPeAQLFx2HofySK+9lomFS3QWTjAOwYLM94oMOgjSgPEhVsRdZUf36UT+e+oF0tmL0V09miqHRyCZcH\/zGJtA8ID26FhiF40l\/hY3A46XMmy8JsOHCEGcgy2OBb3t4kDxCQhsOGNv\/DTMv0So9\/iVghAoKxCg9WzVs0w3+VvFAPB4c3A4YaUqrVYP8SYL2\/fpRbRRPGsKKsxto0D6259A8GigkXhiHwilm07L99deav59Bxmee9gI+qjX1TXoqcDwWEB0eGessUOeEnG0X1NoA4whTS0ULbjw9qxKA1eiwPA6tix4exa1B\/4SdLUssi4ODV6NZk9KH6+FRgT2zhxA8Dh+AdjU90kl1LNxTKp0c\/7SSZhb3qT7SIOATkOC1kDwOMmceYgf8q1UHncmeZCWojYH+H43It01Wp0hUA9VwPA4YYy\/\/\/\/FrVf4s1G1bQjiBX2zn+ft6y+2gnCC5s8A8FjKfRmJV+YtVS038T4pNiwHUlOMfsKLhE92jIvyBsDwOEF9OYR\/gsO7ViyZvPlXwmvP4aLSzTI\/hiqbEVEBQPBYchEZKj+WyzSpC1TolS1vMLQQpE8CiyKvrav0D9\/A8Gg6fRh8f6fLMfLqn0kDbxgL2WSQui2cZBojyfCVtkDwWEmNKWL74y1Uqcn6jocaIDh6HVH\/rriRmnvFHOXbwPBochEYcr\/j4ZtE6QO9ypdqNojXp8zOddpKYEtFtTrA8F3mFVht14FpDLmKSStEamOkn6NmttoaUx4WwuCkjsDwaImjuHsraIf2BCnecd6MUKPtrv1Fy4ZEkY5n+4RUwPA94F14fpD1JdNMyyXg8G3tj0A6VkiHcCn6bNc4qQuA8G3uWTmIePEH1YJqXo9FrwxIL\/teGoaAFZCzKfcmmUDwGHBwm6v8OJ4lovIwAvaN0GlpivnVl0PJeM8AqO0EwPOA1hk3\/Nk9C3WIJLiuAGMfko1lwLm8gNigLsrSIqfA8DnopPKuc0wl3mqwgh7lMAgtfNBaRQUTxY4mYkaHLsDzYVCROuuAIIf+1y7rfW1BO2cltiE6AMFXFPf9tAPgwPBqHdD5LQJDh\/ggaadfiIjoXaGUZ2ebiArxTIEgPUtA8ND5x5\/gCCWH9gHu1tbpZXoRugPpx3AjbdfBE\/kkK4DzgZWlEP0gRMO5PS7FuK7pbZmBAH5y15tSHwT4bMRxgPCK5eDFn0AHh\/qhqQH30gjc+8m3riyJnsRYPa0mqP1A8IGcjRg78EoH\/hqsprWWlRo+8HWdfposAqZz4pok\/kDwWrXsg+8QYIf4eymqWcwrYF5UucHmWgvotbHacuDPgPCBaez3Jdkgh\/xtamMf66NEJljqA8NQeSTXPbT9LvtA8GIYsiNFOPCPc8ZoYqT44zK729JIvRGC0SPAjsVrhADwyTHcpawhD4e7y+yslB\/9kz873v\/w1aCCg3nVH2i2QPBapbUB4UCPB9tXaXEFvV\/i7sPDELu4GQGU74hFdbNA8RFtlOOdOQeH\/XFvIZddzdFzzGKPeuTWBgbilxEbngDwcyWAhPzsBYf6hK+HWtOljVTmI9XBJ+vh9XGyyQcYgPDJUh0dltAgh7+s7PW\/JyJqMp5gzchSnzh\/+6Jb4v4A8BFt\/JrskFGH+KiwFR60GN6eykOuOM48mtJw3yxOBEDxCbFlLgGCTwfqXq9YumUtLJ\/Zx9tcmvYUlGK\/DyolQ"
                      },
                      "stamp_TIMES": "1490192929212",
