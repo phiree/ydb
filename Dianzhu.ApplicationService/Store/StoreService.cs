@@ -23,21 +23,21 @@ namespace Dianzhu.ApplicationService.Store
             {
                 if (bimg.ImageName != null)
                 {
-                    storeobj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
+                    storeobj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);//MediaGetUrl
                 }
             }
             foreach (Model.BusinessImage bimg in business.BusinessLicenses)
             {
                 if (bimg.ImageName != null)
                 {
-                    storeobj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
+                    storeobj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);
                 }
             }
             foreach (Model.BusinessImage bimg in business.BusinessShows)
             {
                 if (bimg.ImageName != null)
                 {
-                    storeobj.showImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
+                    storeobj.showImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);
                 }
             }
             if (storeobj.location == null)

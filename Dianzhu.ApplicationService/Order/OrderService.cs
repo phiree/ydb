@@ -69,21 +69,21 @@ namespace Dianzhu.ApplicationService.Order
                 {
                     if (bimg.ImageName != null)
                     {
-                        orderobj.storeObj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
+                        orderobj.storeObj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);//MediaGetUrl
                     }
                 }
                 foreach (Model.BusinessImage bimg in serviceorder.Business.BusinessLicenses)
                 {
                     if (bimg.ImageName != null)
                     {
-                        orderobj.storeObj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
+                        orderobj.storeObj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);
                     }
                 }
                 foreach (Model.BusinessImage bimg in serviceorder.Business.BusinessShows)
                 {
                     if (bimg.ImageName != null)
                     {
-                        orderobj.storeObj.showImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
+                        orderobj.storeObj.showImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);
                     }
                 }
                 orderobj.serviceSnapshotObj.location.longitude = serviceorder.Business.Longitude.ToString();

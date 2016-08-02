@@ -109,7 +109,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<Model.Staff, staffObj>()
             .ForMember(x => x.alias, opt => opt.MapFrom(source => source.DisplayName))
             .ForMember(x => x.number, opt => opt.MapFrom(source => source.Code))
-            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.Photo != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.Photo : ""))
+            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.Photo != null ? Dianzhu.Config.Config.GetAppSetting("ImageHandler") + source.Photo : ""))//MediaGetUrl
             .ForMember(x => x.sex, opt => opt.MapFrom(source => source.Gender == "女" ? true : false))
             .ForMember(x => x.realName, opt => opt.MapFrom(source => source.Name))
             //.ForMember(x => x.identity, opt => opt.MapFrom(source => source.Code))
@@ -117,7 +117,7 @@ namespace Dianzhu.ApplicationService.Mapping
 
             Mapper.CreateMap<Model.Business, storeObj>()
             .ForMember(x => x.introduction, opt => opt.MapFrom(source => source.Description))
-            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.BusinessAvatar.ImageName != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.BusinessAvatar.ImageName : ""))
+            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.BusinessAvatar.ImageName != null ? Dianzhu.Config.Config.GetAppSetting("ImageHandler") + source.BusinessAvatar.ImageName : ""))//MediaGetUrl
             .ForMember(x => x.storePhone, opt => opt.MapFrom(source => source.Phone))
             .ForMember(x => x.linkMan, opt => opt.MapFrom(source => source.Contact))
             .ForMember(x => x.linkPhone, opt => opt.MapFrom(source => source.Phone))
