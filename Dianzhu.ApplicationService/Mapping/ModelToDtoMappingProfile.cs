@@ -56,14 +56,14 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.ServiceOrderRemind, remindObj>()
-            .ForMember(x => x.remindTime, opt => opt.MapFrom(source => source.RemindTime.ToString("yyyyMMddHHmmss")))
+            .ForMember(x => x.remindTime, opt => opt.MapFrom(source => source.RemindTime == DateTime.MinValue ? "" : source.RemindTime.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.Open))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.OrderAssignment, assignObj>()
             .ForMember(x => x.orderID, opt => opt.MapFrom(source => source.Order.Id))
             .ForMember(x => x.staffID, opt => opt.MapFrom(source => source.AssignedStaff.Id))
-            .ForMember(x => x.createTime, opt => opt.MapFrom(source => source.CreateTime.ToString("yyyyMMddHHmmss")))
+            .ForMember(x => x.createTime, opt => opt.MapFrom(source => source.CreateTime == DateTime.MinValue ? "" : source.CreateTime.ToString("yyyyMMddHHmmss")))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.ServiceOpenTimeForDay, workTimeObj>()
@@ -109,7 +109,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<Model.Staff, staffObj>()
             .ForMember(x => x.alias, opt => opt.MapFrom(source => source.DisplayName))
             .ForMember(x => x.number, opt => opt.MapFrom(source => source.Code))
-            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.Photo != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.Photo : ""))
+            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.Photo != null ? Dianzhu.Config.Config.GetAppSetting("ImageHandler") + source.Photo : ""))//MediaGetUrl
             .ForMember(x => x.sex, opt => opt.MapFrom(source => source.Gender == "女" ? true : false))
             .ForMember(x => x.realName, opt => opt.MapFrom(source => source.Name))
             //.ForMember(x => x.identity, opt => opt.MapFrom(source => source.Code))
@@ -117,7 +117,7 @@ namespace Dianzhu.ApplicationService.Mapping
 
             Mapper.CreateMap<Model.Business, storeObj>()
             .ForMember(x => x.introduction, opt => opt.MapFrom(source => source.Description))
-            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.BusinessAvatar.ImageName != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.BusinessAvatar.ImageName : ""))
+            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.BusinessAvatar.ImageName != null ? Dianzhu.Config.Config.GetAppSetting("ImageHandler") + source.BusinessAvatar.ImageName : ""))//MediaGetUrl
             .ForMember(x => x.storePhone, opt => opt.MapFrom(source => source.Phone))
             .ForMember(x => x.linkMan, opt => opt.MapFrom(source => source.Contact))
             .ForMember(x => x.linkPhone, opt => opt.MapFrom(source => source.Phone))
@@ -129,8 +129,8 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<Model.Payment, payObj>()
             .ForMember(x => x.payStatus, opt => opt.MapFrom(source => source.Status.ToString()))
             .ForMember(x => x.type, opt => opt.MapFrom(source => source.PayTarget.ToString()))
-            .ForMember(x => x.updateTime, opt => opt.MapFrom(source => source.LastUpdateTime.ToString("yyyyMMddHHmmss")))
-            .ForMember(x => x.bOnline, opt => opt.MapFrom(source => source.PayType== Model.Enums.enum_PayType.Online))
+            .ForMember(x => x.updateTime, opt => opt.MapFrom(source => source.LastUpdateTime == DateTime.MinValue ? "" : source.LastUpdateTime.ToString("yyyyMMddHHmmss")))
+            .ForMember(x => x.bOnline, opt => opt.MapFrom(source =>  source.PayType== Model.Enums.enum_PayType.Online))
             .ForMember(x => x.payTarget, opt => opt.MapFrom(source => source.PayApi.ToString()))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
@@ -141,14 +141,14 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.orderID, opt => opt.MapFrom(source => source.ServiceOrder.Id))
             .ForMember(x => x.body, opt => opt.MapFrom(source => source.MessageBody))
             .ForMember(x => x.type, opt => opt.MapFrom(source => source.ChatType.ToString()))
-            .ForMember(x => x.sendTime, opt => opt.MapFrom(source => source.SendTime.ToString("yyyyMMddHHmmss")))
+            .ForMember(x => x.sendTime, opt => opt.MapFrom(source => source.SendTime == DateTime.MinValue ? "" : source.SendTime.ToString("yyyyMMddHHmmss")))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.ServiceOrder, orderObj>()
-            .ForMember(x => x.createTime, opt => opt.MapFrom(source => source.OrderCreated.ToString("yyyyMMddHHmmss")))
-            .ForMember(x => x.closeTime, opt => opt.MapFrom(source => source.OrderFinished.ToString("yyyyMMddHHmmss")))
-            .ForMember(x => x.serviceTime, opt => opt.MapFrom(source => source.OrderServerStartTime.ToString("yyyyMMddHHmmss")))
-            .ForMember(x => x.doneTime, opt => opt.MapFrom(source => source.OrderServerFinishedTime.ToString("yyyyMMddHHmmss")))
+            .ForMember(x => x.createTime, opt => opt.MapFrom(source => source.OrderCreated== DateTime.MinValue ? "" : source.OrderCreated.ToString("yyyyMMddHHmmss")))
+            .ForMember(x => x.closeTime, opt => opt.MapFrom(source => source.OrderFinished==DateTime.MinValue?"":source.OrderFinished.ToString("yyyyMMddHHmmss")))
+            .ForMember(x => x.serviceTime, opt => opt.MapFrom(source => source.OrderServerStartTime == DateTime.MinValue ? "" : source.OrderServerStartTime.ToString("yyyyMMddHHmmss")))
+            .ForMember(x => x.doneTime, opt => opt.MapFrom(source => source.OrderServerFinishedTime == DateTime.MinValue ? "" : source.OrderServerFinishedTime.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.notes, opt => opt.MapFrom(source => source.Memo))
             .ForMember(x => x.serviceAddress, opt => opt.MapFrom(source => source.TargetAddress))
             .ForAllMembers(opt => opt.NullSubstitute(""));
@@ -157,7 +157,7 @@ namespace Dianzhu.ApplicationService.Mapping
 
             Mapper.CreateMap<Model.ServiceOrderStateChangeHis, orderStatusObj>()
             .ForMember(x => x.status, opt => opt.MapFrom(source => source.NewStatus.ToString()))
-            .ForMember(x => x.createTime, opt => opt.MapFrom(source => source.CreatTime))
+            .ForMember(x => x.createTime, opt => opt.MapFrom(source => source.CreatTime == DateTime.MinValue ? "" : source.CreatTime.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.lastStatus, opt => opt.MapFrom(source => source.OldStatus.ToString()))
             .ForMember(x => x.title, opt => opt.MapFrom(source => source.NewStatusStr))
             .ForMember(x => x.content, opt => opt.MapFrom(source => source.NewStatusCon))

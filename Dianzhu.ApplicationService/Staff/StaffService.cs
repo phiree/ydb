@@ -153,7 +153,7 @@ namespace Dianzhu.ApplicationService.Staff
             }
             if (string.IsNullOrEmpty(staffobj.imgUrl) == false && staffobj.imgUrl != staff.Photo)
             {
-                staff.Photo = staffobj.imgUrl;
+                staff.Photo = utils.GetFileName(staffobj.imgUrl);
                 //staff1.Photo = utils.DownloadToMediaserver(staff2.Photo, string.Empty, "StaffAvatar", "image");
             }
             if (string.IsNullOrEmpty(staffobj.realName) == false && staffobj.realName != staff.Name)

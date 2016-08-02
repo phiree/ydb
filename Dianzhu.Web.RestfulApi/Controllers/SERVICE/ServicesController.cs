@@ -155,5 +155,28 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
                 return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
             }
         }
+
+        /// <summary>
+        /// 删除服务 根据ID
+        /// </summary>
+        /// <param name="storeID"></param>
+        /// <param name="serviceID"></param>
+        /// <returns></returns>
+        [Route("api/v1/allServiceTypes")]
+        public IHttpActionResult GetAllServiceTypes( [FromUri]serviceTypeObj servicefilter)
+        {
+            try
+            {
+                if (servicefilter == null)
+                {
+                    servicefilter = new serviceTypeObj();
+                }
+                return Json(iservice.GetAllServiceTypes(servicefilter.superID));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
     }
 }

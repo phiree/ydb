@@ -9,6 +9,7 @@ using System.IO;
 using System.Data;
 using PHSuit;
 using Dianzhu.Model.Finance;
+using DDDCommon;
 
 namespace Dianzhu.BLL
 {
@@ -43,7 +44,26 @@ namespace Dianzhu.BLL
         {
             return dalServiceType.Find(x => true); 
         }
-         
+
+        /// <summary>
+        /// 查询 superID 的下级服务类型列表数组,当 superID 为空时，默认查询顶层服务类型列表
+        /// </summary>
+        /// <param name="guidSuperID"></param>
+        /// <returns></returns>
+        public IList<ServiceType> GetAllServiceTypes(Guid guidSuperID)
+        {
+            var where = PredicateBuilder.True<ServiceType>();
+            if (guidSuperID == Guid.Empty)
+            {
+                where = where.And(x => x.DeepLevel == 0);
+            }
+            else
+            {
+                where = where.And(x => x.ParentId == guidSuperID);
+            }
+            return dalServiceType.Find(where);
+        }
+
         /// <summary>
         /// 获取最顶层的类型
         /// </summary>

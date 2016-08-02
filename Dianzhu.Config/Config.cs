@@ -64,6 +64,7 @@ namespace Dianzhu.Config
             , {"MediaGetUrl",BuildHttpUrlString(ApplicationServer, 8038,"GetFile.ashx?fileName=")   }
             , {"MediaUploadUrlByDate",BuildHttpUrlString(ApplicationServer, 8038,"UploadFileByDate.ashx") }//按日期生成保存路径
 
+            , {"ImageHandler",BuildHttpUrlString(ApplicationServer, "ImageHandler.ashx?imagename=")}
 
             , {"NoticeSenderId",DictsNotifySenderLogins[IMNotifyServer].Key  }
             , {"NoticeSenderPwd",DictsNotifySenderLogins[IMNotifyServer].Value  }
@@ -108,6 +109,10 @@ namespace Dianzhu.Config
         static private string BuildHttpUrlString(string server, int port)
         {
             return string.Format("http://{0}:{1}/", server, port);
+        }
+        static private string BuildHttpUrlString(string server, string path)
+        {
+            return string.Format("http://{0}/{1}", server, path);
         }
         static private string BuildHttpUrlString(string server, int port, string path)
         {
