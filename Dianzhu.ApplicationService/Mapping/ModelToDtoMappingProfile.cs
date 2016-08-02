@@ -159,8 +159,8 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.status, opt => opt.MapFrom(source => source.NewStatus.ToString()))
             .ForMember(x => x.createTime, opt => opt.MapFrom(source => source.CreatTime == DateTime.MinValue ? "" : source.CreatTime.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.lastStatus, opt => opt.MapFrom(source => source.OldStatus.ToString()))
-            .ForMember(x => x.title, opt => opt.MapFrom(source => source.NewStatusStr))
-            .ForMember(x => x.content, opt => opt.MapFrom(source => source.NewStatusCon))
+            .ForMember(x => x.title, opt => opt.MapFrom(source => source.Order.GetStatusTitleFriendly(source.NewStatus)))
+            .ForMember(x => x.content, opt => opt.MapFrom(source => source.Order.GetStatusContextFriendly(source.NewStatus)))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.StorageFileInfo, imageObj>()
