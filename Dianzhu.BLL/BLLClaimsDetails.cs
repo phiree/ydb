@@ -18,14 +18,11 @@ namespace Dianzhu.BLL
         }
 
         /// <summary>
-        /// 条件读取店铺
+        /// 获取理赔状态列表
         /// </summary>
+        /// <param name="orderID"></param>
         /// <param name="filter"></param>
-        /// <param name="typeId"></param>
-        /// <param name="strName"></param>
-        /// <param name="introduce"></param>
-        /// <param name="startAt"></param>
-        /// <param name="storeID"></param>
+        /// <param name="action"></param>
         /// <returns></returns>
         public IList<Model.ClaimsDetails> GetRefundStatus(Guid orderID,Model.Trait_Filtering filter, Model.Enums.enum_RefundAction action)
         {
