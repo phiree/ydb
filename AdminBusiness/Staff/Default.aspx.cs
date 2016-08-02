@@ -48,6 +48,7 @@ public partial class Staff_Default : BasePage
             Guid id = new Guid(e.CommandArgument.ToString());
             Staff staff=bllStaff.GetOne(id);
             bllStaff.Delete(staff);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             BindList();
         }
     }

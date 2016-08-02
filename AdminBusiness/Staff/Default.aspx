@@ -29,8 +29,8 @@
                                             <div class="emp-model-m">
                                                 <img class="emp-headImg" src=' <%# ((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")) == null ? "/images/common/emp-headicon.png" : "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")).ImageName) + "&width=120&height=120&tt=3)"%>  '/>
                                                 <div class="emp-info">
+                                                    <p>编号：<%#Eval("Code") %></p>
                                                     <p>姓名：<%#Eval("Name") %></p>
-                                                    <p>工龄：<%#Eval("Code") %></p>
                                                     <p>性别：<%#Eval("Gender")%></p>
                                                     <p>电话：<%#Eval("Phone")%></p>
                                                 </div>

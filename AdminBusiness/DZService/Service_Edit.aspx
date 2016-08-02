@@ -19,7 +19,7 @@
                     <div>最大接单量:<span>{%= maxOrder %}</span></div>
                 </div>
                 <div class="wt-editing">
-                    <input  class="time-pick" type="text" data-role="startTime" value="{%= startTime %}"/>-<input class="time-pick" type="text" data-role="endTime" value="{%= endTime %}" />
+                    <input  class="time-pick w" type="text" data-role="startTime" value="{%= startTime %}"/>-<input class="time-pick w" type="text" data-role="endTime" value="{%= endTime %}" />
                     <div>最大接单量:<input class="wt-number" type="number" data-role="maxOrder" value="{%= maxOrder %}"/></div>
                 </div>
             </div>
