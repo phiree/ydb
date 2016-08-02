@@ -175,6 +175,13 @@ namespace Dianzhu.ApplicationService.Mapping
           .ForMember(x => x.url, opt => opt.MapFrom(source => source.FileName != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.FileName : ""))
           .ForAllMembers(opt => opt.NullSubstitute(""));
 
+            Mapper.CreateMap<Model.ClaimsDetails, refundStatusObj>()
+          .ForMember(x => x.content, opt => opt.MapFrom(source => source.Context))
+          .ForMember(x => x.target, opt => opt.MapFrom(source => source.Target.ToString()))
+          .ForMember(x => x.orderStatus, opt => opt.MapFrom(source => source.Claims.Order.OrderStatus.ToString()))
+            .ForMember(x => x.createTime, opt => opt.MapFrom(source => source.CreatTime == DateTime.MinValue ? "" : source.CreatTime.ToString("yyyyMMddHHmmss")))
+          .ForAllMembers(opt => opt.NullSubstitute(""));
+
             //.ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
 

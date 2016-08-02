@@ -180,16 +180,29 @@ namespace Dianzhu.ApplicationService
                 switch (sortby)
                 {
                     case "date":
-                        sort = "DisplayName";
+                        sort = "OrderCreated";
                         break;
                     case "phone":
                         sort = "Phone";
                         break;
                     default:
-                        sort = "TimeCreated";
+                        sort = "OrderCreated";
                         break;
                 }
             }
+            if (TName == "ClaimsDetails")
+            {
+                switch (sortby)
+                {
+                    case "amount":
+                        sort = "Amount";
+                        break;
+                    default:
+                        sort = "CreatTime";
+                        break;
+                }
+            }
+            
             return sort;
         }
 

@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALAdvertisement.cs" />
+    <Compile Include="DALClaimsDetails.cs" />
     <Compile Include="DALRefreshToken.cs" />
     <Compile Include="DALClient.cs" />
     <Compile Include="DALArea.cs" />

@@ -76,6 +76,7 @@
     <Compile Include="Agent\AgentService.cs" />
     <Compile Include="Agent\IAgentService.cs" />
     <Compile Include="BLLClaims.cs" />
+    <Compile Include="BLLClaimsDetails.cs" />
     <Compile Include="BLLComplaint.cs" />
     <Compile Include="BLLArea.cs" />
     <Compile Include="BLLBusiness.cs" />

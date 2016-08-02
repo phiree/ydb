@@ -97,8 +97,11 @@ namespace Dianzhu.ApplicationService.Order
         /// 获得理赔状态列表
         /// </summary>
         /// <param name="orderID"></param>
+        /// <param name="filter"></param>
+        /// <param name="refundfilter"></param>
         /// <returns></returns>
-        IList<refundStatusObj> GetRefundStatus(string orderID, common_Trait_RefundFiltering refundfilter);
+        IList<refundStatusObj> GetRefundStatus(string orderID, common_Trait_Filtering filter, common_Trait_RefundFiltering refundfilter);
+
 
         /// <summary>
         /// 提交理赔动作
