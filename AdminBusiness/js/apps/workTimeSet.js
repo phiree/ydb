@@ -195,6 +195,16 @@
         },
         initialize : function(){
             this.workTimes = new WorkTimeCollection();
+
+            // 按照开始时间强制重排序
+            this.workTimes.comparator = function(m1, m2){
+                if ( parseInt(m1.attributes.startTime.replace(/\:/, "")) > parseInt(m2.attributes.startTime.replace(/\:/, ""))){
+                    return 1 ;
+                } else {
+                    return 0;
+                }
+            };
+
         },
         _save : function(options){
             options = options ? _.clone(options) : {};
@@ -311,6 +321,7 @@
             this.listenTo(this.model.workTimes, 'add', this.saveWorkTime);
             this.listenTo(this.model.workTimes, 'reset', function(collection, options){
                 this.$el.removeClass("loading");
+
                 _.each(collection.models, function(workTimeModel){
                     /* 初始化id */
                     workTimeModel.set("id" , workTimeModel.get("workTimeID"), {silent: true});
@@ -334,6 +345,9 @@
             this.$el.html(this.template(this.model.toJSON()));
             this.$(".time-pick").timePick();
             return this;
+        },
+        clearWortTimeView: function(){
+            return this.$el.find('.wt-container').html("");
         },
         initWorkTimeView : function(workTimeModel){
             var workTimeView = new WorkTimeView({model : workTimeModel});
@@ -363,7 +377,7 @@
                     valid = false
                 } else {
                     _.each(_this.model.workTimes.models, function(model){
-                        if ( !(intTime(startTime) > intTime(model.get("endTime")) || intTime(endTime) < intTime(model.get("startTime"))) ){
+                        if ( !( ( intTime(startTime) > intTime(model.get("endTime")) ) || ( intTime(endTime) < intTime(model.get("startTime")) ) ) ){
                             valid = false
                         }
                     });
@@ -373,13 +387,18 @@
 
             if ( !timeValid(workTimeAttr.startTime, workTimeAttr.endTime) ) {
                 this.$el.find(".wd-add").addClass("err");
-                return
+                return;
             } else {
                 this.$el.find(".wd-add").removeClass("err");
-            };
 
-            this.model.addWorkTime(workTimeAttr);
-            this.$el.find(".wd-b").removeClass("creating");
+                // 添加成功，重置设置区数据
+                _this.$el.find('[data-role="cStartTime"]').val("00:00");
+                _this.$el.find('[data-role="cEndTime"]').val("00:00");
+                _this.$el.find('[data-role="cMaxOrder"]').val(0);
+
+                this.model.addWorkTime(workTimeAttr);
+                this.$el.find(".wd-b").removeClass("creating");
+            };
         },
         saveWorkTime : function(workTimeModel){
             var _this = this;
@@ -398,10 +417,20 @@
             });
 
             function addWorkTimeView(model, resp, options){
-                model.set("id", resp[0], {silent: true} );
-                model.set("workTimeID", resp[0], {silent: true} );
-                var workTimeView = new WorkTimeView({model : model});
-                _this.$el.find('.wt-container').append(workTimeView.render().el);
+
+                _this.clearWortTimeView();
+
+                _.each(model.collection.models, function(workTimeModel){
+                    /* 初始化id */
+                    workTimeModel.set("id" , workTimeModel.get("workTimeID"), {silent: true});
+                    workTimeModel.set("workTimeID", workTimeModel.get("workTimeID"), {silent: true} );
+                    _this.initWorkTimeView(workTimeModel);
+                })
+
+                //model.set("id", resp[0], {silent: true} );
+                //model.set("workTimeID", resp[0], {silent: true} );
+                //var workTimeView = new WorkTimeView({model : model});
+                //_this.$el.find('.wt-container').append(workTimeView.render().el);
             }
         },
         setMaxOrder : function(e){
