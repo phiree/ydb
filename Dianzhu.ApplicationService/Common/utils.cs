@@ -433,7 +433,7 @@ namespace Dianzhu.ApplicationService
             try
             {
                 string url = Dianzhu.Config.Config.GetAppSetting("MediaUploadUrlByDate");
-                url = "http://192.168.1.177:8038/UploadFileByDate.ashx";
+                //url = "http://192.168.1.177:8038/UploadFileByDate.ashx";
                 var respData = new NameValueCollection();
                 respData.Add("fileBase64", fileBase64);
                 respData.Add("originalName", strOriginalName);
@@ -456,6 +456,33 @@ namespace Dianzhu.ApplicationService
                     throw new Exception("上传失败！" + ex.Message);
                 }
             }
+        }
+        
+        /// <summary>
+        /// 从文件Url中获取文件名
+        /// </summary>
+        /// <param name="fileUrl"></param>
+        /// <returns></returns>
+        public static string GetFileName(string fileUrl)
+        {
+            string strFileName = fileUrl;
+            if (fileUrl.Contains("?fileName="))
+            {
+                string[] strN = fileUrl.Split(new string[] { "?fileName=" },StringSplitOptions.None);
+                strFileName = strN[1];
+                string regp = @"(_(\d+)[x|X](\d+))$";
+                Regex re = new Regex(regp);
+                bool isImageThumbnail = re.IsMatch(strFileName);
+                if (isImageThumbnail)
+                {
+                    Match regexMatch = re.Match(strFileName);
+                    //thumbnailWidth = Convert.ToInt32(regexMatch.Groups[2].Value);
+                    //thumbnailHeight = Convert.ToInt32(regexMatch.Groups[3].Value);
+                    //cleanedFileName = fileName.Replace(regexMatch.Groups[1].Value, string.Empty);
+                    strFileName = strFileName.Replace(regexMatch.Groups[1].Value, string.Empty);
+                }
+            }
+            return strFileName;
         }
 
         /// <summary>

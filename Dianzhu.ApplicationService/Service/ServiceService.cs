@@ -353,5 +353,21 @@ namespace Dianzhu.ApplicationService.Service
             //    throw new Exception("删除失败！");
             //}
         }
+
+        /// <summary>
+        /// 查询 superID 的下级服务类型列表数组,当 superID 为空时，默认查询顶层服务类型列表
+        /// </summary>
+        /// <param name="superID"></param>
+        /// <returns></returns>
+        public IList<serviceTypeObj> GetAllServiceTypes(string superID)
+        {
+            IList < Model.ServiceType> servicetype = bllServiceType.GetAllServiceTypes(utils.CheckGuidID(superID, "superID"));
+            if (servicetype == null)
+            {
+                throw new Exception(Dicts.StateCode[4]);
+            }
+            IList<serviceTypeObj> servicetypeobj = Mapper.Map<IList<Model.ServiceType>, IList<serviceTypeObj>>(servicetype);
+            return servicetypeobj;
+        }
     }
 }

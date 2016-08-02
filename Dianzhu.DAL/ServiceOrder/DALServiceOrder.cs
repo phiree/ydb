@@ -264,9 +264,15 @@ namespace Dianzhu.DAL
             string query = " select o from ServiceOrder as o "
                            + " inner join o.Details as detail "
                            + " where 1=1"
-                           + " and detail.OriginalService.Id='" + serviceId + "' "
-                           + " and  detail.TargetTime<='" + timeEnd + "'"
-                           + " and detail.TargetTime>='" + timeBegin + "'";
+                           + " and detail.OriginalService.Id='" + serviceId + "' ";
+            if (timeBegin != DateTime.MinValue)
+            {
+                query = query + " and  detail.TargetTime<='" + timeEnd + "'";
+            }
+            if (timeEnd != DateTime.MinValue)
+            {
+                query = query + " and detail.TargetTime>='" + timeBegin + "'";
+            }
 
             return Session.CreateQuery(query).List<ServiceOrder>();
 

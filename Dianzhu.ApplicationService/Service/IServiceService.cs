@@ -57,5 +57,12 @@ namespace Dianzhu.ApplicationService.Service
         /// <param name="serviceID"></param>
         /// <returns></returns>
         object DeleteService(string storeID, string serviceID);
+
+        /// <summary>
+        /// 查询 superID 的下级服务类型列表数组,当 superID 为空时，默认查询顶层服务类型列表
+        /// </summary>
+        /// <param name="superID"></param>
+        /// <returns></returns>
+        IList<serviceTypeObj> GetAllServiceTypes(string superID);
     }
 }
