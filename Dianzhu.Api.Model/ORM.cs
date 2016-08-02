@@ -148,7 +148,7 @@ namespace Dianzhu.Api.Model
             this.userID = business.Id.ToString();
             this.alias = business.Name ?? string.Empty;
             //this.imgUrl = business.BusinessAvatar.ImageName;
-            this.imgUrl = string.IsNullOrEmpty(business.BusinessAvatar.ImageName) ? string.Empty : (Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + business.BusinessAvatar.ImageName);
+            this.imgUrl = string.IsNullOrEmpty(business.BusinessAvatar.ImageName) ? string.Empty : (Dianzhu.Config.Config.GetAppSetting("ImageHandler") + business.BusinessAvatar.ImageName);
             return this;
         }
     }
