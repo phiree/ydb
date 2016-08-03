@@ -48,31 +48,25 @@
             }
 
             this.$input = this.$el.find("input").length && this.$el.find("input");
-
             this.$cite = $("<cite></cite>");
-
             this.$el.prepend(this.$cite);
 
-            // 初始化下拉列表标题cite的值
-            // TODO: 逻辑可以优化一下
-            if ( !this.$input.val() ) {
-                // 如果input没有值,则input默认为第一个a标签的值
-                this.$input.val(this.$a.eq(0).attr("value"));
-                citeText = this.$a.eq(0).html();
-            } else {
-                // 如果input有值,则input筛选对应值的a标签的文本为cite的值
-                var val = this.$input.val();
-                var selectedA = this.$a.filter(function(index){
-                    return $(this).val() == val;
-                });
+            // 初始化下拉列表标题cite的text和input的value
+            var val = this.$input.val();
+            var selectedA = this.$a.filter(function(index){
+                return $(this).val() == val;
+            });
 
-                // 如果找不到对应的a标签, 则默认使用第一个a标签的值
-                if (selectedA.length){
-                    citeText = selectedA.html();
-                } else {
-                    citeText = this.$a.eq(0).html();
-                }
+            // input有值&&有对应input筛选的a，则筛选的a的text设为cite的text.
+            if ( val && selectedA.length && selectedA.length === 1 ) {
+                citeText = selectedA.html();
+            } else {
+
+                // input没有值或找不到对应的a标签, 则默认使用第一个a标签的value作为input的value, 使用第一个a标签的text作cite的text.
+                this.$input.attr("value", this.$a.eq(0).attr("value"));
+                citeText = this.$a.eq(0).html();
             }
+
             this.$cite.html(citeText);
 
         };

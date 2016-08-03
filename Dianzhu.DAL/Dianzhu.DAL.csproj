@@ -78,6 +78,7 @@
     <Compile Include="Client\DALClient.cs" />
     <Compile Include="Client\DALRefreshToken.cs" />
     <Compile Include="Client\DALUserToken.cs" />
+    <Compile Include="DALClaimsDetails.cs" />
     <Compile Include="DALMembershipLoginLog.cs" />
     <Compile Include="DALClaims.cs" />
     <Compile Include="DALComplaint.cs" />

@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* ydban business backstage style structure */
 /* vendor */
-@import "vendor/bootstrap-3.3.5-dist/css/bootstrap.css";
+@import "../css/bootstrap.css";
 /* vendor-extend */
 /* navbar style */
 .navbar {
@@ -5243,12 +5243,8 @@ a4526dfc-92d3-44b2-9179-b9081055e7d9 教育培训 16
   box-shadow: inset 0 1px 2px #ccc;
   background: #F7F7F7;
 }
-.time-pick.w {
-  background: #fff;
-}
 .tp-wrap {
   width: 100px;
-  height: 150px;
   position: absolute;
   z-index: 999;
   padding: 5px;
@@ -5260,30 +5256,12 @@ a4526dfc-92d3-44b2-9179-b9081055e7d9 教育培训 16
   background: #fff;
   border-radius: 3px;
   border: 1px solid #c7c7c7;
-  width: 40px;
-  height: 100%;
-  overflow-y: scroll;
-  float: left;
-  cursor: pointer;
 }
 .tp-m-select {
-  width: 40px;
-  float: left;
-  height: 100%;
-  overflow-y: scroll;
-  margin-left: 5px;
+  margin-left: 9px;
   background: #fff;
   border-radius: 3px;
   border: 1px solid #c7c7c7;
-  cursor: pointer;
-}
-.tp-option:hover {
-  background: #6ba9e7;
-  color: #fff;
-}
-.tp-option:focus {
-  background: #6ba9e7;
-  color: #fff;
 }
 .time-select-wrap {
   position: relative;
@@ -5520,6 +5498,7 @@ a.time-trigger:hover {
 .sidebar-icon-msg {
   background: url("../images/common/sidebar/mess_left_20x22.png") no-repeat center;
 }
+/* 单日模版样式 */
 .day-tabs {
   width: 100%;
   overflow-y: hidden;
@@ -5531,8 +5510,8 @@ a.time-trigger:hover {
   padding: 5px 10px;
   border: 1px solid #C7C7C7;
   border-bottom: 0;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   color: #fff;
   text-shadow: 0 1px 2px rgba(51, 51, 51, 0.26);
 }
@@ -5655,26 +5634,17 @@ a.time-trigger:hover {
 .day-container {
   border-radius: 5px;
   overflow: hidden;
-  border: 1px solid #C7C7C7;
-  position: relative;
   background: #f6f6f6;
-  min-height: 500px;
+  border: 1px solid #C7C7C7;
 }
 .day-container.editing .time-bucket.noHis .t-b-edit {
   height: 100px;
 }
-.day-container.loading:before {
-  content: '';
-  display: block;
-  position: absolute;
-  z-index: 100;
-  height: 100%;
-  width: 100%;
+.day-container.loading {
+  height: 500px;
   background: url("../images/load.gif") no-repeat center;
 }
-.day-container.error:before {
-  content: '';
-  display: block;
+.day-container.error {
   height: 500px;
   background: url("../images/error.jpg") no-repeat center;
 }
@@ -5712,19 +5682,6 @@ a.time-trigger:hover {
 .day-title .round-checkbox {
   margin-top: -2px;
   margin-left: 10px;
-}
-.day-warn {
-  float: right;
-  color: #f53c3c;
-  line-height: 1.2em;
-  padding: 5px;
-  background: #fff1f1;
-  border-radius: 5px;
-  border: 1px solid #f53c3c;
-  margin-top: 5px;
-}
-.day-warn.hi {
-  visibility: hidden;
 }
 /* 时间段样式 */
 .time-buckets-wrap {
@@ -5786,24 +5743,22 @@ a.time-trigger:hover {
   background: #eee;
 }
 .time-bucket {
+  border-radius: 8px;
   padding: 10px;
   margin: 10px;
-  position: relative;
   overflow: hidden;
-  background: #ededed;
-  border-radius: 8px;
   border: 2px solid transparent;
   border-bottom: 2px solid #DEDEDE;
   transition: all ease 0.3s ;
 }
 .time-bucket:hover {
-  border: 2px solid #3f92e2;
-  box-shadow: 0 0 6px 0 #5aa3ea;
+  border: 2px solid #70E0FF;
+  box-shadow: 0 0 6px 0 #70E0FF;
 }
 .time-bucket.his {
   background: #eee;
 }
-.t-b-main {
+.t-b-top {
   overflow: hidden;
   position: relative;
 }
@@ -5814,52 +5769,20 @@ a.time-trigger:hover {
   text-align: center;
   line-height: 1.8em;
 }
-.t-b-add {
-  position: absolute;
-  top: 45px;
-  right: 300px;
-  text-align: center;
-}
-.t-b-add ._num {
-  width: 50px;
-  padding: 2px 3px;
-  border: 1px solid #3399cc;
-  border-radius: 3px;
-}
-.t-b-add ._btn {
-  width: 50px;
-  color: #fff;
-  background: #6cabe8;
-  text-shadow: 0 1px 2px #5191CB;
-  border-radius: 5px;
-  border: 1px solid #4d93d6;
-  box-shadow: 0 1px 3px 0 #9a9a9a;
-  padding: 3px 5px;
-}
 .t-b-num {
-  position: absolute;
-  right: 140px;
-  top: 35px;
+  float: right;
+  height: 100px;
+  line-height: 100px;
+  margin: 0 15px;
 }
-.t-b-num ._s {
-  font-size: 16px;
-  font-weight: bold;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-.t-b-num ._i {
-  font-size: 16px;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-.t-b-num ._n {
-  font-size: 30px;
-  vertical-align: middle;
+.t-b-num .t-b-num-n {
+  font-size: 38px;
+  margin-right: 15px;
 }
 .t-b-switch {
-  position: absolute;
-  right: 10px;
-  top: 30px;
+  float: right;
+  height: 100px;
+  padding-top: 20px;
   text-align: center;
 }
 .t-b-edit {
@@ -5909,34 +5832,27 @@ a.time-trigger:hover {
   padding: 5px;
   margin: 0 10px ;
 }
-.t-b-ctrl {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-}
 .t-b-window {
   overflow: hidden;
   display: inline-block;
   position: relative;
   margin-left: 150px;
 }
-@media screen and (max-width: 1600px) {
-  .t-b-ctrl {
-    position: relative;
-    height: 120px;
-  }
-}
 /* 订单列表样式 */
 .good-list-wrap {
-  /* width: 910px; */
-  overflow: hidden;
-  /* margin-bottom: -20px; */
-  /* float: left; */
-  /* overflow-x: scroll; */
-  /* overflow-y: hidden; */
+  width: 910px;
+  height: 120px;
+  margin-bottom: -20px;
+  float: left;
+  overflow-x: scroll;
+  overflow-y: hidden;
   position: relative;
-  /* transition: all 0.3s; */
+  transition: all 0.3s;
+}
+@media screen and (max-width: 1500px) {
+  .good-list-wrap {
+    width: 410px;
+  }
 }
 .good-next,
 .good-prev {
@@ -5945,31 +5861,9 @@ a.time-trigger:hover {
   height: 100px;
   line-height: 100px;
 }
-.good-reorder,
-.good-total {
-  float: left;
-}
-.good-reorder {
-  margin-right: 50px;
-}
-.good-title {
-  font-size: 30px;
-  line-height: 90px;
-  float: right;
-  margin-left: 30px;
-}
-.good-title ._t {
-  font-size: 16px;
-}
-.good-title ._i {
-  font-size: 16px;
-  margin: 5px;
-}
-.good-title ._m {
-  vertical-align: middle;
-}
 .good-list {
-  display: inline-block;
+  height: 100px;
+  width: 1000%;
   overflow: hidden;
 }
 .good-list.edit .deleteGood {
@@ -5988,7 +5882,10 @@ a.time-trigger:hover {
 }
 .good-list .good {
   display: block;
+  border-radius: 5px;
   float: left;
+  margin-left: 10px;
+  background: #EEEEEE;
   position: relative;
   width: 80px;
   height: 80px;
@@ -5998,17 +5895,13 @@ a.time-trigger:hover {
 .good-list .good + .good {
   margin-left: 10px;
 }
-.good-list .good.good-off {
-  background: url("../images/components/shelf/kai.png") no-repeat center;
-}
 .good-list .good.good-on {
-  background: url("../images/components/shelf/he.png") no-repeat center;
+  border: 1px solid #92d7c5;
+  color: #92d7c5;
 }
-.good-list .good ._text {
-  color: #fff;
-  font-size: 14px;
-  margin-top: 40px;
-  margin-right: 10px;
+.good-list .good.good-off {
+  border: 1px solid #ed928f;
+  color: #ed928f;
 }
 .good-list .good-icon-w {
   width: 40px;
@@ -6080,15 +5973,15 @@ a.time-trigger:hover {
   border-bottom: 1px solid #C7C7C7;
   padding: 10px;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
-  background: #f4f4f4 ;
+  background: #F4F4F4 ;
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f4f4f4 0%, #eaeaea 100%);
+  background: -moz-linear-gradient(top, #F4F4F4 0%, #eaeaea 100%);
   /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #f4f4f4 0%, #eaeaea 100%);
+  background: -webkit-linear-gradient(top, #F4F4F4 0%, #eaeaea 100%);
   /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #f4f4f4 0%, #eaeaea 100%);
+  background: linear-gradient(to bottom, #F4F4F4 0%, #eaeaea 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f4f4f4', endColorstr='#eaeaea', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F4F4F4 ', endColorstr='#eaeaea', GradientType=0);
   /* IE6-9 */
 }
 .wd-order-edit.editing .wd-maxOrder {
@@ -6301,7 +6194,6 @@ a.time-trigger:hover {
   width: 50px;
   text-align: center;
   border: 1px solid #ccc;
-  box-shadow: inset 0 1px 2px #ccc;
   border-radius: 3px;
   line-height: 1.4em;
 }
@@ -7083,7 +6975,6 @@ a.time-trigger:hover {
 }
 .round-checkbox input[type=checkbox] {
   visibility: hidden ;
-  visibility: visible\9 ;
 }
 .round-checkbox input[type=checkbox]:checked + label {
   left: 45px;
@@ -7097,7 +6988,6 @@ a.time-trigger:hover {
 .round-checkbox label {
   display: block;
   width: 22px;
-  width: 0\9;
   height: 22px;
   margin-top: -11px;
   border-radius: 50%;
@@ -7126,7 +7016,6 @@ a.time-trigger:hover {
   top: 0;
   content: "开启";
   width: 70px;
-  width: 0\9;
   height: 28px;
   border-radius: 14px;
   background: #939393;
@@ -7213,29 +7102,6 @@ a.time-trigger:hover {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 5px #ccc;
-}
-.business-Avatar {
-  display: inline-block;
-  overflow: hidden;
-  position: relative;
-}
-.business-Avatar .input-file-box {
-  margin: 0;
-}
-.business-Avatar:after {
-  content: "更换头像";
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  display: block;
-  width: 140px;
-  height: 30px;
-  line-height: 30px;
-  position: absolute;
-  bottom: 0;
-  z-index: 10;
-  text-align: center;
-  background: rgba(84, 84, 84, 0.4);
-  color: #fff;
 }
 #biz-total-chart {
   width: 100%;
@@ -7810,7 +7676,7 @@ a.time-trigger:hover {
 .register-wrap {
   height: 100%;
   position: relative;
-  background: url("../images/pages/register/register_bg.jpg") no-repeat center;
+  background: url("../images/register/register_bg.jpg") no-repeat center;
   background-size: cover;
 }
 .register-section {
@@ -7854,7 +7720,7 @@ a.time-trigger:hover {
   display: inline-block;
   position: absolute;
   box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.38);
-  background: url("../images//pages/register/register_panel_bg.png") repeat-x center;
+  background: url("../images/register/register_panel_bg.png") repeat-x center;
   padding-right: 177px;
   overflow: hidden;
   left: 0;
@@ -7869,7 +7735,7 @@ a.time-trigger:hover {
   display: inline-block;
   position: absolute;
   box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.38);
-  background: url("../images//pages/register/register_panel_bg.png") repeat-x center;
+  background: url("../images/register/register_panel_bg.png") repeat-x center;
   overflow: hidden;
 }
 .register-detail {
@@ -7963,13 +7829,13 @@ a.time-trigger:hover {
   vertical-align: middle;
 }
 .usernameIcon {
-  background: url("../images/pages/register/user.png") no-repeat center;
+  background: url("../images/register/user.png") no-repeat center;
 }
 .passwordIcon {
-  background: url("../images/pages/register/pwd.png") no-repeat center;
+  background: url("../images/register/pwd.png") no-repeat center;
 }
 .emailIcon {
-  background: url("../images/pages/register/email.png") no-repeat center;
+  background: url("../images/register/email.png") no-repeat center;
 }
 .register-go {
   position: absolute;
@@ -8131,7 +7997,7 @@ a.doReg:hover {
 .recovery-suc-icon {
   width: 96px;
   height: 96px;
-  background: url("../images/pages/register/rec_check.png") no-repeat center;
+  background: url("../images/register/rec_check.png") no-repeat center;
 }
 .recovery-h {
   font-size: 26px;
@@ -8143,40 +8009,18 @@ a.doReg:hover {
   text-align: left;
   line-height: 1.4em;
 }
-@media screen and (max-width: 1600px) {
-  .register-panel {
-    width: 45%;
-  }
-  .register-brand {
-    right: 115px;
-  }
-  .register-detail {
-    width: 60%;
-  }
-}
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1500px) {
   .register-panel {
     width: 45%;
   }
   .register-brand {
     right: 55px;
   }
-}
-@media screen and (max-width: 1024px) {
-  .register-panel {
-    width: 80%;
-    margin-top: 80px;
-    margin-left: -40%;
-    left: 50%;
-  }
-  .register-brand {
-    text-align: center;
-    width: 100%;
-    top: -100px;
-    right: 0;
+  .register-detail {
+    width: 200px;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
   .register-panel {
     width: 80%;
     margin-left: -40%;
@@ -8187,6 +8031,9 @@ a.doReg:hover {
     width: 100%;
     top: -200px;
     right: 0;
+  }
+  .register-detail {
+    width: 200px;
   }
 }
 .order-list-head {
@@ -8551,12 +8398,6 @@ a.doReg:hover {
   z-index: 10;
 }
 /* 新建服务时，stepByStep的步骤控制样式 */
-.service-steps .step-ctrl {
-  visibility: hidden;
-}
-.service-steps .step-ctrl.step-1 {
-  visibility: visible;
-}
 .service-steps .step-ctrl.step-1 .step-prev {
   display: none;
 }
@@ -8566,26 +8407,17 @@ a.doReg:hover {
 .service-steps .step-ctrl.step-1 .step-complete {
   display: none;
 }
-.service-steps .step-ctrl.step-2 {
-  visibility: visible;
-}
 .service-steps .step-ctrl.step-2 .step-next-save {
   display: none;
 }
 .service-steps .step-ctrl.step-2 .step-complete {
   display: none;
 }
-.service-steps .step-ctrl.step-3 {
-  visibility: visible;
-}
 .service-steps .step-ctrl.step-3 .step-next {
   display: none;
 }
 .service-steps .step-ctrl.step-3 .step-complete {
   display: none;
-}
-.service-steps .step-ctrl.step-4 {
-  visibility: visible;
 }
 .service-steps .step-ctrl.step-4 .step-next {
   display: none;

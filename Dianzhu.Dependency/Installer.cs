@@ -89,6 +89,8 @@ namespace Dianzhu.DependencyInstaller
             //20160727_longphui_add
             container.Register(Component.For<BLL.BLLStorageFileInfo>());
 
+            //20160802_longphui_add
+            container.Register(Component.For<BLL.BLLClaimsDetails>());
 
         }
     }
@@ -174,6 +176,8 @@ namespace Dianzhu.DependencyInstaller
             //20160727_longphui_add
             container.Register(Component.For<IRepository<StorageFileInfo, Guid>, IDALStorageFileInfo>().ImplementedBy<DALStorageFileInfo>());
 
+            //20160802_longphui_add
+            container.Register(Component.For<IRepository<ClaimsDetails, Guid>, IDALClaimsDetails>().ImplementedBy<DALClaimsDetails>());
 
         }
     }

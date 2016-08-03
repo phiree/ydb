@@ -23,8 +23,9 @@ namespace Dianzhu.ApplicationService.Order
         BLL.BLLOrderAssignment bllOrderAssignment;
         BLL.DZMembershipProvider bllDZM;
         BLL.BLLClaims bllClaims;
+        BLL.BLLClaimsDetails bLLClaimsDetails;
         public OrderService(BLL.IBLLServiceOrder ibllserviceorder, BLL.BLLServiceOrderStateChangeHis bllstatehis, BLL.BLLDZService blldzservice, BLL.PushService bllpushservice, BLL.BLLServiceOrderRemind bllServiceOrderRemind,
-        BLL.BLLServiceOrderAppraise bllServiceOrderAppraise, BLL.IIMSession imSession, BLL.BLLOrderAssignment bllOrderAssignment, BLL.DZMembershipProvider bllDZM, BLL.BLLClaims bllClaims)
+        BLL.BLLServiceOrderAppraise bllServiceOrderAppraise, BLL.IIMSession imSession, BLL.BLLOrderAssignment bllOrderAssignment, BLL.DZMembershipProvider bllDZM, BLL.BLLClaims bllClaims, BLL.BLLClaimsDetails bLLClaimsDetails)
         {
             this.ibllserviceorder = ibllserviceorder;
             OrderService.bllstatehis = bllstatehis;
@@ -36,6 +37,7 @@ namespace Dianzhu.ApplicationService.Order
             this.bllOrderAssignment = bllOrderAssignment;
             this.bllDZM = bllDZM;
             this.bllClaims = bllClaims;
+            this.bLLClaimsDetails = bLLClaimsDetails;
         }
 
         /// <summary>
@@ -532,29 +534,37 @@ namespace Dianzhu.ApplicationService.Order
         /// 获得理赔状态列表
         /// </summary>
         /// <param name="orderID"></param>
+        /// <param name="filter"></param>
+        /// <param name="refundfilter"></param>
         /// <returns></returns>
-        public IList<refundStatusObj> GetRefundStatus(string orderID,common_Trait_RefundFiltering refundfilter)
+        public IList<refundStatusObj> GetRefundStatus(string orderID, common_Trait_Filtering filter, common_Trait_RefundFiltering refundfilter)
         {
-            //Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
-            refundStatusObj refundstatusobj = new refundStatusObj
+            Model.Enums.enum_RefundAction action;
+            try
             {
-                //refundStatusID = "6F9619FF-8B86-D011-B42D-00C04FC964FF",
-                //orderID = "6F9619FF-8B86-D011-B42D-00C04FC964FF",
-                title = "赔赔赔",
-                content = "弄坏我花瓶，赔我钱",
-                amount = "50",
-                resourcesUrls = { "http://imgsrc.baidu.com/forum/w=580/sign=04e1e17ac5fdfc03e578e3b0e43e87a9/1967c5177f3e67090520527b3dc79f3df9dc5577.jpg" },
-                createTime = "201506162223",
-                orderStatus = "AskPayWithRefund",
-                target = "user"
-            };
-
-            IList<refundStatusObj> refundstatusobjList = new List<refundStatusObj>();
-            refundstatusobjList.Add(refundstatusobj);
-            refundstatusobjList.Add(refundstatusobj);
-            refundstatusobjList.Add(refundstatusobj);
-
-            return refundstatusobjList;
+                action = (Model.Enums.enum_RefundAction)Enum.Parse(typeof(Model.Enums.enum_RefundAction), refundfilter.action);
+            }
+            catch 
+            {
+                throw new FormatException("该理赔动作无效！");
+            }
+            IList<Model.ClaimsDetails> claimsdetails = null;
+            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ClaimsDetails");
+            Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
+            claimsdetails = bLLClaimsDetails.GetRefundStatus(guidOrder, filter1, action);
+            if (claimsdetails == null)
+            {
+                throw new Exception(Dicts.StateCode[4]);
+            }
+            IList<refundStatusObj> refundstatusobj = Mapper.Map<IList<Model.ClaimsDetails>, IList<refundStatusObj>>(claimsdetails);
+            for (int i = 0; i < refundstatusobj.Count; i++)
+            {
+                for (int j = 0; j < claimsdetails[i].ClaimsDetailsResourcesUrl.Count; j++)
+                {
+                    refundstatusobj[i].resourcesUrls.Add ( claimsdetails[i].ClaimsDetailsResourcesUrl[j] == null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + claimsdetails[i].ClaimsDetailsResourcesUrl[j] : "");
+                }
+            }
+            return refundstatusobj;
         }
 
         /// <summary>
@@ -565,9 +575,10 @@ namespace Dianzhu.ApplicationService.Order
         /// <returns></returns>
         public refundStatusObj PostRefundAction(string orderID, refundObj refundobj)
         {
+            IList<string> resourcesurls = new List<string>();
             for (int i = 0; i < refundobj.resourcesUrls.Count; i++)
             {
-                refundobj.resourcesUrls[i] = utils.GetFileName(refundobj.resourcesUrls[i]);
+                resourcesurls.Add(utils.GetFileName(refundobj.resourcesUrls[i]));
             }
             Model.Enums.enum_RefundAction action ;
             try
@@ -654,7 +665,7 @@ namespace Dianzhu.ApplicationService.Order
                 if (ActionSuccess)
                 {
                     Claims claims = new Claims(order, oldStatus, member);
-                    claims.AddDetailsFromClaims(claims, refundobj.content, amount, refundobj.resourcesUrls, target, member);
+                    claims.AddDetailsFromClaims(claims, refundobj.content, amount, resourcesurls, target, member);
                     bllClaims.Save(claims);
                     refundstatusobj.content = refundobj.content;
                     refundstatusobj.amount = refundobj.amount;
@@ -689,7 +700,7 @@ namespace Dianzhu.ApplicationService.Order
                         ActionSuccess = true;
                         break;
                     case Model.Enums.enum_RefundAction.askPay:
-                        ibllserviceorder.OrderFlow_BusinessAskPayWithRefund(order, refundobj.content, amount, refundobj.resourcesUrls, member);
+                        ibllserviceorder.OrderFlow_BusinessAskPayWithRefund(order, refundobj.content, amount, resourcesurls, member);
                         refundstatusobj.content = refundobj.content;
                         refundstatusobj.amount = refundobj.amount;
                         refundstatusobj.resourcesUrls = refundobj.resourcesUrls;
@@ -703,7 +714,7 @@ namespace Dianzhu.ApplicationService.Order
                 if (ActionSuccess)
                 {
                     Claims claims = new Claims(order, oldStatus, member);
-                    claims.AddDetailsFromClaims(claims, refundobj.content, amount, refundobj.resourcesUrls, target, member);
+                    claims.AddDetailsFromClaims(claims, refundobj.content, amount, resourcesurls, target, member);
                     bllClaims.Save(claims);
                     refundstatusobj.content = refundobj.content;
                     refundstatusobj.amount = refundobj.amount;

@@ -229,15 +229,19 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// <param name="refundfilter"></param>
         /// <returns></returns>
         [Route("api/v1/orders/{orderID}/refunds")]
-        public IHttpActionResult GetRefundStatus(string orderID, [FromUri]common_Trait_RefundFiltering refundfilter)
+        public IHttpActionResult GetRefundStatus(string orderID, [FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_RefundFiltering refundfilter)
         {
             try
             {
+                if (filter == null)
+                {
+                    filter = new common_Trait_Filtering();
+                }
                 if (refundfilter == null)
                 {
                     refundfilter = new common_Trait_RefundFiltering();
                 }
-                return Json(iorder.GetRefundStatus(orderID, refundfilter));
+                return Json(iorder.GetRefundStatus(orderID, filter, refundfilter));
             }
             catch (Exception ex)
             {

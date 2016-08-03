@@ -159,8 +159,8 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.status, opt => opt.MapFrom(source => source.NewStatus.ToString()))
             .ForMember(x => x.createTime, opt => opt.MapFrom(source => source.CreatTime == DateTime.MinValue ? "" : source.CreatTime.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.lastStatus, opt => opt.MapFrom(source => source.OldStatus.ToString()))
-            .ForMember(x => x.title, opt => opt.MapFrom(source => source.NewStatusStr))
-            .ForMember(x => x.content, opt => opt.MapFrom(source => source.NewStatusCon))
+            .ForMember(x => x.title, opt => opt.MapFrom(source => source.Order.GetStatusTitleFriendly(source.NewStatus)))
+            .ForMember(x => x.content, opt => opt.MapFrom(source => source.Order.GetStatusContextFriendly(source.NewStatus)))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.StorageFileInfo, imageObj>()
@@ -173,6 +173,13 @@ namespace Dianzhu.ApplicationService.Mapping
 
             Mapper.CreateMap<Model.StorageFileInfo, audioObj>()
           .ForMember(x => x.url, opt => opt.MapFrom(source => source.FileName != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.FileName : ""))
+          .ForAllMembers(opt => opt.NullSubstitute(""));
+
+            Mapper.CreateMap<Model.ClaimsDetails, refundStatusObj>()
+          .ForMember(x => x.content, opt => opt.MapFrom(source => source.Context))
+          .ForMember(x => x.target, opt => opt.MapFrom(source => source.Target.ToString()))
+          .ForMember(x => x.orderStatus, opt => opt.MapFrom(source => source.Claims.Order.OrderStatus.ToString()))
+            .ForMember(x => x.createTime, opt => opt.MapFrom(source => source.CreatTime == DateTime.MinValue ? "" : source.CreatTime.ToString("yyyyMMddHHmmss")))
           .ForAllMembers(opt => opt.NullSubstitute(""));
 
             //.ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));

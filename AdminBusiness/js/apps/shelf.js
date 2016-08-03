@@ -204,10 +204,6 @@
             }
 
             for ( var i = 0; i < stamp.length; i++ ){
-                //console.log(parseInt(stamp[i].orderObj.svcObj.startTime));
-                //console.log(parseInt(_startTime));
-                //console.log(parseInt(_endTime));
-
                 if (parseInt(stamp[i].orderObj.svcObj.startTime) > parseInt(_startTime) && parseInt(stamp[i].orderObj.svcObj.startTime) < parseInt(_endTime)){
                     orderSnapShots.push(stamp[i])
                 }
@@ -376,6 +372,14 @@
                 maxOrder : true
             };
 
+            //
+            if ( parseInt(this.model.get("maxOrder")) + parseInt(num) > this.model.attributes.dayEnableOrderCount ){
+                app.showWarnText(true, "时段剩余服务应小于当日剩余服务数量");
+                return false;
+            }
+
+            app.showWarnText(false);
+
             this.model.set({ maxOrder : (parseInt(this.model.get("maxOrder")) + parseInt(num)).toString() });
             /* 通过model自定义的_save函数实现数据保存 */
             this.model._save({
@@ -396,16 +400,17 @@
          */
         renderOrder : function(){
             var orderSSArray = this.model.attributes.orderSSArray;
-            this.model.attributes.orders = [];
+            this.model.attributes.orders = orderSSArray;
+            //this.model.attributes.orders = [];
 
-            for (var i = 0; i < orderSSArray.length ; i++){
-                var startTime = orderSSArray[i].orderObj.svcObj.startTime.slice(-6,-2),
-                    start = this.model.attributes.startTime.replace(":",""),
-                    end = this.model.attributes.endTime.replace(":","");
-                if ( start < startTime && startTime <= end ){
-                    this.model.attributes.orders.push(orderSSArray[i]);
-                }
-            }
+            //for (var i = 0; i < orderSSArray.length ; i++){
+            //    var startTime = orderSSArray[i].orderObj.svcObj.startTime.slice(-6,-2),
+            //        start = this.model.attributes.startTime.replace(":",""),
+            //        end = this.model.attributes.endTime.replace(":","");
+            //    if ( start < startTime && startTime <= end ){
+            //        this.model.attributes.orders.push(orderSSArray[i]);
+            //    }
+            //}
             this.render();
             return this;
         }
@@ -592,12 +597,13 @@
 
             // 注册workTime的sync事件，对返回的工作时间数据构建
             this.listenTo(this.workTimes, "sync", function(collection, response, options){
-                _this.buildWorkTimesView(collection);
+                return _this.buildWorkTimesView(collection);
             });
 
             // 注册workDay的sync事件，对返回的工作单日数据处理
             this.listenTo(this.workDays, 'sync', function(collection, response, options){
-                _this.buildDaysView(collection)
+
+                _this.buildDaysView(collection);
             });
 
             this.loadShelf(this.reqDate);
@@ -616,13 +622,15 @@
                 return
             }
 
+            _this.loading = true;
             _this.showLoading(true);
 
             // 请求快照数据
             snapshots.load({
                 queryData : {
                     "startTime": reqDate,
-                    "endTime": reqDate
+                    // 请求数据为一天的数据
+                    "endTime": reqDate + " 23:59:59"
                 },
                 success : function(){
 
@@ -672,7 +680,7 @@
             var $tabContainer = this.$('.day-tabs');
 
             function tranWeek(week){
-                var arr = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
+                var arr = [ "星期日","星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
                 return arr[week];
             }
 
@@ -695,10 +703,15 @@
                     var reqDate = $(this).attr("data-date");
                     var dateObj = new Date();
 
+                    // 请求锁，loadings时，禁止请求. TODO: 请求锁避免多次请求的多次构造问题，另一种方案是数据暂存；
+                    if ( _this.loading ){ return false }
+
                     $(this).addClass("active").siblings().removeClass("active");
 
                     dateObj.setFullYear(parseInt(reqDate.slice(0, 4)), parseInt(reqDate.slice(4, 6)) - 1, parseInt(reqDate.slice(6, 8)));
+
                     _this.switchDayShelf(dateObj);
+
                 });
 
                 $tabContainer.append($tab);
@@ -709,6 +722,7 @@
          * @param reqDateObj Date()对象
          */
         switchDayShelf : function(reqDateObj){
+
             this.reqDate = reqDateObj;
 
             this.clearDay();
@@ -723,6 +737,8 @@
             var _this = this;
             var dateStr = dateTools.dateFormat(this.reqDate, "YYYYMMDD");
 
+            this.clearWorkTime();
+
             _.each(collection.models, function(model, index, collection){
                 var startTime, endTime, nowTime, workTimeView;
                 var orderSSArray = [];
@@ -732,7 +748,12 @@
 
                 orderSSArray = _this.snapshots.getOrderSnapshotByTime(dateStr, startTime, endTime);
 
+                model.attributes.dayMaxOrderCount = _this.workDays.where({week: (_this.reqDate.getDay() + 1).toString()})[0].attributes.maxOrder;
+                model.attributes.dayReorderCount = _this.snapshots.snapshotItems.length;
+                model.attributes.dayEnableOrderCount = parseInt(model.attributes.dayMaxOrderCount) - parseInt(model.attributes.dayReorderCount);
+
                 model.attributes.orderSSArray = orderSSArray;
+
                 workTimeView = new WorkTimeView({model: model});
 
                 //nowTime = fix((new Date().getHours()), 2) + fix((new Date().getMinutes()), 2);
@@ -742,6 +763,9 @@
                 _this.renderWorkTime(workTimeView);
 
             });
+
+            _this.loading = false;
+
         },
         /**
          * 构建单日工作时间，根据dateObj筛选单日的数据
@@ -751,6 +775,8 @@
             var _this = this;
             var dayOfWeek = this.reqDate.getDay();
             var dateStr = dateTools.dateFormat(this.reqDate, "YYYYMMDD");
+
+            this.clearDay();
 
             _.each(collection.models, function(dayModel, index, collection){
                 if (dayOfWeek == index ){
@@ -764,24 +790,25 @@
             });
         },
         clearDay : function(){
-            this.$el.find(".day-container").html("");
-            return this;
+            return this.$el.find(".day-container").html("");
+        },
+        clearWorkTime : function(){
+            return this.$el.find(".time-buckets").html("");
         },
         renderDay: function(workDayView){
-            this.$el.find(".day-container").append(workDayView.render().$el);
+            return this.$el.find(".day-container").append(workDayView.render().$el);
         },
         renderWorkTime : function(workTimeView){
-            this.$el.find(".time-buckets").append(workTimeView.renderOrder().$el);
+            return this.$el.find(".time-buckets").append(workTimeView.renderOrder().$el);
         },
         showLoading: function(toggle){
-            if (toggle){
-                this.$(".day-container").removeClass("error").addClass("loading");
-            } else {
-                this.$(".day-container").removeClass("loading");
-            }
+            return toggle ? this.$(".day-container").removeClass("error").addClass("loading") : this.$(".day-container").removeClass("loading");
         },
         showError : function(){
-            this.$(".day-container").removeClass("loading").addClass("error");
+            return this.$(".day-container").removeClass("loading").addClass("error");
+        },
+        showWarnText : function(show, test){
+            return !show ? this.$("#day-warn").addClass("hi") : this.$("#day-warn").removeClass("hi").html(test);
         }
     });
 
