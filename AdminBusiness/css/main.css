@@ -6080,7 +6080,7 @@ a.time-trigger:hover {
   border-bottom: 1px solid #C7C7C7;
   padding: 10px;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
-  background: #f4f4f4 ;
+  background: #f4f4f4;
   /* Old browsers */
   background: -moz-linear-gradient(top, #f4f4f4 0%, #eaeaea 100%);
   /* FF3.6-15 */
@@ -6222,8 +6222,8 @@ a.time-trigger:hover {
   width: 50%;
   height: 100%;
   border: 0;
-  border-top: 1px solid #c7c7c7 ;
-  border-right: 1px solid #c7c7c7 ;
+  border-top: 1px solid #c7c7c7;
+  border-right: 1px solid #c7c7c7;
 }
 .wd-cancel {
   display: block;
@@ -6234,6 +6234,19 @@ a.time-trigger:hover {
   border: 0;
   border-top: 1px solid #c7c7c7;
   border-left: 1px solid #fff;
+}
+.wd-error {
+  display: none;
+  text-align: center;
+  color: #FF5353;
+  border-radius: 5px;
+  background: #FFEAEA;
+  border: 1px solid #FF5353;
+  line-height: 1.6em;
+  margin: 5px 20px;
+}
+.wd-error.err {
+  display: block;
 }
 .wt-container {
   height: 400px;
