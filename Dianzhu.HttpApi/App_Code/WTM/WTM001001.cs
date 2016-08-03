@@ -156,6 +156,8 @@ public class ResponseWTM001001 : BaseResponse
 
                 ValidationResult vResult = new ValidationResult();
                 bllDZService.SaveOrUpdate(service, out vResult);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+
                 if (!vResult.IsValid)
                 {
                     this.state_CODE = Dicts.StateCode[1];
