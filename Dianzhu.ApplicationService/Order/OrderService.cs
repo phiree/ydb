@@ -16,7 +16,7 @@ namespace Dianzhu.ApplicationService.Order
         BLL.IIMSession imSession;
 
         public static BLL.BLLServiceOrderStateChangeHis bllstatehis;
-        BLL.BLLDZService blldzservice;
+        public static BLL.BLLDZService blldzservice;
         public static BLL.PushService bllpushservice;
         BLL.BLLServiceOrderRemind bllServiceOrderRemind;
         BLL.BLLServiceOrderAppraise bllServiceOrderAppraise;
@@ -30,7 +30,7 @@ namespace Dianzhu.ApplicationService.Order
         {
             this.ibllserviceorder = ibllserviceorder;
             OrderService.bllstatehis = bllstatehis;
-            this.blldzservice = blldzservice;
+            OrderService.blldzservice = blldzservice;
             OrderService.bllpushservice = bllpushservice;
             this.bllServiceOrderRemind = bllServiceOrderRemind;
             this.bllServiceOrderAppraise = bllServiceOrderAppraise;
@@ -65,21 +65,38 @@ namespace Dianzhu.ApplicationService.Order
             }
             orderobj.currentStatusObj.title = serviceorder.GetStatusTitleFriendly(serviceorder.OrderStatus);
             orderobj.currentStatusObj.content = serviceorder.GetStatusContextFriendly(serviceorder.OrderStatus);
-            orderobj.serviceSnapshotObj = Mapper.Map<Model.DZService, servicesObj>(serviceorder.Service);
-            orderobj.storeObj = Mapper.Map<Model.Business, storeObj>(serviceorder.Business);
-            if (orderobj.serviceSnapshotObj == null)
+            if (serviceorder.Details != null && serviceorder.Details.Count > 0)
             {
-                IList<Model.ServiceOrderPushedService> dzs= bllpushservice.GetPushedServicesForOrder(serviceorder);
+                orderobj.serviceSnapshotObj = Mapper.Map<Model.ServiceOrderDetail, serviceSnapshotObj>(serviceorder.Details[0]);
+                orderobj.storeObj = Mapper.Map<Model.Business, storeObj>(serviceorder.Business);
+                Store.StoreService.changeObj(orderobj.storeObj, serviceorder.Business);
+
+                IList<DZTag> tagsList = blldzservice.GetServiceTags(serviceorder.Details[0].OriginalService);
+                string strTag = "";
+                if (tagsList != null && tagsList.Count > 0)
+                {
+                    foreach (DZTag dztag in tagsList)
+                    {
+                        strTag = dztag.Text + ",";
+                    }
+                }
+                orderobj.serviceSnapshotObj.tag = strTag.TrimEnd(',');
+            }
+            else
+            {
+                IList<Model.ServiceOrderPushedService> dzs = bllpushservice.GetPushedServicesForOrder(serviceorder);
                 if (dzs.Count > 0)
                 {
-                    orderobj.serviceSnapshotObj = Mapper.Map<Model.ServiceOrderPushedService, servicesObj>(dzs[0]);
+                    orderobj.serviceTime = dzs[0].TargetTime.ToString("yyyyMMddHHmmss");
+                    orderobj.serviceSnapshotObj = Mapper.Map<Model.ServiceOrderPushedService, serviceSnapshotObj>(dzs[0]);
                     if (dzs[0].OriginalService != null && dzs[0].OriginalService.Business != null)
                     {
                         orderobj.storeObj = Mapper.Map<Model.Business, storeObj>(dzs[0].OriginalService.Business);
+                        Store.StoreService.changeObj(orderobj.storeObj, dzs[0].OriginalService.Business);
                     }
                 }
-
             }
+
             //if (orderobj.serviceSnapshotObj.serviceType != null && serviceorder.Service.ServiceType!=null)
             //{
             //    orderobj.serviceSnapshotObj.serviceType.fullDescription = serviceorder.Service.ServiceType.ToString();
@@ -290,7 +307,7 @@ namespace Dianzhu.ApplicationService.Order
         /// <param name="orderID"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public IList<servicesObj> GetPushServices(string orderID,Customer customer)
+        public IList<serviceSnapshotObj> GetPushServices(string orderID,Customer customer)
         {
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
             Model.ServiceOrder order = null;
@@ -304,7 +321,7 @@ namespace Dianzhu.ApplicationService.Order
                 throw new Exception("这不是你的订单！");
             }
             IList<Model.ServiceOrderPushedService> pushServiceList = bllpushservice.GetPushedServicesForOrder(order);
-            IList<servicesObj> servicesobj = Mapper.Map<IList<Model.ServiceOrderPushedService>, IList<servicesObj>>(pushServiceList);
+            IList<serviceSnapshotObj> servicesobj = Mapper.Map<IList<Model.ServiceOrderPushedService>, IList<serviceSnapshotObj>>(pushServiceList);
             for (int i = 0; i < servicesobj.Count; i++)
             {
                 servicesobj[i].location.longitude = pushServiceList[i].OriginalService.Business.Longitude.ToString();
@@ -345,7 +362,7 @@ namespace Dianzhu.ApplicationService.Order
             bllpushservice.SelectServiceAndCreate(order, service);
             ibllserviceorder.Update(order);
             //IList<ServiceOrderPushedService> pushServiceList = bllpushservice.GetPushedServicesForOrder(order);
-
+            //orderObj.svcObj.SetTag(orderObj.svcObj, tagsList);
             ServiceOrderStateChangeHis orderHis = bllstatehis.GetOrderHis(order);
 
             string strName = order.Details[0].ServieSnapShot.ServiceName ?? string.Empty;

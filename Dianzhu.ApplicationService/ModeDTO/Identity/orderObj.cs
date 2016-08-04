@@ -231,12 +231,12 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        servicesObj _serviceSnapshotObj = new servicesObj();
+        serviceSnapshotObj _serviceSnapshotObj = new serviceSnapshotObj();
         /// <summary>
         /// 服务项的模型
         /// </summary>
         /// <type>servicesObj</type>
-        public servicesObj serviceSnapshotObj
+        public serviceSnapshotObj serviceSnapshotObj
         {
             get
             {

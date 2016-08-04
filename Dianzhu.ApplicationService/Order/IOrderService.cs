@@ -61,7 +61,7 @@ namespace Dianzhu.ApplicationService.Order
         /// <param name="orderID"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        IList<servicesObj> GetPushServices(string orderID, Customer customer);
+        IList<serviceSnapshotObj> GetPushServices(string orderID, Customer customer);
 
         /// <summary>
         /// 草稿单确定服务
