@@ -13,11 +13,13 @@ namespace Dianzhu.ApplicationService.Snapshot
     {
         BLL.IBLLServiceOrder ibllserviceorder;
         BLL.BLLDZService blldzservice;
+        BLL.BLLServiceOrderStateChangeHis bllstatehis;
 
-        public SnapshotService(BLL.IBLLServiceOrder ibllserviceorder, BLL.BLLDZService blldzservice)
+        public SnapshotService(BLL.IBLLServiceOrder ibllserviceorder, BLL.BLLDZService blldzservice, BLL.BLLServiceOrderStateChangeHis bllstatehis)
         {
             this.ibllserviceorder = ibllserviceorder;
             this.blldzservice = blldzservice;
+            this.bllstatehis = bllstatehis;
         }
 
         /// <summary>
@@ -51,7 +53,7 @@ namespace Dianzhu.ApplicationService.Snapshot
             }
             IList<snapshortsObj> snapshortsobj = new List<snapshortsObj>();
             IList<ServiceOrder> orderList = ibllserviceorder.GetOrderListOfServiceByDateRange(guidService, StartTime, EndTime);
-            snapshortsobj = new snapshortsObj().Adap(orderList);
+            snapshortsobj = new snapshortsObj().Adap(orderList, bllstatehis);
             return snapshortsobj;
         }
 

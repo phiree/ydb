@@ -38,7 +38,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<complaintObj, Model.Complaint>()
-           // .ForMember(x => x.ComplaitResourcesUrl, opt => opt.MapFrom(source =>source.resourcesUrl))
+            .ForMember(x => x.ComplaitResourcesUrl, opt => opt.MapFrom(source =>new List<string>()))
             .ForMember(x => x.Order, opt => opt.MapFrom(source => new DAL.DALServiceOrder().FindById(utils.CheckGuidID(source.orderID, "orderID"))))
             .ForMember(x => x.Operator, opt => opt.MapFrom(source => new DAL.DALMembership().FindById(utils.CheckGuidID(source.senderID, "senderID"))))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));

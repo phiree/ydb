@@ -10,9 +10,11 @@ namespace Dianzhu.ApplicationService.Complaint
     public class ComplaintService: IComplaintService
     {
         BLL.BLLComplaint bllcomplaint;
-        public ComplaintService(BLL.BLLComplaint bllcomplaint)
+        BLL.IBLLServiceOrder ibllServiceOrder;
+        public ComplaintService(BLL.BLLComplaint bllcomplaint, BLL.IBLLServiceOrder ibllServiceOrder)
         {
             this.bllcomplaint = bllcomplaint;
+            this.ibllServiceOrder = ibllServiceOrder;
         }
 
         /// <summary>
@@ -42,6 +44,15 @@ namespace Dianzhu.ApplicationService.Complaint
             if (complaintobj.senderID != customer.UserID)
             {
                 throw new Exception("不能帮别人投诉！");
+            }
+            Model.ServiceOrder order = ibllServiceOrder.GetOne(utils.CheckGuidID(complaintobj.orderID, "complaintobj.orderID"));
+            if (order == null)
+            {
+                throw new Exception("投诉的订单不存在！");
+            }
+            if (order.Customer.Id.ToString () != complaintobj.senderID)
+            {
+                throw new Exception("不能投诉别人的订单！");
             }
             Model.Complaint complaint = Mapper.Map<complaintObj, Model.Complaint>(complaintobj);
             for (int i = 0; i < complaintobj.resourcesUrl.Count; i++)
@@ -83,6 +94,13 @@ namespace Dianzhu.ApplicationService.Complaint
                 throw new Exception(Dicts.StateCode[4]);
             }
             IList<complaintObj> complaintobj = Mapper.Map<IList<Model.Complaint>, IList<complaintObj>>(listcomplaint);
+            for (int i = 0; i < complaintobj.Count; i++)
+            {
+                for (int j = 0; j < complaintobj[i].resourcesUrl.Count; j++)
+                {
+                    complaintobj[i].resourcesUrl[j] = complaintobj[i].resourcesUrl[j] != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + complaintobj[i].resourcesUrl[j] : "";
+                }
+            }
             return complaintobj;
 
         }

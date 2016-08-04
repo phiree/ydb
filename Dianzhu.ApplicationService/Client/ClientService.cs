@@ -49,9 +49,12 @@ namespace Dianzhu.ApplicationService.Client
                 case "business":
                     userUri = strPath + "/api/v1/merchants/" + dzm.Id;
                     break;
+                case "customerservice":
+                    userUri = strPath + "/api/v1/CustomerServices/" + dzm.Id;
+                    break;
                 case "staff":
-                    Model.Staff staff = new Model.Staff();
-                    userUri = strPath + "/api/v1/stores/" + staff.Belongto.Id+"/staffs/" + staff.Id;
+                    Model.Staff staff = bllstaff.GetOneByUserID(Guid.Empty, dzm.Id.ToString()) ;
+                    userUri = strPath + "/api/v1/stores/" + staff.Belongto.Id + "/staffs/" + staff.Id;
                     break;
                 default:
                     throw new Exception("用户类型不正确！");

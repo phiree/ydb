@@ -15,7 +15,7 @@ namespace Dianzhu.ApplicationService.Order
         BLL.IBLLServiceOrder ibllserviceorder;
         BLL.IIMSession imSession;
 
-        static BLL.BLLServiceOrderStateChangeHis bllstatehis;
+        public static BLL.BLLServiceOrderStateChangeHis bllstatehis;
         BLL.BLLDZService blldzservice;
         BLL.PushService bllpushservice;
         BLL.BLLServiceOrderRemind bllServiceOrderRemind;
@@ -57,8 +57,11 @@ namespace Dianzhu.ApplicationService.Order
         {
             Model.ServiceOrderStateChangeHis statehis = bllstatehis.GetMaxNumberOrderHis(serviceorder);
             orderobj.currentStatusObj = Mapper.Map<Model.ServiceOrderStateChangeHis, orderStatusObj>(statehis);
-            orderobj.currentStatusObj.title = serviceorder.GetStatusTitleFriendly(serviceorder.OrderStatus);
-            orderobj.currentStatusObj.content = serviceorder.GetStatusContextFriendly(serviceorder.OrderStatus);
+            if (statehis != null)
+            {
+                orderobj.currentStatusObj.title = serviceorder.GetStatusTitleFriendly(serviceorder.OrderStatus);
+                orderobj.currentStatusObj.content = serviceorder.GetStatusContextFriendly(serviceorder.OrderStatus);
+            }
             orderobj.serviceSnapshotObj = Mapper.Map<Model.DZService, servicesObj>(serviceorder.Service);
             //if (orderobj.serviceSnapshotObj.serviceType != null && serviceorder.Service.ServiceType!=null)
             //{
