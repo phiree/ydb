@@ -93,7 +93,7 @@ namespace Dianzhu.ApplicationService.Mapping
 
             Mapper.CreateMap<Model.ServiceOrderPushedService, servicesObj>()
            .ForMember(x => x.name, opt => opt.MapFrom(source => source.ServiceName))
-           .ForMember(x => x.serviceType, opt => opt.MapFrom(source => source.OriginalService.ServiceType.ToString()))
+           .ForMember(x => x.serviceType, opt => opt.MapFrom(source => source.OriginalService.ServiceType))
            .ForMember(x => x.introduce, opt => opt.MapFrom(source => source.Description))
            .ForMember(x => x.startAt, opt => opt.MapFrom(source => source.MinPrice))
            .ForMember(x => x.deposit, opt => opt.MapFrom(source => source.DepositAmount))

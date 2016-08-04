@@ -17,7 +17,7 @@ namespace Dianzhu.ApplicationService.Order
 
         public static BLL.BLLServiceOrderStateChangeHis bllstatehis;
         BLL.BLLDZService blldzservice;
-        BLL.PushService bllpushservice;
+        public static BLL.PushService bllpushservice;
         BLL.BLLServiceOrderRemind bllServiceOrderRemind;
         BLL.BLLServiceOrderAppraise bllServiceOrderAppraise;
         BLL.BLLOrderAssignment bllOrderAssignment;
@@ -31,7 +31,7 @@ namespace Dianzhu.ApplicationService.Order
             this.ibllserviceorder = ibllserviceorder;
             OrderService.bllstatehis = bllstatehis;
             this.blldzservice = blldzservice;
-            this.bllpushservice = bllpushservice;
+            OrderService.bllpushservice = bllpushservice;
             this.bllServiceOrderRemind = bllServiceOrderRemind;
             this.bllServiceOrderAppraise = bllServiceOrderAppraise;
             this.imSession = imSession;
@@ -57,18 +57,35 @@ namespace Dianzhu.ApplicationService.Order
         {
             Model.ServiceOrderStateChangeHis statehis = bllstatehis.GetMaxNumberOrderHis(serviceorder);
             orderobj.currentStatusObj = Mapper.Map<Model.ServiceOrderStateChangeHis, orderStatusObj>(statehis);
-            if (statehis != null)
+            if (statehis == null)
             {
-                orderobj.currentStatusObj.title = serviceorder.GetStatusTitleFriendly(serviceorder.OrderStatus);
-                orderobj.currentStatusObj.content = serviceorder.GetStatusContextFriendly(serviceorder.OrderStatus);
+                orderobj.currentStatusObj = new orderStatusObj();
+                orderobj.currentStatusObj.status = serviceorder.OrderStatus.ToString();
+                orderobj.currentStatusObj.createTime = serviceorder.OrderCreated.ToString("yyyyMMddHHmmss");
             }
+            orderobj.currentStatusObj.title = serviceorder.GetStatusTitleFriendly(serviceorder.OrderStatus);
+            orderobj.currentStatusObj.content = serviceorder.GetStatusContextFriendly(serviceorder.OrderStatus);
             orderobj.serviceSnapshotObj = Mapper.Map<Model.DZService, servicesObj>(serviceorder.Service);
+            orderobj.storeObj = Mapper.Map<Model.Business, storeObj>(serviceorder.Business);
+            if (orderobj.serviceSnapshotObj == null)
+            {
+                IList<Model.ServiceOrderPushedService> dzs= bllpushservice.GetPushedServicesForOrder(serviceorder);
+                if (dzs.Count > 0)
+                {
+                    orderobj.serviceSnapshotObj = Mapper.Map<Model.ServiceOrderPushedService, servicesObj>(dzs[0]);
+                    if (dzs[0].OriginalService != null && dzs[0].OriginalService.Business != null)
+                    {
+                        orderobj.storeObj = Mapper.Map<Model.Business, storeObj>(dzs[0].OriginalService.Business);
+                    }
+                }
+
+            }
             //if (orderobj.serviceSnapshotObj.serviceType != null && serviceorder.Service.ServiceType!=null)
             //{
             //    orderobj.serviceSnapshotObj.serviceType.fullDescription = serviceorder.Service.ServiceType.ToString();
             //}
             orderobj.customerObj = Mapper.Map<Model.DZMembership, customerObj>(serviceorder.Customer);
-            orderobj.storeObj = Mapper.Map<Model.Business, storeObj>(serviceorder.Business);
+            
             orderobj.formanObj = Mapper.Map<Model.Staff, staffObj>(serviceorder.Staff);
             if (serviceorder.Business != null)
             {
