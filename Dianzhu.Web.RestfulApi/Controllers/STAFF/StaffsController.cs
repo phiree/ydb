@@ -32,7 +32,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
                 {
                     staffobj = new staffObj();
                 }
-                return Json(istaff.PostStaff(storeID, staffobj));
+                return Json(istaff.PostStaff(storeID, staffobj,GetRequestHeader.GetTraitHeaders("post/stores/{storeID}/staffs")));
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
                 {
                     stafffilter = new common_Trait_StaffFiltering();
                 }
-                return Json(istaff.GetStaffs(storeID, filter, stafffilter));
+                return Json(istaff.GetStaffs(storeID, filter, stafffilter, GetRequestHeader.GetTraitHeaders("get/stores/{storeID}/staffs")));
             }
             catch (Exception ex)
             {
@@ -83,7 +83,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
                 {
                     stafffilter = new common_Trait_StaffFiltering();
                 }
-                return Json(istaff.GetStaffsCount(storeID, stafffilter));
+                return Json(istaff.GetStaffsCount(storeID, stafffilter, GetRequestHeader.GetTraitHeaders("get/stores/{storeID}/staffs/count")));
             }
             catch (Exception ex)
             {
@@ -126,7 +126,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
                 {
                     staffobj = new staffObj();
                 }
-                return Json(istaff.PatchStaff(storeID, staffID, staffobj));
+                return Json(istaff.PatchStaff(storeID, staffID, staffobj, GetRequestHeader.GetTraitHeaders("patch/stores/{storeID}/staffs/{staffID}")));
             }
             catch (Exception ex)
             {
@@ -145,7 +145,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
         {
             try
             {
-                return Json(istaff.DeleteStaff(storeID, staffID));
+                return Json(istaff.DeleteStaff(storeID, staffID, GetRequestHeader.GetTraitHeaders("delete/stores/{storeID}/staffs/{staffID}")));
             }
             catch (Exception ex)
             {

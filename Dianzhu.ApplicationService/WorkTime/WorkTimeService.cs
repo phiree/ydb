@@ -24,11 +24,24 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <param name="storeID"></param>
         /// <param name="serviceID"></param>
         /// <param name="worktimeobj"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public workTimeObj PostWorkTime(string storeID, string serviceID, workTimeObj worktimeobj)
+        public workTimeObj PostWorkTime(string storeID, string serviceID, workTimeObj worktimeobj,Customer customer)
         {
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("所属店铺不能为空！");
+            }
+            if (string.IsNullOrEmpty(serviceID))
+            {
+                throw new FormatException("所属服务不能为空！");
+            }
             worktimeobj.bOpen = true;
-            if (worktimeobj.startTime != null && worktimeobj.endTime != null)
+            if (string.IsNullOrEmpty(worktimeobj.startTime) || string.IsNullOrEmpty(worktimeobj.endTime))
+            {
+                throw new FormatException("服务时间不能为空！");
+            }
+            else
             {
                 try
                 {
@@ -45,16 +58,12 @@ namespace Dianzhu.ApplicationService.WorkTime
                 {
                     throw new FormatException("服务时间格式不正确！");
                 }
-                //if (worktimeobj.startTime.CompareTo(worktimeobj.endTime) >= 0)
-                //{
-                //    throw new FormatException("服务开始时间不能大于等于结束时间！");
-                //}
+            }
+            if (string.IsNullOrEmpty(worktimeobj.maxCountOrder))
+            {
+                throw new FormatException("该时间段的最大接单量不能为空！");
             }
             else
-            {
-                throw new FormatException("服务时间不能为空！");
-            }
-            if (worktimeobj.maxCountOrder != null)
             {
                 int intCount = 0;
                 if (!int.TryParse(worktimeobj.maxCountOrder, out intCount))
@@ -62,25 +71,20 @@ namespace Dianzhu.ApplicationService.WorkTime
                     throw new FormatException("该时间段的最大接单量必须为整数！");
                 }
             }
-            else
-            {
-                throw new FormatException("该时间段的最大接单量不能为空！");
-            }
             DayOfWeek week1 = utils.CheckWeek(worktimeobj.week.ToString());
-            //if (!Enum.IsDefined(typeof(DayOfWeek), worktimeobj.week))
-            //{
-            //    //星期数 （1 ~ 7 周一~周日）
-            //    throw new Exception("服务开始时间不能大于等于结束时间！");
-            //}
+
             Model.DZService service = bllDZService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
             if (service == null)
             {
                 throw new Exception("不存在该服务！");
             }
-
             if (service.Business.Id != utils.CheckGuidID(storeID, "storeID"))
             {
                 throw new Exception("该服务不属于该店铺！");
+            }
+            if (service.Business.Owner.Id.ToString() != customer.UserID)
+            {
+                throw new Exception("这不是你店铺的服务！");
             }
             foreach (Model.ServiceOpenTime sotObj in service.OpenTimes)
             {
@@ -141,6 +145,14 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <returns></returns>
         public IList<workTimeObj> GetWorkTimes(string storeID, string serviceID,common_Trait_WorkTimeFiltering worktime)
         {
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("所属店铺不能为空！");
+            }
+            if (string.IsNullOrEmpty(serviceID))
+            {
+                throw new FormatException("所属服务不能为空！");
+            }
             List<workTimeObj> worktimeobjs = new List<workTimeObj>() ;
 
             Model.DZService service = bllDZService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
@@ -148,7 +160,6 @@ namespace Dianzhu.ApplicationService.WorkTime
             {
                 throw new Exception("不存在该服务！");
             }
-
             if (service.Business.Id != utils.CheckGuidID(storeID, "storeID"))
             {
                 throw new Exception("该服务不属于该店铺！");
@@ -186,6 +197,14 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <returns></returns>
         public countObj GetWorkTimesCount(string storeID, string serviceID, common_Trait_WorkTimeFiltering worktime)
         {
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("所属店铺不能为空！");
+            }
+            if (string.IsNullOrEmpty(serviceID))
+            {
+                throw new FormatException("所属服务不能为空！");
+            }
             int intcount = 0;
             Model.DZService service = bllDZService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
             if (service == null)
@@ -225,19 +244,35 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <param name="storeID"></param>
         /// <param name="serviceID"></param>
         /// <param name="workTimeID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public workTimeObj GetWorkTime(string storeID, string serviceID, string workTimeID)
+        public workTimeObj GetWorkTime(string storeID, string serviceID, string workTimeID,Customer customer)
         {
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("所属店铺不能为空！");
+            }
+            if (string.IsNullOrEmpty(serviceID))
+            {
+                throw new FormatException("所属服务不能为空！");
+            }
+            if (string.IsNullOrEmpty(workTimeID))
+            {
+                throw new FormatException("查询的工作时间ID不能为空！");
+            }
             workTimeObj worktimeobj = null ;
             Model.DZService service = bllDZService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
             if (service == null)
             {
                 throw new Exception("不存在该服务！");
             }
-
             if (service.Business.Id != utils.CheckGuidID(storeID, "storeID"))
             {
                 throw new Exception("该服务不属于该店铺！");
+            }
+            if (service.Business.Owner.Id.ToString() != customer.UserID)
+            {
+                throw new Exception("这不是你店铺的服务！");
             }
             Guid guidId = utils.CheckGuidID(workTimeID, "workTimeID");
             foreach (Model.ServiceOpenTime sotObj in service.OpenTimes)
@@ -266,9 +301,22 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <param name="serviceID"></param>
         /// <param name="workTimeID"></param>
         /// <param name="worktimeobj"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public workTimeObj PatchWorkTime(string storeID, string serviceID, string workTimeID, workTimeObj worktimeobj)
+        public workTimeObj PatchWorkTime(string storeID, string serviceID, string workTimeID, workTimeObj worktimeobj,Customer customer)
         {
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("所属店铺不能为空！");
+            }
+            if (string.IsNullOrEmpty(serviceID))
+            {
+                throw new FormatException("所属服务不能为空！");
+            }
+            if (string.IsNullOrEmpty(workTimeID))
+            {
+                throw new FormatException("修改的工作时间ID不能为空！");
+            }
             if (!string.IsNullOrEmpty(worktimeobj.startTime))
             {
                 try
@@ -311,6 +359,10 @@ namespace Dianzhu.ApplicationService.WorkTime
             if (service.Business.Id != utils.CheckGuidID(storeID, "storeID"))
             {
                 throw new Exception("该服务不属于该店铺！");
+            }
+            if (service.Business.Owner.Id.ToString() != customer.UserID)
+            {
+                throw new Exception("这不是你店铺的服务！");
             }
             Model.ServiceOpenTimeForDay sotDay = Mapper.Map<workTimeObj, Model.ServiceOpenTimeForDay>(worktimeobj);
             Model.ServiceOpenTimeForDay sotDay1 = new Model.ServiceOpenTimeForDay();
@@ -408,19 +460,35 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <param name="storeID"></param>
         /// <param name="serviceID"></param>
         /// <param name="workTimeID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public object DeleteWorkTime(string storeID, string serviceID, string workTimeID)
+        public object DeleteWorkTime(string storeID, string serviceID, string workTimeID,Customer customer)
         {
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("所属店铺不能为空！");
+            }
+            if (string.IsNullOrEmpty(serviceID))
+            {
+                throw new FormatException("所属服务不能为空！");
+            }
+            if (string.IsNullOrEmpty(workTimeID))
+            {
+                throw new FormatException("删除的工作时间ID不能为空！");
+            }
             workTimeObj worktimeobj = new workTimeObj();
             Model.DZService service = bllDZService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
             if (service == null)
             {
                 throw new Exception("不存在该服务！");
             }
-
             if (service.Business.Id != utils.CheckGuidID(storeID, "storeID"))
             {
                 throw new Exception("该服务不属于该店铺！");
+            }
+            if (service.Business.Owner.Id.ToString() != customer.UserID)
+            {
+                throw new Exception("这不是你店铺的服务！");
             }
             Guid guidId = utils.CheckGuidID(workTimeID, "workTimeID");
             int c = 0;

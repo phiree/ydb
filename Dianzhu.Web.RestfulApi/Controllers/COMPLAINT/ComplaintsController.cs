@@ -29,7 +29,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
         {
             try
             {
-                return Json(icomplaintservice.AddComplaint(complaintobj));
+                return Json(icomplaintservice.AddComplaint(complaintobj, GetRequestHeader.GetTraitHeaders("post/complaints")));
             }
             catch (Exception ex)
             {

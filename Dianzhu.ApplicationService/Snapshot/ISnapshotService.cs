@@ -9,13 +9,14 @@ namespace Dianzhu.ApplicationService.Snapshot
     public interface ISnapshotService
     {
         /// <summary>
-        /// 查询订单合集
+        /// 查询快照
         /// </summary>
+        /// <param name="ServiceID"></param>
         /// <param name="filter"></param>
-        /// <param name="orderfilter"></param>
-        /// <param name="headers"></param>
+        /// <param name="sna"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        IList<snapshortsObj> GetSnapshots(string ServiceID, common_Trait_Filtering filter, common_Trait_SnapshotFiltering sna, common_Trait_Headers headers);
+        IList<snapshortsObj> GetSnapshots(string ServiceID, common_Trait_Filtering filter, common_Trait_SnapshotFiltering sna, Customer customer);
 
 
     }

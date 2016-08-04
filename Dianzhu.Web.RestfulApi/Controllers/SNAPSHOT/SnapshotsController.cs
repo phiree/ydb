@@ -31,7 +31,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SNAPSHOT
                 {
                     sna = new common_Trait_SnapshotFiltering();
                 }
-                return Json(isnapshot.GetSnapshots(id,filter, sna, GetRequestHeader.GetTraitHeaders()));
+                return Json(isnapshot.GetSnapshots(id,filter, sna, GetRequestHeader.GetTraitHeaders("get/snapshots/{serviceID}")));
             }
             catch (Exception ex)
             {

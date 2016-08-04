@@ -47,5 +47,11 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <type>string</type>
         public string code { get; set; }
+
+        /// <summary>
+        /// 要变更的订单状态
+        /// </summary>
+        /// <type>string</type>
+        public string newStatus { get; set; }
     }
 }

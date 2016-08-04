@@ -204,16 +204,30 @@ namespace Dianzhu.BLL
         {
             var where = PredicateBuilder.True<Staff>();
             //where = where.And(x => x.Enable);
-            if (staffID != Guid.Empty)
-            {
-                where = where.And(x => x.Id == staffID);
-            }
+            where = where.And(x => x.Id == staffID);
             if (storeID != Guid.Empty)
             {
                 where = where.And(x => x.Belongto.Id == storeID);
             }
             Staff staff = dalStaff.FindOne(where);
             return staff;
+        }
+
+        /// <summary>
+        /// 根据用户ID获取员工信息
+        /// </summary>
+        /// <param name="storeID"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public Staff GetOneByUserID(Guid storeID, string userID)
+        {
+            var where = PredicateBuilder.True<Staff>();
+            where = where.And(x => x.UserID == userID);
+            if (storeID != Guid.Empty)
+            {
+                where = where.And(x => x.Belongto.Id == storeID);
+            }
+            return dalStaff.FindOne(where);
         }
     }
 }

@@ -20,25 +20,52 @@ namespace Dianzhu.ApplicationService.Staff
         }
 
         /// <summary>
+        /// 权限判断
+        /// </summary>
+        /// <param name="storeID"></param>
+        /// <param name="customer"></param>
+        Model.Business checkRute(string storeID, Customer customer)
+        {
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("storeID不能为空！");
+            }
+            Guid guidStore = utils.CheckGuidID(storeID, "storeID");
+            Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
+            if (customer.UserType == "business")
+            {
+                Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, guidCustomer);
+                if (business == null)
+                {
+                    throw new Exception("该店铺不存在！");
+                }
+                return business;
+            }
+            else
+            {
+                Model.Staff staff = bllStaff.GetOneByUserID(guidStore, customer.UserID);
+                if (staff == null)
+                {
+                    throw new Exception("你不是该店铺的员工！");
+                }
+                return staff.Belongto;
+            }
+        }
+
+        /// <summary>
         /// 新建员工 店铺的员工
         /// </summary>
         /// <param name="storeID"></param>
         /// <param name="staffobj"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public staffObj PostStaff(string storeID, staffObj staffobj)
+        public staffObj PostStaff(string storeID, staffObj staffobj,Customer customer)
         {
-            //Guid guidUser = new Guid();
-            //Model.Business business = bllBusiness.GetBusinessByIdAndOwner(utils.CheckGuidID(storeID, "storeID"), guidUser);
             if (staffobj.loginName == "" || staffobj.pWord == "")
             {
                 throw new Exception("登录的用户名或密码不能为空！");
             }
-            Model.Business business = bllBusiness.GetOne(utils.CheckGuidID(storeID, "storeID"));
-            if (business == null)
-            {
-                throw new Exception("该店铺不存在！");
-            }
-
+            Model.Business business = checkRute(storeID, customer);
             Model.Staff staff = Mapper.Map<staffObj, Model.Staff>(staffobj);
             System.Web.Security.MembershipCreateStatus mc = new System.Web.Security.MembershipCreateStatus();
             Model.DZMembership dzms= DZM.CreateUser(staffobj.loginName, null,  null, staffobj.pWord, out mc, Model.Enums.enum_UserType.staff);
@@ -68,12 +95,14 @@ namespace Dianzhu.ApplicationService.Staff
         /// <param name="storeID"></param>
         /// <param name="filter"></param>
         /// <param name="stafffilter"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public IList<staffObj> GetStaffs(string storeID, common_Trait_Filtering filter, common_Trait_StaffFiltering stafffilter)
+        public IList<staffObj> GetStaffs(string storeID, common_Trait_Filtering filter, common_Trait_StaffFiltering stafffilter,Customer customer)
         {
+            Model.Business business = checkRute(storeID, customer);
             IList<Model.Staff> staff = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Staff");
-            staff = bllStaff.GetStaffs(filter1, stafffilter.alias, stafffilter.email, stafffilter.phone, stafffilter.sex, stafffilter.specialty, stafffilter.realName, utils.CheckGuidID(storeID, "storeID"));
+            staff = bllStaff.GetStaffs(filter1, stafffilter.alias, stafffilter.email, stafffilter.phone, stafffilter.sex, stafffilter.specialty, stafffilter.realName, business.Id);
             if (staff == null)
             {
                 throw new Exception(Dicts.StateCode[4]);
@@ -87,9 +116,11 @@ namespace Dianzhu.ApplicationService.Staff
         /// </summary>
         /// <param name="storeID"></param>
         /// <param name="stafffilter"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public countObj GetStaffsCount(string storeID, common_Trait_StaffFiltering stafffilter)
+        public countObj GetStaffsCount(string storeID, common_Trait_StaffFiltering stafffilter,Customer customer)
         {
+            Model.Business business = checkRute(storeID, customer);
             countObj c = new countObj();
             c.count = bllStaff.GetStaffsCount(stafffilter.alias, stafffilter.email, stafffilter.phone, stafffilter.sex, stafffilter.specialty, stafffilter.realName, utils.CheckGuidID(storeID, "storeID")).ToString();
             return c;
@@ -118,27 +149,41 @@ namespace Dianzhu.ApplicationService.Staff
         /// <param name="storeID"></param>
         /// <param name="staffID"></param>
         /// <param name="staffobj"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public staffObj PatchStaff(string storeID, string staffID, staffObj staffobj)
+        public staffObj PatchStaff(string storeID, string staffID, staffObj staffobj,Customer customer)
         {
-            //Guid guidUser = new Guid();
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("storeID不能为空！");
+            }
+            if (string.IsNullOrEmpty(staffID))
+            {
+                throw new FormatException("staffID不能为空！");
+            }
             Guid guidStore = utils.CheckGuidID(storeID, "storeID");
-            Guid guidStaff = utils.CheckGuidID(staffID, "staffID");
-            //Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, guidUser);
-            Model.Business business = bllBusiness.GetOne(guidStore);
-            if (business == null)
+            Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
+            Model.Staff staff = null;
+            if (customer.UserType == "business")
             {
-                throw new Exception("该店铺不存在！");
+                Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, guidCustomer);
+                if (business == null)
+                {
+                    throw new Exception("该店铺不存在！");
+                }
             }
-            Model.Staff staff = bllStaff.GetStaff(guidStore, guidStaff);
-            if (staff == null)
+            else
             {
-                throw new Exception("该员工不在职！");
+                if (staffID != customer.UserID)
+                {
+                    throw new Exception("员工只能修改自己的信息！");
+                }
+                staff = bllStaff.GetOneByUserID(guidStore, customer.UserID);
+                if (staff == null)
+                {
+                    throw new Exception("你不是该店铺的员工！");
+                }
             }
-
-            //Model.Staff staff1 = new Model.Staff();
-            //staff.CopyTo(staff1);
-            //Model.Staff staff2 = Mapper.Map<staffObj, Model.Staff>(staffobj);
             if (string.IsNullOrEmpty(staffobj.alias)==false && staffobj.alias != staff.NickName)
             {
                 staff.NickName = staffobj.alias;
@@ -184,13 +229,18 @@ namespace Dianzhu.ApplicationService.Staff
         /// </summary>
         /// <param name="storeID"></param>
         /// <param name="staffID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public object DeleteStaff(string storeID, string staffID)
+        public object DeleteStaff(string storeID, string staffID,Customer customer)
         {
+            if (string.IsNullOrEmpty(staffID))
+            {
+                throw new FormatException("staffID不能为空！");
+            }
+            Model.Business business = checkRute(storeID, customer);
             Model.Staff staff = null;
-            Guid guidStore = utils.CheckGuidID(storeID, "storeID");
             Guid guidStaff = utils.CheckGuidID(staffID, "staffID");
-            staff = bllStaff.GetStaff(guidStore, guidStaff);
+            staff = bllStaff.GetStaff(business.Id, guidStaff);
             if (staff == null)
             {
                 throw new Exception("该员工不在职！");
