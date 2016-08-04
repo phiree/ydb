@@ -196,8 +196,8 @@ namespace Dianzhu.BLL
 
                     break;
                 default:
-                //case enum_OrderSearchType.ALL:
-                    where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                    //case enum_OrderSearchType.ALL:
+                        where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                          && x.OrderStatus != enum_OrderStatus.DraftPushed
                          && x.OrderStatus != enum_OrderStatus.Search)
                       ;

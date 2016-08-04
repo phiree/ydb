@@ -107,7 +107,8 @@ namespace Dianzhu.Model
                 this.MaxOrderForOpenTime,
                 datetime.Date,
                 PeriodStart,
-                PeriodEnd
+                PeriodEnd,
+                this.Id
                 );
         }
     }

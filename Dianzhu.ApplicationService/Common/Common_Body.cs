@@ -53,5 +53,11 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <type>string</type>
         public string newStatus { get; set; }
+
+        /// <summary>
+        /// 确认服务时的服务ID
+        /// </summary>
+        /// <type>string</type>
+        public string serviceID { get; set; }
     }
 }

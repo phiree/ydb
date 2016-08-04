@@ -17,7 +17,7 @@ namespace Dianzhu.ApplicationService.Store
             this.bllDZM = bllDZM;
         }
 
-        void changeObj(storeObj storeobj, Model.Business business)
+         public static void changeObj(storeObj storeobj, Model.Business business)
         {
             foreach (Model.BusinessImage bimg in business.ChargePersonIdCards)
             {

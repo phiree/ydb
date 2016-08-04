@@ -150,11 +150,15 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// <param name="serviceID"></param>
         /// <returns></returns>
         [Route("api/v1/orders/{orderID}/confirmService")]
-        public IHttpActionResult PutConfirmService(string orderID, [FromBody]string serviceID)
+        public IHttpActionResult PutConfirmService(string orderID, [FromBody]Common_Body commonBody)
         {
             try
             {
-                return Json(iorder.PutConfirmService(orderID,serviceID, GetRequestHeader.GetTraitHeaders("put/orders/{orderID}/confirmService")));
+                if (commonBody == null)
+                {
+                    commonBody = new Common_Body();
+                }
+                return Json(iorder.PutConfirmService(orderID, commonBody.serviceID, GetRequestHeader.GetTraitHeaders("put/orders/{orderID}/confirmService")));
             }
             catch (Exception ex)
             {
