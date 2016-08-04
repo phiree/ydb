@@ -16,7 +16,7 @@ namespace Dianzhu.Pay
 
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Pay.RefundCallBackAli");
 
-        public string RefundCallBack(object parameters, out string businessOrderId, out string platformOrderId, out decimal total_amount, out string errMsg)
+        public string RefundCallBack(object parameters, out string businessOrderId, out string platformOrder, out decimal total_amount, out string errMsg)
         {
             NameValueCollection coll = new NameValueCollection();
 
@@ -42,16 +42,15 @@ namespace Dianzhu.Pay
            
             bool isVerified = new Notify().Verify(sPara, notify_id, sign);
             log.Debug("参数验证结果:"+isVerified);
-            platformOrderId = businessOrderId = errMsg = string.Empty;
+            platformOrder = businessOrderId = errMsg = string.Empty;
 
             total_amount = 0m;
 
             if (isVerified)
             {
-                platformOrderId = batch_no;
-
                 string[] details_list = result_details.Split('^');
 
+                platformOrder = details_list[0];
                 total_amount = Convert.ToDecimal(details_list[1]);
 
                 return "SUCCESS";

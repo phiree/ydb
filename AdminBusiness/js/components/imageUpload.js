@@ -112,7 +112,7 @@
 
                 if ( ele.files[0].size > this.size ){
                     clearFileInput(ele);
-                    alert("图片大小应小于4M");
+                    alert("图片大小应小于2M");
                     return;
                 }
             }

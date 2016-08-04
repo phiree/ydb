@@ -158,6 +158,19 @@ namespace Dianzhu.BLL
                         //支付定金
                         bllOrder.OrderFlow_ConfirmDeposit(order);
                         break;
+                    case enum_OrderStatus.WaitingDepositWithCanceled:
+                        log.Debug("系统确认到帐，订单当前在等待退款，直接退款");
+                        if (bllOrder.ApplyRefund(payment, payment.Amount, "取消订单退还订金"))
+                        {
+                            log.Debug("更新订单状态");
+
+                            bllOrder.OrderFlow_EndCancel(order);
+                        }
+                        else
+                        {
+                            log.Error("退款失败，需联系系统管理员");
+                        }
+                        break;
                     case enum_OrderStatus.checkPayWithNegotiate:
                     case enum_OrderStatus.Ended:
                         bllOrder.OrderFlow_OrderFinished(order);
