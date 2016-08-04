@@ -14,15 +14,19 @@ namespace Dianzhu.ApplicationService.Chat
         /// <param name="orderID"></param>
         /// <param name="filter"></param>
         /// <param name="chatfilter"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        IList<chatObj> GetChats(string orderID, common_Trait_Filtering filter, common_Trait_ChatFiltering chatfilter);
+        IList<chatObj> GetChats(string orderID, common_Trait_Filtering filter, common_Trait_ChatFiltering chatfilter, Customer customer);
 
         /// <summary>
         /// 统计聊天信息的数量
         /// </summary>
         /// <param name="orderID"></param>
         /// <param name="chatfilter"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        countObj GetChatsCount(string orderID, common_Trait_ChatFiltering chatfilter);
+        countObj GetChatsCount(string orderID, common_Trait_ChatFiltering chatfilter, Customer customer);
+
+
     }
 }

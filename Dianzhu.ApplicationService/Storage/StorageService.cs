@@ -19,9 +19,9 @@ namespace Dianzhu.ApplicationService.Storage
         /// 上传图片
         /// </summary>
         /// <param name="fileBase4"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public imageObj PostImages(FileBase64 fileBase4, common_Trait_Headers headers)
+        public imageObj PostImages(FileBase64 fileBase4, Customer customer)
         {
             if (string.IsNullOrEmpty(fileBase4.data))
             {
@@ -37,9 +37,6 @@ namespace Dianzhu.ApplicationService.Storage
             string strWidth = "";
             string strSize = "";
             utils.Base64ToImage(fileBase4.data, out strHeight, out strWidth,out strSize);
-            Customer customer = new Customer();
-            customer = customer.getCustomer(headers.token, headers.apiKey, false);
-            //Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
             Model.StorageFileInfo fileinfo = new Model.StorageFileInfo();
             fileinfo.OriginalFileName = "";
             fileinfo.FileName = strFileName;
@@ -55,12 +52,12 @@ namespace Dianzhu.ApplicationService.Storage
         }
 
         /// <summary>
-        /// 上传语音
+        /// /上传语音
         /// </summary>
         /// <param name="fileBase4"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public audioObj PostAudios(FileBase64 fileBase4, common_Trait_Headers headers)
+        public audioObj PostAudios(FileBase64 fileBase4, Customer customer)
         {
             //utils.DownloadToMediaserver(@"G:\file\2.mp3", "", "voice");//1.wav//ring.mp3
             if (string.IsNullOrEmpty(fileBase4.data))
@@ -75,9 +72,6 @@ namespace Dianzhu.ApplicationService.Storage
             }
             string strSize = "";
             utils.Base64ToAudio(fileBase4.data, out strSize);
-            Customer customer = new Customer();
-            customer = customer.getCustomer(headers.token, headers.apiKey, false);
-            //Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
             string[] strs = strFileName.Split(new string[]{"_length_"}, StringSplitOptions.None);
             Model.StorageFileInfo fileinfo = new Model.StorageFileInfo();
             fileinfo.OriginalFileName = "";

@@ -19,8 +19,30 @@ namespace Dianzhu.ApplicationService.Complaint
         /// 新建投诉
         /// </summary>
         /// <param name="complaintobj"></param>
-        public complaintObj AddComplaint(complaintObj complaintobj)
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public complaintObj AddComplaint(complaintObj complaintobj,Customer customer)
         {
+            if (string.IsNullOrEmpty(complaintobj.senderID))
+            {
+                throw new FormatException("发送者 ID不能为空！");
+            }
+            if (string.IsNullOrEmpty(complaintobj.orderID))
+            {
+                throw new FormatException("投诉的订单ID不能为空！");
+            }
+            if (complaintobj.target.ToString ()!="cer" && complaintobj.target.ToString ()!="store")
+            {
+                throw new FormatException("投诉对象只能是客户(cer)和店铺(store)！");
+            }
+            if (string.IsNullOrEmpty(complaintobj.content))
+            {
+                throw new FormatException("投诉的描述不能为空！");
+            }
+            if (complaintobj.senderID != customer.UserID)
+            {
+                throw new Exception("不能帮别人投诉！");
+            }
             Model.Complaint complaint = Mapper.Map<complaintObj, Model.Complaint>(complaintobj);
             for (int i = 0; i < complaintobj.resourcesUrl.Count; i++)
             {

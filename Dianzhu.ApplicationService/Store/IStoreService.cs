@@ -12,25 +12,28 @@ namespace Dianzhu.ApplicationService.Store
         /// 新建店铺
         /// </summary>
         /// <param name="storeobj"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        storeObj PostStore(storeObj storeobj, common_Trait_Headers headers);
+        storeObj PostStore(storeObj storeobj, Customer customer);
 
         /// <summary>
         /// 条件读取店铺
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="storefilter"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        IList<storeObj> GetStores(common_Trait_Filtering filter, common_Trait_StoreFiltering storefilter, common_Trait_Headers headers);
+        IList<storeObj> GetStores(common_Trait_Filtering filter, common_Trait_StoreFiltering storefilter, Customer customer);
+
 
         /// <summary>
         /// 统计店铺数量
         /// </summary>
         /// <param name="storefilter"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        countObj GetStoresCount(common_Trait_StoreFiltering storefilter, common_Trait_Headers headers);
+        countObj GetStoresCount(common_Trait_StoreFiltering storefilter, Customer customer);
+
 
         /// <summary>
         /// 条件读取所有店铺
@@ -58,17 +61,20 @@ namespace Dianzhu.ApplicationService.Store
         /// 删除店铺
         /// </summary>
         /// <param name="storeID"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        object DeleteStore(string storeID, common_Trait_Headers headers);
+        object DeleteStore(string storeID, Customer customer);
+
 
         /// <summary>
         /// 更新店铺信息
         /// </summary>
         /// <param name="storeID"></param>
         /// <param name="storeobj"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        storeObj PatchStore(string storeID, storeObj storeobj, common_Trait_Headers headers);
+        storeObj PatchStore(string storeID, storeObj storeobj, Customer customer);
+
+
     }
 }

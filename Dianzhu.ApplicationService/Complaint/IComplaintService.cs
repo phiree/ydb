@@ -12,7 +12,9 @@ namespace Dianzhu.ApplicationService.Complaint
         /// 新建投诉
         /// </summary>
         /// <param name="complaintobj"></param>
-        complaintObj AddComplaint(complaintObj complaintobj);
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        complaintObj AddComplaint(complaintObj complaintobj, Customer customer);
 
         /// <summary>
         /// 条件读取投诉
