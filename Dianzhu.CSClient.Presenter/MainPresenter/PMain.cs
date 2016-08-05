@@ -87,7 +87,7 @@ namespace Dianzhu.CSClient.Presenter
             log.Debug("开始异步拉取点点的数据");
             //NHibernateUnitOfWork.With.Transaction(() => SysAssign(3));
             NHibernateUnitOfWork.UnitOfWork.Start();
-            SysAssign(3);
+            SysAssign(1);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
@@ -137,44 +137,43 @@ namespace Dianzhu.CSClient.Presenter
                         iViewIdentityList.AddIdentity(rs.Order);
                     }
                 }
-
             }
-            else
-            {
-                try
-                {
-                    IList<ServiceOrder> orderCList = dalReceptionChatDD.GetCustomListDistinctFrom(num);
-                    if (orderCList.Count > 0)
-                    {
-                        IList<DZMembership> logoffCList = new List<DZMembership>();
-                        foreach (ServiceOrder order in orderCList)
-                        {
-                            ReceptionStatus rs;
-                            if (!logoffCList.Contains(order.Customer))
-                            {
-                                logoffCList.Add(order.Customer);
+            //else
+            //{
+            //    try
+            //    {
+            //        IList<ServiceOrder> orderCList = dalReceptionChatDD.GetCustomListDistinctFrom(num);
+            //        if (orderCList.Count > 0)
+            //        {
+            //            IList<DZMembership> logoffCList = new List<DZMembership>();
+            //            foreach (ServiceOrder order in orderCList)
+            //            {
+            //                ReceptionStatus rs;
+            //                if (!logoffCList.Contains(order.Customer))
+            //                {
+            //                    logoffCList.Add(order.Customer);
 
-                                rs = new ReceptionStatus();
-                                rs.Customer = order.Customer;
-                                rs.CustomerService = GlobalViables.CurrentCustomerService;
-                                rs.Order = order;
-                                dalReceptionStatus.Add(rs);
-                            }
+            //                    rs = new ReceptionStatus();
+            //                    rs.Customer = order.Customer;
+            //                    rs.CustomerService = GlobalViables.CurrentCustomerService;
+            //                    rs.Order = order;
+            //                    dalReceptionStatus.Add(rs);
+            //                }
 
-                            //按订单显示按钮
-                            //ClientState.OrderList.Add(order);
-                            ClientState.customerList.Add(order.Customer);
-                            //view.AddCustomerButtonWithStyle(order, em_ButtonStyle.Unread);
-                            iViewIdentityList.AddIdentity(order);
-                        }
-                        CopyDDToChat(logoffCList);
-                    }
-                }
-                catch (Exception)
-                {
+            //                //按订单显示按钮
+            //                //ClientState.OrderList.Add(order);
+            //                ClientState.customerList.Add(order.Customer);
+            //                //view.AddCustomerButtonWithStyle(order, em_ButtonStyle.Unread);
+            //                iViewIdentityList.AddIdentity(order);
+            //            }
+            //            CopyDDToChat(logoffCList);
+            //        }
+            //    }
+            //    catch (Exception)
+            //    {
 
-                }
-            }
+            //    }
+            //}
 
         }
 

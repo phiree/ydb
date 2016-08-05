@@ -64,7 +64,7 @@ namespace Dianzhu.BLL
             else if (l.Count == 1)
             {
                 ServiceOrderPushedService s = l.Single(x => x.OriginalService.Id == selectedService.Id);
-                if (s==null)
+                if (s == null)
                 {
                     throw new Exception("该服务不是该订单的推送服务！");
                 }
@@ -78,13 +78,16 @@ namespace Dianzhu.BLL
 
                 Payment payment = bllPayment.ApplyPay(order, enum_PayTarget.Deposit);
 
-                if (order.DepositAmount == 0)
+                if (order.DepositAmount > 0)
+                {
+                    PHSuit.HttpHelper.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice&orderId=" + order.Id.ToString(), "get", null);
+                }
+                else
                 {
                     bllServiceOrder.OrderFlow_ConfirmDeposit(order);
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 }
-
-                //PHSuit.HttpHelper.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice&orderId=" + order.Id.ToString(), "get", null);                
-            }            
+            }
         }
     }
 }

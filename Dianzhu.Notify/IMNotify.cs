@@ -123,6 +123,16 @@ namespace Dianzhu.NotifyCenter
 
         }
 
+        public void SendCSLoginMessageToDD(Guid csId)
+        {
+            DZMembership cs = dalMembership.FindById(csId);
+            string notice = assigner.CSLogin(cs);
+            if (!string.IsNullOrEmpty(notice))
+            {
+                im.SendMessage(notice);
+            }
+        }
+
         public void SendRessaginMessage(Guid csId)
         {
           

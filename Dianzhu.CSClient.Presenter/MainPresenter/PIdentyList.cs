@@ -93,7 +93,7 @@ namespace Dianzhu.CSClient.Presenter
                 string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
                 string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
                                                   <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:cer:offline""></ext></message>",
-                                                  order.Customer.Id + "@" + server, GlobalViables.CurrentCustomerService.Id, Guid.NewGuid() + "@" + server);
+                                                  order.Customer.Id + "@" + server, GlobalViables.CurrentCustomerService.Id, Guid.NewGuid());
                 iIM.SendMessage(noticeDraftNew);
             }
 
