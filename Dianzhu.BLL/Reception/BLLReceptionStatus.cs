@@ -271,6 +271,20 @@ namespace Dianzhu.BLL
 
             return assigned;
         }
+
+        public virtual string CSLogin(DZMembership  customerService)
+        {
+            string notice = string.Empty;
+            if (customerService.UserType== Model.Enums.enum_UserType.customerservice)
+            {
+                string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
+                notice = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
+                                                  <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:cer:online""></ext></message>",
+                                                  Diandian.Id + "@" + server, customerService.Id, Guid.NewGuid());
+            }            
+
+            return notice;
+        }
         
         /// <summary>
         /// 客服下线

@@ -147,12 +147,19 @@ public class ResponseOFP001001 : BaseResponse
             switch (currentIM.Status)
             {
                 case enum_UserStatus.available:
+                    string imServerAPIInvokeUrl = string.Empty;
                     if (member.UserType == enum_UserType.customer)
                     {
                         //用户上线后，通知客服工具
-                        string imServerAPIInvokeUrl = "type=customlogin&userId=" + userId;
+                        imServerAPIInvokeUrl = "type=customlogin&userId=" + userId;
                         VisitIMServerApi(imServerAPIInvokeUrl);
-                    }                    
+                    }
+                    else
+                    {
+                        //客服上线，通知点点
+                        imServerAPIInvokeUrl = "type=cslogin&userId=" + userId;
+                        VisitIMServerApi(imServerAPIInvokeUrl);
+                    }
                     break;
                 case enum_UserStatus.unavailable:
                     string imServerAPIInvokeUrlUn = string.Empty;
