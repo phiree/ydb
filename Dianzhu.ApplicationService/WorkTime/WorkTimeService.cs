@@ -349,7 +349,7 @@ namespace Dianzhu.ApplicationService.WorkTime
                     throw new FormatException("该时间段的最大接单量必须为整数！");
                 }
             }
-            DayOfWeek week1 = utils.CheckWeek(worktimeobj.week.ToString());
+            //DayOfWeek week1 = utils.CheckWeek(worktimeobj.week.ToString());
             Model.DZService service = bllDZService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
             if (service == null)
             {
@@ -369,69 +369,81 @@ namespace Dianzhu.ApplicationService.WorkTime
             Guid guidId = utils.CheckGuidID(workTimeID, "workTimeID");
             //sotDay.Id = guidId;
             int c = 0;
+            string week1 = "";
             foreach (Model.ServiceOpenTime sotObj in service.OpenTimes)
             {
-                if (sotObj.DayOfWeek == week1)
+                //if (sotObj.DayOfWeek == week1)
+                //{
+                bool isConflict = false;
+                foreach (Model.ServiceOpenTimeForDay d in sotObj.OpenTimeForDay)
                 {
-                    bool isConflict = false;
+                    if (d.Id == guidId)
+                    {
+                        week1 = sotObj.DayOfWeek.ToString();
+                        //d.CopyTo(sotDay1);
+                        //if (sotDay.Tag != null && sotDay.Tag != sotDay1.Tag)
+                        //{
+                        //    sotDay1.Tag = sotDay.Tag;
+                        //}
+                        //if (sotDay.TimeStart != null && sotDay.TimeStart != sotDay1.TimeStart)
+                        //{
+                        //    sotDay1.TimeStart = sotDay.TimeStart;
+                        //}
+                        //if (sotDay.TimeEnd != null && sotDay.TimeEnd != sotDay1.TimeEnd)
+                        //{
+                        //    sotDay1.TimeEnd = sotDay.TimeEnd;
+                        //}
+                        //if (sotDay.MaxOrderForOpenTime != 0 && sotDay.MaxOrderForOpenTime != sotDay1.MaxOrderForOpenTime)
+                        //{
+                        //    sotDay1.MaxOrderForOpenTime = sotDay.MaxOrderForOpenTime;
+                        //}
+                        //if (sotDay.Enabled != sotDay1.Enabled)
+                        //{
+                        //    sotDay1.Enabled = sotDay.Enabled;
+                        //}
+                        if (string.IsNullOrEmpty(worktimeobj.tag) == false && worktimeobj.tag != d.Tag)
+                        {
+                            d.Tag = worktimeobj.tag;
+                        }
+                        if (worktimeobj.startTime != "" && worktimeobj.startTime != d.TimeStart)
+                        {
+                            d.TimeStart = worktimeobj.startTime;
+                        }
+                        if (worktimeobj.endTime != "" && worktimeobj.endTime != d.TimeEnd)
+                        {
+                            d.TimeEnd = worktimeobj.endTime;
+                        }
+                        if (d.TimeStart.CompareTo(d.TimeEnd) >= 0)
+                        {
+                            throw new FormatException("修改后服务开始时间大于等于结束时间！");
+                        }
+                        if (intCount != 0 && intCount != d.MaxOrderForOpenTime)
+                        {
+                            d.MaxOrderForOpenTime = intCount;
+                        }
+                        if (worktimeobj.bOpen != d.Enabled)
+                        {
+                            d.Enabled = worktimeobj.bOpen;
+                        }
+                        d.CopyTo(sotDay1);
+                        c++;
+                        break;
+                    }
+                    //else
+                    //{
+                    //    if (!(sotDay.PeriodStart >= d.PeriodEnd || sotDay.PeriodEnd < d.PeriodStart))
+                    //    {
+                    //        isConflict = true;
+                    //    }
+                    //}
+                }
+                if (c == 1)
+                {
                     foreach (Model.ServiceOpenTimeForDay d in sotObj.OpenTimeForDay)
                     {
-                        if (d.Id == guidId)
+                        if (d.Id != guidId && !(sotDay.PeriodStart >= d.PeriodEnd || sotDay.PeriodEnd < d.PeriodStart))
                         {
-                            //d.CopyTo(sotDay1);
-                            //if (sotDay.Tag != null && sotDay.Tag != sotDay1.Tag)
-                            //{
-                            //    sotDay1.Tag = sotDay.Tag;
-                            //}
-                            //if (sotDay.TimeStart != null && sotDay.TimeStart != sotDay1.TimeStart)
-                            //{
-                            //    sotDay1.TimeStart = sotDay.TimeStart;
-                            //}
-                            //if (sotDay.TimeEnd != null && sotDay.TimeEnd != sotDay1.TimeEnd)
-                            //{
-                            //    sotDay1.TimeEnd = sotDay.TimeEnd;
-                            //}
-                            //if (sotDay.MaxOrderForOpenTime != 0 && sotDay.MaxOrderForOpenTime != sotDay1.MaxOrderForOpenTime)
-                            //{
-                            //    sotDay1.MaxOrderForOpenTime = sotDay.MaxOrderForOpenTime;
-                            //}
-                            //if (sotDay.Enabled != sotDay1.Enabled)
-                            //{
-                            //    sotDay1.Enabled = sotDay.Enabled;
-                            //}
-                            if (string.IsNullOrEmpty(worktimeobj.tag)== false && worktimeobj.tag != d.Tag)
-                            {
-                                d.Tag = worktimeobj.tag;
-                            }
-                            if ( worktimeobj.startTime != "" && worktimeobj.startTime != d.TimeStart)
-                            {
-                                d.TimeStart = worktimeobj.startTime;
-                            }
-                            if (worktimeobj.endTime != "" && worktimeobj.endTime != d.TimeEnd)
-                            {
-                                d.TimeEnd = worktimeobj.endTime;
-                            }
-                            if (d.TimeStart.CompareTo(d.TimeEnd)>=0)
-                            {
-                                throw new FormatException("修改后服务开始时间大于等于结束时间！");
-                            }
-                            if (intCount != 0 && intCount != d.MaxOrderForOpenTime)
-                            {
-                                d.MaxOrderForOpenTime = intCount;
-                            }
-                            if (worktimeobj.bOpen != d.Enabled)
-                            {
-                                d.Enabled = worktimeobj.bOpen;
-                            }
-                            d.CopyTo(sotDay1);
-                            c++;
-                        }
-                        else
-                        {
-                            if (!(sotDay.PeriodStart >= d.PeriodEnd || sotDay.PeriodEnd < d.PeriodStart))
-                            {
-                                isConflict = true;
-                            }
+                            isConflict = true;
                         }
                     }
                     if (isConflict)
@@ -440,6 +452,8 @@ namespace Dianzhu.ApplicationService.WorkTime
                     }
                     break;
                 }
+                
+                //}
             }
             if (c == 0)
             {
@@ -450,7 +464,7 @@ namespace Dianzhu.ApplicationService.WorkTime
                 //blltimeforday.Update(sotDay1);
             }
             worktimeobj= Mapper.Map< Model.ServiceOpenTimeForDay,workTimeObj>(sotDay1);
-            worktimeobj.week = week1.ToString();
+            worktimeobj.week = week1;
             return worktimeobj;
         }
 

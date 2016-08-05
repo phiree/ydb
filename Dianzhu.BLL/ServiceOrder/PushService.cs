@@ -75,6 +75,7 @@ namespace Dianzhu.BLL
 
                 //保存订单历史记录
                 bllServiceOrderStateChangeHis.Save(order, enum_OrderStatus.DraftPushed);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
                 if (order.DepositAmount > 0)
                 {

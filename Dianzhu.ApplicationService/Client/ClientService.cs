@@ -40,6 +40,14 @@ namespace Dianzhu.ApplicationService.Client
                 throw new Exception("001002");
             }
             Model.DZMembership dzm = dzmp.GetUserByName(loginName);
+            if (dzm == null)
+            {
+                dzm = dzmp.GetUserById(utils.CheckGuidID(loginName, "loginName"));
+            }
+            if (dzm == null)
+            {
+                throw new Exception("该用户不存在！");
+            }
             string userUri = "";
             switch (dzm.UserType.ToString())
             {
