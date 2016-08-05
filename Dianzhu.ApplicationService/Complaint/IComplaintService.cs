@@ -31,5 +31,14 @@ namespace Dianzhu.ApplicationService.Complaint
         /// <param name="complaint"></param>
         /// <returns></returns>
         countObj GetComplaintsCount( common_Trait_ComplainFiltering complaint);
+
+        /// <summary>
+        /// 读取投诉信息
+        /// </summary>
+        /// <param name="complaintID"></param>
+        /// <returns></returns>
+        complaintObj GetOneComplaint(string complaintID);
+
+
     }
 }
