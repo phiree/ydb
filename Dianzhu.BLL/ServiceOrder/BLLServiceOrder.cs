@@ -969,37 +969,50 @@ namespace Dianzhu.BLL
                         return false;
                     }
 
-                    switch (order.OrderStatus)
+                    if (payment.Amount > 0)
                     {
-                        case enum_OrderStatus.checkPayWithDeposit:
-                            log.Debug("系统没有确认到帐，等待确认到帐后退款");
-                            log.Debug("更新订单状态");
-                            ChangeStatus(order, enum_OrderStatus.Canceled);
-                            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                            ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
-
-                            isCanceled = true;
-                            break;
-                        case enum_OrderStatus.Payed:
-                            log.Debug("系统确认到帐，直接退款");
-                            if (ApplyRefund(payment, payment.Amount, "取消订单退还订金"))
-                            {
+                        switch (order.OrderStatus)
+                        {
+                            case enum_OrderStatus.checkPayWithDeposit:
+                                log.Debug("系统没有确认到帐，等待确认到帐后退款");
                                 log.Debug("更新订单状态");
-                                //order.OrderStatus = oldStatus;
                                 ChangeStatus(order, enum_OrderStatus.Canceled);
                                 NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                                ChangeStatus(order, enum_OrderStatus.EndCancel);
+                                ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
 
                                 isCanceled = true;
-                            }
-                            else
-                            {
-                                isCanceled = false;
-                            }
-                            break;
-                        default:
-                            return false;
+                                break;
+                            case enum_OrderStatus.Payed:
+                                log.Debug("系统确认到帐，直接退款");
+                                if (ApplyRefund(payment, payment.Amount, "取消订单退还订金"))
+                                {
+                                    log.Debug("更新订单状态");
+                                    //order.OrderStatus = oldStatus;
+                                    ChangeStatus(order, enum_OrderStatus.Canceled);
+                                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                                    ChangeStatus(order, enum_OrderStatus.EndCancel);
+
+                                    isCanceled = true;
+                                }
+                                else
+                                {
+                                    isCanceled = false;
+                                }
+                                break;
+                            default:
+                                return false;
+                        }
                     }
+                    else
+                    {
+                        log.Debug("更新订单状态");
+                        //order.OrderStatus = oldStatus;
+                        ChangeStatus(order, enum_OrderStatus.Canceled);
+                        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                        ChangeStatus(order, enum_OrderStatus.EndCancel);
+
+                        isCanceled = true;
+                    }                    
                 }
                 else
                 {
