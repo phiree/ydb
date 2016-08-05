@@ -79,5 +79,22 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
                 return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
             }
         }
+
+        /// <summary>
+        /// 读取投诉信息
+        /// </summary>
+        /// <param name="id">投诉ID</param>
+        /// <returns></returns>
+        public IHttpActionResult GetComplaint(string id)
+        {
+            try
+            {
+                return Json(icomplaintservice.GetOneComplaint(id));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
     }
 }

@@ -117,5 +117,25 @@ namespace Dianzhu.ApplicationService.Complaint
             return c; 
 
         }
+
+        /// <summary>
+        /// 读取投诉信息
+        /// </summary>
+        /// <param name="complaintID"></param>
+        /// <returns></returns>
+        public complaintObj GetOneComplaint(string complaintID)
+        {
+            Model.Complaint complaint = bllcomplaint.GetComplaintById(utils.CheckGuidID(complaintID, "complaintID"));
+            if (complaint == null)
+            {
+                throw new Exception(Dicts.StateCode[4]);
+            }
+            complaintObj complaintobj = Mapper.Map<Model.Complaint, complaintObj>(complaint);
+            for (int i = 0; i < complaint.ComplaitResourcesUrl.Count; i++)
+            {
+                complaintobj.resourcesUrl[i] = complaintobj.resourcesUrl[i] != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + complaintobj.resourcesUrl[i] : "";
+            }
+            return complaintobj;
+        }
     }
 }

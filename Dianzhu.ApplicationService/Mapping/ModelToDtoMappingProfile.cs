@@ -89,6 +89,7 @@ namespace Dianzhu.ApplicationService.Mapping
            .ForMember(x => x.eSupportPayWay, opt => opt.MapFrom(source => source.AllowedPayType.ToString()))
            .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.Enabled))
            .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.MaxOrdersPerDay))
+           .ForMember(x => x.chargeUnit, opt => opt.MapFrom(source => source.ChargeUnitFriendlyName))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.ServiceOrderPushedService, serviceSnapshotObj>()
@@ -104,6 +105,7 @@ namespace Dianzhu.ApplicationService.Mapping
            .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.OriginalService.Enabled))
            .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.OriginalService.MaxOrdersPerDay))
            .ForMember(x => x.originalServiceID, opt => opt.MapFrom(source => source.OriginalService.Id.ToString()))
+           .ForMember(x => x.chargeUnit, opt => opt.MapFrom(source => source.OriginalService.ChargeUnitFriendlyName))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.ServiceOrderDetail, serviceSnapshotObj>()
@@ -120,6 +122,7 @@ namespace Dianzhu.ApplicationService.Mapping
            .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.OriginalService.Enabled))
            .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.ServiceOpentimeSnapshot.MaxOrderForDay))
            .ForMember(x => x.originalServiceID, opt => opt.MapFrom(source => source.OriginalService.Id.ToString()))
+           .ForMember(x => x.chargeUnit, opt => opt.MapFrom(source => source.OriginalService.ChargeUnitFriendlyName))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
 
