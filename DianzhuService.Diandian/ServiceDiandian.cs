@@ -110,7 +110,10 @@ namespace DianzhuService.Diandian
                         return;
                     case "ihelper:notice:cer:offline":
                         log.Debug("收到客服离线通知");
-                        csOnLine--;
+                        if (csOnLine > 0)
+                        {
+                            csOnLine--;
+                        }
                         return;
                     default:
                         log.Warn("请求的类型" + msgType.ToLower() + "无法处理，直接返回");
