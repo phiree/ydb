@@ -87,7 +87,7 @@ namespace Dianzhu.CSClient.Presenter
             log.Debug("开始异步拉取点点的数据");
             //NHibernateUnitOfWork.With.Transaction(() => SysAssign(3));
             NHibernateUnitOfWork.UnitOfWork.Start();
-            SysAssign(1);
+            SysAssign(3);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
@@ -113,8 +113,9 @@ namespace Dianzhu.CSClient.Presenter
                     rs.CustomerService = GlobalViables.CurrentCustomerService;
                     log.Debug("保存新分配的接待记录");
                     dalReceptionStatus.Update(rs);
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
-                    CopyDDToChat(rsList.Select(x => x.Customer).ToList());
+                    //CopyDDToChat(rsList.Select(x => x.Customer).ToList());
 
                     ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
                     rChatReAss.From = GlobalViables.Diandian;
