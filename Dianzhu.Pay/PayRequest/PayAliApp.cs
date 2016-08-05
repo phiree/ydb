@@ -43,7 +43,7 @@ namespace Dianzhu.Pay
             sParaTemp.Add("subject", PaySubjectPre + PaySubject);
             sParaTemp.Add("payment_type", Config.paytype);
             sParaTemp.Add("seller_id", Config.seller_id);
-            sParaTemp.Add("body", PayMemo);
+            //sParaTemp.Add("body", PayMemo);
             sParaTemp.Add("total_fee", string.Format("{0:F2}", PayAmount));
             sParaTemp.Add("app_id", Config.app_id);
             
