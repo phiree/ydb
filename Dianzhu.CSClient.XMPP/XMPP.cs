@@ -160,6 +160,7 @@ namespace Dianzhu.CSClient.XMPP
             iqHeartBeat.AddChild(pingNode);
 
             XmppClientConnection.Send(iqHeartBeat);
+            log.Debug("HeartBeat"+iqHeartBeat.ToString());
         }
         public void SendPresent()
         {
