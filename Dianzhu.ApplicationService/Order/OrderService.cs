@@ -15,22 +15,23 @@ namespace Dianzhu.ApplicationService.Order
         BLL.IBLLServiceOrder ibllserviceorder;
         BLL.IIMSession imSession;
 
-        static BLL.BLLServiceOrderStateChangeHis bllstatehis;
-        BLL.BLLDZService blldzservice;
-        BLL.PushService bllpushservice;
+        public static BLL.BLLServiceOrderStateChangeHis bllstatehis;
+        public static BLL.BLLDZService blldzservice;
+        public static BLL.PushService bllpushservice;
         BLL.BLLServiceOrderRemind bllServiceOrderRemind;
         BLL.BLLServiceOrderAppraise bllServiceOrderAppraise;
         BLL.BLLOrderAssignment bllOrderAssignment;
         BLL.DZMembershipProvider bllDZM;
         BLL.BLLClaims bllClaims;
         BLL.BLLClaimsDetails bLLClaimsDetails;
+        BLL.BLLStaff bllStaff;
         public OrderService(BLL.IBLLServiceOrder ibllserviceorder, BLL.BLLServiceOrderStateChangeHis bllstatehis, BLL.BLLDZService blldzservice, BLL.PushService bllpushservice, BLL.BLLServiceOrderRemind bllServiceOrderRemind,
-        BLL.BLLServiceOrderAppraise bllServiceOrderAppraise, BLL.IIMSession imSession, BLL.BLLOrderAssignment bllOrderAssignment, BLL.DZMembershipProvider bllDZM, BLL.BLLClaims bllClaims, BLL.BLLClaimsDetails bLLClaimsDetails)
+        BLL.BLLServiceOrderAppraise bllServiceOrderAppraise, BLL.IIMSession imSession, BLL.BLLOrderAssignment bllOrderAssignment, BLL.DZMembershipProvider bllDZM, BLL.BLLClaims bllClaims, BLL.BLLClaimsDetails bLLClaimsDetails, BLL.BLLStaff bllStaff)
         {
             this.ibllserviceorder = ibllserviceorder;
             OrderService.bllstatehis = bllstatehis;
-            this.blldzservice = blldzservice;
-            this.bllpushservice = bllpushservice;
+            OrderService.blldzservice = blldzservice;
+            OrderService.bllpushservice = bllpushservice;
             this.bllServiceOrderRemind = bllServiceOrderRemind;
             this.bllServiceOrderAppraise = bllServiceOrderAppraise;
             this.imSession = imSession;
@@ -38,6 +39,7 @@ namespace Dianzhu.ApplicationService.Order
             this.bllDZM = bllDZM;
             this.bllClaims = bllClaims;
             this.bLLClaimsDetails = bLLClaimsDetails;
+            this.bllStaff = bllStaff;
         }
 
         /// <summary>
@@ -55,15 +57,52 @@ namespace Dianzhu.ApplicationService.Order
         {
             Model.ServiceOrderStateChangeHis statehis = bllstatehis.GetMaxNumberOrderHis(serviceorder);
             orderobj.currentStatusObj = Mapper.Map<Model.ServiceOrderStateChangeHis, orderStatusObj>(statehis);
+            if (statehis == null)
+            {
+                orderobj.currentStatusObj = new orderStatusObj();
+                orderobj.currentStatusObj.status = serviceorder.OrderStatus.ToString();
+                orderobj.currentStatusObj.createTime = serviceorder.OrderCreated.ToString("yyyyMMddHHmmss");
+            }
             orderobj.currentStatusObj.title = serviceorder.GetStatusTitleFriendly(serviceorder.OrderStatus);
             orderobj.currentStatusObj.content = serviceorder.GetStatusContextFriendly(serviceorder.OrderStatus);
-            orderobj.serviceSnapshotObj = Mapper.Map<Model.DZService, servicesObj>(serviceorder.Service);
+            if (serviceorder.Details != null && serviceorder.Details.Count > 0)
+            {
+                orderobj.serviceSnapshotObj = Mapper.Map<Model.ServiceOrderDetail, serviceSnapshotObj>(serviceorder.Details[0]);
+                orderobj.storeObj = Mapper.Map<Model.Business, storeObj>(serviceorder.Business);
+                Store.StoreService.changeObj(orderobj.storeObj, serviceorder.Business);
+
+                IList<DZTag> tagsList = blldzservice.GetServiceTags(serviceorder.Details[0].OriginalService);
+                string strTag = "";
+                if (tagsList != null && tagsList.Count > 0)
+                {
+                    foreach (DZTag dztag in tagsList)
+                    {
+                        strTag = dztag.Text + ",";
+                    }
+                }
+                orderobj.serviceSnapshotObj.tag = strTag.TrimEnd(',');
+            }
+            else
+            {
+                IList<Model.ServiceOrderPushedService> dzs = bllpushservice.GetPushedServicesForOrder(serviceorder);
+                if (dzs.Count > 0)
+                {
+                    orderobj.serviceTime = dzs[0].TargetTime.ToString("yyyyMMddHHmmss");
+                    orderobj.serviceSnapshotObj = Mapper.Map<Model.ServiceOrderPushedService, serviceSnapshotObj>(dzs[0]);
+                    if (dzs[0].OriginalService != null && dzs[0].OriginalService.Business != null)
+                    {
+                        orderobj.storeObj = Mapper.Map<Model.Business, storeObj>(dzs[0].OriginalService.Business);
+                        Store.StoreService.changeObj(orderobj.storeObj, dzs[0].OriginalService.Business);
+                    }
+                }
+            }
+
             //if (orderobj.serviceSnapshotObj.serviceType != null && serviceorder.Service.ServiceType!=null)
             //{
             //    orderobj.serviceSnapshotObj.serviceType.fullDescription = serviceorder.Service.ServiceType.ToString();
             //}
             orderobj.customerObj = Mapper.Map<Model.DZMembership, customerObj>(serviceorder.Customer);
-            orderobj.storeObj = Mapper.Map<Model.Business, storeObj>(serviceorder.Business);
+            
             orderobj.formanObj = Mapper.Map<Model.Staff, staffObj>(serviceorder.Staff);
             if (serviceorder.Business != null)
             {
@@ -110,9 +149,9 @@ namespace Dianzhu.ApplicationService.Order
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="orderfilter"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public IList<orderObj> GetOrders(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter, common_Trait_Headers headers)
+        public IList<orderObj> GetOrders(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter, Customer customer)
         {
             Guid guidStore = utils.CheckGuidID(orderfilter.storeID, "orderfilter.storeID");
             string strStaffID = orderfilter.formanID == null ? null : utils.CheckGuidID(orderfilter.formanID, "orderfilter.formanID").ToString();
@@ -120,12 +159,6 @@ namespace Dianzhu.ApplicationService.Order
             DateTime dtBefore= utils.CheckDateTime(orderfilter.beforeThisTime, "yyyyMMddHHmmss", "orderfilter.beforeThisTime");
             IList<Model.ServiceOrder> order = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ServiceOrder");
-            Customer customer = new Customer();
-            customer = customer.getCustomer(headers.token, headers.apiKey, false);
-            if (customer.UserType != "customer" && customer.UserType != "business")
-            {
-                throw new Exception("没有访问权限！");
-            }
             Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
             order = ibllserviceorder.GetOrders(filter1, orderfilter.statusSort, orderfilter.status,guidStore,strStaffID, dtBefore, dtAfter,guidUser,customer.UserType,orderfilter.assign);
 
@@ -145,21 +178,15 @@ namespace Dianzhu.ApplicationService.Order
         /// 查询订单数量
         /// </summary>
         /// <param name="orderfilter"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public countObj GetOrdersCount(common_Trait_OrderFiltering orderfilter, common_Trait_Headers headers)
+        public countObj GetOrdersCount(common_Trait_OrderFiltering orderfilter, Customer customer)
         {
             Guid guidStore = utils.CheckGuidID(orderfilter.storeID, "orderfilter.storeID");
             string strStaffID = orderfilter.formanID == null ? null : utils.CheckGuidID(orderfilter.formanID, "orderfilter.formanID").ToString();
             DateTime dtAfter = utils.CheckDateTime(orderfilter.afterThisTime, "yyyyMMddHHmmss", "orderfilter.afterThisTime");
             DateTime dtBefore = utils.CheckDateTime(orderfilter.beforeThisTime, "yyyyMMddHHmmss", "orderfilter.beforeThisTime");
             countObj c = new countObj();
-            Customer customer = new Customer();
-            customer = customer.getCustomer(headers.token, headers.apiKey, false);
-            if (customer.UserType != "customer" && customer.UserType != "business")
-            {
-                throw new Exception("没有访问权限！");
-            }
             Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
             c.count = ibllserviceorder.GetOrdersCount(orderfilter.statusSort, orderfilter.status, guidStore, strStaffID, dtBefore, dtAfter, guidUser,customer.UserType, orderfilter.assign).ToString();
             return c;
@@ -211,18 +238,30 @@ namespace Dianzhu.ApplicationService.Order
         /// </summary>
         /// <param name="orderID"></param>
         /// <param name="orderobj"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public orderObj PatchOrder(string orderID, orderObj orderobj, common_Trait_Headers headers)
+        public orderObj PatchOrder(string orderID, orderObj orderobj, Customer customer)
         {
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
-            Customer customer = new Customer();
-            customer = customer.getCustomer(headers.token, headers.apiKey, false);
-            Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
-            Model.ServiceOrder order = ibllserviceorder.GetOneOrder(guidOrder,guidUser);
+            Model.ServiceOrder order = ibllserviceorder.GetOne(guidOrder);
             if (order == null)
             {
-                throw new Exception("该商户不存在该订单！");
+                throw new Exception("该订单不存在！");
+            }
+            if (customer.UserType == "business")
+            {
+                if (order.Business == null || order.Business.Owner.Id.ToString() != customer.UserID)
+                {
+                    throw new Exception("这不是你的订单！");
+                }
+            }
+            if (customer.UserType == "staff")
+            {
+                Model.Staff staff = bllStaff.GetOneByUserID(Guid.Empty, customer.UserID);
+                if (staff == null || order.Business == null || staff.Belongto.Id != order.Business.Id)
+                {
+                    throw new Exception("这不是你店铺的订单！");
+                }
             }
             if (!string.IsNullOrEmpty(orderobj.negotiateAmount))
             {
@@ -266,8 +305,9 @@ namespace Dianzhu.ApplicationService.Order
         /// 获得订单所包含的推送服务
         /// </summary>
         /// <param name="orderID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public IList<servicesObj> GetPushServices(string orderID)
+        public IList<serviceSnapshotObj> GetPushServices(string orderID,Customer customer)
         {
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
             Model.ServiceOrder order = null;
@@ -276,8 +316,12 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单不存在！");
             }
+            if (customer.UserType == "customer" && order.Customer.Id.ToString ()!=customer.UserID)
+            {
+                throw new Exception("这不是你的订单！");
+            }
             IList<Model.ServiceOrderPushedService> pushServiceList = bllpushservice.GetPushedServicesForOrder(order);
-            IList<servicesObj> servicesobj = Mapper.Map<IList<Model.ServiceOrderPushedService>, IList<servicesObj>>(pushServiceList);
+            IList<serviceSnapshotObj> servicesobj = Mapper.Map<IList<Model.ServiceOrderPushedService>, IList<serviceSnapshotObj>>(pushServiceList);
             for (int i = 0; i < servicesobj.Count; i++)
             {
                 servicesobj[i].location.longitude = pushServiceList[i].OriginalService.Business.Longitude.ToString();
@@ -292,14 +336,19 @@ namespace Dianzhu.ApplicationService.Order
         /// </summary>
         /// <param name="orderID"></param>
         /// <param name="serviceID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public orderObj PutConfirmService(string orderID, string serviceID)
+        public orderObj PutConfirmService(string orderID, string serviceID,Customer customer)
         {
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
             Model.ServiceOrder order = ibllserviceorder.GetOne(guidOrder);
             if (order == null)
             {
                 throw new Exception("该订单不存在！");
+            }
+            if (order.Customer.Id.ToString() != customer.UserID)
+            {
+                throw new Exception("这不是你的订单！");
             }
             Model.DZService service = blldzservice.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
             if (service == null)
@@ -313,7 +362,7 @@ namespace Dianzhu.ApplicationService.Order
             bllpushservice.SelectServiceAndCreate(order, service);
             ibllserviceorder.Update(order);
             //IList<ServiceOrderPushedService> pushServiceList = bllpushservice.GetPushedServicesForOrder(order);
-
+            //orderObj.svcObj.SetTag(orderObj.svcObj, tagsList);
             ServiceOrderStateChangeHis orderHis = bllstatehis.GetOrderHis(order);
 
             string strName = order.Details[0].ServieSnapShot.ServiceName ?? string.Empty;
@@ -335,8 +384,9 @@ namespace Dianzhu.ApplicationService.Order
         /// </summary>
         /// <param name="orderID"></param>
         /// <param name="appraiseobj"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public orderObj PutAppraisee(string orderID, appraiseObj appraiseobj)
+        public orderObj PutAppraisee(string orderID, appraiseObj appraiseobj,Customer customer)
         {
             Model.Enums.enum_ChatTarget target;
             if (!Enum.TryParse(appraiseobj.target, out target))
@@ -358,7 +408,10 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单不存在！");
             }
-
+            if (order.Customer.Id.ToString() != customer.UserID)
+            {
+                throw new Exception("这不是你的订单！");
+            }
             ServiceOrderAppraise appraise = new ServiceOrderAppraise(order, target, appValue, appraiseobj.content); 
             bllServiceOrderAppraise.Save(appraise);
 
@@ -373,14 +426,19 @@ namespace Dianzhu.ApplicationService.Order
         /// 获得该订单的聊天人
         /// </summary>
         /// <param name="orderID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public string GetLinkMan(string orderID)
+        public string GetLinkMan(string orderID, Customer customer)
         {
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
             Model.ServiceOrder order = ibllserviceorder.GetOne(guidOrder);
             if (order == null)
             {
                 throw new Exception("该订单不存在！");
+            }
+            if (order.Customer.Id.ToString() != customer.UserID)
+            {
+                throw new Exception("这不是你的订单！");
             }
             if (order.Details.Count <= 0)
             {
@@ -418,8 +476,9 @@ namespace Dianzhu.ApplicationService.Order
         /// </summary>
         /// <param name="orderID"></param>
         /// <param name="newStatus"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public object PatchCurrentStatus(string orderID, string newStatus)
+        public object PatchCurrentStatus(string orderID, string newStatus, Customer customer)
         {
             Model.Enums.enum_OrderStatus status = Model.Enums.enum_OrderStatus.Unknow;
             try
@@ -430,8 +489,12 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new FormatException("要变更的状态无效！");
             }
+            if (status == Model.Enums.enum_OrderStatus.Unknow)
+            {
+                throw new FormatException("要变更的状态无效！");
+            }
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
-            Guid userId = new Guid();
+            Guid userId = utils.CheckGuidID(customer.UserID, "customer.UserID");
             DZMembership member = bllDZM.GetUserById(userId);
 
             OrderServiceFlow osf = new OrderServiceFlow();
@@ -572,8 +635,9 @@ namespace Dianzhu.ApplicationService.Order
         /// </summary>
         /// <param name="orderID"></param>
         /// <param name="refundobj"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public refundStatusObj PostRefundAction(string orderID, refundObj refundobj)
+        public refundStatusObj PostRefundAction(string orderID, refundObj refundobj,Customer customer)
         {
             IList<string> resourcesurls = new List<string>();
             for (int i = 0; i < refundobj.resourcesUrls.Count; i++)
@@ -601,7 +665,7 @@ namespace Dianzhu.ApplicationService.Order
                 throw new FormatException("提交价格的格式有误,需为大于零的数值！");
             }
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
-            Guid userId = new Guid();
+            Guid userId = utils.CheckGuidID(customer.UserID, "customer.UserID");
             DZMembership member = bllDZM.GetUserById(userId);
 
             OrderServiceFlow osf = new OrderServiceFlow();
@@ -756,14 +820,19 @@ namespace Dianzhu.ApplicationService.Order
         /// </summary>
         /// <param name="orderID"></param>
         /// <param name="staffID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public staffObj PatchForman(string orderID,string staffID)
+        public staffObj PatchForman(string orderID,string staffID,Customer customer)
         {
             Model.ServiceOrder order = null;
             order = ibllserviceorder.GetOne(utils.CheckGuidID(orderID, "orderID"));
             if (order == null)
             {
                 throw new Exception("该订单不存在!");
+            }
+            if (order.Business == null || order.Business.Owner.Id.ToString() != customer.UserID)
+            {
+                throw new Exception("这不是你的订单!");
             }
             IList<OrderAssignment> assignment = bllOrderAssignment.GetOAListByOrder(order);
             if (assignment.Count == 0)

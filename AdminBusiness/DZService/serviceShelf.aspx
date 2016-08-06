@@ -31,7 +31,7 @@
 <!-- one day template 单日模版 -->
 <script type="text/template" id="day_template">
     <div class="day-title">
-        <div class="day-info"><span class="m-l10">当日已售&nbsp;&nbsp;{%= reOrder %}件&nbsp;当日总量&nbsp;{%= maxOrder %}件&nbsp;当日可售&nbsp;&nbsp;{%= maxOrder - reOrder %}件&nbsp;</span></div>
+        <div class="day-info"><span class="m-l10">当日已售&nbsp;&nbsp;{%= reOrder %}件&nbsp;当日剩余&nbsp;&nbsp;{%= maxOrder - reOrder %}件&nbsp;当日总量&nbsp;{%= maxOrder %}件&nbsp;</span></div>
         <div id="day-warn" class="day-warn hi"></div>
         <!--<div class="day-control">-->
             <!--<div class="day-control-item">-->

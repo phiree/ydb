@@ -240,6 +240,8 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         void OrderFlow_ForceStop(ServiceOrder order);
 
+        void OrderFlow_EndCancel(ServiceOrder order);
+
         //订单状态改变通用方法
 
         #endregion
@@ -255,6 +257,10 @@ namespace Dianzhu.BLL
         #region 分配工作人员
         void AssignStaff(ServiceOrder order, Staff staff);
         void DeassignStaff(ServiceOrder order, Staff staff);
+        #endregion
+
+        #region 申请退款
+        bool ApplyRefund(Payment payment, decimal refundAmount, string refundReason);
         #endregion
 
         enum_OrderStatus GetOrderStatusPrevious(ServiceOrder order, enum_OrderStatus status);

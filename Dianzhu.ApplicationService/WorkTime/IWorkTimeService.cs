@@ -15,8 +15,9 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <param name="storeID"></param>
         /// <param name="serviceID"></param>
         /// <param name="worktimeobj"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        workTimeObj PostWorkTime(string storeID, string serviceID, workTimeObj worktimeobj);
+        workTimeObj PostWorkTime(string storeID, string serviceID, workTimeObj worktimeobj, Customer customer);
 
         /// <summary>
         /// 条件读取工作时间
@@ -42,8 +43,9 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <param name="storeID"></param>
         /// <param name="serviceID"></param>
         /// <param name="workTimeID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        workTimeObj GetWorkTime(string storeID, string serviceID, string workTimeID);
+        workTimeObj GetWorkTime(string storeID, string serviceID, string workTimeID, Customer customer);
 
         /// <summary>
         /// 更新工作时间信息
@@ -52,8 +54,10 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <param name="serviceID"></param>
         /// <param name="workTimeID"></param>
         /// <param name="worktimeobj"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        workTimeObj PatchWorkTime(string storeID, string serviceID, string workTimeID, workTimeObj worktimeobj);
+        workTimeObj PatchWorkTime(string storeID, string serviceID, string workTimeID, workTimeObj worktimeobj, Customer customer);
+
 
         /// <summary>
         /// 删除服务 工作时间信息
@@ -61,7 +65,8 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <param name="storeID"></param>
         /// <param name="serviceID"></param>
         /// <param name="workTimeID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        object DeleteWorkTime(string storeID, string serviceID, string workTimeID);
+        object DeleteWorkTime(string storeID, string serviceID, string workTimeID, Customer customer);
     }
 }

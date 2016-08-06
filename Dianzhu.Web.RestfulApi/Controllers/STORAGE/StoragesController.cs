@@ -31,7 +31,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORAGE
                 {
                     fileBase4 = new FileBase64();
                 }
-                return Json(istorage.PostImages(fileBase4, GetRequestHeader.GetTraitHeaders()));
+                return Json(istorage.PostImages(fileBase4, GetRequestHeader.GetTraitHeaders("get/storages/images")));
             }
             catch (Exception ex)
             {
@@ -53,7 +53,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORAGE
                 {
                     fileBase4 = new FileBase64();
                 }
-                return Json(istorage.PostImages(fileBase4, GetRequestHeader.GetTraitHeaders()));
+                return Json(istorage.PostImages(fileBase4, GetRequestHeader.GetTraitHeaders("get/storages/avatarImages")));
             }
             catch (Exception ex)
             {
@@ -75,7 +75,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORAGE
                 {
                     fileBase4 = new FileBase64();
                 }
-                return Json(istorage.PostAudios(fileBase4, GetRequestHeader.GetTraitHeaders()));
+                return Json(istorage.PostAudios(fileBase4, GetRequestHeader.GetTraitHeaders("get/storages/audios")));
             }
             catch (Exception ex)
             {

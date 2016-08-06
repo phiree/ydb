@@ -46,17 +46,19 @@ namespace Dianzhu.ApplicationService.Service
         /// </summary>
         /// <param name="storeID"></param>
         /// <param name="servicesobj"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public servicesObj PostService(string storeID, servicesObj servicesobj)
+        public servicesObj PostService(string storeID, servicesObj servicesobj,Customer customer)
         {
-            Guid guidUser = new Guid();
-            //Model.Business business = bllBusiness.GetBusinessByIdAndOwner(utils.CheckGuidID(storeID, "storeID"), guidUser);
-            Model.Business business = bllBusiness.GetOne(utils.CheckGuidID(storeID, "storeID"));
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("storeID不能为空！");
+            }
+            Model.Business business = bllBusiness.GetBusinessByIdAndOwner(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (business == null)
             {
                 throw new Exception("该店铺不存在！");
             }
-
             //待定是否只传ID过来
             //string[] typeList = servicesobj.type.Split('>');
             //int typeLevel = typeList.Count() > 0 ? typeList.Count() - 1 : 0;
@@ -119,6 +121,10 @@ namespace Dianzhu.ApplicationService.Service
         /// <returns></returns>
         public IList<servicesObj> GetServices(string storeID, common_Trait_Filtering filter,common_Trait_ServiceFiltering servicefilter)
         {
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("storeID不能为空！");
+            }
             IList<Model.DZService> dzservice = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "DZService");
             decimal dcStartAt = -1;
@@ -150,6 +156,10 @@ namespace Dianzhu.ApplicationService.Service
         /// <returns></returns>
         public countObj GetServicesCount(string storeID, common_Trait_ServiceFiltering servicefilter)
         {
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("storeID不能为空！");
+            }
             decimal dcStartAt = -1;
             if (servicefilter.startAt != null && servicefilter.startAt != "")
             {
@@ -171,6 +181,14 @@ namespace Dianzhu.ApplicationService.Service
         /// <returns></returns>
         public servicesObj GetService(string storeID, string serviceID)
         {
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("storeID不能为空！");
+            }
+            if (string.IsNullOrEmpty(serviceID))
+            {
+                throw new FormatException("serviceID不能为空！");
+            }
             Model.DZService dzservice = bllDZService.GetService(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(serviceID, "serviceID"));
             if (dzservice == null)
             {
@@ -187,14 +205,21 @@ namespace Dianzhu.ApplicationService.Service
         /// <param name="storeID"></param>
         /// <param name="serviceID"></param>
         /// <param name="servicesobj"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public servicesObj PatchService(string storeID, string serviceID, servicesObj servicesobj)
+        public servicesObj PatchService(string storeID, string serviceID, servicesObj servicesobj,Customer customer)
         {
-            Guid guidUser = new Guid();
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("storeID不能为空！");
+            }
+            if (string.IsNullOrEmpty(serviceID))
+            {
+                throw new FormatException("serviceID不能为空！");
+            }
             Guid guidStore = utils.CheckGuidID(storeID, "storeID");
             Guid guidService = utils.CheckGuidID(serviceID, "serviceID");
-            //Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, guidUser);
-            Model.Business business = bllBusiness.GetOne(utils.CheckGuidID(storeID, "storeID"));
+            Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (business == null)
             {
                 throw new Exception("该店铺不存在！");
@@ -331,11 +356,26 @@ namespace Dianzhu.ApplicationService.Service
         /// </summary>
         /// <param name="storeID"></param>
         /// <param name="serviceID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public object DeleteService(string storeID, string serviceID)
+        public object DeleteService(string storeID, string serviceID,Customer customer)
         {
-            Model.DZService dzservice = null;
-            dzservice = bllDZService.GetService(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(serviceID, "serviceID"));
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("storeID不能为空！");
+            }
+            if (string.IsNullOrEmpty(serviceID))
+            {
+                throw new FormatException("serviceID不能为空！");
+            }
+            Guid guidStore = utils.CheckGuidID(storeID, "storeID");
+            Guid guidService = utils.CheckGuidID(serviceID, "serviceID");
+            Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            if (business == null)
+            {
+                throw new Exception("该店铺不存在！");
+            }
+            Model.DZService dzservice = bllDZService.GetService(guidStore, guidService);
             if (dzservice == null)
             {
                 throw new Exception("该服务不存在！");

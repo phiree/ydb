@@ -23,19 +23,28 @@ namespace Dianzhu.ApplicationService.Assign
         /// 新建指派
         /// </summary>
         /// <param name="assignobj"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public assignObj PostAssign(assignObj assignobj)
+        public assignObj PostAssign(assignObj assignobj,Customer customer)
         {
+            if (string.IsNullOrEmpty(assignobj.orderID))
+            {
+                throw new FormatException("指派的订单号不能为空！");
+            }
+            if (string.IsNullOrEmpty(assignobj.staffID))
+            {
+                throw new FormatException("指派的员工ID不能为空！");
+            }
             Model.OrderAssignment oa= Mapper.Map<assignObj, Model.OrderAssignment>(assignobj);
-            Model.ServiceOrder order=ibllorder.GetOne(utils.CheckGuidID(assignobj.orderID, "orderID"));
-            Model.Staff staff = bllstaff.GetOne(utils.CheckGuidID(assignobj.staffID, "staffID"));
+            Model.ServiceOrder order=ibllorder.GetOneOrder(utils.CheckGuidID(assignobj.orderID, "assignobj.orderID"),utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (order == null)
             {
-                throw new Exception("指派的订单不存在！");
+                throw new Exception("该商户指派的订单不存在！");
             }
+            Model.Staff staff = bllstaff.GetStaff(order.Business.Id,utils.CheckGuidID(assignobj.staffID, "assignobj.staffID"));
             if (staff == null)
             {
-                throw new Exception("指派的员工不存在！");
+                throw new Exception("在指派订单所属的店铺中不存在该指派的员工！");
             }
             if (!staff.Enable)
             {
@@ -74,12 +83,13 @@ namespace Dianzhu.ApplicationService.Assign
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="assign"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public IList<assignObj> GetAssigns(common_Trait_Filtering filter, common_Trait_AssignFiltering assign)
+        public IList<assignObj> GetAssigns(common_Trait_Filtering filter, common_Trait_AssignFiltering assign,Customer customer)
         {
             IList<Model.OrderAssignment> listassign = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "OrderAssignment");
-            listassign = bllassign.GetAssigns(filter1, utils.CheckGuidID(assign.staffID, "customerServiceID"), utils.CheckGuidID(assign.orderID, "orderID"), utils.CheckGuidID(assign.storeID, "storeID"));
+            listassign = bllassign.GetAssigns(filter1, utils.CheckGuidID(assign.staffID, "assign.staffID"), utils.CheckGuidID(assign.orderID, "assign.orderID"), utils.CheckGuidID(assign.storeID, "assign.storeID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (listassign == null)
             {
                 throw new Exception(Dicts.StateCode[4]);
@@ -92,11 +102,12 @@ namespace Dianzhu.ApplicationService.Assign
         /// 统计指派的数量
         /// </summary>
         /// <param name="assign"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public countObj GetAssignsCount(common_Trait_AssignFiltering assign)
+        public countObj GetAssignsCount(common_Trait_AssignFiltering assign, Customer customer)
         {
             countObj c = new countObj();
-            c.count = bllassign.GetAssignsCount(utils.CheckGuidID(assign.staffID, "customerServiceID"), utils.CheckGuidID(assign.orderID, "orderID"), utils.CheckGuidID(assign.storeID, "storeID")).ToString();
+            c.count = bllassign.GetAssignsCount(utils.CheckGuidID(assign.staffID, "assign.staffID"), utils.CheckGuidID(assign.orderID, "assign.orderID"), utils.CheckGuidID(assign.storeID, "assign.storeID"), utils.CheckGuidID(customer.UserID, "customer.UserID")).ToString();
             return c;
         }
     }

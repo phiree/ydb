@@ -63,11 +63,16 @@ namespace Dianzhu.BLL
         /// <param name="staffID"></param>
         /// <param name="orderID"></param>
         /// <param name="storeID"></param>
+        /// <param name="userID"></param>
         /// <returns></returns>
-        public IList<Model.OrderAssignment> GetAssigns(Trait_Filtering filter,  Guid staffID, Guid orderID, Guid storeID)
+        public IList<Model.OrderAssignment> GetAssigns(Trait_Filtering filter,  Guid staffID, Guid orderID, Guid storeID,Guid userID)
         {
             var where = PredicateBuilder.True<OrderAssignment>();
             where = where.And(x => x.Enabled);
+            if (userID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.Business.Owner.Id == userID);
+            }
             if (staffID != Guid.Empty)
             {
                 where = where.And(x => x.AssignedStaff.Id == staffID);
@@ -98,7 +103,7 @@ namespace Dianzhu.BLL
             return list;
 
         }
-        
+
 
         /// <summary>
         /// 统计指派的数量
@@ -106,11 +111,16 @@ namespace Dianzhu.BLL
         /// <param name="staffID"></param>
         /// <param name="orderID"></param>
         /// <param name="storeID"></param>
+        /// <param name="userID"></param>
         /// <returns></returns>
-        public long GetAssignsCount(Guid staffID, Guid orderID, Guid storeID)
+        public long GetAssignsCount(Guid staffID, Guid orderID, Guid storeID, Guid userID)
         {
             var where = PredicateBuilder.True<OrderAssignment>();
             where = where.And(x => x.Enabled);
+            if (userID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.Business.Owner.Id == userID);
+            }
             if (staffID != Guid.Empty)
             {
                 where = where.And(x => x.AssignedStaff.Id == staffID);

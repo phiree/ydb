@@ -33,7 +33,7 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public virtual Payment GetPayedByTarget(ServiceOrder order, Model.Enums.enum_PayTarget payTarget)
         {
-            return FindOne(x => x.Order.Id == order.Id && x.PayTarget == payTarget && x.Status == Model.Enums.enum_PaymentStatus.Trade_Success);
+            return FindOne(x => x.Order.Id == order.Id && x.PayTarget == payTarget);
         }        
     }
 }

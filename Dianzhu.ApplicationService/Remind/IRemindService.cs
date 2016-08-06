@@ -14,28 +14,32 @@ namespace Dianzhu.ApplicationService.Remind
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="remind"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        IList<remindObj> GetReminds(common_Trait_Filtering filter, common_Trait_RemindFiltering remind);
+        IList<remindObj> GetReminds(common_Trait_Filtering filter, common_Trait_RemindFiltering remind, Customer customer);
 
         /// <summary>
         /// 统计投诉的数量
         /// </summary>
         /// <param name="remind"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        countObj GetRemindsCount(common_Trait_RemindFiltering remind);
+        countObj GetRemindsCount(common_Trait_RemindFiltering remind, Customer customer);
 
         /// <summary>
         /// 根据ID获取提醒
         /// </summary>
         /// <param name="remindID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        remindObj GetRemindById(string remindID);
+        remindObj GetRemindById(string remindID, Customer customer);
 
         /// <summary>
         /// 根据ID删除提醒
         /// </summary>
         /// <param name="remindID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        object DeleteRemindById(string remindID);
+        object DeleteRemindById(string remindID, Customer customer);
     }
 }

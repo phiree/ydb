@@ -12,6 +12,7 @@ using Dianzhu.Api.Model;
 /// </summary>
 public class ResponseSYS001001:BaseResponse
 {
+    BLLReceptionChat bllReceptionChat;
     BLLReceptionChatDD bllReceptionChatDD;
     DZMembershipProvider bllMember;
     IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
@@ -25,7 +26,8 @@ public class ResponseSYS001001:BaseResponse
     {
         ReqDataSYS001001 requestData = this.request.ReqData.ToObject<ReqDataSYS001001>();
 
-       
+
+        bllReceptionChat = Bootstrap.Container.Resolve<BLLReceptionChat>();
         bllReceptionChatDD = Bootstrap.Container.Resolve<BLLReceptionChatDD>();
         bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
 
@@ -128,43 +130,45 @@ public class ResponseSYS001001:BaseResponse
         {
             chat.ReceiveTime = now;
         }
-        //if (chat is ReceptionChatMedia)
-        //{
-        //    if (((ReceptionChatMedia)chat).MediaType != "url")
-        //    {
-        //        string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
-        //        //string localFileName = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
-
-        //        using (var client = new WebClient())
-        //        {
-        //            string savedPath = HttpRuntime.AppDomainAppPath + Dianzhu.Config.Config.GetAppSetting("LocalMediaSaveDir") + mediaUrl;
-        //            PHSuit.IOHelper.EnsureFileDirectory(savedPath);
-        //            client.DownloadFile(savedPath, mediaUrl);
-        //        }
-        //    }
-        //}
-
-        ReceptionChatDD chatDD = new ReceptionChatDD();
-        chatDD.Id = chat.Id;
-        chatDD.MessageBody = chat.MessageBody;
-        chatDD.ReceiveTime = chat.ReceiveTime;
-        chatDD.SendTime = chat.SendTime;
-        chatDD.To = chat.To;
-        chatDD.From = chat.From;
-         chatDD.SavedTime = DateTime.Now;
-        chatDD.ChatType = chat.ChatType;
-        chatDD.FromResource = chat.FromResource;
-        chatDD.ServiceOrder = chat.ServiceOrder;
-        chatDD.Version = chat.Version;
-        chatDD.IsCopy = false;
         if (chat is ReceptionChatMedia)
         {
-            chatDD.MedialUrl = ((ReceptionChatMedia)chat).MedialUrl.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
-            chatDD.MediaType = ((ReceptionChatMedia)chat).MediaType;
+            if (((ReceptionChatMedia)chat).MediaType != "url")
+            {
+                string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
+                //string localFileName = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
+
+                using (var client = new WebClient())
+                {
+                    string savedPath = HttpRuntime.AppDomainAppPath + Dianzhu.Config.Config.GetAppSetting("LocalMediaSaveDir") + mediaUrl;
+                    PHSuit.IOHelper.EnsureFileDirectory(savedPath);
+                    client.DownloadFile(savedPath, mediaUrl);
+                }
+            }
         }
-        chatDD.ChatTarget = chat.ChatTarget;
-        
-        bllReceptionChatDD.Save(chatDD);
+
+        bllReceptionChat.Save(chat);
+
+        //ReceptionChatDD chatDD = new ReceptionChatDD();
+        //chatDD.Id = chat.Id;
+        //chatDD.MessageBody = chat.MessageBody;
+        //chatDD.ReceiveTime = chat.ReceiveTime;
+        //chatDD.SendTime = chat.SendTime;
+        //chatDD.To = chat.To;
+        //chatDD.From = chat.From;
+        // chatDD.SavedTime = DateTime.Now;
+        //chatDD.ChatType = chat.ChatType;
+        //chatDD.FromResource = chat.FromResource;
+        //chatDD.ServiceOrder = chat.ServiceOrder;
+        //chatDD.Version = chat.Version;
+        //chatDD.IsCopy = false;
+        //if (chat is ReceptionChatMedia)
+        //{
+        //    chatDD.MedialUrl = ((ReceptionChatMedia)chat).MedialUrl.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
+        //    chatDD.MediaType = ((ReceptionChatMedia)chat).MediaType;
+        //}
+        //chatDD.ChatTarget = chat.ChatTarget;
+
+        //bllReceptionChatDD.Save(chatDD);
 
         #endregion
     }

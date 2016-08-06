@@ -12,16 +12,18 @@ namespace Dianzhu.ApplicationService.Storage
         /// 上传图片
         /// </summary>
         /// <param name="fileBase4"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        imageObj PostImages(FileBase64 fileBase4, common_Trait_Headers headers);
+        imageObj PostImages(FileBase64 fileBase4, Customer customer);
 
         /// <summary>
-        /// 上传语音
+        /// /上传语音
         /// </summary>
         /// <param name="fileBase4"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        audioObj PostAudios(FileBase64 fileBase4, common_Trait_Headers headers);
+        audioObj PostAudios(FileBase64 fileBase4, Customer customer);
+
+
     }
 }

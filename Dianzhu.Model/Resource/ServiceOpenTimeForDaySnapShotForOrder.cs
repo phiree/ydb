@@ -19,12 +19,13 @@ namespace Dianzhu.Model
         public int PeriodBegin { get; protected set; }
         public int PeriodEnd { get; protected set; }
         public ServiceOpenTimeForDaySnapShotForOrder() { }
-        public ServiceOpenTimeForDaySnapShotForOrder(int maxOrder,DateTime date,int periodBegin,int periodEnd)
+        public ServiceOpenTimeForDaySnapShotForOrder(int maxOrder,DateTime date,int periodBegin,int periodEnd,Guid id)
         {
             MaxOrder = maxOrder;
             Date = date;
             PeriodBegin = periodBegin;
             PeriodEnd = periodEnd;
+            Id = id;
         }
         
     }

@@ -43,16 +43,18 @@ namespace Dianzhu.ApplicationService
         }
 
 
-        public IList<orderSnapshot> Adap(DateTime date,IList<ServiceOrder> orderList)
+        public IList<orderSnapshot> Adap(DateTime date,IList<ServiceOrder> orderList, BLL.BLLServiceOrderStateChangeHis bllstatehis)
         {
             IList<orderSnapshot> ordersnapshots = new List<orderSnapshot>();
             foreach (ServiceOrder order in orderList)
             {
                 orderSnapshot ordersnapshot = new orderSnapshot();
                 orderObj orderobj = Mapper.Map<Model.ServiceOrder, orderObj>(order);
+                Order.OrderService.bllstatehis = bllstatehis;
                 Order.OrderService.changeObj(orderobj, order);
                 ServiceOpenTimeForDaySnapShotForOrder forday = order.Service.GetOpenTimeSnapShot(order.Details[0].TargetTime);
                 workTimeObj worktimeobj = new workTimeObj();
+                worktimeobj.id = forday.Id.ToString();
                 worktimeobj.startTime = PHSuit.StringHelper.ConvertPeriodToTimeString(forday.PeriodBegin);//.ToString();
                 worktimeobj.endTime = PHSuit.StringHelper.ConvertPeriodToTimeString(forday.PeriodEnd);//.ToString();
                 worktimeobj.week = ((int)forday.Date.DayOfWeek).ToString();

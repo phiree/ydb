@@ -374,7 +374,7 @@
 
             //
             if ( parseInt(this.model.get("maxOrder")) + parseInt(num) > this.model.attributes.dayEnableOrderCount ){
-                app.showWarnText(true, "时段剩余服务应小于当日剩余服务数量");
+                app.showWarnText(true, "当日剩余服务数量不足，请到服务设置进行调整");
                 return false;
             }
 
@@ -588,6 +588,15 @@
             this.snapshots = snapshots;
             this.workTimes = new WorkTimeCollection();
             this.workDays = workDays;
+
+            // 按时间排序
+            this.workTimes.comparator = function(m1, m2){
+                if ( parseInt(m1.attributes.startTime.replace(/\:/, "")) > parseInt(m2.attributes.startTime.replace(/\:/, ""))){
+                    return 1 ;
+                } else {
+                    return 0;
+                }
+            };
 
             this.render();
             this.initDayTab();
