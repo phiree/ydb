@@ -76,6 +76,10 @@ namespace Dianzhu.CSClient.MessageAdapter
                     case "ihelper:chat:userstatus":
                         chatType = enum_ChatType.UserStatus;
                         break;
+                    case "ihelper:notice:cer:online":
+                    case "ihelper:notice:cer:offline":
+                        chatType = enum_ChatType.Notice;
+                        break;
                     default:
                         throw new Exception("未知的命名空间");
 

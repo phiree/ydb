@@ -110,7 +110,10 @@ namespace DianzhuService.Diandian
                         return;
                     case "ihelper:notice:cer:offline":
                         log.Debug("收到客服离线通知");
-                        csOnLine--;
+                        if (csOnLine > 0)
+                        {
+                            csOnLine--;
+                        }
                         return;
                     default:
                         log.Warn("请求的类型" + msgType.ToLower() + "无法处理，直接返回");
@@ -122,7 +125,7 @@ namespace DianzhuService.Diandian
                     //发送客服离线消息给用户
                     string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
                     string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
-                                                  <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:cer:online""></ext></message>",
+                                                  <active xmlns = ""http://jabber.org/protocol/chatstates""></active><body>客服已上线</body><ext xmlns=""ihelper:notice:cer:online""></ext></message>",
                                                       msg.From.User + "@" + server, msg.To.User, Guid.NewGuid());
                     GlobalViables.XMPPConnection.Send(noticeDraftNew);
                     return;
