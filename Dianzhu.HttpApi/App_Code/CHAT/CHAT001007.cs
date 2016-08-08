@@ -27,6 +27,7 @@ public class ResponseCHAT001007:BaseResponse
         BLLReceptionChat bllReceptionChat = Bootstrap.Container.Resolve<BLLReceptionChat>();
 
         string user_id = requestData.userID;
+        string order_id = requestData.orderID;
 
         Guid userId, orderId;
         bool isUserId = Guid.TryParse(user_id, out userId);
@@ -37,13 +38,20 @@ public class ResponseCHAT001007:BaseResponse
             return;
         }
 
-        bool isGuid = Guid.TryParse(requestData.orderID, out orderId);
-        if (!isGuid)
+        if (string.IsNullOrEmpty(order_id))
         {
-            this.state_CODE = Dicts.StateCode[1];
-            this.err_Msg = "OrderId格式有误";
-            return;
+            orderId = Guid.Empty;
         }
+        else
+        {
+            bool isGuid = Guid.TryParse(requestData.orderID, out orderId);
+            if (!isGuid)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "OrderId格式有误";
+                return;
+            }
+        }        
 
         DZMembership member;
         if (request.NeedAuthenticate)
