@@ -107,6 +107,16 @@ namespace DianzhuService.Diandian
                     case "ihelper:notice:cer:online":
                         log.Debug("收到客服上线通知");
                         csOnLine++;
+                        if (csOnLine == 1)
+                        {
+                            //发送客服离线消息给用户
+                            string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
+                            string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
+                                                  <active xmlns = ""http://jabber.org/protocol/chatstates""></active><body>客服已上线</body><ext xmlns=""ihelper:notice:cer:online""></ext></message>",
+                                                              msg.From.User + "@" + server, msg.To.User, Guid.NewGuid());
+                            GlobalViables.XMPPConnection.Send(noticeDraftNew);
+                            return;
+                        }
                         return;
                     case "ihelper:notice:cer:offline":
                         log.Debug("收到客服离线通知");
@@ -118,17 +128,6 @@ namespace DianzhuService.Diandian
                     default:
                         log.Warn("请求的类型" + msgType.ToLower() + "无法处理，直接返回");
                         return;
-                }
-
-                if (csOnLine > 0)
-                {
-                    //发送客服离线消息给用户
-                    string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
-                    string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
-                                                  <active xmlns = ""http://jabber.org/protocol/chatstates""></active><body>客服已上线</body><ext xmlns=""ihelper:notice:cer:online""></ext></message>",
-                                                      msg.From.User + "@" + server, msg.To.User, Guid.NewGuid());
-                    GlobalViables.XMPPConnection.Send(noticeDraftNew);
-                    return;
                 }
 
                 orderID = msg.SelectSingleElement("ext").SelectSingleElement("orderID").Value;
@@ -202,9 +201,24 @@ namespace DianzhuService.Diandian
             //}
 
             //lblLoginStatus.Text = "登录成功";
+
+            //每隔一段时间给服务发送一个ping,防止连接超时.
+            System.Timers.Timer tmHeartBeat = new System.Timers.Timer();
+            tmHeartBeat.Elapsed += TmHeartBeat_Elapsed;
+            tmHeartBeat.Interval = 5 * 60 * 1000;
+            tmHeartBeat.Start();
         }
 
-       
+        private void TmHeartBeat_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            IQ iqHeartBeat = new IQ(IqType.get, GlobalViables.XMPPConnection.MyJID, Dianzhu.Config.Config.GetAppSetting("ImServer"));
+            var pingNode = new agsXMPP.Xml.Dom.Element("ping");
+            pingNode.Namespace = "urn:xmpp:ping";
+            iqHeartBeat.AddChild(pingNode);
+
+            GlobalViables.XMPPConnection.Send(iqHeartBeat);
+            log.Debug("HeartBeat" + iqHeartBeat.ToString());
+        }
 
         protected override void OnStart(string[] args)
         {

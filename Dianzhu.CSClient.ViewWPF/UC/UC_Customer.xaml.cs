@@ -23,6 +23,7 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class UC_Customer : UserControl
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_Customer");
         public event IdleTimerOut IdleTimerOut;
 
         DispatcherTimer FinalChatTimer;
@@ -77,22 +78,35 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             tbkCustomerNames.Text = customer.DisplayName;
             string avatarTemp = customer.AvatarUrl;
+            Uri avatarUri;
             if (avatarTemp != null)
             {
                 avatarTemp = avatarTemp.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
                 avatarTemp = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + avatarTemp;
-                imgSource.ImageSource = new BitmapImage(new Uri(avatarTemp, UriKind.Absolute));
+                try
+                {
+                    avatarUri = new Uri(avatarTemp, UriKind.Absolute);
+                }
+                catch (Exception e)
+                {
+                    log.Error("uri有误,avatarUrl:" + avatarTemp);
+                    log.Error(e.Message);
+
+                    avatarUri = new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png", UriKind.Absolute);
+                }                
             }
             else
             {
-                imgSource.ImageSource = new BitmapImage(new Uri("pack://siteoforigin:,,,/Resources/logourl.png", UriKind.Absolute));
+                avatarUri = new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png", UriKind.Absolute);
             }
+
+            imgSource.ImageSource = new BitmapImage(avatarUri);
         }
 
         public void ClearData()
         {
             tbkCustomerNames.Text = string.Empty;
-            imgSource.ImageSource = new BitmapImage(new Uri("pack://siteoforigin:,,,/Resources/logourl.png", UriKind.Absolute));
+            imgSource.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png", UriKind.Absolute));
         }
 
         public void CustomerNormal()

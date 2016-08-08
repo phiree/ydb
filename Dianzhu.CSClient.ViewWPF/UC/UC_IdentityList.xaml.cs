@@ -135,24 +135,36 @@ namespace Dianzhu.CSClient.ViewWPF
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
+        BackgroundWorker worker;
+        ServiceOrder IdentityOrderTemp;
         private void BtnIdentity_Click(object sender, RoutedEventArgs e)
         {
             if (IdentityClick != null)
             {
-                //Action ac = () =>
-                //{
-                ServiceOrder order = (ServiceOrder)((Button)sender).Tag;
-                //NHibernateUnitOfWork.UnitOfWork.Current.Refresh(order);
-                //IdentityClick(order);
-                SetIdentityReaded(order);
-                //};
-                //NHibernateUnitOfWork.With.Transaction(ac);
+                ServiceOrder IdentityOrder = (ServiceOrder)((Button)sender).Tag;
+                if (IdentityOrderTemp == null)
+                {
+                    IdentityOrderTemp = IdentityOrder;
+                }
+                else
+                {
+                    if (IdentityOrderTemp.Id == IdentityOrder.Id)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        IdentityOrderTemp = IdentityOrder;
+                    }
+                }
+                SetIdentityReaded(IdentityOrder);
 
 
-                BackgroundWorker worker = new BackgroundWorker();
+                worker = new BackgroundWorker();
                 worker.DoWork += Worker_DoWork;
                 worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-                worker.RunWorkerAsync(order);
+                worker.RunWorkerAsync(IdentityOrder);
+                log.Debug("开始异步加载");
             }
         }
 

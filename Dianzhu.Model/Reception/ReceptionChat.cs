@@ -16,6 +16,7 @@ namespace Dianzhu.Model
         {
             ChatType = Enums.enum_ChatType.Text;
             SavedTime = DateTime.Now;
+            SavedTimestamp = (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds;
         }
         public static ReceptionChat Create(Enums.enum_ChatType chatType)
         {
@@ -42,6 +43,7 @@ namespace Dianzhu.Model
      
         //保存的时间, 作为排序依据.
         public virtual DateTime SavedTime { get; set; }
+        public virtual double SavedTimestamp { get; set; }
         public virtual DateTime SendTime { get; set; }//发送时间
         public virtual DateTime ReceiveTime { get; set; }//接收时间
         public virtual DZMembership From { get; set; }//发送方

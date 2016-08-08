@@ -14,6 +14,7 @@ namespace Dianzhu.DAL.Mapping
         {
             Id(x => x.Id).UnsavedValue(Guid.Empty);
             Map(x => x.SavedTime);
+            Map(x => x.SavedTimestamp);
             Map(x => x.MessageBody).Length(1000);
             Map(x => x.ReceiveTime);
             Map(x => x.SendTime);

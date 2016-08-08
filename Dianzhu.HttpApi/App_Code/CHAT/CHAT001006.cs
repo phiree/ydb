@@ -58,16 +58,23 @@ public class ResponseCHAT001006:BaseResponse
         string target = requestData.target; 
         IList<ReceptionChat> chatList;
 
-        int pageIndex = 0, pageSize = 10;
+        int pageIndex = 1, pageSize = 5;
         try
         {
-            pageIndex = Convert.ToInt32(requestData.pageNum);
+            pageIndex = Convert.ToInt32(requestData.pageNum);            
+        }
+        catch
+        {
+            pageIndex = 1;
+           
+        }
+        try
+        {
             pageSize = Convert.ToInt32(requestData.pageSize);
         }
-        catch (Exception ex)
+        catch
         {
-            pageIndex = 0;
-            pageSize = 10;
+            pageSize = 5;
         }
         enum_ChatTarget chatTarget;
         bool is_EnumTarget= Enum.TryParse<enum_ChatTarget>(target, out chatTarget);
@@ -80,7 +87,7 @@ public class ResponseCHAT001006:BaseResponse
 
         if (requestData.orderID == "")
         {
-            chatList = bllReceptionChat.GetReceptionChatList(userId, Guid.Empty, Guid.Empty, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, chatTarget, out rowCount);
+            chatList = bllReceptionChat.GetReceptionChatList(userId, Guid.Empty, Guid.Empty, DateTime.MinValue, DateTime.MaxValue, pageIndex-1, pageSize, chatTarget, out rowCount);
         }
         else
         {

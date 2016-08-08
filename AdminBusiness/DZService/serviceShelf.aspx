@@ -64,8 +64,7 @@
 <script type="text/template" id="timeBucket_template">
         <div class="t-b-main {%= open%}">
             <div class="t-b-time">
-                <p class="t-b-timeStart">{%= startTime %}</p>
-                <p class="t-b-timeEnd">{%= endTime %}</p>
+                <span class="_timeTip _timeStart">{%= startTime %}</span>-<span class="_timeTip _timeEnd">{%= endTime %}</span>
             </div>
             <div class="t-b-window">
                 <!--<div class="good-prev"></div>-->
@@ -86,7 +85,7 @@
                     </div>
                     <div class="good-total">
                         <ul class="good-list">
-                            {% for ( var i = 0 ; i < 3 ; i++ ){ %}
+                            {% for ( var i = 0 ; i < (maxOrder - orders.length < 5 ? maxOrder - orders.length : 5) ; i++ ){ %}
                             <li class="good good-on">
                                 <!--<div class="good-icon-w">-->
                                     <!--<i class="icon"></i>-->
