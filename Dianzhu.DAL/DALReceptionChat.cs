@@ -58,7 +58,7 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public IList<ReceptionChat> GetChatByOrder(ServiceOrder order)
         {
-            return Find(x => x.ServiceOrder.Id == order.Id).OrderByDescending(x => x.SavedTime).ToList();
+            return Find(x => x.ServiceOrder.Id == order.Id).OrderByDescending(x => x.SavedTimestamp).ToList();
         }
 
         /// <summary>
@@ -146,11 +146,11 @@ namespace Dianzhu.DAL
             IList<ReceptionChat> receptionChatList = new List<ReceptionChat>();
             if (pageIndex < 0 && pageSize < 0)
             {
-                receptionChatList = result.OrderBy(x => x.SavedTime).Desc.List().OrderBy(x => x.SavedTime).ToList();
+                receptionChatList = result.OrderBy(x => x.SavedTimestamp).Desc.List().OrderBy(x => x.SavedTimestamp).ToList();
             }
             else
             {
-                receptionChatList = result.OrderBy(x => x.SavedTime).Desc.Skip(pageIndex * pageSize).Take(pageSize).List().OrderBy(x => x.SavedTime).ToList();
+                receptionChatList = result.OrderBy(x => x.SavedTimestamp).Desc.Skip(pageIndex * pageSize).Take(pageSize).List().OrderBy(x => x.SavedTimestamp).ToList();
             }
 
             return receptionChatList;
@@ -172,11 +172,11 @@ namespace Dianzhu.DAL
                 }
                 if (low == "Y")
                 {
-                    result = result.Where(x => x.SavedTime < targetChat.SavedTime).OrderBy(x => x.SavedTime).Desc;
+                    result = result.Where(x => x.SavedTimestamp < targetChat.SavedTimestamp).OrderBy(x => x.SavedTimestamp).Desc;
                 }
                 else
                 {
-                    result = result.Where(x => x.SavedTime > targetChat.SavedTime).OrderBy(x => x.SavedTime).Desc;
+                    result = result.Where(x => x.SavedTimestamp > targetChat.SavedTimestamp).OrderBy(x => x.SavedTimestamp).Desc;
                 }
                 if (toId != Guid.Empty)
                 {
@@ -195,7 +195,7 @@ namespace Dianzhu.DAL
                 }
 
                 IList<ReceptionChat> receptionChatList = new List<ReceptionChat>();
-                receptionChatList = result.Take(pageSize).List().OrderBy(x => x.SavedTime).ToList();
+                receptionChatList = result.Take(pageSize).List().OrderBy(x => x.SavedTimestamp).ToList();
                
                 return receptionChatList;
             
