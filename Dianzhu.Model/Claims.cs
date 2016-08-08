@@ -78,6 +78,7 @@ namespace Dianzhu.Model
         /// <param name="member"></param>
         public virtual void AddDetailsFromClaims(Claims claims, string context, decimal amount, IList<string> resourcesUrl, enum_ChatTarget target, DZMembership member)
         {
+            
             ClaimsDetails claimsDetails = new ClaimsDetails(claims, context, amount, resourcesUrl, target, member);
             ClaimsDatailsList.Add(claimsDetails);
         }

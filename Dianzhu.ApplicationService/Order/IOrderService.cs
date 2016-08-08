@@ -20,17 +20,17 @@ namespace Dianzhu.ApplicationService.Order
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="orderfilter"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        IList<orderObj> GetOrders(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter, common_Trait_Headers headers);
+        IList<orderObj> GetOrders(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter, Customer customer);
 
         /// <summary>
         /// 查询订单数量
         /// </summary>
         /// <param name="orderfilter"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        countObj GetOrdersCount(common_Trait_OrderFiltering orderfilter, common_Trait_Headers headers);
+        countObj GetOrdersCount(common_Trait_OrderFiltering orderfilter, Customer customer);
 
         /// <summary>
         /// 根据订单 ID 读取订单
@@ -51,76 +51,89 @@ namespace Dianzhu.ApplicationService.Order
         /// </summary>
         /// <param name="orderID"></param>
         /// <param name="orderobj"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        orderObj PatchOrder(string orderID, orderObj orderobj, common_Trait_Headers headers);
+        orderObj PatchOrder(string orderID, orderObj orderobj, Customer customer);
 
         /// <summary>
         /// 获得订单所包含的推送服务
         /// </summary>
         /// <param name="orderID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        IList<servicesObj> GetPushServices(string orderID);
+        IList<serviceSnapshotObj> GetPushServices(string orderID, Customer customer);
 
         /// <summary>
         /// 草稿单确定服务
         /// </summary>
         /// <param name="orderID"></param>
         /// <param name="serviceID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        orderObj PutConfirmService(string orderID, string serviceID);
+        orderObj PutConfirmService(string orderID, string serviceID, Customer customer);
 
         /// <summary>
         /// 提交评价
         /// </summary>
         /// <param name="orderID"></param>
         /// <param name="appraiseobj"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        orderObj PutAppraisee(string orderID, appraiseObj appraiseobj);
+        orderObj PutAppraisee(string orderID, appraiseObj appraiseobj, Customer customer);
 
         /// <summary>
         /// 获得该订单的聊天人
         /// </summary>
         /// <param name="orderID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        string GetLinkMan(string orderID);
+        string GetLinkMan(string orderID, Customer customer);
 
         /// <summary>
         /// 请求变更订单状态
         /// </summary>
         /// <param name="orderID"></param>
         /// <param name="newStatus"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        object PatchCurrentStatus(string orderID, string newStatus);
+        object PatchCurrentStatus(string orderID, string newStatus, Customer customer);
+
 
         /// <summary>
         /// 获得理赔状态列表
         /// </summary>
         /// <param name="orderID"></param>
+        /// <param name="filter"></param>
+        /// <param name="refundfilter"></param>
         /// <returns></returns>
-        IList<refundStatusObj> GetRefundStatus(string orderID, common_Trait_RefundFiltering refundfilter);
+        IList<refundStatusObj> GetRefundStatus(string orderID, common_Trait_Filtering filter, common_Trait_RefundFiltering refundfilter);
+
 
         /// <summary>
         /// 提交理赔动作
         /// </summary>
         /// <param name="orderID"></param>
         /// <param name="refundobj"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        refundStatusObj PostRefundAction(string orderID, refundObj refundobj);
+        refundStatusObj PostRefundAction(string orderID, refundObj refundobj, Customer customer);
 
         /// <summary>
         /// 读取订单负责人
         /// </summary>
         /// <param name="orderID"></param>
         /// <returns></returns>
-         staffObj GetForman(string orderID);
+        staffObj GetForman(string orderID);
 
         /// <summary>
         /// 更改负责人
         /// </summary>
         /// <param name="orderID"></param>
         /// <param name="staffID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        staffObj PatchForman(string orderID, string staffID);
+        staffObj PatchForman(string orderID, string staffID, Customer customer);
+
+
     }
 }

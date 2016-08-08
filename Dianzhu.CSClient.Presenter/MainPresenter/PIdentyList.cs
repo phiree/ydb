@@ -66,7 +66,10 @@ namespace Dianzhu.CSClient.Presenter
 
         private void IViewChatSend_FinalChatTimerSend()
         {
-            iView.IdleTimerStart(IdentityManager.CurrentIdentity.Id);
+            if (IdentityManager.CurrentIdentity != null)
+            {
+                iView.IdleTimerStart(IdentityManager.CurrentIdentity.Id);
+            }
         }
 
         private void IView_FinalChatTimerTick(Guid orderId)
@@ -75,22 +78,30 @@ namespace Dianzhu.CSClient.Presenter
 
             ServiceOrder order = bllServiceOrder.GetOne(orderId);
             string errMsg = string.Empty;
-            if (IdentityManager.CurrentIdentity.Id == order.Id)
+            if (IdentityManager.CurrentIdentity != null)
             {
-                iViewChatList.ClearUCData();
-                iViewOrderHistory.OrderList = null;
-
-                //删除分配表中用户和客服的关系
-                ReceptionStatus rs = dalReceptionStatus.GetOneByCustomerAndCS(order.CustomerService, order.Customer);
-                dalReceptionStatus.Delete(rs);
-
-                //发送客服离线消息给用户
-                string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
-                string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
-                                                  <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:cer:offline""></ext></message>",
-                                                  order.Customer.Id + "@" + server, order.CustomerService.Id, Guid.NewGuid() + "@" + server);
-                iIM.SendMessage(noticeDraftNew);
+                if (IdentityManager.CurrentIdentity.Id == order.Id)
+                {
+                    iViewChatList.ClearUCData();
+                    iViewChatList.ShowNoChatMsg();
+                    iViewOrderHistory.ClearUCData();
+                    iViewOrderHistory.ShowNullListLable();
+                }
             }
+
+            //删除分配表中用户和客服的关系
+            ReceptionStatus rs = dalReceptionStatus.GetOneByCustomerAndCS(GlobalViables.CurrentCustomerService, order.Customer);
+            if (rs != null)
+            {
+                dalReceptionStatus.Delete(rs);
+            }
+
+            //发送客服离线消息给用户
+            string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
+            string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
+                                                  <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:cer:offline""></ext></message>",
+                                              order.Customer.Id + "@" + server, GlobalViables.CurrentCustomerService.Id, Guid.NewGuid());
+            iIM.SendMessage(noticeDraftNew);
 
             if (IdentityManager.DeleteIdentity(order))
             {
@@ -100,7 +111,6 @@ namespace Dianzhu.CSClient.Presenter
             {
                 errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
                 log.Error(errMsg);
-                throw new NotImplementedException(errMsg);
             }
         }
 
@@ -110,23 +120,26 @@ namespace Dianzhu.CSClient.Presenter
             //判断信息类型
             if (chat.ChatType == enum_ChatType.Media || chat.ChatType == enum_ChatType.Text)
             {
-                //1 更新当前聊天列表
-                //2 判断消息 和 聊天列表,当前聊天项的关系(是当前聊天项 但是需要修改订单 非激活的列表, 新聊天.
-                IdentityTypeOfOrder type;
-                IdentityManager.UpdateIdentityList(chat.ServiceOrder, out type);
-                ReceivedMessage(chat, type);
-                //消息本地化.
-                chat.ReceiveTime = DateTime.Now;
-                if (chat is Model.ReceptionChatMedia)
+                if (chat.ServiceOrder != null)
                 {
-                    string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
-                    string fileName = ((ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
+                    //1 更新当前聊天列表
+                    //2 判断消息 和 聊天列表,当前聊天项的关系(是当前聊天项 但是需要修改订单 非激活的列表, 新聊天.
+                    IdentityTypeOfOrder type;
+                    IdentityManager.UpdateIdentityList(chat.ServiceOrder, out type);
+                    ReceivedMessage(chat, type);
+                    //消息本地化.
+                    chat.ReceiveTime = DateTime.Now;
+                    if (chat is Model.ReceptionChatMedia)
+                    {
+                        string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
+                        string fileName = ((ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
 
-                    ((ReceptionChatMedia)chat).MedialUrl = fileName;
+                        ((ReceptionChatMedia)chat).MedialUrl = fileName;
+                    }
+                    dalReceptionChat.Add(chat);
+
+                    iView.IdleTimerStop(chat.ServiceOrder.Id); 
                 }
-                dalReceptionChat.Add(chat);
-
-                iView.IdleTimerStop(chat.ServiceOrder.Id);
             }
             else if (chat.ChatType== enum_ChatType.UserStatus)
             {
@@ -221,6 +234,12 @@ namespace Dianzhu.CSClient.Presenter
                 IdentityManager.CurrentIdentity = serviceOrder;
                 iView.SetIdentityLoading(serviceOrder);
                 
+                iViewChatList.ClearUCData();
+                iViewChatList.ShowLoadingMsg();
+
+                iViewOrderHistory.ClearUCData();
+                iViewOrderHistory.ShowListLoadingMsg();
+
             }
             catch (Exception ex)
             {
@@ -278,7 +297,10 @@ namespace Dianzhu.CSClient.Presenter
 
         public void RemoveIdentity(ServiceOrder order)
         {
-            iView.RemoveIdentity(order);
+            if (iView != null)
+            {
+                iView.RemoveIdentity(order);
+            }
         }
 
         protected void IdentityLogOffShowMsg(Guid orderId)

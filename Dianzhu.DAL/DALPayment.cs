@@ -33,17 +33,7 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public virtual Payment GetPayedByTarget(ServiceOrder order, Model.Enums.enum_PayTarget payTarget)
         {
-            return FindOne(x => x.Order.Id == order.Id && x.PayTarget == payTarget && x.Status == Model.Enums.enum_PaymentStatus.Trade_Success);
-        }
-
-        /// <summary>
-        /// 查询订单支付的订金
-        /// </summary>
-        /// <param name="order"></param>
-        /// <returns></returns>
-        public virtual Payment GetPayedForDeposit(ServiceOrder order)
-        {
-            return new Payment();
-        }
+            return FindOne(x => x.Order.Id == order.Id && x.PayTarget == payTarget);
+        }        
     }
 }

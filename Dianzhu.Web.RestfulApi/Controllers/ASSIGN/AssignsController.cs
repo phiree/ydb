@@ -27,7 +27,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ASSIGN
         {
             try
             {
-                return Json(iassign.PostAssign(assignobj));
+                return Json(iassign.PostAssign(assignobj, GetRequestHeader.GetTraitHeaders("post/assigns")));
             }
             catch (Exception ex)
             {
@@ -45,7 +45,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ASSIGN
         {
             try
             {
-                return Json(iassign.GetAssigns(filter,assign));
+                return Json(iassign.GetAssigns(filter,assign, GetRequestHeader.GetTraitHeaders("get/assigns")));
             }
             catch (Exception ex)
             {
@@ -63,12 +63,11 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ASSIGN
         {
             try
             {
-
                 if (assign == null)
                 {
                     assign = new common_Trait_AssignFiltering();
                 }
-                return Json(iassign.GetAssignsCount(assign));
+                return Json(iassign.GetAssignsCount(assign, GetRequestHeader.GetTraitHeaders("get/assigns/count")));
             }
             catch (Exception ex)
             {

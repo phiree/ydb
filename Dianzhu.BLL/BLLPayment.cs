@@ -41,7 +41,7 @@ namespace Dianzhu.BLL
                 case enum_PayTarget.FinalPayment:
                     //只有 已经服务完成的 订单 才能申请 支付尾款 
                     errMsg = "只有 已经服务完成的 订单 才能申请 支付尾款 ";
-                    applyIsValid = order.OrderStatus == enum_OrderStatus.Ended;
+                    applyIsValid = order.OrderStatus == enum_OrderStatus.Ended || order.OrderStatus == enum_OrderStatus.Finished;
                     break;
                 case enum_PayTarget.Compensation:
                     errMsg = "只有已经完成的订单 才能申请赔偿.";
@@ -88,7 +88,7 @@ namespace Dianzhu.BLL
             }
             else if (paymentCount == 0)
             {
-                payment = new Payment { Amount=GetPayAmount(order, payTarget), Order=order, PayTarget= payTarget};
+                payment = new Payment(GetPayAmount(order, payTarget), order, payTarget);
 
                 dal.Add(payment);
             }
@@ -193,19 +193,24 @@ namespace Dianzhu.BLL
         }
 
         /// <summary>
-        ///  条件读取支付项
+        /// 条件读取支付项
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="payStatus"></param>
         /// <param name="payType"></param>
         /// <param name="orderID"></param>
+        /// <param name="userID"></param>
         /// <returns></returns>
-        public IList<Payment> GetPays(Model.Trait_Filtering filter, string payStatus, string payType, Guid orderID)
+        public IList<Payment> GetPays(Model.Trait_Filtering filter, string payStatus, string payType, Guid orderID, Guid userID)
         {
             var where = PredicateBuilder.True<Payment>();
             if (orderID != Guid.Empty)
             {
                 where = where.And(x => x.Order.Id == orderID);
+            }
+            if (userID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.Customer.Id == userID);
             }
             if (payStatus != null && payStatus != "")
             {
@@ -239,13 +244,18 @@ namespace Dianzhu.BLL
         /// <param name="payStatus"></param>
         /// <param name="payType"></param>
         /// <param name="orderID"></param>
+        /// <param name="userID"></param>
         /// <returns></returns>
-        public long GetPaysCount(string payStatus, string payType, Guid orderID)
+        public long GetPaysCount(string payStatus, string payType, Guid orderID, Guid userID)
         {
             var where = PredicateBuilder.True<Payment>();
             if (orderID != Guid.Empty)
             {
                 where = where.And(x => x.Order.Id == orderID);
+            }
+            if (userID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.Customer.Id == userID);
             }
             if (payStatus != null && payStatus != "")
             {
@@ -264,13 +274,18 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <param name="orderID"></param>
         /// <param name="payID"></param>
+        /// <param name="userID"></param>
         /// <returns></returns>
-        public Payment GetPay(Guid orderID, Guid payID)
+        public Payment GetPay(Guid orderID, Guid payID, Guid userID)
         {
             var where = PredicateBuilder.True<Payment>();
             if (orderID != Guid.Empty)
             {
                 where = where.And(x => x.Order.Id == orderID);
+            }
+            if (userID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.Customer.Id == userID);
             }
             if (payID != Guid.Empty)
             {

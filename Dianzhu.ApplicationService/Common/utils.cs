@@ -14,8 +14,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Specialized;
 using PHSuit;
 using System.Reflection;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Web.UI.WebControls;
+using System.Drawing;
 
 namespace Dianzhu.ApplicationService
 {
@@ -376,7 +375,7 @@ namespace Dianzhu.ApplicationService
         /// <param name="strDomainType"></param>
         /// <param name="strFileType"></param>
         /// <returns></returns>
-        public static string DownloadToMediaserver(string fileUrl,string strOriginalName,string strDomainType,string strFileType)
+        public static string DownloadToMediaserver(string fileUrl, string strOriginalName, string strFileType)
         {
             //string url = Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl");
             //var respData = new NameValueCollection();
@@ -384,23 +383,41 @@ namespace Dianzhu.ApplicationService
             //respData.Add("originalName", string.Empty);
             //respData.Add("domainType", "StaffAvatar");
             //respData.Add("fileType", "image");
-            
-            string url = Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl");
-            var respData = new NameValueCollection();
-            string strUrl = HttpUtility.UrlEncode(fileUrl);
-            if (fileUrl.IndexOf(':') == 1)
+            try
             {
-                respData.Add("fileBase64", ToBase64(fileUrl));
+                string url = Dianzhu.Config.Config.GetAppSetting("MediaUploadUrlByDate");
+                //url = "http://192.168.1.177:8038/UploadFileByDate.ashx";
+                var respData = new NameValueCollection();
+                string strUrl = HttpUtility.UrlEncode(fileUrl);
+                if (fileUrl.IndexOf(':') == 1)
+                {
+                    respData.Add("fileBase64", ToBase64(fileUrl));
+                }
+                else
+                {
+                    respData.Add("fileUrl", strUrl);
+                }
+                respData.Add("originalName", strOriginalName);
+                respData.Add("fileType", strFileType);
+                respData.Add("domainType", "StaffAvatar");
+                string strResult = HttpHelper.CreateHttpRequest(url.ToString(), "post", respData);
+                if (strResult .Contains( "上传失败！"))
+                {
+                    throw new Exception(strResult);
+                }
+                return strResult;
             }
-            else
+            catch(Exception ex)
             {
-                respData.Add("fileUrl", strUrl);
+                if (ex.Message.Contains("上传失败！"))
+                {
+                    throw new Exception(ex.Message);
+                }
+                else
+                {
+                    throw new Exception("上传失败！" + ex.Message);
+                }
             }
-            respData.Add("originalName", strOriginalName);
-            respData.Add("domainType", strDomainType);
-            respData.Add("fileType", strFileType);
-
-            return HttpHelper.CreateHttpRequest(url.ToString(), "post", respData);
         }
 
         /// <summary>
@@ -411,15 +428,61 @@ namespace Dianzhu.ApplicationService
         /// <param name="strDomainType"></param>
         /// <param name="strFileType"></param>
         /// <returns></returns>
-        public static string DownloadToMediaserver1(string fileBase64, string strOriginalName, string strDomainType, string strFileType)
+        public static string DownloadToMediaserver1(string fileBase64, string strOriginalName,  string strFileType)
         {
-            string url = Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl");
-            var respData = new NameValueCollection();
-            respData.Add("fileBase64", fileBase64);
-            respData.Add("originalName", strOriginalName);
-            respData.Add("domainType", strDomainType);
-            respData.Add("fileType", strFileType);
-            return HttpHelper.CreateHttpRequest(url.ToString(), "post", respData);
+            try
+            {
+                string url = Dianzhu.Config.Config.GetAppSetting("MediaUploadUrlByDate");
+                //url = "http://192.168.1.177:8038/UploadFileByDate.ashx";
+                var respData = new NameValueCollection();
+                respData.Add("fileBase64", fileBase64);
+                respData.Add("originalName", strOriginalName);
+                respData.Add("fileType", strFileType);
+                string strResult= HttpHelper.CreateHttpRequest(url.ToString(), "post", respData);
+                if (strResult.Contains("上传失败！"))
+                {
+                    throw new Exception(strResult);
+                }
+                return strResult;
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("上传失败！"))
+                {
+                    throw new Exception(ex.Message);
+                }
+                else
+                {
+                    throw new Exception("上传失败！" + ex.Message);
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 从文件Url中获取文件名
+        /// </summary>
+        /// <param name="fileUrl"></param>
+        /// <returns></returns>
+        public static string GetFileName(string fileUrl)
+        {
+            string strFileName = fileUrl;
+            if (fileUrl.Contains("?fileName="))
+            {
+                string[] strN = fileUrl.Split(new string[] { "?fileName=" },StringSplitOptions.None);
+                strFileName = strN[1];
+                string regp = @"(_(\d+)[x|X](\d+))$";
+                Regex re = new Regex(regp);
+                bool isImageThumbnail = re.IsMatch(strFileName);
+                if (isImageThumbnail)
+                {
+                    Match regexMatch = re.Match(strFileName);
+                    //thumbnailWidth = Convert.ToInt32(regexMatch.Groups[2].Value);
+                    //thumbnailHeight = Convert.ToInt32(regexMatch.Groups[3].Value);
+                    //cleanedFileName = fileName.Replace(regexMatch.Groups[1].Value, string.Empty);
+                    strFileName = strFileName.Replace(regexMatch.Groups[1].Value, string.Empty);
+                }
+            }
+            return strFileName;
         }
 
         /// <summary>
@@ -436,6 +499,7 @@ namespace Dianzhu.ApplicationService
             //binFormatter.Serialize(memStream, img);
             //byte[] bytes = memStream.GetBuffer();
             //string base64 = Convert.ToBase64String(bytes);
+           
             string base64Img = Convert.ToBase64String(System.IO.File.ReadAllBytes(fileUrl));
             return base64Img;
             
@@ -446,15 +510,32 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ToImage(string fileBase64)//(object sender, EventArgs e)
+        public static void Base64ToImage(string fileBase64,out string height,out string width, out string size)//(object sender, EventArgs e)
         {
             string base64 = fileBase64;//this.richTextBox.Text;
             byte[] bytes = Convert.FromBase64String(base64);
             MemoryStream memStream = new MemoryStream(bytes);
-            BinaryFormatter binFormatter = new BinaryFormatter();
-            Image img = (Image)binFormatter.Deserialize(memStream);
+            System.Drawing.Image img = System.Drawing.Bitmap.FromStream(memStream);
             
-            //this.pictureBox.Image = img;
+            //using System.Runtime.Serialization.Formatters.Binary;
+            //BinaryFormatter binFormatter = new BinaryFormatter();
+            //Image img = (Image)binFormatter.Deserialize(memStream);
+
+            height = img.Height.ToString ();
+            width = img.Width.ToString();
+            size = (bytes.Length / 1024).ToString();
+        }
+
+        /// <summary>
+        /// 将Base64字符串转换为图片
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void Base64ToAudio(string fileBase64, out string size)//(object sender, EventArgs e)
+        {
+            string base64 = fileBase64;//this.richTextBox.Text;
+            byte[] bytes = Convert.FromBase64String(base64);
+            size = (bytes.Length / 1024).ToString();
         }
 
         /// <summary>

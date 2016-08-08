@@ -64,10 +64,10 @@ namespace Dianzhu.BLL
             //bllPaymentLog.SaveOrUpdate(paymentLog);
 
             //处理订单流程
-            string platformOrderId, businessOrderId, errMsg;
+            string platformOrder, businessOrderId, errMsg;
             decimal amount;
             log.Debug("开始API回调");
-            string returnstr = irefundCallback.RefundCallBack(callbackParameters, out businessOrderId, out platformOrderId, out amount, out errMsg);
+            string returnstr = irefundCallback.RefundCallBack(callbackParameters, out businessOrderId, out platformOrder, out amount, out errMsg);
             log.Debug("回调结果:" + returnstr);
 
             //todo: they are must be in a single transaction
@@ -80,10 +80,10 @@ namespace Dianzhu.BLL
             //bllPaymentLog.SaveOrUpdate(paymentLog);
 
             //更新退款状态
-            Refund refund = GetRefundByPlatformTradeNo(platformOrderId);
+            Refund refund = GetRefundByPlatformTradeNo(platformOrder);
             if (refund != null)
             {
-                log.Debug("TRADE_SUCCESS,更新支付项,paymentId为：" + refund.Id.ToString());
+                log.Debug("TRADE_SUCCESS,更新支付项,refundId为：" + refund.Id.ToString());
                 refund.RefundStatus = enum_RefundStatus.Success;
                 Update(refund);
             }

@@ -210,7 +210,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 NHibernateUnitOfWork.UnitOfWork.Start();
                 //Action ac = () =>
                 //{
-                    Search(targetTime,minPrice,maxPrice,selectedType.Id, serviceName);
+                    Search(targetTime, minPrice, maxPrice, selectedType.Id, serviceName);
                 //};
                 //NHibernateUnitOfWork.With.Transaction(ac);
 

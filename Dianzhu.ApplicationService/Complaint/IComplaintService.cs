@@ -12,7 +12,9 @@ namespace Dianzhu.ApplicationService.Complaint
         /// 新建投诉
         /// </summary>
         /// <param name="complaintobj"></param>
-        complaintObj AddComplaint(complaintObj complaintobj);
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        complaintObj AddComplaint(complaintObj complaintobj, Customer customer);
 
         /// <summary>
         /// 条件读取投诉
@@ -29,5 +31,14 @@ namespace Dianzhu.ApplicationService.Complaint
         /// <param name="complaint"></param>
         /// <returns></returns>
         countObj GetComplaintsCount( common_Trait_ComplainFiltering complaint);
+
+        /// <summary>
+        /// 读取投诉信息
+        /// </summary>
+        /// <param name="complaintID"></param>
+        /// <returns></returns>
+        complaintObj GetOneComplaint(string complaintID);
+
+
     }
 }

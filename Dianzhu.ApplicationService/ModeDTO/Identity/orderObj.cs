@@ -59,6 +59,8 @@ namespace Dianzhu.ApplicationService
             }
         }
 
+        
+
         string _closeTime = "";
         /// <summary>
         /// 订单关闭的时间（yyyyMMddHHmmss）
@@ -78,7 +80,7 @@ namespace Dianzhu.ApplicationService
 
         string _serviceTime = "";
         /// <summary>
-        /// 订单服务的时间（yyyyMMddHHmmss）
+        /// 订单服务预约时间（yyyyMMddHHmmss）
         /// </summary>
         /// <type>string</type>
         public string serviceTime
@@ -90,6 +92,23 @@ namespace Dianzhu.ApplicationService
             set
             {
                 _serviceTime = value;
+            }
+        }
+
+        string _startTime = "";
+        /// <summary>
+        /// 订单服务实际开始时间（yyyyMMddHHmmss）
+        /// </summary>
+        /// <type>string</type>
+        public string startTime
+        {
+            get
+            {
+                return _startTime;
+            }
+            set
+            {
+                _startTime = value;
             }
         }
 
@@ -107,6 +126,23 @@ namespace Dianzhu.ApplicationService
             set
             {
                 _doneTime = value;
+            }
+        }
+
+        string _updateTime = "";
+        /// <summary>
+        /// 订单最后一次更新时间（yyyyMMddHHmmss）
+        /// </summary>
+        /// <type>string</type>
+        public string updateTime
+        {
+            get
+            {
+                return _updateTime;
+            }
+            set
+            {
+                _updateTime = value;
             }
         }
 
@@ -195,12 +231,12 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        servicesObj _serviceSnapshotObj = new servicesObj();
+        serviceSnapshotObj _serviceSnapshotObj = new serviceSnapshotObj();
         /// <summary>
         /// 服务项的模型
         /// </summary>
         /// <type>servicesObj</type>
-        public servicesObj serviceSnapshotObj
+        public serviceSnapshotObj serviceSnapshotObj
         {
             get
             {

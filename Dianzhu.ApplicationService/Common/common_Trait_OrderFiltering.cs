@@ -43,5 +43,11 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <type>string</type>
         public string beforeThisTime { get; set; }
+
+        /// <summary>
+        /// 是否指派
+        /// </summary>
+        /// <type>string</type>
+        public string assign { get; set; }
     }
 }

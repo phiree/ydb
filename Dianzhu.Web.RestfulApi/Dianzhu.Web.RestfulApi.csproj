@@ -260,6 +260,7 @@
     <Compile Include="Controllers\SERVICE\ServicesController.cs" />
     <Compile Include="Controllers\SNAPSHOT\SnapshotsController.cs" />
     <Compile Include="Controllers\STAFF\StaffsController.cs" />
+    <Compile Include="Controllers\STORAGE\StoragesController.cs" />
     <Compile Include="Controllers\STORE\StoresController.cs" />
     <Compile Include="Controllers\USER\CustomerServicesController.cs" />
     <Compile Include="Controllers\USER\MerchantsController.cs" />
@@ -308,7 +309,9 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\connectionstrings.config" />
+    <Content Include="config\connectionstrings.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="files\rsa_private_key.pem" />
     <None Include="Properties\PublishProfiles\RestfulApi.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

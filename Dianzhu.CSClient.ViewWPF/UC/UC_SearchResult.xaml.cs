@@ -123,12 +123,15 @@ namespace Dianzhu.CSClient.ViewWPF
             ReceptionChat chat = (ReceptionChat)e.Result;
             if (chat != null)
             {
-                NHibernateUnitOfWork.With.Transaction(() => {
-                    NHibernateUnitOfWork.UnitOfWork.Current.Refresh(chat);
+                NHibernateUnitOfWork.UnitOfWork.Start();
+                //NHibernateUnitOfWork.With.Transaction(() => {
+                //    NHibernateUnitOfWork.UnitOfWork.Current.Refresh(chat);
                     log.Debug("开始发送消息");
                     iIm.SendMessage(chat);
                     log.Debug("消息发送完成");
-                });
+                //});
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
         }
 
@@ -136,11 +139,14 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             this.Dispatcher.Invoke((Action)(() =>
             {
-                Action ac = () =>
-                {
+                NHibernateUnitOfWork.UnitOfWork.Start();
+                //Action ac = () =>
+                //{
                     e.Result = PushServices(new List<DZService>() { (DZService)e.Argument });
-                };
-                NHibernateUnitOfWork.With.Transaction(ac);
+                //};
+                //NHibernateUnitOfWork.With.Transaction(ac);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }));
         }
 

@@ -49,7 +49,10 @@ namespace MediaServer
                 , out domainType, out cleanedFileName
                 , out isImageThumbnail, out imageWidth, out imageHeight);
 
-            string relativePath = ServerSettings.DomainPath[domainType];
+            //*******longphui_20160727_兼容按日期生成文件路径的上传******
+            string relativePath = domainType; //ServerSettings.DomainPath[domainType];
+            //*******longphui_20160727_兼容按日期生成文件路径的上传******
+
             result = relativePath + cleanedFileName;
             if (fileType == FileType.image && isImageThumbnail)
             {

@@ -37,7 +37,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.PAY
                 {
                     payfilter = new common_Trait_PayFiltering();
                 }
-                return Json(ipay.GetPays(orderID, filter, payfilter));
+                return Json(ipay.GetPays(orderID, filter, payfilter,GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/pays")));
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.PAY
                 {
                     payfilter = new common_Trait_PayFiltering();
                 }
-                return Json(ipay.GetPaysCount(orderID, payfilter));
+                return Json(ipay.GetPaysCount(orderID, payfilter, GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/pays/count")));
             }
             catch (Exception ex)
             {
@@ -79,7 +79,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.PAY
         {
             try
             {
-                return Json(ipay.GetPay(orderID, payID));
+                return Json(ipay.GetPay(orderID, payID, GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/pays/{payID}")));
             }
             catch (Exception ex)
             {
@@ -99,7 +99,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.PAY
         {
             try
             {
-                return Json(ipay.PatchPay(orderID, payID, payobj));
+                return Json(ipay.PatchPay(orderID, payID, payobj, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}/pays/{payID}")));
             }
             catch (Exception ex)
             {
@@ -119,7 +119,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.PAY
         {
             try
             {
-                return Json(ipay.GetPay3rdString(orderID, payID, payTarget));
+                return Json(ipay.GetPay3rdString(orderID, payID, payTarget, GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/pays/{payID}/pay3rdString")));
             }
             catch (Exception ex)
             {

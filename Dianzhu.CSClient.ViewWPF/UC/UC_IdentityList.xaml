@@ -13,9 +13,11 @@
                 <GradientStop Color="#FFd5dade" Offset="1"></GradientStop>
             </LinearGradientBrush>
         </Grid.Background>
+        <ScrollViewer x:Name="ScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
 
-        <WrapPanel x:Name="pnlIdentityList" VerticalAlignment="Center" Margin="11,0,0,0">
+            <WrapPanel x:Name="pnlIdentityList" VerticalAlignment="Center" Margin="11,0,0,0">
 
-        </WrapPanel>
+            </WrapPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

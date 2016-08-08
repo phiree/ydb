@@ -97,7 +97,7 @@
                             <TextBlock Text="服务时间" Style="{DynamicResource TextBlockKey}"></TextBlock>
                         </Label>
                         <!--<DatePicker Width="142"/>-->
-                        <TextBox x:Name="tbxKeywordTime" Text="2016-7-30 9:00" Style="{DynamicResource TextBoxValue}"/>
+                        <TextBox x:Name="tbxKeywordTime" Text="2016-8-30 9:00" Style="{DynamicResource TextBoxValue}"/>
                     </WrapPanel>
 
                     <WrapPanel Margin="0,1" VerticalAlignment="Center">

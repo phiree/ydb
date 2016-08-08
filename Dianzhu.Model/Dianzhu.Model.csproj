@@ -63,7 +63,7 @@
     <Compile Include="Client\Client.cs" />
     <Compile Include="Client\RefreshToken.cs" />
     <Compile Include="Client\UserToken.cs" />
-    <Compile Include="StorageManager\ImageInfo.cs" />
+    <Compile Include="StorageManager\StorageFileInfo.cs" />
     <Compile Include="Trait_Filtering.cs" />
     <Compile Include="Finance\BalanceFlow.cs" />
     <Compile Include="Finance\ServiceTypePoint.cs" />

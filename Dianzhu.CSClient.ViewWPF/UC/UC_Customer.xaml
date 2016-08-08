@@ -43,7 +43,7 @@
                                 <Grid Cursor="Hand">
                                     <Border CornerRadius="2" Width="28" Height="28">
                                         <Border.Background>
-                                            <ImageBrush x:Name="imgSource" ImageSource="pack://siteoforigin:,,,/Resources/logourl.png"/>
+                                            <ImageBrush x:Name="imgSource" ImageSource="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png"/>
                                         </Border.Background>
                                     </Border>
                                 </Grid>

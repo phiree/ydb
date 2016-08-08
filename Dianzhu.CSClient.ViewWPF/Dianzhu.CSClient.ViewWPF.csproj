@@ -87,6 +87,9 @@
     <Compile Include="FormMain.xaml.cs">
       <DependentUpon>FormMain.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FormShowMessage.xaml.cs">
+      <DependentUpon>FormShowMessage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GlobalVariable.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -104,6 +107,9 @@
     </Compile>
     <Compile Include="UC\UC_ChatSend.xaml.cs">
       <DependentUpon>UC_ChatSend.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_Hint.xaml.cs">
+      <DependentUpon>UC_Hint.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_MessageVoice.xaml.cs">
       <DependentUpon>UC_MessageVoice.xaml</DependentUpon>
@@ -165,6 +171,10 @@
     <Compile Include="FormLogin.xaml.cs">
       <DependentUpon>FormLogin.xaml</DependentUpon>
     </Compile>
+    <Page Include="FormShowMessage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UC\UC_Business.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -182,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\UC_ChatSend.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_Hint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -316,44 +330,46 @@
     <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\1.png">
+    <Resource Include="Resources\1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\2.png">
+    </Resource>
+    <Resource Include="Resources\2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\3.png">
+    </Resource>
+    <Resource Include="Resources\3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\4.png">
+    </Resource>
+    <Resource Include="Resources\4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\work.png">
+    </Resource>
+    <Resource Include="Resources\work.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Image1.png" />
-    <Content Include="Resources\ass.png">
+    <Resource Include="Resources\Image1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\exit.png">
+    </Resource>
+    <Resource Include="Resources\ass.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\logo.png">
+    </Resource>
+    <Resource Include="Resources\exit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\logourl.png">
+    </Resource>
+    <Resource Include="Resources\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Resource>
+    <Resource Include="Resources\logourl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\set.png">
+    <Resource Include="Resources\set.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\voice.gif">
+    </Resource>
+    <Resource Include="Resources\voice.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

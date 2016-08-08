@@ -7,6 +7,7 @@ using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
+using Dianzhu.ApplicationService;
 
 /// <summary>
 /// 获取一条服务信息的详情
@@ -75,7 +76,10 @@ public class ResponseCLM001001 : BaseResponse
 
                 //20160614_longphui_modify
                 complaint.ComplaitResourcesUrl = requestData.resourcesUrl.Split(',').ToList();// requestData.resourcesUrl;
-
+                for (int i = 0; i < complaint.ComplaitResourcesUrl.Count; i++)
+                {
+                    complaint.ComplaitResourcesUrl[i] = utils.GetFileName(complaint.ComplaitResourcesUrl[i].ToString());
+                }
                 complaint.Operator = order.Customer;
                 bllComplaint.AddComplaint(complaint);
 

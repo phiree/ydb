@@ -12,7 +12,7 @@ namespace Dianzhu.Config
     {
         #region 服务器定义
         static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172","192.168.1.150", "112.74.198.215","112.74.17.34"};
-        static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150", "112.74.198.215", "112.74.17.34" };
+        static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150", "112.74.198.215", "business.ydban.cn" };
         static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150", "112.74.198.215", "112.74.17.34" };
         static string[] HttpApiServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150", "112.74.198.215", "112.74.17.34" };
         static string[] IMNotifyServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150", "112.74.198.215", "112.74.17.34" };
@@ -39,8 +39,8 @@ namespace Dianzhu.Config
              ,{ "192.168.1.172",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
             ,{ "localhost",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
             ,{ "112.74.198.215",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
-            ,{ "112.74.17.34",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
-               ,{ "192.168.1.150",new KeyValuePair<string,string>("3d9ed306-7b5d-4e0d-8776-a5e50093515f","123456") }
+            ,{ "112.74.17.34",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","123456") }
+               ,{ "192.168.1.150",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
         };
         //通知中心登陆用户账号，不同数据库服务器有不同的值
         //todo: 需要使用 username登陆 而不是id
@@ -48,10 +48,10 @@ namespace Dianzhu.Config
               { "119.29.39.211",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
              ,{ "115.159.72.236",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
              ,{ "192.168.1.172",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
-              ,{ "localhost",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","198989") }
+              ,{ "localhost",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
             ,{ "112.74.198.215",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
             ,{ "112.74.17.34",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
-              ,{ "192.168.1.150",new KeyValuePair<string,string>("054c400b-4afb-49f3-bbdf-a5e500939c59","123456") }
+              ,{ "192.168.1.150",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
         };
          
 
@@ -62,7 +62,9 @@ namespace Dianzhu.Config
 
             , {"MediaUploadUrl",BuildHttpUrlString(ApplicationServer, 8038,"UploadFile.ashx") }
             , {"MediaGetUrl",BuildHttpUrlString(ApplicationServer, 8038,"GetFile.ashx?fileName=")   }
+            , {"MediaUploadUrlByDate",BuildHttpUrlString(ApplicationServer, 8038,"UploadFileByDate.ashx") }//按日期生成保存路径
 
+            , {"ImageHandler",BuildHttpUrlString(ApplicationServer, "ImageHandler.ashx?imagename=")}
 
             , {"NoticeSenderId",DictsNotifySenderLogins[IMNotifyServer].Key  }
             , {"NoticeSenderPwd",DictsNotifySenderLogins[IMNotifyServer].Value  }
@@ -107,6 +109,10 @@ namespace Dianzhu.Config
         static private string BuildHttpUrlString(string server, int port)
         {
             return string.Format("http://{0}:{1}/", server, port);
+        }
+        static private string BuildHttpUrlString(string server, string path)
+        {
+            return string.Format("http://{0}/{1}", server, path);
         }
         static private string BuildHttpUrlString(string server, int port, string path)
         {

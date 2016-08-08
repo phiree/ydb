@@ -57,8 +57,10 @@ namespace NHibernateUnitOfWork
 
                         )
                       .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.AreaMap>())
-                       //.ExposeConfiguration(config => new SchemaUpdate(config).Execute(false, false))
-                      .ExposeConfiguration(config=> new SchemaUpdate(config).Execute(false, true))
+ 
+                       .ExposeConfiguration(BuildSchema)
+ 
+ 
                       .BuildConfiguration();
                       
 
@@ -66,6 +68,17 @@ namespace NHibernateUnitOfWork
                 HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
                 return _configuration;
             }
+        }
+        private static void BuildSchema(Configuration config)
+        {
+
+            SchemaUpdate update = new SchemaUpdate(config);
+            if (System.Configuration.ConfigurationManager.AppSettings["UpdateSchema"] == "1")
+            {
+                update.Execute(false, true);
+            }
+           
+
         }
 
         public ISessionFactory SessionFactory

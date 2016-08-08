@@ -119,11 +119,11 @@ namespace Dianzhu.ApplicationService
         {
             get
             {
-                return _orderStatus;
+                return _target;
             }
             set
             {
-                _orderStatus = value;
+                _target = value;
             }
         }
     }

@@ -37,7 +37,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     orderfilter = new common_Trait_OrderFiltering();
                 }
-                return Json(iorder.GetOrders(filter, orderfilter, GetRequestHeader.GetTraitHeaders()));
+                return Json(iorder.GetOrders(filter, orderfilter, GetRequestHeader.GetTraitHeaders("get/orders")));
             }
             catch (Exception ex)
             {
@@ -59,7 +59,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     orderfilter = new common_Trait_OrderFiltering();
                 }
-                return Json(iorder.GetOrdersCount(orderfilter, GetRequestHeader.GetTraitHeaders()));
+                return Json(iorder.GetOrdersCount(orderfilter, GetRequestHeader.GetTraitHeaders("get/orders/count")));
             }
             catch (Exception ex)
             {
@@ -116,7 +116,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     orderobj = new orderObj();
                 }
-                return Json(iorder.PatchOrder(id, orderobj, GetRequestHeader.GetTraitHeaders()));
+                return Json(iorder.PatchOrder(id, orderobj, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}")));
             }
             catch (Exception ex)
             {
@@ -135,7 +135,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         {
             try
             {
-                return Json(iorder.GetPushServices(orderID));
+                return Json(iorder.GetPushServices(orderID, GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/pushServices")));
             }
             catch (Exception ex)
             {
@@ -150,11 +150,15 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// <param name="serviceID"></param>
         /// <returns></returns>
         [Route("api/v1/orders/{orderID}/confirmService")]
-        public IHttpActionResult PutConfirmService(string orderID, [FromBody]string serviceID)
+        public IHttpActionResult PutConfirmService(string orderID, [FromBody]Common_Body commonBody)
         {
             try
             {
-                return Json(iorder.PutConfirmService(orderID,serviceID));
+                if (commonBody == null)
+                {
+                    commonBody = new Common_Body();
+                }
+                return Json(iorder.PutConfirmService(orderID, commonBody.serviceID, GetRequestHeader.GetTraitHeaders("put/orders/{orderID}/confirmService")));
             }
             catch (Exception ex)
             {
@@ -177,7 +181,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     appraiseobj = new appraiseObj();
                 }
-                return Json(iorder.PutAppraisee(orderID, appraiseobj));
+                return Json(iorder.PutAppraisee(orderID, appraiseobj, GetRequestHeader.GetTraitHeaders("put/orders/{orderID}/appraise")));
             }
             catch (Exception ex)
             {
@@ -195,7 +199,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         {
             try
             {
-                return Json(iorder.GetLinkMan(orderID));
+                return Json(iorder.GetLinkMan(orderID, GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/linkMan")));
             }
             catch (Exception ex)
             {
@@ -210,11 +214,15 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// <param name="newStatus"></param>
         /// <returns></returns>
         [Route("api/v1/orders/{orderID}/currentStatus")]
-        public IHttpActionResult PatchCurrentStatus(string orderID, [FromBody]string newStatus)
+        public IHttpActionResult PatchCurrentStatus(string orderID, [FromBody]Common_Body commonBody)
         {
             try
             {
-                return Json(iorder.PatchCurrentStatus(orderID, newStatus));
+                if (commonBody == null)
+                {
+                    commonBody = new Common_Body();
+                }
+                return Json(iorder.PatchCurrentStatus(orderID, commonBody.newStatus, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}/currentStatus")));
             }
             catch (Exception ex)
             {
@@ -229,15 +237,19 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// <param name="refundfilter"></param>
         /// <returns></returns>
         [Route("api/v1/orders/{orderID}/refunds")]
-        public IHttpActionResult GetRefundStatus(string orderID, [FromUri]common_Trait_RefundFiltering refundfilter)
+        public IHttpActionResult GetRefundStatus(string orderID, [FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_RefundFiltering refundfilter)
         {
             try
             {
+                if (filter == null)
+                {
+                    filter = new common_Trait_Filtering();
+                }
                 if (refundfilter == null)
                 {
                     refundfilter = new common_Trait_RefundFiltering();
                 }
-                return Json(iorder.GetRefundStatus(orderID, refundfilter));
+                return Json(iorder.GetRefundStatus(orderID, filter, refundfilter));
             }
             catch (Exception ex)
             {
@@ -260,7 +272,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     refundobj = new refundObj();
                 }
-                return Json(iorder.PostRefundAction(orderID, refundobj));
+                return Json(iorder.PostRefundAction(orderID, refundobj, GetRequestHeader.GetTraitHeaders("post/orders/{orderID}/refunds")));
             }
             catch (Exception ex)
             {
@@ -302,7 +314,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     strStaffID = assignobj.staffID;
                 }
-                return Json(iorder.PatchForman(orderID, strStaffID));
+                return Json(iorder.PatchForman(orderID, strStaffID, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}/forman")));
             }
             catch (Exception ex)
             {

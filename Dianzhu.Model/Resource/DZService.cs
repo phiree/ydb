@@ -86,6 +86,20 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual enum_PayType AllowedPayType { get; set; }
 
+        public virtual int GetAllPayTypeNum
+        {
+            get
+            {
+                enum_PayType pt = enum_PayType.None;
+                foreach (enum_PayType item in Enum.GetValues(typeof(enum_PayType)))
+                {
+                    pt |= item;
+                }
+                return (int)pt;
+            }
+        }
+       
+
         /// <summary>
         /// 服务保障:是否先行赔付
         /// </summary>
@@ -132,6 +146,28 @@ namespace Dianzhu.Model
                     default: unit = "未知计费单位类型"; break;
                 }
                 return unit;
+            }
+            set
+            {
+                try
+                {
+                    this.ChargeUnit = (Model.Enums.enum_ChargeUnit)Enum.Parse(typeof(Model.Enums.enum_ChargeUnit), value);
+                }
+                catch(Exception ex)
+                {
+                    switch (value.ToLower())
+                    {
+                        case "day": 
+                        case "天": this.ChargeUnit = enum_ChargeUnit.Day ; break;
+                        case "hour":
+                        case "时": this.ChargeUnit = enum_ChargeUnit.Hour; break;
+                        case "month":
+                        case "月": this.ChargeUnit = enum_ChargeUnit.Month; break;
+                        case "times":
+                        case "次": this.ChargeUnit = enum_ChargeUnit.Times; break;
+                        default: throw ex; 
+                    }
+                }
             }
         }
         /// <summary>

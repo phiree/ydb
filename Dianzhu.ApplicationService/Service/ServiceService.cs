@@ -33,12 +33,12 @@ namespace Dianzhu.ApplicationService.Service
             servicesobj.location.longitude = dzservice.Business.Longitude.ToString();
             servicesobj.location.latitude = dzservice.Business.Latitude.ToString();
             servicesobj.location.address = dzservice.Business.RawAddressFromMapAPI == null ? "" : dzservice.Business.RawAddressFromMapAPI;
-            if (dzservice.ServiceType != null)
-            {
+            //if (dzservice.ServiceType != null)
+            //{
                 //servicesobj.serviceType.serviceTypeID = dzservice.ServiceType.Id.ToString();
-                servicesobj.serviceType.fullDescription = dzservice.ServiceType.ToString();
+                //servicesobj.serviceType.fullDescription = dzservice.ServiceType.ToString();
                 //servicesobj.serviceType.superID = dzservice.ServiceType.ParentId.ToString();
-            }
+            //}
         }
 
         /// <summary>
@@ -46,17 +46,19 @@ namespace Dianzhu.ApplicationService.Service
         /// </summary>
         /// <param name="storeID"></param>
         /// <param name="servicesobj"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public servicesObj PostService(string storeID, servicesObj servicesobj)
+        public servicesObj PostService(string storeID, servicesObj servicesobj,Customer customer)
         {
-            Guid guidUser = new Guid();
-            //Model.Business business = bllBusiness.GetBusinessByIdAndOwner(utils.CheckGuidID(storeID, "storeID"), guidUser);
-            Model.Business business = bllBusiness.GetOne(utils.CheckGuidID(storeID, "storeID"));
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("storeID不能为空！");
+            }
+            Model.Business business = bllBusiness.GetBusinessByIdAndOwner(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (business == null)
             {
                 throw new Exception("该店铺不存在！");
             }
-
             //待定是否只传ID过来
             //string[] typeList = servicesobj.type.Split('>');
             //int typeLevel = typeList.Count() > 0 ? typeList.Count() - 1 : 0;
@@ -69,7 +71,77 @@ namespace Dianzhu.ApplicationService.Service
             }
             //待定是否只传ID过来
 
-            Model.DZService dzservice = Mapper.Map<servicesObj, Model.DZService>(servicesobj);
+
+            decimal dec = 0;
+            if (!string.IsNullOrEmpty(servicesobj.startAt))
+            {
+                if (!decimal.TryParse(servicesobj.startAt, out dec))
+                {
+                    throw new Exception("起步价格式不正确！");
+                }
+            }
+            if (!string.IsNullOrEmpty(servicesobj.unitPrice))
+            {
+                if (!decimal.TryParse(servicesobj.unitPrice, out dec))
+                {
+                    throw new Exception("单价格式不正确！");
+                }
+            }
+            if (!string.IsNullOrEmpty(servicesobj.deposit))
+            {
+                if (!decimal.TryParse(servicesobj.deposit, out dec))
+                {
+                    throw new Exception("订金格式不正确！");
+                }
+            }
+            int intNum = 0;
+            if (!string.IsNullOrEmpty(servicesobj.appointmentTime))
+            {
+                if (!int.TryParse(servicesobj.appointmentTime, out intNum))
+                {
+                    throw new Exception("提前预约的时间值格式不正确！");
+                }
+            }
+
+            Model.DZService dzservice = new Model.DZService();
+            //从字符串转枚举：AEnumType a = (AEnumType)Enum.Parse(typeof(AEnumType), “flag”); 可能失败，代码应包含异常处理机制。
+            //可用Enum.IsDefined()检查一个值是否包含在一个枚举中。
+            if (!string.IsNullOrEmpty(servicesobj.eSupportPayWay))
+            {
+                int ee = 0;
+                try
+                {
+                    if (int.TryParse(servicesobj.eSupportPayWay, out ee))
+                    { }
+                    else
+                    {
+                        ee = (int)(Model.Enums.enum_PayType)Enum.Parse(typeof(Model.Enums.enum_PayType), servicesobj.eSupportPayWay);
+                    }
+                    if (ee > dzservice.GetAllPayTypeNum || ee==4)
+                    {
+                        throw new Exception("该支付方式不存在！");
+                    }
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            if (!string.IsNullOrEmpty(servicesobj.maxCount))
+            {
+                if (!int.TryParse(servicesobj.maxCount, out intNum))
+                {
+                    throw new Exception("最大接单量格式不正确！");
+                }
+            }
+            
+
+
+            dzservice = Mapper.Map<servicesObj, Model.DZService>(servicesobj);
+            if (!string.IsNullOrEmpty(servicesobj.chargeUnit))
+            {
+                dzservice.ChargeUnitFriendlyName = servicesobj.chargeUnit;
+            }
             DateTime dt = new DateTime();
             dzservice.CreatedTime = dt;
             dzservice.LastModifiedTime = dt;
@@ -119,6 +191,10 @@ namespace Dianzhu.ApplicationService.Service
         /// <returns></returns>
         public IList<servicesObj> GetServices(string storeID, common_Trait_Filtering filter,common_Trait_ServiceFiltering servicefilter)
         {
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("storeID不能为空！");
+            }
             IList<Model.DZService> dzservice = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "DZService");
             decimal dcStartAt = -1;
@@ -150,6 +226,10 @@ namespace Dianzhu.ApplicationService.Service
         /// <returns></returns>
         public countObj GetServicesCount(string storeID, common_Trait_ServiceFiltering servicefilter)
         {
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("storeID不能为空！");
+            }
             decimal dcStartAt = -1;
             if (servicefilter.startAt != null && servicefilter.startAt != "")
             {
@@ -171,6 +251,14 @@ namespace Dianzhu.ApplicationService.Service
         /// <returns></returns>
         public servicesObj GetService(string storeID, string serviceID)
         {
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("storeID不能为空！");
+            }
+            if (string.IsNullOrEmpty(serviceID))
+            {
+                throw new FormatException("serviceID不能为空！");
+            }
             Model.DZService dzservice = bllDZService.GetService(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(serviceID, "serviceID"));
             if (dzservice == null)
             {
@@ -187,14 +275,21 @@ namespace Dianzhu.ApplicationService.Service
         /// <param name="storeID"></param>
         /// <param name="serviceID"></param>
         /// <param name="servicesobj"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public servicesObj PatchService(string storeID, string serviceID, servicesObj servicesobj)
+        public servicesObj PatchService(string storeID, string serviceID, servicesObj servicesobj,Customer customer)
         {
-            Guid guidUser = new Guid();
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("storeID不能为空！");
+            }
+            if (string.IsNullOrEmpty(serviceID))
+            {
+                throw new FormatException("serviceID不能为空！");
+            }
             Guid guidStore = utils.CheckGuidID(storeID, "storeID");
             Guid guidService = utils.CheckGuidID(serviceID, "serviceID");
-            //Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, guidUser);
-            Model.Business business = bllBusiness.GetOne(utils.CheckGuidID(storeID, "storeID"));
+            Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (business == null)
             {
                 throw new Exception("该店铺不存在！");
@@ -280,7 +375,25 @@ namespace Dianzhu.ApplicationService.Service
             //可用Enum.IsDefined()检查一个值是否包含在一个枚举中。
             if (!string.IsNullOrEmpty(servicesobj.eSupportPayWay))
             {
-                dzserviceobj.AllowedPayType = (Model.Enums.enum_PayType)Enum.Parse(typeof(Model.Enums.enum_PayType), servicesobj.eSupportPayWay);
+                int ee = 0;
+                try
+                {
+                    if (int.TryParse(servicesobj.eSupportPayWay, out ee))
+                    { }
+                    else
+                    {
+                        ee = (int)(Model.Enums.enum_PayType)Enum.Parse(typeof(Model.Enums.enum_PayType), servicesobj.eSupportPayWay);
+                    }
+                    if (ee > new Model.DZService().GetAllPayTypeNum || ee == 4)
+                    {
+                        throw new Exception("该支付方式不存在！");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                dzserviceobj.AllowedPayType = (Model.Enums.enum_PayType)ee;
             }
             dzserviceobj.Enabled = servicesobj.bOpen;
             if (!string.IsNullOrEmpty(servicesobj.maxCount))
@@ -293,7 +406,7 @@ namespace Dianzhu.ApplicationService.Service
             }
             if (!string.IsNullOrEmpty(servicesobj.chargeUnit))
             {
-                dzserviceobj.ChargeUnit = (Model.Enums.enum_ChargeUnit)Enum.Parse(typeof(Model.Enums.enum_ChargeUnit), servicesobj.chargeUnit);
+                dzserviceobj.ChargeUnitFriendlyName = servicesobj.chargeUnit;
             }
             DateTime dt = new DateTime();
             dzserviceobj.LastModifiedTime = dt;
@@ -331,11 +444,26 @@ namespace Dianzhu.ApplicationService.Service
         /// </summary>
         /// <param name="storeID"></param>
         /// <param name="serviceID"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public object DeleteService(string storeID, string serviceID)
+        public object DeleteService(string storeID, string serviceID,Customer customer)
         {
-            Model.DZService dzservice = null;
-            dzservice = bllDZService.GetService(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(serviceID, "serviceID"));
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new FormatException("storeID不能为空！");
+            }
+            if (string.IsNullOrEmpty(serviceID))
+            {
+                throw new FormatException("serviceID不能为空！");
+            }
+            Guid guidStore = utils.CheckGuidID(storeID, "storeID");
+            Guid guidService = utils.CheckGuidID(serviceID, "serviceID");
+            Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            if (business == null)
+            {
+                throw new Exception("该店铺不存在！");
+            }
+            Model.DZService dzservice = bllDZService.GetService(guidStore, guidService);
             if (dzservice == null)
             {
                 throw new Exception("该服务不存在！");
@@ -352,6 +480,22 @@ namespace Dianzhu.ApplicationService.Service
             //{
             //    throw new Exception("删除失败！");
             //}
+        }
+
+        /// <summary>
+        /// 查询 superID 的下级服务类型列表数组,当 superID 为空时，默认查询顶层服务类型列表
+        /// </summary>
+        /// <param name="superID"></param>
+        /// <returns></returns>
+        public IList<serviceTypeObj> GetAllServiceTypes(string superID)
+        {
+            IList < Model.ServiceType> servicetype = bllServiceType.GetAllServiceTypes(utils.CheckGuidID(superID, "superID"));
+            if (servicetype == null)
+            {
+                throw new Exception(Dicts.StateCode[4]);
+            }
+            IList<serviceTypeObj> servicetypeobj = Mapper.Map<IList<Model.ServiceType>, IList<serviceTypeObj>>(servicetype);
+            return servicetypeobj;
         }
     }
 }

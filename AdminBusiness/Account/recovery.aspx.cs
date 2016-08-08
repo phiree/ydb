@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using System.Web.Security;
-public partial class ForgetPassword : BasePage
+public partial class ForgetPassword :Dianzhu.Web.Common.BasePage
 {
 
     DZMembershipProvider bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();

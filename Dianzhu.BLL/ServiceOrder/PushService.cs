@@ -37,7 +37,7 @@ namespace Dianzhu.BLL
         /// <param name="targetTime"></param>
         public void Push(ServiceOrder order, IList<ServiceOrderPushedService> services, string targetAddress, DateTime targetTime)
         {
-            order.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
+            //order.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
            
 
             foreach (ServiceOrderPushedService service in services)
@@ -64,7 +64,7 @@ namespace Dianzhu.BLL
             else if (l.Count == 1)
             {
                 ServiceOrderPushedService s = l.Single(x => x.OriginalService.Id == selectedService.Id);
-                if (s==null)
+                if (s == null)
                 {
                     throw new Exception("该服务不是该订单的推送服务！");
                 }
@@ -75,18 +75,20 @@ namespace Dianzhu.BLL
 
                 //保存订单历史记录
                 bllServiceOrderStateChangeHis.Save(order, enum_OrderStatus.DraftPushed);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+
+                Payment payment = bllPayment.ApplyPay(order, enum_PayTarget.Deposit);
 
                 if (order.DepositAmount > 0)
                 {
-                    Payment payment = bllPayment.ApplyPay(order, enum_PayTarget.Deposit);
+                    PHSuit.HttpHelper.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice&orderId=" + order.Id.ToString(), "get", null);
                 }
                 else
                 {
-                    bllServiceOrder.OrderFlow_PayDepositAndWaiting(order);
+                    bllServiceOrder.OrderFlow_ConfirmDeposit(order);
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 }
-
-                PHSuit.HttpHelper.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice&orderId=" + order.Id.ToString(), "get", null);                
-            }            
+            }
         }
     }
 }

@@ -58,7 +58,7 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public IList<ReceptionChat> GetChatByOrder(ServiceOrder order)
         {
-            return Find(x => x.ServiceOrder.Id == order.Id).OrderByDescending(x => x.SavedTime).ToList();
+            return Find(x => x.ServiceOrder.Id == order.Id).OrderByDescending(x => x.SavedTimestamp).ToList();
         }
 
         /// <summary>
@@ -123,44 +123,40 @@ namespace Dianzhu.DAL
                 }
            
         }
-        public virtual IList<ReceptionChat> GetReceptionChatList(DZMembership from, DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd,
-            int pageIndex, int pageSize, enum_ChatTarget target, out int rowCount
-            )
+        public virtual IList<ReceptionChat> GetReceptionChatList(Guid fromId, Guid toId, Guid orderId, DateTime timeBegin, DateTime timeEnd,
+            int pageIndex, int pageSize, enum_ChatTarget target, out int rowCount)
         {
+            var result = BuildReceptionChatQuery(fromId, toId, orderId, timeBegin, timeEnd);
+            if (orderId != Guid.Empty)
+            {
+                result = result.And(x => x.ServiceOrder.Id == orderId);
+            }
 
-          
-                var result = BuildReceptionChatQuery(from, to, orderId, timeBegin, timeEnd);
-                if (orderId != Guid.Empty)
-                {
-                    result = result.And(x => x.ServiceOrder.Id == orderId);
-                }
+            switch (target)
+            {
+                case enum_ChatTarget.cer:
+                    result = result.And(x => x.ChatTarget == enum_ChatTarget.cer);
+                    break;
+                case enum_ChatTarget.store:
+                    result = result.And(x => x.ChatTarget == enum_ChatTarget.store);
+                    break;
+            }
+            result = result.And(x => x.ChatType != enum_ChatType.ReAssign).And(x => x.ChatType != enum_ChatType.Notice);
+            rowCount = result.RowCount();
+            IList<ReceptionChat> receptionChatList = new List<ReceptionChat>();
+            if (pageIndex < 0 && pageSize < 0)
+            {
+                receptionChatList = result.OrderBy(x => x.SavedTimestamp).Desc.List().OrderBy(x => x.SavedTimestamp).ToList();
+            }
+            else
+            {
+                receptionChatList = result.OrderBy(x => x.SavedTimestamp).Desc.Skip(pageIndex * pageSize).Take(pageSize).List().OrderBy(x => x.SavedTimestamp).ToList();
+            }
 
-                switch (target)
-                {
-                    case enum_ChatTarget.cer:
-                        result = result.And(x => x.ChatTarget == enum_ChatTarget.cer);
-                        break;
-                    case enum_ChatTarget.store:
-                        result = result.And(x => x.ChatTarget == enum_ChatTarget.store);
-                        break;
-                }
-                result = result.And(x => x.ChatType != enum_ChatType.ReAssign).And(x => x.ChatType != enum_ChatType.Notice);
-                rowCount = result.RowCount();
-                IList<ReceptionChat> receptionChatList = new List<ReceptionChat>();
-                if (pageIndex < 0 && pageSize < 0)
-                {
-                    receptionChatList = result.OrderBy(x => x.SavedTime).Desc.List().OrderBy(x => x.SavedTime).ToList();
-                }
-                else
-                {
-                    receptionChatList = result.OrderBy(x => x.SavedTime).Desc.Skip(pageIndex * pageSize).Take(pageSize).List().OrderBy(x => x.SavedTime).ToList();
-                }
-               
-                return receptionChatList;
-           
+            return receptionChatList;
         }
 
-        public virtual IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(DZMembership from, DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd,
+        public virtual IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(Guid fromId, Guid toId, Guid orderId, DateTime timeBegin, DateTime timeEnd,
              int pageSize, ReceptionChat targetChat, string low, enum_ChatTarget target)
         {
             
@@ -176,21 +172,21 @@ namespace Dianzhu.DAL
                 }
                 if (low == "Y")
                 {
-                    result = result.Where(x => x.SavedTime < targetChat.SavedTime).OrderBy(x => x.SavedTime).Desc;
+                    result = result.Where(x => x.SavedTimestamp < targetChat.SavedTimestamp).OrderBy(x => x.SavedTimestamp).Desc;
                 }
                 else
                 {
-                    result = result.Where(x => x.SavedTime > targetChat.SavedTime).OrderBy(x => x.SavedTime).Desc;
+                    result = result.Where(x => x.SavedTimestamp > targetChat.SavedTimestamp).OrderBy(x => x.SavedTimestamp).Desc;
                 }
-                if (to != null)
+                if (toId != Guid.Empty)
                 {
-                    result = result.And(x => (x.From == from && x.To == to) || (x.From == to && x.To == from));
+                    result = result.And(x => (x.From.Id == fromId && x.To.Id == toId) || (x.From.Id == toId && x.To.Id == fromId));
                 }
                 else
                 {
-                    if (from != null)
+                    if (fromId != Guid.Empty)
                     {
-                        result = result.And(x => (x.From == from || x.To == from));
+                        result = result.And(x => (x.From.Id == fromId || x.To.Id == fromId));
                     }
                 }
                 if (orderId != Guid.Empty)
@@ -199,26 +195,26 @@ namespace Dianzhu.DAL
                 }
 
                 IList<ReceptionChat> receptionChatList = new List<ReceptionChat>();
-                receptionChatList = result.Take(pageSize).List().OrderBy(x => x.SavedTime).ToList();
+                receptionChatList = result.Take(pageSize).List().OrderBy(x => x.SavedTimestamp).ToList();
                
                 return receptionChatList;
             
         }
 
-        private IQueryOver<ReceptionChat, ReceptionChat> BuildReceptionChatQuery(DZMembership from, DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd)
+        private IQueryOver<ReceptionChat, ReceptionChat> BuildReceptionChatQuery(Guid fromId, Guid toId, Guid orderId, DateTime timeBegin, DateTime timeEnd)
         {
             
                 var result = Session.QueryOver<ReceptionChat>().Where(x => x.SavedTime >= timeBegin)
                 .And(x => x.SavedTime <= timeEnd);
-                if (to != null)
+                if (toId != Guid.Empty)
                 {
-                    result = result.And(x => (x.From == from && x.To == to) || (x.From == to && x.To == from));
+                    result = result.And(x => (x.From.Id == fromId && x.To.Id == toId) || (x.From.Id == toId && x.To.Id == fromId));
                 }
                 else
                 {
-                    if (from != null)
+                    if (fromId != Guid.Empty)
                     {
-                        result = result.And(x => (x.From == from || x.To == from));
+                        result = result.And(x => (x.From.Id == fromId || x.To.Id == fromId));
                     }
                 }
                 if (orderId != Guid.Empty)

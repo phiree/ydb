@@ -12,7 +12,7 @@ namespace Dianzhu.DAL.Mapping
         {
             Id(x => x.Id);
             Map(x => x.UserID);
-            Map(x => x.Token);
+            Map(x => x.Token).Length(1000);
             Map(x => x.CreatedTime);
             Map(x => x.Flag);
         }

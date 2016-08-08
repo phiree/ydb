@@ -35,7 +35,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
                 //Request.GetRequestContext()
                 //FromBodyAttribute fba = new FromBodyAttribute();
                 
-                return Json(iservice.PostService(storeID,servicesobj));
+                return Json(iservice.PostService(storeID,servicesobj,GetRequestHeader.GetTraitHeaders("post/stores/{storeID}/services")));
             }
             catch (Exception ex)
             {
@@ -129,7 +129,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
                 {
                     servicesobj = new servicesObj();
                 }
-                return Json(iservice.PatchService(storeID, serviceID, servicesobj));
+                return Json(iservice.PatchService(storeID, serviceID, servicesobj, GetRequestHeader.GetTraitHeaders("patch/stores/{storeID}/services/{serviceID}")));
             }
             catch (Exception ex)
             {
@@ -148,7 +148,29 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
         {
             try
             {
-                return Json(iservice.DeleteService(storeID, serviceID));
+                return Json(iservice.DeleteService(storeID, serviceID, GetRequestHeader.GetTraitHeaders("delete/stores/{storeID}/services/{serviceID}")));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
+        /// 查询 superID 的下级服务类型列表数组,当 superID 为空时，默认查询顶层服务类型列表
+        /// </summary>
+        /// <param name="servicefilter"></param>
+        /// <returns></returns>
+        [Route("api/v1/allServiceTypes")]
+        public IHttpActionResult GetAllServiceTypes( [FromUri]serviceTypeObj servicefilter)
+        {
+            try
+            {
+                if (servicefilter == null)
+                {
+                    servicefilter = new serviceTypeObj();
+                }
+                return Json(iservice.GetAllServiceTypes(servicefilter.superID));
             }
             catch (Exception ex)
             {

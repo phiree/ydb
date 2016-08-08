@@ -31,7 +31,9 @@ public class UploadFile : IHttpHandler
             context.Response.Write(savedFilename);
         }
         catch (Exception ex)
-        {
+        {  
+            //context.Response.StatusCode = 400;
+            context.Response.Write("上传失败！" + ex.Message);
             Console.WriteLine(ex.Message);
         }
     }

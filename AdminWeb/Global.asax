@@ -13,9 +13,11 @@
         PHSuit.Logging.Config("Dianzhu.AdminWeb");
         //InitializeWindsor();
         Bootstrap.Boot();
-        System.Timers.Timer timerOrderShare = new System.Timers.Timer(60000);
+        System.Timers.Timer timerOrderShare = new System.Timers.Timer(60*1000);
         timerOrderShare.Elapsed += new System.Timers.ElapsedEventHandler(timerOrderShare_Elapsed);
-        //timerOrderShare.Start();
+        
+        timerOrderShare.Start();
+        PHSuit.HttpHelper._SetupRefreshJob("/");
         // timerOrderShare_Elapsed(null, null);
         // var container = Installer.Container;
     }

@@ -222,6 +222,13 @@ namespace Dianzhu.CSClient.Presenter
                 serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount,viewSearch.ServiceAddress, viewSearch.SearchKeywordTime ));
             }
             bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+
+            //获取之前orderid
+            ServiceOrder oldOrder = bllServiceOrder.GetOne(IdentityManager.CurrentIdentity.Id);
+            oldOrder.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
+            bllServiceOrder.Update(oldOrder);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //iim发送消息
             ReceptionChat chat = new ReceptionChatPushService
@@ -237,7 +244,7 @@ namespace Dianzhu.CSClient.Presenter
 
             };
             dalReceptionChat.Add(chat);
-          
+
 
             //加到缓存数组中
             //if (PChatList.chatHistoryAll != null)
@@ -253,31 +260,24 @@ namespace Dianzhu.CSClient.Presenter
             //生成新的草稿单并发送给客户端
             ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService,IdentityManager.CurrentIdentity.Customer);
             bllServiceOrder.Save(newOrder);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             log.Debug("新草稿订单的id：" + newOrder.Id.ToString());
             string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
             string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
                                                     <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:draft:new""><orderID>{3}</orderID></ext></message>", 
                                                     IdentityManager.CurrentIdentity.Customer.Id + "@" + server, IdentityManager.CurrentIdentity.CustomerService.Id, Guid.NewGuid() + "@" + server, newOrder.Id);
             iIM.SendMessage(noticeDraftNew);
-
-            //获取之前orderid
-            ServiceOrder oldOrder = IdentityManager.CurrentIdentity;
-            //NHibernateUnitOfWork.UnitOfWork.Current.Refresh(oldOrder);//来自上个session，需刷新
-            //oldOrder.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
-            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            //NHibernateUnitOfWork.UnitOfWork.Start();
-            bllServiceOrder.Update(oldOrder);
-            Guid oldOrderId = IdentityManager.CurrentIdentity.Id;
+            
 
             //更新当前订单
             IdentityTypeOfOrder type;
-            log.Debug("更新当前订单");
+            log.Debug("更新当前界面的订单");
             IdentityManager.UpdateIdentityList(newOrder, out type);
-            viewIdentityList.SetCustomerOrder(oldOrderId, newOrder.Id);
+            viewIdentityList.SetCustomerOrder(oldOrder.Id, newOrder.Id);
             log.Debug("当前订单的id：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //更新view
-            viewIdentityList.UpdateIdentityBtnName(oldOrderId, IdentityManager.CurrentIdentity);
+            viewIdentityList.UpdateIdentityBtnName(oldOrder.Id, IdentityManager.CurrentIdentity);
 
             //更新接待分配表
             bllReceptionStatus.UpdateOrder(IdentityManager.CurrentIdentity.Customer, GlobalViables.CurrentCustomerService, newOrder);

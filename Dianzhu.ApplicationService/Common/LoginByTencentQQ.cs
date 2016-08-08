@@ -49,6 +49,8 @@ namespace Dianzhu.ApplicationService
                 if (isAddQQ)
                 {
                     bllMember.CreateUserForU3rd(qqMember);
+                    qqMember.UserName = qqMember.Id.ToString();
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 }
                 else
                 {
@@ -100,14 +102,14 @@ namespace Dianzhu.ApplicationService
             member.IsYellowYearVip = userObj.yellow_vip_level;
 
             member.NickName = userObj.nickname;
-            member.UserName = userObj.nickname;
+            member.UserName = userObj.nickname + new Guid();//防止重复;
             if (userObj.figureurl_qq_2 != "")
             {
-                member.AvatarUrl = utils.DownloadToMediaserver(userObj.figureurl_qq_2, string.Empty, "UserAvatar", "image"); 
+                member.AvatarUrl = utils.DownloadToMediaserver(userObj.figureurl_qq_2, string.Empty,  "image"); 
             }
             else
             {
-                member.AvatarUrl = utils.DownloadToMediaserver(userObj.figureurl_qq_1, string.Empty, "UserAvatar", "image");
+                member.AvatarUrl = utils.DownloadToMediaserver(userObj.figureurl_qq_1, string.Empty,  "image");
             }
             member.Address = userObj.province + " " + userObj.city;
             member.PlainPassword = openidObj.openid;

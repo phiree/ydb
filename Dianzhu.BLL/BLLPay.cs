@@ -96,6 +96,7 @@ namespace Dianzhu.BLL
                 log.Debug("FAIL,更新支付项,paymentId为：" + businessOrderId);
                 Payment payment = bllPayment.GetOne(new Guid(businessOrderId));
                 payment.Status = enum_PaymentStatus.Fail;
+                payment.PayType = enum_PayType.Online;
                 payment.PayApi = GetPayApi(payLogType);
                 payment.PlatformTradeNo = platformOrderId;
                 bllPayment.Update(payment);
@@ -105,6 +106,7 @@ namespace Dianzhu.BLL
                 log.Debug("TRADE_CLOSED,更新支付项,paymentId为：" + businessOrderId);
                 Payment payment = bllPayment.GetOne(new Guid(businessOrderId));
                 payment.Status = enum_PaymentStatus.Trade_Closed;
+                payment.PayType = enum_PayType.Online;
                 payment.PayApi = GetPayApi(payLogType);
                 payment.PlatformTradeNo = platformOrderId;
                 bllPayment.Update(payment);
@@ -114,6 +116,7 @@ namespace Dianzhu.BLL
                 log.Debug("TRADE_FINISHED,更新支付项,paymentId为：" + businessOrderId);
                 Payment payment = bllPayment.GetOne(new Guid(businessOrderId));
                 payment.Status = enum_PaymentStatus.Trade_Finished;
+                payment.PayType = enum_PayType.Online;
                 payment.PayApi = GetPayApi(payLogType);
                 payment.PlatformTradeNo = platformOrderId;
                 bllPayment.Update(payment);
@@ -140,6 +143,7 @@ namespace Dianzhu.BLL
                 }
                 payment.Status = enum_PaymentStatus.Trade_Success;
                 payment.PayApi = GetPayApi(payLogType);
+                payment.PayType = enum_PayType.Online;
                 payment.PlatformTradeNo = platformOrderId;
                 bllPayment.Update(payment);
 
@@ -153,6 +157,19 @@ namespace Dianzhu.BLL
                     case enum_OrderStatus.Created:
                         //支付定金
                         bllOrder.OrderFlow_ConfirmDeposit(order);
+                        break;
+                    case enum_OrderStatus.WaitingDepositWithCanceled:
+                        log.Debug("系统确认到帐，订单当前在等待退款，直接退款");
+                        if (bllOrder.ApplyRefund(payment, payment.Amount, "取消订单退还订金"))
+                        {
+                            log.Debug("更新订单状态");
+
+                            bllOrder.OrderFlow_EndCancel(order);
+                        }
+                        else
+                        {
+                            log.Error("退款失败，需联系系统管理员");
+                        }
                         break;
                     case enum_OrderStatus.checkPayWithNegotiate:
                     case enum_OrderStatus.Ended:

@@ -76,6 +76,7 @@
     <Compile Include="Agent\AgentService.cs" />
     <Compile Include="Agent\IAgentService.cs" />
     <Compile Include="BLLClaims.cs" />
+    <Compile Include="BLLClaimsDetails.cs" />
     <Compile Include="BLLComplaint.cs" />
     <Compile Include="BLLArea.cs" />
     <Compile Include="BLLBusiness.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="ServiceOrder\OrderFlow.cs" />
     <Compile Include="ServiceOrder\PushService.cs" />
     <Compile Include="SiteConfig.cs" />
+    <Compile Include="StorageManager\BLLStorageFileInfo.cs" />
     <Compile Include="Validator\ValidatorServiceOpenTimeForDay.cs" />
     <Compile Include="Validator\ValidatorBusiness.cs" />
     <Compile Include="Validator\ValidatorStaff.cs" />

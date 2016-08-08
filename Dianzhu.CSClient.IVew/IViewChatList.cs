@@ -14,6 +14,7 @@ namespace Dianzhu.CSClient.IView
         
         IList<ReceptionChat> ChatList { set;  get; }
         void AddOneChat(ReceptionChat chat);
+        void InsertOneChat(ReceptionChat chat);
         /// <summary>
         /// 当前助理. 
         /// 用来确定消息的显示格式.
@@ -21,10 +22,14 @@ namespace Dianzhu.CSClient.IView
         DZMembership CurrentCustomerService { get; set; }
         event BtnMoreChat BtnMoreChat;
 
+        void ShowMoreLabel();
         void ShowNoMoreLabel();
 
+        void ShowLoadingMsg();
+        void ShowNoChatMsg();
+
         string ChatListCustomerName { get; set; }
-        void ClearUCData();
+        void ClearUCData();        
     }
     public delegate void AudioPlay(object audioTag, IntPtr handler);
 

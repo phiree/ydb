@@ -60,7 +60,7 @@ namespace Dianzhu.CSClient.ViewWPF
             }
             else
             {
-                uriAvatar = "pack://siteoforigin:,,,/Resources/logourl.png";
+                uriAvatar = "pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png";
             }
 
             return new BitmapImage(new Uri(uriAvatar, UriKind.Absolute));

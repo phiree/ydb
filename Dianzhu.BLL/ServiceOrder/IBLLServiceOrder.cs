@@ -42,8 +42,10 @@ namespace Dianzhu.BLL
         /// <param name="afterThisTime"></param>
         /// <param name="beforeThisTime"></param>
         /// <param name="UserID"></param>
+        /// <param name="userType"></param>
+        /// <param name="strAssign"></param>
         /// <returns></returns>
-         IList<ServiceOrder> GetOrders(Trait_Filtering filter, string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID);
+        IList<ServiceOrder> GetOrders(Trait_Filtering filter, string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID, string userType, string strAssign);
 
         /// <summary>
         /// 查询订单数量
@@ -55,8 +57,10 @@ namespace Dianzhu.BLL
         /// <param name="afterThisTime"></param>
         /// <param name="beforeThisTime"></param>
         /// <param name="UserID"></param>
+        /// <param name="userType"></param>
+        /// <param name="strAssign"></param>
         /// <returns></returns>
-         long GetOrdersCount(string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID);
+        long GetOrdersCount(string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID, string userType, string strAssign);
 
         /// <summary>
         /// 获取商户的一条订单
@@ -78,7 +82,7 @@ namespace Dianzhu.BLL
 
         IList<ServiceOrder> GetListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount);
 
-        IList<ServiceOrder> GetListForCustomer(DZMembership customer, int pageNum, int pageSize, out int totalAmount);
+        IList<ServiceOrder> GetListForCustomer(Guid customerId, int pageNum, int pageSize, out int totalAmount);
 
         void Delete(ServiceOrder order);
         ServiceOrder GetDraftOrder(DZMembership c, DZMembership cs);
@@ -236,6 +240,8 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         void OrderFlow_ForceStop(ServiceOrder order);
 
+        void OrderFlow_EndCancel(ServiceOrder order);
+
         //订单状态改变通用方法
 
         #endregion
@@ -253,6 +259,10 @@ namespace Dianzhu.BLL
         void DeassignStaff(ServiceOrder order, Staff staff);
         #endregion
 
+        #region 申请退款
+        bool ApplyRefund(Payment payment, decimal refundAmount, string refundReason);
+        #endregion
+
         enum_OrderStatus GetOrderStatusPrevious(ServiceOrder order, enum_OrderStatus status);
         int GetServiceOrderCountWithoutDraft(Guid userid, bool isCustomerService);
         decimal GetServiceOrderAmountWithoutDraft(Guid userid, bool isCustomerService);
@@ -266,7 +276,7 @@ namespace Dianzhu.BLL
         void Save(ServiceOrder order);
         //查询可以分账的订单
         IList<ServiceOrder> GetOrdersForShare();
-        IList<ServiceOrder> GetOrderListByDateRange( DateTime dateBegin, DateTime dateEnd);
+        IList<ServiceOrder> GetOrderListOfServiceByDateRange(Guid serviceId, DateTime dateBegin, DateTime dateEnd);
 
 
 

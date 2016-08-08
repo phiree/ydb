@@ -27,7 +27,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
         {
             try
             {
-                return Json(iremind.GetRemindById(id));
+                return Json(iremind.GetRemindById(id, GetRequestHeader.GetTraitHeaders("get/reminds{remindID}")));
             }
             catch (Exception ex)
             {
@@ -45,7 +45,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
         {
             try
             {
-                return Json(iremind.DeleteRemindById(id));
+                return Json(iremind.DeleteRemindById(id, GetRequestHeader.GetTraitHeaders("delete/reminds{remindID}")));
             }
             catch (Exception ex)
             {
@@ -64,7 +64,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
         {
             try
             {
-                return Json(iremind.GetReminds(filter, remind));
+                return Json(iremind.GetReminds(filter, remind, GetRequestHeader.GetTraitHeaders("get/reminds")));
             }
             catch (Exception ex)
             {
@@ -88,7 +88,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
                 {
                     remind = new common_Trait_RemindFiltering();
                 }
-                return Json(iremind.GetRemindsCount(remind));
+                return Json(iremind.GetRemindsCount(remind,GetRequestHeader.GetTraitHeaders("get/reminds/count")));
             }
             catch (Exception ex)
             {

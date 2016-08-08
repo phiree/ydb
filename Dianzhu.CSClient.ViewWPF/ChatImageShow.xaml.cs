@@ -27,7 +27,7 @@ namespace Dianzhu.CSClient.ViewWPF
             this.Height = 768;
             this.Width = 1024;
 
-            img.Source = uri;
+            img.Source = new Uri(uri.ToString() + "_1024X768");
             isInit = true;
         }
 

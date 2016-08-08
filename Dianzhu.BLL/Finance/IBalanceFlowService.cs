@@ -9,5 +9,6 @@ namespace Dianzhu.BLL.Finance
     public interface IBalanceFlowService
     {
         void Save(Dianzhu.Model.Finance.BalanceFlow flow);
+        IList<Dianzhu.Model.Finance.BalanceFlow> GetList();
     }
 }

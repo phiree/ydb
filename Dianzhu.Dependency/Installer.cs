@@ -43,6 +43,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<BLLOrderAssignment>());
 
             container.Register(Component.For<BLLPayment>());
+            container.Register(Component.For<BLLPaymentLog>());
 
             container.Register(Component.For<BLLRefund>());
             container.Register(Component.For<BLLRefundLog>());
@@ -84,6 +85,12 @@ namespace Dianzhu.DependencyInstaller
             //20160628_longphui_add
             container.Register(Component.For<BLL.Client.BLLUserToken>());
 
+
+            //20160727_longphui_add
+            container.Register(Component.For<BLL.BLLStorageFileInfo>());
+
+            //20160802_longphui_add
+            container.Register(Component.For<BLL.BLLClaimsDetails>());
 
         }
     }
@@ -166,6 +173,11 @@ namespace Dianzhu.DependencyInstaller
             //20160628_longphui_add
             container.Register(Component.For<IRepository<UserToken, Guid>, IDALUserToken>().ImplementedBy<DAL.Client.DALUserToken>());
 
+            //20160727_longphui_add
+            container.Register(Component.For<IRepository<StorageFileInfo, Guid>, IDALStorageFileInfo>().ImplementedBy<DALStorageFileInfo>());
+
+            //20160802_longphui_add
+            container.Register(Component.For<IRepository<ClaimsDetails, Guid>, IDALClaimsDetails>().ImplementedBy<DALClaimsDetails>());
 
         }
     }

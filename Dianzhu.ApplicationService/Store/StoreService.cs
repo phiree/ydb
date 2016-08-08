@@ -11,33 +11,35 @@ namespace Dianzhu.ApplicationService.Store
     {
         BLL.DZMembershipProvider bllDZM;
         BLL.BLLBusiness bllBusiness;
-        public StoreService(BLL.BLLBusiness bllBusiness, BLL.DZMembershipProvider bllDZM)
+       public static BLL.BLLStaff bllStaff;
+        public StoreService(BLL.BLLBusiness bllBusiness, BLL.DZMembershipProvider bllDZM, BLL.BLLStaff bllStaff)
         {
             this.bllBusiness = bllBusiness;
             this.bllDZM = bllDZM;
+            StoreService.bllStaff = bllStaff;
         }
 
-        void changeObj(storeObj storeobj, Model.Business business)
+         public static void changeObj(storeObj storeobj, Model.Business business)
         {
             foreach (Model.BusinessImage bimg in business.ChargePersonIdCards)
             {
                 if (bimg.ImageName != null)
                 {
-                    storeobj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
+                    storeobj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);//MediaGetUrl
                 }
             }
             foreach (Model.BusinessImage bimg in business.BusinessLicenses)
             {
                 if (bimg.ImageName != null)
                 {
-                    storeobj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
+                    storeobj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);
                 }
             }
             foreach (Model.BusinessImage bimg in business.BusinessShows)
             {
                 if (bimg.ImageName != null)
                 {
-                    storeobj.showImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bimg.ImageName);
+                    storeobj.showImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);
                 }
             }
             if (storeobj.location == null)
@@ -47,32 +49,37 @@ namespace Dianzhu.ApplicationService.Store
             storeobj.location.latitude = business.Latitude.ToString();
             storeobj.location.longitude = business.Longitude.ToString();
             storeobj.location.address = business.RawAddressFromMapAPI==null?"":business.RawAddressFromMapAPI;
-            
+
+            storeobj.headCount = int.Parse(bllStaff.GetStaffsCount("", "", "", "", "", "", business.Id).ToString());
+
+
         }
 
         /// <summary>
         /// 新建店铺
         /// </summary>
         /// <param name="storeobj"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public storeObj PostStore(storeObj storeobj, common_Trait_Headers headers)
+        public storeObj PostStore(storeObj storeobj,Customer customer)
         {
             if (string.IsNullOrEmpty(storeobj.name))
             {
                 throw new FormatException("店铺名称不能为空！");
             }
+            //if (string.IsNullOrEmpty(storeobj.introduction))
+            //{
+            //    throw new FormatException("店铺简介不能为空！");
+            //}
             if (string.IsNullOrEmpty(storeobj.name))
             {
                 throw new FormatException("店铺电话不能为空！");
             }
-            Customer customer = new Customer();
-            customer = customer.getCustomer(headers.token, headers.apiKey, false);
-            Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
+            Guid guidUser = utils.CheckGuidID(customer.UserID, "customer.UserID");
             Model.DZMembership dzmember = bllDZM.GetUserById(guidUser);
             if (dzmember == null || dzmember.UserType .ToString()!= "business")
             {
-                throw new Exception("该账号不是商户账号！");
+                throw new Exception("该商户账号不存在！");
             }
             Model.Business business = Mapper.Map<storeObj, Model.Business>(storeobj);
             business.Owner = dzmember;
@@ -97,15 +104,12 @@ namespace Dianzhu.ApplicationService.Store
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="storefilter"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public IList<storeObj> GetStores(common_Trait_Filtering filter, common_Trait_StoreFiltering storefilter,common_Trait_Headers headers)
+        public IList<storeObj> GetStores(common_Trait_Filtering filter, common_Trait_StoreFiltering storefilter,Customer customer)
         {
             IList<Model.Business> business = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Business");
-            Customer customer = new Customer();
-            customer = customer.getCustomer(headers.token, headers.apiKey, false);
-            //utils.CheckGuidID(storefilter.merchantID, "merchantID"),
             business = bllBusiness.GetStores(filter1, storefilter.name, customer.UserID);
             if (business == null)
             {
@@ -123,14 +127,12 @@ namespace Dianzhu.ApplicationService.Store
         /// 统计店铺数量
         /// </summary>
         /// <param name="storefilter"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public countObj GetStoresCount(common_Trait_StoreFiltering storefilter, common_Trait_Headers headers)
+        public countObj GetStoresCount(common_Trait_StoreFiltering storefilter, Customer customer)
         {
             countObj c = new countObj();
-            Customer customer = new Customer();
-            customer = customer.getCustomer(headers.token, headers.apiKey, false);
-            c.count = bllBusiness.GetStoresCount(storefilter.name, utils.CheckGuidID(customer.UserID, "merchantID")).ToString();
+            c.count = bllBusiness.GetStoresCount(storefilter.name, utils.CheckGuidID(customer.UserID, "customer.UserID")).ToString();
             return c;
         }
 
@@ -191,13 +193,11 @@ namespace Dianzhu.ApplicationService.Store
         /// </summary>
         /// <param name="storeID"></param>
         /// <param name="storeobj"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public storeObj PatchStore(string storeID, storeObj storeobj, common_Trait_Headers headers)
+        public storeObj PatchStore(string storeID, storeObj storeobj, Customer customer)
         {
-            Customer customer = new Customer();
-            customer = customer.getCustomer(headers.token, headers.apiKey, false);
-            Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
+            Guid guidUser = utils.CheckGuidID(customer.UserID, "customer.UserID");
             //Guid guidUser = new Guid();
             Guid guidStore = utils.CheckGuidID(storeID, "storeID");
             Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, guidUser);
@@ -231,7 +231,7 @@ namespace Dianzhu.ApplicationService.Store
                 //   requestData.imgData, "BusinessAvatar", "image");
                 //utils.DownloadToMediaserver(storeobj.imgUrl, string.Empty, "BusinessAvatar", "image");
                 Model.BusinessImage bi = new Model.BusinessImage();
-                bi.ImageName = storeobj.imgUrl;
+                bi.ImageName = utils.GetFileName(storeobj.imgUrl);
                 bi.ImageType = Model.Enums.enum_ImageType.Business_Avatar;
                 bi.IsCurrent = true;
                 business.BusinessAvatar = bi;
@@ -257,13 +257,11 @@ namespace Dianzhu.ApplicationService.Store
         /// 删除店铺
         /// </summary>
         /// <param name="storeID"></param>
-        /// <param name="headers"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public object DeleteStore(string storeID, common_Trait_Headers headers)
+        public object DeleteStore(string storeID, Customer customer)
         {
-            Customer customer = new Customer();
-            customer = customer.getCustomer(headers.token, headers.apiKey, false);
-            Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
+            Guid guidUser = utils.CheckGuidID(customer.UserID, "customer.UserID");
             //Guid guidUser = new Guid();
             Guid guidStore = utils.CheckGuidID(storeID, "storeID");
             Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, guidUser);

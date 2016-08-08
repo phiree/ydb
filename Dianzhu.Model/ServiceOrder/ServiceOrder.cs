@@ -91,8 +91,8 @@ namespace Dianzhu.Model
                 case enum_OrderStatus.Appraised: str = "已评价"; break;
                 case enum_OrderStatus.EndWarranty: str = "订单已完结"; break;
 
-                case enum_OrderStatus.Canceled: str = "取消中"; break;
-                case enum_OrderStatus.WaitingDepositWithCanceled: str = "取消即将成功"; break;
+                case enum_OrderStatus.Canceled: str = "已提交取消，正在拦截订单"; break;
+                case enum_OrderStatus.WaitingDepositWithCanceled: str = "订单正在取消中"; break;
                 case enum_OrderStatus.EndCancel: str = "取消成功"; break;
 
                 case enum_OrderStatus.Refund: str = "理赔中"; break;
@@ -148,7 +148,7 @@ namespace Dianzhu.Model
                 case enum_OrderStatus.EndWarranty: str = "非常感谢您对我们的支持"; break;
 
                 case enum_OrderStatus.Canceled: str = "已提交取消订单请求"; break;
-                case enum_OrderStatus.WaitingDepositWithCanceled: str = "取消请求已被受理，请系统等待返还订金"; break;
+                case enum_OrderStatus.WaitingDepositWithCanceled: str = "取消请求已被受理，预计48小时内到帐，若未到帐，请咨询客服"; break;
                 case enum_OrderStatus.EndCancel: str = "订单已被取消了"; break;
 
                 case enum_OrderStatus.Refund: str = "已提交理赔的请求"; break;

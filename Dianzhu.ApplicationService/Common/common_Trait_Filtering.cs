@@ -48,6 +48,6 @@ namespace Dianzhu.ApplicationService
         /// 临时用于查询的用户名
         /// </summary>
         /// <type>string</type>
-        public string userID { get; set; }
+        //public string userID { get; set; }
     }
 }

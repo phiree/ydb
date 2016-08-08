@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
-
+using System.ComponentModel;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -125,26 +125,62 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void UcIdentity_IdleTimerOut(Guid orderId)
         {
-            Action ac = () =>
-            {
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            //Action ac = () =>
+            //{
                 FinalChatTimerTick(orderId);
-            };
-            NHibernateUnitOfWork.With.Transaction(ac);
+            //};
+            //NHibernateUnitOfWork.With.Transaction(ac);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
+        BackgroundWorker worker;
+        ServiceOrder IdentityOrderTemp;
         private void BtnIdentity_Click(object sender, RoutedEventArgs e)
         {
             if (IdentityClick != null)
             {
-                //Action ac = () =>
-                //{
-                    ServiceOrder order = (ServiceOrder)((Button)sender).Tag;
-                    //NHibernateUnitOfWork.UnitOfWork.Current.Refresh(order);
-                    IdentityClick(order);
-                    SetIdentityReaded(order);
-                //};
-                //NHibernateUnitOfWork.With.Transaction(ac);
+                ServiceOrder IdentityOrder = (ServiceOrder)((Button)sender).Tag;
+                if (IdentityOrderTemp == null)
+                {
+                    IdentityOrderTemp = IdentityOrder;
+                }
+                else
+                {
+                    if (IdentityOrderTemp.Id == IdentityOrder.Id)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        IdentityOrderTemp = IdentityOrder;
+                    }
+                }
+                SetIdentityReaded(IdentityOrder);
+
+
+                worker = new BackgroundWorker();
+                worker.DoWork += Worker_DoWork;
+                worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+                worker.RunWorkerAsync(IdentityOrder);
+                log.Debug("开始异步加载");
             }
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            log.Debug("异步加载完成");
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ServiceOrder order = e.Argument as ServiceOrder;
+            NHibernateUnitOfWork.UnitOfWork.Start();
+
+            IdentityClick(order);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         public void IdentityLogOnShowMsg(ServiceOrder serviceOrder,string msg)
@@ -229,11 +265,14 @@ namespace Dianzhu.CSClient.ViewWPF
                 UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
                 //if (btnIdentity != null)
                 if (ucIdentity != null)
-                {                    
+                {
                     //pnlIdentityList.Children.Remove(btnIdentity);
-                    pnlIdentityList.Children.Remove(ucIdentity);
-                    //pnlIdentityList.UnregisterName(btnIdentity.Name);
-                    pnlIdentityList.UnregisterName(ucIdentity.Name);
+                    if (pnlIdentityList.Children.Contains(ucIdentity))
+                    {
+                        pnlIdentityList.Children.Remove(ucIdentity);
+                        //pnlIdentityList.UnregisterName(btnIdentity.Name);
+                        pnlIdentityList.UnregisterName(ucIdentity.Name);
+                    }                    
                 }
             };
             if (!Dispatcher.CheckAccess())

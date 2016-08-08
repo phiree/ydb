@@ -52,6 +52,8 @@ namespace Dianzhu.ApplicationService
                 if (isAddWeibo)
                 {
                     bllMember.CreateUserForU3rd(sinaWeiboMember);
+                    sinaWeiboMember.UserName = sinaWeiboMember.Id.ToString();
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 }
                 else
                 {
@@ -120,8 +122,8 @@ namespace Dianzhu.ApplicationService
             member.Lang = userObj.lang;
 
             member.NickName = userObj.screen_name;
-            member.UserName = userObj.screen_name;
-            member.AvatarUrl = utils.DownloadToMediaserver(userObj.avatar_hd, string.Empty, "UserAvatar", "image"); 
+            member.UserName = userObj.screen_name + new Guid();//防止重复;
+            member.AvatarUrl = utils.DownloadToMediaserver(userObj.avatar_hd, string.Empty, "image"); 
             member.Address = userObj.location;
             member.PlainPassword = tokenInfo.uid;
             member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(tokenInfo.uid, "MD5");

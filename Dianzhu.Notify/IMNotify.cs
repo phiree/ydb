@@ -123,13 +123,29 @@ namespace Dianzhu.NotifyCenter
 
         }
 
+        public void SendCSLoginMessageToDD(Guid csId)
+        {
+            DZMembership cs = dalMembership.FindById(csId);
+            string notice = assigner.CSLogin(cs);
+            if (!string.IsNullOrEmpty(notice))
+            {
+                im.SendMessage(notice);
+            }
+        }
+
         public void SendRessaginMessage(Guid csId)
         {
           
            DZMembership cs = dalMembership.FindById(csId);
             DZMembership imMember = dalMembership.FindById(new Guid( Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
-            //通过 IMServer 给客服发送消息
-             
+
+            //发送客服离线消息给点点
+            string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
+            string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{1}"" from = ""{0}"">
+                                                  <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:cer:offline""></ext></message>",
+                                              cs.Id , "c64d9dda-4f6e-437b-89d2-a591012d8c65@" + server, Guid.NewGuid());
+            im.SendMessage(noticeDraftNew);
+
             Dictionary<DZMembership, DZMembership> reassignList = assigner.AssignCSLogoff(cs);
             //将新分配的客服发送给客户端.
             foreach (KeyValuePair<DZMembership, DZMembership> r in reassignList)
