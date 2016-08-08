@@ -11,10 +11,12 @@ namespace Dianzhu.ApplicationService.Store
     {
         BLL.DZMembershipProvider bllDZM;
         BLL.BLLBusiness bllBusiness;
-        public StoreService(BLL.BLLBusiness bllBusiness, BLL.DZMembershipProvider bllDZM)
+       public static BLL.BLLStaff bllStaff;
+        public StoreService(BLL.BLLBusiness bllBusiness, BLL.DZMembershipProvider bllDZM, BLL.BLLStaff bllStaff)
         {
             this.bllBusiness = bllBusiness;
             this.bllDZM = bllDZM;
+            StoreService.bllStaff = bllStaff;
         }
 
          public static void changeObj(storeObj storeobj, Model.Business business)
@@ -47,7 +49,10 @@ namespace Dianzhu.ApplicationService.Store
             storeobj.location.latitude = business.Latitude.ToString();
             storeobj.location.longitude = business.Longitude.ToString();
             storeobj.location.address = business.RawAddressFromMapAPI==null?"":business.RawAddressFromMapAPI;
-            
+
+            storeobj.headCount = int.Parse(bllStaff.GetStaffsCount("", "", "", "", "", "", business.Id).ToString());
+
+
         }
 
         /// <summary>

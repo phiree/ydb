@@ -24,7 +24,7 @@ namespace Dianzhu.ApplicationService.Order
         BLL.DZMembershipProvider bllDZM;
         BLL.BLLClaims bllClaims;
         BLL.BLLClaimsDetails bLLClaimsDetails;
-        BLL.BLLStaff bllStaff;
+        public static BLL.BLLStaff bllStaff;
         public OrderService(BLL.IBLLServiceOrder ibllserviceorder, BLL.BLLServiceOrderStateChangeHis bllstatehis, BLL.BLLDZService blldzservice, BLL.PushService bllpushservice, BLL.BLLServiceOrderRemind bllServiceOrderRemind,
         BLL.BLLServiceOrderAppraise bllServiceOrderAppraise, BLL.IIMSession imSession, BLL.BLLOrderAssignment bllOrderAssignment, BLL.DZMembershipProvider bllDZM, BLL.BLLClaims bllClaims, BLL.BLLClaimsDetails bLLClaimsDetails, BLL.BLLStaff bllStaff)
         {
@@ -39,7 +39,7 @@ namespace Dianzhu.ApplicationService.Order
             this.bllDZM = bllDZM;
             this.bllClaims = bllClaims;
             this.bLLClaimsDetails = bLLClaimsDetails;
-            this.bllStaff = bllStaff;
+            OrderService.bllStaff = bllStaff;
         }
 
         /// <summary>
@@ -65,6 +65,7 @@ namespace Dianzhu.ApplicationService.Order
             }
             orderobj.currentStatusObj.title = serviceorder.GetStatusTitleFriendly(serviceorder.OrderStatus);
             orderobj.currentStatusObj.content = serviceorder.GetStatusContextFriendly(serviceorder.OrderStatus);
+            Store.StoreService.bllStaff = bllStaff;
             if (serviceorder.Details != null && serviceorder.Details.Count > 0)
             {
                 orderobj.serviceSnapshotObj = Mapper.Map<Model.ServiceOrderDetail, serviceSnapshotObj>(serviceorder.Details[0]);
