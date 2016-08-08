@@ -30,7 +30,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORE
                 {
                     storeobj = new storeObj();
                 }
-                return Json(istore.PostStore(storeobj, GetRequestHeader.GetTraitHeaders()));
+                return Json(istore.PostStore(storeobj, GetRequestHeader.GetTraitHeaders("post/stores")));
             }
             catch (Exception ex)
             {
@@ -58,7 +58,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORE
                 }
                 
                 //return Json(istore.GetStores(filter, storefilter));
-                return Json(istore.GetStores(filter, storefilter,GetRequestHeader.GetTraitHeaders()));
+                return Json(istore.GetStores(filter, storefilter,GetRequestHeader.GetTraitHeaders("get/stores")));
             }
             catch (Exception ex)
             {
@@ -80,7 +80,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORE
                 {
                     storefilter = new common_Trait_StoreFiltering();
                 }
-                return Json(istore.GetStoresCount(storefilter,GetRequestHeader.GetTraitHeaders()));
+                return Json(istore.GetStoresCount(storefilter,GetRequestHeader.GetTraitHeaders("get/stores/count")));
             }
             catch (Exception ex)
             {
@@ -172,7 +172,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORE
                 {
                     storeobj = new storeObj();
                 }
-                return Json(istore.PatchStore(id, storeobj, GetRequestHeader.GetTraitHeaders()));
+                return Json(istore.PatchStore(id, storeobj, GetRequestHeader.GetTraitHeaders("patch/stores/{storeID}")));
             }
             catch (Exception ex)
             {
@@ -189,7 +189,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORE
         {
             try
             {
-                return Json(istore.DeleteStore(id, GetRequestHeader.GetTraitHeaders()));
+                return Json(istore.DeleteStore(id, GetRequestHeader.GetTraitHeaders("delete/stores/{storeID}")));
             }
             catch (Exception ex)
             {

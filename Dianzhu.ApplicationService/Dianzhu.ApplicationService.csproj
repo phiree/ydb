@@ -166,6 +166,7 @@
     <Compile Include="ModeDTO\Identity\refundObj.cs" />
     <Compile Include="ModeDTO\Identity\refundStatusObj.cs" />
     <Compile Include="ModeDTO\Identity\remindObj.cs" />
+    <Compile Include="ModeDTO\Identity\serviceSnapshotObj.cs" />
     <Compile Include="ModeDTO\Identity\servicesObj.cs" />
     <Compile Include="ModeDTO\Identity\serviceTypeObj.cs" />
     <Compile Include="ModeDTO\Identity\snapshortsObj.cs" />

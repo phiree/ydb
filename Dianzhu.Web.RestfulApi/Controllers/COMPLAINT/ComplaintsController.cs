@@ -29,7 +29,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
         {
             try
             {
-                return Json(icomplaintservice.AddComplaint(complaintobj));
+                return Json(icomplaintservice.AddComplaint(complaintobj, GetRequestHeader.GetTraitHeaders("post/complaints")));
             }
             catch (Exception ex)
             {
@@ -73,6 +73,23 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
                     complaint = new common_Trait_ComplainFiltering();
                 }
                 return Json(icomplaintservice.GetComplaintsCount(complaint));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
+        /// 读取投诉信息
+        /// </summary>
+        /// <param name="id">投诉ID</param>
+        /// <returns></returns>
+        public IHttpActionResult GetComplaint(string id)
+        {
+            try
+            {
+                return Json(icomplaintservice.GetOneComplaint(id));
             }
             catch (Exception ex)
             {

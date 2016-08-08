@@ -106,6 +106,11 @@ namespace Dianzhu.BLL
         /// <summary>
         /// 统计提醒的数量
         /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="userId"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
         public long GetRemindsCount(Guid orderID, Guid userId, DateTime startTime, DateTime endTime)
         {
             var where = PredicateBuilder.True<ServiceOrderRemind>();
@@ -132,15 +137,25 @@ namespace Dianzhu.BLL
         /// <summary>
         /// 根据ID获取提醒
         /// </summary>
-        public Model.ServiceOrderRemind GetRemindById(Guid RemindId)
+        /// <param name="RemindId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Model.ServiceOrderRemind GetRemindById(Guid RemindId,Guid userId)
         {
-            var remind = dalServiceOrderRemind.FindById(RemindId);
+            var where = PredicateBuilder.True<ServiceOrderRemind>();
+            where = where.And(x => x.Id == RemindId);
+            if (userId != Guid.Empty)
+            {
+                where = where.And(x => x.UserId == userId);
+            }
+            var remind = dalServiceOrderRemind.FindOne(where);
             return remind;
         }
 
         /// <summary>
         /// 根据ID删除提醒
         /// </summary>
+        /// <param name="remind"></param>
         public void DeleteRemindById(Model.ServiceOrderRemind remind)
         {
             dalServiceOrderRemind.Delete(remind);

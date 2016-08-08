@@ -42,6 +42,8 @@ namespace Dianzhu.ApplicationService
                 if (isAddWechat)
                 {
                     bllMember.CreateUserForU3rd(wechatMember);
+                    wechatMember.UserName = wechatMember.Id.ToString();
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 }
                 else
                 {
@@ -85,7 +87,7 @@ namespace Dianzhu.ApplicationService
             member.Headimgurl = userObj.headimgurl;
 
             member.NickName = userObj.nickname;
-            member.UserName = userObj.nickname;
+            member.UserName = userObj.nickname+new Guid();//防止重复
             member.AvatarUrl = utils.DownloadToMediaserver(userObj.headimgurl,string.Empty,"image");
             member.Address = userObj.province + " " + userObj.city;
             member.PlainPassword = userObj.openid;

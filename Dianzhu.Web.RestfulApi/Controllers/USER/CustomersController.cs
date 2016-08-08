@@ -168,7 +168,12 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     userChangeBody = new UserChangeBody();
                 }
-                return Json(iuserservice.PatchUser(id, userChangeBody, "customer"));
+                Customer customer = GetRequestHeader.GetTraitHeaders("patch/customers/{customerID}");
+                if (id != customer.UserID)
+                {
+                    throw new Exception("不能修改别人的信息！");
+                }
+                return Json(iuserservice.PatchUser(id, userChangeBody, customer.UserType));
             }
             catch (Exception ex)
             {

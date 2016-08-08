@@ -13,21 +13,24 @@ namespace Dianzhu.ApplicationService.Snapshot
     {
         BLL.IBLLServiceOrder ibllserviceorder;
         BLL.BLLDZService blldzservice;
+        BLL.BLLServiceOrderStateChangeHis bllstatehis;
 
-        public SnapshotService(BLL.IBLLServiceOrder ibllserviceorder, BLL.BLLDZService blldzservice)
+        public SnapshotService(BLL.IBLLServiceOrder ibllserviceorder, BLL.BLLDZService blldzservice, BLL.BLLServiceOrderStateChangeHis bllstatehis)
         {
             this.ibllserviceorder = ibllserviceorder;
             this.blldzservice = blldzservice;
+            this.bllstatehis = bllstatehis;
         }
 
         /// <summary>
-        /// 查询订单合集
+        /// 查询快照
         /// </summary>
+        /// <param name="ServiceID"></param>
         /// <param name="filter"></param>
-        /// <param name="orderfilter"></param>
-        /// <param name="headers"></param>
+        /// <param name="sna"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public IList<snapshortsObj> GetSnapshots(string ServiceID, common_Trait_Filtering filter, common_Trait_SnapshotFiltering sna, common_Trait_Headers headers)
+        public IList<snapshortsObj> GetSnapshots(string ServiceID, common_Trait_Filtering filter, common_Trait_SnapshotFiltering sna, Customer customer)
         {
             DateTime StartTime = utils.CheckDateTime(sna.startTime, "yyyyMMdd", "SnapshotFiltering.startTime");
             DateTime EndTime = utils.CheckDateTime(sna.endTime, "yyyyMMdd", "SnapshotFiltering.endTime");
@@ -35,12 +38,12 @@ namespace Dianzhu.ApplicationService.Snapshot
             {
                 throw new Exception("startTime不得大于endTime!");
             }
-            Customer customer = new Customer();
-            customer = customer.getCustomer(headers.token, headers.apiKey, false);
-            if (customer.UserType != "business")
-            {
-                throw new Exception("没有访问权限！");
-            }
+            //Customer customer = new Customer();
+            //customer = customer.getCustomer(headers.token, headers.apiKey, false);
+            //if (customer.UserType != "business")
+            //{
+            //    throw new Exception("没有访问权限！");
+            //}
             Guid guidService = utils.CheckGuidID(ServiceID, "ServiceID");
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Snapshots");
             DZService dzService = blldzservice.GetOne(guidService);
@@ -50,7 +53,7 @@ namespace Dianzhu.ApplicationService.Snapshot
             }
             IList<snapshortsObj> snapshortsobj = new List<snapshortsObj>();
             IList<ServiceOrder> orderList = ibllserviceorder.GetOrderListOfServiceByDateRange(guidService, StartTime, EndTime);
-            snapshortsobj = new snapshortsObj().Adap(orderList);
+            snapshortsobj = new snapshortsObj().Adap(orderList, bllstatehis);
             return snapshortsobj;
         }
 

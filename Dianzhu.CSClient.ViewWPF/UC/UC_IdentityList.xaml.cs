@@ -253,11 +253,14 @@ namespace Dianzhu.CSClient.ViewWPF
                 UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
                 //if (btnIdentity != null)
                 if (ucIdentity != null)
-                {                    
+                {
                     //pnlIdentityList.Children.Remove(btnIdentity);
-                    pnlIdentityList.Children.Remove(ucIdentity);
-                    //pnlIdentityList.UnregisterName(btnIdentity.Name);
-                    pnlIdentityList.UnregisterName(ucIdentity.Name);
+                    if (pnlIdentityList.Children.Contains(ucIdentity))
+                    {
+                        pnlIdentityList.Children.Remove(ucIdentity);
+                        //pnlIdentityList.UnregisterName(btnIdentity.Name);
+                        pnlIdentityList.UnregisterName(ucIdentity.Name);
+                    }                    
                 }
             };
             if (!Dispatcher.CheckAccess())
