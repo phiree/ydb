@@ -111,7 +111,6 @@ namespace Dianzhu.CSClient.Presenter
             {
                 errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
                 log.Error(errMsg);
-                throw new NotImplementedException(errMsg);
             }
         }
 
