@@ -71,7 +71,77 @@ namespace Dianzhu.ApplicationService.Service
             }
             //待定是否只传ID过来
 
-            Model.DZService dzservice = Mapper.Map<servicesObj, Model.DZService>(servicesobj);
+
+            decimal dec = 0;
+            if (!string.IsNullOrEmpty(servicesobj.startAt))
+            {
+                if (!decimal.TryParse(servicesobj.startAt, out dec))
+                {
+                    throw new Exception("起步价格式不正确！");
+                }
+            }
+            if (!string.IsNullOrEmpty(servicesobj.unitPrice))
+            {
+                if (!decimal.TryParse(servicesobj.unitPrice, out dec))
+                {
+                    throw new Exception("单价格式不正确！");
+                }
+            }
+            if (!string.IsNullOrEmpty(servicesobj.deposit))
+            {
+                if (!decimal.TryParse(servicesobj.deposit, out dec))
+                {
+                    throw new Exception("订金格式不正确！");
+                }
+            }
+            int intNum = 0;
+            if (!string.IsNullOrEmpty(servicesobj.appointmentTime))
+            {
+                if (!int.TryParse(servicesobj.appointmentTime, out intNum))
+                {
+                    throw new Exception("提前预约的时间值格式不正确！");
+                }
+            }
+
+            Model.DZService dzservice = new Model.DZService();
+            //从字符串转枚举：AEnumType a = (AEnumType)Enum.Parse(typeof(AEnumType), “flag”); 可能失败，代码应包含异常处理机制。
+            //可用Enum.IsDefined()检查一个值是否包含在一个枚举中。
+            if (!string.IsNullOrEmpty(servicesobj.eSupportPayWay))
+            {
+                int ee = 0;
+                try
+                {
+                    if (int.TryParse(servicesobj.eSupportPayWay, out ee))
+                    { }
+                    else
+                    {
+                        ee = (int)(Model.Enums.enum_PayType)Enum.Parse(typeof(Model.Enums.enum_PayType), servicesobj.eSupportPayWay);
+                    }
+                    if (ee > dzservice.GetAllPayTypeNum || ee==4)
+                    {
+                        throw new Exception("该支付方式不存在！");
+                    }
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            if (!string.IsNullOrEmpty(servicesobj.maxCount))
+            {
+                if (!int.TryParse(servicesobj.maxCount, out intNum))
+                {
+                    throw new Exception("最大接单量格式不正确！");
+                }
+            }
+            
+
+
+            dzservice = Mapper.Map<servicesObj, Model.DZService>(servicesobj);
+            if (!string.IsNullOrEmpty(servicesobj.chargeUnit))
+            {
+                dzservice.ChargeUnitFriendlyName = servicesobj.chargeUnit;
+            }
             DateTime dt = new DateTime();
             dzservice.CreatedTime = dt;
             dzservice.LastModifiedTime = dt;
@@ -305,7 +375,25 @@ namespace Dianzhu.ApplicationService.Service
             //可用Enum.IsDefined()检查一个值是否包含在一个枚举中。
             if (!string.IsNullOrEmpty(servicesobj.eSupportPayWay))
             {
-                dzserviceobj.AllowedPayType = (Model.Enums.enum_PayType)Enum.Parse(typeof(Model.Enums.enum_PayType), servicesobj.eSupportPayWay);
+                int ee = 0;
+                try
+                {
+                    if (int.TryParse(servicesobj.eSupportPayWay, out ee))
+                    { }
+                    else
+                    {
+                        ee = (int)(Model.Enums.enum_PayType)Enum.Parse(typeof(Model.Enums.enum_PayType), servicesobj.eSupportPayWay);
+                    }
+                    if (ee > new Model.DZService().GetAllPayTypeNum || ee == 4)
+                    {
+                        throw new Exception("该支付方式不存在！");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                dzserviceobj.AllowedPayType = (Model.Enums.enum_PayType)ee;
             }
             dzserviceobj.Enabled = servicesobj.bOpen;
             if (!string.IsNullOrEmpty(servicesobj.maxCount))
@@ -318,7 +406,7 @@ namespace Dianzhu.ApplicationService.Service
             }
             if (!string.IsNullOrEmpty(servicesobj.chargeUnit))
             {
-                dzserviceobj.ChargeUnit = (Model.Enums.enum_ChargeUnit)Enum.Parse(typeof(Model.Enums.enum_ChargeUnit), servicesobj.chargeUnit);
+                dzserviceobj.ChargeUnitFriendlyName = servicesobj.chargeUnit;
             }
             DateTime dt = new DateTime();
             dzserviceobj.LastModifiedTime = dt;

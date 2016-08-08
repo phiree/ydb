@@ -59,7 +59,7 @@ namespace Dianzhu.BLL
             }
             else
             {
-                where = where.And(x => x.ParentId == guidSuperID);
+                where = where.And(x => x.Parent.Id == guidSuperID);
             }
             return dalServiceType.Find(where);
         }
