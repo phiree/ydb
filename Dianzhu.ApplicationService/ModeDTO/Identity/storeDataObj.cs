@@ -75,5 +75,22 @@ namespace Dianzhu.ApplicationService
                 _allCount = value;
             }
         }
+
+        IList<string> _assignOrderIDs = new List<string>();
+        /// <summary>
+        /// 参与的订单ID
+        /// </summary>
+        public IList<string> assignOrderIDs
+        {
+            get
+            {
+                return _assignOrderIDs;
+            }
+            set
+            {
+                _assignOrderIDs = value;
+            }
+        }
+
     }
 }
