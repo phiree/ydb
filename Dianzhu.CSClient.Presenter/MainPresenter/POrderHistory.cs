@@ -68,15 +68,23 @@ namespace Dianzhu.CSClient.Presenter
             }
         }
 
+        BackgroundWorker worker;
         private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
         {
             if (IdentityManager.CurrentIdentity == null)
             { return; }
 
-            log.Debug("开始异步加载历史订单");
+            worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.RunWorkerAsync(serviceOrder.Customer.Id);
 
-            int totalAmount;
-            IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(serviceOrder.Customer.Id, 1, 5, out totalAmount);
+            log.Debug("开始异步加载历史订单");
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            IList<ServiceOrder> orderList = e.Result as List<ServiceOrder>;
             viewOrderHistory.OrderList = orderList;
             if (orderList.Count > 0)
             {
@@ -99,6 +107,18 @@ namespace Dianzhu.CSClient.Presenter
             {
                 viewOrderHistory.ShowNullListLable();
             }
+
+            log.Debug("异步加载历史订单完成");
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            Guid customerId = Guid.Parse(e.Argument.ToString());
+            int totalAmount;
+            e.Result = bllServiceOrder.GetListForCustomer(customerId, 1, 5, out totalAmount);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         private void ViewOrderHistory_SearchOrderHistoryClick()

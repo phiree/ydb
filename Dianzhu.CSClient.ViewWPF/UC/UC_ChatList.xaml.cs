@@ -211,7 +211,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
+            log.Debug("更多聊天信息加载完成");
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)

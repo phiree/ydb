@@ -120,23 +120,26 @@ namespace Dianzhu.CSClient.Presenter
             //判断信息类型
             if (chat.ChatType == enum_ChatType.Media || chat.ChatType == enum_ChatType.Text)
             {
-                //1 更新当前聊天列表
-                //2 判断消息 和 聊天列表,当前聊天项的关系(是当前聊天项 但是需要修改订单 非激活的列表, 新聊天.
-                IdentityTypeOfOrder type;
-                IdentityManager.UpdateIdentityList(chat.ServiceOrder, out type);
-                ReceivedMessage(chat, type);
-                //消息本地化.
-                chat.ReceiveTime = DateTime.Now;
-                if (chat is Model.ReceptionChatMedia)
+                if (chat.ServiceOrder != null)
                 {
-                    string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
-                    string fileName = ((ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
+                    //1 更新当前聊天列表
+                    //2 判断消息 和 聊天列表,当前聊天项的关系(是当前聊天项 但是需要修改订单 非激活的列表, 新聊天.
+                    IdentityTypeOfOrder type;
+                    IdentityManager.UpdateIdentityList(chat.ServiceOrder, out type);
+                    ReceivedMessage(chat, type);
+                    //消息本地化.
+                    chat.ReceiveTime = DateTime.Now;
+                    if (chat is Model.ReceptionChatMedia)
+                    {
+                        string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
+                        string fileName = ((ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
 
-                    ((ReceptionChatMedia)chat).MedialUrl = fileName;
+                        ((ReceptionChatMedia)chat).MedialUrl = fileName;
+                    }
+                    dalReceptionChat.Add(chat);
+
+                    iView.IdleTimerStop(chat.ServiceOrder.Id); 
                 }
-                dalReceptionChat.Add(chat);
-
-                iView.IdleTimerStop(chat.ServiceOrder.Id);
             }
             else if (chat.ChatType== enum_ChatType.UserStatus)
             {

@@ -164,6 +164,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 worker.DoWork += Worker_DoWork;
                 worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
                 worker.RunWorkerAsync(IdentityOrder);
+                log.Debug("开始异步加载");
             }
         }
 
