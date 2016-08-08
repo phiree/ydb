@@ -93,21 +93,29 @@
          * @param endTime 设置的结束时间
          * @returns {boolean} 验证结果，true为时间段有效
          */
-        timeValid: function (startTime, endTime){
-            var valid = true;
+        timeValid: function (startTime, endTime, exceptModel){
+            var valid = true, validModels = this.models;
 
             // 开始时间不得大于或等结束时间
             if ( intTime(startTime) >= intTime(endTime) ){
-                valid = false
-            } else {
-                _.each(this.models, function(modelItem){
-
-                    // 时段不能包含或覆盖已有时间段
-                    if ( !( ( intTime(startTime) > intTime(modelItem.get("endTime")) ) || ( intTime(endTime) < intTime(modelItem.get("startTime")) ) ) ){
-                        valid = false
-                    }
-                });
+                return valid = false;
             }
+
+
+            if(exceptModel){
+                validModels = _.reject(this.models, function(modelItem){
+                    return modelItem.get("id") === exceptModel.get("id");
+                })
+            }
+
+            _.each(validModels, function(modelItem){
+
+                // 时段不能包含或覆盖已有时间段
+                if ( !( ( intTime(startTime) >= intTime(modelItem.get("endTime")) ) || ( intTime(endTime) <= intTime(modelItem.get("startTime")) ) ) ){
+                    valid = false
+                }
+            });
+
             return valid
         }
     });
@@ -167,7 +175,7 @@
             }
 
             // 当设置时间段于原来不一样时，验证时间有效性
-            if ( !(this.model.get("startTime") === attr.startTime && this.model.get("endTime") === attr.endTime) && !this.model.collection.timeValid(attr.startTime, attr.endTime) ){
+            if ( !(this.model.get("startTime") === attr.startTime && this.model.get("endTime") === attr.endTime) && !this.model.collection.timeValid(attr.startTime, attr.endTime, this.model) ){
                 return this.workDayView.showWorkTimeError(true, "时间段设置重复或错误");
             }
 
