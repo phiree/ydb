@@ -68,20 +68,21 @@ namespace Dianzhu.CSClient.Presenter
             //    chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Insert(0, chat);
             //}
 
-            var list = viewChatList.ChatList;
+            //var list = viewChatList.ChatList;
 
             foreach (var item in chatHistory)
             {
-                list.Insert(0, item);
+                viewChatList.ChatList.Insert(0, item);
+                viewChatList.InsertOneChat(item);
             }
 
-            viewChatList.ChatList = list;
-            viewChatList.ClearUCData();
+            //viewChatList.ChatList = list;
+            //viewChatList.ClearUCData();
             viewChatList.ShowMoreLabel();
-            foreach (ReceptionChat chat in list)
-            {
-                viewChatList.AddOneChat(chat);
-            }
+            //foreach (ReceptionChat chat in list)
+            //{
+            //    viewChatList.AddOneChat(chat);
+            //}
 
             //viewChatList.ChatList = chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id];
         }

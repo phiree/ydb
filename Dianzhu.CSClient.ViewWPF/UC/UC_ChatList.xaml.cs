@@ -17,6 +17,7 @@ using Dianzhu.Model;
 using System.Windows.Interop;
 using System.Windows.Controls.Primitives;
 using System.IO;
+using System.ComponentModel;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -25,6 +26,7 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class UC_ChatList : UserControl,IView.IViewChatList
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_ChatList");
         UC_Hint hint;
         public UC_ChatList()
         {
@@ -191,33 +193,47 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-
+        BackgroundWorker worker;
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
             if (BtnMoreChat==null)
             {
                 return;
             }
+            
+            ShowLoadingMsg();
+
+            worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.RunWorkerAsync();
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
             NHibernateUnitOfWork.UnitOfWork.Start();
-            //Action ac = () =>
-            //{
-                BtnMoreChat();
-            //};
-            //NHibernateUnitOfWork.With.Transaction(ac);
+            BtnMoreChat();
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         public void AddOneChat(ReceptionChat chat)
         {
+            log.Debug("chat begin, body:" + chat.MessageBody);
             Action lamda = () =>
-            {
+            {                
                 UC_ChatCustomer chatCustomer = new UC_ChatCustomer(chat, currentCustomerService);
                 
                 // WindowNotification();
                 ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(chatCustomer);
                 //pnlChatList.Children.Add(pnlOneChat);
 
+                log.Debug("chat end, body:" + chat.MessageBody);
             };
             if (!Dispatcher.CheckAccess())
             {
@@ -235,7 +251,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 UC_ChatCustomer chatCustomer = new UC_ChatCustomer(chat, currentCustomerService);
                 
-                ((StackPanel)svChatList.FindName("StackPanel")).Children.Insert(0,chatCustomer);
+                ((StackPanel)svChatList.FindName("StackPanel")).Children.Insert(1,chatCustomer);
             };
             if (!Dispatcher.CheckAccess())
             {
