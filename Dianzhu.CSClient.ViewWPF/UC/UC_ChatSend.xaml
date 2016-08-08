@@ -57,7 +57,7 @@
                 <WrapPanel VerticalAlignment="Center">
                     <Button x:Name="btnPhizImage" Template="{StaticResource ImageButton}" Visibility="Collapsed">
                         <Button.Background>
-                            <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/1.png"></ImageBrush>
+                            <ImageBrush ImageSource="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/1.png"></ImageBrush>
                         </Button.Background>
                         <Button.ToolTip>
                             <StackPanel>
@@ -67,7 +67,7 @@
                     </Button>
                     <Button x:Name="btnSendImage" Template="{StaticResource ImageButton}" Click="btnSendMedia_Click">
                         <Button.Background>
-                            <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/3.png"></ImageBrush>
+                            <ImageBrush ImageSource="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/3.png"></ImageBrush>
                         </Button.Background>
                         <Button.ToolTip>
                             <StackPanel>
@@ -77,7 +77,7 @@
                     </Button>
                     <Button x:Name="btnCaptureImage" Template="{StaticResource ImageButton}" Click="btnCaptureImage_Click">
                         <Button.Background>
-                            <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/2.png"></ImageBrush>
+                            <ImageBrush ImageSource="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/2.png"></ImageBrush>
                         </Button.Background>
                         <Button.ToolTip>
                             <StackPanel>
@@ -87,7 +87,7 @@
                     </Button>
                     <Button x:Name="btnVoiceImage" Template="{StaticResource ImageButton}" Visibility="Collapsed">
                         <Button.Background>
-                            <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/4.png"></ImageBrush>
+                            <ImageBrush ImageSource="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/4.png"></ImageBrush>
                         </Button.Background>
                         <Button.ToolTip>
                             <StackPanel>

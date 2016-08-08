@@ -17,7 +17,7 @@
                             <Label x:Name="lblMessageMinutes" HorizontalAlignment="Left" VerticalAlignment="Center">
                                 <TextBlock Foreground="White" FontSize="16">9"</TextBlock>
                             </Label>
-                            <MediaElement x:Name="mediaVoice" LoadedBehavior="Play" Width="25" Height="25" Source="pack://siteoforigin:,,,/Resources/voice.gif" MediaEnded="mediaVoice_MediaEnded"></MediaElement>
+                            <MediaElement x:Name="mediaVoice" LoadedBehavior="Play" Width="25" Height="25" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/voice.gif" MediaEnded="mediaVoice_MediaEnded"></MediaElement>
                         </WrapPanel>
                     </Grid>
                 </Border>

@@ -55,7 +55,7 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
-                        <Image x:Name="imgServiceType" Source="pack://siteoforigin:,,,/Resources/logourl.png" Margin="8"></Image>
+                        <Image x:Name="imgServiceType" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png" Margin="8"></Image>
                     </Grid>
 
                     <Grid Grid.Row="1">

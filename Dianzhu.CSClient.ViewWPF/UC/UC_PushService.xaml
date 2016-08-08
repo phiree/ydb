@@ -40,7 +40,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
-                            <Image Width="60" Height="60" Source="pack://siteoforigin:,,,/Resources/logourl.png"></Image>
+                            <Image Width="60" Height="60" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png"></Image>
                         </Grid>
 
                         <Grid Grid.Column="1">
