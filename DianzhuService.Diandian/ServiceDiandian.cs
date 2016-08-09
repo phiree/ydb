@@ -105,7 +105,7 @@ namespace DianzhuService.Diandian
                         msgObj_type = msg.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("type");
                         break;
                     case "ihelper:notice:cer:online":
-                        log.Debug("收到客服上线通知");
+                        log.Debug("收到客服上线通知,num:"+csOnLine);
                         csOnLine++;
                         if (csOnLine == 1)
                         {
@@ -119,7 +119,7 @@ namespace DianzhuService.Diandian
                         }
                         return;
                     case "ihelper:notice:cer:offline":
-                        log.Debug("收到客服离线通知");
+                        log.Debug("收到客服离线通知,num:"+csOnLine);
                         if (csOnLine > 0)
                         {
                             csOnLine--;
