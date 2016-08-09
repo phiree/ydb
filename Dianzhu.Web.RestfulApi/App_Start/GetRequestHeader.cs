@@ -28,7 +28,7 @@ namespace Dianzhu.Web.RestfulApi
             Customer customer = new Customer();
             customer = customer.getCustomer(headers.token, headers.apiKey, false);
             string strRule = ConfigurationManager.AppSettings[apiUrl].ToString();
-            if (strRule.Contains("[" + customer.UserType + "]"))
+            if (strRule=="" || strRule.Contains("[" + customer.UserType + "]"))
             {
                 return customer;
             }
