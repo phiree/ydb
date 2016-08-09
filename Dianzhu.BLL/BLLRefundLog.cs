@@ -11,9 +11,9 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLRefundLog
     {
-        DAL.DALRefundLog dal;
+        IDAL.IDALRefundLog   dal;
         string errMsg = string.Empty;
-        public BLLRefundLog(DAL.DALRefundLog dal)
+        public BLLRefundLog(IDAL.IDALRefundLog   dal)
         {
             this.dal = dal;
         }
@@ -24,7 +24,7 @@ namespace Dianzhu.BLL
         
         public void Save(RefundLog r)
         {
-            dal.Save(r);
+            dal.Add(r);
         }
 
         public void Update(RefundLog r)

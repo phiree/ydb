@@ -20,5 +20,7 @@ namespace Dianzhu.Model
         public virtual Guid AppUUID { get; set; }
         public virtual DateTime SaveTime { get; set; }//保存时间
         public virtual int PushAmount { get; set; }//推送条数
+
+        
     }
 }

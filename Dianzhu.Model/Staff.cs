@@ -26,6 +26,14 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string Code { get; set; }
         public virtual string Name { get; set; }
+        /// <summary>
+        /// 员工登录app的用户名
+        /// </summary>
+        public virtual string LoginName { get; set; }
+        /// <summary>
+        /// 员工的用户ID
+        /// </summary>
+        public virtual string UserID { get; set; }
         public virtual int Age { get; set; }
         /// <summary>
         /// 工作年数
@@ -35,6 +43,13 @@ namespace Dianzhu.Model
         /// 昵称
         /// </summary>
         public virtual string NickName { get; set; }
+        /// <summary>
+        /// 用于客户端显示
+        /// </summary>
+        public virtual string DisplayName
+        {
+            get { return string.IsNullOrEmpty(NickName) ? Name : NickName; }
+        }
         /// <summary>
         /// 性别
         /// </summary>

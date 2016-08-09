@@ -12,7 +12,13 @@ namespace Dianzhu.IDAL
 
           void UpdateBindStatus(DZMembership member, string appToken, string appName);
 
-          DeviceBind getDevBindByUUID(Guid uuid);
+        /// <summary>
+        /// 解除之前所有 apptoken  和 member的绑定,然后保存新的绑定
+        /// </summary>
+        /// <param name="devicebind"></param>
+        void UpdateAndSave(DeviceBind devicebind);
+
+        DeviceBind getDevBindByUUID(Guid uuid);
           DeviceBind getDevBindByUserID(DZMembership user);
     }
 }

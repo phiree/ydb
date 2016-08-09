@@ -34,8 +34,27 @@ namespace Dianzhu.Model
     /// <summary>
     /// 代理商个人信息
     /// </summary>
-    public class AgentMemberInfo
+    public class AgentMemberInfo : DDDCommon.Domain.Entity<Guid>
     {
-
+        /// <summary>
+        /// 真实姓名
+        /// </summary>
+        public virtual string RealName { get; set; }
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public virtual bool Sex { get; set; }
+        /// <summary>
+        /// 身份证号
+        /// </summary>
+        public virtual string PersonalID { get; set; }
+        /// <summary>
+        /// 手机
+        /// </summary>
+        public virtual string Phone { get; set; }
+        /// <summary>
+        /// 照片
+        /// </summary>
+        public virtual string AvatarUrl { get; set; }
     }
 }

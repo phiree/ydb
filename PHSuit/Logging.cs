@@ -26,11 +26,11 @@ namespace PHSuit
             hierarchy.Root.RemoveAllAppenders();
             
             Logger rootLogger = hierarchy.Root;
-            rootLogger.Level = Level.Debug;
+            rootLogger.Level = Level.Error;
             /********/
-            CreateLogger(hierarchy, "Dianzhu", logFileNameRoot+"Dianzhu", "DianzhuAppender", 1, 10);
-            CreateLogger(hierarchy, "NHibernate", logFileNameRoot+"Nhibernate", "NhibernateAppender", 1, 10);
-            CreateLogger(hierarchy, "JSYK", logFileNameRoot+"Infra", "DianzhuAppender", 1, 10);
+            CreateLogger(hierarchy, "Dianzhu", logFileNameRoot+"Dianzhu", "DianzhuAppender", 5, 20);
+            CreateLogger(hierarchy, "NHibernate", logFileNameRoot+"Nhibernate", "NhibernateAppender", 5, 20);
+            CreateLogger(hierarchy, "JSYK", logFileNameRoot+"Infra", "DianzhuAppender", 5, 20);
             hierarchy.Configured = true;
            
         }

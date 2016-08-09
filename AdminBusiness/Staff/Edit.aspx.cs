@@ -15,10 +15,11 @@ public partial class Staff_Edit : BasePage
     private bool IsNew { get { return StaffId == Guid.Empty; } }//新增. 或者 编辑
     Staff s = new Staff();
     public string StaffAvatarUrl = "/images/components/inputFile/input_head_default_128_128.png";
-    BLLStaff bllStaff = new BLLStaff();
+
+    BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>();
     ServiceType ServiceType = new ServiceType();
-    BLLServiceType bllServiceType = new BLLServiceType();
-    
+    BLLServiceType bllServiceType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -89,9 +90,16 @@ public partial class Staff_Edit : BasePage
     protected void btnOK_Click(object sender, EventArgs e)
     {
         UpdateForm();
-        bllStaff.SaveOrUpdate(s);
+        if (IsNew)
+        { bllStaff.Save(s); }
+        else
+        {
+            bllStaff.Update(s);
+        }
+         
         StaffId = s.Id;
         UploadImage();
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
         Response.Redirect("/staff/default.aspx?businessid="+Request["businessId"]);
        
 

@@ -19,7 +19,7 @@
                     <div>最大接单量:<span>{%= maxOrder %}</span></div>
                 </div>
                 <div class="wt-editing">
-                    <input  class="time-pick" type="text" data-role="startTime" value="{%= startTime %}"/>-<input class="time-pick" type="text" data-role="endTime" value="{%= endTime %}" />
+                    <input  class="time-pick w" type="text" data-role="startTime" value="{%= startTime %}"/>-<input class="time-pick w" type="text" data-role="endTime" value="{%= endTime %}" />
                     <div>最大接单量:<input class="wt-number" type="number" data-role="maxOrder" value="{%= maxOrder %}"/></div>
                 </div>
             </div>
@@ -47,6 +47,7 @@
                 <!--注入工作时间-->
                 <div class="wt-load"></div>
             </div>
+            <div class="wd-error"></div>
             <div class="wd-b">
                 <div class="wd-add animated fadeInUpSmall">
                     <input type="hidden" value="{%= week %}" data-role="cWeek">
@@ -60,9 +61,7 @@
                         <span>最大接单量：</span>
                         <input class="wd-num" type="number" value="0" data-role="cMaxOrder">
                     </div>
-                    <div class="wd-errMsg">
-                        时间段设置错误或重复
-                    </div>
+                    <div class="wd-errMsg"></div>
                     <div class="wd-add-btn">
                         <input class="wd-confirm" type="button" value="确认" data-role="cConfirm">
                         <input class="wd-cancel" type="button" value="取消" data-role="cCancel">

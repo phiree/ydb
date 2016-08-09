@@ -15,13 +15,13 @@ using Dianzhu.Api.Model;
 public class ResponseDRM001006 : BaseResponse
 {
     public ResponseDRM001006(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+    
     protected override void BuildRespData()
     {
         ReqDataDRM001006 requestData = this.request.ReqData.ToObject<ReqDataDRM001006>();
         
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
-        BLLDZTag bllDZTag = new BLLDZTag();
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
 
         string order_id = requestData.orderID;
 

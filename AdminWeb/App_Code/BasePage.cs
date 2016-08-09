@@ -6,7 +6,7 @@ using System.Web;
 /// <summary>
 ///BasePage 的摘要说明
 /// </summary>
-public class BasePage:System.Web.UI.Page
+public class BasePage:Dianzhu.Web.Common.BasePage
 {
 	public BasePage()
 	{
@@ -14,10 +14,5 @@ public class BasePage:System.Web.UI.Page
 		//TODO: 在此处添加构造函数逻辑
 		//
 	}
-    unitofwork uf;
-    public unitofwork UnitOfWork {
-        get {
-            return uf=uf ??new unitofwork();
-        }
-    }
+     
 }

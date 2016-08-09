@@ -8,7 +8,7 @@
              d:DesignHeight="260" d:DesignWidth="198">
     <UserControl.Resources>
         <Style x:Key="TextBlockName" TargetType="{x:Type TextBlock}">
-            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="TextWrapping" Value="NoWrap"/>
             <Setter Property="TextTrimming" Value="WordEllipsis"/>
             <Setter Property="FontFamily" Value="微软雅黑"/>
             <Setter Property="FontWeight" Value="Regular"/>
@@ -55,12 +55,12 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
-                        <Image x:Name="imgServiceType" Source="pack://siteoforigin:,,,/Resources/1.jpg" Margin="8"></Image>
+                        <Image x:Name="imgServiceType" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png" Margin="8"></Image>
                     </Grid>
 
                     <Grid Grid.Row="1">
                         <StackPanel>
-                            <WrapPanel Margin="16,0,0,8">
+                            <WrapPanel Margin="16,0,10,8" Width="160">
                                 <Label Padding="0">
                                     <TextBlock x:Name="tbkServiceName" Style="{DynamicResource TextBlockName}" FontWeight="Bold" Text="美容中心"/>
                                 </Label>

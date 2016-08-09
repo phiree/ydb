@@ -13,20 +13,21 @@ namespace Dianzhu.Model
     {
         public ServiceType()
         {
-            Properties = new List<ServiceProperty>();
+            
             Children = new List<ServiceType>();
            
         }
-       
-
+        [JsonProperty(PropertyName = "id")]
+        public virtual Guid TypeId {
+            get { return this.Id; }
+        }
         
         [JsonProperty(PropertyName = "name")]
         public virtual string Name { get; set; }
         /// <summary>
         /// id
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        public virtual Guid Id { get; set; }
+         
         /// <summary>
         /// 自定义编码
         /// </summary>
@@ -55,8 +56,7 @@ namespace Dianzhu.Model
         /// 排序
         /// </summary>
         public virtual int OrderNumber { get; set; }
-        public virtual IList<ServiceProperty> Properties { get; set; }
-
+       
         public virtual ServiceType TopType {
             get {
                 if (this.Parent == null)

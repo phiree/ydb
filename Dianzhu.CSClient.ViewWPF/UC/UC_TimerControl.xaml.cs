@@ -37,6 +37,14 @@ namespace Dianzhu.CSClient.ViewWPF
             timer.Start();
         }
 
+        public void StartTimer()
+        {
+            if (timer != null)
+            {
+                timer.Start();
+            }
+        }
+
         public void StopTimer()
         {
             if (timer != null)

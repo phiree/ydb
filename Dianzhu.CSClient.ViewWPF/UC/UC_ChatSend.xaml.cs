@@ -61,14 +61,21 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        public string MessageTimer
+        {
+            get { return timerMsg.Text; }
+            set { timerMsg.Text = value; }
+        }
+
         public event SendTextClick SendTextClick;
         public event SendMediaClick SendMediaClick;
-        
+        public event FinalChatTimerSend FinalChatTimerSend;
+
         private void btnSendTextMessage_Click(object sender, RoutedEventArgs e)
         {
             if (SendTextClick != null && MessageText.Trim() != string.Empty)
             {
-                SendTextClick();
+                SendText();
             }
         }
 
@@ -139,9 +146,15 @@ namespace Dianzhu.CSClient.ViewWPF
                
             }));
             byte[] fileData = File.ReadAllBytes(dlg.FileName);
-            SendMediaClick(fileData, domain, mediaType);
 
-
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            //Action ac = () => {
+                SendMediaClick(fileData, domain, mediaType);
+                FinalChatTimerSend();
+            //};
+            //NHibernateUnitOfWork.With.Transaction(ac);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         #region 截图
@@ -212,8 +225,16 @@ namespace Dianzhu.CSClient.ViewWPF
                 win.Title = "正在发送,请稍后........";
                 bytes= BitmapSource2ByteArray(bmp);
             }));
-            SendMediaClick(bytes, "ChatImage", "image");
 
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            //Action ac = () =>
+            //{
+                SendMediaClick(bytes, "ChatImage", "image");
+            FinalChatTimerSend();
+            //};
+            //NHibernateUnitOfWork.With.Transaction(ac);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         private Byte[] BitmapSource2ByteArray(BitmapSource source)
@@ -232,8 +253,21 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             if (SendTextClick != null && MessageText.Trim() != string.Empty && e.Key == Key.Enter)
             {
-                SendTextClick();
+                SendText();
             }
+        }
+
+        private void SendText()
+        {
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            //Action ac = () =>
+            //{
+            SendTextClick();
+                FinalChatTimerSend();
+            //};
+            //NHibernateUnitOfWork.With.Transaction(ac);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
     }
 }

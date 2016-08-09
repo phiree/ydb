@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 
-public partial class customer_ToExcel : System.Web.UI.Page
+public partial class customer_ToExcel : BasePage
 {
     DZMembershipProvider dzmp = Bootstrap.Container.Resolve<DZMembershipProvider>();
     VMCustomerAdapter vmcAdapter = Bootstrap.Container.Resolve<VMCustomerAdapter>();
@@ -23,7 +23,7 @@ public partial class customer_ToExcel : System.Web.UI.Page
 
     private void BindSummary()
     {
-        BLLIMUserStatus bllIMUS = new BLLIMUserStatus();
+        BLLIMUserStatus bllIMUS = Bootstrap.Container.Resolve<BLLIMUserStatus>();
         var onlineUser = bllIMUS.GetOnlineListByClientName(Dianzhu.Model.Enums.enum_XmppResource.YDBan_User.ToString());
         lblTotalOnline.Text = onlineUser.Count.ToString();
     }

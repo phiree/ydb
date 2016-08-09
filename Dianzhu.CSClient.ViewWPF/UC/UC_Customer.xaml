@@ -43,7 +43,7 @@
                                 <Grid Cursor="Hand">
                                     <Border CornerRadius="2" Width="28" Height="28">
                                         <Border.Background>
-                                            <ImageBrush x:Name="imgSource" ImageSource="pack://siteoforigin:,,,/Resources/logourl.png"/>
+                                            <ImageBrush x:Name="imgSource" ImageSource="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png"/>
                                         </Border.Background>
                                     </Border>
                                 </Grid>
@@ -58,7 +58,7 @@
 
                                     <WrapPanel>
                                         <Label FontSize="10" Padding="0">
-                                            <TextBlock x:Name="tbkCustomerStatus" Text="等待中..." Style="{DynamicResource TextBlockCustomer}" FontWeight="Regular" Foreground="#FF787878"/>
+                                            <TextBlock x:Name="tbkCustomerStatus" Text="等待中" Style="{DynamicResource TextBlockCustomer}" FontWeight="Regular" Foreground="#FF787878"/>
                                         </Label>
                                         <UC:UC_TimerControl x:Name="TimeControl" />
                                     </WrapPanel>

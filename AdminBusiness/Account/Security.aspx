@@ -68,7 +68,8 @@
                     <div class="m-auto" ng-hide="!CPassSuccess">
                         <asp:ChangePassword ID="ChangePassword1" runat="server"
                                             ChangePasswordTitleText="修改密码"
-                                            CssClass="CPBox" PasswordLabelText="旧密码"
+                                            CssClass="CPBox"
+                                            PasswordLabelText="旧密码"
                                             ConfirmNewPasswordLabelText="确认新密码"
                                             NewPasswordLabelText="新密码"
 
@@ -81,16 +82,16 @@
                                             CancelButtonType="button"
                                             CancelButtonImageUrl="../image/myshop/shop_tx_108.png"
                                             CancelButtonStyle-CssClass="m-l20 secret-btn"
-
+                                            
                                             TitleTextStyle-CssClass="CPTitle"
                                             LabelStyle-CssClass="CPLabel"
                                             TextBoxStyle-CssClass="CPTextBox"
-                                            ChangePasswordFailureText=""
+                                            ChangePasswordFailureText="密码修改失败"
                                             SuccessText="密码修改成功"
                                             SuccessPageUrl="./ChangePassword_suc.aspx"
                                             OnChangePasswordError="change_error"
-                                            NewPasswordRegularExpression=".{6,}"
-                                            NewPasswordRegularExpressionErrorMessage="密码至少6位数">
+                                            NewPasswordRegularExpression='@\"^[A-Za-z0-9_-]{6,16}$'
+                                            NewPasswordRegularExpressionErrorMessage="密码需大于6位数，小于16位，不包含特殊符号">
 <CancelButtonStyle CssClass="m-l20 secret-btn"></CancelButtonStyle>
 
 <ChangePasswordButtonStyle CssClass="secret-btn"></ChangePasswordButtonStyle>

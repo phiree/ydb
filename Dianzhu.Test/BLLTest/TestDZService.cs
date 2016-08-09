@@ -18,11 +18,12 @@ namespace Dianzhu.Test.BLLTest
         {
             
             var dal = MockRepository.GenerateStub<DALDZService>(string.Empty);
+            var dalTag = MockRepository.GenerateStub<DALDZTag>(string.Empty);
             dal.Stub(x => x.FindById(Guid.Empty)).Return(
                 new DZService { Name="service1"}
                 );
             
-            BLLDZService service = new BLLDZService(dal);
+            BLLDZService service = new BLLDZService(dal,dalTag);
        
            DZService result= service.GetOne(Guid.Empty);
            Assert.AreEqual("service1", result.Name);

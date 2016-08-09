@@ -88,6 +88,9 @@
             if ( error ) { error.apply(this, arguments); }
         };
 
+        // 设置jQuery支持cors,防止IE9下跨域出现No Transport错误 todo：可能有更好的解决方法
+        Backbone.$.support.cors = true;
+
 
         //make request
         var xhr = options.xhr = Backbone.ajax(_.extend(params, options));

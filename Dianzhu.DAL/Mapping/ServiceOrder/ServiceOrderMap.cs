@@ -21,11 +21,14 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Memo);
             Map(x => x.OrderStatus).CustomType<Model.Enums.enum_OrderStatus>();
             References<DZMembership>(x => x.CustomerService);
-            HasMany<ServiceOrderDetail>(x => x.Details).Not.LazyLoad().Cascade.All();
+            HasMany<ServiceOrderDetail>(x => x.Details).Cascade.All();
             References<Business>(x => x.Business);
             Map(x => x.NegotiateAmount);
 
             Map(x => x.DepositAmount);
+
+            //指派的负责人
+            References<Staff>(x => x.Staff);
         }
     }
 }

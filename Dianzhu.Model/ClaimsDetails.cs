@@ -9,7 +9,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 理赔详情
     /// </summary>
-    public class ClaimsDetails
+    public class ClaimsDetails : DDDCommon.Domain.Entity<Guid>
     {
         /// <summary>
         /// 构造函数
@@ -28,14 +28,14 @@ namespace Dianzhu.Model
         /// <param name="resourcesUrl"></param>
         /// <param name="target"></param>
         /// <param name="member">提交理赔的用户</param>
-        public ClaimsDetails(Claims claims, string context,decimal amount,string resourcesUrl,enum_ChatTarget target,DZMembership member)
+        public ClaimsDetails(Claims claims, string context,decimal amount,IList<string> resourcesUrl,enum_ChatTarget target,DZMembership member)
         {
             this.CreatTime = this.LastUpdateTime = DateTime.Now;
 
             this.Claims = claims;
             this.Context = context;
             this.Amount = amount;
-            this.ResourcesUrl = resourcesUrl;
+            this.ClaimsDetailsResourcesUrl = resourcesUrl;
             this.Target = target;
             this.Member = member;
         }
@@ -59,7 +59,9 @@ namespace Dianzhu.Model
         /// <summary>
         /// 图片链接
         /// </summary>
-        public virtual string ResourcesUrl { get; set; }
+        /// 20160622_longphui_modify
+        ///public virtual string ResourcesUrl { get; set; }
+        public virtual IList<string> ClaimsDetailsResourcesUrl { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>

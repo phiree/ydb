@@ -28,7 +28,7 @@ namespace Dianzhu.Pay
         /// <param name="total_amoun">支付总额</param>
         /// <param name="errMsg">错误消息</param>
         /// <returns>支付是否成功</returns>
-        string RefundCallBack(object callBackParameters, out string businessOrderId, out string platformOrderId, out decimal total_amoun, out string errMsg);
+        string RefundCallBack(object callBackParameters, out string businessOrderId, out string platformOrder, out decimal total_amoun, out string errMsg);
     }    
   
 

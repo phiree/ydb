@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dianzhu.Model</RootNamespace>
     <AssemblyName>Dianzhu.Model</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -24,6 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Dianzhu.Model.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,8 +33,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.5\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -43,6 +49,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -53,16 +60,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClaimsDetails.cs" />
+    <Compile Include="Client\Client.cs" />
+    <Compile Include="Client\RefreshToken.cs" />
+    <Compile Include="Client\UserToken.cs" />
+    <Compile Include="StorageManager\StorageFileInfo.cs" />
+    <Compile Include="Trait_Filtering.cs" />
     <Compile Include="Finance\BalanceFlow.cs" />
     <Compile Include="Finance\ServiceTypePoint.cs" />
     <Compile Include="Finance\SharePoint.cs" />
     <Compile Include="IdentityAccess\emUserType.cs" />
+    <Compile Include="ISnatshop.cs" />
+    <Compile Include="Mapper.cs" />
     <Compile Include="MembershipLoginLog.cs" />
     <Compile Include="Claims.cs" />
     <Compile Include="Payment\RefundLog.cs" />
     <Compile Include="Payment\Refund.cs" />
-    <Compile Include="Resource\Specs\AdvertisementSpec\AdvertisementInPeriod.cs" />
-    <Compile Include="Resource\Specs\AdvertisementSpec\AdvertisementUseful.cs" />
+    <Compile Include="Resource\ServiceOpenTimeSnapshot.cs" />
     <Compile Include="ServiceOrderRemind.cs" />
     <Compile Include="Agent\Agent.cs" />
     <Compile Include="Complaint.cs" />
@@ -72,7 +85,7 @@
     <Compile Include="Reception\IMUserStatus.cs" />
     <Compile Include="City.cs" />
     <Compile Include="Resource\ServiceOpenTimeForDay.cs" />
-    <Compile Include="ServiceOrder\ServiceOpenTimeForDaySnapShotForOrder.cs" />
+    <Compile Include="Resource\ServiceOpenTimeForDaySnapShotForOrder.cs" />
     <Compile Include="ServiceOrder\ServiceOrderAppraise.cs" />
     <Compile Include="ServiceOrder\ServiceOrderDetail.cs" />
     <Compile Include="ServiceOrder\ServiceOrderFactory.cs" />
@@ -95,15 +108,13 @@
     <Compile Include="IdentityAccess\DZMembership.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CashTicketAssignRecord.cs" />
-    <Compile Include="Reception\Reception.cs" />
+    <Compile Include="Reception\ReceptionChat.cs" />
     <Compile Include="Reception\ReceptionStatus.cs" />
     <Compile Include="Resource\ServiceOpenTime.cs" />
     <Compile Include="Payment\Payment.cs" />
     <Compile Include="ServiceOrderStateChangeHis.cs" />
-    <Compile Include="ServiceProperty.cs" />
     <Compile Include="ServiceOrder\ServiceOrder.cs" />
     <Compile Include="ServiceType.cs" />
-    <Compile Include="ServiceTypePropertyValue.cs" />
     <Compile Include="Staff.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resource\Agent\" />
+    <Folder Include="Resource\Specs\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">

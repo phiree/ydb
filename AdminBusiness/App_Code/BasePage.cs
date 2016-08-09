@@ -7,8 +7,10 @@ using Dianzhu.BLL;
 /// <summary>
 ///BasePage 的摘要说明
 /// </summary>
-public class BasePage:System.Web.UI.Page
+public class BasePage:  Dianzhu.Web.Common.BasePage
 {
+    log4net.ILog log = log4net.LogManager.GetLogger("Web.AdminBusiness.BasePage");
+
     DZMembership currentUser;
     BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
     bool needBusiness = true;
@@ -34,7 +36,8 @@ public class BasePage:System.Web.UI.Page
 
             }
             else {
-                throw new Exception("没有这个店铺");
+                log.Error("businessId为空或格式有误，request[\"business\"]=" + strBusinessId);
+                Response.Redirect("/");
             }
             return b;
         }
@@ -65,6 +68,10 @@ public class BasePage:System.Web.UI.Page
                 }
             }
             currentUser = mp.GetUserById((Guid)mu.ProviderUserKey);
+            if(currentUser.UserType!= Dianzhu.Model.Enums.enum_UserType.business)
+            {
+                Response.Redirect("/login.aspx?returnurl=" + HttpUtility.UrlEncode(Request.RawUrl), true);
+            }
             //if (currentUser == null)
             //{
             //    Response.Redirect("/error.aspx?msg=您不是商户管理员,不能登录", true);

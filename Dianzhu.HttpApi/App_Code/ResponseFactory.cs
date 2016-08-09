@@ -36,14 +36,7 @@ public class ResponseFactory
                 return new ResponseUSM001010(request);
             #endregion
 
-            #region vcm
-            case "vcm001001":
-                return new ResponseVCM001001(request);
-            case "vcm001002":
-                return new ResponseVCM001002(request);
-            case "vcm001003":
-                return new ResponseVCM001003(request);
-            #endregion
+ 
 
             #region merm
             case "merm001001":
@@ -80,6 +73,8 @@ public class ResponseFactory
                 return new ResponseORM003008(request);
             case "orm003009":
                 return new ResponseORM003009(request);
+            case "orm003010":
+                return new ResponseORM003010(request);
             case "orm005001":
                 return new ResponseORM005001(request);
               //  return Bootstrap.Container.Resolve<ResponseORM005001>();
@@ -217,6 +212,8 @@ public class ResponseFactory
 
             case "sys001001":
                 return new ResponseSYS001001(request);
+            case "shm001007":
+                return new ResponseSHM001007(request);
             case "ofp001001":
                 return new ResponseOFP001001(request);
             case "ad001006":

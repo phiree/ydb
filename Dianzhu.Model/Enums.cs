@@ -267,9 +267,9 @@ namespace Dianzhu.Model.Enums
     }
     public enum enum_OrderSearchType
     {
+        ALL,//全部
         Nt,//未完成的服务
-        De,//完成的服务
-        ALL//全部
+        De//完成的服务
     }
     public enum enum_CashTicketSearchType
     {
@@ -359,8 +359,23 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 员工
         /// </summary>
-        staff=16,
-            agent=32
+        staff = 16,
+        /// <summary>
+        /// 代理商
+        /// </summary>
+        agent = 32,
+        /// <summary>
+        /// 点点
+        /// </summary>
+        diandian = 64,
+        /// <summary>
+        /// 通知服务器
+        /// </summary>
+        notify = 128,
+        /// <summary>
+        /// openfire服务器
+        /// </summary>
+        openfire = 256
     }
 
     /// <summary>
@@ -529,6 +544,22 @@ namespace Dianzhu.Model.Enums
     }
 
     /// <summary>
+    /// 注册平台
+    /// </summary>
+    public enum enum_PlatFormType
+    {
+        /// <summary>
+        /// 系统
+        /// </summary>
+        system = 0,
+
+        //第三方登录用户
+        WeChat = 1,
+        SinaWeiBo = 2,
+        TencentQQ = 3,
+    }
+
+    /// <summary>
     /// 支付状态
     /// </summary>
     public enum enum_PaymentStatus
@@ -547,5 +578,163 @@ namespace Dianzhu.Model.Enums
     {
         Success=1,
         Fail=2,
+    }
+
+    /// <summary>
+    /// 访问接口的客户端类型，主要区分js客户端和非js客户端
+    /// </summary>
+    public enum ApplicationTypes
+    {
+        JavaScript = 0,
+        NativeConfidential = 1
+    };
+
+    /// <summary>
+    /// 投诉目标类型
+    /// </summary>
+    public enum enum_ComplaintTarget
+    {
+        /// <summary>
+        /// 客服
+        /// </summary>
+        //customerService,
+        /// <summary>
+        /// 店铺
+        /// </summary>
+        //store
+        /// <summary>
+        /// 与平台客服聊天类型
+        /// </summary>
+        cer,
+        /// <summary>
+        /// 与商家客服聊天类型
+        /// </summary>
+        store,
+        /// <summary>
+        /// 用户
+        /// </summary>
+        user,
+    }
+
+    /// <summary>
+    /// 投诉状态，就是订单中的投诉状态
+    /// </summary>
+    public enum enum_ComplaintStatus
+    {
+        /// <summary>
+        /// 已提交投诉申请
+        /// </summary>
+        Complaints = 64,
+        /// <summary>
+        /// 等待官方审核投诉
+        /// </summary>
+        WaitingComplaints = 66,
+        /// <summary>
+        /// 投诉完成
+        /// </summary>
+        EndComplaints = 68,
+    }
+
+
+    /// <summary>
+    /// 平台标识类型
+    /// </summary>
+    public enum enum_appName
+    {
+        /// <summary>
+        /// IOS用户版 IOS_User
+        /// security_key:NoJBn3npJIvre2fC2SQL5aQGNB/3l73XXSqNZYdY6HU
+        ///UI3f4185e97b3E4a4496594eA3b904d60d,
+        /// </summary>
+        IOS_Customer,
+        /// <summary>
+        /// IOS商户版 IOS_Merchant
+        /// security_key:h7lVzFNKU5Nlp7iCSVIyfs2bEgCzA2aFnQsJwia8utE
+        ///MI354d5aaa55Ff42fba7716C4e70e015f2,
+        /// </summary>
+        IOS_Merchant,
+        /// <summary>
+        /// IOS客服版 IOS_CustomerService
+        /// security_key:Ce6QgbBcwFxbB9yCAI5BEJ95L7RJi8AeQ9REYxvp79Q
+        ///CI5baFa6180f5d4b9D85026073884c3566,
+        /// </summary>
+        IOS_CustomerService,
+        /// <summary>
+        /// Android用户版 Android_User
+        /// security_key:WDcajjuVXA6TToFfm1MWhFFgn6bsXTt8VNsGLjcqGMg
+        ///UA811Cd5343a1a41e4beB35227868541f8,
+        /// </summary>
+        Android_Customer,
+        /// <summary>
+        /// Android商户版 Android_Merchant
+        /// security_key:3xhBie885/2f6dWg4O5rh7bUpcsgldeQxnwsx6f9638
+        ///MAA6096436548346B0b70ffb58A9b0426d,
+        /// </summary>
+        Android_Merchant,
+        /// <summary>
+        /// Android客户版 Android_CustomerService
+        /// security_key:suSjG+pPCu0gwXOqamNdp0zE3sY29vcHJHe1S429hNU
+        ///CA660838f88147463CAF3a52bae6c30cbd,
+        /// </summary>
+        Android_CustomerService
+        /// <summary>
+        /// js客户端
+        /// security_key:FJXTdZVLhmFLHO5M3Xweo5kHRmLH3qFdRzLyGFZLeBc
+        ///JS1adBF8cbaf594d1ab2f1A68755e70440,
+        /// </summary>
+    }
+
+    /// <summary>
+    /// 理赔动作类型
+    /// </summary>
+    public enum enum_RefundAction
+    {
+        /// <summary>
+        /// 提交理赔请求
+        /// </summary>
+        submit=0,
+        /// <summary>
+        /// 店铺同意理赔要求
+        /// </summary>
+        refund=4,
+        /// <summary>
+        /// 店铺拒绝理赔
+        /// </summary>
+        reject=1,
+        /// <summary>
+        /// 店铺要求支付赔偿金
+        /// </summary>
+        askPay=2,
+        /// <summary>
+        /// 用户同意商户处理
+        /// </summary>
+        agree=8,
+        /// <summary>
+        /// 用户放弃理赔
+        /// </summary>
+        cancel=16,
+        /// <summary>
+        /// 用户要求官方介入
+        /// </summary>
+        intervention=32,
+    }
+
+    /// <summary>
+    /// 筛选类型
+    /// </summary>
+    public enum enum_FilterType
+    {
+        /// <summary>
+        /// 按距离筛选
+        /// </summary>
+        ByDistance,
+        /// <summary>
+        /// 按价格筛选
+        /// </summary>
+        ByPrice,
+        /// <summary>
+        /// 按评价筛选
+        /// </summary>
+        ByApprise
     }
 }

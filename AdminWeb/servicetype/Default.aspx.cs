@@ -8,10 +8,10 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using PHSuit;
 
-public partial class servicetype_Default : System.Web.UI.Page
+public partial class servicetype_Default : BasePage
 {
-    BLLServiceType bllServiceType = new BLLServiceType();
-    Dianzhu.BLL.Finance.BLLServiceTypePoint bllPoint = new Dianzhu.BLL.Finance.BLLServiceTypePoint();
+    BLLServiceType bllServiceType =  Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
+    Dianzhu.BLL.Finance.IBLLServiceTypePoint bllPoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBLLServiceTypePoint>();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

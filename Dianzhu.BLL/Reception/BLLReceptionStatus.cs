@@ -10,16 +10,17 @@ namespace Dianzhu.BLL
     public class BLLReceptionStatus
     {
         
-        DAL.DALReceptionStatus dalRS;
-        public BLLReceptionStatus(DALReceptionStatus dalRs)
+        IDAL.IDALReceptionStatus dalRS;
+        public BLLReceptionStatus(IDAL.IDALReceptionStatus dalRs)
         {
             this.dalRS = dalRs;
         }
-        public BLLReceptionStatus()
-        {
-            this.dalRS = DALFactory.DALReceptionStatus;
-        }
+        
        
+        public IList<ReceptionStatus> GetAllList()
+        {
+            return dalRS.Find(x => true);
+        }
       
         /// <summary>
         /// 客服下线,将用户分配给其他客服.
@@ -73,7 +74,7 @@ namespace Dianzhu.BLL
             ReceptionStatus or = dalRS.GetOneByCustomerAndCS(cs, c);
             if (or == null)
             {
-                dalRS.Save(r);
+                dalRS.Add(r);
             }
             else
             {
@@ -166,10 +167,10 @@ namespace Dianzhu.BLL
         IAssignStratage stratage;
         //IM会话.
         IIMSession imSession;
-        DAL.DALReceptionStatus dalRS;
+        IDAL.IDALReceptionStatus dalRS;
         IDAL.IDALMembership dalMember;
         public ReceptionAssigner(IAssignStratage stratage,IIMSession imSession
-            , DALReceptionStatus dalRS
+            , IDAL.IDALReceptionStatus dalRS
             , IDAL.IDALMembership dalMember) 
         {
             this.stratage = stratage;
@@ -177,33 +178,20 @@ namespace Dianzhu.BLL
             this.dalRS = dalRS;
             this.dalMember = dalMember;
         }
-        public ReceptionAssigner(IIMSession imSession)
-            : this(new AssignStratageRandom(),
-                 imSession,
-                 new DALReceptionStatus(),
-                 new DALMembership())
-        {
+       
 
-        }
-        public ReceptionAssigner(IAssignStratage stratage,IIMSession imSession)
-            :this(stratage,
-                 imSession,
-                 new DALReceptionStatus(),
-                 new DALMembership())
-        {
-             
-        }
+       
         
       
         protected IList<DZMembership> CustomerServiceList 
         {
             get {
-                if (customerServiceList != null && customerServiceList.Count > 0)
-                {
+                //if (customerServiceList != null && customerServiceList.Count > 0)
+                //{
 
-                }
-                else
-                {
+                //}
+                //else
+                //{
                     customerServiceList = new List<DZMembership>();
                     //convert sesionUser to dzmembership
                     foreach (OnlineUserSession user in imSession.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString()))
@@ -211,7 +199,7 @@ namespace Dianzhu.BLL
                         DZMembership cs = dalMember.FindById(new Guid(user.username));
                         customerServiceList.Add(cs);
                     }
-                }
+                //}
                 return customerServiceList;
             }
         }
@@ -278,10 +266,26 @@ namespace Dianzhu.BLL
             log.Debug("待分配的用户id：" + customer.Id.ToString());
             log.Debug("待分配的客服id：" + assigned[customer].Id.ToString());
             
-            dalRS.Save(newRs);
+            dalRS.Add(newRs);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             return assigned;
         }
+
+        public virtual string CSLogin(DZMembership  customerService)
+        {
+            string notice = string.Empty;
+            if (customerService.UserType== Model.Enums.enum_UserType.customerservice)
+            {
+                string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
+                notice = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
+                                                  <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:cer:online""></ext></message>",
+                                                  Diandian.Id + "@" + server, customerService.Id, Guid.NewGuid());
+            }            
+
+            return notice;
+        }
+        
         /// <summary>
         /// 客服下线
         /// </summary>
@@ -290,7 +294,7 @@ namespace Dianzhu.BLL
         public virtual Dictionary<DZMembership, DZMembership> AssignCSLogoff(DZMembership customerservice)
         {
             //remove cs from list
-            CustomerServiceList.Remove(customerservice);
+            //CustomerServiceList.Remove(customerservice);
             //get customers recepted by the cs , from database
             IList<ReceptionStatus> customerWithCS = dalRS.GetListByCustomerService(customerservice);
 
@@ -305,16 +309,18 @@ namespace Dianzhu.BLL
                 {
                     Customer = pair.Key,
                     CustomerService = pair.Value,
-                    Order = new BLLReceptionStatus().GetOrder(pair.Key, customerservice).Order,
+                    Order = dalRS.GetOrder(pair.Key, customerservice).Order,
                     LastUpdateTime = DateTime.Now
                 };
-                dalRS.Save(rs);
+                dalRS.Add(rs);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             }
 
             // delete old assign to database
             foreach (ReceptionStatus oldrs in customerWithCS)
             {
                 dalRS.Delete(oldrs);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             }
 
             //return new assign
@@ -354,6 +360,7 @@ namespace Dianzhu.BLL
             wc.Headers.Add("Authorization:" + restApiSecretKey);
             wc.Headers.Add("Host: " + host);
             wc.Headers.Add("Accept: application/json");
+            //System.Threading.Thread.Sleep(2000);
             System.IO.Stream returnData = wc.OpenRead(uri);
             System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
             string result = reader.ReadToEnd();
@@ -377,6 +384,10 @@ namespace Dianzhu.BLL
         public IList<OnlineUserSession> GetOnlineSessionUser(string xmppResource)
         {
             IList<OnlineUserSession> onlineUsers = GetOnlineSessionUser();
+            if (onlineUsers == null)
+            {
+                return null;
+            }
             var filteredByResourceName = onlineUsers.Where(x => x.ressource == xmppResource);
             return filteredByResourceName.ToList();
         }
@@ -387,12 +398,17 @@ namespace Dianzhu.BLL
     /// </summary>
     public class IMSessionsDB : IIMSession
     {
+        IDAL.IDALIMUserStatus dalIMUserStatus;
+        public IMSessionsDB(IDAL.IDALIMUserStatus dal)
+        {
+            dalIMUserStatus = dal;
+        }
+
         public IList<OnlineUserSession> GetOnlineSessionUser(string xmppResource)
         {
             IList<OnlineUserSession> resultList=new List<OnlineUserSession>();
-            BLLIMUserStatus bllIMUserStatus = new BLLIMUserStatus();
 
-            IList<IMUserStatus> imList =  bllIMUserStatus.GetOnlineListByClientName(xmppResource);
+            IList<IMUserStatus> imList = dalIMUserStatus.GetOnlineListByClientName(xmppResource);
             if (imList.Count > 0)
             {
                 OnlineUserSession onlineUserSession;

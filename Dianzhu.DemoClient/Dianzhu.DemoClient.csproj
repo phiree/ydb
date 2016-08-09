@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dianzhu.DemoClient</RootNamespace>
     <AssemblyName>Dianzhu.DemoClient</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -164,6 +164,9 @@
     <None Include="app.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="config\appSettings.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -203,10 +206,6 @@
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
       <Name>Dianzhu.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\InstantMessageMock\InstantMessageMock.csproj">
-      <Project>{f399fe2f-05a1-41b6-ab63-c879a1701dc4}</Project>
-      <Name>InstantMessageMock</Name>
     </ProjectReference>
     <ProjectReference Include="..\MediaServer\MediaServer.csproj">
       <Project>{9920da22-589c-4193-aeaa-363d5c029dfc}</Project>

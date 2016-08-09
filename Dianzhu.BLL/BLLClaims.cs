@@ -8,7 +8,12 @@ namespace Dianzhu.BLL
 {
     public class BLLClaims
     {
-        public DALClaims DALClaims = DALFactory.DALClaims;
+        public IDAL.IDALClaims DALClaims;
+
+        public BLLClaims(IDAL.IDALClaims dal)
+        {
+            DALClaims = dal;
+        }
 
         public void Save(Claims c)
         {

@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL.Finance;
 using Dianzhu.Model.Finance;
-public partial class finance_SharePoint : System.Web.UI.Page
+public partial class finance_SharePoint : BasePage
 {
     
     private string strItemId;
@@ -23,7 +23,7 @@ public partial class finance_SharePoint : System.Web.UI.Page
         }
 
     }
-    BLLSharePoint bllSharePoint = new BLLSharePoint();
+    IBLLSharePoint bllSharePoint = Bootstrap.Container.Resolve<IBLLSharePoint>();
     private void BindSharePoint()
     {
         var list = bllSharePoint.GetAll();

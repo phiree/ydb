@@ -13,7 +13,7 @@ namespace Dianzhu.BLL
     {
         private IDALAdvertisement repo;
        // IUnitOfWork iuow;
-        public BLLAdvertisement(IDALAdvertisement repo ,IUnitOfWork iuow)
+        public BLLAdvertisement(IDALAdvertisement repo )
         {
             this.repo = repo;
            // this.iuow = iuow;
@@ -55,7 +55,7 @@ namespace Dianzhu.BLL
             // f = f.Not().And(i => i > 0);
             Expression<Func<Advertisement, bool>> q = i => i.IsUseful&&i.EndTime>DateTime.Now&&i.StartTime<=DateTime.Now;
             // q= q.And(i => i.EndTime > DateTime.Now);
-            var list = repo.Find(q).ToList();
+            var list = repo.Find(q, "Num",true,0,null).ToList();
            return list;
         }
 

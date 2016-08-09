@@ -7,6 +7,7 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
 using Newtonsoft.Json;
+using Dianzhu.IDAL;
 
 /// <summary>
 /// 删除员工
@@ -16,18 +17,21 @@ public class ResponseASN002001 : BaseResponse
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
     public ResponseASN002001(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+   
     protected override void BuildRespData()
     {
         ReqDataASN002001 requestData = this.request.ReqData.ToObject<ReqDataASN002001>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>(); BLLStaff bllStaff = new BLLStaff();
 
-        BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
+        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>(); BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>();
 
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+
+        IDALOrderAssignment bllOrderAssignment = Bootstrap.Container.Resolve<IDALOrderAssignment>();
+
+
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
 
         try
         {
@@ -115,9 +119,9 @@ public class ResponseASN002001 : BaseResponse
                                     continue;
                             }
 
-                            bllOrderAssignment.SaveOrUpdate(oa);
+                            bllOrderAssignment.Add(oa);
 
-                            bllStaff.SaveOrUpdate(staff);
+                            bllStaff.Update(staff);
                         }
                         else
                         {

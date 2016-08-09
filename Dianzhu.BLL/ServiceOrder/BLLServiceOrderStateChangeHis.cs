@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dianzhu.Model;
 
 using Dianzhu.DAL;
+using Dianzhu.IDAL;
 using Dianzhu.Model.Enums;
 using Dianzhu.Pay;
 namespace Dianzhu.BLL
@@ -16,14 +17,17 @@ namespace Dianzhu.BLL
     public class BLLServiceOrderStateChangeHis
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
-
-        DALServiceOrderStateChangeHis dalServiceOrderStateChangeHis = null;
-        public BLLServiceOrderStateChangeHis()
+        
+        //20160622_longphui_modify
+        //DALServiceOrderStateChangeHis dalServiceOrderStateChangeHis = null;
+        IDALServiceOrderStateChangeHis dalServiceOrderStateChangeHis;
+        public BLLServiceOrderStateChangeHis(IDALServiceOrderStateChangeHis dalServiceOrderStateChangeHis)
         {
-            dalServiceOrderStateChangeHis = DALFactory.DALServiceOrderStateChangeHis;
+            this.dalServiceOrderStateChangeHis = dalServiceOrderStateChangeHis;
         }
+        
 
-        public void SaveOrUpdate(ServiceOrder order, enum_OrderStatus oldStatus)
+        public void Save(ServiceOrder order, enum_OrderStatus oldStatus)
         {
             int num = 1;
             ServiceOrderStateChangeHis oldOrderHis = GetMaxNumberOrderHis(order);
@@ -32,7 +36,7 @@ namespace Dianzhu.BLL
                 num = oldOrderHis.Number + 1;
             }
             ServiceOrderStateChangeHis orderHis = new ServiceOrderStateChangeHis(order, oldStatus, num);
-            dalServiceOrderStateChangeHis.SaveOrUpdate(orderHis);
+            dalServiceOrderStateChangeHis.Add(orderHis);
         }
 
         public ServiceOrderStateChangeHis GetOrderHis(ServiceOrder order)

@@ -17,19 +17,46 @@ public class ResponseCHAT001007:BaseResponse
         // TODO: Add constructor logic here
         //
     }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+    
     protected override void BuildRespData()
     {
         ReqDataCHAT001007 requestData = this.request.ReqData.ToObject<ReqDataCHAT001007>();
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
 
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        BLLReceptionChat bllReceptionChat = Bootstrap.Container.Resolve<BLLReceptionChat>();
 
-        string raw_id = requestData.userID;
+        string user_id = requestData.userID;
+        string order_id = requestData.orderID;
+
+        Guid userId, orderId;
+        bool isUserId = Guid.TryParse(user_id, out userId);
+        if (!isUserId)
+        {
+            this.state_CODE = Dicts.StateCode[1];
+            this.err_Msg = "userId格式有误";
+            return;
+        }
+
+        if (string.IsNullOrEmpty(order_id))
+        {
+            orderId = Guid.Empty;
+        }
+        else
+        {
+            bool isGuid = Guid.TryParse(requestData.orderID, out orderId);
+            if (!isGuid)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "OrderId格式有误";
+                return;
+            }
+        }        
+
         DZMembership member;
         if (request.NeedAuthenticate)
         {
-            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+            bool validated = new Account(p).ValidateUser(userId, requestData.pWord, this, out member);
             if (!validated)
             {
                 return;
@@ -37,14 +64,16 @@ public class ResponseCHAT001007:BaseResponse
         }
         else
         {
-            member = p.GetUserById(new Guid(raw_id));
+            member = p.GetUserById(userId);
         }
-        BLLReception bllReception = new BLLReception();
-        BLLReceptionChat bllReceptionChat = new BLLReceptionChat();
-        
-        int rowCount;
-        Guid orderId = Guid.Empty;
+        if (member == null)
+        {
+            this.state_CODE = Dicts.StateCode[1];
+            this.err_Msg = "用户不存在";
+            return;
+        }
 
+        int rowCount;
         int pageSize = 10;
         try
         {
@@ -82,16 +111,8 @@ public class ResponseCHAT001007:BaseResponse
 
         }
 
-        if (!string.IsNullOrEmpty(requestData.orderID))
+        try
         {
-            bool isGuid = Guid.TryParse(requestData.orderID, out orderId);
-            if (!isGuid)
-            {
-                this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "OrderId格式有误";
-                return;
-            }
-
             ServiceOrder order = bllServiceOrder.GetOne(orderId);
             if (order == null)
             {
@@ -99,12 +120,9 @@ public class ResponseCHAT001007:BaseResponse
                 this.err_Msg = "Order不存在";
                 return;
             }
-        }
 
-        IList<ReceptionChat> chatList = bllReception.GetReceptionChatListByTargetIdAndSize(member, null, orderId, DateTime.MinValue, DateTime.MaxValue, pageSize, targetChat, requestData.low, chatTarget);
+            IList<ReceptionChat> chatList = bllReceptionChat.GetReceptionChatListByTargetIdAndSize(userId, Guid.Empty, orderId, DateTime.MinValue, DateTime.MaxValue, pageSize, targetChat, requestData.low, chatTarget);
 
-        try
-        {
             RespDataCHAT001007 respData = new RespDataCHAT001007();
             respData.AdapList(chatList);
             this.RespData = respData;

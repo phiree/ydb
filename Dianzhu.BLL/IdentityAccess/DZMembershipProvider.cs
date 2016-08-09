@@ -15,6 +15,7 @@ using FluentValidation;
 using Dianzhu.IDAL;
 using System.Runtime.Remoting.Contexts;
 using Castle.Windsor;
+using DDDCommon;
 
 namespace Dianzhu.BLL
 {
@@ -25,7 +26,7 @@ namespace Dianzhu.BLL
     {
         public DZMembershipProvider() {
             DALMembership = new DALMembership();
-            var containerAccessor =System.Web.HttpContext.Current.ApplicationInstance as IContainerAccessor;
+            var containerAccessor = System.Web.HttpContext.Current.ApplicationInstance as IContainerAccessor;
             var container = containerAccessor.Container;
             this.DALMembership = container.Resolve<IDALMembership>();
             this.encryptService = container.Resolve<IEncryptService>();
@@ -36,12 +37,12 @@ namespace Dianzhu.BLL
         IEncryptService encryptService;
         IEmailService emailService;
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL.DZMembershipProvider");
-        public DZMembershipProvider(IDALMembership dal,IEncryptService encryptService,IEmailService emailService) {
+        public DZMembershipProvider(IDALMembership dal, IEncryptService encryptService, IEmailService emailService) {
             DALMembership = dal;
             this.encryptService = encryptService;
             this.emailService = emailService;
         }
-        
+
         #region override of membership provider
         public override string ApplicationName
         {
@@ -85,7 +86,7 @@ namespace Dianzhu.BLL
             DZMembership user = new DZMembership
             {
                 UserName = username,
-                Password =encryptService.GetMD5Hash(password),
+                Password = encryptService.GetMD5Hash(password),
                 TimeCreated = DateTime.Now
             };
             DALMembership.CreateUser(user);
@@ -218,10 +219,10 @@ namespace Dianzhu.BLL
 
         public override bool ValidateUser(string username, string password)
         {
-           
-            string encryptedPwd =encryptService.GetMD5Hash(password);
 
-           DZMembership member = DALMembership.ValidateUser(username, encryptedPwd);
+            string encryptedPwd = encryptService.GetMD5Hash(password);
+
+            DZMembership member = DALMembership.ValidateUser(username, encryptedPwd);
 
             if (member == null) { return false; }
             else {
@@ -229,19 +230,19 @@ namespace Dianzhu.BLL
                 DALMembership.Update(member);
                 return true;
             }
-           
+
         }
         #endregion
 
         #region additional method for user
-       
-        
+
+
         public DZMembership CreateUser(string userName, string userPhone, string userEmail, string password, out MembershipCreateStatus createStatus, Dianzhu.Model.Enums.enum_UserType userType)
         {
             createStatus = MembershipCreateStatus.ProviderError;
             var savedUserName = !string.IsNullOrEmpty(userName) ? userName : string.IsNullOrEmpty(userPhone) ? userEmail : userPhone;
             string userNameForOpenfire = savedUserName;
-           
+
             Guid validateCode = Guid.Empty;
             if (System.Text.RegularExpressions.Regex.IsMatch(savedUserName, @".+@.+\..+"))
             {
@@ -252,7 +253,7 @@ namespace Dianzhu.BLL
                 }
 
                 userNameForOpenfire = savedUserName.Replace("@", "||");
-                validateCode=Guid.NewGuid();
+                validateCode = Guid.NewGuid();
             }
             else
             {
@@ -261,7 +262,7 @@ namespace Dianzhu.BLL
                     userPhone = savedUserName;
                 }
             }
-            
+
             var user = GetUserByName(savedUserName);
             if (user != null)
             {
@@ -280,13 +281,14 @@ namespace Dianzhu.BLL
                     NickName = savedUserName,
                     PlainPassword = password,
                     UserNameForOpenFire = userNameForOpenfire,
-                    UserType = Model.Enums.enum_UserType.customer,
+                    UserType = userType,
+                    PlatForm= Model.Enums.enum_PlatFormType.system
                 };
                 if (validateCode != Guid.Empty)
                 {
                     newMember.RegisterValidateCode = validateCode.ToString();
                 }
-                
+
                 DALMembership.Add(newMember);
                 createStatus = MembershipCreateStatus.Success;
                 return newMember;
@@ -324,7 +326,7 @@ namespace Dianzhu.BLL
         {
             return DALMembership.GetAllUsers(pageIndex, pageSize, out totalRecords);
         }
-      
+
         public void UpdateDZMembership(DZMembership member)
         {
 
@@ -340,6 +342,86 @@ namespace Dianzhu.BLL
         {
 
             return DALMembership.GetMemberByPhone(phone);
+        }
+
+        /// <summary>
+        /// 根据用户信息获取user
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="name"></param>
+        /// <param name="email"></param>
+        /// <param name="phone"></param>
+        /// <param name="platform"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        public IList<DZMembership> GetUsers(Model.Trait_Filtering filter, string name, string email, string phone,string platform,string userType)
+        {
+            var where = PredicateBuilder.True<DZMembership>();
+            where = where.And(x => x.UserType.ToString() == userType);
+            if (name != null && name !="")
+            {
+                where = where.And(x => x.DisplayName .Contains(name));
+            }
+            if (email != null && email != "")
+            {
+                where = where.And(x => x.Email == email);
+            }
+            if (phone != null && phone != "")
+            {
+                where = where.And(x => x.Phone == phone);
+            }
+            if (platform != null && platform != "")
+            {
+                where = where.And(x => x.PlatForm.ToString() == platform);
+            }
+            DZMembership baseone = null;
+            if (filter.baseID != null && filter.baseID != "")
+            {
+                try
+                {
+                    baseone = DALMembership.FindById(new Guid(filter.baseID));
+                }
+                catch
+                {
+                    baseone = null;
+                }
+            }
+            long t = 0;
+            var list = filter.pageSize == 0 ? DALMembership.Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList() : DALMembership.Find(where, filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
+            return list;
+        }
+
+        /// <summary>
+        /// 统计用户数量
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="email"></param>
+        /// <param name="phone"></param>
+        /// <param name="platform"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        public long GetUsersCount(string name, string email, string phone, string platform, string userType)
+        {
+            var where = PredicateBuilder.True<DZMembership>();
+            where = where.And(x => x.UserType.ToString() == userType);
+            if (name != null && name != "")
+            {
+                where = where.And(x => x.DisplayName.Contains(name));
+            }
+            if (email != null && email != "")
+            {
+                where = where.And(x => x.Email == email);
+            }
+            if (phone != null && phone != "")
+            {
+                where = where.And(x => x.Phone == phone);
+            }
+            if (platform != null && platform != "")
+            {
+                where = where.And(x => x.PlatForm.ToString() == platform);
+            }
+            long count = DALMembership.GetRowCount(where);
+            return count;
         }
         #endregion
 

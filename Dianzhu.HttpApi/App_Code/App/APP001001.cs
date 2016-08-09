@@ -12,7 +12,6 @@ using Dianzhu.Api.Model;
 /// </summary>
 public class ResponseAPP001001:BaseResponse
 {
-    BLLDeviceBind bllDeviceBind;
     DZMembershipProvider bllMembership = Bootstrap.Container.Resolve<DZMembershipProvider>();
     
     DZMembership member;
@@ -27,8 +26,10 @@ public class ResponseAPP001001:BaseResponse
     {
         ReqDataAPP001001 requestData = this.request.ReqData.ToObject<ReqDataAPP001001>();
 
-        bllDeviceBind = new BLLDeviceBind();
+ 
+        BLLDeviceBind bllDeviceBind = Bootstrap.Container.Resolve<BLLDeviceBind>();
         
+ 
 
         Guid uuId;
         Guid userId;
@@ -85,14 +86,14 @@ public class ResponseAPP001001:BaseResponse
                     uuid.AppName = devB.AppName;
                     uuid.AppToken = devB.AppToken;
                     uuid.BindChangedTime = DateTime.Now;
-                    bllDeviceBind.SaveOrUpdate(uuid);
+                    bllDeviceBind.Update(uuid);
                 }
                 else
                 {
                     devB.IsBinding = true;
                     devB.BindChangedTime = DateTime.Now;
                     devB.SaveTime = DateTime.Now;
-                    bllDeviceBind.SaveOrUpdate(devB);
+                    bllDeviceBind.Save(devB);
                 }
             }
             else if (requestData.mark == "N")
@@ -102,7 +103,7 @@ public class ResponseAPP001001:BaseResponse
                 {
                     uuid.IsBinding = false;
                     uuid.BindChangedTime = DateTime.Now;
-                    bllDeviceBind.SaveOrUpdate(uuid);
+                    bllDeviceBind.Update(uuid);
                 }
                 else
                 {

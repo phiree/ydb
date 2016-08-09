@@ -12,8 +12,7 @@ using Dianzhu.Api.Model;
 /// </summary>
 public class ResponseAPP001002:BaseResponse
 {
-    BLLDeviceBind bllDeviceBind;
-
+    log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.HttpApi.ResponseApp001002");
     public ResponseAPP001002(BaseRequest request):base(request)
     {
         //
@@ -24,7 +23,9 @@ public class ResponseAPP001002:BaseResponse
     {
         ReqDataAPP001002 requestData = this.request.ReqData.ToObject<ReqDataAPP001002>();
 
-        bllDeviceBind = new BLLDeviceBind();
+ 
+        BLLDeviceBind bllDeviceBind = Bootstrap.Container.Resolve<BLLDeviceBind>();
+ 
 
         Guid uuId;
 
@@ -39,8 +40,16 @@ public class ResponseAPP001002:BaseResponse
             }
 
             DeviceBind obj = bllDeviceBind.getDevBindByUUID(uuId);
+            if (obj == null)
+            {
+                log.Debug("设备不存在,uuid:" + uuId);
+
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "设备不存在";
+                return;
+            }
             obj.PushAmount = 0;
-            bllDeviceBind.SaveOrUpdate(obj);
+            bllDeviceBind.Update(obj);
 
             this.state_CODE = Dicts.StateCode[0];
             return;

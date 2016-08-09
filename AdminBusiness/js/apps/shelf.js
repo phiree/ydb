@@ -1,3 +1,4 @@
+// 货架化展示App View
 /**
  * shelf.js v1.0.0 @ 2016-05-17 by licdream@126.com
  * 服务货架实现
@@ -10,7 +11,8 @@
     };
 
     // 请求URl
-    var globalReqUrl = "shm001007.json";
+    //var globalApiUrl = "shm001007.json";
+    var globalApiUrl = document.getElementById("hiApiUrl").value;
 
     // 商家ID
     var merchantID = document.getElementById("merchantID").value;
@@ -29,9 +31,18 @@
         SVC001005 : "test.s001005.json"
     };
 
+    /**
+     * 日期对象工具。TODO: 文件内一些日期格式化或反格式化方法还没有包含
+     */
     var dateTools = function(){
         var dateTools = {};
         dateTools.dateFormat = function(dateObj, options){
+
+            if (arguments.length === 1){
+                options = dateObj;
+                dateObj = new Date();
+            }
+
             var date = dateObj || new Date();
             var option = (typeof options === "string") ? options.toUpperCase() : "YYYYMMDD";
 
@@ -39,8 +50,8 @@
                 case "YYYYMMDD":
                     return ("" + date.getFullYear() + fix((date.getMonth() + 1), 2) + fix(date.getDate(), 2));
                     break;
-                case "YYYYMMDDHHMM":
-                    return ("" + date.getFullYear() + fix((date.getMonth() + 1), 2) + fix(date.getDate(), 2) + fix(date.getHours(), 2) +  fix(date.getMinutes(), 2));
+                case "YYYYMMDDHHMMSS":
+                    return ("" + date.getFullYear() + fix((date.getMonth() + 1), 2) + fix(date.getDate(), 2) + fix(date.getHours(), 2) +  fix(date.getMinutes(), 2) +　fix(date.getSeconds(), 2));
                     break;
                 case "HHMM":
                     return fix((date.getHours()), 2) + fix((date.getMinutes()), 2);
@@ -58,6 +69,28 @@
             var date = dateObj || new Date();
             return ("" + date.getFullYear() + fix((date.getMonth() + 1), 2) + fix((date.getDate() + 7 - date.getDay()), 2));
         };
+        dateTools.fmt = function (dateObj, fmt) { //author: meizz
+
+            if (arguments.length === 1){
+                fmt = dateObj;
+                dateObj = new Date();
+            }
+
+            var o = {
+                "M+": dateObj.getMonth() + 1, //月份
+                "d+": dateObj.getDate(), //日
+                "h+": dateObj.getHours(), //小时
+                "m+": dateObj.getMinutes(), //分
+                "s+": dateObj.getSeconds(), //秒
+                "q+": Math.floor((dateObj.getMonth() + 3) / 3), //季度
+                "S": dateObj.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (dateObj.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+        ;
         return dateTools;
     }();
 
@@ -71,28 +104,35 @@
         return ('' + num).length < length ? ((new Array(length + 1)).join('0') + num).slice(-length) : '' + num;
     }
 
+    function getQueryString(name){
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null){ return decodeURI(r[2])}
+    }
+
     /**
-     * 快照类
+     * 快照集合类
      * @param options
      * @constructor
      */
-    var SnapShot = function(options){
-        this.options = $.extend({}, SnapShot.DEFAULTS, options);
-        this.maxOrderDic = null;
-        this.workTimeDic = null;
-        this.orderObjectDic = null;
+    var SnapShots= function(options){
+        this.options = $.extend({}, SnapShots.DEFAULTS, options);
     };
 
-    SnapShot.DEFAULTS = {
-        reqUrl : "shm001007.json",
+    SnapShots.DEFAULTS = {
+        //reqUrl : "shm001007.json",
         queryData : {
-            startTime : dateTools.dateFormat(),
-            endTime : dateTools.dateFormat(),
-            type : "maxOrder|workTime|order"
+            //merchantID : merchantID,
+            //svcID : getQueryString("serviceId"),
+            svcID : Adapter.getParameterByName("serviceId"),
+            //startTime : dateTools.dateFormat(""),
+            //endTime : dateTools.dateFormat(""),
+            startTime : dateTools.fmt("yyyy-M-d"),
+            endTime : dateTools.fmt("yyyy-M-d"),
         }
     };
 
-    $.extend(SnapShot.prototype, Event , {
+    $.extend(SnapShots.prototype, Event , {
         load : function(option){
             var prams = option ? option : {};
             var _this = this;
@@ -100,43 +140,108 @@
             var success = option.success;
 
             this.fetch({
+                url : globalApiUrl,
+                customApi : true,
+                protocolCode : "SHM001007",
                 data : reqDate,
                 success : function(resp){
-                    if (resp.respCorrect){
-                        _this.maxOrderDic = resp.respData.snapshotDic.maxOrderDic;
-                        _this.workTimeDic = resp.respData.snapshotDic.workTimeDic;
-                        _this.orderObjectDic = resp.respData.snapshotDic.orderObjectDic;
-                    }
+
+                    // 测试代码
+                    //if (resp.respCorrect){
+                    //    _this._init(resp.respData.snapshots);
+                    //}
+
+                    _this._init(resp.snapshots);
                     prams.callback && prams.callback(_this, resp);
                     _this.trigger("load", _this, resp);
                     success && success();
                 }
             });
+        },
+        _init: function(snapshots){
+            this.snapshotItems = snapshots;
+        },
+        /**
+         * 根据日期筛选快照
+         * @param date 日期,格式为YYYYMMDD
+         * @returns {Array}
+         */
+        getOrderSnapshotByDate : function(date){
+            var orderSnapshots = [];
+            var items = this.snapshotItems;
 
+            if ( items.length ) {
+                for (var i = 0; i < items.length; i++){
+                    if (items[i].date === date){
+                        orderSnapshots.push(items[i].orderSnapshots);
+                    }
+                }
+            }
+
+            return orderSnapshots
+
+        },
+        /**
+         * 根据服务开始时间筛选快照
+         * @param date 日期,格式为YYYYMMDD
+         * @param startTime 开始时间,格式HH:MM,
+         * @param endTime 结束时间,格式HH:MM,
+         * @returns {Array}
+         */
+        getOrderSnapshotByTime : function(date, startTime, endTime){
+            var _startTime = date + timeFix(startTime);
+            var _endTime = date + timeFix(endTime);
+
+            var orderSnapShots = [], stamp;
+
+            stamp = this.getOrderSnapshotByDate(date).length ? this.getOrderSnapshotByDate(date)[0] : [];
+
+            function timeFix(time){
+                if (time.indexOf(":")){
+                    return time.replace(":", "") + "00";
+                }
+                return time + "00";
+            }
+
+            for ( var i = 0; i < stamp.length; i++ ){
+                if (parseInt(stamp[i].orderObj.svcObj.startTime) > parseInt(_startTime) && parseInt(stamp[i].orderObj.svcObj.startTime) < parseInt(_endTime)){
+                    orderSnapShots.push(stamp[i])
+                }
+            }
+
+            return orderSnapShots;
         },
         fetch : function(option){
             var options = option || {};
             var success = options.success;
             options.success = function(resp){
-                var response = Adapter.respUnpack(resp);
-                if(success) success(response);
+
+                // 测试代码
+                //var response = Adapter.respUnpack(resp);
+                //if(success) success(response);
+
+                if(success) success(resp);
             };
             this.sync(options);
         },
         sync : function(options){
-            var xhr = $.ajax({
-                url : globalReqUrl,
-                type : "POST",
-                dataType : "json",
-                //dataType : "text",
-                data : options.data,
-                success : options.success
-            });
-            return xhr;
+
+            return Backbone.sync('read', this, options);
+
+            // 测试代码
+            //var xhr = $.ajax({
+            //    url : options.url,
+            //    type : "POST",
+            //    //dataType : "json",
+            //    dataType : "text",
+            //    data : JSON.stringify(options.data),
+            //    success : options.success
+            //});
+            //return xhr;
         }
     });
 
-    var snapShot = new SnapShot();
+    var snapshots = new SnapShots();
 
     // 工作时间类Model
     var WorkTimeModel = Backbone.Model.extend({
@@ -148,9 +253,10 @@
             week : "0",
             maxOrder : "0"
         },
-        url : testUrl,
+        //url : testUrl,
+        url : globalApiUrl,
         initialize : function(){
-            this.attributes.orders = [];
+            //this.attributes.orders = [];
         },
         /* 自定义_save函数实现时间段model固化，较原来Backbone实现的save函数简单 */
         _save : function(options){
@@ -187,7 +293,7 @@
     // 工作时间类View
     var WorkTimeView = Backbone.View.extend({
         tagName : "div",
-        className : "time-bucket noHis",
+        className : "time-bucket",
         template : _.template($("#timeBucket_template").html(), templateOptions),
         events : {
             'click [data-role="open"]' : "setOpen",
@@ -197,7 +303,8 @@
         },
         initialize : function(){
             this.listenTo(this.model, "destroy", this.removeView);
-            this.listenTo(this.model, "change:maxOrder", this.renderOrder)
+            this.listenTo(this.model, "change:maxOrder", this.renderOrder);
+            this.listenTo(this.model, "change:open", this.render)
         },
         render : function(){
             this.$el.html(this.template(this.model.toJSON()));
@@ -213,7 +320,8 @@
 
             /* 通过model自定义的_save函数实现数据保存 */
             this.model._save({
-                url : testUrl.WTM001003,
+                //url : testUrl.WTM001003,
+                url : globalApiUrl,
                 customApi : true,
                 protocolCode : "WTM001003",
                 data : {
@@ -246,7 +354,7 @@
 
             /* 通过model自定义的_save函数实现数据保存 */
             this.model._save({
-                url : testUrl.WTM001003,
+                url : globalApiUrl,
                 customApi : true,
                 protocolCode : "WTM001003",
                 data : {
@@ -264,10 +372,18 @@
                 maxOrder : true
             };
 
+            //
+            if ( parseInt(this.model.get("maxOrder")) + parseInt(num) > this.model.attributes.dayEnableOrderCount ){
+                app.showWarnText(true, "当日剩余服务数量不足，请到服务设置进行调整");
+                return false;
+            }
+
+            app.showWarnText(false);
+
             this.model.set({ maxOrder : (parseInt(this.model.get("maxOrder")) + parseInt(num)).toString() });
             /* 通过model自定义的_save函数实现数据保存 */
             this.model._save({
-                url : testUrl.WTM001003,
+                url : globalApiUrl,
                 customApi : true,
                 protocolCode : "WTM001003",
                 data : {
@@ -283,97 +399,18 @@
          * @returns {HisWorkTimeView}
          */
         renderOrder : function(){
-            var orderArray = this.model.attributes.orderArray;
-            this.model.attributes.orders = [];
+            var orderSSArray = this.model.attributes.orderSSArray;
+            this.model.attributes.orders = orderSSArray;
+            //this.model.attributes.orders = [];
 
-            for (var i = 0; i < orderArray.length ; i++){
-                var startTime = orderArray[i].startTime.slice(-4),
-                    start = this.model.attributes.startTime.replace(":",""),
-                    end = this.model.attributes.endTime.replace(":","");
-                if ( start < startTime && startTime <= end ){
-                    this.model.attributes.orders.push(orderArray[i]);
-                }
-            }
-            this.render();
-            return this;
-        }
-    });
-
-    // 历史工作时间Model
-    var HisWorkTimeModel = Backbone.Model.extend({
-        defaults : {
-            tag : "",
-            startTime : "00:00",
-            endTime : "00:00",
-            open : "Y",
-            week : "0",
-            maxOrder : "0"
-        },
-        url : testUrl,
-        initialize : function(){
-            this.attributes.orders = [];
-        },
-        /* 自定义_save函数实现时间段model固化，较原来Backbone实现的save函数简单 */
-        _save : function(options){
-            options = options ? _.clone(options) : {};
-            if (options.parse === void 0) options.parse = true;
-            var success = options.success;
-            var model = this;
-            options.success = function(resp) {
-                if (success) success(model, resp, options);
-            };
-            this.sync('update', this, options);
-        }
-    });
-
-    var HisWorkTimeCollection = Backbone.Collection.extend({
-        model : WorkTimeModel,
-        initialize :function(models){
-
-        },
-        _fetch : function (options) {
-            options = options ? _.clone(options) : {};
-            if (options.parse === void 0) options.parse = true;
-            var success = options.success;
-            var collection = this;
-            options.success = function(resp) {
-                var method = options.reset ? 'reset' : 'set';
-                collection[method](resp, options);
-                if (success) success(collection, resp, options);
-                collection.trigger('sync', collection, resp, options);
-            };
-            return this.sync('read', this, options);
-        }
-    });
-
-    // 历史工作时间View
-    var HisWorkTimeView = Backbone.View.extend({
-        tagName : "div",
-        className : "time-bucket his",
-        template : _.template($("#hisWorkTimeTmp").html(), templateOptions),
-        initialize : function(){
-
-        },
-        render : function(){
-            this.$el.html(this.template(this.model.toJSON()));
-            return this;
-        },
-        /**
-         * 计算符合该时段的order并绘制
-         * @returns {HisWorkTimeView}
-         */
-        renderOrder : function(){
-            var orderArray = this.model.attributes.orderArray;
-            this.model.attributes.orders = [];
-
-            for (var i = 0; i < orderArray.length ; i++){
-                var startTime = orderArray[i].startTime.slice(-4),
-                    start = this.model.attributes.startTime.replace(":",""),
-                    end = this.model.attributes.endTime.replace(":","");
-                if ( start < startTime && startTime <= end ){
-                    this.model.attributes.orders.push(orderArray[i]);
-                }
-            }
+            //for (var i = 0; i < orderSSArray.length ; i++){
+            //    var startTime = orderSSArray[i].orderObj.svcObj.startTime.slice(-6,-2),
+            //        start = this.model.attributes.startTime.replace(":",""),
+            //        end = this.model.attributes.endTime.replace(":","");
+            //    if ( start < startTime && startTime <= end ){
+            //        this.model.attributes.orders.push(orderSSArray[i]);
+            //    }
+            //}
             this.render();
             return this;
         }
@@ -388,7 +425,7 @@
             week : null
         },
         initialize : function(){
-
+            this.workTimes = new WorkTimeCollection();
         },
         _save : function(options){
             options = options ? _.clone(options) : {};
@@ -400,15 +437,92 @@
             };
             this.sync('update', this, options);
         },
+        addWorkTime : function(attr){
+            var workTimeModel = new WorkTimeModel(attr);
+            this.workTimes.add(workTimeModel);
+        },
         setMaxOrder : function(val){
             this.set("maxOrder", val);
         }
     });
 
+    var WorkDayCollection = Backbone.Collection.extend({
+        model : WorkDayModel,
+        url : globalApiUrl,
+        initialize : function(){
+            var _this = this;
+        },
+        /**
+         * 自定义私有fetch函数对SVC001005请求接口的数据处理，使其返回的svcObj能按照预期初始化collection
+         * @param options
+         * @returns {*}
+         */
+        _fetch : function(options) {
+            options = options ? _.clone(options) : {};
+            if (options.parse === void 0) options.parse = true;
+            var success = options.success;
+            var collection = this;
+            options.success = function(resp) {
+                var method = options.reset ? 'reset' : 'set';
+                var respArray;
+
+                // 转换maxOrderString为数组
+                if ( typeof resp.svcObj === "object" && resp.svcObj ){
+                    if ( typeof resp.svcObj.maxOrderString === "string" && resp.svcObj.maxOrderString ){
+                        respArray = resp.svcObj.maxOrderString.split(",");
+                        for ( var i = 0 ; i < respArray.length ; i++  ){
+                            respArray[i] = { maxOrder : respArray[i] , week : i + 1 + "" }
+                        }
+                    }
+                }
+
+                collection[method](respArray, options);
+                if (success) success(collection, respArray, options);
+                collection.trigger('sync', collection, respArray, options);
+            };
+
+            return this.sync('read', this, options);
+        },
+        _save : function(options){
+            options = options ? _.clone(options) : {};
+            if (options.parse === void 0) options.parse = true;
+            var success = options.success;
+            var collection = this;
+            options.success = function(resp) {
+                if (success) success(collection, resp, options);
+            };
+            this.sync('update', this, options);
+        },
+        _saveMaxOrder : function () {
+            var maxOrderArr = [], maxOrderString;
+
+            _.each(this.models, function(model){
+                maxOrderArr.push(model.get("maxOrder"));
+            });
+
+            maxOrderString = maxOrderArr.join();
+
+            this._save({
+                url : globalApiUrl,
+                customApi : true,
+                protocolCode : "SVC001003",
+                data : {
+                    "merchantID": merchantID,
+                    "svcObj": {
+                        "svcID": Adapter.getParameterByName("serviceId"),
+                        "maxOrderString": maxOrderString
+                    }
+                }
+            })
+        }
+    });
+
+    var workDays = new WorkDayCollection();
+
     // 工作直接单日View
     var WorkDayView = Backbone.View.extend({
         tagName : "div",
-        className : "day-container",
+        className : "day",
         template : _.template($("#day_template").html(),templateOptions),
         events : {
             'change .day_edit' : "editing",
@@ -463,193 +577,247 @@
         }
     });
 
-    // 货架化展示App View
     var AppView = Backbone.View.extend({
         tagName : "div",
         className : "wt-show-wrap",
         template : _.template($("#app_template").html(), templateOptions),
         initialize : function(){
             var _this = this;
-
             this.reqDate = new Date();
+
+            this.snapshots = snapshots;
             this.workTimes = new WorkTimeCollection();
+            this.workDays = workDays;
+
+            // 按时间排序
+            this.workTimes.comparator = function(m1, m2){
+                if ( parseInt(m1.attributes.startTime.replace(/\:/, "")) > parseInt(m2.attributes.startTime.replace(/\:/, ""))){
+                    return 1 ;
+                } else {
+                    return 0;
+                }
+            };
+
             this.render();
-
-            snapShot.on("load", function(snapShot, response){
-
-                _this.snapShot = snapShot;
-                _this.buildSnapShot();
-                _this.workTimes._fetch({
-                    reset : true,
-                    url : testUrl.WTM001006,
-                    customApi : true,
-                    protocolCode : "WTM001006",
-                    data : {
-                        "merchantID" : merchantID,
-                        "svcID" : Adapter.getParameterByName("serviceid"),
-                        "week" : _this.reqDate.getDay()
-                    }
-                });
-            });
-
-            this.workTimes.on("sync", function(collection, response, options){
-                _this.buildWorkTimes(collection);
-            });
-
             this.initDayTab();
+
+            // 注册snapshots的load事件，-对快照进行构建
+            //snapshots.on("load", function(snapshotsObj, response){});
+
+            // 注册workTime的sync事件，对返回的工作时间数据构建
+            this.listenTo(this.workTimes, "sync", function(collection, response, options){
+                return _this.buildWorkTimesView(collection);
+            });
+
+            // 注册workDay的sync事件，对返回的工作单日数据处理
+            this.listenTo(this.workDays, 'sync', function(collection, response, options){
+
+                _this.buildDaysView(collection);
+            });
+
             this.loadShelf(this.reqDate);
         },
-            render : function(){
+        render : function(){
             this.$el.html(this.template());
             $("#goodShelf").append($(this.el));
             return this;
         },
-        // 重新渲染Day视图
-        clearDay : function(){
-            this.$el.find(".day-container").html("");
-            return this;
+        loadShelf : function(reqDateObj){
+            var _this = this, reqDate;
+
+            if ( typeof reqDateObj !== "undefined" ){
+                reqDate = dateTools.fmt(reqDateObj, "yyyy-M-d");
+            } else {
+                return
+            }
+
+            _this.loading = true;
+            _this.showLoading(true);
+
+            // 请求快照数据
+            snapshots.load({
+                queryData : {
+                    "startTime": reqDate,
+                    // 请求数据为一天的数据
+                    "endTime": reqDate + " 23:59:59"
+                },
+                success : function(){
+
+                    // 请求工作单日数据
+                    _this.workDays._fetch({
+                        url : globalApiUrl,
+                        customApi : true,
+                        protocolCode : "SVC001005",
+                        data : {
+                            "merchantID": merchantID,
+                            "svcID": Adapter.getParameterByName("serviceId")
+                        },
+                        success : function(){
+
+                            // 请求工作时间数据
+                            _this.workTimes._fetch({
+                                reset : true,
+                                url : globalApiUrl,
+                                customApi : true,
+                                protocolCode : "WTM001006",
+                                data : {
+                                    "merchantID" : merchantID,
+                                    "svcID" : Adapter.getParameterByName("serviceId"),
+                                    "week" : reqDateObj.getDay()
+                                },
+                                success: function () {
+                                    _this.showLoading(false);
+                                },
+                                error : function(){
+                                    _this.showError();
+                                }
+                            });
+                        },
+                        error : function(){
+                            _this.showError();
+                        }
+                    });
+                }
+            });
         },
-        // 初始化头部标签
+        /**
+         * 初始化头部标签
+         */
         initDayTab : function(){
             var _this = this;
             var reqFormatDate = dateTools.dateFormat(this.reqDate, "YYYYMMDD");
-            var reqDay = this.reqDate.getDay();
             var $tabContainer = this.$('.day-tabs');
+
+            function tranWeek(week){
+                var arr = [ "星期日","星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+                return arr[week];
+            }
 
             // 轮询创建日期标签
             for ( var i = 0 ; i < 7 ; i ++){
                 var $tab = $('<input type="button" class="day-tab">');
-                var date = parseInt(reqFormatDate) + ( i - reqDay + 1);
+                //var date = parseInt(reqFormatDate) + ( i - reqDay + 1);
+                var dateText = (parseInt(reqFormatDate) + i).toString(), dateTemp = new Date();
 
                 // 为当日标签添加样式
-                if (date.toString() === reqFormatDate) $tab.addClass("active");
+                if (dateText === reqFormatDate) { $tab.addClass("active") }
 
-                $tab.val(date).attr("data-date", date);
+                dateTemp.setFullYear(parseInt(dateText.slice(0, 4)), parseInt(dateText.slice(4, 6)) - 1, parseInt(dateText.slice(6, 8)));
+
+                $tab.val(dateTools.fmt(dateTemp, "yyyy-M-d") + " " + tranWeek(dateTemp.getDay()))
+                    .attr("data-date", dateText);
 
                 // 点击标签时读取请求日期的快照数据。
                 $tab.on("click", function(){
                     var reqDate = $(this).attr("data-date");
                     var dateObj = new Date();
 
+                    // 请求锁，loadings时，禁止请求. TODO: 请求锁避免多次请求的多次构造问题，另一种方案是数据暂存；
+                    if ( _this.loading ){ return false }
+
                     $(this).addClass("active").siblings().removeClass("active");
 
                     dateObj.setFullYear(parseInt(reqDate.slice(0, 4)), parseInt(reqDate.slice(4, 6)) - 1, parseInt(reqDate.slice(6, 8)));
-                    _this.reqDate = dateObj;
-                    _this.loadShelf()
+
+                    _this.switchDayShelf(dateObj);
+
                 });
 
                 $tabContainer.append($tab);
             }
         },
         /**
-         * 计算并构建非历史时段的可设置工作时间段
+         * 按照时间切换当前显示的货架化
+         * @param reqDateObj Date()对象
+         */
+        switchDayShelf : function(reqDateObj){
+
+            this.reqDate = reqDateObj;
+
+            this.clearDay();
+
+            this.loadShelf(reqDateObj);
+        },
+        /**
+         * 构建工作时段
          * @param collection
          */
-        buildWorkTimes : function(collection){
+        buildWorkTimesView : function(collection){
             var _this = this;
             var dateStr = dateTools.dateFormat(this.reqDate, "YYYYMMDD");
-            var orderArray = [];
 
-            if (!this.snapShot.orderObjectDic[dateStr]){
-                this.showError();
-                return
-            }
-
-            orderArray = this.snapShot.orderObjectDic[dateStr];
+            this.clearWorkTime();
 
             _.each(collection.models, function(model, index, collection){
                 var startTime, endTime, nowTime, workTimeView;
+                var orderSSArray = [];
+
                 startTime = model.get("startTime").replace(":", "");
                 endTime = model.get("endTime").replace(":", "");
 
-                model.attributes.orderArray = orderArray;
+                orderSSArray = _this.snapshots.getOrderSnapshotByTime(dateStr, startTime, endTime);
+
+                model.attributes.dayMaxOrderCount = _this.workDays.where({week: (_this.reqDate.getDay() + 1).toString()})[0].attributes.maxOrder;
+                model.attributes.dayReorderCount = _this.snapshots.snapshotItems.length;
+                model.attributes.dayEnableOrderCount = parseInt(model.attributes.dayMaxOrderCount) - parseInt(model.attributes.dayReorderCount);
+
+                model.attributes.orderSSArray = orderSSArray;
+
                 workTimeView = new WorkTimeView({model: model});
 
-                nowTime = fix((new Date().getHours()), 2) + fix((new Date().getMinutes()), 2);
-                if ( !(nowTime > startTime && nowTime > endTime)  ) {
-                    _this.$el.find(".time-buckets").append(workTimeView.renderOrder().$el);
-                }
-            });
-        },
-        // 构建快照类DOM
-        buildSnapShot : function() {
+                //nowTime = fix((new Date().getHours()), 2) + fix((new Date().getMinutes()), 2);
+                //if ( !(nowTime > startTime && nowTime > endTime)  ) {
+                //}
 
-            // 在重新构造快照数据前，清空快照
+                _this.renderWorkTime(workTimeView);
+
+            });
+
+            _this.loading = false;
+
+        },
+        /**
+         * 构建单日工作时间，根据dateObj筛选单日的数据
+         * @param collection 单日工作时间集合Collection
+         */
+        buildDaysView : function(collection){
+            var _this = this;
+            var dayOfWeek = this.reqDate.getDay();
+            var dateStr = dateTools.dateFormat(this.reqDate, "YYYYMMDD");
+
             this.clearDay();
 
-            // 构建快照单日
-            this.buildHisDay();
+            _.each(collection.models, function(dayModel, index, collection){
+                if (dayOfWeek == index ){
+                    dayModel.attributes.reOrder = _this.snapshots.getOrderSnapshotByDate(dateStr).length;
+                    dayModel.attributes.date = dateStr;
 
-            // 构建快照工作时间
-            this.buildHisWorkTime();
+                    var workDayView = new WorkDayView({model : dayModel});
 
-        },
-        buildHisDay : function () {
-            var dateStr = dateTools.dateFormat(this.reqDate, "YYYYMMDD");
-            var maxOrderArray = [];
-
-            if (!this.snapShot.maxOrderDic[dateStr]){
-                this.showError();
-                return
-            }
-
-            maxOrderArray = this.snapShot.maxOrderDic[dateStr];
-
-            for(var i = 0 ; i < maxOrderArray.length ; i++ ) {
-                var workDayModel = new WorkDayModel(maxOrderArray[i]);
-                var workDayView = new WorkDayView({model: workDayModel});
-                this.$el.find(".day-container").append(workDayView.render().$el);
-            }
-        },
-        buildHisWorkTime : function(){
-            var dateStr = dateTools.dateFormat(this.reqDate, "YYYYMMDD");
-            var workTimeArray = [];
-            var orderArray = this.snapShot.orderObjectDic[dateStr];
-            var nowDate = dateTools.dateFormat();
-            var nowTime = dateTools.dateFormat(new Date(), "HHMM");
-
-            if (!this.snapShot.workTimeDic[dateStr]){
-                this.showError();
-                return
-            }
-
-            workTimeArray = this.snapShot.workTimeDic[dateStr];
-
-
-            for (var i = 0 ; i < workTimeArray.length ; i++){
-                var hisWorkTimeModel, hisWorkTimeView, startTime, endTime;
-                hisWorkTimeModel = new HisWorkTimeModel(workTimeArray[i]);
-                hisWorkTimeModel.attributes.orderArray = orderArray;
-                hisWorkTimeView = new HisWorkTimeView({model : hisWorkTimeModel});
-
-                startTime = hisWorkTimeModel.get("startTime").replace(":","");
-                endTime = hisWorkTimeModel.get("endTime").replace(":","");
-
-                if ( nowDate < dateStr ) return;
-                if ( nowTime > endTime && nowTime > startTime ){
-                    this.$el.find(".time-buckets").append(hisWorkTimeView.renderOrder().$el);
-                }
-            }
-        },
-        loadShelf : function(){
-            var _this = this;
-            var reqDate = dateTools.dateFormat(this.reqDate, "YYYYMMDD");
-            //var reqDay = this.reqDate.getDay();
-            this.$(".day-container").removeClass("error");
-            this.$(".day-container").addClass("loading");
-            snapShot.load({
-                queryData : {
-                    "startTime": reqDate,
-                    "endTime": reqDate,
-                    "type": "maxOrder|workTime|order"
-                },
-                success : function(){
-                    _this.$(".day-container").removeClass("loading");
+                    _this.renderDay(workDayView);
                 }
             });
         },
+        clearDay : function(){
+            return this.$el.find(".day-container").html("");
+        },
+        clearWorkTime : function(){
+            return this.$el.find(".time-buckets").html("");
+        },
+        renderDay: function(workDayView){
+            return this.$el.find(".day-container").append(workDayView.render().$el);
+        },
+        renderWorkTime : function(workTimeView){
+            return this.$el.find(".time-buckets").append(workTimeView.renderOrder().$el);
+        },
+        showLoading: function(toggle){
+            return toggle ? this.$(".day-container").removeClass("error").addClass("loading") : this.$(".day-container").removeClass("loading");
+        },
         showError : function(){
-            this.$(".day-container").addClass("error");
+            return this.$(".day-container").removeClass("loading").addClass("error");
+        },
+        showWarnText : function(show, test){
+            return !show ? this.$("#day-warn").addClass("hi") : this.$("#day-warn").removeClass("hi").html(test);
         }
     });
 

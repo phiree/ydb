@@ -91,18 +91,27 @@ namespace Dianzhu.CSClient.Presenter
 
         public async void Login(string username, string plainPassword)
         {
-            string encryptPassword = encryptService.GetMD5Hash(plainPassword);
-            var member = dalMembership.ValidateUser(username, encryptPassword);
-            //DZMembership member = dalme.GetUserByName(loginView.UserName);
-            if (member != null && member.UserType == Model.Enums.enum_UserType.customerservice)
-            {
-                instantMessage.OpenConnection(member.Id.ToString()
-                     , loginView.Password);
-            }
-            else
-            {
-                XMPP_IMAuthError();
-            }
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            //Action ac=()=>
+            //{
+
+                string encryptPassword = encryptService.GetMD5Hash(plainPassword);
+                var member = dalMembership.ValidateUser(username, encryptPassword);
+                //DZMembership member = dalme.GetUserByName(loginView.UserName);
+                if (member != null && member.UserType == Model.Enums.enum_UserType.customerservice)
+                {
+                    instantMessage.OpenConnection(member.Id.ToString()
+                         , loginView.Password);
+                }
+                else
+                {
+                    XMPP_IMAuthError();
+                }
+            //};
+            //NHibernateUnitOfWork.With.Transaction(ac);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+
         }
        public  void loginView_ViewLogin()
         {
@@ -110,6 +119,8 @@ namespace Dianzhu.CSClient.Presenter
             loginView.LoginButtonText = "正在登录,请稍后";
             loginView.LoginButtonEnabled = false;
             loginView.LoginMessage = string.Empty;
+
+           
 
             Login(loginView.UserName, loginView.Password);
 
@@ -140,38 +151,37 @@ namespace Dianzhu.CSClient.Presenter
             loginView.LoginButtonText = "重新登录";
             loginView.LoginMessage = "用户名/密码错误,请重试.";
         }
-        BLLReceptionStatus bllReceptionStatus;
-        BLLReceptionStatus BLLReceptionStatus
-        {
-            get
-            {
-                if (bllReceptionStatus == null)
-                    bllReceptionStatus = new BLLReceptionStatus();
-                return bllReceptionStatus;
-            }
-        }
+   
         /// <summary>
         /// 登录成功后触发
         /// </summary>
         /// <param name="jidUser"></param>
         void IMLogined(string jidUser)
         {
-
-            DZMembership customerService = dalMembership.FindById(new Guid(jidUser));
-            //GlobalViables.CurrentCustomerService = customerService;
-            GlobalViables.CurrentCustomerService = customerService;
-
-            Guid id = new Guid(Dianzhu.Config.Config.GetAppSetting("DiandianLoginId"));
-            DZMembership diandian = dalMembership.FindById(id);
-            if (diandian == null)
+            Action ac = () =>
             {
-                log.Error("点点获取失败");
-            }
-            GlobalViables.Diandian = diandian;
-            if(Args.Length==0)
-            { 
-            loginView.IsLoginSuccess = true;
-            }
+
+                DZMembership customerService = dalMembership.FindById(new Guid(jidUser));
+
+                GlobalViables.CurrentCustomerService = customerService;
+
+                Guid id = new Guid(Dianzhu.Config.Config.GetAppSetting("DiandianLoginId"));
+                DZMembership diandian = dalMembership.FindById(id);
+                if (diandian == null)
+                {
+                    log.Error("点点获取失败");
+                }
+                GlobalViables.Diandian = diandian;
+                if (Args.Length == 0)
+                {
+                    loginView.IsLoginSuccess = true;
+                }
+            };
+
+            NHibernateUnitOfWork.With.Transaction(ac);
+
+
+
         }
 
         void loginView_Logined(object sender, EventArgs e)

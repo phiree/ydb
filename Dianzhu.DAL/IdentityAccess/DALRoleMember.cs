@@ -6,10 +6,8 @@ using Dianzhu.Model;
  
 namespace Dianzhu.DAL.IdentityAccess
 {
-   public   class DALRoleMember:DALBase<Model.RoleMember>
+   public   class DALRoleMember:NHRepositoryBase<RoleMember,Guid>,IDAL.IDALRoleMember
     {
-
-
         public void AddUsersToRoles(IList<DZMembership> members, IList<DZRole> roles)
         {
             foreach (DZMembership member in members)
@@ -21,7 +19,7 @@ namespace Dianzhu.DAL.IdentityAccess
                         Member = member,
                         Role = role
                     };
-                    Session.Save(rm);
+                    Add(rm);
                 }
             }
         }
@@ -32,11 +30,10 @@ namespace Dianzhu.DAL.IdentityAccess
             {
                 foreach (DZRole role in roles)
                 {
-                    var query = Session.QueryOver<RoleMember>().Where(x => x.Member == member).And(x => x.Role == role);
-                    RoleMember rm = GetOneByQuery(query);
+                    RoleMember rm = FindOne(x => x.Member.Id == member.Id && x.Role.Id == role.Id);
                     if (rm != null)
                     {
-                        Session.Delete(rm);
+                        Delete(rm);
                     }
                 }
             }
@@ -44,8 +41,9 @@ namespace Dianzhu.DAL.IdentityAccess
 
         public string[] GetUsersInRole(string roleName)
         {
-            var query = Session.QueryOver<RoleMember>().Where(x => x.Role.Name == roleName);
-            return query.Select(x => x.Member.UserName).List<string>().ToArray();
+            //var query = Session.QueryOver<RoleMember>().Where(x => x.Role.Name == roleName);
+            //return query.Select(x => x.Member.UserName).List<string>().ToArray();
+            return Find(x => x.Role.Name == roleName).Select(x => x.Member.UserName).ToList().ToArray();
         }
 
        
@@ -56,10 +54,7 @@ namespace Dianzhu.DAL.IdentityAccess
         #region query
         public bool IsUserInRole(string username, string roleName)
         {
-            var query = Session.QueryOver<RoleMember>()
-                .Where(x => x.Role.Name == roleName)
-                .And(x => x.Member.UserName == username);
-            var aa = query.RowCount();
+            var aa = GetRowCount(x => x.Role.Name == roleName && x.Member.UserName == username);
             if (aa > 1)
             {
                 throw new Exception("重复的用户-角色对应数据");
@@ -68,10 +63,11 @@ namespace Dianzhu.DAL.IdentityAccess
         }
         public IList<DZRole> GetRolesForUser(string username)
         {
-            var query = Session.QueryOver<RoleMember>()
-                .Where(x => x.Member.UserName == username);
-            var r = query.Select(x=>x.Role).List<DZRole>();
-            return r;
+            //var query = Session.QueryOver<RoleMember>()
+            //    .Where(x => x.Member.UserName == username);
+            //var r = query.Select(x=>x.Role).List<DZRole>();
+            return Find(x => x.Member.UserName == username).Select(x => x.Role).ToList();
+
         }
         #endregion
 

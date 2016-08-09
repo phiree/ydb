@@ -21,11 +21,21 @@ public class ResponseCHAT001004:BaseResponse
     {
         ReqDataCHAT001004 requestData = this.request.ReqData.ToObject<ReqDataCHAT001004>();
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-        string raw_id = requestData.userID;
+        string user_id = requestData.userID;
+
+        Guid userId;
+        bool isUserId = Guid.TryParse(user_id, out userId);
+        if (!isUserId)
+        {
+            this.state_CODE = Dicts.StateCode[1];
+            this.err_Msg = "userId格式有误";
+            return;
+        }
+
         DZMembership member;
         if (request.NeedAuthenticate)
         {
-            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+            bool validated = new Account(p).ValidateUser(userId, requestData.pWord, this, out member);
             if (!validated)
             {
                 return;
@@ -33,9 +43,16 @@ public class ResponseCHAT001004:BaseResponse
         }
         else
         {
-            member = p.GetUserById(new Guid(raw_id));
+            member = p.GetUserById(userId);
         }
-        BLLReception bllReception = new BLLReception();
+        if (member == null)
+        {
+            this.state_CODE = Dicts.StateCode[1];
+            this.err_Msg = "用户不存在";
+            return;
+        }
+
+        BLLReceptionChat bllReceptionChat = Bootstrap.Container.Resolve<BLLReceptionChat>();
         int rowCount;
         string target = requestData.target;
         IList<ReceptionChat> chatList;
@@ -50,7 +67,7 @@ public class ResponseCHAT001004:BaseResponse
         }
         if (requestData.orderID == "")
         {
-            chatList = bllReception.GetReceptionChatList(member, null, Guid.Empty, DateTime.MinValue, DateTime.Now, -1, -1, chatTarget, out rowCount);
+            chatList = bllReceptionChat.GetReceptionChatList(userId, Guid.Empty, Guid.Empty, DateTime.MinValue, DateTime.Now, -1, -1, chatTarget, out rowCount);
         }
         else
         {
@@ -62,7 +79,7 @@ public class ResponseCHAT001004:BaseResponse
                 return;
             }
 
-            chatList = bllReception.GetReceptionChatList(member, null, orderId, DateTime.MinValue, DateTime.Now, -1, -1, chatTarget, out rowCount);            
+            chatList = bllReceptionChat.GetReceptionChatList(userId, Guid.Empty, orderId, DateTime.MinValue, DateTime.Now, -1, -1, chatTarget, out rowCount);            
         }
         
         try

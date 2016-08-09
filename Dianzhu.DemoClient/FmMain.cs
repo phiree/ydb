@@ -22,6 +22,7 @@ namespace Dianzhu.DemoClient
         string csId;
         string csDisplayName;
         string customerId;
+        string pwd;
         string orderID {
             get { return tbxOrderId.Text; }
             set { tbxOrderId.Text = value; }
@@ -83,7 +84,13 @@ namespace Dianzhu.DemoClient
                     ""serial_NUMBER"": ""00147001015869149751"" 
                 }}", userName, password, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString());
             Newtonsoft.Json.Linq.JObject result = API.GetApiResult(postData);
+            if (result["state_CODE"].ToString() != "009000")
+            {
+                MessageBox.Show(result["err_Msg"].ToString());
+                return;
+            }
             customerId = result["RespData"]["userObj"]["userID"].ToString();
+            pwd = password;
             this.Text= result["RespData"]["userObj"]["name"].ToString();
 
         }
@@ -171,30 +178,37 @@ namespace Dianzhu.DemoClient
 
         void XMPPConnection_OnLogin(object sender)
         {
-            GlobalViables.log.Debug("登录openfire成功");
-            if (InvokeRequired)
+            try
             {
-                BeginInvoke(new ObjectHandler(XMPPConnection_OnLogin), new object[] { sender });
-                return;
+                GlobalViables.log.Debug("登录openfire成功");
+                if (InvokeRequired)
+                {
+                    BeginInvoke(new ObjectHandler(XMPPConnection_OnLogin), new object[] { sender });
+                    return;
+                }
+
+
+                XmppClientConnection conn = (XmppClientConnection)sender;
+                GlobalViables.log.Debug("开始请求客服");
+                GetCustomerService(conn.Username, conn.Password);
+
+                lblAssignedCS.Text = csDisplayName;
+
+
+
+                Presence p = new Presence(ShowType.chat, "Online");
+                p.Type = PresenceType.available;
+                p.To = new Jid(csId + "@" + GlobalViables.ServerName + "/" + Model.Enums.enum_XmppResource.YDBan_CustomerService);
+                p.From = new Jid(customerId + "@" + GlobalViables.ServerName + "/" + Model.Enums.enum_XmppResource.YDBan_DemoClient);
+                GlobalViables.XMPPConnection.Send(p);
+
+                lblLoginStatus.Text = "登录成功";
+                tbxUserName.Text = conn.Username;
             }
-           
-        
-            XmppClientConnection conn = (XmppClientConnection)sender;
-            GlobalViables.log.Debug("开始请求客服");
-            GetCustomerService(conn.Username,conn.Password);
-
-            lblAssignedCS.Text = csDisplayName;
-            
-
-
-            Presence p = new Presence(ShowType.chat, "Online");
-            p.Type = PresenceType.available;
-            p.To = new Jid(csId + "@" + GlobalViables.ServerName + "/" + Model.Enums.enum_XmppResource.YDBan_CustomerService);
-            p.From = new Jid(customerId + "@" + GlobalViables.ServerName + "/" + Model.Enums.enum_XmppResource.YDBan_DemoClient);
-            GlobalViables.XMPPConnection.Send(p);
-
-            lblLoginStatus.Text = "登录成功";
-            tbxUserName.Text = conn.Username;
+            catch (Exception e)
+            {
+                GlobalViables.log.Debug("错误：" + e.Message);
+            }
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -222,6 +236,7 @@ namespace Dianzhu.DemoClient
         /// <param name="message"></param>
         void AddLog(agsc.Message message)
         {
+            GlobalViables.log.Debug("message:" + message.InnerXml);
             tbxLog.AppendText(DateTime.Now.ToString()+":"+message.ToString() + Environment.NewLine);
             //if (csDisplayName == null)
             //{
@@ -298,10 +313,29 @@ namespace Dianzhu.DemoClient
                     lblMessage.Text += "通知:" + message.Body;
                     break;
                 case "ihelper:chat:orderobj":
-
+                    //UC_PushService pushService = new UC_PushService();
+                    Label lblServiceID = new Label
+                    {
+                        Text = "orderID:" + message.SelectSingleElement("ext").SelectSingleElement("orderID").InnerXml,
+                    };
+                    Button btnServiceSure = new Button
+                    {
+                        Text = "确认服务",
+                        Tag = message
+                    };
+                    btnServiceSure.Click += BtnServiceSure_Click;
+                    //pushService.LoadData(((ReceptionChatPushService)chat).PushedServices[0]);
+                    //pushService.FlowDirection = FlowDirection.LeftToRight;
+                    //chat.MessageBody = string.Empty;
+                    pnlOneChat.Controls.Add(lblServiceID);
+                    pnlOneChat.Controls.Add(btnServiceSure);
                     break;
                 case "ihelper:notice:draft:new":
                     lblMessage.Text += "通知:新的草稿单" +orderID;
+                    break;
+
+                case "ihelper:notice:order":
+                    //lblMessage.Text += message.Body;
                     break;
 
                 default:
@@ -312,8 +346,46 @@ namespace Dianzhu.DemoClient
 
             pnlChat.Controls.Add(pnlOneChat);
             pnlChat.ScrollControlIntoView(pnlOneChat);
-            GlobalViables.log.Debug("message send:" + message.InnerXml);
+            //GlobalViables.log.Debug("message send:" + message.InnerXml);
 
+        }
+
+        private void BtnServiceSure_Click(object sender, EventArgs e)
+        {
+            agsc.Message message = (agsc.Message)((Button)sender).Tag;
+
+            string apiRequest = string.Format(
+                @"{{ 
+                    ""protocol_CODE"": ""ORM001008"", 
+                    ""ReqData"": 
+                    {{ 
+                        ""userID"": ""{0}"", 
+                        ""pWord"": ""{1}"", 
+                        ""orderID"": ""{2}"",
+                        ""svcID"":""{3}""   
+                    }}, 
+                    ""stamp_TIMES"": ""{4}"", 
+                    ""serial_NUMBER"": ""00147001015869149751"" 
+                }}",
+                customerId,
+                pwd,
+                message.SelectSingleElement("ext").SelectSingleElement("orderID").InnerXml,
+                message.SelectSingleElement("ext").SelectSingleElement("svcObj").GetAttribute("svcID"),
+                (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString()
+                );
+            GlobalViables.log.Debug("请求参数：" + apiRequest);
+            Newtonsoft.Json.Linq.JObject result = API.GetApiResult(apiRequest);
+            GlobalViables.log.Debug("请求结果：" + result.ToString());
+            string state_Code = result["state_CODE"].ToString();
+            if (state_Code != "009000")
+            {
+                string errMsg = result["err_Msg"].ToString();
+                MessageBox.Show(errMsg);
+                lblAssignedCS.Text = "客服离线";
+                throw new Exception(state_Code + "_" + errMsg);
+            }
+
+            ((Button)sender).Enabled = false;
         }
 
         private void Pb_Click(object sender, EventArgs e)

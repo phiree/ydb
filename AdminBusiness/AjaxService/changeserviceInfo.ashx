@@ -8,8 +8,10 @@ using System.Web.Security;
 public class changepassword : IHttpHandler {
 
     DZMembershipProvider dzp = Bootstrap.Container.Resolve<DZMembershipProvider>();
-    BLLDZService bllService = new BLLDZService();
+    BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
     public void ProcessRequest (HttpContext context) {
+
+        Action ac = () => {
         context.Response.ContentType = "application/json";
 
         string change_field = context.Request["changed_field"];
@@ -24,21 +26,23 @@ public class changepassword : IHttpHandler {
 
                 service.Enabled = !service.Enabled;
                 break;
-            
+
             default:
                 is_valid = false;
                 break;
         }
         if (is_valid)
         {
-          var result= new  FluentValidation.Results.ValidationResult();
+            var result= new  FluentValidation.Results.ValidationResult();
             bllService.SaveOrUpdate(service,out result);
         }
-        
-        context.Response.Write("{\"result\":\""+is_valid+"\",\"msg\":\""+errMsg+"\",\"data\":\""+service.Enabled+"\"}");
-      
+       
+        context.Response.Write("{\"result\":\""+is_valid+"\",\"msg\":\""+errMsg+"\",\"data\":\""+service.Enabled+"\"}");  };
+
+            NHibernateUnitOfWork.With.Transaction(ac);
+
     }
- 
+
     public bool IsReusable {
         get {
             return false;

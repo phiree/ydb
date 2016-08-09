@@ -1,7 +1,7 @@
-.wt-set-wrap{
+.wt-set-wrap {
   overflow-x: scroll;
   min-height: 400px;
-  &.loading{
+  &.loading {
     background: url("@{base-images-url}components/wt-load.gif") no-repeat center;
     overflow: auto;
   }
@@ -11,19 +11,19 @@
   }
 }
 
-.wt-set{
+.wt-set {
   overflow: hidden;
   width: 2200px;
 }
 
-.wd-item-wrap{
+.wd-item-wrap {
   width: 310px;
   float: left;
   & + .wd-item-wrap {
     margin-left: 5px;
   }
-  &.loading{
-    .wt-container{
+  &.loading {
+    .wt-container {
       width: 100%;
       height: 400px;
       background: url("@{base-images-url}components/wt-load.gif") no-repeat center;
@@ -57,11 +57,11 @@
   border-bottom: 1px solid #C7C7C7;
   padding: 10px;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
-  background: #F4F4F4 ; /* Old browsers */
-  background: -moz-linear-gradient(top,  #F4F4F4  0%, #eaeaea 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top,  #F4F4F4  0%,#eaeaea 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom,  #F4F4F4  0%,#eaeaea 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F4F4F4 ', endColorstr='#eaeaea',GradientType=0 ); /* IE6-9 */
+  background: #f4f4f4; /* Old browsers */
+  background: -moz-linear-gradient(top, #f4f4f4 0%, #eaeaea 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #f4f4f4 0%, #eaeaea 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #f4f4f4 0%, #eaeaea 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f4f4f4', endColorstr='#eaeaea', GradientType=0); /* IE6-9 */
   &.editing {
     .wd-maxOrder {
       display: none;
@@ -70,7 +70,7 @@
       display: inline-block;
       width: 3em;
     }
-    .wd-maxOrder-conf-btn{
+    .wd-maxOrder-conf-btn {
       display: inline-block;
     }
     .wd-maxOrder-edit-btn {
@@ -90,10 +90,10 @@
   box-shadow: 0 1px 0 0 #ffffff;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
   background: #f7f7f7; /* Old browsers */
-  background: -moz-linear-gradient(top,  #f7f7f7 0%, #eaeaea 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top,  #f7f7f7 0%,#eaeaea 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom,  #f7f7f7 0%,#eaeaea 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#eaeaea',GradientType=0 ); /* IE6-9 */
+  background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0); /* IE6-9 */
 }
 
 .wd-maxOrder {
@@ -106,11 +106,11 @@
   display: none;
 }
 
-.wd-maxOrder-conf-btn{
+.wd-maxOrder-conf-btn {
   display: none;
 }
 
-.wd-b{
+.wd-b {
   position: relative;
   text-align: center;
   padding: 10px;
@@ -134,9 +134,9 @@
   }
 }
 
-.wd-add{
+.wd-add {
   display: none;
-  .wd-errMsg{
+  .wd-errMsg {
     display: none;
     text-align: center;
     color: #FF5353;
@@ -150,7 +150,8 @@
     .wd-errMsg {
       display: block;
 
-    };
+    }
+  ;
   }
 }
 
@@ -161,7 +162,7 @@
   }
 }
 
-.wd-trigger{
+.wd-trigger {
   display: inline-block;
   border-radius: 3px;
   border: 1px solid #C7C7C7;
@@ -175,7 +176,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
 }
 
-.wd-add-btn{
+.wd-add-btn {
   position: absolute;
   width: 100%;
   bottom: 0;
@@ -191,7 +192,7 @@
   }
 }
 
-.wd-num{
+.wd-num {
   width: 100%;
   border-radius: 5px;
   border: 1px solid #c7c7c7;
@@ -200,15 +201,15 @@
   background: #F7F7F7;
 }
 
-.wd-confirm{
+.wd-confirm {
   display: block;
   position: absolute;
   left: 0;
   width: 50%;
   height: 100%;
-  border:0;
-  border-top: 1px solid #c7c7c7 ;
-  border-right: 1px solid #c7c7c7 ;
+  border: 0;
+  border-top: 1px solid #c7c7c7;
+  border-right: 1px solid #c7c7c7;
 }
 
 .wd-cancel {
@@ -217,21 +218,34 @@
   right: 0;
   width: 50%;
   height: 100%;
-  border:0;
+  border: 0;
   border-top: 1px solid #c7c7c7;
   border-left: 1px solid #fff;
 }
 
+.wd-error {
+  display: none;
+  text-align: center;
+  color: #FF5353;
+  border-radius: 5px;
+  background: #FFEAEA;
+  border: 1px solid #FF5353;
+  line-height: 1.6em;
+  margin: 5px 20px;
+  &.err {
+    display: block;
+  }
+}
 
 //工作时间段样式
-.wt-container{
+.wt-container {
   height: 400px;
   overflow-y: scroll;
 }
 
 .wt {
   &.editing {
-    .wt-show{
+    .wt-show {
       display: none;
     }
     .wt-editing {
@@ -246,28 +260,30 @@
   }
 }
 
-.wt-item{
+.wt-item {
   margin: 0 15px;
   position: relative;
   height: 60px;
   border-bottom: 1px solid #ccc;
 }
 
-.wt-bar{
+.wt-bar {
   position: absolute;
   left: 0;
   top: 10px;
 }
-.wt-show{
+
+.wt-show {
   display: block;
   line-height: 1.6em;
 }
-.wt-editing{
+
+.wt-editing {
   display: none;
   line-height: 1.6em;
 }
 
-.wt-ctrl{
+.wt-ctrl {
   position: absolute;
   right: 0;
   top: 17px;
@@ -275,32 +291,38 @@
     vertical-align: middle;
   }
 }
-.wt-open{
+
+.wt-open {
 
 }
-.wt-delete{
+
+.wt-delete {
   border: 0;
   width: 26px;
   height: 22px;
   background: url("@{base-images-url}components/wt-delete.png") no-repeat center;
 }
-.wt-edit{
+
+.wt-edit {
   border: 0;
   width: 26px;
   height: 22px;
   background: url("@{base-images-url}components/wt-edit.png") no-repeat center;
 }
-.wt-confirm{
+
+.wt-confirm {
   display: none;
   border: 0;
   width: 26px;
   height: 22px;
   background: url("@{base-images-url}components/wt-conf.png") no-repeat center;
 }
-.wt-number{
+
+.wt-number {
   width: 50px;
   text-align: center;
   border: 1px solid #ccc;
+  box-shadow: inset 0 1px 2px #ccc;
   border-radius: 3px;
   line-height: 1.4em;
 }

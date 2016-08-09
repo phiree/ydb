@@ -13,40 +13,100 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dianzhu.Model;
+using System.Windows.Threading;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
+    public delegate void IdleTimerOut(Guid orderId);
     /// <summary>
     /// UC_Customer.xaml 的交互逻辑
     /// </summary>
     public partial class UC_Customer : UserControl
     {
-        public UC_Customer(DZMembership customer)
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_Customer");
+        public event IdleTimerOut IdleTimerOut;
+
+        DispatcherTimer FinalChatTimer;
+        Guid OrderTempId;
+        public UC_Customer(ServiceOrder order)
         {
             InitializeComponent();
 
-            LoadData(customer);
+            OrderTempId = order.Id;
+
+            LoadData(order.Customer);
+            TimerLoad();
+        }
+
+        public void SetOrderTempData(Guid orderId)
+        {
+            OrderTempId = orderId;
+        }
+
+        protected void TimerLoad()
+        {
+            FinalChatTimer = new DispatcherTimer();
+            FinalChatTimer.Interval = new TimeSpan(0, 10, 0);
+            FinalChatTimer.Tick += FinalChatTimer_Tick;
+        }
+
+        public void TimerStart()
+        {
+            if (FinalChatTimer != null)
+            {
+                FinalChatTimer.Stop();
+                TimerLoad();
+                FinalChatTimer.Start();
+            }            
+        }
+
+        public void TimerStop()
+        {
+            if (FinalChatTimer != null)
+            {
+                FinalChatTimer.Stop();
+            }            
+        }
+
+        private void FinalChatTimer_Tick(object sender, EventArgs e)
+        {
+            IdleTimerOut(OrderTempId);
+            TimerStop();
         }
 
         public void LoadData(DZMembership customer)
         {
             tbkCustomerNames.Text = customer.DisplayName;
-            if (customer.AvatarUrl != null)
+            string avatarTemp = customer.AvatarUrl;
+            Uri avatarUri;
+            if (avatarTemp != null)
             {
-                customer.AvatarUrl = customer.AvatarUrl.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
-                customer.AvatarUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + customer.AvatarUrl;
-                imgSource.ImageSource = new BitmapImage(new Uri(customer.AvatarUrl, UriKind.Absolute));
+                avatarTemp = avatarTemp.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
+                avatarTemp = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + avatarTemp;
+                try
+                {
+                    avatarUri = new Uri(avatarTemp, UriKind.Absolute);
+                }
+                catch (Exception e)
+                {
+                    log.Error("uri有误,avatarUrl:" + avatarTemp);
+                    log.Error(e.Message);
+
+                    avatarUri = new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png", UriKind.Absolute);
+                }                
             }
             else
             {
-                imgSource.ImageSource = new BitmapImage(new Uri("pack://siteoforigin:,,,/Resources/logourl.png", UriKind.Absolute));
+                avatarUri = new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png", UriKind.Absolute);
             }
+
+            imgSource.ImageSource = new BitmapImage(avatarUri);
         }
 
         public void ClearData()
         {
             tbkCustomerNames.Text = string.Empty;
-            imgSource.ImageSource = new BitmapImage(new Uri("pack://siteoforigin:,,,/Resources/logourl.png", UriKind.Absolute));
+            imgSource.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png", UriKind.Absolute));
         }
 
         public void CustomerNormal()
@@ -67,6 +127,17 @@ namespace Dianzhu.CSClient.ViewWPF
 
             //tbkCustomerMinutes.Visibility = Visibility.Collapsed;
 
+            TimeControlCollapsed();
+        }
+
+        public void TimeControlVisibility()
+        {
+            TimeControl.Visibility = Visibility.Visible;
+            TimeControl.StartTimer();
+        }
+
+        public void TimeControlCollapsed()
+        {
             TimeControl.Visibility = Visibility.Collapsed;
             TimeControl.StopTimer();
         }

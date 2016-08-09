@@ -19,7 +19,6 @@
     var globalApiUrl = document.getElementById("hiApiUrl").value;
     //var globalApiUrl = "test.json";
 
-
     var testUrl = {
         WTM001001 : "test.001001.json",
         WTM001002 : "test.001002.json",
@@ -30,6 +29,10 @@
         SVC001003 : "test.s001003.json",
         SVC001005 : "test.s001005.json"
     };
+
+    function intTime(time){
+        return parseInt((time).replace(/\:/, ""), 10)
+    }
 
     /**
      * 工作时间Model
@@ -83,6 +86,37 @@
                 collection.trigger('sync', collection, resp, options);
             };
             return this.sync('read', this, options);
+        },
+        /**
+         * 时间段验证函数，用于验证设置的时间是否在models的时间段里重复
+         * @param startTime 设置的开始时间
+         * @param endTime 设置的结束时间
+         * @returns {boolean} 验证结果，true为时间段有效
+         */
+        timeValid: function (startTime, endTime, exceptModel){
+            var valid = true, validModels = this.models;
+
+            // 开始时间不得大于或等结束时间
+            if ( intTime(startTime) >= intTime(endTime) ){
+                return valid = false;
+            }
+
+
+            if(exceptModel){
+                validModels = _.reject(this.models, function(modelItem){
+                    return modelItem.get("id") === exceptModel.get("id");
+                })
+            }
+
+            _.each(validModels, function(modelItem){
+
+                // 时段不能包含或覆盖已有时间段
+                if ( !( ( intTime(startTime) >= intTime(modelItem.get("endTime")) ) || ( intTime(endTime) <= intTime(modelItem.get("startTime")) ) ) ){
+                    valid = false
+                }
+            });
+
+            return valid
         }
     });
 
@@ -101,7 +135,6 @@
         },
         render : function(){
             this.$el.html(this.template(this.model.toJSON()));
-            //this.$(".time-select-wrap").timeSelect();
             this.$(".time-pick").timePick();
             return this;
         },
@@ -122,11 +155,11 @@
         removeView : function(){
             this.remove();
         },
-        setEdit : function(){
-            this.$el.addClass("editing");
+        setEdit : function(toggle){
+            this.setEditView(true);
         },
         /**
-         * 修改时间段，确认并提交动作函数
+         * 修改时间段，确认并提交动作
          */
         setConfirm : function(){
             var attr = {
@@ -134,7 +167,19 @@
                 endTime : this.$('[data-role="endTime"]').val(),
                 maxOrder : this.$('[data-role="maxOrder"]').val()
             };
-            // 通过设置相关Model属性为true来筛选Model内需要的属性
+
+            this.workDayView.showWorkTimeError(false);
+
+            if ( parseInt(attr.maxOrder) > parseInt(this.workDayView.model.attributes.maxOrder) ){
+                return this.workDayView.showWorkTimeError(true, "接单量应小于当日单量");
+            }
+
+            // 当设置时间段于原来不一样时，验证时间有效性
+            if ( !(this.model.get("startTime") === attr.startTime && this.model.get("endTime") === attr.endTime) && !this.model.collection.timeValid(attr.startTime, attr.endTime, this.model) ){
+                return this.workDayView.showWorkTimeError(true, "时间段设置重复或错误");
+            }
+
+            // 通过设置相关Model属性为true来筛选Model内需要同步的属性
             var modelFix = {
                 workTimeID : true,
                 tag : true,
@@ -159,7 +204,7 @@
                 }
             });
             this.render();
-            this.$el.removeClass("editing");
+            this.setEditView(false);
         },
         setOpen : function(){
             var cur = this.model.get("open") === "Y" ? "N" : "Y";
@@ -181,9 +226,11 @@
                     })
                 }
             });
+        },
+        setEditView : function(toggle){
+            return toggle ? this.$el.addClass("editing") : this.$el.removeClass("editing");
         }
     });
-
 
     /**
      * 工作时间单日的model,主要用来处理单日maxOrder的变更。
@@ -195,6 +242,16 @@
         },
         initialize : function(){
             this.workTimes = new WorkTimeCollection();
+
+            // 按照开始时间强制重排序
+            this.workTimes.comparator = function(m1, m2){
+                if ( parseInt(m1.attributes.startTime.replace(/\:/, "")) > parseInt(m2.attributes.startTime.replace(/\:/, ""))){
+                    return 1 ;
+                } else {
+                    return 0;
+                }
+            };
+
         },
         _save : function(options){
             options = options ? _.clone(options) : {};
@@ -288,10 +345,6 @@
 
     var workDays = new WorkDayCollection();
 
-    function intTime(time){
-         return parseInt((time).replace(/\:/, ""), 10)
-    }
-
     var WorkDayView = Backbone.View.extend({
         tagName : "div",
         className : "wd-item-wrap",
@@ -307,10 +360,10 @@
         initialize : function(){
             var _this = this;
             this.$el.addClass("loading");
-            //this.model.workTimes = new WorkTimeCollection();
             this.listenTo(this.model.workTimes, 'add', this.saveWorkTime);
             this.listenTo(this.model.workTimes, 'reset', function(collection, options){
                 this.$el.removeClass("loading");
+
                 _.each(collection.models, function(workTimeModel){
                     /* 初始化id */
                     workTimeModel.set("id" , workTimeModel.get("workTimeID"), {silent: true});
@@ -335,8 +388,12 @@
             this.$(".time-pick").timePick();
             return this;
         },
+        clearWortTimeView: function(){
+            return this.$el.find('.wt-container').html("");
+        },
         initWorkTimeView : function(workTimeModel){
-            var workTimeView = new WorkTimeView({model : workTimeModel});
+            var workTimeView = new WorkTimeView({model : workTimeModel });
+            workTimeView.workDayView = this;
             this.$el.find('.wt-container').append(workTimeView.render().el);
         },
         preCreate : function(){
@@ -357,33 +414,30 @@
                 week : _this.model.get("week")
             };
 
-            function timeValid(startTime, endTime){
-                var valid = true;
-                if ( intTime(startTime) === intTime(endTime) || intTime( startTime) > intTime(endTime) ){
-                    valid = false
-                } else {
-                    _.each(_this.model.workTimes.models, function(model){
-                        if ( !(intTime(startTime) > intTime(model.get("endTime")) || intTime(endTime) < intTime(model.get("startTime"))) ){
-                            valid = false
-                        }
-                    });
-                }
-                return valid
+            if ( !this.model.workTimes.timeValid(workTimeAttr.startTime, workTimeAttr.endTime) ) {
+                return this.showError(true, "时间段设置重复或错误");
             }
 
-            if ( !timeValid(workTimeAttr.startTime, workTimeAttr.endTime) ) {
-                this.$el.find(".wd-add").addClass("err");
-                return
-            } else {
-                this.$el.find(".wd-add").removeClass("err");
-            };
+            if ( workTimeAttr.maxOrder > this.model.attributes.maxOrder ){
+                return this.showError(true, "接单量应小于当日单量");
+            }
+
+            this.showError(false);
+            // 添加成功，重置设置区数据
+            _this.$el.find('[data-role="cStartTime"]').val("00:00");
+            _this.$el.find('[data-role="cEndTime"]').val("00:00");
+            _this.$el.find('[data-role="cMaxOrder"]').val(0);
 
             this.model.addWorkTime(workTimeAttr);
             this.$el.find(".wd-b").removeClass("creating");
+
         },
+        /**
+         * 固化时间段
+         * @param workTimeModel
+         */
         saveWorkTime : function(workTimeModel){
             var _this = this;
-            // 固化增加的时间段
 
             workTimeModel.save(null, {
                 url : globalApiUrl,
@@ -392,16 +446,23 @@
                 data : {
                     "merchantID": merchantID,
                     "svcID": Adapter.getParameterByName("serviceid"),
-                    "workTimeObj" : workTimeModel.attributes,
+                    "workTimeObj" : workTimeModel.attributes
                 },
                 success : addWorkTimeView
             });
 
             function addWorkTimeView(model, resp, options){
+
+                _this.clearWortTimeView();
+
+                /* 初始化id */
                 model.set("id", resp[0], {silent: true} );
                 model.set("workTimeID", resp[0], {silent: true} );
-                var workTimeView = new WorkTimeView({model : model});
-                _this.$el.find('.wt-container').append(workTimeView.render().el);
+
+                _.each(model.collection.models, function(modelItem){
+                    _this.initWorkTimeView(modelItem);
+                })
+
             }
         },
         setMaxOrder : function(e){
@@ -415,9 +476,23 @@
             workDays._saveMaxOrder();
             this.$el.find(".wd-maxOrder").html(this.model.get('maxOrder'));
             this.$el.find(".wd-order-edit").toggleClass("editing");
+        },
+        showError: function(toggle, text){
+            if ( toggle ){
+                this.$el.find(".wd-add").addClass("err");
+                this.$el.find(".wd-errMsg").html(text);
+            } else {
+                this.$el.find(".wd-add").removeClass("err");
+            }
+        },
+        showWorkTimeError: function(toggle, text){
+            if ( toggle ){
+                this.$el.find(".wd-error").addClass("err").html(text);
+            } else {
+                this.$el.find(".wd-error").removeClass("err");
+            }
         }
     });
-
 
     var AppView = Backbone.View.extend({
         tagName : "div",
@@ -425,16 +500,23 @@
         template : _.template($("#workTimeSetTmp").html(), templateOptions),
         initialize : function (){
             var _this = this;
+
+            if (!Adapter.getParameterByName("serviceid")) {
+                throw new Error("路径参数缺少serviceid")
+            };
+
             this.render();
-            this.$el.addClass("loading");
-            this.listenTo(workDays, 'sync', function(collection, resp, options){;
-                _this.$el.removeClass("loading");
+            this.showLoading(true);
+
+            // 监听sync事件，添加DayView
+            this.listenTo(workDays, 'sync', function(collection, resp, options){
+
+                _this.showLoading(false);
+
                 _.each(collection.models, function(dayModel){
                     _this.addDayView(dayModel);
                 })
             });
-
-            if (!Adapter.getParameterByName("serviceid")) return;
 
             workDays._fetch({
                 url : globalApiUrl,
@@ -457,6 +539,9 @@
         addDayView : function(dayModel){
             var workDayView = new WorkDayView({model : dayModel});
             this.$(".wt-set").append(workDayView.render().$el);
+        },
+        showLoading : function(toggle){
+            return toggle ? this.$el.addClass("loading") : this.$el.removeClass("loading");
         }
     });
 

@@ -87,7 +87,7 @@ namespace MediaServerTest
             string fileType = "voice";
             string domainType = "ChatAudio";
 
-            string savedFilename = HttpUploader.Upload("http://localhost:2762/Uploadfile.ashx", fileBase64, domainType, fileType);
+            string savedFilename = HttpUploader.Upload("http://localhost:8038/Uploadfile.ashx", fileBase64, domainType, fileType);
             //  string relativeFileName = FileGetter.GetFile(savedFilename);
 
             //  Assert.AreEqual(true, File.Exists(@"E:\Projects\dianzhu\media\" + relativeFileName));

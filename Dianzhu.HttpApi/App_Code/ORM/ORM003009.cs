@@ -14,15 +14,15 @@ using Dianzhu.Api.Model;
 public class ResponseORM003009 : BaseResponse
 {
     public ResponseORM003009(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+    
     protected override void BuildRespData()
     {
         ReqDataORM003009 requestData = this.request.ReqData.ToObject<ReqDataORM003009>();
 
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-         BLLServiceOrderAppraise bllServiceOrderAppraise = new BLLServiceOrderAppraise();
+        BLLServiceOrderAppraise bllServiceOrderAppraise = Bootstrap.Container.Resolve<BLLServiceOrderAppraise>();
 
         string user_ID = requestData.userID;
         string order_ID = requestData.orderID;
@@ -74,7 +74,7 @@ public class ResponseORM003009 : BaseResponse
                         this.err_Msg = "请输入正确价格";
                         return;
                     }
-                    if (appValue < 0 || appValue > 5 || appValue % 5 != 0)
+                    if (appValue < 0 || appValue > 5 || appValue*10 % 5 != 0)
                     {
                         this.state_CODE = Dicts.StateCode[1];
                         this.err_Msg = "请输入正确价格";

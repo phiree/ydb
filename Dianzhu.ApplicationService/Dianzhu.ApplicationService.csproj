@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{417AC2D5-58E5-4CBC-B14F-C5747274A846}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dianzhu.ApplicationService</RootNamespace>
+    <AssemblyName>Dianzhu.ApplicationService</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper.EF6, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.EF6.0.3.0\lib\net45\AutoMapper.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DelegateDecompiler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DelegateDecompiler.0.17.0\lib\net40-Client\DelegateDecompiler.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DelegateDecompiler.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DelegateDecompiler.EntityFramework.0.17.0\lib\net45\DelegateDecompiler.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Reflection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Reflection.1.0.0.0\lib\Mono.Reflection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ADs\ADsService.cs" />
+    <Compile Include="ADs\IADsService.cs" />
+    <Compile Include="App\AppService.cs" />
+    <Compile Include="App\IAppService.cs" />
+    <Compile Include="Assign\AssignService.cs" />
+    <Compile Include="Assign\IAssignService.cs" />
+    <Compile Include="Chat\ChatService.cs" />
+    <Compile Include="Chat\IChatService.cs" />
+    <Compile Include="City\CityService.cs" />
+    <Compile Include="City\ICityService.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Client\ClientService.cs" />
+    <Compile Include="Client\IClientService.cs" />
+    <Compile Include="Common\baiduMap.cs" />
+    <Compile Include="Common\Common_Body.cs" />
+    <Compile Include="Common\common_Trait_400_Rsponses.cs" />
+    <Compile Include="Common\common_Trait_AdFiltering.cs" />
+    <Compile Include="Common\common_Trait_AssignFiltering.cs" />
+    <Compile Include="Common\common_Trait_ChatFiltering.cs" />
+    <Compile Include="Common\common_Trait_ComplainFiltering.cs" />
+    <Compile Include="Common\common_Trait_Filtering.cs" />
+    <Compile Include="Common\common_Trait_Headers.cs" />
+    <Compile Include="Common\common_Trait_LocationFiltering.cs" />
+    <Compile Include="Common\common_Trait_OrderFiltering.cs" />
+    <Compile Include="Common\common_Trait_PayFiltering.cs" />
+    <Compile Include="Common\common_Trait_RefundFiltering.cs" />
+    <Compile Include="Common\common_Trait_RemindFiltering.cs" />
+    <Compile Include="Common\common_Trait_ServiceFiltering.cs" />
+    <Compile Include="Common\common_Trait_Simple_Headers.cs" />
+    <Compile Include="Common\common_Trait_SnapshotFiltering.cs" />
+    <Compile Include="Common\common_Trait_StaffFiltering.cs" />
+    <Compile Include="Common\common_Trait_StoreFiltering.cs" />
+    <Compile Include="Common\common_Trait_UserFiltering.cs" />
+    <Compile Include="Common\common_Trait_WorkTimeFiltering.cs" />
+    <Compile Include="Common\FileBase64.cs" />
+    <Compile Include="Common\LoginBySinaWeiBo.cs" />
+    <Compile Include="Common\LoginByTencentQQ.cs" />
+    <Compile Include="Common\LoginByWeChat.cs" />
+    <Compile Include="Common\McisendstringAPI.cs" />
+    <Compile Include="Common\U3RD_Model.cs" />
+    <Compile Include="Common\UserChangeBody.cs" />
+    <Compile Include="Common\utils.cs" />
+    <Compile Include="Common\WePayChatUserObj.cs" />
+    <Compile Include="Complaint\ComplaintService.cs" />
+    <Compile Include="Complaint\IComplaintService.cs" />
+    <Compile Include="Dicts.cs" />
+    <Compile Include="jwt\DefaultJsonSerializer.cs" />
+    <Compile Include="jwt\IJsonSerializer.cs" />
+    <Compile Include="jwt\JWT.cs" />
+    <Compile Include="jwt\SignatureVerificationException.cs" />
+    <Compile Include="Mapping\AutoMapperConfiguration.cs" />
+    <Compile Include="Mapping\DtoToModelMappingProfile.cs" />
+    <Compile Include="Mapping\ModelToDtoMappingProfile.cs" />
+    <Compile Include="Mapping\SortMapping.cs" />
+    <Compile Include="ModeDTO\Client\ClientDTO.cs" />
+    <Compile Include="ModeDTO\Client\Customer.cs" />
+    <Compile Include="ModeDTO\Client\RefreshTokenDTO.cs" />
+    <Compile Include="ModeDTO\Client\UserTokentDTO.cs" />
+    <Compile Include="ModeDTO\Identity\adObj.cs" />
+    <Compile Include="ModeDTO\Identity\appObj.cs" />
+    <Compile Include="ModeDTO\Identity\appraiseObj.cs" />
+    <Compile Include="ModeDTO\Identity\assignObj.cs" />
+    <Compile Include="ModeDTO\Identity\chatObj.cs" />
+    <Compile Include="ModeDTO\Identity\cityObj.cs" />
+    <Compile Include="ModeDTO\Identity\complaintObj.cs" />
+    <Compile Include="ModeDTO\Identity\countObj.cs" />
+    <Compile Include="ModeDTO\Identity\customerServicesObj.cs" />
+    <Compile Include="ModeDTO\Identity\locationObj.cs" />
+    <Compile Include="ModeDTO\Identity\merchantObj.cs" />
+    <Compile Include="ModeDTO\Identity\orderObj.cs" />
+    <Compile Include="ModeDTO\Identity\orderSnapshot.cs" />
+    <Compile Include="ModeDTO\Identity\orderStatusObj.cs" />
+    <Compile Include="ModeDTO\Identity\payObj.cs" />
+    <Compile Include="ModeDTO\Identity\refundObj.cs" />
+    <Compile Include="ModeDTO\Identity\refundStatusObj.cs" />
+    <Compile Include="ModeDTO\Identity\remindObj.cs" />
+    <Compile Include="ModeDTO\Identity\serviceSnapshotObj.cs" />
+    <Compile Include="ModeDTO\Identity\servicesObj.cs" />
+    <Compile Include="ModeDTO\Identity\serviceTypeObj.cs" />
+    <Compile Include="ModeDTO\Identity\snapshortsObj.cs" />
+    <Compile Include="ModeDTO\Identity\staffObj.cs" />
+    <Compile Include="ModeDTO\Identity\storeDataObj.cs" />
+    <Compile Include="ModeDTO\Identity\storeObj.cs" />
+    <Compile Include="ModeDTO\Identity\customerObj.cs" />
+    <Compile Include="ModeDTO\Identity\workTimeObj.cs" />
+    <Compile Include="ModeDTO\StorageManager\audioObj.cs" />
+    <Compile Include="ModeDTO\StorageManager\avatarImageObj.cs" />
+    <Compile Include="ModeDTO\StorageManager\imageObj.cs" />
+    <Compile Include="ModeDTO\StorageManager\videoObj.cs" />
+    <Compile Include="Order\IOrderService.cs" />
+    <Compile Include="Order\OrderService.cs" />
+    <Compile Include="Pay\IPayService.cs" />
+    <Compile Include="Pay\PayService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Remind\IRemindService.cs" />
+    <Compile Include="Remind\RemindService.cs" />
+    <Compile Include="Service\IServiceService.cs" />
+    <Compile Include="Service\ServiceService.cs" />
+    <Compile Include="Snapshot\ISnapshotService.cs" />
+    <Compile Include="Snapshot\SnapshotService.cs" />
+    <Compile Include="Staff\IStaffService.cs" />
+    <Compile Include="Staff\StaffService.cs" />
+    <Compile Include="Storage\IStorageService.cs" />
+    <Compile Include="Storage\StorageService.cs" />
+    <Compile Include="Store\IStoreService.cs" />
+    <Compile Include="Store\StoreService.cs" />
+    <Compile Include="User\IUserService.cs" />
+    <Compile Include="User\UserService.cs" />
+    <Compile Include="WorkTime\IWorkTimeService.cs" />
+    <Compile Include="WorkTime\WorkTimeService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">
+      <Project>{d90cdf37-7406-4dae-9ae6-c894d83a796f}</Project>
+      <Name>DDDCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
+      <Project>{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}</Project>
+      <Name>Dianzhu.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
+      <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
+      <Name>Dianzhu.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
+      <Project>{2e67aa78-6780-42bd-a3ab-ad953781e511}</Project>
+      <Name>Dianzhu.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
+      <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
+      <Name>Dianzhu.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Pay\Dianzhu.Pay.csproj">
+      <Project>{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}</Project>
+      <Name>Dianzhu.Pay</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MediaServer\MediaServer.csproj">
+      <Project>{9920da22-589c-4193-aeaa-363d5c029dfc}</Project>
+      <Name>MediaServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PHSuit\PHSuit.csproj">
+      <Project>{0122c6d5-6348-4b65-88b7-3c43a6e642f3}</Project>
+      <Name>PHSuit</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

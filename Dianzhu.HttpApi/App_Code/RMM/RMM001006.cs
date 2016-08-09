@@ -23,7 +23,13 @@ public class ResponseRMM001006 : BaseResponse
 
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-        BLLServiceOrderRemind bllServcieOrderRemind = new BLLServiceOrderRemind();
+
+        //20150616_longphui_modify
+        //BLLServiceOrderRemind bllServcieOrderRemind = new BLLServiceOrderRemind();
+        BLLServiceOrderRemind bllServiceOrderRemind = Bootstrap.Container.Resolve<BLLServiceOrderRemind>();
+
+
+
         string user_id = requestData.userID;
         string start_time = requestData.startTime;
         string end_time = requestData.endTime;
@@ -64,6 +70,13 @@ public class ResponseRMM001006 : BaseResponse
                 return;
             }
 
+            if (startTime > endTime)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "开始时间不得大于结束时间";
+                return;
+            }
+
             DZMembership member;
             if (request.NeedAuthenticate)
             {
@@ -85,7 +98,7 @@ public class ResponseRMM001006 : BaseResponse
             }
             try
             {
-                IList<ServiceOrderRemind> remindList = bllServcieOrderRemind.GetListByUserIdAndDatetime(userId, startTime, endTime);
+                IList<ServiceOrderRemind> remindList = bllServiceOrderRemind.GetListByUserIdAndDatetime(userId, startTime, endTime.AddDays(1));
 
                 IList<RespDataRMM_remindObj> objList = new List<RespDataRMM_remindObj>();
                 RespDataRMM001006 respData = new RespDataRMM001006();

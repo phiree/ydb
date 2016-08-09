@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
+using DDDCommon;
 namespace Dianzhu.BLL
 {
     /// <summary>
@@ -11,16 +12,13 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLPayment
     {
-        BLLClaims bllClaims = null;
-        DAL.DALPayment dal;
+        IDAL.IDALPayment dal;
+        IDAL.IDALClaims dalClaims;
         string errMsg = string.Empty;
-        public BLLPayment(DAL.DALPayment dal,BLLClaims bllClaims)
+        public BLLPayment(IDAL.IDALPayment dal, IDAL.IDALClaims dalClaims)
         {
             this.dal = dal;
-            this.bllClaims = bllClaims;
-        }
-        public BLLPayment():this(new DAL.DALPayment(), new BLLClaims())
-        {
+            this.dalClaims = dalClaims;
         }
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL");
         /// <summary>
@@ -43,7 +41,7 @@ namespace Dianzhu.BLL
                 case enum_PayTarget.FinalPayment:
                     //只有 已经服务完成的 订单 才能申请 支付尾款 
                     errMsg = "只有 已经服务完成的 订单 才能申请 支付尾款 ";
-                    applyIsValid = order.OrderStatus == enum_OrderStatus.Ended;
+                    applyIsValid = order.OrderStatus == enum_OrderStatus.Ended || order.OrderStatus == enum_OrderStatus.Finished;
                     break;
                 case enum_PayTarget.Compensation:
                     errMsg = "只有已经完成的订单 才能申请赔偿.";
@@ -90,8 +88,9 @@ namespace Dianzhu.BLL
             }
             else if (paymentCount == 0)
             {
-                payment = new Payment { Amount=GetPayAmount(order, payTarget), Order=order, PayTarget= payTarget};
-                dal.Save(payment);
+                payment = new Payment(GetPayAmount(order, payTarget), order, payTarget);
+
+                dal.Add(payment);
             }
             else //已经存在多项
             {
@@ -108,16 +107,19 @@ namespace Dianzhu.BLL
         }
         public Payment GetOne(Guid id)
         {
-            return dal.GetOne(id);
+
+            return dal.FindById(id);
         }
-        public void SaveOrUpdate(Payment payment)
+        public void Save(Payment payment)
         {
             payment.LastUpdateTime = DateTime.Now;
-            dal.SaveOrUpdate(payment);
+
+
+
+            dal.Add(payment);
         }
         public void Update(Payment payment)
         {
-            payment.LastUpdateTime = DateTime.Now;
             dal.Update(payment);
         }
 
@@ -162,7 +164,7 @@ namespace Dianzhu.BLL
             else if (payTarget == enum_PayTarget.Compensation)
             {
                 log.Debug("查询订单的理赔");
-                Claims claims = bllClaims.GetOneByOrder(order);
+                Claims claims = dalClaims.GetOneByOrder(order);
                 if (claims == null)
                 {
                     log.Error("订单没有对应的理赔");
@@ -189,5 +191,109 @@ namespace Dianzhu.BLL
                 throw new Exception("没有计算公式");
             }
         }
+
+        /// <summary>
+        /// 条件读取支付项
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="payStatus"></param>
+        /// <param name="payType"></param>
+        /// <param name="orderID"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public IList<Payment> GetPays(Model.Trait_Filtering filter, string payStatus, string payType, Guid orderID, Guid userID)
+        {
+            var where = PredicateBuilder.True<Payment>();
+            if (orderID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.Id == orderID);
+            }
+            if (userID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.Customer.Id == userID);
+            }
+            if (payStatus != null && payStatus != "")
+            {
+                where = where.And(x => x.Status.ToString() == payStatus);
+            }
+            if (payType != null && payType != "")
+            {
+                where = where.And(x => x.PayTarget.ToString() == payType);
+            }
+            Payment baseone = null;
+            if (filter.baseID != null && filter.baseID != "")
+            {
+                try
+                {
+                    baseone = dal.FindById(new Guid(filter.baseID));
+                }
+                catch
+                {
+                    baseone = null;
+                }
+            }
+            long t = 0;
+            var list = filter.pageSize == 0 ? dal.Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList() : dal.Find(where, filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
+            return list;
+        }
+
+
+        /// <summary>
+        /// 统计支付项的数量
+        /// </summary>
+        /// <param name="payStatus"></param>
+        /// <param name="payType"></param>
+        /// <param name="orderID"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public long GetPaysCount(string payStatus, string payType, Guid orderID, Guid userID)
+        {
+            var where = PredicateBuilder.True<Payment>();
+            if (orderID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.Id == orderID);
+            }
+            if (userID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.Customer.Id == userID);
+            }
+            if (payStatus != null && payStatus != "")
+            {
+                where = where.And(x => x.Status.ToString() == payStatus);
+            }
+            if (payType != null && payType != "")
+            {
+                where = where.And(x => x.PayTarget.ToString() == payType);
+            }
+            long count = dal.GetRowCount(where);
+            return count;
+        }
+
+        /// <summary>
+        /// 读取支付项 根据ID
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="payID"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public Payment GetPay(Guid orderID, Guid payID, Guid userID)
+        {
+            var where = PredicateBuilder.True<Payment>();
+            if (orderID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.Id == orderID);
+            }
+            if (userID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.Customer.Id == userID);
+            }
+            if (payID != Guid.Empty)
+            {
+                where = where.And(x => x.Id == payID);
+            }
+            Payment payment = dal.FindOne(where);
+            return payment;
+        }
+
     }
 }

@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-public partial class register : System.Web.UI.Page
+public partial class register : BasePage
 {
     DZMembershipProvider bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
     protected void Page_Load(object sender, EventArgs e)
@@ -17,8 +17,8 @@ public partial class register : System.Web.UI.Page
     protected void btnRegister_Click(object sender, EventArgs e)
     {
         System.Web.Security.MembershipCreateStatus createStatus;
-        bllMember.CreateUser(tbxUserName.Text, string.Empty, string.Empty, tbxPwd.Text,
+        bllMember.CreateUser(tbxUserName.Text,null, null, tbxPwd.Text,
             out createStatus, (Dianzhu.Model.Enums.enum_UserType)(Convert.ToInt16(rblUserType.SelectedValue)));
-        PHSuit.Notification.Show(this, "注册成功", "注册成功", string.Empty);
+        lblMsg.Text = createStatus.ToString();
     }
 }

@@ -29,6 +29,7 @@ namespace Dianzhu.Api.Model
         public string status { get; set; }
         public string startTime { get; set; }
         public string endTime { get; set; }
+        public string updateTime { get; set; }
         public string exDoc { get; set; }
         public string orderAmount { get; set; }
         public string negotiateAmount { get; set; }
@@ -63,6 +64,7 @@ namespace Dianzhu.Api.Model
             {
                 this.endTime = string.Empty;
             }
+            this.updateTime = string.Format("{0:yyyyMMddHHmmss}", order.LatestOrderUpdated);
             this.exDoc = order.Description ?? string.Empty;
             this.orderAmount = order.OrderAmount.ToString("0.00");
             this.negotiateAmount = order.NegotiateAmount.ToString("0.00");
@@ -146,7 +148,7 @@ namespace Dianzhu.Api.Model
             this.userID = business.Id.ToString();
             this.alias = business.Name ?? string.Empty;
             //this.imgUrl = business.BusinessAvatar.ImageName;
-            this.imgUrl = string.IsNullOrEmpty(business.BusinessAvatar.ImageName) ? string.Empty : (Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + business.BusinessAvatar.ImageName);
+            this.imgUrl = string.IsNullOrEmpty(business.BusinessAvatar.ImageName) ? string.Empty : (Dianzhu.Config.Config.GetAppSetting("ImageHandler") + business.BusinessAvatar.ImageName);
             return this;
         }
     }
@@ -568,6 +570,20 @@ namespace Dianzhu.Api.Model
         public string resultStatus { get; set; }
     }
 
+    #endregion
+
+    #region ORM003010
+    public class ReqDataORM003010
+    {
+        public string userID { get; set; }
+        public string pWord { get; set; }
+        public string orderID { get; set; }
+    }
+
+    public class RespDataORM003010
+    {
+        public string resultStatus { get; set; }
+    }
     #endregion
 
     #region ORM005001

@@ -13,11 +13,11 @@ namespace Dianzhu.BLL
 
         //暴露 数据库实现,用于单元测试mock
         public IDALArea  repoArea;
-        private IUnitOfWork iuw;
+        
       
-        public BLLArea(IDALArea repoArea) {
+        public BLLArea(IDALArea repoArea )  {
             this.repoArea = repoArea;
-           // this.iuw = iuw;
+           
         }
  
         /// <summary>
@@ -28,11 +28,13 @@ namespace Dianzhu.BLL
        
         public IList<Model.Area> GetArea(int areaid) 
         {
+            
          // iuw.BeginTransaction();
             Expression<Func<Model.Area, bool>> where = i => i.Id == areaid;
         //    iuw.Commit();
             return repoArea.Find(where).ToList();
         }
+
         /// <summary>
         /// 获取直接下级地区.
         /// </summary>
@@ -85,16 +87,62 @@ namespace Dianzhu.BLL
             {
                 return null;
             }
+            //byte[] srcarr = Encoding.Default.GetBytes(areaname);
+            //byte[] desarr = Encoding.Convert(Encoding.Default, Encoding.UTF8, srcarr);
+            //string s = Encoding.UTF8.GetString(desarr, 0, desarr.Length);
             Expression<Func<Model.Area, bool>> where = i => i.Name == areaname;
          //   iuw.BeginTransaction();
            
             var list= repoArea.FindOne(where);
-        //     iuw.Commit();
+            //     iuw.Commit();
+            //return null;
             return list;
-            
+
         }
 
+        /// <summary>
+        /// 根据areacode获得city
+        /// </summary>
+        /// <param name="areacode">code代码</param>
+        /// <returns>area实体</returns>
+        public Model.Area GetCityByAreaCode(string areacode)
+        {
+            if (string.IsNullOrEmpty(areacode))
+            {
+                return null;
+            }
+            Expression<Func<Model.Area, bool>> where = i => i.Code == areacode && !i.Code.EndsWith("0000") && i.Code.EndsWith("00");
+            var list = repoArea.FindOne(where);
+            return list;
 
+        }
+
+        /// <summary>
+        /// 获得所有city
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public IList<Model.Area> GetAllCity(Model.Trait_Filtering filter)
+        {
+            Expression<Func<Model.Area, bool>> where = i =>  !i.Code.EndsWith("0000") && i.Code.EndsWith("00");
+
+            Model.Area baseone = null;
+            if (filter.baseID != null && filter.baseID != "")
+            {
+                try
+                {
+                    baseone = repoArea.FindById(int.Parse(filter.baseID));
+                }
+                catch
+                {
+                    baseone = null;
+                }
+            }
+            long t = 0;
+            var list = filter.pageSize==0?repoArea.Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList(): repoArea.Find(where,filter.pageNum,filter.pageSize,out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList(); 
+            return list;
+
+        }
 
         /// <summary>
         /// 获取所有的省份

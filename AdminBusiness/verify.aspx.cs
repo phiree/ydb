@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
-public partial class verify : System.Web.UI.Page
+public partial class verify : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {

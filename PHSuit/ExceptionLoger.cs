@@ -18,6 +18,7 @@ namespace PHSuit
         }
 
         static int a = 0;
+        
         public static void ExceptionLog(log4net.ILog log, Exception e)
         {
             string str = string.Empty;
@@ -25,7 +26,11 @@ namespace PHSuit
             {
                 str = "InnerException:";
             }
-            log.Error(str + e.Message);
+            string err = str + e.Message;
+             
+                err += "___stack:" + e.StackTrace;
+             
+            log.Error(err);
             if (e.InnerException != null)
             {
                 a++;

@@ -10,7 +10,7 @@ using Dianzhu.BLL;
 /// <summary>
 /// 展示行政区域, 可以考虑 用动态创建 reapeater的方式实现.
 /// </summary>
-public partial class area_Default : System.Web.UI.Page
+public partial class area_Default : BasePage
 {
 
     BLLArea bllArea = Bootstrap.Container.Resolve<BLLArea>();

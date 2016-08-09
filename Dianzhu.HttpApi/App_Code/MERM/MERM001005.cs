@@ -23,17 +23,14 @@ public class ResponseMERM001005 : BaseResponse
 
         try
         {
-
             DZMembership member = p.GetUserByEmail(requestData.email);
-            if (request.NeedAuthenticate)
+            if (member == null)
             {
-                if (member == null)
-                {
-                    this.state_CODE = Dicts.StateCode[8];
-                    this.err_Msg = "用户不存在,可能是传入的Email有误";
-                    return;
-                } 
+                this.state_CODE = Dicts.StateCode[8];
+                this.err_Msg = "用户不存在,可能是传入的Email有误";
+                return;
             }
+
             //验证用户的密码
             if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.pWord, "MD5"))
             {

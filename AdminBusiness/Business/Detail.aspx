@@ -20,7 +20,7 @@
                             </div>
                             <div class="biz-card-b"></div>
                         </a>
-                        <a class="biz-total-card">
+                        <a class="biz-total-card" href="/DZOrder/default.aspx?businessId=<%= CurrentBusiness.Id %>">
                             <div class="biz-card-t">
                                 <strong class="biz-card-tl"><%= AllOrderCount %></strong>
                                 <div class="biz-card-tr">
@@ -30,7 +30,7 @@
                             </div>
                             <div class="biz-card-b"></div>
                         </a>
-                        <a class="biz-total-card">
+                        <a class="biz-total-card" href="/DZOrder/default.aspx?businessId=<%= CurrentBusiness.Id %>">
                             <div class="biz-card-t">
                                 <strong class="biz-card-tl"><%= DoneOrderCount %></strong>
                                 <div class="biz-card-tr">
@@ -65,15 +65,15 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <p class="model-pra"><span class="model-pra-t">网址邮箱</span><%=string.IsNullOrEmpty(CurrentBusiness.WebSite)?"无" :CurrentBusiness.WebSite %></p>
-                                            <p class="model-pra"><span class="model-pra-t">联系电话</span><%=CurrentBusiness.Phone %></p>
+                                            <p class="model-pra"><span class="model-pra-t">店铺名称</span><%= CurrentBusiness.Name %></p>
+                                            <p class="model-pra"><span class="model-pra-t">联系电话</span><%= CurrentBusiness.Phone %></p>
+                                            <p class="model-pra"><span class="model-pra-t">店铺地址</span><%=string.IsNullOrEmpty( CurrentBusiness.Address )? "无" : CurrentBusiness.Address %></p>
                                             <p class="model-pra"><span class="model-pra-t">店铺介绍</span><span class="text-breakWord"><%=CurrentBusiness.Description %></span></p>
                                         </div>
                                         <div class="col-md-4">
                                             <p class="model-pra"><span class="model-pra-t">从业时间</span><%=CurrentBusiness.WorkingYears %>&nbsp;年</p>
                                             <p class="model-pra"><span class="model-pra-t">员工人数</span><%=CurrentBusiness.StaffAmount %>&nbsp;人</p>
-                                            <p class="model-pra"><span class="model-pra-t">店铺地址</span><%=string.IsNullOrEmpty( CurrentBusiness.Address )? "无" :
-                                                CurrentBusiness.Address %></p>
+                                            <p class="model-pra"><span class="model-pra-t">网址邮箱</span><%=string.IsNullOrEmpty(CurrentBusiness.WebSite)?"无" : CurrentBusiness.WebSite %></p>
                                         </div>
 
                                     </div>
@@ -83,8 +83,7 @@
                                         <div class="col-md-4">
                                             <p class="model-pra"><span class="model-pra-t">店主姓名</span>
                                                 <%=CurrentBusiness.Contact %></p>
-                                            <p class="model-pra"><span class="model-pra-t">证件类型</span>
-                                                <%=CurrentBusiness.ChargePersonIdCardType.ToString() %></p>
+                                            <!--<p class="model-pra"><span class="model-pra-t">证件类型</span><%=CurrentBusiness.ChargePersonIdCardType.ToString() %></p>-->
                                         </div>
                                         <div class="col-md-4">
                                             <p class="model-pra"><span class="model-pra-t">证件号码</span><%=CurrentBusiness.ChargePersonIdCardNo %></p>

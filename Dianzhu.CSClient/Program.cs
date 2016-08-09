@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
+
 using Dianzhu.CSClient.MessageAdapter;
 using log4net;
 
@@ -23,7 +23,8 @@ using DDDCommon.Domain;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
-
+ 
+using System.Windows.Forms;
 namespace Dianzhu.CSClient
 {
     static class Program
@@ -58,6 +59,9 @@ namespace Dianzhu.CSClient
             }
 
              Bootstrap.Boot();
+
+            
+
 
             string version = GetVersion();
             //  loginForm.FormText += "v" + version;

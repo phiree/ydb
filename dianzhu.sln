@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSClient", "CSClient", "{8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}"
 EndProject
@@ -11,8 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9997B328-FAC
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminWeb", "AdminWeb\", "{16075D17-B45F-4FDE-B48C-FA9534F6FE2D}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		ProjectReferences = "{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{1BAAD173-A641-435A-AD03-0CD0146674B9}|Dianzhu.Notify.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/AdminWeb"
 		Debug.AspNetCompiler.PhysicalPath = "AdminWeb\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AdminWeb\"
@@ -40,7 +40,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.HttpApi", "Dianzhu.HttpApi\", "{0D1C0821-004D-4D6B-BB6C-F561895DCC4E}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{e9ac682e-e6d1-4eef-bacf-fb86d20f8766}|Dianzhu.Api.Model.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;"
+		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{e9ac682e-e6d1-4eef-bacf-fb86d20f8766}|Dianzhu.Api.Model.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{1BAAD173-A641-435A-AD03-0CD0146674B9}|Dianzhu.Notify.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;{417ac2d5-58e5-4cbc-b14f-c5747274a846}|Dianzhu.ApplicationService.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/Dianzhu.HttpApi"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.HttpApi\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Dianzhu.HttpApi\"
@@ -112,8 +112,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaServerWeb", "MediaServ
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Pay", "Dianzhu.Web.Pay\", "{FBEC30ED-52CD-49B0-B767-B2EC013796A4}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{74f0963e-57ca-4d57-899c-d85ff096fe1f}|Dianzhu.CSClient.IMessageAdapter.dll;{125f0d3b-e83c-4743-9944-e82392cba6c5}|Dianzhu.CSClient.XMPP.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{a871c9e1-98a4-412f-a1b3-541189a4c4cf}|Dianzhu.CSClient.MessageAdapter.dll;{1baad173-a641-435a-ad03-0cd0146674b9}|Dianzhu.Notify.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{74f0963e-57ca-4d57-899c-d85ff096fe1f}|Dianzhu.CSClient.IMessageAdapter.dll;{125f0d3b-e83c-4743-9944-e82392cba6c5}|Dianzhu.CSClient.XMPP.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{a871c9e1-98a4-412f-a1b3-541189a4c4cf}|Dianzhu.CSClient.MessageAdapter.dll;{1baad173-a641-435a-ad03-0cd0146674b9}|Dianzhu.Notify.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_12360"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.Web.Pay\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_12360\"
@@ -133,12 +133,10 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Pay", "Dianzhu.
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTest", "WPFTest\WPFTest.csproj", "{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}"
-EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Notify", "Dianzhu.Web.Notify\", "{0B7AB42A-DED4-41A7-8A94-265686227268}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
-		ProjectReferences = "{1baad173-a641-435a-ad03-0cd0146674b9}|Dianzhu.Notify.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		ProjectReferences = "{1baad173-a641-435a-ad03-0cd0146674b9}|Dianzhu.Notify.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_50182"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.Web.Notify\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50182\"
@@ -192,8 +190,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Push", "Dianzhu.Pus
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminBusiness", "AdminBusiness\", "{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{1BAAD173-A641-435A-AD03-0CD0146674B9}|Dianzhu.Notify.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/AdminBusiness"
 		Debug.AspNetCompiler.PhysicalPath = "AdminBusiness\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AdminBusiness\"
@@ -229,16 +227,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{E433
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Api.Model", "Dianzhu.Api.Model\Dianzhu.Api.Model.csproj", "{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{E81BA076-1871-4FBB-A593-FDD828856D53}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.ViewWPF", "Dianzhu.CSClient.ViewWPF\Dianzhu.CSClient.ViewWPF.csproj", "{97792986-3421-464A-8711-0FC6EABA9BCB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "updatescripts", "updatescripts", "{88588187-ABFC-409D-B934-1164B09CCBE2}"
 	ProjectSection(SolutionItems) = preProject
 		updatescripts\dbupdatescript_2019-3-3.sql = updatescripts\dbupdatescript_2019-3-3.sql
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstantMessageMock", "InstantMessageMock\InstantMessageMock.csproj", "{F399FE2F-05A1-41B6-AB63-C879A1701DC4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.IM.Test", "Dianzhu.IM.Test\Dianzhu.IM.Test.csproj", "{6931F336-83BE-4E6C-A945-588D636E5C73}"
 EndProject
@@ -251,6 +245,37 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSYK.Infrastructure", "JSYK.Infrastructure\JSYK.Infrastructure.csproj", "{7CE433BF-0692-4D37-ACE9-E1984391CD3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDDCommon", "DDDCommon\DDDCommon.csproj", "{D90CDF37-7406-4DAE-9AE6-C894D83A796F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.ApplicationService", "Dianzhu.ApplicationService\Dianzhu.ApplicationService.csproj", "{417AC2D5-58E5-4CBC-B14F-C5747274A846}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Web.RestfulApi", "Dianzhu.Web.RestfulApi\Dianzhu.Web.RestfulApi.csproj", "{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Web.Common", "Dianzhu.Web.Common\Dianzhu.Web.Common.csproj", "{B74CA750-EBD2-4EFD-823A-FC680F498E52}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Support", "Support", "{4D15C961-7992-483E-BA1A-693120534655}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebForTesting", "WebForTesting\", "{5816AA96-0563-4A52-8C99-04EF1F33A193}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		ProjectReferences = "{2e67aa78-6780-42bd-a3ab-ad953781e511}|Dianzhu.DAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_7676"
+		Debug.AspNetCompiler.PhysicalPath = "WebForTesting\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_7676\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_7676"
+		Release.AspNetCompiler.PhysicalPath = "WebForTesting\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_7676\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "7676"
+		SlnRelativePath = "WebForTesting\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -463,19 +488,6 @@ Global
 		{FBEC30ED-52CD-49B0-B767-B2EC013796A4}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{FBEC30ED-52CD-49B0-B767-B2EC013796A4}.Release|x86.ActiveCfg = Debug|Any CPU
 		{FBEC30ED-52CD-49B0-B767-B2EC013796A4}.Release|x86.Build.0 = Debug|Any CPU
-		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Debug|x86.Build.0 = Debug|Any CPU
-		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|x86.ActiveCfg = Release|Any CPU
-		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|x86.Build.0 = Release|Any CPU
 		{0B7AB42A-DED4-41A7-8A94-265686227268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0B7AB42A-DED4-41A7-8A94-265686227268}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B7AB42A-DED4-41A7-8A94-265686227268}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -596,18 +608,6 @@ Global
 		{97792986-3421-464A-8711-0FC6EABA9BCB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{97792986-3421-464A-8711-0FC6EABA9BCB}.Release|x86.ActiveCfg = Release|Any CPU
 		{97792986-3421-464A-8711-0FC6EABA9BCB}.Release|x86.Build.0 = Release|Any CPU
-		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Debug|x86.Build.0 = Debug|Any CPU
-		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Release|x86.ActiveCfg = Release|Any CPU
-		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Release|x86.Build.0 = Release|Any CPU
 		{6931F336-83BE-4E6C-A945-588D636E5C73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6931F336-83BE-4E6C-A945-588D636E5C73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6931F336-83BE-4E6C-A945-588D636E5C73}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -680,6 +680,54 @@ Global
 		{D90CDF37-7406-4DAE-9AE6-C894D83A796F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D90CDF37-7406-4DAE-9AE6-C894D83A796F}.Release|x86.ActiveCfg = Release|Any CPU
 		{D90CDF37-7406-4DAE-9AE6-C894D83A796F}.Release|x86.Build.0 = Release|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Debug|x86.Build.0 = Debug|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Release|Any CPU.Build.0 = Release|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Release|x86.ActiveCfg = Release|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Release|x86.Build.0 = Release|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Debug|x86.Build.0 = Debug|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Release|x86.ActiveCfg = Release|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Release|x86.Build.0 = Release|Any CPU
+		{B74CA750-EBD2-4EFD-823A-FC680F498E52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B74CA750-EBD2-4EFD-823A-FC680F498E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B74CA750-EBD2-4EFD-823A-FC680F498E52}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B74CA750-EBD2-4EFD-823A-FC680F498E52}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B74CA750-EBD2-4EFD-823A-FC680F498E52}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B74CA750-EBD2-4EFD-823A-FC680F498E52}.Debug|x86.Build.0 = Debug|Any CPU
+		{B74CA750-EBD2-4EFD-823A-FC680F498E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B74CA750-EBD2-4EFD-823A-FC680F498E52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B74CA750-EBD2-4EFD-823A-FC680F498E52}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B74CA750-EBD2-4EFD-823A-FC680F498E52}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B74CA750-EBD2-4EFD-823A-FC680F498E52}.Release|x86.ActiveCfg = Release|Any CPU
+		{B74CA750-EBD2-4EFD-823A-FC680F498E52}.Release|x86.Build.0 = Release|Any CPU
+		{5816AA96-0563-4A52-8C99-04EF1F33A193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5816AA96-0563-4A52-8C99-04EF1F33A193}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5816AA96-0563-4A52-8C99-04EF1F33A193}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5816AA96-0563-4A52-8C99-04EF1F33A193}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5816AA96-0563-4A52-8C99-04EF1F33A193}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5816AA96-0563-4A52-8C99-04EF1F33A193}.Debug|x86.Build.0 = Debug|Any CPU
+		{5816AA96-0563-4A52-8C99-04EF1F33A193}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{5816AA96-0563-4A52-8C99-04EF1F33A193}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{5816AA96-0563-4A52-8C99-04EF1F33A193}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5816AA96-0563-4A52-8C99-04EF1F33A193}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5816AA96-0563-4A52-8C99-04EF1F33A193}.Release|x86.ActiveCfg = Debug|Any CPU
+		{5816AA96-0563-4A52-8C99-04EF1F33A193}.Release|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -703,11 +751,11 @@ Global
 		{8970D254-2FE4-4028-81DA-F4311DCB6682} = {77EDA0B0-8985-4ADB-B34C-BBB2BE6B2B44}
 		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB} = {77EDA0B0-8985-4ADB-B34C-BBB2BE6B2B44}
 		{FBEC30ED-52CD-49B0-B767-B2EC013796A4} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
-		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{0B7AB42A-DED4-41A7-8A94-265686227268} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{1BAAD173-A641-435A-AD03-0CD0146674B9} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{D3820846-BAD7-49E9-8BCF-D5EF26579350} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{489E4EB5-E576-4AB0-9B45-FB015A8C84F5} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
+		{FF82FDAB-C9E3-4C42-ABE8-BB47F4946CAC} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{CBE79023-31C6-455F-A6F0-3BFF280F66E8} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{BE142427-1CE4-40F8-AC58-D0509BA05D21} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
@@ -715,13 +763,17 @@ Global
 		{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{97792986-3421-464A-8711-0FC6EABA9BCB} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{88588187-ABFC-409D-B934-1164B09CCBE2} = {CB5C2FEB-3BA1-4318-91C6-59976963FD88}
-		{F399FE2F-05A1-41B6-AB63-C879A1701DC4} = {E4338C9B-90F1-4640-A650-F903E722C878}
 		{6931F336-83BE-4E6C-A945-588D636E5C73} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{DE79C6AB-B5A9-4BAF-80FA-22835452785F} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{F5F67C69-F9EE-4222-9F83-91C816FC686C} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{7CE433BF-0692-4D37-ACE9-E1984391CD3B} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{D90CDF37-7406-4DAE-9AE6-C894D83A796F} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+		{B74CA750-EBD2-4EFD-823A-FC680F498E52} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+		{4D15C961-7992-483E-BA1A-693120534655} = {E4338C9B-90F1-4640-A650-F903E722C878}
+		{5816AA96-0563-4A52-8C99-04EF1F33A193} = {4D15C961-7992-483E-BA1A-693120534655}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi

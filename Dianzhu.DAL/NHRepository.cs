@@ -13,12 +13,15 @@ namespace Dianzhu.DAL
     public abstract class NHRepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
         where TEntity : Entity<TPrimaryKey>
     {
-
+ 
+        
         protected ISession Session
         {
             get
             {
-                return new HybridSessionBuilder().GetSession();
+             //   return new Dianzhu.DAL_Hyber.HybridSessionBuilder().GetSession();
+              //  return DianzhuUW.Session;
+                   return NHibernateUnitOfWork.UnitOfWork.CurrentSession;
             }
             ////    get { return NHUnitOfWork.Current.Session; }
 
@@ -26,21 +29,31 @@ namespace Dianzhu.DAL
 
         public void Add(TEntity t)
         {
-            using(var tr=Session.BeginTransaction())
-            { 
+             
             Session.Save(t);
-                tr.Commit();
-            }
+                
 
+        }
+
+        /// <summary>
+        /// 仿DALBase.Save(T o, object id)
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="id"></param>
+        public void Add(TEntity t, TPrimaryKey id)
+        {
+           
+                Session.Save(t,id);
+                
         }
 
         public void Delete(TEntity t)
         {
-            using (var tr = Session.BeginTransaction())
-            {
+            
                 Session.Delete(t);
-            }
+            
         }
+
 
 
         public TEntity FindById(TPrimaryKey identityId)
@@ -48,15 +61,10 @@ namespace Dianzhu.DAL
             TEntity result;
 
 
-            using (var tr = Session.BeginTransaction())
-            {
+           
 
-                result = Session.Get<TEntity>(identityId); 
-                tr.Commit();
-            }
-
-
-
+                result = Session.Get<TEntity>(identityId);
+            
 
             return result;
 
@@ -68,14 +76,13 @@ namespace Dianzhu.DAL
             return Find(where, 1, 999, out totalRecord);
         }
 
+
         public IList<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords)
         {
             IList<TEntity> result;
 
 
-            using (var tr = Session.BeginTransaction())
-            {
-
+            
                 var query = Session.Query<TEntity>().Where(where);
                 totalRecords = query.Count();
 
@@ -85,10 +92,67 @@ namespace Dianzhu.DAL
                 }
 
                 result = query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList(); 
-                tr.Commit();
+                
+
+
+            return result;
+        }
+
+        /// <summary>
+        /// orderby and skip
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="ascending"></param>
+        /// <param name="offset"></param>
+        /// <param name="baseone"></param>
+        /// <returns></returns>
+        public IList<TEntity> Find(Expression<Func<TEntity, bool>> where, string sortBy,bool ascending,int offset, TEntity baseone)
+        {
+            long totalRecord;
+            return Find(where, 1, 999, out totalRecord, sortBy, ascending,offset, baseone);
+        }
+        /// <summary>
+        /// orderby and skip
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="totalRecords"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="ascending"></param>
+        /// <param name="offset"></param>
+        /// <param name="baseone"></param>
+        /// <returns></returns>
+        public IList<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords, string sortBy, bool ascending, int offset, TEntity baseone)
+        {
+            IList<TEntity> result;
+            var query = Session.Query<TEntity>().Where(where);
+            totalRecords = query.Count();
+            //排序
+            if (sortBy != "")
+            {
+                query = query.OrderBy(sortBy, ascending);
             }
-
-
+            //跳过
+            //query = query.Skip(offset);
+            //从baseID开始
+            int baseIndex = 0;
+            if (baseone != null)
+            {
+                baseIndex = query.ToList().IndexOf(baseone) + 1;
+            }
+            //query = query.Skip(baseIndex);
+            if (baseIndex < offset)
+            {
+                baseIndex = offset;
+            }
+            //分页
+            if (pageIndex <= 0)
+            {
+                pageIndex = 1;
+            }
+            result = query.Skip(pageSize * (pageIndex - 1)+baseIndex).Take(pageSize).ToList();
             return result;
         }
 
@@ -98,13 +162,11 @@ namespace Dianzhu.DAL
             long totalRecords;
 
 
-            using (var tr = Session.BeginTransaction())
-            {
+            
 
                 var query = Session.Query<TEntity>().Where(where);
                 totalRecords = query.Count();   
-                tr.Commit();
-            }
+                
 
 
             return totalRecords;
@@ -115,38 +177,35 @@ namespace Dianzhu.DAL
             TEntity result;
 
 
-            using (var tr = Session.BeginTransaction())
-            {
+            
 
-                result = Session.Query<TEntity>().Where(where).SingleOrDefault(); 
-                tr.Commit();
-            }
+                result = Session.Query<TEntity>().Where(where).SingleOrDefault();
 
+            //NHibernateUtil.Initialize(result);
+            //在这里改为立即加载没有作用
+            //Session.Clear();
 
             return result;
         }
 
         public void Update(TEntity t)
         {
+            
 
-
-            using (var tr = Session.BeginTransaction())
-            {
-
-                Session.Merge(t); 
-                tr.Commit();
-            }
+                Session.Update(t); 
+             
 
 
 
         }
 
-        public void SaveList(IList<TEntity> list)
+        public void SaveOrUpdate(TEntity t)
         {
-            foreach (TEntity t in list)
-            {
-                Add(t);
-            }
+            Session.SaveOrUpdate(t);
         }
+
+
+
+       
     }
 }

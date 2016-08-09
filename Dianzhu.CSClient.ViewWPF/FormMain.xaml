@@ -7,7 +7,7 @@
         xmlns:UC="clr-namespace:Dianzhu.CSClient.ViewWPF" 
         x:Class="Dianzhu.CSClient.ViewWPF.FormMain"
         mc:Ignorable="d"
-        Title="一点办客服工具" WindowStartupLocation="CenterScreen" Height="900" Width="1600" WindowStyle="None" AllowsTransparency="True">
+        Title="一点办客服工具" WindowStartupLocation="CenterScreen" Height="900" Width="1600" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize">
 
     <Window.Resources>
         <ControlTemplate  x:Key="CornerButton" TargetType="{x:Type Button}">
@@ -136,7 +136,7 @@
 
             <Grid Grid.Row="0">
                 <Border CornerRadius="5">
-                    <Image x:Name="imgDZLogo" Height="50" Width="50" Source="pack://siteoforigin:,,,/Resources/logourl.png"/>
+                    <Image x:Name="imgDZLogo" Height="50" Width="50" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png"/>
                 </Border>
             </Grid>
 
@@ -144,19 +144,19 @@
                 <StackPanel DockPanel.Dock="Top">
                     <Button x:Name="btnWorkDesktop" Style="{DynamicResource ButtonOperate}">
                         <StackPanel>
-                            <Image Height="60" Width="60" Source="pack://siteoforigin:,,,/Resources/work.png"/>
+                            <Image Height="60" Width="60" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/work.png"/>
                             <TextBlock Text="工作台" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>
                         </StackPanel>
                     </Button>
                     <Button x:Name="btnCSInfo" Style="{DynamicResource ButtonOperate}">
                         <StackPanel>
-                            <Image Height="60" Width="60" Source="pack://siteoforigin:,,,/Resources/ass.png"/>
+                            <Image Height="60" Width="60" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/ass.png"/>
                             <TextBlock Text="客服信息" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>
                         </StackPanel>
                     </Button>
                     <Button x:Name="btnSystemOperate" Style="{DynamicResource ButtonOperate}">
                         <StackPanel>
-                            <Image Height="60" Width="60" Source="pack://siteoforigin:,,,/Resources/set.png"/>
+                            <Image Height="60" Width="60" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/set.png"/>
                             <TextBlock Text="系统设置" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>
                         </StackPanel>
                     </Button>
@@ -166,7 +166,7 @@
             <Grid Grid.Row="2">
                 <Button x:Name="btnClosedForm" Style="{DynamicResource ButtonOperate}" Click="btnWindowsClosed_Click">
                     <StackPanel>
-                        <Image Height="60" Width="60" Source="pack://siteoforigin:,,,/Resources/exit.png"/>
+                        <Image Height="60" Width="60" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/exit.png"/>
                     </StackPanel>
                 </Button>
             </Grid>
@@ -191,10 +191,15 @@
             </Grid.RowDefinitions>
 
             <!--窗体控制按钮-->
-            <Grid Grid.Row="0" Background="Transparent" MouseDown="Grid_MouseDown">
+            <Grid Grid.Row="0" Background="Transparent" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
                 <WrapPanel VerticalAlignment="Center">
                     <Button Content="开始接单" Width="150" Height="25" Visibility="Collapsed"></Button>
                     <Button Content="开始接单" Width="150" Height="25" Visibility="Collapsed"></Button>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label>
+                        <TextBlock Text="假装有版本号：20160720" Foreground="White"/>
+                    </Label>
                 </WrapPanel>
                 <WrapPanel HorizontalAlignment="Right">
                     <Canvas Height="30" Width="30">
@@ -202,7 +207,7 @@
                             <EllipseGeometry RadiusX="15" RadiusY="15" Center="15,15"></EllipseGeometry>
                         </Canvas.Clip>
                         <Canvas.Background>
-                            <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/logourl.png"></ImageBrush>
+                            <ImageBrush ImageSource="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png"></ImageBrush>
                         </Canvas.Background>
                     </Canvas>
                     <Label Content="我是助理" VerticalAlignment="Center" Margin="0,0,30,0" Foreground="White"></Label>
@@ -259,8 +264,9 @@
 
                 <!--操作手册/服务商-->
                 <Grid Grid.Column="1">
-                    <Grid x:Name="pnlNotice"/>
-                    <Grid x:Name="pnlOrder"/>
+                    <!--<Grid x:Name="pnlNotice"/>
+                    <Grid x:Name="pnlOrder"/>-->
+                    <Grid x:Name="pnlTools"/>
                 </Grid>
 
                 <!--聊天区域-->

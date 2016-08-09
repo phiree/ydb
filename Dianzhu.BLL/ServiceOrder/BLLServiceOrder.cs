@@ -28,22 +28,35 @@ namespace Dianzhu.BLL
         IDALServiceOrder repoServiceOrder = null;
 
         IDALMembership repoMembership;
+        IDALOrderAssignment repoOrderAssignment;
       
         BLLPayment bllPayment = null;
         IDALRefund bllRefund = null;
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = null;
-        BLLClaims bllClaims = null;
+        IDALClaims dalClaims;
+
+        //20160616_longphui_add
+        BLLOrderAssignment bllOrderAssignment = null;
+
 
         public BLLServiceOrder(IDAL.IDALServiceOrder repoServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis,
-           IDALMembership repoMembership, IDALRefund bllRefund, BLLPayment bllPayment ,BLLClaims bllClaims)
+ 
+           IDALMembership repoMembership, IDALRefund bllRefund, IDALOrderAssignment repoOrderAssignment, BLLPayment bllPayment ,IDALClaims dalClaims)
+ 
+ 
         {
             this.repoServiceOrder = repoServiceOrder;
             this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
             this.repoMembership = repoMembership;
+            this.repoOrderAssignment = repoOrderAssignment;
+
             this.bllPayment = bllPayment;
             this.bllRefund = bllRefund;
-            
-            this.bllClaims = bllClaims;
+ 
+            this.dalClaims = dalClaims;
+ 
+ 
+ 
         }
 
         public int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType)
@@ -57,16 +70,24 @@ namespace Dianzhu.BLL
 
                 case enum_OrderSearchType.De:
                     where = where.And(x => x.OrderStatus == enum_OrderStatus.Finished
-
-                         && x.OrderStatus == enum_OrderStatus.Appraised)
-                        ;
+                        || x.OrderStatus == enum_OrderStatus.Appraised
+                        || x.OrderStatus == enum_OrderStatus.EndWarranty
+                        || x.OrderStatus == enum_OrderStatus.EndCancel
+                        || x.OrderStatus == enum_OrderStatus.EndRefund
+                        || x.OrderStatus == enum_OrderStatus.EndIntervention
+                        || x.OrderStatus == enum_OrderStatus.ForceStop
+                        );
                     break;
                 case enum_OrderSearchType.Nt:
                     where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                          && x.OrderStatus != enum_OrderStatus.DraftPushed
                          && x.OrderStatus != enum_OrderStatus.Finished
-
                          && x.OrderStatus != enum_OrderStatus.Appraised
+                         && x.OrderStatus != enum_OrderStatus.EndWarranty
+                         && x.OrderStatus != enum_OrderStatus.EndCancel
+                         && x.OrderStatus != enum_OrderStatus.EndRefund
+                         && x.OrderStatus != enum_OrderStatus.EndIntervention
+                         && x.OrderStatus != enum_OrderStatus.ForceStop
                          && x.OrderStatus != enum_OrderStatus.Search);
 
                     break;
@@ -95,7 +116,7 @@ namespace Dianzhu.BLL
                 case enum_OrderSearchType.De:
                     where = where.And(x => x.OrderStatus == enum_OrderStatus.Finished
 
-                         && x.OrderStatus == enum_OrderStatus.Appraised)
+                         || x.OrderStatus == enum_OrderStatus.Appraised)
                         ;
                     break;
                 case enum_OrderSearchType.Nt:
@@ -119,6 +140,225 @@ namespace Dianzhu.BLL
             return repoServiceOrder.Find(where, pageNum, pageSize, out totalRecord).ToList();
 
             // return DALServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
+        }
+
+        /// <summary>
+        /// 查询订单合集
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="statusSort"></param>
+        /// <param name="status"></param>
+        /// <param name="storeID"></param>
+        /// <param name="formanID"></param>
+        /// <param name="afterThisTime"></param>
+        /// <param name="beforeThisTime"></param>
+        /// <param name="UserID"></param>
+        /// <param name="userType"></param>
+        /// <param name="strAssign"></param>
+        /// <returns></returns>
+        public IList<ServiceOrder> GetOrders(Trait_Filtering filter, string statusSort, string status,Guid storeID,string formanID,DateTime afterThisTime, DateTime beforeThisTime, Guid UserID,string userType,string strAssign)
+        {
+            var where = PredicateBuilder.True<ServiceOrder>();
+
+            if (UserID != Guid.Empty)
+            {
+                if (userType == "customer")
+                {
+                    where = where.And(x => x.Customer.Id == UserID);
+                }
+                else
+                {
+                    where = where.And(x => x.Business.Owner.Id == UserID);
+                }
+            }
+            if(!string.IsNullOrEmpty(status))
+            {
+                where = where.And(x => x.OrderStatus.ToString() == status);
+            }
+            //Dianzhu.Model.Enums.enum_OrderSearchType searchType
+            switch (statusSort)//switch (searchType)
+            {
+                //case enum_OrderSearchType.De:
+                case "done":
+                    where = where.And(x => x.OrderStatus == enum_OrderStatus.Finished
+
+                         || x.OrderStatus == enum_OrderStatus.Appraised)
+                        ;
+                    break;
+                //case enum_OrderSearchType.Nt:
+                case "pending":
+                    where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                         && x.OrderStatus != enum_OrderStatus.DraftPushed
+                         && x.OrderStatus != enum_OrderStatus.Finished
+
+                         && x.OrderStatus != enum_OrderStatus.Appraised
+                         && x.OrderStatus != enum_OrderStatus.Search);
+
+                    break;
+                default:
+                    //case enum_OrderSearchType.ALL:
+                        where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                         && x.OrderStatus != enum_OrderStatus.DraftPushed
+                         && x.OrderStatus != enum_OrderStatus.Search)
+                      ;
+                    break;
+            }
+            if (!string.IsNullOrEmpty(strAssign))
+            {
+                if (strAssign == "false")
+                {
+                    where = where.And(x => x.Staff == null);
+                }
+                else
+                {
+                    where = where.And(x => x.Staff != null);
+                }
+            }
+            if (storeID != Guid.Empty)
+            {
+                where = where.And(x => x.Business.Id == storeID);
+            }
+            if (formanID != null)
+            {
+                where = where.And(x => x.Staff.Id == new Guid(formanID));
+            }
+            if (afterThisTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.OrderCreated >= afterThisTime);
+            }
+            if (beforeThisTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.OrderCreated <= beforeThisTime);
+            }
+            ServiceOrder baseone = null;
+            if (!string.IsNullOrEmpty(filter.baseID))
+            {
+                try
+                {
+                    baseone = repoServiceOrder.FindById(new Guid(filter.baseID));
+                }
+                catch
+                {
+                    baseone = null;
+                }
+            }
+            long totalRecord;
+            var list = filter.pageSize == 0 ? repoServiceOrder.Find(where,filter.sortby,filter.ascending,filter.offset,baseone).ToList() : repoServiceOrder.Find(where, filter.pageNum, filter.pageSize, out totalRecord, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
+            return list;
+
+            // return DALServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
+        }
+
+        /// <summary>
+        /// 查询订单数量
+        /// </summary>
+        /// <param name="statusSort"></param>
+        /// <param name="status"></param>
+        /// <param name="storeID"></param>
+        /// <param name="formanID"></param>
+        /// <param name="afterThisTime"></param>
+        /// <param name="beforeThisTime"></param>
+        /// <param name="UserID"></param>
+        /// <param name="userType"></param>
+        /// <param name="strAssign"></param>
+        /// <returns></returns>
+        public long GetOrdersCount(string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID, string userType, string strAssign)
+        {
+
+            var where = PredicateBuilder.True<ServiceOrder>();
+            if (UserID != Guid.Empty)
+            {
+                if (userType == "customer")
+                {
+                    where = where.And(x => x.Customer.Id == UserID);
+                }
+                else
+                {
+                    where = where.And(x => x.Business.Owner.Id == UserID);
+                }
+            }
+            if (!string.IsNullOrEmpty(status))
+            {
+                where = where.And(x => x.OrderStatus.ToString() == status);
+            }
+            //Dianzhu.Model.Enums.enum_OrderSearchType searchType
+            switch (statusSort)//switch (searchType)
+            {
+                //case enum_OrderSearchType.De:
+                case "done":
+                    where = where.And(x => x.OrderStatus == enum_OrderStatus.Finished
+
+                         || x.OrderStatus == enum_OrderStatus.Appraised)
+                        ;
+                    break;
+                //case enum_OrderSearchType.Nt:
+                case "pending":
+                    where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                         && x.OrderStatus != enum_OrderStatus.DraftPushed
+                         && x.OrderStatus != enum_OrderStatus.Finished
+
+                         && x.OrderStatus != enum_OrderStatus.Appraised
+                         && x.OrderStatus != enum_OrderStatus.Search);
+
+                    break;
+                default:
+                    //case enum_OrderSearchType.ALL:
+                    where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                         && x.OrderStatus != enum_OrderStatus.DraftPushed
+                         && x.OrderStatus != enum_OrderStatus.Search)
+                      ;
+                    break;
+            }
+            if (!string.IsNullOrEmpty(strAssign))
+            {
+                if (strAssign == "false")
+                {
+                    where = where.And(x => x.Staff == null);
+                }
+                else
+                {
+                    where = where.And(x => x.Staff != null);
+                }
+            }
+            if (storeID != Guid.Empty)
+            {
+                where = where.And(x => x.Business.Id == storeID);
+            }
+            if (formanID != null)
+            {
+                where = where.And(x => x.Staff.Id == new Guid(formanID));
+            }
+            if (afterThisTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.OrderCreated >= afterThisTime);
+            }
+            if (beforeThisTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.OrderCreated <= beforeThisTime);
+            }
+            long count = repoServiceOrder.GetRowCount(where);
+            return count;
+        }
+
+        /// <summary>
+        /// 获取商户的一条订单
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
+        public ServiceOrder GetOneOrder(Guid guid,Guid UserID)
+        {
+            var where = PredicateBuilder.True<ServiceOrder>();
+            if (UserID != Guid.Empty)
+            {
+                where = where.And(x => x.Business.Owner.Id == UserID);
+            }
+            where = where.And(x => x.Id == guid);
+            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                        && x.OrderStatus != enum_OrderStatus.DraftPushed
+                        && x.OrderStatus != enum_OrderStatus.Search)
+                     ;
+            return repoServiceOrder.FindOne(where);
         }
 
         public virtual ServiceOrder GetOne(Guid guid)
@@ -150,8 +390,6 @@ namespace Dianzhu.BLL
 
         public IList<ServiceOrder> GetAllByOrderStatus(Dianzhu.Model.Enums.enum_OrderStatus status, int pageIndex, int pageSize, out long totalRecords)
         {
-
-
             var where = PredicateBuilder.True<ServiceOrder>();
             where = where.And(x => x.OrderStatus == status);
             // iuow.BeginTransaction();
@@ -165,14 +403,10 @@ namespace Dianzhu.BLL
             //   .ToList();
         }
 
-
-
-
-
         public IList<ServiceOrder> GetListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Business == business);
+            where = where.And(x => x.Business.Id == business.Id);
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
 
             long long_totalAmount;
@@ -182,10 +416,10 @@ namespace Dianzhu.BLL
             // return DALServiceOrder.GetAllOrdersForBusiness(business.Id, pageNum, pageSize, out totalAmount);
         }
 
-        public IList<ServiceOrder> GetListForCustomer(DZMembership customer, int pageNum, int pageSize, out int totalAmount)
+        public IList<ServiceOrder> GetListForCustomer(Guid customerId, int pageNum, int pageSize, out int totalAmount)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Customer == customer);
+            where = where.And(x => x.Customer.Id == customerId);
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
 
             long long_totalAmount;
@@ -204,7 +438,7 @@ namespace Dianzhu.BLL
         public virtual ServiceOrder GetDraftOrder(DZMembership c, DZMembership cs)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Customer == c && x.CustomerService == cs && x.OrderStatus == enum_OrderStatus.Draft);
+            where = where.And(x => x.Customer.Id == c.Id && x.CustomerService.Id == cs.Id && x.OrderStatus == enum_OrderStatus.Draft);
             ServiceOrder order = null;
             try
             {
@@ -231,6 +465,12 @@ namespace Dianzhu.BLL
             return repoServiceOrder.Find(where).ToList();
 
             //return DALServiceOrder.GetOrderListByDate(service, date);
+        }
+        public IList<ServiceOrder> GetOrderListOfServiceByDateRange(Guid serviceId, DateTime timeBegin, DateTime timeEnd)
+        {
+
+
+            return repoServiceOrder.GetOrderListOfServiceByDateRange(serviceId,timeBegin,timeEnd);
         }
         public ServiceOrder GetOrderByIdAndCustomer(Guid Id, DZMembership customer)
         {
@@ -426,7 +666,7 @@ namespace Dianzhu.BLL
 
             log.Debug("开始退还尾款");
             log.Debug("查询订单的理赔");
-            Claims claims = bllClaims.GetOneByOrder(order);
+            Claims claims = dalClaims.GetOneByOrder(order);
             if (claims == null)
             {
                 log.Error("订单没有对应的理赔");
@@ -461,8 +701,9 @@ namespace Dianzhu.BLL
                 OrderFlow_RefundSuccess(order);
 
                 log.Debug("记录商户操作");
-                claims.AddDetailsFromClaims(claims, string.Empty, 0, string.Empty, enum_ChatTarget.store, member);
-                bllClaims.Update(claims);
+
+                claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, member);
+                dalClaims.Update(claims);
             }
             else
             {
@@ -484,10 +725,10 @@ namespace Dianzhu.BLL
         /// 商户要求支付赔偿金
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order, string context, decimal amount, string resourcesUrl, DZMembership member)
+        public void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order, string context, decimal amount, IList<string> resourcesUrl, DZMembership member)
         {
             log.Debug("查询订单的理赔");
-            Claims claims = bllClaims.GetOneByOrder(order);
+            Claims claims = dalClaims.GetOneByOrder(order);
             if (claims == null)
             {
                 log.Error("订单没有对应的理赔");
@@ -496,7 +737,7 @@ namespace Dianzhu.BLL
 
             log.Debug("记录商户操作");
             claims.AddDetailsFromClaims(claims, context, amount, resourcesUrl, enum_ChatTarget.store, member);
-            bllClaims.Update(claims);
+            dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.AskPayWithRefund);
         }
@@ -508,7 +749,7 @@ namespace Dianzhu.BLL
         public void OrderFlow_BusinessRejectRefund(ServiceOrder order, DZMembership member)
         {
             log.Debug("查询订单的理赔");
-            Claims claims = bllClaims.GetOneByOrder(order);
+            Claims claims = dalClaims.GetOneByOrder(order);
             if (claims == null)
             {
                 log.Error("订单没有对应的理赔");
@@ -516,8 +757,9 @@ namespace Dianzhu.BLL
             }
 
             log.Debug("记录商户操作");
-            claims.AddDetailsFromClaims(claims, string.Empty, 0, string.Empty, enum_ChatTarget.store, member);
-            bllClaims.Update(claims);
+
+            claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, member);
+            dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.RejectRefund);
         }
@@ -529,7 +771,7 @@ namespace Dianzhu.BLL
         public void OrderFlow_WaitingPayWithRefund(ServiceOrder order, DZMembership member)
         {
             log.Debug("查询订单的理赔");
-            Claims claims = bllClaims.GetOneByOrder(order);
+            Claims claims = dalClaims.GetOneByOrder(order);
             if (claims == null)
             {
                 log.Error("订单没有对应的理赔");
@@ -552,8 +794,8 @@ namespace Dianzhu.BLL
             bllPayment.ApplyPay(order, enum_PayTarget.Compensation);
 
             log.Debug("记录用户操作");
-            claims.AddDetailsFromClaims(claims, string.Empty, 0, string.Empty, enum_ChatTarget.user, member);
-            bllClaims.Update(claims);
+            claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.user, member);
+            dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.WaitingPayWithRefund);
         }
@@ -641,11 +883,12 @@ namespace Dianzhu.BLL
 
             //保存订单历史记录
             //order.OrderStatus = oldStatus;
-            bllServiceOrderStateChangeHis.SaveOrUpdate(order, oldStatus);
+            bllServiceOrderStateChangeHis.Save(order, oldStatus);
 
             //更新订单状态
             order.OrderStatus = targetStatus;
             Update(order);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             log.Debug("当前订单状态为:" + targetStatus);
 
             log.Debug("调用IMServer,发送订单状态变更通知");
@@ -656,6 +899,11 @@ namespace Dianzhu.BLL
             System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
             string result = reader.ReadToEnd();
             log.Debug("发送结果:" + result);
+        }
+
+        public void OrderFlow_EndCancel(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.EndCancel);
         }
         #endregion
 
@@ -684,74 +932,106 @@ namespace Dianzhu.BLL
                     log.Debug("订单为Created，取消成功");
                     //order.OrderStatus = oldStatus;
                     ChangeStatus(order, enum_OrderStatus.Canceled);
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                     ChangeStatus(order, enum_OrderStatus.EndCancel);
                     isCanceled = true;
                     break;
+                case enum_OrderStatus.checkPayWithDeposit:
                 case enum_OrderStatus.Payed:
                 case enum_OrderStatus.Negotiate:
                 case enum_OrderStatus.isNegotiate:
                 case enum_OrderStatus.Assigned:
-                    log.Debug("订单已支付订金，系统判断是否退还");
-                    ////获取确认时间
-                    //var negotiateTime = bllServiceOrderStateChangeHis.GetChangeTime(order, enum_OrderStatus.Negotiate);
-                    var targetTime = order.Details[0].TargetTime;
-                    if (DateTime.Now <= targetTime)
-                    {
-                        double timeSpan = (targetTime - DateTime.Now).TotalMinutes;
-                        //整个取消
-                        //if (order.ServiceOvertimeForCancel <= timeSpan)
-                        if (30 <= timeSpan)
-                        {
-                            log.Debug("开始退还订金");
-                            //todo:退还定金
-                            Payment payment = bllPayment.GetPayedForDeposit(order);
-                            if (payment == null)
-                            {
-                                log.Debug("订单" + order.Id + "没有订金支付项!");
-                                throw new Exception("订单" + order.Id + "没有订金支付项!");
-                            }
-
-                            if (ApplyRefund(payment, payment.Amount, "取消订单退还订金"))
-                            {
-                                log.Debug("更新订单状态");
-                                //order.OrderStatus = oldStatus;
-                                ChangeStatus(order, enum_OrderStatus.Canceled);
-                                ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
-                                ChangeStatus(order, enum_OrderStatus.EndCancel);
-
-                                isCanceled = true;
-                            }
-                            else
-                            {
-                                isCanceled = false;
-                            }
-                        }
-                        else
-                        {
-                            log.Debug("取消订单时间不在订单保险时间内，取消成功");
-                            //扣除定金，取消成功
-                            //order.OrderStatus = oldStatus;
-                            ChangeStatus(order, enum_OrderStatus.Canceled);
-                            ChangeStatus(order, enum_OrderStatus.EndCancel);
-                            isCanceled = true;
-                        }
-                    }
-                    else
-                    {
-                        log.Debug("取消订单时间大于预约时间，取消成功");
-                        //扣除定金，取消成功
-                        //order.OrderStatus = oldStatus;
-                        ChangeStatus(order, enum_OrderStatus.Canceled);
-                        ChangeStatus(order, enum_OrderStatus.EndCancel);
-                        isCanceled = true;
-                    }
-
+                    isCanceled = JudgeCanceled(order);
                     break;
 
 
                 default: break;
             }
             log.Debug("----------取消订单完成----------");
+            return isCanceled;
+        }
+
+        private bool JudgeCanceled(ServiceOrder serviceOrder)
+        {
+            ServiceOrder order = serviceOrder;
+            bool isCanceled = false;
+            var targetTime = order.Details[0].TargetTime;
+            if (DateTime.Now <= targetTime)
+            {
+                double timeSpan = (targetTime - DateTime.Now).TotalMinutes;
+                if (30 <= timeSpan)
+                {
+                    log.Debug("系统判定订金是否到帐");
+                    Payment payment = bllPayment.GetPayedForDeposit(order);
+                    if (payment == null)
+                    {
+                        log.Error("订单" + order.Id + "没有订金支付项!");
+                        return false;
+                    }
+
+                    if (payment.Amount > 0)
+                    {
+                        switch (order.OrderStatus)
+                        {
+                            case enum_OrderStatus.checkPayWithDeposit:
+                                log.Debug("系统没有确认到帐，等待确认到帐后退款");
+                                log.Debug("更新订单状态");
+                                ChangeStatus(order, enum_OrderStatus.Canceled);
+                                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                                ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
+
+                                isCanceled = true;
+                                break;
+                            case enum_OrderStatus.Payed:
+                                log.Debug("系统确认到帐，直接退款");
+                                if (ApplyRefund(payment, payment.Amount, "取消订单退还订金"))
+                                {
+                                    log.Debug("更新订单状态");
+                                    //order.OrderStatus = oldStatus;
+                                    ChangeStatus(order, enum_OrderStatus.Canceled);
+                                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                                    ChangeStatus(order, enum_OrderStatus.EndCancel);
+
+                                    isCanceled = true;
+                                }
+                                else
+                                {
+                                    isCanceled = false;
+                                }
+                                break;
+                            default:
+                                return false;
+                        }
+                    }
+                    else
+                    {
+                        log.Debug("更新订单状态");
+                        //order.OrderStatus = oldStatus;
+                        ChangeStatus(order, enum_OrderStatus.Canceled);
+                        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                        ChangeStatus(order, enum_OrderStatus.EndCancel);
+
+                        isCanceled = true;
+                    }                    
+                }
+                else
+                {
+                    log.Debug("取消订单时间不在订单保险时间内，取消成功");
+                    ChangeStatus(order, enum_OrderStatus.Canceled);
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                    ChangeStatus(order, enum_OrderStatus.EndCancel);
+                    isCanceled = true;
+                }
+            }
+            else
+            {
+                log.Debug("取消订单时间大于预约时间，取消成功");
+                ChangeStatus(order, enum_OrderStatus.Canceled);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                ChangeStatus(order, enum_OrderStatus.EndCancel);
+                isCanceled = true;
+            }
+
             return isCanceled;
         }
         #endregion
@@ -776,6 +1056,7 @@ namespace Dianzhu.BLL
                         log.Debug("支付宝退款开始");
                         Refund refundAliApp = new Refund(payment.Order, payment, payment.Amount, refundAmount, refundReason, payment.PlatformTradeNo, enum_RefundStatus.Fail, string.Empty);
                         bllRefund.Add(refundAliApp);
+                        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
                         string refund_no = DateTime.Now.ToString("yyyyMMdd") + refundAliApp.Id.ToString().Substring(0, 10);
 
@@ -927,21 +1208,22 @@ namespace Dianzhu.BLL
         #region 分配工作人员
         public void AssignStaff(ServiceOrder order, Staff staff)
         {
-            BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
+ 
             OrderAssignment oa = new OrderAssignment();
             oa.Order = order;
             oa.AssignedStaff = staff;
 
-            bllOrderAssignment.SaveOrUpdate(oa);
+            repoOrderAssignment.Add(oa);
         }
         public void DeassignStaff(ServiceOrder order, Staff staff)
         {
-            BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
-            OrderAssignment oa = bllOrderAssignment.FindByOrderAndStaff(order, staff);
+ 
+            OrderAssignment oa = repoOrderAssignment.FindByOrderAndStaff(order, staff);
+ 
             oa.DeAssignedTime = DateTime.Now;
             oa.Enabled = false;
 
-            bllOrderAssignment.SaveOrUpdate(oa);
+            repoOrderAssignment.Update(oa);
         }
         #endregion
 

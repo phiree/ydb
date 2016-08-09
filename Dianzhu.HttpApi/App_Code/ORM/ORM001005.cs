@@ -15,18 +15,18 @@ using Dianzhu.Api.Model;
 public class ResponseORM001005 : BaseResponse
 {
     public ResponseORM001005(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+    
     protected override void BuildRespData()
     {
         ReqDataORM001005 requestData = this.request.ReqData.ToObject<ReqDataORM001005>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
        
         PushService bllPushService =  Bootstrap.Container.Resolve<PushService>();
-        BLLDZService bllDZService = new BLLDZService();
-        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
+        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
+        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<BLLServiceOrderStateChangeHis>();
         string raw_id = requestData.userID;
 
         try

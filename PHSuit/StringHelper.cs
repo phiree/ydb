@@ -291,6 +291,19 @@ namespace PHSuit
         {
             return "ctl"+raw.Replace("-", "");
         }
+
+        /// <summary>
+        /// 将表示时间长度的period转换成时间字符串
+        /// </summary>
+        /// <param name="period"></param>
+        /// <returns></returns>
+        public static string ConvertPeriodToTimeString(int period)
+        {
+            int hours = period / 60;
+            int minutes = period % 60;
+            return FullFillWidth(hours.ToString(), "0", 2, true) + ":" + FullFillWidth(minutes.ToString(), "0", 2, true);
+
+        }
     }
 
    public class JsonHelper

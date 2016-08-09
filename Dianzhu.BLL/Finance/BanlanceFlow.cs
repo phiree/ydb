@@ -9,11 +9,21 @@ namespace Dianzhu.BLL.Finance
 {
     public class BalanceFlowService : IBalanceFlowService
     {
-        DAL.Finance.DALBalanceFlow dalBalanceFlow = new DAL.Finance.DALBalanceFlow();
-        
+        IDAL.Finance.IDALBalanceFlow dalBalanceFlow;
+
+        public BalanceFlowService(IDAL.Finance.IDALBalanceFlow dalBalanceFlow)
+        {
+            this.dalBalanceFlow = dalBalanceFlow;
+        }
+
+        public IList<BalanceFlow> GetList()
+        {
+          return  dalBalanceFlow.Find(x => true);
+        }
+
         public void Save(BalanceFlow flow)
         {
-            dalBalanceFlow.Save(flow);
+            dalBalanceFlow.Add(flow);
         }
     }
 }

@@ -31,25 +31,26 @@
 <!-- one day template 单日模版 -->
 <script type="text/template" id="day_template">
     <div class="day-title">
-        <div class="day-info"><span>{%= date %}</span><span class="m-l10">今日剩余&nbsp;{%= reOrder %}/{%= maxOrder %}</span></div>
-        <div class="day-control">
-            <div class="day-control-item">
-                <span>服务编辑开关:</span>
-                <div class="round-checkbox">
-                    <input type="checkbox" class="day_edit" {%= "id=" + this.cid + "_dayEdit" %} />
-                    <label {%= "for=" + this.cid + "_dayEdit" %} ></label>
-                    <em></em>
-                </div>
-            </div>
-            <div class="day-control-item">
-                <span >当日服务开关:</span>
-                <div class="round-checkbox">
-                    <input type="checkbox" class="day_enable" checked value="dayEdit" {%= "id=" + this.cid + "_dayEnable" %} />
-                    <label {%= "for=" + this.cid + "_dayEnable" %} ></label>
-                    <em></em>
-                </div>
-            </div>
-        </div>
+        <div class="day-info"><span class="m-l10">当日已售&nbsp;&nbsp;{%= reOrder %}件&nbsp;当日剩余&nbsp;&nbsp;{%= maxOrder - reOrder %}件&nbsp;当日总量&nbsp;{%= maxOrder %}件&nbsp;</span></div>
+        <div id="day-warn" class="day-warn hi"></div>
+        <!--<div class="day-control">-->
+            <!--<div class="day-control-item">-->
+                <!--<span>服务编辑开关:</span>-->
+                <!--<div class="round-checkbox">-->
+                    <!--<input type="checkbox" class="day_edit" {%= "id=" + this.cid + "_dayEdit" %} />-->
+                    <!--<label {%= "for=" + this.cid + "_dayEdit" %} ></label>-->
+                    <!--<em></em>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="day-control-item">-->
+                <!--<span >当日服务开关:</span>-->
+                <!--<div class="round-checkbox">-->
+                    <!--<input type="checkbox" class="day_enable" checked value="dayEdit" {%= "id=" + this.cid + "_dayEnable" %} />-->
+                    <!--<label {%= "for=" + this.cid + "_dayEnable" %} ></label>-->
+                    <!--<em></em>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
     <div class="time-buckets-wrap">
         <!--<div class='time-buckets t-b-close'>-->
@@ -61,10 +62,51 @@
 
 <!-- timeBucket template 时间段模版 -->
 <script type="text/template" id="timeBucket_template">
-        <div class="t-b-top">
+        <div class="t-b-main {%= open%}">
             <div class="t-b-time">
-                <p class="t-b-timeStart">{%= startTime %}</p>
-                <p class="t-b-timeEnd">{%= endTime %}</p>
+                <span class="_timeTip _timeStart">{%= startTime %}</span>-<span class="_timeTip _timeEnd">{%= endTime %}</span>
+            </div>
+            <div class="t-b-window">
+                <!--<div class="good-prev"></div>-->
+                <div class="good-list-wrap">
+                    <div class="good-reorder">
+                        <ul class="good-list">
+                            {% for ( var i = 0 ; i < 1 ; i++ ){ %}
+                            <li class="good good-off">
+                                <!--<div class="good-icon-w">-->
+                                    <!--<i class="icon"></i>-->
+                                <!--</div>-->
+                                <p class="_text">服务</p>
+                            </li>
+                            {% }; %}
+                        </ul>
+                        <span class="good-title"><strong class="_t">已售服务</strong><span class="_i">X</span><span class="_m">{%= orders.length %}</span>
+</span>
+                    </div>
+                    <div class="good-total">
+                        <ul class="good-list">
+                            {% for ( var i = 0 ; i < (maxOrder - orders.length < 5 ? maxOrder - orders.length : 5) ; i++ ){ %}
+                            <li class="good good-on">
+                                <!--<div class="good-icon-w">-->
+                                    <!--<i class="icon"></i>-->
+                                <!--</div>-->
+                                <p class="_text">服务</p>
+                            </li>
+                            {% }; %}
+                        </ul>
+                        <span class="good-title"><strong class="_t">可售服务</strong><span class="_i">X</span><span class="_m">{%= maxOrder - orders.length %}</span></span>
+                    </div>
+                </div>
+                <!--<div class="good-next"></div>-->
+            </div>
+        </div>
+        <div class="t-b-ctrl">
+            <div class="t-b-add">
+                <input class="_num multiNum" type="number" value="1" title="填写修改量"/>
+                <input class="_btn multiAdd" type="button" value="补货"/>
+            </div>
+            <div class="t-b-num">
+                <span class="_s">服务总量</span><span class="_i">X</span><span class="_n">{%= maxOrder %}</span>
             </div>
             <div class="t-b-switch">
                 <div class="round-checkbox v-m">
@@ -74,45 +116,17 @@
                 </div>
                 <div class="l-h20">该时段服务开关</div>
             </div>
-            <div class="t-b-num">
-                <span class="t-b-num-n">{%= orders.length %}/{%= maxOrder %}</span><span>剩余</span>
-            </div>
-            <div class="t-b-window">
-                <div class="good-prev"><</div>
-                <div class="good-list-wrap">
-                    <ul class="good-list">
-                        <ul class="good-list">
-                            {% _.each(orders, function(order){ %}
-                            <li class="good good-off">
-                                <div class="good-icon-w">
-                                    <i class="icon"></i>
-                                </div>
-                            </li>
-                            {% });%}
-
-                            {% for ( var i = 0 ; i < (maxOrder - orders.length) ; i++ ){ %}
-                            <li class="good good-on">
-                                <div class="good-icon-w">
-                                    <i class="icon"></i>
-                                </div>
-                            </li>
-                            {% }; %}
-                        </ul>
-                    </ul>
-                </div>
-                <div class="good-next"> > </div>
-            </div>
         </div>
-        <div class="t-b-edit">
-            <div class="edit-t">
-                <input class="multiDelete" type="button" value="下架货品"/>
-                <input class="multiNum" type="number" value="1" title="填写修改量"/>
-                <input class="multiAdd" type="button" value="上架货品"/>
-            </div>
-            <div class="edit-b">
-                <span class="l-h20">（填写要添加/删除的服务货品数量）</span>
-            </div>
-        </div>
+        <!--<div class="t-b-edit">-->
+            <!--<div class="edit-t">-->
+                <!--<input class="multiDelete" type="button" value="下架货品"/>-->
+                <!--<input class="multiNum" type="number" value="1" title="填写修改量"/>-->
+                <!--<input class="multiAdd" type="button" value="上架货品"/>-->
+            <!--</div>-->
+            <!--<div class="edit-b">-->
+                <!--<span class="l-h20">（填写要添加/删除的服务货品数量）</span>-->
+            <!--</div>-->
+        <!--</div>-->
 </script>
 
 <!-- 历史时间段模板 -->
@@ -132,7 +146,7 @@
 
             </div>
             <div class="t-b-num">
-                <span class="t-b-num-n">{%= orders.length %}/{%= maxOrder %}</span><span>剩余</span>
+                <span class="t-b-num-n">{%= orders.length %}/{%= maxOrder %}</span><span>可售</span>
             </div>
             <div class="t-b-window">
                 <div class="good-prev"><<</div>
@@ -172,15 +186,16 @@
 </script>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server" >
-    <script src="/js/core/interfaceAdapter.js?v=1.0.0"></script>
     <script src="/js/libs/json2.js"></script>
     <script src="/js/libs/underscore.js"></script>
     <script src="/js/libs/backbone.js"></script>
+    <script src="/js/core/backbone.customApi.js?v=1.0.0"></script>
+    <script src="/js/core/interfaceAdapter.js?v=1.0.0"></script>
     <!--测试时的API接口-->
-    <script src="/js/mock/backbone.customAPI.test.js"></script>
-    <script src="/js/mock/mock.js"></script>
-    <script src="/js/mock/mock.shelf.js"></script>
-    <script src="/js/mock/mock.workTimeSet.js"></script>
+    <!--<script src="/js/mock/backbone.customAPI.test.js"></script>-->
+    <!--<script src="/js/mock/mock.js"></script>-->
+    <!--<script src="/js/mock/mock.shelf.js"></script>-->
+    <!--<script src="/js/mock/mock.workTimeSet.js"></script>-->
     <script src="/js/core/event.js?v=1.0.0"></script>
     <script src="/js/apps/shelf.js?v=1.0.0"></script>
 </asp:Content>

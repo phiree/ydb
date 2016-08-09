@@ -9,7 +9,8 @@ using System.Web.Security;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using System.Linq.Expressions;
-
+using DDDCommon;
+using System.Reflection;
 namespace Dianzhu.BLL
 {
     /// <summary>
@@ -57,10 +58,7 @@ namespace Dianzhu.BLL
         {
             return dalBusiness.GetBusinessInSameCity(area);
         }
-        public void SaveList(IList<Business> businesses)
-        {
-            dalBusiness.SaveList(businesses);
-        }
+        
         public Business GetBusinessByPhone(string phone)
         {
             return dalBusiness.FindOne(x => x.Phone == phone);
@@ -77,7 +75,8 @@ namespace Dianzhu.BLL
             Expression<Func<Model.Business, bool>> sameOwner = i => i.Owner.Id ==member.Id;
             Expression<Func<Model.Business, bool>> isEnabled = i => i.Enabled;
 
-            int result=(int) dalBusiness.GetRowCount(DDDCommon.SpecExprExtensions.And(sameOwner,isEnabled) );
+            var where = PredicateBuilder.And(sameOwner, isEnabled);
+            int result=(int) dalBusiness.GetRowCount(where);
             return result;
         }
 
@@ -101,6 +100,64 @@ namespace Dianzhu.BLL
         public IList<Business> GetListByPage(int pageIndex, int pageSize, out long totalRecord)
         {
             return dalBusiness.Find(x => true, pageIndex, pageSize, out totalRecord);
+        }
+
+        /// <summary>
+        /// 条件读取店铺
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="strName"></param>
+        /// <param name="loginName"></param>
+        /// <returns></returns>
+        public IList<Business> GetStores(Trait_Filtering filter, string strName, string UserID)
+        {
+            var where = PredicateBuilder.True<Business>();
+            //where = where.And(x => x.Enabled);
+            if (!string.IsNullOrEmpty(UserID))
+            {
+                where = where.And(x => x.Owner.Id == new Guid(UserID));
+            }
+            if (!string.IsNullOrEmpty(strName))
+            {
+                where = where.And(x => x.Name.Contains(strName));
+            }
+            Business baseone = null;
+            if (!string.IsNullOrEmpty(filter.baseID))
+            {
+                try
+                {
+                    baseone = dalBusiness.FindById(new Guid(filter.baseID));
+                }
+                catch
+                {
+                    baseone = null;
+                }
+            }
+            long t = 0;
+            var list = filter.pageSize == 0 ? dalBusiness.Find(where,filter.sortby, filter.ascending,filter.offset,baseone).ToList() : dalBusiness.Find(where,filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending,filter.offset, baseone).ToList();
+            return list;
+        }
+
+        /// <summary>
+        /// 统计店铺数量
+        /// </summary>
+        /// <param name="alias"></param>
+        /// <param name="ownerId"></param>
+        /// <returns></returns>
+        public long GetStoresCount(string alias, Guid ownerId)
+        {
+            var where = PredicateBuilder.True<Business>();
+            //where = where.And(x => x.Enabled);
+            if (ownerId != Guid.Empty)
+            {
+                where = where.And(x => x.Owner.Id == ownerId);
+            }
+            if (!string.IsNullOrEmpty(alias))
+            {
+                where = where.And(x => x.Name.Contains(alias));
+            }
+            long count = dalBusiness.GetRowCount(where);
+            return count;
         }
     }
 

@@ -8,9 +8,13 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 using System.Data;
 
-public partial class order_detail : System.Web.UI.Page
+public partial class order_detail : BasePage
 {
     IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+    Dianzhu.BLL.Finance.IBLLServiceTypePoint bllServiceTypePoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBLLServiceTypePoint>();
+    Dianzhu.BLL.Finance.IBalanceFlowService balanceService = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBalanceFlowService>();
+    Dianzhu.BLL.Finance.IBLLSharePoint bllSharePoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBLLSharePoint>();
+    Dianzhu.BLL.Agent.AgentService agentService = new Dianzhu.BLL.Agent.AgentService();
     ServiceOrder serviceorder;
 
     string strID;//链接字符串
@@ -45,21 +49,29 @@ public partial class order_detail : System.Web.UI.Page
         lblTargetAddress.Text = serviceorder.TargetAddress;
         lblTargetTime.Text = serviceorder.TargetTime;
         //lblStaff.Text = serviceorder.Staff.ToArray().ToString();
-        if (serviceorder.Staff.Count > 0)
+        //if (serviceorder.Staff.Count > 0)
+        //{
+        //    foreach (Staff s in serviceorder.Staff)
+        //    {
+        //        lblStaff.Text = lblStaff.Text + s.Name + ",";
+        //    }
+        //    lblStaff.Text = lblStaff.Text.TrimEnd(',');
+        //}
+        //else
+        //{ lblStaff.Text = ""; }
+        if (serviceorder.Staff == null)
         {
-            foreach (Staff s in serviceorder.Staff)
-            {
-                lblStaff.Text = lblStaff.Text + s.Name + ",";
-            }
-            lblStaff.Text = lblStaff.Text.TrimEnd(',');
+            lblStaff.Text = "";
         }
         else
-        { lblStaff.Text = ""; }
+        {
+            lblStaff.Text = serviceorder.Staff.Name;
+        }
         lblUnitAmount.Text = serviceorder.UnitAmount.ToString();
         lblOrderAmount.Text = serviceorder.OrderAmount.ToString();
         lblDepositAmount.Text = serviceorder.DepositAmount.ToString();
         lblNegotiateAmount.Text = serviceorder.NegotiateAmount.ToString();
-        BLLPayment bllPayment = new BLLPayment();
+        BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
         Payment payment = bllPayment.GetOne(id);
         if (payment == null)
         {
@@ -72,10 +84,7 @@ public partial class order_detail : System.Web.UI.Page
         lblTitle.Text = serviceorder.Title;
         if (lblOrderStatus.Text == "Finished")
         {
-            Dianzhu.BLL.Finance.BLLServiceTypePoint bllServiceTypePoint = new Dianzhu.BLL.Finance.BLLServiceTypePoint();
-            Dianzhu.BLL.Finance.BalanceFlowService balanceService=new Dianzhu.BLL.Finance.BalanceFlowService ();
-            Dianzhu.BLL.Finance.BLLSharePoint bllSharePoint=new Dianzhu.BLL.Finance.BLLSharePoint ();
-            Dianzhu.BLL.Agent.AgentService agentService =new Dianzhu.BLL.Agent.AgentService();
+        
             Dianzhu.BLL.Finance.OrderShare os = new Dianzhu.BLL.Finance.OrderShare(bllServiceTypePoint, bllSharePoint, agentService, balanceService);
             IList < Dianzhu.Model.Finance.BalanceFlow > shareFlow= os.Share(serviceorder);
 

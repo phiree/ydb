@@ -12,11 +12,16 @@ namespace Dianzhu.BLL
 {
     public class BLLServiceOrderAppraise
     {
-        public DALServiceOrderAppraise dalServiceOrderAppraise = DALFactory.DALServiceOrderAppraise;
+        IDAL.IDALServiceOrderAppraise dalServiceOrderAppraise;
+
+        public BLLServiceOrderAppraise(IDAL.IDALServiceOrderAppraise dal)
+        {
+            dalServiceOrderAppraise = dal;
+        }
 
         public void Save(ServiceOrderAppraise appraise)
         {
-            dalServiceOrderAppraise.Save(appraise);
+            dalServiceOrderAppraise.Add(appraise);
         }
     }
 

@@ -13,7 +13,7 @@ public class TagHandler : IHttpHandler
         context.Response.ContentType = "text/plain";
 
         string action = context.Request["action"];
-        BLLDZTag bllTag = new BLLDZTag();
+        BLLDZTag bllTag = Bootstrap.Container.Resolve<BLLDZTag>();
         switch (action.ToLower())
         {
             case "add":

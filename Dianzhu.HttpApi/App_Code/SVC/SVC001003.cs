@@ -27,10 +27,16 @@ public class ResponseSVC001003 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-        BLLDZService bllDZService = new BLLDZService();
-        BLLServiceType bllServiceType = new BLLServiceType();
-        BLLDZTag bllDZTag = new BLLDZTag();
-        BLLServiceOpenTime bllServiceOpenTime = new BLLServiceOpenTime();
+ 
+        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
+ 
+        BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
+ 
+        
+        BLLServiceType bllServiceType =Bootstrap.Container.Resolve<BLLServiceType>();
+      
+        BLLServiceOpenTime bllServiceOpenTime = Bootstrap.Container.Resolve <BLLServiceOpenTime>();
+ 
 
         try
         {
@@ -176,7 +182,7 @@ public class ResponseSVC001003 : BaseResponse
                             default:
                                 break;
                         }
-                        bllServiceOpenTime.SaveOrUpdate(sot);
+                        bllServiceOpenTime.Update(sot);
                     }
                     svcObj.maxOrderString = "Y";
 

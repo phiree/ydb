@@ -9,11 +9,51 @@
 //"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
 //"wtm001001",,"wtm001002","wtm001004","wtm001005","wtm001006"
 //"rmm001003","rmm001004","rmm001005","rmm001006",
-"orm002001"
+"shm001007"
 
 ];
 var test_data = [
+     {
+         // 
+         "protocol_CODE": "SHM001007",
 
+         "ReqData": {
+
+             "startTime": "2016-7-7",
+
+             "endTime": "2016-7-30 23:59:59",
+
+             "svcId": "bd513dc6-6c60-481b-8189-a65100b5367e",
+
+
+         },
+
+         "stamp_TIMES": "1466782993228.76",
+
+         "serial_NUMBER": "00147001015869149751"
+
+     },
+    {
+        // 
+        "protocol_CODE":  "ORM002001",
+     
+        "ReqData":  {
+         
+            "userID":  "1d789c3d-962b-473a-8bb0-a594009cf2c0",
+         
+            "pWord":  "123456",
+         
+            "orderID":  "",
+        
+            "manualAssignedCsId": ""   
+                    
+        },
+     
+        "stamp_TIMES":  "1466782993228.76",
+     
+        "serial_NUMBER":  "00147001015869149751" 
+                
+    },
     /**********************订单提醒管理*****************************/
     {
         "protocol_CODE": "rmm001003",

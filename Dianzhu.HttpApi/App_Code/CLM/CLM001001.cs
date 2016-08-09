@@ -7,6 +7,7 @@ using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
+using Dianzhu.ApplicationService;
 
 /// <summary>
 /// 获取一条服务信息的详情
@@ -16,16 +17,18 @@ public class ResponseCLM001001 : BaseResponse
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
     public ResponseCLM001001(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+    
     protected override void BuildRespData()
     {
         ReqDataCLM001001 requestData = this.request.ReqData.ToObject<ReqDataCLM001001>();
 
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-        BLLComplaint bllComplaint = new BLLComplaint();
+ 
+        BLLComplaint bllComplaint = Bootstrap.Container.Resolve<BLLComplaint>();
+ 
         string raw_id = requestData.userID;
 
         try
@@ -68,11 +71,17 @@ public class ResponseCLM001001 : BaseResponse
 
                 Complaint complaint = new Complaint();
                 complaint.Order = order;
-                complaint.Target = (enum_ChatTarget)Enum.Parse(typeof(enum_ChatTarget), requestData.target);
-                complaint.Context = requestData.context;
-                complaint.ResourcesUrl = requestData.resourcesUrl;
+                complaint.Target = (enum_ComplaintTarget)Enum.Parse(typeof(enum_ComplaintTarget), requestData.target);
+                complaint.Content = requestData.context;
+
+                //20160614_longphui_modify
+                complaint.ComplaitResourcesUrl = requestData.resourcesUrl.Split(',').ToList();// requestData.resourcesUrl;
+                for (int i = 0; i < complaint.ComplaitResourcesUrl.Count; i++)
+                {
+                    complaint.ComplaitResourcesUrl[i] = utils.GetFileName(complaint.ComplaitResourcesUrl[i].ToString());
+                }
                 complaint.Operator = order.Customer;
-                bllComplaint.SaveOrUpdate(complaint);
+                bllComplaint.AddComplaint(complaint);
 
                 this.state_CODE = Dicts.StateCode[0];
             }

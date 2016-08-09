@@ -26,19 +26,6 @@ namespace Dianzhu.CSClient.MessageAdapter
             this.dalMembership = dalMembership;
             this.dalIMUserStatus = dalIMUserStatus;
         }
- 
-        static BLLIMUserStatus bllIMUserStatus;
-        BLLIMUserStatus BLLIMUserStatus
-        {
-            get
-            {
-                if (bllIMUserStatus == null) bllIMUserStatus = new BLLIMUserStatus();
-                return bllIMUserStatus;
-            }
-
-        }
-
-
 
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.CSClient.MessageAdapter");
         public MessageAdapter()
@@ -88,6 +75,10 @@ namespace Dianzhu.CSClient.MessageAdapter
                         break;
                     case "ihelper:chat:userstatus":
                         chatType = enum_ChatType.UserStatus;
+                        break;
+                    case "ihelper:notice:cer:online":
+                    case "ihelper:notice:cer:offline":
+                        chatType = enum_ChatType.Notice;
                         break;
                     default:
                         throw new Exception("未知的命名空间");

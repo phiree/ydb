@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dianzhu.CSClient.ViewWPF</RootNamespace>
     <AssemblyName>Dianzhu.CSClient.ViewWPF</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -78,15 +80,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FlashInTaskBar.cs" />
-    <Compile Include="FormMainOld.xaml.cs">
-      <DependentUpon>FormMainOld.xaml</DependentUpon>
+    <Compile Include="ChatImageShow.xaml.cs">
+      <DependentUpon>ChatImageShow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FlashInTaskBar.cs" />
     <Compile Include="FormMain.xaml.cs">
       <DependentUpon>FormMain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FormMainNew.xaml.cs">
-      <DependentUpon>FormMainNew.xaml</DependentUpon>
+    <Compile Include="FormShowMessage.xaml.cs">
+      <DependentUpon>FormShowMessage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalVariable.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -97,32 +99,17 @@
     <Compile Include="UC\UC_Business.xaml.cs">
       <DependentUpon>UC_Business.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\UC_ChatListOld.xaml.cs">
-      <DependentUpon>UC_ChatListOld.xaml</DependentUpon>
+    <Compile Include="UC\UC_ChatCustomer.xaml.cs">
+      <DependentUpon>UC_ChatCustomer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\UC_ChatListNew.xaml.cs">
-      <DependentUpon>UC_ChatListNew.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_ChatSendOld.xaml.cs">
-      <DependentUpon>UC_ChatSendOld.xaml</DependentUpon>
+    <Compile Include="UC\UC_ChatImageNoraml.xaml.cs">
+      <DependentUpon>UC_ChatImageNoraml.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_ChatSend.xaml.cs">
       <DependentUpon>UC_ChatSend.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\UC_ChatSendNew.xaml.cs">
-      <DependentUpon>UC_ChatSendNew.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_CustomerOld.xaml.cs">
-      <DependentUpon>UC_CustomerOld.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_CustomerNew.xaml.cs">
-      <DependentUpon>UC_CustomerNew.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_IdentityListOld.xaml.cs">
-      <DependentUpon>UC_IdentityListOld.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_IdentityListNew.xaml.cs">
-      <DependentUpon>UC_IdentityListNew.xaml</DependentUpon>
+    <Compile Include="UC\UC_Hint.xaml.cs">
+      <DependentUpon>UC_Hint.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_MessageVoice.xaml.cs">
       <DependentUpon>UC_MessageVoice.xaml</DependentUpon>
@@ -136,23 +123,11 @@
     <Compile Include="UC\UC_OrderEdit.xaml.cs">
       <DependentUpon>UC_OrderEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\UC_OrderHistoryOld.xaml.cs">
-      <DependentUpon>UC_OrderHistoryOld.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UC\UC_OrderHistory.xaml.cs">
       <DependentUpon>UC_OrderHistory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\UC_OrderHistoryNew.xaml.cs">
-      <DependentUpon>UC_OrderHistoryNew.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_OrderHistory_OrderOld.xaml.cs">
-      <DependentUpon>UC_OrderHistory_OrderOld.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UC\UC_OrderHistory_Order.xaml.cs">
       <DependentUpon>UC_OrderHistory_Order.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_OrderHistory_OrderNew.xaml.cs">
-      <DependentUpon>UC_OrderHistory_OrderNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_PushService.xaml.cs">
       <DependentUpon>UC_PushService.xaml</DependentUpon>
@@ -160,26 +135,14 @@
     <Compile Include="UC\UC_ScrollView.xaml.cs">
       <DependentUpon>UC_ScrollView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\UC_SearchOld.xaml.cs">
-      <DependentUpon>UC_SearchOld.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UC\UC_Search.xaml.cs">
       <DependentUpon>UC_Search.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_SearchNew.xaml.cs">
-      <DependentUpon>UC_SearchNew.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_SearchResultOld.xaml.cs">
-      <DependentUpon>UC_SearchResultOld.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_SearchResult.xaml.cs">
       <DependentUpon>UC_SearchResult.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_OrderDetail.xaml.cs">
       <DependentUpon>UC_OrderDetail.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_SearchResultNew.xaml.cs">
-      <DependentUpon>UC_SearchResultNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_ShelfService.xaml.cs">
       <DependentUpon>UC_ShelfService.xaml</DependentUpon>
@@ -190,11 +153,14 @@
     <Compile Include="UC\UC_TimerControl.xaml.cs">
       <DependentUpon>UC_TimerControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="FormLogin.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Compile Include="UC\UC_UsefulLinks.xaml.cs">
+      <DependentUpon>UC_UsefulLinks.xaml</DependentUpon>
+    </Compile>
+    <Page Include="ChatImageShow.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FormMainOld.xaml">
+    <Page Include="FormLogin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -205,7 +171,7 @@
     <Compile Include="FormLogin.xaml.cs">
       <DependentUpon>FormLogin.xaml</DependentUpon>
     </Compile>
-    <Page Include="FormMainNew.xaml">
+    <Page Include="FormShowMessage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -213,47 +179,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\UC_ChatListOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="UC\UC_ChatCustomer.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_ChatImageNoraml.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\UC_ChatList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\UC_ChatListNew.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_ChatSendOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UC\UC_ChatSend.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\UC_ChatSendNew.xaml">
+    <Page Include="UC\UC_Hint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_CustomerOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UC\UC_CustomerNew.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_IdentityListOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="UC\UC_IdentityList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_IdentityListNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -273,27 +219,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\UC_OrderHistoryOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UC\UC_OrderHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\UC_OrderHistoryNew.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_OrderHistory_OrderOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UC\UC_OrderHistory_Order.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_OrderHistory_OrderNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -305,31 +235,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\UC_SearchOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UC\UC_Search.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_SearchNew.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_SearchResultOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="UC\UC_SearchResult.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\UC_OrderDetail.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_SearchResultNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -342,6 +256,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\UC_TimerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_UsefulLinks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -383,9 +301,17 @@
       <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
       <Name>Dianzhu.Config</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.IInstantMessage\Dianzhu.CSClient.IInstantMessage.csproj">
+      <Project>{820a465f-51fb-4f8d-8665-b80f9643281b}</Project>
+      <Name>Dianzhu.CSClient.IInstantMessage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IView.csproj">
       <Project>{755eea8c-9d5e-406e-83dd-36b3ba4eb158}</Project>
       <Name>Dianzhu.CSClient.IView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
+      <Project>{2e67aa78-6780-42bd-a3ab-ad953781e511}</Project>
+      <Name>Dianzhu.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
@@ -404,44 +330,46 @@
     <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\1.png">
+    <Resource Include="Resources\1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\2.png">
+    </Resource>
+    <Resource Include="Resources\2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\3.png">
+    </Resource>
+    <Resource Include="Resources\3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\4.png">
+    </Resource>
+    <Resource Include="Resources\4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\work.png">
+    </Resource>
+    <Resource Include="Resources\work.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Image1.png" />
-    <Content Include="Resources\ass.png">
+    <Resource Include="Resources\Image1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\exit.png">
+    </Resource>
+    <Resource Include="Resources\ass.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\logo.png">
+    </Resource>
+    <Resource Include="Resources\exit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\logourl.png">
+    </Resource>
+    <Resource Include="Resources\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Resource>
+    <Resource Include="Resources\logourl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\set.png">
+    <Resource Include="Resources\set.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\voice.gif">
+    </Resource>
+    <Resource Include="Resources\voice.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

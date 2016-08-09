@@ -6,26 +6,17 @@ using Dianzhu.Model;
 using NHibernate;
 namespace Dianzhu.DAL
 {
-    public class DALServiceType : DALBase<ServiceType>
+    public class DALServiceType : NHRepositoryBase<ServiceType,Guid>,IDAL.IDALServiceType
     {
-        public DALServiceType()
-        {
-
-        }
-        //注入依赖,供测试使用;
-        public DALServiceType(string fortest) : base(fortest)
-        {
-
-        }
+         
 
         public IList<ServiceType> GetTopList()
         {
-            string query = "select s from ServiceType s where s.Parent is null order by OrderNumber";
-            return GetList(query);
+            return Find(x=>x.Parent==null);
         }
         public ServiceType GetOneByCode(string code)
         {
-            ServiceType s = Session.QueryOver<ServiceType>().Where(x => x.Code == code).SingleOrDefault();
+            ServiceType s = FindOne(x => x.Code == code); 
             return s;
         }
 
@@ -34,5 +25,12 @@ namespace Dianzhu.DAL
             return Session.QueryOver<ServiceType>().Where(x => x.DeepLevel == level).And(x => x.Name == name).SingleOrDefault();
         }
 
+        public void SaveList(IList<ServiceType> typeList)
+        {
+            foreach (ServiceType type in typeList)
+            {
+                Session.SaveOrUpdate(type);
+            }
+        }
     }
 }

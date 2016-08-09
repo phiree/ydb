@@ -14,8 +14,10 @@ using Dianzhu.Api.Model;
 /// </summary>
 public class ResponseORM001008 : BaseResponse
 {
+    log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.HttpApi.ORM001008");
+
     public ResponseORM001008(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+    
     protected override void BuildRespData()
     {
         ReqDataORM001008 requestData = this.request.ReqData.ToObject<ReqDataORM001008>();
@@ -23,12 +25,14 @@ public class ResponseORM001008 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
       
-        BLLDZService bllDZService = new BLLDZService();
+        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
         PushService bllPushService = Bootstrap.Container.Resolve<PushService>();
-        BLLServiceOrderRemind bllServiceOrderRemind = new BLLServiceOrderRemind();
-        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
 
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        BLLServiceOrderRemind bllServiceOrderRemind = Bootstrap.Container.Resolve<BLLServiceOrderRemind>();
+        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<BLLServiceOrderStateChangeHis>();
+
+
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
 
         try
         {
@@ -103,6 +107,7 @@ public class ResponseORM001008 : BaseResponse
                 {
                     this.state_CODE = Dicts.StateCode[1];
                     this.err_Msg = "该订单不是已推送的服务单！";
+                    log.Error("该订单不是已推送的服务单！该订单Id:" + order.Id + "该订单当前状态:" + order.OrderStatus);
                     return;
                 }
 
@@ -148,7 +153,7 @@ public class ResponseORM001008 : BaseResponse
 
                 //增加订单提醒
                 ServiceOrderRemind remind = new ServiceOrderRemind(orderObj.svcObj.name,orderObj.storeObj.alias+"提供"+orderObj.svcObj.type, order.Details[0].TargetTime,true, order.Id, order.Customer.Id);
-                bllServiceOrderRemind.SaveOrUpdate(remind);
+                bllServiceOrderRemind.Save(remind);
 
                 this.state_CODE = Dicts.StateCode[0];
                 this.RespData = respData;                

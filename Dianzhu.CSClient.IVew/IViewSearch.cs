@@ -29,7 +29,7 @@ namespace Dianzhu.CSClient.IView
         event ServiceTypeThird_Select ServiceTypeThird_Select;
         #endregion
     }
-    public delegate void SearchService(DateTime targetTime,decimal minPrice,decimal maxPrice,Guid servieTypeId);
+    public delegate void SearchService(DateTime targetTime,decimal minPrice,decimal maxPrice,Guid servieTypeId,string name);
     public delegate void ServiceTypeFirst_Select(ServiceType type);
     public delegate void ServiceTypeSecond_Select(ServiceType type);
     public delegate void ServiceTypeThird_Select(ServiceType type);
@@ -44,10 +44,13 @@ namespace Dianzhu.CSClient.IView
         string LoadingText { set; }
         void AddSearchItem(IViewShelfService service);
         //bool BtnPush { get; set; }
+        event PushServiceTimerSend PushServiceTimerSend;
+        event FilterByBusinessName FilterByBusinessName;
     }
    
     public delegate void SelectService(DZService selectedService);
-    public delegate void PushServices(IList<DZService> pushedServices);
-
+    public delegate ReceptionChat PushServices(IList<DZService> pushedServices);
+    public delegate void PushServiceTimerSend();
+    public delegate void FilterByBusinessName(string businessName);
 
 }

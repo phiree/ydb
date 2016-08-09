@@ -8,7 +8,7 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using System.Web.Security;
 using System.Text.RegularExpressions;
-public partial class register : System.Web.UI.Page
+public partial class register : Dianzhu.Web.Common.BasePage//System.Web.UI.Page
 {
     BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
     DZMembershipProvider dz = Bootstrap.Container.Resolve<DZMembershipProvider>();
@@ -59,6 +59,7 @@ public partial class register : System.Web.UI.Page
        
         //PHSuit.Notification.Show(Page, "", "注册成功", "register_suc.aspx");
         FormsAuthentication.SetAuthCookie(userName, true);
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
         Response.Redirect("register_suc.aspx?send="+sendSuccess, true);
     }
 

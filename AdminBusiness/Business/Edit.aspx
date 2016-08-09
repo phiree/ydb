@@ -51,25 +51,21 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">店铺名称</div>
                                                             <div class="col-md-8 model-input">
-                                                                <input runat="server" type="text" id="tbxName" name="inputShopName"
-                                                                       value="请输入您的店铺名称" class="input-fluid" data-toggle="tooltip"
-                                                                       data-placement="top" title="请填写您的店铺名称"/>
+                                                                <input runat="server" type="text" id="tbxName" name="inputShopName" value="请输入您的店铺名称" class="input-fluid" data-toggle="tooltip" data-placement="top" title="请填写您的店铺名称"/>
                                                             </div>
                                                         </div>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">联系电话</div>
                                                             <div class="col-md-8 model-input">
-                                                                <input type="text" class="input-fluid" id="tbxContactPhone" runat="server" name="ContactPhone"
-                                                                       data-toggle="tooltip" data-placement="top" title="请填写有效的电话号码"/>
+                                                                <input type="text" class="input-fluid" id="tbxContactPhone" runat="server" name="ContactPhone" data-toggle="tooltip" data-placement="top" title="请填写有效的电话号码"/>
                                                             </div>
                                                         </div>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">从业时间</div>
                                                             <div class="col-md-8 model-input col-md-8 model-input-unit">
-                                                                <div id="yearsSelect" class="select select-fluid select-static" data-type="num" data-toggle="tooltip"
+                                                                <div id="yearsSelect" class="select select-fluid select-static" data-type="year" data-toggle="tooltip"
                                                                      data-placement="top" title="选择你从事该行业的时间">
-                                                                    <input type="text" class="input-fluid dis-n" runat="server" focusID="yearsSelect"
-                                                                           id="tbxBusinessYears" name="workYears"/>
+                                                                    <input type="text" class="input-fluid dis-n" runat="server" focusID="yearsSelect" id="tbxBusinessYears" name="workYears"/>
                                                                 </div>
                                                                 <em class="unit">年</em>
                                                             </div>
@@ -79,19 +75,14 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">公司网站</div>
                                                             <div class="col-md-8 model-input">
-                                                                <input type="text" class="input-fluid" runat="server" id="tbxWebSite" name="website"
-                                                                       data-toggle="tooltip" data-placement="top" title="请填写公司网站"/>
+                                                                <input type="text" class="input-fluid" runat="server" id="tbxWebSite" name="website" data-toggle="tooltip" data-placement="top" title="请填写公司网站"/>
                                                             </div>
                                                         </div>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">店铺地址</div>
                                                             <div class="col-md-8 model-input">
-                                                                <p>
-                                                                    <input type="text" class="input-fluid" id="tbxAddress" runat="server" name="addressDetail"
-                                                                           data-toggle="tooltip" data-placement="top" title="请填写您详细有效的店铺地址"/>
-                                                                </p>
-                                                                <p><input type="hidden" focusID="setAddress" runat="server" clientidmode="Static" id="hiAddrId"
-                                                                          name="addressDetailHide"/></p>
+                                                                <p><input type="text" class="input-fluid" id="tbxAddress" runat="server" name="addressDetail" data-toggle="tooltip" data-placement="top" title="请填写您详细有效的店铺地址"/></p>
+                                                                <p><input type="hidden" focusID="setAddress" runat="server" clientidmode="Static" id="hiAddrId" name="addressDetailHide"/></p>
                                                             </div>
                                                         </div>
                                                         <div class="row model-form-group">
@@ -116,7 +107,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">店铺头像</div>
                                                             <div class="col-md-8 model-input">
-                                                                <div id="businessavater">
+                                                                <div id="businessavater" class="business-Avatar">
                                                                     <input type="file" class="input-file-btn" data-list="#businessavater" data-single="true" data-limit="1" data-size="2" data-params='{"businessId":"<%=b.Id %>", "imageType":"businessavater"}' data-preview="<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=140&height=140&tt=3":"../images/components/inputFile/input_bg_140_140.png" %>"/>
                                                                 </div>
                                                             </div>

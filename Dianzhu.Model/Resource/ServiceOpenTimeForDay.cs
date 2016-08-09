@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DDDCommon.Domain;
 
 namespace Dianzhu.Model
 {
-    public class ServiceOpenTimeForDay
+    public class ServiceOpenTimeForDay:DDDCommon.Domain.Entity<Guid>
     {
         public ServiceOpenTimeForDay()
         {
             Enabled = true;
         }
-        public virtual Guid Id { get; set; }
+      
+        /// <summary>
+        /// 标签
+        /// </summary>
+        public virtual string Tag { get; set; }
+
         /// <summary>
         /// 该事件段内的最大接单数量
         /// </summary>
@@ -53,6 +59,10 @@ namespace Dianzhu.Model
         /// <returns></returns>
         private int TimeStringToPeriod(string time)
         {
+            if (time == null)
+            {
+                int c = 0;
+            }
             string[] arr = time.Split(new char[] { ':', '：' });
             if (arr.Length != 2)
             {
@@ -70,6 +80,7 @@ namespace Dianzhu.Model
         public virtual void CopyTo(ServiceOpenTimeForDay newSotForDay)
         {
             newSotForDay.Id = Id;
+            newSotForDay.Tag = Tag;
             newSotForDay.MaxOrderForOpenTime = MaxOrderForOpenTime;
             newSotForDay.Enabled = Enabled;
             newSotForDay.ServiceOpenTime = ServiceOpenTime;
@@ -96,7 +107,8 @@ namespace Dianzhu.Model
                 this.MaxOrderForOpenTime,
                 datetime.Date,
                 PeriodStart,
-                PeriodEnd
+                PeriodEnd,
+                this.Id
                 );
         }
     }

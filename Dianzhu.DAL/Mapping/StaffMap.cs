@@ -13,6 +13,8 @@ namespace Dianzhu.DAL.Mapping
         {
             Id(x => x.Id);
             Map(x => x.Name);
+            Map(x => x.LoginName);
+            Map(x => x.UserID);
             Map(x => x.Age);
             Map(x => x.WorkingYears);
             References<Business>(x => x.Belongto);

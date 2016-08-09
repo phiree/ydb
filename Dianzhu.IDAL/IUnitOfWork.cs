@@ -7,9 +7,10 @@ namespace Dianzhu.IDAL
 {
     public interface IUnitOfWork
     {
-        void BeginTransaction();
-        void Commit();
-        void Rollback();
+      
+         
+         void End();
+        
     }
  
 }

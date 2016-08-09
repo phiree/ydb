@@ -73,35 +73,28 @@
                                                                 <span><%# String.Format("{0:0000}", (Container.ItemIndex + 1)) %></span>
                                                             </div>
                                                             <div class="custom-col col-static-10">
-                                                                <%#Eval("Name") %>
+                                                                <span class="text-ellipsis"><%#Eval("Name") %></span>
                                                             </div>
                                                             <div class="custom-col col-static-20">
                                                                 <i class="icon service-icon svcType-s-icon-<%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.TopType.Id  %>"></i>                                                                <span class=""><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %></span>
 
                                                             </div>
-                                                            <!--<div class="custom-col col-static-10">-->
-                                                                <!--<span class="text-ellipsis"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %></span>-->
-                                                            <!--</div>-->
                                                             <div class="custom-col col-static-20">
                                                                 <span class="spServiceArea text-ellipsis" ></span><input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
                                                             </div>
                                                             <div class="custom-col col-static-10">
-                                                                <a class="btn btn-info btn-xs" href="ServiceShelf.aspx?businessid=<%=Request.Params["businessId"]%>&serviceId=<%#Eval("Id") %>" collapse-ignore="true">查看货架</a>
+                                                                <a class="btn btn-info btn-xs" href="ServiceShelf.aspx?businessId=<%=Request.Params["businessId"]%>&serviceId=<%#Eval("Id") %>" collapse-ignore="true">查看货架</a>
                                                                 <!--通过修改boostrap中的collapse模块功能，实现collapse标签中指定忽略指定target的功能-->
                                                             </div>
                                                             <div class="custom-col col-static-10">
                                                                 <a class="btn btn-info-light btn-xs" href="Detail.aspx?businessid=<%=Request.Params["businessId"]%>&serviceId=<%#Eval("Id") %>" collapse-ignore="true">服务详情</a>
                                                             </div>
                                                             <div class="custom-col col-static-20">
-
-                                                                <!--<span class="t-c service-status <%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"theme-color-right":"theme-color-delete" %>" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></span>-->
                                                                 <a collapse-ignore="true" class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-delete-light btn-xs":"btn btn-info-light btn-xs" %> enable-service" serid='<%#Eval("Id") %>' > <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></a>
 
                                                                 <a class="btn btn-info-light btn-xs" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>&serviceid=<%#Eval("Id") %>" >编辑
-                                                                <!--<i class="icon icon-service-edit" title="编辑" collapse-ignore="true"></i>-->
                                                                 </a>
                                                                 <asp:LinkButton ID="LinkButton1" runat="server" class="btn btn-cancel-light btn-xs" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript: return confirm('警告：\n数据一旦被删除将无法还原！')" >删除
-                                                                    <!--<i class="icon icon-service-delete" title="删除" collapse-ignore="true"></i>-->
                                                                 </asp:LinkButton>
                                                             </div>
                                                         </div>
@@ -190,20 +183,4 @@
 
        });
     </script>
-    <!--<script>-->
-        <!--var name_prefix = 'ctl00$ctl00$ContentPlace Holder1$ContentPlaceHolder1$ctl00$';-->
-    <!--</script>-->
-    <!--<script src="/js/validation_service_edit.js"></script>-->
-    <!--<script src="/js/validation_invalidHandler.js"></script>-->
-    <!--<script>-->
-        <!--function loadBaiduMapScript() {-->
-          <!--var script = document.createElement("script");-->
-          <!--script.src = "http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc&callback=initializeService";-->
-          <!--document.body.appendChild(script);-->
-        <!--}-->
-
-        <!--$(document).ready(function(){-->
-            <!--loadBaiduMapScript();-->
-        <!--})-->
-    <!--</script>-->
 </asp:Content>

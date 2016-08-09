@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class DZService_ServiceShelf : System.Web.UI.Page
+public partial class DZService_ServiceShelf : BasePage
 {
 
     public string merchantID {

@@ -26,7 +26,8 @@ public class ResponseWTM001001 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-        BLLDZService bllDZService = new BLLDZService();
+
+        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
 
         try
         {
@@ -155,6 +156,8 @@ public class ResponseWTM001001 : BaseResponse
 
                 ValidationResult vResult = new ValidationResult();
                 bllDZService.SaveOrUpdate(service, out vResult);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+
                 if (!vResult.IsValid)
                 {
                     this.state_CODE = Dicts.StateCode[1];

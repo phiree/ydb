@@ -15,6 +15,17 @@ namespace Dianzhu.CSClient.IView
         string SearchStr { get; set; }
 
         event SearchOrderHistoryClick SearchOrderHistoryClick;
+        void ShowNullListLable();
+        void ShowListLoadingMsg();
+        void ShowMoreOrderList();
+        void ShowNoMoreOrderList();
+
+        void AddOneOrder(ServiceOrder order);
+        void InsertOneOrder(ServiceOrder order);
+
+        void ClearUCData();
+
+        event BtnMoreChat BtnMoreOrder;
     }
 
     /// <summary>
@@ -22,5 +33,7 @@ namespace Dianzhu.CSClient.IView
     /// </summary>
     /// <param name="searchStr"></param>
     public delegate void SearchOrderHistoryClick();
+
+    public delegate void BtnMoreOrder();
 
 }

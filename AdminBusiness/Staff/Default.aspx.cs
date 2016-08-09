@@ -8,7 +8,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 public partial class Staff_Default : BasePage
 {
-    BLLStaff bllStaff = new BLLStaff();
+    BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>();
 
     public string merchantID {
         get {
@@ -34,7 +34,7 @@ public partial class Staff_Default : BasePage
             index = int.Parse(strIndex);
         }
        
-        IList<Staff> staffList=bllStaff.GetList(b.Id, Guid.Empty,index, pager.PageSize, out total);
+        IList<Staff> staffList=bllStaff.GetListByBusiness(b.Id, index, pager.PageSize, out total);
         pager.RecordCount = total;
         rptStaff.DataSource = staffList;
         rptStaff.DataBind();
@@ -48,6 +48,7 @@ public partial class Staff_Default : BasePage
             Guid id = new Guid(e.CommandArgument.ToString());
             Staff staff=bllStaff.GetOne(id);
             bllStaff.Delete(staff);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             BindList();
         }
     }

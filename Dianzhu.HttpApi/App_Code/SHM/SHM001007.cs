@@ -15,18 +15,19 @@ using Dianzhu.Api.Model;
 public class ResponseSHM001007 : BaseResponse
 {
     public ResponseSHM001007(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+    
     protected override void BuildRespData()
     {
         ReqDataSHM001007 requestData = this.request.ReqData.ToObject<ReqDataSHM001007>();
 
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用
-        BLLDZTag bllDZTag = new BLLDZTag();
+        BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
+        BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
 
-        string start_Time = requestData.stratTime;
+        string start_Time = requestData.startTime;
         string end_Time = requestData.endTime;
-        string type_Str = requestData.type;
+        string service_id = requestData.svcID;
 
         try
         {
@@ -45,61 +46,42 @@ public class ResponseSHM001007 : BaseResponse
                 return;
             }
 
-            if (startTime < endTime)
+            if (startTime > endTime)
             {
                 this.state_CODE = Dicts.StateCode[1];
                 this.err_Msg = "startTime不得小于endTime!";
                 return;
             }
 
-            try
-            {
-                string[] typeList = type_Str.Split('|');
-                if (typeList.Count() > 0)
-                {
-                    for(int i = 0; i < typeList.Count(); i++)
-                    {
-                        switch (typeList[i])
-                        {
-                            case "maxOrder":
 
-                                break;
-                            case "workTime":
 
-                                break;
-                            case "order":
 
-                                break;
-                        }
-                    }
-                }
+           
 
-               
+            DZService dzService = bllService.GetOne(new Guid(service_id));
 
-                RespDataSHM001007 respData = new RespDataSHM001007();
-
-                this.RespData = respData;
-                this.state_CODE = Dicts.StateCode[0];
-
-            }
-            catch (Exception ex)
-            {
-                this.state_CODE = Dicts.StateCode[2];
-                this.err_Msg = ex.Message;
-                return;
-            }
+            IList<ServiceOrder> orderList = bllServiceOrder.GetOrderListOfServiceByDateRange(new Guid(service_id), startTime, endTime);
+             
+          //  RespDataSHM001007 respData = new RespDataSHM001007();
+          
+            this.RespData = new RespDataSHM_snapshots().Adap(orderList);
+            this.state_CODE = Dicts.StateCode[0];
 
         }
+
+
+
         catch (Exception e)
         {
             this.state_CODE = Dicts.StateCode[1];
             this.err_Msg = e.Message;
+            PHSuit.ExceptionLoger.ExceptionLog(Log, e);
             return;
         }
 
     }
 
 }
- 
+
 
 

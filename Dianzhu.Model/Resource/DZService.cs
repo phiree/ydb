@@ -13,7 +13,7 @@ namespace Dianzhu.Model
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model.DZService");
         public DZService()
         {
-            PropertyValues = new List<ServicePropertyValue>();
+            
             Enabled = true;
             IsDeleted = false;
             InitOpenTimes();
@@ -74,10 +74,7 @@ namespace Dianzhu.Model
         /// 详细描述
         /// </summary>
         public virtual string Description { get; set; }
-        /// <summary>
-        /// 类别属性的值.
-        /// </summary>
-        public virtual IList<ServicePropertyValue> PropertyValues { get; set; }
+        
         /// <summary>
         /// 每日接单总量
         /// </summary>       
@@ -88,6 +85,20 @@ namespace Dianzhu.Model
         /// 允许的支付方式
         /// </summary>
         public virtual enum_PayType AllowedPayType { get; set; }
+
+        public virtual int GetAllPayTypeNum
+        {
+            get
+            {
+                enum_PayType pt = enum_PayType.None;
+                foreach (enum_PayType item in Enum.GetValues(typeof(enum_PayType)))
+                {
+                    pt |= item;
+                }
+                return (int)pt;
+            }
+        }
+       
 
         /// <summary>
         /// 服务保障:是否先行赔付
@@ -135,6 +146,28 @@ namespace Dianzhu.Model
                     default: unit = "未知计费单位类型"; break;
                 }
                 return unit;
+            }
+            set
+            {
+                try
+                {
+                    this.ChargeUnit = (Model.Enums.enum_ChargeUnit)Enum.Parse(typeof(Model.Enums.enum_ChargeUnit), value);
+                }
+                catch(Exception ex)
+                {
+                    switch (value.ToLower())
+                    {
+                        case "day": 
+                        case "天": this.ChargeUnit = enum_ChargeUnit.Day ; break;
+                        case "hour":
+                        case "时": this.ChargeUnit = enum_ChargeUnit.Hour; break;
+                        case "month":
+                        case "月": this.ChargeUnit = enum_ChargeUnit.Month; break;
+                        case "times":
+                        case "次": this.ChargeUnit = enum_ChargeUnit.Times; break;
+                        default: throw ex; 
+                    }
+                }
             }
         }
         /// <summary>
@@ -218,7 +251,7 @@ namespace Dianzhu.Model
             newService.Business = Business;
             newService.ServiceType = ServiceType;
             newService.Description = Description;
-            newService.PropertyValues = PropertyValues;
+            
             newService.BusinessAreaCode = BusinessAreaCode;
             newService.MinPrice = MinPrice;
             newService.UnitPrice = UnitPrice;
@@ -278,6 +311,21 @@ namespace Dianzhu.Model
             
             
         }
-        
+        public virtual ServiceOpenTimeSnapshot GetServiceOpenTimeSnapshot(DateTime targetTime)
+        {
+            var targetOpenTime = OpenTimes.Where(x => x.DayOfWeek == targetTime.DayOfWeek);
+            int count = targetOpenTime.Count();
+            errMsg = "时间项应该有且只有一项";
+            System.Diagnostics.Debug.Assert(count == 1, errMsg);
+            if (count != 1)
+            {
+                log.Error(errMsg);
+                throw new Exception(errMsg);
+            }
+
+            return new ServiceOpenTimeSnapshot { MaxOrderForDay=targetOpenTime.ToList()[0].MaxOrderForDay };
+
+        }
+
     }
 }

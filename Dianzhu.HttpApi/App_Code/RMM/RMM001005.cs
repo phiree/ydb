@@ -23,7 +23,13 @@ public class ResponseRMM001005 : BaseResponse
 
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-        BLLServiceOrderRemind bllServcieOrderRemind = new BLLServiceOrderRemind();
+
+
+        //20150616_longphui_modify
+        //BLLServiceOrderRemind bllServcieOrderRemind = new BLLServiceOrderRemind();
+        BLLServiceOrderRemind bllServiceOrderRemind = Bootstrap.Container.Resolve<BLLServiceOrderRemind>();
+
+
         string user_id = requestData.userID;
         string remind_id = requestData.remindID;
 
@@ -67,7 +73,7 @@ public class ResponseRMM001005 : BaseResponse
             }
             try
             {
-                ServiceOrderRemind remind = bllServcieOrderRemind.GetOneByIdAndUserId(remingId, userId);
+                ServiceOrderRemind remind = bllServiceOrderRemind.GetOneByIdAndUserId(remingId, userId);
                 if (remind == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];

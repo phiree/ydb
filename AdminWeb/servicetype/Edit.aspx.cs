@@ -7,11 +7,11 @@ using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.BLL.Finance;
-public partial class servicetype_Edit : System.Web.UI.Page
+public partial class servicetype_Edit : BasePage
 {
     private Guid TypeId=Guid.Empty;
-    BLLServiceType bllServiceType = new BLLServiceType();
-    BLLServiceTypePoint bllPoint = new BLLServiceTypePoint();
+    BLLServiceType bllServiceType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
+    Dianzhu.BLL.Finance.IBLLServiceTypePoint bllPoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBLLServiceTypePoint>();
     private bool IsNew {
         get {
             return TypeId == Guid.Empty;
@@ -67,7 +67,14 @@ public partial class servicetype_Edit : System.Web.UI.Page
     protected void btnOK_Click(object sender, EventArgs e)
     {
         UpdateForm();
-        bllServiceType.SaveOrUpdate(CurrentServiceType);
+        if (IsNew)
+        {
+            bllServiceType.Save(CurrentServiceType);
+        }
+        else
+        { 
+        bllServiceType.Update(CurrentServiceType);
+        }
         PHSuit.Notification.Show(Page, "", "保存成功", Request.Url.AbsolutePath);
     }
 }

@@ -80,6 +80,7 @@
                         <li><a href="/servicetype/">服务类别管理</a></li>
                         <li><a href="/servicetype/import.aspx">服务类别导入</a></li>
                         <li><a href="/test">测试</a></li>
+                        <li><a href="/receptionstatus">分配关系</a></li>
 
                     </ul>
                 </div>

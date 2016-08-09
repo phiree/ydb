@@ -9,19 +9,17 @@ namespace Dianzhu.BLL
 {
    public  class PushService
     {
-        DAL.DALServiceOrderPushedService dalSOP;
-        IBLLServiceOrder bllServiceOrder { get; set; }
+        IDAL.IDALServiceOrderPushedService dalSOP;
+        BLLPayment bllPayment;
+        IBLLServiceOrder bllServiceOrder;
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis;
-        public PushService(DAL.DALServiceOrderPushedService dalSOP,IBLLServiceOrder bllServiceOrder)
+        public PushService(IDAL.IDALServiceOrderPushedService dalSOP,IBLLServiceOrder bllServiceOrder, BLLPayment bllPayment,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis)
         {
             this.dalSOP = dalSOP;
             this.bllServiceOrder = bllServiceOrder;
-            
-            this.bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
-        }
-        public PushService(IBLLServiceOrder bllServiceOrder):this(new DAL.DALServiceOrderPushedService(),bllServiceOrder)
-        {
+            this.bllPayment = bllPayment;
 
+            this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
         }
         public void Push(ServiceOrder order, ServiceOrderPushedService service, string targetAddress, DateTime targetTime)
         {
@@ -39,12 +37,12 @@ namespace Dianzhu.BLL
         /// <param name="targetTime"></param>
         public void Push(ServiceOrder order, IList<ServiceOrderPushedService> services, string targetAddress, DateTime targetTime)
         {
-            order.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
-            bllServiceOrder.Update(order);
+            //order.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
+           
 
             foreach (ServiceOrderPushedService service in services)
             {
-                dalSOP.Save(service);
+                dalSOP.Add(service);
             }
         }
         public IList<ServiceOrderPushedService> GetPushedServicesForOrder(ServiceOrder order)
@@ -59,28 +57,38 @@ namespace Dianzhu.BLL
         public void SelectServiceAndCreate(ServiceOrder order, DZService selectedService)
         {
             IList<ServiceOrderPushedService> l = GetPushedServicesForOrder(order);
-            if (l.Count > 0)
+            if (l.Count > 1)
+            {
+                throw new Exception("包含多个推送服务");
+            }
+            else if (l.Count == 1)
             {
                 ServiceOrderPushedService s = l.Single(x => x.OriginalService.Id == selectedService.Id);
+                if (s == null)
+                {
+                    throw new Exception("该服务不是该订单的推送服务！");
+                }
                 order.AddDetailFromIntelService(s.OriginalService, s.UnitAmount, s.TargetAddress, s.TargetTime);
 
                 order.CreatedFromDraft();
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
                 //保存订单历史记录
-                bllServiceOrderStateChangeHis.SaveOrUpdate(order, enum_OrderStatus.DraftPushed);
+                bllServiceOrderStateChangeHis.Save(order, enum_OrderStatus.DraftPushed);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
-                PHSuit.HttpHelper.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice&orderId=" + order.Id.ToString(), "get", null);
+                Payment payment = bllPayment.ApplyPay(order, enum_PayTarget.Deposit);
 
-                if (order.DepositAmount>0)
+                if (order.DepositAmount > 0)
                 {
-                    BLLPayment bllPayment = new BLLPayment();
-                    Payment payment = bllPayment.ApplyPay(order, enum_PayTarget.Deposit);
+                    PHSuit.HttpHelper.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice&orderId=" + order.Id.ToString(), "get", null);
                 }
                 else
                 {
-                    bllServiceOrder.OrderFlow_PayDepositAndWaiting(order);
+                    bllServiceOrder.OrderFlow_ConfirmDeposit(order);
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 }
-            }            
+            }
         }
     }
 }

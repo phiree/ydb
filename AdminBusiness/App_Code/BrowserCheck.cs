@@ -19,7 +19,7 @@ public class BrowserCheck
     public static bool CheckVersion(bool redirect)
     {
         bool cvalue = false;
-        if (Convert.ToInt32(HttpContext.Current.Request.Browser.MajorVersion) > 7)
+        if (Convert.ToInt32(HttpContext.Current.Request.Browser.MajorVersion) > 8)
         {
             cvalue = true;
         }

@@ -14,12 +14,12 @@ using Dianzhu.Api.Model;
 public class ResponseORM005007 : BaseResponse
 {
     public ResponseORM005007(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+    
     protected override void BuildRespData()
     {
         ReqDataORM005007 requestData = this.request.ReqData.ToObject<ReqDataORM005007>();
 
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         string merchant_ID = requestData.merchantID;
@@ -124,7 +124,10 @@ public class ResponseORM005007 : BaseResponse
                             return;
                         }
 
-                        bllServiceOrder.OrderFlow_BusinessAskPayWithRefund(order, refundObj.context, refundAmount, refundObj.resourcesUrl, member);
+                        //20160623_longphui_modify
+                        string[] resourcesUrls = refundObj.resourcesUrl.Split(',');
+
+                        bllServiceOrder.OrderFlow_BusinessAskPayWithRefund(order, refundObj.context, refundAmount, resourcesUrls.ToList(), member);
 
                         status = order.OrderStatus;
                         break;

@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.CSClient.IView;
+using Dianzhu.BLL;
+using Dianzhu.IDAL;
+
 namespace Dianzhu.CSClient
 {
     public class InstallerUI : IWindsorInstaller
@@ -21,10 +24,24 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<CSClient.Presenter.PChatList>());
             container.Register(Component.For<CSClient.Presenter.PChatSend>());
             container.Register(Component.For<CSClient.Presenter.PNotice>());
-            container.Register(Component.For<CSClient.Presenter.POrder>());
+            container.Register(Component.For<CSClient.Presenter.POrder>().DependsOn(
+                Dependency.OnValue("dalHistory",new DAL.DALServiceOrderStateChangeHis()),
+                Dependency.OnValue("dalOrder", new DAL.DALServiceOrder()),
+                Dependency.OnValue("bllPayment", new BLLPayment(container.Resolve<IDALPayment>(), container.Resolve<IDALClaims>()))
+                ));
             container.Register(Component.For<CSClient.Presenter.POrderHistory>());
-            container.Register(Component.For<CSClient.Presenter.PSearch>());
-          //  container.Register(Component.For<CSClient.Presenter.PShelfService>());
+ 
+            container.Register(Component.For<CSClient.Presenter.PSearch>().DependsOn(
+               
+                Dependency.OnValue("bllPushService", new PushService(container.Resolve<IDALServiceOrderPushedService>(), container.Resolve<IBLLServiceOrder>(),new BLLPayment(container.Resolve<IDALPayment>(),container.Resolve<IDALClaims>()),new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>()))),
+ 
+                Dependency.OnValue("bllReceptionStatus", container.Resolve<BLLReceptionStatus>())
+
+                ));
+
+            // PushService bllPushService, BLLReceptionChat bllReceptionChat, BLLServiceType bllServiceType,BLLReceptionStatus bllReceptionStatus
+            //IDAL.IDALServiceOrderPushedService dalSOP,IBLLServiceOrder bllServiceOrder, BLLPayment bllPayment,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis
+
 
             container.Register(Component.For<IView.IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());
             container.Register(Component.For<IView.ILoginForm>().ImplementedBy<ViewWPF.FormLogin>());
@@ -36,7 +53,9 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<IViewOrderHistory>().ImplementedBy<ViewWPF.UC_OrderHistory>());
             container.Register(Component.For<IViewSearch>().ImplementedBy<ViewWPF.UC_Search>());
             container.Register(Component.For<IViewSearchResult>().ImplementedBy<ViewWPF.UC_SearchResult>());
-           // container.Register(Component.For<IViewShelfService>().ImplementedBy<ViewWPF.UC_ShelfService>());
+            container.Register(Component.For<IViewUsefulLinks>().ImplementedBy<ViewWPF.UC_UsefulLinks>());
+            container.Register(Component.For<IViewFormShowMessage>().ImplementedBy<ViewWPF.FormShowMessage>());
+            // container.Register(Component.For<IViewShelfService>().ImplementedBy<ViewWPF.UC_ShelfService>());
         }
     }
 }

@@ -28,7 +28,7 @@ using Com.Alipay;
 /// 该页面调试工具请使用写文本函数logResult。
 /// 如果没有收到该页面返回的 success 信息，支付宝会在24小时内按一定的时间策略重发通知
 /// </summary>
-public partial class notify_url : System.Web.UI.Page
+public partial class notify_url : BasePage
 {
     IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
     protected void Page_Load(object sender, EventArgs e)
@@ -78,13 +78,13 @@ public partial class notify_url : System.Web.UI.Page
                 bllOrder.Update(order);
 
                 //保存接收数据
-                BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
+                BLLPaymentLog bllPaymentLog = Bootstrap.Container.Resolve<BLLPaymentLog>();
                 PaymentLog paymentLog = new PaymentLog();
                 paymentLog.ApiString = Request.Url + "|" + Request.QueryString.ToString() + "|" + Request.Form.ToString();
                 paymentLog.PaylogType = Dianzhu.Model.Enums.enum_PaylogType.ResultNotifyFromAli;
                 paymentLog.LogTime = DateTime.Now;
                 //paymentLog.ServiceOrder = order;
-                bllPaymentLog.SaveOrUpdate(paymentLog);
+                bllPaymentLog.Save(paymentLog);
                 //保存接收数据
 
                 //——请根据您的业务逻辑来编写程序（以下代码仅作参考）——

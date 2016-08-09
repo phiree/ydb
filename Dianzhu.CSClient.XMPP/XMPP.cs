@@ -106,6 +106,8 @@ namespace Dianzhu.CSClient.XMPP
         }
         void XmppClientConnection_OnMessage(object sender, Message msg)
         {
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            //Action a = () => { 
             //接受消息,由presenter构建chat
             //message-->chat
             //1 转换为chat对象
@@ -124,6 +126,10 @@ namespace Dianzhu.CSClient.XMPP
                 log.Error("消息解析失败");
                 PHSuit.ExceptionLoger.ExceptionLog(log, ex);
             }
+            //};
+            //NHibernateUnitOfWork.With.Transaction(a);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
         void Connection_OnPresence(object sender, Presence pres)
         {
@@ -154,6 +160,7 @@ namespace Dianzhu.CSClient.XMPP
             iqHeartBeat.AddChild(pingNode);
 
             XmppClientConnection.Send(iqHeartBeat);
+            log.Debug("HeartBeat"+iqHeartBeat.ToString());
         }
         public void SendPresent()
         {

@@ -26,9 +26,12 @@ public class ResponseWTM001002 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-        BLLDZService bllDZService = new BLLDZService();
-        BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = new BLLServiceOpenTimeForDay();
 
+        //20160620_longphui_modify
+        //BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = new BLLServiceOpenTimeForDay();
+        BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = Bootstrap.Container.Resolve<BLLServiceOpenTimeForDay>();
+
+        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
         try
         {
             string raw_id = requestData.merchantID;

@@ -81,10 +81,17 @@ public partial class Business_Edit : BasePage
 
     protected void rpt_show_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
+        
         if (e.CommandName.ToLower().Trim() == "delete")
         {
             Guid imageId = new Guid(e.CommandArgument.ToString());
-            bllBi.Delete(imageId);
+            if (!b.BusinessImages.Any(x => x.Id == imageId))
+            { return; }
+            var removed = b.BusinessImages.Single(x => x.Id == imageId);
+            b.BusinessImages.Remove(removed);
+
+            //NHibernateUnitOfWork.UnitOfWork.Current.Refresh(b);
+        //    bllBi.Delete(imageId)
              
            // Response.Redirect(Request.RawUrl);
             BindBusinessLicenses();
@@ -132,6 +139,7 @@ public partial class Business_Edit : BasePage
         }
         else
         { dalBusiness.Update(b); }
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
         Response.Redirect("/business/detail.aspx?businessid=" + b.Id);
        // Page.ClientScript.RegisterClientScriptBlock(typeof(string), "", @"<script language='javascript' defer>alert('提交成功！');window.document.location.href='" + Request.UrlReferrer.ToString() + "';</script>");
 

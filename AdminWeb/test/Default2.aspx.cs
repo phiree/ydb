@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-public partial class test_Default : System.Web.UI.Page
+public partial class test_Default : BasePage
 {
     IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
     protected void Page_Load(object sender, EventArgs e)
@@ -16,9 +16,9 @@ public partial class test_Default : System.Web.UI.Page
     protected void btnCreateOrder_Click(object sender,EventArgs e)
     {
         DZMembershipProvider bllMembership = Bootstrap.Container.Resolve<DZMembershipProvider>();
-       
-        BLLDZService bllService = new BLLDZService();
-        BLLPayment bllPayment = new BLLPayment();
+
+        BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
+        BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
 
         DZMembership customer = bllMembership.GetUserByName(tbxCustomerName.Text);
         if (customer == null)

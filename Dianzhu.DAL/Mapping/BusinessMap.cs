@@ -11,7 +11,7 @@ namespace Dianzhu.DAL.Mapping
     {
         public Business_AbsMap()
         {
-            Id(x => x.Id);
+            Id(x => x.Id).CustomType<Guid>();
             Map(x => x.Name);
             Map(x => x.Contact);
             Map(x => x.Description);
@@ -35,16 +35,16 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.IsApplyApproved);
             Map(x => x.ApplyRejectMessage);
             References<Area>(x => x.AreaBelongTo).ForeignKey("none");
-            HasMany<Area>(x => x.AreaServiceTo);
+           
             Map(x => x.DateApply);
             Map(x => x.DateApproved);
            
             HasMany<BusinessImage>(x => x.BusinessImages).Cascade.AllDeleteOrphan();
             Map(x => x.ChargePersonIdCardNo);
             Map(x => x.StaffAmount);
-            Map(x => x.ChargePersonIdCardType).CustomType<int>();
+            Map(x => x.ChargePersonIdCardType).CustomType<Model.Enums.enum_IDCardType>();
             Map(x => x.PromoteScope);
-            HasMany(x => x.CashTicketTemplates);
+            
             Map(x => x.RawAddressFromMapAPI);
         }
     }
@@ -55,7 +55,7 @@ namespace Dianzhu.DAL.Mapping
             Id(x => x.Id);
             Map(x => x.Description);
             Map(x => x.ImageName);
-            Map(x => x.ImageType).CustomType<int>();
+            Map(x => x.ImageType).CustomType<Dianzhu.Model.Enums.enum_ImageType>();
             Map(x => x.OrderNumber);
             Map(x => x.Size);
             Map(x => x.UploadTime);

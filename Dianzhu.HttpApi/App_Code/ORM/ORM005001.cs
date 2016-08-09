@@ -20,14 +20,14 @@ public class ResponseORM005001 : BaseResponse
     {
         ReqDataORM005001 requestData = this.request.ReqData.ToObject<ReqDataORM005001>();
 
-        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
 
-        BLLServiceOrderAppraise bllServiceOrderAppraise = new BLLServiceOrderAppraise();
+        BLLServiceOrderAppraise bllServiceOrderAppraise = Bootstrap.Container.Resolve<BLLServiceOrderAppraise>();
 
        
-        BLLClaims bllClaims = new BLLClaims();
+        BLLClaims bllClaims = Bootstrap.Container.Resolve<BLLClaims>();
 
 
         string user_ID = requestData.userID;
@@ -137,8 +137,11 @@ public class ResponseORM005001 : BaseResponse
                     return;
                 }
 
+                //20160623_longphui_modify
+                string[] resourcesUrls = resourcesUrl.Split(',');
+
                 Claims claims = new Claims(order, oldStatus, member);
-                claims.AddDetailsFromClaims(claims, context, amount, resourcesUrl, enum_ChatTarget.user, member);
+                claims.AddDetailsFromClaims(claims, context, amount, resourcesUrls.ToList(), enum_ChatTarget.user, member);
                 bllClaims.Save(claims);
 
                 RespDataORM005001 respData = new RespDataORM005001();

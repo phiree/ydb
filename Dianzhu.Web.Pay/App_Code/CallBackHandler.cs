@@ -16,7 +16,7 @@ using Dianzhu.Model;
 using Dianzhu.Pay;
 using Dianzhu.Model.Enums;
 using System.Web.Script.Serialization;
-public partial class CallBackHandler : System.Web.UI.Page
+public partial class CallBackHandler :BasePage
 {
 
 

@@ -8,18 +8,17 @@ namespace Dianzhu.Model
     /// <summary>
     /// 用户登录/注销 记录
     /// </summary>
-  public  class MembershipLoginLog
+    public class MembershipLoginLog : DDDCommon.Domain.Entity<Guid>
     {
         public MembershipLoginLog()
         { }
-        public MembershipLoginLog(DZMembership membership,enumLoginLogType logType,string memo)
+        public MembershipLoginLog(DZMembership membership, enumLoginLogType logType, string memo)
         {
             LogTime = DateTime.Now;
             Membership = membership;
             logType = logType;
             Memo = memo;
         }
-        public virtual Guid Id { get; protected set; }
         public virtual DZMembership Membership { get; protected set; }
         public virtual DateTime LogTime { get; protected set; }
         public virtual enumLoginLogType LogType { get; protected set; }
@@ -29,10 +28,11 @@ namespace Dianzhu.Model
     /// <summary>
     /// 类型.
     /// </summary>
-    public enum enumLoginLogType {
+    public enum enumLoginLogType
+    {
         Login,
         Logoff
     }
-    
-    
+
+
 }

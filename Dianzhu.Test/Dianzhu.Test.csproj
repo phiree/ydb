@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dianzhu.Test</RootNamespace>
     <AssemblyName>Dianzhu.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -38,6 +38,10 @@
       <HintPath>..\packages\Loamen.agsXMPP.1.3.1\lib\net45\agsXMPP.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AutoMapper, Version=5.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.0.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
@@ -45,6 +49,9 @@
     <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Dianzhu.ApplicationService">
+      <HintPath>..\Dianzhu.ApplicationService\bin\Debug\Dianzhu.ApplicationService.dll</HintPath>
     </Reference>
     <Reference Include="FizzWare.NBuilder, Version=3.0.1.0, Culture=neutral, PublicKeyToken=5651b03e12e42c12, processorArchitecture=MSIL">
       <HintPath>..\packages\NBuilder.3.0.1.1\lib\FizzWare.NBuilder.dll</HintPath>
@@ -66,6 +73,10 @@
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -79,12 +90,12 @@
       <HintPath>..\packages\NSubstitute.1.10.0.0\lib\net45\NSubstitute.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="nunit.framework, Version=3.2.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.2.1\lib\net45\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture, Version=3.47.5.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoFixture.3.47.5\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+    <Reference Include="Ploeh.AutoFixture, Version=3.47.6.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoFixture.3.47.6\lib\net40\Ploeh.AutoFixture.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
@@ -94,9 +105,18 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Http, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.0\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -118,15 +138,17 @@
     <Compile Include="BLLTest\TestDZService.cs" />
     <Compile Include="BLLTest\TestReceptionAssign.cs" />
     <Compile Include="Bootstrap.cs" />
-    <Compile Include="CashTicketCreateTest.cs" />
-    <Compile Include="cashticket_generator_test.cs" />
+    <Compile Include="ClassMapper\DZMapperTests.cs" />
     <Compile Include="DALTest\DALService.cs" />
     <Compile Include="DALTest\MapTest.cs" />
     <Compile Include="DALTest\TestDALReceptionChatDD.cs" />
+    <Compile Include="DALTest\UnitOfWorkTest.cs" />
     <Compile Include="DiandianTest\DiandianTest.cs" />
     <Compile Include="DianzhuModelTest\ServiceOrderTest.cs" />
     <Compile Include="DianzhuNotifyCenterTest\OrderNotifyTest.cs" />
     <Compile Include="DianzhuPushTest\TestPush.cs" />
+    <Compile Include="DianzhuRestfulApi\ApiTestBase.cs" />
+    <Compile Include="DianzhuRestfulApi\ClientApiTest.cs" />
     <Compile Include="dianzhu_test.cs" />
     <Compile Include="DZCSClientTest\LoginPresenterTest.cs" />
     <Compile Include="DZCSClientTest\MainPresenterTest.cs" />
@@ -146,9 +168,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExcelImportTest.cs" />
     <Compile Include="Reception\BLLReceptionTests.cs" />
+    <Compile Include="RespDataSHM_snapshotObjTests.cs" />
     <Compile Include="SecurityTest.cs" />
+    <Compile Include="ServiceOrder\DALServiceOrderTests.cs" />
     <Compile Include="tagTest.cs" />
     <Compile Include="test_mainform.cs" />
+    <Compile Include="UnitOfWork\UnitOfWorkFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config">
@@ -161,6 +186,10 @@
       <Link>config\connectionStrings.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="config\appSettings.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="config\connectionstrings.config" />
     <None Include="files\aps_development_Mark.p12">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -178,8 +207,12 @@
       <Project>{d90cdf37-7406-4dae-9ae6-c894d83a796f}</Project>
       <Name>DDDCommon</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Api.Model\Dianzhu.Api.Model.csproj">
+      <Project>{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766}</Project>
+      <Name>Dianzhu.Api.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
-      <Project>{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}</Project>
+      <Project>{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}</Project>
       <Name>Dianzhu.BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
@@ -237,10 +270,6 @@
     <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
       <Project>{be142427-1ce4-40f8-ac58-d0509ba05d21}</Project>
       <Name>Dianzhu.Push</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DianzhuService.Diandian\DianzhuService.Diandian.csproj">
-      <Project>{d3820846-bad7-49e9-8bcf-d5ef26579350}</Project>
-      <Name>DianzhuService.Diandian</Name>
     </ProjectReference>
     <ProjectReference Include="..\JSYK.Infrastructure\JSYK.Infrastructure.csproj">
       <Project>{7ce433bf-0692-4d37-ace9-e1984391cd3b}</Project>

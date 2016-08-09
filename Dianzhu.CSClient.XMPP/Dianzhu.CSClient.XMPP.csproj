@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dianzhu.CSClient.XMPP</RootNamespace>
     <AssemblyName>Dianzhu.CSClient.XMPP</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -67,6 +67,10 @@
     <ProjectReference Include="..\Dianzhu.CSClient.IMessageAdapter\Dianzhu.CSClient.IMessageAdapter.csproj">
       <Project>{74F0963E-57CA-4D57-899C-D85FF096FE1F}</Project>
       <Name>Dianzhu.CSClient.IMessageAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
+      <Project>{2e67aa78-6780-42bd-a3ab-ad953781e511}</Project>
+      <Name>Dianzhu.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>

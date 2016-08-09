@@ -21,6 +21,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.PayApi).CustomType<Model.Enums.enum_PayAPI>();
             Map(x => x.PlatformTradeNo);
             Map(x => x.Memo);
+            Map(x => x.PayType).CustomType<Model.Enums.enum_PayType>();
         }
     }
   

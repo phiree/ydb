@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dianzhu.DAL</RootNamespace>
     <AssemblyName>Dianzhu.DAL</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
@@ -62,10 +64,6 @@
       <HintPath>..\packages\NHibernate.4.0.4.4000\lib\net40\NHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.3.5\lib\net40\NLog.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -77,6 +75,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\DALClient.cs" />
+    <Compile Include="Client\DALRefreshToken.cs" />
+    <Compile Include="Client\DALUserToken.cs" />
+    <Compile Include="DALClaimsDetails.cs" />
     <Compile Include="DALMembershipLoginLog.cs" />
     <Compile Include="DALClaims.cs" />
     <Compile Include="DALComplaint.cs" />
@@ -84,7 +86,6 @@
     <Compile Include="DALRefund.cs" />
     <Compile Include="DALPayment.cs" />
     <Compile Include="DALRefundLog.cs" />
-    <Compile Include="DALReception.cs" />
     <Compile Include="DALServiceOpenTime.cs" />
     <Compile Include="DALIMUserStatusArchieve.cs" />
     <Compile Include="DALIMUserStatus.cs" />
@@ -92,23 +93,26 @@
     <Compile Include="DALArea.cs" />
     <Compile Include="DALDZTag.cs" />
     <Compile Include="Finance\DALDefaultSharePoint.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Mapping\Client\UserTokenMap.cs" />
+    <Compile Include="Mapping\StorageManager\StorageFileInfoMap.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderRemind.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderAppraise.cs" />
     <Compile Include="Finance\DALSalePoint.cs" />
     <Compile Include="Finance\DALBalanceFlow.cs" />
     <Compile Include="Finance\DALSharePoint.cs" />
     <Compile Include="IdentityAccess\DALMembership.cs" />
-    <Compile Include="DALBase.cs" />
     <Compile Include="DALPaylog.cs" />
     <Compile Include="DALReceptionChatDD.cs" />
     <Compile Include="DALReceptionChat.cs" />
     <Compile Include="DALReceptionStatusArchieve.cs" />
     <Compile Include="DALOrderAssignment.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderStateChangeHis.cs" />
-    <Compile Include="HybridSessionBuilder.cs" />
     <Compile Include="IdentityAccess\DALRoleMember.cs" />
     <Compile Include="IdentityAccess\DALRole.cs" />
     <Compile Include="Mapping\ClaimsDetailsMap.cs" />
+    <Compile Include="Mapping\Client\ClientMap.cs" />
+    <Compile Include="Mapping\Client\RefreshTokenMap.cs" />
     <Compile Include="Mapping\Finance\BalanceFlowMap.cs" />
     <Compile Include="Mapping\IdentityAccess\AgentMap.cs" />
     <Compile Include="Mapping\Finance\SharePointMap.cs" />
@@ -143,8 +147,6 @@
     <Compile Include="Mapping\OrderAssignment.cs" />
     <Compile Include="Mapping\PaymentMap.cs" />
     <Compile Include="Mapping\StaffMap.cs" />
-    <Compile Include="Mapping\ServicePropertyMap.cs" />
-    <Compile Include="Mapping\ServicePropertyValueMap.cs" />
     <Compile Include="Mapping\CashTicketAssignRecord.cs" />
     <Compile Include="Mapping\DeviceBindMap.cs" />
     <Compile Include="Mapping\DZTagMap.cs" />
@@ -152,27 +154,32 @@
     <Compile Include="Mapping\ServiceOpenTimeMap.cs" />
     <Compile Include="Mapping\ReceptionStatusMap.cs" />
     <Compile Include="NHCustomDialect.cs" />
-    <Compile Include="NHUnitOfWork.cs" />
     <Compile Include="NHRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DALCashTicketTemplate.cs" />
-    <Compile Include="DALCashTicketCreateRecord.cs" />
     <Compile Include="DALBusiness.cs" />
     <Compile Include="DALServiceType.cs" />
     <Compile Include="DALDZService.cs" />
     <Compile Include="DALStaff.cs" />
-    <Compile Include="DALServiceProperty.cs" />
-    <Compile Include="DALServicePropertyValue.cs" />
     <Compile Include="DALBusinessImage.cs" />
-    <Compile Include="DALCashTicketAssignRecord.cs" />
-    <Compile Include="DALCashTicketAssignDetail.cs" />
     <Compile Include="DALDeviceBind.cs" />
     <Compile Include="ServiceOrder\DALServiceOrder.cs" />
     <Compile Include="DALReceptionStatus.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderPushedService.cs" />
+    <Compile Include="StorageManager\DALStorageFileInfo.cs" />
+    <Compile Include="UnitOfWork\GenericTransaction.cs" />
+    <Compile Include="UnitOfWork\IGenericTransaction.cs" />
+    <Compile Include="UnitOfWork\DianzhuUW.cs" />
+    <Compile Include="UnitOfWork\ILocalData.cs" />
+    <Compile Include="UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="UnitOfWork\IUnitOfWorkFactory.cs" />
+    <Compile Include="UnitOfWork\IUnitOfWorkImplementor.cs" />
+    <Compile Include="UnitOfWork\Local.cs" />
+    <Compile Include="UnitOfWork\UnitOfWork.cs" />
+    <Compile Include="UnitOfWork\UnitOfWorkFactory.cs" />
+    <Compile Include="UnitOfWork\UnitOfWorkImplementor.cs" />
+    <Compile Include="UnitOfWork\With.Transaction.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DALCashTicket.cs" />
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -204,6 +211,7 @@
     </Content>
     <Content Include="updatescripts\delete_services_not_have_business.sql" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-public partial class business_Default : System.Web.UI.Page
+public partial class business_Default : BasePage
 {
     VMBusinessAdapter vmBusinessAdapter = Bootstrap.Container.Resolve<VMBusinessAdapter>();
     BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();

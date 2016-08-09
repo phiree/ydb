@@ -5,15 +5,14 @@ using System.Text;
 using Dianzhu.Model.Finance;
 namespace Dianzhu.DAL.Finance
 {
-   public  class DALBalanceFlow:DALBase<Model.Finance.BalanceFlow>
+   public  class DALBalanceFlow:NHRepositoryBase<Model.Finance.BalanceFlow,Guid>, IDAL.Finance.IDALBalanceFlow
     {
         
-        public DALBalanceFlow(string fortest) : base(fortest) { }
-        public DALBalanceFlow() { }
+       
 
         public void Save(Model.Finance.BalanceFlow flow)
         {
-            Session.Save(flow);
+            Add(flow);
         }
     }
 }

@@ -5,23 +5,27 @@ using System.Web;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using System.Web.Security;
- 
- 
+
+
 public class is_username_duplicate : IHttpHandler {
-    
+
     public void ProcessRequest (HttpContext context) {
+
+        Action ac = () => { 
         context.Response.ContentType = "text/plain";
         string result = "false";
         string username = context.Request["tbxUserName"];
-      MembershipUser mu=  Membership.GetUser(username);
-      if (mu == null)
-      {
-          result = "true";
-      }
-      context.Response.Write(result);
-      
+        MembershipUser mu=  Membership.GetUser(username);
+        if (mu == null)
+        {
+            result = "true";
+        }
+        context.Response.Write(result);
+            };
+            NHibernateUnitOfWork.With.Transaction(ac);
+
     }
- 
+
     public bool IsReusable {
         get {
             return false;

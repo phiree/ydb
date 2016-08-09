@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Dianzhu.IDAL.Finance;
 namespace Dianzhu.BLL.Finance
 {
     /// <summary>
@@ -15,10 +15,9 @@ namespace Dianzhu.BLL.Finance
         /// <summary>
         /// 服务类别的提成比例
         /// </summary>
-        public BLLServiceTypePoint() : this(new DAL.Finance.DALServiceTypePoint()) { }
-        public BLLServiceTypePoint(string fortest) { }
-        DAL.Finance.DALServiceTypePoint dalServiceTypePoint;
-        public BLLServiceTypePoint(DAL.Finance.DALServiceTypePoint dalServiceTypePoint)
+       
+       IDALServiceTypePoint dalServiceTypePoint;
+        public BLLServiceTypePoint( IDALServiceTypePoint dalServiceTypePoint)
         {
             this.dalServiceTypePoint = dalServiceTypePoint;
         }

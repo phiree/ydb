@@ -8,7 +8,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 public partial class DZService_Default : BasePage
 {
-    BLLDZService bllService = new BLLDZService();
+    BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -25,6 +25,10 @@ public partial class DZService_Default : BasePage
     {
         Guid id =new Guid(e.CommandArgument.ToString());
         bllService.Delete(bllService.GetOne(id));
+        if (NHibernateUnitOfWork.UnitOfWork.Current != null)
+        {
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+        }
         Response.Redirect(Request.UrlReferrer.ToString());
 
     }
@@ -32,8 +36,21 @@ public partial class DZService_Default : BasePage
     {
         int totalRecords;
         //处理太简单粗暴,需要优化.
+ 
      rptServiceList.DataSource = bllService.GetServiceByBusiness(CurrentBusiness.Id, 0, 999, out totalRecords);
+        System.Diagnostics.Debug.WriteLine("----------------------------------");
+ 
+        rptServiceList.ItemDataBound += RptServiceList_ItemDataBound;
         rptServiceList.DataBind();
     }
-    
+
+    private void RptServiceList_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            DZService service = e.Item.DataItem as DZService;
+
+            System.Diagnostics.Debug.WriteLine(service.Enabled);
+        }
+    }
 }

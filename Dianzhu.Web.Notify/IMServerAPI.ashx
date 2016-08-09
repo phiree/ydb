@@ -12,6 +12,9 @@ public class IMServerAPI : IHttpHandler {
 
     public void ProcessRequest(HttpContext context)
     {
+        NHibernateUnitOfWork.UnitOfWork.Start();
+
+
         string type = context.Request["type"];
         Dianzhu.CSClient.IInstantMessage.InstantMessage im
         = (Dianzhu.CSClient.IInstantMessage.InstantMessage)context.Application["im"];
@@ -37,6 +40,19 @@ public class IMServerAPI : IHttpHandler {
                     log.Error("传入的orderid无效:'" + strOrderId + "'");
                 }
                 break;
+            case "cslogin":
+                string strCSUserLoginId = context.Request["userId"];
+                Guid CSUserLoginId;
+                bool isCSUserLoginId = Guid.TryParse(strCSUserLoginId, out CSUserLoginId);
+                if (isCSUserLoginId)
+                {
+                    imNotify.SendCSLoginMessageToDD(CSUserLoginId);
+                }
+                else
+                {
+                    log.Error("传入的csId无效:'" + strCSUserLoginId + "'");
+                }
+                break;
             case "cslogoff":
                 string struserId = context.Request["userId"];
                 Guid userId;
@@ -47,7 +63,7 @@ public class IMServerAPI : IHttpHandler {
                 }
                 else
                 {
-                    log.Error("传入的orderid无效:'" + struserId + "'");
+                    log.Error("传入的csId无效:'" + struserId + "'");
                 }
                 break;
             case "customlogoff":
@@ -60,7 +76,7 @@ public class IMServerAPI : IHttpHandler {
                 }
                 else
                 {
-                    log.Error("传入的orderid无效:'" + strcustomId + "'");
+                    log.Error("传入的customerId无效:'" + strcustomId + "'");
                 }
                 break;
             case "customlogin":
@@ -73,7 +89,7 @@ public class IMServerAPI : IHttpHandler {
                 }
                 else
                 {
-                    log.Error("传入的orderid无效:'" + strlogincustomId + "'");
+                    log.Error("传入的customerId无效:'" + strlogincustomId + "'");
                 }
                 break;
         }
@@ -83,6 +99,9 @@ public class IMServerAPI : IHttpHandler {
         //get order or create new order
         // return cs,and order 
 
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+        NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+        //NHibernateUnitOfWork.With.Transaction(ac);
     }
 
     public bool IsReusable

@@ -11,6 +11,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model.Enums;
 using Dianzhu.DAL;
 using log4net;
+using System.Windows.Threading;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -24,28 +25,33 @@ namespace Dianzhu.CSClient.Presenter
     {
         ILog log = LogManager.GetLogger("Dianzhu.CSClient");
 
-        DALReceptionChat dalReceptionChat;
+        IDAL.IDALReceptionChat dalReceptionChat;
         IView.IViewChatList viewChatList;
         IViewChatSend viewChatSend;
         InstantMessage iIM;
-        public PChatSend(IViewChatSend viewChatSend, IView.IViewChatList viewChatList, InstantMessage iIM):this(viewChatSend,viewChatList,iIM,new DALReceptionChat())
-        { }
-        public PChatSend(IViewChatSend viewChatSend, IView.IViewChatList viewChatList,InstantMessage iIM, DALReceptionChat dalReceptionChat)
+        IViewIdentityList viewIdentityList;
+        IViewOrderHistory viewOrderHistory;
+        
+        ServiceOrder order;
+        
+        public PChatSend(IViewChatSend viewChatSend, IView.IViewChatList viewChatList,InstantMessage iIM,IDAL.IDALReceptionChat dalReceptionChat,IViewIdentityList viewIdentityList,IViewOrderHistory viewOrderHistory)
         {
             this.viewChatList = viewChatList;
             this.dalReceptionChat = dalReceptionChat;
             this.viewChatSend = viewChatSend;
             //     viewCustomerList.IdentityClick += ViewCustomerList_CustomerClick;
             this.iIM = iIM;
+            this.viewIdentityList = viewIdentityList;
+            this.viewOrderHistory = viewOrderHistory;
+
             this.viewChatSend.SendTextClick += ViewChatSend_SendTextClick;
             this.viewChatSend.SendMediaClick += ViewChatSend_SendMediaClick;
-               
         }
 
         private void ViewChatSend_SendMediaClick(byte[] fileData, string domainType, string mediaType)
         {
             if (IdentityManager.CurrentIdentity == null) return;
-
+                        
             string s = Convert.ToBase64String(fileData);
             string fileName = MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, domainType, mediaType);
 
@@ -64,19 +70,21 @@ namespace Dianzhu.CSClient.Presenter
 
             iIM.SendMessage(chat);
 
+            //临时存放订单
+            order = IdentityManager.CurrentIdentity;
+
             viewChatSend.MessageText = string.Empty;
             chat.MedialUrl = fileName;
             viewChatList.AddOneChat(chat);
 
             chat.MedialUrl = chat.MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
-            dalReceptionChat.Save(chat);
-
-            PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
+            dalReceptionChat.Add(chat);
+            
+            //  PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
         }
 
         private void ViewChatSend_SendTextClick()
         {
-
             try
             {
                 if (IdentityManager.CurrentIdentity == null)
@@ -96,20 +104,21 @@ namespace Dianzhu.CSClient.Presenter
                 };
                 viewChatSend.MessageText = string.Empty;
                 viewChatList.AddOneChat(chat);
-                dalReceptionChat.Save(chat);
+                dalReceptionChat.Add(chat);
                 iIM.SendMessage(chat);
 
-                PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
+ 
+                //临时存放订单
+                order = IdentityManager.CurrentIdentity;
+
+                //PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat); 
             }
             catch (Exception e)
             {
                 log.Error(e.Message);
                 return;
-            }
+            }            
         }
-
-
- 
     }
 
 }

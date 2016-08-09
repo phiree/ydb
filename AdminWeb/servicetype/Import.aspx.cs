@@ -6,9 +6,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class servicetype_Import : System.Web.UI.Page
+public partial class servicetype_Import : BasePage
 {
-    Dianzhu.BLL.BLLServiceType bllServiceType = new Dianzhu.BLL.BLLServiceType();
+    Dianzhu.BLL.BLLServiceType bllServiceType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
     protected void Page_Load(object sender, EventArgs e)
     {
 

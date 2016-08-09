@@ -8,6 +8,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="358" d:DesignWidth="1012">
     <UserControl.Resources>
+        <!--<local:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />-->
+        
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -145,24 +147,37 @@
                                     </LinearGradientBrush>
                                 </Grid.Background>
 
-                                <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Width="300">
-                                    <RadioButton Margin="14,0" Style="{DynamicResource RadioButtonSort}">
+                                <WrapPanel x:Name="wpFilter" HorizontalAlignment="Left" VerticalAlignment="Center" Width="300">
+                                    <RadioButton Margin="14,0" Style="{DynamicResource RadioButtonSort}" Checked="RadioButton_Checked" Tag="ByDistance">
                                         <TextBlock Text="距离排序"></TextBlock>
                                     </RadioButton>
 
-                                    <RadioButton Margin="14,0" Style="{DynamicResource RadioButtonSort}">
+                                    <RadioButton Margin="14,0" Style="{DynamicResource RadioButtonSort}" Checked="RadioButton_Checked" Tag="ByPrice">
                                         <TextBlock Text="价格排序"></TextBlock>
                                     </RadioButton>
 
-                                    <RadioButton Margin="14,0" Style="{DynamicResource RadioButtonSort}">
+                                    <RadioButton Margin="14,0" Style="{DynamicResource RadioButtonSort}" Checked="RadioButton_Checked" Tag="ByApprise">
                                         <TextBlock Text="评价排序"></TextBlock>
                                     </RadioButton>
+                                    
+                                    <!--使用绑定方式-->
+                                    <!--<RadioButton Margin="14,0" Style="{DynamicResource RadioButtonSort}" IsChecked="{Binding Path=FilterType,Converter={StaticResource EnumToBooleanConverter},ConverterParameter={x:Static local:FilterType.ByDistance}}">
+                                        <TextBlock Text="距离排序"></TextBlock>
+                                    </RadioButton>
+
+                                    <RadioButton Margin="14,0" Style="{DynamicResource RadioButtonSort}" IsChecked="{Binding Path=FilterType,Converter={StaticResource EnumToBooleanConverter},ConverterParameter={x:Static local:FilterType.ByPrice}}">
+                                        <TextBlock Text="价格排序"></TextBlock>
+                                    </RadioButton>
+
+                                    <RadioButton Margin="14,0" Style="{DynamicResource RadioButtonSort}" IsChecked="{Binding Path=FilterType,Converter={StaticResource EnumToBooleanConverter},ConverterParameter={x:Static local:FilterType.ByApprise}}">
+                                        <TextBlock Text="评价排序"></TextBlock>
+                                    </RadioButton>-->
                                 </WrapPanel>
 
                                 <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
                                     <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10" Width="276" Height="22" Background="White">
                                         <Grid>
-                                            <TextBox BorderThickness="0" Width="258" Height="18"></TextBox>
+                                            <TextBox x:Name="txtFilter" BorderThickness="0" Width="258" Height="18"></TextBox>
                                         </Grid>
                                     </Border>
 
@@ -174,7 +189,7 @@
                                             </LinearGradientBrush>
                                         </Border.Background>
 
-                                        <Button BorderThickness="0" Padding="16,0" Background="Transparent">
+                                        <Button BorderThickness="0" Padding="16,0" Background="Transparent" Click="Button_Click">
                                             <TextBlock Text="指定店铺搜索" Style="{DynamicResource TextBlockSearch}"></TextBlock>
                                         </Button>
                                     </Border>

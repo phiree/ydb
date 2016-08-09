@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dianzhu.CSClient.IView</RootNamespace>
     <AssemblyName>Dianzhu.CSClient.IView</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -48,7 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumButtonType.cs" />
+    <Compile Include="IViewFormShowMessage.cs" />
     <Compile Include="IViewMainForm.cs" />
+    <Compile Include="IViewUsefulLinks.cs" />
     <Compile Include="IViewNotice.cs" />
     <Compile Include="IViewChatSend.cs" />
     <Compile Include="IViewOrderHistory.cs" />
