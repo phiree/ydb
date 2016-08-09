@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace Dianzhu.Web.RestfulApi.Controllers
 {
-    public class ValuesController : ApiController
+    public class VersionController : ApiController
     {
         // GET api/values
         public IEnumerable<string> Get()
@@ -40,6 +40,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers
         // DELETE api/values/5
         public void Delete(int id)
         {
+
         }
     }
 }

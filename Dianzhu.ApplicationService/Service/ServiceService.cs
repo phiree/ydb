@@ -33,11 +33,24 @@ namespace Dianzhu.ApplicationService.Service
             servicesobj.location.longitude = dzservice.Business.Longitude.ToString();
             servicesobj.location.latitude = dzservice.Business.Latitude.ToString();
             servicesobj.location.address = dzservice.Business.RawAddressFromMapAPI == null ? "" : dzservice.Business.RawAddressFromMapAPI;
+            int c = 0;
+            foreach (Model.Enums.enum_PayType item in Enum.GetValues(typeof(Model.Enums.enum_PayType)))
+            {
+                if ((dzservice.AllowedPayType & item) == item && item != Model.Enums.enum_PayType.None)
+                {
+                    servicesobj.eSupportPayWay = item.ToString();
+                    c++;
+                }
+            }
+            if (c == Enum.GetValues(typeof(Model.Enums.enum_PayType)).Length-1)
+            {
+                servicesobj.eSupportPayWay = "all";
+            }
             //if (dzservice.ServiceType != null)
             //{
-                //servicesobj.serviceType.serviceTypeID = dzservice.ServiceType.Id.ToString();
-                //servicesobj.serviceType.fullDescription = dzservice.ServiceType.ToString();
-                //servicesobj.serviceType.superID = dzservice.ServiceType.ParentId.ToString();
+            //servicesobj.serviceType.serviceTypeID = dzservice.ServiceType.Id.ToString();
+            //servicesobj.serviceType.fullDescription = dzservice.ServiceType.ToString();
+            //servicesobj.serviceType.superID = dzservice.ServiceType.ParentId.ToString();
             //}
         }
 
@@ -111,13 +124,21 @@ namespace Dianzhu.ApplicationService.Service
                 int ee = 0;
                 try
                 {
+                    int allNum = dzservice.GetAllPayTypeNum;
                     if (int.TryParse(servicesobj.eSupportPayWay, out ee))
                     { }
                     else
                     {
-                        ee = (int)(Model.Enums.enum_PayType)Enum.Parse(typeof(Model.Enums.enum_PayType), servicesobj.eSupportPayWay);
+                        if (servicesobj.eSupportPayWay.ToLower() == "all")
+                        {
+                            ee = allNum;
+                        }
+                        else
+                        {
+                            ee = (int)(Model.Enums.enum_PayType)Enum.Parse(typeof(Model.Enums.enum_PayType), servicesobj.eSupportPayWay);
+                        }
                     }
-                    if (ee > dzservice.GetAllPayTypeNum || ee==4)
+                    if (ee > allNum || ee==4)
                     {
                         throw new Exception("该支付方式不存在！");
                     }
@@ -378,13 +399,21 @@ namespace Dianzhu.ApplicationService.Service
                 int ee = 0;
                 try
                 {
+                    int allNum = dzserviceobj.GetAllPayTypeNum;
                     if (int.TryParse(servicesobj.eSupportPayWay, out ee))
                     { }
                     else
                     {
-                        ee = (int)(Model.Enums.enum_PayType)Enum.Parse(typeof(Model.Enums.enum_PayType), servicesobj.eSupportPayWay);
+                        if (servicesobj.eSupportPayWay.ToLower() == "all")
+                        {
+                            ee = allNum;
+                        }
+                        else
+                        {
+                            ee = (int)(Model.Enums.enum_PayType)Enum.Parse(typeof(Model.Enums.enum_PayType), servicesobj.eSupportPayWay);
+                        }
                     }
-                    if (ee > new Model.DZService().GetAllPayTypeNum || ee == 4)
+                    if (ee > allNum || ee == 4)
                     {
                         throw new Exception("该支付方式不存在！");
                     }
