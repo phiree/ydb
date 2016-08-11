@@ -265,7 +265,7 @@
     <Compile Include="Controllers\USER\CustomerServicesController.cs" />
     <Compile Include="Controllers\USER\MerchantsController.cs" />
     <Compile Include="Controllers\USER\CustomersController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\VersionController.cs" />
     <Compile Include="Controllers\WORKTIME\WorkTimesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

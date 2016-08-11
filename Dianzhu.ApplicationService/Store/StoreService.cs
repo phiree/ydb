@@ -85,6 +85,16 @@ namespace Dianzhu.ApplicationService.Store
             business.Owner = dzmember;
             DateTime dt = DateTime.Now;
             business.CreatedTime = dt;
+            double dd = 0;
+            if (double.TryParse(storeobj.location.latitude, out dd))
+            {
+                business.Latitude = dd;
+            }
+            if (double.TryParse(storeobj.location.longitude, out dd))
+            {
+                business.Longitude = dd;
+            }
+            business.RawAddressFromMapAPI = storeobj.location.address;
             bllBusiness.Add(business);
             //business = bllBusiness.GetOne(business.Id);
             //if (business != null && business.CreatedTime==dt)
