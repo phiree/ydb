@@ -72,10 +72,10 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 string mediaType = ((ReceptionChatMedia)chat).MediaType;
                 string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
-                if (mediaUrl.IndexOf(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")) < 0)
-                {
-                    mediaUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + mediaUrl;
-                }
+                //if (mediaUrl.IndexOf(PHSuit.DownloadSoft.DownloadPath) < 0)
+                //{
+                //    mediaUrl = PHSuit.DownloadSoft.DownloadPath + mediaUrl;
+                //}
                 switch (mediaType)
                 {
                     case "image":
@@ -97,7 +97,7 @@ namespace Dianzhu.CSClient.ViewWPF
                         //chatImageGif.Source = new Uri(mediaUrl);
                         //chatImageGif.MediaEnded += ChatImageGif_MediaEnded;
 
-                        UC_ChatImageNoraml chatImageGif = new UC_ChatImageNoraml(new Uri(mediaUrl));
+                        UC_ChatImageNoraml chatImageGif = new UC_ChatImageNoraml(mediaUrl);
                         wpnlChat.Children.Add(chatImageGif);
                         break;
                     case "voice":
