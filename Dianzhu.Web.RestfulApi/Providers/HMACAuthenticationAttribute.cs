@@ -249,7 +249,8 @@ namespace Dianzhu.Web.RestfulApi
                 }
             }
 
-            byte[] hash = await ComputeHash(req.Content);
+            byte[] hash = await ComputeHash(req.Content).ConfigureAwait(false);
+            //尝试使用异步 / 的await 一路下跌。换句话说，不要在阻止异步 code。你应该做的另一件事是使用.ConfigureAwait（假）
             StringBuilder sb = new StringBuilder();
             if (hash != null)
             {
@@ -362,7 +363,7 @@ namespace Dianzhu.Web.RestfulApi
         /// </summary>
         /// <param name="httpContent"></param>
         /// <returns></returns>
-        private async Task<byte[]> ComputeHash(HttpContent httpContent)
+        private async Task<byte[]> ComputeHash(HttpContent httpContent)//async
         {
             //MD5 md = new MD5CryptoServiceProvider();
             //MD5 md5 =MD5.Create()
@@ -370,17 +371,24 @@ namespace Dianzhu.Web.RestfulApi
             {
                 //MD5 md5 = new MD5CryptoServiceProvider();
                 byte[] hash = null;
-                var content = await httpContent.ReadAsByteArrayAsync();
-                string str = Encoding.Default.GetString(content);
-                ilog.Debug("Request(httpContent):" + str.ToString());
-                //string signatureRawData = await httpContent.ReadAsStringAsync();
-                //byte[] signature = Encoding.UTF8.GetBytes(str);
-
-                //byte[] result = md5.ComputeHash(System.Text.Encoding.Default.GetBytes(str));
-                if (content.Length != 0)
+                try
                 {
-                    hash = md5.ComputeHash(content);
+                    var content = await httpContent.ReadAsByteArrayAsync().ConfigureAwait(false);//await
+                    string str = Encoding.Default.GetString(content);
+                    ilog.Debug("Request(httpContent):" + str.ToString());
+                    //string signatureRawData = await httpContent.ReadAsStringAsync();
+                    //byte[] signature = Encoding.UTF8.GetBytes(str);
 
+                    //byte[] result = md5.ComputeHash(System.Text.Encoding.Default.GetBytes(str));
+                    if (content.Length != 0)
+                    {
+                        hash = md5.ComputeHash(content);
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
                 }
                 return hash;
                 //return result;

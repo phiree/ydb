@@ -48,7 +48,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.LOCATION
         {
             try
             {
-                return Json(icityservice.GetCityByAreaCode(id));
+                return Json(icityservice.GetCityByAreaCode(id) ?? new object());
             }
             catch (Exception ex)
             {

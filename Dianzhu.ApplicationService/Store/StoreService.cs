@@ -123,7 +123,8 @@ namespace Dianzhu.ApplicationService.Store
             business = bllBusiness.GetStores(filter1, storefilter.name, customer.UserID);
             if (business == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<storeObj>();
             }
             IList<storeObj> storeobj = Mapper.Map<IList<Model.Business>, IList<storeObj>>(business);
             for (int i = 0; i < storeobj.Count; i++)
@@ -159,7 +160,8 @@ namespace Dianzhu.ApplicationService.Store
             business = bllBusiness.GetStores(filter1, storefilter.name, storefilter.merchantID);
             if (business == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<storeObj>();
             }
             IList<storeObj> storeobj = Mapper.Map<IList<Model.Business>, IList<storeObj>>(business);
             for (int i = 0; i < storeobj.Count; i++)
@@ -191,7 +193,8 @@ namespace Dianzhu.ApplicationService.Store
             Model.Business business =  bllBusiness.GetOne(utils.CheckGuidID(storeID, "storeID"));
             if (business == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return null;
             }
             storeObj storeobj = Mapper.Map<Model.Business, storeObj>(business);
             changeObj(storeobj, business);

@@ -32,7 +32,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.WORKTIME
                 {
                     worktimeobj = new workTimeObj();
                 }
-                return Json(iworktime.PostWorkTime(storeID, serviceID,worktimeobj,GetRequestHeader.GetTraitHeaders("post/stores/{storeID}/services/{serviceID}/workTimes")));
+                return Json(iworktime.PostWorkTime(storeID, serviceID,worktimeobj,GetRequestHeader.GetTraitHeaders("post/stores/{storeID}/services/{serviceID}/workTimes"))?? new object());
                 //return Json("{'storeID':'" + storeID + "','serviceID':'" + serviceID + "'}");
             }
             catch (Exception ex)
@@ -101,7 +101,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.WORKTIME
         {
             try
             {
-                return Json(iworktime.GetWorkTime(storeID, serviceID, workTimeID, GetRequestHeader.GetTraitHeaders("get/stores/{storeID}/services/{serviceID}/workTimes/{workTimeID}")));
+                return Json(iworktime.GetWorkTime(storeID, serviceID, workTimeID, GetRequestHeader.GetTraitHeaders("get/stores/{storeID}/services/{serviceID}/workTimes/{workTimeID}"))?? new object());
             }
             catch (Exception ex)
             {
@@ -126,7 +126,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.WORKTIME
                 {
                     worktimeobj = new workTimeObj();
                 }
-                return Json(iworktime.PatchWorkTime(storeID, serviceID, workTimeID, worktimeobj,GetRequestHeader.GetTraitHeaders("patch/stores/{storeID}/services/{serviceID}/workTimes/{workTimeID}")));
+                return Json(iworktime.PatchWorkTime(storeID, serviceID, workTimeID, worktimeobj,GetRequestHeader.GetTraitHeaders("patch/stores/{storeID}/services/{serviceID}/workTimes/{workTimeID}"))?? new object());
             }
             catch (Exception ex)
             {

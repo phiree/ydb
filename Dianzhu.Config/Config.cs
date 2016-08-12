@@ -100,6 +100,8 @@ namespace Dianzhu.Config
             , {"OpenfireRestApiAuthKey","an4P0ja6v3rykV4H"  }
 
             , {"IsAutoAssignCustomer","false"  }
+
+            , {"BookOrderRefundTimes","-1" }//预约订单的退款时间,负数表示不退订金，非负数表示可退订金的时间
         };
 
         static private string BuildHttpUrlString(string server)

@@ -40,7 +40,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 //    return Ok(userobj);
                 //}
                 //return Ok(iuserservice.GetUserById(id));
-                return Json(iuserservice.GetUserById(id, "customer"));
+                return Json(iuserservice.GetUserById(id, "customer")?? new object());
             }
             catch(Exception ex)
             {
