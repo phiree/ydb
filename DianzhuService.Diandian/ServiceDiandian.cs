@@ -105,29 +105,31 @@ namespace DianzhuService.Diandian
                         msgObj_type = msg.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("type");
                         break;
                     case "ihelper:notice:cer:online":
-                        log.Debug("收到客服上线通知");
                         csOnLine++;
-                        if (csOnLine == 1)
-                        {
-                            //发送客服离线消息给用户
-                            string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
-                            string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
-                                                  <active xmlns = ""http://jabber.org/protocol/chatstates""></active><body>客服已上线</body><ext xmlns=""ihelper:notice:cer:online""></ext></message>",
-                                                              msg.From.User + "@" + server, msg.To.User, Guid.NewGuid());
-                            GlobalViables.XMPPConnection.Send(noticeDraftNew);
-                            return;
-                        }
+                        log.Debug("收到客服上线通知,num:"+csOnLine);                        
                         return;
                     case "ihelper:notice:cer:offline":
-                        log.Debug("收到客服离线通知");
                         if (csOnLine > 0)
                         {
                             csOnLine--;
                         }
+                        log.Debug("收到客服离线通知,num:"+csOnLine);                        
                         return;
                     default:
                         log.Warn("请求的类型" + msgType.ToLower() + "无法处理，直接返回");
                         return;
+                }
+
+                if (csOnLine == 1)
+                {
+                    //发送客服离线消息给用户
+                    string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
+                    string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
+                                                  <active xmlns = ""http://jabber.org/protocol/chatstates""></active><body>客服已上线</body><ext xmlns=""ihelper:notice:cer:online""></ext></message>",
+                                                      msg.From.User + "@" + server + "/" + Dianzhu.Model.Enums.enum_XmppResource.YDBan_User, msg.To.User, Guid.NewGuid());
+                    GlobalViables.XMPPConnection.Send(noticeDraftNew);
+                    log.Debug("send message:" + noticeDraftNew);
+                    return;
                 }
 
                 orderID = msg.SelectSingleElement("ext").SelectSingleElement("orderID").Value;

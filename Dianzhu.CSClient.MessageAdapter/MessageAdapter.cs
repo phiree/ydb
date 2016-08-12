@@ -104,19 +104,18 @@ namespace Dianzhu.CSClient.MessageAdapter
             {
                 ilog.Error("未知的资源名称：" + message.From.Resource);
             }
-            if (!isNotice)
+
+            var chatTo = dalMembership.FindById(new Guid(message.To.User));
+            chat.To = chatTo;
+            if (message.To.Resource != null)
             {
-                var chatTo = dalMembership.FindById(new Guid(message.To.User));
-                chat.To = chatTo;
-                if (message.To.Resource != null)
-                {
-                    chat.ToResource = (enum_XmppResource)Enum.Parse(typeof(enum_XmppResource), message.To.Resource);
-                }
-                else
-                {
-                    ilog.Error("message中to的资源名为空！");
-                }
+                chat.ToResource = (enum_XmppResource)Enum.Parse(typeof(enum_XmppResource), message.To.Resource);
             }
+            else
+            {
+                ilog.Error("message中to的资源名为空！");
+            }
+
             Guid messageId;
             if (Guid.TryParse(message.Id, out messageId))
             {
