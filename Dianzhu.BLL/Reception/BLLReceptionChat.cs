@@ -101,10 +101,10 @@ namespace Dianzhu.BLL
                         where = where.And(x => ((x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff) && x.To.UserType == enum_UserType.customerservice) || ((x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff) && x.From.UserType == enum_UserType.customerservice));
                         break;
                     case "customer":
-                        where = where.And(x => ((x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff) && x.To.UserType == enum_UserType.customer && x.ServiceOrder.Business.Owner.Id==userID) || ((x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff) && x.From.UserType == enum_UserType.customer && x.ServiceOrder.Business.Owner.Id == userID));
+                        where = where.And(x => ((x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff) && x.To.UserType == enum_UserType.customer) || ((x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff) && x.From.UserType == enum_UserType.customer));
                         break;
                     default:
-                        where = where.And(x => x.ServiceOrder.Business.Owner.Id == userID &&( x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff || x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff));
+                        where = where.And(x => x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff || x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff);
                         break;
                 }
             }

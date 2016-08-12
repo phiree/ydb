@@ -290,7 +290,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         {
             try
             {
-                return Json(iorder.GetForman(orderID));
+                return Json(iorder.GetForman(orderID) ?? new object());
             }
             catch (Exception ex)
             {

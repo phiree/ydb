@@ -87,7 +87,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.CHAT
                 {
                     chatfilter = new common_Trait_ChatFiltering();
                 }
-                return Json(ichat.GetAllChats(filter, chatfilter, GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/chats")));
+                return Json(ichat.GetAllChats(filter, chatfilter, GetRequestHeader.GetTraitHeaders("get/allChats")));
             }
             catch (Exception ex)
             {
@@ -109,7 +109,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.CHAT
                 {
                     chatfilter = new common_Trait_ChatFiltering();
                 }
-                return Json(ichat.GetAllChatsCount( chatfilter, GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/chats/count")));
+                return Json(ichat.GetAllChatsCount( chatfilter, GetRequestHeader.GetTraitHeaders("get/allChats/count")));
             }
             catch (Exception ex)
             {

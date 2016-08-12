@@ -431,7 +431,7 @@ namespace Dianzhu.ApplicationService.Order
         /// <param name="orderID"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public string GetLinkMan(string orderID, Customer customer)
+        public linkManObj GetLinkMan(string orderID, Customer customer)
         {
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
             Model.ServiceOrder order = ibllserviceorder.GetOne(guidOrder);
@@ -448,8 +448,9 @@ namespace Dianzhu.ApplicationService.Order
                 throw new Exception("该订单没有确定的服务！");
             }
             //ReceptionAssigner ra = new ReceptionAssigner(imSession);
-
-            return order.OpenFireLinkMan;
+            linkManObj linkman = new linkManObj();
+            linkman.linkManID = order.OpenFireLinkMan.ToString();
+            return linkman;
 
             //string targetId = "";
             //IList<OrderAssignment> orderAssList = bllOrderAssignment.GetOAListByOrder(order);
