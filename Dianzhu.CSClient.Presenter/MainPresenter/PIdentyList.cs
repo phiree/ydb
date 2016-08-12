@@ -136,7 +136,7 @@ namespace Dianzhu.CSClient.Presenter
 
                         ((ReceptionChatMedia)chat).MedialUrl = fileName;
                     }
-                    dalReceptionChat.Add(chat);
+                  //  dalReceptionChat.Add(chat);
 
                     iView.IdleTimerStop(chat.ServiceOrder.Id); 
                 }

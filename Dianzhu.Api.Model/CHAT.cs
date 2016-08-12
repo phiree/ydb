@@ -150,4 +150,12 @@ namespace Dianzhu.Api.Model
         }
     }
     #endregion
+
+    #region CHAT001008
+    public class ReqDataCHAT001008
+    {
+        public string message { get; set; }
+    }
+    #endregion
+
 }

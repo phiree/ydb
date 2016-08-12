@@ -14,5 +14,8 @@ namespace Dianzhu.CSClient.IMessageAdapter
         Model.ReceptionChat MessageToChat(agsXMPP.protocol.client.Message message);
 
         agsXMPP.protocol.client.Message ChatToMessage(Model.ReceptionChat chat, string server);
+
+        agsXMPP.protocol.client.Message RawXmlToMessage(string rawXml);
+        Model.ReceptionChat RawXmlToChat(string rawXml);
     }
 }

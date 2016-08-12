@@ -9,10 +9,16 @@
 //"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
 //"wtm001001",,"wtm001002","wtm001004","wtm001005","wtm001006"
 //"rmm001003","rmm001004","rmm001005","rmm001006",
-"shm001007"
+"chat001008"
 
 ];
 var test_data = [
+    {
+        "reqData": {
+            "message": "<message  to=\"4e2676e1-5561-11e6-b7f0-001a7dda7106@localhost/YDBan_CustomerService\" from=\"4d63d740-5561-11e6-b7f0-001a7dda7106@localhost/YDBan_DemoClient\" type=\"chat\" id=\"d0ae54ba-8be4-4881-b3d7-a3b3d643f4bf\"><body>ffffddd<\/body><active xmlns=\"http://jabber.org/protocol/chatstates\"/><ext xmlns=\"ihelper:chat:text\"><orderID>f7f0fdc2-3856-4e25-9b75-a65901436cab<\/orderID><\/ext><\/message>"
+        },
+        "protocol_CODE": "Chat001008"
+    },
      {
          // 
          "protocol_CODE": "SHM001007",
