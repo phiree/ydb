@@ -299,8 +299,6 @@ namespace Dianzhu.Model.Enums
         /// 业务流程需要IM完成的工作,
         /// 不需要IM完成的 比如, 用户取消订单,
         /// 申请退款等,通过http接口完成.
-        ///  
-        /// 
         /// </summary>
         Text,
         Media,//包含多媒体链接的消息

@@ -94,5 +94,42 @@ namespace Dianzhu.ApplicationService.Chat
             c.count = bllChat.GetChatsCount(chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer,customer.UserType).ToString();
             return c;
         }
+
+        /// <summary>
+        /// 条件读取所有聊天记录
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="chatfilter"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public IList<chatObj> GetAllChats(common_Trait_Filtering filter, common_Trait_ChatFiltering chatfilter, Customer customer)
+        {
+            //Guid guidOrder = checkRute(orderID, customer);
+            Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
+            IList<Model.ReceptionChat> chat = null;
+            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ReceptionChat");
+            chat = bllChat.GetChats(filter1, chatfilter.type, chatfilter.fromTarget, Guid.Empty, guidCustomer, customer.UserType);
+            if (chat == null)
+            {
+                throw new Exception(Dicts.StateCode[4]);
+            }
+            IList<chatObj> staffobj = Mapper.Map<IList<Model.ReceptionChat>, IList<chatObj>>(chat);
+            return staffobj;
+        }
+
+        /// <summary>
+        /// 统计所有聊天信息的数量
+        /// </summary>
+        /// <param name="chatfilter"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public countObj GetAllChatsCount( common_Trait_ChatFiltering chatfilter, Customer customer)
+        {
+            //Guid guidOrder = checkRute(orderID, customer);
+            Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
+            countObj c = new countObj();
+            c.count = bllChat.GetChatsCount(chatfilter.type, chatfilter.fromTarget, Guid.Empty, guidCustomer, customer.UserType).ToString();
+            return c;
+        }
     }
 }

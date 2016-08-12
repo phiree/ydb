@@ -66,7 +66,14 @@ namespace Dianzhu.BLL
             }
             if (!string.IsNullOrEmpty(type))
             {
-                where = where.And(x => x.ChatType.ToString() == type);
+                if (type == "pushOrder")
+                {
+                    where = where.And(x => x.GetType() == typeof(ReceptionChatPushService));
+                }
+                else
+                {
+                    where = where.And(x => x.GetType() == typeof(ReceptionChatMedia) && ((ReceptionChatMedia)x).MediaType== type);
+                }
             }
             if (userType == "customer" || userType == "customerservice")
             {
@@ -94,10 +101,10 @@ namespace Dianzhu.BLL
                         where = where.And(x => ((x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff) && x.To.UserType == enum_UserType.customerservice) || ((x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff) && x.From.UserType == enum_UserType.customerservice));
                         break;
                     case "customer":
-                        where = where.And(x => ((x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff) && x.To.UserType == enum_UserType.customer) || ((x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff) && x.From.UserType == enum_UserType.customer));
+                        where = where.And(x => ((x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff) && x.To.UserType == enum_UserType.customer && x.ServiceOrder.Business.Owner.Id==userID) || ((x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff) && x.From.UserType == enum_UserType.customer && x.ServiceOrder.Business.Owner.Id == userID));
                         break;
                     default:
-                        where = where.And(x => x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff || x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff);
+                        where = where.And(x => x.ServiceOrder.Business.Owner.Id == userID &&( x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff || x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff));
                         break;
                 }
             }
@@ -137,7 +144,14 @@ namespace Dianzhu.BLL
             }
             if (type != null && type != "")
             {
-                where = where.And(x => x.ChatType.ToString() == type);
+                if (type == "pushOrder")
+                {
+                    where = where.And(x => x.GetType() == typeof(ReceptionChatPushService));
+                }
+                else
+                {
+                    where = where.And(x => x.GetType() == typeof(ReceptionChatMedia) && ((ReceptionChatMedia)x).MediaType == type);
+                }
             }
             if (userType == "customer" || userType == "customerservice")
             {

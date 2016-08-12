@@ -67,5 +67,54 @@ namespace Dianzhu.Web.RestfulApi.Controllers.CHAT
                 return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
             }
         }
+
+        /// <summary>
+        /// 条件读取所有聊天记录
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="chatfilter"></param>
+        /// <returns></returns>
+        [Route("api/v1/allChats")]
+        public IHttpActionResult GetAllChats( [FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_ChatFiltering chatfilter)
+        {
+            try
+            {
+                if (filter == null)
+                {
+                    filter = new common_Trait_Filtering();
+                }
+                if (chatfilter == null)
+                {
+                    chatfilter = new common_Trait_ChatFiltering();
+                }
+                return Json(ichat.GetAllChats(filter, chatfilter, GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/chats")));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
+        /// 统计所有聊天信息的数量
+        /// </summary>
+        /// <param name="chatfilter"></param>
+        /// <returns></returns>
+        [Route("api/v1/allChats/count")]
+        public IHttpActionResult GetAllChatsCount([FromUri]common_Trait_ChatFiltering chatfilter)
+        {
+            try
+            {
+                if (chatfilter == null)
+                {
+                    chatfilter = new common_Trait_ChatFiltering();
+                }
+                return Json(ichat.GetAllChatsCount( chatfilter, GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/chats/count")));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
     }
 }

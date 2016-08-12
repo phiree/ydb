@@ -82,9 +82,11 @@ namespace Dianzhu.ApplicationService.Order
                     }
                 }
                 orderobj.serviceSnapshotObj.tag = strTag.TrimEnd(',');
+                orderobj.contactobj.address = serviceorder.Details[0].TargetAddress;
             }
             else
             {
+                orderobj.contactobj = null;
                 IList<Model.ServiceOrderPushedService> dzs = bllpushservice.GetPushedServicesForOrder(serviceorder);
                 if (dzs.Count > 0)
                 {
