@@ -73,7 +73,8 @@ namespace Dianzhu.ApplicationService.Chat
             chat = bllChat.GetChats(filter1, chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer,customer.UserType);
             if (chat == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<chatObj>();
             }
             IList<chatObj> staffobj = Mapper.Map<IList<Model.ReceptionChat>, IList<chatObj>>(chat);
             return staffobj;
@@ -116,7 +117,8 @@ namespace Dianzhu.ApplicationService.Chat
             chat = bllChat.GetChats(filter1, chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer, customer.UserType);
             if (chat == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<chatObj>();
             }
             IList<chatObj> staffobj = Mapper.Map<IList<Model.ReceptionChat>, IList<chatObj>>(chat);
             return staffobj;

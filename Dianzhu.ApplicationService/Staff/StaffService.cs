@@ -143,7 +143,8 @@ namespace Dianzhu.ApplicationService.Staff
             staff = bllStaff.GetStaffs(filter1, stafffilter.alias, stafffilter.email, stafffilter.phone, stafffilter.sex, stafffilter.specialty, stafffilter.realName, business.Id);
             if (staff == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<staffObj>();
             }
             IList<staffObj> staffobj = Mapper.Map<IList<Model.Staff>, IList<staffObj>>(staff);
             for (int i = 0; i < staffobj.Count; i++)
@@ -179,7 +180,8 @@ namespace Dianzhu.ApplicationService.Staff
             Model.Staff staff = bllStaff.GetStaff(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(staffID, "staffID"));
             if (staff == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return null;
             }
             staffObj staffobj = Mapper.Map<Model.Staff, staffObj>(staff);
             changeObj(staffobj, staff);
