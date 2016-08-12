@@ -959,7 +959,21 @@ namespace Dianzhu.BLL
             if (DateTime.Now <= targetTime)
             {
                 double timeSpan = (targetTime - DateTime.Now).TotalMinutes;
-                if (30 <= timeSpan)
+                double bookOrderRefundTimes;
+                if(!double.TryParse(Dianzhu.Config.Config.GetAppSetting("BookOrderRefundTimes"),out bookOrderRefundTimes))
+                {
+                    log.Error("不是数字，转换出错");
+                    bookOrderRefundTimes = -1;
+                }
+                if (bookOrderRefundTimes < 0)
+                {
+                    log.Debug("取消订单不退订金，取消成功");
+                    ChangeStatus(order, enum_OrderStatus.Canceled);
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                    ChangeStatus(order, enum_OrderStatus.EndCancel);
+                    isCanceled = true;
+                }
+                else if (bookOrderRefundTimes <= timeSpan)
                 {
                     log.Debug("系统判定订金是否到帐");
                     Payment payment = bllPayment.GetPayedForDeposit(order);
