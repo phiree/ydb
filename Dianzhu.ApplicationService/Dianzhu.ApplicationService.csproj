@@ -155,6 +155,7 @@
     <Compile Include="ModeDTO\Identity\chatObj.cs" />
     <Compile Include="ModeDTO\Identity\cityObj.cs" />
     <Compile Include="ModeDTO\Identity\complaintObj.cs" />
+    <Compile Include="ModeDTO\Identity\contactObj.cs" />
     <Compile Include="ModeDTO\Identity\countObj.cs" />
     <Compile Include="ModeDTO\Identity\customerServicesObj.cs" />
     <Compile Include="ModeDTO\Identity\locationObj.cs" />
