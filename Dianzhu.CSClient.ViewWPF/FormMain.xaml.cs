@@ -76,5 +76,18 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             main.DragMove();
         }
+
+        public void FlashTaskBar()
+        {
+            Action lambda = () =>
+            {
+                FlashInTaskBar.FlashWindowEx(this);
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }            
+        }
     }
 }
