@@ -71,16 +71,14 @@ function delInfo()
 </script>
 <div>
    订单状态： <select runat="server" id="StatusSelect" OnChange="var jmpURL=this.options[this.selectedIndex].value; if(jmpURL!='') {window.location.href=(jmpURL);} else {this.selectedIndex=0;}">
-        <option  value="index.aspx">全部</option>
+       <option value="index.aspx">全部</option>
        <option value="index.aspx?status=Draft">创建中</option>
        <option value="index.aspx?status=Created">已创建</option>
-               <option value="index.aspx?status=Payed">已付款</option>
-               <option value="index.aspx?status=Canceled">申请退款</option>
-        <option value="index.aspx?status=Assigned">Assigned</option>
-        <option value="index.aspx?status=IsCanceled">IsCanceled</option>
-       <option value="index.aspx?status=Finished">Finished</option>
-       <option value="index.aspx?status=Aborded">Aborded</option>
-       <option value="index.aspx?status=Appraised">Appraised</option>
+       <option value="index.aspx?status=Payed">已付款</option>
+       <option value="index.aspx?status=Assigned">已分配</option>       
+       <option value="index.aspx?status=Finished">已完成</option>
+       <option value="index.aspx?status=Appraised">已评论</option>
+       <option value="index.aspx?status=EndCancel">已取消</option>
     </select>
 </div>
  <asp:Repeater ID="Repeater1" runat="server" OnItemDataBound="data_ItemDataBound">
@@ -108,10 +106,10 @@ function delInfo()
 </td>
 <td><%# Eval("OrderStatus")%></td>
 <td><%# Eval("OrderCreated")%></td>
- <td><%# Eval("OrderAmount")%></td>
+ <td><%#Convert.ToDecimal( Eval("OrderAmount")).ToString("f2")%></td>
 <td><%#DataBinder.Eval(Container.DataItem, "Service.Business.Name")%>
 </td>
-<td> <asp:Button ID="delbt" runat="server" Text="删除" CommandName="delete" CommandArgument='<%# Eval("id")%>' OnCommand="delbt_Command" OnClientClick="javascript:return confirm('警告：\n数据一旦被删除将无法还原！')" />
+<td> <%--<asp:Button ID="delbt" runat="server" Text="删除" CommandName="delete" CommandArgument='<%# Eval("id")%>' OnCommand="delbt_Command" OnClientClick="javascript:return confirm('警告：\n数据一旦被删除将无法还原！')" />--%>
     <a href='<%# "detail.aspx?ID="+Eval("Id").ToString()%>'>详情</a>
 </td>
 </tr>
@@ -122,27 +120,28 @@ function delInfo()
    </asp:Repeater>
 
 </ItemTemplate>
-     <FooterTemplate><%--这是脚模板--%>
-        <tr>
-        <td colspan="8" style="font-size:12px;" align="center">
-        共<asp:Label ID="lblpc" runat="server" Text="Label"></asp:Label>页 当前为第
+     <FooterTemplate>
+         <%--这是脚模板--%>
+         <%--<tr>
+             <td colspan="8" style="font-size: 12px;" align="center">共<asp:Label ID="lblpc" runat="server" Text="Label"></asp:Label>页 当前为第
         <asp:Label ID="lblp" runat="server" Text="Label"></asp:Label>页  
-         <asp:HyperLink ID="hlfir" runat="server">首页</asp:HyperLink> 
-        <asp:HyperLink ID="hlp" runat="server">上一页</asp:HyperLink>
-        <asp:HyperLink ID="hln" runat="server">下一页</asp:HyperLink>
-        <asp:HyperLink ID="hlla" runat="server">尾页</asp:HyperLink>
-         跳至第
-         <asp:DropDownList ID="ddlp" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlp_SelectedIndexChanged" >
+         <asp:HyperLink ID="hlfir" runat="server">首页</asp:HyperLink>
+                 <asp:HyperLink ID="hlp" runat="server">上一页</asp:HyperLink>
+                 <asp:HyperLink ID="hln" runat="server">下一页</asp:HyperLink>
+                 <asp:HyperLink ID="hlla" runat="server">尾页</asp:HyperLink>
+                 跳至第
+         <asp:DropDownList ID="ddlp" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlp_SelectedIndexChanged">
          </asp:DropDownList>页
-        </td>
-        </tr>
-        <tr><td colspan="8">
-<input type="checkbox" onclick="checkAll(this.checked)" />全选  
-<asp:Button Id="alldel" runat="server" Text="全选删除" CommandName="alldel" OnClick="alldel_Click" OnClientClick="return delInfo();" />
-            </td>    
-            </tr>
-        </table>
-        </FooterTemplate>
+             </td>
+         </tr>--%>
+         <%--<tr>
+             <td colspan="8">
+                 <input type="checkbox" onclick="checkAll(this.checked)" />全选  
+                 <asp:Button ID="alldel" runat="server" Text="全选删除" CommandName="alldel" OnClick="alldel_Click" OnClientClick="return delInfo();" />
+             </td>
+         </tr>--%>
+         </table>
+     </FooterTemplate>
 </asp:Repeater>
     <UC:AspNetPager runat="server" ID="pager"   UrlPaging="true"></UC:AspNetPager>
 </asp:Content>
