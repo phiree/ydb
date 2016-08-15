@@ -27,7 +27,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ASSIGN
         {
             try
             {
-                return Json(iassign.PostAssign(assignobj, GetRequestHeader.GetTraitHeaders("post/assigns")));
+                return Json(iassign.PostAssign(assignobj, GetRequestHeader.GetTraitHeaders("post/assigns"))??new object());
             }
             catch (Exception ex)
             {

@@ -45,10 +45,10 @@ namespace Dianzhu.ApplicationService.User
             {
                 userobj = Mapper.Map<Dianzhu.Model.DZMembership, customerObj>(dzm);
             }
-            if (userobj == null)
-            {
-                throw new Exception(Dicts.StateCode[4]);
-            }
+            //if (userobj == null)
+            //{
+            //    throw new Exception(Dicts.StateCode[4]);
+            //}
             return userobj;
         }
 
@@ -65,7 +65,8 @@ namespace Dianzhu.ApplicationService.User
             IList<Dianzhu.Model.DZMembership> dzm = dzmsp.GetUsers(filter1, userFilter.alias, userFilter.email, userFilter.phone, userFilter.platform, userType);
             if (dzm == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<customerObj>();
             }
             IList<customerObj> customerobj = Mapper.Map<IList<Dianzhu.Model.DZMembership>, IList<customerObj>>(dzm);
             return customerobj;

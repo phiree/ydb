@@ -70,6 +70,11 @@ namespace Dianzhu.CSClient.Presenter
 
             iIM.SendMessage(chat);
 
+            if (PHSuit.DownloadSoft.DownLoad(string.Empty, chat.MedialUrl, fileName))
+            {
+                ((ReceptionChatMedia)chat).MedialUrl = fileName;
+            }
+
             //临时存放订单
             order = IdentityManager.CurrentIdentity;
 

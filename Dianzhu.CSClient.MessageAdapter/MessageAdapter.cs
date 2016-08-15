@@ -69,24 +69,18 @@ namespace Dianzhu.CSClient.MessageAdapter
                         chatType = enum_ChatType.Media;
                         break;
                     case "ihelper:notice:system":
-
                     case "ihelper:notice:order":
-
                     case "ihelper:notice:promote":
-
                     case "ihelper:notice:cer:change":
+                    case "ihelper:notice:cer:online":
+                    case "ihelper:notice:cer:offline":
                         chatType = enum_ChatType.Notice;
                         break;
                     case "ihelper:chat:userstatus":
                         chatType = enum_ChatType.UserStatus;
                         break;
-                    case "ihelper:notice:cer:online":
-                    case "ihelper:notice:cer:offline":
-                        chatType = enum_ChatType.Notice;
-                        break;
                     default:
                         throw new Exception("未知的命名空间");
-
                 }
             }
             ReceptionChat chat = ReceptionChat.Create(chatType);
@@ -108,7 +102,10 @@ namespace Dianzhu.CSClient.MessageAdapter
             {
                 ilog.Error("未知的资源名称：" + message.From.Resource);
             }
-            if (!isNotice)
+
+            Guid toUser;
+            bool isToUser = Guid.TryParse(message.To.User, out toUser);
+            if (isToUser)
             {
                 var chatTo = dalMembership.FindById(new Guid(message.To.User));
                 chat.To = chatTo;
@@ -121,6 +118,12 @@ namespace Dianzhu.CSClient.MessageAdapter
                     ilog.Error("message中to的资源名为空！");
                 }
             }
+            else
+            {
+                ilog.Error("接收用户的id有误，发送用户id为：" + message.From.User + "发送用户资源名为：" + message.From.Resource);
+            }
+            
+
             Guid messageId;
             if (Guid.TryParse(message.Id, out messageId))
             {

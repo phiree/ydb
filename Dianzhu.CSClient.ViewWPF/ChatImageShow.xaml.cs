@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Resources;
 using System.Windows.Shapes;
 
 namespace Dianzhu.CSClient.ViewWPF
@@ -20,19 +23,127 @@ namespace Dianzhu.CSClient.ViewWPF
     public partial class ChatImageShow : Window
     {
         bool isInit;
-        public ChatImageShow(Uri uri)
+        BackgroundWorker worker;
+        public ChatImageShow(string uri)
         {
             InitializeComponent();
 
             this.Height = 768;
             this.Width = 1024;
 
-            img.Source = new Uri(uri.ToString() + "_1024X768");
-            isInit = true;
+            //img.Source = new Uri(uri.ToString() + "_1024X768");
+
+            //BitmapImage image = new BitmapImage();
+            //image.BeginInit();
+            //StreamResourceInfo info = Application.GetRemoteStream(uri);
+            //image.StreamSource = info.Stream;
+            //image.EndInit();
+
+            //img.Source = image;
+            //img.Stretch = Stretch.Uniform;
+            //isInit = true;
+
+            worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.RunWorkerAsync(uri);
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Action lamda = () =>
+            {
+                BitmapImage imgUri = e.Result as BitmapImage;
+
+                ShowImage(imgUri);
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Action lamda = () =>
+            {
+                string imgUri = e.Argument.ToString();
+                string imgPath = PHSuit.DownloadSoft.DownloadPath + imgUri;
+
+                using (BinaryReader loader = new BinaryReader(File.Open(imgPath, FileMode.Open)))
+                {
+                    FileInfo fd = new FileInfo(imgPath);
+                    int Length = (int)fd.Length;
+                    byte[] buf = new byte[Length];
+                    buf = loader.ReadBytes((int)fd.Length);
+                    loader.Dispose();
+                    loader.Close();
+
+
+                    //开始加载图像  
+                    BitmapImage bim = new BitmapImage();
+                    bim.BeginInit();
+                    bim.StreamSource = new MemoryStream(buf);
+                    bim.EndInit();
+                    e.Result = bim;
+                    //image1.Source = bim;
+                    GC.Collect(); //强制回收资源  
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
+        }
+
+        public void ShowLoadingMsg()
+        {
+            Action lamda = () =>
+            {
+                img.Visibility = Visibility.Collapsed;
+                lblLoading.Visibility = Visibility.Visible;                
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
+        }
+
+        public void ShowImage(BitmapImage image)
+        {
+            Action lamda = () =>
+            {
+                lblLoading.Visibility = Visibility.Collapsed;
+                img.Visibility = Visibility.Visible;
+
+                img.Source = image;
+                img.Stretch = Stretch.Uniform;
+                isInit = true;
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
         }
 
 
-        private void Image_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void img_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             var mosePos = e.GetPosition(img);
 
@@ -57,12 +168,12 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         Point dragStart;
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void img_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             dragStart = e.GetPosition(root);
         }
 
-        private void Image_MouseMove(object sender, MouseEventArgs e)
+        private void img_MouseMove(object sender, MouseEventArgs e)
         {
             img.Cursor = Cursors.Hand;
 

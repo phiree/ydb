@@ -79,7 +79,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.PAY
         {
             try
             {
-                return Json(ipay.GetPay(orderID, payID, GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/pays/{payID}")));
+                return Json(ipay.GetPay(orderID, payID, GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/pays/{payID}")) ?? new object());
             }
             catch (Exception ex)
             {
@@ -99,7 +99,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.PAY
         {
             try
             {
-                return Json(ipay.PatchPay(orderID, payID, payobj, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}/pays/{payID}")));
+                return Json(ipay.PatchPay(orderID, payID, payobj, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}/pays/{payID}")) ?? new object());
             }
             catch (Exception ex)
             {
@@ -119,7 +119,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.PAY
         {
             try
             {
-                return Json(ipay.GetPay3rdString(orderID, payID, payTarget, GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/pays/{payID}/pay3rdString")));
+                return Json(ipay.GetPay3rdString(orderID, payID, payTarget, GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/pays/{payID}/pay3rdString")) ?? new object());
             }
             catch (Exception ex)
             {

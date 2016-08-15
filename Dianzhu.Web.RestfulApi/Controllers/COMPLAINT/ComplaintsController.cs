@@ -29,7 +29,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
         {
             try
             {
-                return Json(icomplaintservice.AddComplaint(complaintobj, GetRequestHeader.GetTraitHeaders("post/complaints")));
+                return Json(icomplaintservice.AddComplaint(complaintobj, GetRequestHeader.GetTraitHeaders("post/complaints")) ?? new object());
             }
             catch (Exception ex)
             {
@@ -89,7 +89,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
         {
             try
             {
-                return Json(icomplaintservice.GetOneComplaint(id));
+                return Json(icomplaintservice.GetOneComplaint(id) ?? new object());
             }
             catch (Exception ex)
             {

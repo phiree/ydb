@@ -87,7 +87,7 @@ namespace Dianzhu.ApplicationService.Order
         /// <param name="orderID"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        string GetLinkMan(string orderID, Customer customer);
+        linkManObj GetLinkMan(string orderID, Customer customer);
 
         /// <summary>
         /// 请求变更订单状态

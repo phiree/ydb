@@ -27,7 +27,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
         {
             try
             {
-                return Json(iuserservice.GetUserById(id, "business"));
+                return Json(iuserservice.GetUserById(id, "business")?? new object());
             }
             catch (Exception ex)
             {

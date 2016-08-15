@@ -232,6 +232,33 @@ namespace Dianzhu.BLL
             }
 
         }
+
+        public bool ValidateUser(string username, string password,out string errorMsg)
+        {
+            bool valid = false;
+            errorMsg = string.Empty;
+
+            string encryptedPwd = encryptService.GetMD5Hash(password);
+
+            DZMembership member = DALMembership.ValidateUser(username, encryptedPwd);
+
+            if (member == null)
+            {
+                errorMsg = "用户名或密码有误";
+            }
+            else if(member.UserType!= Model.Enums.enum_UserType.business)
+            {
+                errorMsg = "该用户不是商户";
+            }
+            else
+            {
+                member.LoginTimes += 1;
+                DALMembership.Update(member);
+                valid = true;
+            }
+
+            return valid;
+        }
         #endregion
 
         #region additional method for user

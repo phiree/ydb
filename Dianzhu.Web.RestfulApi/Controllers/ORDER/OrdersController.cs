@@ -76,7 +76,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         {
             try
             {
-                return Json(iorder.GetOrder(id));
+                return Json(iorder.GetOrder(id) ?? new object());
             }
             catch (Exception ex)
             {
@@ -116,7 +116,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     orderobj = new orderObj();
                 }
-                return Json(iorder.PatchOrder(id, orderobj, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}")));
+                return Json(iorder.PatchOrder(id, orderobj, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}")) ?? new object());
             }
             catch (Exception ex)
             {
@@ -158,7 +158,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     commonBody = new Common_Body();
                 }
-                return Json(iorder.PutConfirmService(orderID, commonBody.serviceID, GetRequestHeader.GetTraitHeaders("put/orders/{orderID}/confirmService")));
+                return Json(iorder.PutConfirmService(orderID, commonBody.serviceID, GetRequestHeader.GetTraitHeaders("put/orders/{orderID}/confirmService")) ?? new object());
             }
             catch (Exception ex)
             {
@@ -181,7 +181,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     appraiseobj = new appraiseObj();
                 }
-                return Json(iorder.PutAppraisee(orderID, appraiseobj, GetRequestHeader.GetTraitHeaders("put/orders/{orderID}/appraise")));
+                return Json(iorder.PutAppraisee(orderID, appraiseobj, GetRequestHeader.GetTraitHeaders("put/orders/{orderID}/appraise")) ?? new object());
             }
             catch (Exception ex)
             {
@@ -199,7 +199,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         {
             try
             {
-                return Json(iorder.GetLinkMan(orderID, GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/linkMan")));
+                return Json(iorder.GetLinkMan(orderID, GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/linkMan")) ?? new object());
             }
             catch (Exception ex)
             {
@@ -272,7 +272,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     refundobj = new refundObj();
                 }
-                return Json(iorder.PostRefundAction(orderID, refundobj, GetRequestHeader.GetTraitHeaders("post/orders/{orderID}/refunds")));
+                return Json(iorder.PostRefundAction(orderID, refundobj, GetRequestHeader.GetTraitHeaders("post/orders/{orderID}/refunds")) ?? new object());
             }
             catch (Exception ex)
             {
@@ -290,7 +290,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         {
             try
             {
-                return Json(iorder.GetForman(orderID));
+                return Json(iorder.GetForman(orderID) ?? new object());
             }
             catch (Exception ex)
             {
@@ -314,7 +314,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     strStaffID = assignobj.staffID;
                 }
-                return Json(iorder.PatchForman(orderID, strStaffID, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}/forman")));
+                return Json(iorder.PatchForman(orderID, strStaffID, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}/forman")) ?? new object());
             }
             catch (Exception ex)
             {

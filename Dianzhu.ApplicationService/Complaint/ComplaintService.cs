@@ -91,7 +91,8 @@ namespace Dianzhu.ApplicationService.Complaint
             listcomplaint = bllcomplaint.GetComplaints(filter1, utils.CheckGuidID(complaint.orderID, "orderID"), utils.CheckGuidID(complaint.storeID, "storeID"), utils.CheckGuidID(complaint.customerServiceID, "customerServiceID"));
             if (listcomplaint == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<complaintObj>();
             }
             IList<complaintObj> complaintobj = Mapper.Map<IList<Model.Complaint>, IList<complaintObj>>(listcomplaint);
             for (int i = 0; i < complaintobj.Count; i++)
@@ -128,7 +129,8 @@ namespace Dianzhu.ApplicationService.Complaint
             Model.Complaint complaint = bllcomplaint.GetComplaintById(utils.CheckGuidID(complaintID, "complaintID"));
             if (complaint == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return null;
             }
             complaintObj complaintobj = Mapper.Map<Model.Complaint, complaintObj>(complaint);
             for (int i = 0; i < complaint.ComplaitResourcesUrl.Count; i++)
