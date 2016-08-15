@@ -32,7 +32,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
                 {
                     staffobj = new staffObj();
                 }
-                return Json(istaff.PostStaff(storeID, staffobj,GetRequestHeader.GetTraitHeaders("post/stores/{storeID}/staffs")));
+                return Json(istaff.PostStaff(storeID, staffobj,GetRequestHeader.GetTraitHeaders("post/stores/{storeID}/staffs")) ?? new object());
             }
             catch (Exception ex)
             {
@@ -102,7 +102,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
         {
             try
             {
-                return Json(istaff.GetStaff(storeID, staffID));
+                return Json(istaff.GetStaff(storeID, staffID) ?? new object());
             }
             catch (Exception ex)
             {
@@ -126,7 +126,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
                 {
                     staffobj = new staffObj();
                 }
-                return Json(istaff.PatchStaff(storeID, staffID, staffobj, GetRequestHeader.GetTraitHeaders("patch/stores/{storeID}/staffs/{staffID}")));
+                return Json(istaff.PatchStaff(storeID, staffID, staffobj, GetRequestHeader.GetTraitHeaders("patch/stores/{storeID}/staffs/{staffID}")) ?? new object());
             }
             catch (Exception ex)
             {

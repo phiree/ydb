@@ -287,10 +287,10 @@ namespace Dianzhu.ApplicationService.WorkTime
                     worktimeobj.week = sotObj.DayOfWeek.ToString();
                 }
             }
-            if (worktimeobj == null)
-            {
-                throw new Exception(Dicts.StateCode[4]);
-            }
+            //if (worktimeobj == null)
+            //{
+            //    throw new Exception(Dicts.StateCode[4]);
+            //}
             return worktimeobj;
         }
 

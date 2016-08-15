@@ -229,7 +229,8 @@ namespace Dianzhu.ApplicationService.Service
             dzservice = bllDZService.GetServices(filter1, utils.CheckGuidID(servicefilter.serviceTypeID, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, utils.CheckGuidID(storeID, "storeID"));
             if (dzservice == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<servicesObj>();
             }
             IList<servicesObj> serviceobj = Mapper.Map<IList<Model.DZService>, IList<servicesObj>>(dzservice);
             for (int i = 0; i < serviceobj.Count; i++)
@@ -283,7 +284,8 @@ namespace Dianzhu.ApplicationService.Service
             Model.DZService dzservice = bllDZService.GetService(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(serviceID, "serviceID"));
             if (dzservice == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return null;
             }
             servicesObj servicesobj = Mapper.Map<Model.DZService, servicesObj>(dzservice);
             changeObj(servicesobj, dzservice);
@@ -521,7 +523,8 @@ namespace Dianzhu.ApplicationService.Service
             IList < Model.ServiceType> servicetype = bllServiceType.GetAllServiceTypes(utils.CheckGuidID(superID, "superID"));
             if (servicetype == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<serviceTypeObj>();
             }
             IList<serviceTypeObj> servicetypeobj = Mapper.Map<IList<Model.ServiceType>, IList<serviceTypeObj>>(servicetype);
             return servicetypeobj;

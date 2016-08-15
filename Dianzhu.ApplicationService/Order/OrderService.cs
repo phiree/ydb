@@ -90,6 +90,7 @@ namespace Dianzhu.ApplicationService.Order
                 IList<Model.ServiceOrderPushedService> dzs = bllpushservice.GetPushedServicesForOrder(serviceorder);
                 if (dzs.Count > 0)
                 {
+                    orderobj.contactobj.address = dzs[0].TargetAddress;
                     orderobj.serviceTime = dzs[0].TargetTime.ToString("yyyyMMddHHmmss");
                     orderobj.serviceSnapshotObj = Mapper.Map<Model.ServiceOrderPushedService, serviceSnapshotObj>(dzs[0]);
                     if (dzs[0].OriginalService != null && dzs[0].OriginalService.Business != null)
@@ -167,7 +168,8 @@ namespace Dianzhu.ApplicationService.Order
 
             if (order == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<orderObj>();
             }
             IList<orderObj> orderobj = Mapper.Map<IList<Model.ServiceOrder>, IList<orderObj>>(order);
             for (int i = 0; i < orderobj.Count; i++)
@@ -206,7 +208,8 @@ namespace Dianzhu.ApplicationService.Order
             order = ibllserviceorder.GetOne(utils.CheckGuidID(orderID, "orderID"));
             if (order == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return null;
             }
             orderObj orderobj = Mapper.Map<Model.ServiceOrder, orderObj>(order);
             changeObj(orderobj, order);
@@ -230,7 +233,8 @@ namespace Dianzhu.ApplicationService.Order
             statehis = bllstatehis.GetOrderHisList(order);
             if (statehis == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<orderStatusObj>();
             }
             IList<orderStatusObj> orderstatussbj = Mapper.Map<IList<Model.ServiceOrderStateChangeHis>, IList<orderStatusObj>>(statehis);
             return orderstatussbj;
@@ -431,7 +435,7 @@ namespace Dianzhu.ApplicationService.Order
         /// <param name="orderID"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public string GetLinkMan(string orderID, Customer customer)
+        public linkManObj GetLinkMan(string orderID, Customer customer)
         {
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
             Model.ServiceOrder order = ibllserviceorder.GetOne(guidOrder);
@@ -448,8 +452,9 @@ namespace Dianzhu.ApplicationService.Order
                 throw new Exception("该订单没有确定的服务！");
             }
             //ReceptionAssigner ra = new ReceptionAssigner(imSession);
-
-            return order.OpenFireLinkMan;
+            linkManObj linkman = new linkManObj();
+            linkman.linkManID = order.OpenFireLinkMan.ToString();
+            return linkman;
 
             //string targetId = "";
             //IList<OrderAssignment> orderAssList = bllOrderAssignment.GetOAListByOrder(order);
@@ -620,7 +625,8 @@ namespace Dianzhu.ApplicationService.Order
             claimsdetails = bLLClaimsDetails.GetRefundStatus(guidOrder, filter1, action);
             if (claimsdetails == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<refundStatusObj>();
             }
             IList<refundStatusObj> refundstatusobj = Mapper.Map<IList<Model.ClaimsDetails>, IList<refundStatusObj>>(claimsdetails);
             for (int i = 0; i < refundstatusobj.Count; i++)

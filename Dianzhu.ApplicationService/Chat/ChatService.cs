@@ -73,7 +73,8 @@ namespace Dianzhu.ApplicationService.Chat
             chat = bllChat.GetChats(filter1, chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer,customer.UserType);
             if (chat == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<chatObj>();
             }
             IList<chatObj> staffobj = Mapper.Map<IList<Model.ReceptionChat>, IList<chatObj>>(chat);
             return staffobj;
@@ -104,14 +105,20 @@ namespace Dianzhu.ApplicationService.Chat
         /// <returns></returns>
         public IList<chatObj> GetAllChats(common_Trait_Filtering filter, common_Trait_ChatFiltering chatfilter, Customer customer)
         {
-            //Guid guidOrder = checkRute(orderID, customer);
+            //Guid guidOrder = checkRute(chatfilter.orderID, customer);
+            Guid guidOrder = Guid.Empty;// utils.CheckGuidID(chatfilter.orderID, "chatfilter.orderID");
+            if (!string.IsNullOrEmpty(chatfilter.orderID))
+            {
+                guidOrder= checkRute(chatfilter.orderID, customer);
+            }
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
             IList<Model.ReceptionChat> chat = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ReceptionChat");
-            chat = bllChat.GetChats(filter1, chatfilter.type, chatfilter.fromTarget, Guid.Empty, guidCustomer, customer.UserType);
+            chat = bllChat.GetChats(filter1, chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer, customer.UserType);
             if (chat == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<chatObj>();
             }
             IList<chatObj> staffobj = Mapper.Map<IList<Model.ReceptionChat>, IList<chatObj>>(chat);
             return staffobj;
@@ -126,9 +133,14 @@ namespace Dianzhu.ApplicationService.Chat
         public countObj GetAllChatsCount( common_Trait_ChatFiltering chatfilter, Customer customer)
         {
             //Guid guidOrder = checkRute(orderID, customer);
+            Guid guidOrder = Guid.Empty;// utils.CheckGuidID(chatfilter.orderID, "chatfilter.orderID");
+            if (!string.IsNullOrEmpty(chatfilter.orderID))
+            {
+                guidOrder = checkRute(chatfilter.orderID, customer);
+            }
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
             countObj c = new countObj();
-            c.count = bllChat.GetChatsCount(chatfilter.type, chatfilter.fromTarget, Guid.Empty, guidCustomer, customer.UserType).ToString();
+            c.count = bllChat.GetChatsCount(chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer, customer.UserType).ToString();
             return c;
         }
     }

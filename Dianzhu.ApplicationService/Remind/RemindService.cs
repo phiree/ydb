@@ -29,7 +29,8 @@ namespace Dianzhu.ApplicationService.Remind
             listremind = bllremind.GetReminds(filter1, utils.CheckGuidID(remind.orderID, "orderID"), utils.CheckGuidID(customer.UserID, "customer.UserID"), utils.CheckDateTime(remind.startTime,"yyyyMMdd", "startTime"), utils.CheckDateTime(remind.endTime, "yyyyMMdd", "startTime"));
             if (listremind == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<remindObj>();
             }
             IList<remindObj> remindobj = Mapper.Map<IList<Model.ServiceOrderRemind>, IList<remindObj>>(listremind);
             return remindobj;
@@ -60,7 +61,8 @@ namespace Dianzhu.ApplicationService.Remind
             Model.ServiceOrderRemind remind = bllremind.GetRemindById(utils.CheckGuidID(remindID, "remindID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (remind == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return null;
             }
             remindObj remindobj = Mapper.Map<Model.ServiceOrderRemind, remindObj>(remind);
             return remindobj;

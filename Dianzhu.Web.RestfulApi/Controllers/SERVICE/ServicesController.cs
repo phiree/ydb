@@ -35,7 +35,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
                 //Request.GetRequestContext()
                 //FromBodyAttribute fba = new FromBodyAttribute();
                 
-                return Json(iservice.PostService(storeID,servicesobj,GetRequestHeader.GetTraitHeaders("post/stores/{storeID}/services")));
+                return Json(iservice.PostService(storeID,servicesobj,GetRequestHeader.GetTraitHeaders("post/stores/{storeID}/services")) ?? new object());
             }
             catch (Exception ex)
             {
@@ -105,7 +105,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
         {
             try
             {
-                return Json(iservice.GetService(storeID, serviceID));
+                return Json(iservice.GetService(storeID, serviceID) ?? new object());
             }
             catch (Exception ex)
             {
@@ -129,7 +129,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
                 {
                     servicesobj = new servicesObj();
                 }
-                return Json(iservice.PatchService(storeID, serviceID, servicesobj, GetRequestHeader.GetTraitHeaders("patch/stores/{storeID}/services/{serviceID}")));
+                return Json(iservice.PatchService(storeID, serviceID, servicesobj, GetRequestHeader.GetTraitHeaders("patch/stores/{storeID}/services/{serviceID}")) ?? new object());
             }
             catch (Exception ex)
             {
