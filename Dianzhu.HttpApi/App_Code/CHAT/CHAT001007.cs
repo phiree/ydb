@@ -51,6 +51,14 @@ public class ResponseCHAT001007:BaseResponse
                 this.err_Msg = "OrderId格式有误";
                 return;
             }
+
+            ServiceOrder order = bllServiceOrder.GetOne(orderId);
+            if (order == null)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "Order不存在";
+                return;
+            }
         }        
 
         DZMembership member;
@@ -113,14 +121,6 @@ public class ResponseCHAT001007:BaseResponse
 
         try
         {
-            ServiceOrder order = bllServiceOrder.GetOne(orderId);
-            if (order == null)
-            {
-                this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "Order不存在";
-                return;
-            }
-
             IList<ReceptionChat> chatList = bllReceptionChat.GetReceptionChatListByTargetIdAndSize(userId, Guid.Empty, orderId, DateTime.MinValue, DateTime.MaxValue, pageSize, targetChat, requestData.low, chatTarget);
 
             RespDataCHAT001007 respData = new RespDataCHAT001007();

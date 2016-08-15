@@ -315,5 +315,22 @@ namespace Dianzhu.ApplicationService
                 _formanObj = value;
             }
         }
+
+        contactObj _contactobj = new contactObj();
+        /// <summary>
+        /// 服务对象
+        /// </summary>
+        /// <type>customerServicesObj</type>
+        public contactObj contactobj
+        {
+            get
+            {
+                return _contactobj;
+            }
+            set
+            {
+                _contactobj = value;
+            }
+        }
     }
 }

@@ -27,7 +27,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
         {
             try
             {
-                return Json(iremind.GetRemindById(id, GetRequestHeader.GetTraitHeaders("get/reminds{remindID}")));
+                return Json(iremind.GetRemindById(id, GetRequestHeader.GetTraitHeaders("get/reminds/{remindID}")) ?? new object());
             }
             catch (Exception ex)
             {
@@ -45,7 +45,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
         {
             try
             {
-                return Json(iremind.DeleteRemindById(id, GetRequestHeader.GetTraitHeaders("delete/reminds{remindID}")));
+                return Json(iremind.DeleteRemindById(id, GetRequestHeader.GetTraitHeaders("delete/reminds/{remindID}")));
             }
             catch (Exception ex)
             {

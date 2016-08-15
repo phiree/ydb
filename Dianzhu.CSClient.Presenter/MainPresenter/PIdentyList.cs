@@ -126,7 +126,7 @@ namespace Dianzhu.CSClient.Presenter
                     //2 判断消息 和 聊天列表,当前聊天项的关系(是当前聊天项 但是需要修改订单 非激活的列表, 新聊天.
                     IdentityTypeOfOrder type;
                     IdentityManager.UpdateIdentityList(chat.ServiceOrder, out type);
-                    ReceivedMessage(chat, type);
+                    
                     //消息本地化.
                     chat.ReceiveTime = DateTime.Now;
                     if (chat is Model.ReceptionChatMedia)
@@ -135,8 +135,15 @@ namespace Dianzhu.CSClient.Presenter
                         string fileName = ((ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
 
                         ((ReceptionChatMedia)chat).MedialUrl = fileName;
+
+                        if(PHSuit.DownloadSoft.DownLoad(string.Empty, mediaUrl, fileName))
+                        {
+                            ((ReceptionChatMedia)chat).MedialUrl = fileName;
+                        }
                     }
                     dalReceptionChat.Add(chat);
+
+                    ReceivedMessage(chat, type);
 
                     iView.IdleTimerStop(chat.ServiceOrder.Id); 
                 }

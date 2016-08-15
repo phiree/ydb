@@ -39,7 +39,8 @@ namespace Dianzhu.ApplicationService.Pay
             payment = bllPayment.GetPays(filter1, payfilter.payStatus, payfilter.payType, utils.CheckGuidID(orderID, "orderID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (payment == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<payObj>();
             }
             IList<payObj> payobj = Mapper.Map<IList<Model.Payment>, IList<payObj>>(payment);
             return payobj;
@@ -83,7 +84,8 @@ namespace Dianzhu.ApplicationService.Pay
             Model.Payment payment =  bllPayment.GetPay(utils.CheckGuidID(orderID, "orderID"), utils.CheckGuidID(payID, "payID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (payment == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return null;
             }
             payObj payobj = Mapper.Map<Model.Payment, payObj>(payment);
             return payobj;

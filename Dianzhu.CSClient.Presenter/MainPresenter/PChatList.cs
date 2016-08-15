@@ -47,43 +47,30 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewChatList_BtnMoreChat()
         {
-            //ReceptionChat chatOldest = dalReceptionChat.FindById(chatOldestId);
-            //if (chatOldest == null)
-            //{
-            //    return;
-            //}
-
             var chatHistory = dalReceptionChat.GetReceptionChatListByTargetIdAndSize(IdentityManager.CurrentIdentity.Customer.Id, Guid.Empty, Guid.Empty,
                    DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 10, viewChatList.ChatList[0], "Y", enum_ChatTarget.all).OrderByDescending(x=>x.SavedTimestamp).ToList();
 
-            if (chatHistory.Count() == 0)
+            if (chatHistory.Count() > 0)
+            {
+                if (chatHistory.Count == 10)
+                {
+                    viewChatList.ShowMoreLabel();
+                }
+                else
+                {
+                    viewChatList.ShowNoMoreLabel();
+                }
+
+                foreach (var item in chatHistory)
+                {
+                    viewChatList.ChatList.Insert(0, item);
+                    viewChatList.InsertOneChat(item);
+                }
+            }
+            else
             {
                 viewChatList.ShowNoMoreLabel();
-                return;
             }
-
-            //viewChatList.ChatOldestId = chatHistory[0].Id;
-
-            //foreach(ReceptionChat chat in chatHistory.OrderByDescending(x=>x.SavedTime))
-            //{
-            //    chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Insert(0, chat);
-            //}
-
-            //var list = viewChatList.ChatList;
-
-            foreach (var item in chatHistory)
-            {
-                viewChatList.ChatList.Insert(0, item);
-                viewChatList.InsertOneChat(item);
-            }
-
-            //viewChatList.ChatList = list;
-            //viewChatList.ClearUCData();
-            viewChatList.ShowMoreLabel();
-            //foreach (ReceptionChat chat in list)
-            //{
-            //    viewChatList.AddOneChat(chat);
-            //}
 
             //viewChatList.ChatList = chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id];
         }
@@ -103,9 +90,6 @@ namespace Dianzhu.CSClient.Presenter
         BackgroundWorker worker;
         public void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
         {
-            //viewChatList.ChatListCustomerName = serviceOrder.Customer.DisplayName;
-            //viewChatList.ClearUCData();
-
             worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
@@ -113,11 +97,6 @@ namespace Dianzhu.CSClient.Presenter
 
             log.Debug("开始异步加载聊天记录");
             viewChatList.ChatListCustomerName = serviceOrder.Customer.DisplayName;
-
-            //BackgroundWorker worker = new BackgroundWorker();
-            //worker.DoWork += Worker_DoWork;
-            //worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            //worker.RunWorkerAsync(serviceOrder.Customer.Id);
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

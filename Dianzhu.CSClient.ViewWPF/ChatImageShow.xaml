@@ -8,7 +8,7 @@
         Title="查看图片" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="Transparent">
 
     <Grid x:Name="root">
-        <MediaElement x:Name="img" MouseWheel="Image_MouseWheel" MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseMove="Image_MouseMove" MediaEnded="img_MediaEnded" >
+        <!--<MediaElement x:Name="img" MouseWheel="Image_MouseWheel" MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseMove="Image_MouseMove" MediaEnded="img_MediaEnded" >
             <MediaElement.ToolTip>
                 <Grid>
                     <TextBlock Text="点击可拖动图片，滚轴可以缩放图片"/>
@@ -20,6 +20,26 @@
                     <ScaleTransform x:Name="transform" />
                 </TransformGroup>
             </MediaElement.RenderTransform>
-        </MediaElement>
+        </MediaElement>-->
+
+        <Label x:Name="lblLoading" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="加载中..." FontSize="30" Foreground="White"></TextBlock>
+        </Label>
+
+        <Image x:Name="img" Height="768" Width="1024" MouseWheel="img_MouseWheel" MouseLeftButtonDown="img_MouseLeftButtonDown" MouseMove="img_MouseMove">
+            <Image.ToolTip>
+                <Grid>
+                    <TextBlock Text="点击可拖动图片，滚轴可以缩放图片"/>
+                </Grid>
+            </Image.ToolTip>
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform x:Name="translate" />
+                    <ScaleTransform x:Name="transform" />
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        
+        
     </Grid>
 </Window>

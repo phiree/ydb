@@ -25,10 +25,10 @@ namespace Dianzhu.ApplicationService.ADs
         {
             IList<Model.Advertisement> listad = null;
             listad = bllad.GetADListForUseful();
-            if (listad == null)
-            {
-                throw new Exception(Dicts.StateCode[4]);
-            }
+            //if (listad == null)
+            //{
+            //    throw new Exception(Dicts.StateCode[4]);
+            //}
             
             if (listad.Count > 0)
             {

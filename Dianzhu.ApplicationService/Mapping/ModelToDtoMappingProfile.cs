@@ -129,7 +129,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<Model.Staff, staffObj>()
             .ForMember(x => x.alias, opt => opt.MapFrom(source => source.DisplayName))
             .ForMember(x => x.number, opt => opt.MapFrom(source => source.Code))
-            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.Photo != null ? Dianzhu.Config.Config.GetAppSetting("ImageHandler") + source.Photo : ""))//MediaGetUrl
+            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.Photo != null ? Dianzhu.Config.Config.GetAppSetting("ImageHandler") + source.Photo : source.AvatarCurrent==null?"": Dianzhu.Config.Config.GetAppSetting("ImageHandler") + source.AvatarCurrent.ImageName))//MediaGetUrl
             .ForMember(x => x.sex, opt => opt.MapFrom(source => source.Gender == "女" ? true : false))
             .ForMember(x => x.realName, opt => opt.MapFrom(source => source.Name))
             //.ForMember(x => x.identity, opt => opt.MapFrom(source => source.Code))
@@ -160,7 +160,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.to, opt => opt.MapFrom(source => source.To.Id))
             .ForMember(x => x.from, opt => opt.MapFrom(source => source.From.Id))
             .ForMember(x => x.orderID, opt => opt.MapFrom(source => source.ServiceOrder.Id))
-            .ForMember(x => x.body, opt => opt.MapFrom(source => source.MessageBody))
+            .ForMember(x => x.body, opt => opt.MapFrom(source => source.GetType() == typeof(Model.ReceptionChatMedia)? string.IsNullOrEmpty(((Model.ReceptionChatMedia)source).MedialUrl)?"": Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")+ ((Model.ReceptionChatMedia)source).MedialUrl : source.MessageBody))
             .ForMember(x => x.type, opt => opt.MapFrom(source => source.ChatType.ToString()))
             .ForMember(x => x.sendTime, opt => opt.MapFrom(source => source.SendTime == DateTime.MinValue ? "" : source.SendTime.ToString("yyyyMMddHHmmss")))
             .ForAllMembers(opt => opt.NullSubstitute(""));

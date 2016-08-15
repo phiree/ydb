@@ -66,7 +66,14 @@ namespace Dianzhu.BLL
             }
             if (!string.IsNullOrEmpty(type))
             {
-                where = where.And(x => x.ChatType.ToString() == type);
+                if (type == "pushOrder")
+                {
+                    where = where.And(x => x.GetType() == typeof(ReceptionChatPushService));
+                }
+                else
+                {
+                    where = where.And(x => x.GetType() == typeof(ReceptionChatMedia) && ((ReceptionChatMedia)x).MediaType== type);
+                }
             }
             if (userType == "customer" || userType == "customerservice")
             {
@@ -137,7 +144,14 @@ namespace Dianzhu.BLL
             }
             if (type != null && type != "")
             {
-                where = where.And(x => x.ChatType.ToString() == type);
+                if (type == "pushOrder")
+                {
+                    where = where.And(x => x.GetType() == typeof(ReceptionChatPushService));
+                }
+                else
+                {
+                    where = where.And(x => x.GetType() == typeof(ReceptionChatMedia) && ((ReceptionChatMedia)x).MediaType == type);
+                }
             }
             if (userType == "customer" || userType == "customerservice")
             {

@@ -299,8 +299,6 @@ namespace Dianzhu.Model.Enums
         /// 业务流程需要IM完成的工作,
         /// 不需要IM完成的 比如, 用户取消订单,
         /// 申请退款等,通过http接口完成.
-        ///  
-        /// 
         /// </summary>
         Text,
         Media,//包含多媒体链接的消息
@@ -424,77 +422,6 @@ namespace Dianzhu.Model.Enums
     /// </summary>
     public enum enum_XmppResource
     {
-        //todo:发布全新版本时需删除
-        #region 待删除
-        #region 服务
-        /// <summary>
-        /// im消息通知
-        /// </summary>
-        YDBan_Win_IMServer = 0,
-        /// <summary>
-        /// 点点
-        /// </summary>
-        YDBan_Win_DianDian = 1,
-        #endregion
-
-        #region 客服工具
-        /// <summary>
-        /// IOS端客服工具
-        /// </summary>
-        YDBan_IOS_CustomerService = 11,
-        /// <summary>
-        /// 安卓端客服工具
-        /// </summary>
-        YDBan_Android_CustomerService = 12,
-        /// <summary>
-        /// Web端客服工具
-        /// </summary>
-        YDBan_Web_CustomerService = 13,
-        /// <summary>
-        /// PC端客服工具
-        /// </summary>
-        YDBan_Win_CustomerService = 14,
-        #endregion
-
-        #region 用户版
-        /// <summary>
-        /// IOS端用户
-        /// </summary>
-        YDBan_IOS_User = 21,
-        /// <summary>
-        /// 安卓端用户
-        /// </summary>
-        YDBan_Android_User = 22,
-        /// <summary>
-        /// Web端用户
-        /// </summary>
-        YDBan_Web_User = 23,
-        /// <summary>
-        /// PC端用户
-        /// </summary>
-        YDBan_Win_User = 24,
-        #endregion
-
-        #region 商户版
-        /// <summary>
-        /// IOS端商户
-        /// </summary>
-        YDBan_IOS_Merchant = 31,
-        /// <summary>
-        /// 安卓端商户
-        /// </summary>
-        YDBan_Android_Merchant = 32,
-        /// <summary>
-        /// Web端商户
-        /// </summary>
-        YDBan_Web_Merchant = 33,
-        /// <summary>
-        /// PC端商户
-        /// </summary>
-        YDBan_Win_Merchant = 34,
-        #endregion
-        #endregion
-
         /// <summary>
         /// 模拟用户客户端
         /// </summary>

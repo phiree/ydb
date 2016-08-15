@@ -246,6 +246,18 @@ namespace Dianzhu.Model
                 return name;
             }
         }
+        public virtual string ServiceBusinessPhone
+        {
+            get
+            {
+                string name = string.Empty;
+                foreach (ServiceOrderDetail detail in Details)
+                {
+                    name += detail.OriginalService.Business.Phone + ";";
+                }
+                return name;
+            }
+        }
         public virtual string Description {
             get {
                 string description = string.Empty;

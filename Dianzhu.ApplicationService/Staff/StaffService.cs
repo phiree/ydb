@@ -103,6 +103,17 @@ namespace Dianzhu.ApplicationService.Staff
             //staff.Photo = utils.DownloadToMediaserver(staff.Photo, string.Empty, "StaffAvatar", "image");
             //上传图片都是先调用上传接口，然后将其结果传给该接口就好了，该接口不用上传。
             bllStaff.Save(staff);
+            var avatarList = staff.StaffAvatar.Where(x => x.IsCurrent == true).ToList();
+            avatarList.ForEach(x => x.IsCurrent = false);
+            Model.BusinessImage biImage = new Model.BusinessImage
+            {
+                ImageType = Model.Enums.enum_ImageType.Staff_Avatar,
+                UploadTime = DateTime.Now,
+                ImageName = staff.Phone,
+                Size = 0,
+                IsCurrent = true
+            };
+            staff.StaffAvatar.Add(biImage);
             //staff = bllStaff.GetOne(staff.Id);
             //if (staff != null)
             //{
@@ -132,7 +143,8 @@ namespace Dianzhu.ApplicationService.Staff
             staff = bllStaff.GetStaffs(filter1, stafffilter.alias, stafffilter.email, stafffilter.phone, stafffilter.sex, stafffilter.specialty, stafffilter.realName, business.Id);
             if (staff == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<staffObj>();
             }
             IList<staffObj> staffobj = Mapper.Map<IList<Model.Staff>, IList<staffObj>>(staff);
             for (int i = 0; i < staffobj.Count; i++)
@@ -168,7 +180,8 @@ namespace Dianzhu.ApplicationService.Staff
             Model.Staff staff = bllStaff.GetStaff(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(staffID, "staffID"));
             if (staff == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return null;
             }
             staffObj staffobj = Mapper.Map<Model.Staff, staffObj>(staff);
             changeObj(staffobj, staff);
@@ -232,6 +245,17 @@ namespace Dianzhu.ApplicationService.Staff
             if (string.IsNullOrEmpty(staffobj.imgUrl) == false && staffobj.imgUrl != staff.Photo)
             {
                 staff.Photo = utils.GetFileName(staffobj.imgUrl);
+                var avatarList = staff.StaffAvatar.Where(x => x.IsCurrent == true).ToList();
+                avatarList.ForEach(x => x.IsCurrent = false);
+                Model.BusinessImage biImage = new Model.BusinessImage
+                {
+                    ImageType = Model.Enums.enum_ImageType.Staff_Avatar,
+                    UploadTime = DateTime.Now,
+                    ImageName = staff.Phone,
+                    Size = 0,
+                    IsCurrent = true
+                };
+                staff.StaffAvatar.Add(biImage);
                 //staff1.Photo = utils.DownloadToMediaserver(staff2.Photo, string.Empty, "StaffAvatar", "image");
             }
             if (string.IsNullOrEmpty(staffobj.realName) == false && staffobj.realName != staff.Name)

@@ -7,12 +7,20 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <MediaElement x:Name="gif" MediaEnded="gif_MediaEnded" Height="100" MaxWidth="150" LoadedBehavior="Play" MouseMove="gif_MouseMove" MouseDown="gif_MouseDown">
+        <!--<MediaElement x:Name="gif" MediaEnded="gif_MediaEnded" Height="100" MaxWidth="150" LoadedBehavior="Play" MouseMove="gif_MouseMove" MouseLeftButtonDown="gif_MouseLeftButtonDown">
             <MediaElement.ToolTip>
                 <Grid>
                     <TextBlock Text="点击查看大图"/>
                 </Grid>
             </MediaElement.ToolTip>
-        </MediaElement>
+        </MediaElement>-->
+
+        <Image x:Name="img" Height="100" MaxWidth="150" MouseLeftButtonDown="img_MouseLeftButtonDown" MouseMove="img_MouseMove">
+            <Image.ToolTip>
+                <Grid>
+                    <TextBlock Text="点击查看大图"/>
+                </Grid>
+            </Image.ToolTip>
+        </Image>
     </Grid>
 </UserControl>

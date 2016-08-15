@@ -19,5 +19,10 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <type>string</type>
         public string fromTarget { get; set; }
+
+        /// <summary>
+        /// 订单ID
+        /// </summary>
+        public string orderID { get; set; }
     }
 }

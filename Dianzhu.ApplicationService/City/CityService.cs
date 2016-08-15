@@ -73,7 +73,8 @@ namespace Dianzhu.ApplicationService.City
             }
             if (listarea == null)
             {
-                throw new Exception(Dicts.StateCode[4]);
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<cityObj>();
             }
             IList<cityObj> listcity = Mapper.Map<IList<Model.Area>, IList<cityObj>>(listarea);
             return listcity;
