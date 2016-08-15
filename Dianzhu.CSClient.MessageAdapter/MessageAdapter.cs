@@ -8,6 +8,7 @@ using Dianzhu.BLL;
 using agsXMPP.protocol.client;
 using System.Xml;
 using agsXMPP.Xml.Dom;
+ 
 namespace Dianzhu.CSClient.MessageAdapter
 {
     /// <summary>
@@ -295,18 +296,29 @@ namespace Dianzhu.CSClient.MessageAdapter
         {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(rawXml);
-            XmlNamespaceManager ns = new XmlNamespaceManager(doc.NameTable);
-            ns.AddNamespace("jabber", "jabber:client");
-            ns.AddNamespace("ihelper", "ihelper:chat:text");
+
+           
             XmlElement eleMessage = (XmlElement)doc.FirstChild;
             string fromJid = eleMessage.GetAttribute("from");
             string toJid = eleMessage.GetAttribute("to");
             string messageid = eleMessage.GetAttribute("id");
             //string type= eleMessage.GetAttribute("type");
-            var bodyNode = eleMessage.SelectSingleNode("body", ns);
-            string body = bodyNode.InnerText;
-            var extNode = eleMessage.SelectSingleNode("//ihelper:ext", ns);
-            string orderId = extNode.SelectSingleNode("//ihelper:orderID",ns).InnerText;
+           
+          
+           
+            string xpathMessage = "/*[local-name()='message']";
+            string xpathBody =xpathMessage+ "/*[local-name()='body']";
+            string xpathExt =xpathMessage+ "/*[local-name()='ext']";
+            string xpathOrderId =xpathExt+  "/*[local-name()='orderID']";
+            string xpathMsgObj =xpathExt+ "/*[local-name()='msgObj']";
+
+            var extNode = doc.SelectSingleNode(xpathExt);
+            string body = doc.SelectSingleNode(xpathBody).InnerText;
+            string orderId = doc.SelectSingleNode(xpathOrderId).InnerText;
+
+           
+            
+
 
             MessageBuilder builder = new MessageBuilder(dalIMUserStatus);
             builder= builder.BuildBase(messageid, toJid, fromJid, body, orderId);
@@ -315,8 +327,9 @@ namespace Dianzhu.CSClient.MessageAdapter
             {
                 case "ihelper:chat:text": break;
                 case "ihelper:chat:media":
-                    string mediaType = extNode.SelectSingleNode("msgObj").Attributes["type"].Value;
-                    string mediaUrl = extNode.SelectSingleNode("msgObj").Attributes["url"].Value;
+                    var msgObj = doc.SelectSingleNode(xpathMsgObj);
+                    string mediaType = msgObj.Attributes["type"].Value;
+                    string mediaUrl = msgObj.Attributes["url"].Value;
                     builder=builder.BuildMedia(mediaType, mediaUrl);
                     break;
                 case "ihelper:chat:userstatus":
