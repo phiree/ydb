@@ -9,19 +9,22 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using a=agsXMPP;
 using System.IO;
+using log4net;
+using System.Text.RegularExpressions;
 namespace Dianzhu.IM.Test
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
+        ILog log = LogManager.GetLogger("Dianzhu.IMTest");
        a.XmppClientConnection   conn;
         IList<LoginAccount> loginAccounts = new List<LoginAccount>();
-        public Form1()
+        public Main()
         {
             
             InitializeComponent();
             LoadAccountButton();
             conn = new a.XmppClientConnection();
-            conn.Resource = "YDBan_User";
+             
             conn.OnLogin += Conn_OnLogin;
             conn.OnError += Conn_OnError;
             conn.OnAuthError += Conn_OnAuthError;
@@ -29,12 +32,35 @@ namespace Dianzhu.IM.Test
             conn.OnClose += Conn_OnClose;
             conn.OnSocketError += Conn_OnSocketError;
             conn.OnStreamError += Conn_OnStreamError;
+            conn.OnMessage += Conn_OnMessage;
+            conn.OnPresence += Conn_OnPresence;
+            conn.OnIq += Conn_OnIq;
+
+            
         }
+
+        private void Conn_OnIq(object sender, a.protocol.client.IQ iq)
+        {
+            Log(iq.ToString());
+        }
+
+        private void Conn_OnPresence(object sender, a.protocol.client.Presence pres)
+        {
+            Log(pres.ToString());
+        }
+
+        private void Conn_OnMessage(object sender, a.protocol.client.Message msg)
+        {
+            Log(msg.ToString(), MessageDirection.Received);
+        }
+
         private void Conn_OnLogin(object sender)
         {
             Action lambda = () =>
             {
-                lblLoginMsg.Text = "登录成功";
+                
+                tbxMyJID.Text = conn.MyJID;
+                btnLogOut.Visible = true;
                 LoadTestButton();
             };
             if (InvokeRequired)
@@ -47,6 +73,7 @@ namespace Dianzhu.IM.Test
         private void LoadTestButton()
         {
             string[] files = Directory.GetFiles(Environment.CurrentDirectory + "\\messages\\");
+            flowLayoutPanel1.Controls.Clear();
             foreach (string file in files)
             {
                 if (!file.Contains(server)) continue;
@@ -80,7 +107,7 @@ namespace Dianzhu.IM.Test
             LoginAccount account = (LoginAccount)((Button)sender).Tag;
             
 
-            Login(account.server,account.loginid,account.password);
+            Login(account.server,account.loginid,account.password,account.resource);
         }
 
         private void  ReadAccountFromFile()
@@ -93,7 +120,8 @@ namespace Dianzhu.IM.Test
                 string server = sl[0];
                 string loginid = sl[1];
                 string password = sl[2];
-                loginAccounts.Add(new LoginAccount { loginid = loginid, password = password, server = server });
+                string resource = sl[3];
+                loginAccounts.Add(new LoginAccount { loginid = loginid, password = password, server = server ,resource=resource});
 
             } 
         }
@@ -102,36 +130,49 @@ namespace Dianzhu.IM.Test
         {
             string fielPath = ((Button)sender).Tag.ToString();
 
-            string xml = File.ReadAllText(fielPath); 
+            string xml = File.ReadAllText(fielPath);
             xml = string.Format(xml, tbxTargetUser.Text, server);
+
+            
+            if (string.IsNullOrEmpty(tbxTargetUser.Text))
+            {
+              xml=  Regex.Replace(xml, "\\s+to\\s?=\\s?\\\".+?\\\"", " ", RegexOptions.IgnoreCase);
+            }
+            if (!cbxIncludeFrom.Checked)
+            {
+                xml = Regex.Replace(xml, "\\s+from\\s?=\\s?\\\".+?\\\"", " ", RegexOptions.IgnoreCase);
+            }
+
             conn.Send(xml);
+            Log(xml, MessageDirection.Sent); 
         }
         #region xmpp event
         private void Conn_OnStreamError(object sender, a.Xml.Dom.Element e)
         {
-            throw new NotImplementedException();
+            
+            Log(e.ToString(), MessageDirection.Received);
         }
 
         private void Conn_OnSocketError(object sender, Exception ex)
         {
-            MessageBox.Show(ex.Message);
+            Log(ex.Message, MessageDirection.Received);
         }
 
         private void Conn_OnClose(object sender)
         {
-            MessageBox.Show("请重新启动程序");
+            Log("Conn_Closed");
         }
 
         
 
         private void Conn_OnAuthError(object sender, a.Xml.Dom.Element e)
         {
-            MessageBox.Show("用户名密码有误"); 
+            Log("Conn_AuthError");
         }
 
         private void Conn_OnError(object sender, Exception ex)
         {
-            throw new NotImplementedException();
+            Log(ex.Message);
         }
         #endregion
         string username, server;
@@ -141,9 +182,12 @@ namespace Dianzhu.IM.Test
           
             
         }
-        private void Login(string server, string username, string password)
+        private void Login(string server, string username, string password,string resource)
         {
+            conn.Close();
+
             conn.Server =server;
+            conn.Resource = resource;
             conn.ConnectServer = server;
             conn.AutoResolveConnectServer = false;
             conn.Open(username, password);
@@ -172,16 +216,83 @@ namespace Dianzhu.IM.Test
             }
             throw new Exception("配置文件有误");
         }
+
+        private void btnReloadMessages_Click(object sender, EventArgs e)
+        {
+            LoadTestButton();
+        }
+
         struct LoginAccount
         {
           public   string server { get; set; }
             public string loginid { get; set; }
             public string password { get; set; }
+            public string resource { get; set; }
 
             public override string ToString()
             {
-                return server + "##" + loginid + "##";
+                return server + "##" + loginid + "##"+resource;
             }
         }
+        enum MessageDirection
+        {
+            Received,
+            Sent
+        }
+        private void Log(string content)
+        {
+            Log(content, MessageDirection.Received);
+        }
+        private void Log(string content, MessageDirection direction)
+        {
+            string formatedContent = "-------------" + DateTime.Now + "--------------" + Environment.NewLine + content + Environment.NewLine;
+             InvokeIfRequired(this, () => {
+                switch (direction)
+                {
+                    case MessageDirection.Received:
+                        tbxLogReceived.Text += formatedContent;
+                         tbxLogReceived.SelectionStart = tbxLogReceived.Text.Length;
+                         tbxLogReceived.ScrollToCaret();
+                         break;
+                    case MessageDirection.Sent:
+                        tbxLogSent.Text += formatedContent;
+
+                         tbxLogSent.SelectionStart = tbxLogSent.Text.Length;
+                         tbxLogSent.ScrollToCaret();
+                         break;
+                }
+                log.Debug(direction.ToString() + content);
+            });
+           
+        }
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            conn.Send(tbxManualMessage.Text);
+        }
+
+        private void btnLogOut_Click(object sender, EventArgs e)
+        {
+            conn.Close();
+            tbxMyJID.Clear();
+            flowLayoutPanel1.Controls.Clear();
+            btnLogOut.Visible = false;
+            
+        }
+
+        public void InvokeIfRequired(  ISynchronizeInvoke obj,
+                                         MethodInvoker action)
+        {
+            if (obj.InvokeRequired)
+            {
+                var args = new object[0];
+                obj.Invoke(action, args);
+            }
+            else
+            {
+                action();
+            }
+        }
+
     }
 }

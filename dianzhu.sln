@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSClient", "CSClient", "{8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}"
 EndProject
@@ -276,6 +276,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebForTesting", "WebForTest
 		SlnRelativePath = "WebForTesting\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DzXmppClient", "DzXmppClient\DzXmppClient.csproj", "{5140EA0D-7D3C-4113-B340-5EDC45F893BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -728,6 +730,18 @@ Global
 		{5816AA96-0563-4A52-8C99-04EF1F33A193}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{5816AA96-0563-4A52-8C99-04EF1F33A193}.Release|x86.ActiveCfg = Debug|Any CPU
 		{5816AA96-0563-4A52-8C99-04EF1F33A193}.Release|x86.Build.0 = Debug|Any CPU
+		{5140EA0D-7D3C-4113-B340-5EDC45F893BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5140EA0D-7D3C-4113-B340-5EDC45F893BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5140EA0D-7D3C-4113-B340-5EDC45F893BD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5140EA0D-7D3C-4113-B340-5EDC45F893BD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5140EA0D-7D3C-4113-B340-5EDC45F893BD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5140EA0D-7D3C-4113-B340-5EDC45F893BD}.Debug|x86.Build.0 = Debug|Any CPU
+		{5140EA0D-7D3C-4113-B340-5EDC45F893BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5140EA0D-7D3C-4113-B340-5EDC45F893BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5140EA0D-7D3C-4113-B340-5EDC45F893BD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5140EA0D-7D3C-4113-B340-5EDC45F893BD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5140EA0D-7D3C-4113-B340-5EDC45F893BD}.Release|x86.ActiveCfg = Release|Any CPU
+		{5140EA0D-7D3C-4113-B340-5EDC45F893BD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -774,6 +788,7 @@ Global
 		{B74CA750-EBD2-4EFD-823A-FC680F498E52} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{4D15C961-7992-483E-BA1A-693120534655} = {E4338C9B-90F1-4640-A650-F903E722C878}
 		{5816AA96-0563-4A52-8C99-04EF1F33A193} = {4D15C961-7992-483E-BA1A-693120534655}
+		{5140EA0D-7D3C-4113-B340-5EDC45F893BD} = {E4338C9B-90F1-4640-A650-F903E722C878}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi
