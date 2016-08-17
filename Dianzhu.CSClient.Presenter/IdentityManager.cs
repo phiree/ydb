@@ -71,11 +71,11 @@ namespace Dianzhu.CSClient.Presenter
         /// <summary>
         /// 通讯列表, bool 表示 是否是激活.
         /// </summary>
-        public static Dictionary<ServiceOrder, bool> CurrentIdentityList
+        public static ConcurrentDictionary<ServiceOrder, bool> CurrentIdentityList
         {
             get
             {
-                return null;// currentIdentityList.ToDictionary()
+                return currentIdentityList;// currentIdentityList.ToDictionary()
             }
 
         }
