@@ -61,7 +61,9 @@ namespace Dianzhu.IM.Test
 
                 tbxMyJID.Text = conn.MyJID;
                 btnLogOut.Visible = true;
+                btnCopy.Visible = true;
                 LoadTestButton();
+                this.Text = conn.MyJID;
             };
             if (InvokeRequired)
             {
@@ -268,23 +270,9 @@ namespace Dianzhu.IM.Test
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            string t = tbxManualMessage.Text;
+   
 
-
-            MatchCollection mc = Regex.Matches(t, "-{3,}");
-            if (mc.Count == 0)
-            {
-                SendMessage(t);
-                return;
-            }
-
-            List<string> spliters = new List<string>();
-            foreach (Match m in mc)
-            {
-                spliters.Add(m.Value);
-            }
-
-            string[] messages =PHSuit.StringHelper.
+            string[] messages = PHSuit.StringHelper.RegexSpliter("---{3,}", tbxManualMessage.Text);
 
             foreach (string message in messages)
             {
@@ -306,7 +294,29 @@ namespace Dianzhu.IM.Test
             tbxMyJID.Clear();
             flowLayoutPanel1.Controls.Clear();
             btnLogOut.Visible = false;
+            btnCopy.Visible = false;
+            this.Text = "未登录";
 
+        }
+
+        Timer tLabelDisplay = new Timer();
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            if(conn.MyJID!=null)
+            {
+                Clipboard.SetText(conn.MyJID.User);
+                lblCopyResult.Text = "已复制";
+
+                tLabelDisplay.Interval = 5000;
+                tLabelDisplay.Tick += TLabelDisplay_Tick;
+                tLabelDisplay.Start();
+                    }
+        }
+
+        private void TLabelDisplay_Tick(object sender, EventArgs e)
+        {
+            lblCopyResult.Text = string.Empty;
+            tLabelDisplay.Stop();
         }
 
         public void InvokeIfRequired(ISynchronizeInvoke obj,

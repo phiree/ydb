@@ -53,6 +53,9 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.btnCopy = new System.Windows.Forms.Button();
+            this.lblCopyResult = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -69,12 +72,14 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.pnlLoginButtons);
             this.groupBox1.Controls.Add(this.panel1);
+            this.groupBox1.Controls.Add(this.panel8);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
@@ -89,15 +94,14 @@
             this.pnlLoginButtons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlLoginButtons.Location = new System.Drawing.Point(3, 17);
             this.pnlLoginButtons.Name = "pnlLoginButtons";
-            this.pnlLoginButtons.Size = new System.Drawing.Size(393, 123);
+            this.pnlLoginButtons.Size = new System.Drawing.Size(393, 98);
             this.pnlLoginButtons.TabIndex = 6;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.tbxMyJID);
-            this.panel1.Controls.Add(this.btnLogOut);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 140);
+            this.panel1.Location = new System.Drawing.Point(3, 115);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(393, 27);
             this.panel1.TabIndex = 7;
@@ -108,7 +112,7 @@
             this.tbxMyJID.Location = new System.Drawing.Point(0, 0);
             this.tbxMyJID.Name = "tbxMyJID";
             this.tbxMyJID.ReadOnly = true;
-            this.tbxMyJID.Size = new System.Drawing.Size(334, 21);
+            this.tbxMyJID.Size = new System.Drawing.Size(393, 21);
             this.tbxMyJID.TabIndex = 12;
             // 
             // btnLogOut
@@ -116,7 +120,7 @@
             this.btnLogOut.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnLogOut.Location = new System.Drawing.Point(334, 0);
             this.btnLogOut.Name = "btnLogOut";
-            this.btnLogOut.Size = new System.Drawing.Size(59, 27);
+            this.btnLogOut.Size = new System.Drawing.Size(59, 25);
             this.btnLogOut.TabIndex = 13;
             this.btnLogOut.Text = "LogOut";
             this.btnLogOut.UseVisualStyleBackColor = true;
@@ -335,6 +339,38 @@
             this.splitContainer1.SplitterDistance = 288;
             this.splitContainer1.TabIndex = 8;
             // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.lblCopyResult);
+            this.panel8.Controls.Add(this.btnCopy);
+            this.panel8.Controls.Add(this.btnLogOut);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel8.Location = new System.Drawing.Point(3, 142);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(393, 25);
+            this.panel8.TabIndex = 8;
+            // 
+            // btnCopy
+            // 
+            this.btnCopy.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnCopy.Location = new System.Drawing.Point(0, 0);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(59, 25);
+            this.btnCopy.TabIndex = 13;
+            this.btnCopy.Text = "CopyId";
+            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Visible = false;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
+            // 
+            // lblCopyResult
+            // 
+            this.lblCopyResult.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblCopyResult.Location = new System.Drawing.Point(59, 0);
+            this.lblCopyResult.Name = "lblCopyResult";
+            this.lblCopyResult.Size = new System.Drawing.Size(275, 25);
+            this.lblCopyResult.TabIndex = 14;
+            this.lblCopyResult.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -365,6 +401,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -395,6 +432,9 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Button btnCopy;
+        private System.Windows.Forms.Label lblCopyResult;
     }
 }
 
