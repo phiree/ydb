@@ -17,7 +17,7 @@
         timerOrderShare.Elapsed += new System.Timers.ElapsedEventHandler(timerOrderShare_Elapsed);
         
         timerOrderShare.Start();
-        PHSuit.HttpHelper._SetupRefreshJob("/");
+        PHSuit.HttpHelper._SetupRefreshJob(888);
         // timerOrderShare_Elapsed(null, null);
         // var container = Installer.Container;
     }

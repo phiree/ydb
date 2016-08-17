@@ -14,7 +14,7 @@ namespace Dianzhu.DAL
  
         public OrderAssignment FindByOrderAndStaff(ServiceOrder order, Staff staff)
         {
-            return FindOne(x => x.Order.Id == order.Id && x.AssignedStaff == staff);
+            return FindOne(x => x.Order.Id == order.Id && x.AssignedStaff == staff && x.Enabled == true);
         }
 
         public IList<OrderAssignment> GetOAListByOrder(ServiceOrder order)

@@ -76,6 +76,7 @@
         <div class="wt-set">
         </div>
     </script>
+    <script src="//cdn.bootcss.com/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js"></script>
     <script src="/js/libs/json2.js"></script>
     <script src="/js/libs/underscore.js"></script>
     <script src="/js/libs/backbone.js"></script>
