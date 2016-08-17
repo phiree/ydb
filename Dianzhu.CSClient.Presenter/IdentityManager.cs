@@ -36,7 +36,8 @@ namespace Dianzhu.CSClient.Presenter
                 }
                 else
                 {
-                    throw new Exception("当前标志项大于1:" + identies.Count());
+                   log.Error("当前标志项大于1:" + identies.Count());
+                    return identies.First().Key;
                 }
             }
             set

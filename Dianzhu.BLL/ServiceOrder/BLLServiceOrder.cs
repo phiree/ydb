@@ -392,6 +392,12 @@ namespace Dianzhu.BLL
         {
             var where = PredicateBuilder.True<ServiceOrder>();
             where = where.And(x => x.OrderStatus == status);
+
+            if(status== enum_OrderStatus.EndCancel)
+            {
+                where = where.Or(x => x.OrderStatus == enum_OrderStatus.WaitingDepositWithCanceled);
+            }
+
             // iuow.BeginTransaction();
             var allWithstatus = repoServiceOrder.Find(where, pageIndex, pageSize, out totalRecords);
 
