@@ -1232,7 +1232,6 @@ namespace Dianzhu.BLL
             OrderAssignment oa = new OrderAssignment();
             oa.Order = order;
             oa.AssignedStaff = staff;
-
             repoOrderAssignment.Add(oa);
         }
         public void DeassignStaff(ServiceOrder order, Staff staff)

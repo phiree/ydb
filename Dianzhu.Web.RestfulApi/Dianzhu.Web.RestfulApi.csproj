@@ -313,6 +313,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="files\rsa_private_key.pem" />
+    <Content Include="config\appSettings.config" />
     <None Include="Properties\PublishProfiles\RestfulApi.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
