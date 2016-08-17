@@ -104,7 +104,7 @@ namespace Dianzhu.Model
 
     /// <summary>
     /// 多媒体消息,
-    ///
+    /// </summary>
     public class ReceptionChatMedia : ReceptionChat
     {
        
