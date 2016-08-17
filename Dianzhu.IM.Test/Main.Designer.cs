@@ -30,6 +30,9 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pnlLoginButtons = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.tbxMyJID = new System.Windows.Forms.TextBox();
+            this.btnLogOut = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tbxLogReceived = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -40,27 +43,24 @@
             this.btnReloadMessages = new System.Windows.Forms.Button();
             this.tbxManualMessage = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
-            this.tbxMyJID = new System.Windows.Forms.TextBox();
-            this.btnLogOut = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -91,6 +91,37 @@
             this.pnlLoginButtons.Name = "pnlLoginButtons";
             this.pnlLoginButtons.Size = new System.Drawing.Size(393, 123);
             this.pnlLoginButtons.TabIndex = 6;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.tbxMyJID);
+            this.panel1.Controls.Add(this.btnLogOut);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(3, 140);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(393, 27);
+            this.panel1.TabIndex = 7;
+            // 
+            // tbxMyJID
+            // 
+            this.tbxMyJID.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxMyJID.Location = new System.Drawing.Point(0, 0);
+            this.tbxMyJID.Name = "tbxMyJID";
+            this.tbxMyJID.ReadOnly = true;
+            this.tbxMyJID.Size = new System.Drawing.Size(334, 21);
+            this.tbxMyJID.TabIndex = 12;
+            // 
+            // btnLogOut
+            // 
+            this.btnLogOut.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnLogOut.Location = new System.Drawing.Point(334, 0);
+            this.btnLogOut.Name = "btnLogOut";
+            this.btnLogOut.Size = new System.Drawing.Size(59, 27);
+            this.btnLogOut.TabIndex = 13;
+            this.btnLogOut.Text = "LogOut";
+            this.btnLogOut.UseVisualStyleBackColor = true;
+            this.btnLogOut.Visible = false;
+            this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
             // 
             // groupBox2
             // 
@@ -180,7 +211,7 @@
             this.tbxManualMessage.Multiline = true;
             this.tbxManualMessage.Name = "tbxManualMessage";
             this.tbxManualMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxManualMessage.Size = new System.Drawing.Size(393, 96);
+            this.tbxManualMessage.Size = new System.Drawing.Size(393, 125);
             this.tbxManualMessage.TabIndex = 11;
             // 
             // btnSend
@@ -194,37 +225,6 @@
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
-            // tbxMyJID
-            // 
-            this.tbxMyJID.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbxMyJID.Location = new System.Drawing.Point(0, 0);
-            this.tbxMyJID.Name = "tbxMyJID";
-            this.tbxMyJID.ReadOnly = true;
-            this.tbxMyJID.Size = new System.Drawing.Size(334, 21);
-            this.tbxMyJID.TabIndex = 12;
-            // 
-            // btnLogOut
-            // 
-            this.btnLogOut.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnLogOut.Location = new System.Drawing.Point(334, 0);
-            this.btnLogOut.Name = "btnLogOut";
-            this.btnLogOut.Size = new System.Drawing.Size(59, 27);
-            this.btnLogOut.TabIndex = 13;
-            this.btnLogOut.Text = "LogOut";
-            this.btnLogOut.UseVisualStyleBackColor = true;
-            this.btnLogOut.Visible = false;
-            this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.tbxMyJID);
-            this.panel1.Controls.Add(this.btnLogOut);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 140);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(393, 27);
-            this.panel1.TabIndex = 7;
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.panel3);
@@ -237,6 +237,25 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "发送文件内容";
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.flowLayoutPanel1);
+            this.panel3.Controls.Add(this.panel4);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(3, 68);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(393, 163);
+            this.panel3.TabIndex = 1;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.btnReloadMessages);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(0, 137);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(393, 26);
+            this.panel4.TabIndex = 11;
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.label1);
@@ -248,16 +267,6 @@
             this.panel2.Size = new System.Drawing.Size(393, 51);
             this.panel2.TabIndex = 0;
             // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.flowLayoutPanel1);
-            this.panel3.Controls.Add(this.panel4);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 68);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(393, 163);
-            this.panel3.TabIndex = 1;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -267,23 +276,14 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "To:";
             // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.btnReloadMessages);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 137);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(393, 26);
-            this.panel4.TabIndex = 11;
-            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.tbxManualMessage);
             this.groupBox5.Controls.Add(this.panel5);
-            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox5.Location = new System.Drawing.Point(0, 404);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(399, 144);
+            this.groupBox5.Size = new System.Drawing.Size(399, 173);
             this.groupBox5.TabIndex = 13;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "发送编辑内容";
@@ -292,7 +292,7 @@
             // 
             this.panel5.Controls.Add(this.btnSend);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(3, 113);
+            this.panel5.Location = new System.Drawing.Point(3, 142);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(393, 28);
             this.panel5.TabIndex = 14;
@@ -345,17 +345,17 @@
             this.Name = "Main";
             this.Text = "XMPPTestTool";
             this.groupBox1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.panel5.ResumeLayout(false);

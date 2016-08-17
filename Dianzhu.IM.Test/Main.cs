@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using a=agsXMPP;
+using a = agsXMPP;
 using System.IO;
 using log4net;
 using System.Text.RegularExpressions;
@@ -16,19 +16,19 @@ namespace Dianzhu.IM.Test
     public partial class Main : Form
     {
         ILog log = LogManager.GetLogger("Dianzhu.IMTest");
-       a.XmppClientConnection   conn;
+        a.XmppClientConnection conn;
         IList<LoginAccount> loginAccounts = new List<LoginAccount>();
         public Main()
         {
-            
+
             InitializeComponent();
             LoadAccountButton();
             conn = new a.XmppClientConnection();
-             
+
             conn.OnLogin += Conn_OnLogin;
             conn.OnError += Conn_OnError;
             conn.OnAuthError += Conn_OnAuthError;
-          
+
             conn.OnClose += Conn_OnClose;
             conn.OnSocketError += Conn_OnSocketError;
             conn.OnStreamError += Conn_OnStreamError;
@@ -36,7 +36,7 @@ namespace Dianzhu.IM.Test
             conn.OnPresence += Conn_OnPresence;
             conn.OnIq += Conn_OnIq;
 
-            
+
         }
 
         private void Conn_OnIq(object sender, a.protocol.client.IQ iq)
@@ -58,7 +58,7 @@ namespace Dianzhu.IM.Test
         {
             Action lambda = () =>
             {
-                
+
                 tbxMyJID.Text = conn.MyJID;
                 btnLogOut.Visible = true;
                 LoadTestButton();
@@ -77,11 +77,11 @@ namespace Dianzhu.IM.Test
             foreach (string file in files)
             {
                 if (!file.Contains(server)) continue;
-               string fileName= Path.GetFileNameWithoutExtension(file);
-              
-                string name= fileName.Split('-')[1];
-                Button btn = new Button { Text = name, Tag = file};
-                 
+                string fileName = Path.GetFileNameWithoutExtension(file);
+
+                string name = fileName.Split('-')[1];
+                Button btn = new Button { Text = name, Tag = file };
+
                 btn.Click += Btn_Click;
                 flowLayoutPanel1.Controls.Add(btn);
             }
@@ -93,7 +93,7 @@ namespace Dianzhu.IM.Test
             foreach (LoginAccount account in loginAccounts)
             {
                 Button btnLogin = new Button();
-                btnLogin.Name="btnLogin_"+account.GetHashCode();
+                btnLogin.Name = "btnLogin_" + account.GetHashCode();
                 btnLogin.Text = account.ToString();
                 btnLogin.AutoSize = true;
                 btnLogin.Tag = account;
@@ -105,12 +105,12 @@ namespace Dianzhu.IM.Test
         private void BtnLogin_Click(object sender, EventArgs e)
         {
             LoginAccount account = (LoginAccount)((Button)sender).Tag;
-            
 
-            Login(account.server,account.loginid,account.password,account.resource);
+
+            Login(account.server, account.loginid, account.password, account.resource);
         }
 
-        private void  ReadAccountFromFile()
+        private void ReadAccountFromFile()
         {
             string[] lines = File.ReadAllLines(Environment.CurrentDirectory + "\\account.txt");
             foreach (string line in lines)
@@ -121,9 +121,9 @@ namespace Dianzhu.IM.Test
                 string loginid = sl[1];
                 string password = sl[2];
                 string resource = sl[3];
-                loginAccounts.Add(new LoginAccount { loginid = loginid, password = password, server = server ,resource=resource});
+                loginAccounts.Add(new LoginAccount { loginid = loginid, password = password, server = server, resource = resource });
 
-            } 
+            }
         }
 
         private void Btn_Click(object sender, EventArgs e)
@@ -133,23 +133,22 @@ namespace Dianzhu.IM.Test
             string xml = File.ReadAllText(fielPath);
             xml = string.Format(xml, tbxTargetUser.Text, server);
 
-            
+
             if (string.IsNullOrEmpty(tbxTargetUser.Text))
             {
-              xml=  Regex.Replace(xml, "\\s+to\\s?=\\s?\\\".+?\\\"", " ", RegexOptions.IgnoreCase);
+                xml = Regex.Replace(xml, "\\s+to\\s?=\\s?\\\".+?\\\"", " ", RegexOptions.IgnoreCase);
             }
             if (!cbxIncludeFrom.Checked)
             {
                 xml = Regex.Replace(xml, "\\s+from\\s?=\\s?\\\".+?\\\"", " ", RegexOptions.IgnoreCase);
             }
 
-            conn.Send(xml);
-            Log(xml, MessageDirection.Sent); 
+            SendMessage(xml);
         }
         #region xmpp event
         private void Conn_OnStreamError(object sender, a.Xml.Dom.Element e)
         {
-            
+
             Log(e.ToString(), MessageDirection.Received);
         }
 
@@ -163,7 +162,7 @@ namespace Dianzhu.IM.Test
             Log("Conn_Closed");
         }
 
-        
+
 
         private void Conn_OnAuthError(object sender, a.Xml.Dom.Element e)
         {
@@ -178,29 +177,29 @@ namespace Dianzhu.IM.Test
         string username, server;
         private void btnLogin_Click(object sender, EventArgs e)
         {
-           
-          
-            
+
+
+
         }
-        private void Login(string server, string username, string password,string resource)
+        private void Login(string server, string username, string password, string resource)
         {
             conn.Close();
 
-            conn.Server =server;
+            conn.Server = server;
             conn.Resource = resource;
             conn.ConnectServer = server;
             conn.AutoResolveConnectServer = false;
             conn.Open(username, password);
             this.username = username;
             this.server = server;
-          
+
         }
 
-    
- 
+
+
         private string GetMessageFromFile(string name)
         {
-          return   File.ReadAllText(Environment.CurrentDirectory + "\\messages\\" + name + ".xml");
+            return File.ReadAllText(Environment.CurrentDirectory + "\\messages\\" + name + ".xml");
         }
         private string ReadLoginAccount(string server)
         {
@@ -212,7 +211,7 @@ namespace Dianzhu.IM.Test
                 if (sl[0] == server)
                 {
                     return line;
-                }  
+                }
             }
             throw new Exception("配置文件有误");
         }
@@ -224,14 +223,14 @@ namespace Dianzhu.IM.Test
 
         struct LoginAccount
         {
-          public   string server { get; set; }
+            public string server { get; set; }
             public string loginid { get; set; }
             public string password { get; set; }
             public string resource { get; set; }
 
             public override string ToString()
             {
-                return server + "##" + loginid + "##"+resource;
+                return server + "##" + loginid + "##" + resource;
             }
         }
         enum MessageDirection
@@ -246,41 +245,71 @@ namespace Dianzhu.IM.Test
         private void Log(string content, MessageDirection direction)
         {
             string formatedContent = "-------------" + DateTime.Now + "--------------" + Environment.NewLine + content + Environment.NewLine;
-             InvokeIfRequired(this, () => {
+            InvokeIfRequired(this, () =>
+            {
                 switch (direction)
                 {
                     case MessageDirection.Received:
                         tbxLogReceived.Text += formatedContent;
-                         tbxLogReceived.SelectionStart = tbxLogReceived.Text.Length;
-                         tbxLogReceived.ScrollToCaret();
-                         break;
+                        tbxLogReceived.SelectionStart = tbxLogReceived.Text.Length;
+                        tbxLogReceived.ScrollToCaret();
+                        break;
                     case MessageDirection.Sent:
                         tbxLogSent.Text += formatedContent;
 
-                         tbxLogSent.SelectionStart = tbxLogSent.Text.Length;
-                         tbxLogSent.ScrollToCaret();
-                         break;
+                        tbxLogSent.SelectionStart = tbxLogSent.Text.Length;
+                        tbxLogSent.ScrollToCaret();
+                        break;
                 }
                 log.Debug(direction.ToString() + content);
             });
-           
+
         }
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            conn.Send(tbxManualMessage.Text);
+            string t = tbxManualMessage.Text;
+
+
+            MatchCollection mc = Regex.Matches(t, "-{3,}");
+            if (mc.Count == 0)
+            {
+                SendMessage(t);
+                return;
+            }
+
+            List<string> spliters = new List<string>();
+            foreach (Match m in mc)
+            {
+                spliters.Add(m.Value);
+            }
+
+            string[] messages =PHSuit.StringHelper.
+
+            foreach (string message in messages)
+            {
+                SendMessage(message);
+
+            }
+            //  conn.Send(tbxManualMessage.Text);
         }
 
+
+        private void SendMessage(string message)
+        {
+            conn.Send(message);
+            Log(message, MessageDirection.Sent);
+        }
         private void btnLogOut_Click(object sender, EventArgs e)
         {
             conn.Close();
             tbxMyJID.Clear();
             flowLayoutPanel1.Controls.Clear();
             btnLogOut.Visible = false;
-            
+
         }
 
-        public void InvokeIfRequired(  ISynchronizeInvoke obj,
+        public void InvokeIfRequired(ISynchronizeInvoke obj,
                                          MethodInvoker action)
         {
             if (obj.InvokeRequired)
