@@ -172,11 +172,11 @@ namespace Dianzhu.DAL
                 }
                 if (low == "Y")
                 {
-                    result = result.Where(x => x.SavedTimestamp <= targetChat.SavedTimestamp).OrderBy(x => x.SavedTimestamp).Desc;
+                    result = result.Where(x => x.SavedTimestamp < targetChat.SavedTimestamp).OrderBy(x => x.SavedTimestamp).Desc;
                 }
                 else
                 {
-                    result = result.Where(x => x.SavedTimestamp >= targetChat.SavedTimestamp).OrderBy(x => x.SavedTimestamp).Desc;
+                    result = result.Where(x => x.SavedTimestamp > targetChat.SavedTimestamp).OrderBy(x => x.SavedTimestamp).Desc;
                 }
                 if (toId != Guid.Empty)
                 {
