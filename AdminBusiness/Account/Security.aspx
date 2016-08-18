@@ -26,7 +26,7 @@
                                     </div>
                                     <div class="secret-pra">
                                         <div><span class="secret-t">手机号码:</span><span class="secret-m"><%=CurrentUser.Phone%></span><a id="lb_changePhone" class="m-l20 secret-btn" href="javascript:void(0);">修改</a></div>
-                                        <div class="secret-tip"><span>（点击“修改”按钮修改手机号）</span></div>
+                                        <div class="secret-tip"><span>（点击“修改”按钮可对手机号进行修改）</span></div>
                                     </div>
                                     <div class="secret-pra">
                                         <div><span class="secret-t">绑定邮箱:</span><span class="secret-m" id="currentUserEmail"><span class="m-r20"><%=CurrentUser.Email%></span><span id="currentUserEmailVali" class="secret-d-a d-inb dis-n"><% if (CurrentUser.IsRegisterValidated){%>已验证<%}else{%><span class="text-r m-r10">未验证</span><asp:Button runat="server" CssClass="reVali  secret-btn"  Text='发送验证链接'  ID='btnResendEmailVerify' OnClick="btnResendEmailVerify_Click"/><%}%></span></span><a id="lb_changeEmail" class="m-l20 secret-btn" href="javascript:void(0);">修改</a></div>
@@ -48,7 +48,7 @@
                                 <div class="model-m">
                                     <div>
                                         <div><span class="secret-t">登陆密码&nbsp;: </span><span class="secret-m">****</span><a id="passChange" class="m-l20 secret-btn" href="javascript:void(0);">修改</a></div>
-                                        <div class="secret-tip"><span>（点击“修改”按钮修改密码）</span></div>
+                                        <div class="secret-tip"><span>（点击“修改”按钮可对手机号进行修改）</span></div>
                                     </div>
                                     <!--<p class="secret-d-p d-inb">设置安全性高的密码可以使账号更安全，建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位数的密码</p>-->
                                 </div>

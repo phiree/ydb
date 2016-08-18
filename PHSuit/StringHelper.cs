@@ -304,26 +304,6 @@ namespace PHSuit
             return FullFillWidth(hours.ToString(), "0", 2, true) + ":" + FullFillWidth(minutes.ToString(), "0", 2, true);
 
         }
-        public static string[] RegexSpliter(string pattern, string input)
-        {
-            MatchCollection mc = Regex.Matches(input, pattern);
-            if (mc.Count == 0)
-            {
-                return new string[] { input };
-            }
-            else
-            {
-                List<string> spliters = new List<string>();
-                foreach (Match m in mc)
-                {
-                    spliters.Add(m.Value);
-                }
-
-                string[] messages = input.Split(spliters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
-                return messages;
-
-            }
-        }
     }
 
    public class JsonHelper
@@ -426,7 +406,6 @@ namespace PHSuit
             string json = Newtonsoft.Json.JsonConvert.SerializeXmlNode(xmlDoc, Newtonsoft.Json.Formatting.Indented, removeRoot);
             return json;
         }
-      
     }
 
     static class Extensions

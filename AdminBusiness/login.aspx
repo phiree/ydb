@@ -4,9 +4,9 @@
 <head runat="server">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="description" content="一点办登录" />
     <meta name="keywords" content="一点办" />
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />-->
     <title>一点办登录</title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="bookmark" href="/favicon.ico" type="image/x-icon" />

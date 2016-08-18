@@ -392,12 +392,6 @@ namespace Dianzhu.BLL
         {
             var where = PredicateBuilder.True<ServiceOrder>();
             where = where.And(x => x.OrderStatus == status);
-
-            if(status== enum_OrderStatus.EndCancel)
-            {
-                where = where.Or(x => x.OrderStatus == enum_OrderStatus.WaitingDepositWithCanceled);
-            }
-
             // iuow.BeginTransaction();
             var allWithstatus = repoServiceOrder.Find(where, pageIndex, pageSize, out totalRecords);
 
@@ -1232,6 +1226,7 @@ namespace Dianzhu.BLL
             OrderAssignment oa = new OrderAssignment();
             oa.Order = order;
             oa.AssignedStaff = staff;
+
             repoOrderAssignment.Add(oa);
         }
         public void DeassignStaff(ServiceOrder order, Staff staff)

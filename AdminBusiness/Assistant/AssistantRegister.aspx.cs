@@ -67,7 +67,7 @@ public partial class Assistant_AssistantRegister : Dianzhu.Web.Common.BasePage
         //PHSuit.Notification.Show(Page, "", "注册成功", "register_suc.aspx");
         FormsAuthentication.SetAuthCookie(userName, true);
         NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-        Response.Redirect("/register_suc.aspx?send=" + sendSuccess + "&customerService=true" , true);
+        Response.Redirect("/register_suc.aspx?send=" + sendSuccess, true);
     }
 
 }

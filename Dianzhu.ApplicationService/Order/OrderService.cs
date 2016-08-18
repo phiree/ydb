@@ -86,6 +86,7 @@ namespace Dianzhu.ApplicationService.Order
             }
             else
             {
+                orderobj.contactobj = null;
                 IList<Model.ServiceOrderPushedService> dzs = bllpushservice.GetPushedServicesForOrder(serviceorder);
                 if (dzs.Count > 0)
                 {
