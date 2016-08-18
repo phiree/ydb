@@ -452,7 +452,15 @@ namespace Dianzhu.ApplicationService.Order
             }
             //ReceptionAssigner ra = new ReceptionAssigner(imSession);
             linkManObj linkman = new linkManObj();
-            linkman.linkManID = order.OpenFireLinkMan.ToString();
+            //linkman.linkManID = order.OpenFireLinkMan;
+            if (order.OpenFireLinkMan == order.Business.Owner.Id.ToString())
+            {
+                linkman.linkManID = order.OpenFireLinkMan + "@" + "/" + Model.Enums.enum_XmppResource.YDBan_Store;
+            }
+            else
+            {
+                linkman.linkManID = order.OpenFireLinkMan + "@" + "/" + Model.Enums.enum_XmppResource.YDBan_Staff;
+            }
             return linkman;
 
             //string targetId = "";
