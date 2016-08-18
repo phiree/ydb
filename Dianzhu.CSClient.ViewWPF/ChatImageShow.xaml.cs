@@ -22,6 +22,7 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class ChatImageShow : Window
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.ChatImageShow");
         bool isInit;
         BackgroundWorker worker;
         public ChatImageShow(string uri)
@@ -71,27 +72,35 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lamda = () =>
             {
-                string imgUri = e.Argument.ToString();
-                string imgPath = PHSuit.DownloadSoft.DownloadPath + imgUri;
-
-                using (BinaryReader loader = new BinaryReader(File.Open(imgPath, FileMode.Open)))
+                try
                 {
-                    FileInfo fd = new FileInfo(imgPath);
-                    int Length = (int)fd.Length;
-                    byte[] buf = new byte[Length];
-                    buf = loader.ReadBytes((int)fd.Length);
-                    loader.Dispose();
-                    loader.Close();
+                    string imgUri = e.Argument.ToString();
+                    string imgPath = PHSuit.LocalFileManagement.LocalFilePath + imgUri;
+
+                    using (BinaryReader loader = new BinaryReader(File.Open(imgPath, FileMode.Open)))
+                    {
+                        FileInfo fd = new FileInfo(imgPath);
+                        int Length = (int)fd.Length;
+                        byte[] buf = new byte[Length];
+                        buf = loader.ReadBytes((int)fd.Length);
+                        loader.Dispose();
+                        loader.Close();
 
 
-                    //开始加载图像  
-                    BitmapImage bim = new BitmapImage();
-                    bim.BeginInit();
-                    bim.StreamSource = new MemoryStream(buf);
-                    bim.EndInit();
-                    e.Result = bim;
-                    //image1.Source = bim;
-                    GC.Collect(); //强制回收资源  
+                        //开始加载图像  
+                        BitmapImage bim = new BitmapImage();
+                        bim.BeginInit();
+                        bim.StreamSource = new MemoryStream(buf);
+                        bim.EndInit();
+                        e.Result = bim;
+                        //image1.Source = bim;
+                        GC.Collect(); //强制回收资源  
+                    }
+                }
+                catch (Exception ee)
+                {
+                    log.Error(ee.Message);
+                    e.Result = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/NoImage.png"));
                 }
             };
             if (!Dispatcher.CheckAccess())

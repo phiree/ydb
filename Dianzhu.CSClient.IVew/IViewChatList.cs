@@ -29,7 +29,10 @@ namespace Dianzhu.CSClient.IView
         void ShowNoChatMsg();
 
         string ChatListCustomerName { get; set; }
-        void ClearUCData();        
+        void ClearUCData();
+
+        void ShowChatImageNormalMask(Guid chatId);
+        void RemoveChatImageNormalMask(Guid chatId);
     }
     public delegate void AudioPlay(object audioTag, IntPtr handler);
 
