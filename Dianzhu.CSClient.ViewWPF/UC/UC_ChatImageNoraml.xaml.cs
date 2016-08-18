@@ -23,28 +23,70 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class UC_ChatImageNoraml : UserControl
     {
-        Uri imgUri;
         string imgPath;
-        string uri;
-        public UC_ChatImageNoraml(string uri)
+        string fileName;
+        string imgUri;
+        public UC_ChatImageNoraml(string name)
         {
             InitializeComponent();
-            this.imgUri = new Uri(@"\Download\"+uri,UriKind.Relative);
-            imgPath = PHSuit.DownloadSoft.DownloadPath + uri;
-            this.uri = uri;
+            //this.imgUri = new Uri(PHSuit.LocalFileManagement.FolderName +fileName,UriKind.Relative);
+            imgPath = PHSuit.LocalFileManagement.LocalFilePath + name;
+            fileName = imgUri = name;
 
-            img.Source = new BitmapImage(new Uri(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + uri.ToString() + "_150X100"));
+            if (!name.Contains(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")))
+            {
+                imgUri = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + name;
+            }
+            else
+            {
+                fileName = name.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), string.Empty);
+            }
+            img.Source = new BitmapImage(new Uri( imgUri + "_150X100"));
         }
 
         private void img_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            ChatImageShow image = new ChatImageShow(uri);
+            ChatImageShow image = new ChatImageShow(fileName);
             image.ShowDialog();
         }
 
         private void img_MouseMove(object sender, MouseEventArgs e)
         {
             img.Cursor = Cursors.Hand;
+        }
+
+        public void ShowMask()
+        {
+            Action lamda = () =>
+            {
+                mask.Visibility = Visibility.Visible;
+
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
+        }
+
+        public void RemoveMask()
+        {
+            Action lamda = () =>
+            {
+                mask.Visibility = Visibility.Collapsed;
+
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
         }
 
         //private void gif_MediaEnded(object sender, RoutedEventArgs e)

@@ -136,25 +136,30 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         BackgroundWorker worker;
-        ServiceOrder IdentityOrderTemp;
+        ServiceOrder identityOrderTemp;
+        public ServiceOrder IdentityOrderTemp
+        {
+            get { return identityOrderTemp; }
+            set { identityOrderTemp = value; }
+        }
         private void BtnIdentity_Click(object sender, RoutedEventArgs e)
         {
             if (IdentityClick != null)
             {
                 ServiceOrder IdentityOrder = (ServiceOrder)((Button)sender).Tag;
-                if (IdentityOrderTemp == null)
+                if (identityOrderTemp == null)
                 {
-                    IdentityOrderTemp = IdentityOrder;
+                    identityOrderTemp = IdentityOrder;
                 }
                 else
                 {
-                    if (IdentityOrderTemp.Id == IdentityOrder.Id)
+                    if (identityOrderTemp.Id == IdentityOrder.Id)
                     {
                         return;
                     }
                     else
                     {
-                        IdentityOrderTemp = IdentityOrder;
+                        identityOrderTemp = IdentityOrder;
                     }
                 }
                 SetIdentityReaded(IdentityOrder);

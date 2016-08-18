@@ -28,13 +28,16 @@ namespace Dianzhu.CSClient.ViewWPF
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_ChatList");
         UC_Hint hint;
+        StackPanel stackPanel;
         public UC_ChatList()
         {
             InitializeComponent();
 
-            ((StackPanel)svChatList.FindName("StackPanel")).SizeChanged += UC_ChatList_SizeChanged;
+            stackPanel = ((StackPanel)svChatList.FindName("StackPanel"));
+
+            stackPanel.SizeChanged += UC_ChatList_SizeChanged;
             hint = new UC_Hint(Btn_Click);
-            ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(hint);
+            stackPanel.Children.Add(hint);
         }
 
         public string ChatListCustomerName
@@ -72,7 +75,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 //Action lambda = () =>
                 //{
                 //    chatList = value;
-                //    ((StackPanel)svChatList.FindName("StackPanel")).Children.Clear();
+                //    stackPanel.Children.Clear();
 
                 //    if (chatList == null)
                 //    {
@@ -88,7 +91,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 //        btn.Content = "查看更多";
                 //        btn.Click += Btn_Click;
 
-                //        ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(btn);//加载更多按钮
+                //        stackPanel.Children.Add(btn);//加载更多按钮
 
                 //        foreach (ReceptionChat chat in chatList)
                 //        {
@@ -228,9 +231,14 @@ namespace Dianzhu.CSClient.ViewWPF
             Action lamda = () =>
             {                
                 UC_ChatCustomer chatCustomer = new UC_ChatCustomer(chat, currentCustomerService);
-                
+                string chatId = PHSuit.StringHelper.SafeNameForWpfControl(chat.Id.ToString());
+                if ((UC_ChatCustomer)stackPanel.FindName(chatId) == null)
+                {
+                    stackPanel.RegisterName(chatId, chatCustomer);
+                }
+
                 // WindowNotification();
-                ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(chatCustomer);
+                stackPanel.Children.Add(chatCustomer);
                 //pnlChatList.Children.Add(pnlOneChat);
 
                 log.Debug("chat end, body:" + chat.MessageBody);
@@ -251,7 +259,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 UC_ChatCustomer chatCustomer = new UC_ChatCustomer(chat, currentCustomerService);
                 
-                ((StackPanel)svChatList.FindName("StackPanel")).Children.Insert(1,chatCustomer);
+                stackPanel.Children.Insert(1,chatCustomer);
             };
             if (!Dispatcher.CheckAccess())
             {
@@ -284,8 +292,46 @@ namespace Dianzhu.CSClient.ViewWPF
             Action lamda = () =>
             {
                 this.ChatListCustomerName = string.Empty;
-                ((StackPanel)svChatList.FindName("StackPanel")).Children.Clear();
-                ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(hint);
+                stackPanel.Children.Clear();
+                stackPanel.Children.Add(hint);
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
+        }
+
+        public void ShowChatImageNormalMask(Guid chatId)
+        {
+            Action lamda = () =>
+            {
+                string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString());
+                UC_ChatCustomer ucC = stackPanel.FindName(id) as UC_ChatCustomer;
+                UC_ChatImageNoraml ucCI = ucC.FindName(id) as UC_ChatImageNoraml;
+                ucCI.ShowMask();
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
+        }
+
+        public void RemoveChatImageNormalMask(Guid chatId)
+        {
+            Action lamda = () =>
+            {
+                string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString());
+                UC_ChatCustomer ucC = stackPanel.FindName(id) as UC_ChatCustomer;
+                UC_ChatImageNoraml ucCI = ucC.FindName(id) as UC_ChatImageNoraml;
+                ucCI.RemoveMask();
             };
             if (!Dispatcher.CheckAccess())
             {

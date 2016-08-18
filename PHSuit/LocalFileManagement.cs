@@ -7,11 +7,14 @@ using System.Text;
 
 namespace PHSuit
 {
-    public class DownloadSoft
+    public class LocalFileManagement
     {
         static log4net.ILog log = log4net.LogManager.GetLogger("PHSuit.DownloadSoft");
-        public static readonly string DownloadPath = System.AppDomain.CurrentDomain.BaseDirectory + @"\Download\";
-        public DownloadSoft()
+
+        public static readonly string FolderName = @"\Files\";
+        public static readonly string LocalFilePath = System.AppDomain.CurrentDomain.BaseDirectory + FolderName;
+        
+        public LocalFileManagement()
         {
 
         }
@@ -20,7 +23,7 @@ namespace PHSuit
         {
             bool flag = false;
 
-            string path = DownloadPath.Remove(DownloadPath.Length - 1);
+            string path = LocalFilePath.Remove(LocalFilePath.Length - 1);
 
             try
             {
@@ -28,7 +31,7 @@ namespace PHSuit
                 {
                     Directory.CreateDirectory(path);
                 }
-                using (FileStream fs = new FileStream(DownloadPath + fileName, FileMode.Create, FileAccess.Write))
+                using (FileStream fs = new FileStream(LocalFilePath + fileName, FileMode.Create, FileAccess.Write))
                 {
                     //创建请求
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlPath);

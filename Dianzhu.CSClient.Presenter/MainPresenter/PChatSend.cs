@@ -70,7 +70,7 @@ namespace Dianzhu.CSClient.Presenter
 
             iIM.SendMessage(chat);
 
-            if (PHSuit.DownloadSoft.DownLoad(string.Empty, chat.MedialUrl, fileName))
+            if (PHSuit.LocalFileManagement.DownLoad(string.Empty, chat.MedialUrl, fileName))
             {
                 ((ReceptionChatMedia)chat).MedialUrl = fileName;
             }
