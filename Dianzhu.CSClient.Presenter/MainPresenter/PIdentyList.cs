@@ -104,8 +104,10 @@ namespace Dianzhu.CSClient.Presenter
                                               order.Customer.Id + "@" + server, GlobalViables.CurrentCustomerService.Id, Guid.NewGuid());
             iIM.SendMessage(noticeDraftNew);
 
+            //删除当前订单临时变量
             if (IdentityManager.DeleteIdentity(order))
             {
+                iView.IdentityOrderTemp = null;
                 RemoveIdentity(order);
             }
             else
@@ -317,7 +319,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             try
             {
-                IdentityManager.CurrentIdentity = serviceOrder;
+                IdentityManager.CurrentIdentity = iView.IdentityOrderTemp = serviceOrder;
                 iView.SetIdentityLoading(serviceOrder);
                 
                 iViewChatList.ClearUCData();
