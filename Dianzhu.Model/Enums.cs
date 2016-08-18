@@ -447,6 +447,10 @@ namespace Dianzhu.Model.Enums
         /// 点点
         /// </summary>
         YDBan_DianDian=58,
+        /// <summary>
+        /// 员工版
+        /// </summary>
+        YDBan_Staff = 60,
 
         /// <summary>
         /// 未知资源名称
