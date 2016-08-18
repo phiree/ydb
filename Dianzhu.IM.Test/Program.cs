@@ -16,7 +16,12 @@ namespace Dianzhu.IM.Test
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+<<<<<<< HEAD
             //Application.Run(new Form1());
+=======
+            PHSuit.Logging.Config("Dianzhu.IMTest");
+            Application.Run(new Main());
+>>>>>>> develop
         }
     }
 }
