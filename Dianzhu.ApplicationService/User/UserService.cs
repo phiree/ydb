@@ -105,7 +105,7 @@ namespace Dianzhu.ApplicationService.User
             if (userBody.phone != null && userBody.phone != "")
             {
                 Regex reg = new Regex(@"^1[3578]\d{9}$");
-                if (userBody.phone.Length != 11 || !reg.IsMatch(userBody.phone))
+                if (userBody.phone.Length != 11 || reg.IsMatch(userBody.phone))
                 {
                     throw new FormatException("手机号码格式错误！");
                 }
@@ -118,29 +118,19 @@ namespace Dianzhu.ApplicationService.User
                  userBody.pWord,
                  out createStatus,
                  usertype);
-            if (createStatus == System.Web.Security.MembershipCreateStatus.DuplicateUserName)
-            {
-                throw new Exception("该手机号码用户已存在!");
-            }
-            else if (createStatus != System.Web.Security.MembershipCreateStatus.Success)
+            Dianzhu.Model.DZMembership dzm = dzmsp.GetUserById(newMember.Id);
+            if (dzm == null)
             {
                 throw new Exception("注册失败!");
             }
-            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            //Dianzhu.Model.DZMembership dzm = dzmsp.GetUserById(newMember.Id);
-            //if (dzm == null)
-            //{
-            //    throw new Exception("注册失败!");
-            //}
-
             if (userType == "customer")
             {
-                customerObj customerobj = Mapper.Map<Dianzhu.Model.DZMembership, customerObj>(newMember);
+                customerObj customerobj = Mapper.Map<Dianzhu.Model.DZMembership, customerObj>(dzm);
                 return customerobj;
             }
             else
             {
-                merchantObj merchantobj = Mapper.Map<Dianzhu.Model.DZMembership, merchantObj>(newMember);
+                merchantObj merchantobj = Mapper.Map<Dianzhu.Model.DZMembership, merchantObj>(dzm);
                 return merchantobj;
             }
         }

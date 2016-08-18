@@ -6,6 +6,9 @@ using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using agsXMPP.protocol.client;
+using System.Xml;
+using agsXMPP.Xml.Dom;
+ 
 namespace Dianzhu.CSClient.MessageAdapter
 {
     /// <summary>
@@ -15,13 +18,13 @@ namespace Dianzhu.CSClient.MessageAdapter
     /// </summary>
     public class MessageAdapter : IMessageAdapter.IAdapter
     {
-        
+
         IDAL.IDALServiceOrder dalOrder;
         IDAL.IDALMembership dalMembership;
         IDAL.IDALIMUserStatus dalIMUserStatus;
-        public MessageAdapter(IDAL.IDALServiceOrder dalOrder,IDAL.IDALMembership dalMembership, IDAL.IDALIMUserStatus dalIMUserStatus)
+        public MessageAdapter(IDAL.IDALServiceOrder dalOrder, IDAL.IDALMembership dalMembership, IDAL.IDALIMUserStatus dalIMUserStatus)
         {
-           // this.bllOrder = bllOrder;
+            // this.bllOrder = bllOrder;
             this.dalOrder = dalOrder;
             this.dalMembership = dalMembership;
             this.dalIMUserStatus = dalIMUserStatus;
@@ -53,7 +56,8 @@ namespace Dianzhu.CSClient.MessageAdapter
             {
                 ilog.Warn("收到标准协议的消息，不存在ext节点");
             }
-            else {
+            else
+            {
                 var extNamespace = ext_element.Namespace;
 
                 switch (extNamespace.ToLower())
@@ -189,6 +193,7 @@ namespace Dianzhu.CSClient.MessageAdapter
         public Message ChatToMessage(Model.ReceptionChat chat, string server)
         {
 
+            
             Message msg = new Message();
 
             msg.SetAttribute("type", "chat");
@@ -284,5 +289,86 @@ namespace Dianzhu.CSClient.MessageAdapter
 
         }
 
+        
+        /// <summary>
+        /// 将原始的xml文件转换成agsxmpp的 message对象
+        /// </summary>
+        /// <param name="rawXml"></param>
+        /// <returns></returns>
+        public Message RawXmlToMessage(string rawXml)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(rawXml);
+
+           
+            XmlElement eleMessage = (XmlElement)doc.FirstChild;
+            string fromJid = eleMessage.GetAttribute("from");
+            string toJid = eleMessage.GetAttribute("to");
+            string messageid = eleMessage.GetAttribute("id");
+            //string type= eleMessage.GetAttribute("type");
+           
+          
+           
+            string xpathMessage = "/*[local-name()='message']";
+            string xpathBody =xpathMessage+ "/*[local-name()='body']";
+            string xpathExt =xpathMessage+ "/*[local-name()='ext']";
+            string xpathOrderId =xpathExt+  "/*[local-name()='orderID']";
+            string xpathMsgObj =xpathExt+ "/*[local-name()='msgObj']";
+
+            var extNode = doc.SelectSingleNode(xpathExt);
+            string body = doc.SelectSingleNode(xpathBody).InnerText;
+            string orderId = doc.SelectSingleNode(xpathOrderId).InnerText;
+
+           
+            
+
+
+            MessageBuilder builder = new MessageBuilder(dalIMUserStatus);
+            builder= builder.BuildBase(messageid, toJid, fromJid, body, orderId);
+            string extNameSpace = extNode.NamespaceURI;
+            switch (extNameSpace.ToLower())
+            {
+                case "ihelper:chat:text": break;
+                case "ihelper:chat:media":
+                    var msgObj = doc.SelectSingleNode(xpathMsgObj);
+                    string mediaType = msgObj.Attributes["type"].Value;
+                    string mediaUrl = msgObj.Attributes["url"].Value;
+                    builder=builder.BuildMedia(mediaType, mediaUrl);
+                    break;
+                case "ihelper:chat:userstatus":
+
+                    break;
+                case "ihelper:notice:cer:change":
+
+                    break;
+                case "ihelper:chat:orderobj": break;
+                default:
+                    ilog.Error("不需要处理的命名空间:" + extNameSpace);break;
+            }
+
+            return builder.Message;
+        }
+
+        public ReceptionChat RawXmlToChat(string rawXml) {
+
+            return MessageToChat(RawXmlToMessage(rawXml));
+        }
+        /*
+<message xmlns="jabber:client" 
+        type="chat" 
+        id="cf062bec-509d-4b90-84a9-a65a011b3d6e"
+        to="4d63d740-5561-11e6-b7f0-001a7dda7106@localhost/YDBan_DemoClient">
+    <body>2</body>
+    <active xmlns="http://jabber.org/protocol/chatstates"/>
+    <ext xmlns="ihelper:chat:text">
+    <orderID>f7f0fdc2-3856-4e25-9b75-a65901436cab</orderID>
+    </ext>
+</message>
+
+
+
+        <message to="4e2676e1-5561-11e6-b7f0-001a7dda7106@localhost/YDBan_CustomerService" from="4d63d740-5561-11e6-b7f0-001a7dda7106@localhost/YDBan_DemoClient" type="chat" id="d0ae54ba-8be4-4881-b3d7-a3b3d643f4bf"><body>ffffddd</body><active xmlns="http://jabber.org/protocol/chatstates"/><ext xmlns="ihelper:chat:text"><orderID>f7f0fdc2-3856-4e25-9b75-a65901436cab</orderID></ext></message>
+
+ *   */
     }
 }

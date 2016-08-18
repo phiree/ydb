@@ -130,7 +130,7 @@ namespace Dianzhu.CSClient.Presenter
                     IdentityTypeOfOrder type;
                     IdentityManager.UpdateIdentityList(chat.ServiceOrder, out type);
 
-                    //存储消息
+                    //消息本地化.
                     chat.ReceiveTime = DateTime.Now;
                     if (chat is Model.ReceptionChatMedia)
                     {
@@ -139,7 +139,7 @@ namespace Dianzhu.CSClient.Presenter
 
                         ((ReceptionChatMedia)chat).MedialUrl = fileName;
                     }
-                    dalReceptionChat.Add(chat);
+                    //dalReceptionChat.Add(chat);
                     ReceivedMessage(chat, type);
 
                     workerChatImage = new BackgroundWorker();
@@ -238,7 +238,7 @@ namespace Dianzhu.CSClient.Presenter
                 }
             }
         }
-
+        
         private void WorkerCustomerAvatar_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             log.Debug("用户头像本地存储完成");
@@ -312,7 +312,7 @@ namespace Dianzhu.CSClient.Presenter
 
             e.Result = chat;
         }
-
+        
         public void IView_IdentityClick(ServiceOrder serviceOrder)
         {
             try

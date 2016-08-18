@@ -57,14 +57,14 @@ public partial class order_index : BasePage
         long totalRecords;
         if (Request.QueryString["status"] == "" || Request.QueryString["status"] == null)
         {
-            allServiceOrder = bllServiceOrder.GetAll(page, pager.PageSize, out totalRecords ).OrderByDescending(x => x.LatestOrderUpdated).ToList();
+            allServiceOrder = bllServiceOrder.GetAll(page, pager.PageSize, out totalRecords ).OrderByDescending(x => x.OrderCreated).ToList();
         }
         else
         {
 
             StatusSelect.Value = "index.aspx?status=" + Request.QueryString["status"].ToString();
             Dianzhu.Model.Enums.enum_OrderStatus status = (Dianzhu.Model.Enums.enum_OrderStatus)Enum.Parse(typeof(Dianzhu.Model.Enums.enum_OrderStatus), Request.QueryString["status"].ToString());
-            allServiceOrder = bllServiceOrder.GetAllByOrderStatus(status,page,pager.PageSize,out totalRecords).OrderByDescending(x => x.LatestOrderUpdated).ToList();
+            allServiceOrder = bllServiceOrder.GetAllByOrderStatus(status,page,pager.PageSize,out totalRecords).OrderByDescending(x => x.OrderCreated).ToList();
 
         }
         pager.RecordCount = (int)totalRecords;

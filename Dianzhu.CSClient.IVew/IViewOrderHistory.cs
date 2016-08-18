@@ -13,7 +13,6 @@ namespace Dianzhu.CSClient.IView
     {
         IList<ServiceOrder> OrderList { get; set; }
         string SearchStr { get; set; }
-        int OrderPage { get; set; }
 
         event SearchOrderHistoryClick SearchOrderHistoryClick;
         void ShowNullListLable();

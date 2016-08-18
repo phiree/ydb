@@ -4,7 +4,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div class="content">
         <div class="content-head normal-head">
-            <h3>服务货架 - <%= CurrentService.Name %></h3>
+            <h3>服务货架</h3>
         </div>
         <div class="content-main">
             <div class="container-fluid">
@@ -186,7 +186,6 @@
 </script>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server" >
-    <script src="//cdn.bootcss.com/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js"></script>
     <script src="/js/libs/json2.js"></script>
     <script src="/js/libs/underscore.js"></script>
     <script src="/js/libs/backbone.js"></script>

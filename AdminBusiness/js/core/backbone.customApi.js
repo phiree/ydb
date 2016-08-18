@@ -29,9 +29,7 @@
         var params,reqData;
 
             params = {
-            //crossDomain: true,
             type : 'POST',
-            contentType: 'text/plain',
             /* dataType设置为text, 和服务器返回的数据类型一致，避免返回的数据进行二次转换导致格式变为字符串的parser error的错误*/
             dataType: 'text'
         };
@@ -91,7 +89,7 @@
         };
 
         // 设置jQuery支持cors,防止IE9下跨域出现No Transport错误 todo：可能有更好的解决方法
-        //Backbone.$.support.cors = true;
+        Backbone.$.support.cors = true;
 
 
         //make request

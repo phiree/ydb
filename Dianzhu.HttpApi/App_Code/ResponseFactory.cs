@@ -224,6 +224,8 @@ public class ResponseFactory
                 return new ResponseCLM001001(request);
             case "drm001006":
                 return new ResponseDRM001006(request);
+            case "chat001008":
+                return new ResponseCHAT001008(request);
             default:
                 BaseResponse baeResponse = new BaseResponse(request);
                 baeResponse.state_CODE = Dicts.StateCode[1];
