@@ -454,13 +454,14 @@ namespace Dianzhu.ApplicationService.Order
             //ReceptionAssigner ra = new ReceptionAssigner(imSession);
             linkManObj linkman = new linkManObj();
             //linkman.linkManID = order.OpenFireLinkMan;
+            string strIp = System.Web.HttpContext.Current.Request.Url.Host;//.Url.ToString();
             if (order.OpenFireLinkMan == order.Business.Owner.Id.ToString())
             {
-                linkman.linkManID = order.OpenFireLinkMan + "@" + "/" + Model.Enums.enum_XmppResource.YDBan_Store;
+                linkman.linkManID = order.OpenFireLinkMan + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Store;
             }
             else
             {
-                linkman.linkManID = order.OpenFireLinkMan + "@" + "/" + Model.Enums.enum_XmppResource.YDBan_Staff;
+                linkman.linkManID = order.OpenFireLinkMan + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Staff;
             }
             return linkman;
 
