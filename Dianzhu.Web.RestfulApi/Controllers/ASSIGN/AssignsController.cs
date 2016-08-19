@@ -74,5 +74,22 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ASSIGN
                 return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
             }
         }
+
+        /// <summary>
+        /// 取消指派
+        /// </summary>
+        /// <param name="assignobj"></param>
+        /// <returns></returns>
+        public IHttpActionResult DeleteAssign([FromBody]assignObj assignobj)
+        {
+            try
+            {
+                return Json(iassign.DeleteAssign(assignobj, GetRequestHeader.GetTraitHeaders("delete/assigns")) ?? new object());
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
     }
 }

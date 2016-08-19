@@ -34,6 +34,12 @@ namespace Dianzhu.ApplicationService.Assign
         /// <returns></returns>
         countObj GetAssignsCount(common_Trait_AssignFiltering assign, Customer customer);
 
-
+        /// <summary>
+        /// 取消指派
+        /// </summary>
+        /// <param name="assignobj"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        object DeleteAssign(assignObj assignobj, Customer customer);
     }
 }
