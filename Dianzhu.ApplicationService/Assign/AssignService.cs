@@ -176,7 +176,7 @@ namespace Dianzhu.ApplicationService.Assign
             //if (oa != null && oa.CreateTime == dt)
             //{
             //assignobj = Mapper.Map<Model.OrderAssignment, assignObj>(oa);
-            return "取消成功！";
+            return new string[] { "取消成功！" };
             //}
             //else
             //{

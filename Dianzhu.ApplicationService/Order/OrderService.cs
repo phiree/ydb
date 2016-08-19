@@ -607,7 +607,7 @@ namespace Dianzhu.ApplicationService.Order
                 //this.err_Msg = "该用户没有权限访问接口!";
                 //return;
             }
-            return "订单取消成功";
+            return new string[] { "订单取消成功" };
         }
 
         /// <summary>
@@ -928,7 +928,7 @@ namespace Dianzhu.ApplicationService.Order
             order.Staff = staff;
             DateTime dt = DateTime.Now;
             oa.AssignedTime = dt;
-            return "改派成功！";
+            return new string[] { "改派成功！" };
         }
 
         /// <summary>
@@ -982,7 +982,7 @@ namespace Dianzhu.ApplicationService.Order
             //oa.Order.Details[0].Staff.Clear();
             //oa.Order.Details[0].Staff.Add(staff);
             bllOrderAssignment.Save(oa);
-            return "指派成功！";
+            return new string[] { "指派成功！" };
             //bllstaff.Update(staff);
             //oa = bllassign.GetAssignById(oa.Id);
             //if (oa != null && oa.CreateTime == dt)
@@ -1040,7 +1040,7 @@ namespace Dianzhu.ApplicationService.Order
             DateTime dt = DateTime.Now;
             oa.DeAssignedTime = dt;
             order.Staff = null;
-            return "取消成功！";
+            return new string[] { "取消成功！" };
         }
     }
 }
