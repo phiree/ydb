@@ -132,7 +132,25 @@ namespace Dianzhu.ApplicationService.Order
         /// <param name="staffID"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        staffObj PatchForman(string orderID, string staffID, Customer customer);
+        object PatchForman(string orderID, string staffID, Customer customer);
+
+        /// <summary>
+        /// 指派负责人
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="staffID"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        object PostForman(string orderID, string staffID, Customer customer);
+
+        /// <summary>
+        /// 取消指派
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="staffID"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        object DeleteForman(string orderID, string staffID, Customer customer);
 
 
     }
