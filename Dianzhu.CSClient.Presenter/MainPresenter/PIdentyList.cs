@@ -11,6 +11,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model.Enums;
 using Dianzhu.DAL;
 using System.ComponentModel;
+using System.IO;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -103,8 +104,10 @@ namespace Dianzhu.CSClient.Presenter
                                               order.Customer.Id + "@" + server, GlobalViables.CurrentCustomerService.Id, Guid.NewGuid());
             iIM.SendMessage(noticeDraftNew);
 
+            //删除当前订单临时变量
             if (IdentityManager.DeleteIdentity(order))
             {
+                iView.IdentityOrderTemp = null;
                 RemoveIdentity(order);
             }
             else
@@ -114,6 +117,8 @@ namespace Dianzhu.CSClient.Presenter
             }
         }
 
+        BackgroundWorker workerChatImage;
+        BackgroundWorker workerCustomerAvatar;
         private void IIM_IMReceivedMessage(ReceptionChat chat)
         {
             string errMsg = string.Empty;
@@ -126,7 +131,7 @@ namespace Dianzhu.CSClient.Presenter
                     //2 判断消息 和 聊天列表,当前聊天项的关系(是当前聊天项 但是需要修改订单 非激活的列表, 新聊天.
                     IdentityTypeOfOrder type;
                     IdentityManager.UpdateIdentityList(chat.ServiceOrder, out type);
-                    
+
                     //消息本地化.
                     chat.ReceiveTime = DateTime.Now;
                     if (chat is Model.ReceptionChatMedia)
@@ -135,17 +140,19 @@ namespace Dianzhu.CSClient.Presenter
                         string fileName = ((ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
 
                         ((ReceptionChatMedia)chat).MedialUrl = fileName;
-
-                        if(PHSuit.DownloadSoft.DownLoad(string.Empty, mediaUrl, fileName))
-                        {
-                            ((ReceptionChatMedia)chat).MedialUrl = fileName;
-                        }
                     }
-                  //  dalReceptionChat.Add(chat);
-
+                    //dalReceptionChat.Add(chat);
                     ReceivedMessage(chat, type);
 
-                    iView.IdleTimerStop(chat.ServiceOrder.Id); 
+                    workerChatImage = new BackgroundWorker();
+                    workerChatImage.DoWork += Worker_DoWork;
+                    workerChatImage.RunWorkerCompleted += Worker_RunWorkerCompleted;
+                    workerChatImage.RunWorkerAsync(chat);
+
+                    workerCustomerAvatar = new BackgroundWorker();
+                    workerCustomerAvatar.DoWork += WorkerCustomerAvatar_DoWork;
+                    workerCustomerAvatar.RunWorkerCompleted += WorkerCustomerAvatar_RunWorkerCompleted;
+                    workerCustomerAvatar.RunWorkerAsync(chat.From);
                 }
             }
             else if (chat.ChatType== enum_ChatType.UserStatus)
@@ -233,12 +240,86 @@ namespace Dianzhu.CSClient.Presenter
                 }
             }
         }
+        
+        private void WorkerCustomerAvatar_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            log.Debug("用户头像本地存储完成");
+        }
 
+        private void WorkerCustomerAvatar_DoWork(object sender, DoWorkEventArgs e)
+        {
+            DZMembership customer = e.Argument as DZMembership;
+
+            string mediaUrl = customer.AvatarUrl;
+            string fileName = string.Empty;
+            if (!mediaUrl.Contains(GlobalViables.MediaGetUrl))
+            {
+                fileName = mediaUrl;
+                mediaUrl = GlobalViables.MediaGetUrl + mediaUrl;
+            }
+            else
+            {
+                fileName = customer.AvatarUrl.Replace(GlobalViables.MediaGetUrl, "");
+            }
+
+            if (!File.Exists(PHSuit.LocalFileManagement.LocalFilePath + fileName))
+            {
+                if (PHSuit.LocalFileManagement.DownLoad(string.Empty, mediaUrl, fileName))
+                {
+                    customer.AvatarUrl = fileName;
+                }
+            }
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ReceptionChat chat = e.Result as ReceptionChat;
+            iView.IdleTimerStop(chat.ServiceOrder.Id);
+
+            if (chat is Model.ReceptionChatMedia)
+            {
+                iViewChatList.RemoveChatImageNormalMask(chat.Id);
+            }
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ReceptionChat chat = e.Argument as ReceptionChat;
+
+            //聊天中的图片下载到本地
+            chat.ReceiveTime = DateTime.Now;
+            if (chat is Model.ReceptionChatMedia)
+            {
+                iViewChatList.ShowChatImageNormalMask(chat.Id);
+
+                string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
+                string fileName = string.Empty;
+                if (!mediaUrl.Contains(GlobalViables.MediaGetUrl))
+                {
+                    fileName = mediaUrl;
+                    mediaUrl = GlobalViables.MediaGetUrl + mediaUrl;
+                }
+                else
+                {
+                    fileName = ((ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
+                }
+
+                ((ReceptionChatMedia)chat).MedialUrl = fileName;
+
+                if (PHSuit.LocalFileManagement.DownLoad(string.Empty, mediaUrl, fileName))
+                {
+                    ((ReceptionChatMedia)chat).MedialUrl = fileName;
+                }
+            }
+
+            e.Result = chat;
+        }
+        
         public void IView_IdentityClick(ServiceOrder serviceOrder)
         {
             try
             {
-                IdentityManager.CurrentIdentity = serviceOrder;
+                IdentityManager.CurrentIdentity = iView.IdentityOrderTemp = serviceOrder;
                 iView.SetIdentityLoading(serviceOrder);
                 
                 iViewChatList.ClearUCData();

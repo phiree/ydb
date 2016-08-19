@@ -113,6 +113,26 @@ namespace Dianzhu.CSClient.ViewWPF.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap DefaultCS {
+            get {
+                object obj = ResourceManager.GetObject("DefaultCS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap DefaultCustomer {
+            get {
+                object obj = ResourceManager.GetObject("DefaultCustomer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap exit {
             get {
                 object obj = ResourceManager.GetObject("exit", resourceCulture);
@@ -136,6 +156,16 @@ namespace Dianzhu.CSClient.ViewWPF.Properties {
         internal static System.Drawing.Bitmap logourl {
             get {
                 object obj = ResourceManager.GetObject("logourl", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap NoImage {
+            get {
+                object obj = ResourceManager.GetObject("NoImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

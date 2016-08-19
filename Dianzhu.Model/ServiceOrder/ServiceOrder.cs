@@ -233,7 +233,7 @@ namespace Dianzhu.Model
                 {
                     name += detail.ServieSnapShot. ServiceName + ";";
                 }
-                return name;
+                return name.TrimEnd(';');
             } }
 
         public virtual string ServiceBusinessName {
@@ -243,7 +243,19 @@ namespace Dianzhu.Model
                 {
                     name += detail.OriginalService.Business.Name + ";";
                 }
-                return name;
+                return name.TrimEnd(';');
+            }
+        }
+        public virtual string ServiceBusinessPhone
+        {
+            get
+            {
+                string name = string.Empty;
+                foreach (ServiceOrderDetail detail in Details)
+                {
+                    name += detail.OriginalService.Business.Phone + ";";
+                }
+                return name.TrimEnd(';');
             }
         }
         public virtual string Description {
@@ -253,7 +265,7 @@ namespace Dianzhu.Model
                 {
                     description += detain.ServieSnapShot. Description + ";";
                 }
-                return description;
+                return description.TrimEnd(';');
             }
         }
         /// <summary>
