@@ -322,5 +322,48 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
             }
         }
 
+        /// <summary>
+        /// 指派负责人
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="assignobj"></param>
+        /// <returns></returns>
+        [Route("api/v1/orders/{orderID}/forman")]
+        public IHttpActionResult PostForman(string orderID, [FromBody]assignObj assignobj)
+        {
+            try
+            {
+                string strStaffID = "";
+                if (assignobj != null)
+                {
+                    strStaffID = assignobj.staffID;
+                }
+                return Json(iorder.PostForman(orderID, strStaffID, GetRequestHeader.GetTraitHeaders("post/orders/{orderID}/forman")) ?? new object());
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
+        /// 取消指派
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="staffID"></param>
+        /// <returns></returns>
+        [Route("api/v1/orders/{orderID}/forman/{staffID}")]
+        public IHttpActionResult DeleteForman(string orderID, string staffID)
+        {
+            try
+            {
+                return Json(iorder.DeleteForman(orderID, staffID, GetRequestHeader.GetTraitHeaders("delete/orders/{orderID}/forman/{staffID}")) ?? new object());
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
     }
 }
