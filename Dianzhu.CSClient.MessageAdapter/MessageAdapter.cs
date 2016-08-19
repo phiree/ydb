@@ -22,12 +22,14 @@ namespace Dianzhu.CSClient.MessageAdapter
         IDAL.IDALServiceOrder dalOrder;
         IDAL.IDALMembership dalMembership;
         IDAL.IDALIMUserStatus dalIMUserStatus;
-        public MessageAdapter(IDAL.IDALServiceOrder dalOrder, IDAL.IDALMembership dalMembership, IDAL.IDALIMUserStatus dalIMUserStatus)
+        IDAL.IDALDZService dalService;
+        public MessageAdapter(IDAL.IDALServiceOrder dalOrder, IDAL.IDALMembership dalMembership, IDAL.IDALIMUserStatus dalIMUserStatus,IDAL.IDALDZService dalService)
         {
             // this.bllOrder = bllOrder;
             this.dalOrder = dalOrder;
             this.dalMembership = dalMembership;
             this.dalIMUserStatus = dalIMUserStatus;
+            this.dalService = dalService;
         }
 
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.CSClient.MessageAdapter");
@@ -67,6 +69,9 @@ namespace Dianzhu.CSClient.MessageAdapter
                         break;
                     case "ihelper:chat:media":
                         chatType = enum_ChatType.Media;
+                        break;
+                    case "ihelper:chat:orderobj":
+                        chatType = enum_ChatType.PushedService;
                         break;
                     case "ihelper:notice:system":
                     case "ihelper:notice:order":
@@ -132,7 +137,7 @@ namespace Dianzhu.CSClient.MessageAdapter
 
 
             //这个逻辑放在orm002001接口里面处理.
-
+            ServiceOrder existedServiceOrder = null;
             //如果是
             if (has_ext)
             {
@@ -147,7 +152,7 @@ namespace Dianzhu.CSClient.MessageAdapter
 
                     if (isValidGuid)
                     {
-                        var existedServiceOrder = dalOrder.FindById(order_ID);
+                          existedServiceOrder = dalOrder.FindById(order_ID);
                         if (existedServiceOrder != null)
                         {
                             chat.ServiceOrder = existedServiceOrder;
@@ -177,6 +182,21 @@ namespace Dianzhu.CSClient.MessageAdapter
                     var status = userStatusNode.GetAttribute("status");
                     ((ReceptionChatUserStatus)chat).User = dalMembership.FindById(new Guid(userId));
                     ((ReceptionChatUserStatus)chat).Status = (enum_UserStatus)Enum.Parse(typeof(enum_UserStatus), status, true); ;
+                }
+                else if (chatType == enum_ChatType.PushedService)
+                {
+                    var serviceId = ext_element.SelectSingleElement("svcObj").GetAttribute("svcID");
+                    var service = dalService.FindById(new Guid(serviceId));
+                    var startTime= ext_element.SelectSingleElement("svcObj").GetAttribute("startTime");
+                    DateTime startTimeObj;
+                    bool isValidDateTime= DateTime.TryParse(startTime, out startTimeObj);
+                    ServiceOrderPushedService pushService = new ServiceOrderPushedService(existedServiceOrder,service,1,string.Empty,startTimeObj);
+
+                    ((ReceptionChatPushService)chat).PushedService = pushService;
+                }
+                else
+                {
+                   throw new Exception("未被处理的类型");
                 }
             }
             catch (Exception e)
@@ -314,6 +334,8 @@ namespace Dianzhu.CSClient.MessageAdapter
             string xpathExt =xpathMessage+ "/*[local-name()='ext']";
             string xpathOrderId =xpathExt+  "/*[local-name()='orderID']";
             string xpathMsgObj =xpathExt+ "/*[local-name()='msgObj']";
+            string xpathSvcObj = xpathExt + "/*[local-name()='svcObj']";
+            string xpathStoreObj = xpathExt + "/*[local-name()='storeObj']";
 
             var extNode = doc.SelectSingleNode(xpathExt);
             string body = doc.SelectSingleNode(xpathBody).InnerText;
@@ -341,7 +363,19 @@ namespace Dianzhu.CSClient.MessageAdapter
                 case "ihelper:notice:cer:change":
 
                     break;
-                case "ihelper:chat:orderobj": break;
+                case "ihelper:chat:orderobj": 
+                    var svcObj = doc.SelectSingleNode(xpathSvcObj);
+                    string svcID = svcObj.Attributes["svcID"].Value;
+                    string svcName = svcObj.Attributes["name"].Value;
+                    string svcType = svcObj.Attributes["type"].Value;
+                    string startTime = svcObj.Attributes["startTime"].Value;
+                    var storeObj = doc.SelectSingleNode(xpathStoreObj);
+                    string userId = storeObj.Attributes["userID"].Value;
+                    string alias = storeObj.Attributes["alias"].Value;
+                    string imgUrl = storeObj.Attributes["imgUrl"].Value;
+
+                    builder = builder.BuildPushedService(svcID, svcName, svcType, startTime, userId, alias, imgUrl);
+                    break;
                 default:
                     ilog.Error("不需要处理的命名空间:" + extNameSpace);break;
             }

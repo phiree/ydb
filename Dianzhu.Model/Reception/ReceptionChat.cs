@@ -33,6 +33,9 @@ namespace Dianzhu.Model
                 case Enums.enum_ChatType.UserStatus:
                     chat = new ReceptionChatUserStatus();
                     break;
+                case enum_ChatType.PushedService:
+                    chat = new ReceptionChatPushService();
+                    break;
                 default:
                     chat= new ReceptionChat();
                     break;
