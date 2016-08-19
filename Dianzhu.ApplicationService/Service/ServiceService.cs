@@ -505,7 +505,7 @@ namespace Dianzhu.ApplicationService.Service
             //dzservice = bllDZService.GetService(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(serviceID, "serviceID"));
             //if (dzservice == null)
             //{
-            return "删除成功！";
+            return new string[] { "删除成功！" };
             //}
             //else
             //{

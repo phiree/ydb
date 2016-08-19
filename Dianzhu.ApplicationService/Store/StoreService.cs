@@ -294,7 +294,7 @@ namespace Dianzhu.ApplicationService.Store
             {
                 throw new Exception("该店铺已经存在服务，不能再删除！");
             }
-            return "删除成功！";
+            return new string[] { "删除成功！" };
             //}
             //else
             //{
