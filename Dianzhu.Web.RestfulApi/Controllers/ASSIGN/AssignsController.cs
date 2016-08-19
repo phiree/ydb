@@ -23,17 +23,17 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ASSIGN
         /// </summary>
         /// <param name="assignobj"></param>
         /// <returns></returns>
-        public IHttpActionResult PostAssign([FromBody]assignObj assignobj)
-        {
-            try
-            {
-                return Json(iassign.PostAssign(assignobj, GetRequestHeader.GetTraitHeaders("post/assigns"))??new object());
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
-            }
-        }
+        //public IHttpActionResult PostAssign([FromBody]assignObj assignobj)
+        //{
+        //    try
+        //    {
+        //        return Json(iassign.PostAssign(assignobj, GetRequestHeader.GetTraitHeaders("post/assigns"))??new object());
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+        //    }
+        //}
 
         /// <summary>
         /// 条件读取指派
@@ -41,55 +41,55 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ASSIGN
         /// <param name="filter"></param>
         /// <param name="assign"></param>
         /// <returns></returns>
-        public IHttpActionResult GetAssigns([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_AssignFiltering assign)
-        {
-            try
-            {
-                return Json(iassign.GetAssigns(filter,assign, GetRequestHeader.GetTraitHeaders("get/assigns")));
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
-            }
-        }
+        //public IHttpActionResult GetAssigns([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_AssignFiltering assign)
+        //{
+        //    try
+        //    {
+        //        return Json(iassign.GetAssigns(filter,assign, GetRequestHeader.GetTraitHeaders("get/assigns")));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+        //    }
+        //}
 
         /// <summary>
         /// 统计指派的数量
         /// </summary>
         /// <param name="assign"></param>
         /// <returns></returns>
-        [Route("api/v1/Assigns/count")]
-        public IHttpActionResult GetAssignsCount([FromUri]common_Trait_AssignFiltering assign)
-        {
-            try
-            {
-                if (assign == null)
-                {
-                    assign = new common_Trait_AssignFiltering();
-                }
-                return Json(iassign.GetAssignsCount(assign, GetRequestHeader.GetTraitHeaders("get/assigns/count")));
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
-            }
-        }
+        //[Route("api/v1/Assigns/count")]
+        //public IHttpActionResult GetAssignsCount([FromUri]common_Trait_AssignFiltering assign)
+        //{
+        //    try
+        //    {
+        //        if (assign == null)
+        //        {
+        //            assign = new common_Trait_AssignFiltering();
+        //        }
+        //        return Json(iassign.GetAssignsCount(assign, GetRequestHeader.GetTraitHeaders("get/assigns/count")));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+        //    }
+        //}
 
         /// <summary>
         /// 取消指派
         /// </summary>
         /// <param name="assignobj"></param>
         /// <returns></returns>
-        public IHttpActionResult DeleteAssign([FromBody]assignObj assignobj)
-        {
-            try
-            {
-                return Json(iassign.DeleteAssign(assignobj, GetRequestHeader.GetTraitHeaders("delete/assigns")) ?? new object());
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
-            }
-        }
+        //public IHttpActionResult DeleteAssign([FromBody]assignObj assignobj)
+        //{
+        //    try
+        //    {
+        //        return Json(iassign.DeleteAssign(assignobj, GetRequestHeader.GetTraitHeaders("delete/assigns")) ?? new object());
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+        //    }
+        //}
     }
 }
