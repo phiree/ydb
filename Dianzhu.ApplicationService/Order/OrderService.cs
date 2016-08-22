@@ -164,7 +164,7 @@ namespace Dianzhu.ApplicationService.Order
             IList<Model.ServiceOrder> order = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ServiceOrder");
             Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
-            order = ibllserviceorder.GetOrders(filter1, orderfilter.statusSort, orderfilter.status,guidStore,strStaffID, dtBefore, dtAfter,guidUser,customer.UserType,orderfilter.assign);
+            order = ibllserviceorder.GetOrders(filter1, orderfilter.statusSort, orderfilter.status,guidStore,strStaffID, dtAfter, dtBefore, guidUser,customer.UserType,orderfilter.assign);
 
             if (order == null)
             {
@@ -193,7 +193,7 @@ namespace Dianzhu.ApplicationService.Order
             DateTime dtBefore = utils.CheckDateTime(orderfilter.beforeThisTime, "yyyyMMddHHmmss", "orderfilter.beforeThisTime");
             countObj c = new countObj();
             Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
-            c.count = ibllserviceorder.GetOrdersCount(orderfilter.statusSort, orderfilter.status, guidStore, strStaffID, dtBefore, dtAfter, guidUser,customer.UserType, orderfilter.assign).ToString();
+            c.count = ibllserviceorder.GetOrdersCount(orderfilter.statusSort, orderfilter.status, guidStore, strStaffID, dtAfter, dtBefore,  guidUser,customer.UserType, orderfilter.assign).ToString();
             return c;
         }
 
