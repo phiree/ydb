@@ -30,13 +30,13 @@ namespace Dianzhu.CSClient.ViewWPF
             InitializeComponent();
         }
 
-        public string ServicePeople
+        public string ServiceCustomerName
         {
             get { return tbxKeywordPeople.Text.Trim(); }
             set { tbxKeywordPeople.Text = value; }
         }
 
-        public string ServicePhone
+        public string ServiceCustomerPhone
         {
             get { return tbxKeywordPhone.Text.Trim(); }
             set { tbxKeywordPhone.Text = value; }
@@ -153,11 +153,11 @@ namespace Dianzhu.CSClient.ViewWPF
         /// </summary>
         public void ClearData()
         {
-            ServicePeople = string.Empty;
+            ServiceCustomerName = string.Empty;
             SearchKeywordTime = DateTime.Now;
             SearchKeywordPriceMin = 0;
             SearchKeywordPriceMax = 0;
-            ServicePhone = string.Empty;
+            ServiceCustomerPhone = string.Empty;
             ServiceAddress = string.Empty;
             UnitAmount = 1;
         }

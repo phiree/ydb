@@ -219,7 +219,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 //NHibernateUnitOfWork.UnitOfWork.Current.Refresh(service);//来自上个session，需刷新
 
-                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount,viewSearch.ServiceAddress, viewSearch.SearchKeywordTime ));
+                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime ));
             }
             bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
@@ -233,7 +233,8 @@ namespace Dianzhu.CSClient.Presenter
             //iim发送消息
             ReceptionChat chat = new ReceptionChatPushService
             {
-                ServiceOrder=IdentityManager.CurrentIdentity,
+                Id = Guid.NewGuid(),
+                ServiceOrder =IdentityManager.CurrentIdentity,
                 ChatTarget = Model.Enums.enum_ChatTarget.cer,
                 From = GlobalViables.CurrentCustomerService,
                 To = IdentityManager.CurrentIdentity.Customer,
@@ -243,7 +244,7 @@ namespace Dianzhu.CSClient.Presenter
                 SavedTime = DateTime.Now,
 
             };
-            dalReceptionChat.Add(chat);
+            //dalReceptionChat.Add(chat);//openfire插件存储消息
 
 
             //加到缓存数组中
@@ -299,7 +300,7 @@ namespace Dianzhu.CSClient.Presenter
                 
                 return;
             }
-            IdentityManager.CurrentIdentity.AddDetailFromIntelService(selectedService, viewSearch.UnitAmount, "实施服务的地点", DateTime.Now);
+            IdentityManager.CurrentIdentity.AddDetailFromIntelService(selectedService, viewSearch.UnitAmount,string.Empty,string.Empty, "实施服务的地点", DateTime.Now);
             viewOrder.Order = IdentityManager.CurrentIdentity;
             bllServiceOrder.Update(IdentityManager.CurrentIdentity);
 

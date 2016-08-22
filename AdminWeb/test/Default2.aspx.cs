@@ -29,7 +29,7 @@ public partial class test_Default : BasePage
         DZMembership customerService = bllMembership.GetUserByName("aa@aa.aa");
         ServiceOrder order= ServiceOrderFactory.CreateDraft(customerService, customer);
         DZService service = bllService.GetAll()[0];
-         order.AddDetailFromIntelService(service, 1, "test_服务地址", DateTime.Now);
+         order.AddDetailFromIntelService(service, 1, "test_用户名", "13999999999", "test_服务地址", DateTime.Now);
 
         order.CreatedFromDraft();
         order.LatestOrderUpdated = DateTime.Now;
