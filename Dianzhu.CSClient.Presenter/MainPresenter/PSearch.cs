@@ -25,6 +25,7 @@ namespace Dianzhu.CSClient.Presenter
         IDAL.IDALServiceType dalServiceType;
         BLLReceptionStatus bllReceptionStatus;
         IList<DZService> SelectedServiceList;
+        BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder;
         #region 服务类型数据
         Dictionary<ServiceType, IList<ServiceType>> ServiceTypeCach;
         IList<ServiceType> ServiceTypeListTmp;
@@ -37,8 +38,9 @@ namespace Dianzhu.CSClient.Presenter
         public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
             IView.IViewOrder viewOrder, IViewChatList viewChatList,IViewIdentityList viewIdentityList,
             IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder,IDAL.IDALReceptionChat dalReceptionChat, IDAL.IDALServiceType dalServiceType,                     
-                    PushService bllPushService, BLLReceptionStatus bllReceptionStatus)
+                    PushService bllPushService, BLLReceptionStatus bllReceptionStatus,BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder)
         {
+            this.serialNoBuilder = serialNoBuilder;
             this.viewSearch = viewSearch; ;
             this.viewSearchResult = viewSearchResult;
             this.dalDzService = dalDzService;
@@ -259,7 +261,8 @@ namespace Dianzhu.CSClient.Presenter
             viewChatList.AddOneChat(chat);
 
             //生成新的草稿单并发送给客户端
-            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService,IdentityManager.CurrentIdentity.Customer);
+            string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
+            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService,IdentityManager.CurrentIdentity.Customer,serialNoForOrder);
             bllServiceOrder.Save(newOrder);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             log.Debug("新草稿订单的id：" + newOrder.Id.ToString());

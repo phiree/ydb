@@ -21,16 +21,16 @@ namespace Dianzhu.NotifyCenter
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
         private Dianzhu.CSClient.IInstantMessage.InstantMessage im = null;
         IDALMembership dalMembership;
-        
+        BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder;
         Dianzhu.BLL.ReceptionAssigner assigner;
         IDALReceptionStatus dalReceptionStatus;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="im">通讯接口</param>
-        public IMNotify(InstantMessage im,IDALMembership dalMembership , IDALReceptionStatus dalReceptionStatus,ReceptionAssigner assigner)
+        public IMNotify(InstantMessage im,IDALMembership dalMembership , IDALReceptionStatus dalReceptionStatus,ReceptionAssigner assigner, BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder)
         {
-         
+            this.serialNoBuilder = serialNoBuilder;
             this.dalMembership = dalMembership;
             this.im = im;
             this.dalReceptionStatus = dalReceptionStatus;
@@ -184,7 +184,8 @@ namespace Dianzhu.NotifyCenter
  
                 if (order.OrderStatus != enum_OrderStatus.Draft)
                 {
-                    ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(r.Value,r.Key);
+                    string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
+                    ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(r.Value,r.Key, serialNoForOrder);
  
                     order = newOrder;
                 }

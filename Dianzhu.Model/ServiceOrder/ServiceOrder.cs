@@ -26,6 +26,7 @@ namespace Dianzhu.Model
             Details = new List<ServiceOrderDetail>();
 
         }
+        public virtual string SerialNo { get; set; }
         #region 管理明细
         /// <summary>
         /// 增加一条订单明细

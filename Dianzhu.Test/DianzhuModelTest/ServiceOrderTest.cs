@@ -14,7 +14,7 @@ public    class ServiceOrderTest
         [Test]
         public void AddDetailFromIntelServiceTest()
         {
-            ServiceOrder order = ServiceOrderFactory.CreateDraft(null, null);
+            ServiceOrder order = ServiceOrderFactory.CreateDraft(null, null,string.Empty);
             DZService service = new DZService();
             DZService service2 = new DZService();
 
