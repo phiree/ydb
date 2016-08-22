@@ -186,11 +186,7 @@ namespace Dianzhu.DependencyInstaller
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IAssignStratage>().ImplementedBy<AssignStratageRandom>());
-            container.Register(Component.For<PushService>().DependsOn(
-                Dependency.OnValue("bllPayment", new BLLPayment(container.Resolve<IDALPayment>(), container.Resolve<IDALClaims>())),
-                Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>()))
-                ));
-
+          
             //finance
             container.Register(Component.For<IBLLSharePoint>().ImplementedBy<BLLSharePoint>());
             container.Register(Component.For<IBLLServiceTypePoint>().ImplementedBy<BLLServiceTypePoint>());
@@ -225,6 +221,11 @@ namespace Dianzhu.DependencyInstaller
 
             container.Register(Component.For<BLL.Client.IBLLClient>().ImplementedBy<BLL.Client.BLLClient>());
             container.Register(Component.For<BLL.Client.IBLLRefreshToken> ().ImplementedBy<BLL.Client.BLLRefreshToken> ());
+            container.Register(Component.For<PushService>().DependsOn(
+              Dependency.OnValue("bllPayment", new BLLPayment(container.Resolve<IDALPayment>(), container.Resolve<IDALClaims>())),
+              Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>()))
+              ));
+
         }
     }
     public class InstallerInfrstructure : IWindsorInstaller

@@ -86,6 +86,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="chatArchive.jar" />
     <Content Include="getUserState.jar" />
     <Content Include="Openfire.txt" />
   </ItemGroup>
