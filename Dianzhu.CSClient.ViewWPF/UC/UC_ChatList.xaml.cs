@@ -309,10 +309,17 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lamda = () =>
             {
-                string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString());
-                UC_ChatCustomer ucC = stackPanel.FindName(id) as UC_ChatCustomer;
-                UC_ChatImageNoraml ucCI = ucC.FindName(id) as UC_ChatImageNoraml;
-                ucCI.ShowMask();
+                try
+                {
+                    string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString());
+                    UC_ChatCustomer ucC = stackPanel.FindName(id) as UC_ChatCustomer;
+                    UC_ChatImageNoraml ucCI = ucC.FindName(id) as UC_ChatImageNoraml;
+                    ucCI.ShowMask();
+                }
+                catch (Exception e)
+                {
+                    log.Error(e.Message);
+                }
             };
             if (!Dispatcher.CheckAccess())
             {
@@ -328,10 +335,17 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lamda = () =>
             {
-                string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString());
-                UC_ChatCustomer ucC = stackPanel.FindName(id) as UC_ChatCustomer;
-                UC_ChatImageNoraml ucCI = ucC.FindName(id) as UC_ChatImageNoraml;
-                ucCI.RemoveMask();
+                try
+                {
+                    string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString());
+                    UC_ChatCustomer ucC = stackPanel.FindName(id) as UC_ChatCustomer;
+                    UC_ChatImageNoraml ucCI = ucC.FindName(id) as UC_ChatImageNoraml;
+                    ucCI.RemoveMask();
+                }
+                catch (Exception e)
+                {
+                    log.Error(e.Message);
+                }
             };
             if (!Dispatcher.CheckAccess())
             {

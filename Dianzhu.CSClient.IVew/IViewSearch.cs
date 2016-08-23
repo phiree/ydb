@@ -14,6 +14,8 @@ namespace Dianzhu.CSClient.IView
         DateTime SearchKeywordTime { get; set; }
         decimal SearchKeywordPriceMin { get; set; }
         decimal SearchKeywordPriceMax { get; set; }
+        string ServiceCustomerName { get; set; }
+        string ServiceCustomerPhone { get; set; }
         string ServiceAddress { get; set; }
         int UnitAmount { get; set; }
 

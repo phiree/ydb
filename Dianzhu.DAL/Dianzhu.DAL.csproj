@@ -78,6 +78,7 @@
     <Compile Include="Client\DALClient.cs" />
     <Compile Include="Client\DALRefreshToken.cs" />
     <Compile Include="Client\DALUserToken.cs" />
+    <Compile Include="DALSerialNo.cs" />
     <Compile Include="DALClaimsDetails.cs" />
     <Compile Include="DALMembershipLoginLog.cs" />
     <Compile Include="DALClaims.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="DALDZTag.cs" />
     <Compile Include="Finance\DALDefaultSharePoint.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Mapping\SerialNoMap.cs" />
     <Compile Include="Mapping\Client\UserTokenMap.cs" />
     <Compile Include="Mapping\StorageManager\StorageFileInfoMap.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderRemind.cs" />

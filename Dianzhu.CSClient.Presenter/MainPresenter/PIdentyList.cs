@@ -252,21 +252,24 @@ namespace Dianzhu.CSClient.Presenter
 
             string mediaUrl = customer.AvatarUrl;
             string fileName = string.Empty;
-            if (!mediaUrl.Contains(GlobalViables.MediaGetUrl))
+            if (mediaUrl != null)
             {
-                fileName = mediaUrl;
-                mediaUrl = GlobalViables.MediaGetUrl + mediaUrl;
-            }
-            else
-            {
-                fileName = customer.AvatarUrl.Replace(GlobalViables.MediaGetUrl, "");
-            }
-
-            if (!File.Exists(PHSuit.LocalFileManagement.LocalFilePath + fileName))
-            {
-                if (PHSuit.LocalFileManagement.DownLoad(string.Empty, mediaUrl, fileName))
+                if (!mediaUrl.Contains(GlobalViables.MediaGetUrl))
                 {
-                    customer.AvatarUrl = fileName;
+                    fileName = mediaUrl;
+                    mediaUrl = GlobalViables.MediaGetUrl + mediaUrl;
+                }
+                else
+                {
+                    fileName = customer.AvatarUrl.Replace(GlobalViables.MediaGetUrl, "");
+                }
+
+                if (!File.Exists(PHSuit.LocalFileManagement.LocalFilePath + fileName))
+                {
+                    if (PHSuit.LocalFileManagement.DownLoad(string.Empty, mediaUrl, fileName))
+                    {
+                        customer.AvatarUrl = fileName;
+                    }
                 }
             }
         }

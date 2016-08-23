@@ -46,11 +46,11 @@ namespace Dianzhu.Test.DZCSClientTest
             IList<DZMembership> customers = Builder<DZMembership>.CreateListOfSize(10).Build();
 
             //同一个用户的两个订单
-            ServiceOrder order11 = ServiceOrderFactory.CreateDraft(customers[0], customers[1]);
-            ServiceOrder order12 = ServiceOrderFactory.CreateDraft(customers[0], customers[1]);
+            ServiceOrder order11 = ServiceOrderFactory.CreateDraft(customers[0], customers[1], string.Empty);
+            ServiceOrder order12 = ServiceOrderFactory.CreateDraft(customers[0], customers[1], string.Empty);
 
             //另一个用户的一个订单
-            ServiceOrder order21 = ServiceOrderFactory.CreateDraft(customers[0], customers[2]);
+            ServiceOrder order21 = ServiceOrderFactory.CreateDraft(customers[0], customers[2], string.Empty);
            
             IList<ReceptionChat> chats = Builder<ReceptionChat>.CreateListOfSize(5)
                 .TheFirst(1).With(x=>x.From=order11.Customer). And(x=>x.ServiceOrder= order11)//新用户订单

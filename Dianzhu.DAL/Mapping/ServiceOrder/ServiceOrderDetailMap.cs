@@ -50,6 +50,8 @@ namespace Dianzhu.DAL.Mapping
             /// 客户要求的服务地址
             /// </summary>
             Map(x => x.TargetAddress);
+            Map(x => x.TargetCustomerName);
+            Map(x => x.TargetCustomerPhone);
             Map(x => x.TargetTime);
             #endregion
             /// <summary>

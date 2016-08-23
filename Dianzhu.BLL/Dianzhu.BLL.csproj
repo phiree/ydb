@@ -98,6 +98,7 @@
     <Compile Include="Client\BLLUserToken.cs" />
     <Compile Include="Client\IBLLClient.cs" />
     <Compile Include="Client\IBLLRefreshToken.cs" />
+    <Compile Include="Common\SerialNo\ISerialNoBuilder.cs" />
     <Compile Include="Finance\BanlanceFlow.cs" />
     <Compile Include="Finance\IBalanceFlowService.cs" />
     <Compile Include="Finance\IBLLServiceTypePoint.cs" />
