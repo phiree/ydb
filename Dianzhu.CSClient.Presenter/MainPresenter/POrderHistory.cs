@@ -44,12 +44,13 @@ namespace Dianzhu.CSClient.Presenter
         {
             viewOrderHistory.ShowListLoadingMsg();
             int totalAmount;
-            IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(IdentityManager.CurrentIdentity.Customer.Id, 1, 5, out totalAmount);
+            IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(IdentityManager.CurrentIdentity.Customer.Id, viewOrderHistory.OrderPage, 5, out totalAmount);
             if (orderList.Count > 0)
             {
                 if (orderList.Count == 5)
                 {
                     viewOrderHistory.ShowMoreOrderList();
+                    viewOrderHistory.OrderPage++;
                 }
                 else
                 {
@@ -59,12 +60,14 @@ namespace Dianzhu.CSClient.Presenter
                 foreach (ServiceOrder order in orderList)
                 {
                     viewOrderHistory.OrderList.Add(order);
+                    allList[IdentityManager.CurrentIdentity.Customer.Id].Add(order);
+
                     viewOrderHistory.InsertOneOrder(order);
                 }
             }
             else
             {
-                viewOrderHistory.ShowNullListLable();
+                viewOrderHistory.ShowNoMoreOrderList();
             }
         }
 
@@ -86,11 +89,13 @@ namespace Dianzhu.CSClient.Presenter
         {
             IList<ServiceOrder> orderList = e.Result as List<ServiceOrder>;
             viewOrderHistory.OrderList = orderList;
+            allList[IdentityManager.CurrentIdentity.Customer.Id] = orderList;
             if (orderList.Count > 0)
             {
                 if (orderList.Count == 5)
                 {
                     viewOrderHistory.ShowMoreOrderList();
+                    viewOrderHistory.OrderPage++;
                 }
                 else
                 {
@@ -116,7 +121,8 @@ namespace Dianzhu.CSClient.Presenter
             NHibernateUnitOfWork.UnitOfWork.Start();
             Guid customerId = Guid.Parse(e.Argument.ToString());
             int totalAmount;
-            e.Result = bllServiceOrder.GetListForCustomer(customerId, 1, 5, out totalAmount);
+            viewOrderHistory.OrderPage = 1;
+            e.Result = bllServiceOrder.GetListForCustomer(customerId, viewOrderHistory.OrderPage, 5, out totalAmount);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
@@ -135,7 +141,7 @@ namespace Dianzhu.CSClient.Presenter
             IList<ServiceOrder> searchList = new List<ServiceOrder>();
             if (viewOrderHistory.SearchStr == string.Empty)
             {
-                viewOrderHistory.OrderList = allList[IdentityManager.CurrentIdentity.Customer.Id];
+                searchList = allList[IdentityManager.CurrentIdentity.Customer.Id];
             }
             else
             {
@@ -155,8 +161,15 @@ namespace Dianzhu.CSClient.Presenter
                     //    searchList.Add(order);
                     //}
                 }
-                viewOrderHistory.OrderList = searchList;
-            }            
+            }
+            
+            if (searchList.Count > 0)
+            {
+                foreach (ServiceOrder item in searchList)
+                {
+                    viewOrderHistory.InsertOneOrder(item);
+                }
+            }
         }
 
         /// <summary>

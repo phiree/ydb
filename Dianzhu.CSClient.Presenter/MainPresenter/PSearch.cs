@@ -223,7 +223,7 @@ namespace Dianzhu.CSClient.Presenter
 
                 serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime ));
             }
-            bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime);
+           // bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //获取之前orderid

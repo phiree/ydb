@@ -11,12 +11,8 @@ namespace Dianzhu.DemoClient
         Message msg;
         public MessageBuilder Create(string from,string to,string body,string orderId)
         {
-            msg = new Message(
-                new Jid(to + "@" + GlobalViables.DomainName + "/" + Model.Enums.enum_XmppResource.YDBan_CustomerService)
-              , new Jid(from + "@" + GlobalViables.DomainName + "/" + Model.Enums.enum_XmppResource.YDBan_DemoClient)
-              , body
-              );
-          //  msg.SetNamespace("jabber:client");
+            msg = new Message(new Jid(to + "@" + GlobalViables.DomainName + "/" + Model.Enums.enum_XmppResource.YDBan_CustomerService)
+              , new Jid(from + "@" + GlobalViables.DomainName + "/" + Model.Enums.enum_XmppResource.YDBan_DemoClient), body);
             msg.SetAttribute("type", "chat");
             var nodeExt = new agsXMPP.Xml.Dom.Element("ext");
             var nodeOrder = new agsXMPP.Xml.Dom.Element("orderID",orderId);

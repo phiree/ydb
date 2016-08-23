@@ -10,9 +10,14 @@ using System.Web.Security;
 public partial class register : System.Web.UI.Page
 {
     BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-    
+
     protected void Page_Load(object sender, EventArgs e)
     {
+        if ( Request["customerService"].ToLower() == "true" )
+        {
+            doReg.Visible = false;
+        }
+
         if (Request["send"].ToLower() == "false")
         {
             lblSendError.Text = "验证邮件发送失败,您可以在账号安全页面重新发送<br/>";

@@ -46,6 +46,13 @@ namespace Dianzhu.CSClient.ViewWPF
             set { txtSearchStr.Text = value; }
         }
 
+        int orderPage = 1;
+        public int OrderPage
+        {
+            get { return orderPage; }
+            set { orderPage=value;}
+        }
+
         IList<ServiceOrder> orderList;
         public IList<ServiceOrder> OrderList
         {
@@ -209,6 +216,17 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void btnSearchByOrderId_Click(object sender, RoutedEventArgs e)
         {
+            ClearUCData();
+
+            if (string.IsNullOrEmpty(SearchStr))
+            {
+                foreach (ServiceOrder order in orderList)
+                {
+                    InsertOneOrder(order);
+                }
+                return;
+            }
+
             SearchOrderHistoryClick();
         }
 

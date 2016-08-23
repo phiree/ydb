@@ -15,7 +15,7 @@
 var test_data = [
     {
         "reqData": {
-            "message": "<message  to=\"4e2676e1-5561-11e6-b7f0-001a7dda7106@localhost/YDBan_CustomerService\" from=\"4d63d740-5561-11e6-b7f0-001a7dda7106@localhost/YDBan_DemoClient\" type=\"chat\" id=\"d0ae54ba-8be4-4881-b3d7-a3b3d643f4bf\"><body>ffffddd<\/body><active xmlns=\"http://jabber.org/protocol/chatstates\"/><ext xmlns=\"ihelper:chat:text\"><orderID>f7f0fdc2-3856-4e25-9b75-a65901436cab<\/orderID><\/ext><\/message>"
+            "message": "<message type=\"chat\" id=\"87fcbd7c-8ae4-4f19-9f57-1f2f6bc58692\" to=\"0e3e9327-7b82-407c-a92f-a64300fd03db@192.168.1.172/YDBan_DemoClient\" from=\"96dda06b-f9db-42ba-9b71-a64300c7cd6f@192.168.1.172/YDBan_CustomerService\"><body/><active xmlns=\"http://jabber.org/protocol/chatstates\"/><ext xmlns=\"ihelper:chat:orderobj\"><orderID>3b90a639-5462-403f-a1e0-a66b01139d35<\/orderID><svcObj svcID=\"6b9d84de-4dd4-48ce-b93b-a66700fa7ba4\" name=\"弹弹00\" type=\"弹棉花&gt;弹棉花\" startTime=\"20160830090000\"/><storeObj userID=\"258efa6a-e8e3-4bc5-8b24-a66700fa3c5e\" alias=\"测试店铺1\" imgUrl=\"\"/><\/ext><\/message>"
         },
         "protocol_CODE": "Chat001008"
     },
