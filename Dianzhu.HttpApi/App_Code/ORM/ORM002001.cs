@@ -23,6 +23,7 @@ public class ResponseORM002001 : BaseResponse
         ReqDataORM002001 requestData = this.request.ReqData.ToObject<ReqDataORM002001>();
 
         IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder  serialNoBuilder = Bootstrap.Container.Resolve<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>();
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLReceptionStatus bllReceptionStatus =      Bootstrap.Container.Resolve<BLLReceptionStatus>();
       
@@ -126,7 +127,9 @@ public class ResponseORM002001 : BaseResponse
                 
                 if (orderToReturn == null)
                 {
-                    orderToReturn = ServiceOrderFactory.CreateDraft(assignedPair[member], member);
+                
+                    string serialNoForOrder = serialNoBuilder.GetSerialNo("FW"+DateTime.Now.ToString("yyyyMMddHHmmssfff"));
+                    orderToReturn = ServiceOrderFactory.CreateDraft(assignedPair[member], member, serialNoForOrder);
 
                     bllServiceOrder.Save(orderToReturn);
                 }

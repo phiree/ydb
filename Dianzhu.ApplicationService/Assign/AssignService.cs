@@ -35,8 +35,8 @@ namespace Dianzhu.ApplicationService.Assign
             {
                 throw new FormatException("指派的员工ID不能为空！");
             }
-            Model.OrderAssignment oa= Mapper.Map<assignObj, Model.OrderAssignment>(assignobj);
-            Model.ServiceOrder order=ibllorder.GetOneOrder(utils.CheckGuidID(assignobj.orderID, "assignobj.orderID"),utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            Model.OrderAssignment oa = Mapper.Map<assignObj, Model.OrderAssignment>(assignobj);
+            Model.ServiceOrder order = ibllorder.GetOneOrder(utils.CheckGuidID(assignobj.orderID, "assignobj.orderID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (order == null)
             {
                 throw new Exception("该商户指派的订单不存在！");
@@ -45,7 +45,7 @@ namespace Dianzhu.ApplicationService.Assign
             {
                 throw new Exception("该订单已经指派！");
             }
-            Model.Staff staff = bllstaff.GetStaff(order.Business.Id,utils.CheckGuidID(assignobj.staffID, "assignobj.staffID"));
+            Model.Staff staff = bllstaff.GetStaff(order.Business.Id, utils.CheckGuidID(assignobj.staffID, "assignobj.staffID"));
             if (staff == null)
             {
                 throw new Exception("在指派订单所属的店铺中不存在该指派的员工！");
@@ -60,7 +60,7 @@ namespace Dianzhu.ApplicationService.Assign
             }
             staff.IsAssigned = true;
             oa.Enabled = true;
-            DateTime dt = DateTime.Now ;
+            DateTime dt = DateTime.Now;
             oa.CreateTime = dt;
             oa.AssignedTime = dt;
             oa.Order = order;
@@ -154,7 +154,7 @@ namespace Dianzhu.ApplicationService.Assign
             //{
             //    throw new Exception("指派的员工不在职！");
             //}
-            if (order.Staff.Id.ToString () != assignobj.staffID)
+            if (order.Staff.Id.ToString() != assignobj.staffID)
             {
                 throw new Exception("该订单指派的不是该员工！");
             }
@@ -176,7 +176,7 @@ namespace Dianzhu.ApplicationService.Assign
             //if (oa != null && oa.CreateTime == dt)
             //{
             //assignobj = Mapper.Map<Model.OrderAssignment, assignObj>(oa);
-            return "取消成功！";
+            return new string[] { "取消成功！" };
             //}
             //else
             //{

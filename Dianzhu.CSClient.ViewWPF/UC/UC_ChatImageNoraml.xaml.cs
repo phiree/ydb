@@ -29,8 +29,8 @@ namespace Dianzhu.CSClient.ViewWPF
         public UC_ChatImageNoraml(string name)
         {
             InitializeComponent();
-            //this.imgUri = new Uri(@"\Download\"+fileName,UriKind.Relative);
-            imgPath = PHSuit.DownloadSoft.DownloadPath + name;
+            //this.imgUri = new Uri(PHSuit.LocalFileManagement.FolderName +fileName,UriKind.Relative);
+            imgPath = PHSuit.LocalFileManagement.LocalFilePath + name;
             fileName = imgUri = name;
 
             if (!name.Contains(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")))
@@ -53,6 +53,40 @@ namespace Dianzhu.CSClient.ViewWPF
         private void img_MouseMove(object sender, MouseEventArgs e)
         {
             img.Cursor = Cursors.Hand;
+        }
+
+        public void ShowMask()
+        {
+            Action lamda = () =>
+            {
+                mask.Visibility = Visibility.Visible;
+
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
+        }
+
+        public void RemoveMask()
+        {
+            Action lamda = () =>
+            {
+                mask.Visibility = Visibility.Collapsed;
+
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
         }
 
         //private void gif_MediaEnded(object sender, RoutedEventArgs e)

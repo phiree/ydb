@@ -39,7 +39,7 @@
                                     注册成功
                                 </div>
                                 <div class="recovery-p">
-                                    恭喜你已经成功注册成为一点半用户。<a id="doReg" class="doReg" runat="server" href="/business/">进入管理页</a>
+                                    恭喜你已经成功注册成为一点半用户。<a id="doReg" class="doReg" href="/business/">进入管理页</a>
                                 </div>
                             </div>
                         </div>
@@ -56,15 +56,10 @@
     </div>
 </div>
 <script>
-    (function () {
-        if (!window.location.search.match("customerService")) {
-            document.getElementById("doReg").style.visibility = "hidden";
-
-            setTimeout(function () {
-                window.location.href = document.getElementById("doReg").getAttribute("href");
-            }, 3000);
-        } else {
-        }
+    (function (){
+        setTimeout(function(){
+            window.location.href = document.getElementById("doReg").getAttribute("href");
+        },3000);
     })()
 </script>
 </body>

@@ -19,11 +19,6 @@
                 <asp:Label ID="lblServiceBusinessName" runat="server" Text=""></asp:Label></td>
         </tr>
         <tr>
-            <td>商家电话：</td>
-            <td>
-                <asp:Label ID="lblServiceBusinessPhone" runat="server" Text=""></asp:Label></td>
-        </tr>
-        <tr>
             <td>商家描述：</td>
             <td>
                 <asp:Label ID="lblDescription" runat="server" Text=""></asp:Label></td>

@@ -11,7 +11,7 @@
     visibility: hidden ;
 
     // IE8 下css hack
-    //visibility: visible\0 ;
+    visibility: visible\9 ;
 
     //&[checked="checked"] + label,
     &:checked + label{
@@ -28,11 +28,10 @@
   label {
     display: block;
 
+    // IE8 下css hack
     width: 22px;
 
-    // IE8 下css hack
-    //width: 0 \0;
-
+    width: 0\9;
     height: 22px;
     margin-top: -11px;
     border-radius: 50%;
@@ -43,7 +42,7 @@
     background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 47%, #ededed 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
 
     box-shadow: 0 1px 1px 1px #848484;
     cursor: pointer;
@@ -59,7 +58,7 @@
       width: 70px;
 
       // IE8 下css hack
-      //width: 0 \0;
+      width: 0\9;
 
       height: 28px;
       border-radius: 14px;

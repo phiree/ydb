@@ -33,6 +33,9 @@ namespace Dianzhu.Model
                 case Enums.enum_ChatType.UserStatus:
                     chat = new ReceptionChatUserStatus();
                     break;
+                case enum_ChatType.PushedService:
+                    chat = new ReceptionChatPushService();
+                    break;
                 default:
                     chat= new ReceptionChat();
                     break;
@@ -104,7 +107,7 @@ namespace Dianzhu.Model
 
     /// <summary>
     /// 多媒体消息,
-    /// </summary>
+    ///
     public class ReceptionChatMedia : ReceptionChat
     {
        

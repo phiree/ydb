@@ -12,8 +12,7 @@
         //init xmpp conenction 
         //防止网站被iis喀嚓,导致发送通知的用户从openfire掉线.
         PHSuit.Logging.Config("Dianzhu.Web.Notify");
-        string host= System.Net.Dns.GetHostName();
-         PHSuit.HttpHelper. _SetupRefreshJob(8039);
+        //   PHSuit.HttpHelper. _SetupRefreshJob(HttpContext.Current.Request.UserHostAddress);
         string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
         string domain = Dianzhu.Config.Config.GetAppSetting("ImDomain");
 
@@ -114,6 +113,62 @@
     {
         //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
     }
-     
+    private static void _SetupRefreshJob()
+    {
+
+        //remove a previous job
+        log.Debug("Begin Refres");
+        Action remove = null;
+        if (HttpContext.Current != null)
+        {
+            remove = HttpContext.Current.Cache["Refresh"] as Action;
+        }
+        if (remove is Action)
+        {
+            HttpContext.Current.Cache.Remove("Refresh");
+            remove.EndInvoke(null);
+        }
+
+        //get the worker
+        Action work = () =>
+        {
+            while (true)
+            {
+                System.Threading.Thread.Sleep(1000*60*10);
+                System.Net.WebClient refresh = new System.Net.WebClient();
+                try
+                {
+                    log.Debug("    Begin request");
+                    refresh.UploadString("http://localhost:8039?refresh=1", string.Empty);
+                }
+                catch (Exception ex)
+                {
+
+                    log.Error(ex.Message);
+                }
+                finally
+                {
+                    refresh.Dispose();
+                }
+            }
+        };
+
+        log.Debug("Invoke.");
+        work.BeginInvoke(null, null);
+
+        //add this job to the cache
+        if (HttpContext.Current != null)
+        {
+            HttpContext.Current.Cache.Add(
+            "Refresh",
+            work,
+            null,
+            Cache.NoAbsoluteExpiration,
+            Cache.NoSlidingExpiration,
+            CacheItemPriority.Normal,
+            (s, o, r) => { _SetupRefreshJob(); }
+            );
+        }
+    }
 
 </script>

@@ -36,8 +36,7 @@ namespace Dianzhu.CSClient.Presenter
                 }
                 else
                 {
-                   log.Error("当前标志项大于1:" + identies.Count());
-                    return identies.First().Key;
+                    throw new Exception("当前标志项大于1:" + identies.Count());
                 }
             }
             set
@@ -71,11 +70,11 @@ namespace Dianzhu.CSClient.Presenter
         /// <summary>
         /// 通讯列表, bool 表示 是否是激活.
         /// </summary>
-        public static ConcurrentDictionary<ServiceOrder, bool> CurrentIdentityList
+        public static Dictionary<ServiceOrder, bool> CurrentIdentityList
         {
             get
             {
-                return currentIdentityList;// currentIdentityList.ToDictionary()
+                return null;// currentIdentityList.ToDictionary()
             }
 
         }

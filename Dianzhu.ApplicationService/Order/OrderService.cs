@@ -163,7 +163,7 @@ namespace Dianzhu.ApplicationService.Order
             IList<Model.ServiceOrder> order = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ServiceOrder");
             Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
-            order = ibllserviceorder.GetOrders(filter1, orderfilter.statusSort, orderfilter.status,guidStore,strStaffID, dtBefore, dtAfter,guidUser,customer.UserType,orderfilter.assign);
+            order = ibllserviceorder.GetOrders(filter1, orderfilter.statusSort, orderfilter.status,guidStore,strStaffID, dtAfter, dtBefore, guidUser,customer.UserType,orderfilter.assign);
 
             if (order == null)
             {
@@ -192,7 +192,7 @@ namespace Dianzhu.ApplicationService.Order
             DateTime dtBefore = utils.CheckDateTime(orderfilter.beforeThisTime, "yyyyMMddHHmmss", "orderfilter.beforeThisTime");
             countObj c = new countObj();
             Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
-            c.count = ibllserviceorder.GetOrdersCount(orderfilter.statusSort, orderfilter.status, guidStore, strStaffID, dtBefore, dtAfter, guidUser,customer.UserType, orderfilter.assign).ToString();
+            c.count = ibllserviceorder.GetOrdersCount(orderfilter.statusSort, orderfilter.status, guidStore, strStaffID, dtAfter, dtBefore,  guidUser,customer.UserType, orderfilter.assign).ToString();
             return c;
         }
 
@@ -452,7 +452,16 @@ namespace Dianzhu.ApplicationService.Order
             }
             //ReceptionAssigner ra = new ReceptionAssigner(imSession);
             linkManObj linkman = new linkManObj();
-            linkman.linkManID = order.OpenFireLinkMan.ToString();
+            //linkman.linkManID = order.OpenFireLinkMan;
+            string strIp = System.Web.HttpContext.Current.Request.Url.Host;//.Url.ToString();
+            if (order.OpenFireLinkMan == order.Business.Owner.Id.ToString())
+            {
+                linkman.linkManID = order.OpenFireLinkMan + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Store;
+            }
+            else
+            {
+                linkman.linkManID = order.OpenFireLinkMan + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Staff;
+            }
             return linkman;
 
             //string targetId = "";
@@ -597,7 +606,7 @@ namespace Dianzhu.ApplicationService.Order
                 //this.err_Msg = "该用户没有权限访问接口!";
                 //return;
             }
-            return "订单取消成功";
+            return new string[] { "订单取消成功" };
         }
 
         /// <summary>
@@ -830,43 +839,207 @@ namespace Dianzhu.ApplicationService.Order
         /// <param name="staffID"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public staffObj PatchForman(string orderID,string staffID,Customer customer)
+        public object PatchForman(string orderID,string staffID,Customer customer)
         {
-            Model.ServiceOrder order = null;
-            order = ibllserviceorder.GetOne(utils.CheckGuidID(orderID, "orderID"));
+            //Model.ServiceOrder order = null;
+            //order = ibllserviceorder.GetOne(utils.CheckGuidID(orderID, "orderID"));
+            //if (order == null)
+            //{
+            //    throw new Exception("该订单不存在!");
+            //}
+            //if (order.Business == null || order.Business.Owner.Id.ToString() != customer.UserID)
+            //{
+            //    throw new Exception("这不是你的订单!");
+            //}
+            //IList<OrderAssignment> assignment = bllOrderAssignment.GetOAListByOrder(order);
+            //if (assignment.Count == 0)
+            //{
+            //    throw new Exception("该订单还没有指派!");
+            //}
+            //int c =-1;
+            //for (int i = 0; i < assignment.Count; i++)
+            //{
+            //    if (assignment[i].AssignedStaff.Id.ToString() == staffID)
+            //    {
+            //        assignment[i].IsHeader = true;
+            //        order.Staff = assignment[i].AssignedStaff;
+            //        c = i;
+            //    }
+            //    else
+            //    {
+            //        assignment[i].IsHeader = false;
+            //    }
+            //}
+            //if (c == -1)
+            //{
+            //    throw new Exception("该订单没有指派过该员工!");
+            //}
+            //staffObj staffobj = Mapper.Map<Model.Staff, staffObj>(order.Staff);
+            //return staffobj;
+
+            if (string.IsNullOrEmpty(orderID))
+            {
+                throw new FormatException("改派的订单号不能为空！");
+            }
+            if (string.IsNullOrEmpty(staffID))
+            {
+                throw new FormatException("改派的员工ID不能为空！");
+            }
+            Model.ServiceOrder order = ibllserviceorder.GetOneOrder(utils.CheckGuidID(orderID, "orderID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (order == null)
             {
-                throw new Exception("该订单不存在!");
+                throw new Exception("该商户不存在该订单！");
             }
-            if (order.Business == null || order.Business.Owner.Id.ToString() != customer.UserID)
+            if (order.Staff == null)
             {
-                throw new Exception("这不是你的订单!");
+                throw new Exception("该订单还没有被指派过！");
             }
-            IList<OrderAssignment> assignment = bllOrderAssignment.GetOAListByOrder(order);
-            if (assignment.Count == 0)
+            if (order.OrderStatus == Model.Enums.enum_OrderStatus.Finished || order.OrderStatus == Model.Enums.enum_OrderStatus.Appraised)
             {
-                throw new Exception("该订单还没有指派!");
+                throw new Exception("该订单的服务已经完成，无法再改派！");
             }
-            int c =-1;
-            for (int i = 0; i < assignment.Count; i++)
+            if (order.Staff.Id.ToString() == staffID)
             {
-                if (assignment[i].AssignedStaff.Id.ToString() == staffID)
-                {
-                    assignment[i].IsHeader = true;
-                    order.Staff = assignment[i].AssignedStaff;
-                    c = i;
-                }
-                else
-                {
-                    assignment[i].IsHeader = false;
-                }
+                throw new Exception("改派给同一个人了！");
             }
-            if (c == -1)
+            Model.Staff staff = bllStaff.GetStaff(order.Business.Id, utils.CheckGuidID(staffID, "staffID"));
+            if (staff == null)
             {
-                throw new Exception("该订单没有指派过该员工!");
+                throw new Exception("该订单所属的店铺中不存在该指派的员工！");
             }
-            staffObj staffobj = Mapper.Map<Model.Staff, staffObj>(order.Staff);
-            return staffobj;
+            if (!staff.Enable)
+            {
+                throw new Exception("改派的员工不在职！");
+            }
+            if (staff.IsAssigned)
+            {
+                throw new Exception("改派的员工已经被指派过！");
+            }
+
+            Model.OrderAssignment oa = bllOrderAssignment.FindByOrderAndStaff(order, order.Staff);
+            if (oa == null || oa.Enabled == false)
+            {
+                throw new Exception("原指派不存在或已取消！");
+            }
+            order.Staff.IsAssigned = false;
+            staff.IsAssigned = true;
+            oa.AssignedStaff = staff;
+            order.Staff = staff;
+            DateTime dt = DateTime.Now;
+            oa.AssignedTime = dt;
+            return new string[] { "改派成功！" };
+        }
+
+        /// <summary>
+        /// 指派负责人
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="staffID"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public object PostForman(string orderID, string staffID, Customer customer)
+        {
+            if (string.IsNullOrEmpty(orderID))
+            {
+                throw new FormatException("指派的订单号不能为空！");
+            }
+            if (string.IsNullOrEmpty(staffID))
+            {
+                throw new FormatException("指派的员工ID不能为空！");
+            }
+            Model.OrderAssignment oa = new Model.OrderAssignment();//Mapper.Map<assignObj, Model.OrderAssignment>(assignobj);
+            Model.ServiceOrder order =ibllserviceorder.GetOneOrder(utils.CheckGuidID(orderID, "orderID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            if (order == null)
+            {
+                throw new Exception("该商户指派的订单不存在！");
+            }
+            if (order.Staff != null)
+            {
+                throw new Exception("该订单已经指派！");
+            }
+            Model.Staff staff = bllStaff.GetStaff(order.Business.Id, utils.CheckGuidID(staffID, "staffID"));
+            if (staff == null)
+            {
+                throw new Exception("在指派订单所属的店铺中不存在该指派的员工！");
+            }
+            if (!staff.Enable)
+            {
+                throw new Exception("指派的员工不在职！");
+            }
+            if (staff.IsAssigned)
+            {
+                throw new Exception("指派的员工已经被指派过！");
+            }
+            staff.IsAssigned = true;
+            oa.Enabled = true;
+            DateTime dt = DateTime.Now;
+            oa.CreateTime = dt;
+            oa.AssignedTime = dt;
+            oa.Order = order;
+            oa.AssignedStaff = staff;
+            order.Staff = staff;
+            //oa.Order.Details[0].Staff.Clear();
+            //oa.Order.Details[0].Staff.Add(staff);
+            bllOrderAssignment.Save(oa);
+            return new string[] { "指派成功！" };
+            //bllstaff.Update(staff);
+            //oa = bllassign.GetAssignById(oa.Id);
+            //if (oa != null && oa.CreateTime == dt)
+            //{
+            //assignobj = Mapper.Map<Model.OrderAssignment, assignObj>(oa);
+            //return assignobj;
+            //}
+            //else
+            //{
+            //    throw new Exception("新建失败");
+            //}
+        }
+
+        /// <summary>
+        /// 取消指派
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="staffID"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public object DeleteForman(string orderID, string staffID, Customer customer)
+        {
+            if (string.IsNullOrEmpty(orderID))
+            {
+                throw new FormatException("取消指派的订单号不能为空！");
+            }
+            if (string.IsNullOrEmpty(staffID))
+            {
+                throw new FormatException("取消指派的员工ID不能为空！");
+            }
+            Model.ServiceOrder order =ibllserviceorder.GetOneOrder(utils.CheckGuidID(orderID, "orderID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            if (order == null)
+            {
+                throw new Exception("该商户不存在该订单！");
+            }
+            if (order.Staff == null)
+            {
+                throw new Exception("该订单还没有被指派过！");
+            }
+            if (order.OrderStatus == Model.Enums.enum_OrderStatus.Finished || order.OrderStatus == Model.Enums.enum_OrderStatus.Appraised)
+            {
+                throw new Exception("该订单的服务已经完成，无法再取消指派！");
+            }
+            if (order.Staff.Id.ToString() != staffID)
+            {
+                throw new Exception("该订单指派的不是该员工！");
+            }
+            Model.OrderAssignment oa =bllOrderAssignment.FindByOrderAndStaff(order, order.Staff);
+            if (oa == null || oa.Enabled == false)
+            {
+                throw new Exception("该指派不存在或已取消！");
+            }
+            order.Staff.IsAssigned = false;
+            oa.Enabled = false;
+            DateTime dt = DateTime.Now;
+            oa.DeAssignedTime = dt;
+            order.Staff = null;
+            return new string[] { "取消成功！" };
         }
     }
 }

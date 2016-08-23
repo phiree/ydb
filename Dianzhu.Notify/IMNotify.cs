@@ -21,16 +21,16 @@ namespace Dianzhu.NotifyCenter
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
         private Dianzhu.CSClient.IInstantMessage.InstantMessage im = null;
         IDALMembership dalMembership;
-        
+        BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder;
         Dianzhu.BLL.ReceptionAssigner assigner;
         IDALReceptionStatus dalReceptionStatus;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="im">通讯接口</param>
-        public IMNotify(InstantMessage im,IDALMembership dalMembership , IDALReceptionStatus dalReceptionStatus,ReceptionAssigner assigner)
+        public IMNotify(InstantMessage im,IDALMembership dalMembership , IDALReceptionStatus dalReceptionStatus,ReceptionAssigner assigner, BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder)
         {
-         
+            this.serialNoBuilder = serialNoBuilder;
             this.dalMembership = dalMembership;
             this.im = im;
             this.dalReceptionStatus = dalReceptionStatus;
@@ -74,22 +74,45 @@ namespace Dianzhu.NotifyCenter
             orderObj.SetAttribute("type", order.Service == null ? string.Empty : order.Service.ServiceType.Name);
             extNode.AddChild(orderObj);
 
-            ags.Message msg= BuildNotice(
+            //发送给客户
+            ags.Message msg = BuildNotice(
                  order.Customer.Id + "@" + im.Domain,
                  "订单状态已变为:" + order.GetStatusTitleFriendly(order.OrderStatus),
                  extNode
                  );
-            //发送给客户
-            
             im.SendMessage(msg.ToString());
 
+            //发送给客服.
             ags.Message msgForCS = BuildNotice(
                   order.CustomerService.Id + "@" + im.Domain,
                   "订单状态已变为:" + order.OrderStatus,
                   extNode
                   );
-            //发送给客服.
             im.SendMessage(msgForCS.ToString());
+
+            //发送给商户
+            if (order.Business == null)
+            {
+                return;
+            }
+            ags.Message msgToBusiness = BuildNotice(
+                 order.Business.Id + "@" + im.Domain,
+                 "订单状态已变为:" + order.GetStatusTitleFriendly(order.OrderStatus),
+                 extNode
+                 );
+            im.SendMessage(msgToBusiness.ToString());
+
+            //发送给指派的员工
+            if (order.Staff == null)
+            {
+                return;
+            }
+            ags.Message msgToStaff = BuildNotice(
+                 order.Staff.Id + "@" + im.Domain,
+                 "订单状态已变为:" + order.GetStatusTitleFriendly(order.OrderStatus),
+                 extNode
+                 );
+            im.SendMessage(msgToBusiness.ToString());
         }
         /// <summary>
         /// 促销消息
@@ -161,7 +184,8 @@ namespace Dianzhu.NotifyCenter
  
                 if (order.OrderStatus != enum_OrderStatus.Draft)
                 {
-                    ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(r.Value,r.Key);
+                    string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
+                    ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(r.Value,r.Key, serialNoForOrder);
  
                     order = newOrder;
                 }

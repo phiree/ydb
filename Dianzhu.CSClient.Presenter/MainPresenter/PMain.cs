@@ -257,18 +257,17 @@ namespace Dianzhu.CSClient.Presenter
                 case Model.Enums.enum_ChatType.Notice:
                 case Model.Enums.enum_ChatType.ConfirmedService:
                 case Model.Enums.enum_ChatType.Order:
-                    viewMainForm.FlashTaskBar();
                     break;
 
                 case Model.Enums.enum_ChatType.PushedService:
                     errMsg = "错误.客服工具不可能收到 PushedService类型的message.";
                     log.Error(errMsg);
-                    break;
+                    throw new NotImplementedException(errMsg);
 
                 case Model.Enums.enum_ChatType.ReAssign:
                     errMsg = "错误.客服工具不可能收到 ReAssign类型的message.";
                     log.Error(errMsg);
-                    break;
+                    throw new NotImplementedException(errMsg);
 
                 case Model.Enums.enum_ChatType.UserStatus:
                     //ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
@@ -286,7 +285,7 @@ namespace Dianzhu.CSClient.Presenter
                 default:
                     errMsg = "尚未实现这种聊天类型:" + chat.ChatType;
                     log.Error(errMsg);
-                    return;
+                    throw new NotImplementedException(errMsg);
 
             }
         }

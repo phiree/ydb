@@ -19,7 +19,7 @@ namespace Dianzhu.Model
         {
             
         }
-        public ServiceOrderDetail(DZService service,int unitAmount,string targetAddress,DateTime targetTime)
+        public ServiceOrderDetail(DZService service,int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress,DateTime targetTime)
         {
             OriginalService = service;
             this.ServieSnapShot = service.GetServiceSnapShot();
@@ -28,6 +28,8 @@ namespace Dianzhu.Model
             this.ServiceOpentimeSnapshot = service.GetServiceOpenTimeSnapshot(targetTime);
 
             this.UnitAmount = unitAmount ;
+            this.TargetCustomerName = targetCustomerName;
+            this.TargetCustomerPhone = targetCustomerPhone;
             this.TargetAddress = targetAddress;
             this.TargetTime = targetTime;
              
@@ -54,6 +56,14 @@ namespace Dianzhu.Model
         /// 购买数量
         /// </summary>
         public virtual int UnitAmount { get; set; }
+        /// <summary>
+        /// 目标用户名称
+        /// </summary>
+        public virtual string TargetCustomerName { get; set; }
+        /// <summary>
+        /// 目标用户电话
+        /// </summary>
+        public virtual string TargetCustomerPhone { get; set; }
         /// <summary>
         /// 客户要求的服务地址
         /// </summary>
