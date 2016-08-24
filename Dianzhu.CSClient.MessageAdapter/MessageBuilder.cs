@@ -83,7 +83,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             message.SetAttribute("type", "headline");
             return this;
         }
-        public MessageBuilder BuildPushedService(string svcID, string svcName,string svcType,string startTime,string userId,string alias,string imgUrl)
+        public MessageBuilder BuildPushedService(string svcID, string svcName,string svcType,string startTime,string userId,string alias,string imgUrl,string customerPhone, string customerName, string customerAddress)
         {
             extNode.Namespace = "ihelper:chat:orderobj";
             var svcObj = new agsXMPP.Xml.Dom.Element("svcObj");
@@ -105,6 +105,13 @@ namespace Dianzhu.CSClient.MessageAdapter
             storeObj.SetAttribute("alias", alias);
             storeObj.SetAttribute("imgUrl", imgUrl);
             extNode.AddChild(storeObj);
+
+            var customerObj = new agsXMPP.Xml.Dom.Element("customerObj");
+
+            customerObj.SetAttribute("customerPhone", customerPhone);
+            customerObj.SetAttribute("customerName", customerName);
+            customerObj.SetAttribute("customerAddress", customerAddress);
+            extNode.AddChild(customerObj);
             return this;
         }
 
