@@ -16,9 +16,11 @@ namespace Dianzhu.ApplicationService.User
     public class UserService:IUserService
     {
         DZMembershipProvider dzmsp;
-        public UserService(DZMembershipProvider dzmsp)
+        BLL.Client.BLLUserToken bllUserToken;
+        public UserService(DZMembershipProvider dzmsp, BLL.Client.BLLUserToken bllUserToken)
         {
             this.dzmsp = dzmsp;
+            this.bllUserToken = bllUserToken;
         }
 
         /// <summary>
@@ -94,18 +96,18 @@ namespace Dianzhu.ApplicationService.User
         /// <returns></returns>
         public object PostUser(Common_Body userBody, string userType)
         {
-            if ((userBody.phone == null || userBody.phone == "") && (userBody.email == null || userBody.email == ""))
+            if (string.IsNullOrEmpty(userBody.phone) && string.IsNullOrEmpty(userBody.email))
             {
-                throw new FormatException("手机号码或手机至少一个不能没空！");
+                throw new FormatException("手机号码或邮箱至少一个不能没空！");
             }
-            if (userBody.pWord == null || userBody.pWord == "")
+            if (!string.IsNullOrEmpty(userBody.pWord))
             {
                 throw new FormatException("密码不能没空！");
             }
-            if (userBody.phone != null && userBody.phone != "")
+            if (!string.IsNullOrEmpty(userBody.phone))
             {
                 Regex reg = new Regex(@"^1[3578]\d{9}$");
-                if (userBody.phone.Length != 11 || reg.IsMatch(userBody.phone))
+                if (userBody.phone.Length != 11 || !reg.IsMatch(userBody.phone))
                 {
                     throw new FormatException("手机号码格式错误！");
                 }
@@ -187,7 +189,7 @@ namespace Dianzhu.ApplicationService.User
         {
             if (userChangeBody.oldPassWord != null && userChangeBody.oldPassWord != "")
             {
-                throw new FormatException("旧密码不能没空！");
+                throw new FormatException("原密码不能没空！");
             }
             Guid guidUser = utils.CheckGuidID(userID, "userID");
             Dianzhu.Model.DZMembership dzm = dzmsp.GetUserById(guidUser);
@@ -197,34 +199,41 @@ namespace Dianzhu.ApplicationService.User
             }
             if (dzm.PlainPassword != userChangeBody.oldPassWord)
             {
-                throw new Exception("密码错误！");
+                throw new Exception("原密码错误！");
             }
-            if (userChangeBody.alias != null && userChangeBody.alias != "")
+            if (!string.IsNullOrEmpty(userChangeBody.alias))
             {
                 dzm.NickName = userChangeBody.alias;
             }
-            if (userChangeBody.email != null && userChangeBody.email != "")
+            if (!string.IsNullOrEmpty(userChangeBody.email))
             {
                 dzm.Email = userChangeBody.email;
             }
-            if (userChangeBody.phone != null && userChangeBody.phone != "")
+            if (!string.IsNullOrEmpty(userChangeBody.phone))
             {
                 dzm.Phone = userChangeBody.phone;
             }
-            if (userChangeBody.address != null && userChangeBody.address != "")
+            if (!string.IsNullOrEmpty(userChangeBody.address))
             {
                 dzm.Address = userChangeBody.address;
             }
-            if (userChangeBody.sex != null && userChangeBody.sex != "")
+            if (!string.IsNullOrEmpty(userChangeBody.sex))
             {
                 //dzm.Address = userChangeBody.sex;
             }
-            if (userChangeBody.newPassWord != null && userChangeBody.newPassWord != "")
+            if (!string.IsNullOrEmpty(userChangeBody.newPassWord))
             {
                 if (!dzm.ChangePassword(userChangeBody.oldPassWord, userChangeBody.newPassWord))
                 {
                     throw new Exception("密码错误!");
                 }
+                System.Runtime.Caching.MemoryCache.Default.Remove(dzm.Id.ToString());
+                Model.UserToken usertoken=bllUserToken.GetToken(dzm.Id.ToString());
+                usertoken.Flag = 0;
+                //Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.token, Flag = 0, CreatedTime = DateTime.Now };
+                //UserToken ut = usertoken.GetToken(member.Id.ToString());
+                //ut.Flag = 0;
+                //usertoken.Update(ut);
             }
             DateTime dt = DateTime.Now;
             dzm.LastLoginTime = dt;

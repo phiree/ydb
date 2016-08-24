@@ -36,11 +36,13 @@ namespace Dianzhu.BLL
         IDALMembership DALMembership = null;
         IEncryptService encryptService;
         IEmailService emailService;
+        IDALUserToken usertoken;
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL.DZMembershipProvider");
-        public DZMembershipProvider(IDALMembership dal, IEncryptService encryptService, IEmailService emailService) {
+        public DZMembershipProvider(IDALMembership dal, IEncryptService encryptService, IEmailService emailService, IDALUserToken usertoken) {
             DALMembership = dal;
             this.encryptService = encryptService;
             this.emailService = emailService;
+            this.usertoken = usertoken;
         }
 
         #region override of membership provider
@@ -73,6 +75,12 @@ namespace Dianzhu.BLL
 
             member.ChangePassword(oldPassword, newPassword);
             DALMembership.Update(member);
+
+            System.Runtime.Caching.MemoryCache.Default.Remove(member.Id.ToString());
+            UserToken ut = usertoken.GetToken(member.Id.ToString());
+            ut.Flag = 0;
+            usertoken.Update(ut);
+
             return true;
         }
 

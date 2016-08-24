@@ -17,6 +17,11 @@ namespace Dianzhu.BLL.Client
             this.dalusertoken = dalusertoken;
         }
 
+        /// <summary>
+        /// 修改token
+        /// </summary>
+        /// <param name="usertoken"></param>
+        /// <returns></returns>
         public bool addToken(UserToken usertoken)
         {
             var where = PredicateBuilder.True<UserToken>();
@@ -46,6 +51,11 @@ namespace Dianzhu.BLL.Client
                 return true;
             }
             return false;
+        }
+
+        public UserToken GetToken(string userID)
+        {
+            return dalusertoken.GetToken(userID);
         }
     }
 }

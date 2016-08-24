@@ -121,6 +121,9 @@ namespace Dianzhu.Model
             else {
                 this.Password = encryptedNewPsw;
                 this.PlainPassword = newPassword;
+
+
+
                 return true;
             }
 
