@@ -66,13 +66,17 @@ namespace Dianzhu.BLL
             }
             if (!string.IsNullOrEmpty(type))
             {
-                if (type == "pushOrder")
+                switch (type)
                 {
-                    where = where.And(x => x.GetType() == typeof(ReceptionChatPushService));
-                }
-                else
-                {
-                    where = where.And(x => x.GetType() == typeof(ReceptionChatMedia) && ((ReceptionChatMedia)x).MediaType== type);
+                    case "pushOrder":
+                        where = where.And(x => x.ChatType == enum_ChatType.PushedService);
+                        break;
+                    case "chat":
+                        where = where.And(x => x.ChatType == enum_ChatType.Text);
+                        break;
+                    default:
+                        where = where.And(x => x.ChatType == enum_ChatType.Media && ((ReceptionChatMedia)x).MediaType == type);
+                        break;
                 }
             }
             if (userType == "customer" || userType == "customerservice")
@@ -144,13 +148,17 @@ namespace Dianzhu.BLL
             }
             if (type != null && type != "")
             {
-                if (type == "pushOrder")
+                switch (type)
                 {
-                    where = where.And(x => x.GetType() == typeof(ReceptionChatPushService));
-                }
-                else
-                {
-                    where = where.And(x => x.GetType() == typeof(ReceptionChatMedia) && ((ReceptionChatMedia)x).MediaType == type);
+                    case "pushOrder":
+                        where = where.And(x => x.ChatType == enum_ChatType.PushedService);
+                        break;
+                    case "chat":
+                        where = where.And(x => x.ChatType == enum_ChatType.Text);
+                        break;
+                    default:
+                        where = where.And(x => x.ChatType == enum_ChatType.Media && ((ReceptionChatMedia)x).MediaType == type);
+                        break;
                 }
             }
             if (userType == "customer" || userType == "customerservice")
