@@ -162,7 +162,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.orderID, opt => opt.MapFrom(source => source.ServiceOrder.Id))
             .ForMember(x => x.body, opt => opt.MapFrom(source => source.GetType() == typeof(Model.ReceptionChatMedia)? string.IsNullOrEmpty(((Model.ReceptionChatMedia)source).MedialUrl)?"": Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")+ ((Model.ReceptionChatMedia)source).MedialUrl : source.MessageBody))
             .ForMember(x => x.type, opt => opt.MapFrom(source => source.ChatType.ToString()))
-            .ForMember(x => x.sendTime, opt => opt.MapFrom(source => source.SendTime == DateTime.MinValue ? "" : source.SendTime.ToString("yyyyMMddHHmmss")))
+            .ForMember(x => x.sendTime, opt => opt.MapFrom(source => source.SavedTime == DateTime.MinValue ? "" : source.SavedTime.ToString("yyyyMMddHHmmss")))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.ServiceOrder, orderObj>()
