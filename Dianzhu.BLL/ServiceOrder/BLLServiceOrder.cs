@@ -173,7 +173,7 @@ namespace Dianzhu.BLL
             }
             if(!string.IsNullOrEmpty(status))
             {
-                where = where.And(x => x.OrderStatus.ToString() == status);
+                where = where.And(x => x.OrderStatus == (enum_OrderStatus)Enum.Parse(typeof(enum_OrderStatus), status) );
             }
             //Dianzhu.Model.Enums.enum_OrderSearchType searchType
             switch (statusSort)//switch (searchType)
@@ -279,7 +279,7 @@ namespace Dianzhu.BLL
             }
             if (!string.IsNullOrEmpty(status))
             {
-                where = where.And(x => x.OrderStatus.ToString() == status);
+                where = where.And(x => x.OrderStatus == (enum_OrderStatus)Enum.Parse(typeof(enum_OrderStatus), status));
             }
             //Dianzhu.Model.Enums.enum_OrderSearchType searchType
             switch (statusSort)//switch (searchType)

@@ -389,28 +389,28 @@ namespace Dianzhu.BLL
         /// <param name="platform"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        public IList<DZMembership> GetUsers(Model.Trait_Filtering filter, string name, string email, string phone,string platform,string userType)
+        public IList<DZMembership> GetUsers(Model.Trait_Filtering filter, string name, string email, string phone, string platform,string userType)
         {
             var where = PredicateBuilder.True<DZMembership>();
-            where = where.And(x => x.UserType.ToString() == userType);
-            if (name != null && name !="")
+            where = where.And(x => x.UserType == (Model.Enums.enum_UserType)Enum.Parse(typeof(Model.Enums.enum_UserType), userType));
+            if (!string.IsNullOrEmpty(name))
             {
                 where = where.And(x => x.DisplayName .Contains(name));
             }
-            if (email != null && email != "")
+            if (!string.IsNullOrEmpty(email))
             {
                 where = where.And(x => x.Email == email);
             }
-            if (phone != null && phone != "")
+            if (!string.IsNullOrEmpty(phone))
             {
                 where = where.And(x => x.Phone == phone);
             }
-            if (platform != null && platform != "")
+            if (!string.IsNullOrEmpty(platform))
             {
-                where = where.And(x => x.PlatForm.ToString() == platform);
+                where = where.And(x => x.PlatForm == (Model.Enums.enum_PlatFormType)Enum.Parse(typeof(Model.Enums.enum_PlatFormType), platform));
             }
             DZMembership baseone = null;
-            if (filter.baseID != null && filter.baseID != "")
+            if (!string.IsNullOrEmpty(filter.baseID))
             {
                 try
                 {
@@ -438,22 +438,22 @@ namespace Dianzhu.BLL
         public long GetUsersCount(string name, string email, string phone, string platform, string userType)
         {
             var where = PredicateBuilder.True<DZMembership>();
-            where = where.And(x => x.UserType.ToString() == userType);
-            if (name != null && name != "")
+            where = where.And(x => x.UserType == (Model.Enums.enum_UserType)Enum.Parse(typeof(Model.Enums.enum_UserType), userType));
+            if (!string.IsNullOrEmpty(name))
             {
                 where = where.And(x => x.DisplayName.Contains(name));
             }
-            if (email != null && email != "")
+            if (!string.IsNullOrEmpty(email))
             {
                 where = where.And(x => x.Email == email);
             }
-            if (phone != null && phone != "")
+            if (!string.IsNullOrEmpty(phone))
             {
                 where = where.And(x => x.Phone == phone);
             }
-            if (platform != null && platform != "")
+            if (!string.IsNullOrEmpty(platform))
             {
-                where = where.And(x => x.PlatForm.ToString() == platform);
+                where = where.And(x => x.PlatForm == (Model.Enums.enum_PlatFormType)Enum.Parse(typeof(Model.Enums.enum_PlatFormType), platform));
             }
             long count = DALMembership.GetRowCount(where);
             return count;

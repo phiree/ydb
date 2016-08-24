@@ -82,18 +82,18 @@ namespace Dianzhu.ApplicationService.Order
                     }
                 }
                 orderobj.serviceSnapshotObj.tag = strTag.TrimEnd(',');
-                orderobj.contactobj.address = serviceorder.Details[0].TargetAddress;
-                orderobj.contactobj.alias = serviceorder.Details[0].TargetCustomerName ?? "";
-                orderobj.contactobj.phone = serviceorder.Details[0].TargetCustomerPhone ?? "";
+                orderobj.contactObj.address = serviceorder.Details[0].TargetAddress;
+                orderobj.contactObj.alias = serviceorder.Details[0].TargetCustomerName ?? "";
+                orderobj.contactObj.phone = serviceorder.Details[0].TargetCustomerPhone ?? "";
             }
             else
             {
                 IList<Model.ServiceOrderPushedService> dzs = bllpushservice.GetPushedServicesForOrder(serviceorder);
                 if (dzs.Count > 0)
                 {
-                    orderobj.contactobj.address = dzs[0].TargetAddress;
-                    orderobj.contactobj.alias = dzs[0].TargetCustomerName ?? "";
-                    orderobj.contactobj.phone = dzs[0].TargetCustomerPhone ?? "";
+                    orderobj.contactObj.address = dzs[0].TargetAddress;
+                    orderobj.contactObj.alias = dzs[0].TargetCustomerName ?? "";
+                    orderobj.contactObj.phone = dzs[0].TargetCustomerPhone ?? "";
                     orderobj.serviceTime = dzs[0].TargetTime.ToString("yyyyMMddHHmmss");
                     orderobj.serviceSnapshotObj = Mapper.Map<Model.ServiceOrderPushedService, serviceSnapshotObj>(dzs[0]);
                     if (dzs[0].OriginalService != null && dzs[0].OriginalService.Business != null)

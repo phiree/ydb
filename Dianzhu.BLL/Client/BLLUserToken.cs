@@ -33,6 +33,7 @@ namespace Dianzhu.BLL.Client
                 dalusertoken.Update(usertokenOld);
             }
             dalusertoken.Add(usertoken);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             usertoken = dalusertoken.FindById(usertoken.Id);
             if (usertoken == null)
             {
