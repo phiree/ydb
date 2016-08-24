@@ -135,9 +135,9 @@ namespace PHSuit
                 return true;
             return false;
         }
-        public static void _SetupRefreshJob(string refreshurl)
+        public static void _SetupRefreshJob(int port)
         {
-
+            string refreshUrl = "http://localhost:" + port + "/?refresh=1";
             //remove a previous job
             log.Debug("Begin Refres");
             Action remove = null;
@@ -156,12 +156,12 @@ namespace PHSuit
             {
                 while (true)
                 {
-                    System.Threading.Thread.Sleep(1000*60*10);
+                    System.Threading.Thread.Sleep(1000*60*1);
                     System.Net.WebClient refresh = new System.Net.WebClient();
                     try
                     {
                         log.Debug("    Begin request");
-                        refresh.UploadString(refreshurl+"?refresh=1", string.Empty);
+                        refresh.UploadString(refreshUrl, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -188,36 +188,11 @@ namespace PHSuit
                 Cache.NoAbsoluteExpiration,
                 Cache.NoSlidingExpiration,
                 CacheItemPriority.Normal,
-                (s, o, r) => { _SetupRefreshJob(refreshurl); }
+                (s, o, r) => { _SetupRefreshJob(port); }
                 );
             }
         }
 
     }
-    public static class FirstRequestInitialisation
-    {
-        private static string host = null;
-        private static Object s_lock = new Object();
-
-        // Initialise only on the first request
-        public static void Initialise(HttpContext context)
-        {
-            
-            if (string.IsNullOrEmpty(host))
-            {
-                lock (s_lock)
-                {
-                    if (string.IsNullOrEmpty(host))
-                    {
-                        var uri = context.Request.Url;
-                        host = uri.GetLeftPart(UriPartial.Authority);
-
-                        PHSuit.HttpHelper._SetupRefreshJob(host);
-                    }
-                }
-            }
-
-
-        }
-    }
+     
 }

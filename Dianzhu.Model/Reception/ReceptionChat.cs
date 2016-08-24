@@ -107,7 +107,7 @@ namespace Dianzhu.Model
 
     /// <summary>
     /// 多媒体消息,
-    ///
+    /// </summary>
     public class ReceptionChatMedia : ReceptionChat
     {
        
@@ -148,6 +148,7 @@ namespace Dianzhu.Model
         public ReceptionChatPushService()
         {
             this.ChatType = enum_ChatType.PushedService;
+            PushedServices = new List<ServiceOrderPushedService>();
         }
         public virtual ServiceOrderPushedService PushedService { get; set; }
         public virtual IList<ServiceOrderPushedService> PushedServices { get; set; }

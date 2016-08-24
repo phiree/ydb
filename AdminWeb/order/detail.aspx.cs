@@ -35,17 +35,18 @@ public partial class order_detail : BasePage
 
         lblTitle.Text = serviceorder.Title;
         lblServiceBusinessName.Text = serviceorder.ServiceBusinessName;
+        lblServiceBusinessPhone.Text = serviceorder.ServiceBusinessPhone;
         lblDescription.Text = serviceorder.Description;
         lblCustomer.Text = serviceorder.Customer.UserName;
         lblCustomerService.Text = serviceorder.CustomerService.UserName;
         lblOrderCreated.Text = serviceorder.OrderCreated.ToString("yyyy-MM-dd HH:mm:ss");
-        lblOrderConfirmTime.Text = serviceorder.OrderConfirmTime.ToString("yyyy-MM-dd HH:mm:ss");
+        lblOrderConfirmTime.Text = serviceorder.OrderConfirmTime.ToString("yyyy-MM-dd HH:mm:ss") == "0001-01-01 00:00:00" ? "" : serviceorder.OrderConfirmTime.ToString("yyyy-MM-dd HH:mm:ss");
         lblLatestOrderUpdated.Text = serviceorder.LatestOrderUpdated.ToString("yyyy-MM-dd HH:mm:ss");
-        lblOrderFinished.Text = serviceorder.OrderFinished.ToString("yyyy-MM-dd HH:mm:ss");
-        lblOrderServerStartTime.Text = serviceorder.OrderServerStartTime.ToString("yyyy-MM-dd HH:mm:ss");
-        lblOrderServerFinishedTime.Text = serviceorder.OrderServerFinishedTime.ToString("yyyy-MM-dd HH:mm:ss");
+        lblOrderFinished.Text = serviceorder.OrderFinished.ToString("yyyy-MM-dd HH:mm:ss") == "0001-01-01 00:00:00" ? "" : serviceorder.OrderFinished.ToString("yyyy-MM-dd HH:mm:ss");
+        lblOrderServerStartTime.Text = serviceorder.OrderServerStartTime.ToString("yyyy-MM-dd HH:mm:ss") == "0001-01-01 00:00:00" ? "" : serviceorder.OrderServerStartTime.ToString("yyyy-MM-dd HH:mm:ss");
+        lblOrderServerFinishedTime.Text = serviceorder.OrderServerFinishedTime.ToString("yyyy-MM-dd HH:mm:ss") == "0001-01-01 00:00:00" ? "" : serviceorder.OrderServerFinishedTime.ToString("yyyy-MM-dd HH:mm:ss");
         lblMemo.Text = serviceorder.Memo;
-        lblOrderStatus.Text = serviceorder.OrderStatus.ToString();
+        lblOrderStatus.Text = serviceorder.GetStatusTitleFriendly(serviceorder.OrderStatus);
         lblTargetAddress.Text = serviceorder.TargetAddress;
         lblTargetTime.Text = serviceorder.TargetTime;
         //lblStaff.Text = serviceorder.Staff.ToArray().ToString();
@@ -67,10 +68,10 @@ public partial class order_detail : BasePage
         {
             lblStaff.Text = serviceorder.Staff.Name;
         }
-        lblUnitAmount.Text = serviceorder.UnitAmount.ToString();
-        lblOrderAmount.Text = serviceorder.OrderAmount.ToString();
-        lblDepositAmount.Text = serviceorder.DepositAmount.ToString();
-        lblNegotiateAmount.Text = serviceorder.NegotiateAmount.ToString();
+        lblUnitAmount.Text = serviceorder.UnitAmount.ToString("f2");
+        lblOrderAmount.Text = serviceorder.OrderAmount.ToString("f2");
+        lblDepositAmount.Text = serviceorder.DepositAmount.ToString("f2");
+        lblNegotiateAmount.Text = serviceorder.NegotiateAmount.ToString("f2");
         BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
         Payment payment = bllPayment.GetOne(id);
         if (payment == null)

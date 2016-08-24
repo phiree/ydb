@@ -7098,7 +7098,6 @@ a.time-trigger:hover {
 }
 .round-checkbox input[type=checkbox] {
   visibility: hidden ;
-  visibility: visible\9 ;
 }
 .round-checkbox input[type=checkbox]:checked + label {
   left: 45px;
@@ -7112,7 +7111,6 @@ a.time-trigger:hover {
 .round-checkbox label {
   display: block;
   width: 22px;
-  width: 0\9;
   height: 22px;
   margin-top: -11px;
   border-radius: 50%;
@@ -7126,8 +7124,6 @@ a.time-trigger:hover {
   /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=0);
-  /* IE6-9 */
   box-shadow: 0 1px 1px 1px #848484;
   cursor: pointer;
   position: absolute;
@@ -7141,7 +7137,6 @@ a.time-trigger:hover {
   top: 0;
   content: "开启";
   width: 70px;
-  width: 0\9;
   height: 28px;
   border-radius: 14px;
   background: #939393;

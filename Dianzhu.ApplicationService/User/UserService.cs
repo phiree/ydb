@@ -120,19 +120,29 @@ namespace Dianzhu.ApplicationService.User
                  userBody.pWord,
                  out createStatus,
                  usertype);
-            Dianzhu.Model.DZMembership dzm = dzmsp.GetUserById(newMember.Id);
-            if (dzm == null)
+            if (createStatus == System.Web.Security.MembershipCreateStatus.DuplicateUserName)
+            {
+                throw new Exception("该手机号码用户已存在!");
+            }
+            else if (createStatus != System.Web.Security.MembershipCreateStatus.Success)
             {
                 throw new Exception("注册失败!");
             }
+            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            //Dianzhu.Model.DZMembership dzm = dzmsp.GetUserById(newMember.Id);
+            //if (dzm == null)
+            //{
+            //    throw new Exception("注册失败!");
+            //}
+
             if (userType == "customer")
             {
-                customerObj customerobj = Mapper.Map<Dianzhu.Model.DZMembership, customerObj>(dzm);
+                customerObj customerobj = Mapper.Map<Dianzhu.Model.DZMembership, customerObj>(newMember);
                 return customerobj;
             }
             else
             {
-                merchantObj merchantobj = Mapper.Map<Dianzhu.Model.DZMembership, merchantObj>(dzm);
+                merchantObj merchantobj = Mapper.Map<Dianzhu.Model.DZMembership, merchantObj>(newMember);
                 return merchantobj;
             }
         }
