@@ -44,7 +44,7 @@ namespace Dianzhu.DAL
             }
             if (name.Trim() != string.Empty)
             {
-                where += " and service.Name = '" + name + "'";
+                where += " and service.Name like '%" + name + "%'";
             }
             if (serviceTypeId != Guid.Empty)
             {
