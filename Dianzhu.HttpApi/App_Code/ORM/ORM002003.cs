@@ -95,19 +95,22 @@ public class ResponseORM002003 : BaseResponse
               
                 Guid targetId = Guid.Empty;
                 IList<OrderAssignment> orderAssList = bllOrderAssignment.GetOAListByOrder(order);
+                string type = string.Empty;
                 if (orderAssList.Count > 0)
                 {
                     targetId = orderAssList[0].AssignedStaff.Id;
+                    type = enum_XmppResource.YDBan_Staff.ToString();
                 }
                 else
                 {
                     targetId = order.Details[0].OriginalService.Business.Owner.Id;
+                    type = enum_XmppResource.YDBan_Store.ToString();
                 }
                
 
                 RespDataORM002003 respData = new RespDataORM002003();
                 RespDataORM_storeObj storeObj = new RespDataORM_storeObj().Adap(order.Details[0].OriginalService.Business);
-                respData.targetID = targetId.ToString();
+                respData.targetID = targetId.ToString() + "@" + Dianzhu.Config.Config.GetAppSetting("ImDomain") + "/" + type;
                 respData.storeObj = storeObj;
                 
                 this.RespData = respData;
