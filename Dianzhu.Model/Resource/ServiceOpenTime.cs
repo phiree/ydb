@@ -65,7 +65,7 @@ namespace Dianzhu.Model
         {
             var timeItems = OpenTimeForDay.Where(x => x.IsIn(datetime));
             int c = timeItems.Count();
-            string errMsg = "给定时间没有对应的时间项";
+            string errMsg = "给定时间没有对应的时间项,传入时间为:"+datetime;
             System.Diagnostics.Debug.Assert(c == 1, errMsg);
             if (c !=1)
             {

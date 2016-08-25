@@ -8,7 +8,8 @@ using Dianzhu.BLL;
 using agsXMPP.protocol.client;
 using System.Xml;
 using agsXMPP.Xml.Dom;
- 
+using System.Globalization;
+
 namespace Dianzhu.CSClient.MessageAdapter
 {
     /// <summary>
@@ -188,9 +189,15 @@ namespace Dianzhu.CSClient.MessageAdapter
                     var serviceId = ext_element.SelectSingleElement("svcObj").GetAttribute("svcID");
                     var service = dalService.FindById(new Guid(serviceId));
                     var startTime= ext_element.SelectSingleElement("svcObj").GetAttribute("startTime");
-                    DateTime startTimeObj;
-                    bool isValidDateTime= DateTime.TryParse(startTime, out startTimeObj);
-                    ServiceOrderPushedService pushService = new ServiceOrderPushedService(existedServiceOrder,service,1,string.Empty,string.Empty, string.Empty,startTimeObj);
+                    // targetCustomerName,string targetCustomerPhone, string targetAddress
+                    var customerName = ext_element.SelectSingleElement("customerObj").GetAttribute("customerName");
+                    var customerPhone = ext_element.SelectSingleElement("customerObj").GetAttribute("customerPhone");
+                    var customerAddress = ext_element.SelectSingleElement("customerObj").GetAttribute("customerAddress");
+                    var customerStartTime = ext_element.SelectSingleElement("customerObj").GetAttribute("customerStartTime");
+                   
+                    DateTime startTimeObj = DateTime.ParseExact(startTime, "yyyyMMddhhmmss", CultureInfo.InvariantCulture);
+                   
+                    ServiceOrderPushedService pushService = new ServiceOrderPushedService(existedServiceOrder,service,1,customerName,customerPhone, customerAddress,startTimeObj);
 
                     ((ReceptionChatPushService)chat).PushedServices.Add(pushService);
                 }
@@ -280,6 +287,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                     break;
                 case enum_ChatType.PushedService:
                     extNode.Namespace = "ihelper:chat:orderobj";
+
                     var svcObj = new agsXMPP.Xml.Dom.Element("svcObj");
                     ReceptionChatPushService chatPushService = (ReceptionChatPushService)chat;
                     ServiceOrderPushedService service = chatPushService.PushedServices[0];
@@ -288,6 +296,16 @@ namespace Dianzhu.CSClient.MessageAdapter
                     svcObj.SetAttribute("type", service.OriginalService.ServiceType.ToString());
                     svcObj.SetAttribute("startTime", service.TargetTime.ToString("yyyyMMddHHmmss"));
                     extNode.AddChild(svcObj);
+
+
+                    var customerObj = new    agsXMPP.Xml.Dom.Element("customerObj");
+                    customerObj.SetAttribute("customerPhone", service.TargetCustomerPhone);
+                    customerObj.SetAttribute("customerName", service.TargetCustomerName);
+                    customerObj.SetAttribute("customerAddress", service.TargetAddress);
+                    customerObj.SetAttribute("customerStartTime", service.TargetTime.ToString());
+                    extNode.AddChild(customerObj);
+                   
+                   
 
                     /* "storeObj": {
                      "userID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
@@ -336,6 +354,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             string xpathMsgObj =xpathExt+ "/*[local-name()='msgObj']";
             string xpathSvcObj = xpathExt + "/*[local-name()='svcObj']";
             string xpathStoreObj = xpathExt + "/*[local-name()='storeObj']";
+            string xpathCustomerObj = xpathExt + "/*[local-name()='customerObj']";
 
             var extNode = doc.SelectSingleNode(xpathExt);
             string body = doc.SelectSingleNode(xpathBody).InnerText;
@@ -374,7 +393,12 @@ namespace Dianzhu.CSClient.MessageAdapter
                     string alias = storeObj.Attributes["alias"].Value;
                     string imgUrl = storeObj.Attributes["imgUrl"].Value;
 
-                    builder = builder.BuildPushedService(svcID, svcName, svcType, startTime, userId, alias, imgUrl);
+                    var customerObj = doc.SelectSingleNode(xpathCustomerObj);
+                    string customerName = customerObj.Attributes["customerName"].Value;
+                    string customerPhone= customerObj.Attributes["customerPhone"].Value;
+                    string customerAddress = customerObj.Attributes["customerAddress"].Value;
+
+                    builder = builder.BuildPushedService(svcID, svcName, svcType, startTime, userId, alias, imgUrl,customerPhone,customerName,customerAddress);
                     break;
                 default:
                     ilog.Error("不需要处理的命名空间:" + extNameSpace);break;
