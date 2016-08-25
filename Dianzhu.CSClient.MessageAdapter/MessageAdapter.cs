@@ -19,7 +19,7 @@ namespace Dianzhu.CSClient.MessageAdapter
     /// </summary>
     public class MessageAdapter : IMessageAdapter.IAdapter
     {
-
+       
         IDAL.IDALServiceOrder dalOrder;
         IDAL.IDALMembership dalMembership;
         IDAL.IDALIMUserStatus dalIMUserStatus;
@@ -110,6 +110,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                 ilog.Error("未知的资源名称：" + message.From.Resource);
             }
 
+
             Guid toUser;
             bool isToUser = Guid.TryParse(message.To.User, out toUser);
             if (isToUser)
@@ -129,7 +130,22 @@ namespace Dianzhu.CSClient.MessageAdapter
             {
                 ilog.Error("接收用户的id有误，发送用户id为：" + message.From.User + "发送用户资源名为：" + message.From.Resource);
             }
-            
+
+            if (chat.ToResource == enum_XmppResource.YDBan_Store || chat.FromResource == enum_XmppResource.YDBan_Store)
+            {
+                chat.ChatTarget = enum_ChatTarget.store;
+            }
+            else if (chat.FromResource == enum_XmppResource.YDBan_CustomerService || chat.ToResource == enum_XmppResource.YDBan_CustomerService
+                || chat.FromResource == enum_XmppResource.YDBan_DianDian || chat.ToResource == enum_XmppResource.YDBan_DianDian
+                )
+            {
+                chat.ChatTarget = enum_ChatTarget.cer;
+            }
+            else
+            {
+                ilog.Warn("CharTarget未保存 warn:" + chat.FromResource + ";" + chat.ToResource);   
+            }
+             
 
             Guid messageId;
             if (Guid.TryParse(message.Id, out messageId))
@@ -206,7 +222,8 @@ namespace Dianzhu.CSClient.MessageAdapter
                 }
                 else
                 {
-                   throw new Exception("未被处理的类型");
+                    ilog.Error("未被处理的类型");
+                //   throw new Exception("未被处理的类型");
                 }
             }
             catch (Exception e)
