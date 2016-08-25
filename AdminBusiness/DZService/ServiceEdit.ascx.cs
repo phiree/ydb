@@ -53,12 +53,11 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
             if (!IsNew)
             {
                 LoadForm();
-                tbxTag.Visible = false;
+                newTagBox.Visible = false;
             }
             else
             {
                 dzTag.Visible = false;
-                
             }
         }
 
@@ -86,11 +85,10 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     {
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
-           
-             
-           
+
         }
     }
+
     public void LoadForm()
     {
         tbxDescription.Text = CurrentService.Description;
@@ -204,13 +202,13 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     {
         if(IsNew)
         {
-            string[] tags = tbxTag.Text.Split(' ');
+            string[] tags = tbxTag.Value.Split(' ');
             foreach(string tag in tags)
             {
                 if (string.IsNullOrEmpty(tag) || string.IsNullOrWhiteSpace(tag))
                 { continue; }
-        bllTag.AddTag(tag, CurrentService.Id.ToString(), CurrentService.Business.Id.ToString(),
-            CurrentService.ServiceType.Id.ToString());
+                bllTag.AddTag(tag, CurrentService.Id.ToString(), CurrentService.Business.Id.ToString(),
+                CurrentService.ServiceType.Id.ToString());
             }
         }
     }
