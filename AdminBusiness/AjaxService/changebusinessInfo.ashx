@@ -5,10 +5,16 @@ using System.Web;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using System.Web.Security;
-public class changepassword : IHttpHandler {
+public class changepassword : IHttpHandler,System.Web.SessionState.IRequiresSessionState {
 
     DZMembershipProvider dzp = Bootstrap.Container.Resolve<DZMembershipProvider>();
     public void ProcessRequest (HttpContext context) {
+        //权限判断
+        if (context.Session["UserName"]==null)
+        {
+            context.Response.Write("{\"result\":\""+false+"\",\"msg\":\"unlogin\"}");
+            return;
+        }
 
         Action ac = () => { 
         context.Response.ContentType = "application/json";
