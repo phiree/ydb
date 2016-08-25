@@ -129,9 +129,9 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// </summary>
         /// <param name="id"></param>
         /// <param name="orderobj"></param>
-        /// <returns></returns>
+        /// <returns></returns>negotiate
         [Route("api/v1/orders/{orderID}/negotiateAmount")]
-        public IHttpActionResult PatchOrderPrice(string id, [FromBody]orderObj orderobj)
+        public IHttpActionResult PatchOrderPrice(string orderID, [FromBody]orderObj orderobj)
         {
             try
             {
@@ -139,7 +139,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     orderobj = new orderObj();
                 }
-                return Json(iorder.PatchOrderPrice(id, orderobj, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}/negotiateAmount")) ?? new object());
+                return Json(iorder.PatchOrderPrice(orderID, orderobj, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}/negotiateAmount")) ?? new object());
             }
             catch (Exception ex)
             {
