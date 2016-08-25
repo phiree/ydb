@@ -29,7 +29,14 @@ public class ResponseCHAT001008:BaseResponse
             ReqDataCHAT001008 requestData = this.request.ReqData.ToObject<ReqDataCHAT001008>();
 
             ReceptionChat chat = messageAdapter.RawXmlToChat(requestData.message);
-            dalChat.Add(chat);
+            if (chat.FromResource != enum_XmppResource.YDBan_DianDian)
+            {
+                dalChat.Add(chat);
+            }
+            else
+            {
+                Log.Info("点点自动发出的消息不保存");
+            }
             this.state_CODE = Dicts.StateCode[0];
             this.RespData = "true";
         }

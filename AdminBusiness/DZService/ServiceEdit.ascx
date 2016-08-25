@@ -256,12 +256,15 @@
                                                     <div class="row model-form-group">
                                                         <div class="col-md-4 model-label-lg">服务标签</div>
                                                         <div class="col-md-8 model-input">
-                                                            <div>
-                                                                <asp:TextBox CssClass="input-fluid" runat="server" ID="tbxTag"></asp:TextBox>
+                                                            <div id="newTagBox" runat="server" >
+                                                                <p>
+                                                                    <input type="hidden" id="tbxTag" value="" class="input-fluid" runat="server" />
+                                                                    <input type="text" id="addTagNew" class="input-fluid spTagInput m-b10" placeholder="添加新标签" />
+                                                                    <input type="button" id="ipTagAddNew" class="btn btn-info" value="添加标签" />
+                                                                </p>
+                                                                <p id="ipTagContainerNew"></p>
                                                             </div>
-                                                            <div runat="server" id="dvTag">
-                                                                <DZ:Tag runat="server" ID="dzTag" />
-                                                            </div>
+                                                            <DZ:Tag runat="server" ID="dzTag" />
                                                             <p class="cont-input-tip input-tip-fluid"><i class="icon icon-tip"></i>添加该服务的特色标签，多个标签用空格隔开</p>
                                                         </div>
                                                     </div>
