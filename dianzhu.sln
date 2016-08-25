@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSClient", "CSClient", "{8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}"
 EndProject
@@ -210,6 +210,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminBusiness", "AdminBusin
 		VWDVirtualPath = "/"
 		SlnRelativePath = "AdminBusiness\"
 		DefaultWebSiteLanguage = "Visual C#"
+		StartServerOnDebug = "true"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Pay", "Dianzhu.Pay\Dianzhu.Pay.csproj", "{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}"

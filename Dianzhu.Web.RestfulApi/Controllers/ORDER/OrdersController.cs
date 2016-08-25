@@ -125,6 +125,29 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         }
 
         /// <summary>
+        /// 修改订单价格
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="orderobj"></param>
+        /// <returns></returns>
+        [Route("api/v1/orders/{orderID}/negotiateAmount")]
+        public IHttpActionResult PatchOrderPrice(string id, [FromBody]orderObj orderobj)
+        {
+            try
+            {
+                if (orderobj == null)
+                {
+                    orderobj = new orderObj();
+                }
+                return Json(iorder.PatchOrderPrice(id, orderobj, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}/negotiateAmount")) ?? new object());
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
         /// 获得订单所包含的推送服务
         /// </summary>
         /// <param name="orderID"></param>

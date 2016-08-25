@@ -5,11 +5,18 @@ using System.Web;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
-public class FileUploader : IHttpHandler {
+public class FileUploader : IHttpHandler,System.Web.SessionState.IRequiresSessionState {
 
     BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
     BLLBusinessImage bllBusinessImage =Bootstrap.Container.Resolve<BLLBusinessImage>();
     public void ProcessRequest (HttpContext context) {
+        //权限判断
+        if (context.Session["UserName"]==null)
+        {
+            context.Response.Write("{\"result\":\""+false+"\",\"msg\":\"unlogin\"}");
+            return;
+        }
+
         if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
         {
                 NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
