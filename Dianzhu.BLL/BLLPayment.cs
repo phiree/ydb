@@ -214,11 +214,11 @@ namespace Dianzhu.BLL
             }
             if (payStatus != null && payStatus != "")
             {
-                where = where.And(x => x.Status.ToString() == payStatus);
+                where = where.And(x => x.Status == (Model.Enums.enum_PaymentStatus)Enum.Parse(typeof(Model.Enums.enum_PaymentStatus), payStatus));
             }
             if (payType != null && payType != "")
             {
-                where = where.And(x => x.PayTarget.ToString() == payType);
+                where = where.And(x => x.PayTarget == (Model.Enums.enum_PayTarget)Enum.Parse(typeof(Model.Enums.enum_PayTarget), payType));
             }
             Payment baseone = null;
             if (filter.baseID != null && filter.baseID != "")
@@ -259,11 +259,11 @@ namespace Dianzhu.BLL
             }
             if (payStatus != null && payStatus != "")
             {
-                where = where.And(x => x.Status.ToString() == payStatus);
+                where = where.And(x => x.Status == (Model.Enums.enum_PaymentStatus)Enum.Parse(typeof(Model.Enums.enum_PaymentStatus), payStatus));
             }
             if (payType != null && payType != "")
             {
-                where = where.And(x => x.PayTarget.ToString() == payType);
+                where = where.And(x => x.PayTarget == (Model.Enums.enum_PayTarget)Enum.Parse(typeof(Model.Enums.enum_PayTarget), payType));
             }
             long count = dal.GetRowCount(where);
             return count;

@@ -12,13 +12,13 @@ namespace Dianzhu.ApplicationService.Staff
         BLL.BLLBusiness bllBusiness;
         BLL.BLLStaff bllStaff;
         BLL.DZMembershipProvider DZM;
-        BLL.BLLOrderAssignment bllAssignment;
+       public static BLL.BLLOrderAssignment bllAssignment;
         public StaffService(BLL.BLLBusiness bllBusiness, BLL.BLLStaff bllStaff, BLL.DZMembershipProvider DZM, BLL.BLLOrderAssignment bllAssignment)
         {
             this.bllBusiness = bllBusiness;
             this.bllStaff = bllStaff;
             this.DZM = DZM;
-            this.bllAssignment = bllAssignment;
+            StaffService.bllAssignment = bllAssignment;
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Dianzhu.ApplicationService.Staff
         /// </summary>
         /// <param name="servicesobj"></param>
         /// <param name="dzservice"></param>
-        void changeObj(staffObj staffobj, Model.Staff staff)
+        public static void changeObj(staffObj staffobj, Model.Staff staff)
         {
             staffobj.storeData.storeID = staff.Belongto.Id.ToString();
             IList<Model.OrderAssignment> listAssignment = bllAssignment.GetOAListByStaff(staff);

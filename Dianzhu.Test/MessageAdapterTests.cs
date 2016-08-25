@@ -23,13 +23,30 @@ namespace Dianzhu.CSClient.MessageAdapter.Tests
             string rawXml = "<message xmlns=\"jabber:client\" to=\"4e2676e1-5561-11e6-b7f0-001a7dda7106@localhost/YDBan_CustomerService\" id=\"eb6ecbc6-6979-42b8-b449-a1b7c7ae5ce0\" from=\"272be8b3-100c-423c-83e2-a63d012dd455@localhost/YDBan_DemoClient\"><body>97</body><active xmlns=\"http://jabber.org/protocol/chatstates\" /><ext xmlns=\"ihelper:chat:text\"><orderID>bed76b1b-fe4a-4a90-abbd-a65b0129b1d9</orderID></ext></message>";
             MessageAdapter ma = new MessageAdapter();
 
-          ReceptionChat chat=  ma.RawXmlToChat(rawXml);
+            ReceptionChat chat = ma.RawXmlToChat(rawXml);
             Assert.AreEqual(chat.To, "4e2676e1-5561-11e6-b7f0-001a7dda7106");
         }
         [Test()]
         public void RawXmlToChatTest_MediaChat()
         {
-            string rawXml = "<message xmlns=\"jabber:client\" to=\"4e2676e1-5561-11e6-b7f0-001a7dda7106@localhost/YDBan_CustomerService\" id=\"eb6ecbc6-6979-42b8-b449-a1b7c7ae5ce0\" from=\"272be8b3-100c-423c-83e2-a63d012dd455@localhost/YDBan_DemoClient\"><body>97</body><active xmlns=\"http://jabber.org/protocol/chatstates\" /><ext xmlns=\"ihelper:chat:text\"><orderID>bed76b1b-fe4a-4a90-abbd-a65b0129b1d9</orderID></ext></message>";
+            /*
+             <message xmlns=""jabber:client"" from=""05a8aefd-6a9b-11e6-b78a-001a7dda7106@localhost/YDBan_User"" to=""05ad9bf7-6a9b-11e6-b78a-001a7dda7106@localhost"" type=""chat"">
+  <body />
+  <active xmlns=""http://jabber.org/protocol/chatstates"" />
+  <ext xmlns=""ihelper:chat:media"">
+    <orderID>cfe31a94-83a3-45fc-a468-a595009e0e4a</orderID>
+    <msgObj type=""image"" url=""http://localhost:8038/GetFile.ashx?fileName=_$_85f591ba-ebcc-41ab-b093-3ab31ca56609_$_ChatImage_$_image"" />
+  </ext>
+</message>
+             */
+            string rawXml = @"<message xmlns=""jabber:client"" from=""05a8aefd-6a9b-11e6-b78a-001a7dda7106@localhost/YDBan_User"" to=""05ad9bf7-6a9b-11e6-b78a-001a7dda7106@localhost"" type=""chat"">
+  <body />
+  <active xmlns=""http://jabber.org/protocol/chatstates"" />
+  <ext xmlns=""ihelper:chat:media"">
+    <orderID>cfe31a94-83a3-45fc-a468-a595009e0e4a</orderID>
+    <msgObj type=""image"" url=""http://localhost:8038/GetFile.ashx?fileName=_$_85f591ba-ebcc-41ab-b093-3ab31ca56609_$_ChatImage_$_image"" />
+  </ext>
+</message>";
             MessageAdapter ma = new MessageAdapter();
 
             ReceptionChat chat = ma.RawXmlToChat(rawXml);
@@ -80,7 +97,7 @@ namespace Dianzhu.CSClient.MessageAdapter.Tests
             ReceptionChat chat = ma.RawXmlToChat(rawXml);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-            Assert.AreEqual(typeof(ReceptionChatPushService),chat.GetType());
+            Assert.AreEqual(typeof(ReceptionChatPushService), chat.GetType());
 
 
         }

@@ -321,7 +321,7 @@ namespace Dianzhu.ApplicationService
         /// 服务对象
         /// </summary>
         /// <type>customerServicesObj</type>
-        public contactObj contactobj
+        public contactObj contactObj
         {
             get
             {

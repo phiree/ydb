@@ -6,10 +6,18 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 using System.IO;
-public class FileUploader : IHttpHandler {
+public class FileUploader : IHttpHandler,System.Web.SessionState.IRequiresSessionState {
 
     BLLBusinessImage bllBusinessImage =Bootstrap.Container.Resolve<BLLBusinessImage>();
     public void ProcessRequest (HttpContext context) {
+        //权限判断
+        if (context.Session["UserName"]==null)
+        {
+            context.Response.Write("{\"result\":\""+false+"\",\"msg\":\"unlogin\"}");
+            return;
+        }
+
+
         context.Response.ContentType = "text/plain";
         
         HttpFileCollection files = context.Request.Files;

@@ -4,11 +4,17 @@ using System;
 using System.Web;
 using Dianzhu.Model;
 using Dianzhu.BLL;
-public class TagHandler : IHttpHandler
+public class TagHandler : IHttpHandler,System.Web.SessionState.IRequiresSessionState
 {
 
     public void ProcessRequest(HttpContext context)
     {
+        //权限判断
+        if (context.Session["UserName"]==null)
+        {
+            context.Response.Write("{\"result\":\""+false+"\",\"msg\":\"unlogin\"}");
+            return;
+        }
 
         context.Response.ContentType = "text/plain";
 
