@@ -13,7 +13,7 @@ public partial class register : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if ( Request["customerService"].ToLower() == "true" )
+        if ( !String.IsNullOrEmpty(Request["customerService"]) && Request["customerService"].ToLower() == "true" )
         {
             doReg.Visible = false;
         }
