@@ -140,11 +140,15 @@ namespace Dianzhu.CSClient.ViewWPF
             this.Dispatcher.Invoke((Action)(() =>
             {
                 NHibernateUnitOfWork.UnitOfWork.Start();
-                //Action ac = () =>
-                //{
-                    e.Result = PushServices(new List<DZService>() { (DZService)e.Argument });
-                //};
-                //NHibernateUnitOfWork.With.Transaction(ac);
+
+                string errorMsg = string.Empty;
+                e.Result = PushServices(new List<DZService>() { (DZService)e.Argument },out errorMsg);
+
+                if (!string.IsNullOrEmpty(errorMsg))
+                {
+                    MessageBox.Show(errorMsg);
+                }
+
                 NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }));
@@ -221,6 +225,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void btnPush_Click(object sender, RoutedEventArgs e)
         {
+            string errorMsg = string.Empty;
             IList<DZService> services = new List<DZService>();
             foreach (Panel p in pnlSearchResult.Children)
             {
@@ -236,7 +241,7 @@ namespace Dianzhu.CSClient.ViewWPF
                     }
                 }
             }
-            PushServices(services);
+            PushServices(services,out errorMsg);
             
         }
 

@@ -51,7 +51,7 @@ namespace Dianzhu.CSClient.IView
     }
    
     public delegate void SelectService(DZService selectedService);
-    public delegate ReceptionChat PushServices(IList<DZService> pushedServices);
+    public delegate ReceptionChat PushServices(IList<DZService> pushedServices,out string errorMsg);
     public delegate void PushServiceTimerSend();
     public delegate void FilterByBusinessName(string businessName);
 
