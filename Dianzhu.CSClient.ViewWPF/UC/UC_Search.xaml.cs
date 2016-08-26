@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
 using System.ComponentModel;
 using System.Threading;
+using Newtonsoft.Json;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -42,10 +43,23 @@ namespace Dianzhu.CSClient.ViewWPF
             set { tbxKeywordPhone.Text = value; }
         }
 
-        public string ServiceAddress
+        TargetAddressObj serviceTargetAddressObj;        
+        public string ServiceTargetAddress
         {
-            get { return tbxKeywordAddress.Text.Trim(); }
-            set { tbxKeywordAddress.Text = value; }
+            get
+            {
+                return tbxKeywordAddress.Text.Trim();
+            }
+            set
+            {
+                serviceTargetAddressObj = JsonConvert.DeserializeObject<TargetAddressObj>(value);
+
+                tbxKeywordAddress.Text = serviceTargetAddressObj.address.province
+                                        + serviceTargetAddressObj.address.city
+                                        + serviceTargetAddressObj.address.district
+                                        + serviceTargetAddressObj.address.street
+                                        + serviceTargetAddressObj.address.streetNumber;
+            }
         }
 
         public int UnitAmount
@@ -158,13 +172,17 @@ namespace Dianzhu.CSClient.ViewWPF
             SearchKeywordPriceMin = 0;
             SearchKeywordPriceMax = 0;
             ServiceCustomerPhone = string.Empty;
-            ServiceAddress = string.Empty;
+            ServiceTargetAddress = string.Empty;
             UnitAmount = 1;
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            if (SearchKeywordTime < DateTime.Now)
+            if (serviceTargetAddressObj == null)
+            {
+                MessageBox.Show("请点击地图获取地址");
+            }
+            else if (SearchKeywordTime < DateTime.Now)
             {
                 MessageBox.Show("预约时间不得小于当前时间!");
             }
@@ -187,7 +205,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 this.btnSearch.Content = "正在搜索......";
                 this.btnSearch.IsEnabled = false;
-                this.viewSearchResult.LoadingText = "正在搜索服务,请稍后";
+                //this.viewSearchResult.LoadingText = "正在搜索服务,请稍后";
 
                 selectedType = (Model.ServiceType)(
                                     cbxSearchTypeT.SelectedItem == null||cbxSearchTypeT.IsVisible==false ? 
@@ -210,7 +228,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 NHibernateUnitOfWork.UnitOfWork.Start();
                 //Action ac = () =>
                 //{
-                    Search(targetTime, minPrice, maxPrice, selectedType.Id, serviceName);
+                    Search(targetTime, minPrice, maxPrice, selectedType.Id, serviceName, serviceTargetAddressObj.point.lng, serviceTargetAddressObj.point.lat);
                 //};
                 //NHibernateUnitOfWork.With.Transaction(ac);
 
@@ -283,5 +301,26 @@ namespace Dianzhu.CSClient.ViewWPF
                 }
             }
         }
+    }
+
+    public class TargetAddressObj
+    {
+        public TargetAddressObjPoint point { get; set; }
+        public TargetAddressObjAddress address { get; set; }
+    }
+
+    public class TargetAddressObjPoint
+    {
+        public string lng { get; set; }
+        public string lat { get; set; }
+    }
+
+    public class TargetAddressObjAddress
+    {
+        public string streetNumber { get; set; }
+        public string street { get; set; }
+        public string district { get; set; }
+        public string city { get; set; }
+        public string province { get; set; }
     }
 }

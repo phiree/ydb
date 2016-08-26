@@ -29,7 +29,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             InitializeComponent();
         }
-
+        
         public event IdentityClick IdentityClick;
         public event FinalChatTimerTick FinalChatTimerTick;
 
@@ -38,24 +38,18 @@ namespace Dianzhu.CSClient.ViewWPF
             Action lambda = () =>
             {
                 string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-                //Button btnIdentity =(Button) pnlIdentityList.FindName(ctrlName);
+
                 UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
-                //if (btnIdentity == null)
+
                 if (ucIdentity == null)
                 {
-                    //btnIdentity = new Button { Content = serviceOrder.Customer.DisplayName };
                     ucIdentity = new UC_Customer(serviceOrder);
-                    //btnIdentity.Tag = serviceOrder;
                     ucIdentity.btnCustomer.Tag = serviceOrder;
-
-                    //btnIdentity.Name = ctrlName;
                     ucIdentity.Name = ctrlName;
-                    //btnIdentity.Click += BtnIdentity_Click;
                     ucIdentity.btnCustomer.Click += BtnIdentity_Click;
                     ucIdentity.IdleTimerOut += UcIdentity_IdleTimerOut;
-                    //pnlIdentityList.Children.Add(btnIdentity);
+
                     pnlIdentityList.Children.Add(ucIdentity);
-                    //pnlIdentityList.RegisterName(btnIdentity.Name, btnIdentity);
                     pnlIdentityList.RegisterName(ucIdentity.Name, ucIdentity);
                 }
             };
@@ -266,16 +260,13 @@ namespace Dianzhu.CSClient.ViewWPF
             Action lambda = () =>
             {
                 string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-                //Button btnIdentity = (Button)pnlIdentityList.FindName(ctrlName);
+
                 UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
-                //if (btnIdentity != null)
                 if (ucIdentity != null)
                 {
-                    //pnlIdentityList.Children.Remove(btnIdentity);
                     if (pnlIdentityList.Children.Contains(ucIdentity))
                     {
                         pnlIdentityList.Children.Remove(ucIdentity);
-                        //pnlIdentityList.UnregisterName(btnIdentity.Name);
                         pnlIdentityList.UnregisterName(ucIdentity.Name);
                     }                    
                 }
