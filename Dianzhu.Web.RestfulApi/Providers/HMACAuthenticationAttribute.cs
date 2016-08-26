@@ -220,7 +220,7 @@ namespace Dianzhu.Web.RestfulApi
             }
 
             ilog.Debug("Request(RequestUri):" + req.RequestUri.AbsolutePath.ToLower());
-            if (req.Method == HttpMethod.Post && (req.RequestUri.AbsolutePath.ToLower() == "/api/v1/authorization" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customers" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/merchants"))
+            if (req.Method == HttpMethod.Post && (req.RequestUri.AbsolutePath.ToLower() == "/api/v1/authorization" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customers" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/merchants" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customer3rds"))
             { }
             else
             {
