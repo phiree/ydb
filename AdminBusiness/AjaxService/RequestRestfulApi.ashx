@@ -23,8 +23,8 @@ public class RequestRestfulApi : IHttpHandler,System.Web.SessionState.IRequiresS
                 //context.Response.Write("unlogin");
                 //context.Response.StatusCode=401;
                 //context.Response.StatusDescription="Unauthorized";
-                //context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"unlogin\"}");
-                //return;
+                context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"unlogin\"}");
+                return;
             }
 
             //string strUser = context.Session["UserName"].ToString();
