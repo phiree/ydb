@@ -173,6 +173,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.doneTime, opt => opt.MapFrom(source => source.OrderServerFinishedTime == DateTime.MinValue ? "" : source.OrderServerFinishedTime.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.updateTime, opt => opt.MapFrom(source => source.LatestOrderUpdated == DateTime.MinValue ? "" : source.LatestOrderUpdated.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.notes, opt => opt.MapFrom(source => source.Memo))
+            .ForMember(x => x.title, opt => opt.MapFrom(source => source.SerialNo))
             .ForMember(x => x.serviceAddress, opt => opt.MapFrom(source => source.TargetAddress))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
