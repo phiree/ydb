@@ -107,6 +107,22 @@ namespace PHSuit
             Assert.AreEqual("12:02", StringHelper.ConvertPeriodToTimeString(722));
             Assert.AreEqual("12:59", StringHelper.ConvertPeriodToTimeString(779));
         }
+        [Test]
+        public void RegexSplitTest()
+        {
+            string patter = "-{3,}";
+            string input = @"--abcde---
+                         sdafa----awer--";
+           string[] result= StringHelper.RegexSpliter(patter, input);
+            Assert.AreEqual(3, result.Length);
+            Assert.AreEqual("--abcde", result[0]);
+            Assert.AreEqual(@"
+                         sdafa", result[1]);
+            string input2 = "abc";
+            string[] result2 = StringHelper.RegexSpliter(patter, input2);
+            Assert.AreEqual(1, result2.Length);
+            Assert.AreEqual("abc", result2[0]);
+        }
     }
 
     [TestFixture]

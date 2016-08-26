@@ -86,7 +86,7 @@ namespace Dianzhu.DAL.Mapping
     {
         public ReceptionChatPushServiceMap()
         {
-            HasMany(x => x.PushedServices);
+            HasMany(x => x.PushedServices).Cascade.All();
         }
     }
 

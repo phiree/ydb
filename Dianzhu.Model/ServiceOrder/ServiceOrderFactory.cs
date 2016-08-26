@@ -10,9 +10,9 @@ namespace Dianzhu.Model
     /// </summary>
     public class ServiceOrderFactory
     {
-        public static ServiceOrder CreateDraft(DZMembership customerService,DZMembership customer)
+        public static ServiceOrder CreateDraft(DZMembership customerService,DZMembership customer,string serialNo)
         {
-            ServiceOrder order = new Model.ServiceOrder { CustomerService=customerService,Customer= customer };
+            ServiceOrder order = new Model.ServiceOrder { CustomerService=customerService,Customer= customer,SerialNo=serialNo };
             return order;
             
         }

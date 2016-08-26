@@ -4,7 +4,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div class="content">
         <div class="content-head normal-head">
-            <h3>服务货架</h3>
+            <h3>服务货架 - <%= CurrentService.Name %></h3>
         </div>
         <div class="content-main">
             <div class="container-fluid">

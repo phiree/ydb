@@ -5,10 +5,18 @@ using System.Web;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using System.Web.Security;
-public class changepassword : IHttpHandler {
+public class changepassword : IHttpHandler,System.Web.SessionState.IRequiresSessionState {
 
     DZMembershipProvider dzp = Bootstrap.Container.Resolve<DZMembershipProvider>();
     public void ProcessRequest (HttpContext context) {
+        //权限判断
+        if (context.Session["UserName"]==null)
+        {
+            context.Response.Write("{\"result\":\""+false+"\",\"msg\":\"unlogin\"}");
+            return;
+        }
+
+        Action ac = () => { 
         context.Response.ContentType = "application/json";
 
         string change_field = context.Request["changed_field"];
@@ -28,22 +36,22 @@ public class changepassword : IHttpHandler {
                     errMsg = "该手机号已被注册.";
                     is_valid = false;
                 }
-                 
-                
+
+
                 break;
             case "email":
                 member.Email = strChangedValue;
                 var b3 = dzp.GetUserByEmail(strChangedValue);
-                 if (b3 != null)
-                 {
-                     errMsg = "该邮箱已被注册.";
-                     is_valid = false;
-                 }
-                 else
-                 {
-                     member.IsRegisterValidated = false;
-                     member.RegisterValidateCode = Guid.NewGuid().ToString();
-                 }
+                if (b3 != null)
+                {
+                    errMsg = "该邮箱已被注册.";
+                    is_valid = false;
+                }
+                else
+                {
+                    member.IsRegisterValidated = false;
+                    member.RegisterValidateCode = Guid.NewGuid().ToString();
+                }
                 break;
             default:
                 is_valid = false;
@@ -53,11 +61,12 @@ public class changepassword : IHttpHandler {
         {
             dzp.UpdateDZMembership(member);
         }
-        
+
         context.Response.Write("{\"result\":\""+is_valid+"\",\"msg\":\""+errMsg+"\"}");
-      
+            };
+            NHibernateUnitOfWork.With.Transaction(ac);
     }
- 
+
     public bool IsReusable {
         get {
             return false;

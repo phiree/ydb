@@ -384,23 +384,23 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 与平台客服聊天类型
         /// </summary>
-        cer,
+        cer=1,
         /// <summary>
         /// 与商家客服聊天类型
         /// </summary>
-        store,
+        store=2,
         /// <summary>
         /// 查询所有的类型
         /// </summary>
-        all,
+        all=4,
         /// <summary>
         /// 用户
         /// </summary>
-        user,
+        user=8,
         /// <summary>
         /// 系统
         /// </summary>
-        system,
+        system=16,
     }
     /// <summary>
     /// 用户的在线状态
@@ -447,6 +447,10 @@ namespace Dianzhu.Model.Enums
         /// 点点
         /// </summary>
         YDBan_DianDian=58,
+        /// <summary>
+        /// 员工
+        /// </summary>
+        YDBan_Staff = 60,
 
         /// <summary>
         /// 未知资源名称

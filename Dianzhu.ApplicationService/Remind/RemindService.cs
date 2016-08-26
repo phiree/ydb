@@ -83,7 +83,7 @@ namespace Dianzhu.ApplicationService.Remind
                 throw new Exception("该提醒不存在！");
             }
             bllremind.DeleteRemindById(remind);
-            return "删除成功！";
+            return new string[] { "删除成功！" };
         }
     }
 }

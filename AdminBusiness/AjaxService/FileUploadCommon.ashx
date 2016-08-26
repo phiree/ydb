@@ -7,9 +7,16 @@ using System.Drawing;
 /// <summary>
 /// 接受来自其他平台的
 /// </summary>
-public class FileUploadCommon : IHttpHandler {
+public class FileUploadCommon : IHttpHandler,System.Web.SessionState.IRequiresSessionState {
 
     public void ProcessRequest (HttpContext context) {
+        //权限判断
+        if (context.Session["UserName"]==null)
+        {
+            context.Response.Write("{\"result\":\""+false+"\",\"msg\":\"unlogin\"}");
+            return;
+        }
+
         context.Response.ContentType = "text/plain";
         // string extension=  context.Request["ext"];
         Stream s= context.Request.InputStream;

@@ -162,6 +162,7 @@
     <Compile Include="Installer.cs" />
     <Compile Include="jsonconvert_test.cs" />
     <Compile Include="jsontest.cs" />
+    <Compile Include="MessageAdapterTests.cs" />
     <Compile Include="ModelTest\DZServiceTest.cs" />
     <Compile Include="PayTest\payTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Reception\BLLReceptionTests.cs" />
     <Compile Include="RespDataSHM_snapshotObjTests.cs" />
     <Compile Include="SecurityTest.cs" />
+    <Compile Include="SerialNo\SerialNoDbTests.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderTests.cs" />
     <Compile Include="tagTest.cs" />
     <Compile Include="test_mainform.cs" />

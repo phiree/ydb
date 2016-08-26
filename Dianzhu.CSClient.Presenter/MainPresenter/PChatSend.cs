@@ -70,7 +70,7 @@ namespace Dianzhu.CSClient.Presenter
 
             iIM.SendMessage(chat);
 
-            if (PHSuit.DownloadSoft.DownLoad(string.Empty, chat.MedialUrl, fileName))
+            if (PHSuit.LocalFileManagement.DownLoad(string.Empty, chat.MedialUrl, fileName))
             {
                 ((ReceptionChatMedia)chat).MedialUrl = fileName;
             }
@@ -83,7 +83,7 @@ namespace Dianzhu.CSClient.Presenter
             viewChatList.AddOneChat(chat);
 
             chat.MedialUrl = chat.MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
-            dalReceptionChat.Add(chat);
+           // dalReceptionChat.Add(chat);
             
             //  PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
         }
@@ -109,7 +109,7 @@ namespace Dianzhu.CSClient.Presenter
                 };
                 viewChatSend.MessageText = string.Empty;
                 viewChatList.AddOneChat(chat);
-                dalReceptionChat.Add(chat);
+               //dalReceptionChat.Add(chat);
                 iIM.SendMessage(chat);
 
  

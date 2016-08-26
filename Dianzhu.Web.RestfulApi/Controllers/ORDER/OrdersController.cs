@@ -125,6 +125,29 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         }
 
         /// <summary>
+        /// 修改订单价格
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="orderobj"></param>
+        /// <returns></returns>negotiate
+        [Route("api/v1/orders/{orderID}/negotiateAmount")]
+        public IHttpActionResult PatchOrderPrice(string orderID, [FromBody]orderObj orderobj)
+        {
+            try
+            {
+                if (orderobj == null)
+                {
+                    orderobj = new orderObj();
+                }
+                return Json(iorder.PatchOrderPrice(orderID, orderobj, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}/negotiateAmount")) ?? new object());
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
         /// 获得订单所包含的推送服务
         /// </summary>
         /// <param name="orderID"></param>
@@ -315,6 +338,49 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                     strStaffID = assignobj.staffID;
                 }
                 return Json(iorder.PatchForman(orderID, strStaffID, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}/forman")) ?? new object());
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
+        /// 指派负责人
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="assignobj"></param>
+        /// <returns></returns>
+        [Route("api/v1/orders/{orderID}/forman")]
+        public IHttpActionResult PostForman(string orderID, [FromBody]assignObj assignobj)
+        {
+            try
+            {
+                string strStaffID = "";
+                if (assignobj != null)
+                {
+                    strStaffID = assignobj.staffID;
+                }
+                return Json(iorder.PostForman(orderID, strStaffID, GetRequestHeader.GetTraitHeaders("post/orders/{orderID}/forman")) ?? new object());
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
+        /// 取消指派
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="staffID"></param>
+        /// <returns></returns>
+        [Route("api/v1/orders/{orderID}/forman/{staffID}")]
+        public IHttpActionResult DeleteForman(string orderID, string staffID)
+        {
+            try
+            {
+                return Json(iorder.DeleteForman(orderID, staffID, GetRequestHeader.GetTraitHeaders("delete/orders/{orderID}/forman/{staffID}")) ?? new object());
             }
             catch (Exception ex)
             {

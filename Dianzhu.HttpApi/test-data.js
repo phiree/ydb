@@ -9,10 +9,27 @@
 //"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
 //"wtm001001",,"wtm001002","wtm001004","wtm001005","wtm001006"
 //"rmm001003","rmm001004","rmm001005","rmm001006",
-"shm001007"
+"chat001008"
 
 ];
 var test_data = [
+    {
+        "ReqData": {
+            "orderID": "42843873-f653-440c-b9cb-a66d00b80c15",
+            "pWord": "111111",
+            "userID": "7420b233-7e3a-46a7-953d-a66500f64c5b"
+        },
+        "appName": "Android",
+        "protocol_CODE": "ORM001005",
+        "serial_NUMBER": "14841114-4049-4bbc-8c9e-6a2bd5a2970b",
+        "stamp_TIMES": 1472094726763
+    },
+  {
+      "reqData": {
+          "message": "<message type=\"chat\" id=\"8f19fd5f-5efd-48e7-8a6f-6cca77fb9f7e\" to=\"ca91d8f5-ac4a-4124-9438-a66700f481f9@112.74.198.215/YDBan_User\" from=\"85c0d79f-64a1-41bf-bc1b-a64400a2ad18@112.74.198.215/YDBan_CustomerService\"><body/><active xmlns=\"http://jabber.org/protocol/chatstates\"/><ext xmlns=\"ihelper:chat:orderobj\"><orderID>fa17fcb9-37a1-4029-bc68-a66d00b5ad9a<\/orderID><svcObj svcID=\"3e3dc024-bb31-4886-b4d7-a66600fcc9e4\" name=\"展会摄影摄像预订\" type=\"预订&gt;展会摄影摄像预订\" startTime=\"20160825150000\"/><customerObj customerPhone=\"13637642372\" customerName=\"聂先生\" customerAddress=\"海涯大厦12楼a座\" customerStartTime=\"2016/8/25 15:00:00\"/><storeObj userID=\"fa6eed96-caec-4f00-8819-a66600fc3e29\" alias=\"于成的店铺\" imgUrl=\"fa6eed96-caec-4f00-8819-a66600fc3e29Business_Avatar1273122340.JPG\"/><\/ext><\/message>"
+      },
+      "protocol_CODE": "Chat001008"
+  },
      {
          // 
          "protocol_CODE": "SHM001007",
@@ -757,16 +774,7 @@ var test_data = [
         "serial_NUMBER": "00147001015869149751"
     },
         //订单详情
-                {
-                    "protocol_CODE": "ORM001005",
-                    "ReqData": {
-                        "userID": "1d789c3d-962b-473a-8bb0-a594009cf2c0",
-                        "pWord": "123456",
-                        "orderID": "59af62df-076d-4c5e-a3e4-a60a012d26ba",
-                    },
-                    "stamp_TIMES": "1490192929212",
-                    "serial_NUMBER": "00147001015869149751"
-                },
+                 
           //订单列表    
           {
               "protocol_CODE": "ORM001006",

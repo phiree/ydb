@@ -33,6 +33,9 @@ namespace Dianzhu.CSClient.IView
         void IdleTimerStop(Guid orderId);
         void SetCustomerOrder(Guid oldOrderId,Guid newOrderId);
         event FinalChatTimerTick FinalChatTimerTick;
+
+        //当前订单临时变量
+        ServiceOrder IdentityOrderTemp { get; set; }
     }
     /// <summary>
     /// 点击用户按钮的委托.

@@ -70,6 +70,7 @@
     <Compile Include="Finance\DALBalanceFlow.cs" />
     <Compile Include="Finance\DALDefaultSharePoint.cs" />
     <Compile Include="Finance\DALSharePoint.cs" />
+    <Compile Include="IDALSerialNo.cs" />
     <Compile Include="IDALServiceOpenTimeForDaySnapshot.cs" />
     <Compile Include="IDALServiceOpenTimeForDay.cs" />
     <Compile Include="IDALServiceOpenTime.cs" />

@@ -56,6 +56,15 @@ namespace Dianzhu.ApplicationService.Order
         orderObj PatchOrder(string orderID, orderObj orderobj, Customer customer);
 
         /// <summary>
+        /// 修改订单价格
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="orderobj"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        orderObj PatchOrderPrice(string orderID, orderObj orderobj, Customer customer);
+
+        /// <summary>
         /// 获得订单所包含的推送服务
         /// </summary>
         /// <param name="orderID"></param>
@@ -96,7 +105,7 @@ namespace Dianzhu.ApplicationService.Order
         /// <param name="newStatus"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        object PatchCurrentStatus(string orderID, string newStatus, Customer customer);
+        orderObj PatchCurrentStatus(string orderID, string newStatus, Customer customer);
 
 
         /// <summary>
@@ -132,7 +141,25 @@ namespace Dianzhu.ApplicationService.Order
         /// <param name="staffID"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        staffObj PatchForman(string orderID, string staffID, Customer customer);
+        object PatchForman(string orderID, string staffID, Customer customer);
+
+        /// <summary>
+        /// 指派负责人
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="staffID"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        object PostForman(string orderID, string staffID, Customer customer);
+
+        /// <summary>
+        /// 取消指派
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="staffID"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        object DeleteForman(string orderID, string staffID, Customer customer);
 
 
     }

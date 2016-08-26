@@ -75,7 +75,7 @@ namespace NHibernateUnitOfWork
             SchemaUpdate update = new SchemaUpdate(config);
             if (System.Configuration.ConfigurationManager.AppSettings["UpdateSchema"] == "1")
             {
-                update.Execute(false, true);
+                update.Execute(true, true);
             }
            
 

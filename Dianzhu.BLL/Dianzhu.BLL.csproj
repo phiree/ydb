@@ -63,6 +63,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Device" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Xml.Linq" />
@@ -98,6 +99,7 @@
     <Compile Include="Client\BLLUserToken.cs" />
     <Compile Include="Client\IBLLClient.cs" />
     <Compile Include="Client\IBLLRefreshToken.cs" />
+    <Compile Include="Common\SerialNo\ISerialNoBuilder.cs" />
     <Compile Include="Finance\BanlanceFlow.cs" />
     <Compile Include="Finance\IBalanceFlowService.cs" />
     <Compile Include="Finance\IBLLServiceTypePoint.cs" />

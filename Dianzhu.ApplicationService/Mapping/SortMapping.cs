@@ -47,7 +47,7 @@ namespace Dianzhu.ApplicationService
                 switch (sortby)
                 {
                     case "sendTime":
-                        sort = "SendTime";
+                        sort = "SavedTime";
                         break;
                     default:
                         sort = "SavedTime";

@@ -61,7 +61,7 @@
             <Grid Grid.Column="1">
                 <WrapPanel x:Name="wpnlChat" VerticalAlignment="Center">
                     <Border x:Name="lblChatBorder" CornerRadius="3" Background="White">
-                        <Label MaxWidth="300" Padding="0">
+                        <Label MaxWidth="1000" Padding="0">
                             <TextBlock x:Name="tbChat" Style="{DynamicResource TextBlockChat}" Text=""></TextBlock>
                         </Label>
                     </Border>

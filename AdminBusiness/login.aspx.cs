@@ -25,6 +25,7 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
         {
             bool rememberMe = savePass.Checked;
             FormsAuthentication.SetAuthCookie(tbxUserName.Text, rememberMe);
+            Session["UserName"] = tbxUserName.Text;
             if (Request.RawUrl.Contains("/m/"))
             {
                 Response.Redirect("~/m/account/", true);

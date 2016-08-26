@@ -26,20 +26,26 @@ namespace Dianzhu.Model
             Details = new List<ServiceOrderDetail>();
 
         }
+        public virtual string SerialNo { get; set; }
         #region 管理明细
         /// <summary>
         /// 增加一条订单明细
         /// limit: 目前限制 一个订单只有一个服务.
         /// todo: 增加 购物车概念, 通过购物车为不同商家生成不同订单.
         /// </summary>
-        /// <param name="detail"></param>
-        public virtual void AddDetailFromIntelService(DZService service,int unitAmount,string targetAddress,DateTime targetTime)
+        /// <param name="service"></param>
+        /// <param name="unitAmount"></param>
+        /// <param name="targetCustomerName"></param>
+        /// <param name="targetCustomerPhone"></param>
+        /// <param name="targetAddress"></param>
+        /// <param name="targetTime"></param>
+        public virtual void AddDetailFromIntelService(DZService service,int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress,DateTime targetTime)
         {
             
             var existedService = Details.Where(x => x.OriginalService == service);
             if (existedService.Count() == 0)
             {
-                ServiceOrderDetail detail = new ServiceOrderDetail(service, unitAmount, targetAddress, targetTime);
+                ServiceOrderDetail detail = new ServiceOrderDetail(service, unitAmount, targetCustomerName, targetCustomerPhone, targetAddress, targetTime);
                 Details.Add(detail);
                 Business = service.Business;
             }
@@ -47,6 +53,8 @@ namespace Dianzhu.Model
             {
                 ServiceOrderDetail detail = Details[0];
                 detail.UnitAmount += unitAmount;// new ServiceOrderDetail(service, unitAmount, targetAddress, targetTime);
+                detail.TargetCustomerName = targetCustomerName;
+                detail.TargetCustomerPhone = targetCustomerPhone;
                 detail.TargetAddress = targetAddress;
                 detail.TargetTime = targetTime;
                 Business = service.Business;
@@ -331,11 +339,35 @@ namespace Dianzhu.Model
 
         public virtual enum_OrderStatus OrderStatus { get; set; }
         /// <summary>
+        /// 目标用户名称
+        /// </summary>
+        public virtual string TargetCustomerName
+        {
+            get
+            {
+                return string.Join(Environment.NewLine, Details.Select(o => o.TargetCustomerName));
+            }
+        }
+        /// <summary>
+        /// 目标用户名称
+        /// </summary>
+        public virtual string TargetCustomerPhone
+        {
+            get
+            {
+                return string.Join(Environment.NewLine, Details.Select(o => o.TargetCustomerPhone));
+            }
+        }
+        /// <summary>
         /// 服务的目标地址
         /// </summary>
-        public virtual string TargetAddress { get {
+        public virtual string TargetAddress
+        {
+            get
+            {
                 return string.Join(Environment.NewLine, Details.Select(o => o.TargetAddress));
-            } }
+            }
+        }
         /// <summary>
         /// 用户预定的服务时间
         /// </summary>

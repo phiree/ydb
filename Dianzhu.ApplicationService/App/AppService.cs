@@ -80,7 +80,7 @@ namespace Dianzhu.ApplicationService.App
             //devicebind = blldevicebind.getDevBindByUUID(uuId);
             //if (devicebind!=null && devicebind.BindChangedTime == dt)
             //{
-            return "注册成功！";
+            return new string[] { "注册成功！" };
             //不用进行判断是否修改成功，若是不出异常，还是没有提交成功那就是底层的错误了。
             //}
             //else
@@ -106,7 +106,7 @@ namespace Dianzhu.ApplicationService.App
             obj.IsBinding = false;
             obj.BindChangedTime = DateTime.Now;
             //blldevicebind.SaveOrUpdate(obj);
-            return "删除成功！";
+            return new string[] { "删除成功！" };
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace Dianzhu.ApplicationService.App
             obj.PushAmount = c;
             obj.BindChangedTime = DateTime.Now;
             //blldevicebind.SaveOrUpdate(obj);
-            return "更新成功！";
+            return new string[] { "更新成功！" };
         }
     }
 }

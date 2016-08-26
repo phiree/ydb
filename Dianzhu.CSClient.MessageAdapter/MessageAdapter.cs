@@ -6,6 +6,10 @@ using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using agsXMPP.protocol.client;
+using System.Xml;
+using agsXMPP.Xml.Dom;
+using System.Globalization;
+
 namespace Dianzhu.CSClient.MessageAdapter
 {
     /// <summary>
@@ -15,16 +19,19 @@ namespace Dianzhu.CSClient.MessageAdapter
     /// </summary>
     public class MessageAdapter : IMessageAdapter.IAdapter
     {
-        
+       
         IDAL.IDALServiceOrder dalOrder;
         IDAL.IDALMembership dalMembership;
         IDAL.IDALIMUserStatus dalIMUserStatus;
-        public MessageAdapter(IDAL.IDALServiceOrder dalOrder,IDAL.IDALMembership dalMembership, IDAL.IDALIMUserStatus dalIMUserStatus)
+        IDAL.IDALDZService dalService;
+    
+        public MessageAdapter(IDAL.IDALServiceOrder dalOrder, IDAL.IDALMembership dalMembership, IDAL.IDALIMUserStatus dalIMUserStatus,IDAL.IDALDZService dalService)
         {
-           // this.bllOrder = bllOrder;
+            // this.bllOrder = bllOrder;
             this.dalOrder = dalOrder;
             this.dalMembership = dalMembership;
             this.dalIMUserStatus = dalIMUserStatus;
+            this.dalService = dalService;
         }
 
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.CSClient.MessageAdapter");
@@ -53,7 +60,8 @@ namespace Dianzhu.CSClient.MessageAdapter
             {
                 ilog.Warn("收到标准协议的消息，不存在ext节点");
             }
-            else {
+            else
+            {
                 var extNamespace = ext_element.Namespace;
 
                 switch (extNamespace.ToLower())
@@ -63,6 +71,9 @@ namespace Dianzhu.CSClient.MessageAdapter
                         break;
                     case "ihelper:chat:media":
                         chatType = enum_ChatType.Media;
+                        break;
+                    case "ihelper:chat:orderobj":
+                        chatType = enum_ChatType.PushedService;
                         break;
                     case "ihelper:notice:system":
                     case "ihelper:notice:order":
@@ -99,6 +110,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                 ilog.Error("未知的资源名称：" + message.From.Resource);
             }
 
+
             Guid toUser;
             bool isToUser = Guid.TryParse(message.To.User, out toUser);
             if (isToUser)
@@ -118,7 +130,22 @@ namespace Dianzhu.CSClient.MessageAdapter
             {
                 ilog.Error("接收用户的id有误，发送用户id为：" + message.From.User + "发送用户资源名为：" + message.From.Resource);
             }
-            
+
+            if (chat.ToResource == enum_XmppResource.YDBan_Store || chat.FromResource == enum_XmppResource.YDBan_Store)
+            {
+                chat.ChatTarget = enum_ChatTarget.store;
+            }
+            else if (chat.FromResource == enum_XmppResource.YDBan_CustomerService || chat.ToResource == enum_XmppResource.YDBan_CustomerService
+                || chat.FromResource == enum_XmppResource.YDBan_DianDian || chat.ToResource == enum_XmppResource.YDBan_DianDian
+                )
+            {
+                chat.ChatTarget = enum_ChatTarget.cer;
+            }
+            else
+            {
+                ilog.Warn("CharTarget未保存 warn:" + chat.FromResource + ";" + chat.ToResource);   
+            }
+             
 
             Guid messageId;
             if (Guid.TryParse(message.Id, out messageId))
@@ -128,7 +155,7 @@ namespace Dianzhu.CSClient.MessageAdapter
 
 
             //这个逻辑放在orm002001接口里面处理.
-
+            ServiceOrder existedServiceOrder = null;
             //如果是
             if (has_ext)
             {
@@ -143,7 +170,7 @@ namespace Dianzhu.CSClient.MessageAdapter
 
                     if (isValidGuid)
                     {
-                        var existedServiceOrder = dalOrder.FindById(order_ID);
+                          existedServiceOrder = dalOrder.FindById(order_ID);
                         if (existedServiceOrder != null)
                         {
                             chat.ServiceOrder = existedServiceOrder;
@@ -162,8 +189,10 @@ namespace Dianzhu.CSClient.MessageAdapter
                 {
                     var mediaNode = ext_element.SelectSingleElement("msgObj");
                     var mediaUrl = mediaNode.GetAttribute("url");
+                    string mediaUrl_FileName = System.Text.RegularExpressions.Regex.Replace(mediaUrl, @".+GetFile\.ashx\?fileName=", string.Empty);
+                   // var mediaUrl_FileName=mediaUrl.Replace()
                     var mediaType = mediaNode.GetAttribute("type");
-                    ((ReceptionChatMedia)chat).MedialUrl = mediaUrl;
+                    ((ReceptionChatMedia)chat).MedialUrl = mediaUrl_FileName;
                     ((ReceptionChatMedia)chat).MediaType = mediaType;
                 }
                 else if (chatType == enum_ChatType.UserStatus)
@@ -173,6 +202,28 @@ namespace Dianzhu.CSClient.MessageAdapter
                     var status = userStatusNode.GetAttribute("status");
                     ((ReceptionChatUserStatus)chat).User = dalMembership.FindById(new Guid(userId));
                     ((ReceptionChatUserStatus)chat).Status = (enum_UserStatus)Enum.Parse(typeof(enum_UserStatus), status, true); ;
+                }
+                else if (chatType == enum_ChatType.PushedService)
+                {
+                    var serviceId = ext_element.SelectSingleElement("svcObj").GetAttribute("svcID");
+                    var service = dalService.FindById(new Guid(serviceId));
+                    var startTime= ext_element.SelectSingleElement("svcObj").GetAttribute("startTime");
+                    // targetCustomerName,string targetCustomerPhone, string targetAddress
+                    var customerName = ext_element.SelectSingleElement("customerObj").GetAttribute("customerName");
+                    var customerPhone = ext_element.SelectSingleElement("customerObj").GetAttribute("customerPhone");
+                    var customerAddress = ext_element.SelectSingleElement("customerObj").GetAttribute("customerAddress");
+                    var customerStartTime = ext_element.SelectSingleElement("customerObj").GetAttribute("customerStartTime");
+
+                    DateTime startTimeObj = DateTime.ParseExact(startTime, "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
+                   
+                    ServiceOrderPushedService pushService = new ServiceOrderPushedService(existedServiceOrder,service,1,customerName,customerPhone, customerAddress,startTimeObj);
+
+                    ((ReceptionChatPushService)chat).PushedServices.Add(pushService);
+                }
+                else
+                {
+                    ilog.Error("未被处理的类型");
+                //   throw new Exception("未被处理的类型");
                 }
             }
             catch (Exception e)
@@ -189,6 +240,7 @@ namespace Dianzhu.CSClient.MessageAdapter
         public Message ChatToMessage(Model.ReceptionChat chat, string server)
         {
 
+            
             Message msg = new Message();
 
             msg.SetAttribute("type", "chat");
@@ -255,6 +307,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                     break;
                 case enum_ChatType.PushedService:
                     extNode.Namespace = "ihelper:chat:orderobj";
+
                     var svcObj = new agsXMPP.Xml.Dom.Element("svcObj");
                     ReceptionChatPushService chatPushService = (ReceptionChatPushService)chat;
                     ServiceOrderPushedService service = chatPushService.PushedServices[0];
@@ -263,6 +316,16 @@ namespace Dianzhu.CSClient.MessageAdapter
                     svcObj.SetAttribute("type", service.OriginalService.ServiceType.ToString());
                     svcObj.SetAttribute("startTime", service.TargetTime.ToString("yyyyMMddHHmmss"));
                     extNode.AddChild(svcObj);
+
+
+                    var customerObj = new    agsXMPP.Xml.Dom.Element("customerObj");
+                    customerObj.SetAttribute("customerPhone", service.TargetCustomerPhone);
+                    customerObj.SetAttribute("customerName", service.TargetCustomerName);
+                    customerObj.SetAttribute("customerAddress", service.TargetAddress);
+                    customerObj.SetAttribute("customerStartTime", service.TargetTime.ToString());
+                    extNode.AddChild(customerObj);
+                   
+                   
 
                     /* "storeObj": {
                      "userID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
@@ -284,5 +347,106 @@ namespace Dianzhu.CSClient.MessageAdapter
 
         }
 
+        
+        /// <summary>
+        /// 将原始的xml文件转换成agsxmpp的 message对象
+        /// </summary>
+        /// <param name="rawXml"></param>
+        /// <returns></returns>
+        public Message RawXmlToMessage(string rawXml)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(rawXml);
+
+           
+            XmlElement eleMessage = (XmlElement)doc.FirstChild;
+            string fromJid = eleMessage.GetAttribute("from");
+            string toJid = eleMessage.GetAttribute("to");
+            string messageid = eleMessage.GetAttribute("id");
+            //string type= eleMessage.GetAttribute("type");
+           
+          
+           
+            string xpathMessage = "/*[local-name()='message']";
+            string xpathBody =xpathMessage+ "/*[local-name()='body']";
+            string xpathExt =xpathMessage+ "/*[local-name()='ext']";
+            string xpathOrderId =xpathExt+  "/*[local-name()='orderID']";
+            string xpathMsgObj =xpathExt+ "/*[local-name()='msgObj']";
+            string xpathSvcObj = xpathExt + "/*[local-name()='svcObj']";
+            string xpathStoreObj = xpathExt + "/*[local-name()='storeObj']";
+            string xpathCustomerObj = xpathExt + "/*[local-name()='customerObj']";
+
+            var extNode = doc.SelectSingleNode(xpathExt);
+            string body = doc.SelectSingleNode(xpathBody).InnerText;
+            string orderId = doc.SelectSingleNode(xpathOrderId).InnerText;
+
+           
+            
+
+
+            MessageBuilder builder = new MessageBuilder(dalIMUserStatus);
+            builder= builder.BuildBase(messageid, toJid, fromJid, body, orderId);
+            string extNameSpace = extNode.NamespaceURI;
+            switch (extNameSpace.ToLower())
+            {
+                case "ihelper:chat:text": break;
+                case "ihelper:chat:media":
+                    var msgObj = doc.SelectSingleNode(xpathMsgObj);
+                    string mediaType = msgObj.Attributes["type"].Value;
+                    string mediaUrl = msgObj.Attributes["url"].Value;
+                    builder=builder.BuildMedia(mediaType, mediaUrl);
+                    break;
+                case "ihelper:chat:userstatus":
+
+                    break;
+                case "ihelper:notice:cer:change":
+
+                    break;
+                case "ihelper:chat:orderobj": 
+                    var svcObj = doc.SelectSingleNode(xpathSvcObj);
+                    string svcID = svcObj.Attributes["svcID"].Value;
+                    string svcName = svcObj.Attributes["name"].Value;
+                    string svcType = svcObj.Attributes["type"].Value;
+                    string startTime = svcObj.Attributes["startTime"].Value;
+                    var storeObj = doc.SelectSingleNode(xpathStoreObj);
+                    string userId = storeObj.Attributes["userID"].Value;
+                    string alias = storeObj.Attributes["alias"].Value;
+                    string imgUrl = storeObj.Attributes["imgUrl"].Value;
+
+                    var customerObj = doc.SelectSingleNode(xpathCustomerObj);
+                    string customerName = customerObj.Attributes["customerName"].Value;
+                    string customerPhone= customerObj.Attributes["customerPhone"].Value;
+                    string customerAddress = customerObj.Attributes["customerAddress"].Value;
+
+                    builder = builder.BuildPushedService(svcID, svcName, svcType, startTime, userId, alias, imgUrl,customerPhone,customerName,customerAddress);
+                    break;
+                default:
+                    ilog.Error("不需要处理的命名空间:" + extNameSpace);break;
+            }
+
+            return builder.Message;
+        }
+
+        public ReceptionChat RawXmlToChat(string rawXml) {
+
+            return MessageToChat(RawXmlToMessage(rawXml));
+        }
+        /*
+<message xmlns="jabber:client" 
+        type="chat" 
+        id="cf062bec-509d-4b90-84a9-a65a011b3d6e"
+        to="4d63d740-5561-11e6-b7f0-001a7dda7106@localhost/YDBan_DemoClient">
+    <body>2</body>
+    <active xmlns="http://jabber.org/protocol/chatstates"/>
+    <ext xmlns="ihelper:chat:text">
+    <orderID>f7f0fdc2-3856-4e25-9b75-a65901436cab</orderID>
+    </ext>
+</message>
+
+
+
+        <message to="4e2676e1-5561-11e6-b7f0-001a7dda7106@localhost/YDBan_CustomerService" from="4d63d740-5561-11e6-b7f0-001a7dda7106@localhost/YDBan_DemoClient" type="chat" id="d0ae54ba-8be4-4881-b3d7-a3b3d643f4bf"><body>ffffddd</body><active xmlns="http://jabber.org/protocol/chatstates"/><ext xmlns="ihelper:chat:text"><orderID>f7f0fdc2-3856-4e25-9b75-a65901436cab</orderID></ext></message>
+
+ *   */
     }
 }

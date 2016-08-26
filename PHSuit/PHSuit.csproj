@@ -85,7 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AmrConvertToMp3.cs" />
-    <Compile Include="DownloadSoft.cs" />
+    <Compile Include="LocalFileManagement.cs" />
     <Compile Include="ExceptionLoger.cs" />
     <Compile Include="HttpHelper.cs" />
     <Compile Include="IOHelper.cs" />

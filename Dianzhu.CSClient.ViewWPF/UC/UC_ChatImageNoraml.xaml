@@ -22,5 +22,10 @@
                 </Grid>
             </Image.ToolTip>
         </Image>
+        <Grid x:Name="mask" Background="Black" Opacity="0.8" Panel.ZIndex="1" Visibility="Collapsed">
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="加载中..." Foreground="White" FontSize="18"/>
+            </Label>
+        </Grid>
     </Grid>
 </UserControl>

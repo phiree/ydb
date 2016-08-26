@@ -6,6 +6,7 @@
 <head runat="server">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="description" content="一点办后台管理系统" />
     <meta name="keywords" content="一点办" />
     <title>商家后台主页</title>

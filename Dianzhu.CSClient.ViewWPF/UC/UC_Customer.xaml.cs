@@ -14,6 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dianzhu.Model;
 using System.Windows.Threading;
+using System.ComponentModel;
+using System.IO;
+using System.Threading;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -74,33 +77,69 @@ namespace Dianzhu.CSClient.ViewWPF
             TimerStop();
         }
 
+        BackgroundWorker worker;
         public void LoadData(DZMembership customer)
         {
             tbkCustomerNames.Text = customer.DisplayName;
-            string avatarTemp = customer.AvatarUrl;
-            Uri avatarUri;
-            if (avatarTemp != null)
+
+            //加载用户头像
+            worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.RunWorkerAsync(customer.AvatarUrl);
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            BitmapImage image = e.Result as BitmapImage;
+            imgSource.ImageSource = image;
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Action lamda = () =>
             {
-                avatarTemp = avatarTemp.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
-                avatarTemp = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + avatarTemp;
                 try
                 {
-                    avatarUri = new Uri(avatarTemp, UriKind.Absolute);
-                }
-                catch (Exception e)
-                {
-                    log.Error("uri有误,avatarUrl:" + avatarTemp);
-                    log.Error(e.Message);
+                    Thread.Sleep(1000);
 
-                    avatarUri = new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png", UriKind.Absolute);
-                }                
+                    string avatarTemp = e.Argument.ToString();
+                    string imgPath = PHSuit.LocalFileManagement.LocalFilePath + avatarTemp;
+
+                    using (BinaryReader loader = new BinaryReader(File.Open(imgPath, FileMode.Open)))
+                    {
+                        FileInfo fd = new FileInfo(imgPath);
+                        int Length = (int)fd.Length;
+                        byte[] buf = new byte[Length];
+                        buf = loader.ReadBytes((int)fd.Length);
+                        loader.Dispose();
+                        loader.Close();
+
+
+                        //开始加载图像  
+                        BitmapImage bim = new BitmapImage();
+                        bim.BeginInit();
+                        bim.StreamSource = new MemoryStream(buf);
+                        bim.EndInit();
+                        e.Result = bim;
+                        //image1.Source = bim;
+                        GC.Collect(); //强制回收资源  
+                    }
+                }
+                catch (Exception ee)
+                {
+                    log.Error(ee.Message);
+                    e.Result = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCustomer.png"));
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
             }
             else
             {
-                avatarUri = new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png", UriKind.Absolute);
+                lamda();
             }
-
-            imgSource.ImageSource = new BitmapImage(avatarUri);
         }
 
         public void ClearData()

@@ -33,6 +33,9 @@ namespace Dianzhu.Model
                 case Enums.enum_ChatType.UserStatus:
                     chat = new ReceptionChatUserStatus();
                     break;
+                case enum_ChatType.PushedService:
+                    chat = new ReceptionChatPushService();
+                    break;
                 default:
                     chat= new ReceptionChat();
                     break;
@@ -145,6 +148,7 @@ namespace Dianzhu.Model
         public ReceptionChatPushService()
         {
             this.ChatType = enum_ChatType.PushedService;
+            PushedServices = new List<ServiceOrderPushedService>();
         }
         public virtual ServiceOrderPushedService PushedService { get; set; }
         public virtual IList<ServiceOrderPushedService> PushedServices { get; set; }

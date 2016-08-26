@@ -14,6 +14,8 @@ namespace Dianzhu.CSClient.IView
         DateTime SearchKeywordTime { get; set; }
         decimal SearchKeywordPriceMin { get; set; }
         decimal SearchKeywordPriceMax { get; set; }
+        string ServiceCustomerName { get; set; }
+        string ServiceCustomerPhone { get; set; }
         string ServiceAddress { get; set; }
         int UnitAmount { get; set; }
 
@@ -49,7 +51,7 @@ namespace Dianzhu.CSClient.IView
     }
    
     public delegate void SelectService(DZService selectedService);
-    public delegate ReceptionChat PushServices(IList<DZService> pushedServices);
+    public delegate ReceptionChat PushServices(IList<DZService> pushedServices,out string errorMsg);
     public delegate void PushServiceTimerSend();
     public delegate void FilterByBusinessName(string businessName);
 

@@ -68,7 +68,7 @@ namespace Dianzhu.BLL
                 {
                     throw new Exception("该服务不是该订单的推送服务！");
                 }
-                order.AddDetailFromIntelService(s.OriginalService, s.UnitAmount, s.TargetAddress, s.TargetTime);
+                order.AddDetailFromIntelService(s.OriginalService, s.UnitAmount,s.TargetCustomerName,s.TargetCustomerPhone, s.TargetAddress, s.TargetTime);
 
                 order.CreatedFromDraft();
                 NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();

@@ -143,34 +143,34 @@ namespace DianzhuService.Diandian
                 //chat.Ext = msgType;
                 //chat.OrderId = orderID;
 
-                string postData = string.Format(@"{{ 
-                    ""protocol_CODE"": ""SYS001001"", //用户信息获取
-                    ""ReqData"": {{ 
-                                ""id"": ""{0}"", 
-                                ""to"": ""{1}"", 
-                                ""from"": ""{2}"", 
-                                ""body"": ""{3}"", 
-                                ""ext"": ""{4}"", 
-                                ""orderID"": ""{5}"", 
-                                ""msgObj_url"": ""{6}"", 
-                                ""msgObj_type"": ""{7}"",
-                                ""from_resource"": ""{9}"",
-                           }}, 
-                    ""stamp_TIMES"": ""{8}"", 
-                    ""serial_NUMBER"": ""00147001015869149751"" 
-                }}", msg.Id, msg.To.User, msg.From.User, msg.Body, msgType, orderID, msgObj_url.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), ""), msgObj_type, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString(), msg.From.Resource);
-                log.Debug("开始获取用户信息");
-                Newtonsoft.Json.Linq.JObject result = API.GetApiResult(postData);
+                //string postData = string.Format(@"{{ 
+                //    ""protocol_CODE"": ""SYS001001"", //用户信息获取
+                //    ""ReqData"": {{ 
+                //                ""id"": ""{0}"", 
+                //                ""to"": ""{1}"", 
+                //                ""from"": ""{2}"", 
+                //                ""body"": ""{3}"", 
+                //                ""ext"": ""{4}"", 
+                //                ""orderID"": ""{5}"", 
+                //                ""msgObj_url"": ""{6}"", 
+                //                ""msgObj_type"": ""{7}"",
+                //                ""from_resource"": ""{9}"",
+                //           }}, 
+                //    ""stamp_TIMES"": ""{8}"", 
+                //    ""serial_NUMBER"": ""00147001015869149751"" 
+                //}}", msg.Id, msg.To.User, msg.From.User, msg.Body, msgType, orderID, msgObj_url.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), ""), msgObj_type, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString(), msg.From.Resource);
+                //log.Debug("开始获取用户信息");
+                //Newtonsoft.Json.Linq.JObject result = API.GetApiResult(postData);
 
-                if (result == null)
-                {
-                    log.Error("获取失败，返回值为空");
-                }
-                string code = result["state_CODE"].ToString();
-                if (code != "009000")
-                {
-                    return;
-                }
+                //if (result == null)
+                //{
+                //    log.Error("获取失败，返回值为空");
+                //}
+                //string code = result["state_CODE"].ToString();
+                //if (code != "009000")
+                //{
+                //    return;
+                //}
 
                 //自动回复消息
                 string reply = "当前没有客服在线，请留言..";
