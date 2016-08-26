@@ -52,7 +52,7 @@ namespace Dianzhu.Web.RestfulApi
                     // an "Info" object to hold additional metadata for an API. Version and title
                     // are required but you can also provide additional fields by chaining methods
                     // off SingleApiVersion.
-                    c.SingleApiVersion("v1", "Dianzhu.Web.RestfulApi-" + GetVersion())
+                    c.SingleApiVersion("v1",  GetVersion())
                      .Description("一点办Restful接口文档，包含参数，返回等相关说明；并且可以对接口进行实时测试。该文档和接口同步更新，因此其版本与接口的版本相同。");
                     //.TermsOfService("Some terms")
                     //.Contact(cc => cc
@@ -176,6 +176,12 @@ namespace Dianzhu.Web.RestfulApi
                     //
                     //c.OperationFilter<AssignOAuth2SecurityRequirements>();
 
+
+                    //AddRequiredHeaderParameter
+                    c.OperationFilter<SwaggerExtensions.AddRequiredHeaderParameter>();
+
+
+
                     // Post-modify the entire Swagger document by wiring up one or more Document filters.
                     // This gives full control to modify the final SwaggerDocument. You should have a good understanding of
                     // the Swagger 2.0 spec. - https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md
@@ -259,12 +265,12 @@ namespace Dianzhu.Web.RestfulApi
         private static string GetVersion()
         {
             string v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            //DateTime d = new DateTime(2000, 1, 1);
-            //Console.WriteLine(d.AddDays(3125).AddSeconds(14653 * 2).ToString("yyyy/MM/dd HH:mm:ss")); 
-            //string[] str = v.Split('.');
-            //string t = d.AddDays(int.Parse(str[2])).AddSeconds(int.Parse(str[3]) * 2).ToString("yyyy/MM/dd HH:mm:ss");
-            //return  "@版本号：" + v+"，"+ "发布时间：" + t +"@";
-            return v;
+            DateTime d = new DateTime(2000, 1, 1);
+            Console.WriteLine(d.AddDays(3125).AddSeconds(14653 * 2).ToString("yyyy/MM/dd HH:mm:ss"));
+            string[] str = v.Split('.');
+            string t = d.AddDays(int.Parse(str[2])).AddSeconds(int.Parse(str[3]) * 2).ToString("yyyy/MM/dd HH:mm:ss");
+            return "版本号：" + v + "，" + "发布时间：" + t + "";
+            //return v;
         }
 
     }

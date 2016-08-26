@@ -5,26 +5,27 @@
 //})();
 
 $(document).ready(function () {
-    //alert("Hello from custom JavaScript file.");
-    var dd = $(".info_title").html();
-    //alert(dd);
-    dd = dd.replace(/Dianzhu\.Web\.RestfulApi-/, "");
-    //DateTime d = new DateTime(2000, 1, 1);
-    //Console.WriteLine(d.AddDays(3125).AddSeconds(14653 * 2).ToString("yyyy/MM/dd HH:mm:ss")); 
-    //string[] str = v.Split('.');
-    //string t = d.AddDays(int.Parse(str[2])).AddSeconds(int.Parse(str[3]) * 2).ToString("yyyy/MM/dd HH:mm:ss");
-    //return  "@版本号：" + v+"，"+ "发布时间：" + t +"@";
-    var dds = dd.split(".");
-    var datet = new Date("2000-01-01 00:00:00");
-    datet = new Date(Date.parse(datet) + (86400000 * parseFloat(dds[2])));
-    datet = new Date(Date.parse(datet) + (1000 * parseFloat(dds[3])*2));
-    //datet1 = 86400000 * 6600;
-    //alert(datet);
-    //datet.DateAdd("d", parseInt(dds[2]));
+    ////alert("Hello from custom JavaScript file.");
+    //var dd = $(".info_title").html();
+    ////alert(dd);
+    //dd = dd.replace(/Dianzhu\.Web\.RestfulApi-/, "");
+    ////DateTime d = new DateTime(2000, 1, 1);
+    ////Console.WriteLine(d.AddDays(3125).AddSeconds(14653 * 2).ToString("yyyy/MM/dd HH:mm:ss")); 
+    ////string[] str = v.Split('.');
+    ////string t = d.AddDays(int.Parse(str[2])).AddSeconds(int.Parse(str[3]) * 2).ToString("yyyy/MM/dd HH:mm:ss");
+    ////return  "@版本号：" + v+"，"+ "发布时间：" + t +"@";
+    //var dds = dd.split(".");
+    //var datet = new Date("2000-01-01 00:00:00");
+    //datet = new Date(Date.parse(datet) + (86400000 * parseFloat(dds[2])));
+    //datet = new Date(Date.parse(datet) + (1000 * parseFloat(dds[3])*2));
+    ////datet1 = 86400000 * 6600;
+    ////alert(datet);
+    ////datet.DateAdd("d", parseInt(dds[2]));
 
-    //datet.DateAdd("s", parseInt(dds[3] * 2));
-    var t = datet.getFullYear().toString() + "-" + (datet.getMonth() + 1).toString() + "-" + datet.getDate().toString() + " " + datet.getHours().toString() + ":" + datet.getMinutes().toString() + ":" + datet.getSeconds().toString();
-    $(".footer").html("<h4 style='color:#999'><span style='font-variant:small-caps'>基础文档：</span>" + $("#input_baseUrl")[0].value + "，<span style='font-variant:small-caps'>版本号：</span>" + dd + "，<span style='font-variant:small-caps'>发布时间：</span>" + t + "");
+    ////datet.DateAdd("s", parseInt(dds[3] * 2));
+    //var t = datet.getFullYear().toString() + "-" + (datet.getMonth() + 1).toString() + "-" + datet.getDate().toString() + " " + datet.getHours().toString() + ":" + datet.getMinutes().toString() + ":" + datet.getSeconds().toString();
+    //$(".footer").html("<h4 style='color:#999'><span style='font-variant:small-caps'>基础文档：</span>" + $("#input_baseUrl")[0].value + "，<span style='font-variant:small-caps'>版本号：</span>" + dd + "，<span style='font-variant:small-caps'>发布时间：</span>" + t + "");
+    $(".footer").html("");
 });
 
 

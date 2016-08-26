@@ -228,6 +228,7 @@
     <Compile Include="App_Start\SwaggerExtensions\AddFileUploadParams.cs" />
     <Compile Include="App_Start\SwaggerExtensions\AddGetMessageExamples.cs" />
     <Compile Include="App_Start\SwaggerExtensions\AddMessageDefault.cs" />
+    <Compile Include="App_Start\SwaggerExtensions\AddRequiredHeaderParameter.cs" />
     <Compile Include="App_Start\SwaggerExtensions\AppendVersionToBasePath.cs" />
     <Compile Include="App_Start\SwaggerExtensions\ApplyDocumentVendorExtensions.cs" />
     <Compile Include="App_Start\SwaggerExtensions\ApplyResponseVendorExtensions.cs" />
@@ -425,7 +426,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52552</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52553/</IISUrl>
+          <IISUrl>http://localhost:52555/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
