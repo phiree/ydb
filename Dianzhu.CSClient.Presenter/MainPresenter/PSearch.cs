@@ -200,15 +200,20 @@ namespace Dianzhu.CSClient.Presenter
 
         }
 
-        private ReceptionChat ViewSearchResult_PushServices(IList<Model.DZService> pushedServices)
+        private ReceptionChat ViewSearchResult_PushServices(IList<Model.DZService> pushedServices,out string errorMsg)
         {
-          
+            errorMsg = string.Empty;
             if (pushedServices.Count == 0)
             {
                 return null;
             }
             if (IdentityManager.CurrentIdentity == null)
             {
+                return null;
+            }
+            if (viewSearch.SearchKeywordTime < DateTime.Now)
+            {
+                errorMsg = "订单已过期，请重新搜索";
                 return null;
             }
             
