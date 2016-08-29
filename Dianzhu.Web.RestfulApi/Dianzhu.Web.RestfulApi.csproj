@@ -145,6 +145,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Runtime.Serialization" />
@@ -207,6 +208,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AjaxService\GetSignAndTime.ashx.cs">
+      <DependentUpon>GetSignAndTime.ashx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\Bootstrap.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -314,6 +318,7 @@
     </Content>
     <Content Include="files\rsa_private_key.pem" />
     <Content Include="config\appSettings.config" />
+    <Content Include="AjaxService\GetSignAndTime.ashx" />
     <None Include="Properties\PublishProfiles\RestfulApi.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
