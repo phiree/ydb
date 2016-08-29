@@ -201,6 +201,8 @@ namespace Dianzhu.CSClient.Presenter
             {
                 if (chat.ServiceOrder != null)
                 {
+                    iView.PlayVoice();
+
                     //1 更新当前聊天列表
                     //2 判断消息 和 聊天列表,当前聊天项的关系(是当前聊天项 但是需要修改订单 非激活的列表, 新聊天.
                     IdentityTypeOfOrder type;
