@@ -94,17 +94,12 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">客户姓名</span><%= CurrentOrder.Customer.NickName %>
+                                                <span class="model-pra-t">客户姓名</span><%= CurrentOrder.Customer.DisplayName %>
                                             </p>
                                         </div>
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">身份信息</span><%= CurrentOrder.Customer.DisplayName %>
-                                            </p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">联系方式</span><%= CurrentOrder.Customer.Phone %>
+                                                <span class="model-pra-t">联系方式</span><%= string.IsNullOrEmpty(CurrentOrder.Customer.Phone) ? "无" : CurrentOrder.Customer.Phone %>
                                             </p>
                                         </div>
                                     </div>

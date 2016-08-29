@@ -1318,9 +1318,14 @@ namespace Dianzhu.BLL
             // return DALServiceOrder.GetAllCompleteOrdersForBusiness(businessId);
         }
 
+        /// <summary>
+        /// 客户不同意协商的金额
+        /// </summary>
+        /// <param name="order"></param>
         public void OrderFlow_CustomDisagreeNegotiate(ServiceOrder order)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            ChangeStatus(order, enum_OrderStatus.Negotiate);
         }
 
         public IList<ServiceOrder> GetOrdersForShare()
