@@ -85,6 +85,7 @@ namespace Dianzhu.CSClient
 
                 Presenter.PSearch pSearch = Bootstrap.Container.Resolve<Presenter.PSearch>();
                 Presenter.POrder pOrder = Bootstrap.Container.Resolve<Presenter.POrder>();
+                Presenter.PTabControl pTabControl = Bootstrap.Container.Resolve<Presenter.PTabControl>();
                 Presenter.POrderHistory pOrderHistory = Bootstrap.Container.Resolve<Presenter.POrderHistory>();
                 Presenter.PChatSend pChatSend = Bootstrap.Container.Resolve<Presenter.PChatSend>();
                // Presenter.PShelfService pShelfService = Bootstrap.Container.Resolve<Presenter.PShelfService>();

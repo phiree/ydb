@@ -50,7 +50,7 @@
     <Compile Include="EnumButtonType.cs" />
     <Compile Include="IViewFormShowMessage.cs" />
     <Compile Include="IViewMainForm.cs" />
-    <Compile Include="IViewUsefulLinks.cs" />
+    <Compile Include="IViewTabControl.cs" />
     <Compile Include="IViewNotice.cs" />
     <Compile Include="IViewChatSend.cs" />
     <Compile Include="IViewOrderHistory.cs" />

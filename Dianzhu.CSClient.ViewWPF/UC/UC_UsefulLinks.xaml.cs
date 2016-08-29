@@ -19,7 +19,7 @@ namespace Dianzhu.CSClient.ViewWPF
     /// <summary>
     /// UC_UsefulLinks.xaml 的交互逻辑
     /// </summary>
-    public partial class UC_UsefulLinks : UserControl, IView.IViewUsefulLinks
+    public partial class UC_UsefulLinks : UserControl
     {
         public UC_UsefulLinks()
         {
