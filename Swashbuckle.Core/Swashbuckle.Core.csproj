@@ -157,6 +157,7 @@
     <EmbeddedResource Include="SwaggerUi\CustomAssets\lib\object-assign-pollyfill.js" />
     <EmbeddedResource Include="SwaggerUi\CustomAssets\lib\swagger-oauth.js" />
     <EmbeddedResource Include="SwaggerUi\CustomAssets\lib\handlebars-2.0.0.js" />
+    <Content Include="SwaggerUi\CustomAssets\lib\setHeaderParam.js" />
     <Content Include="Swashbuckle.Core.nuspec">
       <SubType>Designer</SubType>
     </Content>
