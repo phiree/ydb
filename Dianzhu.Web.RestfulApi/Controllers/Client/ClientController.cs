@@ -51,8 +51,9 @@ namespace Dianzhu.Web.RestfulApi.Controllers.Client
                 //ConfigurationManager .GetSection
                 MySectionCollection mysection = (MySectionCollection)ConfigurationManager.GetSection("MySectionCollection");
                 //MySectionKeyValueSettings kv = mysection.KeyValues[Request.Headers.GetValues("appName").FirstOrDefault()];
-                string apiKey = mysection.KeyValues[Request.Headers.GetValues("appName").FirstOrDefault()].Value; //hmac.getAllowedApps(Request.Headers.GetValues("appName").FirstOrDefault());
-                return Json(iclientservice.CreateToken(customer.loginName, customer.password, apiKey, "http://"+Request.RequestUri.Authority) ?? new object());
+                string apiName = Request.Headers.GetValues("appName").FirstOrDefault();
+                string apiKey = mysection.KeyValues[apiName].Value; //hmac.getAllowedApps(Request.Headers.GetValues("appName").FirstOrDefault());
+                return Json(iclientservice.CreateToken(customer.loginName, customer.password, apiName, apiKey, Request.RequestUri.Scheme+"://" +Request.RequestUri.Authority) ?? new object());
             }
             catch (Exception ex)
             {

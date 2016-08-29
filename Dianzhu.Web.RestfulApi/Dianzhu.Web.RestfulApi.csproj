@@ -36,7 +36,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>App_Data\XmlComments.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -56,8 +55,8 @@
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FluentValidation, Version=6.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentValidation.6.2.0.0\lib\Net45\FluentValidation.dll</HintPath>
+    <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -146,6 +145,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Runtime.Serialization" />
@@ -194,10 +194,6 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebActivatorEx.2.1.0\lib\net40\WebActivatorEx.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -209,10 +205,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="config\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AjaxService\GetSignAndTime.ashx.cs">
+      <DependentUpon>GetSignAndTime.ashx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\Bootstrap.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -223,20 +221,6 @@
     <Compile Include="App_Start\MySectionKeyValueSettings.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="App_Start\SwaggerConfig.cs" />
-    <Compile Include="App_Start\SwaggerExtensions\AddDefaultResponse.cs" />
-    <Compile Include="App_Start\SwaggerExtensions\AddFileUploadParams.cs" />
-    <Compile Include="App_Start\SwaggerExtensions\AddGetMessageExamples.cs" />
-    <Compile Include="App_Start\SwaggerExtensions\AddMessageDefault.cs" />
-    <Compile Include="App_Start\SwaggerExtensions\AddRequiredHeaderParameter.cs" />
-    <Compile Include="App_Start\SwaggerExtensions\AppendVersionToBasePath.cs" />
-    <Compile Include="App_Start\SwaggerExtensions\ApplyDocumentVendorExtensions.cs" />
-    <Compile Include="App_Start\SwaggerExtensions\ApplyResponseVendorExtensions.cs" />
-    <Compile Include="App_Start\SwaggerExtensions\ApplySchemaVendorExtensions.cs" />
-    <Compile Include="App_Start\SwaggerExtensions\AssignOAuth2SecurityRequirements.cs" />
-    <Compile Include="App_Start\SwaggerExtensions\DescendingAlphabeticComparer.cs" />
-    <Compile Include="App_Start\SwaggerExtensions\SupportFlaggedEnums.cs" />
-    <Compile Include="App_Start\SwaggerExtensions\UpdateFileDownloadOperations.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -298,16 +282,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Start\SwaggerExtensions\myIndex.html" />
-    <Content Include="App_Start\SwaggerExtensions\swagger-client.js" />
-    <Content Include="App_Start\SwaggerExtensions\testScript1.js" />
-    <Content Include="App_Start\SwaggerExtensions\testScript2.js" />
-    <Content Include="App_Start\SwaggerExtensions\testStyles1.css" />
-    <Content Include="App_Start\SwaggerExtensions\testStyles2.css" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <EmbeddedResource Include="Content\footer.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
@@ -336,7 +313,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="config\connectionstrings.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="files\rsa_private_key.pem" />
+    <Content Include="config\appSettings.config" />
+    <Content Include="AjaxService\GetSignAndTime.ashx" />
     <None Include="Properties\PublishProfiles\RestfulApi.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -391,10 +373,6 @@
       <Project>{0122c6d5-6348-4b65-88b7-3c43a6e642f3}</Project>
       <Name>PHSuit</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Swashbuckle.Core\Swashbuckle.Core.csproj">
-      <Project>{d50a26ff-02c6-4c16-ba94-4cd7d43efbb3}</Project>
-      <Name>Swashbuckle.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -426,7 +404,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52552</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52555/</IISUrl>
+          <IISUrl>http://localhost:52553/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
