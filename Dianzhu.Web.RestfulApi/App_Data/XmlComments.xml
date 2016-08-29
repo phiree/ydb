@@ -523,35 +523,6 @@
             <param name="pushCount"></param>
             <returns></returns>
         </member>
-        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ASSIGN.AssignsController.PostAssign(Dianzhu.ApplicationService.assignObj)">
-            <summary>
-            新建指派
-            </summary>
-            <param name="assignobj"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ASSIGN.AssignsController.GetAssigns(Dianzhu.ApplicationService.common_Trait_Filtering,Dianzhu.ApplicationService.common_Trait_AssignFiltering)">
-            <summary>
-            条件读取指派
-            </summary>
-            <param name="filter"></param>
-            <param name="assign"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ASSIGN.AssignsController.GetAssignsCount(Dianzhu.ApplicationService.common_Trait_AssignFiltering)">
-            <summary>
-            统计指派的数量
-            </summary>
-            <param name="assign"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ASSIGN.AssignsController.DeleteAssign(Dianzhu.ApplicationService.assignObj)">
-            <summary>
-            取消指派
-            </summary>
-            <param name="assignobj"></param>
-            <returns></returns>
-        </member>
         <member name="M:Dianzhu.Web.RestfulApi.Controllers.CHAT.ChatsController.GetChats(System.String,Dianzhu.ApplicationService.common_Trait_Filtering,Dianzhu.ApplicationService.common_Trait_ChatFiltering)">
             <summary>
             条件读取聊天记录
@@ -667,6 +638,14 @@
             <param name="orderobj"></param>
             <returns></returns>
         </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.PatchOrderPrice(System.String,Dianzhu.ApplicationService.orderObj)">
+            <summary>
+            修改订单价格
+            </summary>
+            <param name="id"></param>
+            <param name="orderobj"></param>
+            <returns></returns>negotiate
+        </member>
         <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.GetPushServices(System.String)">
             <summary>
             获得订单所包含的推送服务
@@ -732,6 +711,22 @@
         <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.PatchForman(System.String,Dianzhu.ApplicationService.assignObj)">
             <summary>
             更改负责人
+            </summary>
+            <param name="orderID"></param>
+            <param name="staffID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.PostForman(System.String,Dianzhu.ApplicationService.assignObj)">
+            <summary>
+            指派负责人
+            </summary>
+            <param name="orderID"></param>
+            <param name="assignobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.DeleteForman(System.String,System.String)">
+            <summary>
+            取消指派
             </summary>
             <param name="orderID"></param>
             <param name="staffID"></param>
