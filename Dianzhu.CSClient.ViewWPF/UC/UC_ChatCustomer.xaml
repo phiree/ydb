@@ -8,7 +8,7 @@
              d:DesignHeight="100" d:DesignWidth="300">
     <UserControl.Resources>
         <Style x:Key="TextBlockChat" TargetType="{x:Type TextBlock}">
-            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="TextTrimming" Value="None"/>
             <Setter Property="FontFamily" Value="微软雅黑"/>
             <Setter Property="FontWeight" Value="Regular"/>
@@ -61,7 +61,7 @@
             <Grid Grid.Column="1">
                 <WrapPanel x:Name="wpnlChat" VerticalAlignment="Center">
                     <Border x:Name="lblChatBorder" CornerRadius="3" Background="White">
-                        <Label MaxWidth="1000" Padding="0">
+                        <Label Padding="0">
                             <TextBlock x:Name="tbChat" Style="{DynamicResource TextBlockChat}" Text=""></TextBlock>
                         </Label>
                     </Border>

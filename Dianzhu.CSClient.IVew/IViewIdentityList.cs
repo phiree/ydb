@@ -36,6 +36,11 @@ namespace Dianzhu.CSClient.IView
 
         //当前订单临时变量
         ServiceOrder IdentityOrderTemp { get; set; }
+
+        /// <summary>
+        /// 播放提示音
+        /// </summary>
+        void PlayVoice();
     }
     /// <summary>
     /// 点击用户按钮的委托.
