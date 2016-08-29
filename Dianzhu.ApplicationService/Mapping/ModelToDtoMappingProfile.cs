@@ -155,13 +155,13 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.payTarget, opt => opt.MapFrom(source => source.PayApi.ToString()))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
-            //order.OpenFireLinkMan + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Store;
+            //order.OpenFireLinkMan + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Store;            source.ChatType == Model.Enums.enum_ChatType.PushedService ? source.ServiceOrder.Id.ToString() :
             Mapper.CreateMap<Model.ReceptionChat, chatObj>()
             .ForMember(x => x.to, opt => opt.MapFrom(source => source.To.Id + "@"+ System.Web.HttpContext.Current.Request.Url.Host+ "/" + source.ToResource.ToString()))
             .ForMember(x => x.from, opt => opt.MapFrom(source => source.From.Id + "@" + System.Web.HttpContext.Current.Request.Url.Host + "/" + source.FromResource.ToString()))
             .ForMember(x => x.orderID, opt => opt.MapFrom(source => source.ServiceOrder.Id))
-            .ForMember(x => x.body, opt => opt.MapFrom(source => source.GetType() == typeof(Model.ReceptionChatMedia)? string.IsNullOrEmpty(((Model.ReceptionChatMedia)source).MedialUrl)?"": Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")+ ((Model.ReceptionChatMedia)source).MedialUrl : source.MessageBody))
-            .ForMember(x => x.type, opt => opt.MapFrom(source => source.ChatType==Model.Enums.enum_ChatType.Text?"chat": source.ChatType == Model.Enums.enum_ChatType.Media?((Model.ReceptionChatMedia)source).MediaType:source.ChatType.ToString()))
+            .ForMember(x => x.body, opt => opt.MapFrom(source => source.GetType() == typeof(Model.ReceptionChatMedia)? string.IsNullOrEmpty(((Model.ReceptionChatMedia)source).MedialUrl)?"": Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")+ ((Model.ReceptionChatMedia)source).MedialUrl :  source.MessageBody))
+            .ForMember(x => x.type, opt => opt.MapFrom(source => source.ChatType==Model.Enums.enum_ChatType.Text?"chat": source.ChatType == Model.Enums.enum_ChatType.Media?((Model.ReceptionChatMedia)source).MediaType: source.ChatType == Model.Enums.enum_ChatType.PushedService ? "pushOrder" : source.ChatType.ToString()))
             .ForMember(x => x.sendTime, opt => opt.MapFrom(source => source.SavedTime == DateTime.MinValue ? "" : source.SavedTime.ToString("yyyyMMddHHmmss")))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
@@ -173,6 +173,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.doneTime, opt => opt.MapFrom(source => source.OrderServerFinishedTime == DateTime.MinValue ? "" : source.OrderServerFinishedTime.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.updateTime, opt => opt.MapFrom(source => source.LatestOrderUpdated == DateTime.MinValue ? "" : source.LatestOrderUpdated.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.notes, opt => opt.MapFrom(source => source.Memo))
+            .ForMember(x => x.title, opt => opt.MapFrom(source => source.SerialNo))
             .ForMember(x => x.serviceAddress, opt => opt.MapFrom(source => source.TargetAddress))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 

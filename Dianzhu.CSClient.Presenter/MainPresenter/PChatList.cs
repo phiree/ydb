@@ -48,7 +48,7 @@ namespace Dianzhu.CSClient.Presenter
         private void ViewChatList_BtnMoreChat()
         {
             var chatHistory = dalReceptionChat.GetReceptionChatListByTargetIdAndSize(IdentityManager.CurrentIdentity.Customer.Id, Guid.Empty, Guid.Empty,
-                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 10, viewChatList.ChatList[0], "Y", enum_ChatTarget.all).OrderByDescending(x=>x.SavedTimestamp).ToList();
+                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 10, viewChatList.ChatList[0], "Y", enum_ChatTarget.cer).OrderByDescending(x=>x.SavedTimestamp).ToList();
 
             if (chatHistory.Count() > 0)
             {
@@ -132,7 +132,7 @@ namespace Dianzhu.CSClient.Presenter
             Guid customerId = Guid.Parse(e.Argument.ToString());
             int rowCount;
             e.Result = dalReceptionChat.GetReceptionChatList(customerId, Guid.Empty, Guid.Empty,
-                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.all, out rowCount);
+                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.cer, out rowCount);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }

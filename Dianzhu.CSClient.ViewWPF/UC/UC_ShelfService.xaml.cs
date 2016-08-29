@@ -38,6 +38,7 @@ namespace Dianzhu.CSClient.ViewWPF
             tbkServiceTime.Text = service.CreatedTime.TimeOfDay.ToString();
             tbkServiceUnitPrice.Text = service.UnitPrice.ToString("0.00");
             tbkServiceDepPrice.Text = service.DepositAmount.ToString("0.00");
+            tbkBusinessName.Text = service.Business.Name;
         }
 
         public void ClearData()
@@ -47,6 +48,7 @@ namespace Dianzhu.CSClient.ViewWPF
             tbkServiceTime.Text = string.Empty;
             tbkServiceUnitPrice.Text = string.Empty;
             tbkServiceDepPrice.Text = string.Empty;
+            tbkBusinessName.Text = string.Empty;
         }
 
         #region 鼠标移入时的事件处理

@@ -7,6 +7,8 @@ using NHibernate;
 using NHibernate.Criterion;
 using System.Collections;
 using NHibernate.Transform;
+using System.Device.Location;
+using Newtonsoft.Json;
 
 namespace Dianzhu.DAL
 {
@@ -29,7 +31,7 @@ namespace Dianzhu.DAL
             return serviceList;
             
         }
-        public IList<DZService> SearchService(string name, decimal priceMin,decimal priceMax,Guid serviceTypeId,DateTime preOrderTime, int pageindex, int pagesize, out int totalRecord)
+        public IList<DZService> SearchService(string name, decimal priceMin,decimal priceMax,Guid serviceTypeId,DateTime preOrderTime,double lng,double lat, int pageindex, int pagesize, out int totalRecord)
         {
             string queryStr = "select service "
                            + " from DZService as service "
@@ -44,7 +46,7 @@ namespace Dianzhu.DAL
             }
             if (name.Trim() != string.Empty)
             {
-                where += " and service.Name = '" + name + "'";
+                where += " and service.Name like '%" + name + "%'";
             }
             if (serviceTypeId != Guid.Empty)
             {
@@ -69,10 +71,25 @@ namespace Dianzhu.DAL
 
                 list = result.ToList();
 
-               
-            //query.wrap
 
-            return list;
+            //按地区筛选
+            IList<DZService> finalList = new List<DZService>();
+            foreach(DZService item in list)
+            {
+                GeoCoordinate c1 = new GeoCoordinate(lat, lng);
+
+                BusinessArea area = JsonConvert.DeserializeObject<BusinessArea>(item.BusinessAreaCode);
+                GeoCoordinate c2 = new GeoCoordinate(area.serPointCirle.lat, area.serPointCirle.lng);
+
+                double distanceInMeter = c1.GetDistanceTo(c2);
+
+                if (distanceInMeter <= area.serPointCirle.radius)
+                {
+                    finalList.Add(item);
+                }
+            }
+
+            return finalList;
         }
 
         public DZService GetOneByBusAndId(Business business, Guid svcId)
@@ -85,5 +102,17 @@ namespace Dianzhu.DAL
             return (int)GetRowCount(x => x.Business.Id == business.Id && x.IsDeleted == false);
         }
 
+    }
+
+    public class BusinessArea
+    {
+        public BusinessAreaPoint serPointCirle { get; set; }
+    }
+
+    public class BusinessAreaPoint
+    {
+        public double lng { get; set; }
+        public double lat { get; set; }
+        public double radius { get; set; }
     }
 }

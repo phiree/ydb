@@ -101,8 +101,6 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 try
                 {
-                    Thread.Sleep(1000);
-
                     string avatarTemp = e.Argument.ToString();
                     string imgPath = PHSuit.LocalFileManagement.LocalFilePath + avatarTemp;
 

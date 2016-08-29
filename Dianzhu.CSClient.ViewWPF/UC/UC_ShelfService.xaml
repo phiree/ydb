@@ -55,7 +55,10 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
-                        <Image x:Name="imgServiceType" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png" Margin="8"></Image>
+                        <!--<Image x:Name="imgServiceType" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png" Margin="8"></Image>-->
+                        <Label VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock x:Name="tbkBusinessName" FontFamily="微软雅黑" Foreground="#FF808080" FontWeight="Bold" FontSize="16" TextWrapping="WrapWithOverflow">海南我爱我车汽车维修护理公司</TextBlock>
+                        </Label>
                     </Grid>
 
                     <Grid Grid.Row="1">

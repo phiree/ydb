@@ -87,7 +87,7 @@ namespace Dianzhu.BLL
                         where = where.And(x => (x.From.Id == userID && (x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff)) || (x.To.Id == userID && (x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff)));
                         break;
                     case "customerService":
-                        where = where.And(x => (x.From.Id == userID && x.To.UserType == enum_UserType.customerservice) || (x.To.Id == userID && x.From.UserType == enum_UserType.customerservice));
+                        where = where.And(x => (x.From.Id == userID && (x.To.UserType == enum_UserType.customerservice || x.To.UserType == enum_UserType.diandian)) || (x.To.Id == userID && (x.From.UserType == enum_UserType.customerservice || x.From.UserType == enum_UserType.diandian)));
                         break;
                     case "customer":
                         where = where.And(x => (x.From.Id == userID && x.To.UserType == enum_UserType.customer) || (x.To.Id == userID && x.From.UserType == enum_UserType.customer));
@@ -169,7 +169,7 @@ namespace Dianzhu.BLL
                         where = where.And(x => (x.From.Id == userID && (x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff)) || (x.To.Id == userID && (x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff)));
                         break;
                     case "customerService":
-                        where = where.And(x => (x.From.Id == userID && x.To.UserType == enum_UserType.customerservice) || (x.To.Id == userID && x.From.UserType == enum_UserType.customerservice));
+                        where = where.And(x => (x.From.Id == userID && (x.To.UserType == enum_UserType.customerservice|| x.To.UserType == enum_UserType.diandian)) || (x.To.Id == userID && (x.From.UserType == enum_UserType.customerservice || x.From.UserType == enum_UserType.diandian)));
                         break;
                     case "customer":
                         where = where.And(x => (x.From.Id == userID && x.To.UserType == enum_UserType.customer) || (x.To.Id == userID && x.From.UserType == enum_UserType.customer));

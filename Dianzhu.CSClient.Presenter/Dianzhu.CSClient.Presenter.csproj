@@ -75,6 +75,7 @@
     <Compile Include="LoginPresenter.cs" />
     <Compile Include="MainPresenter\PMain.cs" />
     <Compile Include="MainPresenter\PNotice.cs" />
+    <Compile Include="MainPresenter\PTabControl.cs" />
     <Compile Include="MainPresenter\POrderHistory.cs" />
     <Compile Include="MainPresenter\PChatSend.cs" />
     <Compile Include="MainPresenter\PChatList.cs" />

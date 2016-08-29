@@ -24,6 +24,7 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<CSClient.Presenter.PChatList>());
             container.Register(Component.For<CSClient.Presenter.PChatSend>());
             container.Register(Component.For<CSClient.Presenter.PNotice>());
+            container.Register(Component.For<CSClient.Presenter.PTabControl>());
             container.Register(Component.For<CSClient.Presenter.POrder>().DependsOn(
                 Dependency.OnValue("dalHistory",new DAL.DALServiceOrderStateChangeHis()),
                 Dependency.OnValue("dalOrder", new DAL.DALServiceOrder()),
@@ -53,7 +54,7 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<IViewOrderHistory>().ImplementedBy<ViewWPF.UC_OrderHistory>());
             container.Register(Component.For<IViewSearch>().ImplementedBy<ViewWPF.UC_Search>());
             container.Register(Component.For<IViewSearchResult>().ImplementedBy<ViewWPF.UC_SearchResult>());
-            container.Register(Component.For<IViewUsefulLinks>().ImplementedBy<ViewWPF.UC_UsefulLinks>());
+            container.Register(Component.For<IViewTabControl>().ImplementedBy<ViewWPF.UC_TabControlTools>());
             container.Register(Component.For<IViewFormShowMessage>().ImplementedBy<ViewWPF.FormShowMessage>());
             // container.Register(Component.For<IViewShelfService>().ImplementedBy<ViewWPF.UC_ShelfService>());
         }

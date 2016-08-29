@@ -12,6 +12,7 @@ using Dianzhu.Model.Enums;
 using Dianzhu.DAL;
 using System.ComponentModel;
 using System.IO;
+using System.Threading;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -35,8 +36,9 @@ namespace Dianzhu.CSClient.Presenter
 
         IDAL.IDALReceptionStatus dalReceptionStatus;
         IViewSearchResult viewSearchResult;
+        IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve;
 
-        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,IViewOrder iViewOrder, InstantMessage iIM, IDAL.IDALReceptionChat dalReceptionChat,IViewChatSend iViewChatSend,IBLLServiceOrder bllServiceOrder,IViewOrderHistory iViewOrderHistory,IDAL.IDALReceptionStatus dalReceptionStatus,IViewSearchResult viewSearchResult)
+        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,IViewOrder iViewOrder, InstantMessage iIM, IDAL.IDALReceptionChat dalReceptionChat,IViewChatSend iViewChatSend,IBLLServiceOrder bllServiceOrder,IViewOrderHistory iViewOrderHistory,IDAL.IDALReceptionStatus dalReceptionStatus,IViewSearchResult viewSearchResult, IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve)
         {
             this.iView = iView;
             this.iViewOrder = iViewOrder;
@@ -48,13 +50,85 @@ namespace Dianzhu.CSClient.Presenter
             this.iViewOrderHistory = iViewOrderHistory;
             this.dalReceptionStatus = dalReceptionStatus;
             this.viewSearchResult = viewSearchResult;
-
+            this.dalReceptionStatusArchieve = dalReceptionStatusArchieve;
+            
             iView.IdentityClick += IView_IdentityClick;
             iView.FinalChatTimerTick += IView_FinalChatTimerTick;
             iViewChatSend.FinalChatTimerSend += IViewChatSend_FinalChatTimerSend;
 
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             viewSearchResult.PushServiceTimerSend += ViewSearchResult_PushServiceTimerSend;
+
+            Thread t = new Thread(SysAssign);
+            t.Start();
+        }
+
+        private void SysAssign()
+        {
+            NHibernateUnitOfWork.UnitOfWork.Start();
+
+            log.Debug("-------开始 接收离线消息------");
+            IList<ReceptionStatus> rsList = dalReceptionStatus.GetRSListByDiandian(GlobalViables.Diandian, 3);
+            if (rsList.Count > 0)
+            {
+
+                log.Debug("需要接待的离线用户数量:" + rsList.Count);
+                foreach (ReceptionStatus rs in rsList)
+                {
+                    #region 接待记录存档
+                    SaveRSA(rs.Customer, rs.CustomerService, rs.Order);
+                    #endregion
+                    rs.CustomerService = GlobalViables.CurrentCustomerService;
+                    log.Debug("保存新分配的接待记录");
+                    dalReceptionStatus.Update(rs);
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+
+                    //CopyDDToChat(rsList.Select(x => x.Customer).ToList());
+
+                    ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
+                    rChatReAss.From = GlobalViables.Diandian;
+                    rChatReAss.To = rs.Customer;
+                    rChatReAss.MessageBody = "客服" + rs.CustomerService.DisplayName + "已上线";
+                    rChatReAss.ReAssignedCustomerService = rs.CustomerService;
+                    rChatReAss.SavedTime = rChatReAss.SendTime = DateTime.Now;
+                    rChatReAss.ServiceOrder = rs.Order;
+                    rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
+
+                    //SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
+                    // SaveMessage(rChatReAss, true);
+                    iIM.SendMessage(rChatReAss);
+
+                    //ClientState.OrderList.Add(rs.Order);
+                    ClientState.customerList.Add(rs.Customer);
+                    //view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
+                    if (rs.Order != null)
+                    {
+                        iView.AddIdentity(rs.Order);
+                    }
+                }
+            }
+
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+        }
+
+        /// <summary>
+        /// 接待记录存档
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <param name="cs"></param>
+        /// <param name="order"></param>
+        private void SaveRSA(DZMembership customer, DZMembership cs, ServiceOrder order)
+        {
+            log.Debug("-------开始 接待记录存档------");
+            ReceptionStatusArchieve rsa = new ReceptionStatusArchieve
+            {
+                Customer = customer,
+                CustomerService = cs,
+                Order = order,
+            };
+            dalReceptionStatusArchieve.Add(rsa);
+            log.Debug("-------结束 接待记录存档------");
         }
 
         private void ViewSearchResult_PushServiceTimerSend()
@@ -368,22 +442,18 @@ namespace Dianzhu.CSClient.Presenter
                     iView.SetIdentityUnread(chat.ServiceOrder, 1);
                     break;
                 case IdentityTypeOfOrder.NewIdentity:
-                    iView.AddIdentity(chat.ServiceOrder);
+                    AddIdentity(chat.ServiceOrder);
+                    iView.SetIdentityUnread(chat.ServiceOrder, 1);
                     break;
                 default:
                     throw new Exception("无法判断消息属性");
 
             }
-         
-
-
         }
-
 
         public void AddIdentity(ServiceOrder order)
         {
             iView.AddIdentity(order);
-            iView.SetIdentityUnread(order, 1);
         }
 
         public void RemoveIdentity(ServiceOrder order)

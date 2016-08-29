@@ -11,20 +11,20 @@ namespace Dianzhu.Config
     public static partial class Config
     {
         #region 服务器定义
-        static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172","192.168.1.150", "112.74.198.215","112.74.17.34"};
-        static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150", "112.74.198.215", "business.ydban.cn" };
-        static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150", "112.74.198.215", "112.74.17.34" };
-        static string[] HttpApiServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150", "112.74.198.215", "112.74.17.34" };
-        static string[] IMNotifyServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150", "112.74.198.215", "112.74.17.34" };
-        static string[] PayServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "jsyklan.asuscomm.com", "112.74.198.215", "112.74.17.34" };
-        #endregion
-        #region   部署前，只需要手动修改此处 /
+        //本地服务器,局域网测试服务器,远程服务器,正式服务器
+        static string[] IMServers = new string[]            { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn" };
+        static string[] IMDomains = new string[]            { "localhost",   "192.168.1.150", "dev.ydban.cn", "business.ydban.cn" };
+        static string[] ApplicationServers = new string[]   { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn" };
+        static string[] HttpApiServers = new string[]       { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn" };
+        static string[] IMNotifyServers = new string[]      { "localhost",   "192.168.1.150", "dev.ydban.cn", "business.ydban.cn" };
+        static string[] PayServers = new string[]           { "localhost",   "jsyklan.asuscomm.com", "dev.ydban.cn", "business.ydban.cn" };
+        
 
-        static string IMServer = IMServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();//即时通讯服务器地址
-        static string IMDomain = IMDomains.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();//即时通讯服务器地址
-        static string HttpApiServer = HttpApiServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();//即时通讯服务器地址
-        static string ApplicationServer = ApplicationServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();//应用服务器地址
-        static string IMNotifyServer = IMNotifyServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();//通知服务服务地址
+        static string IMServer = IMServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString(); 
+        static string IMDomain = IMDomains.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString(); 
+        static string HttpApiServer = HttpApiServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString(); 
+        static string ApplicationServer = ApplicationServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString(); 
+        static string IMNotifyServer = IMNotifyServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString(); 
 
         #endregion
         static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");
@@ -34,23 +34,18 @@ namespace Dianzhu.Config
          
 
         static Dictionary<string, KeyValuePair<string, string>> DictsDianDianLogins = new Dictionary<string, KeyValuePair<string, string>>() {
-              { "119.29.39.211",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
-             ,{ "115.159.72.236",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","123456") }
-             ,{ "192.168.1.172",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
-            ,{ "localhost",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
-            ,{ "112.74.198.215",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
-            ,{ "112.74.17.34",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","123456") }
+            { "localhost",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
+            ,{ "dev.ydban.cn",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
+            ,{ "business.ydban.cn",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","123456") }
                ,{ "192.168.1.150",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
         };
         //通知中心登陆用户账号，不同数据库服务器有不同的值
         //todo: 需要使用 username登陆 而不是id
         static Dictionary<string, KeyValuePair<string, string>> DictsNotifySenderLogins = new Dictionary<string, KeyValuePair<string, string>>() {
-              { "119.29.39.211",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
-             ,{ "115.159.72.236",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
-             ,{ "192.168.1.172",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
-              ,{ "localhost",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
-            ,{ "112.74.198.215",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
-            ,{ "112.74.17.34",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
+ 
+            { "localhost",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
+            ,{ "dev.ydban.cn",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
+            ,{ "business.ydban.cn",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
               ,{ "192.168.1.150",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
         };
          

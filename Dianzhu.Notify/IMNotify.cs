@@ -95,8 +95,12 @@ namespace Dianzhu.NotifyCenter
             {
                 return;
             }
+            if (order.Business.Owner == null)
+            {
+                return;
+            }
             ags.Message msgToBusiness = BuildNotice(
-                 order.Business.Id + "@" + im.Domain,
+                 order.Business.Owner.Id + "@" + im.Domain,
                  "订单状态已变为:" + order.GetStatusTitleFriendly(order.OrderStatus),
                  extNode
                  );

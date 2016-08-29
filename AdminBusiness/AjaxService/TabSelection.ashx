@@ -12,10 +12,16 @@ using Newtonsoft.Json.Serialization;
 /// <summary>
 /// 用于 tabselecttion 控件的ajax请求.
 /// </summary>
-public class TabSelection : IHttpHandler {
+public class TabSelection : IHttpHandler,System.Web.SessionState.IRequiresSessionState {
     
     public void ProcessRequest (HttpContext context)
     {
+        //权限判断
+        if (context.Session["UserName"]==null)
+        {
+            context.Response.Write("{\"result\":\""+false+"\",\"msg\":\"unlogin\"}");
+            return;
+        }
 
       string type=  context.Request.Params["type"];
         string id = context.Request.Params["id"];

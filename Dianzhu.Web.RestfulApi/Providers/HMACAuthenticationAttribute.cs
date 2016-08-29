@@ -220,7 +220,7 @@ namespace Dianzhu.Web.RestfulApi
             }
 
             ilog.Debug("Request(RequestUri):" + req.RequestUri.AbsolutePath.ToLower());
-            if (req.Method == HttpMethod.Post && (req.RequestUri.AbsolutePath.ToLower() == "/api/v1/authorization" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customers" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/merchants"))
+            if (req.Method == HttpMethod.Post && (req.RequestUri.AbsolutePath.ToLower() == "/api/v1/authorization" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customers" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/merchants" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customer3rds"))
             { }
             else
             {
@@ -399,6 +399,7 @@ namespace Dianzhu.Web.RestfulApi
     
     public class ResultWithChallenge : IHttpActionResult
     {
+        log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.ResultWithChallenge");
         private readonly string authenticationScheme = "amx";
         private readonly IHttpActionResult next;
 
@@ -416,7 +417,7 @@ namespace Dianzhu.Web.RestfulApi
                 response.Headers.WwwAuthenticate.Add(new AuthenticationHeaderValue(authenticationScheme));
                 response.Content = new StringContent("{\"errCode\":\"001001\",\"errString\":\"用户认证失败\"}");
             }
-
+            ilog.Debug("Response(Content):" + await response.Content.ReadAsStringAsync().ConfigureAwait(false));
             return response;
         }
     }

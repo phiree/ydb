@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0 user-scalable=no"/>
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="0">
+    <title>助理地图</title>
+    <style>
+        body, html, #container {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font: 14px/1.2 verdana, Microsoft YaHei, Tahoma, sans-serif;
+        }
+
+        #container {
+            position: relative;
+        }
+
+        #map {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        #search-table {
+            margin: 10px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .search-box {
+            position: absolute;
+            top: 0;
+            box-sizing: border-box;
+            width: 100%;
+            /*padding: 10px;*/
+            border: 1px solid #ccc;
+            background: #f5f5f5;
+        }
+
+        #suggestId {
+            width: 95%;
+        }
+
+        #searchResultPanel {
+            border: 1px solid #C0C0C0;
+            width: 150px;
+            height: auto;
+            display: none;
+        }
+
+        .anchorBL {
+            display: none;
+        }
+
+        #mark {
+            position: absolute;
+            bottom: -100px;
+            width: 100%;
+            border-top: 1px solid #c1c1c1;
+            background: #fff;
+            z-index: 999;
+        }
+
+        #mark.show {
+            bottom: 0;
+        }
+
+        #addressBox {
+            margin: 0;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        #addressTitle, #addressDetail {
+            margin: 10px 20px;
+        }
+
+        #addressTitle {
+            font-size: 16px;
+            color: #3f3f3f;
+        }
+
+        #addressDetail {
+            color: #7b7b7b;
+        }
+
+        #addToOrder {
+            float: right;
+            width: 84px;
+            height: 24px;
+            border: 0;
+            color: #fff;
+            background: #00c79b;
+            margin-top: 22px;
+            margin-right: 30px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="map">
+        <!--百度地图带着自己的logo，通过下面的方试可以非常简单的移除掉百度地图logo和版权说明-->
+        <input type="button" onclick="$('#map div.anchorBL').hide();" value="移除地图LOGO和版权说明"/>
+    </div>
+    <div class="search-box">
+        <table id="search-table">
+            <tbody>
+            <tr>
+                <td style="width: 6em;"><span>输入搜索 : </span></td>
+                <td><input id="suggestId" type="text" size="20"/></td>
+            </tr>
+            </tbody>
+        </table>
+        <div id="searchResultPanel"></div>
+    </div>
+    <div id="mark">
+        <div id="addressBox" class="addressBox">
+            <p id="addressTitle"></p>
+            <p id="addressDetail"></p>
+        </div>
+        <!--<input type="button" id="addToOrder" value="添加到订单" />-->
+    </div>
+</div>
+<script src="//cdn.bootcss.com/json2/20150503/json2.min.js"></script>
+<script src="http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc" type="text/javascript"></script>
+<script>
+    var map = new BMap.Map("map", {enableMapClick: false});
+    var myCity = new BMap.LocalCity();
+    var point = new BMap.Point(116.404, 39.0915);
+    var marker = new BMap.Marker(point);
+    var localInfoJson = "", selectPoint;
+
+    var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT, offset: {width: 20, height: 70}});// 左上角，添加比例尺
+    //    var top_left_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_LEFT, offset : {width : 10, height: 70}});  //左上角，添加默认缩放平移控件
+    var top_right_navigation = new BMap.NavigationControl({
+        anchor: BMAP_ANCHOR_TOP_RIGHT,
+        type: BMAP_NAVIGATION_CONTROL_SMALL,
+        offset: {width: 20, height: 70}
+    }); //右上角，仅包含平移和缩放按钮
+
+    var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+            {
+                "input": "suggestId"
+                , "location": map
+            });
+
+    map.enableScrollWheelZoom();
+    map.disableDoubleClickZoom();
+
+    map.addControl(top_left_control);
+    //    map.addControl(top_left_navigation);
+    map.addControl(top_right_navigation);
+
+    map.centerAndZoom(point, 11);
+    map.addOverlay(marker);
+
+    myCity.get(function (result) {
+        selectPoint = new BMap.Point(result.center.lng, result.center.lat);
+        marker.setPosition(selectPoint);
+        map.panTo(selectPoint);
+    });
+
+    map.addEventListener("click", function (e) {
+        selectPoint = new BMap.Point(e.point.lng, e.point.lat);
+
+        this.getZoom() < 10 ? this.setZoom(10) : void 0;
+
+        marker.setPosition(selectPoint);
+        map.panTo(selectPoint);
+        getLocalInfo(selectPoint);
+    });
+
+
+    // 关键字提示
+    ac.addEventListener("onhighlight", function (e) {
+        var str = "";
+        var _value = e.fromitem.value;
+        var value = "";
+        if ( e.fromitem.index > -1 ) {
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str = "" + "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+        value = "";
+        if ( e.toitem.index > -1 ) {
+            _value = e.toitem.value;
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+        G("searchResultPanel").innerHTML = str;
+    });
+
+    var myValue;
+
+    ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+        var _value = e.item.value;
+
+        myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+
+        G("searchResultPanel").innerHTML = "" + "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+        setPlace();
+    });
+
+
+    function setPlace() {
+
+        function myFun() {
+            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+
+            selectPoint = pp;
+            getLocalInfo(selectPoint);
+            marker.setPosition(selectPoint);
+            map.centerAndZoom(selectPoint, 18);
+        }
+
+        var local = new BMap.LocalSearch(map, { //智能搜索
+            onSearchComplete: myFun
+        });
+
+        local.search(myValue);
+    }
+
+    var myGeo = new BMap.Geocoder();
+
+
+    /**
+     * 获取定位信息
+     * @param point BMap.Point 类 定位点
+     * @returns {*}
+     */
+    function getLocalInfo(point) {
+        var addComp;
+        localInfoJson = "";
+        return myGeo.getLocation(point, function (rs) {
+//            debugger;
+            addComp = rs.addressComponents;
+            localInfoJson = JSON.stringify({
+                point: point,
+                address: addComp
+            });
+            showLocalInfo(rs);
+            window.external.SetValue(localInfoJson);//调用.net的方法通知wpf
+        });
+
+    }
+    ;
+
+    //    G("addToOrder").attachEvent("onclick", function(){
+    //        window.external.SetValue(localInfoJson);//调用.net的方法通知wpf
+    //    });
+
+    function showLocalInfo(LocalResult) {
+        G("mark").className = "show";
+        G("addressDetail").innerHTML = LocalResult.address;
+        G("addressTitle").innerHTML = LocalResult.surroundingPois.length ? LocalResult.surroundingPois[0].title : "--";
+    }
+
+    // 返回js
+    function getLocal() {
+        return localInfoJson;
+    }
+
+    function G(id) {
+        return document.getElementById(id);
+    }
+
+</script>
+</body>
+</html>

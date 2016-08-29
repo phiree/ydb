@@ -19,11 +19,12 @@ namespace Dianzhu.CSClient.MessageAdapter
     /// </summary>
     public class MessageAdapter : IMessageAdapter.IAdapter
     {
-
+       
         IDAL.IDALServiceOrder dalOrder;
         IDAL.IDALMembership dalMembership;
         IDAL.IDALIMUserStatus dalIMUserStatus;
         IDAL.IDALDZService dalService;
+    
         public MessageAdapter(IDAL.IDALServiceOrder dalOrder, IDAL.IDALMembership dalMembership, IDAL.IDALIMUserStatus dalIMUserStatus,IDAL.IDALDZService dalService)
         {
             // this.bllOrder = bllOrder;
@@ -109,6 +110,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                 ilog.Error("未知的资源名称：" + message.From.Resource);
             }
 
+
             Guid toUser;
             bool isToUser = Guid.TryParse(message.To.User, out toUser);
             if (isToUser)
@@ -128,7 +130,22 @@ namespace Dianzhu.CSClient.MessageAdapter
             {
                 ilog.Error("接收用户的id有误，发送用户id为：" + message.From.User + "发送用户资源名为：" + message.From.Resource);
             }
-            
+
+            if (chat.ToResource == enum_XmppResource.YDBan_Store || chat.FromResource == enum_XmppResource.YDBan_Store)
+            {
+                chat.ChatTarget = enum_ChatTarget.store;
+            }
+            else if (chat.FromResource == enum_XmppResource.YDBan_CustomerService || chat.ToResource == enum_XmppResource.YDBan_CustomerService
+                || chat.FromResource == enum_XmppResource.YDBan_DianDian || chat.ToResource == enum_XmppResource.YDBan_DianDian
+                )
+            {
+                chat.ChatTarget = enum_ChatTarget.cer;
+            }
+            else
+            {
+                ilog.Warn("CharTarget未保存 warn:" + chat.FromResource + ";" + chat.ToResource);   
+            }
+             
 
             Guid messageId;
             if (Guid.TryParse(message.Id, out messageId))
@@ -172,8 +189,10 @@ namespace Dianzhu.CSClient.MessageAdapter
                 {
                     var mediaNode = ext_element.SelectSingleElement("msgObj");
                     var mediaUrl = mediaNode.GetAttribute("url");
+                    string mediaUrl_FileName = System.Text.RegularExpressions.Regex.Replace(mediaUrl, @".+GetFile\.ashx\?fileName=", string.Empty);
+                   // var mediaUrl_FileName=mediaUrl.Replace()
                     var mediaType = mediaNode.GetAttribute("type");
-                    ((ReceptionChatMedia)chat).MedialUrl = mediaUrl;
+                    ((ReceptionChatMedia)chat).MedialUrl = mediaUrl_FileName;
                     ((ReceptionChatMedia)chat).MediaType = mediaType;
                 }
                 else if (chatType == enum_ChatType.UserStatus)
@@ -194,8 +213,8 @@ namespace Dianzhu.CSClient.MessageAdapter
                     var customerPhone = ext_element.SelectSingleElement("customerObj").GetAttribute("customerPhone");
                     var customerAddress = ext_element.SelectSingleElement("customerObj").GetAttribute("customerAddress");
                     var customerStartTime = ext_element.SelectSingleElement("customerObj").GetAttribute("customerStartTime");
-                   
-                    DateTime startTimeObj = DateTime.ParseExact(startTime, "yyyyMMddhhmmss", CultureInfo.InvariantCulture);
+
+                    DateTime startTimeObj = DateTime.ParseExact(startTime, "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
                    
                     ServiceOrderPushedService pushService = new ServiceOrderPushedService(existedServiceOrder,service,1,customerName,customerPhone, customerAddress,startTimeObj);
 
@@ -203,7 +222,8 @@ namespace Dianzhu.CSClient.MessageAdapter
                 }
                 else
                 {
-                   throw new Exception("未被处理的类型");
+                    ilog.Error("未被处理的类型");
+                //   throw new Exception("未被处理的类型");
                 }
             }
             catch (Exception e)

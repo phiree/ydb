@@ -200,15 +200,20 @@ namespace Dianzhu.CSClient.Presenter
 
         }
 
-        private ReceptionChat ViewSearchResult_PushServices(IList<Model.DZService> pushedServices)
+        private ReceptionChat ViewSearchResult_PushServices(IList<Model.DZService> pushedServices,out string errorMsg)
         {
-          
+            errorMsg = string.Empty;
             if (pushedServices.Count == 0)
             {
                 return null;
             }
             if (IdentityManager.CurrentIdentity == null)
             {
+                return null;
+            }
+            if (viewSearch.SearchKeywordTime < DateTime.Now)
+            {
+                errorMsg = "订单已过期，请重新搜索";
                 return null;
             }
             
@@ -221,7 +226,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 //NHibernateUnitOfWork.UnitOfWork.Current.Refresh(service);//来自上个session，需刷新
 
-                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime ));
+                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime ));
             }
            // bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
@@ -311,13 +316,13 @@ namespace Dianzhu.CSClient.Presenter
 
         }
         #endregion
-        private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId,string name)
+        private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId,string name,string lng,string lat)
         {
             //Action a = () =>
             //{
                 int total;
 
-                IList<DZService> services = dalDzService.SearchService(name, minPrice, maxPrice, servieTypeId, targetTime, 0, 10, out total);
+                IList<DZService> services = dalDzService.SearchService(name, minPrice, maxPrice, servieTypeId, targetTime,double.Parse(lng),double.Parse(lat), 0, 999, out total);
                 foreach (DZService service in services)
                 {
                     

@@ -16,7 +16,7 @@ namespace Dianzhu.CSClient.IView
         decimal SearchKeywordPriceMax { get; set; }
         string ServiceCustomerName { get; set; }
         string ServiceCustomerPhone { get; set; }
-        string ServiceAddress { get; set; }
+        string ServiceTargetAddress { get; set; }
         int UnitAmount { get; set; }
 
         void ClearData();
@@ -31,7 +31,7 @@ namespace Dianzhu.CSClient.IView
         event ServiceTypeThird_Select ServiceTypeThird_Select;
         #endregion
     }
-    public delegate void SearchService(DateTime targetTime,decimal minPrice,decimal maxPrice,Guid servieTypeId,string name);
+    public delegate void SearchService(DateTime targetTime,decimal minPrice,decimal maxPrice,Guid servieTypeId,string name,string lng,string lat);
     public delegate void ServiceTypeFirst_Select(ServiceType type);
     public delegate void ServiceTypeSecond_Select(ServiceType type);
     public delegate void ServiceTypeThird_Select(ServiceType type);
@@ -51,7 +51,7 @@ namespace Dianzhu.CSClient.IView
     }
    
     public delegate void SelectService(DZService selectedService);
-    public delegate ReceptionChat PushServices(IList<DZService> pushedServices);
+    public delegate ReceptionChat PushServices(IList<DZService> pushedServices,out string errorMsg);
     public delegate void PushServiceTimerSend();
     public delegate void FilterByBusinessName(string businessName);
 
