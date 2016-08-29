@@ -93,9 +93,9 @@ namespace Dianzhu.BLL
         {
             DALDZService.Delete(dz);
         }
-        public IList<DZService> SearchService(string name, decimal priceMin, decimal priceMax, Guid typeId, DateTime datetime, int pageIndex, int pagesize, out int total)
+        public IList<DZService> SearchService(string name, decimal priceMin, decimal priceMax, Guid typeId, DateTime datetime,double lng,double lat, int pageIndex, int pagesize, out int total)
         {
-            return DALDZService.SearchService(name, priceMin, priceMax, typeId, datetime, pageIndex, pagesize, out total);
+            return DALDZService.SearchService(name, priceMin, priceMax, typeId, datetime,lng,lat, pageIndex, pagesize, out total);
         }
 
         /// <summary>

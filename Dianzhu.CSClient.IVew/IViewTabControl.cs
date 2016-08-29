@@ -9,11 +9,11 @@ namespace Dianzhu.CSClient.IView
     /// <summary>
     /// 显示一些系统通知
     /// </summary>
-    public interface IViewUsefulLinks
+    public interface IViewTabControl
     {
-
+        event SetSearchAddress SetSearchAddress;
     }
 
-
+    public delegate void SetSearchAddress(string address);
 
 }

@@ -14,7 +14,7 @@ namespace Dianzhu.IDAL
 
           IList<DZService> GetList(Guid businessId, int pageindex, int pagesize, out int totalRecord);
           IList<DZService> GetOtherList(Guid businessId, Guid serviceId, int pageindex, int pagesize, out int totalRecord);
-          IList<DZService> SearchService(string name, decimal priceMin, decimal priceMax, Guid serviceTypeId, DateTime preOrderTime, int pageindex, int pagesize, out int totalRecord);
+          IList<DZService> SearchService(string name, decimal priceMin, decimal priceMax, Guid serviceTypeId, DateTime preOrderTime,double lng,double lat, int pageindex, int pagesize, out int totalRecord);
 
           DZService GetOneByBusAndId(Business business, Guid svcId);
 
