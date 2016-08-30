@@ -25,10 +25,11 @@ namespace Dianzhu.ApplicationService.Complaint
         /// <returns></returns>
         public complaintObj AddComplaint(complaintObj complaintobj,Customer customer)
         {
-            if (string.IsNullOrEmpty(complaintobj.senderID))
-            {
-                throw new FormatException("发送者 ID不能为空！");
-            }
+            //if (string.IsNullOrEmpty(complaintobj.senderID))
+            //{
+            //    throw new FormatException("发送者 ID不能为空！");
+            //}
+            complaintobj.senderID = customer.UserID;
             if (string.IsNullOrEmpty(complaintobj.orderID))
             {
                 throw new FormatException("投诉的订单ID不能为空！");
