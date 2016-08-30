@@ -7735,7 +7735,7 @@ a.time-trigger:hover {
   display: inline-block;
   position: absolute;
   box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.38);
-  background: url("../images/register/register_panel_bg.png") repeat-x center;
+  background: url("../images/register/register_panel_bg.png") repeat center;
   overflow: hidden;
 }
 .register-detail {
