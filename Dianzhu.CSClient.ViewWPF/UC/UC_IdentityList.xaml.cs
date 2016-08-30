@@ -637,5 +637,28 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         #endregion
+
+        #region 播放提示音
+
+        MediaPlayer player = new MediaPlayer();
+        public void PlayVoice()
+        {
+            Action lambda = () =>
+            {
+                player.Open(new Uri(System.Environment.CurrentDirectory + @"\Resources\YDBan.wav"));
+                //player.Open(new Uri("E:\\projects\\ddddzzzz\\ALARM.WAV"));
+                player.Play();
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else
+            {
+                lambda();
+            }
+        }
+
+        #endregion
     }
 }
