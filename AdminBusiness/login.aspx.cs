@@ -19,6 +19,17 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
     }
     protected void btnLogin_Click(object sender, EventArgs e)
     {
+
+        HttpCookie CookieErrorTime = Request.Cookies["errorTime"];
+
+        if (CookieErrorTime == null)
+        {
+            HttpCookie errorTime = new HttpCookie("errorTime");
+            errorTime.Value = "0";
+            errorTime.Expires = DateTime.Now.AddDays(3);
+            Response.Cookies.Add(errorTime);
+        }
+
         string errorMsg;
         bool isValid = bllMembership.ValidateUser(tbxUserName.Text, tbxPassword.Text,out errorMsg);
         if (isValid)
@@ -31,15 +42,22 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
             }
             else
             {
+
+                CookieErrorTime.Value = "0";
+                Response.Cookies.Add(CookieErrorTime);
                 Response.Redirect("~/business/", true);
             }
         }
         else
         {
+
+            CookieErrorTime.Value = (int.Parse( CookieErrorTime.Value ) + 1).ToString();
+            Response.Cookies.Add(CookieErrorTime);
+
             lblMsg.Text = errorMsg;
             lblMsg.CssClass = "lblMsg lblMsgShow";
+
             // PHSuit.Notification.Show(Page,"","登录失败",Request.RawUrl);
         }
     }
-
 }

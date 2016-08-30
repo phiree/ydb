@@ -17,6 +17,13 @@
   top:50%;
   margin-top: -190px;
 }
+.new-register-section {
+  height: 450px;
+  width: 100%;
+  position: absolute;
+  top:50%;
+  margin-top: -190px;
+}
 
 // 标题样式
 .register-brand {
@@ -57,7 +64,7 @@
   display: inline-block;
   position: absolute;
   box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.38);
-  background: url("@{base-images-url}/pages/register/register_panel_bg.png") repeat-x center;
+  background: url("@{base-images-url}/pages/register/register_panel_bg.png") repeat center;
   padding-right: 177px;
   overflow: hidden;
   left: 0;
@@ -73,7 +80,7 @@
   display: inline-block;
   position: absolute;
   box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.38);
-  background: url("@{base-images-url}/pages/register/register_panel_bg.png") repeat-x center;
+  background: url("@{base-images-url}/pages/register/register_panel_bg.png") repeat center;
   overflow: hidden;
 }
 
@@ -437,4 +444,31 @@ a.doReg {
     top: -200px;
     right: 0;
   }
+}
+.captchaDisplay{
+  display: none !important;
+}
+.captchaHeight{
+  height: 470px !important;
+  margin-top: -235px;
+}
+#captcha{
+  width: 60%;
+}
+.register-captcha{
+  margin-left: -20px;
+}
+//#code{
+//  position: absolute;
+//  height: 50px;
+//  border: 1px solid red;
+//}
+#code {
+  display: inline;
+}
+#code img{
+  width: 30px;
+}
+#captchaBox_forget{
+  margin-left: -20px;
 }

@@ -29,10 +29,10 @@
                     </div>
                 </div>
             </div>
-            <div class="register-section">
+            <div class="register-section" id="captchaHeight">
                 <div class="register-panel">
                     <div class="register-detail">
-                        <div class="login_err_msg m-b10" >
+                        <div class="login_err_msg m-b10" id="loginError">
                             <asp:Label runat="server" ID="lblMsg" CssClass="lblMsg"></asp:Label>
                         </div>
 
@@ -50,6 +50,15 @@
                                 <i class="passwordIcon"></i>
                             </label>
                             <asp:TextBox class="register-input" runat="server" ID="tbxPassword" placeholder="密码" TextMode="Password"></asp:TextBox>
+                        </div>
+
+                        <div class="register-input-w fluid captchaDisplay" ID="captchaBox">
+                            <span class="register-input-title">验证码</span>
+                            <label class="register-input-icon" for="captcha">
+                                <i class="passwordIcon"></i>
+                            </label>
+                            <!--<asp:TextBox class="register-input" runat="server" placeholder="验证码" ID="captcha"></asp:TextBox>-->
+                            <div id="code"></div>
                         </div>
 
                         <div class="loginBox">
@@ -70,8 +79,20 @@
             <a href="http://www.miibeian.gov.cn/">琼ICP备15000297号-4</a> Copyright © 2015 All Rights Reserved
         </div>
     </div>
-    <!--[if lte IE 9]>
     <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
+    <script src="js/components/captcha.js"></script>
+    <script type="application/javascript " src="js/apps/validation/validation_LoginForget.js"></script>
+
+    <script>
+        $("#code").captcha({
+                callback : function(){
+                    $("#captchaBox").removeClass("captchaDisplay");
+                    $("#captchaHeight").addClass("captchaHeight");
+                }
+            });
+    </script>
+    <!--[if lte IE 9]>
     <script src="/js/plugins/jquery.placeholder.min.js"></script>
     <script>$('input, textarea').placeholder();</script>
     <![endif]-->

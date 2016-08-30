@@ -1215,16 +1215,16 @@ body {
   margin-right: 20px;
 }
 .m-t50 {
-  margin-top: 50px;
+  margin-top: 40px;
 }
 .m-b50 {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 .m-l50 {
-  margin-left: 50px;
+  margin-left: 40px;
 }
 .m-r50 {
-  margin-right: 50px;
+  margin-right: 40px;
 }
 /* 常用padding */
 .p-t10 {
@@ -7835,6 +7835,13 @@ a.time-trigger:hover {
   top: 50%;
   margin-top: -190px;
 }
+.new-register-section {
+  height: 450px;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  margin-top: -190px;
+}
 .register-brand {
   position: absolute;
   right: 125px;
@@ -7869,7 +7876,7 @@ a.time-trigger:hover {
   display: inline-block;
   position: absolute;
   box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.38);
-  background: url("../images//pages/register/register_panel_bg.png") repeat-x center;
+  background: url("../images//pages/register/register_panel_bg.png") repeat center;
   padding-right: 177px;
   overflow: hidden;
   left: 0;
@@ -7884,7 +7891,7 @@ a.time-trigger:hover {
   display: inline-block;
   position: absolute;
   box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.38);
-  background: url("../images//pages/register/register_panel_bg.png") repeat-x center;
+  background: url("../images//pages/register/register_panel_bg.png") repeat center;
   overflow: hidden;
 }
 .register-detail {
@@ -8203,6 +8210,28 @@ a.doReg:hover {
     top: -200px;
     right: 0;
   }
+}
+.captchaDisplay {
+  display: none !important;
+}
+.captchaHeight {
+  height: 470px !important;
+  margin-top: -235px;
+}
+#captcha {
+  width: 60%;
+}
+.register-captcha {
+  margin-left: -20px;
+}
+#code {
+  display: inline;
+}
+#code img {
+  width: 30px;
+}
+#captchaBox_forget {
+  margin-left: -20px;
 }
 .order-list-head {
   color: #333;
