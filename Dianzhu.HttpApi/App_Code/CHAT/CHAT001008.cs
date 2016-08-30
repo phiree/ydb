@@ -15,7 +15,8 @@ public class ResponseCHAT001008:BaseResponse
 {
     Dianzhu.CSClient.IMessageAdapter.IAdapter messageAdapter = Bootstrap.Container.Resolve<Dianzhu.CSClient.IMessageAdapter.IAdapter>();
     Dianzhu.IDAL.IDALReceptionChat dalChat = Bootstrap.Container.Resolve<Dianzhu.IDAL.IDALReceptionChat>();
-
+    Dianzhu.IDAL.IDALIMUserStatus dalIMStatus = Bootstrap.Container.Resolve<Dianzhu.IDAL.IDALIMUserStatus>();
+    BLLPush bllPush = Bootstrap.Container.Resolve<BLLPush>();
     public ResponseCHAT001008(BaseRequest request):base(request)
     {
         //
@@ -32,6 +33,15 @@ public class ResponseCHAT001008:BaseResponse
             if (chat.FromResource != enum_XmppResource.YDBan_DianDian)
             {
                 dalChat.Add(chat);
+                //离线推送
+                string pushType;
+                switch (chat.ChatTarget)
+                {
+                    case enum_ChatTarget.cer:pushType = "withcustomerservice"; break;
+                    case enum_ChatTarget.store:pushType = "withbusiness"; break;
+                    default:throw new Exception("尚未处理的推送类型" + chat.ChatTarget) ;
+                }
+                bllPush.Push(pushType, chat.To.Id, chat.ServiceOrder.Id.ToString());
             }
             else
             {

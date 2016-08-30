@@ -9,7 +9,7 @@
 //"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
 //"wtm001001",,"wtm001002","wtm001004","wtm001005","wtm001006"
 //"rmm001003","rmm001004","rmm001005","rmm001006",
-"chat001008"
+"app001001"
 
 ];
 var test_data = [
@@ -681,8 +681,8 @@ var test_data = [
         "protocol_CODE" : "App001001",
         "ReqData": {
             "AppObj": {
-                "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
-                "appUUID" : "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                "userID": "05a8aefd-6a9b-11e6-b78a-001a7dda7106",
+                "appUUID" : "7F9619FF-8B86-D011-B42D-00C04FC964FF",
                 "appName" : "IOS_User",
                 "appToken": "326a866223956ceb2705d8b88758dc77e6420c3ff7ee3cab2388352a461c7b47"
             },

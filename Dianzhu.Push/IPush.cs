@@ -22,7 +22,7 @@ namespace Dianzhu.Push
     public class PushFactory
     {
         static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Push.PushFactory");
-        public static IPush Create(string type,string orderid)
+        public static IPush Create(PushType pushType, string type,string orderid)
         {
             string errMsg;
             switch (type.ToLower())
@@ -37,7 +37,7 @@ namespace Dianzhu.Push
                     return new JPush.JPush(orderid);
 
                 case "ios":
-                    return new PushIOS();
+                    return new PushIOS(pushType);
                
                 default:
                       errMsg = "未知的推送类型";  

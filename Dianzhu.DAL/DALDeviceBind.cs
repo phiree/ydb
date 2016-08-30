@@ -73,9 +73,9 @@ namespace Dianzhu.DAL
         {
             return FindOne(x => x.AppUUID == uuid && x.IsBinding == true);
         }
-        public DeviceBind getDevBindByUserID(DZMembership user)
+        public DeviceBind getDevBindByUserID(Guid userId)
         {
-            return FindOne(x => x.DZMembership.Id == user.Id && x.IsBinding == true);
+            return FindOne(x => x.DZMembership.Id == userId && x.IsBinding == true);
         }
     }
 }

@@ -17,7 +17,9 @@ public partial class _Default : System.Web.UI.Page
         string message = tbxMessage.Text;
         string deviceToken = tbxDeviceToken.Text;
         string orderId = tbxOrderId.Text;
-        IPush push = PushFactory.Create(appType, orderId);
+
+        
+        IPush push = PushFactory.Create( PushType.UserAndCustomerService, appType, orderId);
         push.Push(message, deviceToken);
     }
 

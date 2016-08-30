@@ -20,14 +20,25 @@ namespace Dianzhu.Push
         
         string strCertificateFilePath {
             get {
-#if DEBUG
-                log.Debug("使用测试版证书");
-                return   AppDomain.CurrentDomain.BaseDirectory + @"files\aps_development_Mark.p12";
+                switch (pushType)
+                {
+                    case PushType.UserAndBusiness:
+                    case PushType.UserAndCustomerService:
+#if Debug
+                        log.Debug("使用测试版证书");
+                        return AppDomain.CurrentDomain.BaseDirectory + @"files\aps_development_Mark.p12";
 #endif
-                log.Debug("使用正式版证书");
-                return  AppDomain.CurrentDomain.BaseDirectory+ @"files\aps_production_Mark.p12";
+                        log.Debug("使用正式版证书");
+                        return AppDomain.CurrentDomain.BaseDirectory + @"files\aps_production_Mark.p12";
+                        
+                    default:
+                        throw new Exception("未知的推送类型");
+                        
+                }
+
             }
         }
+        PushType pushType;
         /// <summary>
         /// IOS推送类
         /// </summary>
@@ -35,9 +46,9 @@ namespace Dianzhu.Push
         /// <param name="isTestCertificate">是测试证书，否则为正式证书</param>
         /// <param name="pushSum"></param>
         /// <param name="notificationSound"></param>
-        public PushIOS( )
+        public PushIOS(PushType pushType)
         {
-           
+            this.pushType = pushType;
             
             
         }

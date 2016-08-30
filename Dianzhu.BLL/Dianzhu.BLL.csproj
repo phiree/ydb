@@ -86,6 +86,7 @@
     <Compile Include="BLLDZServiceStock.cs" />
     <Compile Include="BLLPaymentLog.cs" />
     <Compile Include="BLLMembershipLoginLog.cs" />
+    <Compile Include="Push\BLLPush.cs" />
     <Compile Include="BLLRefundLog.cs" />
     <Compile Include="BLLRefund.cs" />
     <Compile Include="BLLPayment.cs" />
@@ -169,6 +170,10 @@
     <ProjectReference Include="..\Dianzhu.Pay\Dianzhu.Pay.csproj">
       <Project>{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}</Project>
       <Name>Dianzhu.Pay</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
+      <Project>{be142427-1ce4-40f8-ac58-d0509ba05d21}</Project>
+      <Name>Dianzhu.Push</Name>
     </ProjectReference>
     <ProjectReference Include="..\MediaServer\MediaServer.csproj">
       <Project>{9920da22-589c-4193-aeaa-363d5c029dfc}</Project>
