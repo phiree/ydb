@@ -31,14 +31,14 @@ namespace Dianzhu.ApplicationService.App
                 throw new FormatException("appUUID不能为空");
             }
             Guid uuId= utils.CheckGuidID(id, "appUUID");
-            if (appobj.appToken.Length > 64)
-            {
-                throw new FormatException("Token长度超过64");
-            }
-            else if (appobj.appToken.Length < 64)
-            {
-                throw new FormatException("Token长度不够64");
-            }
+            //if (appobj.appToken.Length > 64)
+            //{
+            //    throw new FormatException("Token长度超过64");
+            //}
+            //else if (appobj.appToken.Length < 64)
+            //{
+            //    throw new FormatException("Token长度不够64");
+            //}
             //Model.DeviceBind devicebind = Mapper.Map<appObj, Model.DeviceBind>(appobj);
             Model.DeviceBind devicebind = new Model.DeviceBind();
             Model.DZMembership dzmembership = null;

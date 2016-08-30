@@ -29,34 +29,28 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             InitializeComponent();
         }
+        
 
-        public event IdentityClick IdentityClick;
-        public event FinalChatTimerTick FinalChatTimerTick;
+        #region 用户控件增删改
 
         public void AddIdentity(ServiceOrder serviceOrder)
         {
             Action lambda = () =>
             {
                 string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-                //Button btnIdentity =(Button) pnlIdentityList.FindName(ctrlName);
-                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
-                //if (btnIdentity == null)
+
+                //UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                UC_Customer ucIdentity = (UC_Customer)wpTopIdentityList.FindName(ctrlName);
+
                 if (ucIdentity == null)
                 {
-                    //btnIdentity = new Button { Content = serviceOrder.Customer.DisplayName };
                     ucIdentity = new UC_Customer(serviceOrder);
-                    //btnIdentity.Tag = serviceOrder;
                     ucIdentity.btnCustomer.Tag = serviceOrder;
-
-                    //btnIdentity.Name = ctrlName;
                     ucIdentity.Name = ctrlName;
-                    //btnIdentity.Click += BtnIdentity_Click;
                     ucIdentity.btnCustomer.Click += BtnIdentity_Click;
                     ucIdentity.IdleTimerOut += UcIdentity_IdleTimerOut;
-                    //pnlIdentityList.Children.Add(btnIdentity);
-                    pnlIdentityList.Children.Add(ucIdentity);
-                    //pnlIdentityList.RegisterName(btnIdentity.Name, btnIdentity);
-                    pnlIdentityList.RegisterName(ucIdentity.Name, ucIdentity);
+
+                    InsertTopPanel(ucIdentity, ctrlName);
                 }
             };
             if (!Dispatcher.CheckAccess())
@@ -66,12 +60,74 @@ namespace Dianzhu.CSClient.ViewWPF
             else { lambda(); }
         }
 
+        public void RemoveIdentity(ServiceOrder serviceOrder)
+        {
+            Action lambda = () =>
+            {
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
+
+                //UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                UC_Customer ucIdentity = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
+
+                if (ucIdentity != null)
+                {
+                    RemoveUIForNotTopPanel(ucIdentity, ctrlName);
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
+        }
+
+        public void UpdateIdentityBtnName(Guid oldOrderId, ServiceOrder newOrder)
+        {
+            Action lambda = () =>
+            {
+                string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrderId.ToString());
+                string ctrNewlName = PHSuit.StringHelper.SafeNameForWpfControl(newOrder.Id.ToString());
+
+                //UC_Customer btnOldIdentity = (UC_Customer)pnlIdentityList.FindName(ctrOldlName);
+                UC_Customer btnOldIdentity = (UC_Customer)wpNotTopIdentityList.FindName(ctrOldlName);
+
+                if (btnOldIdentity != null)
+                {
+                    //注销
+                    //pnlIdentityList.UnregisterName(btnOldIdentity.Name);
+                    wpNotTopIdentityList.UnregisterName(btnOldIdentity.Name);
+
+                    //重新注册
+                    btnOldIdentity.Name = ctrNewlName;
+                    //pnlIdentityList.RegisterName(btnOldIdentity.Name, btnOldIdentity);
+                    wpNotTopIdentityList.RegisterName(btnOldIdentity.Name, btnOldIdentity);
+
+                    //更新按钮的tag
+                    btnOldIdentity.btnCustomer.Tag = newOrder;
+                }
+                else
+                {
+                    log.Error("错误：按钮不应该为null");
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
+        }
+
+        #endregion
+
+        #region 更新用户控件对应的订单Id
+
         public void SetCustomerOrder(Guid oldOrderId,Guid newOrderId)
         {
             Action lambda = () =>
             {
                 string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrderId.ToString());
-                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                //UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                UC_Customer ucIdentity = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
                 if (ucIdentity != null)
                 {
                     ucIdentity.SetOrderTempData(newOrderId);
@@ -85,12 +141,19 @@ namespace Dianzhu.CSClient.ViewWPF
             else { lambda(); }
         }
 
+        #endregion
+
+        #region 时间控制器
+
+        public event FinalChatTimerTick FinalChatTimerTick;
+
         public void IdleTimerStart(Guid orderId)
         {
             Action lambda = () =>
             {
                 string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(orderId.ToString());
-                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                //UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                UC_Customer ucIdentity = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
                 if (ucIdentity != null)
                 {
                     ucIdentity.TimerStart();
@@ -109,7 +172,8 @@ namespace Dianzhu.CSClient.ViewWPF
             Action lambda = () =>
             {
                 string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(orderId.ToString());
-                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                //UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                UC_Customer ucIdentity = (UC_Customer)wpTopIdentityList.FindName(ctrlName);
                 if (ucIdentity != null)
                 {
                     ucIdentity.TimerStop();
@@ -134,6 +198,12 @@ namespace Dianzhu.CSClient.ViewWPF
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
+
+        #endregion
+
+        #region 点击用户控件相关事件
+
+        public event IdentityClick IdentityClick;
 
         BackgroundWorker worker;
         ServiceOrder identityOrderTemp;
@@ -165,6 +235,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 SetIdentityReaded(IdentityOrder);
 
 
+
                 worker = new BackgroundWorker();
                 worker.DoWork += Worker_DoWork;
                 worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
@@ -188,6 +259,9 @@ namespace Dianzhu.CSClient.ViewWPF
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
+        #endregion
+
+        #region 用户状态显示
         public void IdentityLogOnShowMsg(ServiceOrder serviceOrder,string msg)
         {
             Action lambda = () =>
@@ -200,7 +274,8 @@ namespace Dianzhu.CSClient.ViewWPF
 
                 string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
 
-                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                //UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                UC_Customer ucIdentity = (UC_Customer)FindName(ctrlName);
 
                 if (ucIdentity != null)
                 {
@@ -225,7 +300,8 @@ namespace Dianzhu.CSClient.ViewWPF
                 }
                 string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
 
-                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                //UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                UC_Customer ucIdentity = (UC_Customer)FindName(ctrlName);
 
                 if (ucIdentity != null)
                 {
@@ -246,7 +322,8 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrderId.ToString());
 
-                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                //UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                UC_Customer ucIdentity = (UC_Customer)FindName(ctrlName);
 
                 if (ucIdentity != null)
                 {
@@ -260,23 +337,56 @@ namespace Dianzhu.CSClient.ViewWPF
             }
             else { lambda(); }
         }
+        #endregion
 
-        public void RemoveIdentity(ServiceOrder serviceOrder)
+        #region 设置用户控件的状态
+
+        public void SetIdentityReaded(ServiceOrder serviceOrder)
         {
             Action lambda = () =>
             {
+                SetIdentityButtonStyle(serviceOrder, em_ButtonStyle.Readed);
+
                 string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-                //Button btnIdentity = (Button)pnlIdentityList.FindName(ctrlName);
-                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
-                //if (btnIdentity != null)
-                if (ucIdentity != null)
+                UC_Customer u = (UC_Customer)wpTopIdentityList.FindName(ctrlName);
+                if (u != null)
                 {
-                    //pnlIdentityList.Children.Remove(btnIdentity);
-                    if (pnlIdentityList.Children.Contains(ucIdentity))
+                    if (wpTopIdentityList.Children.Contains(u))
                     {
-                        pnlIdentityList.Children.Remove(ucIdentity);
-                        //pnlIdentityList.UnregisterName(btnIdentity.Name);
-                        pnlIdentityList.UnregisterName(ucIdentity.Name);
+                        RemoveUIForTopPanel(u, ctrlName);
+                        InsertNotTopPanel(u, ctrlName);
+                    }
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else
+            {
+                lambda();
+            }
+        }
+
+        public void SetIdentityUnread(ServiceOrder serviceOrder, int messageAmount)
+        {
+            Action lambda = () =>
+            {
+                SetIdentityButtonStyle(serviceOrder, em_ButtonStyle.Unread);
+
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
+                UC_Customer u = (UC_Customer)wpTopIdentityList.FindName(ctrlName);
+                if (u != null)
+                {
+                    if (wpTopIdentityList.Children.Contains(u))
+                    {
+                        RemoveUIForTopPanel(u, ctrlName);
+                        InsertTopPanel(u, ctrlName);
+                    }
+                    else
+                    {
+                        RemoveUIForNotTopPanel(u, ctrlName);
+                        InsertTopPanel(u, ctrlName);
                     }                    
                 }
             };
@@ -284,49 +394,10 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 Dispatcher.Invoke(lambda);
             }
-            else { lambda(); }
-        }
-
-        public void UpdateIdentityBtnName(Guid oldOrderId, ServiceOrder newOrder)
-        {
-            Action lambda = () =>
+            else
             {
-                string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrderId.ToString());
-                string ctrNewlName = PHSuit.StringHelper.SafeNameForWpfControl(newOrder.Id.ToString());
-                
-                UC_Customer btnOldIdentity = (UC_Customer)pnlIdentityList.FindName(ctrOldlName);
-                if (btnOldIdentity != null)
-                {
-                    //注销
-                    pnlIdentityList.UnregisterName(btnOldIdentity.Name);
-
-                    //重新注册
-                    btnOldIdentity.Name = ctrNewlName;
-                    pnlIdentityList.RegisterName(btnOldIdentity.Name, btnOldIdentity);
-
-                    //更新按钮的tag
-                    btnOldIdentity.btnCustomer.Tag = newOrder;
-                }
-                else
-                {
-                    log.Error("错误：按钮不应该为null");
-                }
-            };
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(lambda);
+                lambda();
             }
-            else { lambda(); }
-        }
-
-        public void SetIdentityReaded(ServiceOrder serviceOrder)
-        {
-            SetIdentityButtonStyle(serviceOrder, em_ButtonStyle.Readed);
-        }
-
-        public void SetIdentityUnread(ServiceOrder serviceOrder, int messageAmount)
-        {
-            SetIdentityButtonStyle(serviceOrder, em_ButtonStyle.Unread);
         }
         public void SetIdentityLogOff(ServiceOrder serviceOrder)
         {
@@ -336,7 +407,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
-                var objBtn = pnlIdentityList.FindName(PHSuit.StringHelper.SafeNameForWpfControl(order.Id.ToString()));
+                var objBtn = (UC_Customer)FindName(PHSuit.StringHelper.SafeNameForWpfControl(order.Id.ToString()));
                 if (objBtn != null)
                 {
                     //Button btn = (Button)objBtn;
@@ -352,7 +423,7 @@ namespace Dianzhu.CSClient.ViewWPF
                             foreColor = Colors.Gray;
                             //btn.Visibility = Visibility.Collapsed;
                             //pnlIdentityList.Children.Remove(btn);
-                            pnlIdentityList.Children.Remove(ucCustomer);
+                            //pnlIdentityList.Children.Remove(ucCustomer);
                             break;
                         case em_ButtonStyle.Readed:
                             foreColor = Colors.Black;
@@ -389,5 +460,205 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             SetIdentityButtonStyle(serviceOrder, em_ButtonStyle.Loading);
         }
+
+        #endregion
+
+        #region 用户头像列表相关UI方法
+        /// <summary>
+        /// 新消息需置顶
+        /// </summary>
+        /// <param name="u"></param>
+        public void InsertTopPanel(UC_Customer u,string registerName)
+        {
+            Action lambda = () =>
+            {
+                if (!wpTopIdentityList.Children.Contains(u))
+                {
+                    wpTopIdentityList.Width += u.Width;
+                    wpTopIdentityList.Children.Insert(0, u);
+                    wpTopIdentityList.RegisterName(registerName, u);
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else
+            {
+                lambda();
+            }
+        }
+        /// <summary>
+        /// 已读的消息从置顶列表中清除
+        /// </summary>
+        /// <param name="u"></param>
+        public void RemoveUIForTopPanel(UC_Customer u, string registerName)
+        {
+            Action lambda = () =>
+            {
+                if (wpTopIdentityList.Children.Contains(u))
+                {
+                    wpTopIdentityList.Width -= u.Width;
+                    wpTopIdentityList.Children.Remove(u);
+                    wpTopIdentityList.UnregisterName(registerName);
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else
+            {
+                lambda();
+            }
+        }
+        /// <summary>
+        /// 已读消息放到非置顶列表
+        /// </summary>
+        /// <param name="u"></param>
+        public void InsertNotTopPanel(UC_Customer u, string registerName)
+        {
+            Action lambda = () =>
+            {
+                if (!wpNotTopIdentityList.Children.Contains(u))
+                {
+                    wpNotTopIdentityList.Children.Insert(0, u);
+                    wpNotTopIdentityList.RegisterName(registerName, u);
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else
+            {
+                lambda();
+            }
+        }
+        /// <summary>
+        /// 从非置顶列表删除用户
+        /// </summary>
+        /// <param name="u"></param>
+        public void RemoveUIForNotTopPanel(UC_Customer u, string registerName)
+        {
+            Action lambda = () =>
+            {
+                if (wpNotTopIdentityList.Children.Contains(u))
+                {
+                    wpNotTopIdentityList.Children.Remove(u);
+                    wpNotTopIdentityList.UnregisterName(registerName);
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else
+            {
+                lambda();
+            }
+        }
+        /// <summary>
+        /// 用户控件从置顶区移到非置顶区
+        /// </summary>
+        /// <param name="order"></param>
+        public void UIFromTopToNotTop(ServiceOrder order)
+        {
+            Action lambda = () =>
+            {
+                string ctrName = PHSuit.StringHelper.SafeNameForWpfControl(order.Id.ToString());
+
+                UC_Customer btnIdentity = (UC_Customer)wpTopIdentityList.FindName(ctrName);
+                if (btnIdentity != null)
+                {
+                    RemoveUIForTopPanel(btnIdentity, ctrName);
+                    InsertNotTopPanel(btnIdentity, ctrName);
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else
+            {
+                lambda();
+            }
+        }
+
+        /// <summary>
+        /// 用户控件从非置顶区移到置顶区
+        /// </summary>
+        /// <param name="order"></param>
+        public void UIFromNotTopToTop(ServiceOrder order)
+        {
+            Action lambda = () =>
+            {
+                string ctrName = PHSuit.StringHelper.SafeNameForWpfControl(order.Id.ToString());
+
+                UC_Customer btnIdentity = (UC_Customer)wpNotTopIdentityList.FindName(ctrName);
+                if (btnIdentity != null)
+                {
+                    RemoveUIForNotTopPanel(btnIdentity, ctrName);
+                    InsertTopPanel(btnIdentity, ctrName);
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else
+            {
+                lambda();
+            }
+        }
+
+        public UC_Customer FindUIByName(string name)
+        {
+            UC_Customer u = null;
+
+            Action lambda = () =>
+            {
+                u = (UC_Customer)wpTopIdentityList.FindName(name);
+                if (u == null)
+                {
+                    u = (UC_Customer)wpNotTopIdentityList.FindName(name);
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else
+            {
+                lambda();
+            }
+
+            return u;
+        }
+
+        #endregion
+
+        #region 播放提示音
+
+        MediaPlayer player = new MediaPlayer();
+        public void PlayVoice()
+        {
+            Action lambda = () =>
+            {
+                player.Open(new Uri(System.Environment.CurrentDirectory + @"\Resources\YDBan.wav"));
+                //player.Open(new Uri("E:\\projects\\ddddzzzz\\ALARM.WAV"));
+                player.Play();
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else
+            {
+                lambda();
+            }
+        }
+
+        #endregion
     }
 }
