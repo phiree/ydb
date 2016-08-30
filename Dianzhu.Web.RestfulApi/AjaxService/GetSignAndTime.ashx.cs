@@ -43,17 +43,6 @@ namespace Dianzhu.Web.RestfulApi.AjaxService
                     return;
                 }
                 string strRequestUrl = strUrl + apiurl;
-                string intMethod = jo["method"].ToString();//context.Request.Form["method"] ?? "";
-                if (intMethod == "")
-                {
-                    context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"请求方式(method)不能为空!\"}");
-                    return;
-                }
-                if (intMethod != "0" && intMethod != "1" && intMethod != "2" && intMethod != "3" && intMethod != "6")
-                {
-                    context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"请求方式(method)错误!\"}");
-                    return;
-                }
                 string requestUri = System.Web.HttpUtility.UrlEncode(strRequestUrl);
                 string strRequestContent = jo["content"].ToString();//context.Request.Form["content"] ?? "";
                 string strRequestToken = jo["token"].ToString();//context.Request.Form["token"] ?? "";
@@ -75,7 +64,7 @@ namespace Dianzhu.Web.RestfulApi.AjaxService
 
                 byte[] signature22 = Encoding.UTF8.GetBytes(APIKey);
                 byte[] signature = Encoding.UTF8.GetBytes(signatureRawData);
-
+                string requestSignatureBase64String = "";
                 using (HMACSHA256 hmac = new HMACSHA256(signature22))
                 {
                     byte[] signatureBytes = hmac.ComputeHash(signature);
@@ -83,9 +72,9 @@ namespace Dianzhu.Web.RestfulApi.AjaxService
                     for (int i = 0; i < signatureBytes.Length; i++)
                     { sb1.Append(signatureBytes[i].ToString("x2")); }
                     byte[] baseBuffer = Encoding.UTF8.GetBytes(sb1.ToString());
-                    string requestSignatureBase64String = Convert.ToBase64String(baseBuffer);
+                    requestSignatureBase64String = Convert.ToBase64String(baseBuffer);
                 }
-                context.Response.Write("{\"result\":\"" + true + "\",\"msg\":\"Restful接口访问成功！\",\"data\":" + "response.Content" + "}");
+                context.Response.Write("{\"result\":\"" + true + "\",\"msg\":\"访问成功！\",\"data\":" + "{\"TimeStamp\":\""+ requestTimeStamp + "\",\"Signature\":\"" + requestSignatureBase64String + "\"}" + "}");
             }
             catch (Exception ex)
             {

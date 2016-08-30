@@ -49,7 +49,7 @@ namespace Swashbuckle.Application
             //CustomAsset("css/typography-css", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.typography.css");
             CustomAsset("lib/swagger-oauth-js", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.swagger-oauth.js");
 
-            CustomAsset("lib/swagger-ui-js", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.js");
+            CustomAsset("swagger-ui-js", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.js");
             CustomAsset("swagger-ui-min-js", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.swagger-ui.min.js");
             //CustomAsset("images/logo_small-png", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.images.logo_small.png");
 

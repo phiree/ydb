@@ -22900,6 +22900,13 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
       }
     });
     if (error_free) {
+
+       //*********添加Header参数**********
+        setHeaderParam(this);
+       //*********添加Header参数**********
+
+
+
       map = this.getInputMap(form);
       isFileUpload = this.isFileUpload(form);
       opts = {
