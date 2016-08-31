@@ -23,13 +23,21 @@ namespace Dianzhu.Push
                 switch (pushType)
                 {
                     case PushType.UserAndBusiness:
+
+#if Debug
+                        log.Debug("使用商户测试版证书");
+                        return AppDomain.CurrentDomain.BaseDirectory + @"files\aps_development_Mark_Store.p12";
+#endif
+                        log.Debug("使用正式版商户证书");
+                        return AppDomain.CurrentDomain.BaseDirectory + @"files\aps_production_Mark_Store.p12";
+
                     case PushType.UserAndCustomerService:
 #if Debug
                         log.Debug("使用测试版证书");
-                        return AppDomain.CurrentDomain.BaseDirectory + @"files\aps_development_Mark.p12";
+                        return AppDomain.CurrentDomain.BaseDirectory + @"files\aps_development_Mark_CustomerService.p12";
 #endif
                         log.Debug("使用正式版证书");
-                        return AppDomain.CurrentDomain.BaseDirectory + @"files\aps_production_Mark.p12";
+                        return AppDomain.CurrentDomain.BaseDirectory + @"files\aps_production_Mark_CustomerService.p12";
                         
                     default:
                         throw new Exception("未知的推送类型");
