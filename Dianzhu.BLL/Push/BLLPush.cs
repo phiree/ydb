@@ -39,7 +39,10 @@ namespace Dianzhu.BLL
                 }
 
                IPush ipush=  Dianzhu.Push.PushFactory.Create(pushType, deviceName, orderId);
-               string pushResult=  ipush.Push("您有新的消息", bind.AppToken);
+                int pushAmount = bind.PushAmount+1;
+                bind.PushAmount = pushAmount;
+                dalDeviceBind.Update(bind);
+               string pushResult=  ipush.Push("您有新的消息", bind.AppToken,pushAmount);
 
                 }
         }

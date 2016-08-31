@@ -192,10 +192,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="config\connectionstrings.config" />
-    <None Include="files\aps_development_Mark.p12">
+    <None Include="files\aps_development_Mark_CustomerService.p12">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="files\aps_production_Mark.p12">
+    <None Include="files\aps_development_Mark_Store.p12">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="files\aps_production_Mark_CustomerService.p12">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="files\aps_production_Mark_Store.p12">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

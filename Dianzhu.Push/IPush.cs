@@ -17,7 +17,7 @@ namespace Dianzhu.Push
         /// <param name="message">消息内容</param>
         /// <param name="target">目标地址.</param>
         /// <returns>推送结果 </returns>
-        string Push(string message,string target);
+        string Push(string message,string target,int amount);
     }
     public class PushFactory
     {

@@ -14,9 +14,7 @@ namespace Dianzhu.Push
     public class PushIOS:IPush
     {
         
-        string strDeviceToken;
-        
-        
+     
         
         string strCertificateFilePath {
             get {
@@ -24,7 +22,7 @@ namespace Dianzhu.Push
                 {
                     case PushType.UserAndBusiness:
 
-#if Debug
+#if DEBUG
                         log.Debug("使用商户测试版证书");
                         return AppDomain.CurrentDomain.BaseDirectory + @"files\aps_development_Mark_Store.p12";
 #endif
@@ -32,7 +30,7 @@ namespace Dianzhu.Push
                         return AppDomain.CurrentDomain.BaseDirectory + @"files\aps_production_Mark_Store.p12";
 
                     case PushType.UserAndCustomerService:
-#if Debug
+#if DEBUG
                         log.Debug("使用测试版证书");
                         return AppDomain.CurrentDomain.BaseDirectory + @"files\aps_development_Mark_CustomerService.p12";
 #endif
@@ -61,7 +59,7 @@ namespace Dianzhu.Push
             
         }
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Push");
-        public string Push(string strContent,string strDeviceToken)
+        public string Push(string strContent, string strDeviceToken, int amount)
         {
             log.Debug("开始推送消息:"+strContent);
             bool sandbox = false;
@@ -108,7 +106,7 @@ namespace Dianzhu.Push
             alertNotification.Payload.Alert.Body = strContent;
 
             alertNotification.Payload.Sound = "default";//为空时就是静音
-            alertNotification.Payload.Badge = 1;
+            alertNotification.Payload.Badge = amount;
 
             //Queue the notification to be sent
             if (service.QueueNotification(alertNotification))

@@ -15,12 +15,19 @@ namespace Dianzhu.BLL.Tests
         public void SetUp()
         {
             Bootstrap.Boot();
+            NHibernateUnitOfWork.UnitOfWork.Start();
         }
         [Test()]
         public void PushTest()
         {
             BLLPush push = Bootstrap.Container.Resolve<BLLPush>();
-            push.Push("withcustomer",Guid.NewGuid(), "dasdfds");
+            push.Push("withcustomerservice",new Guid("f222f7b8-236c-4e43-9e4b-a66500fc4681"), "dasdfds");
+        }
+        [TearDown]
+        public void TearDown()
+        {
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
     }
 }
