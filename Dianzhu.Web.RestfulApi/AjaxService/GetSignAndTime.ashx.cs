@@ -34,8 +34,8 @@ namespace Dianzhu.Web.RestfulApi.AjaxService
                 Newtonsoft.Json.Linq.JObject jo = (Newtonsoft.Json.Linq.JObject)JsonConvert.DeserializeObject(strData);
                 string APPId = "UI3f4185e97b3E4a4496594eA3b904d60d";
                 string APIKey = "NoJBn3npJIvre2fC2SQL5aQGNB/3l73XXSqNZYdY6HU=";
-                string strUrl = "http://112.74.198.215:8041";
-                strUrl = "http://localhost:52553";
+                string strUrl = context.Request.Url.Scheme + "://" + context.Request.Url.Authority;//"http://112.74.198.215:8041";
+                //strUrl = "http://localhost:52553";
                 string apiurl = jo["apiurl"].ToString();//context.Request.Form["apiurl"]??"";
                 if (apiurl == "")
                 {
@@ -43,7 +43,7 @@ namespace Dianzhu.Web.RestfulApi.AjaxService
                     return;
                 }
                 string strRequestUrl = strUrl + apiurl;
-                string requestUri = System.Web.HttpUtility.UrlEncode(strRequestUrl);
+                string requestUri = System.Web.HttpUtility.UrlEncode(strRequestUrl.ToLower());
                 string strRequestContent = jo["content"].ToString();//context.Request.Form["content"] ?? "";
                 string strRequestToken = jo["token"].ToString();//context.Request.Form["token"] ?? "";
                 DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
@@ -52,7 +52,7 @@ namespace Dianzhu.Web.RestfulApi.AjaxService
                 string requestContentBase64String = "";
                 if (strRequestContent != "")
                 {
-                    byte[] byteData = UTF8Encoding.UTF8.GetBytes(strRequestContent);
+                    byte[] byteData = UTF8Encoding.UTF8.GetBytes(strRequestContent.Replace("\r", string.Empty));
                     MD5 md5 = MD5.Create();
                     byte[] requestContentHash = md5.ComputeHash(byteData);
                     StringBuilder sb = new StringBuilder();
@@ -61,7 +61,7 @@ namespace Dianzhu.Web.RestfulApi.AjaxService
                     requestContentBase64String = sb.ToString();
                 }
                 string signatureRawData = String.Format("{0}{1}{2}{3}{4}", APPId, strRequestToken, requestContentBase64String, requestTimeStamp, requestUri);
-
+                //signatureRawData = "123";
                 byte[] signature22 = Encoding.UTF8.GetBytes(APIKey);
                 byte[] signature = Encoding.UTF8.GetBytes(signatureRawData);
                 string requestSignatureBase64String = "";

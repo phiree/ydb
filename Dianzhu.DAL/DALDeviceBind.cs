@@ -50,7 +50,7 @@ namespace Dianzhu.DAL
                     {
                         unbind_sql += "db.DZMembership.Id='" + devicebind.DZMembership.Id + "'";
                     }
-                    unbind_sql += " or  db.AppToken='" + devicebind.AppToken + "')";
+                    unbind_sql += " or  db.AppUUID='" + devicebind.AppUUID + "')";
                     IQuery query = Session.CreateQuery(unbind_sql);
                     query.ExecuteUpdate();
 

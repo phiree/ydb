@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Configuration;
+using System.Web.Configuration;
 using Microsoft.Owin;
 using Owin;
 using Microsoft.Owin.Security.OAuth;
@@ -20,7 +22,10 @@ namespace Dianzhu.Web.RestfulApi
         {
             HttpConfiguration config = new HttpConfiguration();
             //ConfigureOAuth(app);
-            WebApiConfig.Register(config);
+            if (bool.Parse(ConfigurationManager.AppSettings["UseSwagger"]))
+            {
+                WebApiConfig.Register(config);
+            }
             SwaggerConfig.RegisterWithConfig(config);
             Bootstrap.Boot();
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);

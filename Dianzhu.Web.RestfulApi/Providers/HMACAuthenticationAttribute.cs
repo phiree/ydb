@@ -104,7 +104,7 @@ namespace Dianzhu.Web.RestfulApi
             }
             if (b)
             {
-                bool bb = bool.Parse(ConfigurationManager.AppSettings["NoAuthentication"]);
+                //bool bb = bool.Parse(ConfigurationManager.AppSettings["NoAuthentication"]);
                 if (bool.Parse(ConfigurationManager.AppSettings["NoAuthentication"]))
                 {
                     var currentPrincipal = new GenericPrincipal(new GenericIdentity(appName), null);
@@ -263,6 +263,7 @@ namespace Dianzhu.Web.RestfulApi
                 ilog.Debug("Create(requestContentBase64String):" + requestContentBase64String);
             }
             string data = String.Format("{0}{1}{2}{3}{4}", appName, token, requestContentBase64String, stamp_TIMES, requestUri);
+            //data = "123";
             byte[] signature = Encoding.UTF8.GetBytes(data);
             sb = new StringBuilder();
             byte[] baseBuffer = null;

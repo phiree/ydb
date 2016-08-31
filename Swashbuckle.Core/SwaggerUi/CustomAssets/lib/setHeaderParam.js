@@ -8,10 +8,14 @@
     if (strPath != "/api/v1/authorization" && strPath != "/api/v1/customers" && strPath != "/api/v1/merchants" && strPath != "/api/v1/customer3rds")
     {
         var objAuthorization = $('#resource__Authorization');
-        var objResponseBody = objAuthorization.find('.response_body')
+        var objResponseBody = objAuthorization.find('.response_body');
         if (objResponseBody.html() != "")
         {
-
+            var arrSpan = objResponseBody.find('span');
+            if (arrSpan.length == 4 && $(arrSpan[0]).text() == "token")
+            {
+                strToken = $(arrSpan[1]).text();
+            }
         }
     }
     var arrTrParam = objOperation.find('.operation-params').find('tr');
@@ -19,6 +23,7 @@
     var contentParam = "";
     var inputTime;
     var inputSign;
+    var inputToken;
     for (var i = 0; i < arrTrParam.length; i++) {
         var arrTdParam = $(arrTrParam[i]).find('td');
         var paramType = $(arrTdParam[3]).html();
@@ -50,10 +55,18 @@
         if (paramType == "header" && $(arrTdParam[0]).text() == "sign") {
             inputSign = $(paramControl[0]);
         }
+        if (paramType == "header" && $(arrTdParam[0]).text() == "token") {
+            inputToken = $(paramControl[0]);
+        }
     }
+    inputToken.val(strToken.substring(1,strToken.length-1));
     if (queryParam != "")
     {
         strPath = strPath + "?" + queryParam.substring(0, queryParam.length - 1);
+    }
+    if (contentParam.trim() == "")
+    {
+        contentParam = "''";
     }
 
     var settings = {
@@ -64,7 +77,7 @@
             "content-type": "application/json"
         },
         dataType: "JSON",
-        data: "{\n    \"apiurl\":\"" + strPath + "\",\n    \"token\":\"" + strToken + "\",\n\"content\":" + contentParam + "\n}",
+        data: "{\n    \"apiurl\":\"" + strPath + "\",\n    \"token\":" + strToken + ",\n\"content\":" + contentParam + "\n}",
         success: function (data) {
             console.log(data)
             inputTime.val(data.data.TimeStamp);
