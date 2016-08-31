@@ -283,6 +283,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="config\appSettings.config" />
+    <Content Include="config\connectionstrings.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -313,11 +317,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\connectionstrings.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="files\rsa_private_key.pem" />
-    <Content Include="config\appSettings.config" />
     <Content Include="AjaxService\GetSignAndTime.ashx" />
     <None Include="Properties\PublishProfiles\RestfulApi.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
