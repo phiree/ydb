@@ -1,0 +1,1202 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dianzhu.Web.RestfulApi</name>
+    </assembly>
+    <members>
+        <member name="M:Dianzhu.Web.RestfulApi.Startup.ConfigureAuth(Owin.IAppBuilder)">
+            <summary>
+            配置路由
+            </summary>
+            <param name="app"></param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Startup.ConfigureOAuth(Owin.IAppBuilder)">
+            <summary>
+            配置OAuth授权服务器
+            </summary>
+            <param name="app"></param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
+            </summary>
+            <param name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The ID as a string.</returns>
+        </member>
+        <member name="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfig">
+            <summary>
+            Use this class to customize the Help Page.
+            For example you can set a custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
+            or you can provide the samples for the requests/responses.
+            </summary>
+        </member>
+        <member name="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.Controllers.HelpController">
+            <summary>
+            The controller that will handle requests for the help page.
+            </summary>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetDocumentationProvider(System.Web.Http.HttpConfiguration,System.Web.Http.Description.IDocumentationProvider)">
+            <summary>
+            Sets the documentation provider for help page.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="documentationProvider">The documentation provider.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleObjects(System.Web.Http.HttpConfiguration,System.Collections.Generic.IDictionary{System.Type,System.Object})">
+            <summary>
+            Sets the objects that will be used by the formatters to produce sample requests/responses.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleObjects">The sample objects.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type and action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample request directly for the specified media type and action with parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type of the action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample response directly for the specified media type of the action with specific parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForMediaType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Sets the sample directly for all actions with the specified media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Sets the sample directly for all actions with the specified type and media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The parameter type or return type of an action.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <returns>The help page sample generator.</returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration,Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator)">
+            <summary>
+            Sets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleGenerator">The help page sample generator.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetModelDescriptionGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the model description generator.
+            </summary>
+            <param name="config">The configuration.</param>
+            <returns>The <see cref="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator"/></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageApiModel(System.Web.Http.HttpConfiguration,System.String)">
+            <summary>
+            Gets the model that represents an API displayed on the help page. The model is initialized on the first call and cached for subsequent calls.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="apiDescriptionId">The <see cref="T:System.Web.Http.Description.ApiDescription"/> ID.</param>
+            <returns>
+            An <see cref="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.Models.HelpPageApiModel"/>
+            </returns>
+        </member>
+        <member name="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.ModelDescriptions.ModelDescription">
+            <summary>
+            Describes a type model.
+            </summary>
+        </member>
+        <member name="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator">
+            <summary>
+            Generates model descriptions for given types.
+            </summary>
+        </member>
+        <member name="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.ModelDescriptions.ModelNameAttribute">
+            <summary>
+            Use this attribute to change the name of the <see cref="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.ModelDescriptions.ModelDescription"/> generated for a type.
+            </summary>
+        </member>
+        <member name="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.Models.HelpPageApiModel">
+            <summary>
+            The model that represents an API displayed on the help page.
+            </summary>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.Models.HelpPageApiModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.Models.HelpPageApiModel"/> class.
+            </summary>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription">
+            <summary>
+            Gets or sets the <see cref="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription"/> that describes the API.
+            </summary>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.Models.HelpPageApiModel.UriParameters">
+            <summary>
+            Gets or sets the <see cref="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.ModelDescriptions.ParameterDescription"/> collection that describes the URI parameters for the API.
+            </summary>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.Models.HelpPageApiModel.RequestDocumentation">
+            <summary>
+            Gets or sets the documentation for the request.
+            </summary>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.Models.HelpPageApiModel.RequestModelDescription">
+            <summary>
+            Gets or sets the <see cref="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the request body.
+            </summary>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.Models.HelpPageApiModel.RequestBodyParameters">
+            <summary>
+            Gets the request body parameter descriptions.
+            </summary>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.Models.HelpPageApiModel.ResourceDescription">
+            <summary>
+            Gets or sets the <see cref="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the resource.
+            </summary>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.Models.HelpPageApiModel.ResourceProperties">
+            <summary>
+            Gets the resource property descriptions.
+            </summary>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.Models.HelpPageApiModel.SampleRequests">
+            <summary>
+            Gets the sample requests associated with the API.
+            </summary>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.Models.HelpPageApiModel.SampleResponses">
+            <summary>
+            Gets the sample responses associated with the API.
+            </summary>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.Models.HelpPageApiModel.ErrorMessages">
+            <summary>
+            Gets the error messages associated with this model.
+            </summary>
+        </member>
+        <member name="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator">
+            <summary>
+            This class will generate the samples for the help page.
+            </summary>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator"/> class.
+            </summary>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.ActualHttpMessageTypes">
+            <summary>
+            Gets CLR types that are used as the content of <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/>.
+            </summary>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples">
+            <summary>
+            Gets the objects that are used directly as samples for certain actions.
+            </summary>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects">
+            <summary>
+            Gets the objects that are serialized as samples by the supported formatters.
+            </summary>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories">
+            <summary>
+            Gets factories for the objects that the supported formatters will serialize as samples. Processed in order,
+            stopping when the factory successfully returns a non-<see langref="null"/> object.
+            </summary>
+            <remarks>
+            Collection includes just <see cref="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)"/> initially. Use
+            <code>SampleObjectFactories.Insert(0, func)</code> to provide an override and
+            <code>SampleObjectFactories.Add(func)</code> to provide a fallback.</remarks>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleRequests(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the request body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleResponses(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the response body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.GetSample(System.Web.Http.Description.ApiDescription,Dianzhu.Web.RestfulApi.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Gets the request or response body samples.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.GetActionSample(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Type,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue,Dianzhu.Web.RestfulApi.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Search for samples that are provided directly through <see cref="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples"/>.
+            </summary>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="type">The CLR type.</param>
+            <param name="formatter">The formatter.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The sample that matches the parameters.</returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleObject(System.Type)">
+            <summary>
+            Gets the sample object that will be serialized by the formatters. 
+            First, it will look at the <see cref="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects"/>. If no sample object is found, it will try to create
+            one using <see cref="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.DefaultSampleObjectFactory(Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator,System.Type)"/> (which wraps an <see cref="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.ObjectGenerator"/>) and other
+            factories in <see cref="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>The sample object.</returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.ResolveHttpRequestMessageType(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Resolves the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The type.</returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.ResolveType(System.Web.Http.Description.ApiDescription,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},Dianzhu.Web.RestfulApi.Areas.HelpPage.SampleDirection,System.Collections.ObjectModel.Collection{System.Net.Http.Formatting.MediaTypeFormatter}@)">
+            <summary>
+            Resolves the type of the action parameter or return value when <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/> is used.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or a response.</param>
+            <param name="formatters">The formatters.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleGenerator.WriteSampleObjectUsingFormatter(System.Net.Http.Formatting.MediaTypeFormatter,System.Object,System.Type,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Writes the sample object using formatter.
+            </summary>
+            <param name="formatter">The formatter.</param>
+            <param name="value">The value.</param>
+            <param name="type">The type.</param>
+            <param name="mediaType">Type of the media.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey">
+            <summary>
+            This is used to identify the place where the sample should be applied.
+            </summary>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Creates a new <see cref="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Creates a new <see cref="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type and CLR type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The CLR type.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey.#ctor(Dianzhu.Web.RestfulApi.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey"/> based on <see cref="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="sampleDirection">The <see cref="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,Dianzhu.Web.RestfulApi.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type, <see cref="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The <see cref="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey.ControllerName">
+            <summary>
+            Gets the name of the controller.
+            </summary>
+            <value>
+            The name of the controller.
+            </value>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey.ActionName">
+            <summary>
+            Gets the name of the action.
+            </summary>
+            <value>
+            The name of the action.
+            </value>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey.MediaType">
+            <summary>
+            Gets the media type.
+            </summary>
+            <value>
+            The media type.
+            </value>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey.ParameterNames">
+            <summary>
+            Gets the parameter names.
+            </summary>
+        </member>
+        <member name="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection">
+            <summary>
+            Gets the <see cref="P:Dianzhu.Web.RestfulApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.
+            </summary>
+        </member>
+        <member name="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.ImageSample">
+            <summary>
+            This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
+            </summary>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.ImageSample.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.ImageSample"/> class.
+            </summary>
+            <param name="src">The URL of an image.</param>
+        </member>
+        <member name="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.InvalidSample">
+            <summary>
+            This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.ObjectGenerator">
+            <summary>
+            This class will create an object of a given type and populate it with sample data.
+            </summary>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)">
+            <summary>
+            Generates an object for a given type. The type needs to be public, have a public default constructor and settable public properties/fields. Currently it supports the following types:
+            Simple types: <see cref="T:System.Int32"/>, <see cref="T:System.String"/>, <see cref="T:System.Enum"/>, <see cref="T:System.DateTime"/>, <see cref="T:System.Uri"/>, etc.
+            Complex types: POCO types.
+            Nullables: <see cref="T:System.Nullable`1"/>.
+            Arrays: arrays of simple types or complex types.
+            Key value pairs: <see cref="T:System.Collections.Generic.KeyValuePair`2"/>
+            Tuples: <see cref="T:System.Tuple`1"/>, <see cref="T:System.Tuple`2"/>, etc
+            Dictionaries: <see cref="T:System.Collections.Generic.IDictionary`2"/> or anything deriving from <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            Collections: <see cref="T:System.Collections.Generic.IList`1"/>, <see cref="T:System.Collections.Generic.IEnumerable`1"/>, <see cref="T:System.Collections.Generic.ICollection`1"/>, <see cref="T:System.Collections.IList"/>, <see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> or anything deriving from <see cref="T:System.Collections.Generic.ICollection`1"/> or <see cref="T:System.Collections.IList"/>.
+            Queryables: <see cref="T:System.Linq.IQueryable"/>, <see cref="T:System.Linq.IQueryable`1"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>An object of the given type.</returns>
+        </member>
+        <member name="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.SampleDirection">
+            <summary>
+            Indicates whether the sample is used for request or response
+            </summary>
+        </member>
+        <member name="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.TextSample">
+            <summary>
+            This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.XmlDocumentationProvider">
+            <summary>
+            A custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
+            </summary>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Areas.HelpPage.XmlDocumentationProvider.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Dianzhu.Web.RestfulApi.Areas.HelpPage.XmlDocumentationProvider"/> class.
+            </summary>
+            <param name="documentPath">The physical path to XML document.</param>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.AD.adsController.GetADs(Dianzhu.ApplicationService.common_Trait_AdFiltering)">
+            <summary>
+            条件读取广告
+            </summary>
+            <param name="adf"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.APP.AppsController.PostDeviceBind(System.String,Dianzhu.ApplicationService.appObj)">
+            <summary>
+            注册设备,userID 为空，表示匿名注册  , [FromBody]appObj appobj
+            </summary>
+            <param name="id"></param>
+            <param name="appobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.APP.AppsController.DeleteDeviceBind(System.String)">
+            <summary>
+            删除设备
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.APP.AppsController.PatchDeviceBind(System.String,Dianzhu.ApplicationService.Common_Body)">
+            <summary>
+            更新设备推送计数
+            </summary>
+            <param name="id"></param>
+            <param name="pushCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.CHAT.ChatsController.GetChats(System.String,Dianzhu.ApplicationService.common_Trait_Filtering,Dianzhu.ApplicationService.common_Trait_ChatFiltering)">
+            <summary>
+            条件读取聊天记录
+            </summary>
+            <param name="orderID"></param>
+            <param name="filter"></param>
+            <param name="chatfilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.CHAT.ChatsController.GetChatsCount(System.String,Dianzhu.ApplicationService.common_Trait_ChatFiltering)">
+            <summary>
+            统计聊天信息的数量
+            </summary>
+            <param name="orderID"></param>
+            <param name="chatfilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.CHAT.ChatsController.GetAllChats(Dianzhu.ApplicationService.common_Trait_Filtering,Dianzhu.ApplicationService.common_Trait_ChatFiltering)">
+            <summary>
+            条件读取所有聊天记录
+            </summary>
+            <param name="filter"></param>
+            <param name="chatfilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.CHAT.ChatsController.GetAllChatsCount(Dianzhu.ApplicationService.common_Trait_ChatFiltering)">
+            <summary>
+            统计所有聊天信息的数量
+            </summary>
+            <param name="chatfilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.COMPLAINT.ComplaintsController.PostCreateComplaint(Dianzhu.ApplicationService.complaintObj)">
+            <summary>
+            新建投诉
+            </summary>
+            <param name="complaintobj">投诉信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.COMPLAINT.ComplaintsController.GetComplaints(Dianzhu.ApplicationService.common_Trait_Filtering,Dianzhu.ApplicationService.common_Trait_ComplainFiltering)">
+             <summary>
+             新建投诉
+             </summary>
+             <param name="complaint">查询条件</param>
+             <returns></returns>
+            [ActionName("list")]
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.COMPLAINT.ComplaintsController.GetComplaintsCount(Dianzhu.ApplicationService.common_Trait_ComplainFiltering)">
+             <summary>
+             新建投诉
+             </summary>
+             <param name="complaint">查询条件</param>
+             <returns></returns>
+            [HttpGet]
+            [ActionName("count")]
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.COMPLAINT.ComplaintsController.GetComplaint(System.String)">
+            <summary>
+            读取投诉信息
+            </summary>
+            <param name="id">投诉ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.LOCATION.CitysController.GetCitys(Dianzhu.ApplicationService.common_Trait_Filtering,Dianzhu.ApplicationService.common_Trait_LocationFiltering)">
+            <summary>
+            获取城市
+            </summary>
+            <param name="filter">接口通用筛选器</param>
+            <param name="location">location筛选器</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.LOCATION.CitysController.GetCitysByCode(System.String)">
+            <summary>
+            根据code获取城市
+            </summary>
+            <param name="id">城市code</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.GetOrders(Dianzhu.ApplicationService.common_Trait_Filtering,Dianzhu.ApplicationService.common_Trait_OrderFiltering)">
+            <summary>
+            查询订单合集
+            </summary>
+            <param name="filter"></param>
+            <param name="orderfilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.GetOrdersCount(Dianzhu.ApplicationService.common_Trait_OrderFiltering)">
+            <summary>
+            查询订单数量
+            </summary>
+            <param name="orderfilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.GetOrder(System.String)">
+            <summary>
+            根据订单 ID 读取订单
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.GetAllStatusList(System.String)">
+            <summary>
+            获得订单历史状态列表
+            </summary>
+            <param name="orderID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.PatchOrder(System.String,Dianzhu.ApplicationService.orderObj)">
+            <summary>
+            修改订单信息
+            </summary>
+            <param name="id"></param>
+            <param name="orderobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.PatchOrderPrice(System.String,Dianzhu.ApplicationService.orderObj)">
+            <summary>
+            修改订单价格
+            </summary>
+            <param name="id"></param>
+            <param name="orderobj"></param>
+            <returns></returns>negotiate
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.GetPushServices(System.String)">
+            <summary>
+            获得订单所包含的推送服务
+            </summary>
+            <param name="orderID"></param>
+            <param name="serviceID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.PutConfirmService(System.String,Dianzhu.ApplicationService.Common_Body)">
+            <summary>
+            草稿单确定服务
+            </summary>
+            <param name="orderID"></param>
+            <param name="serviceID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.PutAppraisee(System.String,Dianzhu.ApplicationService.appraiseObj)">
+            <summary>
+            提交评价
+            </summary>
+            <param name="orderID"></param>
+            <param name="appraiseobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.GetLinkMan(System.String)">
+            <summary>
+            获得该订单的聊天人
+            </summary>
+            <param name="orderID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.PatchCurrentStatus(System.String,Dianzhu.ApplicationService.Common_Body)">
+            <summary>
+            请求变更订单状态
+            </summary>
+            <param name="orderID"></param>
+            <param name="newStatus"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.GetRefundStatus(System.String,Dianzhu.ApplicationService.common_Trait_Filtering,Dianzhu.ApplicationService.common_Trait_RefundFiltering)">
+            <summary>
+            获得理赔状态列表
+            </summary>
+            <param name="orderID"></param>
+            <param name="refundfilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.PostRefundAction(System.String,Dianzhu.ApplicationService.refundObj)">
+            <summary>
+            提交理赔动作
+            </summary>
+            <param name="orderID"></param>
+            <param name="refundobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.GetForman(System.String)">
+            <summary>
+            读取订单负责人
+            </summary>
+            <param name="orderID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.PatchForman(System.String,Dianzhu.ApplicationService.assignObj)">
+            <summary>
+            更改负责人
+            </summary>
+            <param name="orderID"></param>
+            <param name="staffID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.PostForman(System.String,Dianzhu.ApplicationService.assignObj)">
+            <summary>
+            指派负责人
+            </summary>
+            <param name="orderID"></param>
+            <param name="assignobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.ORDER.OrdersController.DeleteForman(System.String,System.String)">
+            <summary>
+            取消指派
+            </summary>
+            <param name="orderID"></param>
+            <param name="staffID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.PAY.PaysController.GetPays(System.String,Dianzhu.ApplicationService.common_Trait_Filtering,Dianzhu.ApplicationService.common_Trait_PayFiltering)">
+            <summary>
+            条件读取支付项
+            </summary>
+            <param name="orderID"></param>
+            <param name="filter"></param>
+            <param name="payfilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.PAY.PaysController.GetPaysCount(System.String,Dianzhu.ApplicationService.common_Trait_PayFiltering)">
+            <summary>
+            统计支付项的数量
+            </summary>
+            <param name="orderID"></param>
+            <param name="payfilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.PAY.PaysController.GetPay(System.String,System.String)">
+            <summary>
+            读取支付项 根据ID
+            </summary>
+            <param name="orderID"></param>
+            <param name="payID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.PAY.PaysController.PatchPay(System.String,System.String,Dianzhu.ApplicationService.payObj)">
+            <summary>
+            更新支付信息
+            </summary>
+            <param name="orderID"></param>
+            <param name="payID"></param>
+            <param name="payobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.PAY.PaysController.GetPay3rd(System.String,System.String,System.String)">
+            <summary>
+            获得第三方支付字符串
+            </summary>
+            <param name="orderID"></param>
+            <param name="payID"></param>
+            <param name="payTarget"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.REMIND.RemindsController.GetRemindById(System.String)">
+            <summary>
+            根据ID获取提醒
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.REMIND.RemindsController.DeleteRemindById(System.String)">
+            <summary>
+            根据ID删除提醒
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.REMIND.RemindsController.GetReminds(Dianzhu.ApplicationService.common_Trait_Filtering,Dianzhu.ApplicationService.common_Trait_RemindFiltering)">
+            <summary>
+            条件读取提醒
+            </summary>
+            <param name="filter"></param>
+            <param name="remind"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.REMIND.RemindsController.GetRemindsCount(Dianzhu.ApplicationService.common_Trait_RemindFiltering)">
+            <summary>
+            统计投诉的数量
+            </summary>
+            <param name="remind"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.SERVICE.ServicesController.PostService(System.String,Dianzhu.ApplicationService.servicesObj)">
+            <summary>
+            新建服务
+            </summary>
+            <param name="servicesobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.SERVICE.ServicesController.GetServices(System.String,Dianzhu.ApplicationService.common_Trait_Filtering,Dianzhu.ApplicationService.common_Trait_ServiceFiltering)">
+            <summary>
+            条件读取店铺
+            </summary>
+            <param name="storeID"></param>
+            <param name="filter"></param>
+            <param name="servicefilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.SERVICE.ServicesController.GetServicesCount(System.String,Dianzhu.ApplicationService.common_Trait_ServiceFiltering)">
+            <summary>
+            统计服务的数量
+            </summary>
+            <param name="storeID"></param>
+            <param name="servicefilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.SERVICE.ServicesController.GetService(System.String,System.String)">
+            <summary>
+            读取服务 根据ID
+            </summary>
+            <param name="storeID"></param>
+            <param name="serviceID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.SERVICE.ServicesController.PatchService(System.String,System.String,Dianzhu.ApplicationService.servicesObj)">
+            <summary>
+            更新服务信息
+            </summary>
+            <param name="storeID"></param>
+            <param name="serviceID"></param>
+            <param name="servicesobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.SERVICE.ServicesController.DeleteService(System.String,System.String)">
+            <summary>
+            删除服务 根据ID
+            </summary>
+            <param name="storeID"></param>
+            <param name="serviceID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.SERVICE.ServicesController.GetAllServiceTypes(Dianzhu.ApplicationService.serviceTypeObj)">
+            <summary>
+            查询 superID 的下级服务类型列表数组,当 superID 为空时，默认查询顶层服务类型列表
+            </summary>
+            <param name="servicefilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STAFF.StaffsController.PostStaff(System.String,Dianzhu.ApplicationService.staffObj)">
+            <summary>
+            新建员工 店铺的员工
+            </summary>
+            <param name="storeID"></param>
+            <param name="staffobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STAFF.StaffsController.GetStaffs(System.String,Dianzhu.ApplicationService.common_Trait_Filtering,Dianzhu.ApplicationService.common_Trait_StaffFiltering)">
+            <summary>
+            条件读取员工
+            </summary>
+            <param name="storeID"></param>
+            <param name="filter"></param>
+            <param name="staff"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STAFF.StaffsController.GetStaffsCount(System.String,Dianzhu.ApplicationService.common_Trait_StaffFiltering)">
+            <summary>
+            统计服务员工的数量
+            </summary>
+            <param name="storeID"></param>
+            <param name="stafffilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STAFF.StaffsController.GetStaff(System.String,System.String)">
+            <summary>
+            读取员工 根据ID
+            </summary>
+            <param name="storeID"></param>
+            <param name="staffID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STAFF.StaffsController.PatchStaff(System.String,System.String,Dianzhu.ApplicationService.staffObj)">
+            <summary>
+            更新员工信息
+            </summary>
+            <param name="storeID"></param>
+            <param name="staffID"></param>
+            <param name="staffobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STAFF.StaffsController.DeleteStaff(System.String,System.String)">
+            <summary>
+            删除员工 根据ID
+            </summary>
+            <param name="storeID"></param>
+            <param name="staffID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STORAGE.StoragesController.PostImages(Dianzhu.ApplicationService.FileBase64)">
+            <summary>
+            上传图片
+            </summary>
+            <param name="fileBase4"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STORAGE.StoragesController.PostAvatarImages(Dianzhu.ApplicationService.FileBase64)">
+            <summary>
+            上传头像图片
+            </summary>
+            <param name="fileBase4"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STORAGE.StoragesController.PostAudios(Dianzhu.ApplicationService.FileBase64)">
+            <summary>
+            上传语音
+            </summary>
+            <param name="fileBase4"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STORE.StoresController.PostStore(Dianzhu.ApplicationService.storeObj)">
+            <summary>
+            新建店铺
+            </summary>
+            <param name="storeobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STORE.StoresController.GetStores(Dianzhu.ApplicationService.common_Trait_Filtering,Dianzhu.ApplicationService.common_Trait_StoreFiltering)">
+            <summary>
+            条件读取店铺
+            </summary>
+            <param name="filter"></param>
+            <param name="storefilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STORE.StoresController.GetStoresCount(Dianzhu.ApplicationService.common_Trait_StoreFiltering)">
+            <summary>
+            统计店铺数量
+            </summary>
+            <param name="storefilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STORE.StoresController.GetAllStores(Dianzhu.ApplicationService.common_Trait_Filtering,Dianzhu.ApplicationService.common_Trait_StoreFiltering)">
+            <summary>
+            条件读取所有店铺
+            </summary>
+            <param name="filter"></param>
+            <param name="storefilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STORE.StoresController.GetAllStoresCount(Dianzhu.ApplicationService.common_Trait_StoreFiltering)">
+            <summary>
+            统计所有店铺数量
+            </summary>
+            <param name="storefilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STORE.StoresController.GetStore(System.String)">
+            <summary>
+            读取店铺 根据ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STORE.StoresController.PatchStore(System.String,Dianzhu.ApplicationService.storeObj)">
+            <summary>
+            更新店铺信息
+            </summary>
+            <param name="id"></param>
+            <param name="storeobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.STORE.StoresController.DeleteStore(System.String)">
+            <summary>
+            删除店铺
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.USER.CustomerServicesController.GetCustomerServices(System.String)">
+            <summary>
+            申请客服资源
+            </summary>
+            <param name="userID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.USER.CustomerServicesController.PostCustomerServices(System.String)">
+            <summary>
+            客服 注册
+            </summary>
+            <param name="userID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.USER.MerchantsController.GetUserById(System.String)">
+            <summary>
+            根据userID获取user
+            </summary>
+            <param name="userID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.USER.MerchantsController.GetUsers(Dianzhu.ApplicationService.common_Trait_Filtering,Dianzhu.ApplicationService.common_Trait_UserFiltering)">
+            <summary>
+            条件读取用户合集
+            </summary>
+            <param name="userFilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.USER.MerchantsController.GetUsersCount(Dianzhu.ApplicationService.common_Trait_UserFiltering)">
+            <summary>
+            统计商户数量
+            </summary>
+            <param name="userFilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.USER.MerchantsController.PatchUser(System.String,Dianzhu.ApplicationService.UserChangeBody)">
+            <summary>
+            修改商户信息
+            </summary>
+            <param name="id"></param>
+            <param name="userChangeBody"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.USER.MerchantsController.PostUser(Dianzhu.ApplicationService.Common_Body)">
+            <summary>
+            注册新商户
+            </summary>
+            <param name="userBody"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.USER.CustomersController.GetUserById(System.String)">
+            <summary>
+            根据userID获取user
+            </summary>
+            <param name="userID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.USER.CustomersController.PostUser(Dianzhu.ApplicationService.Common_Body)">
+            <summary>
+            注册新用户
+            </summary>
+            <param name="userBody"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.USER.CustomersController.GetUsers(Dianzhu.ApplicationService.common_Trait_Filtering,Dianzhu.ApplicationService.common_Trait_UserFiltering)">
+            <summary>
+            条件读取用户合集
+            </summary>
+            <param name="userFilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.USER.CustomersController.PostUser3rds(Dianzhu.ApplicationService.U3RD_Model)">
+            <summary>
+            第三方用户注册
+            </summary>
+            <param name="userBody"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.USER.CustomersController.GetUsersCount(Dianzhu.ApplicationService.common_Trait_UserFiltering)">
+            <summary>
+            统计用户数量
+            </summary>
+            <param name="userFilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.USER.CustomersController.PatchUser(System.String,Dianzhu.ApplicationService.UserChangeBody)">
+            <summary>
+            修改用户信息
+            </summary>
+            <param name="id"></param>
+            <param name="userChangeBody"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.USER.CustomersController.PatchCurrentGeolocation(System.String,System.String)">
+            <summary>
+            更新用户当前所定位的信息
+            </summary>
+            <param name="userID"></param>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.WORKTIME.WorkTimesController.PostWorkTime(System.String,System.String,Dianzhu.ApplicationService.workTimeObj)">
+            <summary>
+            新建工作时间
+            </summary>
+            <param name="worktimeobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.WORKTIME.WorkTimesController.GetWorkTimes(System.String,System.String,Dianzhu.ApplicationService.common_Trait_WorkTimeFiltering)">
+            <summary>
+            条件读取工作时间
+            </summary>
+            <param name="storeID"></param>
+            <param name="serviceID"></param>
+            <param name="worktime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.WORKTIME.WorkTimesController.GetWorkTimesCount(System.String,System.String,Dianzhu.ApplicationService.common_Trait_WorkTimeFiltering)">
+            <summary>
+            统计工作时间的数量
+            </summary>
+            <param name="storeID"></param>
+            <param name="serviceID"></param>
+            <param name="worktime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.WORKTIME.WorkTimesController.GetWorkTime(System.String,System.String,System.String)">
+            <summary>
+            读取工作时间
+            </summary>
+            <param name="storeID"></param>
+            <param name="serviceID"></param>
+            <param name="workTimeID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.WORKTIME.WorkTimesController.PatchWorkTime(System.String,System.String,System.String,Dianzhu.ApplicationService.workTimeObj)">
+            <summary>
+            更新工作时间信息
+            </summary>
+            <param name="storeID"></param>
+            <param name="serviceID"></param>
+            <param name="workTimeID"></param>
+            <param name="worktimeobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Controllers.WORKTIME.WorkTimesController.DeleteWorkTime(System.String,System.String,System.String)">
+            <summary>
+            删除服务 工作时间信息
+            </summary>
+            <param name="storeID"></param>
+            <param name="serviceID"></param>
+            <param name="workTimeID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.Helper.GetHash(System.String)">
+            <summary>
+            hash转换
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.HMACAuthenticationAttribute.#ctor">
+            <summary>
+            设定appName和security_key
+            </summary>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.HMACAuthenticationAttribute.AuthenticateAsync(System.Web.Http.Filters.HttpAuthenticationContext,System.Threading.CancellationToken)">
+            <summary>
+            认证
+            </summary>
+            <param name="context"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.HMACAuthenticationAttribute.ChallengeAsync(System.Web.Http.Filters.HttpAuthenticationChallengeContext,System.Threading.CancellationToken)">
+            <summary>
+            认证失败结果
+            </summary>
+            <param name="context"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.HMACAuthenticationAttribute.isValidRequest(System.Net.Http.HttpRequestMessage,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            认证判断
+            </summary>
+            <param name="req"></param>
+            <param name="appName"></param>
+            <param name="sign"></param>
+            <param name="token"></param>
+            <param name="stamp_TIMES"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.HMACAuthenticationAttribute.isReplayRequest(System.String,System.String)">
+            <summary>
+            缓存防止ReplayRequest
+            </summary>
+            <param name="nonce"></param>
+            <param name="requestTimeStamp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dianzhu.Web.RestfulApi.HMACAuthenticationAttribute.ComputeHash(System.Net.Http.HttpContent)">
+            <summary>
+            MD5加密
+            </summary>
+            <param name="httpContent"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
