@@ -194,6 +194,10 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.1.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -221,6 +225,20 @@
     <Compile Include="App_Start\MySectionKeyValueSettings.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="App_Start\SwaggerExtensions\AddDefaultResponse.cs" />
+    <Compile Include="App_Start\SwaggerExtensions\AddFileUploadParams.cs" />
+    <Compile Include="App_Start\SwaggerExtensions\AddGetMessageExamples.cs" />
+    <Compile Include="App_Start\SwaggerExtensions\AddMessageDefault.cs" />
+    <Compile Include="App_Start\SwaggerExtensions\AddRequiredHeaderParameter.cs" />
+    <Compile Include="App_Start\SwaggerExtensions\AppendVersionToBasePath.cs" />
+    <Compile Include="App_Start\SwaggerExtensions\ApplyDocumentVendorExtensions.cs" />
+    <Compile Include="App_Start\SwaggerExtensions\ApplyResponseVendorExtensions.cs" />
+    <Compile Include="App_Start\SwaggerExtensions\ApplySchemaVendorExtensions.cs" />
+    <Compile Include="App_Start\SwaggerExtensions\AssignOAuth2SecurityRequirements.cs" />
+    <Compile Include="App_Start\SwaggerExtensions\DescendingAlphabeticComparer.cs" />
+    <Compile Include="App_Start\SwaggerExtensions\SupportFlaggedEnums.cs" />
+    <Compile Include="App_Start\SwaggerExtensions\UpdateFileDownloadOperations.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -282,11 +300,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Start\SwaggerExtensions\myIndex.html" />
+    <Content Include="App_Start\SwaggerExtensions\swagger-client.js" />
+    <Content Include="App_Start\SwaggerExtensions\testScript1.js" />
+    <Content Include="App_Start\SwaggerExtensions\testScript2.js" />
+    <Content Include="App_Start\SwaggerExtensions\testStyles1.css" />
+    <Content Include="App_Start\SwaggerExtensions\testStyles2.css" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
-    <Content Include="config\appSettings.config" />
-    <Content Include="config\connectionstrings.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -319,6 +339,8 @@
     </Content>
     <Content Include="files\rsa_private_key.pem" />
     <Content Include="AjaxService\GetSignAndTime.ashx" />
+    <Content Include="config\appSettings.config" />
+    <Content Include="config\connectionstrings.config" />
     <None Include="Properties\PublishProfiles\RestfulApi.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -372,6 +394,10 @@
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122c6d5-6348-4b65-88b7-3c43a6e642f3}</Project>
       <Name>PHSuit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Swashbuckle.Core\Swashbuckle.Core.csproj">
+      <Project>{d50a26ff-02c6-4c16-ba94-4cd7d43efbb3}</Project>
+      <Name>Swashbuckle.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
