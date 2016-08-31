@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="register-section">
+        <div class="new-register-section">
             <div class="register-panel-c">
                 <div class="reg-model">
                     <div class="reg-model-h">
@@ -41,7 +41,16 @@
                             </label>
                             <asp:TextBox CssClass="register-input" runat="server" ID="tbxEmail" placeholder="请输入邮箱" ></asp:TextBox>
                         </div>
-                        <div class="login_err_msg_static">
+                        <br><br>
+                        <div class="register-input-w short thin-b" ID="captchaBox_forget">
+                            <span class="register-input-title">验证码</span>
+                            <label class="register-input-icon" for="tbxPassword">
+                                <i class="passwordIcon"></i>
+                            </label>
+                            <!--<asp:TextBox class="register-input" runat="server" ID="captcha" placeholder="验证码" TextMode="SingleLine"></asp:TextBox>-->
+                            <div id="code"></div>
+                        </div>
+                        <div class="login_err_msg_static" id="loginError">
                             <asp:Label runat="server" ID="lblMsg"></asp:Label>
                         </div>
                         <div class="m-b50 m-t50">
@@ -58,9 +67,16 @@
     </div>
 </div>
     <!--[if lte IE 9]>
-    <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js'></script>
     <script src="/js/plugins/jquery.placeholder.min.js"></script>
     <script>$('input').placeholder();</script>
     <![endif]-->
+    <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js'></script>
+    <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
+    <script src="../js/components/captcha.js"></script>
+    <script src="/js/apps/validation/validation_LoginForget.js?v=1.0.0"></script>
+
+    <script>
+        $("#code").captcha({'errorTime': 5});
+    </script>
 </body>
 </html>
