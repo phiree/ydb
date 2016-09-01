@@ -13,34 +13,46 @@ namespace Dianzhu.Push
     
     public class PushIOS:IPush
     {
-        
-     
-        
+
+
+        string _strCertificateFilePath;
         string strCertificateFilePath {
             get {
+                if (!string.IsNullOrEmpty(_strCertificateFilePath))
+                {
+                    return _strCertificateFilePath;
+                }
+
+                string fileBasePath = AppDomain.CurrentDomain.BaseDirectory + @"files\";
+                string fileName = string.Empty;
                 switch (pushType)
                 {
                     case PushType.UserAndBusiness:
 
-#if DEBUG
-                        log.Debug("使用商户测试版证书");
-                        return AppDomain.CurrentDomain.BaseDirectory + @"files\aps_development_Mark_Store.p12";
-#endif
-                        log.Debug("使用正式版商户证书");
-                        return AppDomain.CurrentDomain.BaseDirectory + @"files\aps_production_Mark_Store.p12";
+
+                         
+                        fileName="aps_development_Mark_Store.p12";
+
+                       
+                     //   fileName ="aps_production_Mark_Store.p12";
+                        break;
 
                     case PushType.UserAndCustomerService:
-#if DEBUG
-                        log.Debug("使用测试版证书");
-                        return AppDomain.CurrentDomain.BaseDirectory + @"files\aps_development_Mark_CustomerService.p12";
-#endif
-                        log.Debug("使用正式版证书");
-                        return AppDomain.CurrentDomain.BaseDirectory + @"files\aps_production_Mark_CustomerService.p12";
+
+                      
+                        fileName = "aps_development_Mark_CustomerService.p12";
+
+                         
+                     //   fileName = "aps_production_Mark_CustomerService.p12";
+                        break;
                         
                     default:
                         throw new Exception("未知的推送类型");
                         
                 }
+                log.Debug("证书地址:" + fileBasePath + fileName);
+                _strCertificateFilePath = fileBasePath + fileName;
+                return _strCertificateFilePath;
 
             }
         }

@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using Dianzhu.Push;
 using Dianzhu.IDAL;
 using Dianzhu.Model.Enums;
+using log4net;
 namespace Dianzhu.BLL
 {
   public   class BLLPush
     {
+        ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL.BLLPush");
         IDAL.IDALIMUserStatus dalIMStatus;
         IDALDeviceBind dalDeviceBind;
         public BLLPush(IDAL.IDALIMUserStatus dalIMStatus,IDALDeviceBind dalDeviceBind)
@@ -42,7 +44,9 @@ namespace Dianzhu.BLL
                 int pushAmount = bind.PushAmount+1;
                 bind.PushAmount = pushAmount;
                 dalDeviceBind.Update(bind);
+                log.Debug("prepare for push,token:" + bind.AppToken);
                string pushResult=  ipush.Push("您有新的消息", bind.AppToken,pushAmount);
+                log.Debug("推送结果" + pushResult);
 
                 }
         }

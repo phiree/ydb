@@ -12,7 +12,7 @@ namespace Dianzhu.DAL.Mapping
     {
         public ReceptionChatMap()
         {
-            Id(x => x.Id).UnsavedValue(Guid.Empty);
+            Id(x => x.Id).GeneratedBy.Assigned();
             Map(x => x.SavedTime);
             Map(x => x.SavedTimestamp);
             Map(x => x.MessageBody).Length(1000);
