@@ -15,6 +15,12 @@ $(function(){
         return $("#regPsConf").val() === $("#regPs").val();
     }, "两次输入的密码不一致");
 
+    $.validator.addMethod("captCha", function () {
+        var code = $("#code").data("code");
+        //console.log(code);
+        return $("#captcha").val().toUpperCase() === code;
+    }, "验证码错误");
+
     var reg_validate_rules = {};
     var reg_validate_messages = {};
 
@@ -74,6 +80,18 @@ $(function(){
         required: "请阅读协议，并同意"
     };
 
+    // 验证码
+    reg_validate_rules['captcha'] =
+    {
+        required: true,
+        captCha: true
+    };
+
+    reg_validate_messages['captcha'] =
+    {
+        required: "请填写验证码"
+    };
+
     $($("form")[0]).validate(
         {
             ignore:[],
@@ -85,3 +103,4 @@ $(function(){
         }
     );
 });
+
