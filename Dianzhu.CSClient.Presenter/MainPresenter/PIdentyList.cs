@@ -59,6 +59,8 @@ namespace Dianzhu.CSClient.Presenter
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             viewSearchResult.PushServiceTimerSend += ViewSearchResult_PushServiceTimerSend;
 
+
+
             Thread t = new Thread(SysAssign);
             t.Start();
         }
@@ -193,7 +195,7 @@ namespace Dianzhu.CSClient.Presenter
 
         BackgroundWorker workerChatImage;
         BackgroundWorker workerCustomerAvatar;
-        private void IIM_IMReceivedMessage(ReceptionChat chat)
+        public void IIM_IMReceivedMessage(ReceptionChat chat)
         {
             string errMsg = string.Empty;
             //判断信息类型
@@ -399,7 +401,6 @@ namespace Dianzhu.CSClient.Presenter
             try
             {
                 IdentityManager.CurrentIdentity = iView.IdentityOrderTemp = serviceOrder;
-                iView.SetIdentityLoading(serviceOrder);
                 
                 iViewChatList.ClearUCData();
                 iViewChatList.ShowLoadingMsg();
@@ -480,12 +481,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             iView.IdentityLogOnShowMsgAndTimer(order, msg);
         }
-
-        public void SetSetIdentityLogOff(ServiceOrder order)
-        {
-            iView.SetIdentityLogOff(order);
-        }
-
+        
     }
 }
 
