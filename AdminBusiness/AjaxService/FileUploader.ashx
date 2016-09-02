@@ -11,9 +11,9 @@ public class FileUploader : IHttpHandler,System.Web.SessionState.IRequiresSessio
     BLLBusinessImage bllBusinessImage =Bootstrap.Container.Resolve<BLLBusinessImage>();
     public void ProcessRequest (HttpContext context) {
         //权限判断
-        if (context.Session["UserName"]==null)
-        {
-            context.Response.Write("{\"result\":\""+false+"\",\"msg\":\"unlogin\"}");
+        if (!AjaxAuth.authAjaxUser(context)){ 
+            context.Response.StatusCode = 400;
+            context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"unlogin\"}");
             return;
         }
 

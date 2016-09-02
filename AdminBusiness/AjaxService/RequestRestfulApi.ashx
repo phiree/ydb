@@ -16,13 +16,20 @@ public class RequestRestfulApi : IHttpHandler,System.Web.SessionState.IRequiresS
         {
             context.Response.ContentType = "application/json";
             //权限判断
-            if (context.Session["UserName"] == null)
-            {
+            //if (context.Session["UserName"] == null)
+            //{
                 //context.Response.Write("{\"result\":\""+is_valid+"\",\"msg\":\""+errMsg+"\",\"data\":\""+service.Enabled+"\"}"); 
                 //context.Response.Write("{\"result\":\""+is_valid+"\",\"msg\":\""+errMsg+"\"}");
                 //context.Response.Write("unlogin");
                 //context.Response.StatusCode=401;
                 //context.Response.StatusDescription="Unauthorized";
+                //context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"unlogin\"}");
+                //return;
+            //}
+
+            //权限判断
+            if (!AjaxAuth.authAjaxUser(context)){ 
+                context.Response.StatusCode = 400;
                 context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"unlogin\"}");
                 return;
             }

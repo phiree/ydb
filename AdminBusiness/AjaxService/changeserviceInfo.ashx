@@ -11,9 +11,9 @@ public class changepassword : IHttpHandler,System.Web.SessionState.IRequiresSess
     BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
     public void ProcessRequest (HttpContext context) {
         //权限判断
-        if (context.Session["UserName"]==null)
-        {
-            context.Response.Write("{\"result\":\""+false+"\",\"msg\":\"unlogin\"}");
+        if (!AjaxAuth.authAjaxUser(context)){ 
+            context.Response.StatusCode = 400;
+            context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"unlogin\"}");
             return;
         }
 

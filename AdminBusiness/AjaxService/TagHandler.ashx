@@ -4,17 +4,30 @@ using System;
 using System.Web;
 using Dianzhu.Model;
 using Dianzhu.BLL;
+using System.Web.Security;
+
 public class TagHandler : IHttpHandler,System.Web.SessionState.IRequiresSessionState
 {
 
     public void ProcessRequest(HttpContext context)
     {
+
         //权限判断
-        if (context.Session["UserName"]==null)
-        {
-            context.Response.Write("{\"result\":\""+false+"\",\"msg\":\"unlogin\"}");
+        if (!AjaxAuth.authAjaxUser(context)){ 
+            context.Response.StatusCode = 400;
+            context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"unlogin\"}");
             return;
         }
+
+        // UnitOfWork start
+        if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
+        {
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+
+        }
+        NHibernateUnitOfWork.UnitOfWork.Start();
+
 
         context.Response.ContentType = "text/plain";
 
@@ -36,7 +49,7 @@ public class TagHandler : IHttpHandler,System.Web.SessionState.IRequiresSessionS
                 }
                 resultJson=resultJson.TrimEnd(',');
                 resultJson += "]";
-              //  context.Response.ContentType = "application/json";
+                //  context.Response.ContentType = "application/json";
                 context.Response.Write(resultJson);
                 break;
             case "delete":
@@ -45,12 +58,12 @@ public class TagHandler : IHttpHandler,System.Web.SessionState.IRequiresSessionS
 
                 bllTag.DeleteTag(new Guid(tagId));
 
+                context.Response.Write("{\"result\":\""+false+"\",\"msg\":\"unlogin\"}");
+
                 break;
         }
 
-
-
-
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
     }
 
