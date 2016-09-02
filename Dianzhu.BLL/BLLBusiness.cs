@@ -126,11 +126,11 @@ namespace Dianzhu.BLL
             {
                 try
                 {
-                    baseone = dalBusiness.FindById(new Guid(filter.baseID));
+                    baseone = dalBusiness.FindByBaseId(new Guid(filter.baseID));
                 }
-                catch
+                catch (Exception ex)
                 {
-                    baseone = null;
+                    throw new Exception("filter.baseID错误，" + ex.Message);
                 }
             }
             long t = 0;
