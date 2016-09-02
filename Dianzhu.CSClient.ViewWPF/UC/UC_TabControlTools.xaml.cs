@@ -28,7 +28,8 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             InitializeComponent();
 
-            Uri uriA = new Uri(@"http://localhost/map.html");
+            string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
+            Uri uriA = new Uri(@"http://"+ server + "/map.html");
             webBaiduMap.Navigate(uriA);
             webBaiduMap.LoadCompleted += WebBaiduMap_LoadCompleted;
             ComVisibleObjectForScripting com = new ComVisibleObjectForScripting();

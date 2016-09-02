@@ -21,7 +21,7 @@ namespace Dianzhu.Push.JPush
 
 
         }
-        public string Push(string message,string target)// string alert, string title,string target,string orderid)
+        public string Push(string message,string target,int amount)// string alert, string title,string target,string orderid)
         {
             JPushRequest req = JPushRequest.Create(new string[] { "android" }, new string[] { target }, message,"您有一条新消息", orderid);
 

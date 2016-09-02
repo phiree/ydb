@@ -127,15 +127,15 @@ namespace Dianzhu.BLL
             Expression<Func<Model.Area, bool>> where = i =>  !i.Code.EndsWith("0000") && i.Code.EndsWith("00");
 
             Model.Area baseone = null;
-            if (filter.baseID != null && filter.baseID != "")
+            if (!string.IsNullOrEmpty(filter.baseID))
             {
                 try
                 {
-                    baseone = repoArea.FindById(int.Parse(filter.baseID));
+                    baseone = repoArea.FindByBaseId(int.Parse(filter.baseID));
                 }
-                catch
+                catch (Exception ex)
                 {
-                    baseone = null;
+                    throw new Exception("filter.baseID错误，" + ex.Message);
                 }
             }
             long t = 0;

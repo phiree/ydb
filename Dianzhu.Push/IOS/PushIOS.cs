@@ -13,21 +13,50 @@ namespace Dianzhu.Push
     
     public class PushIOS:IPush
     {
-        
-        string strDeviceToken;
-        
-        
-        
+
+
+        string _strCertificateFilePath;
         string strCertificateFilePath {
             get {
-#if DEBUG
-                log.Debug("使用测试版证书");
-                return   AppDomain.CurrentDomain.BaseDirectory + @"files\aps_development_Mark.p12";
-#endif
-                log.Debug("使用正式版证书");
-                return  AppDomain.CurrentDomain.BaseDirectory+ @"files\aps_production_Mark.p12";
+                if (!string.IsNullOrEmpty(_strCertificateFilePath))
+                {
+                    return _strCertificateFilePath;
+                }
+
+                string fileBasePath = AppDomain.CurrentDomain.BaseDirectory + @"files\";
+                string fileName = string.Empty;
+                switch (pushType)
+                {
+                    case PushType.UserAndBusiness:
+
+
+                         
+                        fileName="aps_development_Mark_Store.p12";
+
+                       
+                     //   fileName ="aps_production_Mark_Store.p12";
+                        break;
+
+                    case PushType.UserAndCustomerService:
+
+                      
+                        fileName = "aps_development_Mark_CustomerService.p12";
+
+                         
+                     //   fileName = "aps_production_Mark_CustomerService.p12";
+                        break;
+                        
+                    default:
+                        throw new Exception("未知的推送类型");
+                        
+                }
+                log.Debug("证书地址:" + fileBasePath + fileName);
+                _strCertificateFilePath = fileBasePath + fileName;
+                return _strCertificateFilePath;
+
             }
         }
+        PushType pushType;
         /// <summary>
         /// IOS推送类
         /// </summary>
@@ -35,14 +64,14 @@ namespace Dianzhu.Push
         /// <param name="isTestCertificate">是测试证书，否则为正式证书</param>
         /// <param name="pushSum"></param>
         /// <param name="notificationSound"></param>
-        public PushIOS( )
+        public PushIOS(PushType pushType)
         {
-           
+            this.pushType = pushType;
             
             
         }
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Push");
-        public string Push(string strContent,string strDeviceToken)
+        public string Push(string strContent, string strDeviceToken, int amount)
         {
             log.Debug("开始推送消息:"+strContent);
             bool sandbox = false;
@@ -89,7 +118,7 @@ namespace Dianzhu.Push
             alertNotification.Payload.Alert.Body = strContent;
 
             alertNotification.Payload.Sound = "default";//为空时就是静音
-            alertNotification.Payload.Badge = 1;
+            alertNotification.Payload.Badge = amount;
 
             //Queue the notification to be sent
             if (service.QueueNotification(alertNotification))

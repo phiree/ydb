@@ -132,15 +132,15 @@ namespace Dianzhu.BLL
                 where = where.And(x => x.Name == realName);
             }
             Staff baseone = null;
-            if (filter.baseID != null && filter.baseID != "")
+            if (!string.IsNullOrEmpty(filter.baseID))
             {
                 try
                 {
-                    baseone = dalStaff.FindById(new Guid(filter.baseID));
+                    baseone = dalStaff.FindByBaseId(new Guid(filter.baseID));
                 }
-                catch
+                catch (Exception ex)
                 {
-                    baseone = null;
+                    throw new Exception("filter.baseID错误，" + ex.Message);
                 }
             }
             long t = 0;

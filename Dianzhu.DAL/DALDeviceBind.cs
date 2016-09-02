@@ -34,37 +34,69 @@ namespace Dianzhu.DAL
         /// <param name="devicebind"></param>
         public void UpdateAndSave(DeviceBind devicebind)
         {
-            DeviceBind db= FindOne(x => x.AppUUID == devicebind.AppUUID && x.IsBinding == true && x.DZMembership.Id== devicebind.DZMembership.Id);
+            //DeviceBind db= FindOne(x => x.AppUUID == devicebind.AppUUID && x.IsBinding == true && x.DZMembership.Id== devicebind.DZMembership.Id);
+            //if (db == null)
+            //{
+            //    using (var t = Session.BeginTransaction())
+            //    {
+            //        //解除之前所有 apptoken  和 member的绑定
+            //        string unbind_sql = "update DeviceBind db set db.IsBinding=0,db.BindChangedTime='" + devicebind.BindChangedTime.ToString("yyyy-MM-dd HH:mm:ss")
+            //                        + "' where db.IsBinding=1 and( ";
+            //        if (devicebind.DZMembership == null)
+            //        {
+            //            unbind_sql += "db.DZMembership.Id is null ";
+            //        }
+            //        else
+            //        {
+            //            unbind_sql += "db.DZMembership.Id='" + devicebind.DZMembership.Id + "'";
+            //        }
+            //        unbind_sql += " or  db.AppToken='" + devicebind.AppToken + "')";
+            //        IQuery query = Session.CreateQuery(unbind_sql);
+            //        query.ExecuteUpdate();
+
+            //        t.Commit();
+            //    }
+
+            //    //记录本次绑定
+            //    Add(devicebind);
+            //}
+            //else
+            //{
+            //    db.IsBinding = true;
+            //    db.BindChangedTime = devicebind.BindChangedTime;
+            //    //blldevicebind.Update(devicebinduuid);
+            //}
+
+            DeviceBind db = FindOne(x => x.AppUUID == devicebind.AppUUID);
+            using (var t = Session.BeginTransaction())
+            {
+                //解除之前所有 apptoken  和 member的绑定
+                string unbind_sql = "update DeviceBind db set db.IsBinding=0,db.BindChangedTime='" + devicebind.BindChangedTime.ToString("yyyy-MM-dd HH:mm:ss")
+                                + "' where db.IsBinding=1 and( ";
+                if (devicebind.DZMembership == null)
+                {
+                    //unbind_sql += "db.DZMembership.Id is null ";
+                }
+                else
+                {
+                    unbind_sql += "db.DZMembership.Id='" + devicebind.DZMembership.Id + "' or ";
+                }
+                unbind_sql += "  db.AppUUID='" + devicebind.AppUUID + "')";
+                IQuery query = Session.CreateQuery(unbind_sql);
+                query.ExecuteUpdate();
+                t.Commit();
+            }
             if (db == null)
             {
-                using (var t = Session.BeginTransaction())
-                {
-                    //解除之前所有 apptoken  和 member的绑定
-                    string unbind_sql = "update DeviceBind db set db.IsBinding=0,db.BindChangedTime='" + devicebind.BindChangedTime.ToString("yyyy-MM-dd HH:mm:ss")
-                                    + "' where db.IsBinding=1 and( ";
-                    if (devicebind.DZMembership == null)
-                    {
-                        unbind_sql += "db.DZMembership.Id is null ";
-                    }
-                    else
-                    {
-                        unbind_sql += "db.DZMembership.Id='" + devicebind.DZMembership.Id + "'";
-                    }
-                    unbind_sql += " or  db.AppToken='" + devicebind.AppToken + "')";
-                    IQuery query = Session.CreateQuery(unbind_sql);
-                    query.ExecuteUpdate();
-
-                    t.Commit();
-                }
-
-                //记录本次绑定
                 Add(devicebind);
             }
             else
             {
+                db.AppToken = devicebind.AppToken;
                 db.IsBinding = true;
+                db.DZMembership = devicebind.DZMembership;
                 db.BindChangedTime = devicebind.BindChangedTime;
-                //blldevicebind.Update(devicebinduuid);
+                Update(db);
             }
 
         }
@@ -73,9 +105,9 @@ namespace Dianzhu.DAL
         {
             return FindOne(x => x.AppUUID == uuid && x.IsBinding == true);
         }
-        public DeviceBind getDevBindByUserID(DZMembership user)
+        public DeviceBind getDevBindByUserID(Guid userId)
         {
-            return FindOne(x => x.DZMembership.Id == user.Id && x.IsBinding == true);
+            return FindOne(x => x.DZMembership.Id == userId && x.IsBinding == true);
         }
     }
 }

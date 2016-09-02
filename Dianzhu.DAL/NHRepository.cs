@@ -70,6 +70,29 @@ namespace Dianzhu.DAL
 
         }
 
+        /// <summary>
+        /// 根据baseID获取对象，用于截取数据
+        /// </summary>
+        /// <param name="strBaseID"></param>
+        /// <returns></returns>
+        public TEntity FindByBaseId(TPrimaryKey strBaseID)
+        {
+            TEntity result = null;
+            try
+            {
+                result = FindById(strBaseID);
+            }
+            catch
+            {
+                result = null;
+            }
+            if (result == null)
+            {
+                throw new Exception("传入的filter.baseID没有找到数据！");
+            }
+            return result;
+        }
+
         public IList<TEntity> Find(Expression<Func<TEntity, bool>> where)
         {
             long totalRecord;

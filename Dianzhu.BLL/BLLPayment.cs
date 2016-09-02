@@ -221,15 +221,15 @@ namespace Dianzhu.BLL
                 where = where.And(x => x.PayTarget == (Model.Enums.enum_PayTarget)Enum.Parse(typeof(Model.Enums.enum_PayTarget), payType));
             }
             Payment baseone = null;
-            if (filter.baseID != null && filter.baseID != "")
+            if (!string.IsNullOrEmpty(filter.baseID))
             {
                 try
                 {
-                    baseone = dal.FindById(new Guid(filter.baseID));
+                    baseone = dal.FindByBaseId(new Guid(filter.baseID));
                 }
-                catch
+                catch (Exception ex)
                 {
-                    baseone = null;
+                    throw new Exception("filter.baseID错误，" + ex.Message);
                 }
             }
             long t = 0;
