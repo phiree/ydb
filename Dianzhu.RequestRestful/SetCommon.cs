@@ -69,5 +69,36 @@ namespace Dianzhu.RequestRestful
             }
             return requestSignatureBase64String;
         }
+
+        /// <summary>
+        /// 设置请求签名
+        /// </summary>
+        /// <param name="appName"></param>
+        /// <param name="appKey"></param>
+        /// <param name="strToken"></param>
+        /// <param name="strContentMD5"></param>
+        /// <param name="strTimeStamp"></param>
+        /// <param name="strUri"></param>
+        /// <returns></returns>
+        public static RequestParams SetParams(string appName, string appKey, RequestParams param)
+        {
+            if (string.IsNullOrEmpty(appName.Trim()))
+            {
+                throw new Exception("appName不能为空!");
+            }
+            if (string.IsNullOrEmpty(appKey.Trim()))
+            {
+                throw new Exception("appKey不能为空!");
+            }
+            string requestUri = System.Web.HttpUtility.UrlEncode(param.url.ToLower());
+            string requestTimeStamp = SetTimeStamp();
+            string requestContentBase64String = SetContentMD5(param.content);
+            string requestSignatureBase64String = SetSign(appName, appKey, param.content, requestContentBase64String, requestTimeStamp, requestUri);
+
+            param.appName = appName;
+            param.stamp_TIMES = requestTimeStamp;
+            param.sign = requestSignatureBase64String;
+            return param;
+        }
     }
 }

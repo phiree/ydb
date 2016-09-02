@@ -21,14 +21,6 @@ namespace Dianzhu.RequestRestful
         public RequestParams SetParamByRequestInfo(HttpContext context, string appName, string appKey, string strHost)
         {
             RequestParams rp = new RequestParams();
-            if (string.IsNullOrEmpty(appName.Trim()))
-            {
-                throw new Exception("appName不能为空!");
-            }
-            if (string.IsNullOrEmpty(appKey.Trim()))
-            {
-                throw new Exception("appKey不能为空!");
-            }
             try
             {
                 string strData = "";
@@ -48,16 +40,10 @@ namespace Dianzhu.RequestRestful
                 {
                     throw new Exception("请求的接口路径(apiurl)不能为空!");
                 }
-                string strRequestUrl = strHost + apiurl;
-                string requestUri = System.Web.HttpUtility.UrlEncode(strRequestUrl.ToLower());
-                string strRequestContent = jo["content"].ToString();//context.Request.Form["content"] ?? "";
-                string strRequestToken = jo["token"].ToString();//context.Request.Form["token"] ?? "";
-                string requestTimeStamp = SetCommon.SetTimeStamp();
-                string requestContentBase64String = SetCommon.SetContentMD5(strRequestContent);
-                string requestSignatureBase64String = SetCommon.SetSign(appName, appKey, strRequestToken, requestContentBase64String, requestTimeStamp, requestUri);
-                
-                rp.stamp_TIMES = requestTimeStamp;
-                rp.sign = requestSignatureBase64String;
+                rp.url = strHost + apiurl;
+                rp.content = jo["content"].ToString();//context.Request.Form["content"] ?? "";
+                rp.token = jo["token"].ToString();//context.Request.Form["token"] ?? "";
+                rp = SetCommon.SetParams(appName, appKey, rp);
             }
             catch (Exception ex)
             {
