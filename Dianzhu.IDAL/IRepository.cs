@@ -22,6 +22,13 @@ namespace Dianzhu.IDAL
 
         TEntity FindById(TPrimaryKey identityId);
 
+        /// <summary>
+        /// 根据baseID获取对象，用于截取数据
+        /// </summary>
+        /// <param name="strBaseID"></param>
+        /// <returns></returns>
+        TEntity FindByBaseId(TPrimaryKey strBaseID);
+
         TEntity FindOne(Expression<Func<TEntity, bool>> where);
         IList<TEntity> Find(Expression<Func<TEntity, bool>> where);
         IList<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords);
