@@ -335,7 +335,7 @@
                 data : {
                     "merchantID": merchantID,
                     "svcObj": {
-                        "svcID": Adapter.getParameterByName("serviceid"),
+                        "svcID": YDBan.url.getUrlParam("serviceid"),
                         "maxOrderString": maxOrderString
                     }
                 }
@@ -378,7 +378,7 @@
                 protocolCode : "WTM001006",
                 data : {
                     "merchantID" : merchantID,
-                    "svcID" : Adapter.getParameterByName("serviceid"),
+                    "svcID" : YDBan.url.getUrlParam("serviceid"),
                     "week" : _this.model.get("week")
                 }
             });
@@ -445,7 +445,7 @@
                 protocolCode : "WTM001001",
                 data : {
                     "merchantID": merchantID,
-                    "svcID": Adapter.getParameterByName("serviceid"),
+                    "svcID": YDBan.url.getUrlParam("serviceid"),
                     "workTimeObj" : workTimeModel.attributes
                 },
                 success : addWorkTimeView
@@ -501,7 +501,7 @@
         initialize : function (){
             var _this = this;
 
-            if (!Adapter.getParameterByName("serviceid")) {
+            if (!YDBan.url.getUrlParam("serviceid")) {
                 throw new Error("路径参数缺少serviceid")
             };
 
@@ -524,7 +524,7 @@
                 protocolCode : "SVC001005",
                 data : {
                     "merchantID": merchantID,
-                    "svcID": Adapter.getParameterByName("serviceid")
+                    "svcID": YDBan.url.getUrlParam("serviceid")
                 },
                 error : function(){
                     _this.$el.removeClass("loading").addClass("error");
