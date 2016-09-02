@@ -7,13 +7,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="58" d:DesignWidth="1460">
     <Grid Height="58" Width="1460">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                 <GradientStop Color="#FFe7ecef" Offset="0"></GradientStop>
                 <GradientStop Color="#FFd5dade" Offset="1"></GradientStop>
             </LinearGradientBrush>
         </Grid.Background>
-        <ScrollViewer x:Name="ScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+        <ScrollViewer x:Name="ScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Grid.Row="1">
             <WrapPanel Margin="10,10,0,0">
                 <!--<WrapPanel x:Name="pnlIdentityList" VerticalAlignment="Center" Margin="11,0,0,0">
 
@@ -24,9 +28,13 @@
                 </WrapPanel>
 
                 <WrapPanel x:Name="wpNotTopIdentityList" VerticalAlignment="Center">
-                    
+
                 </WrapPanel>
             </WrapPanel>
         </ScrollViewer>
+
+        <WrapPanel x:Name="wrCustomerList" Grid.Row="0">
+
+        </WrapPanel>
     </Grid>
 </UserControl>

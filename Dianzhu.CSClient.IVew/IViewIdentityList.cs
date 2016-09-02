@@ -21,10 +21,6 @@ namespace Dianzhu.CSClient.IView
         void SetIdentityUnread(ServiceOrder serviceOrder, int messageAmount);
         //设置为已读
         void SetIdentityReaded(ServiceOrder serviceOrder);
-        //
-        void SetIdentityLoading(ServiceOrder serviceOrder);
-        //用户离线
-        void SetIdentityLogOff(ServiceOrder serviceOrder);
         void IdentityLogOffShowMsg(Guid serviceOrderId);
         void IdentityLogOnShowMsg(ServiceOrder serviceOrder,string msg);
         void IdentityLogOnShowMsgAndTimer(ServiceOrder serviceOrder, string msg);
@@ -41,6 +37,11 @@ namespace Dianzhu.CSClient.IView
         /// 播放提示音
         /// </summary>
         void PlayVoice();
+
+        /// <summary>
+        /// 用户列表
+        /// </summary>
+        IList<IViewCustomer> viewCustomerList { get; set; }
     }
     /// <summary>
     /// 点击用户按钮的委托.
