@@ -177,8 +177,7 @@ namespace Dianzhu.CSClient.ViewWPF
             }
             else
             {
-                tbChat.Padding = new Thickness(5);
-                tbChat.Text = chat.MessageBody;
+                tbxChat.Text = chat.MessageBody;
             }
         }
 
