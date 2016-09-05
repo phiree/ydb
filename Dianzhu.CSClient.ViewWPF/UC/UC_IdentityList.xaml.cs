@@ -89,39 +89,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-        }
-
-        private void C_CustomerClick(ServiceOrder order)
-        {
-            if (IdentityClick != null)
-            {
-                ServiceOrder IdentityOrder = order;
-                if (identityOrderTemp == null)
-                {
-                    identityOrderTemp = IdentityOrder;
-                }
-                else
-                {
-                    if (identityOrderTemp.Id == IdentityOrder.Id)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        identityOrderTemp = IdentityOrder;
-                    }
-                }
-                SetIdentityReaded(IdentityOrder);
-
-
-
-                worker = new BackgroundWorker();
-                worker.DoWork += Worker_DoWork;
-                worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-                worker.RunWorkerAsync(IdentityOrder);
-                log.Debug("开始异步加载");
-            }
-        }
+        }        
 
         public void RemoveIdentity(ServiceOrder serviceOrder)
         {
@@ -305,11 +273,12 @@ namespace Dianzhu.CSClient.ViewWPF
             get { return identityOrderTemp; }
             set { identityOrderTemp = value; }
         }
-        private void BtnIdentity_Click(object sender, RoutedEventArgs e)
+
+        private void C_CustomerClick(ServiceOrder order)
         {
             if (IdentityClick != null)
             {
-                ServiceOrder IdentityOrder = (ServiceOrder)((Button)sender).Tag;
+                ServiceOrder IdentityOrder = order;
                 if (identityOrderTemp == null)
                 {
                     identityOrderTemp = IdentityOrder;
@@ -353,9 +322,13 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         #endregion
-                
+
         #region 设置用户控件的状态
 
+        /// <summary>
+        /// 已读后，用户控件从置顶区移到非置顶区
+        /// </summary>
+        /// <param name="serviceOrder"></param>
         public void SetIdentityReaded(ServiceOrder serviceOrder)
         {
             Action lambda = () =>
@@ -382,6 +355,11 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        /// <summary>
+        /// 收到未读消息，用户控件从非置顶区移到置顶区
+        /// </summary>
+        /// <param name="serviceOrder"></param>
+        /// <param name="messageAmount"></param>
         public void SetIdentityUnread(ServiceOrder serviceOrder, int messageAmount)
         {
             Action lambda = () =>
@@ -525,60 +503,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 lambda();
             }
         }
-        /// <summary>
-        /// 用户控件从置顶区移到非置顶区
-        /// </summary>
-        /// <param name="order"></param>
-        public void UIFromTopToNotTop(ServiceOrder order)
-        {
-            Action lambda = () =>
-            {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(order.Id.ToString(), preCutomerButton);
-
-                var ucCutomer = (UC_CustomerNew)wpNotTopIdentityList.FindName(ctrlName);
-                if (ucCutomer != null)
-                {
-                    RemoveUIForTopPanel(ucCutomer, ctrlName);
-                    InsertNotTopPanel(ucCutomer, ctrlName);
-                }
-            };
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(lambda);
-            }
-            else
-            {
-                lambda();
-            }
-        }
-
-        /// <summary>
-        /// 用户控件从非置顶区移到置顶区
-        /// </summary>
-        /// <param name="order"></param>
-        public void UIFromNotTopToTop(ServiceOrder order)
-        {
-            Action lambda = () =>
-            {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(order.Id.ToString(), preCutomerButton);
-
-                var ucCutomer = (UC_CustomerNew)wpNotTopIdentityList.FindName(ctrlName);
-                if (ucCutomer != null)
-                {
-                    RemoveUIForNotTopPanel(ucCutomer, ctrlName);
-                    AddUIForTopPanel(ucCutomer, ctrlName);
-                }
-            };
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(lambda);
-            }
-            else
-            {
-                lambda();
-            }
-        }
-
+        
         #endregion
 
         #region 播放提示音
