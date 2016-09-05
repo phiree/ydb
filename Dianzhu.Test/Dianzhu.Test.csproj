@@ -158,6 +158,7 @@
     <Compile Include="DZCSClientTest\PIdentityListTest.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
     <Compile Include="IdentityAccess\DALMembershipTests.cs" />
+    <Compile Include="IdentityManagerTests.cs" />
     <Compile Include="InfraStructureTest\Class1.cs" />
     <Compile Include="Installer.cs" />
     <Compile Include="jsonconvert_test.cs" />
