@@ -26,10 +26,13 @@ namespace Dianzhu.CSClient.Presenter
         IViewChatSend viewChatSend;
         IViewIdentityList viewIdentityList;
         InstantMessage iIM;
+        Dianzhu.CSClient.LocalStorage.LocalChatManager chatManager;
         public static Dictionary<Guid, IList<ReceptionChat>> chatHistoryAll;        
         
-        public PChatList(IViewChatList viewChatList,IViewChatSend viewChatSend, IViewIdentityList viewCustomerList,IDAL.IDALReceptionChat dalReceptionChat, InstantMessage iIM)
+        public PChatList(IViewChatList viewChatList,IViewChatSend viewChatSend, IViewIdentityList viewCustomerList,IDAL.IDALReceptionChat dalReceptionChat, InstantMessage iIM,
+            Dianzhu.CSClient.LocalStorage.LocalChatManager chatManager)
         {
+            this.chatManager = chatManager;
             this.viewChatList = viewChatList;
             this.viewChatSend = viewChatSend;
             this.dalReceptionChat = dalReceptionChat;
@@ -93,7 +96,7 @@ namespace Dianzhu.CSClient.Presenter
             worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            worker.RunWorkerAsync(serviceOrder.Customer.Id);
+            worker.RunWorkerAsync(serviceOrder);
 
             log.Debug("开始异步加载聊天记录");
             viewChatList.ChatListCustomerName = serviceOrder.Customer.DisplayName;
@@ -129,10 +132,11 @@ namespace Dianzhu.CSClient.Presenter
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             NHibernateUnitOfWork.UnitOfWork.Start();
-            Guid customerId = Guid.Parse(e.Argument.ToString());
-            int rowCount;
-            e.Result = dalReceptionChat.GetReceptionChatList(customerId, Guid.Empty, Guid.Empty,
-                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.cer, out rowCount);
+            ServiceOrder order = (ServiceOrder)e.Argument;
+           
+            e.Result = chatManager.InitChatList(order.Customer.Id, order.CustomerService.Id, order.Id);
+            //e.Result = dalReceptionChat.GetReceptionChatList(customerId, Guid.Empty, Guid.Empty,
+            //       DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.cer, out rowCount);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }

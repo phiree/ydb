@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSClient", "CSClient", "{8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}"
 EndProject
@@ -12,7 +12,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminWeb", "AdminWeb\", "{16075D17-B45F-4FDE-B48C-FA9534F6FE2D}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
-		ProjectReferences = "{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{1BAAD173-A641-435A-AD03-0CD0146674B9}|Dianzhu.Notify.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;"
+		ProjectReferences = "{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{1BAAD173-A641-435A-AD03-0CD0146674B9}|Dianzhu.Notify.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;{6F064359-8BBD-4BDA-9532-D93505472582}|Dianzhu.CSClient.LocalStorage.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/AdminWeb"
 		Debug.AspNetCompiler.PhysicalPath = "AdminWeb\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AdminWeb\"
@@ -40,7 +40,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.HttpApi", "Dianzhu.HttpApi\", "{0D1C0821-004D-4D6B-BB6C-F561895DCC4E}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
-		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{e9ac682e-e6d1-4eef-bacf-fb86d20f8766}|Dianzhu.Api.Model.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{1BAAD173-A641-435A-AD03-0CD0146674B9}|Dianzhu.Notify.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;{417ac2d5-58e5-4cbc-b14f-c5747274a846}|Dianzhu.ApplicationService.dll;"
+		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{e9ac682e-e6d1-4eef-bacf-fb86d20f8766}|Dianzhu.Api.Model.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{1BAAD173-A641-435A-AD03-0CD0146674B9}|Dianzhu.Notify.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;{417ac2d5-58e5-4cbc-b14f-c5747274a846}|Dianzhu.ApplicationService.dll;{6F064359-8BBD-4BDA-9532-D93505472582}|Dianzhu.CSClient.LocalStorage.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/Dianzhu.HttpApi"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.HttpApi\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Dianzhu.HttpApi\"
@@ -113,7 +113,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Pay", "Dianzhu.Web.Pay\", "{FBEC30ED-52CD-49B0-B767-B2EC013796A4}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
-		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{74f0963e-57ca-4d57-899c-d85ff096fe1f}|Dianzhu.CSClient.IMessageAdapter.dll;{125f0d3b-e83c-4743-9944-e82392cba6c5}|Dianzhu.CSClient.XMPP.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{a871c9e1-98a4-412f-a1b3-541189a4c4cf}|Dianzhu.CSClient.MessageAdapter.dll;{1baad173-a641-435a-ad03-0cd0146674b9}|Dianzhu.Notify.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;"
+		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{74f0963e-57ca-4d57-899c-d85ff096fe1f}|Dianzhu.CSClient.IMessageAdapter.dll;{125f0d3b-e83c-4743-9944-e82392cba6c5}|Dianzhu.CSClient.XMPP.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{a871c9e1-98a4-412f-a1b3-541189a4c4cf}|Dianzhu.CSClient.MessageAdapter.dll;{1baad173-a641-435a-ad03-0cd0146674b9}|Dianzhu.Notify.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;{6F064359-8BBD-4BDA-9532-D93505472582}|Dianzhu.CSClient.LocalStorage.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_12360"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.Web.Pay\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_12360\"
@@ -136,7 +136,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Notify", "Dianzhu.Web.Notify\", "{0B7AB42A-DED4-41A7-8A94-265686227268}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
-		ProjectReferences = "{1baad173-a641-435a-ad03-0cd0146674b9}|Dianzhu.Notify.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;"
+		ProjectReferences = "{1baad173-a641-435a-ad03-0cd0146674b9}|Dianzhu.Notify.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;{6F064359-8BBD-4BDA-9532-D93505472582}|Dianzhu.CSClient.LocalStorage.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_50182"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.Web.Notify\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50182\"
@@ -191,7 +191,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminBusiness", "AdminBusiness\", "{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
-		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{1BAAD173-A641-435A-AD03-0CD0146674B9}|Dianzhu.Notify.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;{BE142427-1CE4-40F8-AC58-D0509BA05D21}|Dianzhu.Push.dll;"
+		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{7CE433BF-0692-4D37-ACE9-E1984391CD3B}|JSYK.Infrastructure.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{1BAAD173-A641-435A-AD03-0CD0146674B9}|Dianzhu.Notify.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;{BE142427-1CE4-40F8-AC58-D0509BA05D21}|Dianzhu.Push.dll;{6F064359-8BBD-4BDA-9532-D93505472582}|Dianzhu.CSClient.LocalStorage.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/AdminBusiness"
 		Debug.AspNetCompiler.PhysicalPath = "AdminBusiness\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AdminBusiness\"
@@ -283,6 +283,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swashbuckle.Core", "Swashbuckle.Core\Swashbuckle.Core.csproj", "{D50A26FF-02C6-4C16-BA94-4CD7D43EFBB3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.RequestRestful", "Dianzhu.RequestRestful\Dianzhu.RequestRestful.csproj", "{0EE24EE8-A508-463C-BC2F-83E52110E643}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.LocalStorage", "Dianzhu.CSClient.LocalStorage\Dianzhu.CSClient.LocalStorage.csproj", "{6F064359-8BBD-4BDA-9532-D93505472582}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -759,6 +761,18 @@ Global
 		{0EE24EE8-A508-463C-BC2F-83E52110E643}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0EE24EE8-A508-463C-BC2F-83E52110E643}.Release|x86.ActiveCfg = Release|Any CPU
 		{0EE24EE8-A508-463C-BC2F-83E52110E643}.Release|x86.Build.0 = Release|Any CPU
+		{6F064359-8BBD-4BDA-9532-D93505472582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F064359-8BBD-4BDA-9532-D93505472582}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F064359-8BBD-4BDA-9532-D93505472582}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6F064359-8BBD-4BDA-9532-D93505472582}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6F064359-8BBD-4BDA-9532-D93505472582}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6F064359-8BBD-4BDA-9532-D93505472582}.Debug|x86.Build.0 = Debug|Any CPU
+		{6F064359-8BBD-4BDA-9532-D93505472582}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F064359-8BBD-4BDA-9532-D93505472582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F064359-8BBD-4BDA-9532-D93505472582}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6F064359-8BBD-4BDA-9532-D93505472582}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6F064359-8BBD-4BDA-9532-D93505472582}.Release|x86.ActiveCfg = Release|Any CPU
+		{6F064359-8BBD-4BDA-9532-D93505472582}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -808,6 +822,7 @@ Global
 		{4108D8F3-463D-4CD8-9028-3B31B67D9335} = {E4338C9B-90F1-4640-A650-F903E722C878}
 		{D50A26FF-02C6-4C16-BA94-4CD7D43EFBB3} = {4108D8F3-463D-4CD8-9028-3B31B67D9335}
 		{0EE24EE8-A508-463C-BC2F-83E52110E643} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
+		{6F064359-8BBD-4BDA-9532-D93505472582} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi

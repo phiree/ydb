@@ -93,6 +93,10 @@
       <Project>{74f0963e-57ca-4d57-899c-d85ff096fe1f}</Project>
       <Name>Dianzhu.CSClient.IMessageAdapter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.LocalStorage\Dianzhu.CSClient.LocalStorage.csproj">
+      <Project>{6f064359-8bbd-4bda-9532-d93505472582}</Project>
+      <Name>Dianzhu.CSClient.LocalStorage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.MessageAdapter\Dianzhu.CSClient.MessageAdapter.csproj">
       <Project>{a871c9e1-98a4-412f-a1b3-541189a4c4cf}</Project>
       <Name>Dianzhu.CSClient.MessageAdapter</Name>
