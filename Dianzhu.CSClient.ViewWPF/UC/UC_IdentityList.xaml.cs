@@ -103,11 +103,10 @@ namespace Dianzhu.CSClient.ViewWPF
                 if (btnOldCustomer != null)
                 {
                     //注销
-                    wpNotTopIdentityList.UnregisterName(btnOldCustomer.Name);
+                    wpNotTopIdentityList.UnregisterName(ctrOldlName);
 
                     //重新注册
-                    btnOldCustomer.Name = ctrNewlName;
-                    wpNotTopIdentityList.RegisterName(btnOldCustomer.Name, btnOldCustomer);
+                    wpNotTopIdentityList.RegisterName(ctrNewlName, btnOldCustomer);
 
                     //更新order
                     btnOldCustomer.Order = newOrder;
