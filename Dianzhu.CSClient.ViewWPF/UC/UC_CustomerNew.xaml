@@ -70,7 +70,7 @@
                                         <TextBlock x:Name="tbkCustomerStatus" Text="等待中" Style="{DynamicResource TextBlockCustomer}" FontWeight="Regular" Foreground="#FF787878"/>
                                     </Label>
 
-                                    <Grid Margin="10,0,0,0">
+                                    <Grid Margin="10,0,0,0" x:Name="gridTimer">
                                         <WrapPanel VerticalAlignment="Center">
                                             <Label Padding="0">
                                                 <TextBlock x:Name="tbkMinute" Text="00" Style="{DynamicResource TextBlockTimerStyle}"/>

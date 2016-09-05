@@ -233,90 +233,6 @@ namespace Dianzhu.CSClient.Presenter
                     workerCustomerAvatar.RunWorkerAsync(chat.From);
                 }
             }
-            else if (chat.ChatType== enum_ChatType.UserStatus)
-            {
-                ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
-
-                if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
-                {
-                    IdentityLogOffShowMsg(chat.ServiceOrder.Id);
-
-                    //if (IdentityManager.CurrentIdentity.Id == chat.ServiceOrder.Id)
-                    //{
-                    //    if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
-                    //    {
-                    //        //RemoveIdentity(chat.ServiceOrder);
-                    //        IdentityLogOffShowMsg(chat.ServiceOrder);
-                    //    }
-                    //    else
-                    //    {
-                    //        errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
-                    //        log.Error(errMsg);
-                    //        throw new NotImplementedException(errMsg);
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    //SetSetIdentityLogOff(chat.ServiceOrder);
-                    //    if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
-                    //    {
-                    //        //RemoveIdentity(chat.ServiceOrder);
-                    //        IdentityLogOffShowMsg(chat.ServiceOrder);
-                    //    }
-                    //    else
-                    //    {
-                    //        errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
-                    //        log.Error(errMsg);
-                    //        throw new NotImplementedException(errMsg);
-                    //    }
-                    //}
-                }
-                else
-                {
-                    if (IdentityManager.CurrentIdentity == null)
-                    {
-                        IdentityLogOnShowMsgAndTimer(chat.ServiceOrder, "等待中");
-                    }
-                    else
-                    {
-                        if (IdentityManager.CurrentIdentity.Id == chat.ServiceOrder.Id)
-                        {
-                            IdentityLogOnShowMsg(chat.ServiceOrder, "当前接待中...");
-                        }
-                        else
-                        {
-                            IdentityLogOnShowMsgAndTimer(chat.ServiceOrder, "等待中");
-                        }
-                    }
-                    //if (IdentityManager.CurrentIdentity.Id == chat.ServiceOrder.Id)
-                    //{
-                    //    if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
-                    //    {
-                    //        IdentityLogOnShowMsg(chat.ServiceOrder,"当前接待中...");
-                    //    }
-                    //    else
-                    //    {
-                    //        errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
-                    //        log.Error(errMsg);
-                    //        throw new NotImplementedException(errMsg);
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    SetSetIdentityLogOff(chat.ServiceOrder);
-                    //    if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
-                    //    {
-                    //        IdentityLogOnShowMsg(chat.ServiceOrder,"等待中");
-                    //    }
-                    //    else
-                    //    {
-                    //        errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
-                    //        log.Error(errMsg);
-                    //        throw new NotImplementedException(errMsg);
-                    //    }
-                    //}
-                }
-            }
         }
         
         private void WorkerCustomerAvatar_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -465,21 +381,6 @@ namespace Dianzhu.CSClient.Presenter
             {
                 iView.RemoveIdentity(order);
             }
-        }
-
-        protected void IdentityLogOffShowMsg(Guid orderId)
-        {
-            iView.IdentityLogOffShowMsg(orderId);
-        }
-
-        protected void IdentityLogOnShowMsg(ServiceOrder order,string msg)
-        {
-            iView.IdentityLogOnShowMsg(order,msg);
-        }
-
-        protected void IdentityLogOnShowMsgAndTimer(ServiceOrder order,string msg)
-        {
-            iView.IdentityLogOnShowMsgAndTimer(order, msg);
         }
         
     }
