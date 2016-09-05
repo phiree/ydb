@@ -24,6 +24,7 @@
     var inputTime;
     var inputSign;
     var inputToken;
+    var inputAppName;
     for (var i = 0; i < arrTrParam.length; i++) {
         var arrTdParam = $(arrTrParam[i]).find('td');
         var paramType = $(arrTdParam[3]).html();
@@ -58,6 +59,9 @@
         if (paramType == "header" && $(arrTdParam[0]).text() == "token") {
             inputToken = $(paramControl[0]);
         }
+        if (paramType == "header" && $(arrTdParam[0]).text() == "appName") {
+            inputAppName = $(paramControl[0]);
+        }
     }
     inputToken.val(strToken.substring(1,strToken.length-1));
     if (queryParam != "")
@@ -74,7 +78,8 @@
         url: "/AjaxService/GetSignAndTime.ashx",
         type: "POST",
         headers: {
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "appName": inputAppName.val()
         },
         dataType: "JSON",
         data: "{\n    \"apiurl\":\"" + strPath + "\",\n    \"token\":" + strToken + ",\n\"content\":" + contentParam + "\n}",
