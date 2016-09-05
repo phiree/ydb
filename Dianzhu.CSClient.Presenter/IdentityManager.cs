@@ -17,6 +17,7 @@ namespace Dianzhu.CSClient.Presenter
     public class IdentityManager
     {
         static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Presenter.IdentityManager");
+        static object lockObj = new object();
         #region propertys
         /// <summary>
         /// 当前激活的通讯
@@ -42,29 +43,33 @@ namespace Dianzhu.CSClient.Presenter
             }
             set
             {
-                if (currentIdentityList.Keys.Select(x=>x.Id).Contains(value.Id))
+                lock (lockObj)
                 {
-                    foreach (var key in currentIdentityList.Keys.ToList())
+                    if (currentIdentityList.Keys.Select(x => x.Id).Contains(value.Id))
                     {
-                        if (key.Id == value.Id)
+                        foreach (var key in currentIdentityList.Keys.ToList())
                         {
-                            currentIdentityList[key] = true;
+                            if (key.Id == value.Id)
+                            {
+                                currentIdentityList[key] = true;
+                            }
+                            else
+                            {
+                                currentIdentityList[key] = false;
+                            }
                         }
-                        else
+                    }
+                    else
+                    {
+                        foreach (var key in currentIdentityList.Keys.ToList())
                         {
                             currentIdentityList[key] = false;
                         }
-                    }
-                }
-                else
-                {
-                    foreach (var key in currentIdentityList.Keys.ToList())
-                    {
-                        currentIdentityList[key] = false;
-                    }
 
-                    currentIdentityList[value] = true;
+                        currentIdentityList[value] = true;
+                    }
                 }
+                
             }
         }
         static ConcurrentDictionary<ServiceOrder, bool> currentIdentityList = new ConcurrentDictionary<ServiceOrder, bool>();
@@ -120,73 +125,78 @@ namespace Dianzhu.CSClient.Presenter
         /// <returns></returns>        
         public static void UpdateIdentityList(ServiceOrder order, out IdentityTypeOfOrder type)
         {
-            log.Debug("1开始更新聊天标志的状态.订单:"+order.Id+",用户:"+order.Customer.DisplayName);
-            type = IdentityTypeOfOrder.None;
-            var existedCustomer = currentIdentityList.Where(x => x.Key.Customer.Id == order.Customer.Id);
-           
-            if (existedCustomer.Count() == 1)
+            lock (lockObj)
             {
-                log.Debug("1.1存在用户");
-                var existedOrder = existedCustomer.First();
-                if (existedOrder.Key.Id == order.Id)
+                log.Debug("1开始更新聊天标志的状态.订单:" + order.Id + ",用户:" + order.Customer.DisplayName);
+                type = IdentityTypeOfOrder.None;
+                var existedCustomer = currentIdentityList.Where(x => x.Key.Customer.Id == order.Customer.Id);
+
+                if (existedCustomer.Count() == 1)
                 {
-                    log.Debug("1.1.1订单一样:" + order.Id);
-                    if (existedOrder.Value == true)
+                    log.Debug("1.1存在用户");
+                    var existedOrder = existedCustomer.First();
+                    if (existedOrder.Key.Id == order.Id)
                     {
-                        type = IdentityTypeOfOrder.CurrentIdentity;
+                        log.Debug("1.1.1订单一样:" + order.Id);
+                        if (existedOrder.Value == true)
+                        {
+                            type = IdentityTypeOfOrder.CurrentIdentity;
+                        }
+                        else
+                        {
+                            type = IdentityTypeOfOrder.InList;
+                        }
+
                     }
                     else
                     {
-                        type = IdentityTypeOfOrder.InList;
-                    }
+                        log.Debug("1.1.2订单不一样");
+                        //DictExtension.RenameKey(currentIdentityList, existedOrder.Key, order);
 
-                }
-                else {
-                    log.Debug("1.1.2订单不一样");
-                    //DictExtension.RenameKey(currentIdentityList, existedOrder.Key, order);
-
-                    foreach(var key in currentIdentityList.Keys.ToList())
-                    {
-                        bool isRemove = false;
-                        if (key.Id == existedOrder.Key.Id)
+                        foreach (var key in currentIdentityList.Keys.ToList())
                         {
-                            currentIdentityList.TryRemove(key, out isRemove);
+                            bool isRemove = false;
+                            if (key.Id == existedOrder.Key.Id)
+                            {
+                                currentIdentityList.TryRemove(key, out isRemove);
+                            }
+                            if (isRemove)
+                            {
+                                break;
+                            }
                         }
-                        if (isRemove)
-                        {
-                            break;
-                        }
-                    }
-                    currentIdentityList[order] = true; 
+                        currentIdentityList[order] = true;
 
-                    log.Debug("用户名：" + order.Customer.DisplayName);
-                    if (existedOrder.Value == true)
-                    {
-                        type = IdentityTypeOfOrder.CurrentCustomer;
-                    }
-                    else
-                    {
-                        type = IdentityTypeOfOrder.InList;
+                        log.Debug("用户名：" + order.Customer.DisplayName);
+                        if (existedOrder.Value == true)
+                        {
+                            type = IdentityTypeOfOrder.CurrentCustomer;
+                        }
+                        else
+                        {
+                            type = IdentityTypeOfOrder.InList;
+                        }
                     }
                 }
-            }
-            else if (existedCustomer.Count() == 0)
-            {
-                log.Debug("1.2 新用户");
-                type = IdentityTypeOfOrder.NewIdentity;
-                
-                bool newIdentityAdded= currentIdentityList.TryAdd(order,false);
-                if (!newIdentityAdded)
+                else if (existedCustomer.Count() == 0)
                 {
-                    log.Warn("新用户插入失败");
+                    log.Debug("1.2 新用户");
+                    type = IdentityTypeOfOrder.NewIdentity;
+
+                    bool newIdentityAdded = currentIdentityList.TryAdd(order, false);
+                    if (!newIdentityAdded)
+                    {
+                        log.Warn("新用户插入失败");
+                    }
                 }
+                else
+                {
+                    log.Error("当前列表中存在重复项");
+
+                }
+                log.Debug("更新完成");
             }
-            else
-            {
-                log.Error("当前列表中存在重复项");
-                 
-            }
-            log.Debug("更新完成");
+            
 
         }
     }

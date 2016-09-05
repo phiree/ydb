@@ -12,171 +12,182 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
 using System.Windows.Threading;
-using System.ComponentModel;
-using System.IO;
-using System.Threading;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
-    public delegate void IdleTimerOut(Guid orderId);
     /// <summary>
-    /// UC_Customer.xaml 的交互逻辑
+    /// UC_CustomerNew.xaml 的交互逻辑
     /// </summary>
-    public partial class UC_Customer : UserControl
+    public partial class UC_Customer : UserControl,IView.IViewCustomer
     {
-        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_Customer");
-        public event IdleTimerOut IdleTimerOut;
-
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_CustomerNew");
+        /// <summary>
+        /// 界面上显示的时间控制器
+        /// </summary>
+        DispatcherTimer timerReceptionStatus;
+        /// <summary>
+        /// 客服回复之后得时间控制器
+        /// </summary>
         DispatcherTimer FinalChatTimer;
-        Guid OrderTempId;
-        public UC_Customer(ServiceOrder order)
+        public UC_Customer()
         {
             InitializeComponent();
 
-            OrderTempId = order.Id;
-
-            LoadData(order.Customer);
-            TimerLoad();
+            InitTimer();
+            InitFinalChatTimer();
         }
 
-        public void SetOrderTempData(Guid orderId)
+        public string AvatarImage
         {
-            OrderTempId = orderId;
-        }
-
-        protected void TimerLoad()
-        {
-            FinalChatTimer = new DispatcherTimer();
-            FinalChatTimer.Interval = new TimeSpan(0, 10, 0);
-            FinalChatTimer.Tick += FinalChatTimer_Tick;
-        }
-
-        public void TimerStart()
-        {
-            if (FinalChatTimer != null)
+            set
             {
-                FinalChatTimer.Stop();
-                TimerLoad();
-                FinalChatTimer.Start();
-            }            
-        }
-
-        public void TimerStop()
-        {
-            if (FinalChatTimer != null)
-            {
-                FinalChatTimer.Stop();
-            }            
-        }
-
-        private void FinalChatTimer_Tick(object sender, EventArgs e)
-        {
-            IdleTimerOut(OrderTempId);
-            TimerStop();
-        }
-
-        BackgroundWorker worker;
-        public void LoadData(DZMembership customer)
-        {
-            tbkCustomerNames.Text = customer.DisplayName;
-
-            //加载用户头像
-            worker = new BackgroundWorker();
-            worker.DoWork += Worker_DoWork;
-            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            worker.RunWorkerAsync(customer.AvatarUrl);
-        }
-
-        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            BitmapImage image = e.Result as BitmapImage;
-            imgSource.ImageSource = image;
-        }
-
-        private void Worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            Action lamda = () =>
-            {
+                BitmapImage image;
                 try
                 {
-                    string avatarTemp = e.Argument.ToString();
-                    string imgPath = PHSuit.LocalFileManagement.LocalFilePath + avatarTemp;
-
-                    using (BinaryReader loader = new BinaryReader(File.Open(imgPath, FileMode.Open)))
+                    if (!string.IsNullOrEmpty(value))
                     {
-                        FileInfo fd = new FileInfo(imgPath);
-                        int Length = (int)fd.Length;
-                        byte[] buf = new byte[Length];
-                        buf = loader.ReadBytes((int)fd.Length);
-                        loader.Dispose();
-                        loader.Close();
-
-
-                        //开始加载图像  
-                        BitmapImage bim = new BitmapImage();
-                        bim.BeginInit();
-                        bim.StreamSource = new MemoryStream(buf);
-                        bim.EndInit();
-                        e.Result = bim;
-                        //image1.Source = bim;
-                        GC.Collect(); //强制回收资源  
+                        image = new BitmapImage(new Uri(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + value + "_28X28"));
+                    }
+                    else
+                    {
+                        image = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCustomer.png"));
                     }
                 }
-                catch (Exception ee)
+                catch (Exception e)
                 {
-                    log.Error(ee.Message);
-                    e.Result = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCustomer.png"));
+                    log.Error(e.Message);
+                    image = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCustomer.png"));
                 }
-            };
-            if (!Dispatcher.CheckAccess())
+                imgSource.ImageSource = image;
+            }
+        }
+
+        public string CustomerName
+        {
+            set
             {
-                Dispatcher.Invoke(lamda);
+                tbkCustomerNames.Text = value;
+            }
+        }
+
+        public enum_CustomerReceptionStatus CustomerReceptionStatus
+        {
+            set
+            {
+                switch (value)
+                {
+                    case enum_CustomerReceptionStatus.Unread:
+                        CustomerUnread();
+                        break;
+                    case enum_CustomerReceptionStatus.Readed:
+                        CustomerReaded();
+                        break;
+                    case enum_CustomerReceptionStatus.Actived:
+                        CustomerActived();
+                        break;
+                }
+            }
+        }
+
+        ServiceOrder order;
+        public ServiceOrder Order
+        {
+            get
+            {
+                return order;
+            }
+
+            set
+            {
+                order = value;
+            }
+        }
+
+        public event CustomerClick CustomerClick;        
+
+        private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (CustomerClick != null)
+            {
+                CustomerReceptionStatus = enum_CustomerReceptionStatus.Actived;
+                CustomerClick(order);
+            }
+        }
+
+        #region 接待状态时间控制器
+
+        public void InitTimer()
+        {
+            timerReceptionStatus = new DispatcherTimer();
+            timerReceptionStatus.Interval = TimeSpan.FromMilliseconds(1000);
+            timerReceptionStatus.Tick += TimerReceptionStatus_Tick;
+            timerReceptionStatus.Start();
+        }
+
+        bool isReaded = false;//判断是否读取过
+        public void StartTimer()
+        {
+            if (timerReceptionStatus != null)
+            {
+                if (isReaded)
+                {                    
+                    isReaded = false;
+                    tbkMinute.Text = "00";
+                    tbkSecond.Text = "00";
+                    timerReceptionStatus.Start();
+                    gridTimer.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        public void StopTimer()
+        {
+            if (timerReceptionStatus != null)
+            {
+                gridTimer.Visibility = Visibility.Collapsed;
+                timerReceptionStatus.Stop();
+            }
+        }
+
+        private void TimerReceptionStatus_Tick(object sender, EventArgs e)
+        {
+            int minute = 0;
+            int second = 0;
+
+            int.TryParse(tbkMinute.Text, out minute);
+            int.TryParse(tbkSecond.Text, out second);
+
+            if (second < 9)
+            {
+                second++;
+                tbkSecond.Text = "0" + second.ToString();
+            }
+            else if (second < 59)
+            {
+                second++;
+                tbkSecond.Text = second.ToString();
             }
             else
             {
-                lamda();
+                second = 0;
+                tbkSecond.Text = "0" + second;
+
+                minute++;
+                tbkMinute.Text = minute.ToString();
             }
         }
 
-        public void ClearData()
+        #endregion
+
+        #region 设置边框的颜色
+
+        public void SetCustomerBorder(string colorUp, string colorDown)
         {
-            tbkCustomerNames.Text = string.Empty;
-            imgSource.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png", UriKind.Absolute));
-        }
-
-        public void CustomerNormal()
-        {
-            SetCustomerBorder("#FFd1d1d1", "#FF777779");
-
-            tbkCustomerStatus.Text = "等待中";
-            //tbkCustomerMinutes.Visibility = Visibility.Visible;
-            //tbkCustomerMinutes.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF4b7799"));
-
-            TimeControl.Visibility = Visibility.Visible;
-        }
-
-        public void CustomerCurrent()
-        {
-            SetCustomerBorder("#FF7db2dc", "#FF477597");
-            tbkCustomerStatus.Text = "当前接待中...";
-
-            //tbkCustomerMinutes.Visibility = Visibility.Collapsed;
-
-            TimeControlCollapsed();
-        }
-
-        public void TimeControlVisibility()
-        {
-            TimeControl.Visibility = Visibility.Visible;
-            TimeControl.StartTimer();
-        }
-
-        public void TimeControlCollapsed()
-        {
-            TimeControl.Visibility = Visibility.Collapsed;
-            TimeControl.StopTimer();
+            borderUp.Color = (Color)ColorConverter.ConvertFromString(colorUp);
+            borderDown.Color = (Color)ColorConverter.ConvertFromString(colorDown);
         }
 
         public void CustomerUnread()
@@ -184,16 +195,68 @@ namespace Dianzhu.CSClient.ViewWPF
             SetCustomerBorder("#FFfb8384", "#FFe85454");
 
             tbkCustomerStatus.Text = "等待中";
-            //tbkCustomerMinutes.Visibility = Visibility.Visible;
-            //tbkCustomerMinutes.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFf65f5f"));
 
-            TimeControl.Visibility = Visibility.Visible;
+            StartTimer();
         }
 
-        public void SetCustomerBorder(string colorUp, string colorDown)
+        public void CustomerReaded()
         {
-            borderUp.Color = (Color)ColorConverter.ConvertFromString(colorUp);
-            borderDown.Color = (Color)ColorConverter.ConvertFromString(colorDown);
+            SetCustomerBorder("#FFd1d1d1", "#FF777779");
+
+            tbkCustomerStatus.Text = "已接待";
         }
+
+        public void CustomerActived()
+        {
+            SetCustomerBorder("#FF7db2dc", "#FF477597");
+
+            tbkCustomerStatus.Text = "当前接待中...";
+
+            StopTimer();
+
+            isReaded = true;
+        }
+
+        #endregion
+
+        #region 客服回复之后的时间控制器相关方法
+
+        public event IdleTimerOut IdleTimerOut;
+
+        protected void InitFinalChatTimer()
+        {
+            FinalChatTimer = new DispatcherTimer();
+            FinalChatTimer.Interval = new TimeSpan(0, 10, 0);
+            FinalChatTimer.Tick += FinalChatTimer_Tick;
+        }
+
+        private void FinalChatTimer_Tick(object sender, EventArgs e)
+        {
+            if (IdleTimerOut != null)
+            {
+                IdleTimerOut(order.Id);
+                StopFinalChatTimer();
+            }           
+        }
+
+        public void StartFinalChatTimer()
+        {
+            if (FinalChatTimer != null)
+            {
+                FinalChatTimer.Stop();
+                InitFinalChatTimer();
+                FinalChatTimer.Start();
+            }
+        }
+
+        public void StopFinalChatTimer()
+        {
+            if (FinalChatTimer != null)
+            {
+                FinalChatTimer.Stop();
+            }
+        }
+
+        #endregion
     }
 }

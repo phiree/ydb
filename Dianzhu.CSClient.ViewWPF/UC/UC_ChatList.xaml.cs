@@ -27,6 +27,9 @@ namespace Dianzhu.CSClient.ViewWPF
     public partial class UC_ChatList : UserControl,IView.IViewChatList
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_ChatList");
+
+        private const string PRECHATCUSTOMER = "cc";
+
         UC_Hint hint;
         StackPanel stackPanel;
         public UC_ChatList()
@@ -229,17 +232,19 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             log.Debug("chat begin, body:" + chat.MessageBody);
             Action lamda = () =>
-            {                
-                UC_ChatCustomer chatCustomer = new UC_ChatCustomer(chat, currentCustomerService);
-                string chatId = PHSuit.StringHelper.SafeNameForWpfControl(chat.Id.ToString());
+            {
+                IViewChatCustomer chatCustomer = new UC_ChatCustomer()
+                {
+                    CurrentCS = currentCustomerService,
+                    Chat = chat,
+                };
+
+                string chatId = PHSuit.StringHelper.SafeNameForWpfControl(chat.Id.ToString(), PRECHATCUSTOMER);
                 if ((UC_ChatCustomer)stackPanel.FindName(chatId) == null)
                 {
                     stackPanel.RegisterName(chatId, chatCustomer);
-                }
-
-                // WindowNotification();
-                stackPanel.Children.Add(chatCustomer);
-                //pnlChatList.Children.Add(pnlOneChat);
+                }                
+                stackPanel.Children.Add((UC_ChatCustomer)chatCustomer);
 
                 log.Debug("chat end, body:" + chat.MessageBody);
             };
@@ -257,9 +262,13 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lamda = () =>
             {
-                UC_ChatCustomer chatCustomer = new UC_ChatCustomer(chat, currentCustomerService);
-                
-                stackPanel.Children.Insert(1,chatCustomer);
+                IViewChatCustomer chatCustomer = new UC_ChatCustomer()
+                {
+                    CurrentCS = currentCustomerService,
+                    Chat = chat
+                };
+
+                stackPanel.Children.Insert(1,(UC_ChatCustomer)chatCustomer);
             };
             if (!Dispatcher.CheckAccess())
             {
@@ -311,7 +320,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 try
                 {
-                    string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString());
+                    string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString(), PRECHATCUSTOMER);
                     UC_ChatCustomer ucC = stackPanel.FindName(id) as UC_ChatCustomer;
                     UC_ChatImageNoraml ucCI = ucC.FindName(id) as UC_ChatImageNoraml;
                     ucCI.ShowMask();
@@ -337,7 +346,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 try
                 {
-                    string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString());
+                    string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString(), PRECHATCUSTOMER);
                     UC_ChatCustomer ucC = stackPanel.FindName(id) as UC_ChatCustomer;
                     UC_ChatImageNoraml ucCI = ucC.FindName(id) as UC_ChatImageNoraml;
                     ucCI.RemoveMask();

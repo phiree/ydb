@@ -14,7 +14,7 @@
         <Path Data="M60,68 L290,68"  Fill="Aqua" Height="1" Margin="20,68,20,0" Stretch="Fill" Stroke="#888" VerticalAlignment="Top" Style="{DynamicResource PathStyle1}"/>
 
         <Label x:Name="label" Content="客服账号" HorizontalAlignment="Left" Margin="53,115,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbxUserName" HorizontalAlignment="Left" Height="23" Margin="128,118,0,0" TextWrapping="Wrap" Text="aa@aa.aa" VerticalAlignment="Top" Width="211"  />
+        <TextBox x:Name="tbxUserName" HorizontalAlignment="Left" Height="23" Margin="128,118,0,0" TextWrapping="Wrap" Text="cs01@cs.cs" VerticalAlignment="Top" Width="211"  />
 
         <Label x:Name="label_Copy" Content="密码"    HorizontalAlignment="Left" Margin="77,169,0,0" VerticalAlignment="Top"/>
         <PasswordBox x:Name="tbxPassword" Password="123456" HorizontalAlignment="Left" Margin="128,175,0,0" VerticalAlignment="Top" Width="211" PreviewKeyDown="tbxPassword_KeyDown"/>
