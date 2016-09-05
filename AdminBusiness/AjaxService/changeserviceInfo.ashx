@@ -13,6 +13,7 @@ public class changepassword : IHttpHandler,System.Web.SessionState.IRequiresSess
         //权限判断
         if (!AjaxAuth.authAjaxUser(context)){ 
             context.Response.StatusCode = 400;
+            context.Response.Clear();
             context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"unlogin\"}");
             return;
         }

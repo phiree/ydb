@@ -30,6 +30,7 @@ public class RequestRestfulApi : IHttpHandler,System.Web.SessionState.IRequiresS
             //权限判断
             if (!AjaxAuth.authAjaxUser(context)){ 
                 context.Response.StatusCode = 400;
+                context.Response.Clear();
                 context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"unlogin\"}");
                 return;
             }

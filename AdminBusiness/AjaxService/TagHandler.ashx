@@ -13,8 +13,9 @@ public class TagHandler : IHttpHandler,System.Web.SessionState.IRequiresSessionS
     {
 
         //权限判断
-        if (!AjaxAuth.authAjaxUser(context)){ 
+        if (!AjaxAuth.authAjaxUser(context)){
             context.Response.StatusCode = 400;
+            context.Response.Clear();
             context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"unlogin\"}");
             return;
         }

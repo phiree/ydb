@@ -19,6 +19,7 @@ public class TabSelection : IHttpHandler,System.Web.SessionState.IRequiresSessio
         //权限判断
         if (!AjaxAuth.authAjaxUser(context)){ 
             context.Response.StatusCode = 400;
+            context.Response.Clear();
             context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"unlogin\"}");
             return;
         }
