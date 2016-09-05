@@ -14,18 +14,7 @@ public class RequestRestfulApi : IHttpHandler,System.Web.SessionState.IRequiresS
     {
         try
         {
-            context.Response.ContentType = "application/json";
-            //权限判断
-            //if (context.Session["UserName"] == null)
-            //{
-                //context.Response.Write("{\"result\":\""+is_valid+"\",\"msg\":\""+errMsg+"\",\"data\":\""+service.Enabled+"\"}"); 
-                //context.Response.Write("{\"result\":\""+is_valid+"\",\"msg\":\""+errMsg+"\"}");
-                //context.Response.Write("unlogin");
-                //context.Response.StatusCode=401;
-                //context.Response.StatusDescription="Unauthorized";
-                //context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"unlogin\"}");
-                //return;
-            //}
+             context.Response.ContentType = "application/json";
 
             //权限判断
             if (!AjaxAuth.authAjaxUser(context)){ 
@@ -35,7 +24,6 @@ public class RequestRestfulApi : IHttpHandler,System.Web.SessionState.IRequiresS
                 return;
             }
 
-            //string strUser = context.Session["UserName"].ToString();
             //GET = 0,
             //POST = 1,
             //PUT = 2,
@@ -50,6 +38,7 @@ public class RequestRestfulApi : IHttpHandler,System.Web.SessionState.IRequiresS
                 String xmlData = reader.ReadToEnd();
                 if (string.IsNullOrEmpty(xmlData))
                 {
+                    context.Response.StatusCode = 400;
                     context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"没有请求参数!\"}");
                     return;
                 }
@@ -61,23 +50,28 @@ public class RequestRestfulApi : IHttpHandler,System.Web.SessionState.IRequiresS
             string APIKey = "2bdKTgh9SiNlGnSajt4E6c4w1ZoZJfb9ATKrzCZ1a3A=";
             //string APPId = "UI3f4185e97b3E4a4496594eA3b904d60d";
             //string APIKey = "NoJBn3npJIvre2fC2SQL5aQGNB/3l73XXSqNZYdY6HU=";
-            string strUrl = "http://112.74.198.215:8041/api/v1/";
+            //string strUrl = "http://112.74.198.215:8041/api/v1;
             //strUrl = "http://localhost:52553/api/v1/";
+            //string strUrl = context.Request.Url.Scheme + "://" + context.Request.Url.Authority; 
+
             string apiurl = jo["apiurl"].ToString();//context.Request.Form["apiurl"]??"";
             if (apiurl == "")
             {
+                context.Response.StatusCode = 400;
                 context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"请求的接口路径(apiurl)不能为空!\"}");
                 return;
             }
-            string strRequestUrl = strUrl + apiurl;
+            string strRequestUrl = apiurl;
             string intMethod = jo["method"].ToString();//context.Request.Form["method"] ?? "";
             if (intMethod == "")
             {
+                context.Response.StatusCode = 400;
                 context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"请求方式(method)不能为空!\"}");
                 return;
             }
             if (intMethod != "0" && intMethod != "1" && intMethod != "2" && intMethod != "3" && intMethod != "6")
             {
+                context.Response.StatusCode = 400;
                 context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"请求方式(method)错误!\"}");
                 return;
             }
@@ -97,6 +91,7 @@ public class RequestRestfulApi : IHttpHandler,System.Web.SessionState.IRequiresS
             {
                 if (strRequestToken == "")
                 {
+                    context.Response.StatusCode = 400;
                     context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"请求的token值不能为空！\"}");
                     return;
                 }
@@ -151,11 +146,13 @@ public class RequestRestfulApi : IHttpHandler,System.Web.SessionState.IRequiresS
             else
             {
                 string str = response.Content.ToString()==""?"{}":response.Content;
+                context.Response.StatusCode = 400;
                 context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"Restful接口访问失败！\",\"data\":" + str+ "}");//" + response.Content.ToString()==""?"{}":response.Content + "
             }
         }
         catch(Exception ex)
         {
+            context.Response.StatusCode = 400;
             context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"请求异常!"+ex.Message+"\"}");
         }
     }
