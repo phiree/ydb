@@ -12,7 +12,7 @@ namespace Dianzhu.ApplicationService
     {
         public static string SortMap(string sortby, string TName)
         {
-            if (sortby==null || sortby == "" )
+            if (string.IsNullOrEmpty(sortby))
             {
                 return "";
             }

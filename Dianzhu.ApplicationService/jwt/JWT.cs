@@ -70,6 +70,34 @@ namespace Dianzhu.ApplicationService.JWT
         }
 
         /// <summary>
+        /// Creates a HashPassword
+        /// </summary>
+        /// <param name="strPassword"></param>
+        /// <param name="key"></param>
+        /// <param name="algorithm"></param>
+        /// <returns></returns>
+        public static string Encode(string strPassword, byte[] key, JwtHashAlgorithm algorithm)
+        {
+            var bytesToSign = Encoding.UTF8.GetBytes(strPassword);
+            byte[] signature = HashAlgorithms[algorithm](key, bytesToSign);
+            string str =Base64UrlEncode(signature);
+            return str;
+        }
+
+        /// <summary>
+        /// Creates a HashPassword
+        /// </summary>
+        /// <param name="strPassword"></param>
+        /// <param name="key"></param>
+        /// <param name="algorithm"></param>
+        /// <returns></returns>
+        public static string Encode(string strPassword, string key, JwtHashAlgorithm algorithm)
+        {
+            return Encode(strPassword, Encoding.UTF8.GetBytes(key), algorithm);
+        }
+
+
+        /// <summary>
         /// Creates a JWT given a payload, the signing key, and the algorithm to use.
         /// </summary>
         /// <param name="payload">An arbitrary payload (must be serializable to JSON via <see cref="System.Web.Script.Serialization.JavaScriptSerializer"/>).</param>
