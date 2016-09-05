@@ -21,7 +21,7 @@ namespace Dianzhu.CSClient.ViewWPF
     /// <summary>
     /// UC_CustomerNew.xaml 的交互逻辑
     /// </summary>
-    public partial class UC_CustomerNew : UserControl,IView.IViewCustomer
+    public partial class UC_Customer : UserControl,IView.IViewCustomer
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_CustomerNew");
         /// <summary>
@@ -32,7 +32,7 @@ namespace Dianzhu.CSClient.ViewWPF
         /// 客服回复之后得时间控制器
         /// </summary>
         DispatcherTimer FinalChatTimer;
-        public UC_CustomerNew()
+        public UC_Customer()
         {
             InitializeComponent();
 
