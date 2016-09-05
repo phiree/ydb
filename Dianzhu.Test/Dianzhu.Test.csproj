@@ -240,6 +240,10 @@
       <Project>{755eea8c-9d5e-406e-83dd-36b3ba4eb158}</Project>
       <Name>Dianzhu.CSClient.IView</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.LocalStorage\Dianzhu.CSClient.LocalStorage.csproj">
+      <Project>{6f064359-8bbd-4bda-9532-d93505472582}</Project>
+      <Name>Dianzhu.CSClient.LocalStorage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.MessageAdapter\Dianzhu.CSClient.MessageAdapter.csproj">
       <Project>{A871C9E1-98A4-412F-A1B3-541189A4C4CF}</Project>
       <Name>Dianzhu.CSClient.MessageAdapter</Name>

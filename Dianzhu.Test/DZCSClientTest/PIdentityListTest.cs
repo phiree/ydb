@@ -31,6 +31,7 @@ namespace Dianzhu.Test.DZCSClientTest
         IList<DZMembership> customerList;
         IList<DZMembership> csList;
         IList<ServiceOrder> orderList;
+        Dianzhu.CSClient.LocalStorage.LocalChatManager lcm;
 
         [SetUp]
         public void setup()
@@ -46,8 +47,8 @@ namespace Dianzhu.Test.DZCSClientTest
             dalReceptionStatus = MockRepository.GenerateStub<IDAL.IDALReceptionStatus>();
             viewSearchResult = MockRepository.GenerateStub<IViewSearchResult>();
             dalReceptionStatusArchieve = MockRepository.GenerateStub<IDAL.IDALReceptionStatusArchieve>();
-
-            pIdentityList = new PIdentityList(viewIdentityList, viewChatList, viewOrder, iIM, dalReceptionChat, viewChatSend, bllServiceOrder, viewOrderHistory, dalReceptionStatus, viewSearchResult, dalReceptionStatusArchieve);
+            lcm = MockRepository.GenerateStub<Dianzhu.CSClient.LocalStorage.LocalChatManager>();
+            pIdentityList = new PIdentityList(viewIdentityList, viewChatList, viewOrder, iIM, dalReceptionChat, viewChatSend, bllServiceOrder, viewOrderHistory, dalReceptionStatus, viewSearchResult, dalReceptionStatusArchieve,lcm);
 
             string[] customerIdList = { "17b2007f-0267-4224-8d5a-cbaafa7ed1fc", "153ef5fa-600a-4a32-aefb-27c5e5fa5a50", "4a3727f6-ec21-42a8-ba84-70ba9db06354" };
             string[] csIdList = { "20364ea5-c19c-409d-8b61-cb1905fc68d8", "684db3a7-6c2c-44bf-a50a-5ceb1b904a26", "8f506545-de72-4fdb-bbaa-85a8709ae63f" };
@@ -95,7 +96,7 @@ namespace Dianzhu.Test.DZCSClientTest
         {
             viewChatList.ChatList = Builder<ReceptionChat>.CreateListOfSize(1).Build();
 
-            PChatList pChatList = new PChatList(viewChatList, viewChatSend, viewIdentityList, dalReceptionChat, iIM);
+            PChatList pChatList = new PChatList(viewChatList, viewChatSend, viewIdentityList, dalReceptionChat, iIM,lcm);
 
             IList<DZMembership> members = Builder<DZMembership>.CreateListOfSize(3)
                  .TheFirst(1).With(x => x.Id = new Guid("f197a81d-c984-4894-b21c-a5f00106e08b"))
