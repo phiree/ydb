@@ -20,14 +20,12 @@ using System.Threading;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
-    public delegate void IdleTimerOut(Guid orderId);
     /// <summary>
     /// UC_Customer.xaml 的交互逻辑
     /// </summary>
     public partial class UC_Customer : UserControl
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_Customer");
-        public event IdleTimerOut IdleTimerOut;
 
         DispatcherTimer FinalChatTimer;
         Guid OrderTempId;
@@ -49,7 +47,7 @@ namespace Dianzhu.CSClient.ViewWPF
         protected void TimerLoad()
         {
             FinalChatTimer = new DispatcherTimer();
-            FinalChatTimer.Interval = new TimeSpan(0, 10, 0);
+            FinalChatTimer.Interval = new TimeSpan(0, 0, 10);
             FinalChatTimer.Tick += FinalChatTimer_Tick;
         }
 
@@ -73,7 +71,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void FinalChatTimer_Tick(object sender, EventArgs e)
         {
-            IdleTimerOut(OrderTempId);
+            //IdleTimerOut(OrderTempId);
             TimerStop();
         }
 

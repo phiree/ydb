@@ -86,15 +86,15 @@ namespace Dianzhu.BLL
             }
 
             ServiceOrderRemind baseone = null;
-            if (filter.baseID != null && filter.baseID != "")
+            if (!string.IsNullOrEmpty(filter.baseID))
             {
                 try
                 {
-                    baseone = dalServiceOrderRemind.FindById(new Guid(filter.baseID));
+                    baseone = dalServiceOrderRemind.FindByBaseId(new Guid(filter.baseID));
                 }
-                catch
+                catch (Exception ex)
                 {
-                    baseone = null;
+                    throw new Exception("filter.baseID错误，" + ex.Message);
                 }
             }
             long t = 0;

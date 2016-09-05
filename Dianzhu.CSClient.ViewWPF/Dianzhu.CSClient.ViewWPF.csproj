@@ -378,7 +378,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\YDBan.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

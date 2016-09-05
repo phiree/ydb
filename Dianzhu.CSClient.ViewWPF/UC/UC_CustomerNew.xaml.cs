@@ -24,14 +24,20 @@ namespace Dianzhu.CSClient.ViewWPF
     public partial class UC_CustomerNew : UserControl,IView.IViewCustomer
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_CustomerNew");
+        /// <summary>
+        /// 界面上显示的时间控制器
+        /// </summary>
         DispatcherTimer timerReceptionStatus;
+        /// <summary>
+        /// 客服回复之后得时间控制器
+        /// </summary>
+        DispatcherTimer FinalChatTimer;
         public UC_CustomerNew()
         {
             InitializeComponent();
 
-            timerReceptionStatus = new DispatcherTimer();
-            timerReceptionStatus.Interval = TimeSpan.FromMilliseconds(1000);
-            timerReceptionStatus.Tick += TimerReceptionStatus_Tick;
+            InitTimer();
+            InitFinalChatTimer();
         }
 
         public string AvatarImage
@@ -41,7 +47,14 @@ namespace Dianzhu.CSClient.ViewWPF
                 BitmapImage image;
                 try
                 {
-                    image = new BitmapImage(new Uri(value));
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        image = new BitmapImage(new Uri(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + value + "_28X28"));
+                    }
+                    else
+                    {
+                        image = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCustomer.png"));
+                    }
                 }
                 catch (Exception e)
                 {
@@ -67,13 +80,13 @@ namespace Dianzhu.CSClient.ViewWPF
                 switch (value)
                 {
                     case enum_CustomerReceptionStatus.Unread:
-                        tbkCustomerStatus.Text = "等待中";
-                        StartTimer();
+                        CustomerUnread();
                         break;
                     case enum_CustomerReceptionStatus.Readed:
+                        CustomerReaded();
+                        break;
                     case enum_CustomerReceptionStatus.Actived:
-                        tbkCustomerStatus.Text = "当前接待中...";
-                        StopTimer();
+                        CustomerActived();
                         break;
                 }
             }
@@ -93,40 +106,40 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        public enum_CustomerReceptionStatus CustomerButtonStyle
-        {
-            set
-            {
-                switch (value)
-                {
-                    case enum_CustomerReceptionStatus.Unread:
-                        break;
-                    case enum_CustomerReceptionStatus.Readed:
-                        break;
-                    case enum_CustomerReceptionStatus.Actived:
-                        break;
-                }
-            }
-        }
-
-        public event CustomerClick CustomerClick;
+        public event CustomerClick CustomerClick;        
 
         private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (CustomerClick != null)
             {
-                CustomerReceptionStatus = enum_CustomerReceptionStatus.Readed;
+                CustomerReceptionStatus = enum_CustomerReceptionStatus.Actived;
                 CustomerClick(order);
             }
         }
 
         #region 接待状态时间控制器
 
+        public void InitTimer()
+        {
+            timerReceptionStatus = new DispatcherTimer();
+            timerReceptionStatus.Interval = TimeSpan.FromMilliseconds(1000);
+            timerReceptionStatus.Tick += TimerReceptionStatus_Tick;
+            timerReceptionStatus.Start();
+        }
+
+        bool isReaded = false;//判断是否读取过
         public void StartTimer()
         {
             if (timerReceptionStatus != null)
             {
-                timerReceptionStatus.Start();
+                if (isReaded)
+                {                    
+                    isReaded = false;
+                    tbkMinute.Text = "00";
+                    tbkSecond.Text = "00";
+                    timerReceptionStatus.Start();
+                    gridTimer.Visibility = Visibility.Visible;
+                }
             }
         }
 
@@ -134,6 +147,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             if (timerReceptionStatus != null)
             {
+                gridTimer.Visibility = Visibility.Collapsed;
                 timerReceptionStatus.Stop();
             }
         }
@@ -163,6 +177,83 @@ namespace Dianzhu.CSClient.ViewWPF
 
                 minute++;
                 tbkMinute.Text = minute.ToString();
+            }
+        }
+
+        #endregion
+
+        #region 设置边框的颜色
+
+        public void SetCustomerBorder(string colorUp, string colorDown)
+        {
+            borderUp.Color = (Color)ColorConverter.ConvertFromString(colorUp);
+            borderDown.Color = (Color)ColorConverter.ConvertFromString(colorDown);
+        }
+
+        public void CustomerUnread()
+        {
+            SetCustomerBorder("#FFfb8384", "#FFe85454");
+
+            tbkCustomerStatus.Text = "等待中";
+
+            StartTimer();
+        }
+
+        public void CustomerReaded()
+        {
+            SetCustomerBorder("#FFd1d1d1", "#FF777779");
+
+            tbkCustomerStatus.Text = "已接待";
+        }
+
+        public void CustomerActived()
+        {
+            SetCustomerBorder("#FF7db2dc", "#FF477597");
+
+            tbkCustomerStatus.Text = "当前接待中...";
+
+            StopTimer();
+
+            isReaded = true;
+        }
+
+        #endregion
+
+        #region 客服回复之后的时间控制器相关方法
+
+        public event IdleTimerOut IdleTimerOut;
+
+        protected void InitFinalChatTimer()
+        {
+            FinalChatTimer = new DispatcherTimer();
+            FinalChatTimer.Interval = new TimeSpan(0, 0, 10);
+            FinalChatTimer.Tick += FinalChatTimer_Tick;
+        }
+
+        private void FinalChatTimer_Tick(object sender, EventArgs e)
+        {
+            if (IdleTimerOut != null)
+            {
+                IdleTimerOut(order.Id);
+                StopFinalChatTimer();
+            }           
+        }
+
+        public void StartFinalChatTimer()
+        {
+            if (FinalChatTimer != null)
+            {
+                FinalChatTimer.Stop();
+                InitFinalChatTimer();
+                FinalChatTimer.Start();
+            }
+        }
+
+        public void StopFinalChatTimer()
+        {
+            if (FinalChatTimer != null)
+            {
+                FinalChatTimer.Stop();
             }
         }
 

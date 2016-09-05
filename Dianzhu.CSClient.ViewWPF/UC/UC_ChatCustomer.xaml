@@ -7,13 +7,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="300">
     <UserControl.Resources>
-        <Style x:Key="TextBlockChat" TargetType="{x:Type TextBlock}">
-            <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="TextTrimming" Value="None"/>
-            <Setter Property="FontFamily" Value="微软雅黑"/>
-            <Setter Property="FontWeight" Value="Regular"/>
-            <Setter Property="Foreground" Value="#FF323232"/>
-            <Setter Property="LineHeight" Value="20"/>
+        <Style x:Key="TextBlockChat" TargetType="{x:Type TextBox}">
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+            <Setter Property="TextBlock.TextTrimming" Value="None"/>
+            <Setter Property="TextBlock.FontFamily" Value="微软雅黑"/>
+            <Setter Property="TextBlock.FontWeight" Value="Regular"/>
+            <Setter Property="TextBlock.Foreground" Value="#FF323232"/>
+            <Setter Property="TextBlock.LineHeight" Value="20"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="Text" Value="{Binding Text,Mode=OneWay}"/>
         </Style>
     </UserControl.Resources>
     <Grid Margin="5">
@@ -61,9 +66,7 @@
             <Grid Grid.Column="1">
                 <WrapPanel x:Name="wpnlChat" VerticalAlignment="Center">
                     <Border x:Name="lblChatBorder" CornerRadius="3" Background="White">
-                        <Label Padding="0">
-                            <TextBlock x:Name="tbChat" Style="{DynamicResource TextBlockChat}" Text=""></TextBlock>
-                        </Label>
+                        <TextBox x:Name="tbxChat" Style="{DynamicResource TextBlockChat}"/>
                     </Border>
                 </WrapPanel>
             </Grid>

@@ -144,15 +144,15 @@ namespace Dianzhu.BLL
             }
 
             DZService baseone = null;
-            if (filter.baseID != null && filter.baseID != "")
+            if (!string.IsNullOrEmpty(filter.baseID))
             {
                 try
                 {
-                    baseone = DALDZService.FindById(new Guid(filter.baseID));
+                    baseone = DALDZService.FindByBaseId(new Guid(filter.baseID));
                 }
-                catch
+                catch (Exception ex)
                 {
-                    baseone = null;
+                    throw new Exception("filter.baseID错误，" + ex.Message);
                 }
             }
             long t = 0;

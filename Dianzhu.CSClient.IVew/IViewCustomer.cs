@@ -36,8 +36,11 @@ namespace Dianzhu.CSClient.IView
         /// </summary>
         ServiceOrder Order { get; set; }
 
-        enum_CustomerReceptionStatus CustomerButtonStyle { set; }
+        void StartFinalChatTimer();
+        void StopFinalChatTimer();
+        event IdleTimerOut IdleTimerOut;
     }
 
     public delegate void CustomerClick(ServiceOrder order);
+    public delegate void IdleTimerOut(Guid orderId);
 }

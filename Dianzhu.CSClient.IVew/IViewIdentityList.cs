@@ -21,13 +21,10 @@ namespace Dianzhu.CSClient.IView
         void SetIdentityUnread(ServiceOrder serviceOrder, int messageAmount);
         //设置为已读
         void SetIdentityReaded(ServiceOrder serviceOrder);
-        void IdentityLogOffShowMsg(Guid serviceOrderId);
-        void IdentityLogOnShowMsg(ServiceOrder serviceOrder,string msg);
-        void IdentityLogOnShowMsgAndTimer(ServiceOrder serviceOrder, string msg);
 
         void IdleTimerStart(Guid orderId);
         void IdleTimerStop(Guid orderId);
-        void SetCustomerOrder(Guid oldOrderId,Guid newOrderId);
+        void SetCustomerOrder(ServiceOrder oldOrderI,ServiceOrder newOrder);
         event FinalChatTimerTick FinalChatTimerTick;
 
         //当前订单临时变量
@@ -37,11 +34,6 @@ namespace Dianzhu.CSClient.IView
         /// 播放提示音
         /// </summary>
         void PlayVoice();
-
-        /// <summary>
-        /// 用户列表
-        /// </summary>
-        IList<IViewCustomer> viewCustomerList { get; set; }
     }
     /// <summary>
     /// 点击用户按钮的委托.
