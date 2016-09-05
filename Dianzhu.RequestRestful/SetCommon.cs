@@ -30,7 +30,7 @@ namespace Dianzhu.RequestRestful
             string requestContentBase64String = "";
             if (strContent.Trim() != "")
             {
-                byte[] byteData = UTF8Encoding.UTF8.GetBytes(strContent);
+                byte[] byteData = UTF8Encoding.UTF8.GetBytes(strContent.Replace("\r", string.Empty));
                 MD5 md5 = MD5.Create();
                 byte[] requestContentHash = md5.ComputeHash(byteData);
                 StringBuilder sb = new StringBuilder();
@@ -93,7 +93,7 @@ namespace Dianzhu.RequestRestful
             string requestUri = System.Web.HttpUtility.UrlEncode(param.url.ToLower());
             string requestTimeStamp = SetTimeStamp();
             string requestContentBase64String = SetContentMD5(param.content);
-            string requestSignatureBase64String = SetSign(appName, appKey, param.content, requestContentBase64String, requestTimeStamp, requestUri);
+            string requestSignatureBase64String = SetSign(appName, appKey, param.token, requestContentBase64String, requestTimeStamp, requestUri);
 
             param.appName = appName;
             param.stamp_TIMES = requestTimeStamp;

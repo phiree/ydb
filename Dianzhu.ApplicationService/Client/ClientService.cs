@@ -86,7 +86,7 @@ namespace Dianzhu.ApplicationService.Client
             }
             Customer customer = new Customer();
             customer.loginName = loginName;
-            customer.password = password;
+            customer.password = JWT.JsonWebToken.Encode(dzm.Password, apiKey, JWT.JwtHashAlgorithm.HS256);
             customer.UserType = dzm.UserType.ToString();
             customer.UserID = dzm.Id.ToString();
             UserTokentDTO usertokendto = new UserTokentDTO();

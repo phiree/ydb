@@ -46,13 +46,19 @@ namespace PHSuit
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.RedirectStandardInput = true;
+                process.StartInfo.RedirectStandardError = true;
                 process.StartInfo.Arguments = " \"cmd /C " + c + "\"";// C表示执行完此次操作后关闭
                 process.Start();
                 process.StandardInput.WriteLine(c);
                 process.StandardInput.AutoFlush = true;
                 //process.StandardInput.WriteLine("exit");
                 log.Debug("开始返回");
-                StreamReader reader = process.StandardOutput;//截取输出流           
+                StreamReader reader = process.StandardOutput;//截取输出流 
+                string result = reader.ReadToEnd();
+
+                StreamReader reader1 = process.StandardError;//截取输出流
+                string result1 = reader1.ReadToEnd();
+
                 process.WaitForExit();
                 log.Debug("成功返回");
             }

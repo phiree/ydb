@@ -49,7 +49,6 @@ namespace Dianzhu.RequestRestful
             {
                 throw ex;
             }
-
             return rp;
         }
     }
