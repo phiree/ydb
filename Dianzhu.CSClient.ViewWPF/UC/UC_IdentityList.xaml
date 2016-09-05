@@ -15,10 +15,6 @@
         </Grid.Background>
         <ScrollViewer x:Name="ScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Grid.Row="1">
             <WrapPanel Margin="10,10,0,0">
-                <!--<WrapPanel x:Name="pnlIdentityList" VerticalAlignment="Center" Margin="11,0,0,0">
-
-                </WrapPanel>-->
-
                 <WrapPanel x:Name="wpTopIdentityList" VerticalAlignment="Center">
 
                 </WrapPanel>

@@ -25,7 +25,7 @@ namespace Dianzhu.CSClient.ViewWPF
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_IdentityList");
 
-        private readonly string preCutomerButton = "c";
+        private const string PRECBUTTON = "c";
 
         public UC_IdentityList()
         {
@@ -39,25 +39,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
-                //string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-
-                ////UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
-                //UC_Customer ucIdentity = (UC_Customer)wpTopIdentityList.FindName(ctrlName);
-
-                //if (ucIdentity == null)
-                //{
-                //    ucIdentity = new UC_Customer(serviceOrder);
-                //    ucIdentity.btnCustomer.Tag = serviceOrder;
-                //    ucIdentity.Name = ctrlName;
-                //    ucIdentity.btnCustomer.Click += BtnIdentity_Click;
-                //    ucIdentity.IdleTimerOut += UcIdentity_IdleTimerOut;
-
-                //    InsertTopPanel(ucIdentity, ctrlName);
-
-                    
-                //}
-
-                string cbtnName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString(), preCutomerButton);
+                string cbtnName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString(), PRECBUTTON);
                 var ucCustomer = (UC_CustomerNew)wpNotTopIdentityList.FindName(cbtnName);
                 if (ucCustomer == null)
                 {
@@ -95,18 +77,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
-                //string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-
-                ////UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
-                //UC_Customer ucIdentity = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
-
-                //if (ucIdentity != null)
-                //{
-                //    RemoveUIForNotTopPanel(ucIdentity, ctrlName);
-                //}
-
-
-                string cbtnName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString(), preCutomerButton);
+                string cbtnName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString(), PRECBUTTON);
                 var ucCustomer = (UC_CustomerNew)wpNotTopIdentityList.FindName(cbtnName);
                 if (ucCustomer != null)
                 {
@@ -124,33 +95,8 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
-                //string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrderId.ToString());
-                //string ctrNewlName = PHSuit.StringHelper.SafeNameForWpfControl(newOrder.Id.ToString());
-
-                ////UC_Customer btnOldIdentity = (UC_Customer)pnlIdentityList.FindName(ctrOldlName);
-                //UC_Customer btnOldIdentity = (UC_Customer)wpNotTopIdentityList.FindName(ctrOldlName);
-
-                //if (btnOldIdentity != null)
-                //{
-                //    //注销
-                //    //pnlIdentityList.UnregisterName(btnOldIdentity.Name);
-                //    wpNotTopIdentityList.UnregisterName(btnOldIdentity.Name);
-
-                //    //重新注册
-                //    btnOldIdentity.Name = ctrNewlName;
-                //    //pnlIdentityList.RegisterName(btnOldIdentity.Name, btnOldIdentity);
-                //    wpNotTopIdentityList.RegisterName(btnOldIdentity.Name, btnOldIdentity);
-
-                //    //更新按钮的tag
-                //    btnOldIdentity.btnCustomer.Tag = newOrder;
-                //}
-                //else
-                //{
-                //    log.Error("错误：按钮不应该为null");
-                //}
-
-                string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrderId.ToString(),preCutomerButton);
-                string ctrNewlName = PHSuit.StringHelper.SafeNameForWpfControl(newOrder.Id.ToString(),preCutomerButton);
+                string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrderId.ToString(),PRECBUTTON);
+                string ctrNewlName = PHSuit.StringHelper.SafeNameForWpfControl(newOrder.Id.ToString(),PRECBUTTON);
                 
                 var btnOldCustomer = (UC_CustomerNew)wpNotTopIdentityList.FindName(ctrOldlName);
 
@@ -186,7 +132,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrder.Id.ToString(),preCutomerButton);
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrder.Id.ToString(),PRECBUTTON);
 
                 var ucCustomer = (UC_CustomerNew)wpNotTopIdentityList.FindName(ctrlName);
                 if (ucCustomer != null)
@@ -212,7 +158,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(orderId.ToString(),preCutomerButton);
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(orderId.ToString(),PRECBUTTON);
 
                 var ucCutomer = (UC_CustomerNew)wpNotTopIdentityList.FindName(ctrlName);
                 if (ucCutomer != null)
@@ -232,7 +178,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(orderId.ToString(), preCutomerButton);
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(orderId.ToString(), PRECBUTTON);
 
                 var ucCutomer = (UC_CustomerNew)wpNotTopIdentityList.FindName(ctrlName);
                 if (ucCutomer != null)
@@ -333,7 +279,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString(), preCutomerButton);
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString(), PRECBUTTON);
 
                 var ucCustomer = (UC_CustomerNew)wpNotTopIdentityList.FindName(ctrlName);
                 if (ucCustomer != null)
@@ -364,26 +310,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
-                //SetIdentityButtonStyle(serviceOrder, enum_CustomerReceptionStatus.Unread);
-
-                //string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-                //UC_Customer u = (UC_Customer)wpTopIdentityList.FindName(ctrlName);
-                //if (u != null)
-                //{
-                //    if (wpTopIdentityList.Children.Contains(u))
-                //    {
-                //        RemoveUIForTopPanel(u, ctrlName);
-                //        InsertTopPanel(u, ctrlName);
-                //    }
-                //    else
-                //    {
-                //        RemoveUIForNotTopPanel(u, ctrlName);
-                //        InsertTopPanel(u, ctrlName);
-                //    }                    
-                //}
-
-
-                string ctrlNameNew = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString(), preCutomerButton);
+                string ctrlNameNew = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString(), PRECBUTTON);
                 var u = (UC_CustomerNew)wpTopIdentityList.FindName(ctrlNameNew);
                 if (u != null)
                 {

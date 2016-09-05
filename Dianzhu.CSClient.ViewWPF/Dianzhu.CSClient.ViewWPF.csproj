@@ -155,14 +155,8 @@
     <Compile Include="UC\UC_ShelfService.xaml.cs">
       <DependentUpon>UC_ShelfService.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\UC_Customer.xaml.cs">
-      <DependentUpon>UC_Customer.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UC\UC_TabControlTools.xaml.cs">
       <DependentUpon>UC_TabControlTools.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_TimerControl.xaml.cs">
-      <DependentUpon>UC_TimerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_UsefulLinks.xaml.cs">
       <DependentUpon>UC_UsefulLinks.xaml</DependentUpon>
@@ -266,15 +260,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\UC_Customer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UC\UC_TabControlTools.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_TimerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
