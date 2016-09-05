@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSClient", "CSClient", "{8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}"
 EndProject
@@ -281,6 +281,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Restful", "Restful", "{4108D8F3-463D-4CD8-9028-3B31B67D9335}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swashbuckle.Core", "Swashbuckle.Core\Swashbuckle.Core.csproj", "{D50A26FF-02C6-4C16-BA94-4CD7D43EFBB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.RequestRestful", "Dianzhu.RequestRestful\Dianzhu.RequestRestful.csproj", "{0EE24EE8-A508-463C-BC2F-83E52110E643}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -745,6 +747,18 @@ Global
 		{D50A26FF-02C6-4C16-BA94-4CD7D43EFBB3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D50A26FF-02C6-4C16-BA94-4CD7D43EFBB3}.Release|x86.ActiveCfg = Release|Any CPU
 		{D50A26FF-02C6-4C16-BA94-4CD7D43EFBB3}.Release|x86.Build.0 = Release|Any CPU
+		{0EE24EE8-A508-463C-BC2F-83E52110E643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EE24EE8-A508-463C-BC2F-83E52110E643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EE24EE8-A508-463C-BC2F-83E52110E643}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0EE24EE8-A508-463C-BC2F-83E52110E643}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0EE24EE8-A508-463C-BC2F-83E52110E643}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0EE24EE8-A508-463C-BC2F-83E52110E643}.Debug|x86.Build.0 = Debug|Any CPU
+		{0EE24EE8-A508-463C-BC2F-83E52110E643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EE24EE8-A508-463C-BC2F-83E52110E643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EE24EE8-A508-463C-BC2F-83E52110E643}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0EE24EE8-A508-463C-BC2F-83E52110E643}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0EE24EE8-A508-463C-BC2F-83E52110E643}.Release|x86.ActiveCfg = Release|Any CPU
+		{0EE24EE8-A508-463C-BC2F-83E52110E643}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -793,6 +807,7 @@ Global
 		{5816AA96-0563-4A52-8C99-04EF1F33A193} = {4D15C961-7992-483E-BA1A-693120534655}
 		{4108D8F3-463D-4CD8-9028-3B31B67D9335} = {E4338C9B-90F1-4640-A650-F903E722C878}
 		{D50A26FF-02C6-4C16-BA94-4CD7D43EFBB3} = {4108D8F3-463D-4CD8-9028-3B31B67D9335}
+		{0EE24EE8-A508-463C-BC2F-83E52110E643} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi

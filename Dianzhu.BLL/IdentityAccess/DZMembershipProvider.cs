@@ -414,11 +414,11 @@ namespace Dianzhu.BLL
             {
                 try
                 {
-                    baseone = DALMembership.FindById(new Guid(filter.baseID));
+                    baseone = DALMembership.FindByBaseId(new Guid(filter.baseID));
                 }
-                catch
+                catch (Exception ex)
                 {
-                    baseone = null;
+                    throw new Exception("filter.baseID错误，" + ex.Message);
                 }
             }
             long t = 0;

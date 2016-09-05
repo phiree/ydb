@@ -56,15 +56,15 @@ namespace Dianzhu.BLL
                     break;
             }
             Model.ClaimsDetails baseone = null;
-            if (filter.baseID != null && filter.baseID != "")
+            if (!string.IsNullOrEmpty(filter.baseID))
             {
                 try
                 {
-                    baseone = idalClaimsDetails.FindById(new Guid(filter.baseID));
+                    baseone = idalClaimsDetails.FindByBaseId(new Guid(filter.baseID));
                 }
-                catch
+                catch (Exception ex)
                 {
-                    baseone = null;
+                    throw new Exception("filter.baseID错误，" + ex.Message);
                 }
             }
             long t = 0;

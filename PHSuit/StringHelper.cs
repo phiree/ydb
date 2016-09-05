@@ -292,6 +292,11 @@ namespace PHSuit
             return "ctl"+raw.Replace("-", "");
         }
 
+        public static string SafeNameForWpfControl(string raw,string pre)
+        {
+            return pre + raw.Replace("-", "");
+        }
+
         /// <summary>
         /// 将表示时间长度的period转换成时间字符串
         /// </summary>

@@ -63,15 +63,15 @@ namespace Dianzhu.BLL
                 where = where.And(x => x.Order.CustomerService.Id== customerServiceID);
             }
             Model.Complaint baseone = null;
-            if (filter.baseID != null && filter.baseID != "")
+            if (!string.IsNullOrEmpty(filter.baseID))
             {
                 try
                 {
-                    baseone = dalComplaint.FindById(new Guid(filter.baseID));
+                    baseone = dalComplaint.FindByBaseId(new Guid(filter.baseID));
                 }
-                catch
+                catch (Exception ex)
                 {
-                    baseone = null;
+                    throw new Exception("filter.baseID错误，" + ex.Message);
                 }
             }
             long t = 0;

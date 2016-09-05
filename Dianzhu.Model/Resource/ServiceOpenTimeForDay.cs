@@ -91,7 +91,7 @@ namespace Dianzhu.Model
         //给定时间在该范围内?
         public virtual bool IsIn(DateTime datetime)
         {
-            string strTime = datetime.ToString("HH:MM");
+            string strTime = datetime.ToString("HH:mm");
             int timePeriod = TimeStringToPeriod(strTime);
             return timePeriod >= PeriodStart && timePeriod <= PeriodEnd;
 

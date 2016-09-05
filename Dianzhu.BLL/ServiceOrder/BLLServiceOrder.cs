@@ -235,11 +235,11 @@ namespace Dianzhu.BLL
             {
                 try
                 {
-                    baseone = repoServiceOrder.FindById(new Guid(filter.baseID));
+                    baseone = repoServiceOrder.FindByBaseId(new Guid(filter.baseID));
                 }
-                catch
+                catch(Exception ex)
                 {
-                    baseone = null;
+                    throw new Exception("filter.baseID错误，" + ex.Message);
                 }
             }
             long totalRecord;
