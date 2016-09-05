@@ -51,6 +51,7 @@
     <Compile Include="IViewCustomer.cs" />
     <Compile Include="IViewFormShowMessage.cs" />
     <Compile Include="IViewMainForm.cs" />
+    <Compile Include="IViewChatCustomer.cs" />
     <Compile Include="IViewTabControl.cs" />
     <Compile Include="IViewNotice.cs" />
     <Compile Include="IViewChatSend.cs" />

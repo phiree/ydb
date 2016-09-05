@@ -15,96 +15,20 @@ using System.Windows.Shapes;
 using Dianzhu.Model;
 using System.ComponentModel;
 using System.IO;
+using Dianzhu.CSClient.IView;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
     /// <summary>
     /// UC_ChatCustomer.xaml 的交互逻辑
     /// </summary>
-    public partial class UC_ChatCustomer : UserControl
+    public partial class UC_ChatCustomer : UserControl, IViewChatCustomer
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_ChatCustomer");
         BackgroundWorker worker;
-        public UC_ChatCustomer(ReceptionChat chat,DZMembership currentCS)
+        public UC_ChatCustomer()
         {
             InitializeComponent();
-
-            if(chat.From.UserType== Model.Enums.enum_UserType.customer)
-            {
-                worker = new BackgroundWorker();
-                worker.DoWork += Worker_DoWork;
-                worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-                worker.RunWorkerAsync(chat.From.AvatarUrl);
-
-                
-                wpnlChat.HorizontalAlignment = HorizontalAlignment.Left;
-                tbNameCustomer.Text = chat.From.DisplayName;
-                tbTimeCustomer.Text = chat.SavedTime.ToString();
-            }
-            else
-            {
-                imgAvatarCS.Source = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCS.png"));
-                wpnlChat.HorizontalAlignment = HorizontalAlignment.Right;
-                tbNameCS.Text = chat.From.DisplayName;
-                tbTimeCS.Text = chat.SavedTime.ToString();
-                if (chat.From.Id== currentCS.Id)
-                {
-                    lblChatBorder.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFb3d465"));
-                }
-            }
-            
-            InitData(chat);
-        }
-
-        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            BitmapImage image = e.Result as BitmapImage;
-            imgAvatarCustomer.Source = image;
-        }
-
-        private void Worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            Action lamda = () =>
-            {
-                try
-                {
-                    string imgUri = e.Argument.ToString();
-                    string imgPath = PHSuit.LocalFileManagement.LocalFilePath + imgUri;
-
-                    using (BinaryReader loader = new BinaryReader(File.Open(imgPath, FileMode.Open)))
-                    {
-                        FileInfo fd = new FileInfo(imgPath);
-                        int Length = (int)fd.Length;
-                        byte[] buf = new byte[Length];
-                        buf = loader.ReadBytes((int)fd.Length);
-                        loader.Dispose();
-                        loader.Close();
-
-
-                        //开始加载图像  
-                        BitmapImage bim = new BitmapImage();
-                        bim.BeginInit();
-                        bim.StreamSource = new MemoryStream(buf);
-                        bim.EndInit();
-                        e.Result = bim;
-                        //image1.Source = bim;
-                        GC.Collect(); //强制回收资源  
-                    }
-                }
-                catch (Exception ee)
-                {
-                    log.Error(ee.Message);
-                    e.Result = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCustomer.png"));
-                }
-            };
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(lamda);
-            }
-            else
-            {
-                lamda();
-            }
         }
 
         private void InitData(ReceptionChat chat)
@@ -177,6 +101,7 @@ namespace Dianzhu.CSClient.ViewWPF
             }
             else
             {
+                tbxChat.Visibility = Visibility.Visible;
                 tbxChat.Text = chat.MessageBody;
             }
         }
@@ -184,6 +109,64 @@ namespace Dianzhu.CSClient.ViewWPF
         MediaPlayer player = new MediaPlayer();
         bool isPlay = false;
         string fileName = string.Empty;
+
+        DZMembership currentCS;
+        public DZMembership CurrentCS
+        {
+            set
+            {
+                currentCS = value;
+            }
+        }
+
+        ReceptionChat chat;
+        public ReceptionChat Chat
+        {
+            set
+            {
+                chat = value;
+
+                if (chat.From.UserType == Model.Enums.enum_UserType.customer)
+                {
+                    wpnlChat.HorizontalAlignment = HorizontalAlignment.Left;
+                    tbNameCustomer.Text = chat.From.DisplayName;
+                    tbTimeCustomer.Text = chat.SavedTime.ToString();
+
+                    BitmapImage image;
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(chat.From.AvatarUrl))
+                        {
+                            image = new BitmapImage(new Uri(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + chat.From.AvatarUrl + "_32X32"));
+                        }
+                        else
+                        {
+                            image = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCustomer.png"));
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        log.Error(e.Message);
+                        image = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCustomer.png"));
+                    }
+                    imgAvatarCustomer.Source = image;
+                }
+                else
+                {
+                    imgAvatarCS.Source = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCS.png"));
+                    wpnlChat.HorizontalAlignment = HorizontalAlignment.Right;
+                    tbNameCS.Text = chat.From.DisplayName;
+                    tbTimeCS.Text = chat.SavedTime.ToString();
+                    if (chat.From.Id == currentCS.Id)
+                    {
+                        lblChatBorder.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFb3d465"));
+                    }
+                }
+
+                InitData(chat);
+            }
+        }
+
         private void BtnAudio_Click(object sender, EventArgs e)
         {
             ReceptionChatMedia chat = (Model.ReceptionChatMedia)(((Button)sender).Tag);
