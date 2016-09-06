@@ -5,7 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
+using Newtonsoft.Json;
 using Dianzhu.BLL;
+using Dianzhu.RequestRestful;
 
 public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
 {
@@ -21,6 +23,8 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
     {
 
         HttpCookie CookieErrorTime = Request.Cookies["errorTime"];
+        HttpCookie CookieApiToken = Request.Cookies["api_token"];
+
 
         if (CookieErrorTime == null)
         {
@@ -30,24 +34,46 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
             Response.Cookies.Add(errorTime);
         }
 
+
         string errorMsg;
         bool isValid = bllMembership.ValidateUser(tbxUserName.Text, tbxPassword.Text,out errorMsg);
         if (isValid)
         {
             bool rememberMe = savePass.Checked;
+            RequestResponse res = ReqResponse(tbxUserName.Text, tbxPassword.Text);
+        
             FormsAuthentication.SetAuthCookie(tbxUserName.Text, rememberMe);
-            //Session["UserName"] = tbxUserName.Text;
-            if (Request.RawUrl.Contains("/m/"))
-            {
-                Response.Redirect("~/m/account/", true);
-            }
-            else
-            {
 
-                CookieErrorTime.Value = "0";
-                Response.Cookies.Add(CookieErrorTime);
-                Response.Redirect("~/business/", true);
+            if (CookieApiToken == null)
+            {
+                CookieApiToken = new HttpCookie("api_token");
+                CookieApiToken.Expires = DateTime.Now.AddDays(3);
             }
+
+            if (res.code)
+            {
+                RequestToken resObj = JsonConvert.DeserializeObject<RequestToken>(res.data);
+                CookieApiToken.Value = resObj.token;
+                Response.Cookies.Add(CookieApiToken);
+
+                if (Request.RawUrl.Contains("/m/"))
+                {
+                    Response.Redirect("~/m/account/", true);
+                }
+                else
+                {
+                    Response.Redirect("~/business/", true);
+                }
+
+            }
+            else {
+                lblMsg.Text = "登录失败，请重试";
+                lblMsg.CssClass = "lblMsg lblMsgShow";
+            }
+
+            CookieErrorTime.Value = "0";
+            Response.Cookies.Add(CookieErrorTime);
+
         }
         else
         {
@@ -60,5 +86,22 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
 
             // PHSuit.Notification.Show(Page,"","登录失败",Request.RawUrl);
         }
+    }
+
+    public static RequestResponse ReqResponse(string username, string password)
+    {
+        RequestParams rp = new RequestParams();
+        rp.method = "1";
+        rp.url = "http://dev.ydban.cn:8041/api/v1/authorization";
+        //rp.url = "http://192.168.1.177:52554/api/v1/authorization";
+        rp.content = "{\n\"loginName\":\"" + username + "\",\n\"password\":\"" + password + "\"\n}";
+        rp = SetCommon.SetParams("ABc907a34381Cd436eBfed1F90ac8f823b", "2bdKTgh9SiNlGnSajt4E6c4w1ZoZJfb9ATKrzCZ1a3A=", rp);
+        IRequestRestful req = new RequestRestful();
+        RequestResponse res = req.RequestRestfulApi(rp);
+
+       
+        return res;
+        
+
     }
 }

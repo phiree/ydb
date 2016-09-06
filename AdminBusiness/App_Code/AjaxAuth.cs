@@ -19,7 +19,9 @@ public class AjaxAuth
 
     public static Boolean authAjaxUser(HttpContext context) {
         bool b = true;
+
         NHibernateUnitOfWork.UnitOfWork.Start();
+
         var user = System.Web.Security.Membership.GetUser();
         // 权限判断
         if (user == null)
