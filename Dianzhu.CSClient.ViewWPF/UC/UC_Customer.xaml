@@ -6,12 +6,22 @@
              xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
              xmlns:UC="clr-namespace:Dianzhu.CSClient.ViewWPF"
              mc:Ignorable="d" 
-             d:DesignHeight="42" d:DesignWidth="160">
+             d:DesignHeight="42" d:DesignWidth="160" MouseLeftButtonDown="UserControl_MouseLeftButtonDown">
+
     <UserControl.Resources>
         <Style x:Key="TextBlockCustomer" TargetType="{x:Type TextBlock}">
             <Setter Property="TextWrapping" Value="NoWrap"/>
             <Setter Property="TextTrimming" Value="WordEllipsis"/>
             <Setter Property="FontFamily" Value="微软雅黑"/>
+        </Style>
+
+        <Style x:Key="TextBlockTimerStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="None"/>
+            <Setter Property="FontFamily" Value="微软雅黑"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Foreground" Value="#FF4b7799"/>
         </Style>
     </UserControl.Resources>
 
@@ -23,51 +33,62 @@
                     <GradientStop x:Name="borderDown" Color="#FF777779" Offset="1"></GradientStop>
                 </LinearGradientBrush>
             </Border.Background>
-            <Button x:Name="btnCustomer" Background="Transparent" BorderThickness="0" Width="148" Height="40">
-                <Grid>
-                    <Border CornerRadius="6" Height="38" Width="146">
-                        <Border.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                <GradientStop x:Name="title_min" Color="#FFfcfdff" Offset="0"></GradientStop>
-                                <GradientStop x:Name="title_max" Color="#FFdde1e4" Offset="1"></GradientStop>
-                            </LinearGradientBrush>
-                        </Border.Background>
+            <Grid Width="148" Height="40">
+                <Border CornerRadius="6" Height="38" Width="146">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop x:Name="title_min" Color="#FFfcfdff" Offset="0"></GradientStop>
+                            <GradientStop x:Name="title_max" Color="#FFdde1e4" Offset="1"></GradientStop>
+                        </LinearGradientBrush>
+                    </Border.Background>
 
-                        <Grid Height="34" Width="142" Margin="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="36"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                    <Grid Height="34" Width="142" Margin="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="36"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                            <Grid Grid.Column="0">
-                                <Grid Cursor="Hand">
-                                    <Border CornerRadius="2" Width="28" Height="28">
-                                        <Border.Background>
-                                            <ImageBrush x:Name="imgSource" ImageSource="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png"/>
-                                        </Border.Background>
-                                    </Border>
-                                </Grid>
-
+                        <Grid Grid.Column="0">
+                            <Grid Cursor="Hand">
+                                <Border CornerRadius="2" Width="28" Height="28">
+                                    <Border.Background>
+                                        <ImageBrush x:Name="imgSource" ImageSource="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png"/>
+                                    </Border.Background>
+                                </Border>
                             </Grid>
 
-                            <Grid Grid.Column="1" Margin="2,0,0,0">
-                                <StackPanel>
-                                    <Label Padding="0" Margin="0,2,0,0">
-                                        <TextBlock x:Name="tbkCustomerNames" Text="王女士" Style="{DynamicResource TextBlockCustomer}" FontWeight="Bold" Foreground="#FF4a4949"/>
+                        </Grid>
+
+                        <Grid Grid.Column="1" Margin="2,0,0,0">
+                            <StackPanel>
+                                <Label Padding="0" Margin="0,2,0,0">
+                                    <TextBlock x:Name="tbkCustomerNames" Text="王女士" Style="{DynamicResource TextBlockCustomer}" FontWeight="Bold" Foreground="#FF4a4949"/>
+                                </Label>
+
+                                <WrapPanel>
+                                    <Label FontSize="10" Padding="0">
+                                        <TextBlock x:Name="tbkCustomerStatus" Text="等待中" Style="{DynamicResource TextBlockCustomer}" FontWeight="Regular" Foreground="#FF787878"/>
                                     </Label>
 
-                                    <WrapPanel>
-                                        <Label FontSize="10" Padding="0">
-                                            <TextBlock x:Name="tbkCustomerStatus" Text="等待中" Style="{DynamicResource TextBlockCustomer}" FontWeight="Regular" Foreground="#FF787878"/>
-                                        </Label>
-                                        <UC:UC_TimerControl x:Name="TimeControl" />
-                                    </WrapPanel>
-                                </StackPanel>
-                            </Grid>
+                                    <Grid Margin="10,0,0,0" x:Name="gridTimer">
+                                        <WrapPanel VerticalAlignment="Center">
+                                            <Label Padding="0">
+                                                <TextBlock x:Name="tbkMinute" Text="00" Style="{DynamicResource TextBlockTimerStyle}"/>
+                                            </Label>
+                                            <Label Padding="0" VerticalAlignment="Center">
+                                                <TextBlock Text=":" Style="{DynamicResource TextBlockTimerStyle}"/>
+                                            </Label>
+                                            <Label Padding="0" VerticalAlignment="Center">
+                                                <TextBlock x:Name="tbkSecond" Text="00" Style="{DynamicResource TextBlockTimerStyle}"/>
+                                            </Label>
+                                        </WrapPanel>
+                                    </Grid>
+                                </WrapPanel>
+                            </StackPanel>
                         </Grid>
-                    </Border>
-                </Grid>
-            </Button>
+                    </Grid>
+                </Border>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

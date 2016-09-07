@@ -239,6 +239,7 @@ namespace Dianzhu.DependencyInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            container.Register(Component.For<CSClient.LocalStorage.LocalChatManager>().ImplementedBy<CSClient.LocalStorage.ChatManagerInMemory>());
             //iadapter
             container.Register(Component.For<CSClient.IMessageAdapter.IAdapter>().ImplementedBy<CSClient.MessageAdapter.MessageAdapter>());
 

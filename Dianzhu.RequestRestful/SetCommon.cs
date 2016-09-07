@@ -34,7 +34,7 @@ namespace Dianzhu.RequestRestful
             string requestContentBase64String = "";
             if (strContent.Trim() != "")
             {
-                byte[] byteData = UTF8Encoding.UTF8.GetBytes(strContent);
+                byte[] byteData = UTF8Encoding.UTF8.GetBytes(strContent.Replace("\r", string.Empty));
                 MD5 md5 = MD5.Create();
                 byte[] requestContentHash = md5.ComputeHash(byteData);
                 StringBuilder sb = new StringBuilder();

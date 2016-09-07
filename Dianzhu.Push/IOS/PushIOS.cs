@@ -13,8 +13,7 @@ namespace Dianzhu.Push
     
     public class PushIOS:IPush
     {
-
-
+       
         string _strCertificateFilePath;
         string strCertificateFilePath {
             get {
@@ -29,7 +28,7 @@ namespace Dianzhu.Push
                 {
                     case PushType.UserAndBusiness:
 
-
+                        //
                          
                         fileName="aps_development_Mark_Store.p12";
 
@@ -77,7 +76,7 @@ namespace Dianzhu.Push
             bool sandbox = false;
 
 #if DEBUG
-             sandbox=true;
+             //sandbox=true;
 #endif
             //Put your device token in here
             //ipod
@@ -90,29 +89,46 @@ namespace Dianzhu.Push
             string p12File = strCertificateFilePath;
             //发布用证书
             // string p12File = "aps_production_identity.p12";
-
+            log.Debug(11);
             //This is the password that you protected your p12File 
             //  If you did not use a password, set it as null or an empty string
             string p12FilePassword = "jsyk";
             //Actual Code starts below:
             //--------------------------------
-
-            
-            jd.NotificationService service = new jd.NotificationService(sandbox, strCertificateFilePath, p12FilePassword, 1);
-
+            log.Debug(12);
+            jd.NotificationService service=null;
+            try
+            {
+                log.Debug("notificationservice  sandbox:" + sandbox + ",filepath" + strCertificateFilePath);
+                service = new jd.NotificationService(sandbox, strCertificateFilePath, p12FilePassword, 1);
+            }
+            catch (Exception ex)
+            {
+                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
+            }
+           
             service.SendRetries = 5; //5 retries before generating notificationfailed event
             service.ReconnectDelay = 5000; //5 seconds
 
+            log.Debug(1);
             service.Error += new jd.NotificationService.OnError(service_Error);
+            log.Debug(2);
             service.NotificationTooLong += new jd.NotificationService.OnNotificationTooLong(service_NotificationTooLong);
-
+            log.Debug(3);
             service.BadDeviceToken += new jd.NotificationService.OnBadDeviceToken(service_BadDeviceToken);
+            log.Debug(4);
             service.NotificationFailed += new jd.NotificationService.OnNotificationFailed(service_NotificationFailed);
+            log.Debug(5);
             service.NotificationSuccess += new jd.NotificationService.OnNotificationSuccess(service_NotificationSuccess);
+            log.Debug(6);
             service.Connecting += new jd.NotificationService.OnConnecting(service_Connecting);
+            log.Debug(7);
             service.Connected += new jd.NotificationService.OnConnected(service_Connected);
+            log.Debug(8);
             service.Disconnected += new jd.NotificationService.OnDisconnected(service_Disconnected);
+            log.Debug(9);
             jd.Notification alertNotification = new jd.Notification(testDeviceToken);
+            log.Debug(10);
 
             //通知内容
             alertNotification.Payload.Alert.Body = strContent;

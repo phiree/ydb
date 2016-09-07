@@ -25,6 +25,8 @@ namespace Dianzhu.CSClient.ViewWPF
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_IdentityList");
 
+        private const string PRECBUTTON = "c";
+
         public UC_IdentityList()
         {
             InitializeComponent();
@@ -37,20 +39,21 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-
-                //UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
-                UC_Customer ucIdentity = (UC_Customer)wpTopIdentityList.FindName(ctrlName);
-
-                if (ucIdentity == null)
+                string cbtnName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString(), PRECBUTTON);
+                var ucCustomer = (UC_Customer)wpNotTopIdentityList.FindName(cbtnName);
+                if (ucCustomer == null)
                 {
-                    ucIdentity = new UC_Customer(serviceOrder);
-                    ucIdentity.btnCustomer.Tag = serviceOrder;
-                    ucIdentity.Name = ctrlName;
-                    ucIdentity.btnCustomer.Click += BtnIdentity_Click;
-                    ucIdentity.IdleTimerOut += UcIdentity_IdleTimerOut;
+                    IViewCustomer c = new UC_Customer()
+                    {
+                        AvatarImage = serviceOrder.Customer.AvatarUrl,
+                        CustomerName = serviceOrder.Customer.DisplayName,
+                        CustomerReceptionStatus = enum_CustomerReceptionStatus.Unread,
+                        Order = serviceOrder
+                    };
+                    c.CustomerClick += C_CustomerClick;
+                    c.IdleTimerOut += C_IdleTimerOut;
 
-                    InsertTopPanel(ucIdentity, ctrlName);
+                    AddUIForTopPanel((UC_Customer)c, cbtnName);
                 }
             };
             if (!Dispatcher.CheckAccess())
@@ -60,18 +63,25 @@ namespace Dianzhu.CSClient.ViewWPF
             else { lambda(); }
         }
 
+        private void C_IdleTimerOut(Guid orderId)
+        {
+            NHibernateUnitOfWork.UnitOfWork.Start();
+
+            FinalChatTimerTick(orderId);
+
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+        }        
+
         public void RemoveIdentity(ServiceOrder serviceOrder)
         {
             Action lambda = () =>
             {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-
-                //UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
-                UC_Customer ucIdentity = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
-
-                if (ucIdentity != null)
+                string cbtnName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString(), PRECBUTTON);
+                var ucCustomer = (UC_Customer)wpNotTopIdentityList.FindName(cbtnName);
+                if (ucCustomer != null)
                 {
-                    RemoveUIForNotTopPanel(ucIdentity, ctrlName);
+                    RemoveUIForNotTopPanel(ucCustomer, cbtnName);
                 }
             };
             if (!Dispatcher.CheckAccess())
@@ -85,25 +95,21 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
-                string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrderId.ToString());
-                string ctrNewlName = PHSuit.StringHelper.SafeNameForWpfControl(newOrder.Id.ToString());
+                string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrderId.ToString(),PRECBUTTON);
+                string ctrNewlName = PHSuit.StringHelper.SafeNameForWpfControl(newOrder.Id.ToString(),PRECBUTTON);
+                
+                var btnOldCustomer = (UC_Customer)wpNotTopIdentityList.FindName(ctrOldlName);
 
-                //UC_Customer btnOldIdentity = (UC_Customer)pnlIdentityList.FindName(ctrOldlName);
-                UC_Customer btnOldIdentity = (UC_Customer)wpNotTopIdentityList.FindName(ctrOldlName);
-
-                if (btnOldIdentity != null)
+                if (btnOldCustomer != null)
                 {
                     //注销
-                    //pnlIdentityList.UnregisterName(btnOldIdentity.Name);
-                    wpNotTopIdentityList.UnregisterName(btnOldIdentity.Name);
+                    wpNotTopIdentityList.UnregisterName(ctrOldlName);
 
                     //重新注册
-                    btnOldIdentity.Name = ctrNewlName;
-                    //pnlIdentityList.RegisterName(btnOldIdentity.Name, btnOldIdentity);
-                    wpNotTopIdentityList.RegisterName(btnOldIdentity.Name, btnOldIdentity);
+                    wpNotTopIdentityList.RegisterName(ctrNewlName, btnOldCustomer);
 
-                    //更新按钮的tag
-                    btnOldIdentity.btnCustomer.Tag = newOrder;
+                    //更新order
+                    btnOldCustomer.Order = newOrder;
                 }
                 else
                 {
@@ -121,16 +127,16 @@ namespace Dianzhu.CSClient.ViewWPF
 
         #region 更新用户控件对应的订单Id
 
-        public void SetCustomerOrder(Guid oldOrderId,Guid newOrderId)
+        public void SetCustomerOrder(ServiceOrder oldOrder,ServiceOrder newOrder)
         {
             Action lambda = () =>
             {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrderId.ToString());
-                //UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
-                UC_Customer ucIdentity = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
-                if (ucIdentity != null)
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrder.Id.ToString(),PRECBUTTON);
+
+                var ucCustomer = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
+                if (ucCustomer != null)
                 {
-                    ucIdentity.SetOrderTempData(newOrderId);
+                    ucCustomer.Order = newOrder;
                     log.Debug("计时开始");
                 }
             };
@@ -151,12 +157,12 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(orderId.ToString());
-                //UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
-                UC_Customer ucIdentity = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
-                if (ucIdentity != null)
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(orderId.ToString(),PRECBUTTON);
+
+                var ucCutomer = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
+                if (ucCutomer != null)
                 {
-                    ucIdentity.TimerStart();
+                    ucCutomer.StartFinalChatTimer();
                     log.Debug("计时开始");
                 }
             };
@@ -171,12 +177,12 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(orderId.ToString());
-                //UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
-                UC_Customer ucIdentity = (UC_Customer)wpTopIdentityList.FindName(ctrlName);
-                if (ucIdentity != null)
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(orderId.ToString(), PRECBUTTON);
+
+                var ucCutomer = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
+                if (ucCutomer != null)
                 {
-                    ucIdentity.TimerStop();
+                    ucCutomer.StopFinalChatTimer();
                     log.Debug("计时停止");
                 }
             };
@@ -212,11 +218,12 @@ namespace Dianzhu.CSClient.ViewWPF
             get { return identityOrderTemp; }
             set { identityOrderTemp = value; }
         }
-        private void BtnIdentity_Click(object sender, RoutedEventArgs e)
+
+        private void C_CustomerClick(ServiceOrder order)
         {
             if (IdentityClick != null)
             {
-                ServiceOrder IdentityOrder = (ServiceOrder)((Button)sender).Tag;
+                ServiceOrder IdentityOrder = order;
                 if (identityOrderTemp == null)
                 {
                     identityOrderTemp = IdentityOrder;
@@ -261,100 +268,25 @@ namespace Dianzhu.CSClient.ViewWPF
 
         #endregion
 
-        #region 用户状态显示
-        public void IdentityLogOnShowMsg(ServiceOrder serviceOrder,string msg)
-        {
-            Action lambda = () =>
-            {
-                if (serviceOrder == null)
-                {
-                    log.Debug("没有订单");
-                    return;
-                }
-
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-
-                //UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
-                UC_Customer ucIdentity = (UC_Customer)FindName(ctrlName);
-
-                if (ucIdentity != null)
-                {
-                    ucIdentity.tbkCustomerStatus.Text = msg;
-                }
-            };
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(lambda);
-            }
-            else { lambda(); }
-        }
-
-        public void IdentityLogOnShowMsgAndTimer(ServiceOrder serviceOrder, string msg)
-        {
-            Action lambda = () =>
-            {
-                if (serviceOrder == null)
-                {
-                    log.Debug("没有订单");
-                    return;
-                }
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-
-                //UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
-                UC_Customer ucIdentity = (UC_Customer)FindName(ctrlName);
-
-                if (ucIdentity != null)
-                {
-                    ucIdentity.tbkCustomerStatus.Text = msg;
-                    ucIdentity.TimeControlVisibility();
-                }
-            };
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(lambda);
-            }
-            else { lambda(); }
-        }
-
-        public void IdentityLogOffShowMsg(Guid serviceOrderId)
-        {
-            Action lambda = () =>
-            {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrderId.ToString());
-
-                //UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
-                UC_Customer ucIdentity = (UC_Customer)FindName(ctrlName);
-
-                if (ucIdentity != null)
-                {
-                    ucIdentity.tbkCustomerStatus.Text = "该用户已下线";
-                    ucIdentity.TimeControlCollapsed();
-                }
-            };
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(lambda);
-            }
-            else { lambda(); }
-        }
-        #endregion
-
         #region 设置用户控件的状态
 
+        /// <summary>
+        /// 已读后，用户控件从置顶区移到非置顶区
+        /// </summary>
+        /// <param name="serviceOrder"></param>
         public void SetIdentityReaded(ServiceOrder serviceOrder)
         {
             Action lambda = () =>
             {
-                SetIdentityButtonStyle(serviceOrder, em_ButtonStyle.Readed);
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString(), PRECBUTTON);
 
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-                UC_Customer u = (UC_Customer)wpTopIdentityList.FindName(ctrlName);
-                if (u != null)
+                var ucCustomer = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
+                if (ucCustomer != null)
                 {
-                    if (wpTopIdentityList.Children.Contains(u))
+                    if (wpTopIdentityList.Children.Contains(ucCustomer))
                     {
-                        RemoveUIForTopPanel(u, ctrlName);
-                        InsertNotTopPanel(u, ctrlName);
+                        RemoveUIForTopPanel(ucCustomer, ctrlName);
+                        InsertNotTopPanel(ucCustomer, ctrlName);
                     }
                 }
             };
@@ -368,26 +300,26 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        /// <summary>
+        /// 收到未读消息，用户控件从非置顶区移到置顶区
+        /// </summary>
+        /// <param name="serviceOrder"></param>
+        /// <param name="messageAmount"></param>
         public void SetIdentityUnread(ServiceOrder serviceOrder, int messageAmount)
         {
             Action lambda = () =>
             {
-                SetIdentityButtonStyle(serviceOrder, em_ButtonStyle.Unread);
-
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-                UC_Customer u = (UC_Customer)wpTopIdentityList.FindName(ctrlName);
+                string ctrlNameNew = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString(), PRECBUTTON);
+                var u = (UC_Customer)wpTopIdentityList.FindName(ctrlNameNew);
                 if (u != null)
                 {
-                    if (wpTopIdentityList.Children.Contains(u))
+                    u.CustomerReceptionStatus = enum_CustomerReceptionStatus.Unread;
+
+                    if (!wpTopIdentityList.Children.Contains(u))
                     {
-                        RemoveUIForTopPanel(u, ctrlName);
-                        InsertTopPanel(u, ctrlName);
+                        RemoveUIForNotTopPanel(u, ctrlNameNew);
+                        AddUIForTopPanel(u, ctrlNameNew);
                     }
-                    else
-                    {
-                        RemoveUIForNotTopPanel(u, ctrlName);
-                        InsertTopPanel(u, ctrlName);
-                    }                    
                 }
             };
             if (!Dispatcher.CheckAccess())
@@ -398,67 +330,6 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 lambda();
             }
-        }
-        public void SetIdentityLogOff(ServiceOrder serviceOrder)
-        {
-            SetIdentityButtonStyle(serviceOrder, em_ButtonStyle.LogOff);
-        }
-        private void SetIdentityButtonStyle(ServiceOrder order, em_ButtonStyle buttonStyle)
-        {
-            Action lambda = () =>
-            {
-                var objBtn = (UC_Customer)FindName(PHSuit.StringHelper.SafeNameForWpfControl(order.Id.ToString()));
-                if (objBtn != null)
-                {
-                    //Button btn = (Button)objBtn;
-                    UC_Customer ucCustomer = (UC_Customer)objBtn;
-                    Color foreColor = Colors.White;
-                    string loadingText = "(加载中)";
-                    switch (buttonStyle)
-                    {
-                        case em_ButtonStyle.Login:
-                            foreColor = Colors.Green;
-                            break;
-                        case em_ButtonStyle.LogOff:
-                            foreColor = Colors.Gray;
-                            //btn.Visibility = Visibility.Collapsed;
-                            //pnlIdentityList.Children.Remove(btn);
-                            //pnlIdentityList.Children.Remove(ucCustomer);
-                            break;
-                        case em_ButtonStyle.Readed:
-                            foreColor = Colors.Black;
-                            //btn.Content = btn.Content.ToString().Replace(loadingText, string.Empty);
-                            break;
-                        case em_ButtonStyle.Unread:
-                            foreColor = Colors.Red;
-                            ucCustomer.CustomerUnread();
-                            break;
-                        case em_ButtonStyle.Actived:
-                            foreColor = Colors.Yellow;
-                            break;
-                        case em_ButtonStyle.Loading:
-                            //btn.Content = loadingText+btn.Content;
-                            ucCustomer.CustomerCurrent();
-                            break;
-                        default: break;
-                    }
-                    //btn.Foreground = new SolidColorBrush(foreColor);
-                }
-            };
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(lambda);
-            }
-            else
-            {
-                lambda();
-            }
-
-        }
-
-        public void SetIdentityLoading(ServiceOrder serviceOrder)
-        {
-            SetIdentityButtonStyle(serviceOrder, em_ButtonStyle.Loading);
         }
 
         #endregion
@@ -468,14 +339,14 @@ namespace Dianzhu.CSClient.ViewWPF
         /// 新消息需置顶
         /// </summary>
         /// <param name="u"></param>
-        public void InsertTopPanel(UC_Customer u,string registerName)
+        public void AddUIForTopPanel(UC_Customer u,string registerName)
         {
             Action lambda = () =>
             {
                 if (!wpTopIdentityList.Children.Contains(u))
                 {
                     wpTopIdentityList.Width += u.Width;
-                    wpTopIdentityList.Children.Insert(0, u);
+                    wpTopIdentityList.Children.Add(u);
                     wpTopIdentityList.RegisterName(registerName, u);
                 }
             };
@@ -558,84 +429,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 lambda();
             }
         }
-        /// <summary>
-        /// 用户控件从置顶区移到非置顶区
-        /// </summary>
-        /// <param name="order"></param>
-        public void UIFromTopToNotTop(ServiceOrder order)
-        {
-            Action lambda = () =>
-            {
-                string ctrName = PHSuit.StringHelper.SafeNameForWpfControl(order.Id.ToString());
-
-                UC_Customer btnIdentity = (UC_Customer)wpTopIdentityList.FindName(ctrName);
-                if (btnIdentity != null)
-                {
-                    RemoveUIForTopPanel(btnIdentity, ctrName);
-                    InsertNotTopPanel(btnIdentity, ctrName);
-                }
-            };
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(lambda);
-            }
-            else
-            {
-                lambda();
-            }
-        }
-
-        /// <summary>
-        /// 用户控件从非置顶区移到置顶区
-        /// </summary>
-        /// <param name="order"></param>
-        public void UIFromNotTopToTop(ServiceOrder order)
-        {
-            Action lambda = () =>
-            {
-                string ctrName = PHSuit.StringHelper.SafeNameForWpfControl(order.Id.ToString());
-
-                UC_Customer btnIdentity = (UC_Customer)wpNotTopIdentityList.FindName(ctrName);
-                if (btnIdentity != null)
-                {
-                    RemoveUIForNotTopPanel(btnIdentity, ctrName);
-                    InsertTopPanel(btnIdentity, ctrName);
-                }
-            };
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(lambda);
-            }
-            else
-            {
-                lambda();
-            }
-        }
-
-        public UC_Customer FindUIByName(string name)
-        {
-            UC_Customer u = null;
-
-            Action lambda = () =>
-            {
-                u = (UC_Customer)wpTopIdentityList.FindName(name);
-                if (u == null)
-                {
-                    u = (UC_Customer)wpNotTopIdentityList.FindName(name);
-                }
-            };
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(lambda);
-            }
-            else
-            {
-                lambda();
-            }
-
-            return u;
-        }
-
+        
         #endregion
 
         #region 播放提示音
@@ -646,7 +440,7 @@ namespace Dianzhu.CSClient.ViewWPF
             Action lambda = () =>
             {
                 player.Open(new Uri(System.Environment.CurrentDirectory + @"\Resources\YDBan.wav"));
-                //player.Open(new Uri("E:\\projects\\ddddzzzz\\ALARM.WAV"));
+                //player.Open(new Uri("E:\\projects\\output\\csclient\\Resources\\YDBan.wav"));
                 player.Play();
             };
             if (!Dispatcher.CheckAccess())

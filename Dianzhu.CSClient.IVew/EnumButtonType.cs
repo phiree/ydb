@@ -5,13 +5,19 @@ using System.Text;
 
 namespace Dianzhu.CSClient.IView
 {
-    public enum em_ButtonStyle
-    {
-        Login,//上线
-        LogOff,//离线
-        Unread,//未读
-        Readed,//已读
-        Actived,//当前激活
-        Loading,//正在加载
+    public enum enum_CustomerReceptionStatus
+    {        
+        /// <summary>
+        /// 未读
+        /// </summary>
+        Unread,
+        /// <summary>
+        /// 已读
+        /// </summary>
+        Readed,
+        /// <summary>
+        /// 当前激活
+        /// </summary>
+        Actived,
     }
 }

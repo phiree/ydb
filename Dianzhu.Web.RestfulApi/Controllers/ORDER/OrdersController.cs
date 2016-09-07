@@ -332,12 +332,12 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         {
             try
             {
-                string strStaffID = "";
-                if (assignobj != null)
-                {
-                    strStaffID = assignobj.staffID;
-                }
-                return Json(iorder.PatchForman(orderID, strStaffID, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}/forman")) ?? new object());
+                //string strStaffID = "";
+                //if (assignobj != null)
+                //{
+                //    strStaffID = assignobj.staffID;
+                //}
+                return Json(iorder.PatchForman(orderID, assignobj.staffID, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}/forman")) ?? new object());
             }
             catch (Exception ex)
             {

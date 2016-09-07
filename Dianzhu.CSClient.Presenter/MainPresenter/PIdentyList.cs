@@ -37,9 +37,19 @@ namespace Dianzhu.CSClient.Presenter
         IDAL.IDALReceptionStatus dalReceptionStatus;
         IViewSearchResult viewSearchResult;
         IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve;
+        LocalStorage.LocalChatManager localChatManager;
 
-        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,IViewOrder iViewOrder, InstantMessage iIM, IDAL.IDALReceptionChat dalReceptionChat,IViewChatSend iViewChatSend,IBLLServiceOrder bllServiceOrder,IViewOrderHistory iViewOrderHistory,IDAL.IDALReceptionStatus dalReceptionStatus,IViewSearchResult viewSearchResult, IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve)
+        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,
+            IViewOrder iViewOrder, InstantMessage iIM, 
+            IDAL.IDALReceptionChat dalReceptionChat,IViewChatSend iViewChatSend,
+            IBLLServiceOrder bllServiceOrder,IViewOrderHistory iViewOrderHistory,
+            IDAL.IDALReceptionStatus dalReceptionStatus,IViewSearchResult viewSearchResult, 
+            IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve,
+             LocalStorage.LocalChatManager localChatManager
+            
+            )
         {
+            this.localChatManager = localChatManager;
             this.iView = iView;
             this.iViewOrder = iViewOrder;
             this.iIM = iIM;
@@ -58,6 +68,8 @@ namespace Dianzhu.CSClient.Presenter
 
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             viewSearchResult.PushServiceTimerSend += ViewSearchResult_PushServiceTimerSend;
+
+
 
             Thread t = new Thread(SysAssign);
             t.Start();
@@ -193,7 +205,7 @@ namespace Dianzhu.CSClient.Presenter
 
         BackgroundWorker workerChatImage;
         BackgroundWorker workerCustomerAvatar;
-        private void IIM_IMReceivedMessage(ReceptionChat chat)
+        public void IIM_IMReceivedMessage(ReceptionChat chat)
         {
             string errMsg = string.Empty;
             //判断信息类型
@@ -229,90 +241,6 @@ namespace Dianzhu.CSClient.Presenter
                     workerCustomerAvatar.DoWork += WorkerCustomerAvatar_DoWork;
                     workerCustomerAvatar.RunWorkerCompleted += WorkerCustomerAvatar_RunWorkerCompleted;
                     workerCustomerAvatar.RunWorkerAsync(chat.From);
-                }
-            }
-            else if (chat.ChatType== enum_ChatType.UserStatus)
-            {
-                ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
-
-                if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
-                {
-                    IdentityLogOffShowMsg(chat.ServiceOrder.Id);
-
-                    //if (IdentityManager.CurrentIdentity.Id == chat.ServiceOrder.Id)
-                    //{
-                    //    if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
-                    //    {
-                    //        //RemoveIdentity(chat.ServiceOrder);
-                    //        IdentityLogOffShowMsg(chat.ServiceOrder);
-                    //    }
-                    //    else
-                    //    {
-                    //        errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
-                    //        log.Error(errMsg);
-                    //        throw new NotImplementedException(errMsg);
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    //SetSetIdentityLogOff(chat.ServiceOrder);
-                    //    if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
-                    //    {
-                    //        //RemoveIdentity(chat.ServiceOrder);
-                    //        IdentityLogOffShowMsg(chat.ServiceOrder);
-                    //    }
-                    //    else
-                    //    {
-                    //        errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
-                    //        log.Error(errMsg);
-                    //        throw new NotImplementedException(errMsg);
-                    //    }
-                    //}
-                }
-                else
-                {
-                    if (IdentityManager.CurrentIdentity == null)
-                    {
-                        IdentityLogOnShowMsgAndTimer(chat.ServiceOrder, "等待中");
-                    }
-                    else
-                    {
-                        if (IdentityManager.CurrentIdentity.Id == chat.ServiceOrder.Id)
-                        {
-                            IdentityLogOnShowMsg(chat.ServiceOrder, "当前接待中...");
-                        }
-                        else
-                        {
-                            IdentityLogOnShowMsgAndTimer(chat.ServiceOrder, "等待中");
-                        }
-                    }
-                    //if (IdentityManager.CurrentIdentity.Id == chat.ServiceOrder.Id)
-                    //{
-                    //    if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
-                    //    {
-                    //        IdentityLogOnShowMsg(chat.ServiceOrder,"当前接待中...");
-                    //    }
-                    //    else
-                    //    {
-                    //        errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
-                    //        log.Error(errMsg);
-                    //        throw new NotImplementedException(errMsg);
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    SetSetIdentityLogOff(chat.ServiceOrder);
-                    //    if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
-                    //    {
-                    //        IdentityLogOnShowMsg(chat.ServiceOrder,"等待中");
-                    //    }
-                    //    else
-                    //    {
-                    //        errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
-                    //        log.Error(errMsg);
-                    //        throw new NotImplementedException(errMsg);
-                    //    }
-                    //}
                 }
             }
         }
@@ -399,7 +327,6 @@ namespace Dianzhu.CSClient.Presenter
             try
             {
                 IdentityManager.CurrentIdentity = iView.IdentityOrderTemp = serviceOrder;
-                iView.SetIdentityLoading(serviceOrder);
                 
                 iViewChatList.ClearUCData();
                 iViewChatList.ShowLoadingMsg();
@@ -431,6 +358,7 @@ namespace Dianzhu.CSClient.Presenter
         /// <param name="isCurrentCustomer"></param>
         public void ReceivedMessage(ReceptionChat chat, IdentityTypeOfOrder type)
         {
+            localChatManager.Add(chat.From.Id.ToString(), chat);
             switch (type)
             {
                 case IdentityTypeOfOrder.CurrentCustomer:
@@ -465,27 +393,7 @@ namespace Dianzhu.CSClient.Presenter
                 iView.RemoveIdentity(order);
             }
         }
-
-        protected void IdentityLogOffShowMsg(Guid orderId)
-        {
-            iView.IdentityLogOffShowMsg(orderId);
-        }
-
-        protected void IdentityLogOnShowMsg(ServiceOrder order,string msg)
-        {
-            iView.IdentityLogOnShowMsg(order,msg);
-        }
-
-        protected void IdentityLogOnShowMsgAndTimer(ServiceOrder order,string msg)
-        {
-            iView.IdentityLogOnShowMsgAndTimer(order, msg);
-        }
-
-        public void SetSetIdentityLogOff(ServiceOrder order)
-        {
-            iView.SetIdentityLogOff(order);
-        }
-
+        
     }
 }
 
