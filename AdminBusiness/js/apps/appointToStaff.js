@@ -420,7 +420,7 @@
     });
 
     $(document).on('click.appoint', '[data-role="appointToggle"]', function (e) {
-        var storeID = Adapter.getParameterByName("businessId");
+        var storeID = YDBan.url.getUrlParam("businessId");
         //var orderID = $(this).attr("data-appointTargetId");
         var userID = $(this).attr("data-appointTargetId");
         //var userID = "6F9619FF-8B86-D011-B42D-00C04FC964FF";

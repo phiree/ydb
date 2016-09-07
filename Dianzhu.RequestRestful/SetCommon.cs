@@ -27,6 +27,10 @@ namespace Dianzhu.RequestRestful
         /// <returns></returns>
         public static string SetContentMD5(string strContent)
         {
+            if (strContent == "{}") {
+                strContent = "";
+            }
+            
             string requestContentBase64String = "";
             if (strContent.Trim() != "")
             {
