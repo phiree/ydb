@@ -87,6 +87,10 @@ namespace Dianzhu.CSClient.LocalStorage
             {
                 LocalChats.Remove(customerId);
             }
+            if (LocalCustomerAvatarUrls.ContainsKey(customerId))
+            {
+                LocalCustomerAvatarUrls.Remove(customerId);
+            }
         }
 
         /// <summary>

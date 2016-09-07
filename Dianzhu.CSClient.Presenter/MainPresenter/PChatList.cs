@@ -64,7 +64,16 @@ namespace Dianzhu.CSClient.Presenter
                 foreach (var item in chatHistory)
                 {
                     viewChatList.ChatList.Insert(0, item);
-                    viewChatList.InsertOneChat(item, chatManager.LocalCustomerAvatarUrls[item.From.Id.ToString()]);
+                    string customerId = string.Empty;
+                    if(item.From.UserType== enum_UserType.customer)
+                    {
+                        customerId = item.From.Id.ToString();
+                    }
+                    else if(item.To.UserType== enum_UserType.customer)
+                    {
+                        customerId = item.To.Id.ToString();
+                    }
+                    viewChatList.InsertOneChat(item, chatManager.LocalCustomerAvatarUrls[customerId]);
                 }
             }
             else
@@ -133,7 +142,7 @@ namespace Dianzhu.CSClient.Presenter
             NHibernateUnitOfWork.UnitOfWork.Start();
             ServiceOrder order = (ServiceOrder)e.Argument;
            
-            e.Result = chatManager.InitChatList(order.Customer.Id, order.CustomerService.Id, order.Id);
+            e.Result = chatManager.InitChatList(order.Customer.Id, Guid.Empty, Guid.Empty);
             //e.Result = dalReceptionChat.GetReceptionChatList(customerId, Guid.Empty, Guid.Empty,
             //       DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.cer, out rowCount);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();

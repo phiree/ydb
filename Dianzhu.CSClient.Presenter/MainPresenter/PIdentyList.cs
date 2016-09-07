@@ -38,19 +38,22 @@ namespace Dianzhu.CSClient.Presenter
         IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve;
         LocalStorage.LocalChatManager localChatManager;
         LocalStorage.LocalHistoryOrderManager localHistoryOrderManager;
+        LocalStorage.LocalUIDataManager localUIDataManager;
 
         public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,
-            InstantMessage iIM, 
-            IDAL.IDALReceptionChat dalReceptionChat,IViewChatSend iViewChatSend,
-            IBLLServiceOrder bllServiceOrder,IViewOrderHistory iViewOrderHistory,
-            IDAL.IDALReceptionStatus dalReceptionStatus,IViewSearchResult viewSearchResult, 
+            InstantMessage iIM,
+            IDAL.IDALReceptionChat dalReceptionChat, IViewChatSend iViewChatSend,
+            IBLLServiceOrder bllServiceOrder, IViewOrderHistory iViewOrderHistory,
+            IDAL.IDALReceptionStatus dalReceptionStatus, IViewSearchResult viewSearchResult,
             IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve,
-             LocalStorage.LocalChatManager localChatManager,
-            LocalStorage.LocalHistoryOrderManager localHistoryOrderManager
+            LocalStorage.LocalChatManager localChatManager,
+            LocalStorage.LocalHistoryOrderManager localHistoryOrderManager,
+            LocalStorage.LocalUIDataManager localUIDataManager
             )
         {
             this.localChatManager = localChatManager;
             this.localHistoryOrderManager = localHistoryOrderManager;
+            this.localUIDataManager = localUIDataManager;
             this.iView = iView;
             this.iIM = iIM;
             this.iViewChatList = iViewChatList;
@@ -204,6 +207,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 localChatManager.Remove(order.Customer.Id.ToString());
                 localHistoryOrderManager.Remove(order.Customer.Id.ToString());
+                localUIDataManager.Remove(order.Customer.Id.ToString());
                 iView.IdentityOrderTemp = null;
                 RemoveIdentity(order);
             }
