@@ -440,9 +440,12 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
-                player.Open(new Uri(System.Environment.CurrentDirectory + @"\Resources\YDBan.wav"));
-                //player.Open(new Uri("E:\\projects\\output\\csclient\\Resources\\YDBan.wav"));
-                player.Play();
+                //player.Open(new Uri(System.Environment.CurrentDirectory + @"\Resources\YDBan.wav"));
+                ////player.Open(new Uri("E:\\projects\\output\\csclient\\Resources\\YDBan.wav"));
+                //player.Play();
+
+                SoundPlayer audio = new SoundPlayer(Properties.Resources.YDBan);
+                audio.Play();
             };
             if (!Dispatcher.CheckAccess())
             {

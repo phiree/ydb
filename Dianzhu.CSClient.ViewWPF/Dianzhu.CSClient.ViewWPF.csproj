@@ -205,8 +205,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\UC_OrderHistory.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UC\UC_OrderHistory_Order.xaml">
       <SubType>Designer</SubType>
@@ -339,9 +339,7 @@
     <Resource Include="Resources\DefaultCustomer.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\YDBan.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <None Include="Resources\YDBan.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
