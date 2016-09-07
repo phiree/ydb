@@ -122,12 +122,6 @@
     <Compile Include="UC\UC_Notice.xaml.cs">
       <DependentUpon>UC_Notice.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\UC_Order.xaml.cs">
-      <DependentUpon>UC_Order.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_OrderEdit.xaml.cs">
-      <DependentUpon>UC_OrderEdit.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UC\UC_OrderHistory.xaml.cs">
       <DependentUpon>UC_OrderHistory.xaml</DependentUpon>
     </Compile>
@@ -145,9 +139,6 @@
     </Compile>
     <Compile Include="UC\UC_SearchResult.xaml.cs">
       <DependentUpon>UC_SearchResult.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_OrderDetail.xaml.cs">
-      <DependentUpon>UC_OrderDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_ShelfService.xaml.cs">
       <DependentUpon>UC_ShelfService.xaml</DependentUpon>
@@ -213,14 +204,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\UC_Order.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_OrderEdit.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UC\UC_OrderHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -242,10 +225,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\UC_SearchResult.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_OrderDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -306,6 +285,10 @@
     <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IView.csproj">
       <Project>{755eea8c-9d5e-406e-83dd-36b3ba4eb158}</Project>
       <Name>Dianzhu.CSClient.IView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.LocalStorage\Dianzhu.CSClient.LocalStorage.csproj">
+      <Project>{6F064359-8BBD-4BDA-9532-D93505472582}</Project>
+      <Name>Dianzhu.CSClient.LocalStorage</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
       <Project>{2e67aa78-6780-42bd-a3ab-ad953781e511}</Project>

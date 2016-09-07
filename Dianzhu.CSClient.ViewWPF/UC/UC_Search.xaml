@@ -89,7 +89,7 @@
                         <Label>
                             <TextBlock Text="服务对象" Style="{DynamicResource TextBlockKey}"></TextBlock>
                         </Label>
-                        <TextBox x:Name="tbxKeywordPeople" Text="王女士" Style="{DynamicResource TextBoxValue}"/>
+                        <TextBox x:Name="tbxKeywordPeople" Text="王女士" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordPeople_TextChanged"/>
                     </WrapPanel>
 
                     <WrapPanel Margin="0,1" VerticalAlignment="Center">
@@ -97,7 +97,7 @@
                             <TextBlock Text="服务时间" Style="{DynamicResource TextBlockKey}"></TextBlock>
                         </Label>
                         <!--<DatePicker Width="142"/>-->
-                        <TextBox x:Name="tbxKeywordTime" Text="2016-8-30 9:00" Style="{DynamicResource TextBoxValue}"/>
+                        <TextBox x:Name="tbxKeywordTime" Text="2016-8-30 9:00" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordTime_TextChanged"/>
                     </WrapPanel>
 
                     <WrapPanel Margin="0,1" VerticalAlignment="Center">
@@ -113,7 +113,7 @@
                         <Label>
                             <TextBlock Text="服务名称" Style="{DynamicResource TextBlockKey}"></TextBlock>
                         </Label>
-                        <TextBox x:Name="tbxKeywordServiceName" Text="" Style="{DynamicResource TextBoxValue}"/>
+                        <TextBox x:Name="tbxKeywordServiceName" Text="" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordServiceName_TextChanged"/>
                     </WrapPanel>
 
                     <WrapPanel Margin="0,1" VerticalAlignment="Center">
@@ -121,32 +121,32 @@
                             <TextBlock Text="价格区间" Style="{DynamicResource TextBlockKey}"></TextBlock>
                         </Label>
                         <!--￥-->
-                        <TextBox x:Name="tbxKeywordPriceMin" Text="1"  Style="{DynamicResource TextBoxValue}" Width="142"/>
+                        <TextBox x:Name="tbxKeywordPriceMin" Text="1"  Style="{DynamicResource TextBoxValue}" Width="142" TextChanged="tbxKeywordPriceMin_TextChanged_1"/>
                         <Label>
                             <TextBlock Text="-" Style="{DynamicResource TextBlockKey}" Margin="2,0,3,0"></TextBlock>
                         </Label>
-                        <TextBox x:Name="tbxKeywordPriceMax" Text="200"  Style="{DynamicResource TextBoxValue}" Width="142"/>
+                        <TextBox x:Name="tbxKeywordPriceMax" Text="200"  Style="{DynamicResource TextBoxValue}" Width="142" TextChanged="tbxKeywordPriceMax_TextChanged"/>
                     </WrapPanel>
 
                     <WrapPanel Margin="0,1" VerticalAlignment="Center">
                         <Label>
                             <TextBlock Text="联系方式" Style="{DynamicResource TextBlockKey}"></TextBlock>
                         </Label>
-                        <TextBox x:Name="tbxKeywordPhone" Text="1580000000" Style="{DynamicResource TextBoxValue}"/>
+                        <TextBox x:Name="tbxKeywordPhone" Text="1580000000" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordPhone_TextChanged"/>
                     </WrapPanel>
 
                     <WrapPanel Margin="0,1" VerticalAlignment="Center">
                         <Label>
                             <TextBlock Text="服务数量" Style="{DynamicResource TextBlockKey}"></TextBlock>
                         </Label>
-                        <TextBox x:Name="tbxUnitAmount" Text="1" Style="{DynamicResource TextBoxValue}"/>
+                        <TextBox x:Name="tbxUnitAmount" Text="1" Style="{DynamicResource TextBoxValue}" TextChanged="tbxUnitAmount_TextChanged"/>
                     </WrapPanel>
 
                     <WrapPanel Margin="0,1" VerticalAlignment="Center">
                         <Label>
                             <TextBlock Text="服务地址" Style="{DynamicResource TextBlockKey}"></TextBlock>
                         </Label>
-                        <TextBox x:Name="tbxKeywordAddress" Text="XXXXX" Style="{DynamicResource TextBoxValue}"/>
+                        <TextBox x:Name="tbxKeywordAddress" Text="XXXXX" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordAddress_TextChanged"/>
                     </WrapPanel>
 
                     <WrapPanel Margin="0,3" VerticalAlignment="Center">
@@ -160,7 +160,7 @@
                             <TextBlock Text="注" Style="{DynamicResource TextBlockKey}"></TextBlock>
                         </Label>
 
-                        <TextBox x:Name="tbxKeywordMemo" Text="XXX" Style="{DynamicResource TextBoxValue}" VerticalScrollBarVisibility="Auto"/>
+                        <TextBox x:Name="tbxKeywordMemo" Text="XXX" Style="{DynamicResource TextBoxValue}" VerticalScrollBarVisibility="Auto" TextChanged="tbxKeywordMemo_TextChanged"/>
                     </WrapPanel>
 
                     <WrapPanel HorizontalAlignment="Center" Margin="0,20,0,0">

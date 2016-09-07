@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
 using System.ComponentModel;
+using System.Media;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -35,7 +36,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         #region 用户控件增删改
 
-        public void AddIdentity(ServiceOrder serviceOrder)
+        public void AddIdentity(ServiceOrder serviceOrder,string customerAvatarUrl)
         {
             Action lambda = () =>
             {
@@ -45,7 +46,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 {
                     IViewCustomer c = new UC_Customer()
                     {
-                        AvatarImage = serviceOrder.Customer.AvatarUrl,
+                        AvatarImage = customerAvatarUrl,
                         CustomerName = serviceOrder.Customer.DisplayName,
                         CustomerReceptionStatus = enum_CustomerReceptionStatus.Unread,
                         Order = serviceOrder

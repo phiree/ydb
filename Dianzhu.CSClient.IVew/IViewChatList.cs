@@ -13,8 +13,8 @@ namespace Dianzhu.CSClient.IView
     {
         
         IList<ReceptionChat> ChatList { set;  get; }
-        void AddOneChat(ReceptionChat chat);
-        void InsertOneChat(ReceptionChat chat);
+        void AddOneChat(ReceptionChat chat,string customerAvatar);
+        void InsertOneChat(ReceptionChat chat,string customerAvatar);
         /// <summary>
         /// 当前助理. 
         /// 用来确定消息的显示格式.
