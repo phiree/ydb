@@ -37,9 +37,19 @@ namespace Dianzhu.CSClient.Presenter
         IDAL.IDALReceptionStatus dalReceptionStatus;
         IViewSearchResult viewSearchResult;
         IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve;
+        LocalStorage.LocalChatManager localChatManager;
 
-        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,IViewOrder iViewOrder, InstantMessage iIM, IDAL.IDALReceptionChat dalReceptionChat,IViewChatSend iViewChatSend,IBLLServiceOrder bllServiceOrder,IViewOrderHistory iViewOrderHistory,IDAL.IDALReceptionStatus dalReceptionStatus,IViewSearchResult viewSearchResult, IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve)
+        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,
+            IViewOrder iViewOrder, InstantMessage iIM, 
+            IDAL.IDALReceptionChat dalReceptionChat,IViewChatSend iViewChatSend,
+            IBLLServiceOrder bllServiceOrder,IViewOrderHistory iViewOrderHistory,
+            IDAL.IDALReceptionStatus dalReceptionStatus,IViewSearchResult viewSearchResult, 
+            IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve,
+             LocalStorage.LocalChatManager localChatManager
+            
+            )
         {
+            this.localChatManager = localChatManager;
             this.iView = iView;
             this.iViewOrder = iViewOrder;
             this.iIM = iIM;
@@ -348,6 +358,7 @@ namespace Dianzhu.CSClient.Presenter
         /// <param name="isCurrentCustomer"></param>
         public void ReceivedMessage(ReceptionChat chat, IdentityTypeOfOrder type)
         {
+            localChatManager.Add(chat.From.Id.ToString(), chat);
             switch (type)
             {
                 case IdentityTypeOfOrder.CurrentCustomer:

@@ -31,10 +31,12 @@ namespace Dianzhu.CSClient.Presenter
         InstantMessage iIM;
         IViewIdentityList viewIdentityList;
         IViewOrderHistory viewOrderHistory;
-        
+        LocalStorage.LocalChatManager localChatManager;
         ServiceOrder order;
         
-        public PChatSend(IViewChatSend viewChatSend, IView.IViewChatList viewChatList,InstantMessage iIM,IDAL.IDALReceptionChat dalReceptionChat,IViewIdentityList viewIdentityList,IViewOrderHistory viewOrderHistory)
+        public PChatSend(IViewChatSend viewChatSend, IView.IViewChatList viewChatList,
+            InstantMessage iIM,IDAL.IDALReceptionChat dalReceptionChat,IViewIdentityList viewIdentityList,
+            IViewOrderHistory viewOrderHistory, LocalStorage.LocalChatManager localChatManager)
         {
             this.viewChatList = viewChatList;
             this.dalReceptionChat = dalReceptionChat;
@@ -46,6 +48,7 @@ namespace Dianzhu.CSClient.Presenter
 
             this.viewChatSend.SendTextClick += ViewChatSend_SendTextClick;
             this.viewChatSend.SendMediaClick += ViewChatSend_SendMediaClick;
+            this.localChatManager = localChatManager;
         }
 
         private void ViewChatSend_SendMediaClick(byte[] fileData, string domainType, string mediaType)
@@ -67,6 +70,8 @@ namespace Dianzhu.CSClient.Presenter
                 MedialUrl = GlobalViables.MediaGetUrl + fileName,
                 MediaType = mediaType
             };
+            localChatManager.Add(chat.To.Id.ToString(), chat);
+
 
             iIM.SendMessage(chat);
 
@@ -107,6 +112,7 @@ namespace Dianzhu.CSClient.Presenter
                     SavedTime = DateTime.Now,
                     ServiceOrder = IdentityManager.CurrentIdentity
                 };
+                localChatManager.Add(chat.To.Id.ToString(), chat);
                 viewChatSend.MessageText = string.Empty;
                 viewChatList.AddOneChat(chat);
                //dalReceptionChat.Add(chat);
