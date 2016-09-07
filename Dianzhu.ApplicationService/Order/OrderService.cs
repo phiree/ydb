@@ -924,7 +924,7 @@ namespace Dianzhu.ApplicationService.Order
         /// <param name="staffID"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public object PatchForman(string orderID,string staffID,Customer customer)
+        public object PatchForman(string orderID, string staffID, Customer customer)
         {
             //Model.ServiceOrder order = null;
             //order = ibllserviceorder.GetOne(utils.CheckGuidID(orderID, "orderID"));
@@ -966,7 +966,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new FormatException("改派的订单号不能为空！");
             }
-            if (string.IsNullOrEmpty(staffID))
+            if (staffID == null)
             {
                 throw new FormatException("改派的员工ID不能为空！");
             }
@@ -975,44 +975,95 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该商户不存在该订单！");
             }
-            if (order.Staff == null)
+            string strState = "";
+            if (order.Staff == null && staffID != "")
             {
-                throw new Exception("该订单还没有被指派过！");
+                strState = "指派";
+                //throw new Exception("该订单还没有被指派过！");
+            }
+            if (order.Staff != null && staffID != "")
+            {
+                strState = "更改指派";
+            }
+            if (order.Staff != null && staffID == "")
+            {
+                strState = "取消指派";
+            }
+            if (order.Staff == null && staffID == "")
+            {
+                throw new Exception("该订单还没有被指派过，请指定指派员工！");
             }
             if (order.OrderStatus == Model.Enums.enum_OrderStatus.Finished || order.OrderStatus == Model.Enums.enum_OrderStatus.Appraised)
             {
                 throw new Exception("该订单的服务已经完成，无法再改派！");
             }
-            if (order.Staff.Id.ToString() == staffID)
+            if (strState == "更改指派" && order.Staff.Id.ToString() == staffID)
             {
                 throw new Exception("改派给同一个人了！");
             }
+
             Model.Staff staff = bllStaff.GetStaff(order.Business.Id, utils.CheckGuidID(staffID, "staffID"));
-            if (staff == null)
+            if (strState != "取消指派")
             {
-                throw new Exception("该订单所属的店铺中不存在该指派的员工！");
-            }
-            if (!staff.Enable)
-            {
-                throw new Exception("改派的员工不在职！");
+                if (staff == null)
+                {
+                    throw new Exception("该订单所属的店铺中不存在该员工！");
+                }
+                if (!staff.Enable)
+                {
+                    throw new Exception("指派或改派的员工不在职！");
+                }
             }
             //if (staff.IsAssigned)
             //{
             //    throw new Exception("改派的员工已经被指派过！");
             //}
 
-            Model.OrderAssignment oa = bllOrderAssignment.FindByOrderAndStaff(order, order.Staff);
-            if (oa == null || oa.Enabled == false)
-            {
-                throw new Exception("原指派不存在或已取消！");
-            }
-            order.Staff.IsAssigned = false;
-            staff.IsAssigned = true;
-            oa.AssignedStaff = staff;
-            order.Staff = staff;
+            Model.OrderAssignment oa = new Model.OrderAssignment();
             DateTime dt = DateTime.Now;
-            oa.AssignedTime = dt;
-            return new string[] { "改派成功！" };
+            switch (strState)
+            {
+                case "指派":
+                    staff.IsAssigned = true;
+                    oa.Enabled = true;
+                    oa.CreateTime = dt;
+                    oa.AssignedTime = dt;
+                    oa.Order = order;
+                    oa.AssignedStaff = staff;
+                    order.Staff = staff;
+                    //oa.Order.Details[0].Staff.Clear();
+                    //oa.Order.Details[0].Staff.Add(staff);
+                    bllOrderAssignment.Save(oa);
+                    strState = "指派成功";
+                    break;
+                case "更改指派":
+                    oa = bllOrderAssignment.FindByOrderAndStaff(order, order.Staff);
+                    if (oa == null || oa.Enabled == false)
+                    {
+                        throw new Exception("原指派不存在或已取消！");
+                    }
+                    order.Staff.IsAssigned = false;
+                    staff.IsAssigned = true;
+                    oa.AssignedStaff = staff;
+                    oa.AssignedTime = dt;
+                    order.Staff = staff;
+                    strState = "改派成功";
+                    break;
+                case "取消指派":
+                    oa = bllOrderAssignment.FindByOrderAndStaff(order, order.Staff);
+                    if (oa == null || oa.Enabled == false)
+                    {
+                        throw new Exception("该指派不存在或已取消！");
+                    }
+                    order.Staff.IsAssigned = false;
+                    oa.Enabled = false;
+                    oa.DeAssignedTime = dt;
+                    order.Staff = null;
+                    strState = "取消成功";
+                    break;
+            }
+            return new string[] { strState };
+
         }
 
         /// <summary>

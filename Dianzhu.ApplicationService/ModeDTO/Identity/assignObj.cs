@@ -8,7 +8,7 @@ namespace Dianzhu.ApplicationService
 {
     public class assignObj
     {
-        string _staffID = "";
+        string _staffID = null;
         /// <summary>
         /// 指派员工的ID
         /// </summary>
