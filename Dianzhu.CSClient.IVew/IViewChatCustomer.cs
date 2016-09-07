@@ -12,7 +12,8 @@ namespace Dianzhu.CSClient.IView
     public interface IViewChatCustomer
     {
         DZMembership CurrentCS { set; }
-        ReceptionChat Chat { set; }        
+        ReceptionChat Chat { set; }
+        string CustomerAvatar { set; }
     }
 
 

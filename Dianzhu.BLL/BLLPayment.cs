@@ -110,14 +110,6 @@ namespace Dianzhu.BLL
 
             return dal.FindById(id);
         }
-        public void Save(Payment payment)
-        {
-            payment.LastUpdateTime = DateTime.Now;
-
-
-
-            dal.Add(payment);
-        }
         public void Update(Payment payment)
         {
             dal.Update(payment);

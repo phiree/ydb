@@ -81,7 +81,6 @@
     <Compile Include="MainPresenter\PChatList.cs" />
     <Compile Include="MainPresenter\PIdentyList.cs" />
     <Compile Include="IdentityManager.cs" />
-    <Compile Include="MainPresenter\POrder.cs" />
     <Compile Include="MainPresenter\PSearch.cs" />
     <Compile Include="MainPresenter\State.cs" />
     <Compile Include="MessageLocalStorage.cs" />
