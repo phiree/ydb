@@ -396,7 +396,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 MessageBox.Show("预约时间不得小于当前时间!");
             }
-            else if (selectedType == null)
+            else if (ServiceType == null)
             {
                 MessageBox.Show("请选择服务类型");
             }
