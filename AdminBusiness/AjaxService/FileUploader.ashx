@@ -11,19 +11,21 @@ public class FileUploader : IHttpHandler,System.Web.SessionState.IRequiresSessio
     BLLBusinessImage bllBusinessImage =Bootstrap.Container.Resolve<BLLBusinessImage>();
     public void ProcessRequest (HttpContext context) {
         //权限判断
-        if (context.Session["UserName"]==null)
-        {
-            context.Response.Write("{\"result\":\""+false+"\",\"msg\":\"unlogin\"}");
+        if (!AjaxAuth.authAjaxUser(context)){ 
+            context.Response.StatusCode = 400;
+            context.Response.Clear();
+            context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"unlogin\"}");
             return;
         }
 
         if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
         {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
 
         }
         NHibernateUnitOfWork.UnitOfWork.Start();
+
         context.Response.ContentType = "text/plain";
 
         HttpFileCollection files = context.Request.Files;
@@ -73,7 +75,8 @@ public class FileUploader : IHttpHandler,System.Web.SessionState.IRequiresSessio
         string imagePath=  bllBusinessImage.Save(new Guid(strBusinessId), posted, enum_imagetype);
 
         context.Response.Write(imagePath);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
            
 
     }
