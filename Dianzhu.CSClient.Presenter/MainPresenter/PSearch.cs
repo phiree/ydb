@@ -88,9 +88,13 @@ namespace Dianzhu.CSClient.Presenter
                 {
                     if (localUIDataManager.LocalUIDatas[id].ServiceType.DeepLevel == 2)
                     {
-                        viewSearch.setServiceTypeFirst = localUIDataManager.LocalUIDatas[id].ServiceType.Parent.Parent;
-                        viewSearch.setServiceTypeSecond = localUIDataManager.LocalUIDatas[id].ServiceType.Parent;
-                        viewSearch.setServiceTypeThird = localUIDataManager.LocalUIDatas[id].ServiceType;
+                        ServiceType typeF = localUIDataManager.LocalUIDatas[id].ServiceType.Parent.Parent;
+                        ServiceType typeS = localUIDataManager.LocalUIDatas[id].ServiceType.Parent;
+                        ServiceType typeT = localUIDataManager.LocalUIDatas[id].ServiceType;
+
+                        viewSearch.setServiceTypeFirst = typeF;
+                        viewSearch.setServiceTypeSecond = typeS;
+                        viewSearch.setServiceTypeThird = typeT;
                     }
                     else if (localUIDataManager.LocalUIDatas[id].ServiceType.DeepLevel == 1)
                     {
@@ -166,7 +170,10 @@ namespace Dianzhu.CSClient.Presenter
         private void ViewSearch_ServiceTypeThird_Select(ServiceType type)
         {
             ServiceTypeThird = type;
-            localUIDataManager.Save(IdentityManager.CurrentIdentity.Id.ToString(), "ServiceType", type);
+            if (IdentityManager.CurrentIdentity != null)
+            {
+                localUIDataManager.Save(IdentityManager.CurrentIdentity.Id.ToString(), "ServiceType", type);
+            }
         }
 
         private void ViewSearch_ServiceTypeSecond_Select(ServiceType type)
@@ -174,20 +181,20 @@ namespace Dianzhu.CSClient.Presenter
             //NHibernateUnitOfWork.UnitOfWork.Start();
             //Action ac = () =>
             //{
-                try
+            try
+            {
+                if (type != null)
                 {
-                    if (type != null)
+
+                    //if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
+                    //{
+
+                    //    NHibernateUnitOfWork.UnitOfWork.CurrentSession.Refresh(type);
+                    //}
+                    ServiceTypeSecond = type;
+                    ServiceTypeThird = null;
+                    if (!ServiceTypeCach.ContainsKey(type))
                     {
-
-                        //if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
-                        //{
-
-                        //    NHibernateUnitOfWork.UnitOfWork.CurrentSession.Refresh(type);
-                        //}
-                        ServiceTypeSecond = type;
-                        ServiceTypeThird = null;
-                        if (!ServiceTypeCach.ContainsKey(type))
-                        {
                         bool isSecondTypeStart = false;
                         if (!NHibernateUnitOfWork.UnitOfWork.IsStarted)
                         {
@@ -205,16 +212,16 @@ namespace Dianzhu.CSClient.Presenter
                         if (IdentityManager.CurrentIdentity != null)
                         {
                             localUIDataManager.Save(IdentityManager.CurrentIdentity.Id.ToString(), "ServiceType", type);
-                        }                        
+                        }
                     }
-                        viewSearch.ServiceTypeThird = ServiceTypeCach[type];
+                    viewSearch.ServiceTypeThird = ServiceTypeCach[type];
 
-                    }
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+            }
+            catch (Exception e)
+            {
+                PHSuit.ExceptionLoger.ExceptionLog(log, e);
+            }
             //};
             //if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
             //{
