@@ -76,7 +76,7 @@ namespace Dianzhu.NotifyCenter
 
             //发送给客户
             ags.Message msg = BuildNotice(
-                 order.Customer.Id + "@" + im.Domain,
+                 order.Customer.Id + "@" + im.Domain + "/" + enum_XmppResource.YDBan_User,
                  "订单状态已变为:" + order.GetStatusTitleFriendly(order.OrderStatus),
                  extNode
                  );
@@ -84,7 +84,7 @@ namespace Dianzhu.NotifyCenter
 
             //发送给客服.
             ags.Message msgForCS = BuildNotice(
-                  order.CustomerService.Id + "@" + im.Domain,
+                  order.CustomerService.Id + "@" + im.Domain + "/" + enum_XmppResource.YDBan_CustomerService,
                   "订单状态已变为:" + order.OrderStatus,
                   extNode
                   );
@@ -100,7 +100,7 @@ namespace Dianzhu.NotifyCenter
                 return;
             }
             ags.Message msgToBusiness = BuildNotice(
-                 order.Business.Owner.Id + "@" + im.Domain,
+                 order.Business.Owner.Id + "@" + im.Domain + "/" + enum_XmppResource.YDBan_Store,
                  "订单状态已变为:" + order.GetStatusTitleFriendly(order.OrderStatus),
                  extNode
                  );
@@ -112,7 +112,7 @@ namespace Dianzhu.NotifyCenter
                 return;
             }
             ags.Message msgToStaff = BuildNotice(
-                 order.Staff.Id + "@" + im.Domain,
+                 order.Staff.Id + "@" + im.Domain + "/" + enum_XmppResource.YDBan_Staff,
                  "订单状态已变为:" + order.GetStatusTitleFriendly(order.OrderStatus),
                  extNode
                  );
