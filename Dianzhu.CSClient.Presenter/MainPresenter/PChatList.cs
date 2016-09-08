@@ -109,7 +109,7 @@ namespace Dianzhu.CSClient.Presenter
             viewChatList.ChatList = chatList;
             if (chatList.Count > 0)
             {
-                if (chatList.Count == 10)
+                if (chatList.Count >= 10)
                 {
                     viewChatList.ShowMoreLabel();
                 }
@@ -139,14 +139,21 @@ namespace Dianzhu.CSClient.Presenter
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            NHibernateUnitOfWork.UnitOfWork.Start();
-            ServiceOrder order = (ServiceOrder)e.Argument;
-           
-            e.Result = chatManager.InitChatList(order.Customer.Id, Guid.Empty, Guid.Empty);
-            //e.Result = dalReceptionChat.GetReceptionChatList(customerId, Guid.Empty, Guid.Empty,
-            //       DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.cer, out rowCount);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            try
+            {
+                NHibernateUnitOfWork.UnitOfWork.Start();
+                ServiceOrder order = (ServiceOrder)e.Argument;
+
+                e.Result = chatManager.InitChatList(order.Customer.Id, Guid.Empty, Guid.Empty);
+                //e.Result = dalReceptionChat.GetReceptionChatList(customerId, Guid.Empty, Guid.Empty,
+                //       DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.cer, out rowCount);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            }
+            catch (Exception ee)
+            {
+                PHSuit.ExceptionLoger.ExceptionLog(log, ee);
+            }
         }
     }
 

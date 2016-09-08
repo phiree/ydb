@@ -252,10 +252,15 @@ namespace Dianzhu.CSClient.Presenter
                     workerChatImage.RunWorkerCompleted += Worker_RunWorkerCompleted;
                     workerChatImage.RunWorkerAsync(chat);
 
-                    workerCustomerAvatar = new BackgroundWorker();
-                    workerCustomerAvatar.DoWork += WorkerCustomerAvatar_DoWork;
-                    workerCustomerAvatar.RunWorkerCompleted += WorkerCustomerAvatar_RunWorkerCompleted;
-                    workerCustomerAvatar.RunWorkerAsync(chat.From);
+                    // 用户头像的本地化处理
+                    if (chat.From.AvatarUrl != null)
+                    {
+                        workerCustomerAvatar = new BackgroundWorker();
+                        workerCustomerAvatar.DoWork += WorkerCustomerAvatar_DoWork;
+                        workerCustomerAvatar.RunWorkerCompleted += WorkerCustomerAvatar_RunWorkerCompleted;
+                        workerCustomerAvatar.RunWorkerAsync(chat.From);
+                    }
+                    
                 }
             }
         }
@@ -270,25 +275,27 @@ namespace Dianzhu.CSClient.Presenter
             DZMembership customer = e.Argument as DZMembership;
 
             string mediaUrl = customer.AvatarUrl;
+            string mediaUrl_32X32 = customer.AvatarUrl + "_32X32";
             string fileName = string.Empty;
-            if (mediaUrl != null)
-            {
-                if (!mediaUrl.Contains(GlobalViables.MediaGetUrl))
-                {
-                    fileName = mediaUrl;
-                    mediaUrl = GlobalViables.MediaGetUrl + mediaUrl;
-                }
-                else
-                {
-                    fileName = customer.AvatarUrl.Replace(GlobalViables.MediaGetUrl, "");
-                }
+            string fileName_32X32 = string.Empty;
 
-                if (!File.Exists(PHSuit.LocalFileManagement.LocalFilePath + fileName))
+            if (!mediaUrl.Contains(GlobalViables.MediaGetUrl))
+            {
+                fileName = mediaUrl;
+                fileName_32X32 = mediaUrl_32X32;
+                mediaUrl_32X32 = GlobalViables.MediaGetUrl + mediaUrl_32X32;
+            }
+            else
+            {
+                fileName = mediaUrl.Replace(GlobalViables.MediaGetUrl, "");
+                fileName_32X32 = mediaUrl_32X32.Replace(GlobalViables.MediaGetUrl, "");
+            }
+
+            if (!File.Exists(PHSuit.LocalFileManagement.LocalFilePath + fileName_32X32))
+            {
+                if (PHSuit.LocalFileManagement.DownLoad(string.Empty, mediaUrl_32X32, fileName_32X32))
                 {
-                    if (PHSuit.LocalFileManagement.DownLoad(string.Empty, mediaUrl, fileName))
-                    {
-                        customer.AvatarUrl = fileName;
-                    }
+                    customer.AvatarUrl = fileName;
                 }
             }
         }
