@@ -88,14 +88,14 @@ namespace Dianzhu.CSClient.Presenter
                 {
                     if (localUIDataManager.LocalUIDatas[id].ServiceType.DeepLevel == 2)
                     {
-                        viewSearch.setServiceTypeThird = localUIDataManager.LocalUIDatas[id].ServiceType;
-                        viewSearch.setServiceTypeSecond = localUIDataManager.LocalUIDatas[id].ServiceType.Parent;
                         viewSearch.setServiceTypeFirst = localUIDataManager.LocalUIDatas[id].ServiceType.Parent.Parent;
+                        viewSearch.setServiceTypeSecond = localUIDataManager.LocalUIDatas[id].ServiceType.Parent;
+                        viewSearch.setServiceTypeThird = localUIDataManager.LocalUIDatas[id].ServiceType;
                     }
                     else if (localUIDataManager.LocalUIDatas[id].ServiceType.DeepLevel == 1)
                     {
-                        viewSearch.setServiceTypeSecond = localUIDataManager.LocalUIDatas[id].ServiceType;
                         viewSearch.setServiceTypeFirst = localUIDataManager.LocalUIDatas[id].ServiceType.Parent;
+                        viewSearch.setServiceTypeSecond = localUIDataManager.LocalUIDatas[id].ServiceType;
                     }
                     else if (localUIDataManager.LocalUIDatas[id].ServiceType.DeepLevel == 0)
                     {
