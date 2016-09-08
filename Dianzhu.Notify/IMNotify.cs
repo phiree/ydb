@@ -116,7 +116,7 @@ namespace Dianzhu.NotifyCenter
                  "订单状态已变为:" + order.GetStatusTitleFriendly(order.OrderStatus),
                  extNode
                  );
-            im.SendMessage(msgToBusiness.ToString());
+            im.SendMessage(msgToStaff.ToString());
         }
         /// <summary>
         /// 促销消息
