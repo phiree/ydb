@@ -25,15 +25,15 @@ namespace Dianzhu.CSClient.Presenter
         IViewOrderHistory viewOrderHistory;
         IList<ServiceOrder> orderList;
         IBLLServiceOrder bllServiceOrder;
-        Dictionary<Guid, IList<ServiceOrder>> allList;
+        LocalStorage.LocalHistoryOrderManager localHistoryOrderManager;
            public POrderHistory() { }
 
-        public POrderHistory(IViewOrderHistory viewOrderHistory,IViewIdentityList viewIdentityList,IBLLServiceOrder bllServiceOrder,IInstantMessage.InstantMessage iIM)
+        public POrderHistory(IViewOrderHistory viewOrderHistory,IViewIdentityList viewIdentityList,IBLLServiceOrder bllServiceOrder,IInstantMessage.InstantMessage iIM,LocalStorage.LocalHistoryOrderManager localHistoryOrderManager)
         {
             this.viewOrderHistory = viewOrderHistory;
             this.orderList = new List<ServiceOrder>();
             this.bllServiceOrder = bllServiceOrder;
-            this.allList = new Dictionary<Guid, IList<ServiceOrder>>();
+            this.localHistoryOrderManager = localHistoryOrderManager;
 
             viewOrderHistory.SearchOrderHistoryClick += ViewOrderHistory_SearchOrderHistoryClick;
             viewOrderHistory.BtnMoreOrder += ViewOrderHistory_BtnMoreOrder;
@@ -60,7 +60,8 @@ namespace Dianzhu.CSClient.Presenter
                 foreach (ServiceOrder order in orderList)
                 {
                     viewOrderHistory.OrderList.Add(order);
-                    allList[IdentityManager.CurrentIdentity.Customer.Id].Add(order);
+
+                    localHistoryOrderManager.Add(IdentityManager.CurrentIdentity.Customer.Id.ToString(), order);
 
                     viewOrderHistory.InsertOneOrder(order);
                 }
@@ -89,7 +90,6 @@ namespace Dianzhu.CSClient.Presenter
         {
             IList<ServiceOrder> orderList = e.Result as List<ServiceOrder>;
             viewOrderHistory.OrderList = orderList;
-            allList[IdentityManager.CurrentIdentity.Customer.Id] = orderList;
             if (orderList.Count > 0)
             {
                 if (orderList.Count == 5)
@@ -119,33 +119,34 @@ namespace Dianzhu.CSClient.Presenter
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             NHibernateUnitOfWork.UnitOfWork.Start();
-            Guid customerId = Guid.Parse(e.Argument.ToString());
+            var customerId = Guid.Parse(e.Argument.ToString());
             int totalAmount;
             viewOrderHistory.OrderPage = 1;
-            e.Result = bllServiceOrder.GetListForCustomer(customerId, viewOrderHistory.OrderPage, 5, out totalAmount);
+            e.Result = localHistoryOrderManager.GetOrInitHistoryOrderList(customerId);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         private void ViewOrderHistory_SearchOrderHistoryClick()
         {
+            string orderId = IdentityManager.CurrentIdentity.Customer.Id.ToString();
             //fix #143
             if (IdentityManager.CurrentIdentity == null)
             {
                 return;
             }
-            if (allList[IdentityManager.CurrentIdentity.Customer.Id].Count == 0)
+            if (localHistoryOrderManager.LocalHistoryOrders[orderId].Count == 0)
             {
                 return;
             }
             IList<ServiceOrder> searchList = new List<ServiceOrder>();
             if (viewOrderHistory.SearchStr == string.Empty)
             {
-                searchList = allList[IdentityManager.CurrentIdentity.Customer.Id];
+                searchList = localHistoryOrderManager.LocalHistoryOrders[orderId];
             }
             else
             {
-                foreach (ServiceOrder order in allList[IdentityManager.CurrentIdentity.Customer.Id])
+                foreach (ServiceOrder order in localHistoryOrderManager.LocalHistoryOrders[orderId])
                 {
                     if (order.Details.Count > 0)
                     {

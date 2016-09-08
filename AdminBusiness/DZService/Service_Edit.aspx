@@ -80,6 +80,7 @@
     <script src="/js/libs/json2.js"></script>
     <script src="/js/libs/underscore.js"></script>
     <script src="/js/libs/backbone.js"></script>
+    <script src="/js/core/YDBan.lib.js?v=1.0.0"></script>
     <script src="/js/core/backbone.customApi.js?v=1.0.0"></script>
     <script src="/js/core/interfaceAdapter.js?v=1.0.0"></script>
     <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js'></script>
@@ -103,8 +104,8 @@
         $(function () {
             $(".steps-wrap").stepByStep({
                 defaultStep : function(){
-                    if ( Adapter.getParameterByName("step")){
-                        return parseInt(Adapter.getParameterByName("step")) - 1
+                    if ( YDBan.url.getUrlParam("step")){
+                        return parseInt(YDBan.url.getUrlParam("step")) - 1
                     } else {
                         return 0;
                     }

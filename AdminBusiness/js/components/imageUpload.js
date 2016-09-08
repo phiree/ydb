@@ -70,7 +70,21 @@
                 $inputPreview = $("<img/>").addClass("input-file-pre").attr("src", this.preview),
                 $inputMark = $("<div></div>").addClass("input-file-mark"),
                 $inputFg = $("<div></div>").addClass("input-file-fg"),
-                $inputBg = $("<div></div>").addClass("input-file-bg");
+                $inputBg = $("<div></div>").addClass("input-file-bg"),
+                $inputDelete = $("<input type='button'/>").addClass("input-file-delete");
+            var _this = this;
+
+
+            $inputDelete.on("click", function(e){
+                var path,imgName;
+
+                path = _this.$el.attr("remotePath");
+
+                if (path){
+                    imgName = path.match(/^(.*)\/([^\/]*)$/);
+                    _this._deleteImage(e.target, imgName);
+                }
+            });
 
             this.$el.wrap($inputBox);
 
@@ -78,7 +92,8 @@
             $inputBox.append($inputPreview)
                 .append($inputMark)
                 .append($inputFg)
-                .append($inputBg);
+                .append($inputBg)
+                .append($inputDelete);
 
             this.$preview = $inputPreview;
             this.$mark = $inputMark;
@@ -96,6 +111,8 @@
                 return _this._upload(ele);
             });
         };
+
+
 
         /**
          * 图片上传
@@ -123,6 +140,25 @@
             }
 
             this._uploadForm();
+        };
+
+        _ImageUpload.prototype._deleteImage = function(target, fileName){
+            var _this = this;
+            var $target = $(target);
+
+            $.ajax({
+                type : "POST",
+                url : "/AjaxService/ImageDelete.ashx",
+                data : {
+                    imageName : fileName
+                },
+                success : function(resp){
+                    console.log(resp);
+                    debugger;
+                    $target;
+                    $target.siblings(".input-file-pre").eq(0).attr("src", "");
+                }
+            })
         };
 
         /**
@@ -170,27 +206,33 @@
             _this.$mark.show();
 
             $form.ajaxSubmit({
-                success: function (data) {
+                success: function (resp) {
                     _this._setPreview();
                     _this.$mark.hide();
 
-                    if ( _this.single ){
-                        _this.$inputBox.prepend(_this.$el);
-                    }
+                    if (resp.match(/F,/)){
+                        // 若上传错误， 重置上传控件
+                        _this._reset();
+                        _this.$preview.get(0).src = "";
+                        //_this.$mark.hide();
+                        $form.remove();
+                        alert("上次失败，请重新上传");
+                    } else {
+                        var path;
+                        path = resp;
 
-                    if ( !_this.single && _this.options.createNew) {
-                        // 新建另外一个新的文件控件
-                        _this.createNew();
+                        _this.$el.attr("remotePath", path);
+
+                        if ( _this.single ){
+                            _this.$inputBox.prepend(_this.$el);
+                        }
+
+                        if ( !_this.single && _this.options.createNew) {
+                            // 新建另外一个新的文件控件
+                            _this.createNew();
+                        }
+                        $form.remove();
                     }
-                    $form.remove();
-                },
-                error: function () {
-                    // 若上传错误， 重置上传控件
-                    _this._reset();
-                    _this.$preview.get(0).src = "";
-                    _this.$mark.hide();
-                    $form.remove();
-                    alert("上次失败，请重新上传");
                 }
             })
         };

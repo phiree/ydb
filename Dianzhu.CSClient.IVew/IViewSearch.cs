@@ -12,20 +12,31 @@ namespace Dianzhu.CSClient.IView
     public interface IViewSearch
     {
         DateTime SearchKeywordTime { get; set; }
-        decimal SearchKeywordPriceMin { get; set; }
-        decimal SearchKeywordPriceMax { get; set; }
+        decimal ServiceTargetPriceMin { get; set; }
+        decimal ServiceTargetPriceMax { get; set; }
         string ServiceCustomerName { get; set; }
+        ServiceType ServiceType { get; set; }
+        string ServiceName { get; set; }
         string ServiceCustomerPhone { get; set; }
+        string ServiceTargetAddressStr { get; set; }
         string ServiceTargetAddress { get; set; }
+        string ServiceMemo { get; set; }
         int UnitAmount { get; set; }
+        LocalStorage.TargetAddressObj ServiceTargetAddressObj { get; set; }
 
         void ClearData();
 
         event SearchService Search;
+
+        event SaveUIData SaveUIData;
+
         #region 服务类型相关属性及委托
         IList<ServiceType> ServiceTypeFirst { set; }
         IList<ServiceType> ServiceTypeSecond { set; }
         IList<ServiceType> ServiceTypeThird { set; }
+        ServiceType setServiceTypeFirst { set; }
+        ServiceType setServiceTypeSecond { set; }
+        ServiceType setServiceTypeThird { set; }
         event ServiceTypeFirst_Select ServiceTypeFirst_Select;
         event ServiceTypeSecond_Select ServiceTypeSecond_Select;
         event ServiceTypeThird_Select ServiceTypeThird_Select;
@@ -35,6 +46,7 @@ namespace Dianzhu.CSClient.IView
     public delegate void ServiceTypeFirst_Select(ServiceType type);
     public delegate void ServiceTypeSecond_Select(ServiceType type);
     public delegate void ServiceTypeThird_Select(ServiceType type);
+    public delegate void SaveUIData( string key, object value);
     /// <summary>
     /// 搜索结果
     /// </summary>

@@ -14,7 +14,6 @@ namespace Dianzhu.CSClient.Presenter
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PSearch");
         IViewSearch viewSearch;
         IViewSearchResult viewSearchResult;
-        IViewOrder viewOrder;
         IViewChatList viewChatList;
         IViewIdentityList viewIdentityList;
         IDAL.IDALDZService dalDzService;
@@ -26,6 +25,8 @@ namespace Dianzhu.CSClient.Presenter
         BLLReceptionStatus bllReceptionStatus;
         IList<DZService> SelectedServiceList;
         BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder;
+        LocalStorage.LocalChatManager localChatManager;
+        LocalStorage.LocalUIDataManager localUIDataManager;
         #region 服务类型数据
         Dictionary<ServiceType, IList<ServiceType>> ServiceTypeCach;
         IList<ServiceType> ServiceTypeListTmp;
@@ -36,26 +37,30 @@ namespace Dianzhu.CSClient.Presenter
         #region contructor
  
         public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
-            IView.IViewOrder viewOrder, IViewChatList viewChatList,IViewIdentityList viewIdentityList,
+            IViewChatList viewChatList,IViewIdentityList viewIdentityList,
             IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder,IDAL.IDALReceptionChat dalReceptionChat, IDAL.IDALServiceType dalServiceType,                     
-                    PushService bllPushService, BLLReceptionStatus bllReceptionStatus,BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder)
+                    PushService bllPushService, BLLReceptionStatus bllReceptionStatus,BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder, LocalStorage.LocalChatManager localChatManager, LocalStorage.LocalUIDataManager localUIDataManager)
         {
             this.serialNoBuilder = serialNoBuilder;
             this.viewSearch = viewSearch; ;
             this.viewSearchResult = viewSearchResult;
             this.dalDzService = dalDzService;
-            this.viewOrder = viewOrder;
             this.viewChatList = viewChatList;
             this.bllServiceOrder = bllServiceOrder;
             this.iIM = iIM;
             this.dalReceptionChat = dalReceptionChat;
-            this.dalServiceType = dalServiceType;
-            viewSearch.Search += ViewSearch_Search;
-            this.bllPushService = bllPushService;
- 
+            this.dalServiceType = dalServiceType;            
+            this.bllPushService = bllPushService; 
             this.bllReceptionStatus = bllReceptionStatus;
             this.viewIdentityList = viewIdentityList;
- 
+            this.localChatManager = localChatManager;
+            this.localUIDataManager = localUIDataManager;
+
+            viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
+
+            viewSearch.Search += ViewSearch_Search;
+            viewSearch.SaveUIData += ViewSearch_SaveUIData;
+
             LoadTypes();
  
             this.ServiceTypeFirst = new ServiceType();
@@ -69,6 +74,51 @@ namespace Dianzhu.CSClient.Presenter
             viewSearch.ServiceTypeSecond_Select += ViewSearch_ServiceTypeSecond_Select;
             viewSearch.ServiceTypeThird_Select += ViewSearch_ServiceTypeThird_Select;
            
+        }
+
+        private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
+        {
+            if (IdentityManager.CurrentIdentity != null)
+            {
+                string id = IdentityManager.CurrentIdentity.Id.ToString();
+                localUIDataManager.InitUIData(id);
+                viewSearch.ServiceCustomerName = localUIDataManager.LocalUIDatas[id].Name;
+                viewSearch.SearchKeywordTime = localUIDataManager.LocalUIDatas[id].Date;
+                if (localUIDataManager.LocalUIDatas[id].ServiceType != null)
+                {
+                    if (localUIDataManager.LocalUIDatas[id].ServiceType.DeepLevel == 2)
+                    {
+                        viewSearch.setServiceTypeThird = localUIDataManager.LocalUIDatas[id].ServiceType;
+                        viewSearch.setServiceTypeSecond = localUIDataManager.LocalUIDatas[id].ServiceType.Parent;
+                        viewSearch.setServiceTypeFirst = localUIDataManager.LocalUIDatas[id].ServiceType.Parent.Parent;
+                    }
+                    else if (localUIDataManager.LocalUIDatas[id].ServiceType.DeepLevel == 1)
+                    {
+                        viewSearch.setServiceTypeSecond = localUIDataManager.LocalUIDatas[id].ServiceType;
+                        viewSearch.setServiceTypeFirst = localUIDataManager.LocalUIDatas[id].ServiceType.Parent;
+                    }
+                    else if (localUIDataManager.LocalUIDatas[id].ServiceType.DeepLevel == 0)
+                    {
+                        viewSearch.setServiceTypeFirst = localUIDataManager.LocalUIDatas[id].ServiceType;
+                    }
+                }
+                viewSearch.ServiceName = localUIDataManager.LocalUIDatas[id].ServiceName;
+                viewSearch.ServiceTargetPriceMin = localUIDataManager.LocalUIDatas[id].PriceMin;
+                viewSearch.ServiceTargetPriceMax = localUIDataManager.LocalUIDatas[id].PriceMax;
+                viewSearch.ServiceCustomerPhone = localUIDataManager.LocalUIDatas[id].Phone;
+                viewSearch.UnitAmount = localUIDataManager.LocalUIDatas[id].Amount;
+                viewSearch.ServiceTargetAddress = localUIDataManager.LocalUIDatas[id].Address;
+                viewSearch.ServiceMemo = localUIDataManager.LocalUIDatas[id].Memo;
+                viewSearch.ServiceTargetAddressObj = localUIDataManager.LocalUIDatas[id].TargetAddressObj;
+            }
+        }
+
+        private void ViewSearch_SaveUIData(string key, object value)
+        {
+            if (IdentityManager.CurrentIdentity != null)
+            {
+                localUIDataManager.Save(IdentityManager.CurrentIdentity.Id.ToString(), key, value);
+            }
         }
 
         private void ViewSearchResult_FilterByBusinessName(string businessName)
@@ -116,6 +166,7 @@ namespace Dianzhu.CSClient.Presenter
         private void ViewSearch_ServiceTypeThird_Select(ServiceType type)
         {
             ServiceTypeThird = type;
+            localUIDataManager.Save(IdentityManager.CurrentIdentity.Id.ToString(), "ServiceType", type);
         }
 
         private void ViewSearch_ServiceTypeSecond_Select(ServiceType type)
@@ -151,7 +202,10 @@ namespace Dianzhu.CSClient.Presenter
                             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
                         }
-
+                        if (IdentityManager.CurrentIdentity != null)
+                        {
+                            localUIDataManager.Save(IdentityManager.CurrentIdentity.Id.ToString(), "ServiceType", type);
+                        }                        
                     }
                         viewSearch.ServiceTypeThird = ServiceTypeCach[type];
 
@@ -263,7 +317,7 @@ namespace Dianzhu.CSClient.Presenter
             log.Debug("推送的订单：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //助理工具显示发送的消息
-            viewChatList.AddOneChat(chat);
+            viewChatList.AddOneChat(chat,string.Empty);
 
             //生成新的草稿单并发送给客户端
             string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
@@ -295,6 +349,9 @@ namespace Dianzhu.CSClient.Presenter
             //viewSearch.ClearData();
             //发送订单通知.
 
+            //存储消息到内存中
+            localChatManager.Add(chat.To.Id.ToString(), chat);
+
             return chat;
             iIM.SendMessage(chat);
             //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
@@ -309,7 +366,7 @@ namespace Dianzhu.CSClient.Presenter
                 return;
             }
             IdentityManager.CurrentIdentity.AddDetailFromIntelService(selectedService, viewSearch.UnitAmount,string.Empty,string.Empty, "实施服务的地点", DateTime.Now);
-            viewOrder.Order = IdentityManager.CurrentIdentity;
+            //viewOrder.Order = IdentityManager.CurrentIdentity;
             bllServiceOrder.Update(IdentityManager.CurrentIdentity);
 
             
@@ -320,14 +377,14 @@ namespace Dianzhu.CSClient.Presenter
         {
             //Action a = () =>
             //{
-                int total;
+            int total;
 
-                IList<DZService> services = dalDzService.SearchService(name, minPrice, maxPrice, servieTypeId, targetTime,double.Parse(lng),double.Parse(lat), 0, 999, out total);
-                foreach (DZService service in services)
-                {
-                    
-                }
-                viewSearchResult.SearchedService = services;
+            IList<DZService> services = dalDzService.SearchService(name, minPrice, maxPrice, servieTypeId, targetTime, double.Parse(lng), double.Parse(lat), 0, 999, out total);
+            //foreach (DZService service in services)
+            //{
+
+            //}
+            viewSearchResult.SearchedService = services;
             SelectedServiceList = services;
 
             //NHibernateUnitOfWork.With.Transaction(a);

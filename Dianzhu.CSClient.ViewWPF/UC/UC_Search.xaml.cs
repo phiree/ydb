@@ -16,6 +16,7 @@ using Dianzhu.CSClient.IView;
 using System.ComponentModel;
 using System.Threading;
 using Newtonsoft.Json;
+using Dianzhu.Model;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -34,16 +35,110 @@ namespace Dianzhu.CSClient.ViewWPF
         public string ServiceCustomerName
         {
             get { return tbxKeywordPeople.Text.Trim(); }
-            set { tbxKeywordPeople.Text = value; }
+            set
+            {
+                Action lamda = () =>
+                {
+                    tbxKeywordPeople.Text = value;
+                };
+                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+                else { lamda(); }
+            }
+        }
+
+        Model.ServiceType selectedType = null;
+        public Model.ServiceType ServiceType
+        {
+            get
+            {
+                selectedType = (Model.ServiceType)(
+                                    cbxSearchTypeT.SelectedItem == null || cbxSearchTypeT.IsVisible == false ?
+                                    (cbxSearchTypeS.SelectedItem == null || cbxSearchTypeS.IsVisible == false ?
+                                    (cbxSearchTypeF.SelectedItem == null || cbxSearchTypeF.IsVisible == false ? null
+                                    : cbxSearchTypeF.SelectedItem)
+                                    : cbxSearchTypeS.SelectedItem)
+                                    : cbxSearchTypeT.SelectedItem
+                                 );
+                return selectedType;
+            }
+            set
+            {
+                selectedType = value;
+            }
+        }
+
+        public string ServiceName
+        {
+            get { return tbxKeywordServiceName.Text.Trim(); }
+            set
+            {
+                Action lamda = () =>
+                {
+                    tbxKeywordServiceName.Text = value;
+                };
+                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+                else { lamda(); }
+            }
         }
 
         public string ServiceCustomerPhone
         {
             get { return tbxKeywordPhone.Text.Trim(); }
-            set { tbxKeywordPhone.Text = value; }
+            set
+            {
+                Action lamda = () =>
+                {
+                    tbxKeywordPhone.Text = value;
+                };
+                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+                else { lamda(); }
+            }
         }
 
-        TargetAddressObj serviceTargetAddressObj;        
+        LocalStorage.TargetAddressObj serviceTargetAddressObj;
+        /// <summary>
+        /// 通过地址的json数据转换成的对象
+        /// </summary>
+        public LocalStorage.TargetAddressObj ServiceTargetAddressObj
+        {
+            get { return serviceTargetAddressObj; }
+            set
+            {
+                serviceTargetAddressObj = value;
+            }
+        }
+
+        string serviceTargetAddress;
+        /// <summary>
+        /// 地址的josn数据
+        /// </summary>
+        public string ServiceTargetAddressStr
+        {
+            get
+            {
+                return serviceTargetAddress;
+            }
+            set
+            {
+                serviceTargetAddressObj = JsonConvert.DeserializeObject<LocalStorage.TargetAddressObj>(value);
+
+                serviceTargetAddress = serviceTargetAddressObj.address.province
+                                        + serviceTargetAddressObj.address.city
+                                        + serviceTargetAddressObj.address.district
+                                        + serviceTargetAddressObj.address.street
+                                        + serviceTargetAddressObj.address.streetNumber;
+
+                if (SaveUIData != null)
+                {
+                    SaveUIData("TargetAddressObj", ServiceTargetAddressObj);
+                }
+
+                ServiceTargetAddress = serviceTargetAddress;
+            }
+        }
+        /// <summary>
+        /// 服务地址
+        /// </summary>
         public string ServiceTargetAddress
         {
             get
@@ -52,13 +147,12 @@ namespace Dianzhu.CSClient.ViewWPF
             }
             set
             {
-                serviceTargetAddressObj = JsonConvert.DeserializeObject<TargetAddressObj>(value);
-
-                tbxKeywordAddress.Text = serviceTargetAddressObj.address.province
-                                        + serviceTargetAddressObj.address.city
-                                        + serviceTargetAddressObj.address.district
-                                        + serviceTargetAddressObj.address.street
-                                        + serviceTargetAddressObj.address.streetNumber;
+                Action lamda = () =>
+                {
+                    tbxKeywordAddress.Text = value;
+                };
+                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+                else { lamda(); }
             }
         }
 
@@ -70,7 +164,15 @@ namespace Dianzhu.CSClient.ViewWPF
                 int.TryParse(tbxUnitAmount.Text, out amount);
                 return amount;
             }
-            set { tbxUnitAmount.Text = value.ToString(); }
+            set
+            {
+                Action lamda = () =>
+                {
+                    tbxUnitAmount.Text = value.ToString();
+                };
+                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+                else { lamda(); }
+            }
         }
 
         public DateTime SearchKeywordTime
@@ -82,10 +184,18 @@ namespace Dianzhu.CSClient.ViewWPF
                 
                 return searchKeywordTime;
             }
-            set { tbxKeywordTime.Text = value.ToString(); }
+            set
+            {
+                Action lamda = () =>
+                {
+                    tbxKeywordTime.Text = value.ToString();
+                };
+                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+                else { lamda(); }
+            }
         }
         
-        public decimal SearchKeywordPriceMin
+        public decimal ServiceTargetPriceMin
         {
             get
             {
@@ -94,10 +204,18 @@ namespace Dianzhu.CSClient.ViewWPF
 
                 return searchKeywordPriceMin;
             }
-            set { tbxKeywordPriceMin.Text = value.ToString(); }
+            set
+            {
+                Action lamda = () =>
+                {
+                    tbxKeywordPriceMin.Text = value.ToString();
+                };
+                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+                else { lamda(); }
+            }
         }
         
-        public decimal SearchKeywordPriceMax
+        public decimal ServiceTargetPriceMax
         {
             get
             {
@@ -106,54 +224,145 @@ namespace Dianzhu.CSClient.ViewWPF
 
                 return searchKeywordPriceMax;
             }
-            set { tbxKeywordPriceMax.Text = value.ToString(); }
+            set
+            {
+                Action lamda = () =>
+                {
+                    tbxKeywordPriceMax.Text = value.ToString();
+                };
+                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+                else { lamda(); }
+            }
         }
 
+        public string ServiceMemo
+        {
+            get
+            {
+                return tbxKeywordMemo.Text.Trim();
+            }
+            set
+            {
+                Action lamda = () =>
+                {
+                    tbxKeywordMemo.Text = value.ToString();
+                };
+                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+                else { lamda(); }
+            }
+        }
+        /// <summary>
+        /// 绑定一级下拉框的值
+        /// </summary>
         public IList<Model.ServiceType> ServiceTypeFirst
         {
             set
             {
-                if (value.Count > 0)
+                Action lamda = () =>
                 {
-                    cbxSearchTypeF.ItemsSource = value;
-                    cbxSearchTypeF.SelectedItem = value[0];
-                }
+                    if (value.Count > 0)
+                    {
+                        cbxSearchTypeF.ItemsSource = value;
+                        cbxSearchTypeF.SelectedItem = value[0];
+                    }
+                };
+                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+                else { lamda(); }
             }
         }
-
+        /// <summary>
+        /// 绑定二级下拉框的值
+        /// </summary>
         public IList<Model.ServiceType> ServiceTypeSecond
         {
             set
             {
-                if (value.Count > 0)
+                Action lamda = () =>
                 {
-                    cbxSearchTypeS.ItemsSource = value;
-                    cbxSearchTypeS.DisplayMemberPath = "Name";
-                    cbxSearchTypeS.SelectedItem = value[0];
-                    cbxSearchTypeS.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    cbxSearchTypeS.Visibility = Visibility.Hidden;
-                }
+                    if (value.Count > 0)
+                    {
+                        cbxSearchTypeS.ItemsSource = value;
+                        cbxSearchTypeS.DisplayMemberPath = "Name";
+                        cbxSearchTypeS.SelectedItem = value[0];
+                        cbxSearchTypeS.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        cbxSearchTypeS.Visibility = Visibility.Hidden;
+                    }
+                };
+                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+                else { lamda(); }                
             }
         }
-
+        /// <summary>
+        /// 绑定三级下拉框的值
+        /// </summary>
         public IList<Model.ServiceType> ServiceTypeThird
         {
             set
             {
-                if (value.Count > 0)
+                Action lamda = () =>
                 {
-                    cbxSearchTypeT.ItemsSource = value;
-                    cbxSearchTypeT.DisplayMemberPath = "Name";
-                    cbxSearchTypeT.SelectedItem = value[0];
-                    cbxSearchTypeT.Visibility = Visibility.Visible;
-                }
-                else
+                    if (value.Count > 0)
+                    {
+                        cbxSearchTypeT.ItemsSource = value;
+                        cbxSearchTypeT.DisplayMemberPath = "Name";
+                        cbxSearchTypeT.SelectedItem = value[0];
+                        cbxSearchTypeT.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        cbxSearchTypeT.Visibility = Visibility.Hidden;
+                    }
+                };
+                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+                else { lamda(); }               
+            }
+        }
+        /// <summary>
+        /// 设置一级下拉框的值
+        /// </summary>
+        public ServiceType setServiceTypeFirst
+        {
+            set
+            {
+                Action lamda = () =>
                 {
-                    cbxSearchTypeT.Visibility = Visibility.Hidden;
-                }
+                    cbxSearchTypeF.SelectedItem = value;
+                };
+                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+                else { lamda(); }
+            }
+        }
+        /// <summary>
+        /// 设置二级下拉框的值
+        /// </summary>
+        public ServiceType setServiceTypeSecond
+        {
+            set
+            {
+                Action lamda = () =>
+                {
+                    cbxSearchTypeS.SelectedItem = value;
+                };
+                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+                else { lamda(); }                
+            }
+        }
+        /// <summary>
+        /// 设置三级下拉框的值
+        /// </summary>
+        public ServiceType setServiceTypeThird
+        {
+            set
+            {
+                Action lamda = () =>
+                {
+                    cbxSearchTypeT.SelectedItem = value;
+                };
+                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+                else { lamda(); }                
             }
         }
 
@@ -161,6 +370,7 @@ namespace Dianzhu.CSClient.ViewWPF
         public event ServiceTypeFirst_Select ServiceTypeFirst_Select;
         public event ServiceTypeSecond_Select ServiceTypeSecond_Select;
         public event ServiceTypeThird_Select ServiceTypeThird_Select;
+        public event SaveUIData SaveUIData;
 
         /// <summary>
         /// 清空数据
@@ -169,8 +379,8 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             ServiceCustomerName = string.Empty;
             SearchKeywordTime = DateTime.Now;
-            SearchKeywordPriceMin = 0;
-            SearchKeywordPriceMax = 0;
+            ServiceTargetPriceMin = 0;
+            ServiceTargetPriceMax = 0;
             ServiceCustomerPhone = string.Empty;
             ServiceTargetAddress = string.Empty;
             UnitAmount = 1;
@@ -186,6 +396,10 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 MessageBox.Show("预约时间不得小于当前时间!");
             }
+            else if (ServiceType == null)
+            {
+                MessageBox.Show("请选择服务类型");
+            }
             else
             {
                 BackgroundWorker worker = new BackgroundWorker();
@@ -196,8 +410,7 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            Model.ServiceType selectedType = null;
+        {            
             DateTime targetTime=DateTime.Now;
             decimal minPrice=0, maxPrice=0;
             string serviceName = string.Empty;
@@ -207,19 +420,10 @@ namespace Dianzhu.CSClient.ViewWPF
                 this.btnSearch.IsEnabled = false;
                 //this.viewSearchResult.LoadingText = "正在搜索服务,请稍后";
 
-                selectedType = (Model.ServiceType)(
-                                    cbxSearchTypeT.SelectedItem == null||cbxSearchTypeT.IsVisible==false ? 
-                                    (cbxSearchTypeS.SelectedItem == null || cbxSearchTypeS.IsVisible == false ? 
-                                    (cbxSearchTypeF.SelectedItem==null|| cbxSearchTypeF.IsVisible == false ? null
-                                    :cbxSearchTypeF.SelectedItem) 
-                                    : cbxSearchTypeS.SelectedItem) 
-                                    : cbxSearchTypeT.SelectedItem
-                                 );
-
                 targetTime = SearchKeywordTime;
-                minPrice = SearchKeywordPriceMin;
-                maxPrice = SearchKeywordPriceMax;
-                serviceName = tbxKeywordServiceName.Text.Trim();
+                minPrice = ServiceTargetPriceMin;
+                maxPrice = ServiceTargetPriceMax;
+                serviceName = ServiceName;
             }));
             
 
@@ -268,7 +472,7 @@ namespace Dianzhu.CSClient.ViewWPF
             if (ServiceTypeThird_Select != null)
             {
                 ServiceTypeThird_Select((Model.ServiceType)cbxSearchTypeT.SelectedItem);
-            }            
+            }
         }
 
         private void tbxKeywordPriceMin_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -301,26 +505,79 @@ namespace Dianzhu.CSClient.ViewWPF
                 }
             }
         }
-    }
 
-    public class TargetAddressObj
-    {
-        public TargetAddressObjPoint point { get; set; }
-        public TargetAddressObjAddress address { get; set; }
-    }
+        #region 文本框改变时，写入缓存中
+        private void tbxKeywordPeople_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (SaveUIData != null)
+            {
+                SaveUIData("Name", ServiceCustomerName);
+            }
+        }
 
-    public class TargetAddressObjPoint
-    {
-        public string lng { get; set; }
-        public string lat { get; set; }
-    }
+        private void tbxKeywordTime_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (SaveUIData != null)
+            {
+                SaveUIData("Date", SearchKeywordTime);
+            }
+        }
 
-    public class TargetAddressObjAddress
-    {
-        public string streetNumber { get; set; }
-        public string street { get; set; }
-        public string district { get; set; }
-        public string city { get; set; }
-        public string province { get; set; }
+        private void tbxKeywordServiceName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (SaveUIData != null)
+            {
+                SaveUIData("ServiceName", ServiceName);
+            }
+        }
+
+        private void tbxKeywordPriceMin_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            if (SaveUIData != null)
+            {
+                SaveUIData("PriceMin", ServiceTargetPriceMin);
+            }
+        }
+
+        private void tbxKeywordPriceMax_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (SaveUIData != null)
+            {
+                SaveUIData("PriceMax", ServiceTargetPriceMax);
+            }
+        }
+
+        private void tbxKeywordPhone_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (SaveUIData != null)
+            {
+                SaveUIData("Phone", ServiceCustomerPhone);
+            }
+        }
+
+        private void tbxUnitAmount_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (SaveUIData != null)
+            {
+                SaveUIData("Amount", UnitAmount);
+            }
+        }
+
+        private void tbxKeywordAddress_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (SaveUIData != null)
+            {
+                SaveUIData("Address", ServiceTargetAddress);
+            }
+        }
+
+        private void tbxKeywordMemo_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (SaveUIData != null)
+            {
+                SaveUIData("Memo", ServiceMemo);
+            }
+        }
+        #endregion
     }
 }

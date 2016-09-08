@@ -28,7 +28,6 @@ namespace Dianzhu.CSClient.Presenter
         IViewIdentityList iView;
         IViewChatList iViewChatList;
         IDAL.IDALReceptionChat dalReceptionChat;
-        IViewOrder iViewOrder;
         InstantMessage iIM;
         IViewChatSend iViewChatSend;
         IBLLServiceOrder bllServiceOrder;
@@ -38,20 +37,24 @@ namespace Dianzhu.CSClient.Presenter
         IViewSearchResult viewSearchResult;
         IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve;
         LocalStorage.LocalChatManager localChatManager;
+        LocalStorage.LocalHistoryOrderManager localHistoryOrderManager;
+        LocalStorage.LocalUIDataManager localUIDataManager;
 
         public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,
-            IViewOrder iViewOrder, InstantMessage iIM, 
-            IDAL.IDALReceptionChat dalReceptionChat,IViewChatSend iViewChatSend,
-            IBLLServiceOrder bllServiceOrder,IViewOrderHistory iViewOrderHistory,
-            IDAL.IDALReceptionStatus dalReceptionStatus,IViewSearchResult viewSearchResult, 
+            InstantMessage iIM,
+            IDAL.IDALReceptionChat dalReceptionChat, IViewChatSend iViewChatSend,
+            IBLLServiceOrder bllServiceOrder, IViewOrderHistory iViewOrderHistory,
+            IDAL.IDALReceptionStatus dalReceptionStatus, IViewSearchResult viewSearchResult,
             IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve,
-             LocalStorage.LocalChatManager localChatManager
-            
+            LocalStorage.LocalChatManager localChatManager,
+            LocalStorage.LocalHistoryOrderManager localHistoryOrderManager,
+            LocalStorage.LocalUIDataManager localUIDataManager
             )
         {
             this.localChatManager = localChatManager;
+            this.localHistoryOrderManager = localHistoryOrderManager;
+            this.localUIDataManager = localUIDataManager;
             this.iView = iView;
-            this.iViewOrder = iViewOrder;
             this.iIM = iIM;
             this.iViewChatList = iViewChatList;
             this.dalReceptionChat = dalReceptionChat;
@@ -115,7 +118,16 @@ namespace Dianzhu.CSClient.Presenter
                     //view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
                     if (rs.Order != null)
                     {
-                        iView.AddIdentity(rs.Order);
+                        if (!localChatManager.LocalCustomerAvatarUrls.ContainsKey(rs.Order.Customer.Id.ToString()))
+                        {
+                            string avatar = string.Empty;
+                            if (rs.Customer.AvatarUrl != null)
+                            {
+                                avatar = rs.Customer.AvatarUrl;
+                            }
+                            localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()] = avatar;
+                        }
+                        iView.AddIdentity(rs.Order, localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()]);
                     }
                 }
             }
@@ -193,6 +205,9 @@ namespace Dianzhu.CSClient.Presenter
             //删除当前订单临时变量
             if (IdentityManager.DeleteIdentity(order))
             {
+                localChatManager.Remove(order.Customer.Id.ToString());
+                localHistoryOrderManager.Remove(order.Customer.Id.ToString());
+                localUIDataManager.Remove(order.Customer.Id.ToString());
                 iView.IdentityOrderTemp = null;
                 RemoveIdentity(order);
             }
@@ -363,16 +378,16 @@ namespace Dianzhu.CSClient.Presenter
             {
                 case IdentityTypeOfOrder.CurrentCustomer:
                     //提示 用户的订单已经变更
-                    iViewChatList.AddOneChat(chat);
+                    iViewChatList.AddOneChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.From.Id.ToString()]);
                     break;
                 case IdentityTypeOfOrder.CurrentIdentity:
-                    iViewChatList.AddOneChat(chat);
+                    iViewChatList.AddOneChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.From.Id.ToString()]);
                     break;
                 case IdentityTypeOfOrder.InList:
                     iView.SetIdentityUnread(chat.ServiceOrder, 1);
                     break;
                 case IdentityTypeOfOrder.NewIdentity:
-                    AddIdentity(chat.ServiceOrder);
+                    AddIdentity(chat.ServiceOrder,localChatManager.LocalCustomerAvatarUrls[chat.From.Id.ToString()]);
                     iView.SetIdentityUnread(chat.ServiceOrder, 1);
                     break;
                 default:
@@ -381,9 +396,9 @@ namespace Dianzhu.CSClient.Presenter
             }
         }
 
-        public void AddIdentity(ServiceOrder order)
+        public void AddIdentity(ServiceOrder order,string customerAvatarUrl)
         {
-            iView.AddIdentity(order);
+            iView.AddIdentity(order, customerAvatarUrl);
         }
 
         public void RemoveIdentity(ServiceOrder order)

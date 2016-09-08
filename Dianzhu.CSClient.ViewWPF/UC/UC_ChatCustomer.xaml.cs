@@ -131,25 +131,6 @@ namespace Dianzhu.CSClient.ViewWPF
                     wpnlChat.HorizontalAlignment = HorizontalAlignment.Left;
                     tbNameCustomer.Text = chat.From.DisplayName;
                     tbTimeCustomer.Text = chat.SavedTime.ToString();
-
-                    BitmapImage image;
-                    try
-                    {
-                        if (!string.IsNullOrEmpty(chat.From.AvatarUrl))
-                        {
-                            image = new BitmapImage(new Uri(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + chat.From.AvatarUrl + "_32X32"));
-                        }
-                        else
-                        {
-                            image = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCustomer.png"));
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        log.Error(e.Message);
-                        image = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCustomer.png"));
-                    }
-                    imgAvatarCustomer.Source = image;
                 }
                 else
                 {
@@ -164,6 +145,34 @@ namespace Dianzhu.CSClient.ViewWPF
                 }
 
                 InitData(chat);
+            }
+        }
+
+        public string CustomerAvatar
+        {
+            set
+            {
+                if(chat.From.UserType== Model.Enums.enum_UserType.customer)
+                {
+                    BitmapImage image;
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            image = new BitmapImage(new Uri(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + value + "_32X32"));
+                        }
+                        else
+                        {
+                            image = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCustomer.png"));
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        log.Error(e.Message);
+                        image = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCustomer.png"));
+                    }
+                    imgAvatarCustomer.Source = image;
+                }
             }
         }
 

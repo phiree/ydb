@@ -26,7 +26,7 @@ namespace Dianzhu.CSClient.ViewWPF
         Window main;
 
         public FormMain(IViewIdentityList viewIdentityList, IView.IViewChatList viewChatList, IViewChatSend viewChatSend,
-            IViewOrder viewOrder, IViewSearch viewSearch, IViewSearchResult viewSearchResult, IViewOrderHistory viewOrderHistory,
+            IViewSearch viewSearch, IViewSearchResult viewSearchResult, IViewOrderHistory viewOrderHistory,
             IViewNotice viewNotice,IViewTabControl viewTabControl)
         {
             InitializeComponent();
@@ -35,7 +35,6 @@ namespace Dianzhu.CSClient.ViewWPF
             pnlSearch.Children.Add((UC_Search) viewSearch);
             pnlChatList.Children.Add((UC_ChatList)viewChatList);
             pnlSearchResult.Children.Add((UC_SearchResult)viewSearchResult);
-            //pnlOrder.Children.Add((UC_Order)viewOrder);
             pnlChatSend.Children.Add((UC_ChatSend)viewChatSend);
             pnlOrderHistory.Children.Add( (UC_OrderHistory)viewOrderHistory);
             pnlTools.Children.Add((UC_TabControlTools)viewTabControl);
