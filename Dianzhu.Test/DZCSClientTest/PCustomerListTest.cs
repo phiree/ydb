@@ -28,6 +28,7 @@ namespace Dianzhu.Test.DZCSClientTest
         BLL.IBLLServiceOrder bllServiceOrder;
         Dianzhu.CSClient.LocalStorage.LocalChatManager lcm;
         Dianzhu.CSClient.LocalStorage.LocalHistoryOrderManager lhom;
+        Dianzhu.CSClient.LocalStorage.LocalUIDataManager luidm;
         [SetUp]
         public void setup()
         {
@@ -43,6 +44,7 @@ namespace Dianzhu.Test.DZCSClientTest
              bllServiceOrder = MockRepository.GenerateStub<BLL.IBLLServiceOrder>();
             lcm = MockRepository.GenerateStub<Dianzhu.CSClient.LocalStorage.LocalChatManager>();
             lhom = MockRepository.GenerateStub<Dianzhu.CSClient.LocalStorage.LocalHistoryOrderManager>();
+            luidm = MockRepository.GenerateStub<Dianzhu.CSClient.LocalStorage.LocalUIDataManager>();
         }
         [Test]
         public void ReceiveMessageTest()
@@ -82,7 +84,7 @@ namespace Dianzhu.Test.DZCSClientTest
                 .TheNext(1).With(x => x.From = order11.Customer).And(x => x.ServiceOrder = order11)//一号用户的已有订单
                 .TheNext(1).With(x => x.From = order31.Customer).And(x => x.ServiceOrder = order31)//三号用户的新订单
                 .Build();
-            PIdentityList pCustomerList = new PIdentityList(viewCustomerList, viewChatList,iIM, dalReceptionChat, viewChatSend, bllServiceOrder, viewOrderHistory, dalReceptionStaus, viewSearchResult, dalReceptionStatusArchieve,lcm,lhom);
+            PIdentityList pCustomerList = new PIdentityList(viewCustomerList, viewChatList,iIM, dalReceptionChat, viewChatSend, bllServiceOrder, viewOrderHistory, dalReceptionStaus, viewSearchResult, dalReceptionStatusArchieve,lcm,lhom,luidm);
             IdentityTypeOfOrder identityTypeOfOrder;
 
 
