@@ -86,6 +86,9 @@ namespace Dianzhu.BLL
                 else
                 {
                     bllServiceOrder.OrderFlow_ConfirmDeposit(order);
+
+                    payment.Status = enum_PaymentStatus.Trade_Success;
+                    bllPayment.Update(payment);
                     NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 }
             }

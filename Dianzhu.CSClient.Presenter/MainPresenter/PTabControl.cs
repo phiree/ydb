@@ -25,7 +25,7 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewTabControl_SetSearchAddress(string address)
         {
-            viewSearch.ServiceTargetAddress = address;
+            viewSearch.ServiceTargetAddressStr = address;
         }
     }
 }

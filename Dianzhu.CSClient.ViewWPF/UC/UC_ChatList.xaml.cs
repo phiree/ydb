@@ -228,7 +228,7 @@ namespace Dianzhu.CSClient.ViewWPF
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
-        public void AddOneChat(ReceptionChat chat)
+        public void AddOneChat(ReceptionChat chat,string customerAvatar)
         {
             log.Debug("chat begin, body:" + chat.MessageBody);
             Action lamda = () =>
@@ -237,6 +237,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 {
                     CurrentCS = currentCustomerService,
                     Chat = chat,
+                    CustomerAvatar = customerAvatar
                 };
 
                 string chatId = PHSuit.StringHelper.SafeNameForWpfControl(chat.Id.ToString(), PRECHATCUSTOMER);
@@ -258,14 +259,15 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        public void InsertOneChat(ReceptionChat chat)
+        public void InsertOneChat(ReceptionChat chat,string customerAvatar)
         {
             Action lamda = () =>
             {
                 IViewChatCustomer chatCustomer = new UC_ChatCustomer()
                 {
                     CurrentCS = currentCustomerService,
-                    Chat = chat
+                    Chat = chat,
+                    CustomerAvatar= customerAvatar
                 };
 
                 stackPanel.Children.Insert(1,(UC_ChatCustomer)chatCustomer);

@@ -55,7 +55,7 @@
         this.model = options.model || StaffModel;
         this.url = options.url ;
         this.reqObj = {
-            storeID : options.storeID ? options.storeID : Adapter.getParameterByName("businessId"),
+            storeID : options.storeID ? options.storeID : YDBan.url.getUrlParam("businessId"),
             merchantID : options.merchantID || merchantID
         };
         this.reqData = Adapter.reqPackage("ASN001006", this.reqObj);
@@ -417,7 +417,7 @@
     });
 
     $(document).on('click.appoint', '[data-role="appointToggle"]', function (e) {
-        var storeID = Adapter.getParameterByName("businessId");
+        var storeID = YDBan.url.getUrlParam("businessId");
         var orderID = $(this).attr("data-appointTargetId");
         var appModel = new AppModel({
             url : globalApiUrl,

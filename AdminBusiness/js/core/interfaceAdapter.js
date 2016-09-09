@@ -13,66 +13,8 @@
 
 
 (function(){
-    /**
-     *
-     * @description custom tool to achieve extend feature.
-     */
-    var tools = function(){
-        var tools = {};
-        tools.extend = function(){
-            var options, src, name, copy, clone, copyIsArray,
-                target = arguments[0] || {},
-                i = 1,
-                length = arguments.length;
+    var tools = YDBan.tools;
 
-            if ( typeof target !== "object" ) {
-                target = {};
-            }
-
-            if ( length === 1 ){
-                target = this;
-                i--;
-            }
-
-            for( ; i < length; i++){
-                if ( (options = arguments[i]) !== null ){
-                    for ( name in options ) {
-                        src = target[ name ];
-                        copy = options[ name ];
-
-                        if ( target === copy ){
-                            continue;
-                        }
-                        //TODO : may not worked in IE
-                        if ( copy && ( (copyIsArray = tools.isArray(copy) ) || tools.isObject(copy)  ) ) {
-                            if ( copyIsArray ){
-                                copyIsArray = false;
-                                clone = src && tools.isArray(src) ? src : [];
-                            } else {
-                                clone = src && tools.isObject(src) ? src : {};
-                            }
-
-                            target[ name ] = tools.extend(clone, copy);
-                        } else if ( typeof copy !== "undefined" ){
-                            target[ name ] = copy;
-                        }
-
-
-                    }
-                }
-            }
-
-            return target;
-        };
-        tools.isArray = Array.isArray || function(obj){
-            return Object.prototype.toString.call(obj) === '[object Array]';
-        };
-        tools.isObject = function(obj){
-            var type = typeof  obj;
-            return type === 'function' || type === 'object' && !!obj;
-        };
-        return tools;
-    }();
     var Adapter = {};
     /**
      *
@@ -179,22 +121,6 @@
         respObj.stateCode = rawData.state_CODE;
 
         return respObj;
-    };
-
-    /**
-     * tool to get parameter by name form url
-     * @param name parameter name
-     * @param url url location
-     * @returns {*}
-     */
-    Adapter.getParameterByName = function(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
     };
 
     /**

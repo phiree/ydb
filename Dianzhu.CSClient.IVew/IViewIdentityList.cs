@@ -13,7 +13,7 @@ namespace Dianzhu.CSClient.IView
     {
         event IdentityClick IdentityClick;
         //增加一个标志
-        void AddIdentity(ServiceOrder  serviceOrder);
+        void AddIdentity(ServiceOrder  serviceOrder,string customerAvatarUrl);
         //删除一个用户
         void RemoveIdentity(ServiceOrder serviceOrder);
         void UpdateIdentityBtnName(Guid oldOrderId, ServiceOrder newOrder);

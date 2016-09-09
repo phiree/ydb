@@ -161,8 +161,8 @@
             var arrayData = [];
 
             // TODO： 脱离不稳定的businessId获取到option内
-            if ( !!Adapter.getParameterByName("businessId") ){
-                //appointJSON.storeID = Adapter.getParameterByName("businessId");
+            if ( !!YDBan.url.getUrlParam("businessId") ){
+                //appointJSON.storeID = YDBan.url.getUrlParam("businessId");
                 appointJSON.storeID = "e2f4fb71-04fc-43d7-a255-a5af00ae5705";
             }
 

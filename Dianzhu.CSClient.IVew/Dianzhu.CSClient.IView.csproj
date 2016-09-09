@@ -58,13 +58,16 @@
     <Compile Include="IViewOrderHistory.cs" />
     <Compile Include="IViewShelfService.cs" />
     <Compile Include="IViewSearch.cs" />
-    <Compile Include="IViewOrder.cs" />
     <Compile Include="IViewChatList.cs" />
     <Compile Include="IViewIdentityList.cs" />
     <Compile Include="ILoginForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.CSClient.LocalStorage\Dianzhu.CSClient.LocalStorage.csproj">
+      <Project>{6F064359-8BBD-4BDA-9532-D93505472582}</Project>
+      <Name>Dianzhu.CSClient.LocalStorage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>

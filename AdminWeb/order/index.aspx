@@ -79,6 +79,7 @@ function delInfo()
        <option value="index.aspx?status=Finished">已完成</option>
        <option value="index.aspx?status=Appraised">已评论</option>
        <option value="index.aspx?status=EndCancel">已取消</option>
+         <option value="index.aspx?status=Shared">已分账</option>
     </select>
 </div>
  <asp:Repeater ID="Repeater1" runat="server" OnItemDataBound="data_ItemDataBound">
