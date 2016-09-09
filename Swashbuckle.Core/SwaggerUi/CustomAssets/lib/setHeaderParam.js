@@ -4,10 +4,10 @@
     var objOperation = $('#'+ojb.parentId + '_' + ojb.nickname); //$(elementHead);
     var objHead = objOperation.find('.heading');
     var strPath = objHead.find('.path').find('a').html();
-    var strToken="";
+    var strToken = "";
+    var objAuthorization = $('#resource__Authorization');
     if (strPath != "/api/v1/authorization" && strPath != "/api/v1/customers" && strPath != "/api/v1/merchants" && strPath != "/api/v1/customer3rds")
     {
-        var objAuthorization = $('#resource__Authorization');
         var objResponseBody = objAuthorization.find('.response_body');
         if (objResponseBody.html() != "")
         {
@@ -18,15 +18,23 @@
             }
         }
     }
-    var arrTrParam = objOperation.find('.operation-params').find('tr');
+    var inputAppName;
+    var arrTrParam = objAuthorization.find('.operation-params').find('tr');
+    var arrTdParam;
+    for (var i = 0; i < arrTrParam.length; i++) {
+        arrTdParam = $(arrTrParam[i]).find('td');
+        if ($(arrTdParam[3]).html() == "header" && $(arrTdParam[0]).text() == "appName") {
+            inputAppName = $($(arrTdParam[1]).find('input')[0]);
+            }
+        }
+    arrTrParam = objOperation.find('.operation-params').find('tr');
     var queryParam = "";
     var contentParam = "";
     var inputTime;
     var inputSign;
     var inputToken;
-    var inputAppName;
     for (var i = 0; i < arrTrParam.length; i++) {
-        var arrTdParam = $(arrTrParam[i]).find('td');
+        arrTdParam = $(arrTrParam[i]).find('td');
         var paramType = $(arrTdParam[3]).html();
         var paramControl = $(arrTdParam[1]).find('input');
         var inputValue = $(paramControl[0]).val();
@@ -60,7 +68,8 @@
             inputToken = $(paramControl[0]);
         }
         if (paramType == "header" && $(arrTdParam[0]).text() == "appName") {
-            inputAppName = $(paramControl[0]);
+            //inputAppName = $(paramControl[0]);
+            $(paramControl[0]).val(inputAppName.val());
         }
     }
     inputToken.val(strToken.substring(1,strToken.length-1));
