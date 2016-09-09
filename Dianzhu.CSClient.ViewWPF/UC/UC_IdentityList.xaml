@@ -13,8 +13,8 @@
                 <GradientStop Color="#FFd5dade" Offset="1"></GradientStop>
             </LinearGradientBrush>
         </Grid.Background>
-        <ScrollViewer x:Name="ScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Grid.Row="1">
-            <WrapPanel Margin="10,10,0,0">
+        <ScrollViewer x:Name="ScrollViewer" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" Grid.Row="1">
+            <WrapPanel Margin="10,0,0,0">
                 <WrapPanel x:Name="wpTopIdentityList" VerticalAlignment="Center">
 
                 </WrapPanel>

@@ -159,7 +159,58 @@ namespace Dianzhu.CSClient.ViewWPF
                     {
                         if (!string.IsNullOrEmpty(value))
                         {
-                            image = new BitmapImage(new Uri(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + value + "_32X32"));
+                            //image = new BitmapImage(new Uri(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + value + "_32X32"));
+
+                            string imgName = value;
+                            string imgPath = PHSuit.LocalFileManagement.LocalFilePath + value + "_32X32";
+
+                            string imgUil_32X32 = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + value + "_32X32";
+                            string imgName_32X32 = value + "_32X32";
+
+                            bool isExist = false;
+
+                            if (!File.Exists(imgPath))
+                            {
+                                if (PHSuit.LocalFileManagement.DownLoad(string.Empty, imgUil_32X32, imgName_32X32))
+                                {
+                                    isExist = true;
+                                }
+                                else
+                                {
+                                    log.Error("图片下载失败，地址：" + imgUil_32X32);
+                                }
+                            }
+                            else
+                            {
+                                isExist = true;
+                            }
+
+                            if (isExist)
+                            {
+                                using (BinaryReader loader = new BinaryReader(File.Open(imgPath, FileMode.Open)))
+                                {
+                                    FileInfo fd = new FileInfo(imgPath);
+                                    int Length = (int)fd.Length;
+                                    byte[] buf = new byte[Length];
+                                    buf = loader.ReadBytes((int)fd.Length);
+                                    loader.Dispose();
+                                    loader.Close();
+
+
+                                    //开始加载图像  
+                                    BitmapImage bim = new BitmapImage();
+                                    bim.BeginInit();
+                                    bim.StreamSource = new MemoryStream(buf);
+                                    bim.EndInit();
+                                    image = bim;
+                                    //image1.Source = bim;
+                                    GC.Collect(); //强制回收资源  
+                                }
+                            }
+                            else
+                            {
+                                image = new BitmapImage(new Uri(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + value + "_32X32"));//本地文件读取失败，读取服务器图片
+                            }                            
                         }
                         else
                         {
