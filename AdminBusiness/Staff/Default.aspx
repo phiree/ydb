@@ -156,32 +156,11 @@
     <script src="/js/plugins/jquery.lightbox_me.js"></script>
     <script src="/js/core/YDBan.lib.js?v=1.0.0"></script>
     <script src="/js/core/interfaceAdapter.js?v=1.0.0"></script>
+    <script src="/js/core/RestfulProxyAdapter.js?v=1.0.0"></script>
     <script src="/js/apps/appointToStaff.js?v=1.0.0"></script>
     <script>
         $().ready(function(){
             $('[rel="tooltip"]').tooltip();
         });
-
-//        $(".btnAssign").click(function () {
-//            var $this = $(this);
-//            $.post("/ajaxservice/changestaffInfo.ashx",
-//                {
-//                    "changed_field": "assign",
-//                    "changed_value": false,
-//                    "id": $this.attr("staffId")
-//                }, function (data) {
-//                    var enabled = data.data;
-//                    var $card = $this.parents(".emp-model");
-//                    var $assignFlag = $card.find(".emp-assign-flag");
-//                    if ( enabled == "True" ) {
-//                        $this.val("取消指派").addClass("assigned").removeClass("noAssign");
-//                        $assignFlag.addClass("assigned").removeClass("noAssign");
-//                    }
-//                    else {
-//                        $this.val("指派").removeClass("assigned").addClass("noAssign");
-//                        $assignFlag.removeClass("assigned").addClass("noAssign");
-//                    }
-//                });
-//        });
     </script>
 </asp:Content>

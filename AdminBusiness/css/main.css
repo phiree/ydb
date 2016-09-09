@@ -8341,9 +8341,23 @@ a.doReg:hover {
   height: 550px;
   overflow-y: scroll;
 }
-.staffs-container.loading {
-  overflow-y: auto;
-  background: url("../images/load.gif") no-repeat center;
+.staffs-container.loading::before {
+  content: "";
+  display: block;
+  background: #f6f6f6;
+  position: absolute;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+}
+.staffs-container.loading::after {
+  content: "";
+  display: block;
+  background: url(../images/load.gif) no-repeat center;
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
 }
 .staffs-container.error {
   overflow-y: auto;
