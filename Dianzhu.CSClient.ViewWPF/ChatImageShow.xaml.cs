@@ -25,7 +25,7 @@ namespace Dianzhu.CSClient.ViewWPF
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.ChatImageShow");
         bool isInit;
         BackgroundWorker worker;
-        public ChatImageShow(string uri)
+        public ChatImageShow(string fileName)
         {
             InitializeComponent();
 
@@ -47,7 +47,7 @@ namespace Dianzhu.CSClient.ViewWPF
             worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            worker.RunWorkerAsync(uri);
+            worker.RunWorkerAsync(fileName);
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -74,8 +74,21 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 try
                 {
-                    string imgUri = e.Argument.ToString();
-                    string imgPath = PHSuit.LocalFileManagement.LocalFilePath + imgUri;
+                    string imgName = e.Argument.ToString();
+                    string imgPath = PHSuit.LocalFileManagement.LocalFilePath + imgName;
+                    string imgUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + imgName;
+
+                    if (!File.Exists(imgPath))
+                    {
+                        if (PHSuit.LocalFileManagement.DownLoad(string.Empty, imgUrl, imgName))
+                        {
+                            
+                        }
+                        else
+                        {
+                            throw new Exception("下载失败");
+                        }
+                    }
 
                     using (BinaryReader loader = new BinaryReader(File.Open(imgPath, FileMode.Open)))
                     {

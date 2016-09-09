@@ -4,13 +4,38 @@
  */
 $(function () {
 
+    /**
+     * 清楚重复数组内重复元素方法
+     * @param someArray
+     * @returns {*}
+     */
+    function getUnique(someArray) {
+        var tempArray = someArray.slice(0);//复制数组到临时数组
+        for (var i = 0; i < tempArray.length; i++) {
+            for (var j = i + 1; j < tempArray.length;) {
+                if ( tempArray[j] == tempArray[i] )
+                //后面的元素若和待比较的相同，则删除并计数；
+                //删除后，后面的元素会自动提前，所以指针j不移动
+                {
+                    tempArray.splice(j, 1);
+                }
+                else {
+                    j++;
+                }
+                //不同，则指针移动
+            }
+        }
+        return tempArray;
+    }
+
+
+    // 新建服务，服务标签添加
     $("#ipTagAddNew").on("click", function(){
         var $tagInput = $("#addTagNew");
         var $tagHidden = $("#tbxTag");
         var $container = $("#ipTagContainerNew");
         var tagText = $tagInput.val(), arrTag;
         var tagHiddenText = $tagHidden.val(), arrHiddenTag;
-
 
         if ( tagText === "" ) return;
 
@@ -64,39 +89,17 @@ $(function () {
 
     });
 
-    /**
-     * 清楚重复数组内重复元素方法
-     * @param someArray
-     * @returns {*}
-     */
-    function getUnique(someArray) {
-        var tempArray = someArray.slice(0);//复制数组到临时数组
-        for (var i = 0; i < tempArray.length; i++) {
-            for (var j = i + 1; j < tempArray.length;) {
-                if ( tempArray[j] == tempArray[i] )
-                //后面的元素若和待比较的相同，则删除并计数；
-                //删除后，后面的元素会自动提前，所以指针j不移动
-                {
-                    tempArray.splice(j, 1);
-                }
-                else {
-                    j++;
-                }
-                //不同，则指针移动
-            }
-        }
-        return tempArray;
-    }
-
     // 服务编辑，ajax方式标签添加
     $("#ipTagAdd").on("click", function () {
         var $container = $(".ipTagContainer");
         var $ipTag = $("#ipTag");
-        var tagText = $ipTag.val();
+        var tagText = $ipTag.val(),tagArr;
         var serviceId = $ipTag.attr("serviceId");
 
         if ( tagText !== "" ) {
             // TODO : 重复性判断
+
+            tagText = getUnique(tagText.split(/\s+/)).join(" ");
 
             $.ajax({
                 url : "/ajaxservice/taghandler.ashx",
@@ -143,10 +146,13 @@ $(function () {
                 "tagId": tagId
             },
             success : function(resp){
-                $(that).parent(".spTag").remove();
+                if ( resp !== "" ){
+                    $(that).parent(".spTag").remove();
+                }
             },
-            error : function(err){
-                console.log(err);
+            error : function(xhr, errorThrown, text){
+                if(JSON.parse(xhr.responseText).msg === "unlogin")
+                window.location.href = "/login.aspx"
             }
         });
     });

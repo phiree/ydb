@@ -27,7 +27,6 @@ namespace Dianzhu.CSClient.Presenter
         IViewIdentityList viewIdentityList;
         InstantMessage iIM;
         Dianzhu.CSClient.LocalStorage.LocalChatManager chatManager;
-        public static Dictionary<Guid, IList<ReceptionChat>> chatHistoryAll;        
         
         public PChatList(IViewChatList viewChatList,IViewChatSend viewChatSend, IViewIdentityList viewCustomerList,IDAL.IDALReceptionChat dalReceptionChat, InstantMessage iIM,
             Dianzhu.CSClient.LocalStorage.LocalChatManager chatManager)
@@ -44,8 +43,6 @@ namespace Dianzhu.CSClient.Presenter
             viewChatList.BtnMoreChat += ViewChatList_BtnMoreChat;
 
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
-
-           // chatHistoryAll = new Dictionary<Guid, IList<ReceptionChat>>();
         }
 
         private void ViewChatList_BtnMoreChat()
@@ -67,15 +64,22 @@ namespace Dianzhu.CSClient.Presenter
                 foreach (var item in chatHistory)
                 {
                     viewChatList.ChatList.Insert(0, item);
-                    viewChatList.InsertOneChat(item);
+                    string customerId = string.Empty;
+                    if(item.From.UserType== enum_UserType.customer)
+                    {
+                        customerId = item.From.Id.ToString();
+                    }
+                    else if(item.To.UserType== enum_UserType.customer)
+                    {
+                        customerId = item.To.Id.ToString();
+                    }
+                    viewChatList.InsertOneChat(item, chatManager.LocalCustomerAvatarUrls[customerId]);
                 }
             }
             else
             {
                 viewChatList.ShowNoMoreLabel();
             }
-
-            //viewChatList.ChatList = chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id];
         }
 
         private void IIM_IMReceivedMessage(ReceptionChat chat)
@@ -83,10 +87,7 @@ namespace Dianzhu.CSClient.Presenter
             //判断信息类型
             if (chat.ChatType == enum_ChatType.Media || chat.ChatType == enum_ChatType.Text)
             {
-                //if (chatHistoryAll.Count > 0)
-                //{
-                //    chatHistoryAll[chat.From.Id].Add(chat);
-                //}                
+                          
             }
         }
 
@@ -108,7 +109,7 @@ namespace Dianzhu.CSClient.Presenter
             viewChatList.ChatList = chatList;
             if (chatList.Count > 0)
             {
-                if (chatList.Count == 10)
+                if (chatList.Count >= 10)
                 {
                     viewChatList.ShowMoreLabel();
                 }
@@ -119,7 +120,14 @@ namespace Dianzhu.CSClient.Presenter
 
                 foreach (ReceptionChat chat in chatList)
                 {
-                    viewChatList.AddOneChat(chat);
+                    if(chat.From.UserType== enum_UserType.customer)
+                    {
+                        viewChatList.AddOneChat(chat, chatManager.LocalCustomerAvatarUrls[chat.From.Id.ToString()]);
+                    }
+                    else
+                    {
+                        viewChatList.AddOneChat(chat, string.Empty);
+                    }                    
                 }
             }
             else
@@ -131,14 +139,21 @@ namespace Dianzhu.CSClient.Presenter
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            NHibernateUnitOfWork.UnitOfWork.Start();
-            ServiceOrder order = (ServiceOrder)e.Argument;
-           
-            e.Result = chatManager.InitChatList(order.Customer.Id, order.CustomerService.Id, order.Id);
-            //e.Result = dalReceptionChat.GetReceptionChatList(customerId, Guid.Empty, Guid.Empty,
-            //       DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.cer, out rowCount);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            try
+            {
+                NHibernateUnitOfWork.UnitOfWork.Start();
+                ServiceOrder order = (ServiceOrder)e.Argument;
+
+                e.Result = chatManager.InitChatList(order.Customer.Id, Guid.Empty, Guid.Empty);
+                //e.Result = dalReceptionChat.GetReceptionChatList(customerId, Guid.Empty, Guid.Empty,
+                //       DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.cer, out rowCount);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            }
+            catch (Exception ee)
+            {
+                PHSuit.ExceptionLoger.ExceptionLog(log, ee);
+            }
         }
     }
 

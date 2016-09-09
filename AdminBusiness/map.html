@@ -108,7 +108,7 @@
         <!--百度地图带着自己的logo，通过下面的方试可以非常简单的移除掉百度地图logo和版权说明-->
         <input type="button" onclick="$('#map div.anchorBL').hide();" value="移除地图LOGO和版权说明"/>
     </div>
-    <div class="search-box">
+    <div class="search-box" id="search-box" oncontextmenu=self.event.returnValue=false>
         <table id="search-table">
             <tbody>
             <tr>
@@ -119,7 +119,7 @@
         </table>
         <div id="searchResultPanel"></div>
     </div>
-    <div id="mark">
+    <div id="mark" oncontextmenu=self.event.returnValue=false>
         <div id="addressBox" class="addressBox">
             <p id="addressTitle"></p>
             <p id="addressDetail"></p>
@@ -143,6 +143,9 @@
         type: BMAP_NAVIGATION_CONTROL_SMALL,
         offset: {width: 20, height: 70}
     }); //右上角，仅包含平移和缩放按钮
+
+    var myGeo = new BMap.Geocoder();
+
 
     var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
             {
@@ -208,27 +211,50 @@
         setPlace();
     });
 
+    // 回车等按键确认
+    eventListener(G("suggestId"), "keydown", function(e){
+        if ( e.keyCode === 13 || e.keyCode === 16 || e.keyCode === 32){
+            var value = e.target ? e.target.value : e.srcElement.value;
 
-    function setPlace() {
-
-        function myFun() {
-            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-
-            selectPoint = pp;
-            getLocalInfo(selectPoint);
-            marker.setPosition(selectPoint);
-            map.centerAndZoom(selectPoint, 18);
+            myGeo.getPoint(value, function(point){
+                if (point) {
+                    setPlace(point);
+                }else{
+                    showError("您搜索的地址没有解析到结果，请尝试手动设定。");
+                }
+            })
         }
+    });
 
+
+    function setPlace(point) {
         var local = new BMap.LocalSearch(map, { //智能搜索
             onSearchComplete: myFun
         });
 
+        function myFun() {
+            var pp;
+            if (point ){
+                pp = point;
+            } else {
+                pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+            }
+
+            selectPoint = pp;
+            getLocalInfo(pp);
+
+            marker.setPosition(pp);
+            map.centerAndZoom(pp, 18);
+        }
+
         local.search(myValue);
     }
 
-    var myGeo = new BMap.Geocoder();
-
+    function showError(errTxt){
+        G("mark").className = "show";
+        G("addressDetail").innerHTML = errTxt;
+        G("addressTitle").innerHTML = "--";
+    }
 
     /**
      * 获取定位信息
@@ -239,7 +265,6 @@
         var addComp;
         localInfoJson = "";
         return myGeo.getLocation(point, function (rs) {
-//            debugger;
             addComp = rs.addressComponents;
             localInfoJson = JSON.stringify({
                 point: point,
@@ -248,14 +273,16 @@
             showLocalInfo(rs);
             window.external.SetValue(localInfoJson);//调用.net的方法通知wpf
         });
-
     }
-    ;
 
     //    G("addToOrder").attachEvent("onclick", function(){
     //        window.external.SetValue(localInfoJson);//调用.net的方法通知wpf
     //    });
 
+    /**
+     * 现实定位内容
+     * @param LocalResult
+     */
     function showLocalInfo(LocalResult) {
         G("mark").className = "show";
         G("addressDetail").innerHTML = LocalResult.address;
@@ -263,12 +290,20 @@
     }
 
     // 返回js
-    function getLocal() {
-        return localInfoJson;
-    }
+    //    function getLocal() {
+    //        return localInfoJson;
+    //    }
 
     function G(id) {
         return document.getElementById(id);
+    }
+
+    function eventListener(dom, type, func){
+        if(typeof dom.addEventListener === "function"){
+            dom.addEventListener(type, func);
+        } else {
+            dom.attachEvent("on" + type, func)
+        }
     }
 
 </script>

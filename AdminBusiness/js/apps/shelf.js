@@ -17,8 +17,8 @@
     // 商家ID
     var merchantID = document.getElementById("merchantID").value;
 
-    // 引入自定义_Event 类
-    var Event = window._Event;
+    // 引入自定义YDBan.event类
+    var Event = YDBan.event;
 
     var testUrl = {
         WTM001001 : "test.001001.json",
@@ -124,7 +124,7 @@
         queryData : {
             //merchantID : merchantID,
             //svcID : getQueryString("serviceId"),
-            svcID : Adapter.getParameterByName("serviceId"),
+            svcID : YDBan.url.getUrlParam("serviceId"),
             //startTime : dateTools.dateFormat(""),
             //endTime : dateTools.dateFormat(""),
             startTime : dateTools.fmt("yyyy-M-d"),
@@ -509,7 +509,7 @@
                 data : {
                     "merchantID": merchantID,
                     "svcObj": {
-                        "svcID": Adapter.getParameterByName("serviceId"),
+                        "svcID": YDBan.url.getUrlParam("serviceId"),
                         "maxOrderString": maxOrderString
                     }
                 }
@@ -650,7 +650,7 @@
                         protocolCode : "SVC001005",
                         data : {
                             "merchantID": merchantID,
-                            "svcID": Adapter.getParameterByName("serviceId")
+                            "svcID": YDBan.url.getUrlParam("serviceId")
                         },
                         success : function(){
 
@@ -662,7 +662,7 @@
                                 protocolCode : "WTM001006",
                                 data : {
                                     "merchantID" : merchantID,
-                                    "svcID" : Adapter.getParameterByName("serviceId"),
+                                    "svcID" : YDBan.url.getUrlParam("serviceId"),
                                     "week" : reqDateObj.getDay()
                                 },
                                 success: function () {

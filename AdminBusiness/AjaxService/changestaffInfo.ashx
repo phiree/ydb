@@ -12,9 +12,10 @@ public class changepassword : IHttpHandler,System.Web.SessionState.IRequiresSess
     BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>();
     public void ProcessRequest (HttpContext context) {
         //权限判断
-        if (context.Session["UserName"]==null)
-        {
-            context.Response.Write("{\"result\":\""+false+"\",\"msg\":\"unlogin\"}");
+        if (!AjaxAuth.authAjaxUser(context)){ 
+            context.Response.StatusCode = 400;
+            context.Response.Clear();
+            context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"unlogin\"}");
             return;
         }
 

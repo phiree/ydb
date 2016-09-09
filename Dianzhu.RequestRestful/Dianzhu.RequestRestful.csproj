@@ -54,6 +54,7 @@
     <Compile Include="ISetRequestParams.cs" />
     <Compile Include="Model\RequestParams.cs" />
     <Compile Include="Model\RequestResponse.cs" />
+    <Compile Include="Model\RequestToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestRestful.cs" />
     <Compile Include="SetCommon.cs" />

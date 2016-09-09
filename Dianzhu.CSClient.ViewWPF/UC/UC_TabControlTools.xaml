@@ -300,6 +300,11 @@
                 </Grid>
             </TabItem>
             <TabItem Header="地图搜索" Style="{DynamicResource TabItemStyle}">
+                <TabItem.ToolTip>
+                    <Grid>
+                        <TextBlock Text="按F5刷新地图"></TextBlock>
+                    </Grid>
+                </TabItem.ToolTip>
                 <Grid>
                     <WebBrowser x:Name="webBaiduMap"></WebBrowser>
                 </Grid>

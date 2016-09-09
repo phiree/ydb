@@ -25,11 +25,6 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<CSClient.Presenter.PChatSend>());
             container.Register(Component.For<CSClient.Presenter.PNotice>());
             container.Register(Component.For<CSClient.Presenter.PTabControl>());
-            container.Register(Component.For<CSClient.Presenter.POrder>().DependsOn(
-                Dependency.OnValue("dalHistory",new DAL.DALServiceOrderStateChangeHis()),
-                Dependency.OnValue("dalOrder", new DAL.DALServiceOrder()),
-                Dependency.OnValue("bllPayment", new BLLPayment(container.Resolve<IDALPayment>(), container.Resolve<IDALClaims>()))
-                ));
             container.Register(Component.For<CSClient.Presenter.POrderHistory>());
  
             container.Register(Component.For<CSClient.Presenter.PSearch>().DependsOn(
@@ -40,24 +35,18 @@ namespace Dianzhu.CSClient
 
                 ));
 
-            // PushService bllPushService, BLLReceptionChat bllReceptionChat, BLLServiceType bllServiceType,BLLReceptionStatus bllReceptionStatus
-            //IDAL.IDALServiceOrderPushedService dalSOP,IBLLServiceOrder bllServiceOrder, BLLPayment bllPayment,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis
-
-
             container.Register(Component.For<IView.IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());
             container.Register(Component.For<IView.ILoginForm>().ImplementedBy<ViewWPF.FormLogin>());
             container.Register(Component.For<IViewChatList>().ImplementedBy<ViewWPF.UC_ChatList>());
             container.Register(Component.For<IViewChatSend>().ImplementedBy<ViewWPF.UC_ChatSend>());
             container.Register(Component.For<IViewIdentityList>().ImplementedBy<ViewWPF.UC_IdentityList>());
             container.Register(Component.For<IViewNotice>().ImplementedBy<ViewWPF.UC_Notice>());
-            container.Register(Component.For<IViewOrder>().ImplementedBy<ViewWPF.UC_Order>());
             container.Register(Component.For<IViewOrderHistory>().ImplementedBy<ViewWPF.UC_OrderHistory>());
             container.Register(Component.For<IViewSearch>().ImplementedBy<ViewWPF.UC_Search>());
             container.Register(Component.For<IViewSearchResult>().ImplementedBy<ViewWPF.UC_SearchResult>());
             container.Register(Component.For<IViewTabControl>().ImplementedBy<ViewWPF.UC_TabControlTools>());
             container.Register(Component.For<IViewFormShowMessage>().ImplementedBy<ViewWPF.FormShowMessage>());
             container.Register(Component.For<IViewCustomer>().ImplementedBy<ViewWPF.UC_Customer>());
-            // container.Register(Component.For<IViewShelfService>().ImplementedBy<ViewWPF.UC_ShelfService>());
         }
     }
 }

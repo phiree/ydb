@@ -190,6 +190,7 @@
     <script src="/js/libs/json2.js"></script>
     <script src="/js/libs/underscore.js"></script>
     <script src="/js/libs/backbone.js"></script>
+    <script src="/js/core/YDBan.lib.js?v=1.0.0"></script>
     <script src="/js/core/backbone.customApi.js?v=1.0.0"></script>
     <script src="/js/core/interfaceAdapter.js?v=1.0.0"></script>
     <!--测试时的API接口-->
@@ -197,6 +198,5 @@
     <!--<script src="/js/mock/mock.js"></script>-->
     <!--<script src="/js/mock/mock.shelf.js"></script>-->
     <!--<script src="/js/mock/mock.workTimeSet.js"></script>-->
-    <script src="/js/core/event.js?v=1.0.0"></script>
     <script src="/js/apps/shelf.js?v=1.0.0"></script>
 </asp:Content>

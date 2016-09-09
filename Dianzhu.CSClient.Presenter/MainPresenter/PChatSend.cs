@@ -85,7 +85,7 @@ namespace Dianzhu.CSClient.Presenter
 
             viewChatSend.MessageText = string.Empty;
             chat.MedialUrl = fileName;
-            viewChatList.AddOneChat(chat);
+            viewChatList.AddOneChat(chat,string.Empty);
 
             chat.MedialUrl = chat.MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
            // dalReceptionChat.Add(chat);
@@ -114,7 +114,7 @@ namespace Dianzhu.CSClient.Presenter
                 };
                 localChatManager.Add(chat.To.Id.ToString(), chat);
                 viewChatSend.MessageText = string.Empty;
-                viewChatList.AddOneChat(chat);
+                viewChatList.AddOneChat(chat,string.Empty);
                //dalReceptionChat.Add(chat);
                 iIM.SendMessage(chat);
 

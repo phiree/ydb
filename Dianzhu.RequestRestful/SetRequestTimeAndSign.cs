@@ -41,7 +41,7 @@ namespace Dianzhu.RequestRestful
                     throw new Exception("请求的接口路径(apiurl)不能为空!");
                 }
                 rp.url = strHost + apiurl;
-                rp.content = jo["content"].ToString();//context.Request.Form["content"] ?? "";
+                rp.content = jo["content"].ToString().Replace("\r", string.Empty);//context.Request.Form["content"] ?? "";
                 rp.token = jo["token"].ToString();//context.Request.Form["token"] ?? "";
                 rp = SetCommon.SetParams(appName, appKey, rp);
             }
