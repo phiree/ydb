@@ -26,16 +26,17 @@
 
         Dianzhu.BLL.IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
         Dianzhu.BLL.Finance.IOrderShare orderShare = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IOrderShare>();
-        IList<Dianzhu.Model.ServiceOrder> ordersForShare= bllOrder.GetOrdersForShare();
-        log.Debug("批量分账开始,需要分账的订单数量:" + ordersForShare.Count);
+       
         Action a = () => {
+             IList<Dianzhu.Model.ServiceOrder> ordersForShare= bllOrder.GetOrdersForShare();
+        log.Debug("批量分账开始,需要分账的订单数量:" + ordersForShare.Count);
             foreach (ServiceOrder order in ordersForShare)
             {
                 orderShare.ShareOrder(order);
                 bllOrder.OrderFlow_Shared(order);
             }
         };
-        //   NHibernateUnitOfWork.With.Transaction(a);
+           NHibernateUnitOfWork.With.Transaction(a);
         log.Debug("批量分账结束");
     }
 
