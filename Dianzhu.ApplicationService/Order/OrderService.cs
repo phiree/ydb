@@ -217,7 +217,8 @@ namespace Dianzhu.ApplicationService.Order
             if (order == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
-                return null;
+                //return null;
+                throw new Exception("没有找到资源！");
             }
             orderObj orderobj = Mapper.Map<Model.ServiceOrder, orderObj>(order);
             changeObj(orderobj, order);
@@ -712,9 +713,14 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new FormatException("该理赔动作无效！");
             }
+            Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
+            Model.ServiceOrder order = ibllserviceorder.GetOne(guidOrder);
+            if (order == null)
+            {
+                throw new Exception("该订单不存在！");
+            }
             IList<Model.ClaimsDetails> claimsdetails = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ClaimsDetails");
-            Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
             claimsdetails = bLLClaimsDetails.GetRefundStatus(guidOrder, filter1, action);
             if (claimsdetails == null)
             {
