@@ -118,13 +118,20 @@ namespace Dianzhu.CSClient.Presenter
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            NHibernateUnitOfWork.UnitOfWork.Start();
-            var customerId = Guid.Parse(e.Argument.ToString());
-            int totalAmount;
-            viewOrderHistory.OrderPage = 1;
-            e.Result = localHistoryOrderManager.GetOrInitHistoryOrderList(customerId);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            try
+            {
+                NHibernateUnitOfWork.UnitOfWork.Start();
+                var customerId = Guid.Parse(e.Argument.ToString());
+                int totalAmount;
+                viewOrderHistory.OrderPage = 1;
+                e.Result = localHistoryOrderManager.GetOrInitHistoryOrderList(customerId);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            }
+            catch (Exception ee)
+            {
+                PHSuit.ExceptionLoger.ExceptionLog(log, ee);
+            }
         }
 
         private void ViewOrderHistory_SearchOrderHistoryClick()

@@ -30,6 +30,7 @@ namespace Dianzhu.DAL.Mapping
 
             //指派的负责人
             References<Staff>(x => x.Staff);
+            Map(x => x.IsShared);
         }
     }
 }

@@ -24,7 +24,11 @@
      * 全局API url设置
      * @type {string}
      */
-    var globalApiUrl = document.getElementById("hiApiUrl").value;
+    //var globalApiUrl = document.getElementById("hiApiUrl").value;
+    var globalApiUrl = "/AjaxService/RequestRestfulApi.ashx";
+
+    var restFulAdapter = window.RestfulProxyAdapter;
+
 
     /**
      * 订单model
@@ -54,18 +58,24 @@
         options || (options = {});
         this.model = options.model || OrderModel;
         this.url = options.url ;
+        //this.reqObj = {
+        //    userID : options.merchantID ? options.merchantID : merchantID,
+        //    target : "ALL",
+        //    pageSize : "999",
+        //    pageNum : "1"
+        //};
         this.reqObj = {
-            userID : options.merchantID ? options.merchantID : merchantID,
-            target : "ALL",
+            assign : false,
             pageSize : "999",
             pageNum : "1"
         };
-        this.reqData = Adapter.reqPackage("ORM001006", this.reqObj);
+        //this.reqData = Adapter.reqPackage("ORM001006", this.reqObj);
+        // restful api method
+        this.reqData = this.reqObj;
         this.models = models || [];
 
         this.initialize();
     };
-
 
     $.extend(OrderCollection.prototype, {
         initialize : function(){
@@ -73,34 +83,49 @@
         },
         /**
          * 同步服务端数据
+         * @param option
+         * @param method
          * @param callback
-         * @returns {*}
          */
-        sync : function(callback){
+        sync : function(method, option, callback){
             var _this = this;
+            var models = this.models;
 
-            return $.ajax({
-                type : "post",
-                dataType : "json",
-                url : _this.url,
-                data : _this.reqData,
-                success : function(row, textStatus, xhr){
-                    var data = Adapter.respUnpack(row);
+            option = option ? $.extend({},option) : {};
 
-                    if ( data.hasArrayData ) {
-                        _this.reset(data.respData.arrayData);
-                    }
-
-                    if ( typeof callback === "function") {
-                        callback(_this.models);
-                    }
-                },
-                error : function(XMLHttpRequest, textStatus, errorThrown){
-                    console.log(XMLHttpRequest);
-                    console.log(textStatus);
-                    console.log(errorThrown);
+            option.success = function(row){
+                _this.reset(row);
+                if ( typeof callback === "function") {
+                    callback(_this.models);
                 }
-            });
+                _this.reset(row);
+            };
+
+            return restFulAdapter.sync(method, option, models);
+
+            //return $.ajax({
+            //    type : method || "POST",
+            //    dataType : "json",
+            //    url : _this.url,
+            //    data : _this.reqData,
+            //    success : function(row, textStatus, xhr){
+            //        //var data = Adapter.respUnpack(row);
+            //
+            //        //if ( data.hasArrayData ) {
+            //        //    _this.reset(data.respData.arrayData);
+            //        //}
+            //
+            //
+            //        _this.reset(row);
+            //
+            //
+            //    },
+            //    error : function(XMLHttpRequest, textStatus, errorThrown){
+            //        console.log(XMLHttpRequest);
+            //        console.log(textStatus);
+            //        console.log(errorThrown);
+            //    }
+            //});
 
         },
         reset : function(arrayData){
@@ -116,6 +141,9 @@
         //url : "/order.json",
         model : OrderModel
     });
+
+
+
 
     /**
      * 指派数据Model
@@ -150,34 +178,47 @@
         initialize : function(){
 
         },
-        sync : function(options, method, callback){
+        sync : function(method, option, callback){
             var _this = this;
-            var options = options || {};
-            var setApiCode = this.apiCode[method];
-            var reqData = Adapter.reqPackage(setApiCode, options.reqData );
+            var models =  this.models;
 
-            return $.ajax({
-                type : "post",
-                dataType : "json",
-                url : _this.url,
-                data : reqData,
-                success : function(row, textStatus, xhr){
-                    var data = Adapter.respUnpack(row);
+            //var setApiCode = this.apiCode[method];
+            //var reqData = Adapter.reqPackage(setApiCode, options.reqData )
 
-                    if ( data.hasArrayData ) {
-                        _this.reset(data.respData.arrayData);
-                    }
+            option = option ? $.extend({}, option) : {};
 
-                    if ( typeof callback === "function") {
-                        callback(_this.models);
-                    }
-                },
-                error : function(XMLHttpRequest, textStatus, errorThrown){
-                    console.log(XMLHttpRequest);
-                    console.log(textStatus);
-                    console.log(errorThrown);
+            option.success = function(row){
+                _this.reset(row);
+                if ( typeof callback === "function") {
+                    callback(_this.models);
                 }
-            });
+                _this.reset(row);
+            };
+
+            return restFulAdapter.sync(method, option, models);
+            //
+            //return $.ajax({
+            //    type : "post",
+            //    dataType : "json",
+            //    url : _this.url,
+            //    data : reqData,
+            //    success : function(row, textStatus, xhr){
+            //        var data = Adapter.respUnpack(row);
+            //
+            //        if ( data.hasArrayData ) {
+            //            _this.reset(data.respData.arrayData);
+            //        }
+            //
+            //        if ( typeof callback === "function") {
+            //            callback(_this.models);
+            //        }
+            //    },
+            //    error : function(XMLHttpRequest, textStatus, errorThrown){
+            //        console.log(XMLHttpRequest);
+            //        console.log(textStatus);
+            //        console.log(errorThrown);
+            //    }
+            //});
 
         },
         reset : function(arrayData){
@@ -193,6 +234,9 @@
         //url : "/assign.json",
         model : AssignModel
     });
+
+
+
 
     /**
      * 自定义item model来保证构造DOM View的Model的单一性.
@@ -236,11 +280,13 @@
             var assignSync;
             var options = options || {};
 
-            orderSync = orderCollection.sync();
+            orderSync = orderCollection.sync("read", {
+                apiurl :　"http://"
+            });
 
-            assignSync = assignCollection.sync({
-                reqData : options.reqData
-            }, "select");
+            assignSync = assignCollection.sync("read", {
+                apiurl :　"http:"
+            });
 
             // 用when方法来延迟执行
             $.when(orderSync, assignSync).done(function(argOrder, argAssign){
@@ -314,6 +360,9 @@
             return this;
         }
     });
+
+
+
 
     /**
      * 构建AppModel来包含创建一次指派所需数据和方法。

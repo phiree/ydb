@@ -79,16 +79,20 @@ public partial class DZOrder_Detail : BasePage
         // 确认订单控制
         panelConfirmOrder.Visible = false;
         btnConfirmOrder.Visible = false;
+
         // 确认价格控制
         panelConfirmPrice.Visible = false;
         txtConfirmPrice.Visible = false;
         btnConfirmPrice.Visible = false;
+
         // 服务开始控制
         btnBegin.Visible = false;
+
         // 订单完成控制
         btnIsEndOrder.Visible = false;
 
         ServiceOrder order = CurrentOrder;
+
         switch (order.OrderStatus)
         {
             case Dianzhu.Model.Enums.enum_OrderStatus.Payed:

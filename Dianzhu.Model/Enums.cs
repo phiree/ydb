@@ -157,10 +157,6 @@ namespace Dianzhu.Model.Enums
         /// 已过质保期
         /// </summary>
         EndWarranty = 36,
-        /// <summary>
-        /// 已经分账.
-        /// </summary>
-        Shared=37,
         #endregion
 
         #region 取消流程订单状态
