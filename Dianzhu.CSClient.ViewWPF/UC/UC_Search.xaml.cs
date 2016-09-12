@@ -25,12 +25,16 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class UC_Search : UserControl,IView.IViewSearch
     {
-        IView.IViewSearchResult viewSearchResult;
-        public UC_Search(IView.IViewSearchResult viewSearchResult)
+        //IView.IViewSearchResult viewSearchResult;
+        public UC_Search(/*IView.IViewSearchResult viewSearchResult*/)
         {
-            this.viewSearchResult = viewSearchResult;
+            //this.viewSearchResult = viewSearchResult;
             InitializeComponent();
+
+            InitDateControl();
         }
+
+        #region 属性
 
         public string ServiceCustomerName
         {
@@ -180,7 +184,13 @@ namespace Dianzhu.CSClient.ViewWPF
             get
             {
                 DateTime searchKeywordTime;
-                DateTime.TryParse(tbxKeywordTime.Text, out searchKeywordTime);
+                //DateTime.TryParse(tbxKeywordTime.Text, out searchKeywordTime);
+
+                string datetime = dateServiceDate.Text + " " + cbxHours.Text + ":" + cbxMinutes.Text;
+                if(!DateTime.TryParse(datetime, out searchKeywordTime))
+                {
+                    MessageBox.Show("日期时间有误");
+                }
                 
                 return searchKeywordTime;
             }
@@ -188,7 +198,12 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 Action lamda = () =>
                 {
-                    tbxKeywordTime.Text = value.ToString();
+                    //tbxKeywordTime.Text = value.ToString();
+
+                    dateServiceDate.Text = value.ToString("yyyy-MM-dd");
+                    cbxHours.Text = value.Hour.ToString();
+                    cbxMinutes.Text = value.Minute.ToString();
+
                 };
                 if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
                 else { lamda(); }
@@ -366,11 +381,19 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        #endregion
+
+        #region 接口委托的事件
+
         public event SearchService Search;
         public event ServiceTypeFirst_Select ServiceTypeFirst_Select;
         public event ServiceTypeSecond_Select ServiceTypeSecond_Select;
         public event ServiceTypeThird_Select ServiceTypeThird_Select;
         public event SaveUIData SaveUIData;
+
+        #endregion
+
+        #region 部分方法
 
         /// <summary>
         /// 清空数据
@@ -385,6 +408,31 @@ namespace Dianzhu.CSClient.ViewWPF
             ServiceTargetAddress = string.Empty;
             UnitAmount = 1;
         }
+
+        /// <summary>
+        /// 初始化日期时间选择控件
+        /// </summary>
+        private void InitDateControl()
+        {
+            dateServiceDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            dateServiceDate.DisplayDateStart = DateTime.Now;
+            dateServiceDate.DisplayDateEnd = DateTime.Now.AddDays(7);
+
+            cbxHours.Text = DateTime.Now.Hour.ToString();
+            cbxMinutes.Text = DateTime.Now.Minute.ToString();
+            for (int i = 0; i < 24; i++)
+            {
+                cbxHours.Items.Add(i);
+            }
+            for (int j = 0; j < 60; j++)
+            {
+                cbxMinutes.Items.Add(j);
+            }
+        }
+
+        #endregion
+
+        #region 搜索按钮处理事件
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
@@ -456,8 +504,12 @@ namespace Dianzhu.CSClient.ViewWPF
            
             this.btnSearch.Content = "搜索";
             this.btnSearch.IsEnabled = true;
-            this.viewSearchResult.LoadingText =string.Empty;
+            //this.viewSearchResult.LoadingText =string.Empty;
         }
+
+        #endregion
+
+        #region 服务类型下拉框处理事件
 
         private void cbxSearchTypeF_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -483,6 +535,8 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        #endregion
+
         #region 文本框改变时，写入缓存中
         private void tbxKeywordPeople_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -492,13 +546,39 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        private void tbxKeywordTime_TextChanged(object sender, TextChangedEventArgs e)
+        #region 日期时间控件
+        private void dateServiceDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             if (SaveUIData != null)
             {
                 SaveUIData("Date", SearchKeywordTime);
             }
         }
+
+        private void cbxHours_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SaveUIData != null)
+            {
+                SaveUIData("Date", SearchKeywordTime);
+            }
+        }
+
+        private void cbxMinutes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SaveUIData != null)
+            {
+                SaveUIData("Date", SearchKeywordTime);
+            }
+        }
+        #endregion
+
+        //private void tbxKeywordTime_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (SaveUIData != null)
+        //    {
+        //        SaveUIData("Date", SearchKeywordTime);
+        //    }
+        //}
 
         private void tbxKeywordServiceName_TextChanged(object sender, TextChangedEventArgs e)
         {
