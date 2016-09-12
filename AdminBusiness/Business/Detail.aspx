@@ -116,13 +116,13 @@
                                 <h4>店铺图片</h4>
                             </div>
                             <div class="model-m">
-                                <div class="detail-img">
-                                    <div>
+                                <div class="detail-img scrollbar-inner biz-detail-img-wrap">
+                                    <div class="detail-img-list">
                                         <asp:Repeater runat="server" ID="rptShow">
                                             <ItemTemplate>
                                                 <a class="detail-img-item" data-lightbox="lb_show"
                                                    href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img
-                                                        src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=120&height=120&tt=3'/>
+                                                        src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=140&height=140&tt=0'/>
                                                 </a>
                                             </ItemTemplate>
                                         </asp:Repeater>
@@ -142,7 +142,7 @@
                                         <ItemTemplate>
                                             <a class="detail-img-item" data-lightbox="lb_charge"
                                                href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img
-                                                    src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=120&height=120&tt=3'/>
+                                                    src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=140&height=140&tt=0'/>
                                             </a>
                                         </ItemTemplate>
                                     </asp:Repeater>
@@ -161,7 +161,7 @@
                                         <ItemTemplate>
                                             <a class="detail-img-item" data-lightbox="lb_license"
                                                href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img
-                                                    src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=120&height=120&tt=3'/>
+                                                    src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=140&height=140&tt=0'/>
                                             </a>
                                         </ItemTemplate>
                                     </asp:Repeater>

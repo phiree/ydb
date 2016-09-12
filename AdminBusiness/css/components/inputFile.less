@@ -7,6 +7,7 @@
   float: left;
   position: relative;
   z-index: 1;
+  overflow: hidden;
   margin: 0 10px 10px 0;
   width: @input-file-width;
   height: @input-file-height;
@@ -58,7 +59,7 @@
   position: absolute;
   z-index: 4;
   width: @input-file-width;
-  height: @input-file-height;
+  //height: @input-file-height;
   border: 0 none;
   border-radius: @ipnut-file-border-radius;
 }
@@ -71,6 +72,19 @@
   height: @input-file-height;
   border-radius: @ipnut-file-border-radius;
 }
+
+.input-file-delete {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  right: 5px;
+  top: 5px;
+  z-index: 12;
+  border: 0;
+  background: url(../images/components/inputFile/delete_icon_91.png) no-repeat center;
+}
+
+
 
 /* 头像 */
 .headImage {
@@ -124,15 +138,19 @@
 
 // 图片展示样式
 .detail-img {
-  min-height: 142px;
-  overflow: hidden;
+  height: 142px;
+  //min-height: 142px;
+  .detail-img-list{
+    height: 142px;
+    width: 200%;
+  }
   .detail-img-item {
     float: left;
     border: 1px solid #ccc;
     border-radius: 5px;
     overflow: hidden;
-    min-width: 122px;
-    min-height: 122px;
-    margin: 10px;
+    //min-width: 122px;
+    //min-height: 122px;
+    margin-right: 10px;
   }
 }

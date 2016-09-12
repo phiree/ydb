@@ -74,26 +74,28 @@
                 $inputDelete = $("<input type='button'/>").addClass("input-file-delete");
             var _this = this;
 
-
             $inputDelete.on("click", function(e){
                 var path,imgName;
 
                 path = _this.$el.attr("remotePath");
 
                 if (path){
-                    imgName = path.match(/^(.*)\/([^\/]*)$/);
+                    imgName = path.match(/^(.*)\/([^\/]*)$/)[2];
                     _this._deleteImage(e.target, imgName);
                 }
             });
 
             this.$el.wrap($inputBox);
-
             this.$inputBox = $inputBox = this.$el.parent();
+
             $inputBox.append($inputPreview)
                 .append($inputMark)
                 .append($inputFg)
-                .append($inputBg)
-                .append($inputDelete);
+                .append($inputBg);
+
+            if (!this.single){
+                $inputBox.append($inputDelete);
+            }
 
             this.$preview = $inputPreview;
             this.$mark = $inputMark;
@@ -111,8 +113,6 @@
                 return _this._upload(ele);
             });
         };
-
-
 
         /**
          * 图片上传
@@ -142,23 +142,33 @@
             this._uploadForm();
         };
 
+        /**
+         * 图片删除
+         * @param target
+         * @param fileName
+         * @private
+         */
         _ImageUpload.prototype._deleteImage = function(target, fileName){
             var _this = this;
             var $target = $(target);
 
-            $.ajax({
-                type : "POST",
-                url : "/AjaxService/ImageDelete.ashx",
-                data : {
-                    imageName : fileName
-                },
-                success : function(resp){
-                    console.log(resp);
-                    debugger;
-                    $target;
-                    $target.siblings(".input-file-pre").eq(0).attr("src", "");
-                }
-            })
+            if (fileName && typeof fileName === "string"){
+
+                $.ajax({
+                    type : "GET",
+                    contentType: "application/json",
+                    url : "/AjaxService/ImageDelete.ashx",
+                    data : {
+                        imageName : fileName
+                    },
+                    success : function(resp){
+                        console.log(resp);
+                        $target.parent(".input-file-box").remove();
+                    }
+                })
+
+            }
+
         };
 
         /**
@@ -184,7 +194,7 @@
 
             $form.attr({
                 "action" : "/AjaxService/FileUploader.ashx",
-                "method" : "post",
+                "method" : "POST",
                 "enctype" : "multipart/form-data"
             });
 
@@ -218,19 +228,16 @@
                         $form.remove();
                         alert("上次失败，请重新上传");
                     } else {
-                        var path;
-                        path = resp;
 
-                        _this.$el.attr("remotePath", path);
+                        _this.$el.attr("remotePath", resp);
 
                         if ( _this.single ){
                             _this.$inputBox.prepend(_this.$el);
-                        }
-
-                        if ( !_this.single && _this.options.createNew) {
-                            // 新建另外一个新的文件控件
+                        } else if( _this.options.createNew ){
+                            // 新建一个控件
                             _this.createNew();
                         }
+
                         $form.remove();
                     }
                 }

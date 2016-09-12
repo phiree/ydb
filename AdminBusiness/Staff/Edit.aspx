@@ -23,7 +23,7 @@
                                         <div class="emp-head-text">上传新头像</div>
                                         <div class="headImage">
                                             <div class="input-file-box">
-                                                <input type="file" class="input-file-btn" runat="server" id="empheadimg" name="empheadimg" data-local="true"/>
+                                                <input type="file" class="input-file-btn" runat="server" id="empheadimg" name="empheadimg" data-local="true" data-single="true" />
                                             </div>
                                         </div>
                                         <p class="img-tips">图片格式为PNG/JPG大小限制为2M一下</p>

@@ -6974,6 +6974,7 @@ a.time-trigger:hover {
   float: left;
   position: relative;
   z-index: 1;
+  overflow: hidden;
   margin: 0 10px 10px 0;
   width: 140px;
   height: 140px;
@@ -7020,7 +7021,6 @@ a.time-trigger:hover {
   position: absolute;
   z-index: 4;
   width: 140px;
-  height: 140px;
   border: 0 none;
   border-radius: 10px;
 }
@@ -7031,6 +7031,16 @@ a.time-trigger:hover {
   width: 140px;
   height: 140px;
   border-radius: 10px;
+}
+.input-file-delete {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  right: 5px;
+  top: 5px;
+  z-index: 12;
+  border: 0;
+  background: url(../images/components/inputFile/delete_icon_91.png) no-repeat center;
 }
 /* 头像 */
 .headImage {
