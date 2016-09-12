@@ -287,6 +287,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
     <script src="/js/components/select.js?v=1.0.0"></script>
     <script>
         $(function () {
+            // tooltip插件
             $('[data-toggle="tooltip"]').tooltip(
                 {
                     delay: {show : 500, hide : 100},
@@ -294,15 +295,18 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                 }
             );
 
+            // 自定义图片上创插件
             $('.input-file-btn').imageUpload();
 
-
+            // 模拟头像修改按钮点击
             $('#headImgTrigger').click(function(){
                 return $('#headImgBtn').click();
             });
 
+            // 下拉框控件
             $(".select").customSelect();
 
+            // 设置步骤插件
             $(".steps-wrap").stepByStep({
                 stepValid : function(){
                     return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();

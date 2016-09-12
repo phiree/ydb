@@ -8,7 +8,7 @@
     <meta name="description" content="一点办登录" />
     <meta name="keywords" content="一点办" />
     <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />-->
-    <title>一点办登录</title>
+    <title>500 - 一点办</title>
     <link rel="Stylesheet" href="css/main.css" type="text/css" />
     <!--[if lte IE 9]>
     <script src="./js/plugins/respond.min.js"></script>

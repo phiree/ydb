@@ -91,6 +91,7 @@
 <script>
     $(document).ready(function () {
         $(function () {
+            // tooltip插件
             $('[data-toggle="tooltip"]').tooltip(
                 {
                 delay: {show : 500, hide : 100},
@@ -98,8 +99,10 @@
                 }
             );
 
+            // 自定义图片上创插件
             $(".input-file-btn").imageUpload();
 
+            // 下拉框控件
             $(".select").customSelect();
         });
     });

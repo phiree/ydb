@@ -50,7 +50,8 @@
     <script src="/js/plugins/jquery.scrollbar.js"></script>
     <script>
         $(function(){
-            /* 每行补空样式 */
+
+            // 货架每行用空的box填满
             var goodsLength = $('#shelfOverview').find('.shelf-box').length;
             var restGoods = 6 - goodsLength % 6;
 
@@ -61,6 +62,7 @@
                 }
             }
 
+            // scrollbar
             $(".scrollbar-inner").scrollbar();
         })
     </script>

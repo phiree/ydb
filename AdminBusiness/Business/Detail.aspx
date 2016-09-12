@@ -179,7 +179,8 @@
     <script src="/js/plugins/jquery.scrollbar.js"></script>
     <script src="/js/plugins/echarts.simple.min.js"></script>
     <script>
-        (function (){
+        $(function (){
+            // 百度Echart图
             var myChart = echarts.init(document.getElementById("biz-total-chart"));
             var option = {
                 title : {
@@ -235,15 +236,15 @@
             };
             myChart.setOption(option);
 
+            // scrollbar应用
             $(".biz-detail-img-wrap").scrollbar();
 
+            // lightbox插件
             lightbox.option({
                 'resizeDuration': 200,
                 'albumLabel': "图片 %1 / %2"
             });
-
-
-        })()
+        })
     </script>
 </asp:Content>
 

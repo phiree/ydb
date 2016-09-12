@@ -103,6 +103,7 @@
     <script src="/js/plugins/jquery.scrollbar.js"></script>
     <script>
         $(function () {
+            // 设置步骤插件
             $(".steps-wrap").stepByStep({
                 defaultStep : function(){
                     if ( YDBan.url.getUrlParam("step")){
@@ -122,6 +123,7 @@
                 }
             });
 
+            // tooltip标签提示插件
             $('[data-toggle="tooltip"]').tooltip(
                 {
                     delay: {show : 500, hide : 100},
@@ -129,10 +131,15 @@
                 }
             );
 
+            // 下拉框插件
             $(".select").customSelect();
 
+            // 服务选择控件
             (function (){
-                if ( $("#hiTypeId").attr("value") ){ $("#lblSelectedType").removeClass("hide"); }
+                // 控制有值时#lblSelectedType显示
+                if ( $("#hiTypeId").attr("value") ) {
+                    $("#lblSelectedType").removeClass("hide");
+                }
 
                 $('#serChoiceContainer').cascadeCheck({
                     localData : true,
@@ -144,10 +151,11 @@
 
                     submitTarget : '#hiTypeId',
                     submitCallback : showSubmit,
-                    /* 取lightBox_me.js里面的位置重置函数，使每次新建列表时重置位置 */
+                    // 取lightBox_me.js里面的位置重置函数，使每次新建列表时重置位置
                     printListCk : setSelfPosition
                 });
 
+                // 重置弹窗位置
                 function setSelfPosition() {
                     var $self = $('#serLightContainer');
                     $self.css({left: '50%', marginLeft: ($self.outerWidth() / 2) * -1, zIndex: (999 + 3)});
@@ -159,6 +167,7 @@
                     }
                 }
 
+                // 现实选中内容
                 function showCheck(checkId, checkText){
                     var checkTextEle = document.createElement('span');
                     checkTextEle.innerText = checkText;
@@ -190,6 +199,8 @@
             $(".scrollbar-inner").scrollbar();
 
         });
+
+        // 百度地图异步调用
         function loadBaiduMapScript() {
             var script = document.createElement("script");
             script.src = "http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc&callback=initializeService";
