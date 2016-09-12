@@ -19,14 +19,17 @@ namespace Dianzhu.DAL
 
         public ServiceOrderStateChangeHis GetOrderHis(ServiceOrder order)
         {
-            IList<ServiceOrderStateChangeHis> i = Find(x => x.Order.Id == order.Id && x.NewStatus == order.OrderStatus).OrderByDescending(x=>x.Number).ToList();
+            IList<ServiceOrderStateChangeHis> i = Find(x => x.Order.Id == order.Id && x.NewStatus == order.OrderStatus).OrderByDescending(x => x.Number).ToList();
             if (i.Count > 0)
-            { return i[0]; }
+            {
+                return i[0];
+            }
             else
             {
                 return null;
             }
-            //return Find(x => x.Order.Id == order.Id && x.NewStatus == order.OrderStatus)[0];
+
+            //return FindOne(x => x.Order.Id == order.Id && x.NewStatus == order.OrderStatus);
         }
 
         public ServiceOrderStateChangeHis GetMaxNumberOrderHis(ServiceOrder order)
