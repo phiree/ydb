@@ -34,9 +34,15 @@ namespace Dianzhu.ApplicationService.Pay
             {
                 throw new FormatException("orderID不能为空！");
             }
+            Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
+            Model.ServiceOrder order = bllOrder.GetOne(guidOrder);
+            if (order == null)
+            {
+                throw new Exception("该订单不存在！");
+            }
             IList<Model.Payment> payment = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Payment");
-            payment = bllPayment.GetPays(filter1, payfilter.payStatus, payfilter.payType, utils.CheckGuidID(orderID, "orderID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            payment = bllPayment.GetPays(filter1, payfilter.payStatus, payfilter.payType, guidOrder, utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (payment == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
@@ -59,8 +65,14 @@ namespace Dianzhu.ApplicationService.Pay
             {
                 throw new FormatException("orderID不能为空！");
             }
+            Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
+            Model.ServiceOrder order = bllOrder.GetOne(guidOrder);
+            if (order == null)
+            {
+                throw new Exception("该订单不存在！");
+            }
             countObj c = new countObj();
-            c.count = bllPayment.GetPaysCount(payfilter.payStatus, payfilter.payType, utils.CheckGuidID(orderID, "orderID"), utils.CheckGuidID(customer.UserID, "customer.UserID")).ToString();
+            c.count = bllPayment.GetPaysCount(payfilter.payStatus, payfilter.payType, guidOrder, utils.CheckGuidID(customer.UserID, "customer.UserID")).ToString();
             return c;
         }
 
@@ -81,11 +93,18 @@ namespace Dianzhu.ApplicationService.Pay
             {
                 throw new FormatException("payID不能为空！");
             }
-            Model.Payment payment =  bllPayment.GetPay(utils.CheckGuidID(orderID, "orderID"), utils.CheckGuidID(payID, "payID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
+            Model.ServiceOrder order = bllOrder.GetOne(guidOrder);
+            if (order == null)
+            {
+                throw new Exception("该订单不存在！");
+            }
+            Model.Payment payment =  bllPayment.GetPay(guidOrder, utils.CheckGuidID(payID, "payID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (payment == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
-                return null;
+                //return null;
+                throw new Exception("没有找到资源！");
             }
             payObj payobj = Mapper.Map<Model.Payment, payObj>(payment);
             return payobj;
@@ -106,6 +125,11 @@ namespace Dianzhu.ApplicationService.Pay
                 throw new FormatException("orderID不能为空！");
             }
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
+            Model.ServiceOrder order = bllOrder.GetOne(guidOrder);
+            if (order == null)
+            {
+                throw new Exception("该订单不存在！");
+            }
             Guid guidPay = utils.CheckGuidID(payID, "payID");
             Model.Payment payment = bllPayment.GetPay(guidOrder, guidPay, utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (payment == null)
@@ -165,6 +189,11 @@ namespace Dianzhu.ApplicationService.Pay
         {
 
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
+            Model.ServiceOrder order = bllOrder.GetOne(guidOrder);
+            if (order == null)
+            {
+                throw new Exception("该订单不存在！");
+            }
             Guid guidPay = utils.CheckGuidID(payID, "payID");
             Model.Payment payment = bllPayment.GetPay(guidOrder, guidPay, utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (payment == null)

@@ -194,7 +194,8 @@ namespace Dianzhu.ApplicationService.Store
             if (business == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
-                return null;
+                //return null;
+                throw new Exception("没有找到资源！");
             }
             storeObj storeobj = Mapper.Map<Model.Business, storeObj>(business);
             changeObj(storeobj, business);
