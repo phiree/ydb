@@ -98,7 +98,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="order-list" id="accordion" role="tablist" aria-multiselectable="true">
+                                        <div class="order-list scrollbar-inner" id="accordion" role="tablist" aria-multiselectable="true">
                                             <asp:Repeater runat="server" ID="rpOrderList" OnItemDataBound="rpt_ItemDataBound" >
                                                 <ItemTemplate>
                                                     <div class="order-row">
@@ -176,4 +176,8 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="bottom" Runat="Server">
+    <script src="/js/plugins/jquery.scrollbar.js"></script>
+    <script>
+        $(".scrollbar-inner").scrollbar();
+    </script>
 </asp:Content>

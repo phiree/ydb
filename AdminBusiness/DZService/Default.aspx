@@ -22,7 +22,6 @@
                                 <div class="model">
                                     <div class="model-h">
                                         <h4>服务列表</h4>
-                                        <!--<input class="btn-r btn-gray-light-sm" type="button" value="全部删除" id="delete_all">-->
                                     </div>
                                     <div class="model-m no-padding">
                                         <div class="service-list-head">
@@ -64,7 +63,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="service-list" >
+                                        <div class="service-list scrollbar-inner" >
                                             <asp:Repeater runat="server" ID="rptServiceList"  >
                                                 <ItemTemplate>
                                                     <div class="service-row">
@@ -127,17 +126,18 @@
     <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js'></script>
     <script src="/js/core/ServiceType.js?v=20160517"></script>
     <script src="/js/plugins/jquery.lightbox_me.js"></script>
-    <script >
-    $(function(){
-        if ( $(".service-list").children(".service-row").length == 0 ){
-            $("#service-new").removeClass("hide");
-        } else {
-            $("#service-list").removeClass("hide");
-        }
-    })
-    </script>
+    <script src="/js/plugins/jquery.scrollbar.js"></script>
     <script>
        $(function () {
+
+           if ( $(".service-list").children(".service-row").length == 0 ){
+               $("#service-new").removeClass("hide");
+           } else {
+               $("#service-list").removeClass("hide");
+           }
+
+           $(".scrollbar-inner").scrollbar();
+
 
            $(".enable-service").click(function () {
                var that = this;

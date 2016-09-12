@@ -100,6 +100,7 @@
     <script src="/js/apps/pages/service.js?v=1.0.0"></script>
     <script src="/js/components/iptag.js?v=1.0.0"></script>
     <script src="/js/components/select.js?v=1.0.0"></script>
+    <script src="/js/plugins/jquery.scrollbar.js"></script>
     <script>
         $(function () {
             $(".steps-wrap").stepByStep({
@@ -185,6 +186,9 @@
                     e.preventDefault();
                 });
             })();
+
+            $(".scrollbar-inner").scrollbar();
+
         });
         function loadBaiduMapScript() {
             var script = document.createElement("script");

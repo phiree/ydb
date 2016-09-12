@@ -176,6 +176,7 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
     <script src="/js/plugins/lightbox.js"></script>
+    <script src="/js/plugins/jquery.scrollbar.js"></script>
     <script src="/js/plugins/echarts.simple.min.js"></script>
     <script>
         (function (){
@@ -220,17 +221,28 @@
                             }
                         },
                         data:[
-                            { value: <%= DoneOrderCount %>, name: '已完成订单' },
-                            { value: <%= AllOrderCount %> - <%= DoneOrderCount %>, name: '未完成订单' }
+                            {
+                                value: "<%= DoneOrderCount %>",
+                                name: '已完成订单'
+                            },
+                            {
+                                value: "<%= AllOrderCount %> - <%= DoneOrderCount %>",
+                                name: '未完成订单'
+                            }
                         ]
                     }
                 ]
             };
             myChart.setOption(option);
+
+            $(".biz-detail-img-wrap").scrollbar();
+
             lightbox.option({
                 'resizeDuration': 200,
                 'albumLabel': "图片 %1 / %2"
             });
+
+
         })()
     </script>
 </asp:Content>
