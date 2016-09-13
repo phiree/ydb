@@ -307,9 +307,10 @@ namespace Dianzhu.CSClient.Presenter
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //iim发送消息
-            ReceptionChat chat = new ReceptionChatPushService(pushedServiceInfos, GlobalViables.CurrentCustomerService.Id.ToString(),
+            ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(),
             IdentityManager.CurrentIdentity.Customer.Id.ToString(), "推送的服务", IdentityManager.CurrentIdentity.Id.ToString(), Model.Enums.enum_XmppResource.YDBan_CustomerService,
              Model.Enums.enum_XmppResource.YDBan_User);
+            ReceptionChat chat = chatFactory.CreateChatPushService(pushedServiceInfos);
              
            
 

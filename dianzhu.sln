@@ -825,6 +825,9 @@ Global
 		{0EE24EE8-A508-463C-BC2F-83E52110E643} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{6F064359-8BBD-4BDA-9532-D93505472582} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 	EndGlobalSection
+	GlobalSection(NDepend) = preSolution
+		Project = ".\dianzhu.ndproj"
+	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi
 	EndGlobalSection

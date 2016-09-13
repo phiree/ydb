@@ -45,4 +45,5 @@ public class BaseResponse
     protected virtual void BuildRespData() { }
     protected string GetStampTimes()
     { return (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString(); }
+    
 }

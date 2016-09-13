@@ -27,11 +27,12 @@ namespace Dianzhu.Model
         /// <param name="sessionId"></param>
         /// <param name="resourceFrom"></param>
         /// <param name="resourceTo"></param>
-        public ReceptionChat(string from, string to, string messageBody, string sessionId,
-            enum_ChatType chatType, 
+        public ReceptionChat(Guid id, string from, string to, string messageBody, string sessionId,
+            enum_ChatType chatType,
             enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
         {
             //默认值
+            this.Id = id;
             SavedTime = DateTime.Now;
             SavedTimestamp = (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds;
             //构造传入.
@@ -41,8 +42,8 @@ namespace Dianzhu.Model
             this.FromResource = resourceFrom;
             this.ToResource = resourceTo;
             this.SessionId = sessionId;
-            this.ChatType = chatType;
-           
+
+
             if (FromResource == enum_XmppResource.YDBan_CustomerService || ToResource == enum_XmppResource.YDBan_CustomerService)
             {
                 this.ChatTarget = enum_ChatTarget.cer;
@@ -56,11 +57,7 @@ namespace Dianzhu.Model
                 this.ChatTarget = enum_ChatTarget.all;
             }
         }
-        public ReceptionChat(string from, string to, string messageBody, string sessionId,
 
-           enum_XmppResource resourceFrom, enum_XmppResource resourceTo) : this(from, to, messageBody, sessionId, enum_ChatType.Chat,   resourceFrom, resourceTo)
-        {
-        }
         /// <summary>
         /// 所属的回话ID, 目前等于 orderid;
         /// </summary>
@@ -86,8 +83,9 @@ namespace Dianzhu.Model
 
         public virtual bool IsfromCustomerService
         {
-            get {
-                 
+            get
+            {
+
                 return FromResource == enum_XmppResource.YDBan_CustomerService;
             }
         }
@@ -107,8 +105,8 @@ namespace Dianzhu.Model
     {
         public ReceptionChatMedia() { }
         public ReceptionChatMedia(string mediaurl, string mediatype,
-          string from, string to, string messageBody, string sessionId, enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
-            : base(from, to, messageBody, sessionId, enum_ChatType.Chat,    resourceFrom, resourceTo)
+         Guid id, string from, string to, string messageBody, string sessionId, enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
+            : base(id, from, to, messageBody, sessionId, enum_ChatType.Chat, resourceFrom, resourceTo)
         {
             this.MedialUrl = mediaurl;
             this.MediaType = mediatype;
@@ -118,7 +116,7 @@ namespace Dianzhu.Model
         {
             this.MedialUrl = mediaUrl;
         }
-       
+
         public virtual string MedialUrl { get; protected internal set; }
         public virtual string MediaType { get; protected internal set; }
     }
@@ -129,9 +127,9 @@ namespace Dianzhu.Model
     public class ReceptionChatNoticeSys : ReceptionChat
     {
         public ReceptionChatNoticeSys() { }
-        public ReceptionChatNoticeSys(
-           string from, string to, string messageBody, string sessionId,  enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
-           : base(from, to, messageBody, sessionId, enum_ChatType.Notice,   resourceFrom, resourceTo)
+        public ReceptionChatNoticeSys(Guid id,
+           string from, string to, string messageBody, string sessionId, enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
+           : base(id, from, to, messageBody, sessionId, enum_ChatType.Notice, resourceFrom, resourceTo)
         {
 
         }
@@ -147,8 +145,8 @@ namespace Dianzhu.Model
     {
         public ReceptionChatNoticeOrder() { }
         public ReceptionChatNoticeOrder(string orderTilte, enum_OrderStatus orderStatus, string orderType,
-              string from, string to, string messageBody, string sessionId,  enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
-            : base(from, to, messageBody, sessionId, enum_ChatType.Notice,   resourceFrom, resourceTo)
+             Guid id, string from, string to, string messageBody, string sessionId, enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
+            : base(id, from, to, messageBody, sessionId, enum_ChatType.Notice, resourceFrom, resourceTo)
         {
             this.OrderTitle = orderTilte;
             this.CurrentStatus = orderStatus;
@@ -167,8 +165,8 @@ namespace Dianzhu.Model
     {
         public ReceptionChatReAssign() { }
         public ReceptionChatReAssign(string reAssignedCustomerServiceId, string csAlias, string csAvatar,
-            string from, string to, string messageBody, string sessionId,  enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
-            : base(from, to, messageBody, sessionId, enum_ChatType.Notice,  resourceFrom, resourceTo)
+            Guid id, string from, string to, string messageBody, string sessionId, enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
+            : base(id, from, to, messageBody, sessionId, enum_ChatType.Notice, resourceFrom, resourceTo)
         {
             this.ReAssignedCustomerServiceId = reAssignedCustomerServiceId;
             this.CSAlias = csAlias;
@@ -190,8 +188,8 @@ namespace Dianzhu.Model
     {
         public ReceptionChatNoticePromote() { }
         public ReceptionChatNoticePromote(string promotionUrl,
-            string from, string to, string messageBody, string sessionId,   enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
-            : base(from, to, messageBody, sessionId, enum_ChatType.Notice,   resourceFrom, resourceTo)
+          Guid id, string from, string to, string messageBody, string sessionId, enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
+            : base(id, from, to, messageBody, sessionId, enum_ChatType.Notice, resourceFrom, resourceTo)
         {
             this.PromotionUrl = promotionUrl;
         }
@@ -208,8 +206,8 @@ namespace Dianzhu.Model
     {
         public ReceptionChatNoticeCustomerServiceOffline() { }
         public ReceptionChatNoticeCustomerServiceOffline(
-            string from, string to, string messageBody, string sessionId,   enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
-            : base(from, to, messageBody, sessionId, enum_ChatType.Notice,   resourceFrom, resourceTo)
+           Guid id, string from, string to, string messageBody, string sessionId, enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
+            : base(id, from, to, messageBody, sessionId, enum_ChatType.Notice, resourceFrom, resourceTo)
         {
 
         }
@@ -222,8 +220,8 @@ namespace Dianzhu.Model
     {
         public ReceptionChatNoticeCustomerServiceOnline() { }
         public ReceptionChatNoticeCustomerServiceOnline(
-            string from, string to, string messageBody, string sessionId,  enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
-            : base(from, to, messageBody, sessionId, enum_ChatType.Notice,  resourceFrom, resourceTo)
+          Guid id, string from, string to, string messageBody, string sessionId, enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
+            : base(id, from, to, messageBody, sessionId, enum_ChatType.Notice, resourceFrom, resourceTo)
         {
 
         }
@@ -237,8 +235,8 @@ namespace Dianzhu.Model
     {
         public ReceptionChatUserStatus() { }
         public ReceptionChatUserStatus(string userId, enum_UserStatus userStatus,
-              string from, string to, string messageBody, string sessionId,  enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
-            : base(from, to, messageBody, sessionId, enum_ChatType.Notice,  resourceFrom, resourceTo)
+           Guid id, string from, string to, string messageBody, string sessionId, enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
+            : base(id, from, to, messageBody, sessionId, enum_ChatType.Notice, resourceFrom, resourceTo)
         {
             this.UserId = userId;
             this.Status = userStatus;
@@ -256,13 +254,13 @@ namespace Dianzhu.Model
     {
         public ReceptionChatPushService() { }
         public ReceptionChatPushService(IList<PushedServiceInfo> serviceInfos,
-             string from, string to, string messageBody, string sessionId,  enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
-            : base(from, to, messageBody, sessionId, enum_ChatType.Chat,   resourceFrom, resourceTo)
+            Guid id, string from, string to, string messageBody, string sessionId, enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
+            : base(id, from, to, messageBody, sessionId, enum_ChatType.Chat, resourceFrom, resourceTo)
         {
             this.ServiceInfos = serviceInfos;
         }
 
-        public virtual IList<PushedServiceInfo> ServiceInfos { get; protected internal  set; }
+        public virtual IList<PushedServiceInfo> ServiceInfos { get; protected internal set; }
     }
 
     /// <summary>
@@ -272,8 +270,8 @@ namespace Dianzhu.Model
     {
         public ReceptionChatNoticeNewOrder() { }
         public ReceptionChatNoticeNewOrder(
-            string from, string to, string messageBody, string sessionId,  enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
-            : base(from, to, messageBody, sessionId, enum_ChatType.Notice,  resourceFrom, resourceTo)
+           Guid id, string from, string to, string messageBody, string sessionId, enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
+            : base(id, from, to, messageBody, sessionId, enum_ChatType.Notice, resourceFrom, resourceTo)
         {
 
         }
@@ -302,7 +300,7 @@ namespace Dianzhu.Model
             this.StoreAlias = storealias;
             this.StoreAvatar = storeavatar;
         }
-        public virtual string ServiceId { get; protected internal  set; }
+        public virtual string ServiceId { get; protected internal set; }
         public virtual string ServiceName { get; protected internal set; }
         public virtual string ServiceType { get; protected internal set; }
         public virtual string ServiceStartTime { get; protected internal set; }

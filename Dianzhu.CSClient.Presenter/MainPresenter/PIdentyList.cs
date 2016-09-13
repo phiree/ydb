@@ -104,10 +104,12 @@ namespace Dianzhu.CSClient.Presenter
 
                     //CopyDDToChat(rsList.Select(x => x.Customer).ToList());
 
-                    ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign(rs.CustomerService.Id.ToString(),
-                        rs.CustomerService.NickName, rs.CustomerService.AvatarUrl, GlobalViables.Diandian.Id.ToString(), string.Empty,
+                    ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.Diandian.Id.ToString(), string.Empty,
                         "客服" + rs.CustomerService.DisplayName + "已上线", rs.Order.Id.ToString(), enum_XmppResource.YDBan_CustomerService, enum_XmppResource.YDBan_User
                         );
+
+                    ReceptionChatReAssign rChatReAss =(ReceptionChatReAssign) chatFactory.CreateReAssign(rs.CustomerService.Id.ToString(),
+                        rs.CustomerService.NickName, rs.CustomerService.AvatarUrl);
 
 
 

@@ -193,10 +193,11 @@ namespace Dianzhu.NotifyCenter
  
                     order = newOrder;
                 }
-                ReceptionChat rc = new ReceptionChatReAssign(
-                   r.Value.Id.ToString(),r.Value.NickName,r.Value.AvatarUrl,imMember.Id.ToString(),r.Key.Id.ToString(),string.Empty,order.Id.ToString() , enum_XmppResource.YDBan_IMServer
-                   , enum_XmppResource.YDBan_User 
-                    );
+                ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(),
+                    imMember.Id.ToString(), r.Key.Id.ToString(), string.Empty, order.Id.ToString(), enum_XmppResource.YDBan_IMServer
+                   , enum_XmppResource.YDBan_User);
+                ReceptionChat rc = chatFactory.CreateReAssign(r.Value.Id.ToString(), r.Value.NickName, r.Value.AvatarUrl);
+                
                
                 im.SendMessage(rc);
             }
@@ -213,9 +214,11 @@ namespace Dianzhu.NotifyCenter
             }
             DZMembership imMember = dalMembership.FindById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
-            ReceptionChat rc = new ReceptionChatUserStatus
-                (rs.CustomerId, enum_UserStatus.unavailable, string.Empty, rs.CustomerService.Id.ToString(), string.Empty, rs.Order.Id.ToString(),   enum_XmppResource.YDBan_IMServer,
+
+            ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), string.Empty, rs.CustomerService.Id.ToString(), string.Empty, rs.Order.Id.ToString(), enum_XmppResource.YDBan_IMServer,
                  enum_XmppResource.YDBan_CustomerService);
+            ReceptionChat rc = chatFactory.CreateNoticeUserStatus(rs.CustomerId, enum_UserStatus.unavailable);
+                
           
              
             im.SendMessage(rc);
@@ -232,9 +235,10 @@ namespace Dianzhu.NotifyCenter
             }
             DZMembership imMember = dalMembership.FindById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
-            ReceptionChat rc = new ReceptionChatUserStatus
-                   (rs.CustomerId, enum_UserStatus.available, string.Empty, rs.CustomerService.Id.ToString(), string.Empty, rs.Order.Id.ToString(),   enum_XmppResource.YDBan_IMServer,
+            ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), string.Empty, rs.CustomerService.Id.ToString(), string.Empty, rs.Order.Id.ToString(), enum_XmppResource.YDBan_IMServer,
                     enum_XmppResource.YDBan_CustomerService);
+            ReceptionChat rc = chatFactory.CreateNoticeUserStatus(rs.CustomerId, enum_UserStatus.available);
+                  
 
             
             im.SendMessage(rc);

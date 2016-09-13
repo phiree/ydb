@@ -63,6 +63,7 @@
     <Compile Include="Client\Client.cs" />
     <Compile Include="Client\RefreshToken.cs" />
     <Compile Include="Client\UserToken.cs" />
+    <Compile Include="Reception\ReceptionChatFactory.cs" />
     <Compile Include="SerialNo.cs" />
     <Compile Include="StorageManager\StorageFileInfo.cs" />
     <Compile Include="Trait_Filtering.cs" />
