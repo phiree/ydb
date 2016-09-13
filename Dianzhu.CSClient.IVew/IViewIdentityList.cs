@@ -18,7 +18,7 @@ namespace Dianzhu.CSClient.IView
         void RemoveIdentity(ServiceOrder serviceOrder);
         void UpdateIdentityBtnName(Guid oldOrderId, ServiceOrder newOrder);
         //设置为未读
-        void SetIdentityUnread(ServiceOrder serviceOrder, int messageAmount);
+        void SetIdentityUnread(string  orderId, int messageAmount);
         //设置为已读
         void SetIdentityReaded(ServiceOrder serviceOrder);
 

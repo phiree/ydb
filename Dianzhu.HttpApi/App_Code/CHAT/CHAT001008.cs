@@ -34,14 +34,8 @@ public class ResponseCHAT001008:BaseResponse
             {
                 dalChat.Add(chat);
                 //离线推送
-                string pushType;
-                switch (chat.ChatTarget)
-                {
-                    case enum_ChatTarget.cer:pushType = "withcustomerservice"; break;
-                    case enum_ChatTarget.store:pushType = "withbusiness"; break;
-                    default:throw new Exception("尚未处理的推送类型" + chat.ChatTarget) ;
-                }
-                bllPush.Push(pushType, chat.To.Id, chat.ServiceOrder.Id.ToString());
+             
+                bllPush.Push(chat, new Guid( chat.ToId), chat.SessionId);
             }
             else
             {

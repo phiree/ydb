@@ -193,15 +193,11 @@ namespace Dianzhu.NotifyCenter
  
                     order = newOrder;
                 }
-                ReceptionChat rc = new ReceptionChatReAssign
-                {
-                    From = imMember,
-                    ChatType = enum_ChatType.ReAssign,
-                    ReAssignedCustomerService = r.Value,
-                    To = r.Key,
-                    ServiceOrder = order,
-                    SendTime = DateTime.Now
-                };
+                ReceptionChat rc = new ReceptionChatReAssign(
+                   r.Value.Id.ToString(),r.Value.NickName,r.Value.AvatarUrl,imMember.Id.ToString(),r.Key.Id.ToString(),string.Empty,order.Id.ToString() , enum_XmppResource.YDBan_IMServer
+                   , enum_XmppResource.YDBan_User 
+                    );
+               
                 im.SendMessage(rc);
             }
         }
@@ -217,17 +213,11 @@ namespace Dianzhu.NotifyCenter
             }
             DZMembership imMember = dalMembership.FindById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
-           
             ReceptionChat rc = new ReceptionChatUserStatus
-            {
-                From = imMember,
-                ChatType = enum_ChatType.UserStatus,
-                To = rs.CustomerService,
-                ServiceOrder = rs.Order,
-                SendTime = DateTime.Now,
-                User=rs.Customer,
-                Status = enum_UserStatus.unavailable
-            };
+                (rs.CustomerId, enum_UserStatus.unavailable, string.Empty, rs.CustomerService.Id.ToString(), string.Empty, rs.Order.Id.ToString(),   enum_XmppResource.YDBan_IMServer,
+                 enum_XmppResource.YDBan_CustomerService);
+          
+             
             im.SendMessage(rc);
         }
 
@@ -242,17 +232,11 @@ namespace Dianzhu.NotifyCenter
             }
             DZMembership imMember = dalMembership.FindById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
-        
             ReceptionChat rc = new ReceptionChatUserStatus
-            {
-                From = imMember,
-                ChatType = enum_ChatType.UserStatus,
-                To = rs.CustomerService,
-                ServiceOrder = rs.Order,
-                SendTime = DateTime.Now,
-                User = rs.Customer,
-                Status = enum_UserStatus.available
-            };
+                   (rs.CustomerId, enum_UserStatus.available, string.Empty, rs.CustomerService.Id.ToString(), string.Empty, rs.Order.Id.ToString(),   enum_XmppResource.YDBan_IMServer,
+                    enum_XmppResource.YDBan_CustomerService);
+
+            
             im.SendMessage(rc);
         }
     }

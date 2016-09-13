@@ -295,20 +295,9 @@ namespace Dianzhu.Model.Enums
     /// </summary>
     public enum enum_ChatType
     {
-        /// <summary>
-        /// 业务流程需要IM完成的工作,
-        /// 不需要IM完成的 比如, 用户取消订单,
-        /// 申请退款等,通过http接口完成.
-        /// </summary>
-        Text,
-        Media,//包含多媒体链接的消息
-        Notice,//客服通知
-        PushedService,// 推送的服务
-        ConfirmedService,//被确认的服务
-        Order,//订单.包含支付链接
-        BeginPay,//开始支付消息.
-        ReAssign,//重新分配客服
-        UserStatus,//用户状态
+       
+        Chat,//聊天信息,需要持久化
+        Notice,//推送信息,不需要持久化
     }
     /// <summary>
     /// 订单范围类型..这个名字好拗口.

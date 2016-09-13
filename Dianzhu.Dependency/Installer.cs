@@ -44,8 +44,7 @@ namespace Dianzhu.DependencyInstaller
 
             container.Register(Component.For<BLLPayment>());
             container.Register(Component.For<BLLPaymentLog>());
-            container.Register(Component.For<BLLPush>());
-
+             
             container.Register(Component.For<BLLRefund>());
             container.Register(Component.For<BLLRefundLog>());
 
@@ -57,7 +56,7 @@ namespace Dianzhu.DependencyInstaller
 
 
            container.Register(Component.For<BLLReceptionChat>());
-            container.Register(Component.For<BLLReceptionChatDD>());
+        
             container.Register(Component.For<BLLReceptionStatus>());
             container.Register(Component.For<BLLReceptionStatusArchieve>());
 
@@ -153,7 +152,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<IRepository<ReceptionStatusArchieve, Guid>, IDALReceptionStatusArchieve>().ImplementedBy<DALReceptionStatusArchieve>());
             container.Register(Component.For<IRepository<ReceptionStatus, Guid>, IDALReceptionStatus>().ImplementedBy<DALReceptionStatus>());
             container.Register(Component.For<IRepository<ReceptionChat, Guid>, IDALReceptionChat>().ImplementedBy<DALReceptionChat>());
-            container.Register(Component.For<IRepository<ReceptionChatDD, Guid>, IDALReceptionChatDD>().ImplementedBy<DALReceptionChatDD>());
+ 
 
 
             //ssssssssss
@@ -205,11 +204,12 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<IBLLMembershipLoginLog>().ImplementedBy<BLLMembershipLoginLog>());
             container.Register(Component.For<IIMSession>().ImplementedBy<IMSessionsDB>());
             container.Register(Component.For<IIMSession>().ImplementedBy<IMSessionsOpenfire>()
-                                .DependsOn(Dependency.OnValue("restApiUrl", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiSessionListUrl")))
+                                .DependsOn(Dependency.OnValue("restApiUrl", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiBaseUrl")))
                                 .DependsOn(Dependency.OnValue("restApiSecretKey", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey")))
                 );
 
             container.Register(Component.For<ReceptionAssigner>().Named("OpenFireRestAssigner").DependsOn(Dependency.OnComponent<IIMSession, IMSessionsOpenfire>()));
+            container.Register(Component.For<BLLPush>().Named("OpenFireRestAssigner").DependsOn(Dependency.OnComponent<IIMSession, IMSessionsOpenfire>()));
 
             container.Register(Component.For<IBLLServiceOrder>().ImplementedBy<BLLServiceOrder>()
                                .DependsOn(Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>())))

@@ -94,9 +94,9 @@ namespace Dianzhu.CSClient.ViewWPF
             else if (chat is ReceptionChatPushService)
             {
                 UC_PushService pushService = new UC_PushService();
-                pushService.LoadData(((ReceptionChatPushService)chat).PushedServices[0]);
+                pushService.LoadData(((ReceptionChatPushService)chat).ServiceInfos[0]);
                 pushService.FlowDirection = FlowDirection.LeftToRight;
-                chat.MessageBody = string.Empty;
+                 
                 wpnlChat.Children.Add(pushService);
             }
             else
@@ -126,19 +126,21 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 chat = value;
 
-                if (chat.From.UserType == Model.Enums.enum_UserType.customer)
+                //不是客服发出的消息
+                if (!chat.IsfromCustomerService)
                 {
                     wpnlChat.HorizontalAlignment = HorizontalAlignment.Left;
-                    tbNameCustomer.Text = chat.From.DisplayName;
+                    //todo chatrefactor
+                    tbNameCustomer.Text = chat.FromId;
                     tbTimeCustomer.Text = chat.SavedTime.ToString();
                 }
                 else
                 {
                     imgAvatarCS.Source = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCS.png"));
                     wpnlChat.HorizontalAlignment = HorizontalAlignment.Right;
-                    tbNameCS.Text = chat.From.DisplayName;
+                    tbNameCS.Text = chat.FromId;
                     tbTimeCS.Text = chat.SavedTime.ToString();
-                    if (chat.From.Id == currentCS.Id)
+                    if (chat.FromId == currentCS.Id.ToString())
                     {
                         lblChatBorder.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFb3d465"));
                     }
@@ -152,7 +154,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             set
             {
-                if(chat.From.UserType== Model.Enums.enum_UserType.customer)
+                if(chat.FromResource== Model.Enums.enum_XmppResource.YDBan_User)
                 {
                     BitmapImage image;
                     try

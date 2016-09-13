@@ -338,6 +338,7 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <returns></returns>
         IList<OnlineUserSession> GetOnlineSessionUser(string xmppResource);
+        bool IsUserOnline(string userId);
     }
     /// <summary>
     /// IM 会话状态接口之: openfire的实现
@@ -354,31 +355,7 @@ namespace Dianzhu.BLL
 
         public IList<OnlineUserSession> GetOnlineSessionUser()
         {
-            System.Net.WebClient wc = new System.Net.WebClient();
-            Uri uri = new Uri(restApiUrl);
-            string host = uri.Host;
-            wc.Headers.Add("Authorization:" + restApiSecretKey);
-            wc.Headers.Add("Host: " + host);
-            wc.Headers.Add("Accept: application/json");
-            //System.Threading.Thread.Sleep(2000);
-            System.IO.Stream returnData = wc.OpenRead(uri);
-            System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
-            string result = reader.ReadToEnd();
-             
-            try
-            {
-                OnlineUserSessionResult sessionResult
-                    = Newtonsoft.Json.JsonConvert
-                    .DeserializeObject<OnlineUserSessionResult>(result);
-                return sessionResult.session;
-            }
-            catch (Exception ex)
-            {
-                OnlineUserSessionResult_OnlyOne sessionResult
-                   = Newtonsoft.Json.JsonConvert
-                   .DeserializeObject<OnlineUserSessionResult_OnlyOne>(result);
-                return new List<OnlineUserSession>(new OnlineUserSession[] { sessionResult.session });
-            }
+            return RequestAPI(API_Sessions);
 
         }
         public IList<OnlineUserSession> GetOnlineSessionUser(string xmppResource)
@@ -391,6 +368,53 @@ namespace Dianzhu.BLL
             var filteredByResourceName = onlineUsers.Where(x => x.ressource == xmppResource);
             return filteredByResourceName.ToList();
         }
+
+        public bool IsUserOnline(string userId)
+        {
+            var result = RequestAPI(API_Sessions + "/" + userId);
+            //todo: 
+            return result!=null||result.Count>0;
+             
+        }
+        private IList<OnlineUserSession> RequestAPI(string apiName)
+        {
+            System.Net.WebClient wc = new System.Net.WebClient();
+            
+            Uri uri = new Uri(restApiUrl+apiName);
+            string host = uri.Host;
+            wc.Headers.Add("Authorization:" + restApiSecretKey);
+            wc.Headers.Add("Host: " + host);
+            wc.Headers.Add("Accept: application/json");
+            //System.Threading.Thread.Sleep(2000);
+            System.IO.Stream returnData = wc.OpenRead(uri);
+            System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
+            string result = reader.ReadToEnd();
+
+            try
+            {
+                OnlineUserSessionResult sessionResult
+                    = Newtonsoft.Json.JsonConvert
+                    .DeserializeObject<OnlineUserSessionResult>(result);
+                return sessionResult.session;
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    OnlineUserSessionResult_OnlyOne sessionResult
+                       = Newtonsoft.Json.JsonConvert
+                       .DeserializeObject<OnlineUserSessionResult_OnlyOne>(result);
+                    return new List<OnlineUserSession>(new OnlineUserSession[] { sessionResult.session });
+                }
+                catch (Exception eex)
+                {
+                    return null;
+                }
+            }
+        }
+
+        const string API_Sessions = "sessions/";//获取所有用户会话
+         
     }
 
     /// <summary>
@@ -429,6 +453,11 @@ namespace Dianzhu.BLL
             }            
 
             return resultList;
+        }
+
+        public bool IsUserOnline(string userId)
+        {
+            throw new NotImplementedException();
         }
     }
     #region ---------------openfire restapi 在线用户数据的结构---------------

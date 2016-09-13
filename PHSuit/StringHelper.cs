@@ -10,7 +10,17 @@ namespace PHSuit
 {
     public class StringHelper
     {
-       
+
+        public static string Chop(string raw, int targetSize)
+        {
+            return Chop(raw, targetSize, "...");
+        }
+        public static string Chop(string raw, int targetSize, string ending)
+        {
+            if (raw.Length <= targetSize) { return raw; }
+
+            return raw.Substring(0, targetSize) + ending;
+        }
         //
         public static string InsertToId(string guidWithNo)
         {

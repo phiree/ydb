@@ -58,36 +58,28 @@ namespace Dianzhu.CSClient.Presenter
             string s = Convert.ToBase64String(fileData);
             string fileName = MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, domainType, mediaType);
 
-            ReceptionChatMedia chat = new ReceptionChatMedia
-            {
-                ServiceOrder = IdentityManager.CurrentIdentity,
-                ChatType = Model.Enums.enum_ChatType.Media,
-                From =GlobalViables.CurrentCustomerService,
-                To = IdentityManager.CurrentIdentity.Customer,
-                MessageBody = viewChatSend.MessageText,
-                SendTime = DateTime.Now,
-                SavedTime = DateTime.Now,
-                MedialUrl = GlobalViables.MediaGetUrl + fileName,
-                MediaType = mediaType
-            };
-            localChatManager.Add(chat.To.Id.ToString(), chat);
+            ReceptionChatMedia chat = new ReceptionChatMedia(GlobalViables.MediaGetUrl + fileName,mediaType,GlobalViables.CurrentCustomerService.Id.ToString(),
+                IdentityManager.CurrentIdentity.Customer.Id.ToString(),viewChatSend.MessageText,IdentityManager.CurrentIdentity.Id.ToString(), enum_XmppResource.YDBan_CustomerService,
+                 enum_XmppResource.YDBan_User);
+            
+            localChatManager.Add(chat.ToId, chat);
 
 
             iIM.SendMessage(chat);
 
             if (PHSuit.LocalFileManagement.DownLoad(string.Empty, chat.MedialUrl, fileName))
             {
-                ((ReceptionChatMedia)chat).MedialUrl = fileName;
+               chat.SetMediaUrl( fileName);
             }
 
             //临时存放订单
             order = IdentityManager.CurrentIdentity;
 
             viewChatSend.MessageText = string.Empty;
-            chat.MedialUrl = fileName;
+            chat.SetMediaUrl(fileName);
             viewChatList.AddOneChat(chat,string.Empty);
-
-            chat.MedialUrl = chat.MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
+            chat.SetMediaUrl(chat.MedialUrl.Replace(GlobalViables.MediaGetUrl, ""));
+         
            // dalReceptionChat.Add(chat);
             
             //  PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
@@ -102,17 +94,10 @@ namespace Dianzhu.CSClient.Presenter
                 string messageText = viewChatSend.MessageText;
                 if (string.IsNullOrEmpty(messageText)) return;
 
-                ReceptionChat chat = new ReceptionChat
-                {
-                    ChatType = Model.Enums.enum_ChatType.Text,
-                    From = GlobalViables.CurrentCustomerService,
-                    To = IdentityManager.CurrentIdentity.Customer,
-                    MessageBody = messageText,
-                    SendTime = DateTime.Now,
-                    SavedTime = DateTime.Now,
-                    ServiceOrder = IdentityManager.CurrentIdentity
-                };
-                localChatManager.Add(chat.To.Id.ToString(), chat);
+                ReceptionChat chat = new ReceptionChat(GlobalViables.CurrentCustomerService.Id.ToString(), IdentityManager.CurrentIdentity.Customer.Id.ToString(),
+                    messageText, IdentityManager.CurrentIdentity.Id.ToString(), enum_XmppResource.YDBan_CustomerService, enum_XmppResource.YDBan_User);
+                
+                localChatManager.Add(chat.ToId, chat);
                 viewChatSend.MessageText = string.Empty;
                 viewChatList.AddOneChat(chat,string.Empty);
                //dalReceptionChat.Add(chat);

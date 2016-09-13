@@ -12,16 +12,16 @@ namespace Dianzhu.CSClient.MessageAdapter
    
     public  class MessageBuilder
     {
-        IDAL.IDALIMUserStatus dalIMUserStatus;
+        
         ILog ilog = LogManager.GetLogger("Dianzhu.CSClient.Dianzhu.CSClient.MessageBuilder");
 
         Node extNode;//message 中的ext节点
         Message message = null;
         public Message Message { get { return message; } }
 
-        public MessageBuilder(IDAL.IDALIMUserStatus dalIMUserStatus)
+        public MessageBuilder( )
         {
-            this.dalIMUserStatus = dalIMUserStatus;
+             
             message = new Message();
         }
         public MessageBuilder BuildBase(string id, string toJid, string fromJid, string body,string orderId)
@@ -114,6 +114,18 @@ namespace Dianzhu.CSClient.MessageAdapter
             extNode.AddChild(customerObj);
             return this;
         }
+        
+        public MessageBuilder BuildNoticeOrder(string title, string status,string type)
+        {
+            extNode.Namespace = "ihelper:notice:order";
 
+
+            var extMedia = new agsXMPP.Xml.Dom.Element("orderObj");
+            extMedia.SetAttribute("status", status);
+            extMedia.SetAttribute("type", type);
+            extMedia.SetAttribute("title", title);
+            extNode.AddChild(extMedia);
+            return this;
+        }
     }
 }

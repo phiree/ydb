@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using Dianzhu.Model;
 using DDDCommon;
 using Dianzhu.Model.Enums;
+using System.Linq.Expressions;
 
 namespace Dianzhu.BLL
 {
@@ -21,10 +22,12 @@ namespace Dianzhu.BLL
     public class BLLReceptionChat
     {
         
-        public IDAL.IDALReceptionChat DALReceptionChat;
-        public BLLReceptionChat(IDAL.IDALReceptionChat dal)
+        private IDAL.IDALReceptionChat DALReceptionChat;
+        private IDAL.IDALMembership dalMembership;
+        public BLLReceptionChat(IDAL.IDALReceptionChat dal,IDALMembership dalMembership)
         {
             DALReceptionChat = dal;
+            this.dalMembership = dalMembership;
         }
         public ReceptionChat GetOne(Guid id)
         {
@@ -36,16 +39,9 @@ namespace Dianzhu.BLL
         {
             DALReceptionChat.Add(chat);
         }
-        
-        public IList<ReceptionChat> GetChatByOrder(ServiceOrder order)
-        {
-            return DALReceptionChat.GetChatByOrder(order);
-        }
+   
 
-        public IList<ReceptionChat> FindChatByOrder(ServiceOrder order)
-        {
-            return DALReceptionChat.FindChatByOrder(order);
-        }
+        
 
         /// <summary>
         /// 条件读取聊天记录
@@ -59,59 +55,8 @@ namespace Dianzhu.BLL
         /// <returns></returns>
         public IList<ReceptionChat> GetChats(Model.Trait_Filtering filter, string type, string fromTarget,  Guid orderID,Guid userID,string userType)
         {
-            var where = PredicateBuilder.True<ReceptionChat>();
-            if (orderID != Guid.Empty)
-            {
-                where = where.And(x => x.ServiceOrder.Id == orderID);
-            }
-            if (!string.IsNullOrEmpty(type))
-            {
-                switch (type)
-                {
-                    case "pushOrder":
-                        where = where.And(x => x.ChatType == enum_ChatType.PushedService);
-                        break;
-                    case "chat":
-                        where = where.And(x => x.ChatType == enum_ChatType.Text);
-                        break;
-                    default:
-                        where = where.And(x => x.ChatType == enum_ChatType.Media && ((ReceptionChatMedia)x).MediaType == type);
-                        break;
-                }
-            }
-            if (userType == "customer" || userType == "customerservice")
-            {
-                switch (fromTarget)
-                {
-                    case "store":
-                        where = where.And(x => (x.From.Id == userID && (x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff)) || (x.To.Id == userID && (x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff)));
-                        break;
-                    case "customerService":
-                        where = where.And(x => (x.From.Id == userID && (x.To.UserType == enum_UserType.customerservice || x.To.UserType == enum_UserType.diandian)) || (x.To.Id == userID && (x.From.UserType == enum_UserType.customerservice || x.From.UserType == enum_UserType.diandian)));
-                        break;
-                    case "customer":
-                        where = where.And(x => (x.From.Id == userID && x.To.UserType == enum_UserType.customer) || (x.To.Id == userID && x.From.UserType == enum_UserType.customer));
-                        break;
-                    default:
-                        where = where.And(x => x.From.Id == userID || x.To.Id == userID);
-                        break;
-                }
-            }
-            else 
-            {
-                switch (fromTarget)
-                {
-                    case "customerService":
-                        where = where.And(x => ((x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff) && x.To.UserType == enum_UserType.customerservice) || ((x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff) && x.From.UserType == enum_UserType.customerservice));
-                        break;
-                    case "customer":
-                        where = where.And(x => ((x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff) && x.To.UserType == enum_UserType.customer) || ((x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff) && x.From.UserType == enum_UserType.customer));
-                        break;
-                    default:
-                        where = where.And(x => x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff || x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff);
-                        break;
-                }
-            }
+            var where = BuildQuery(type, fromTarget, orderID, userID, userType);
+        
 
             ReceptionChat baseone = null;
             if (!string.IsNullOrEmpty(filter.baseID))
@@ -141,61 +86,56 @@ namespace Dianzhu.BLL
         /// <returns></returns>
         public long GetChatsCount(string type, string fromTarget, Guid orderID, Guid userID, string userType)
         {
+            var where = BuildQuery(type, fromTarget, orderID, userID, userType);
+
+            long count = DALReceptionChat.GetRowCount(where);
+            return count;
+        }
+
+
+        private Expression<Func<ReceptionChat, bool>> BuildQuery(string type, string fromTarget, Guid orderID, Guid userID, string userType)
+        {
             var where = PredicateBuilder.True<ReceptionChat>();
             if (orderID != Guid.Empty)
             {
-                where = where.And(x => x.ServiceOrder.Id == orderID);
+                where = where.And(x => x.SessionId == orderID.ToString());
             }
-            if (type != null && type != "")
+            if (!string.IsNullOrEmpty(type))
             {
                 switch (type)
                 {
                     case "pushOrder":
-                        where = where.And(x => x.ChatType == enum_ChatType.PushedService);
+                        where = where.And(x => (x.GetType()) == typeof(ReceptionChatPushService));//  x.ChatType == enum_ChatType.PushedService);
                         break;
                     case "chat":
-                        where = where.And(x => x.ChatType == enum_ChatType.Text);
+                        where = where.And(x => (x.GetType()) == typeof(ReceptionChat));
                         break;
                     default:
-                        where = where.And(x => x.ChatType == enum_ChatType.Media && ((ReceptionChatMedia)x).MediaType == type);
+                        where = where.And(x => (x.GetType()) == typeof(ReceptionChatMedia));
                         break;
                 }
             }
+            where = where.And(x => x.FromId == userID.ToString() || x.ToId == userID.ToString());
             if (userType == "customer" || userType == "customerservice")
             {
                 switch (fromTarget)
                 {
                     case "store":
-                        where = where.And(x => (x.From.Id == userID && (x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff)) || (x.To.Id == userID && (x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff)));
+                        where = where.And(x => x.ChatTarget == enum_ChatTarget.store);
+
                         break;
                     case "customerService":
-                        where = where.And(x => (x.From.Id == userID && (x.To.UserType == enum_UserType.customerservice|| x.To.UserType == enum_UserType.diandian)) || (x.To.Id == userID && (x.From.UserType == enum_UserType.customerservice || x.From.UserType == enum_UserType.diandian)));
-                        break;
+                        where = where.And(x => x.ChatTarget == enum_ChatTarget.cer); break;
                     case "customer":
-                        where = where.And(x => (x.From.Id == userID && x.To.UserType == enum_UserType.customer) || (x.To.Id == userID && x.From.UserType == enum_UserType.customer));
+                        where = where.And(x => x.ChatTarget == enum_ChatTarget.user);
                         break;
                     default:
-                        where = where.And(x => x.From.Id == userID || x.To.Id == userID);
+
                         break;
                 }
             }
-            else
-            {
-                switch (fromTarget)
-                {
-                    case "customerService":
-                        where = where.And(x => ((x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff) && x.To.UserType == enum_UserType.customerservice) || ((x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff) && x.From.UserType == enum_UserType.customerservice));
-                        break;
-                    case "customer":
-                        where = where.And(x => ((x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff) && x.To.UserType == enum_UserType.customer) || ((x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff) && x.From.UserType == enum_UserType.customer));
-                        break;
-                    default:
-                        where = where.And(x => x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff || x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff);
-                        break;
-                }
-            }
-            long count = DALReceptionChat.GetRowCount(where);
-            return count;
+
+            return where;
         }
 
         public IList<ReceptionChat> GetReceptionChatList(Guid fromId, Guid toId, Guid orderId, DateTime begin, DateTime end, 
@@ -214,6 +154,7 @@ namespace Dianzhu.BLL
             return DALReceptionChat.GetReceptionChatListByTargetIdAndSize(fromId, toId, orderId, begin, end, pageSize, targetChat, low, target);
 
         }
+        
     }
 
 }

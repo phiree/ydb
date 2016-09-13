@@ -21,9 +21,9 @@ namespace Dianzhu.Api.Model
         public RespDataCHAT_chatObj Adapt(ReceptionChat chat)
         {
             this.id = chat.Id.ToString();
-            this.to = chat.To.Id.ToString();
-            this.from = chat.From.Id.ToString();
-            this.orderID = chat.ServiceOrder == null ? string.Empty : chat.ServiceOrder.Id.ToString();
+            this.to = chat.ToId;
+            this.from = chat.FromId;
+            this.orderID = chat.SessionId;
             this.type = "chat";
             this.date = chat.SavedTime.ToString("yyyyMMddHHmmss");
             if (chat is ReceptionChatMedia)
@@ -33,8 +33,8 @@ namespace Dianzhu.Api.Model
             }
             else if (chat is ReceptionChatReAssign)
             {
-                this.type = enum_ChatType.ReAssign.ToString();
-                this.body = "(Reassign to)" + ((ReceptionChatReAssign)chat).ReAssignedCustomerService.DisplayName;
+                this.type = "reassign";
+                this.body = "(Reassign to)" + ((ReceptionChatReAssign)chat).ReAssignedCustomerServiceId;
             }
             else if(chat is ReceptionChatPushService)
             {

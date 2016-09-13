@@ -306,11 +306,11 @@ namespace Dianzhu.CSClient.ViewWPF
         /// </summary>
         /// <param name="serviceOrder"></param>
         /// <param name="messageAmount"></param>
-        public void SetIdentityUnread(ServiceOrder serviceOrder, int messageAmount)
+        public void SetIdentityUnread(string orderId, int messageAmount)
         {
             Action lambda = () =>
             {
-                string ctrlNameNew = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString(), PRECBUTTON);
+                string ctrlNameNew = PHSuit.StringHelper.SafeNameForWpfControl(orderId, PRECBUTTON);
                 var u = (UC_Customer)wpTopIdentityList.FindName(ctrlNameNew);
                 if (u != null)
                 {

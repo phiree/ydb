@@ -8,7 +8,7 @@ using System.Diagnostics;
 namespace Dianzhu.Model
 {
     /// <summary>
-    /// 订单明细. 包含服务项快照
+    /// 被推送的服务
     /// </summary>
 
     public class ServiceOrderPushedService:DDDCommon.Domain.Entity<Guid>

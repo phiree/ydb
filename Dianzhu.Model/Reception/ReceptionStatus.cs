@@ -21,7 +21,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// guid
         /// </summary>
-        public virtual Guid Id { get; set; }
+    
 
         /// <summary>
         /// 客服

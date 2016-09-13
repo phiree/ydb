@@ -30,12 +30,13 @@ namespace Dianzhu.CSClient.LocalStorage
     public class ChatManagerInMemory : LocalChatManager
     {
         IDALReceptionChat idalReceptionChat;
-
-        public ChatManagerInMemory(IDALReceptionChat idalReceptionChat)
+        IDALMembership dalMembership;
+        public ChatManagerInMemory(IDALReceptionChat idalReceptionChat,IDAL.IDALMembership dalMembership)
         {
             LocalChats = new Dictionary<string, IList<ReceptionChat>>();
             LocalCustomerAvatarUrls = new Dictionary<string, string>();
             this.idalReceptionChat = idalReceptionChat;
+            this.dalMembership = dalMembership;
         }
         public Dictionary<string, IList<ReceptionChat>> LocalChats
         {
@@ -63,7 +64,7 @@ namespace Dianzhu.CSClient.LocalStorage
             {
                 
                 //initdata 
-                IList<ReceptionChat> initChatList = InitChatList(chatData.From.Id, Guid.Empty, Guid.Empty);
+                IList<ReceptionChat> initChatList = InitChatList(new Guid( chatData.FromId), Guid.Empty, Guid.Empty);
                 //是否包含当前记录.  插件保存记录 和 xmpp接收 的顺序无法控制, 加此判断以保证列表中包含该消息.
                 if (initChatList.Where(x => x.Id == chatData.Id).Count() == 0)
                 {
@@ -73,7 +74,8 @@ namespace Dianzhu.CSClient.LocalStorage
 
             if (!LocalCustomerAvatarUrls.ContainsKey(customerId))
             {
-                LocalCustomerAvatarUrls.Add(customerId, chatData.From.AvatarUrl);
+                DZMembership from = dalMembership.FindById(new Guid(chatData.FromId));
+                LocalCustomerAvatarUrls.Add(customerId, from.AvatarUrl);
             }
         }
 

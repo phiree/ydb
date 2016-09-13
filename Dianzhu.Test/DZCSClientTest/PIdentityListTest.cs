@@ -25,7 +25,7 @@ namespace Dianzhu.Test.DZCSClientTest
         IDAL.IDALReceptionStatus dalReceptionStatus;
         IViewSearchResult viewSearchResult;
         IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve;
-
+        IDAL.IDALMembership dalMembership;
         PIdentityList pIdentityList;
         IList<DZMembership> customerList;
         IList<DZMembership> csList;
@@ -50,8 +50,10 @@ namespace Dianzhu.Test.DZCSClientTest
             lcm = MockRepository.GenerateStub<Dianzhu.CSClient.LocalStorage.LocalChatManager>();
             lhom = MockRepository.GenerateStub<Dianzhu.CSClient.LocalStorage.LocalHistoryOrderManager>();
             luidm = MockRepository.GenerateStub<Dianzhu.CSClient.LocalStorage.LocalUIDataManager>();
+             dalMembership = MockRepository.GenerateStub<IDAL.IDALMembership>();
 
-            pIdentityList = new PIdentityList(viewIdentityList, viewChatList, iIM, dalReceptionChat, viewChatSend, bllServiceOrder, viewOrderHistory, dalReceptionStatus, viewSearchResult, dalReceptionStatusArchieve,lcm,lhom,luidm);
+
+            pIdentityList = new PIdentityList(viewIdentityList, viewChatList, iIM, dalReceptionChat, viewChatSend, bllServiceOrder, viewOrderHistory, dalReceptionStatus, viewSearchResult, dalReceptionStatusArchieve,lcm,lhom,luidm, dalMembership);
 
             string[] customerIdList = { "17b2007f-0267-4224-8d5a-cbaafa7ed1fc", "153ef5fa-600a-4a32-aefb-27c5e5fa5a50", "4a3727f6-ec21-42a8-ba84-70ba9db06354" };
             string[] csIdList = { "20364ea5-c19c-409d-8b61-cb1905fc68d8", "684db3a7-6c2c-44bf-a50a-5ceb1b904a26", "8f506545-de72-4fdb-bbaa-85a8709ae63f" };
@@ -132,15 +134,7 @@ namespace Dianzhu.Test.DZCSClientTest
         [Test]
         public void IMReceivedMessage_Test()
         {
-            ReceptionChat chat = Builder<ReceptionChat>.CreateNew()
-                                .With(x => x.ChatTarget = Model.Enums.enum_ChatTarget.cer)
-                                .With(x => x.ChatType = Model.Enums.enum_ChatType.Text)
-                                .With(x => x.From = customerList[0])
-                                .With(x => x.To = csList[0])
-                                .With(x => x.MessageBody = "哈哈")
-                                .Build();
-
-            pIdentityList.IIM_IMReceivedMessage(chat);
+             
 
 
         }

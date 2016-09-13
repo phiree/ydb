@@ -81,7 +81,7 @@ namespace Dianzhu.CSClient
 
                 Presenter.PIdentityList pIdentityList = Bootstrap.Container.Resolve<Presenter.PIdentityList>(); ;
                 Presenter.PChatList pChatList = Bootstrap.Container.Resolve<Presenter.PChatList>();
-                Presenter.PNotice pNotice = Bootstrap.Container.Resolve<Presenter.PNotice>();
+              
                 Presenter.PSearch pSearch = Bootstrap.Container.Resolve<Presenter.PSearch>();
                 Presenter.PTabControl pTabControl = Bootstrap.Container.Resolve<Presenter.PTabControl>();
                 Presenter.POrderHistory pOrderHistory = Bootstrap.Container.Resolve<Presenter.POrderHistory>();

@@ -132,7 +132,6 @@
     <Compile Include="BLLTest\OrderFlow.cs" />
     <Compile Include="BLLTest\TestBLLPayment.cs" />
     <Compile Include="BLLTest\TestBLLArea.cs" />
-    <Compile Include="BLLTest\TestBLLReceptionChat.cs" />
     <Compile Include="BLLTest\TestBLLServiceOrder.cs" />
     <Compile Include="BLLTest\TestDZService.cs" />
     <Compile Include="BLLTest\TestReceptionAssign.cs" />

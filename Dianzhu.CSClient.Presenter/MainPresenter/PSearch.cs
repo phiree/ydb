@@ -283,13 +283,21 @@ namespace Dianzhu.CSClient.Presenter
 
             //NHibernateUnitOfWork.UnitOfWork.Start();
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
+            IList<PushedServiceInfo> pushedServiceInfos = new List<PushedServiceInfo>();
             foreach (DZService service in pushedServices)
             {
                 //NHibernateUnitOfWork.UnitOfWork.Current.Refresh(service);//来自上个session，需刷新
 
-                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime ));
+                //被推送的服务存入order 
+                serviceOrderPushedServices.Add(new ServiceOrderPushedService
+                    (IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName,
+                    viewSearch.ServiceCustomerPhone, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime ));
+                //被推送的服务放入聊天内容.
+                PushedServiceInfo psi = new PushedServiceInfo(service.Id.ToString(), service.Name, service.ServiceType.ToString(),
+                     string.Empty, string.Empty,service.Business.Owner.Id.ToString(), service.Business.Owner.NickName, service.Business.BusinessAvatar.ImageName);
+                pushedServiceInfos.Add(psi);
             }
-           // bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime);
+            bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //获取之前orderid
@@ -299,27 +307,11 @@ namespace Dianzhu.CSClient.Presenter
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //iim发送消息
-            ReceptionChat chat = new ReceptionChatPushService
-            {
-                Id = Guid.NewGuid(),
-                ServiceOrder =IdentityManager.CurrentIdentity,
-                ChatTarget = Model.Enums.enum_ChatTarget.cer,
-                From = GlobalViables.CurrentCustomerService,
-                To = IdentityManager.CurrentIdentity.Customer,
-                MessageBody = "推送的服务",
-                PushedServices = serviceOrderPushedServices,
-                SendTime = DateTime.Now,
-                SavedTime = DateTime.Now,
-
-            };
-            //dalReceptionChat.Add(chat);//openfire插件存储消息
-
-
-            //加到缓存数组中
-            //if (PChatList.chatHistoryAll != null)
-            //{
-            //    PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
-            //}
+            ReceptionChat chat = new ReceptionChatPushService(pushedServiceInfos, GlobalViables.CurrentCustomerService.Id.ToString(),
+            IdentityManager.CurrentIdentity.Customer.Id.ToString(), "推送的服务", IdentityManager.CurrentIdentity.Id.ToString(), Model.Enums.enum_XmppResource.YDBan_CustomerService,
+             Model.Enums.enum_XmppResource.YDBan_User);
+             
+           
 
             log.Debug("推送的订单：" + IdentityManager.CurrentIdentity.Id.ToString());
 
@@ -357,7 +349,7 @@ namespace Dianzhu.CSClient.Presenter
             //发送订单通知.
 
             //存储消息到内存中
-            localChatManager.Add(chat.To.Id.ToString(), chat);
+            localChatManager.Add(chat.ToId, chat);
 
             return chat;
             iIM.SendMessage(chat);

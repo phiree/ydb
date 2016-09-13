@@ -42,7 +42,7 @@ namespace Dianzhu.CSClient.Presenter
             viewChatList.CurrentCustomerService = GlobalViables.CurrentCustomerService;
             viewChatList.BtnMoreChat += ViewChatList_BtnMoreChat;
 
-            iIM.IMReceivedMessage += IIM_IMReceivedMessage;
+            
         }
 
         private void ViewChatList_BtnMoreChat()
@@ -65,13 +65,13 @@ namespace Dianzhu.CSClient.Presenter
                 {
                     viewChatList.ChatList.Insert(0, item);
                     string customerId = string.Empty;
-                    if(item.From.UserType== enum_UserType.customer)
+                    if(item.FromResource== enum_XmppResource.YDBan_User)
                     {
-                        customerId = item.From.Id.ToString();
+                        customerId = item.FromId;
                     }
-                    else if(item.To.UserType== enum_UserType.customer)
+                    else if(item.ToResource==  enum_XmppResource.YDBan_User)
                     {
-                        customerId = item.To.Id.ToString();
+                        customerId = item.ToId;
                     }
                     viewChatList.InsertOneChat(item, chatManager.LocalCustomerAvatarUrls[customerId]);
                 }
@@ -82,14 +82,7 @@ namespace Dianzhu.CSClient.Presenter
             }
         }
 
-        private void IIM_IMReceivedMessage(ReceptionChat chat)
-        {
-            //判断信息类型
-            if (chat.ChatType == enum_ChatType.Media || chat.ChatType == enum_ChatType.Text)
-            {
-                          
-            }
-        }
+      
 
         BackgroundWorker worker;
         public void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
@@ -120,9 +113,9 @@ namespace Dianzhu.CSClient.Presenter
 
                 foreach (ReceptionChat chat in chatList)
                 {
-                    if(chat.From.UserType== enum_UserType.customer)
+                    if(chat.FromResource== enum_XmppResource.YDBan_User)
                     {
-                        viewChatList.AddOneChat(chat, chatManager.LocalCustomerAvatarUrls[chat.From.Id.ToString()]);
+                        viewChatList.AddOneChat(chat, chatManager.LocalCustomerAvatarUrls[chat.FromId]);
                     }
                     else
                     {

@@ -15,7 +15,7 @@ namespace Dianzhu.CSClient.MessageAdapter.Tests
         [SetUp]
         public void Setup()
         {
-            Bootstrap.Boot();
+           
         }
         [Test()]
         public void RawXmlToChatTest_TextChat()
@@ -24,10 +24,10 @@ namespace Dianzhu.CSClient.MessageAdapter.Tests
             MessageAdapter ma = new MessageAdapter();
 
             ReceptionChat chat = ma.RawXmlToChat(rawXml);
-            Assert.AreEqual(chat.To, "4e2676e1-5561-11e6-b7f0-001a7dda7106");
+            Assert.AreEqual(chat.ToId, "4e2676e1-5561-11e6-b7f0-001a7dda7106");
         }
         [Test()]
-        public void RawXmlToChatTest_MediaChat()
+        public void RawXmlToChatTest_Media()
         {
             /*
              <message xmlns=""jabber:client"" from=""05a8aefd-6a9b-11e6-b78a-001a7dda7106@localhost/YDBan_User"" to=""05ad9bf7-6a9b-11e6-b78a-001a7dda7106@localhost"" type=""chat"">
@@ -49,8 +49,12 @@ namespace Dianzhu.CSClient.MessageAdapter.Tests
 </message>";
             MessageAdapter ma = new MessageAdapter();
 
-            ReceptionChat chat = ma.RawXmlToChat(rawXml);
-            Assert.AreEqual(chat.To, "4e2676e1-5561-11e6-b7f0-001a7dda7106");
+            ReceptionChatMedia chat =(ReceptionChatMedia) ma.RawXmlToChat(rawXml);
+            Assert.AreEqual(chat.ToId, "4e2676e1-5561-11e6-b7f0-001a7dda7106");
+            Assert.AreEqual("http://localhost:8038/GetFile.ashx?fileName=_$_85f591ba-ebcc-41ab-b093-3ab31ca56609_$_ChatImage_$_image", chat.MedialUrl);
+            Assert.AreEqual("image", chat.MediaType);
+            Assert.AreEqual(string.Empty, chat.MessageBody);
+             
         }
         [Test()]
         public void RawXmlToChatTest_PushService()
@@ -101,5 +105,39 @@ namespace Dianzhu.CSClient.MessageAdapter.Tests
 
 
         }
+
+        [Test()]
+        public void RawXmlToChatTestNoticeOrder()
+        {
+            /*
+             <message xmlns="jabber:client" to="4e2676e1-5561-11e6-b7f0-001a7dda7106@localhost" 
+             id="fb2afd35-1627-425d-a761-4586e637b150" type="headline" from="fa7ef456-0978-4ccd-b664-a594014cbfe7@localhost/YDBan_IMServer">
+                 <body>订单状态已变为:Created</body>
+                 <active xmlns="http://jabber.org/protocol/chatstates" />
+                <ext xmlns="ihelper:notice:order">
+                    <orderID>231cdac7-0c1f-4e96-8553-a6600120a6bd</orderID>
+                    <orderObj type="动漫设计" status="Created" title="畅畅设计;" />
+                </ext>
+                </message> 
+             */
+            string rawXml = @"<message xmlns=""jabber:client"" to=""4e2676e1-5561-11e6-b7f0-001a7dda7106@localhost"" 
+             id=""fb2afd35-1627-425d-a761-4586e637b150"" type=""headline"" from=""fa7ef456-0978-4ccd-b664-a594014cbfe7@localhost/YDBan_IMServer"">
+                 <body>订单状态已变为:Created</body>
+                 <active xmlns=""http://jabber.org/protocol/chatstates"" />
+                <ext xmlns=""ihelper:notice:order"">
+                    <orderID>231cdac7-0c1f-4e96-8553-a6600120a6bd</orderID>
+                    <orderObj type=""动漫设计"" status=""Created"" title=""畅畅设计;"" />
+                </ext>
+                </message>";
+            IMessageAdapter.IAdapter ma = Bootstrap.Container.Resolve<Dianzhu.CSClient.IMessageAdapter.IAdapter>();
+        
+            ReceptionChat chat = ma.RawXmlToChat(rawXml);
+       
+            Assert.AreEqual(typeof(ReceptionChatNoticeOrder), chat.GetType());
+
+
+        }
+
+    
     }
 }
