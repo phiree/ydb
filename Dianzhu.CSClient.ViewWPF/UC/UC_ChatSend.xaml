@@ -81,7 +81,7 @@
                         </Button.Background>
                         <Button.ToolTip>
                             <StackPanel>
-                                <TextBlock Text="截图" Padding="0"></TextBlock>
+                                <TextBlock Text="截图(Alt+Q)" Padding="0"></TextBlock>
                             </StackPanel>
                         </Button.ToolTip>
                     </Button>
