@@ -266,10 +266,12 @@ namespace Dianzhu.CSClient.Presenter
             errorMsg = string.Empty;
             if (pushedServices.Count == 0)
             {
+                log.Error("推送的服务项为0");
                 return null;
             }
             if (IdentityManager.CurrentIdentity == null)
             {
+                log.Error("IdentityManager.CurrentIdentity为null");
                 return null;
             }
             if (viewSearch.SearchKeywordTime < DateTime.Now)

@@ -198,11 +198,17 @@ namespace Dianzhu.Model
 
 
         #region properties
+        /// <summary>
+        /// 服务详情
+        /// </summary>
         public virtual IList<ServiceOrderDetail> Details
         {
             get; protected set;
         }
         private Business business;
+        /// <summary>
+        /// 店铺
+        /// </summary>
         public virtual Business Business {
             get {
                 return business;
@@ -244,7 +250,9 @@ namespace Dianzhu.Model
                 }
                 return name.TrimEnd(';');
             } }
-
+        /// <summary>
+        /// 服务店铺名称
+        /// </summary>
         public virtual string ServiceBusinessName {
             get {
                 string name = string.Empty;
@@ -255,6 +263,9 @@ namespace Dianzhu.Model
                 return name.TrimEnd(';');
             }
         }
+        /// <summary>
+        /// 服务商家电话
+        /// </summary>
         public virtual string ServiceBusinessPhone
         {
             get
@@ -267,6 +278,9 @@ namespace Dianzhu.Model
                 return name.TrimEnd(';');
             }
         }
+        /// <summary>
+        /// 服务描述
+        /// </summary>
         public virtual string Description {
             get {
                 string description = string.Empty;
@@ -438,9 +452,10 @@ namespace Dianzhu.Model
         /// 协商总价
         /// </summary>
         public virtual decimal NegotiateAmount { get; set; }
-
         
-        //创建此订单的客服.
+        /// <summary>
+        /// 创建此订单的客服
+        /// </summary>
         public virtual DZMembership CustomerService { get; set; }
 
 
@@ -462,8 +477,10 @@ namespace Dianzhu.Model
         public virtual bool IsShared { get; set; }
 
         #endregion
-
-        //订单转为正式.
+        
+        /// <summary>
+        /// 订单转为正式.
+        /// </summary>
         public virtual void CreatedFromDraft()
         {
 
