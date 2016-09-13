@@ -22,6 +22,7 @@ namespace Dianzhu.Model
             OrderStatus = enum_OrderStatus.Draft;
             OrderCreated = DateTime.Now;
             LatestOrderUpdated = DateTime.Now;
+            IsShared = false;
             
             Details = new List<ServiceOrderDetail>();
 
@@ -441,22 +442,25 @@ namespace Dianzhu.Model
         
         //创建此订单的客服.
         public virtual DZMembership CustomerService { get; set; }
-      
+
 
         /// <summary>
         /// 订单自动取消的超时时间.  取订单项中超时时间的最小值.
         /// </summary>
         public virtual int ServiceOvertimeForCancel
-        { get {
+        {
+            get
+            {
                 if (Details.Count == 0) return 0;
                 return Details.Min(x => x.ServieSnapShot.OverTimeForCancel);
-            } }
-
+            }
+        }
+        
         /// <summary>
-        /// 获取需要支付的金额
+        /// 订单是否分账,true表示已分账，false表示未分账
         /// </summary>
-        /// <param name="payTarget">支付目标: 定金 或者 尾款 或者../.</param>
-        /// <returns></returns>
+        public virtual bool IsShared { get; set; }
+
         #endregion
 
         //订单转为正式.

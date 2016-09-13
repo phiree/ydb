@@ -23,6 +23,10 @@ namespace Dianzhu.ApplicationService.City
         public cityObj GetCityByAreaCode(string areacode)
         {
             Model.Area area = bllarea.GetCityByAreaCode(areacode);
+            if (area == null)
+            {
+                throw new Exception("没有找到资源！");
+            }
             cityObj cityobj = Mapper.Map<Model.Area, cityObj>(area);
             return cityobj;
         }

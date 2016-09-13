@@ -62,7 +62,8 @@ namespace Dianzhu.ApplicationService.Remind
             if (remind == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
-                return null;
+                //return null;
+                throw new Exception("没有找到资源！");
             }
             remindObj remindobj = Mapper.Map<Model.ServiceOrderRemind, remindObj>(remind);
             return remindobj;

@@ -131,7 +131,8 @@ namespace Dianzhu.ApplicationService.Complaint
             if (complaint == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
-                return null;
+                //return null;
+                throw new Exception("没有找到资源！");
             }
             complaintObj complaintobj = Mapper.Map<Model.Complaint, complaintObj>(complaint);
             for (int i = 0; i < complaint.ComplaitResourcesUrl.Count; i++)

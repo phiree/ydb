@@ -155,7 +155,7 @@ namespace Dianzhu.BLL
         /// 订单已经分成.
         /// </summary>
         /// <param name="order"></param>
-        void OrderFlow_Shared(ServiceOrder order);
+        void OrderShared(ServiceOrder order);
         /// <summary>
         /// 用户申请理赔
         /// </summary>

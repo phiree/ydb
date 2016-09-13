@@ -128,13 +128,20 @@
                                                     <div id="radius-container" class="map-radius-result dis-n">
                                                         <span>服务半径：</span>
                                                         <select id="ser-radius" class="map-radius-select">
-                                                            <option value="1000">1000</option>
-                                                            <option value="1500">1500</option>
-                                                            <option value="2000">2000</option>
-                                                            <option value="3000">3000</option>
-                                                            <option value="4000">4000</option>
+                                                            <option value="1000">1</option>
+                                                            <option value="2000">2</option>
+                                                            <option value="3000">3</option>
+                                                            <option value="4000">4</option>
+                                                            <option value="5000">5</option>
+                                                            <option value="6000">6</option>
+                                                            <option value="7000">7</option>
+                                                            <option value="8000">8</option>
+                                                            <option value="9000">9</option>
+                                                            <option value="10000">10</option>
+                                                            <option value="15000">15</option>
+                                                            <option value="20000">20</option>
                                                         </select>
-                                                        <span>m</span>
+                                                        <span>公里</span>
                                                     </div>
                                                     <!--<div id="add-sp">添加新服务点<input type="button" id="addSP" value="+" /><span id="addError">当前服务点未设置，无法添加新服务点</span></div>-->
                                                     <!--<div id="del-sp">删除服务点<input type="button" id="delSP" value="删除" /><span id="delError">请至少设置一个服务点</span></div>-->
