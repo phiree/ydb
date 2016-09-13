@@ -1,10 +1,11 @@
 using System;
 using System.Data;
-
+using log4net;
 namespace NHibernateUnitOfWork
 {
     public static partial class With
     {
+        static ILog  log = log4net.LogManager.GetLogger("Dianzhu.NhibernateUnitofWork.With");
         public static void Transaction(IsolationLevel level, Action transactional)
         {
             using (UnitOfWork.Start())
@@ -22,9 +23,10 @@ namespace NHibernateUnitOfWork
                         transactional();
                         tx.Commit();
                     }
-                    catch
+                    catch(Exception ex)
                     {
                         tx.Rollback();
+                        PHSuit.ExceptionLoger.ExceptionLog(log, ex);
                         throw;
                     }
                     finally

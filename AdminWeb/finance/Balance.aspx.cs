@@ -8,7 +8,7 @@ using Dianzhu.BLL.Finance;
 /// <summary>
 /// 流水帐列表
 /// </summary>
-public partial class finance_Balance : System.Web.UI.Page
+public partial class finance_Balance :BasePage
 {
     IBalanceFlowService balanceFlowService = Bootstrap.Container.Resolve<IBalanceFlowService>();
     protected void Page_Load(object sender, EventArgs e)
