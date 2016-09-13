@@ -430,6 +430,44 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        /// <summary>
+        /// 判断输入的文本是否为数字
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tbxKeywordNumber_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (e.Text.All(t => char.IsDigit(t)))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// 屏蔽中文输入和非法字符粘贴输入
+        /// </summary>
+        private void ForbidTextInput(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            TextChange[] change = new TextChange[e.Changes.Count];
+            e.Changes.CopyTo(change, 0);
+
+            int offset = change[0].Offset;
+            if (change[0].AddedLength > 0)
+            {
+                double num = 0;
+                if (!double.TryParse(textBox.Text, out num))
+                {
+                    textBox.Text = textBox.Text.Remove(offset, change[0].AddedLength);
+                    textBox.Select(offset, 0);
+                }
+            }
+        }
+
         #endregion
 
         #region 搜索按钮处理事件
@@ -588,23 +626,6 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        /// <summary>
-        /// 判断输入的文本是否为数字
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tbxKeywordNumber_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (e.Text.All(t => char.IsDigit(t)))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
-        }
-
         private void tbxKeywordPriceMin_TextChanged(object sender, TextChangedEventArgs e)
         {
             ForbidTextInput(sender, e);
@@ -658,27 +679,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 SaveUIData("Memo", ServiceMemo);
             }
         }
-
-        /// <summary>
-        /// 屏蔽中文输入和非法字符粘贴输入
-        /// </summary>
-        private void ForbidTextInput(object sender, TextChangedEventArgs e)
-        {
-            TextBox textBox = sender as TextBox;
-            TextChange[] change = new TextChange[e.Changes.Count];
-            e.Changes.CopyTo(change, 0);
-
-            int offset = change[0].Offset;
-            if (change[0].AddedLength > 0)
-            {
-                double num = 0;
-                if (!double.TryParse(textBox.Text, out num))
-                {
-                    textBox.Text = textBox.Text.Remove(offset, change[0].AddedLength);
-                    textBox.Select(offset, 0);
-                }
-            }
-        }
+        
         #endregion
     }
 }

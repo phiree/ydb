@@ -140,7 +140,7 @@
                         <Label>
                             <TextBlock Text="联系方式" Style="{DynamicResource TextBlockKey}"></TextBlock>
                         </Label>
-                        <TextBox x:Name="tbxKeywordPhone" Text="1580000000" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordPhone_TextChanged"/>
+                        <TextBox x:Name="tbxKeywordPhone" Text="1580000000" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordPhone_TextChanged" PreviewTextInput="tbxKeywordNumber_PreviewTextInput"/>
                     </WrapPanel>
 
                     <WrapPanel Margin="0,1" VerticalAlignment="Center">
