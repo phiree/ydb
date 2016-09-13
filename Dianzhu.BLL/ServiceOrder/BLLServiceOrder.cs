@@ -1331,17 +1331,17 @@ namespace Dianzhu.BLL
         public IList<ServiceOrder> GetOrdersForShare()
         {
             var where = PredicateBuilder.True<ServiceOrder>()
-            
-               .And(x => x.OrderStatus == enum_OrderStatus.Finished || x.OrderStatus == enum_OrderStatus.Appraised)
-               ;
+                .And(x => x.IsShared == false)
+                .And(x => x.OrderStatus == enum_OrderStatus.Finished || x.OrderStatus == enum_OrderStatus.Appraised);
 
 
             return repoServiceOrder.Find(where).ToList();
         }
 
-        public void OrderFlow_Shared(ServiceOrder order)
+        public void OrderShared(ServiceOrder order)
         {
-            ChangeStatus(order, enum_OrderStatus.Shared);
+            order.IsShared = true;
+            Update(order);
         }
 
 

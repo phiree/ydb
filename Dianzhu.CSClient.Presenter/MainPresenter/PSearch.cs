@@ -78,9 +78,9 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
         {
-            if (IdentityManager.CurrentIdentity != null)
+            if (serviceOrder != null)
             {
-                string id = IdentityManager.CurrentIdentity.Id.ToString();
+                string id = serviceOrder.Customer.Id.ToString();
                 localUIDataManager.InitUIData(id);
                 viewSearch.ServiceCustomerName = localUIDataManager.LocalUIDatas[id].Name;
                 viewSearch.SearchKeywordTime = localUIDataManager.LocalUIDatas[id].Date;
@@ -121,7 +121,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             if (IdentityManager.CurrentIdentity != null)
             {
-                localUIDataManager.Save(IdentityManager.CurrentIdentity.Id.ToString(), key, value);
+                localUIDataManager.Save(IdentityManager.CurrentIdentity.Customer.Id.ToString(), key, value);
             }
         }
 
@@ -172,7 +172,7 @@ namespace Dianzhu.CSClient.Presenter
             ServiceTypeThird = type;
             if (IdentityManager.CurrentIdentity != null)
             {
-                localUIDataManager.Save(IdentityManager.CurrentIdentity.Id.ToString(), "ServiceType", type);
+                localUIDataManager.Save(IdentityManager.CurrentIdentity.Customer.Id.ToString(), "ServiceType", type);
             }
         }
 
@@ -211,7 +211,7 @@ namespace Dianzhu.CSClient.Presenter
                         }
                         if (IdentityManager.CurrentIdentity != null)
                         {
-                            localUIDataManager.Save(IdentityManager.CurrentIdentity.Id.ToString(), "ServiceType", type);
+                            localUIDataManager.Save(IdentityManager.CurrentIdentity.Customer.Id.ToString(), "ServiceType", type);
                         }
                     }
                     viewSearch.ServiceTypeThird = ServiceTypeCach[type];

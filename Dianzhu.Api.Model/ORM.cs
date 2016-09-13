@@ -41,6 +41,7 @@ namespace Dianzhu.Api.Model
         public RespDataORM_svcObj svcObj { get; set; }
         public RespDataORM_UserObj userObj { get; set; }
         public RespDataORM_storeObj storeObj { get; set; }
+        public RespDataORM_contactObj contactObj { get; set; }
 
         public RespDataORM_orderObj Adap(ServiceOrder order, ServiceOrderPushedService pushSevice)
         {
@@ -76,6 +77,7 @@ namespace Dianzhu.Api.Model
             {
                 this.svcObj = new RespDataORM_svcObj().Adap(order.Details[0], null);
                 this.storeObj = new RespDataORM_storeObj().Adap(order.Details[0].OriginalService.Business);
+                this.contactObj = new RespDataORM_contactObj().Adapt(order.Details[0], null);
 
                 if (order.NegotiateAmount <= 0)
                 {
@@ -86,6 +88,7 @@ namespace Dianzhu.Api.Model
             {
                 this.svcObj = new RespDataORM_svcObj().Adap(null, pushSevice);
                 this.storeObj = new RespDataORM_storeObj().Adap(pushSevice.OriginalService.Business);
+                this.contactObj = new RespDataORM_contactObj().Adapt(null, pushSevice);
 
                 if (order.NegotiateAmount <= 0)
                 {
@@ -265,6 +268,33 @@ namespace Dianzhu.Api.Model
             {
                 this.tag = string.Empty;
             }
+            return this;
+        }
+    }
+
+    public class RespDataORM_contactObj
+    {
+        public string alias { get; set; }
+        public string email { get; set; }
+        public string phone { get; set; }
+        public string address { get; set; }
+        public RespDataORM_contactObj Adapt(ServiceOrderDetail orderDetail, ServiceOrderPushedService pushService)
+        {
+            if (orderDetail != null)
+            {
+                this.alias = orderDetail.TargetCustomerName;
+                this.email = string.Empty;
+                this.phone = orderDetail.TargetCustomerPhone;
+                this.address = orderDetail.TargetAddress;
+            }
+            else
+            {
+                this.alias = pushService.TargetCustomerName;
+                this.email = string.Empty;
+                this.phone = pushService.TargetCustomerPhone;
+                this.address = pushService.TargetAddress;
+            }
+
             return this;
         }
     }

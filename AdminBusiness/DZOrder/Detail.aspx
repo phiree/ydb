@@ -235,14 +235,14 @@
                     <img class="emp-headImg" src='{%= imgUrl %}'/>
                     <div class="emp-info">
                         <p>昵称：{%= alias %}</p>
-                        <p>姓名：{%= alias %}</p>
-                        <p>性别：{%= alias %}</p>
+                        <p>姓名：{%= realName %}</p>
+                        <p>性别：{% sex ? "女" : "男" %}</p>
                         <p>电话：{%= phone %}</p>
                     </div>
                 </div>
                 <div class="emp-model-b" data-mark="{%= mark %}">
-                    <input class="staffCheckbox" type="checkbox" {% if (mark==="Y") { %} checked {% } %} value="指派" data-role="item" data-itemId="{%= userID %}" id="{%= userID %}" >
-                    <label for="{%= userID %}"></label>
+                    <input class="staffCheckbox" type="checkbox" {% if (mark) { %} checked {% } %} value="指派" data-role="item" data-itemId="{%= id %}" id="{%= id %}" >
+                    <label for="{%= id %}"></label>
                 </div>
             </div>
         </div>
@@ -252,7 +252,9 @@
     <script src="/js/plugins/jquery.lightbox_me.js"></script>
     <script src="/js/core/YDBan.lib.js?v=1.0.0"></script>
     <script src="/js/core/interfaceAdapter.js?v=1.0.0"></script>
-    <script src="/js/apps/appointToOrder.js?v=1.0.0"></script>
+    <script src="/js/core/RestfulProxyAdapter.js?v=1.0.0"></script>
+    <script src="/js/apps/assignToOrder.js?v=1.0.0"></script>
+    <!--<script src="/js/apps/appointToOrder.js?v=1.0.0"></script>-->
     <script src="/js/components/select.js?v=1.0.0"></script>
     <script>
         $(function(){

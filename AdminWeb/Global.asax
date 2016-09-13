@@ -35,7 +35,7 @@
             foreach (ServiceOrder order in ordersForShare)
             {
                 orderShare.ShareOrder(order);
-                bllOrder.OrderFlow_Shared(order);
+                bllOrder.OrderShared(order);
             }
         };
         NHibernateUnitOfWork.With.Transaction(a);

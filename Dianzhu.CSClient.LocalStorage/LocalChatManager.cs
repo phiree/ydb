@@ -30,20 +30,24 @@ namespace Dianzhu.CSClient.LocalStorage
     public class ChatManagerInMemory : LocalChatManager
     {
         IDALReceptionChat idalReceptionChat;
-        IDALMembership dalMembership;
-        public ChatManagerInMemory(IDALReceptionChat idalReceptionChat,IDAL.IDALMembership dalMembership)
+        IDALMembership idalMembership;
+
+        public ChatManagerInMemory(IDALReceptionChat idalReceptionChat,IDALMembership idalMembership)
         {
             LocalChats = new Dictionary<string, IList<ReceptionChat>>();
             LocalCustomerAvatarUrls = new Dictionary<string, string>();
+
             this.idalReceptionChat = idalReceptionChat;
-            this.dalMembership = dalMembership;
+            this.idalMembership = idalMembership;
         }
         public Dictionary<string, IList<ReceptionChat>> LocalChats
         {
             get;
              
         }
-
+        /// <summary>
+        /// 用户此次登录时的头像，保证在此次接待中的头像保持一致
+        /// </summary>
         public Dictionary<string, string> LocalCustomerAvatarUrls
         {
             get;
@@ -74,8 +78,7 @@ namespace Dianzhu.CSClient.LocalStorage
 
             if (!LocalCustomerAvatarUrls.ContainsKey(customerId))
             {
-                DZMembership from = dalMembership.FindById(new Guid(chatData.FromId));
-                LocalCustomerAvatarUrls.Add(customerId, from.AvatarUrl);
+                LocalCustomerAvatarUrls.Add(customerId, string.Empty);
             }
         }
 
@@ -105,6 +108,7 @@ namespace Dianzhu.CSClient.LocalStorage
         public IList<ReceptionChat> InitChatList(Guid customerId, Guid customerServiceId, Guid serviceOrderId)
         {
             string key = customerId.ToString();
+            DZMembership customer = idalMembership.FindById(customerId);
             if (LocalChats.ContainsKey(key))
             {
                 return LocalChats[key];
@@ -113,11 +117,13 @@ namespace Dianzhu.CSClient.LocalStorage
             {
                 int rowCount;
                 //initdata 
-                IList<ReceptionChat> initChatList = idalReceptionChat.GetReceptionChatList(customerId, customerServiceId, serviceOrderId, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1),
-                      0, 10, enum_ChatTarget.cer, out rowCount
-                     );
-               LocalChats.Add(key, initChatList);
+                IList<ReceptionChat> initChatList = idalReceptionChat.GetReceptionChatList(customerId, customerServiceId, serviceOrderId, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.cer, out rowCount);
+                LocalChats.Add(key, initChatList);
 
+                if (!LocalCustomerAvatarUrls.ContainsKey(key))
+                {
+                    LocalCustomerAvatarUrls.Add(key, customer.AvatarUrl);
+                }
             }
             return LocalChats[key];
         }

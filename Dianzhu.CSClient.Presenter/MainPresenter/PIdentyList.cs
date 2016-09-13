@@ -264,7 +264,7 @@ namespace Dianzhu.CSClient.Presenter
 
         private void WorkerCustomerAvatar_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            log.Debug("用户头像本地存储完成");
+            log.Debug("用户头像本地加载完成");
         }
 
         private void WorkerCustomerAvatar_DoWork(object sender, DoWorkEventArgs e)
@@ -293,6 +293,7 @@ namespace Dianzhu.CSClient.Presenter
                 if (PHSuit.LocalFileManagement.DownLoad(string.Empty, mediaUrl_32X32, fileName_32X32))
                 {
                     customer.AvatarUrl = fileName;
+                    log.Debug("用户头像本地存储完成");
                 }
             }
         }

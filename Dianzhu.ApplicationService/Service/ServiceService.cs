@@ -216,6 +216,12 @@ namespace Dianzhu.ApplicationService.Service
             {
                 throw new FormatException("storeID不能为空！");
             }
+            Guid guidStore = utils.CheckGuidID(storeID, "storeID");
+            Model.Business business = bllBusiness.GetOne(guidStore);
+            if (business == null)
+            {
+                throw new Exception("该店铺不存在！");
+            }
             IList<Model.DZService> dzservice = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "DZService");
             decimal dcStartAt = -1;
@@ -226,7 +232,7 @@ namespace Dianzhu.ApplicationService.Service
                     throw new FormatException("起步价必须为大于零的数值！");
                 }
             }
-            dzservice = bllDZService.GetServices(filter1, utils.CheckGuidID(servicefilter.serviceTypeID, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, utils.CheckGuidID(storeID, "storeID"));
+            dzservice = bllDZService.GetServices(filter1, utils.CheckGuidID(servicefilter.serviceTypeID, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, guidStore);
             if (dzservice == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
@@ -252,6 +258,12 @@ namespace Dianzhu.ApplicationService.Service
             {
                 throw new FormatException("storeID不能为空！");
             }
+            Guid guidStore = utils.CheckGuidID(storeID, "storeID");
+            Model.Business business = bllBusiness.GetOne(guidStore);
+            if (business == null)
+            {
+                throw new Exception("该店铺不存在！");
+            }
             decimal dcStartAt = -1;
             if (servicefilter.startAt != null && servicefilter.startAt != "")
             {
@@ -261,7 +273,7 @@ namespace Dianzhu.ApplicationService.Service
                 }
             }
             countObj c = new countObj();
-            c.count = bllDZService.GetServicesCount(utils.CheckGuidID(servicefilter.serviceTypeID, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, utils.CheckGuidID(storeID, "storeID")).ToString();
+            c.count = bllDZService.GetServicesCount(utils.CheckGuidID(servicefilter.serviceTypeID, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, guidStore).ToString();
             return c;
         }
 
@@ -281,11 +293,18 @@ namespace Dianzhu.ApplicationService.Service
             {
                 throw new FormatException("serviceID不能为空！");
             }
-            Model.DZService dzservice = bllDZService.GetService(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(serviceID, "serviceID"));
+            Guid guidStore = utils.CheckGuidID(storeID, "storeID");
+            Model.Business business = bllBusiness.GetOne(guidStore);
+            if (business == null)
+            {
+                throw new Exception("该店铺不存在！");
+            }
+            Model.DZService dzservice = bllDZService.GetService(guidStore, utils.CheckGuidID(serviceID, "serviceID"));
             if (dzservice == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
-                return null;
+                //return null;
+                throw new Exception("没有找到资源！");
             }
             servicesObj servicesobj = Mapper.Map<Model.DZService, servicesObj>(dzservice);
             changeObj(servicesobj, dzservice);

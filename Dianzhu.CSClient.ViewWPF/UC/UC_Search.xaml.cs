@@ -400,6 +400,14 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 MessageBox.Show("请选择服务类型");
             }
+            else if (string.IsNullOrEmpty(ServiceCustomerName))
+            {
+                MessageBox.Show("请填写联系人");
+            }
+            else if (string.IsNullOrEmpty(ServiceCustomerPhone))
+            {
+                MessageBox.Show("请填写联系电话");
+            }
             else
             {
                 BackgroundWorker worker = new BackgroundWorker();
@@ -475,37 +483,6 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        private void tbxKeywordPriceMin_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (e.Text.All(t => char.IsDigit(t)))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void tbxKeywordPriceMin_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //屏蔽中文输入和非法字符粘贴输入
-            TextBox textBox = sender as TextBox;
-            TextChange[] change = new TextChange[e.Changes.Count];
-            e.Changes.CopyTo(change, 0);
-
-            int offset = change[0].Offset;
-            if (change[0].AddedLength > 0)
-            {
-                double num = 0;
-                if (!Double.TryParse(textBox.Text, out num))
-                {
-                    textBox.Text = textBox.Text.Remove(offset, change[0].AddedLength);
-                    textBox.Select(offset, 0);
-                }
-            }
-        }
-
         #region 文本框改变时，写入缓存中
         private void tbxKeywordPeople_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -531,8 +508,27 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        private void tbxKeywordPriceMin_TextChanged_1(object sender, TextChangedEventArgs e)
+        /// <summary>
+        /// 判断输入的文本是否为数字
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tbxKeywordNumber_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
+            if (e.Text.All(t => char.IsDigit(t)))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbxKeywordPriceMin_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ForbidTextInput(sender, e);
+
             if (SaveUIData != null)
             {
                 SaveUIData("PriceMin", ServiceTargetPriceMin);
@@ -541,6 +537,8 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void tbxKeywordPriceMax_TextChanged(object sender, TextChangedEventArgs e)
         {
+            ForbidTextInput(sender, e);
+
             if (SaveUIData != null)
             {
                 SaveUIData("PriceMax", ServiceTargetPriceMax);
@@ -557,6 +555,8 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void tbxUnitAmount_TextChanged(object sender, TextChangedEventArgs e)
         {
+            ForbidTextInput(sender, e);
+
             if (SaveUIData != null)
             {
                 SaveUIData("Amount", UnitAmount);
@@ -576,6 +576,27 @@ namespace Dianzhu.CSClient.ViewWPF
             if (SaveUIData != null)
             {
                 SaveUIData("Memo", ServiceMemo);
+            }
+        }
+
+        /// <summary>
+        /// 屏蔽中文输入和非法字符粘贴输入
+        /// </summary>
+        private void ForbidTextInput(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            TextChange[] change = new TextChange[e.Changes.Count];
+            e.Changes.CopyTo(change, 0);
+
+            int offset = change[0].Offset;
+            if (change[0].AddedLength > 0)
+            {
+                double num = 0;
+                if (!double.TryParse(textBox.Text, out num))
+                {
+                    textBox.Text = textBox.Text.Remove(offset, change[0].AddedLength);
+                    textBox.Select(offset, 0);
+                }
             }
         }
         #endregion
