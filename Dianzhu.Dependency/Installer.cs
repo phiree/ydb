@@ -209,7 +209,7 @@ namespace Dianzhu.DependencyInstaller
                 );
 
             container.Register(Component.For<ReceptionAssigner>().Named("OpenFireRestAssigner").DependsOn(Dependency.OnComponent<IIMSession, IMSessionsOpenfire>()));
-            container.Register(Component.For<BLLPush>().Named("OpenFireRestAssigner").DependsOn(Dependency.OnComponent<IIMSession, IMSessionsOpenfire>()));
+            container.Register(Component.For<BLLPush>().DependsOn(Dependency.OnComponent<IIMSession, IMSessionsOpenfire>()));
 
             container.Register(Component.For<IBLLServiceOrder>().ImplementedBy<BLLServiceOrder>()
                                .DependsOn(Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>())))

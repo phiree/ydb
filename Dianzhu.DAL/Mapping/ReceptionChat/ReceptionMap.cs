@@ -53,7 +53,7 @@ namespace Dianzhu.DAL.Mapping
         public ReceptionChatNoticeOrderMap()
         {
             Map(x => x.OrderTitle);
-            Map(x => x.OrderTitle);
+            Map(x => x.OrderType);
             Map(x => x.CurrentStatus);
         }
     }
@@ -91,24 +91,23 @@ namespace Dianzhu.DAL.Mapping
     {
         public ReceptionChatPushServiceMap()
         {
-            HasMany<PushedServiceInfo>(x => x.ServiceInfos);
+         
+            
+            HasMany<PushedServiceInfo>(x => x.ServiceInfos).Component(
+                x => {
+                    x.Map(c=>c.ServiceId);
+                    x.Map(c=>c.ServiceName);
+                    x.Map(c=>c.ServiceEndTime);
+                    x.Map(c=>c.ServiceStartTime);
+                    x.Map(c=>c.ServiceType);
+                    x.Map(c=>c.StoreAlias);
+                    x.Map(c=>c.StoreAvatar);
+                    x.Map(c=>c.StoreUserId);
+                }
+                );
         }
     }
-    public class ServiceInfoMap : ComponentMap<PushedServiceInfo>
-    {
-        public ServiceInfoMap()
-        {
-            Map(x => x.ServiceId);
-            Map(x => x.ServiceName);
-            Map(x => x.ServiceEndTime);
-            Map(x => x.ServiceStartTime);
-            Map(x => x.ServiceType);
-            Map(x => x.StoreAlias);
-            Map(x => x.StoreAvatar);
-            Map(x => x.StoreUserId);
-        }
-    }
-
+ 
 
 
 

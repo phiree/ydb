@@ -17,6 +17,7 @@ namespace Dianzhu.Model
     /// </summary>
     public class ReceptionChat : DDDCommon.Domain.Entity<Guid>
     {
+        public ReceptionChat() { }
         /// <summary>
         /// 
         /// </summary>
@@ -63,33 +64,34 @@ namespace Dianzhu.Model
         /// <summary>
         /// 所属的回话ID, 目前等于 orderid;
         /// </summary>
-        public string SessionId { get; private set; }
+        public virtual string SessionId { get; protected internal set; }
         //保存的时间, 作为排序依据.
-        public virtual DateTime SavedTime { get; private set; }
-        public virtual double SavedTimestamp { get; private set; }
-        public virtual DateTime SendTime { get; private set; }//发送时间
-        public virtual DateTime ReceiveTime { get; private set; }//接收时间
+        public virtual DateTime SavedTime { get; protected internal set; }
+        public virtual double SavedTimestamp { get; protected internal set; }
+        public virtual DateTime SendTime { get; protected internal set; }//发送时间
+        public virtual DateTime ReceiveTime { get; protected internal set; }//接收时间
 
-        public virtual enum_ChatType ChatType { get; private set; }
+        public virtual enum_ChatType ChatType { get; protected internal set; }
 
         //移除对dzmembership的依赖
-        public virtual string FromId { get; set; }
-        public virtual string ToId { get; set; }
+        public virtual string FromId { get; protected internal set; }
+        public virtual string ToId { get; protected internal set; }
 
-        public virtual string MessageBody { get; private set; }//消息的内容
+        public virtual string MessageBody { get; protected internal set; }//消息的内容
 
 
-        public virtual Enums.enum_ChatTarget ChatTarget { get; private set; } //聊天状态，接待方是平台客服还是商家客服
-        public virtual enum_XmppResource FromResource { get; private set; }//from 的资源名
-        public virtual enum_XmppResource ToResource { get; private set; }//to 的资源名
+        public virtual Enums.enum_ChatTarget ChatTarget { get; protected internal set; } //聊天状态，接待方是平台客服还是商家客服
+        public virtual enum_XmppResource FromResource { get; protected internal set; }//from 的资源名
+        public virtual enum_XmppResource ToResource { get; protected internal set; }//to 的资源名
 
-        public bool IsfromCustomerService
+        public virtual bool IsfromCustomerService
         {
             get {
+                 
                 return FromResource == enum_XmppResource.YDBan_CustomerService;
             }
         }
-        public void SetReceiveTime(DateTime receiveTime)
+        public virtual void SetReceiveTime(DateTime receiveTime)
         {
             this.ReceiveTime = receiveTime;
         }
@@ -103,6 +105,7 @@ namespace Dianzhu.Model
     /// </summary>
     public class ReceptionChatMedia : ReceptionChat
     {
+        public ReceptionChatMedia() { }
         public ReceptionChatMedia(string mediaurl, string mediatype,
           string from, string to, string messageBody, string sessionId, enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
             : base(from, to, messageBody, sessionId, enum_ChatType.Chat,    resourceFrom, resourceTo)
@@ -111,13 +114,13 @@ namespace Dianzhu.Model
             this.MediaType = mediatype;
         }
 
-        public void SetMediaUrl(string mediaUrl)
+        public virtual void SetMediaUrl(string mediaUrl)
         {
             this.MedialUrl = mediaUrl;
         }
        
-        public virtual string MedialUrl { get; private set; }
-        public virtual string MediaType { get; private set; }
+        public virtual string MedialUrl { get; protected internal set; }
+        public virtual string MediaType { get; protected internal set; }
     }
 
     /// <summary>
@@ -125,6 +128,7 @@ namespace Dianzhu.Model
     /// </summary>
     public class ReceptionChatNoticeSys : ReceptionChat
     {
+        public ReceptionChatNoticeSys() { }
         public ReceptionChatNoticeSys(
            string from, string to, string messageBody, string sessionId,  enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
            : base(from, to, messageBody, sessionId, enum_ChatType.Notice,   resourceFrom, resourceTo)
@@ -141,6 +145,7 @@ namespace Dianzhu.Model
     /// </summary>
     public class ReceptionChatNoticeOrder : ReceptionChat
     {
+        public ReceptionChatNoticeOrder() { }
         public ReceptionChatNoticeOrder(string orderTilte, enum_OrderStatus orderStatus, string orderType,
               string from, string to, string messageBody, string sessionId,  enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
             : base(from, to, messageBody, sessionId, enum_ChatType.Notice,   resourceFrom, resourceTo)
@@ -149,9 +154,9 @@ namespace Dianzhu.Model
             this.CurrentStatus = orderStatus;
             this.OrderType = orderType;
         }
-        public string OrderTitle { get; private set; }
-        public enum_OrderStatus CurrentStatus { get; private set; }
-        public string OrderType { get; private set; }
+        public virtual string OrderTitle { get; protected internal set; }
+        public virtual enum_OrderStatus CurrentStatus { get; protected internal set; }
+        public virtual string OrderType { get; protected internal set; }
 
     }
 
@@ -160,6 +165,7 @@ namespace Dianzhu.Model
     /// </summary>
     public class ReceptionChatReAssign : ReceptionChat
     {
+        public ReceptionChatReAssign() { }
         public ReceptionChatReAssign(string reAssignedCustomerServiceId, string csAlias, string csAvatar,
             string from, string to, string messageBody, string sessionId,  enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
             : base(from, to, messageBody, sessionId, enum_ChatType.Notice,  resourceFrom, resourceTo)
@@ -171,9 +177,9 @@ namespace Dianzhu.Model
         /// <summary>
         /// 重新分配的客服
         /// </summary>
-        public virtual string ReAssignedCustomerServiceId { get; private set; }
-        public virtual string CSAlias { get; private set; }
-        public virtual string CSAvatar { get; private set; }
+        public virtual string ReAssignedCustomerServiceId { get; protected internal set; }
+        public virtual string CSAlias { get; protected internal set; }
+        public virtual string CSAvatar { get; protected internal set; }
     }
 
 
@@ -182,6 +188,7 @@ namespace Dianzhu.Model
     /// </summary>
     public class ReceptionChatNoticePromote : ReceptionChat
     {
+        public ReceptionChatNoticePromote() { }
         public ReceptionChatNoticePromote(string promotionUrl,
             string from, string to, string messageBody, string sessionId,   enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
             : base(from, to, messageBody, sessionId, enum_ChatType.Notice,   resourceFrom, resourceTo)
@@ -191,7 +198,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 重新分配的客服
         /// </summary>
-        public virtual string PromotionUrl { get; private set; }
+        public virtual string PromotionUrl { get; protected internal set; }
     }
 
     /// <summary>
@@ -199,6 +206,7 @@ namespace Dianzhu.Model
     /// </summary>
     public class ReceptionChatNoticeCustomerServiceOffline : ReceptionChat
     {
+        public ReceptionChatNoticeCustomerServiceOffline() { }
         public ReceptionChatNoticeCustomerServiceOffline(
             string from, string to, string messageBody, string sessionId,   enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
             : base(from, to, messageBody, sessionId, enum_ChatType.Notice,   resourceFrom, resourceTo)
@@ -212,6 +220,7 @@ namespace Dianzhu.Model
     /// </summary>
     public class ReceptionChatNoticeCustomerServiceOnline : ReceptionChat
     {
+        public ReceptionChatNoticeCustomerServiceOnline() { }
         public ReceptionChatNoticeCustomerServiceOnline(
             string from, string to, string messageBody, string sessionId,  enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
             : base(from, to, messageBody, sessionId, enum_ChatType.Notice,  resourceFrom, resourceTo)
@@ -226,6 +235,7 @@ namespace Dianzhu.Model
     /// </summary>
     public class ReceptionChatUserStatus : ReceptionChat
     {
+        public ReceptionChatUserStatus() { }
         public ReceptionChatUserStatus(string userId, enum_UserStatus userStatus,
               string from, string to, string messageBody, string sessionId,  enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
             : base(from, to, messageBody, sessionId, enum_ChatType.Notice,  resourceFrom, resourceTo)
@@ -234,8 +244,8 @@ namespace Dianzhu.Model
             this.Status = userStatus;
         }
 
-        public virtual string UserId { get; set; }//状态发生变化的用户
-        public virtual enum_UserStatus Status { get; set; }//用户状态
+        public virtual string UserId { get; protected internal set; }//状态发生变化的用户
+        public virtual enum_UserStatus Status { get; protected internal set; }//用户状态
     }
 
 
@@ -244,6 +254,7 @@ namespace Dianzhu.Model
     /// </summary>
     public class ReceptionChatPushService : ReceptionChat
     {
+        public ReceptionChatPushService() { }
         public ReceptionChatPushService(IList<PushedServiceInfo> serviceInfos,
              string from, string to, string messageBody, string sessionId,  enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
             : base(from, to, messageBody, sessionId, enum_ChatType.Chat,   resourceFrom, resourceTo)
@@ -251,7 +262,7 @@ namespace Dianzhu.Model
             this.ServiceInfos = serviceInfos;
         }
 
-        public virtual IList<PushedServiceInfo> ServiceInfos { get; private set; }
+        public virtual IList<PushedServiceInfo> ServiceInfos { get; protected internal  set; }
     }
 
     /// <summary>
@@ -259,6 +270,7 @@ namespace Dianzhu.Model
     /// </summary>
     public class ReceptionChatNoticeNewOrder : ReceptionChat
     {
+        public ReceptionChatNoticeNewOrder() { }
         public ReceptionChatNoticeNewOrder(
             string from, string to, string messageBody, string sessionId,  enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
             : base(from, to, messageBody, sessionId, enum_ChatType.Notice,  resourceFrom, resourceTo)
@@ -274,6 +286,7 @@ namespace Dianzhu.Model
     /// </summary>
     public class PushedServiceInfo
     {
+        public PushedServiceInfo() { }
         public PushedServiceInfo(string serviceId, string servicename,
             string servicetype, string servicestarttime,
             string serviceendtime, string storeuserid,
@@ -289,14 +302,14 @@ namespace Dianzhu.Model
             this.StoreAlias = storealias;
             this.StoreAvatar = storeavatar;
         }
-        public string ServiceId { get; private set; }
-        public string ServiceName { get; private set; }
-        public string ServiceType { get; private set; }
-        public string ServiceStartTime { get; private set; }
-        public string ServiceEndTime { get; private set; }
-        public string StoreUserId { get; private set; }
-        public string StoreAlias { get; private set; }
-        public string StoreAvatar { get; private set; }
+        public virtual string ServiceId { get; protected internal  set; }
+        public virtual string ServiceName { get; protected internal set; }
+        public virtual string ServiceType { get; protected internal set; }
+        public virtual string ServiceStartTime { get; protected internal set; }
+        public virtual string ServiceEndTime { get; protected internal set; }
+        public virtual string StoreUserId { get; protected internal set; }
+        public virtual string StoreAlias { get; protected internal set; }
+        public virtual string StoreAvatar { get; protected internal set; }
 
 
         /*
