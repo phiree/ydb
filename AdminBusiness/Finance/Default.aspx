@@ -20,11 +20,11 @@
                             <div class="model-m">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="fi-remain-txt">当前账户余额：<strong>888,888.00</strong>元</div>
+                                        <div class="fi-remain-txt">当前账户余额：<strong>0.00</strong>元</div>
                                         <!--<div>当前可用余额： 0.00元</div>-->
                                         <div class="fi-remain-btns m-l50">
-                                            <a href="/Finance/Recharge.aspx?businessid=<%=Request["businessid"]%>" class="btn btn-info m-r20">充值</a>
-                                            <a href="/Finance/withDraw.aspx?businessid=<%=Request["businessid"]%>" class="btn btn-create">提现</a>
+                                            <!--<a href="/Finance/Recharge.aspx?businessid=<%=Request["businessid"]%>" class="btn btn-info m-r20">充值</a>-->
+                                            <!--<a href="/Finance/withDraw.aspx?businessid=<%=Request["businessid"]%>" class="btn btn-create">提现</a>-->
                                         </div>
                                     </div>
                                 </div>
@@ -37,8 +37,8 @@
                         <div class="fi-model-wrap">
                             <div class="fi-h-tabs">
                                 <div class="fi-h-tab active">交易记录</div>
-                                <div class="fi-h-tab">充值记录</div>
-                                <div class="fi-h-tab">提现记录</div>
+                                <!--<div class="fi-h-tab">充值记录</div>-->
+                                <!--<div class="fi-h-tab">提现记录</div>-->
                             </div>
                             <div class="fi-model">
                                 <div class="fi-model-h">
@@ -48,30 +48,30 @@
                                             <input class="fi-h-txt" type="text" id="datePickerStart"/>&nbsp;-&nbsp;<input class="fi-h-txt" type="text" id="datePickerEnd"/>
                                         </div>
                                     </div>
-                                    <div class="fi-h-ctrl">
-                                        <label for="tradeType" class="fi-ctrl-h">交易类型</label>
-                                        <div class="fi-ctrl-m">
-                                            <select class="fi-h-txt" name="" id="tradeType">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="fi-h-ctrl">
-                                        <label for="tradeStatus" class="fi-ctrl-h">交易状态</label>
-                                        <div class="fi-ctrl-m">
-                                            <select class="fi-h-txt" name="" id="tradeStatus">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="fi-h-ctrl">
-                                        <input class="fi-h-btn" type="button" value="搜索"/>
-                                    </div>
+                                    <!--<div class="fi-h-ctrl">-->
+                                        <!--<label for="tradeType" class="fi-ctrl-h">交易类型</label>-->
+                                        <!--<div class="fi-ctrl-m">-->
+                                            <!--<select class="fi-h-txt" name="" id="tradeType">-->
+                                                <!--<option value="1">1</option>-->
+                                                <!--<option value="2">2</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="fi-h-ctrl">-->
+                                        <!--<label for="tradeStatus" class="fi-ctrl-h">交易状态</label>-->
+                                        <!--<div class="fi-ctrl-m">-->
+                                            <!--<select class="fi-h-txt" name="" id="tradeStatus">-->
+                                                <!--<option value="1">1</option>-->
+                                                <!--<option value="2">2</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="fi-h-ctrl">-->
+                                        <!--<input class="fi-h-btn" type="button" value="搜索"/>-->
+                                    <!--</div>-->
                                 </div>
                                 <div class="model-m no-padding">
-                                    <div class="order-list-head">
+                                    <div class="order-list-head finance-list-head">
                                         <div class="custom-grid">
                                             <div class="custom-col col-10-1">
                                                 <div class="l-b">
@@ -120,7 +120,36 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="order-list" >
+                                    <div class="order-list finance-list" >
+                                        <asp:Repeater runat="server" ID="rpFinanceList" >
+                                            <ItemTemplate>
+                                                <div class="order-row">
+                                                    <div class="custom-grid">
+                                                        <div class="custom-col col-10-1">
+                                                            <div class="order-li">
+                                                                <%#Eval("OccurTime") %>
+                                                            </div>
+                                                        </div>
+                                                        <div class="custom-col col-10-1">
+                                                            <div class="order-li">
+                                                                <%#Eval("FlowType") %>
+                                                            </div>
+                                                        </div>
+                                                        <div class="custom-col col-10-1">
+                                                            <div class="order-li">
+                                                                <%#Eval("RelatedObjectId") %>
+                                                            </div>
+                                                        </div>
+                                                        <div class="custom-col col-10-1">
+                                                            <div class="order-li">
+                                                                <%#Eval("Amount") %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+
                                     </div>
                                 </div>
                                 <div class="model-b">
