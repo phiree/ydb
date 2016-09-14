@@ -220,6 +220,11 @@ namespace Dianzhu.ApplicationService.Order
                 //return null;
                 throw new Exception("没有找到资源！");
             }
+            //排除草稿单，因为推送服务会有时间差
+            if (order.OrderStatus == Model.Enums.enum_OrderStatus.Draft)
+            {
+                throw new Exception("没有找到资源！");
+            }
             orderObj orderobj = Mapper.Map<Model.ServiceOrder, orderObj>(order);
             changeObj(orderobj, order);
             return orderobj;
