@@ -266,10 +266,12 @@ namespace Dianzhu.CSClient.Presenter
             errorMsg = string.Empty;
             if (pushedServices.Count == 0)
             {
+                log.Error("推送的服务项为0");
                 return null;
             }
             if (IdentityManager.CurrentIdentity == null)
             {
+                log.Error("IdentityManager.CurrentIdentity为null");
                 return null;
             }
             if (viewSearch.SearchKeywordTime < DateTime.Now)
@@ -287,7 +289,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 //NHibernateUnitOfWork.UnitOfWork.Current.Refresh(service);//来自上个session，需刷新
 
-                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime ));
+                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime,viewSearch.ServiceMemo ));
             }
            // bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
@@ -350,6 +352,7 @@ namespace Dianzhu.CSClient.Presenter
             viewIdentityList.UpdateIdentityBtnName(oldOrder.Id, IdentityManager.CurrentIdentity);
 
             //更新接待分配表
+            log.Debug("更新ReceptionStatus，customerId:" + IdentityManager.CurrentIdentity.Customer.Id + ",csId:" + GlobalViables.CurrentCustomerService.Id + ",orderId:" + newOrder.Id);
             bllReceptionStatus.UpdateOrder(IdentityManager.CurrentIdentity.Customer, GlobalViables.CurrentCustomerService, newOrder);
 
             //清空搜索选项 todo:为了测试方便，先注释掉

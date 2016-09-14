@@ -94,7 +94,7 @@ namespace Dianzhu.CSClient.LocalStorage
                 CustomerUIData ui = new CustomerUIData();
                 LocalUIDatas.Add(customerId, ui);
                 LocalUIDatas[customerId].Name = string.Empty;
-                LocalUIDatas[customerId].Date = DateTime.Parse("2016-08-30 09:00");
+                LocalUIDatas[customerId].Date = DateTime.Now;
                 LocalUIDatas[customerId].ServiceType = null;
                 LocalUIDatas[customerId].ServiceName = string.Empty;
                 LocalUIDatas[customerId].PriceMin = 1;

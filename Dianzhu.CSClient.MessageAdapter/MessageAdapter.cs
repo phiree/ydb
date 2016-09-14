@@ -216,7 +216,7 @@ namespace Dianzhu.CSClient.MessageAdapter
 
                     DateTime startTimeObj = DateTime.ParseExact(startTime, "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
                    
-                    ServiceOrderPushedService pushService = new ServiceOrderPushedService(existedServiceOrder,service,1,customerName,customerPhone, customerAddress,startTimeObj);
+                    ServiceOrderPushedService pushService = new ServiceOrderPushedService(existedServiceOrder,service,1,customerName,customerPhone, customerAddress,startTimeObj,string.Empty);
 
                     ((ReceptionChatPushService)chat).PushedServices.Add(pushService);
                 }

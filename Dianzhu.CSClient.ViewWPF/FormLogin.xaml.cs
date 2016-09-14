@@ -178,19 +178,22 @@ namespace Dianzhu.CSClient.ViewWPF
         public event ViewLogin ViewLogin;
         public event EventHandler TestClick;
 
+        private void tbxUserName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(tbxUserName.Text.Trim()) && e.Key == Key.Enter)
+            {
+                tbxPassword.Focus();
+            }
+        }
+
         private void tbxPassword_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Return)
+            if (!string.IsNullOrEmpty(tbxPassword.Password.Trim()) && e.Key == Key.Enter)
             {
                 //登录时的异步处理
                 ViewLogin();
                 e.Handled=true;
             }
-        }
-
-        private void btnLogin_Click_1(object sender, RoutedEventArgs e)
-        {
-
         }
 
         bool ILoginForm.ShowDialog()
@@ -206,6 +209,11 @@ namespace Dianzhu.CSClient.ViewWPF
         private void btnTest_Click(object sender, RoutedEventArgs e)
         {
             TestClick(sender, e);
+        }
+
+        private void tbxPassword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbxPassword.SelectAll();
         }
     }
 }
