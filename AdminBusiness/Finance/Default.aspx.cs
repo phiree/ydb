@@ -9,6 +9,9 @@ using Dianzhu.IDAL;
 
 public partial class Finance_Default : BasePage
 {
+    Dianzhu.BLL.IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
+
+   
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -23,7 +26,7 @@ public partial class Finance_Default : BasePage
     {
 
         Dianzhu.IDAL.Finance.IDALBalanceFlow dalBalance = Bootstrap.Container.Resolve<Dianzhu.IDAL.Finance.IDALBalanceFlow>();
-        IList<Dianzhu.Model.Finance.BalanceFlow> balanceList = dalBalance.Find(x => x.Member.Id == CurrentBusiness.Id);
+        IList<Dianzhu.Model.Finance.BalanceFlow> balanceList = dalBalance.Find(x => x.Member.Id == CurrentBusiness.Owner.Id);
 
         rpFinanceList.DataSource = balanceList;
 

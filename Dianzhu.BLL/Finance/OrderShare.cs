@@ -53,15 +53,12 @@ namespace Dianzhu.BLL.Finance
             var sharedAmount = order.NegotiateAmount * typePoint;
 
 
+       
+          
             //-  代理商分成
             var area = order.Details[0].OriginalService.Business.AreaBelongTo;
             var agent = agentService.GetAreaAgent(area);
             var agentShare = 0m;
-           
-            //- 助理分成
-            var customerServiceSharePoint = bllSharePoint.GetSharePoint(order.CustomerService);
-            var customerServiceShare = customerServiceSharePoint * sharedAmount;
-
             if (agent != null)
             {
                 var agentSharePoint = bllSharePoint.GetSharePoint(agent);
@@ -77,6 +74,10 @@ namespace Dianzhu.BLL.Finance
                 };
                 balanceFlows.Add(flowAgent);
             }
+
+            //- 助理分成
+            var customerServiceSharePoint = bllSharePoint.GetSharePoint(order.CustomerService);
+            var customerServiceShare = customerServiceSharePoint * sharedAmount;
             Dianzhu.Model.Finance.BalanceFlow flowCustomerService = new Model.Finance.BalanceFlow
             {
                 Amount = customerServiceShare,
@@ -87,6 +88,19 @@ namespace Dianzhu.BLL.Finance
 
             };
             balanceFlows.Add(flowCustomerService);
+            //商家
+            var businessAmount = order.NegotiateAmount - sharedAmount;
+
+            Dianzhu.Model.Finance.BalanceFlow flowBusiness = new Model.Finance.BalanceFlow {
+                Amount = businessAmount,
+                Member = order.Business.Owner,
+                FlowType = Model.Finance.enumFlowType.OrderShare,
+                OccurTime = DateTime.Now,
+                RelatedObjectId = order.Id.ToString()
+            };
+
+
+       
             log.Debug("结束分账:" + order.Id);
             return balanceFlows;
         }
