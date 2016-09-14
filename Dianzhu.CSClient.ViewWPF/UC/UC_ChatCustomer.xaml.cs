@@ -154,7 +154,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             set
             {
-                if(chat.FromResource== Model.Enums.enum_XmppResource.YDBan_User)
+                if(!chat.IsfromCustomerService)
                 {
                     BitmapImage image;
                     try
