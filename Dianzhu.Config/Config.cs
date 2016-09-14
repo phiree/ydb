@@ -54,7 +54,7 @@ namespace Dianzhu.Config
              {"cdnroot", BuildHttpUrlString(ApplicationServer, 886)}
             , {"ImServer",IMServer  }
             , {"ImDomain",IMDomain  }
-
+              , {"RestApiAuthUrl",BuildHttpUrlString(ApplicationServer, 8041,"api/v1/authorization")  }
             , {"MediaUploadUrl",BuildHttpUrlString(ApplicationServer, 8038,"UploadFile.ashx") }
             , {"MediaGetUrl",BuildHttpUrlString(ApplicationServer, 8038,"GetFile.ashx?fileName=")   }
             , {"MediaUploadUrlByDate",BuildHttpUrlString(ApplicationServer, 8038,"UploadFileByDate.ashx") }//按日期生成保存路径

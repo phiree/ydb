@@ -66,6 +66,7 @@ public partial class ForgetPassword :Dianzhu.Web.Common.BasePage
 
         lblMsg.Text = "修改完成";
         hlLogin.Visible = true;
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
         Response.Redirect("/account/recover_suc.aspx",true);
         
     }
