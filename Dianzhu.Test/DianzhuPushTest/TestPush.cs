@@ -57,7 +57,7 @@ namespace Dianzhu.Test.DianzhuPushTest
                 Newtonsoft.Json.JsonConvert
                 .DeserializeObject<Push.JPush.JPushRequest>(request);
 
-            Assert.AreEqual("深圳", jpushreq.audience.alias[0]);
+            Assert.AreEqual("深圳", jpushreq.audience.registration_id[0]);
             Assert.AreEqual("321", jpushreq .notification.android.extras.newsid);
 
         }

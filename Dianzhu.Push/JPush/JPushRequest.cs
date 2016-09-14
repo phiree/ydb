@@ -39,11 +39,11 @@ namespace Dianzhu.Push.JPush
         public class Audience
         {
             public Audience() { }
-            public Audience(IList<string> alias)
+            public Audience(IList<string> registration_id)
             {
-                this.alias = alias;
+                this.registration_id = registration_id;
             }
-            public IList<string> alias { get; set; }
+            public IList<string> registration_id { get; set; }
 
         }
  

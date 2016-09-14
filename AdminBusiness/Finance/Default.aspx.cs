@@ -37,4 +37,19 @@ public partial class Finance_Default : BasePage
 
         rpFinanceList.DataBind();
     }
+
+    protected void rpFinanceList_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Item|| e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            var item = (Dianzhu.Model.Finance.BalanceFlow)e.Item.DataItem;
+           var order= bllOrder.GetOne(new Guid(item.RelatedObjectId));
+            string serialOrderNo = order.SerialNo;
+            var li = (Literal) e.Item.FindControl("liSerialNo");
+         
+             
+                li.Text = serialOrderNo;
+           
+        }
+    }
 }
