@@ -8,6 +8,7 @@ using Dianzhu.Model.Enums;
 using Dianzhu.Api.Model;
 using Dianzhu.CSClient.IMessageAdapter;
 using agsXMPP.protocol.client;
+using Dianzhu.Push;
 /// <summary>
 /// Summary description for CHAT001001
 /// </summary>
@@ -34,12 +35,22 @@ public class ResponseCHAT001008:BaseResponse
             {
                 dalChat.Add(chat);
                 //离线推送
-                string pushType;
-                switch (chat.ChatTarget)
+                PushType  pushType;
+                //发送给用户的 : 用证书1, 发送给商户的 用证书2
+                
+                switch (chat.To.UserType)
                 {
-                    case enum_ChatTarget.cer:pushType = "withcustomerservice"; break;
-                    case enum_ChatTarget.store:pushType = "withbusiness"; break;
-                    default:throw new Exception("尚未处理的推送类型" + chat.ChatTarget) ;
+                    case  enum_UserType.customer:pushType = PushType.PushToUser;
+                        Log.Debug("推送给用户");
+                        break;
+                    case  enum_UserType.business:pushType = PushType.PushToBusiness;
+                        Log.Debug("推送给商家");
+                        break;
+                    default:
+                        string errMsg = "尚未处理的推送类型" + chat.To.UserType;
+                        Log.Error(errMsg);
+                        this.state_CODE = Dicts.StateCode[1];
+                        return;
                 }
                 bllPush.Push(pushType, chat.To.Id, chat.ServiceOrder.Id.ToString());
             }
