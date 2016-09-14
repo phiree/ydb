@@ -261,7 +261,7 @@ namespace Dianzhu.CSClient.Presenter
 
         }
 
-        private ReceptionChat ViewSearchResult_PushServices(IList<Model.DZService> pushedServices,out string errorMsg)
+        private ServiceOrder ViewSearchResult_PushServices(IList<Model.DZService> pushedServices,out string errorMsg)
         {
             errorMsg = string.Empty;
             if (pushedServices.Count == 0)
@@ -328,17 +328,20 @@ namespace Dianzhu.CSClient.Presenter
             //助理工具显示发送的消息
             viewChatList.AddOneChat(chat,string.Empty);
 
+            //发送推送聊天消息
+            iIM.SendMessage(chat);
+
             //生成新的草稿单并发送给客户端
             string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
             ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService,IdentityManager.CurrentIdentity.Customer,serialNoForOrder);
             bllServiceOrder.Save(newOrder);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            log.Debug("新草稿订单的id：" + newOrder.Id.ToString());
-            string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
-            string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
-                                                    <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:draft:new""><orderID>{3}</orderID></ext></message>", 
-                                                    IdentityManager.CurrentIdentity.Customer.Id + "@" + server, IdentityManager.CurrentIdentity.CustomerService.Id, Guid.NewGuid() + "@" + server, newOrder.Id);
-            iIM.SendMessage(noticeDraftNew);
+            //log.Debug("新草稿订单的id：" + newOrder.Id.ToString());
+            //string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
+            //string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
+            //                                        <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:draft:new""><orderID>{3}</orderID></ext></message>", 
+            //                                        IdentityManager.CurrentIdentity.Customer.Id + "@" + server, IdentityManager.CurrentIdentity.CustomerService.Id, Guid.NewGuid() + "@" + server, newOrder.Id);
+            //iIM.SendMessage(noticeDraftNew);
             
 
             //更新当前订单
@@ -362,7 +365,7 @@ namespace Dianzhu.CSClient.Presenter
             //存储消息到内存中
             localChatManager.Add(chat.To.Id.ToString(), chat);
 
-            return chat;
+            return newOrder;
             iIM.SendMessage(chat);
             //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             //NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
