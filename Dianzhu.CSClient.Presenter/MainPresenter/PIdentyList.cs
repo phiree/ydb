@@ -192,6 +192,7 @@ namespace Dianzhu.CSClient.Presenter
             ReceptionStatus rs = dalReceptionStatus.GetOneByCustomerAndCS(GlobalViables.CurrentCustomerService, order.Customer);
             if (rs != null)
             {
+                log.Debug("删除ReceptionStatus中的关系，rs.Id:" + rs.Id + ",csId:" + rs.CSId + ",customerId:" + rs.CustomerId + ",orderId" + rs.Order.Id);
                 dalReceptionStatus.Delete(rs);
             }
 

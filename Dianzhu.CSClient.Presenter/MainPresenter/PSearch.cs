@@ -352,6 +352,7 @@ namespace Dianzhu.CSClient.Presenter
             viewIdentityList.UpdateIdentityBtnName(oldOrder.Id, IdentityManager.CurrentIdentity);
 
             //更新接待分配表
+            log.Debug("更新ReceptionStatus，customerId:" + IdentityManager.CurrentIdentity.Customer.Id + ",csId:" + GlobalViables.CurrentCustomerService.Id + ",orderId:" + newOrder.Id);
             bllReceptionStatus.UpdateOrder(IdentityManager.CurrentIdentity.Customer, GlobalViables.CurrentCustomerService, newOrder);
 
             //清空搜索选项 todo:为了测试方便，先注释掉
