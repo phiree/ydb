@@ -53,6 +53,9 @@ namespace Dianzhu.Web.RestfulApi.Controllers.Client
                 //MySectionKeyValueSettings kv = mysection.KeyValues[Request.Headers.GetValues("appName").FirstOrDefault()];
                 string apiName = Request.Headers.GetValues("appName").FirstOrDefault();
                 string apiKey = mysection.KeyValues[apiName].Value; //hmac.getAllowedApps(Request.Headers.GetValues("appName").FirstOrDefault());
+
+                log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.ClientController");
+                ilog.Debug("PostToken(Baegin):"+customer.loginName+"_"+DateTime.Now.ToString("yyyyMMddHHmmss"));
                 return Json(iclientservice.CreateToken(customer.loginName, customer.password, apiName, apiKey, Request.RequestUri.Scheme+"://" +Request.RequestUri.Authority) ?? new object());
             }
             catch (Exception ex)
