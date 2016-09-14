@@ -37,44 +37,46 @@ namespace Dianzhu.CSClient.MessageAdapter
         /// <returns></returns>
         public Model.ReceptionChat MessageToChat(Message message)
         {
+            var ext_element = message.SelectSingleElement("ext", true);
+            string errMsg;
+            if (message.SelectSingleElement("ext", true)==null)
+            {
+                errMsg = "没有ext节点";
+                ilog.Error(errMsg);
+                throw new Exception(errMsg);
+            }
             ReceptionChat chat;
             //获取基本数据
+            Guid id = string.IsNullOrEmpty(message.Id) ? Guid.NewGuid() : new Guid(message.Id);
             string fromId = message.From.User;
             string fromResourceRaw = message.From.Resource;
             string toId = message.To.User;
             string toResourceRaw = message.To.Resource;
             string messageBody = message.Body;
+            string sessionId = ext_element.SelectSingleElement("orderID", true).Value;
 
             //Resource验证, 非系统值 为UnKnown.
             enum_XmppResource fromResource = Enum.TryParse<enum_XmppResource>(fromResourceRaw, true, out fromResource) ? fromResource : enum_XmppResource.Unknow;
             enum_XmppResource toResource = Enum.TryParse<enum_XmppResource>(toResourceRaw, true, out toResource) ? toResource : enum_XmppResource.Unknow;
             //判断消息类型
-            var ext_element = message.SelectSingleElement("ext", true);
-            bool has_ext = ext_element != null;
-            //兼容标准xmpp消息
-            if (!has_ext)
-            {
-                chat = new ReceptionChat(
-                    fromId, toId, messageBody, string.Empty,   fromResource, toResource);
-                ilog.Warn("没有ext节点,仍然返回,兼容标准xmpp消息.");
-                return chat;
-            }
+
+            ReceptionChatFactory chatFactory = new ReceptionChatFactory(id, fromId, toId, messageBody, sessionId, fromResource, toResource);
+
 
             var extNamespace = ext_element.Namespace;
-            string sessionId = ext_element.SelectSingleElement("orderID", true).Value;
-            string errMsg;
+ 
             //通过 ext节点的 namespace 确定chat类型
             switch (extNamespace.ToLower())
             {
                 case "ihelper:chat:text":
-                    return new ReceptionChat(fromId, toId, messageBody, sessionId, fromResource, toResource);
+                    return chatFactory.CreateChatText();
                 case "ihelper:chat:media":
                     var mediaNode = ext_element.SelectSingleElement("msgObj");
                     var mediaUrl = mediaNode.GetAttribute("url");
                     //只保留文件名称部分
                     string mediaUrl_FileName = System.Text.RegularExpressions.Regex.Replace(mediaUrl, @".+GetFile\.ashx\?fileName=", string.Empty);
                     var mediaType = mediaNode.GetAttribute("type");
-                    return new ReceptionChatMedia(mediaUrl_FileName, mediaType, fromId, toId, messageBody, sessionId, fromResource, toResource);
+                    return chatFactory.CreateChatMedia(mediaUrl_FileName, mediaType);
 
                 case "ihelper:chat:orderobj":
                     var ext_service = ext_element.SelectSingleElement("svcObj");
@@ -91,13 +93,10 @@ namespace Dianzhu.CSClient.MessageAdapter
 
                     PushedServiceInfo serviceInfo = new PushedServiceInfo(serviceId, svcName, svcType, svcStarttime, svcEndtime, storeId,
                         storeAlias, storeAvatar);
-                    return new ReceptionChatPushService(
-                        new List<PushedServiceInfo>() { serviceInfo },
-                        fromId, toId, messageBody, sessionId, fromResource, toResource
-                        );
+                    return chatFactory.CreateChatPushService(new List<PushedServiceInfo>() { serviceInfo });
 
                 case "ihelper:notice:system":
-                    return new ReceptionChatNoticeSys(fromId, toId, messageBody, sessionId, fromResource, toResource);
+                    return chatFactory.CreateNoticeSys();
                 case "ihelper:notice:order":
                     var orderNode = ext_element.SelectSingleElement("orderObj");
                     var orderTitle = orderNode.GetAttribute("title");
@@ -110,11 +109,11 @@ namespace Dianzhu.CSClient.MessageAdapter
                     }
                     var orderType = orderNode.GetAttribute("type");
                     //只保留文件名称部分
-                    return new ReceptionChatNoticeOrder(orderTitle, orderStatus, orderType, fromId, toId, messageBody, sessionId, fromResource, toResource);
+                    return chatFactory.CreateNoticeOrder(orderTitle, orderStatus, orderType);
 
                 case "ihelper:notice:promote":
                     string promoteUrl = ext_element.SelectSingleElement("url").Value;
-                    return new ReceptionChatNoticePromote(promoteUrl, fromId, toId, messageBody, sessionId, fromResource, toResource);
+                    return chatFactory.CreateNoticePromote(promoteUrl);
 
                 case "ihelper:notice:cer:change":
 
@@ -122,14 +121,14 @@ namespace Dianzhu.CSClient.MessageAdapter
                     var csId = ext_cerobj.GetAttribute("userID");
                     var csAlias = ext_cerobj.GetAttribute("userID");
                     var csAvatar = ext_cerobj.GetAttribute("imgUrl");
-                    return new ReceptionChatReAssign(csId, csAlias, csAvatar, fromId, toId, messageBody, sessionId, fromResource, toResource);
+                    return chatFactory.CreateReAssign(csId, csAlias, csAvatar);
                 case "ihelper:notice:cer:online":
-                    return new ReceptionChatNoticeCustomerServiceOnline(fromId, toId, messageBody, sessionId, fromResource, toResource);
+                    return chatFactory.CreateNoticeCSOnline();
 
                 case "ihelper:notice:cer:offline":
-                    return new ReceptionChatNoticeCustomerServiceOffline(fromId, toId, messageBody, sessionId, fromResource, toResource);
+                    return chatFactory.CreateNoticeCSOffline();
                 case "ihelper:notice:draft:new":
-                    return new ReceptionChatNoticeNewOrder(fromId, toId, messageBody, sessionId, fromResource, toResource);
+                    return chatFactory.CreateNoticeNewOrder();
                 default:
                     throw new Exception("未知的命名空间");
             }

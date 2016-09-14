@@ -58,9 +58,11 @@ namespace Dianzhu.CSClient.Presenter
             string s = Convert.ToBase64String(fileData);
             string fileName = MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, domainType, mediaType);
 
-            ReceptionChatMedia chat = new ReceptionChatMedia(GlobalViables.MediaGetUrl + fileName,mediaType,GlobalViables.CurrentCustomerService.Id.ToString(),
-                IdentityManager.CurrentIdentity.Customer.Id.ToString(),viewChatSend.MessageText,IdentityManager.CurrentIdentity.Id.ToString(), enum_XmppResource.YDBan_CustomerService,
+            ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(),
+                IdentityManager.CurrentIdentity.Customer.Id.ToString(), viewChatSend.MessageText, IdentityManager.CurrentIdentity.Id.ToString(), enum_XmppResource.YDBan_CustomerService,
                  enum_XmppResource.YDBan_User);
+            ReceptionChatMedia chat =(ReceptionChatMedia)chatFactory.CreateChatMedia(GlobalViables.MediaGetUrl + fileName, mediaType);
+           
             
             localChatManager.Add(chat.ToId, chat);
 
@@ -93,10 +95,9 @@ namespace Dianzhu.CSClient.Presenter
                 { return; }
                 string messageText = viewChatSend.MessageText;
                 if (string.IsNullOrEmpty(messageText)) return;
-
-                ReceptionChat chat = new ReceptionChat(GlobalViables.CurrentCustomerService.Id.ToString(), IdentityManager.CurrentIdentity.Customer.Id.ToString(),
+                ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(), IdentityManager.CurrentIdentity.Customer.Id.ToString(),
                     messageText, IdentityManager.CurrentIdentity.Id.ToString(), enum_XmppResource.YDBan_CustomerService, enum_XmppResource.YDBan_User);
-                
+                ReceptionChat chat = chatFactory.CreateChatText();
                 localChatManager.Add(chat.ToId, chat);
                 viewChatSend.MessageText = string.Empty;
                 viewChatList.AddOneChat(chat,string.Empty);
