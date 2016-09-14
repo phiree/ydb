@@ -245,7 +245,11 @@ namespace Dianzhu.CSClient.Presenter
                 ((ReceptionChatMedia)chat).SetMediaUrl(fileName);
             }
             //dalReceptionChat.Add(chat);
-            ReceivedMessage(chat, type);
+
+            if (chat.GetType() == typeof(ReceptionChat) || chat.GetType()==typeof(ReceptionChatMedia))
+            {
+                ReceivedMessage(chat, type);
+            }
 
             workerChatImage = new BackgroundWorker();
             workerChatImage.DoWork += Worker_DoWork;
