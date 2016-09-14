@@ -15,7 +15,7 @@ namespace Dianzhu.Test.DianzhuPushTest
         {
             //         Push.pushNotifications("8de76c196a605120db39ab58373edf159c1301b43659bd129fcf72b696e2a26c", "test_push", @"files\aps_development_Mark.p12", 1);
 
-            IPush ipush = PushFactory.Create(PushType.UserAndCustomerService, "ios", string.Empty);// new PushIOS(1,"default" );
+            IPush ipush = PushFactory.Create(PushType.PushToUser, "ios", string.Empty);// new PushIOS(1,"default" );
             ipush.Push("test_push" + DateTime.Now.ToString(), "bbcefba2dcaa2fbc2b644fbb7d78d7bfe63d0730f7ea1c9f745cd6769d515a1a",2);
         }
         [Test]

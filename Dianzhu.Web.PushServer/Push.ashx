@@ -25,7 +25,7 @@ public class Push : IHttpHandler
                     string message = context.Request["message"];
                     log.Debug(string.Format("推送参数为:devicetoken_{0},pushnum{1},sound_{2},message_{3}", deviceToken, pushNum, notificaitonSound, message));
                 //todo: 第一个参数需要根据目标类型变化, 现在是写死的.
-                    IPush push = PushFactory.Create( PushType.UserAndCustomerService, appType, string.Empty); 
+                    IPush push = PushFactory.Create( PushType.PushToUser, appType, string.Empty); 
                     push.Push(message,deviceToken,1);
                     log.Debug("推送完成");
                     

@@ -305,11 +305,17 @@ namespace Dianzhu.CSClient.Presenter
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             ReceptionChat chat = e.Result as ReceptionChat;
-            iView.IdleTimerStop(chat.ServiceOrder.Id);
-
-            if (chat is Model.ReceptionChatMedia)
+            if (chat != null)
             {
-                iViewChatList.RemoveChatImageNormalMask(chat.Id);
+                if (chat.ServiceOrder != null)
+                {
+                    iView.IdleTimerStop(chat.ServiceOrder.Id);
+                }                
+
+                if (chat is Model.ReceptionChatMedia)
+                {
+                    iViewChatList.RemoveChatImageNormalMask(chat.Id);
+                }
             }
         }
 
