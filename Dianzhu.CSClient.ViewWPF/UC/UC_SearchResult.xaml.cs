@@ -117,21 +117,35 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void W_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            log.Debug("推送完成");
-            PushServiceTimerSend();
+            
 
-            ReceptionChat chat = (ReceptionChat)e.Result;
-            if (chat != null)
+            //ReceptionChat chat = (ReceptionChat)e.Result;
+            //if (chat != null)
+            //{
+            //    NHibernateUnitOfWork.UnitOfWork.Start();
+            //    //NHibernateUnitOfWork.With.Transaction(() => {
+            //    //    NHibernateUnitOfWork.UnitOfWork.Current.Refresh(chat);
+            //        log.Debug("开始发送消息");
+            //        iIm.SendMessage(chat);
+            //        log.Debug("消息发送完成");
+            //    //});
+            //    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            //    NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            //}
+
+            ServiceOrder order = e.Result as ServiceOrder;
+
+            if (order != null)
             {
-                NHibernateUnitOfWork.UnitOfWork.Start();
-                //NHibernateUnitOfWork.With.Transaction(() => {
-                //    NHibernateUnitOfWork.UnitOfWork.Current.Refresh(chat);
-                    log.Debug("开始发送消息");
-                    iIm.SendMessage(chat);
-                    log.Debug("消息发送完成");
-                //});
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                log.Debug("推送完成");
+                PushServiceTimerSend();
+
+                log.Debug("新草稿订单的id：" + order.Id.ToString());
+                string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
+                string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
+                                                    <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:draft:new""><orderID>{3}</orderID></ext></message>",
+                                                        order.Customer.Id + "@" + server, order.CustomerService.Id, Guid.NewGuid() + "@" + server, order.Id);
+                iIm.SendMessage(noticeDraftNew);
             }
         }
 
