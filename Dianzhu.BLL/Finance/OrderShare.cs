@@ -98,6 +98,7 @@ namespace Dianzhu.BLL.Finance
                 OccurTime = DateTime.Now,
                 RelatedObjectId = order.Id.ToString()
             };
+            balanceFlows.Add(flowBusiness);
 
 
        
