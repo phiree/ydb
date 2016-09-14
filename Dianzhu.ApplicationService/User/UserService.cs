@@ -197,9 +197,9 @@ namespace Dianzhu.ApplicationService.User
         /// <returns></returns>
         public object PatchUser(string userID, UserChangeBody userChangeBody,string userType)
         {
-            if (userChangeBody.oldPassWord != null && userChangeBody.oldPassWord != "")
+            if (string.IsNullOrEmpty(userChangeBody.oldPassWord))
             {
-                throw new FormatException("原密码不能没空！");
+                throw new FormatException("原密码不能为空！");
             }
             Guid guidUser = utils.CheckGuidID(userID, "userID");
             Dianzhu.Model.DZMembership dzm = dzmsp.GetUserById(guidUser);
