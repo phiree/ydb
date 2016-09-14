@@ -8,7 +8,9 @@ using NHibernate;
 namespace Dianzhu.DAL
 {
     public class DALDeviceBind :NHRepositoryBase<DeviceBind,Guid>,IDAL.IDALDeviceBind
-    {         
+    {
+
+        log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.DeviceBind");
         public void UpdateBindStatus(DZMembership member, string appToken, string appName)
         {
             using (var t = Session.BeginTransaction())
@@ -66,38 +68,52 @@ namespace Dianzhu.DAL
             //    db.BindChangedTime = devicebind.BindChangedTime;
             //    //blldevicebind.Update(devicebinduuid);
             //}
-
             DeviceBind db = FindOne(x => x.AppUUID == devicebind.AppUUID);
-            using (var t = Session.BeginTransaction())
-            {
-                //解除之前所有 apptoken  和 member的绑定
-                string unbind_sql = "update DeviceBind db set db.IsBinding=0,db.BindChangedTime='" + devicebind.BindChangedTime.ToString("yyyy-MM-dd HH:mm:ss")
-                                + "' where db.IsBinding=1 and( ";
-                if (devicebind.DZMembership == null)
-                {
-                    //unbind_sql += "db.DZMembership.Id is null ";
-                }
-                else
-                {
-                    unbind_sql += "db.DZMembership.Id='" + devicebind.DZMembership.Id + "' or ";
-                }
-                unbind_sql += "  db.AppUUID='" + devicebind.AppUUID + "')";
-                IQuery query = Session.CreateQuery(unbind_sql);
-                query.ExecuteUpdate();
-                t.Commit();
-            }
+            //using (var t = Session.BeginTransaction())
+            //{
+            //    //解除之前所有 apptoken  和 member的绑定
+            //    string unbind_sql = "update DeviceBind db set db.IsBinding=0,db.BindChangedTime='" + devicebind.BindChangedTime.ToString("yyyy-MM-dd HH:mm:ss")
+            //                    + "' where db.IsBinding=1 and( ";
+            //    if (devicebind.DZMembership == null)
+            //    {
+            //        //unbind_sql += "db.DZMembership.Id is null ";
+            //    }
+            //    else
+            //    {
+            //        unbind_sql += "db.DZMembership.Id='" + devicebind.DZMembership.Id + "' or ";
+            //    }
+            //    unbind_sql += "  db.AppUUID='" + devicebind.AppUUID + "')";
+            //    IQuery query = Session.CreateQuery(unbind_sql);
+            //    query.ExecuteUpdate();
+            //    t.Commit();
+            //}
+            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             if (db == null)
             {
                 Add(devicebind);
             }
             else
             {
+                ilog.Debug("DeviceBind(1)");
                 db.AppToken = devicebind.AppToken;
                 db.IsBinding = true;
                 db.DZMembership = devicebind.DZMembership;
                 db.BindChangedTime = devicebind.BindChangedTime;
                 Update(db);
+                ilog.Debug("DeviceBind(2):"+db.Id);
             }
+            if (devicebind.DZMembership != null)
+            {
+                IList<DeviceBind> dbs = Find(x => x.AppUUID != devicebind.AppUUID && x.DZMembership.Id == devicebind.DZMembership.Id);
+                foreach (DeviceBind d in dbs)
+                {
+                    d.IsBinding = false;
+                    d.BindChangedTime = devicebind.BindChangedTime;
+                    Update(d);
+                }
+            }
+            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            
 
         }
 
