@@ -32,9 +32,14 @@ namespace Dianzhu.BLL.Client
                 usertokenOld.Flag = 0;
                 dalusertoken.Update(usertokenOld);
             }
+
+            log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.ClientController");
+            ilog.Debug("PostToken(Baegin3):" + usertoken.Id + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
             dalusertoken.Add(usertoken);
+            ilog.Debug("PostToken(Baegin4):" + usertoken.Id + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             usertoken = dalusertoken.FindById(usertoken.Id);
+            ilog.Debug("PostToken(Baegin5):" + usertoken.Id + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
             if (usertoken == null)
             {
                 return true;

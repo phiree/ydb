@@ -17,7 +17,7 @@
                                 <span>当前共10服务</span>
                             </div>
                             <div class="model-m no-padding">
-                                <div class="shelf-overview-wrap">
+                                <div class="shelf-overview-wrap scrollbar-inner">
                                     <div class="shelf-overview" id="shelfOverview">
                                         <asp:Repeater runat="server" ID="rptServiceList">
                                             <ItemTemplate>
@@ -47,9 +47,11 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server" >
+    <script src="/js/plugins/jquery.scrollbar.js"></script>
     <script>
         $(function(){
-            /* 每行补空样式 */
+
+            // 货架每行用空的box填满
             var goodsLength = $('#shelfOverview').find('.shelf-box').length;
             var restGoods = 6 - goodsLength % 6;
 
@@ -59,6 +61,9 @@
                     $('.shelf-overview').append(emptyGood);
                 }
             }
+
+            // scrollbar
+            $(".scrollbar-inner").scrollbar();
         })
     </script>
 </asp:Content>

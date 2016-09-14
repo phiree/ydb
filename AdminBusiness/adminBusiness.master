@@ -45,8 +45,8 @@
                         <h2 class="sidebar-title">员工管理</h2>
                     </a>
                 </li>
-                <li role="presentation"  class="disabled" title="正在努力开发...">
-                    <a href="javascript:void(0);">
+                <li role="presentation" title="财务管理">
+                    <a href="/Finance/Default.aspx?businessId=<%=Request["businessid"] %>" title="财务管理">
                         <i class="icon item-icon sidebar-icon-emp"></i>
                         <h2 class="sidebar-title">财务管理</h2>
                     </a>

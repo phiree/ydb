@@ -185,7 +185,7 @@ namespace Dianzhu.ApplicationService.Pay
         /// <param name="payTarget"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public countObj GetPay3rdString(string orderID, string payID, string payTarget,Customer customer)
+        public pay3rdStringObj GetPay3rdString(string orderID, string payID, string payTarget,Customer customer)
         {
 
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
@@ -200,13 +200,13 @@ namespace Dianzhu.ApplicationService.Pay
             {
                 throw new Exception("该笔支付不存在！");
             }
-            countObj c = new countObj();
+            pay3rdStringObj c = new pay3rdStringObj();
             switch (payTarget.ToLower())
             {
                 case "alipay":
                     // http://119.29.39.211:8168
                     IPayRequest ipayAli = new PayAlipayApp(payment.Amount, payment.Id.ToString(), payment.Order.Title, Dianzhu.Config.Config.GetAppSetting("PaySite") + "PayCallBack/Alipay/notify_url.aspx", payment.Order.Description);
-                    c.count = ipayAli.CreatePayRequest();
+                    c.pay3rdString = ipayAli.CreatePayRequest();
                     return c;
                 case "wepay":
                     for (int i = 0; i < 10; i++)
@@ -249,7 +249,7 @@ namespace Dianzhu.ApplicationService.Pay
                         }
 
                         string orderString = ipayWe.CreatePayStr(respData.prepay_id);
-                        c.count = orderString;
+                        c.pay3rdString = orderString;
                         return c;
                     }
                     throw new Exception("生成失败！");

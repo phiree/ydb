@@ -53,19 +53,17 @@ namespace Dianzhu.BLL.Finance
             var sharedAmount = order.NegotiateAmount * typePoint;
 
 
+       
+          
             //-  代理商分成
             var area = order.Details[0].OriginalService.Business.AreaBelongTo;
             var agent = agentService.GetAreaAgent(area);
             var agentShare = 0m;
-           
-            //- 助理分成
-            var customerServiceSharePoint = bllSharePoint.GetSharePoint(order.CustomerService);
-            var customerServiceShare = customerServiceSharePoint * sharedAmount;
-
+            decimal agentSharePoint = 0;
             if (agent != null)
             {
-                var agentSharePoint = bllSharePoint.GetSharePoint(agent);
-                agentShare = sharedAmount * agentSharePoint;
+                agentSharePoint = bllSharePoint.GetSharePoint(agent);
+                agentShare =Math.Truncate( sharedAmount * agentSharePoint*100)/100m;
                 Dianzhu.Model.Finance.BalanceFlow flowAgent= new Model.Finance.BalanceFlow
                 {
                     Amount = agentShare,
@@ -77,6 +75,10 @@ namespace Dianzhu.BLL.Finance
                 };
                 balanceFlows.Add(flowAgent);
             }
+
+            //- 助理分成
+            var customerServiceSharePoint = bllSharePoint.GetSharePoint(order.CustomerService);
+            var customerServiceShare = Math.Truncate(customerServiceSharePoint * sharedAmount * 100) / 100m; ;
             Dianzhu.Model.Finance.BalanceFlow flowCustomerService = new Model.Finance.BalanceFlow
             {
                 Amount = customerServiceShare,
@@ -87,6 +89,20 @@ namespace Dianzhu.BLL.Finance
 
             };
             balanceFlows.Add(flowCustomerService);
+            //商家
+            var businessAmount =Math.Truncate( order.NegotiateAmount * (1 - typePoint)*100)/100m;
+
+            Dianzhu.Model.Finance.BalanceFlow flowBusiness = new Model.Finance.BalanceFlow {
+                Amount = businessAmount,
+                Member = order.Business.Owner,
+                FlowType = Model.Finance.enumFlowType.OrderShare,
+                OccurTime = DateTime.Now,
+                RelatedObjectId = order.Id.ToString()
+            };
+            balanceFlows.Add(flowBusiness);
+
+
+       
             log.Debug("结束分账:" + order.Id);
             return balanceFlows;
         }

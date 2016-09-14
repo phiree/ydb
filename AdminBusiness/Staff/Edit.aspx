@@ -23,7 +23,7 @@
                                         <div class="emp-head-text">上传新头像</div>
                                         <div class="headImage">
                                             <div class="input-file-box">
-                                                <input type="file" class="input-file-btn" runat="server" id="empheadimg" name="empheadimg" data-local="true"/>
+                                                <input type="file" class="input-file-btn" runat="server" id="empheadimg" name="empheadimg" data-local="true" data-single="true" />
                                             </div>
                                         </div>
                                         <p class="img-tips">图片格式为PNG/JPG大小限制为2M一下</p>
@@ -91,6 +91,7 @@
 <script>
     $(document).ready(function () {
         $(function () {
+            // tooltip插件
             $('[data-toggle="tooltip"]').tooltip(
                 {
                 delay: {show : 500, hide : 100},
@@ -98,8 +99,10 @@
                 }
             );
 
+            // 自定义图片上创插件
             $(".input-file-btn").imageUpload();
 
+            // 下拉框控件
             $(".select").customSelect();
         });
     });

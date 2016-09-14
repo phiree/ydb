@@ -108,7 +108,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                             <div class="col-md-4 model-label">店铺头像</div>
                                                             <div class="col-md-8 model-input">
                                                                 <div id="businessavater" class="business-Avatar">
-                                                                    <input type="file" class="input-file-btn" data-list="#businessavater" data-single="true" data-limit="1" data-size="2" data-params='{"businessId":"<%=b.Id %>", "imageType":"businessavater"}' data-preview="<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=140&height=140&tt=3":"../images/components/inputFile/input_bg_140_140.png" %>"/>
+                                                                    <input type="file" class="input-file-btn" data-list="#businessavater" data-single="true" data-limit="1" data-size="2" data-params='{"businessId":"<%=b.Id %>", "imageType":"businessavater"}' data-preview="<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=140&height=140&tt=0":"../images/components/inputFile/input_bg_140_140.png" %>"/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -127,7 +127,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                                             CommandArgument='<%#Eval("Id") %>'/>
                                                                                 <a class="download-img-show"
                                                                                    href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
-                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=140&height=140&tt=3'
+                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=140&height=140&tt=1'
                                                                                          id="imgLicence"/>
                                                                                 </a>
                                                                             </div>
@@ -200,7 +200,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                                             CommandArgument='<%#Eval("Id") %>'/>
                                                                                 <a class="download-img-show"
                                                                                    href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
-                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=140&height=140&tt=3'
+                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=140&height=140&tt=0'
                                                                                          class="imgCharge"/>
                                                                                 </a>
                                                                             </div>
@@ -226,7 +226,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                                             ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>'/>
                                                                                 <a class="download-img-show"
                                                                                    href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
-                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=140&height=140&tt=3'
+                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=140&height=140&tt=0'
                                                                                          class="imgCharge"/>
                                                                                 </a>
                                                                             </div>
@@ -287,6 +287,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
     <script src="/js/components/select.js?v=1.0.0"></script>
     <script>
         $(function () {
+            // tooltip插件
             $('[data-toggle="tooltip"]').tooltip(
                 {
                     delay: {show : 500, hide : 100},
@@ -294,15 +295,18 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                 }
             );
 
+            // 自定义图片上创插件
             $('.input-file-btn').imageUpload();
 
-
+            // 模拟头像修改按钮点击
             $('#headImgTrigger').click(function(){
                 return $('#headImgBtn').click();
             });
 
+            // 下拉框控件
             $(".select").customSelect();
 
+            // 设置步骤插件
             $(".steps-wrap").stepByStep({
                 stepValid : function(){
                     return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
