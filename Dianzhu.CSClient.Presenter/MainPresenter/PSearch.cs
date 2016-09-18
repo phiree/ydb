@@ -302,6 +302,8 @@ namespace Dianzhu.CSClient.Presenter
 
             //获取之前orderid
             ServiceOrder oldOrder = bllServiceOrder.GetOne(IdentityManager.CurrentIdentity.Id);
+            string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
+            oldOrder.SerialNo = serialNoForOrder;
             oldOrder.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
             bllServiceOrder.Update(oldOrder);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
@@ -338,8 +340,7 @@ namespace Dianzhu.CSClient.Presenter
             iIM.SendMessage(chat);
 
             //生成新的草稿单并发送给客户端
-            string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
-            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService,IdentityManager.CurrentIdentity.Customer,serialNoForOrder);
+            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService,IdentityManager.CurrentIdentity.Customer);
             bllServiceOrder.Save(newOrder);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             //log.Debug("新草稿订单的id：" + newOrder.Id.ToString());

@@ -63,17 +63,17 @@ namespace Dianzhu.Test.DZCSClientTest
             }
 
             //一号用户的两个订单
-            ServiceOrder order11 = ServiceOrderFactory.CreateDraft(customers[0], customers[1],string.Empty);
+            ServiceOrder order11 = ServiceOrderFactory.CreateDraft(customers[0], customers[1]);
             order11.Id = Guid.Parse("91280460-80b4-4509-84f5-e323fceff9c8");
-            ServiceOrder order12 = ServiceOrderFactory.CreateDraft(customers[0], customers[1],string.Empty);
+            ServiceOrder order12 = ServiceOrderFactory.CreateDraft(customers[0], customers[1]);
             order12.Id = Guid.Parse("6ecc4ed8-f53d-4159-9a67-820f15d1420f");
 
             //二号用户的一个订单
-            ServiceOrder order21 = ServiceOrderFactory.CreateDraft(customers[0], customers[2],string.Empty);
+            ServiceOrder order21 = ServiceOrderFactory.CreateDraft(customers[0], customers[2]);
             order21.Id = Guid.Parse("e36d19a0-6c69-4810-8507-829c8f670863");
 
             //三号用户的一个订单
-            ServiceOrder order31 = ServiceOrderFactory.CreateDraft(customers[0], customers[3],string.Empty);
+            ServiceOrder order31 = ServiceOrderFactory.CreateDraft(customers[0], customers[3]);
             order31.Id = Guid.Parse("f38348af-48db-4f93-bc92-1a610207b245");
 
             IList<ReceptionChat> chats = Builder<ReceptionChat>.CreateListOfSize(6)
