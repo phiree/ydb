@@ -4,6 +4,7 @@
 @import "vendor/bootstrap-3.3.5-dist/css/bootstrap.css";
 /* vendor-extend */
 /* navbar style */
+@import "extend/jquery.scrollbar.css";
 .navbar {
   margin-bottom: 0;
   box-shadow: 0 2px 1px #8c8c8c;
@@ -6974,6 +6975,7 @@ a.time-trigger:hover {
   float: left;
   position: relative;
   z-index: 1;
+  overflow: hidden;
   margin: 0 10px 10px 0;
   width: 140px;
   height: 140px;
@@ -7020,7 +7022,6 @@ a.time-trigger:hover {
   position: absolute;
   z-index: 4;
   width: 140px;
-  height: 140px;
   border: 0 none;
   border-radius: 10px;
 }
@@ -7031,6 +7032,16 @@ a.time-trigger:hover {
   width: 140px;
   height: 140px;
   border-radius: 10px;
+}
+.input-file-delete {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  right: 5px;
+  top: 5px;
+  z-index: 12;
+  border: 0;
+  background: url(../images/components/inputFile/delete_icon_91.png) no-repeat center;
 }
 /* 头像 */
 .headImage {
@@ -7074,17 +7085,18 @@ a.time-trigger:hover {
   height: 138px;
 }
 .detail-img {
-  min-height: 142px;
-  overflow: hidden;
+  height: 142px;
+}
+.detail-img .detail-img-list {
+  height: 142px;
+  width: 200%;
 }
 .detail-img .detail-img-item {
   float: left;
   border: 1px solid #ccc;
   border-radius: 5px;
   overflow: hidden;
-  min-width: 122px;
-  min-height: 122px;
-  margin: 10px;
+  margin-right: 10px;
 }
 /*可滑动开关样式*/
 .round-checkbox {
@@ -8653,7 +8665,7 @@ a.doReg:hover {
 .shelf-overview-wrap {
   overflow-y: scroll;
   height: 680px;
-  margin: 10px 20px 30px;
+  margin: 20px 20px;
 }
 .shelf-overview {
   overflow: hidden;
@@ -8661,7 +8673,7 @@ a.doReg:hover {
 .shelf-box {
   float: left;
   width: 16.6%;
-  height: 310px;
+  height: 300px;
   position: relative;
   margin-bottom: 35px;
 }

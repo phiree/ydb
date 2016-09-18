@@ -68,15 +68,15 @@ namespace PHSuit
 
             switch (tt)
             {
-                case ThumbnailType.ScalingByBoth://指定高宽缩放（可能变形）                 
-                    break;
-                case ThumbnailType.GeometricScalingByWidth://指定宽，高按比例                     
+                case ThumbnailType.GeometricScalingByWidth://指定宽，高按比例
                     toheight = originalImage.Height * width / originalImage.Width;
                     break;
-                case ThumbnailType.GeometricScalingByHeight://指定高，宽按比例 
+                case ThumbnailType.GeometricScalingByHeight://指定高，宽按比例
                     towidth = originalImage.Width * height / originalImage.Height;
                     break;
-                case ThumbnailType.GeometricScalingByMax://
+                case ThumbnailType.ScalingByBoth://指定高宽缩放（可能变形）
+                    break;
+                case ThumbnailType.GeometricScalingByMax:// 按照图片最大的高或宽，等比缩放
                     var orginalScal = ow / oh;
                     var toScal=towidth / toheight;
                     if(orginalScal>toScal)
@@ -112,15 +112,15 @@ namespace PHSuit
             g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
 
             //设置高质量,低速度呈现平滑程度 
-           g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
             //清空画布并以透明背景色填充 
             g.Clear(Color.Transparent);
  
             //在指定位置并且按指定大小绘制原图片的指定部分 
             g.DrawImage(originalImage, new Rectangle((width-towidth)/2, (height-toheight)/2, towidth, toheight),
-             new Rectangle(x, y, ow, oh),
-             GraphicsUnit.Pixel);
+            new Rectangle(x, y, ow, oh),
+            GraphicsUnit.Pixel);
          
             return bitmap;
 
@@ -131,12 +131,16 @@ namespace PHSuit
     /// </summary>
     public enum ThumbnailType
     {
-        //按照给定的 长 或者 宽等比缩放
+
+        //指定宽，高按比例
         GeometricScalingByWidth,
+        //指定高，宽按比例 
         GeometricScalingByHeight,
-    
+
+        //指定高宽缩放（可能变形）
         ScalingByBoth,
-        //
+
+        // 按照图片最大的高或宽，等比缩放
         GeometricScalingByMax,
 
     }

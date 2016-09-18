@@ -147,7 +147,14 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             get
             {
-                return tbxKeywordAddress.Text.Trim();
+                string address = string.Empty;
+                Action lamda = () =>
+                {
+                    address = tbxKeywordAddress.Text.Trim();
+                };
+                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+                else { lamda(); }
+                return address;
             }
             set
             {

@@ -71,7 +71,7 @@
     <script>$('input').placeholder();</script>
     <![endif]-->
     <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js'></script>
-    <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
+    <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js'></script>
     <script src="../js/components/captcha.js"></script>
     <script src="/js/apps/validation/validation_LoginForget.js?v=1.0.0"></script>
 

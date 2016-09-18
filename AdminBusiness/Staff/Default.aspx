@@ -158,9 +158,4 @@
     <script src="/js/core/interfaceAdapter.js?v=1.0.0"></script>
     <script src="/js/core/RestfulProxyAdapter.js?v=1.0.0"></script>
     <script src="/js/apps/appointToStaff.js?v=1.0.0"></script>
-    <script>
-        $().ready(function(){
-            $('[rel="tooltip"]').tooltip();
-        });
-    </script>
 </asp:Content>
