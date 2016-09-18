@@ -80,60 +80,67 @@ namespace Dianzhu.CSClient.Presenter
 
         private void SysAssign()
         {
-            NHibernateUnitOfWork.UnitOfWork.Start();
-
-            log.Debug("-------开始 接收离线消息------");
-            IList<ReceptionStatus> rsList = dalReceptionStatus.GetRSListByDiandian(GlobalViables.Diandian, 3);
-            if (rsList.Count > 0)
+            try
             {
+                NHibernateUnitOfWork.UnitOfWork.Start();
 
-                log.Debug("需要接待的离线用户数量:" + rsList.Count);
-                foreach (ReceptionStatus rs in rsList)
+                log.Debug("-------开始 接收离线消息------");
+                IList<ReceptionStatus> rsList = dalReceptionStatus.GetRSListByDiandian(GlobalViables.Diandian, 3);
+                if (rsList.Count > 0)
                 {
-                    #region 接待记录存档
-                    SaveRSA(rs.Customer, rs.CustomerService, rs.Order);
-                    #endregion
-                    rs.CustomerService = GlobalViables.CurrentCustomerService;
-                    log.Debug("保存新分配的接待记录");
-                    dalReceptionStatus.Update(rs);
-                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
-                    //CopyDDToChat(rsList.Select(x => x.Customer).ToList());
-
-                    ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
-                    rChatReAss.From = GlobalViables.Diandian;
-                    rChatReAss.To = rs.Customer;
-                    rChatReAss.MessageBody = "客服" + rs.CustomerService.DisplayName + "已上线";
-                    rChatReAss.ReAssignedCustomerService = rs.CustomerService;
-                    rChatReAss.SavedTime = rChatReAss.SendTime = DateTime.Now;
-                    rChatReAss.ServiceOrder = rs.Order;
-                    rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
-
-                    //SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
-                    // SaveMessage(rChatReAss, true);
-                    iIM.SendMessage(rChatReAss);
-
-                    //ClientState.OrderList.Add(rs.Order);
-                    ClientState.customerList.Add(rs.Customer);
-                    //view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
-                    if (rs.Order != null)
+                    log.Debug("需要接待的离线用户数量:" + rsList.Count);
+                    foreach (ReceptionStatus rs in rsList)
                     {
-                        if (!localChatManager.LocalCustomerAvatarUrls.ContainsKey(rs.Order.Customer.Id.ToString()))
+                        #region 接待记录存档
+                        SaveRSA(rs.Customer, rs.CustomerService, rs.Order);
+                        #endregion
+                        rs.CustomerService = GlobalViables.CurrentCustomerService;
+                        log.Debug("保存新分配的接待记录");
+                        dalReceptionStatus.Update(rs);
+                        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+
+                        //CopyDDToChat(rsList.Select(x => x.Customer).ToList());
+
+                        ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
+                        rChatReAss.From = GlobalViables.Diandian;
+                        rChatReAss.To = rs.Customer;
+                        rChatReAss.MessageBody = "客服" + rs.CustomerService.DisplayName + "已上线";
+                        rChatReAss.ReAssignedCustomerService = rs.CustomerService;
+                        rChatReAss.SavedTime = rChatReAss.SendTime = DateTime.Now;
+                        rChatReAss.ServiceOrder = rs.Order;
+                        rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
+
+                        //SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
+                        // SaveMessage(rChatReAss, true);
+                        iIM.SendMessage(rChatReAss);
+
+                        //ClientState.OrderList.Add(rs.Order);
+                        ClientState.customerList.Add(rs.Customer);
+                        //view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
+                        if (rs.Order != null)
                         {
-                            string avatar = string.Empty;
-                            if (rs.Customer.AvatarUrl != null)
+                            if (!localChatManager.LocalCustomerAvatarUrls.ContainsKey(rs.Order.Customer.Id.ToString()))
                             {
-                                avatar = rs.Customer.AvatarUrl;
+                                string avatar = string.Empty;
+                                if (rs.Customer.AvatarUrl != null)
+                                {
+                                    avatar = rs.Customer.AvatarUrl;
+                                }
+                                localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()] = avatar;
                             }
-                            localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()] = avatar;
+                            iView.AddIdentity(rs.Order, localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()]);
                         }
-                        iView.AddIdentity(rs.Order, localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()]);
                     }
                 }
-            }
 
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            }
+            catch (Exception e)
+            {
+                PHSuit.ExceptionLoger.ExceptionLog(log, e);
+            }
         }
 
         /// <summary>
