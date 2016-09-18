@@ -297,7 +297,7 @@ namespace Dianzhu.CSClient.Presenter
 
                 serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, searchObj.Address, searchObj.TargetTime, viewSearch.ServiceMemo ));
             }
-           // bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime);
+            bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //获取之前orderid
@@ -307,19 +307,32 @@ namespace Dianzhu.CSClient.Presenter
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //iim发送消息
-            ReceptionChat chat = new ReceptionChatPushService
-            {
-                Id = Guid.NewGuid(),
-                ServiceOrder =IdentityManager.CurrentIdentity,
-                ChatTarget = Model.Enums.enum_ChatTarget.cer,
-                From = GlobalViables.CurrentCustomerService,
-                To = IdentityManager.CurrentIdentity.Customer,
-                MessageBody = "推送的服务",
-                PushedServices = serviceOrderPushedServices,
-                SendTime = DateTime.Now,
-                SavedTime = DateTime.Now,
 
-            };
+            ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(),
+                IdentityManager.CurrentIdentity.Customer.Id.ToString(),"推送的服务",IdentityManager.CurrentIdentity.Id.ToString(), Model.Enums.enum_XmppResource.YDBan_CustomerService, Model.Enums.enum_XmppResource.YDBan_User);
+
+
+            IList<PushedServiceInfo> pushedServiceInfos = new List<PushedServiceInfo>();
+            foreach (var pushedService in serviceOrderPushedServices)
+            {
+                PushedServiceInfo psi = new PushedServiceInfo(
+                    pushedService.OriginalService.Id.ToString(),
+                    pushedService.ServiceName,
+                    pushedService.OriginalService.ServiceType.ToString(),
+                    pushedService.TargetTime.ToString(),
+                    string.Empty,
+                    pushedService.OriginalService.Business.Owner.Id.ToString(),
+                    pushedService.OriginalService.Business.Owner.NickName,
+                    pushedService.OriginalService.Business.Owner.AvatarUrl
+
+                    );
+                pushedServiceInfos.Add(psi);
+            }
+
+            ReceptionChat chat = chatFactory.CreateChatPushService(pushedServiceInfos);
+
+
+           
             //dalReceptionChat.Add(chat);//openfire插件存储消息
 
 
@@ -369,7 +382,7 @@ namespace Dianzhu.CSClient.Presenter
             //发送订单通知.
 
             //存储消息到内存中
-            localChatManager.Add(chat.To.Id.ToString(), chat);
+            localChatManager.Add(chat.ToId, chat);
 
             return newOrder;
             iIM.SendMessage(chat);

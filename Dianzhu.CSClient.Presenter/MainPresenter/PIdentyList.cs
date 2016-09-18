@@ -35,6 +35,7 @@ namespace Dianzhu.CSClient.Presenter
 
         IDAL.IDALReceptionStatus dalReceptionStatus;
         IViewSearchResult viewSearchResult;
+        IDAL.IDALMembership dalMembership;
         IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve;
         LocalStorage.LocalChatManager localChatManager;
         LocalStorage.LocalHistoryOrderManager localHistoryOrderManager;
@@ -42,7 +43,9 @@ namespace Dianzhu.CSClient.Presenter
 
         public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,
             InstantMessage iIM,
-            IDAL.IDALReceptionChat dalReceptionChat, IViewChatSend iViewChatSend,
+            IDAL.IDALReceptionChat dalReceptionChat,
+             IDAL.IDALMembership dalMembership,
+        IViewChatSend iViewChatSend,
             IBLLServiceOrder bllServiceOrder, IViewOrderHistory iViewOrderHistory,
             IDAL.IDALReceptionStatus dalReceptionStatus, IViewSearchResult viewSearchResult,
             IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve,
@@ -64,7 +67,7 @@ namespace Dianzhu.CSClient.Presenter
             this.dalReceptionStatus = dalReceptionStatus;
             this.viewSearchResult = viewSearchResult;
             this.dalReceptionStatusArchieve = dalReceptionStatusArchieve;
-            
+            this.dalMembership = dalMembership;
             iView.IdentityClick += IView_IdentityClick;
             iView.FinalChatTimerTick += IView_FinalChatTimerTick;
             iViewChatSend.FinalChatTimerSend += IViewChatSend_FinalChatTimerSend;
@@ -100,17 +103,11 @@ namespace Dianzhu.CSClient.Presenter
 
                     //CopyDDToChat(rsList.Select(x => x.Customer).ToList());
 
+                    ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(),GlobalViables.Diandian.Id.ToString(),rs.Customer.Id.ToString(),
+                        "客服"+rs.CustomerService.DisplayName+"已上线",rs.Order.Id.ToString(), enum_XmppResource.YDBan_DianDian, enum_XmppResource.YDBan_User);
                     ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
-                    rChatReAss.From = GlobalViables.Diandian;
-                    rChatReAss.To = rs.Customer;
-                    rChatReAss.MessageBody = "客服" + rs.CustomerService.DisplayName + "已上线";
-                    rChatReAss.ReAssignedCustomerService = rs.CustomerService;
-                    rChatReAss.SavedTime = rChatReAss.SendTime = DateTime.Now;
-                    rChatReAss.ServiceOrder = rs.Order;
-                    rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
-
-                    //SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
-                    // SaveMessage(rChatReAss, true);
+                    chatFactory.CreateReAssign(rs.CustomerService.Id.ToString(), rs.CustomerService.NickName, rs.CustomerService.AvatarUrl);
+                    
                     iIM.SendMessage(rChatReAss);
 
                     //ClientState.OrderList.Add(rs.Order);
@@ -225,27 +222,22 @@ namespace Dianzhu.CSClient.Presenter
         {
             string errMsg = string.Empty;
             //判断信息类型
-            if (chat.ChatType == enum_ChatType.Media || chat.ChatType == enum_ChatType.Text)
+            if (chat.ChatType == enum_ChatType.Chat  )
             {
-                if (chat.ServiceOrder != null)
+                if (!string.IsNullOrEmpty( chat.SessionId ))
                 {
+                    ServiceOrder order = bllServiceOrder.GetOne(new Guid(chat.SessionId));
                     iView.PlayVoice();
 
                     //1 更新当前聊天列表
                     //2 判断消息 和 聊天列表,当前聊天项的关系(是当前聊天项 但是需要修改订单 非激活的列表, 新聊天.
                     IdentityTypeOfOrder type;
-                    IdentityManager.UpdateIdentityList(chat.ServiceOrder, out type);
+                    IdentityManager.UpdateIdentityList(order, out type);
 
                     //消息本地化.
-                    chat.ReceiveTime = DateTime.Now;
-                    if (chat is Model.ReceptionChatMedia)
-                    {
-                        string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
-                        string fileName = ((ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
-
-                        ((ReceptionChatMedia)chat).MedialUrl = fileName;
-                    }
-                    //dalReceptionChat.Add(chat);
+                    chat.SetReceiveTime(DateTime.Now);
+                    
+                   
                     ReceivedMessage(chat, type);
 
                     workerChatImage = new BackgroundWorker();
@@ -254,12 +246,13 @@ namespace Dianzhu.CSClient.Presenter
                     workerChatImage.RunWorkerAsync(chat);
 
                     // 用户头像的本地化处理
-                    if (chat.From.AvatarUrl != null)
+                    DZMembership from = dalMembership.FindById(new Guid(chat.FromId));
+                    if (from.AvatarUrl != null)
                     {
                         workerCustomerAvatar = new BackgroundWorker();
                         workerCustomerAvatar.DoWork += WorkerCustomerAvatar_DoWork;
                         workerCustomerAvatar.RunWorkerCompleted += WorkerCustomerAvatar_RunWorkerCompleted;
-                        workerCustomerAvatar.RunWorkerAsync(chat.From);
+                        workerCustomerAvatar.RunWorkerAsync(from);
                     }
                     
                 }
@@ -307,9 +300,9 @@ namespace Dianzhu.CSClient.Presenter
             ReceptionChat chat = e.Result as ReceptionChat;
             if (chat != null)
             {
-                if (chat.ServiceOrder != null)
+                if (!string.IsNullOrEmpty( chat.SessionId))
                 {
-                    iView.IdleTimerStop(chat.ServiceOrder.Id);
+                    iView.IdleTimerStop(new Guid( chat.SessionId));
                 }                
 
                 if (chat is Model.ReceptionChatMedia)
@@ -324,7 +317,7 @@ namespace Dianzhu.CSClient.Presenter
             ReceptionChat chat = e.Argument as ReceptionChat;
 
             //聊天中的图片下载到本地
-            chat.ReceiveTime = DateTime.Now;
+            chat.SetReceiveTime( DateTime.Now);
             if (chat is Model.ReceptionChatMedia)
             {
                 iViewChatList.ShowChatImageNormalMask(chat.Id);
@@ -341,11 +334,11 @@ namespace Dianzhu.CSClient.Presenter
                     fileName = ((ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
                 }
 
-                ((ReceptionChatMedia)chat).MedialUrl = fileName;
+                ((ReceptionChatMedia)chat).SetMediaUrl( fileName);
 
                 if (PHSuit.LocalFileManagement.DownLoad(string.Empty, mediaUrl, fileName))
                 {
-                    ((ReceptionChatMedia)chat).MedialUrl = fileName;
+                    ((ReceptionChatMedia)chat).SetMediaUrl( fileName);
                 }
             }
 
@@ -388,22 +381,24 @@ namespace Dianzhu.CSClient.Presenter
         /// <param name="isCurrentCustomer"></param>
         public void ReceivedMessage(ReceptionChat chat, IdentityTypeOfOrder type)
         {
-            localChatManager.Add(chat.From.Id.ToString(), chat);
+            localChatManager.Add(chat.FromId, chat);
             switch (type)
             {
                 case IdentityTypeOfOrder.CurrentCustomer:
                     //提示 用户的订单已经变更
-                    iViewChatList.AddOneChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.From.Id.ToString()]);
+                    iViewChatList.AddOneChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
                     break;
                 case IdentityTypeOfOrder.CurrentIdentity:
-                    iViewChatList.AddOneChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.From.Id.ToString()]);
+                    iViewChatList.AddOneChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
                     break;
                 case IdentityTypeOfOrder.InList:
-                    iView.SetIdentityUnread(chat.ServiceOrder, 1);
+                    iView.SetIdentityUnread(chat.SessionId, 1);
                     break;
                 case IdentityTypeOfOrder.NewIdentity:
-                    AddIdentity(chat.ServiceOrder,localChatManager.LocalCustomerAvatarUrls[chat.From.Id.ToString()]);
-                    iView.SetIdentityUnread(chat.ServiceOrder, 1);
+
+                    ServiceOrder order = bllServiceOrder.GetOne(new Guid(chat.SessionId));
+                    AddIdentity(order, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
+                    iView.SetIdentityUnread(chat.SessionId, 1);
                     break;
                 default:
                     throw new Exception("无法判断消息属性");
