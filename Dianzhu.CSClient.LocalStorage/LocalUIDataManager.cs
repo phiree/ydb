@@ -20,7 +20,12 @@ namespace Dianzhu.CSClient.LocalStorage
 
         Dictionary<string, CustomerUIData> LocalUIDatas { get; }
 
+        Dictionary<string, SearchObj> LocalSearchTempObj { get; }
+
         void InitUIData(string customerId);
+
+        void SaveSearchObj(string customerId, SearchObj obj);
+        void RemoveSearchObj(string customerId);
     }
 
     /// <summary>
@@ -31,14 +36,20 @@ namespace Dianzhu.CSClient.LocalStorage
         public UIDataManagerInMemory()
         {
             LocalUIDatas = new Dictionary<string, CustomerUIData>();
+            LocalSearchTempObj = new Dictionary<string, SearchObj>();
+        }
+
+        public void SaveSearchObj(string customerId, SearchObj obj)
+        {
+            if (!LocalSearchTempObj.ContainsKey(customerId))
+            {
+                LocalSearchTempObj.Add(customerId, obj);
+            }
         }
 
         public void Save(string customerId, string key, object value)
         {
-            if (!LocalUIDatas.ContainsKey(customerId))
-            {
-                InitUIData(customerId);
-            }
+            InitUIData(customerId);
 
             switch (key)
             {
@@ -75,7 +86,7 @@ namespace Dianzhu.CSClient.LocalStorage
                 case "TargetAddressObj":
                     LocalUIDatas[customerId].TargetAddressObj = (TargetAddressObj)value;
                     break;
-                default:break;
+                default: break;
             }
         }
 
@@ -107,7 +118,20 @@ namespace Dianzhu.CSClient.LocalStorage
             }
         }
 
+        public void RemoveSearchObj(string customerId)
+        {
+            if (LocalSearchTempObj.ContainsKey(customerId))
+            {
+                LocalSearchTempObj.Remove(customerId);
+            }
+        }
+
         public Dictionary<string, CustomerUIData> LocalUIDatas
+        {
+            get;
+        }
+
+        public Dictionary<string, SearchObj> LocalSearchTempObj
         {
             get;
         }
@@ -147,5 +171,28 @@ namespace Dianzhu.CSClient.LocalStorage
         public string district { get; set; }
         public string city { get; set; }
         public string province { get; set; }
+    }
+
+    public class SearchObj
+    {
+        public string ServiceName { get; set; }
+        public decimal MinPrice { get; set; }
+        public decimal MaxPrice { get; set; }
+        public Guid ServiceTypeId { get; set; }
+        public DateTime TargetTime { get; set; }
+        public double Lng { get; set; }
+        public double Lat { get; set; }
+        public string Address { get; set; }
+        public SearchObj(string serviceName, decimal minPrice, decimal maxPrice, Guid serviceTypeId, DateTime targetTime, double lng, double lat, string address)
+        {
+            ServiceName = serviceName;
+            MinPrice = minPrice;
+            MaxPrice = maxPrice;
+            ServiceTypeId = serviceTypeId;
+            TargetTime = targetTime;
+            Lng = lng;
+            Lat = lat;
+            Address = address;
+        }
     }
 }

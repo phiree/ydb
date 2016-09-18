@@ -216,6 +216,7 @@ namespace Dianzhu.CSClient.Presenter
                 localChatManager.Remove(order.Customer.Id.ToString());
                 localHistoryOrderManager.Remove(order.Customer.Id.ToString());
                 localUIDataManager.Remove(order.Customer.Id.ToString());
+                localUIDataManager.RemoveSearchObj(order.Customer.Id.ToString());
                 iView.IdentityOrderTemp = null;
                 RemoveIdentity(order);
             }
