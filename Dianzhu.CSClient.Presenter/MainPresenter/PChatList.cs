@@ -118,16 +118,28 @@ namespace Dianzhu.CSClient.Presenter
                     viewChatList.ShowNoMoreLabel();
                 }
 
-                foreach (ReceptionChat chat in chatList)
+                //foreach (ReceptionChat chat in chatList)
+                //{
+                //    if(chat.From.UserType== enum_UserType.customer)
+                //    {
+                //        viewChatList.AddOneChat(chat, chatManager.LocalCustomerAvatarUrls[chat.From.Id.ToString()]);
+                //    }
+                //    else
+                //    {
+                //        viewChatList.AddOneChat(chat, string.Empty);
+                //    }                    
+                //}
+
+                for (int i = 0; i < chatList.Count; i++)
                 {
-                    if(chat.From.UserType== enum_UserType.customer)
+                    if (chatList[i].From.UserType == enum_UserType.customer)
                     {
-                        viewChatList.AddOneChat(chat, chatManager.LocalCustomerAvatarUrls[chat.From.Id.ToString()]);
+                        viewChatList.AddOneChat(chatList[i], chatManager.LocalCustomerAvatarUrls[chatList[i].From.Id.ToString()]);
                     }
                     else
                     {
-                        viewChatList.AddOneChat(chat, string.Empty);
-                    }                    
+                        viewChatList.AddOneChat(chatList[i], string.Empty);
+                    }
                 }
             }
             else
