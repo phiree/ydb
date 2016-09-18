@@ -72,6 +72,10 @@ namespace Dianzhu.Model
         /// 服务预约时间
         /// </summary>
         public virtual DateTime TargetTime { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public virtual string Memo { get; set; }
 
         //服务项时间设定的快照
         public virtual ServiceOpenTimeForDaySnapShotForOrder OpenTimeSnapShot { get; protected set; }

@@ -92,7 +92,7 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
     {
         RequestParams rp = new RequestParams();
         rp.method = "1";
-        rp.url = "http://dev.ydban.cn:8041/api/v1/authorization";
+        rp.url = Dianzhu.Config.Config.GetAppSetting("RestApiAuthUrl");
         //rp.url = "http://192.168.1.177:52554/api/v1/authorization";
         rp.content = "{\n\"loginName\":\"" + username + "\",\n\"password\":\"" + password + "\"\n}";
         rp = SetCommon.SetParams("ABc907a34381Cd436eBfed1F90ac8f823b", "2bdKTgh9SiNlGnSajt4E6c4w1ZoZJfb9ATKrzCZ1a3A=", rp);

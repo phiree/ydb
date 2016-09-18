@@ -7,20 +7,25 @@ using Dianzhu.Push;
 using Dianzhu.IDAL;
 using Dianzhu.Model.Enums;
 using log4net;
+using Dianzhu.Push;
 namespace Dianzhu.BLL
 {
+ 
     /// <summary>
     /// 负责消息推送.
     /// </summary>
+ 
     public class BLLPush
     {
         ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL.BLLPush");
         IDAL.IDALIMUserStatus dalIMStatus;
         IDALDeviceBind dalDeviceBind;
+ 
         IBLLServiceOrder bllServiceOrder;
         IIMSession iimSession;
         IDAL.IDALMembership dalMembership;
         public BLLPush(IDAL.IDALIMUserStatus dalIMStatus, IDALDeviceBind dalDeviceBind, BLL.IBLLServiceOrder bllServiceOrder, IIMSession iimSession, IDAL.IDALMembership dalMembership)
+ 
         {
             this.dalIMStatus = dalIMStatus;
             this.dalDeviceBind = dalDeviceBind;
@@ -28,6 +33,7 @@ namespace Dianzhu.BLL
             this.iimSession = iimSession;
             this.dalMembership = dalMembership;
         }
+ 
          
         
         public void Push(Dianzhu.Model.ReceptionChat chat, Guid targetUserId, string orderId)
@@ -102,8 +108,8 @@ namespace Dianzhu.BLL
                 throw new Exception(errorLog);
             }
             //客服->用户, 用户->商户,商户->用户
-            pushType = chat.ChatTarget == enum_ChatTarget.cer ? PushType.UserAndCustomerService :
-                PushType.UserAndBusiness;
+            pushType = chat.ChatTarget == enum_ChatTarget.cer ? PushType.PushToUser :
+                PushType.PushToBusiness;
             IPush ipush = Dianzhu.Push.PushFactory.Create(pushType, deviceName, orderId);
             int pushAmount = bind.PushAmount + 1;
             bind.PushAmount = pushAmount;
@@ -112,6 +118,7 @@ namespace Dianzhu.BLL
             string pushResult = ipush.Push(pushMessage + chat.MessageBody, bind.AppToken, pushAmount);
             log.Debug("推送结果" + pushResult);
 
+ 
         }
 
     }

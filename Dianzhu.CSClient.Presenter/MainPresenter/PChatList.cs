@@ -145,6 +145,7 @@ namespace Dianzhu.CSClient.Presenter
             }
             catch (Exception ee)
             {
+                e.Result = new List<ReceptionChat>();
                 PHSuit.ExceptionLoger.ExceptionLog(log, ee);
             }
         }

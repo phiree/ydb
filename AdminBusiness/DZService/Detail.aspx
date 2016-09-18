@@ -107,6 +107,7 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
 <script>
+    // 百度地图异步调用初始化
     function initializeServiceDetailMap(){
         var objServiceArea = $.parseJSON($("#hiServiceArea").val());
         var map = new BMap.Map("serviceArea", {enableMapClick: false});
@@ -120,19 +121,17 @@
         map.addOverlay(marker);
         map.addOverlay(circle);
     }
-</script>
-<script>
-    $(function () {
-        function loadBaiduMapScript() {
-            var script = document.createElement("script");
-            script.src = "http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc&callback=initializeServiceDetailMap";
-            document.body.appendChild(script);
-        }
 
-        $(document).ready(function(){
-            loadBaiduMapScript();
-        })
-     });
+    // 百度地图异步调用
+    function loadBaiduMapScript() {
+        var script = document.createElement("script");
+        script.src = "http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc&callback=initializeServiceDetailMap";
+        document.body.appendChild(script);
+    }
+
+    $(document).ready(function(){
+        loadBaiduMapScript();
+    });
 </script>
 <script src="/js/libs/baiduMapLib.js"></script>
 </asp:Content>

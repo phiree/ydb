@@ -44,19 +44,6 @@ public class ResponseAPP001001:BaseResponse
                 return;
             }
 
-            if (requestData.appObj.appToken.Length > 64)
-            {
-                this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "Token长度超过64";
-                return;
-            }
-            else if (requestData.appObj.appToken.Length < 64)
-            {
-                this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "Token长度不够64";
-                return;
-            }
-
             if (requestData.appObj.userId != "")
             {
                 bool isGuid = Guid.TryParse(requestData.appObj.userId, out userId);

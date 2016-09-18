@@ -116,13 +116,13 @@
                                 <h4>店铺图片</h4>
                             </div>
                             <div class="model-m">
-                                <div class="detail-img">
-                                    <div>
+                                <div class="detail-img scrollbar-inner biz-detail-img-wrap">
+                                    <div class="detail-img-list">
                                         <asp:Repeater runat="server" ID="rptShow">
                                             <ItemTemplate>
                                                 <a class="detail-img-item" data-lightbox="lb_show"
                                                    href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img
-                                                        src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=120&height=120&tt=3'/>
+                                                        src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=140&height=140&tt=0'/>
                                                 </a>
                                             </ItemTemplate>
                                         </asp:Repeater>
@@ -142,7 +142,7 @@
                                         <ItemTemplate>
                                             <a class="detail-img-item" data-lightbox="lb_charge"
                                                href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img
-                                                    src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=120&height=120&tt=3'/>
+                                                    src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=140&height=140&tt=0'/>
                                             </a>
                                         </ItemTemplate>
                                     </asp:Repeater>
@@ -161,7 +161,7 @@
                                         <ItemTemplate>
                                             <a class="detail-img-item" data-lightbox="lb_license"
                                                href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img
-                                                    src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=120&height=120&tt=3'/>
+                                                    src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=140&height=140&tt=0'/>
                                             </a>
                                         </ItemTemplate>
                                     </asp:Repeater>
@@ -176,9 +176,11 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
     <script src="/js/plugins/lightbox.js"></script>
+    <script src="/js/plugins/jquery.scrollbar.js"></script>
     <script src="/js/plugins/echarts.simple.min.js"></script>
     <script>
-        (function (){
+        $(function (){
+            // 百度Echart图
             var myChart = echarts.init(document.getElementById("biz-total-chart"));
             var option = {
                 title : {
@@ -220,18 +222,29 @@
                             }
                         },
                         data:[
-                            { value: <%= DoneOrderCount %>, name: '已完成订单' },
-                            { value: <%= AllOrderCount %> - <%= DoneOrderCount %>, name: '未完成订单' }
+                            {
+                                value: "<%= DoneOrderCount %>",
+                                name: '已完成订单'
+                            },
+                            {
+                                value: "<%= AllOrderCount %> - <%= DoneOrderCount %>",
+                                name: '未完成订单'
+                            }
                         ]
                     }
                 ]
             };
             myChart.setOption(option);
+
+            // scrollbar应用
+            $(".biz-detail-img-wrap").scrollbar();
+
+            // lightbox插件
             lightbox.option({
                 'resizeDuration': 200,
                 'albumLabel': "图片 %1 / %2"
             });
-        })()
+        })
     </script>
 </asp:Content>
 

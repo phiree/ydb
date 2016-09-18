@@ -26,7 +26,7 @@ namespace Dianzhu.Push
                 string fileName = string.Empty;
                 switch (pushType)
                 {
-                    case PushType.UserAndBusiness:
+                    case PushType.PushToBusiness:
 
                         //
                          
@@ -36,7 +36,7 @@ namespace Dianzhu.Push
                      //   fileName ="aps_production_Mark_Store.p12";
                         break;
 
-                    case PushType.UserAndCustomerService:
+                    case PushType.PushToUser:
 
                       
                         fileName = "aps_production_Mark_CustomerService.p12";

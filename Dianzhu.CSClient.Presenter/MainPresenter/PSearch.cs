@@ -261,43 +261,43 @@ namespace Dianzhu.CSClient.Presenter
 
         }
 
-        private ReceptionChat ViewSearchResult_PushServices(IList<Model.DZService> pushedServices,out string errorMsg)
+        private ServiceOrder ViewSearchResult_PushServices(IList<Model.DZService> pushedServices,out string errorMsg)
         {
             errorMsg = string.Empty;
-            if (pushedServices.Count == 0)
+            if (searchObj == null)
             {
+                log.Error("服务已过期，请重新搜索服务");
                 return null;
             }
-            if (IdentityManager.CurrentIdentity == null)
-            {
-                return null;
-            }
-            if (viewSearch.SearchKeywordTime < DateTime.Now)
+            if (searchObj.TargetTime < DateTime.Now)
             {
                 errorMsg = "订单已过期，请重新搜索";
                 return null;
             }
+            if (pushedServices.Count == 0)
+            {
+                log.Error("推送的服务项为0");
+                return null;
+            }
+            if (IdentityManager.CurrentIdentity == null)
+            {
+                log.Error("IdentityManager.CurrentIdentity为null");
+                return null;
+            }
+            
             
             //禁用推送按钮
             //viewSearchResult.BtnPush = false;
 
             //NHibernateUnitOfWork.UnitOfWork.Start();
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
-            IList<PushedServiceInfo> pushedServiceInfos = new List<PushedServiceInfo>();
             foreach (DZService service in pushedServices)
             {
                 //NHibernateUnitOfWork.UnitOfWork.Current.Refresh(service);//来自上个session，需刷新
 
-                //被推送的服务存入order 
-                serviceOrderPushedServices.Add(new ServiceOrderPushedService
-                    (IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName,
-                    viewSearch.ServiceCustomerPhone, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime ));
-                //被推送的服务放入聊天内容.
-                PushedServiceInfo psi = new PushedServiceInfo(service.Id.ToString(), service.Name, service.ServiceType.ToString(),
-                     string.Empty, string.Empty,service.Business.Owner.Id.ToString(), service.Business.Owner.NickName, service.Business.BusinessAvatar.ImageName);
-                pushedServiceInfos.Add(psi);
+                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, searchObj.Address, searchObj.TargetTime, viewSearch.ServiceMemo ));
             }
-            bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime);
+           // bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //获取之前orderid
@@ -307,29 +307,47 @@ namespace Dianzhu.CSClient.Presenter
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //iim发送消息
-            ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(),
-            IdentityManager.CurrentIdentity.Customer.Id.ToString(), "推送的服务", IdentityManager.CurrentIdentity.Id.ToString(), Model.Enums.enum_XmppResource.YDBan_CustomerService,
-             Model.Enums.enum_XmppResource.YDBan_User);
-            ReceptionChat chat = chatFactory.CreateChatPushService(pushedServiceInfos);
-             
-           
+            ReceptionChat chat = new ReceptionChatPushService
+            {
+                Id = Guid.NewGuid(),
+                ServiceOrder =IdentityManager.CurrentIdentity,
+                ChatTarget = Model.Enums.enum_ChatTarget.cer,
+                From = GlobalViables.CurrentCustomerService,
+                To = IdentityManager.CurrentIdentity.Customer,
+                MessageBody = "推送的服务",
+                PushedServices = serviceOrderPushedServices,
+                SendTime = DateTime.Now,
+                SavedTime = DateTime.Now,
+
+            };
+            //dalReceptionChat.Add(chat);//openfire插件存储消息
+
+
+            //加到缓存数组中
+            //if (PChatList.chatHistoryAll != null)
+            //{
+            //    PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
+            //}
 
             log.Debug("推送的订单：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //助理工具显示发送的消息
             viewChatList.AddOneChat(chat,string.Empty);
 
+            //发送推送聊天消息
+            iIM.SendMessage(chat);
+
             //生成新的草稿单并发送给客户端
             string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
             ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService,IdentityManager.CurrentIdentity.Customer,serialNoForOrder);
             bllServiceOrder.Save(newOrder);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            log.Debug("新草稿订单的id：" + newOrder.Id.ToString());
-            string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
-            string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
-                                                    <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:draft:new""><orderID>{3}</orderID></ext></message>", 
-                                                    IdentityManager.CurrentIdentity.Customer.Id + "@" + server, IdentityManager.CurrentIdentity.CustomerService.Id, Guid.NewGuid() + "@" + server, newOrder.Id);
-            iIM.SendMessage(noticeDraftNew);
+            //log.Debug("新草稿订单的id：" + newOrder.Id.ToString());
+            //string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
+            //string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
+            //                                        <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:draft:new""><orderID>{3}</orderID></ext></message>", 
+            //                                        IdentityManager.CurrentIdentity.Customer.Id + "@" + server, IdentityManager.CurrentIdentity.CustomerService.Id, Guid.NewGuid() + "@" + server, newOrder.Id);
+            //iIM.SendMessage(noticeDraftNew);
             
 
             //更新当前订单
@@ -343,6 +361,7 @@ namespace Dianzhu.CSClient.Presenter
             viewIdentityList.UpdateIdentityBtnName(oldOrder.Id, IdentityManager.CurrentIdentity);
 
             //更新接待分配表
+            log.Debug("更新ReceptionStatus，customerId:" + IdentityManager.CurrentIdentity.Customer.Id + ",csId:" + GlobalViables.CurrentCustomerService.Id + ",orderId:" + newOrder.Id);
             bllReceptionStatus.UpdateOrder(IdentityManager.CurrentIdentity.Customer, GlobalViables.CurrentCustomerService, newOrder);
 
             //清空搜索选项 todo:为了测试方便，先注释掉
@@ -350,9 +369,9 @@ namespace Dianzhu.CSClient.Presenter
             //发送订单通知.
 
             //存储消息到内存中
-            localChatManager.Add(chat.ToId, chat);
+            localChatManager.Add(chat.To.Id.ToString(), chat);
 
-            return chat;
+            return newOrder;
             iIM.SendMessage(chat);
             //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             //NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
@@ -373,8 +392,11 @@ namespace Dianzhu.CSClient.Presenter
 
         }
         #endregion
+
+        SearchObj searchObj;//搜索条件临时变量
         private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId,string name,string lng,string lat)
         {
+            searchObj = new SearchObj(name, minPrice, maxPrice, servieTypeId, targetTime, double.Parse(lng), double.Parse(lat), viewSearch.ServiceTargetAddress);
             //Action a = () =>
             //{
             int total;
@@ -398,6 +420,29 @@ namespace Dianzhu.CSClient.Presenter
             //    //启用推送按钮
             //    viewSearchResult.BtnPush = true;
             //}
+        }
+    }
+
+    public class SearchObj
+    {
+        public string ServiceName { get; set; }
+        public decimal MinPrice { get; set; }
+        public decimal MaxPrice { get; set; }
+        public Guid ServiceTypeId { get; set; }
+        public DateTime TargetTime { get; set; }
+        public double Lng { get; set; }
+        public double Lat { get; set; }
+        public string Address { get; set; }
+        public SearchObj(string serviceName,decimal minPrice,decimal maxPrice,Guid serviceTypeId,DateTime targetTime,double lng,double lat,string address)
+        {
+            ServiceName = serviceName;
+            MinPrice = minPrice;
+            MaxPrice = maxPrice;
+            ServiceTypeId = serviceTypeId;
+            TargetTime = targetTime;
+            Lng = lng;
+            Lat=lat;
+            Address = address;
         }
     }
 }

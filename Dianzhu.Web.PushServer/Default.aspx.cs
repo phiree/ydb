@@ -19,7 +19,7 @@ public partial class _Default : System.Web.UI.Page
         string orderId = tbxOrderId.Text;
 
         
-        IPush push = PushFactory.Create( PushType.UserAndCustomerService, appType, orderId);
+        IPush push = PushFactory.Create( PushType.PushToUser, appType, orderId);
         push.Push(message, deviceToken,1);
     }
 

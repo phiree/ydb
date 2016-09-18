@@ -160,6 +160,7 @@
     <Compile Include="IdentityManagerTests.cs" />
     <Compile Include="InfraStructureTest\Class1.cs" />
     <Compile Include="Installer.cs" />
+    <Compile Include="JPush\JPushTests.cs" />
     <Compile Include="jsonconvert_test.cs" />
     <Compile Include="jsontest.cs" />
     <Compile Include="MessageAdapterTests.cs" />

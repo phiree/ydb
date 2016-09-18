@@ -209,28 +209,28 @@
     <script src="/js/plugins/jquery.lightbox_me.js"></script>
     <script src="/js/plugins/jquery.form.min.js"></script>
     <script>
-    $(function(){
-        $('.secret-layout-fixed').parent('.content-layout').css({marginLeft:0});
+        $(function () {
+            $('.secret-layout-fixed').parent('.content-layout').css({marginLeft: 0});
 
-        $("#lb_changePhone").click(function (e) {
-            $('#lightBox_ChangePhone').lightbox_me({
-                centered: true
-            }).appendTo($("form:first"));
+            $("#lb_changePhone").click(function (e) {
+                $('#lightBox_ChangePhone').lightbox_me({
+                    centered: true
+                }).appendTo($("form:first"));
+            });
+
+            $("#lb_changeEmail").click(function (e) {
+                $('#lightBox_ChangeEmail').lightbox_me({
+                    centered: true
+                }).appendTo($("form:first"));
+            });
+
+            $('#passChange').click(function (e) {
+                $('#lightBox').lightbox_me({
+                    centered: true
+                }).appendTo($("form:first"));
+            });
+
         });
-
-        $("#lb_changeEmail").click(function (e) {
-            $('#lightBox_ChangeEmail').lightbox_me({
-                centered: true
-            }).appendTo($("form:first"));
-        });
-
-        $('#passChange').click(function (e) {
-            $('#lightBox').lightbox_me({
-                centered: true
-            }).appendTo($("form:first"));
-        });
-
-    });
     </script>
     <script src="/js/apps/pages/security.js"></script>
 </asp:Content>

@@ -27,22 +27,13 @@ namespace Dianzhu.DAL.Mapping
             References<ServiceOrder>(x => x.ServiceOrder);
 
             #region 服务项需求
-
-            /// <summary>
-            /// 购买数量
-            /// </summary>
             Map(x => x.UnitAmount);
-            /// <summary>
-            /// 客户要求的服务地址
-            /// </summary>
             Map(x => x.TargetCustomerName);
             Map(x => x.TargetCustomerPhone);
             Map(x => x.TargetAddress);
             Map(x => x.TargetTime);
+            Map(x => x.Memo);
             #endregion
-            /// <summary>
-            /// 该服务分配的员工.
-            /// </summary>
            
         }
     }

@@ -19,7 +19,7 @@ namespace Dianzhu.Model
         {
 
         }
-        public ServiceOrderPushedService(ServiceOrder order, DZService service, int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress, DateTime targetTime)
+        public ServiceOrderPushedService(ServiceOrder order, DZService service, int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress, DateTime targetTime,string memo)
         {
             ServiceOrder = order;
             OriginalService = service;
@@ -39,6 +39,7 @@ namespace Dianzhu.Model
             this.TargetCustomerPhone = targetCustomerPhone;
             this.TargetAddress = targetAddress;
             this.TargetTime = targetTime;
+            this.Memo = memo;
             this.Selected = false;
         }
 
@@ -89,7 +90,11 @@ namespace Dianzhu.Model
         /// 服务预约时间
         /// </summary>
         public virtual DateTime TargetTime { get; set; }
- 
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public virtual string Memo { get; set; }
+
         /// <summary>
         /// 是否选择
         /// </summary>

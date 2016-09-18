@@ -17,6 +17,8 @@ using Dianzhu.CSClient.IView;
 using System.IO;
 using RisCaptureLib;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -34,6 +36,16 @@ namespace Dianzhu.CSClient.ViewWPF
 
             screenCaputre.ScreenCaputred += OnScreenCaputred;
             screenCaputre.ScreenCaputreCancelled += OnScreenCaputreCancelled;
+
+            //启动键盘钩子   
+            if (hKeyboardHook == 0)
+            {
+                //实例化委托  
+                KeyboardHookProcedure = new HookProc(KeyboardHookProc);
+                Process curProcess = Process.GetCurrentProcess();
+                ProcessModule curModule = curProcess.MainModule;
+                hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProcedure, GetModuleHandle(curModule.ModuleName), 0);
+            }
         }
 
         public string MessageText
@@ -269,5 +281,89 @@ namespace Dianzhu.CSClient.ViewWPF
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
+
+
+        #region 键盘钩子
+
+        /// 声明回调函数委托  
+        /// </summary>  
+        /// <param name="nCode"></param>  
+        /// <param name="wParam"></param>  
+        /// <param name="lParam"></param>  
+        /// <returns></returns>  
+        public delegate int HookProc(int nCode, Int32 wParam, IntPtr lParam);
+
+        /// <summary>  
+        /// 委托实例  
+        /// </summary>  
+        HookProc KeyboardHookProcedure;
+
+        /// <summary>  
+        /// 键盘钩子句柄  
+        /// </summary>  
+        static int hKeyboardHook = 0;
+
+        //装置钩子的函数   
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern int SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId);
+
+        //卸下钩子的函数   
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool UnhookWindowsHookEx(int idHook);
+
+        //获取某个进程的句柄函数  
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        private static extern IntPtr GetModuleHandle(string lpModuleName);
+
+        /// <summary>  
+        /// 普通按键消息  
+        /// </summary>  
+        private const int WM_KEYDOWN = 0x100;
+        /// <summary>  
+        /// 系统按键消息  
+        /// </summary>  
+        private const int WM_SYSKEYDOWN = 0x104;
+
+        //鼠标常量   
+        public const int WH_KEYBOARD_LL = 13;
+
+        //声明键盘钩子的封送结构类型   
+        [StructLayout(LayoutKind.Sequential)]
+        public class KeyboardHookStruct
+        {
+            public int vkCode; //表示一个在1到254间的虚似键盘码   
+            public int scanCode; //表示硬件扫描码   
+            public int flags;
+            public int time;
+            public int dwExtraInfo;
+        }
+
+        /// <summary>  
+        /// 截取全局按键，发送新按键，返回  
+        /// </summary>  
+        /// <param name="nCode"></param>  
+        /// <param name="wParam"></param>  
+        /// <param name="lParam"></param>  
+        /// <returns></returns>  
+        private int KeyboardHookProc(int nCode, Int32 wParam, IntPtr lParam)
+        {
+            if (nCode >= 0 && wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
+            {
+                KeyboardHookStruct MyKeyboardHookStruct = (KeyboardHookStruct)Marshal.PtrToStructure(lParam, typeof(KeyboardHookStruct));
+                System.Windows.Forms.Keys keyData = (System.Windows.Forms.Keys)MyKeyboardHookStruct.vkCode;
+
+                if (keyData == System.Windows.Forms.Keys.Q && (int)System.Windows.Forms.Control.ModifierKeys == (int)System.Windows.Forms.Keys.Alt)
+                {
+                    //Thread.Sleep(300);
+                    screenCaputre.StartCaputre(30, lastSize);
+
+                    //return为了屏蔽原来的按键，如果去掉，则原来的按键和新的按键都会模拟按。  
+                    return 1;
+                }
+            }
+            return 0;
+        }
+
+        #endregion
     }
 }

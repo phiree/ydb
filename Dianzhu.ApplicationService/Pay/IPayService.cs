@@ -54,6 +54,6 @@ namespace Dianzhu.ApplicationService.Pay
         /// <param name="payTarget"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        countObj GetPay3rdString(string orderID, string payID, string payTarget, Customer customer);
+        pay3rdStringObj GetPay3rdString(string orderID, string payID, string payTarget, Customer customer);
     }
 }

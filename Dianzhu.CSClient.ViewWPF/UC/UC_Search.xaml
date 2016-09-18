@@ -96,8 +96,16 @@
                         <Label>
                             <TextBlock Text="服务时间" Style="{DynamicResource TextBlockKey}"></TextBlock>
                         </Label>
-                        <!--<DatePicker Width="142"/>-->
-                        <TextBox x:Name="tbxKeywordTime" Text="2016-8-30 9:00" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordTime_TextChanged"/>
+                        
+                        <!--<TextBox x:Name="tbxKeywordTime" Text="2016-8-30 9:00" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordTime_TextChanged"/>-->
+
+                        <WrapPanel>
+                            <DatePicker x:Name="dateServiceDate" Width="150" FirstDayOfWeek="Sunday" SelectedDateFormat="Long" ToolTip="选择日期" AutomationProperties.IsRowHeader="True" Focusable="False" Cursor="Hand" SelectedDateChanged="dateServiceDate_SelectedDateChanged"/>
+                            <Label Content=" "></Label>
+                            <ComboBox x:Name="cbxHours" Width="50" IsEditable="True" ToolTip="小时" IsReadOnly="True" SelectionChanged="cbxHours_SelectionChanged"></ComboBox>
+                            <Label Content=":"></Label>
+                            <ComboBox x:Name="cbxMinutes" Width="50" IsEditable="True" ToolTip="分钟" IsReadOnly="True" SelectionChanged="cbxMinutes_SelectionChanged"></ComboBox>
+                        </WrapPanel>
                     </WrapPanel>
 
                     <WrapPanel Margin="0,1" VerticalAlignment="Center">
@@ -132,7 +140,7 @@
                         <Label>
                             <TextBlock Text="联系方式" Style="{DynamicResource TextBlockKey}"></TextBlock>
                         </Label>
-                        <TextBox x:Name="tbxKeywordPhone" Text="1580000000" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordPhone_TextChanged"/>
+                        <TextBox x:Name="tbxKeywordPhone" Text="1580000000" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordPhone_TextChanged" PreviewTextInput="tbxKeywordNumber_PreviewTextInput"/>
                     </WrapPanel>
 
                     <WrapPanel Margin="0,1" VerticalAlignment="Center">

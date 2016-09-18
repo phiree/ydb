@@ -22,7 +22,6 @@
                                 <div class="model">
                                     <div class="model-h">
                                         <h4>服务列表</h4>
-                                        <!--<input class="btn-r btn-gray-light-sm" type="button" value="全部删除" id="delete_all">-->
                                     </div>
                                     <div class="model-m no-padding">
                                         <div class="service-list-head">
@@ -64,7 +63,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="service-list" >
+                                        <div class="service-list scrollbar-inner" >
                                             <asp:Repeater runat="server" ID="rptServiceList"  >
                                                 <ItemTemplate>
                                                     <div class="service-row">
@@ -103,6 +102,13 @@
                                             </asp:Repeater>
                                         </div>
                                     </div>
+                                    <div class="model-b">
+                                        <UC:AspNetPager runat="server" UrlPaging="true" ID="pager" CssClass="anpager" AlwaysShow="true"
+                                                        CurrentPageButtonClass="cpb" PageSize="100"
+                                                        CustomInfoHTML="第 %CurrentPageIndex% / %PageCount%页 共%RecordCount%条"
+                                                        ShowCustomInfoSection="Right">
+                                        </UC:AspNetPager>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -127,60 +133,63 @@
     <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js'></script>
     <script src="/js/core/ServiceType.js?v=20160517"></script>
     <script src="/js/plugins/jquery.lightbox_me.js"></script>
-    <script >
-    $(function(){
-        if ( $(".service-list").children(".service-row").length == 0 ){
-            $("#service-new").removeClass("hide");
-        } else {
-            $("#service-list").removeClass("hide");
-        }
-    })
-    </script>
+    <script src="/js/plugins/jquery.scrollbar.js"></script>
     <script>
-       $(function () {
+        $(function () {
 
-           $(".enable-service").click(function () {
-               var that = this;
-               $.post("/ajaxservice/changeserviceInfo.ashx",
-                {
-                    "changed_field": "enabled",
-                    "changed_value": false,
-                    "id": $(that).attr("serid")
-                }, function (data) {
-                    var enabled = data.data;
-                    if (enabled == "True") {
-                        $(that).html("禁用");
-                        $(that).removeClass("btn-info-light").addClass("btn-delete-light");
-                    }
-                    else {
-                        $(that).html("启用");
-                        $(that).addClass("btn-info-light").removeClass("btn-delete-light");
-                    }
+            // 判断列表是否有元素,TODO: 待整合
+            if ( $(".service-list").children(".service-row").length == 0 ) {
+                $("#service-new").removeClass("hide");
+            } else {
+                $("#service-list").removeClass("hide");
+            }
 
+            // scrollbar插件应用
+            $(".scrollbar-inner").scrollbar();
+
+            // 服务的开启和禁用,TODO: 待整合
+            $(".enable-service").click(function () {
+                var that = this;
+                $.post("/ajaxservice/changeserviceInfo.ashx",
+                    {
+                        "changed_field": "enabled",
+                        "changed_value": false,
+                        "id": $(that).attr("serid")
+                    }, function (data) {
+                        var enabled = data.data;
+                        if ( enabled == "True" ) {
+                            $(that).html("禁用");
+                            $(that).removeClass("btn-info-light").addClass("btn-delete-light");
+                        }
+                        else {
+                            $(that).html("启用");
+                            $(that).addClass("btn-info-light").removeClass("btn-delete-light");
+                        }
+
+                    });
+            });
+
+            // 点击弹窗
+            $("#setSerType").click(function (e) {
+                $('#serLightContainer').lightbox_me({
+                    centered: true
                 });
-           });
+                e.preventDefault();
+            });
 
-           $("#setSerType").click(function (e) {
-               $('#serLightContainer').lightbox_me({
-                   centered: true
-               });
-               e.preventDefault();
-           });
+            // 显示已设置服务类型
+            (function () {
+                var hiTypeValue = $("#hiTypeId").attr("value");
+                if ( typeof hiTypeValue !== "undefined" ) {
+                    $("#lblSelectedType").removeClass("dis-n").addClass("d-inb");
+                }
+            })();
 
-           // 显示已设置服务类型
-           (function() {
-               var hiTypeValue = $("#hiTypeId").attr("value");
-               if ( typeof hiTypeValue !== "undefined") {
-                   $("#lblSelectedType").removeClass("dis-n").addClass("d-inb");
-               }
-           })();
-
-           $(".spServiceArea").each(function () {
-               var jsonServiceArea = $.parseJSON($(this).siblings(".hiServiceArea").val());
-           $(this).html(jsonServiceArea.serPointAddress);
-           });
-                            
-
-       });
+            // 解析地址
+            $(".spServiceArea").each(function () {
+                var jsonServiceArea = $.parseJSON($(this).siblings(".hiServiceArea").val());
+                $(this).html(jsonServiceArea.serPointAddress);
+            });
+        });
     </script>
 </asp:Content>

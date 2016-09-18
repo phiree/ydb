@@ -40,24 +40,14 @@ namespace Dianzhu.DAL.Mapping
             }
                 );
 
-            #region 服务项需求
-
-            /// <summary>
-            /// 购买数量
-            /// </summary>
+            #region 服务项需求            
             Map(x => x.UnitAmount);
-            /// <summary>
-            /// 客户要求的服务地址
-            /// </summary>
             Map(x => x.TargetAddress);
             Map(x => x.TargetCustomerName);
             Map(x => x.TargetCustomerPhone);
             Map(x => x.TargetTime);
+            Map(x => x.Memo);
             #endregion
-            /// <summary>
-            /// 该服务分配的员工.
-            /// </summary>
-            //HasMany(x => x.Staff);//员工不能和订单进行直接绑定
         }
     }
 }
