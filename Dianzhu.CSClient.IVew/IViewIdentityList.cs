@@ -24,7 +24,7 @@ namespace Dianzhu.CSClient.IView
 
         void IdleTimerStart(Guid orderId);
         void IdleTimerStop(Guid orderId);
-        void SetCustomerOrder(ServiceOrder oldOrderI,ServiceOrder newOrder);
+
         event FinalChatTimerTick FinalChatTimerTick;
 
         //当前订单临时变量

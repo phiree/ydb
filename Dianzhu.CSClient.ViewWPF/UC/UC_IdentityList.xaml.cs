@@ -126,30 +126,6 @@ namespace Dianzhu.CSClient.ViewWPF
 
         #endregion
 
-        #region 更新用户控件对应的订单Id
-
-        public void SetCustomerOrder(ServiceOrder oldOrder,ServiceOrder newOrder)
-        {
-            Action lambda = () =>
-            {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrder.Id.ToString(),PRECBUTTON);
-
-                var ucCustomer = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
-                if (ucCustomer != null)
-                {
-                    ucCustomer.Order = newOrder;
-                    log.Debug("计时开始");
-                }
-            };
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(lambda);
-            }
-            else { lambda(); }
-        }
-
-        #endregion
-
         #region 时间控制器
 
         public event FinalChatTimerTick FinalChatTimerTick;

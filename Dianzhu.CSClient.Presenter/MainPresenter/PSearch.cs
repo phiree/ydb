@@ -367,7 +367,6 @@ namespace Dianzhu.CSClient.Presenter
             IdentityTypeOfOrder type;
             log.Debug("更新当前界面的订单");
             IdentityManager.UpdateIdentityList(newOrder, out type);
-            viewIdentityList.SetCustomerOrder(oldOrder, newOrder);
             log.Debug("当前订单的id：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //更新view
