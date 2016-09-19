@@ -28,8 +28,7 @@ namespace Dianzhu.Model
         /// <param name="resourceFrom"></param>
         /// <param name="resourceTo"></param>
         public ReceptionChat(Guid id, string from, string to, string messageBody, string sessionId,
-            enum_ChatType chatType,
-            enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
+            enum_ChatType chatType, enum_XmppResource resourceFrom, enum_XmppResource resourceTo)
         {
             //默认值
             this.Id = id;
@@ -42,6 +41,7 @@ namespace Dianzhu.Model
             this.FromResource = resourceFrom;
             this.ToResource = resourceTo;
             this.SessionId = sessionId;
+            this.ChatType = chatType;
 
 
             if (FromResource == enum_XmppResource.YDBan_CustomerService || ToResource == enum_XmppResource.YDBan_CustomerService)
