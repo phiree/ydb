@@ -26,6 +26,7 @@ $(document).ready(function () {
     //var t = datet.getFullYear().toString() + "-" + (datet.getMonth() + 1).toString() + "-" + datet.getDate().toString() + " " + datet.getHours().toString() + ":" + datet.getMinutes().toString() + ":" + datet.getSeconds().toString();
     //$(".footer").html("<h4 style='color:#999'><span style='font-variant:small-caps'>基础文档：</span>" + $("#input_baseUrl")[0].value + "，<span style='font-variant:small-caps'>版本号：</span>" + dd + "，<span style='font-variant:small-caps'>发布时间：</span>" + t + "");
     $(".footer").html("");
+    $("#input_baseUrl").val(window.swashbuckleConfig.rootUrl + "/content/stoplight.json");
 });
 
 
