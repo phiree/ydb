@@ -22,7 +22,7 @@ namespace Dianzhu.CSClient.Presenter
     /// 1)根据接收的IM消息,增删用户列表,更改用户状态
     /// 2)点击用户时,修改自身状态,加载聊天列表,加载订单信息
     /// </summary>
-    public  class PIdentityList
+    public class PIdentityList
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PIdentityList");
         IViewIdentityList iView;
@@ -41,7 +41,7 @@ namespace Dianzhu.CSClient.Presenter
         LocalStorage.LocalHistoryOrderManager localHistoryOrderManager;
         LocalStorage.LocalUIDataManager localUIDataManager;
 
-        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,
+        public PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,
             InstantMessage iIM,
             IDAL.IDALReceptionChat dalReceptionChat,
              IDAL.IDALMembership dalMembership,
@@ -83,54 +83,63 @@ namespace Dianzhu.CSClient.Presenter
 
         private void SysAssign()
         {
-            NHibernateUnitOfWork.UnitOfWork.Start();
-
-            log.Debug("-------开始 接收离线消息------");
-            IList<ReceptionStatus> rsList = dalReceptionStatus.GetRSListByDiandian(GlobalViables.Diandian, 3);
-            if (rsList.Count > 0)
+            try
             {
+                NHibernateUnitOfWork.UnitOfWork.Start();
 
-                log.Debug("需要接待的离线用户数量:" + rsList.Count);
-                foreach (ReceptionStatus rs in rsList)
+                log.Debug("-------开始 接收离线消息------");
+                IList<ReceptionStatus> rsList = dalReceptionStatus.GetRSListByDiandian(GlobalViables.Diandian, 3);
+                if (rsList.Count > 0)
                 {
-                    #region 接待记录存档
-                    SaveRSA(rs.Customer, rs.CustomerService, rs.Order);
-                    #endregion
-                    rs.CustomerService = GlobalViables.CurrentCustomerService;
-                    log.Debug("保存新分配的接待记录");
-                    dalReceptionStatus.Update(rs);
-                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
-                    //CopyDDToChat(rsList.Select(x => x.Customer).ToList());
 
-                    ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(),GlobalViables.Diandian.Id.ToString(),rs.Customer.Id.ToString(),
-                        "客服"+rs.CustomerService.DisplayName+"已上线",rs.Order.Id.ToString(), enum_XmppResource.YDBan_DianDian, enum_XmppResource.YDBan_User);
-                    ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
-                    chatFactory.CreateReAssign(rs.CustomerService.Id.ToString(), rs.CustomerService.NickName, rs.CustomerService.AvatarUrl);
-                    
-                    iIM.SendMessage(rChatReAss);
+                    log.Debug("需要接待的离线用户数量:" + rsList.Count);
+                    foreach (ReceptionStatus rs in rsList)
 
-                    //ClientState.OrderList.Add(rs.Order);
-                    ClientState.customerList.Add(rs.Customer);
-                    //view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
-                    if (rs.Order != null)
                     {
-                        if (!localChatManager.LocalCustomerAvatarUrls.ContainsKey(rs.Order.Customer.Id.ToString()))
+                        #region 接待记录存档
+                        SaveRSA(rs.Customer, rs.CustomerService, rs.Order);
+                        #endregion
+                        rs.CustomerService = GlobalViables.CurrentCustomerService;
+                        log.Debug("保存新分配的接待记录");
+                        dalReceptionStatus.Update(rs);
+                        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+
+                        //CopyDDToChat(rsList.Select(x => x.Customer).ToList());
+
+                        ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.Diandian.Id.ToString(), rs.Customer.Id.ToString(),
+                            "客服" + rs.CustomerService.DisplayName + "已上线", rs.Order.Id.ToString(), enum_XmppResource.YDBan_DianDian, enum_XmppResource.YDBan_User);
+                        ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
+                        chatFactory.CreateReAssign(rs.CustomerService.Id.ToString(), rs.CustomerService.NickName, rs.CustomerService.AvatarUrl);
+
+                        iIM.SendMessage(rChatReAss);
+
+                        //ClientState.OrderList.Add(rs.Order);
+                        ClientState.customerList.Add(rs.Customer);
+                        //view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
+                        if (rs.Order != null)
                         {
-                            string avatar = string.Empty;
-                            if (rs.Customer.AvatarUrl != null)
+                            if (!localChatManager.LocalCustomerAvatarUrls.ContainsKey(rs.Order.Customer.Id.ToString()))
                             {
-                                avatar = rs.Customer.AvatarUrl;
+                                string avatar = string.Empty;
+                                if (rs.Customer.AvatarUrl != null)
+                                {
+                                    avatar = rs.Customer.AvatarUrl;
+                                }
+                                localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()] = avatar;
                             }
-                            localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()] = avatar;
+                            iView.AddIdentity(rs.Order, localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()]);
                         }
-                        iView.AddIdentity(rs.Order, localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()]);
                     }
                 }
-            }
 
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            }
+            catch (Exception e)
+            {
+                PHSuit.ExceptionLoger.ExceptionLog(log, e);
+            }
         }
 
         /// <summary>
@@ -156,7 +165,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             if (IdentityManager.CurrentIdentity != null)
             {
-                iView.IdleTimerStart(IdentityManager.CurrentIdentity.Id); 
+                iView.IdleTimerStart(IdentityManager.CurrentIdentity.Id);
             }
         }
 
@@ -222,9 +231,9 @@ namespace Dianzhu.CSClient.Presenter
         {
             string errMsg = string.Empty;
             //判断信息类型
-            if (chat.ChatType == enum_ChatType.Chat  )
+            if (chat.ChatType == enum_ChatType.Chat)
             {
-                if (!string.IsNullOrEmpty( chat.SessionId ))
+                if (!string.IsNullOrEmpty(chat.SessionId))
                 {
                     ServiceOrder order = bllServiceOrder.GetOne(new Guid(chat.SessionId));
                     iView.PlayVoice();
@@ -236,8 +245,8 @@ namespace Dianzhu.CSClient.Presenter
 
                     //消息本地化.
                     chat.SetReceiveTime(DateTime.Now);
-                    
-                   
+
+
                     ReceivedMessage(chat, type);
 
                     workerChatImage = new BackgroundWorker();
@@ -254,11 +263,11 @@ namespace Dianzhu.CSClient.Presenter
                         workerCustomerAvatar.RunWorkerCompleted += WorkerCustomerAvatar_RunWorkerCompleted;
                         workerCustomerAvatar.RunWorkerAsync(from);
                     }
-                    
+
                 }
             }
         }
-        
+
         private void WorkerCustomerAvatar_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             log.Debug("用户头像本地加载完成");
@@ -300,10 +309,10 @@ namespace Dianzhu.CSClient.Presenter
             ReceptionChat chat = e.Result as ReceptionChat;
             if (chat != null)
             {
-                if (!string.IsNullOrEmpty( chat.SessionId))
+                if (!string.IsNullOrEmpty(chat.SessionId))
                 {
-                    iView.IdleTimerStop(new Guid( chat.SessionId));
-                }                
+                    iView.IdleTimerStop(new Guid(chat.SessionId));
+                }
 
                 if (chat is Model.ReceptionChatMedia)
                 {
@@ -317,7 +326,7 @@ namespace Dianzhu.CSClient.Presenter
             ReceptionChat chat = e.Argument as ReceptionChat;
 
             //聊天中的图片下载到本地
-            chat.SetReceiveTime( DateTime.Now);
+            chat.SetReceiveTime(DateTime.Now);
             if (chat is Model.ReceptionChatMedia)
             {
                 iViewChatList.ShowChatImageNormalMask(chat.Id);
@@ -334,23 +343,23 @@ namespace Dianzhu.CSClient.Presenter
                     fileName = ((ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
                 }
 
-                ((ReceptionChatMedia)chat).SetMediaUrl( fileName);
+                ((ReceptionChatMedia)chat).SetMediaUrl(fileName);
 
                 if (PHSuit.LocalFileManagement.DownLoad(string.Empty, mediaUrl, fileName))
                 {
-                    ((ReceptionChatMedia)chat).SetMediaUrl( fileName);
+                    ((ReceptionChatMedia)chat).SetMediaUrl(fileName);
                 }
             }
 
             e.Result = chat;
         }
-        
+
         public void IView_IdentityClick(ServiceOrder serviceOrder)
         {
             try
             {
                 IdentityManager.CurrentIdentity = iView.IdentityOrderTemp = serviceOrder;
-                
+
                 iViewChatList.ClearUCData();
                 iViewChatList.ShowLoadingMsg();
 
@@ -363,13 +372,13 @@ namespace Dianzhu.CSClient.Presenter
                 log.Error("IView_IdentityClick Error,skip");
                 PHSuit.ExceptionLoger.ExceptionLog(log, ex);
             }
-            
+
 
         }
 
-      
 
-        
+
+
 
 
 
@@ -406,7 +415,7 @@ namespace Dianzhu.CSClient.Presenter
             }
         }
 
-        public void AddIdentity(ServiceOrder order,string customerAvatarUrl)
+        public void AddIdentity(ServiceOrder order, string customerAvatarUrl)
         {
             iView.AddIdentity(order, customerAvatarUrl);
         }
@@ -418,7 +427,7 @@ namespace Dianzhu.CSClient.Presenter
                 iView.RemoveIdentity(order);
             }
         }
-        
+
     }
 }
 

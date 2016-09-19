@@ -538,14 +538,15 @@ namespace Dianzhu.ApplicationService.Order
             linkManObj linkman = new linkManObj();
             //linkman.linkManID = order.OpenFireLinkMan;
             string strIp = System.Web.HttpContext.Current.Request.Url.Host;//.Url.ToString();
-            if (order.OpenFireLinkMan == order.Business.Owner.Id.ToString())
-            {
-                linkman.linkManID = order.OpenFireLinkMan + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Store;
-            }
-            else
-            {
-                linkman.linkManID = order.OpenFireLinkMan + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Staff;
-            }
+            //if (order.OpenFireLinkMan == order.Business.Owner.Id.ToString() )
+            //{
+            //    linkman.linkManID = order.OpenFireLinkMan + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Store;
+            //}
+            //else
+            //{
+            //    linkman.linkManID = order.OpenFireLinkMan + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Staff;
+            //}
+            linkman.linkManID = order.Business.Owner.Id.ToString() + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Store;
             return linkman;
 
             //string targetId = "";

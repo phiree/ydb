@@ -208,7 +208,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -300,6 +299,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\XmlComments.xml" />
     <Content Include="App_Start\SwaggerExtensions\myIndex.html" />
     <Content Include="App_Start\SwaggerExtensions\swagger-client.js" />
     <Content Include="App_Start\SwaggerExtensions\testScript1.js" />

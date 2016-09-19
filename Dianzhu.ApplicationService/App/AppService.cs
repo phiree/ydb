@@ -134,6 +134,8 @@ namespace Dianzhu.ApplicationService.App
             }
             obj.PushAmount = c;
             obj.BindChangedTime = DateTime.Now;
+            //blldevicebind.Update(obj);
+            //Model.DeviceBind obj1 = blldevicebind.getDevBindByUUID(uuId);
             //blldevicebind.SaveOrUpdate(obj);
             return new string[] { "更新成功！" };
         }
