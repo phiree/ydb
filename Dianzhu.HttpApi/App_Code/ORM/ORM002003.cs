@@ -109,7 +109,7 @@ public class ResponseORM002003 : BaseResponse
 
                 //目前只返回商户jid
                 Guid targetId = order.Details[0].OriginalService.Business.Owner.Id;
-                type = enum_XmppResource.YDBan_Store.ToString();
+                string type = enum_XmppResource.YDBan_Store.ToString();
 
                 RespDataORM002003 respData = new RespDataORM002003();
                 RespDataORM_storeObj storeObj = new RespDataORM_storeObj().Adap(order.Details[0].OriginalService.Business);
