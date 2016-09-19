@@ -53,7 +53,7 @@
                                                 </div>
                                                 <div class="custom-col col-static-10">
                                                     <div class="l-b">
-                                                        服务货架图
+                                                        服务详情
                                                     </div>
                                                 </div>
                                                 <div class="custom-col col-static-20">
@@ -66,13 +66,13 @@
                                         <div class="service-list scrollbar-inner" >
                                             <asp:Repeater runat="server" ID="rptServiceList"  >
                                                 <ItemTemplate>
-                                                    <div class="service-row">
+                                                    <div class="service-li">
                                                         <div class="custom-grid" >
                                                             <div class="custom-col col-static-5">
                                                                 <span><%# String.Format("{0:0000}", (Container.ItemIndex + 1)) %></span>
                                                             </div>
                                                             <div class="custom-col col-static-10">
-                                                                <span class="text-ellipsis"><%#Eval("Name") %></span>
+                                                                <span class="text-ellipsis"><a class="service-href" href="Detail.aspx?businessid=<%=Request.Params["businessId"]%>&serviceId=<%#Eval("Id") %>"><%#Eval("Name") %></a></span>
                                                             </div>
                                                             <div class="custom-col col-static-20">
                                                                 <i class="icon service-icon svcType-s-icon-<%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.TopType.Id  %>"></i>                                                                <span class=""><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %></span>
@@ -138,7 +138,7 @@
         $(function () {
 
             // 判断列表是否有元素,TODO: 待整合
-            if ( $(".service-list").children(".service-row").length == 0 ) {
+            if ( $(".service-list").children(".service-li").length == 0 ) {
                 $("#service-new").removeClass("hide");
             } else {
                 $("#service-list").removeClass("hide");
