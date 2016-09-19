@@ -59,11 +59,11 @@ public partial class DZOrder_Default : BasePage
         liUnDoneOrderCount.Text = (bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id).Count()
             -
             bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id)
-            .Where(x => x.OrderStatus == Dianzhu.Model.Enums.enum_OrderStatus.Finished).Count()).ToString();
+            .Where(x => x.OrderStatus >= Dianzhu.Model.Enums.enum_OrderStatus.Finished).Count()).ToString();
 
         // 已完成订单: IsEnd
         liFinishOrderCount.Text = bllOrder.GetAllCompleteOrdersForBusiness(CurrentBusiness.Id)
-            .Where(x => x.OrderStatus == Dianzhu.Model.Enums.enum_OrderStatus.Finished).Count().ToString();
+            .Where(x => x.OrderStatus >= Dianzhu.Model.Enums.enum_OrderStatus.Finished).Count().ToString();
     }
 
     protected void rpt_ItemDataBound(object sender, RepeaterItemEventArgs e) {

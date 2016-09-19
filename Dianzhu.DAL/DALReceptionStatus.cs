@@ -105,14 +105,30 @@ namespace Dianzhu.DAL
 
         public virtual ReceptionStatus GetOrder(DZMembership c,DZMembership cs)
         {
-         
-            return FindOne(x => x.Customer.Id == c.Id && x.CustomerService.Id == cs.Id);
+            IList<ReceptionStatus> list = Find(x => x.Customer.Id == c.Id && x.CustomerService.Id == cs.Id).Take(1).ToList();
+            if (list.Count > 0)
+            {
+                return list[0];
+            }
+            else
+            {
+                return null;
+            }
+            //return FindOne(x => x.Customer.Id == c.Id && x.CustomerService.Id == cs.Id);
         }
 
         public virtual ReceptionStatus GetOneByCustomer(Guid customerId)
         {
-            
-            return FindOne(x => x.Customer.Id == customerId);
+            IList<ReceptionStatus> list = Find(x => x.Customer.Id == customerId).Take(1).ToList();
+            if (list.Count > 0)
+            {
+                return list[0];
+            }
+            else
+            {
+                return null;
+            }
+            //return FindOne(x => x.Customer.Id == customerId);
         }
     }
 }

@@ -604,6 +604,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             if (SaveUIData != null)
             {
+                cbxHours.Text = cbxHours.SelectedValue.ToString();
                 SaveUIData("Date", SearchKeywordTime);
             }
         }
@@ -612,6 +613,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             if (SaveUIData != null)
             {
+                cbxMinutes.Text = cbxMinutes.SelectedValue.ToString();
                 SaveUIData("Date", SearchKeywordTime);
             }
         }
