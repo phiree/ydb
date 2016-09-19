@@ -128,8 +128,7 @@ public class ResponseORM002001 : BaseResponse
                 if (orderToReturn == null)
                 {
                 
-                    string serialNoForOrder = serialNoBuilder.GetSerialNo("FW"+DateTime.Now.ToString("yyyyMMddHHmmssfff"));
-                    orderToReturn = ServiceOrderFactory.CreateDraft(assignedPair[member], member, serialNoForOrder);
+                    orderToReturn = ServiceOrderFactory.CreateDraft(assignedPair[member], member);
 
                     bllServiceOrder.Save(orderToReturn);
                 }
