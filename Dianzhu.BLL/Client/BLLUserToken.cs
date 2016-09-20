@@ -48,7 +48,7 @@ namespace Dianzhu.BLL.Client
         }
 
         public bool CheckToken(string token)
-        {
+        { 
             var where = PredicateBuilder.True<UserToken>();
             where = where.And(x => x.Token == token && x.Flag == 1);
             UserToken usertokenOld = dalusertoken.FindOne(where);

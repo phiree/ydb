@@ -31,6 +31,7 @@ namespace Dianzhu.Config
 
         //配置访问协议(http/https)的访问端口
         static int PortFirst = int.Parse(ConfigurationManager.AppSettings["PortFirst"]);
+        static string strHttp = PortFirst == 8 ? "http" : "https";
 
 
         static Dictionary<string, KeyValuePair<string, string>> DictsDianDianLogins = new Dictionary<string, KeyValuePair<string, string>>() {
@@ -101,19 +102,19 @@ namespace Dianzhu.Config
 
         static private string BuildHttpUrlString(string server)
         {
-            return string.Format("http://{0}/", server);
+            return string.Format(strHttp+"://{0}/", server);
         }
         static private string BuildHttpUrlString(string server, int port)
         {
-            return string.Format("http://{0}:{1}/", server, port);
+            return string.Format(strHttp + "://{0}:{1}/", server, port);
         }
         static private string BuildHttpUrlString(string server, string path)
         {
-            return string.Format("http://{0}/{1}", server, path);
+            return string.Format(strHttp + "://{0}/{1}", server, path);
         }
         static private string BuildHttpUrlString(string server, int port, string path)
         {
-            return string.Format("http://{0}:{1}/{2}", server, port, path);
+            return string.Format(strHttp + "://{0}:{1}/{2}", server, port, path);
         }
         public static string GetAppSetting(string key)
         {

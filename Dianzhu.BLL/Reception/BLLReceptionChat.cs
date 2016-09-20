@@ -9,9 +9,9 @@ using Dianzhu.Model;
 using System.Web.Security;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
-using Dianzhu.Model;
 using DDDCommon;
 using Dianzhu.Model.Enums;
+using System.Linq.Expressions;
 
 namespace Dianzhu.BLL
 {
@@ -48,16 +48,15 @@ namespace Dianzhu.BLL
         }
 
         /// <summary>
-        /// 条件读取聊天记录
+        /// 赛选器
         /// </summary>
-        /// <param name="filter"></param>
         /// <param name="type"></param>
         /// <param name="fromTarget"></param>
         /// <param name="orderID"></param>
         /// <param name="userID"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        public IList<ReceptionChat> GetChats(Model.Trait_Filtering filter, string type, string fromTarget,  Guid orderID,Guid userID,string userType)
+        private Expression<Func<ReceptionChat, bool>> BuildQuery(string type, string fromTarget, Guid orderID, Guid userID, string userType)
         {
             var where = PredicateBuilder.True<ReceptionChat>();
             if (orderID != Guid.Empty)
@@ -97,7 +96,7 @@ namespace Dianzhu.BLL
                         break;
                 }
             }
-            else 
+            else
             {
                 switch (fromTarget)
                 {
@@ -113,6 +112,23 @@ namespace Dianzhu.BLL
                 }
             }
 
+            return where;
+        }
+
+
+        /// <summary>
+        /// 条件读取聊天记录
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="type"></param>
+        /// <param name="fromTarget"></param>
+        /// <param name="orderID"></param>
+        /// <param name="userID"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        public IList<ReceptionChat> GetChats(Model.Trait_Filtering filter, string type, string fromTarget,  Guid orderID,Guid userID,string userType)
+        {
+            var where = BuildQuery(type, fromTarget, orderID, userID, userType);
             ReceptionChat baseone = null;
             if (!string.IsNullOrEmpty(filter.baseID))
             {
@@ -141,59 +157,44 @@ namespace Dianzhu.BLL
         /// <returns></returns>
         public long GetChatsCount(string type, string fromTarget, Guid orderID, Guid userID, string userType)
         {
-            var where = PredicateBuilder.True<ReceptionChat>();
-            if (orderID != Guid.Empty)
-            {
-                where = where.And(x => x.ServiceOrder.Id == orderID);
-            }
-            if (type != null && type != "")
-            {
-                switch (type)
-                {
-                    case "pushOrder":
-                        where = where.And(x => x.ChatType == enum_ChatType.PushedService);
-                        break;
-                    case "chat":
-                        where = where.And(x => x.ChatType == enum_ChatType.Text);
-                        break;
-                    default:
-                        where = where.And(x => x.ChatType == enum_ChatType.Media && ((ReceptionChatMedia)x).MediaType == type);
-                        break;
-                }
-            }
-            if (userType == "customer" || userType == "customerservice")
-            {
-                switch (fromTarget)
-                {
-                    case "store":
-                        where = where.And(x => (x.From.Id == userID && (x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff)) || (x.To.Id == userID && (x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff)));
-                        break;
-                    case "customerService":
-                        where = where.And(x => (x.From.Id == userID && (x.To.UserType == enum_UserType.customerservice|| x.To.UserType == enum_UserType.diandian)) || (x.To.Id == userID && (x.From.UserType == enum_UserType.customerservice || x.From.UserType == enum_UserType.diandian)));
-                        break;
-                    case "customer":
-                        where = where.And(x => (x.From.Id == userID && x.To.UserType == enum_UserType.customer) || (x.To.Id == userID && x.From.UserType == enum_UserType.customer));
-                        break;
-                    default:
-                        where = where.And(x => x.From.Id == userID || x.To.Id == userID);
-                        break;
-                }
-            }
-            else
-            {
-                switch (fromTarget)
-                {
-                    case "customerService":
-                        where = where.And(x => ((x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff) && x.To.UserType == enum_UserType.customerservice) || ((x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff) && x.From.UserType == enum_UserType.customerservice));
-                        break;
-                    case "customer":
-                        where = where.And(x => ((x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff) && x.To.UserType == enum_UserType.customer) || ((x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff) && x.From.UserType == enum_UserType.customer));
-                        break;
-                    default:
-                        where = where.And(x => x.From.UserType == enum_UserType.business || x.From.UserType == enum_UserType.staff || x.To.UserType == enum_UserType.business || x.To.UserType == enum_UserType.staff);
-                        break;
-                }
-            }
+            var where = BuildQuery(type, fromTarget, orderID, userID, userType);
+            long count = DALReceptionChat.GetRowCount(where);
+            return count;
+        }
+
+
+        /// <summary>
+        /// 条件读取聊天记录
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="type"></param>
+        /// <param name="fromTarget"></param>
+        /// <param name="orderID"></param>
+        /// <param name="userID"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        public IList<ReceptionChat> GetUnreadChats(Model.Trait_Filtering filter, string type, string fromTarget, Guid orderID, Guid userID, string userType)
+        {
+            var where = BuildQuery(type, fromTarget, orderID, userID, userType);
+            where = where.And(x => false);
+            long t = 0;
+            var list =  DALReceptionChat.Find(where, filter.sortby, filter.ascending, filter.offset, null).ToList();
+            return list;
+        }
+
+        /// <summary>
+        /// 统计聊天信息的数量
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="fromTarget"></param>
+        /// <param name="orderID"></param>
+        /// <param name="userID"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        public long GetUnreadChatsCount(string type, string fromTarget, Guid orderID, Guid userID, string userType)
+        {
+            var where = BuildQuery(type, fromTarget, orderID, userID, userType);
+            where = where.And(x => false);
             long count = DALReceptionChat.GetRowCount(where);
             return count;
         }
