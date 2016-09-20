@@ -137,17 +137,17 @@
                                                         </div>
                                                         <div class="custom-col col-10-2">
                                                             <div class="order-li">
-                                                                <%#Eval("FlowType") %>
+                                                                <%# ( Eval("FlowType").ToString() == "OrderShare") ? "订单账单":"其他" %>
                                                             </div>
                                                         </div>
                                                         <div class="custom-col col-10-2">
                                                             <div class="order-li">
-                                                             <asp:Literal runat="server" ID="liSerialNo"></asp:Literal>   
+                                                                <a class="order-href" href='/DZOrder/Detail.aspx?businessId=<%= Request["businessid"] %>&orderId=<%#Eval("RelatedObjectId").ToString()%>'><asp:Literal runat="server" ID="liSerialNo"></asp:Literal></a>
                                                             </div>
                                                         </div>
                                                         <div class="custom-col col-10-2">
                                                             <div class="order-li finance-amount">
-                                                                <%#Eval("Amount") %>
+                                                                <%# String.Format( "{0:F}", Eval("Amount")) %>
                                                             </div>
                                                         </div>
                                                     </div>

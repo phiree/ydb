@@ -188,8 +188,7 @@ namespace Dianzhu.NotifyCenter
  
                 if (order.OrderStatus != enum_OrderStatus.Draft)
                 {
-                    string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
-                    ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(r.Value,r.Key, serialNoForOrder);
+                    ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(r.Value,r.Key);
  
                     order = newOrder;
                 }

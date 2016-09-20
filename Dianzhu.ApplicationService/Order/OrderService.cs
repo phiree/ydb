@@ -85,6 +85,7 @@ namespace Dianzhu.ApplicationService.Order
                 orderobj.contactObj.address = serviceorder.Details[0].TargetAddress;
                 orderobj.contactObj.alias = serviceorder.Details[0].TargetCustomerName ?? "";
                 orderobj.contactObj.phone = serviceorder.Details[0].TargetCustomerPhone ?? "";
+                orderobj.notes= serviceorder.Details[0].Memo ?? "";
             }
             else
             {
@@ -94,6 +95,7 @@ namespace Dianzhu.ApplicationService.Order
                     orderobj.contactObj.address = dzs[0].TargetAddress;
                     orderobj.contactObj.alias = dzs[0].TargetCustomerName ?? "";
                     orderobj.contactObj.phone = dzs[0].TargetCustomerPhone ?? "";
+                    orderobj.notes = dzs[0].Memo ?? "";
                     orderobj.serviceTime = dzs[0].TargetTime.ToString("yyyyMMddHHmmss");
                     orderobj.serviceSnapshotObj = Mapper.Map<Model.ServiceOrderPushedService, serviceSnapshotObj>(dzs[0]);
                     if (dzs[0].OriginalService != null && dzs[0].OriginalService.Business != null)
