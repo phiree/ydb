@@ -270,6 +270,11 @@ namespace Dianzhu.CSClient.Presenter
         {
             errorMsg = string.Empty;
             SearchObj searchObj;
+            if (IdentityManager.CurrentIdentity == null)
+            {
+                errorMsg = "请选择用户后推送";
+                return null;
+            }
             if (localUIDataManager.LocalSearchTempObj.ContainsKey(IdentityManager.CurrentIdentity.Customer.Id.ToString()))
             {
                 searchObj = localUIDataManager.LocalSearchTempObj[IdentityManager.CurrentIdentity.Customer.Id.ToString()];
@@ -289,12 +294,6 @@ namespace Dianzhu.CSClient.Presenter
                 errorMsg = "服务已过期，请重新搜索";
                 return null;
             }
-            if (IdentityManager.CurrentIdentity == null)
-            {
-                log.Error("IdentityManager.CurrentIdentity为null");
-                return null;
-            }
-            
             
             //禁用推送按钮
             //viewSearchResult.BtnPush = false;
