@@ -164,7 +164,7 @@ namespace Dianzhu.BLL
 
 
         /// <summary>
-        /// 条件读取聊天记录
+        /// 条件读取未读聊天记录
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="type"></param>
@@ -173,17 +173,18 @@ namespace Dianzhu.BLL
         /// <param name="userID"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        public IList<ReceptionChat> GetUnreadChats(Model.Trait_Filtering filter, string type, string fromTarget, Guid orderID, Guid userID, string userType)
+        public IList<ReceptionChat> GetUnreadChats( Guid userID)
         {
-            var where = BuildQuery(type, fromTarget, orderID, userID, userType);
+            var where = PredicateBuilder.True<ReceptionChat>();
+            where = where.And(x => x.To.Id == userID);
             where = where.And(x => false);
             long t = 0;
-            var list =  DALReceptionChat.Find(where, filter.sortby, filter.ascending, filter.offset, null).ToList();
+            var list =  DALReceptionChat.Find(where).ToList();
             return list;
         }
 
         /// <summary>
-        /// 统计聊天信息的数量
+        /// 统计未读聊天信息的数量
         /// </summary>
         /// <param name="type"></param>
         /// <param name="fromTarget"></param>
@@ -191,9 +192,10 @@ namespace Dianzhu.BLL
         /// <param name="userID"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        public long GetUnreadChatsCount(string type, string fromTarget, Guid orderID, Guid userID, string userType)
+        public long GetUnreadChatsCount( Guid userID)
         {
-            var where = BuildQuery(type, fromTarget, orderID, userID, userType);
+            var where = PredicateBuilder.True<ReceptionChat>();
+            where = where.And(x => x.To.Id == userID);
             where = where.And(x => false);
             long count = DALReceptionChat.GetRowCount(where);
             return count;

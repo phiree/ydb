@@ -147,22 +147,13 @@ namespace Dianzhu.ApplicationService.Chat
         /// <summary>
         /// 条件读取所有未读聊天记录
         /// </summary>
-        /// <param name="filter"></param>
-        /// <param name="chatfilter"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public IList<chatObj> GetAllUnreadChats(common_Trait_Filtering filter, common_Trait_ChatFiltering chatfilter, Customer customer)
+        public IList<chatObj> GetAllUnreadChats(Customer customer)
         {
-            //Guid guidOrder = checkRute(chatfilter.orderID, customer);
-            Guid guidOrder = Guid.Empty;// utils.CheckGuidID(chatfilter.orderID, "chatfilter.orderID");
-            if (!string.IsNullOrEmpty(chatfilter.orderID))
-            {
-                guidOrder = checkRute(chatfilter.orderID, customer);
-            }
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
             IList<Model.ReceptionChat> chat = null;
-            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ReceptionChat");
-            chat = bllChat.GetUnreadChats(filter1, chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer, customer.UserType);
+            chat = bllChat.GetUnreadChats(guidCustomer);
             if (chat == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
@@ -175,20 +166,13 @@ namespace Dianzhu.ApplicationService.Chat
         /// <summary>
         /// 统计所有未读聊天信息的数量
         /// </summary>
-        /// <param name="chatfilter"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public countObj GetAllUnreadChatsCount(common_Trait_ChatFiltering chatfilter, Customer customer)
+        public countObj GetAllUnreadChatsCount(Customer customer)
         {
-            //Guid guidOrder = checkRute(orderID, customer);
-            Guid guidOrder = Guid.Empty;// utils.CheckGuidID(chatfilter.orderID, "chatfilter.orderID");
-            if (!string.IsNullOrEmpty(chatfilter.orderID))
-            {
-                guidOrder = checkRute(chatfilter.orderID, customer);
-            }
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
             countObj c = new countObj();
-            c.count = bllChat.GetUnreadChatsCount(chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer, customer.UserType).ToString();
+            c.count = bllChat.GetUnreadChatsCount(guidCustomer).ToString();
             return c;
         }
     }

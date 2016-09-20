@@ -47,18 +47,15 @@ namespace Dianzhu.ApplicationService.Chat
         /// <summary>
         /// 条件读取所有聊天记录
         /// </summary>
-        /// <param name="filter"></param>
-        /// <param name="chatfilter"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        IList<chatObj> GetAllUnreadChats(common_Trait_Filtering filter, common_Trait_ChatFiltering chatfilter, Customer customer);
+        IList<chatObj> GetAllUnreadChats(Customer customer);
 
         /// <summary>
         /// 统计所有聊天信息的数量
         /// </summary>
-        /// <param name="chatfilter"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        countObj GetAllUnreadChatsCount(common_Trait_ChatFiltering chatfilter, Customer customer);
+        countObj GetAllUnreadChatsCount(Customer customer);
     }
 }

@@ -124,19 +124,11 @@ namespace Dianzhu.Web.RestfulApi.Controllers.CHAT
         /// <param name="chatfilter"></param>
         /// <returns></returns>
         [Route("api/v1/allUnreadChats")]
-        public IHttpActionResult GetAllUnreadChats([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_ChatFiltering chatfilter)
+        public IHttpActionResult GetAllUnreadChats()
         {
             try
             {
-                if (filter == null)
-                {
-                    filter = new common_Trait_Filtering();
-                }
-                if (chatfilter == null)
-                {
-                    chatfilter = new common_Trait_ChatFiltering();
-                }
-                return Json(ichat.GetAllUnreadChats(filter, chatfilter, GetRequestHeader.GetTraitHeaders("get/allUnreadChats")));
+                return Json(ichat.GetAllUnreadChats( GetRequestHeader.GetTraitHeaders("get/allUnreadChats")));
             }
             catch (Exception ex)
             {
@@ -150,15 +142,11 @@ namespace Dianzhu.Web.RestfulApi.Controllers.CHAT
         /// <param name="chatfilter"></param>
         /// <returns></returns>
         [Route("api/v1/allUnreadChats/count")]
-        public IHttpActionResult GetAllUnreadChatsCount([FromUri]common_Trait_ChatFiltering chatfilter)
+        public IHttpActionResult GetAllUnreadChatsCount()
         {
             try
             {
-                if (chatfilter == null)
-                {
-                    chatfilter = new common_Trait_ChatFiltering();
-                }
-                return Json(ichat.GetAllUnreadChatsCount(chatfilter, GetRequestHeader.GetTraitHeaders("get/allUnreadChats/count")));
+                return Json(ichat.GetAllUnreadChatsCount(GetRequestHeader.GetTraitHeaders("get/allUnreadChats/count")));
             }
             catch (Exception ex)
             {
