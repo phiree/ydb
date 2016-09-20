@@ -41,10 +41,15 @@ namespace Dianzhu.CSClient.LocalStorage
 
         public void SaveSearchObj(string customerId, SearchObj obj)
         {
-            if (!LocalSearchTempObj.ContainsKey(customerId))
-            {
-                LocalSearchTempObj.Add(customerId, obj);
-            }
+            //if (!LocalSearchTempObj.ContainsKey(customerId))
+            //{
+            //    LocalSearchTempObj.Add(customerId, obj);
+            //}
+            //else
+            //{
+            //    LocalSearchTempObj[customerId] = obj;
+            //}
+            LocalSearchTempObj[customerId] = obj;
         }
 
         public void Save(string customerId, string key, object value)
