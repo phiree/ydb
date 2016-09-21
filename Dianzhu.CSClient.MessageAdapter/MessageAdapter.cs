@@ -317,17 +317,13 @@ namespace Dianzhu.CSClient.MessageAdapter
                     string svcName = svcObj.Attributes["name"].Value;
                     string svcType = svcObj.Attributes["type"].Value;
                     string startTime = svcObj.Attributes["startTime"].Value;
+                    string endTime = svcObj.Attributes["endTime"].Value;
                     var storeObj = doc.SelectSingleNode(xpathStoreObj);
                     string userId = storeObj.Attributes["userID"].Value;
                     string alias = storeObj.Attributes["alias"].Value;
                     string imgUrl = storeObj.Attributes["imgUrl"].Value;
 
-                    var customerObj = doc.SelectSingleNode(xpathCustomerObj);
-                    string customerName = customerObj.Attributes["customerName"].Value;
-                    string customerPhone = customerObj.Attributes["customerPhone"].Value;
-                    string customerAddress = customerObj.Attributes["customerAddress"].Value;
-
-                    builder = builder.BuildPushedService(svcID, svcName, svcType, startTime, userId, alias, imgUrl, customerPhone, customerName, customerAddress);
+                    builder = builder.BuildPushedService(svcID, svcName, svcType, startTime, endTime,userId, alias, imgUrl);
                     break;
                 default:
                     ilog.Error("不需要处理的命名空间:" + extNameSpace); break;
