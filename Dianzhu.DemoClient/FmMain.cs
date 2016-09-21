@@ -55,7 +55,8 @@ namespace Dianzhu.DemoClient
 
         private void XMPPConnection_OnClose(object sender)
         {
-           // MessageBox.Show("Connection has been Closed");
+            lblLoginStatus.Text = "Closed";
+            lblAssignedCS.Text = string.Empty;
         }
 
         private void XMPPConnection_OnStreamError(object sender, agsXMPP.Xml.Dom.Element e)
@@ -123,11 +124,12 @@ namespace Dianzhu.DemoClient
                 lblAssignedCS.Text = "客服离线";
                 throw new Exception(state_Code + "_" + errMsg);
             }
-            csDisplayName = result["RespData"]["cerObj"]["alias"].ToString();// result["RespData"]["cerObj"]["alias"].ToString();
+            lblAssignedCS.Text = csDisplayName = result["RespData"]["cerObj"]["alias"].ToString();// result["RespData"]["cerObj"]["alias"].ToString();
 
             csId = result["RespData"]["cerObj"]["userID"].ToString();// result["RespData"]["cerObj"]["userID"].ToString();
             //customerId = result["RespData"]["cerObj"]["userID"].ToString();
            orderID = result["RespData"]["orderID"].ToString();
+          
         }
         public void GetCustomerService(string username, string password)
         {
@@ -166,6 +168,10 @@ namespace Dianzhu.DemoClient
                     csId = msgType.SelectSingleElement("cerObj").GetAttribute("userID");
                     csDisplayName = msgType.SelectSingleElement("cerObj").GetAttribute("alias");
                     lblAssignedCS.Text = csDisplayName;
+                    break;
+                case "ihelper:notice:cer:online":
+                    
+                    GetCustomerService(GlobalViables.XMPPConnection.Username, GlobalViables.XMPPConnection.Password);
                     break;
                 case "ihelper:notice:draft:new":
                     orderID = msgType.SelectSingleElement("orderID").Value;
@@ -531,6 +537,11 @@ namespace Dianzhu.DemoClient
 
             AdvList adv = new AdvList();
             adv.ShowDialog();
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            GlobalViables.XMPPConnection.Close();
         }
     }
 }

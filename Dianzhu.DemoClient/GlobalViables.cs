@@ -23,7 +23,7 @@ namespace Dianzhu.DemoClient
             XMPPConnection = new XmppClientConnection(ServerName);
             XMPPConnection.Server = DomainName;
             XMPPConnection.ConnectServer = ServerName;
-            XMPPConnection.Resource = Model.Enums.enum_XmppResource.YDBan_DemoClient.ToString();
+            XMPPConnection.Resource = Model.Enums.enum_XmppResource.YDBan_User.ToString();
             XMPPConnection.AutoResolveConnectServer = false;
 
 
