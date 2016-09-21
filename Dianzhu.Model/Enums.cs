@@ -408,11 +408,6 @@ namespace Dianzhu.Model.Enums
     public enum enum_XmppResource
     {
         /// <summary>
-        /// 模拟用户客户端
-        /// </summary>
-        YDBan_DemoClient = 40,
-
-        /// <summary>
         /// 用户版
         /// </summary>
         YDBan_User=50,

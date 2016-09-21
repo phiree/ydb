@@ -12,7 +12,7 @@ namespace Dianzhu.DemoClient
         public MessageBuilder Create(string from,string to,string body,string orderId)
         {
             msg = new Message(new Jid(to + "@" + GlobalViables.DomainName + "/" + Model.Enums.enum_XmppResource.YDBan_CustomerService)
-              , new Jid(from + "@" + GlobalViables.DomainName + "/" + Model.Enums.enum_XmppResource.YDBan_DemoClient), body);
+              , new Jid(from + "@" + GlobalViables.DomainName + "/" + Model.Enums.enum_XmppResource.YDBan_User), body);
             msg.SetAttribute("type", "chat");
             var nodeExt = new agsXMPP.Xml.Dom.Element("ext");
             var nodeOrder = new agsXMPP.Xml.Dom.Element("orderID",orderId);
