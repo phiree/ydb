@@ -342,6 +342,7 @@
     <Content Include="AjaxService\GetSignAndTime.ashx" />
     <Content Include="config\appSettings.config" />
     <Content Include="config\connectionstrings.config" />
+    <Content Include="Content\stoplight.json" />
     <None Include="Properties\PublishProfiles\RestfulApi.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

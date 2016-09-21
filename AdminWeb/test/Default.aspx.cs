@@ -30,10 +30,9 @@ public partial class test_Default : BasePage
             return;
         }
         DZMembership customerService = bllMembership.GetUserByName("aa@aa.aa");
-        string serialNoForOrder = serialNoBuilder.GetSerialNo("FW"+DateTime.Now.ToString("yyyyMMddHHmmssfff"));
-        ServiceOrder order= ServiceOrderFactory.CreateDraft(customerService, customer,serialNoForOrder);
+        ServiceOrder order= ServiceOrderFactory.CreateDraft(customerService, customer);
         DZService service = bllService.GetOne(new Guid("0f4bdace-dad0-43aa-8cce-a5c501180535"));
-         order.AddDetailFromIntelService(service, 1, "test_用户名", "13999999999", "test_服务地址", DateTime.Now);
+         order.AddDetailFromIntelService(service, 1, "test_用户名", "13999999999", "test_服务地址", DateTime.Now, string.Empty);
 
         order.CreatedFromDraft();
         order.LatestOrderUpdated = DateTime.Now;

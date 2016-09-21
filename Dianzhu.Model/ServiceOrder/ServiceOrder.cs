@@ -40,13 +40,14 @@ namespace Dianzhu.Model
         /// <param name="targetCustomerPhone"></param>
         /// <param name="targetAddress"></param>
         /// <param name="targetTime"></param>
-        public virtual void AddDetailFromIntelService(DZService service,int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress,DateTime targetTime)
+        /// <param name="memo"></param>
+        public virtual void AddDetailFromIntelService(DZService service,int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress,DateTime targetTime,string memo)
         {
             
             var existedService = Details.Where(x => x.OriginalService == service);
             if (existedService.Count() == 0)
             {
-                ServiceOrderDetail detail = new ServiceOrderDetail(service, unitAmount, targetCustomerName, targetCustomerPhone, targetAddress, targetTime);
+                ServiceOrderDetail detail = new ServiceOrderDetail(service, unitAmount, targetCustomerName, targetCustomerPhone, targetAddress, targetTime,memo);
                 Details.Add(detail);
                 Business = service.Business;
             }
@@ -58,6 +59,7 @@ namespace Dianzhu.Model
                 detail.TargetCustomerPhone = targetCustomerPhone;
                 detail.TargetAddress = targetAddress;
                 detail.TargetTime = targetTime;
+                detail.Memo = memo;
                 Business = service.Business;
 
             }
@@ -381,6 +383,16 @@ namespace Dianzhu.Model
             get
             {
                 return string.Join(Environment.NewLine, Details.Select(o => o.TargetAddress));
+            }
+        }
+        /// <summary>
+        /// 用户备注
+        /// </summary>
+        public virtual string TargetMemo
+        {
+            get
+            {
+                return string.Join(Environment.NewLine, Details.Select(o => o.Memo));
             }
         }
         /// <summary>

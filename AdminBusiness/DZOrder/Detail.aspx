@@ -27,7 +27,7 @@
                                                 <span class="model-pra-t">服务项目</span><%=CurrentOrder.Service.Name %>
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">订单号</span><%=CurrentOrder.Id %>
+                                                <span class="model-pra-t">订单号</span><%=CurrentOrder.SerialNo %>
                                             </p>
                                         </div>
                                         <div class="col-md-4">

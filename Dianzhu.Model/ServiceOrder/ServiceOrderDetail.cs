@@ -19,7 +19,7 @@ namespace Dianzhu.Model
         {
             
         }
-        public ServiceOrderDetail(DZService service,int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress,DateTime targetTime)
+        public ServiceOrderDetail(DZService service,int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress,DateTime targetTime,string memo)
         {
             OriginalService = service;
             this.ServieSnapShot = service.GetServiceSnapShot();
@@ -32,7 +32,7 @@ namespace Dianzhu.Model
             this.TargetCustomerPhone = targetCustomerPhone;
             this.TargetAddress = targetAddress;
             this.TargetTime = targetTime;
-             
+            this.Memo = memo;
         }
 
         #endregion

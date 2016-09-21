@@ -35,7 +35,7 @@ namespace Dianzhu.Test.BLLTest
                 .With(x => x.NegotiateAmount = 12)
                 .With(x => x.OrderStatus = Model.Enums.enum_OrderStatus.Created)
                 .Build();
-            order.AddDetailFromIntelService(service, 12,"targetCustomerName","13000000000", "targetAddress", DateTime.Now);
+            order.AddDetailFromIntelService(service, 12,"targetCustomerName","13000000000", "targetAddress", DateTime.Now,string.Empty);
             Guid payId = Guid.NewGuid();
             dal.Stub(x => x.GetPaymentsForOrder(order)).Return(new List<Payment>());
             BLLPayment bll = new BLLPayment(dal,bllClaims);

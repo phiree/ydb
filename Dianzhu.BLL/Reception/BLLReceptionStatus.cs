@@ -301,27 +301,34 @@ namespace Dianzhu.BLL
             //re assign
             Dictionary<DZMembership, DZMembership> newAssign
                 = stratage.Assign(customerWithCS.Select(x=>x.Customer).ToList(), CustomerServiceList,Diandian);
+
+            foreach(ReceptionStatus status in customerWithCS)
+            {
+                status.CustomerService = newAssign[status.Customer];
+                dalRS.Update(status);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            }
             
             // save assign to database 
-            foreach (KeyValuePair<DZMembership, DZMembership> pair in newAssign)
-            {
-                ReceptionStatus rs = new ReceptionStatus
-                {
-                    Customer = pair.Key,
-                    CustomerService = pair.Value,
-                    Order = dalRS.GetOrder(pair.Key, customerservice).Order,
-                    LastUpdateTime = DateTime.Now
-                };
-                dalRS.Add(rs);
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            }
+            //foreach (KeyValuePair<DZMembership, DZMembership> pair in newAssign)
+            //{
+            //    ReceptionStatus rs = new ReceptionStatus
+            //    {
+            //        Customer = pair.Key,
+            //        CustomerService = pair.Value,
+            //        Order = dalRS.GetOrder(pair.Key, customerservice).Order,
+            //        LastUpdateTime = DateTime.Now
+            //    };
+            //    dalRS.Add(rs);
+            //    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            //}
 
-            // delete old assign to database
-            foreach (ReceptionStatus oldrs in customerWithCS)
-            {
-                dalRS.Delete(oldrs);
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            }
+            //// delete old assign to database
+            //foreach (ReceptionStatus oldrs in customerWithCS)
+            //{
+            //    dalRS.Delete(oldrs);
+            //    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            //}
 
             //return new assign
             return newAssign;

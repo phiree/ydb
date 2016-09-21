@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
 using Dianzhu.BLL;
+using Dianzhu.CSClient.LocalStorage;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -105,6 +106,10 @@ namespace Dianzhu.CSClient.Presenter
                     {
                         viewSearch.setServiceTypeFirst = localUIDataManager.LocalUIDatas[id].ServiceType;
                     }
+                }
+                else
+                {
+                    viewSearch.setServiceTypeFirst = ServiceTypeFirst;
                 }
                 viewSearch.ServiceName = localUIDataManager.LocalUIDatas[id].ServiceName;
                 viewSearch.ServiceTargetPriceMin = localUIDataManager.LocalUIDatas[id].PriceMin;
@@ -264,9 +269,19 @@ namespace Dianzhu.CSClient.Presenter
         private ServiceOrder ViewSearchResult_PushServices(IList<Model.DZService> pushedServices,out string errorMsg)
         {
             errorMsg = string.Empty;
-            if (searchObj == null)
+            SearchObj searchObj;
+            if (IdentityManager.CurrentIdentity == null)
             {
-                log.Error("服务已过期，请重新搜索服务");
+                errorMsg = "请选择用户后推送";
+                return null;
+            }
+            if (localUIDataManager.LocalSearchTempObj.ContainsKey(IdentityManager.CurrentIdentity.Customer.Id.ToString()))
+            {
+                searchObj = localUIDataManager.LocalSearchTempObj[IdentityManager.CurrentIdentity.Customer.Id.ToString()];
+            }
+            else
+            {
+                errorMsg = "订单已过期，请重新搜索";
                 return null;
             }
             if (searchObj.TargetTime < DateTime.Now)
@@ -276,15 +291,9 @@ namespace Dianzhu.CSClient.Presenter
             }
             if (pushedServices.Count == 0)
             {
-                log.Error("推送的服务项为0");
+                errorMsg = "服务已过期，请重新搜索";
                 return null;
             }
-            if (IdentityManager.CurrentIdentity == null)
-            {
-                log.Error("IdentityManager.CurrentIdentity为null");
-                return null;
-            }
-            
             
             //禁用推送按钮
             //viewSearchResult.BtnPush = false;
@@ -302,6 +311,8 @@ namespace Dianzhu.CSClient.Presenter
 
             //获取之前orderid
             ServiceOrder oldOrder = bllServiceOrder.GetOne(IdentityManager.CurrentIdentity.Id);
+            string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
+            oldOrder.SerialNo = serialNoForOrder;
             oldOrder.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
             bllServiceOrder.Update(oldOrder);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
@@ -351,8 +362,7 @@ namespace Dianzhu.CSClient.Presenter
             iIM.SendMessage(chat);
 
             //生成新的草稿单并发送给客户端
-            string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
-            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService,IdentityManager.CurrentIdentity.Customer,serialNoForOrder);
+            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService,IdentityManager.CurrentIdentity.Customer);
             bllServiceOrder.Save(newOrder);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             //log.Debug("新草稿订单的id：" + newOrder.Id.ToString());
@@ -396,7 +406,7 @@ namespace Dianzhu.CSClient.Presenter
                 
                 return;
             }
-            IdentityManager.CurrentIdentity.AddDetailFromIntelService(selectedService, viewSearch.UnitAmount,string.Empty,string.Empty, "实施服务的地点", DateTime.Now);
+            IdentityManager.CurrentIdentity.AddDetailFromIntelService(selectedService, viewSearch.UnitAmount,string.Empty,string.Empty, "实施服务的地点", DateTime.Now,string.Empty);
             //viewOrder.Order = IdentityManager.CurrentIdentity;
             bllServiceOrder.Update(IdentityManager.CurrentIdentity);
 
@@ -404,11 +414,11 @@ namespace Dianzhu.CSClient.Presenter
 
         }
         #endregion
-
-        SearchObj searchObj;//搜索条件临时变量
+        
         private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId,string name,string lng,string lat)
         {
-            searchObj = new SearchObj(name, minPrice, maxPrice, servieTypeId, targetTime, double.Parse(lng), double.Parse(lat), viewSearch.ServiceTargetAddress);
+            SearchObj searchObj = new SearchObj(name, minPrice, maxPrice, servieTypeId, targetTime, double.Parse(lng), double.Parse(lat), viewSearch.ServiceTargetAddress);
+            localUIDataManager.SaveSearchObj(IdentityManager.CurrentIdentity.Customer.Id.ToString(), searchObj);
             //Action a = () =>
             //{
             int total;
@@ -432,29 +442,6 @@ namespace Dianzhu.CSClient.Presenter
             //    //启用推送按钮
             //    viewSearchResult.BtnPush = true;
             //}
-        }
-    }
-
-    public class SearchObj
-    {
-        public string ServiceName { get; set; }
-        public decimal MinPrice { get; set; }
-        public decimal MaxPrice { get; set; }
-        public Guid ServiceTypeId { get; set; }
-        public DateTime TargetTime { get; set; }
-        public double Lng { get; set; }
-        public double Lat { get; set; }
-        public string Address { get; set; }
-        public SearchObj(string serviceName,decimal minPrice,decimal maxPrice,Guid serviceTypeId,DateTime targetTime,double lng,double lat,string address)
-        {
-            ServiceName = serviceName;
-            MinPrice = minPrice;
-            MaxPrice = maxPrice;
-            ServiceTypeId = serviceTypeId;
-            TargetTime = targetTime;
-            Lng = lng;
-            Lat=lat;
-            Address = address;
         }
     }
 }

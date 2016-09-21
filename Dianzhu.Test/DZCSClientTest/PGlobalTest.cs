@@ -30,7 +30,5 @@ namespace Dianzhu.Test.DZCSClientTest
           pc=  MockRepository.GenerateStub<PChatList>();
 
         }
-
-       
     }
 }
