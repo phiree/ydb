@@ -137,6 +137,7 @@
     <Compile Include="BLLTest\TestReceptionAssign.cs" />
     <Compile Include="Bootstrap.cs" />
     <Compile Include="ClassMapper\DZMapperTests.cs" />
+    <Compile Include="DALReceptionStatusTests.cs" />
     <Compile Include="DALTest\DALService.cs" />
     <Compile Include="DALTest\MapTest.cs" />
     <Compile Include="DALTest\TestDALReceptionChatDD.cs" />
