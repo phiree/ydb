@@ -293,17 +293,6 @@
                             ]
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_snapshots-serviceID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "dynamic": false,
-                        "statusCode": 200,
-                        "enabled": false
-                    }
                 }
             }
         },
@@ -343,17 +332,6 @@
                             ]
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_citys",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": true,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -382,17 +360,6 @@
                         "schema": {
                             "$ref": "#/definitions/cityobj"
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_citys-code",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "dynamic": false,
-                        "statusCode": 200,
-                        "enabled": true
                     }
                 }
             }
@@ -426,17 +393,6 @@
                             "$ref": "#/definitions/complaintobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "POST_complaints",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "get": {
@@ -457,17 +413,6 @@
                                 "$ref": "#/definitions/complaintobj"
                             }
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_complaints",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -501,17 +446,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_complaints-count",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -541,17 +475,6 @@
                             "$ref": "#/definitions/complaintobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_complaints-complaintID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "dynamic": false,
-                        "statusCode": 200,
-                        "enabled": true
-                    }
                 }
             }
         },
@@ -580,17 +503,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_ads",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -618,17 +530,6 @@
                     "default": {
                         "schema": {}
                     }
-                },
-                "x-stoplight": {
-                    "id": "POST_apps-appUUID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "delete": {
@@ -645,17 +546,6 @@
                     "default": {
                         "schema": {}
                     }
-                },
-                "x-stoplight": {
-                    "id": "DELETE_apps-appUUID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "patch": {
@@ -671,17 +561,6 @@
                 "responses": {
                     "default": {
                         "schema": {}
-                    }
-                },
-                "x-stoplight": {
-                    "id": "PATCH_apps-appUUID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -716,17 +595,6 @@
                                 "$ref": "#/definitions/remindobj"
                             }
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_reminds",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "dynamic": false,
-                        "statusCode": 200,
-                        "enabled": false
                     }
                 }
             }
@@ -768,17 +636,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_reminds-count",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -808,17 +665,6 @@
                             "$ref": "#/definitions/remindobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_reminds-remindID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "statusCode": 200,
-                        "enabled": true,
-                        "dynamic": false
-                    }
                 }
             },
             "delete": {
@@ -834,17 +680,6 @@
                 "responses": {
                     "default": {
                         "schema": {}
-                    }
-                },
-                "x-stoplight": {
-                    "id": "DELETE_reminds-remindID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "dynamic": false,
-                        "statusCode": 200,
-                        "enabled": false
                     }
                 }
             }
@@ -894,17 +729,6 @@
                             "$ref": "#/definitions/worktimeobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "POST_stores-storeID-services-serviceID-workTimes",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "get": {
@@ -936,17 +760,6 @@
                                 "$ref": "#/definitions/worktimeobj"
                             }
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_stores-storeID-services-serviceID-workTimes",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -1004,17 +817,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_stores-storeID-services-serviceID-workTimes-count",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -1058,17 +860,6 @@
                             "$ref": "#/definitions/worktimeobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_stores-storeID-services-serviceID-workTimes-workTimeID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": true,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "patch": {
@@ -1099,17 +890,6 @@
                             "$ref": "#/definitions/worktimeobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "PATCH_stores-storeID-services-serviceID-workTimes-workTimeID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "delete": {
@@ -1125,17 +905,6 @@
                 "responses": {
                     "default": {
                         "schema": {}
-                    }
-                },
-                "x-stoplight": {
-                    "id": "DELETE_stores-storeID-services-serviceID-workTimes-workTimeID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -1164,17 +933,6 @@
                                 "$ref": "#/definitions/servicetypeobj"
                             }
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_allServiceTypes",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -1216,17 +974,6 @@
                             "$ref": "#/definitions/servicesobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "POST_stores-storeID-services",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "get": {
@@ -1247,17 +994,6 @@
                                 "$ref": "#/definitions/servicesobj"
                             }
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_stores-storeID-services",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -1320,17 +1056,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_stores-storeID-services-count",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -1367,17 +1092,6 @@
                             "$ref": "#/definitions/servicesobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_stores-storeID-services-serviceID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": true,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "patch": {
@@ -1408,17 +1122,6 @@
                             "$ref": "#/definitions/servicesobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "PATCH_stores-storeID-services-serviceID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "delete": {
@@ -1434,17 +1137,6 @@
                 "responses": {
                     "default": {
                         "schema": {}
-                    }
-                },
-                "x-stoplight": {
-                    "id": "DELETE_stores-storeID-services-serviceID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -1487,17 +1179,6 @@
                             "$ref": "#/definitions/staffobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "POST_stores-storeID-staffs",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "get": {
@@ -1538,17 +1219,6 @@
                                 "$ref": "#/definitions/staffobj"
                             }
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_stores-storeID-staffs",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -1598,17 +1268,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_stores-storeID-staffs-count",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -1645,17 +1304,6 @@
                             "$ref": "#/definitions/staffobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_stores-storeID-staffs-staffID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": true,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "patch": {
@@ -1686,17 +1334,6 @@
                             "$ref": "#/definitions/staffobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "PATCH_stores-storeID-staffs-staffID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "statusCode": 200,
-                        "enabled": false,
-                        "dynamic": false
-                    }
                 }
             },
             "delete": {
@@ -1712,17 +1349,6 @@
                 "responses": {
                     "default": {
                         "schema": {}
-                    }
-                },
-                "x-stoplight": {
-                    "id": "DELETE_stores-storeID-staffs-staffID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -1754,17 +1380,6 @@
                                 "$ref": "#/definitions/storeobj"
                             }
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_allStores",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -1808,17 +1423,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_allStores-count",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "dynamic": false,
-                        "statusCode": 200,
-                        "enabled": false
-                    }
                 }
             }
         },
@@ -1851,17 +1455,6 @@
                             "$ref": "#/definitions/storeobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "POST_stores",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "get": {
@@ -1882,17 +1475,6 @@
                                 "$ref": "#/definitions/storeobj"
                             }
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_stores",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -1933,17 +1515,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_stores-count",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -1972,17 +1543,6 @@
                         "schema": {
                             "$ref": "#/definitions/storeobj"
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_stores-storeID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": true,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             },
@@ -2014,17 +1574,6 @@
                             "$ref": "#/definitions/storeobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "PATCH_stores-storeID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "delete": {
@@ -2040,17 +1589,6 @@
                 "responses": {
                     "default": {
                         "schema": {}
-                    }
-                },
-                "x-stoplight": {
-                    "id": "DELETE_stores-storeID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "dynamic": false,
-                        "statusCode": 200,
-                        "enabled": false
                     }
                 }
             }
@@ -2082,17 +1620,6 @@
                                 "$ref": "#/definitions/payobj"
                             }
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_Orders-orderID-Pays",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -2135,17 +1662,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_orders-orderID-pays-count",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "dynamic": false,
-                        "statusCode": 200,
-                        "enabled": false
-                    }
                 }
             }
         },
@@ -2182,17 +1698,6 @@
                             "$ref": "#/definitions/payobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_orders-orderID-pays-payID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": true,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "patch": {
@@ -2222,17 +1727,6 @@
                         "schema": {
                             "$ref": "#/definitions/payobj"
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "PATCH_orders-orderID-pays-payID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -2294,17 +1788,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_orders-orderID-pays-payID-pay3rdString",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -2327,17 +1810,6 @@
                                 "$ref": "#/definitions/chatobj"
                             }
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_AllChats",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -2382,17 +1854,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_allChats-count",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -2424,17 +1885,6 @@
                                 "$ref": "#/definitions/chatobj"
                             }
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_orders-orderID-Chats",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -2476,17 +1926,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_orders-orderID-chats-count",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -2509,17 +1948,6 @@
                                 "$ref": "#/definitions/orderobj"
                             }
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_orders-",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": true,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -2576,17 +2004,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_orders-count",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -2621,17 +2038,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_orders-verify",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": true,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -2660,17 +2066,6 @@
                         "schema": {
                             "$ref": "#/definitions/orderobj"
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_orders-orderID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": true,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             },
@@ -2701,17 +2096,6 @@
                         "schema": {
                             "$ref": "#/definitions/orderobj"
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "PATCH_orders-orderID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -2745,17 +2129,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_orders-orderID-allStatusList",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -2787,17 +2160,6 @@
                                 "$ref": "#/definitions/servicesobj"
                             }
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_orders-orderID-pushServices",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "dynamic": false,
-                        "statusCode": 200,
-                        "enabled": false
                     }
                 }
             }
@@ -2840,17 +2202,6 @@
                             "$ref": "#/definitions/orderobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "PUT_orders-orderID-confirmService",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "dynamic": false,
-                        "statusCode": 200,
-                        "enabled": false
-                    }
                 }
             }
         },
@@ -2876,17 +2227,6 @@
                 "responses": {
                     "default": {
                         "schema": {}
-                    }
-                },
-                "x-stoplight": {
-                    "id": "PUT_orders-orderID-appraise",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -2922,17 +2262,6 @@
                                 }
                             }
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_orders-orderID-linkMan",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -2980,17 +2309,6 @@
                             "$ref": "#/definitions/orderobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "PATCH_orders-orderID-negotiateAmount",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -3032,17 +2350,6 @@
                             "$ref": "#/definitions/orderobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "PATCH_orders-orderID-currentStatus",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -3074,17 +2381,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_orders-orderID-refunds",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "post": {
@@ -3114,17 +2410,6 @@
                         "schema": {
                             "$ref": "#/definitions/refundstatusobj"
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "POST_orders-orderID-refunds",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -3160,17 +2445,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_orders-orderID-forman",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": true,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "patch": {
@@ -3186,17 +2460,6 @@
                 "responses": {
                     "default": {
                         "schema": {}
-                    }
-                },
-                "x-stoplight": {
-                    "id": "PATCH_orders-orderID-forman",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "dynamic": false,
-                        "statusCode": 200,
-                        "enabled": false
                     }
                 }
             }
@@ -3230,17 +2493,6 @@
                             "$ref": "#/definitions/customerobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "POST_customers",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "get": {
@@ -3261,17 +2513,6 @@
                                 "$ref": "#/definitions/customerobj"
                             }
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_customers",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -3305,17 +2546,6 @@
                             "$ref": "#/definitions/customerobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "POST_customer3rds",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -3347,17 +2577,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_customers-count",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -3386,17 +2605,6 @@
                         "schema": {
                             "$ref": "#/definitions/customerobj"
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_customers-customerID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": true,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             },
@@ -3428,17 +2636,6 @@
                             "$ref": "#/definitions/customerobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "PATCH_customers-customerID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -3465,17 +2662,6 @@
                 "responses": {
                     "default": {
                         "schema": {}
-                    }
-                },
-                "x-stoplight": {
-                    "id": "PATCH_customers-customerID-currentGeolocation",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -3509,17 +2695,6 @@
                             "$ref": "#/definitions/merchantobj"
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "POST_merchants",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             },
             "get": {
@@ -3549,17 +2724,6 @@
                         "schema": {
                             "$ref": "#/definitions/customerobj"
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_merchants",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -3592,17 +2756,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_merchants-count",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -3631,17 +2784,6 @@
                         "schema": {
                             "$ref": "#/definitions/merchantobj"
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_merchants-merchantID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": true,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             },
@@ -3672,17 +2814,6 @@
                         "schema": {
                             "$ref": "#/definitions/merchantobj"
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "PATCH_merchants-merchantID",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -3722,17 +2853,6 @@
                             }
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "GET_customerServices",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "dynamic": false,
-                        "statusCode": 200,
-                        "enabled": false
-                    }
                 }
             },
             "post": {
@@ -3768,17 +2888,6 @@
                         "schema": {
                             "$ref": "#/definitions/customerservicesobj"
                         }
-                    }
-                },
-                "x-stoplight": {
-                    "id": "POST_customerServices",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
                     }
                 }
             }
@@ -3841,17 +2950,6 @@
                             ]
                         }
                     }
-                },
-                "x-stoplight": {
-                    "id": "POST_authorization",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "enabled": false,
-                        "dynamic": false,
-                        "statusCode": 200
-                    }
                 }
             }
         },
@@ -3866,17 +2964,6 @@
                 "responses": {
                     "default": {
                         "schema": {}
-                    }
-                },
-                "x-stoplight": {
-                    "id": "GET_",
-                    "beforeScript": null,
-                    "afterScript": null,
-                    "public": true,
-                    "mock": {
-                        "statusCode": 200,
-                        "enabled": false,
-                        "dynamic": false
                     }
                 }
             }
@@ -4377,11 +3464,6 @@
                 "target": "customerService",
                 "value": "4",
                 "content": "非常好"
-            },
-            "x-stoplight": {
-                "id": "request_orders_order_appraise_post",
-                "name": "Request_Orders_Order_Appraise_Post",
-                "public": true
             }
         },
         "request_wordtimes_post": {
@@ -4414,12 +3496,7 @@
                 "endTime",
                 "week",
                 "maxCountOrder"
-            ],
-            "x-stoplight": {
-                "id": "request_wordtimes_post",
-                "name": "Request_WordTimes_Post",
-                "public": true
-            }
+            ]
         },
         "servicesobj": {
             "type": "object",
@@ -4545,11 +3622,6 @@
                 },
                 "eServiceTarget": "all",
                 "eSupportPayWay": "all"
-            },
-            "x-stoplight": {
-                "id": "servicesobj",
-                "name": "servicesObj",
-                "public": true
             }
         },
         "request_stores_store_patch": {
@@ -4623,11 +3695,6 @@
                 "location": {
                     "$ref": "#/definitions/locationobj"
                 }
-            },
-            "x-stoplight": {
-                "id": "request_stores_store_patch",
-                "name": "Request_Stores_Store_Patch",
-                "public": true
             }
         },
         "request_assigns_post": {
@@ -4645,12 +3712,7 @@
             "required": [
                 "staffID",
                 "orderID"
-            ],
-            "x-stoplight": {
-                "id": "request_assigns_post",
-                "name": "Request_Assigns_Post",
-                "public": true
-            }
+            ]
         },
         "storeobj": {
             "type": "object",
@@ -4788,11 +3850,6 @@
                     "longitude": "110.3283630000",
                     "address": "海南省海口"
                 }
-            },
-            "x-stoplight": {
-                "id": "storeobj",
-                "name": "storeObj",
-                "public": true
             }
         },
         "request_orders_order_confirmservice_put": {
@@ -4802,11 +3859,6 @@
                     "type": "string",
                     "description": "选择的服务 ID"
                 }
-            },
-            "x-stoplight": {
-                "id": "request_orders_order_confirmservice_put",
-                "name": "Request_Orders_Order_ConfirmService_Put",
-                "public": true
             }
         },
         "request_customers_customer_patch": {
@@ -4843,12 +3895,7 @@
             },
             "required": [
                 "oldPassWord"
-            ],
-            "x-stoplight": {
-                "id": "request_customers_customer_patch",
-                "name": "Request_Customers_Customer_Patch",
-                "public": true
-            }
+            ]
         },
         "request_customers_customer_geolocation_patch": {
             "type": "object",
@@ -4857,11 +3904,6 @@
                     "type": "string",
                     "description": "城市代码"
                 }
-            },
-            "x-stoplight": {
-                "id": "request_customers_customer_geolocation_patch",
-                "name": "Request_Customers_Customer_Geolocation_Patch",
-                "public": true
             }
         },
         "request_services_service_patch": {
@@ -4933,11 +3975,6 @@
                     "type": "string",
                     "description": "服务计费单位"
                 }
-            },
-            "x-stoplight": {
-                "id": "request_services_service_patch",
-                "name": "Request_Services_Service_Patch",
-                "public": true
             }
         },
         "request_customers_post": {
@@ -4960,12 +3997,7 @@
             "required": [
                 "phone",
                 "pWord"
-            ],
-            "x-stoplight": {
-                "id": "request_customers_post",
-                "name": "Request_Customers_Post",
-                "public": true
-            }
+            ]
         },
         "request_merchants_merchant_patch": {
             "type": "object",
@@ -4994,12 +4026,7 @@
             },
             "required": [
                 "oldPassword"
-            ],
-            "x-stoplight": {
-                "id": "request_merchants_merchant_patch",
-                "name": "Request_Merchants_Merchant_Patch",
-                "public": true
-            }
+            ]
         },
         "request_orders_order_refunds_post": {
             "type": "object",
@@ -5038,12 +4065,7 @@
                 "amount",
                 "resourcesUrls",
                 "action"
-            ],
-            "x-stoplight": {
-                "id": "request_orders_order_refunds_post",
-                "name": "Request_Orders_Order_Refunds_Post",
-                "public": true
-            }
+            ]
         },
         "request_stores_post": {
             "type": "object",
@@ -5065,12 +4087,7 @@
                 "name",
                 "introduction",
                 "storePhone"
-            ],
-            "x-stoplight": {
-                "id": "request_stores_post",
-                "name": "Request_Stores_Post",
-                "public": true
-            }
+            ]
         },
         "servicetypeobj": {
             "type": "object",
@@ -5099,11 +4116,6 @@
                 "id": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
                 "fullDescription": "保洁>洗衣",
                 "superID": "6F9619FF-8B86-D011-B42D-00C04FC964FF"
-            },
-            "x-stoplight": {
-                "id": "servicetypeobj",
-                "name": "serviceTypeObj",
-                "public": true
             }
         },
         "locationobj": {
@@ -5131,11 +4143,6 @@
                 "latitude": "20.0325660000",
                 "longitude": "110.3283630000",
                 "address": "海南省海涯国际大厦"
-            },
-            "x-stoplight": {
-                "id": "locationobj",
-                "name": "locationObj",
-                "public": true
             }
         },
         "refundstatusobj": {
@@ -5203,11 +4210,6 @@
                     "http://lorempixel.com/400/200/transport/5"
                 ],
                 "target": "customer"
-            },
-            "x-stoplight": {
-                "id": "refundstatusobj",
-                "name": "refundStatusObj",
-                "public": true
             }
         },
         "merchantobj": {
@@ -5251,11 +4253,6 @@
                 "email": "issumao@126.com",
                 "phone": "18889387688",
                 "imgUrl": "http://lorempixel.com/400/200/transport/1"
-            },
-            "x-stoplight": {
-                "id": "merchantobj",
-                "name": "merchantObj",
-                "public": true
             }
         },
         "customerservicesobj": {
@@ -5286,11 +4283,6 @@
                 "id": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
                 "alias": "小萌猫",
                 "imgUrl": "http://lorempixel.com/400/200/transport/3"
-            },
-            "x-stoplight": {
-                "id": "customerservicesobj",
-                "name": "customerServicesObj",
-                "public": true
             }
         },
         "orderobj": {
@@ -5516,11 +4508,6 @@
                     "address": "海南省海口市",
                     "sex": true
                 }
-            },
-            "x-stoplight": {
-                "id": "orderobj",
-                "name": "orderObj",
-                "public": true
             }
         },
         "request_merchants_post": {
@@ -5538,12 +4525,7 @@
             "required": [
                 "email",
                 "pWord"
-            ],
-            "x-stoplight": {
-                "id": "request_merchants_post",
-                "name": "Request_Merchants_Post",
-                "public": true
-            }
+            ]
         },
         "request_orders_order_currentstatus_patch": {
             "type": "object",
@@ -5552,11 +4534,6 @@
                     "type": "string",
                     "description": "新状态"
                 }
-            },
-            "x-stoplight": {
-                "id": "request_orders_order_currentstatus_patch",
-                "name": "Request_Orders_Order_CurrentStatus_Patch",
-                "public": true
             }
         },
         "request_orders_order_forman_patch": {
@@ -5569,12 +4546,7 @@
             },
             "required": [
                 "staffID"
-            ],
-            "x-stoplight": {
-                "id": "request_orders_order_forman_patch",
-                "name": "Request_Orders_Order_Forman_Patch",
-                "public": true
-            }
+            ]
         },
         "staffobj": {
             "type": "object",
@@ -5706,11 +4678,6 @@
                         "6F9619FF-8B86-D011-B42D-00C04FC964DD"
                     ]
                 }
-            },
-            "x-stoplight": {
-                "id": "staffobj",
-                "name": "staffObj",
-                "public": true
             }
         },
         "request_customer3rds_post": {
@@ -5730,11 +4697,6 @@
                     "type": "string",
                     "description": "平台 code"
                 }
-            },
-            "x-stoplight": {
-                "id": "request_customer3rds_post",
-                "name": "Request_Customer3rds_Post",
-                "public": true
             }
         },
         "request_orders_order_patch": {
@@ -5744,11 +4706,6 @@
                     "type": "string",
                     "description": "新备注"
                 }
-            },
-            "x-stoplight": {
-                "id": "request_orders_order_patch",
-                "name": "Request_Orders_Order_Patch",
-                "public": true
             }
         },
         "chatobj": {
@@ -5810,11 +4767,6 @@
                 "body": "How are you",
                 "type": "chat",
                 "sendTime": "20150616222300"
-            },
-            "x-stoplight": {
-                "id": "chatobj",
-                "name": "chatObj",
-                "public": true
             }
         },
         "request_worktimes_worktime_patch": {
@@ -5844,11 +4796,6 @@
                     "type": "string",
                     "description": "该时间段的最大接单量"
                 }
-            },
-            "x-stoplight": {
-                "id": "request_worktimes_worktime_patch",
-                "name": "Request_WorkTimes_WorkTime_Patch",
-                "public": true
             }
         },
         "servicesnapshotobj": {
@@ -5982,11 +4929,6 @@
                 "eServiceTarget": "all",
                 "eSupportPayWay": "all",
                 "originalServiceID": "6F9619FF-8B86-D011-B42D-00C04FC964FF"
-            },
-            "x-stoplight": {
-                "id": "servicesnapshotobj",
-                "name": "serviceSnapshotObj",
-                "public": true
             }
         },
         "request_staffs_post": {
@@ -6035,11 +4977,6 @@
                     "type": "string",
                     "description": "身份证号"
                 }
-            },
-            "x-stoplight": {
-                "id": "request_staffs_post",
-                "name": "Request_Staffs_Post",
-                "public": true
             }
         },
         "request_customerservices_post": {
@@ -6070,12 +5007,7 @@
                 "pWord",
                 "alias",
                 "imgUrl"
-            ],
-            "x-stoplight": {
-                "id": "request_customerservices_post",
-                "name": "Request_CustomerServices_Post",
-                "public": true
-            }
+            ]
         },
         "request_services_post": {
             "type": "object",
@@ -6146,11 +5078,6 @@
                     "type": "string",
                     "description": "服务计费单位"
                 }
-            },
-            "x-stoplight": {
-                "id": "request_services_post",
-                "name": "Request_Services_Post",
-                "public": true
             }
         },
         "payobj": {
@@ -6210,11 +5137,6 @@
                 "type": "deposit",
                 "updateTime": "20151116120059",
                 "bOnline": true
-            },
-            "x-stoplight": {
-                "id": "payobj",
-                "name": "payObj",
-                "public": true
             }
         },
         "request_apps_post": {
@@ -6244,12 +5166,7 @@
             "required": [
                 "appName",
                 "appToken"
-            ],
-            "x-stoplight": {
-                "id": "request_apps_post",
-                "name": "Request_Apps_Post",
-                "public": true
-            }
+            ]
         },
         "request_apps_app_patch": {
             "type": "object",
@@ -6258,11 +5175,6 @@
                     "type": "string",
                     "description": "推送计数"
                 }
-            },
-            "x-stoplight": {
-                "id": "request_apps_app_patch",
-                "name": "Request_Apps_App_Patch",
-                "public": true
             }
         },
         "snapshotsobj": {
@@ -6413,11 +5325,6 @@
                     "bOpen": true,
                     "maxCountOrder": "21"
                 }
-            },
-            "x-stoplight": {
-                "id": "snapshotsobj",
-                "name": "snapshotsObj",
-                "public": true
             }
         },
         "request_complaints_post": {
@@ -6452,12 +5359,7 @@
                 "target",
                 "content",
                 "resourcesUrls"
-            ],
-            "x-stoplight": {
-                "id": "request_complaints_post",
-                "name": "Request_Complaints_Post",
-                "public": true
-            }
+            ]
         },
         "linkmanobj": {
             "type": "object",
@@ -6500,11 +5402,6 @@
                 "phone": "18889387688",
                 "address": "海南省海口市",
                 "sex": true
-            },
-            "x-stoplight": {
-                "id": "linkmanobj",
-                "name": "linkManObj",
-                "public": true
             }
         },
         "worktimeobj": {
@@ -6558,11 +5455,6 @@
                 "week": "1",
                 "bOpen": true,
                 "maxCountOrder": "21"
-            },
-            "x-stoplight": {
-                "id": "worktimeobj",
-                "name": "workTimeObj",
-                "public": true
             }
         },
         "orderstatusobj": {
@@ -6603,11 +5495,6 @@
                 "lastStatus": "",
                 "title": "确定服务",
                 "content": "等待用户确定服务222"
-            },
-            "x-stoplight": {
-                "id": "orderstatusobj",
-                "name": "orderStatusObj",
-                "public": true
             }
         },
         "cityobj": {
@@ -6636,11 +5523,6 @@
                 "name": "天津",
                 "key": "热门",
                 "code": "xxx"
-            },
-            "x-stoplight": {
-                "id": "cityobj",
-                "name": "cityObj",
-                "public": true
             }
         },
         "assignobj": {
@@ -6671,11 +5553,6 @@
                 "staffID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
                 "orderID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
                 "createTime": "20151116120059"
-            },
-            "x-stoplight": {
-                "id": "assignobj",
-                "name": "assignObj",
-                "public": true
             }
         },
         "customerobj": {
@@ -6733,11 +5610,6 @@
                 "imgUrl": "http://lorempixel.com/400/200/transport/0",
                 "address": "海南省海口市",
                 "sex": true
-            },
-            "x-stoplight": {
-                "id": "customerobj",
-                "name": "customerObj",
-                "public": true
             }
         },
         "complaintobj": {
@@ -6803,11 +5675,6 @@
                     "http://lorempixel.com/400/200/transport/5"
                 ],
                 "status": "Complaints"
-            },
-            "x-stoplight": {
-                "id": "complaintobj",
-                "name": "complaintObj",
-                "public": true
             }
         },
         "request_pays_pay_patch": {
@@ -6817,11 +5684,6 @@
                     "type": "boolean",
                     "description": "新支付方式（true Or false）（线上或线下）"
                 }
-            },
-            "x-stoplight": {
-                "id": "request_pays_pay_patch",
-                "name": "Request_Pays_Pay_Patch",
-                "public": true
             }
         },
         "adobj": {
@@ -6857,11 +5719,6 @@
                 "url": "http://i-guess.cn",
                 "num": "3",
                 "updateTime": "20151111120012"
-            },
-            "x-stoplight": {
-                "id": "adobj",
-                "name": "adObj",
-                "public": true
             }
         },
         "request_staffs_staff_patch": {
@@ -6902,11 +5759,6 @@
                     "type": "string",
                     "description": "身份证号"
                 }
-            },
-            "x-stoplight": {
-                "id": "request_staffs_staff_patch",
-                "name": "Request_Staffs_Staff_Patch",
-                "public": true
             }
         },
         "remindobj": {
@@ -6954,940 +5806,7 @@
                 "content": "默认提醒内容",
                 "bOpen": true,
                 "orderID": "6F9619FF-8B86-D011-B42D-00C04FC964FF"
-            },
-            "x-stoplight": {
-                "id": "remindobj",
-                "name": "remindObj",
-                "public": true
             }
         }
-    },
-    "x-stoplight": {
-        "beforeScript": "function(ctx, request) {\n  // This runs your endpoint middleware before script, if applicable.\n  // Removing this means your endpoint before scripts will not be run!\n  SL.runEndpoint();\n}",
-        "afterScript": "function(ctx, request, response) {\n  // This runs your endpoint middleware after script, if applicable.\n  // Removing this means your endpoint after scripts will not be run!\n  SL.runEndpoint();\n}",
-        "version": {
-            "groups": {
-                "docs": [
-                    {
-                        "items": [],
-                        "divider": true,
-                        "name": "Assign"
-                    },
-                    {
-                        "divider": true,
-                        "name": "Snapshot",
-                        "items": []
-                    },
-                    {
-                        "divider": false,
-                        "name": "Snapshots",
-                        "items": [
-                            {
-                                "type": "endpoints",
-                                "_id": "GET_snapshots-serviceID"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Location",
-                        "items": [],
-                        "divider": true
-                    },
-                    {
-                        "name": "Citys",
-                        "items": [
-                            {
-                                "_id": "GET_citys",
-                                "type": "endpoints"
-                            }
-                        ],
-                        "divider": false
-                    },
-                    {
-                        "name": "Citys/City",
-                        "items": [
-                            {
-                                "_id": "GET_citys-code",
-                                "type": "endpoints"
-                            }
-                        ],
-                        "divider": false
-                    },
-                    {
-                        "items": [],
-                        "divider": true,
-                        "name": "Complaint"
-                    },
-                    {
-                        "divider": false,
-                        "name": "Complaints",
-                        "items": [
-                            {
-                                "_id": "POST_complaints",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_complaints",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_complaints-count",
-                                "type": "endpoints"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Complaints/Complaint",
-                        "items": [
-                            {
-                                "_id": "GET_complaints-complaintID",
-                                "type": "endpoints"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "AD",
-                        "items": [],
-                        "divider": true
-                    },
-                    {
-                        "name": "ADs",
-                        "items": [
-                            {
-                                "_id": "GET_ads",
-                                "type": "endpoints"
-                            }
-                        ],
-                        "divider": false
-                    },
-                    {
-                        "name": "App",
-                        "items": [],
-                        "divider": true
-                    },
-                    {
-                        "name": "Apps",
-                        "items": [
-                            {
-                                "_id": "POST_apps-appUUID",
-                                "type": "endpoints"
-                            }
-                        ],
-                        "divider": false
-                    },
-                    {
-                        "name": "Apps/App",
-                        "items": [
-                            {
-                                "_id": "DELETE_apps-appUUID",
-                                "type": "endpoints"
-                            },
-                            {
-                                "type": "endpoints",
-                                "_id": "PATCH_apps-appUUID"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Remind",
-                        "items": [],
-                        "divider": true
-                    },
-                    {
-                        "name": "Reminds",
-                        "items": [
-                            {
-                                "_id": "GET_reminds",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_reminds-count",
-                                "type": "endpoints"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Reminds/Remind",
-                        "items": [
-                            {
-                                "_id": "GET_reminds-remindID",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "DELETE_reminds-remindID",
-                                "type": "endpoints"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "WorkTime",
-                        "items": [],
-                        "divider": true
-                    },
-                    {
-                        "name": "Service/WorkTimes",
-                        "items": [
-                            {
-                                "_id": "POST_stores-storeID-services-serviceID-workTimes",
-                                "type": "endpoints"
-                            },
-                            {
-                                "type": "endpoints",
-                                "_id": "GET_stores-storeID-services-serviceID-workTimes"
-                            },
-                            {
-                                "_id": "GET_stores-storeID-services-serviceID-workTimes-count",
-                                "type": "endpoints"
-                            }
-                        ],
-                        "divider": false
-                    },
-                    {
-                        "name": "Service/WorkTimes/WorkTime",
-                        "items": [
-                            {
-                                "_id": "GET_stores-storeID-services-serviceID-workTimes-workTimeID",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "PATCH_stores-storeID-services-serviceID-workTimes-workTimeID",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "DELETE_stores-storeID-services-serviceID-workTimes-workTimeID",
-                                "type": "endpoints"
-                            }
-                        ],
-                        "divider": false
-                    },
-                    {
-                        "name": "AllServiceTypes",
-                        "items": [],
-                        "divider": true
-                    },
-                    {
-                        "divider": false,
-                        "name": "AllServiceTypes",
-                        "items": [
-                            {
-                                "_id": "GET_allServiceTypes",
-                                "type": "endpoints"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Service",
-                        "items": [],
-                        "divider": true
-                    },
-                    {
-                        "name": "Stores/Store/Services",
-                        "items": [
-                            {
-                                "_id": "POST_stores-storeID-services",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_stores-storeID-services",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_stores-storeID-services-count",
-                                "type": "endpoints"
-                            }
-                        ],
-                        "divider": false
-                    },
-                    {
-                        "items": [
-                            {
-                                "_id": "GET_stores-storeID-services-serviceID",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "PATCH_stores-storeID-services-serviceID",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "DELETE_stores-storeID-services-serviceID",
-                                "type": "endpoints"
-                            }
-                        ],
-                        "name": "Stores/Store/Services/Service"
-                    },
-                    {
-                        "name": "Staff",
-                        "items": [],
-                        "divider": true
-                    },
-                    {
-                        "divider": false,
-                        "name": "Stores/Store/Staffs",
-                        "items": [
-                            {
-                                "_id": "POST_stores-storeID-staffs",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_stores-storeID-staffs",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_stores-storeID-staffs-count",
-                                "type": "endpoints"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Stores/Store/Staffs/Staff",
-                        "items": [
-                            {
-                                "_id": "GET_stores-storeID-staffs-staffID",
-                                "type": "endpoints"
-                            },
-                            {
-                                "type": "endpoints",
-                                "_id": "PATCH_stores-storeID-staffs-staffID"
-                            },
-                            {
-                                "_id": "DELETE_stores-storeID-staffs-staffID",
-                                "type": "endpoints"
-                            }
-                        ]
-                    },
-                    {
-                        "divider": true,
-                        "name": "Store",
-                        "items": []
-                    },
-                    {
-                        "items": [
-                            {
-                                "_id": "GET_allStores",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_allStores-count",
-                                "type": "endpoints"
-                            }
-                        ],
-                        "name": "AllStores"
-                    },
-                    {
-                        "name": "Stores",
-                        "items": [
-                            {
-                                "_id": "POST_stores",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_stores",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_stores-count",
-                                "type": "endpoints"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Stores/Store",
-                        "items": [
-                            {
-                                "_id": "GET_stores-storeID",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "PATCH_stores-storeID",
-                                "type": "endpoints"
-                            },
-                            {
-                                "type": "endpoints",
-                                "_id": "DELETE_stores-storeID"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Pay",
-                        "items": [],
-                        "divider": true
-                    },
-                    {
-                        "name": "Orders/Order/Pays",
-                        "items": [
-                            {
-                                "_id": "GET_Orders-orderID-Pays",
-                                "type": "endpoints"
-                            },
-                            {
-                                "type": "endpoints",
-                                "_id": "GET_orders-orderID-pays-count"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Orders/Order/Pays/Pay",
-                        "items": [
-                            {
-                                "_id": "GET_orders-orderID-pays-payID",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "PATCH_orders-orderID-pays-payID",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_orders-orderID-pays-payID-pay3rdString",
-                                "type": "endpoints"
-                            }
-                        ]
-                    },
-                    {
-                        "items": [],
-                        "divider": true,
-                        "name": "Chat"
-                    },
-                    {
-                        "divider": false,
-                        "name": "AllChats",
-                        "items": [
-                            {
-                                "_id": "GET_AllChats",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_allChats-count",
-                                "type": "endpoints"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Orders/Order/Chats",
-                        "items": [
-                            {
-                                "_id": "GET_orders-orderID-Chats",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_orders-orderID-chats-count",
-                                "type": "endpoints"
-                            }
-                        ],
-                        "divider": false
-                    },
-                    {
-                        "name": "Order",
-                        "items": [],
-                        "divider": true
-                    },
-                    {
-                        "name": "Orders",
-                        "items": [
-                            {
-                                "_id": "GET_orders-",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_orders-count",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_orders-verify",
-                                "type": "endpoints"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Orders/Order",
-                        "items": [
-                            {
-                                "_id": "GET_orders-orderID",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_orders-orderID-allStatusList",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "PATCH_orders-orderID",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_orders-orderID-pushServices",
-                                "type": "endpoints"
-                            },
-                            {
-                                "type": "endpoints",
-                                "_id": "PUT_orders-orderID-confirmService"
-                            },
-                            {
-                                "_id": "PUT_orders-orderID-appraise",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_orders-orderID-linkMan",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "PATCH_orders-orderID-negotiateAmount",
-                                "type": "endpoints"
-                            }
-                        ],
-                        "divider": false
-                    },
-                    {
-                        "name": "Orders/Order/CurrentStatus",
-                        "items": [
-                            {
-                                "_id": "PATCH_orders-orderID-currentStatus",
-                                "type": "endpoints"
-                            }
-                        ],
-                        "divider": false
-                    },
-                    {
-                        "name": "Orders/Order/Refunds",
-                        "items": [
-                            {
-                                "_id": "GET_orders-orderID-refunds",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "POST_orders-orderID-refunds",
-                                "type": "endpoints"
-                            }
-                        ],
-                        "divider": false
-                    },
-                    {
-                        "name": "Orders/Order/Forman",
-                        "items": [
-                            {
-                                "_id": "GET_orders-orderID-forman",
-                                "type": "endpoints"
-                            },
-                            {
-                                "type": "endpoints",
-                                "_id": "PATCH_orders-orderID-forman"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Customer",
-                        "items": [],
-                        "divider": true
-                    },
-                    {
-                        "name": "Customers & 3rds",
-                        "items": [
-                            {
-                                "_id": "POST_customers",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_customers",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "POST_customer3rds",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_customers-count",
-                                "type": "endpoints"
-                            }
-                        ],
-                        "divider": false,
-                        "description": "客户合集"
-                    },
-                    {
-                        "name": "Customers/Customer",
-                        "items": [
-                            {
-                                "_id": "GET_customers-customerID",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "PATCH_customers-customerID",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "PATCH_customers-customerID-currentGeolocation",
-                                "type": "endpoints"
-                            }
-                        ],
-                        "divider": false
-                    },
-                    {
-                        "name": "Merchants",
-                        "items": [
-                            {
-                                "_id": "POST_merchants",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_merchants",
-                                "type": "endpoints"
-                            },
-                            {
-                                "type": "endpoints",
-                                "_id": "GET_merchants-count"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Merchants/Merchant",
-                        "items": [
-                            {
-                                "_id": "GET_merchants-merchantID",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "PATCH_merchants-merchantID",
-                                "type": "endpoints"
-                            }
-                        ],
-                        "divider": false
-                    },
-                    {
-                        "name": "CustomerServices",
-                        "items": [
-                            {
-                                "type": "endpoints",
-                                "_id": "GET_customerServices"
-                            },
-                            {
-                                "_id": "POST_customerServices",
-                                "type": "endpoints"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Common",
-                        "items": [],
-                        "divider": true
-                    },
-                    {
-                        "name": "Model",
-                        "items": [
-                            {
-                                "type": "schemas",
-                                "_id": "customerobj"
-                            },
-                            {
-                                "_id": "merchantobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "staffobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "customerservicesobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "storeobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "orderobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "orderstatusobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "type": "schemas",
-                                "_id": "servicesobj"
-                            },
-                            {
-                                "_id": "servicesnapshotobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "servicetypeobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "chatobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "type": "schemas",
-                                "_id": "cityobj"
-                            },
-                            {
-                                "_id": "adobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "complaintobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "remindobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "refundstatusobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "worktimeobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "type": "schemas",
-                                "_id": "payobj"
-                            },
-                            {
-                                "_id": "assignobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "snapshotsobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "locationobj",
-                                "type": "schemas"
-                            },
-                            {
-                                "type": "schemas",
-                                "_id": "linkmanobj"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "RequestCommon",
-                        "items": [
-                            {
-                                "_id": "request_complaints_post",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_apps_post",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_apps_app_patch",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_assigns_post",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_wordtimes_post",
-                                "type": "schemas"
-                            },
-                            {
-                                "type": "schemas",
-                                "_id": "request_worktimes_worktime_patch"
-                            },
-                            {
-                                "_id": "request_services_post",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_services_service_patch",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_staffs_post",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_staffs_staff_patch",
-                                "type": "schemas"
-                            },
-                            {
-                                "type": "schemas",
-                                "_id": "request_stores_post"
-                            },
-                            {
-                                "_id": "request_stores_store_patch",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_pays_pay_patch",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_orders_order_patch",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_orders_order_confirmservice_put",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_orders_order_appraise_post",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_orders_order_currentstatus_patch",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_orders_order_refunds_post",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_orders_order_forman_patch",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_customers_post",
-                                "type": "schemas"
-                            },
-                            {
-                                "type": "schemas",
-                                "_id": "request_customer3rds_post"
-                            },
-                            {
-                                "_id": "request_customers_customer_patch",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_customers_customer_geolocation_patch",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_merchants_post",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_merchants_merchant_patch",
-                                "type": "schemas"
-                            },
-                            {
-                                "_id": "request_customerservices_post",
-                                "type": "schemas"
-                            }
-                        ],
-                        "divider": false
-                    },
-                    {
-                        "items": [
-                            {
-                                "_id": "POST_authorization",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "GET_",
-                                "type": "endpoints"
-                            },
-                            {
-                                "_id": "commonTrait400Rsponses",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitSimpleHeaders",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "Gq3tRwzqaBL5vXaua",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitHeaders",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitUserFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitOrderFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitChatFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitAllChatFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitPayFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitStoreFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitAllStoreFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitStaffFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitServiceFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "type": "traits",
-                                "_id": "commonTraitWorkTimeFiltering"
-                            },
-                            {
-                                "_id": "commonTraitAssignFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitRemindFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitAdFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitComplainFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitLocationFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitSnapshotFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "_id": "commonTraitRefundFiltering",
-                                "type": "traits"
-                            },
-                            {
-                                "type": "traits",
-                                "_id": "89vtnsg2tZqgiJk9h"
-                            },
-                            {
-                                "_id": "commonTraitAllServiceTypeFiltering",
-                                "type": "traits"
-                            }
-                        ],
-                        "name": "Common"
-                    }
-                ]
-            }
-        },
-        "functions": {},
-        "textSections": {},
-        "mock": {
-            "enabled": true,
-            "dynamic": false
-        }
-    },
-    "x-tests": {}
+    }
 }

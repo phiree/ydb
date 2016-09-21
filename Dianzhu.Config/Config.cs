@@ -31,6 +31,7 @@ namespace Dianzhu.Config
 
         //配置访问协议(http/https)的访问端口
         static int PortFirst = int.Parse(ConfigurationManager.AppSettings["PortFirst"]);
+        static string strHttp = PortFirst == 8 ? "http" : "https";
 
 
         static Dictionary<string, KeyValuePair<string, string>> DictsDianDianLogins = new Dictionary<string, KeyValuePair<string, string>>() {
@@ -66,15 +67,17 @@ namespace Dianzhu.Config
 
             , {"PaySite",BuildHttpUrlString(PayServers[int.Parse(ConfigurationManager.AppSettings["PayServerNum"])],PortFirst*1000+168)   }
 
-            , {"OpenfireRestApiBaseUrl",BuildHttpUrlString(IMServer, 9090,"plugins/restapi/v1/")  }
+ 
+            , {"OpenfireRestApiBaseUrl","https://dev.ydban.cn:9091/plugins/restapi/v1/sessions/" }   
+ 
 
             , {"DiandianLoginId",DictsDianDianLogins[IMNotifyServer].Key}
             , {"DiandianLoginPwd",DictsDianDianLogins[IMNotifyServer].Value  }
             , {"APIBaseURL",BuildHttpUrlString(HttpApiServer, PortFirst*1000+37,"DianzhuApi.ashx")  }
             
             , {"NotifyServer",BuildHttpUrlString(IMNotifyServer, PortFirst*1000+39, "IMServerAPI.ashx?")   }
-            , {"BaiduGeocodingAPI","https://api.map.baidu.com/geocoder/v2/?ak=&s=1"  }//http://api.map.baidu.com/geocoder/v2/?ak=
-            , {"BaiduTranAPI","https://api.map.baidu.com/geoconv/v1/?ak=&s=1"  }//http://api.map.baidu.com/geoconv/v1/?ak=
+            , {"BaiduGeocodingAPI","https://api.map.baidu.com/geocoder/v2/?s=1&ak="  }//http://api.map.baidu.com/geocoder/v2/?ak=
+            , {"BaiduTranAPI","https://api.map.baidu.com/geoconv/v1/?s=1&ak="  }//http://api.map.baidu.com/geoconv/v1/?ak=
             , {"BaiduGeocodingAK","SDHO8UtRNvOl4Cc29KA74UxF"  }
             , {"BaiduTranAK","McW4pZayH2PZyWqczoqj2xaV"  }
             , {"LocalMediaSaveDir","/localmedia/"  }
@@ -101,19 +104,19 @@ namespace Dianzhu.Config
 
         static private string BuildHttpUrlString(string server)
         {
-            return string.Format("http://{0}/", server);
+            return string.Format(strHttp+"://{0}/", server);
         }
         static private string BuildHttpUrlString(string server, int port)
         {
-            return string.Format("http://{0}:{1}/", server, port);
+            return string.Format(strHttp + "://{0}:{1}/", server, port);
         }
         static private string BuildHttpUrlString(string server, string path)
         {
-            return string.Format("http://{0}/{1}", server, path);
+            return string.Format(strHttp + "://{0}/{1}", server, path);
         }
         static private string BuildHttpUrlString(string server, int port, string path)
         {
-            return string.Format("http://{0}:{1}/{2}", server, port, path);
+            return string.Format(strHttp + "://{0}:{1}/{2}", server, port, path);
         }
         public static string GetAppSetting(string key)
         {

@@ -143,5 +143,37 @@ namespace Dianzhu.ApplicationService.Chat
             c.count = bllChat.GetChatsCount(chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer, customer.UserType).ToString();
             return c;
         }
+
+        /// <summary>
+        /// 条件读取所有未读聊天记录
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public IList<chatObj> GetAllUnreadChats(Customer customer)
+        {
+            Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
+            IList<Model.ReceptionChat> chat = null;
+            chat = bllChat.GetUnreadChats(guidCustomer);
+            if (chat == null)
+            {
+                //throw new Exception(Dicts.StateCode[4]);
+                return new List<chatObj>();
+            }
+            IList<chatObj> staffobj = Mapper.Map<IList<Model.ReceptionChat>, IList<chatObj>>(chat);
+            return staffobj;
+        }
+
+        /// <summary>
+        /// 统计所有未读聊天信息的数量
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public countObj GetAllUnreadChatsCount(Customer customer)
+        {
+            Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
+            countObj c = new countObj();
+            c.count = bllChat.GetUnreadChatsCount(guidCustomer).ToString();
+            return c;
+        }
     }
 }

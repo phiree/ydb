@@ -297,7 +297,7 @@
 
                                                     <div class="row model-form-group">
                                                         <div class="col-md-12">
-                                                            <div id="workTimeSet">
+                                                            <div id="workTimeSet" class="scrollbar-inner">
 
                                                             </div>
                                                             <p class="cont-input-tip"><i class="icon icon-tip"></i>请选择该服务的服务时段</p>

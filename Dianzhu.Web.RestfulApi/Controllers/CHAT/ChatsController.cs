@@ -116,5 +116,42 @@ namespace Dianzhu.Web.RestfulApi.Controllers.CHAT
                 return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
             }
         }
+
+        /// <summary>
+        /// 条件读取所有聊天记录
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="chatfilter"></param>
+        /// <returns></returns>
+        [Route("api/v1/allUnreadChats")]
+        public IHttpActionResult GetAllUnreadChats()
+        {
+            try
+            {
+                return Json(ichat.GetAllUnreadChats( GetRequestHeader.GetTraitHeaders("get/allUnreadChats")));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
+        /// 统计所有聊天信息的数量
+        /// </summary>
+        /// <param name="chatfilter"></param>
+        /// <returns></returns>
+        [Route("api/v1/allUnreadChats/count")]
+        public IHttpActionResult GetAllUnreadChatsCount()
+        {
+            try
+            {
+                return Json(ichat.GetAllUnreadChatsCount(GetRequestHeader.GetTraitHeaders("get/allUnreadChats/count")));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
     }
 }

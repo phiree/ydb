@@ -153,7 +153,7 @@ namespace Dianzhu.DAL
             var query = Session.Query<TEntity>().Where(where);
             totalRecords = query.Count();
             //排序
-            if (sortBy != "")
+            if ( !string.IsNullOrEmpty(sortBy))
             {
                 query = query.OrderBy(sortBy, ascending);
             }
