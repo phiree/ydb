@@ -170,7 +170,7 @@ namespace Dianzhu.NotifyCenter
             string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
             string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{1}"" from = ""{0}"">
                                                   <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:cer:offline""></ext></message>",
-                                              cs.Id , "c64d9dda-4f6e-437b-89d2-a591012d8c65@" + server, Guid.NewGuid());
+                                              cs.Id, Dianzhu.Config.Config.GetAppSetting("DiandianLoginId") + "@" + server, Guid.NewGuid());
             im.SendMessage(noticeDraftNew);
 
             Dictionary<DZMembership, DZMembership> reassignList = assigner.AssignCSLogoff(cs);
