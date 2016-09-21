@@ -74,8 +74,8 @@ namespace Dianzhu.Config
             , {"APIBaseURL",BuildHttpUrlString(HttpApiServer, PortFirst*1000+37,"DianzhuApi.ashx")  }
             
             , {"NotifyServer",BuildHttpUrlString(IMNotifyServer, PortFirst*1000+39, "IMServerAPI.ashx?")   }
-            , {"BaiduGeocodingAPI","https://api.map.baidu.com/geocoder/v2/?ak=&s=1"  }//http://api.map.baidu.com/geocoder/v2/?ak=
-            , {"BaiduTranAPI","https://api.map.baidu.com/geoconv/v1/?ak=&s=1"  }//http://api.map.baidu.com/geoconv/v1/?ak=
+            , {"BaiduGeocodingAPI","https://api.map.baidu.com/geocoder/v2/?s=1&ak="  }//http://api.map.baidu.com/geocoder/v2/?ak=
+            , {"BaiduTranAPI","https://api.map.baidu.com/geoconv/v1/?s=1&ak="  }//http://api.map.baidu.com/geoconv/v1/?ak=
             , {"BaiduGeocodingAK","SDHO8UtRNvOl4Cc29KA74UxF"  }
             , {"BaiduTranAK","McW4pZayH2PZyWqczoqj2xaV"  }
             , {"LocalMediaSaveDir","/localmedia/"  }
