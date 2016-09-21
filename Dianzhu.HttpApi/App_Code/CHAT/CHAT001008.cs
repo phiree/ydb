@@ -34,7 +34,7 @@ public class ResponseCHAT001008:BaseResponse
             {
                 dalChat.Add(chat);
                 //离线推送
-             
+               
                 bllPush.Push(chat, new Guid( chat.ToId), chat.SessionId);
             }
             else

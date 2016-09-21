@@ -25,6 +25,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.ChatTarget).CustomType<Model.Enums.enum_ChatTarget>();
             Map(x => x.FromResource).CustomType<Model.Enums.enum_XmppResource>();
             Map(x => x.ToResource).CustomType<Model.Enums.enum_XmppResource>();
+            Map(x => x.IsReaded);
         }
     }
  

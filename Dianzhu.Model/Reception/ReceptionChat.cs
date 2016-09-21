@@ -42,6 +42,8 @@ namespace Dianzhu.Model
             this.ToResource = resourceTo;
             this.SessionId = sessionId;
             this.ChatType = chatType;
+            this.IsReaded = true;
+
 
 
             if (FromResource == enum_XmppResource.YDBan_CustomerService || ToResource == enum_XmppResource.YDBan_CustomerService)
@@ -81,6 +83,7 @@ namespace Dianzhu.Model
         public virtual enum_XmppResource FromResource { get; protected internal set; }//from 的资源名
         public virtual enum_XmppResource ToResource { get; protected internal set; }//to 的资源名
 
+        public virtual bool IsReaded { get; protected internal set; }
         public virtual bool IsfromCustomerService
         {
             get
@@ -92,6 +95,14 @@ namespace Dianzhu.Model
         public virtual void SetReceiveTime(DateTime receiveTime)
         {
             this.ReceiveTime = receiveTime;
+        }
+        public virtual void SetUnread()
+        {
+            this.IsReaded = false;
+        }
+        public virtual void SetReaded()
+        {
+            this.IsReaded = true;
         }
 
 

@@ -153,7 +153,7 @@ namespace Dianzhu.ApplicationService.Chat
         {
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
             IList<Model.ReceptionChat> chat = null;
-            chat = bllChat.GetUnreadChats(guidCustomer);
+            chat = bllChat.GetUnreadChatsAndSetReaded(guidCustomer);
             if (chat == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);

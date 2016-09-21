@@ -184,13 +184,17 @@ namespace Dianzhu.BLL
         /// <param name="userID"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        public IList<ReceptionChat> GetUnreadChats( Guid userID)
+        public IList<ReceptionChat> GetUnreadChatsAndSetReaded( Guid userID)
         {
             var where = PredicateBuilder.True<ReceptionChat>();
             where = where.And(x => x.ToId== userID.ToString());
-            where = where.And(x => false);
+            where = where.And(x => x.IsReaded==false);
             long t = 0;
             var list =  DALReceptionChat.Find(where).ToList();
+            foreach (var chat in list)
+            {
+                chat.SetReaded();
+            }
             return list;
         }
 
@@ -207,7 +211,7 @@ namespace Dianzhu.BLL
         {
             var where = PredicateBuilder.True<ReceptionChat>();
             where = where.And(x => x.ToId == userID.ToString());
-            where = where.And(x => false);
+            where = where.And(x => x.IsReaded == false);
             long count = DALReceptionChat.GetRowCount(where);
             return count;
  

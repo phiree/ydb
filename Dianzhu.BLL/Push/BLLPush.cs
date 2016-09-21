@@ -45,6 +45,7 @@ namespace Dianzhu.BLL
                 log.Debug("用户在线,不推送");
                 return;
             }
+            chat.SetUnread();
 
             string pushMessage = string.Empty;
             PushType pushType;
