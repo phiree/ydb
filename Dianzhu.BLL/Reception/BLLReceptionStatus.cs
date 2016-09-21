@@ -5,6 +5,10 @@ using System.Text;
 using Dianzhu.DAL;
 using Dianzhu.Model;
 using System.Diagnostics;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
+
 namespace Dianzhu.BLL
 {
     public class BLLReceptionStatus
@@ -354,6 +358,7 @@ namespace Dianzhu.BLL
 
         public IList<OnlineUserSession> GetOnlineSessionUser()
         {
+            ServicePointManager.ServerCertificateValidationCallback = ValidateServerCertificate;
             System.Net.WebClient wc = new System.Net.WebClient();
             Uri uri = new Uri(restApiUrl);
             string host = uri.Host;
@@ -380,6 +385,11 @@ namespace Dianzhu.BLL
                 return new List<OnlineUserSession>(new OnlineUserSession[] { sessionResult.session });
             }
 
+
+        }
+        private static bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
         }
         public IList<OnlineUserSession> GetOnlineSessionUser(string xmppResource)
         {

@@ -171,6 +171,7 @@
     <Compile Include="ExcelImportTest.cs" />
     <Compile Include="Push\BLLPushTests.cs" />
     <Compile Include="Reception\BLLReceptionTests.cs" />
+    <Compile Include="Reception\IMSessionsOpenfireTests.cs" />
     <Compile Include="RespDataSHM_snapshotObjTests.cs" />
     <Compile Include="SecurityTest.cs" />
     <Compile Include="SerialNo\SerialNoDbTests.cs" />
