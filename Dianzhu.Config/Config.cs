@@ -68,7 +68,7 @@ namespace Dianzhu.Config
             , {"PaySite",BuildHttpUrlString(PayServers[int.Parse(ConfigurationManager.AppSettings["PayServerNum"])],PortFirst*1000+168)   }
 
  
-            , {"OpenfireRestApiBaseUrl","https://dev.ydban.cn:9091/plugins/restapi/v1/sessions/" }   
+            , {"OpenfireRestApiBaseUrl","http://localhost:9090/plugins/restapi/v1/" }   
  
 
             , {"DiandianLoginId",DictsDianDianLogins[IMNotifyServer].Key}

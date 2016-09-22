@@ -102,6 +102,41 @@ namespace Dianzhu.DAL
 
             return Find(x => x.CustomerService.Id == diandian.Id).OrderBy(x => x.LastUpdateTime).Take(num).ToList();
         }
+        public virtual IList<ReceptionStatus> GetRSListByDiandianAndUpdate(DZMembership diandian, int num,DZMembership customerService)
+        {
+            //string queryList = @"select rs from ReceptionStatus rs "
+            //                   + " inner join rs.CustomerService cs "
+            //                   + " where cs.Id='" + diandian.Id + "' ";
+            //var rsList = Session.CreateQuery(queryList).SetFirstResult(0).SetMaxResults(num).List<ReceptionStatus>();
+            //if(rsList.Count()>0)
+            //{ 
+            //var qryUpdate = Session.CreateQuery( @"update   ReceptionStatus   set  CustomerService.Id=:csId"
+            //        + " where  Customer.Id in (:customerList)");
+            //qryUpdate.SetParameter("csId", customerService.Id);
+            //qryUpdate.SetParameterList("customerList", rsList.Select(x => x.Customer.Id));
+            //qryUpdate.ExecuteUpdate();
+
+
+            //    string queryList2 = @"select rs from ReceptionStatus rs "
+            //                   + " inner join rs.CustomerService cs "
+            //                   + " where cs.Id='" + customerService.Id + "' ";
+            //    rsList = Session.CreateQuery(queryList2).SetFirstResult(0).SetMaxResults(num).List<ReceptionStatus>();
+
+            //}
+
+            string sql = string.Format(@"UPDATE receptionstatus SET customerservice_id='{0}'
+                    WHERE customerservice_id = '{1}' LIMIT {2};
+            SELECT* FROM receptionstatus WHERE customerservice_id = '{0}'"
+            , customerService.Id,diandian.Id,num);
+
+            IQuery pureQry= Session.CreateSQLQuery(sql).AddEntity(typeof(ReceptionStatus));
+
+            IList<ReceptionStatus> list2= pureQry.List<ReceptionStatus>();
+
+            
+            return list2;
+           // return Find(x => x.CustomerService.Id == diandian.Id).OrderBy(x => x.LastUpdateTime).Take(num).ToList();
+        }
 
         public virtual ReceptionStatus GetOrder(DZMembership c,DZMembership cs)
         {

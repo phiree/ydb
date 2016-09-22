@@ -88,7 +88,8 @@ namespace Dianzhu.CSClient.Presenter
                 NHibernateUnitOfWork.UnitOfWork.Start();
 
                 log.Debug("-------开始 接收离线消息------");
-                IList<ReceptionStatus> rsList = dalReceptionStatus.GetRSListByDiandian(GlobalViables.Diandian, 3);
+                IList<ReceptionStatus> rsList = dalReceptionStatus.GetRSListByDiandianAndUpdate(GlobalViables.Diandian, 3,GlobalViables.CurrentCustomerService);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 if (rsList.Count > 0)
                 {
 
@@ -102,8 +103,8 @@ namespace Dianzhu.CSClient.Presenter
                         #endregion
                         rs.CustomerService = GlobalViables.CurrentCustomerService;
                         log.Debug("保存新分配的接待记录");
-                        dalReceptionStatus.Update(rs);
-                        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                      //  dalReceptionStatus.Update(rs);
+                       
 
                         //CopyDDToChat(rsList.Select(x => x.Customer).ToList());
 

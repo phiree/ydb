@@ -13,26 +13,32 @@ namespace Dianzhu.DAL.Tests
     [TestFixture()]
     public class DALReceptionStatusTests
     {
+        IDAL.IDALReceptionStatus dalRs ;
+        IDALMembership dalMembership  ;
+       
         [SetUp]
         public void SetUp()
         {
             PHSuit.Logging.Config("Dianzhu.DAL.DALReceptionStatusTest");
             Bootstrap.Boot();
             NHibernateUnitOfWork.UnitOfWork.Start();
+
+         dalRs = Bootstrap.Container.Resolve<IDAL.IDALReceptionStatus>();
+         dalMembership = Bootstrap.Container.Resolve<IDALMembership>();
+            
         }
         [Test()]
         public void GetRSListByDiandianTest()
         {
-            IDAL.IDALReceptionStatus dalRs = Bootstrap.Container.Resolve<IDAL.IDALReceptionStatus>();
-            IDALMembership dalMembership = Bootstrap.Container.Resolve<IDALMembership>();
             Guid id = new Guid(Dianzhu.Config.Config.GetAppSetting("DiandianLoginId"));
             DZMembership diandian = dalMembership.FindById(id);
             Dictionary<int, IList<ReceptionStatus>> assignList = new Dictionary<int, IList<ReceptionStatus>>();
             for (int i = 0; i < 10; i++)
             {
-                Thread t = new Thread(a => {
-                    
-               assignList.Add(i,     dalRs.GetRSListByDiandian(diandian, 3));
+                Thread t = new Thread(a =>
+                {
+
+                    assignList.Add(i, dalRs.GetRSListByDiandian(diandian, 3));
 
                 });
             }
@@ -46,15 +52,28 @@ namespace Dianzhu.DAL.Tests
                 Console.WriteLine(s);
 
             }
-         
+
 
 
         }
-        
+
         [TearDown]
         public void TearDown()
         {
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush(System.Data.IsolationLevel.Unspecified);
+        }
+
+        [Test()]
+        public void GetRSListByDiandianAndUpdateTest()
+        {
+            Guid id = new Guid(Dianzhu.Config.Config.GetAppSetting("DiandianLoginId"));
+            DZMembership diandian = dalMembership.FindById(id);
+            DZMembership newCS=  dalMembership.GetMemberByName("test_cs_3");
+            for(int i=0;i<10;i++)
+            { 
+            var list= dalRs.GetRSListByDiandianAndUpdate(diandian, 3, newCS);
+            Console.WriteLine("assign :" + list.Count);
+            }
         }
     }
 }
