@@ -54,9 +54,9 @@ namespace Dianzhu.Config
             { "APIBaseURL",6037 },
             { "NotifyServer",6039 }
         };
-        static int PortFirst = int.Parse(ConfigurationManager.AppSettings["PortFirst"]);
-        static Dictionary<string, int> PortSet = PortFirst == 8 ? HttpPort : HttpsPort;
-        static string strHttp = PortFirst == 8 ? "http" : "https";
+        static bool UseHttps = bool.Parse(ConfigurationManager.AppSettings["UseHttps"]);
+        static Dictionary<string, int> PortSet = UseHttps ? HttpsPort : HttpPort;
+        static string strHttp = UseHttps ? "https" : "http";
 
 
         static Dictionary<string, KeyValuePair<string, string>> DictsDianDianLogins = new Dictionary<string, KeyValuePair<string, string>>() {
@@ -92,11 +92,13 @@ namespace Dianzhu.Config
 
             , {"PaySite",BuildHttpUrlString(PayServers[int.Parse(ConfigurationManager.AppSettings["PayServerNum"])],PortSet["PaySite"])   }
 
-            , {"OpenfireRestApiSessionListUrl",BuildHttpUrlString(IMServer, PortSet["OpenfireRestApiSessionListUrl"],"plugins/restapi/v1/sessions/")  }
+            , {"OpenfireRestApiBaseUrl",BuildHttpUrlString(IMServer, PortSet["OpenfireRestApiSessionListUrl"],"plugins/restapi/v1/")  }
 
             , {"DiandianLoginId",DictsDianDianLogins[IMNotifyServer].Key}
             , {"DiandianLoginPwd",DictsDianDianLogins[IMNotifyServer].Value  }
             , {"APIBaseURL",BuildHttpUrlString(HttpApiServer, PortSet["APIBaseURL"],"DianzhuApi.ashx")  }
+
+            , {"GetHttpAPIPort", PortSet["APIBaseURL"].ToString()}
             
             , {"NotifyServer",BuildHttpUrlString(IMNotifyServer, PortSet["NotifyServer"], "IMServerAPI.ashx?")   }
             , {"BaiduGeocodingAPI","https://api.map.baidu.com/geocoder/v2/?s=1&ak="  }//http://api.map.baidu.com/geocoder/v2/?ak=

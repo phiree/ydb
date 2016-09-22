@@ -23,7 +23,7 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<CSClient.Presenter.PIdentityList>());
             container.Register(Component.For<CSClient.Presenter.PChatList>());
             container.Register(Component.For<CSClient.Presenter.PChatSend>());
-            container.Register(Component.For<CSClient.Presenter.PNotice>());
+            
             container.Register(Component.For<CSClient.Presenter.PTabControl>());
             container.Register(Component.For<CSClient.Presenter.POrderHistory>());
  

@@ -20,8 +20,7 @@ namespace Dianzhu.BLL.Tests
         [Test()]
         public void PushTest()
         {
-            BLLPush push = Bootstrap.Container.Resolve<BLLPush>();
-            push.Push( Push.PushType.PushToUser,new Guid("f222f7b8-236c-4e43-9e4b-a66500fc4681"), "dasdfds");
+           
         }
         [TearDown]
         public void TearDown()

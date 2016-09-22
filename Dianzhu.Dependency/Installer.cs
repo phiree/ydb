@@ -23,11 +23,11 @@ namespace Dianzhu.DependencyInstaller
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<BLLAdvertisement>());
-            container.Register(Component.For<BLLArea>());  
-                      
+            container.Register(Component.For<BLLArea>());
+
             container.Register(Component.For<BLLBusiness>());
             container.Register(Component.For<BLLBusinessImage>());
-            
+
 
             container.Register(Component.For<BLLClaims>());
             container.Register(Component.For<BLLComplaint>());
@@ -44,7 +44,6 @@ namespace Dianzhu.DependencyInstaller
 
             container.Register(Component.For<BLLPayment>());
             container.Register(Component.For<BLLPaymentLog>());
-            container.Register(Component.For<BLLPush>());
 
             container.Register(Component.For<BLLRefund>());
             container.Register(Component.For<BLLRefundLog>());
@@ -56,33 +55,33 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<BLLServiceType>());
 
 
-           container.Register(Component.For<BLLReceptionChat>());
-            container.Register(Component.For<BLLReceptionChatDD>());
+            container.Register(Component.For<BLLReceptionChat>());
+
             container.Register(Component.For<BLLReceptionStatus>());
             container.Register(Component.For<BLLReceptionStatusArchieve>());
 
 
             container.Register(Component.For<BLLServiceOrderAppraise>());
-            
+
             container.Register(Component.For<BLLServiceOrderStateChangeHis>());
 
-          
+
 
             // , BLLPayment bllPayment,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis
 
 
 
 
- 
+
 
             //20160616_longphui_add
             container.Register(Component.For<BLLServiceOrderRemind>());
-          
+
             container.Register(Component.For<BLLStaff>());
-            
-            
-            
-            
+
+
+
+
 
 
             //20160628_longphui_add
@@ -95,8 +94,8 @@ namespace Dianzhu.DependencyInstaller
             //20160802_longphui_add
             container.Register(Component.For<BLL.BLLClaimsDetails>());
 
-            
-            
+
+
 
         }
     }
@@ -111,12 +110,12 @@ namespace Dianzhu.DependencyInstaller
 
             container.Register(Component.For<IRepository<Advertisement, Guid>, IDALAdvertisement>().ImplementedBy<DALAdvertisement>());
             container.Register(Component.For<IRepository<Area, int>, IDALArea>().ImplementedBy<DALArea>());
- 
+
             //bb
             container.Register(Component.For<IRepository<Business, Guid>, IDALBusiness>().ImplementedBy<DALBusiness>());
             container.Register(Component.For<IRepository<BusinessImage, Guid>, IDALBusinessImage>().ImplementedBy<DALBusinessImage>());
 
-            
+
 
             container.Register(Component.For<IRepository<Claims, Guid>, IDALClaims>().ImplementedBy<DALClaims>());
             container.Register(Component.For<IRepository<Complaint, Guid>, IDALComplaint>().ImplementedBy<DALComplaint>());
@@ -136,12 +135,12 @@ namespace Dianzhu.DependencyInstaller
 
             container.Register(Component.For<IRepository<Model.Finance.SharePoint, Guid>, IDAL.Finance.IDALSharePoint>().ImplementedBy<DAL.Finance.DALSharePoint>());
             //mmmmmmmmmm
-            container.Register(Component.For<IRepository<MembershipLoginLog, Guid>,IDALMembershipLoginLog>().ImplementedBy<DALMembershipLoginLog>());
+            container.Register(Component.For<IRepository<MembershipLoginLog, Guid>, IDALMembershipLoginLog>().ImplementedBy<DALMembershipLoginLog>());
             //iiiiiiiiii
 
             container.Register(Component.For<IRepository<IMUserStatus, Guid>, IDALIMUserStatus>().ImplementedBy<DALIMUserStatus>());
-            container.Register(Component.For<IRepository<IMUserStatusArchieve, Guid>,IDALIMUserStatusArchieve>().ImplementedBy<DAL.DALIMUserStatusArchieve>());
-           //ooooooo
+            container.Register(Component.For<IRepository<IMUserStatusArchieve, Guid>, IDALIMUserStatusArchieve>().ImplementedBy<DAL.DALIMUserStatusArchieve>());
+            //ooooooo
             container.Register(Component.For<IRepository<OrderAssignment, Guid>, IDALOrderAssignment>().ImplementedBy<DALOrderAssignment>());
             //ppppppppp
             container.Register(Component.For<IRepository<Payment, Guid>, IDALPayment>().ImplementedBy<DALPayment>());
@@ -153,26 +152,26 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<IRepository<ReceptionStatusArchieve, Guid>, IDALReceptionStatusArchieve>().ImplementedBy<DALReceptionStatusArchieve>());
             container.Register(Component.For<IRepository<ReceptionStatus, Guid>, IDALReceptionStatus>().ImplementedBy<DALReceptionStatus>());
             container.Register(Component.For<IRepository<ReceptionChat, Guid>, IDALReceptionChat>().ImplementedBy<DALReceptionChat>());
-            container.Register(Component.For<IRepository<ReceptionChatDD, Guid>, IDALReceptionChatDD>().ImplementedBy<DALReceptionChatDD>());
+
 
 
             //ssssssssss
-             container.Register(Component.For<IRepository<ServiceOrderAppraise, Guid>, IDALServiceOrderAppraise>().ImplementedBy<DALServiceOrderAppraise>());
+            container.Register(Component.For<IRepository<ServiceOrderAppraise, Guid>, IDALServiceOrderAppraise>().ImplementedBy<DALServiceOrderAppraise>());
             container.Register(Component.For<IRepository<ServiceOrderPushedService, Guid>, IDALServiceOrderPushedService>().ImplementedBy<DALServiceOrderPushedService>());
             container.Register(Component.For<IRepository<ServiceOrderStateChangeHis, Guid>, IDALServiceOrderStateChangeHis>().ImplementedBy<DALServiceOrderStateChangeHis>());
 
             container.Register(Component.For<IRepository<Staff, Guid>, IDALStaff>().ImplementedBy<DALStaff>());
-            container.Register(Component.For<IRepository<ServiceType, Guid>,  IDALServiceType>().ImplementedBy<DALServiceType>());
+            container.Register(Component.For<IRepository<ServiceType, Guid>, IDALServiceType>().ImplementedBy<DALServiceType>());
             container.Register(Component.For<IRepository<ServiceOpenTime, Guid>, IDALServiceOpenTime>().ImplementedBy<DALServiceOpenTime>());
             container.Register(Component.For<IRepository<SerialNo, Guid>, IDAL.IDALSerialNo>().ImplementedBy<DALSerialNo>());
 
             container.Register(Component.For<IRepository<ServiceOpenTimeForDay, Guid>, IDALServiceOpenTimeForDay>().ImplementedBy<DALServiceOpenTimeForDay>());
-          //  container.Register(Component.For<IRepository<ServiceOpenTimeForDaySnapShotForOrder, Guid>, IDALServiceOpenTimeForDaySnapShotForOrder>().ImplementedBy<DALServiceOpenTimeForDaySnapShotForOrder>());
+            //  container.Register(Component.For<IRepository<ServiceOpenTimeForDaySnapShotForOrder, Guid>, IDALServiceOpenTimeForDaySnapShotForOrder>().ImplementedBy<DALServiceOpenTimeForDaySnapShotForOrder>());
 
             container.Register(Component.For<IRepository<ServiceOrder, Guid>, IDALServiceOrder>().ImplementedBy<DALServiceOrder>());
             container.Register(Component.For<IRepository<ServiceOrderRemind, Guid>, IDALServiceOrderRemind>().ImplementedBy<DALServiceOrderRemind>());
-            
-            
+
+
 
             //  container.Register(Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork_backup>());
 
@@ -193,7 +192,7 @@ namespace Dianzhu.DependencyInstaller
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IAssignStratage>().ImplementedBy<AssignStratageRandom>());
-          
+
             //finance
             container.Register(Component.For<IBLLSharePoint>().ImplementedBy<BLLSharePoint>());
             container.Register(Component.For<IBLLServiceTypePoint>().ImplementedBy<BLLServiceTypePoint>());
@@ -205,21 +204,22 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<IBLLMembershipLoginLog>().ImplementedBy<BLLMembershipLoginLog>());
             container.Register(Component.For<IIMSession>().ImplementedBy<IMSessionsDB>());
             container.Register(Component.For<IIMSession>().ImplementedBy<IMSessionsOpenfire>()
-                                .DependsOn(Dependency.OnValue("restApiUrl", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiSessionListUrl")))
+                                .DependsOn(Dependency.OnValue("restApiUrl", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiBaseUrl")))
                                 .DependsOn(Dependency.OnValue("restApiSecretKey", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey")))
                 );
 
             container.Register(Component.For<ReceptionAssigner>().Named("OpenFireRestAssigner").DependsOn(Dependency.OnComponent<IIMSession, IMSessionsOpenfire>()));
+            container.Register(Component.For<BLLPush>().DependsOn(Dependency.OnComponent<IIMSession, IMSessionsOpenfire>()));
 
             container.Register(Component.For<IBLLServiceOrder>().ImplementedBy<BLLServiceOrder>()
                                .DependsOn(Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>())))
-                               .DependsOn(Dependency.OnValue("bllPayment",new BLLPayment(container.Resolve<IDALPayment>(),container.Resolve<IDALClaims>())))
-                               
- 
+                               .DependsOn(Dependency.OnValue("bllPayment", new BLLPayment(container.Resolve<IDALPayment>(), container.Resolve<IDALClaims>())))
+
+
                                )
                                ;
             //todo: 暂时只使用随机分配.
-          
+
             container.Register(Component.For<BLLPay>().DependsOn(Dependency.OnValue("bllPayment", new BLLPayment(container.Resolve<IDALPayment>(), container.Resolve<IDALClaims>()))));
 
             // IDAL.IDALServiceOrder repoServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis,
@@ -227,7 +227,7 @@ namespace Dianzhu.DependencyInstaller
 
 
             container.Register(Component.For<BLL.Client.IBLLClient>().ImplementedBy<BLL.Client.BLLClient>());
-            container.Register(Component.For<BLL.Client.IBLLRefreshToken> ().ImplementedBy<BLL.Client.BLLRefreshToken> ());
+            container.Register(Component.For<BLL.Client.IBLLRefreshToken>().ImplementedBy<BLL.Client.BLLRefreshToken>());
             container.Register(Component.For<PushService>().DependsOn(
               Dependency.OnValue("bllPayment", new BLLPayment(container.Resolve<IDALPayment>(), container.Resolve<IDALClaims>())),
               Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>()))

@@ -28,6 +28,7 @@ namespace Dianzhu.IDAL
 
       IList<ReceptionStatus> GetRSListByDiandian(DZMembership diandian, int num);
 
+        IList<ReceptionStatus> GetRSListByDiandianAndUpdate(DZMembership diandian, int num, DZMembership customerService);
      ReceptionStatus GetOrder(DZMembership c, DZMembership cs);
 
      ReceptionStatus GetOneByCustomer(Guid customerId);

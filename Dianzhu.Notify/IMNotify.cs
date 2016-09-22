@@ -170,7 +170,7 @@ namespace Dianzhu.NotifyCenter
             string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
             string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{1}"" from = ""{0}"">
                                                   <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:cer:offline""></ext></message>",
-                                              cs.Id , "c64d9dda-4f6e-437b-89d2-a591012d8c65@" + server, Guid.NewGuid());
+                                              cs.Id, Dianzhu.Config.Config.GetAppSetting("DiandianLoginId") + "@" + server, Guid.NewGuid());
             im.SendMessage(noticeDraftNew);
 
             Dictionary<DZMembership, DZMembership> reassignList = assigner.AssignCSLogoff(cs);
@@ -192,15 +192,12 @@ namespace Dianzhu.NotifyCenter
  
                     order = newOrder;
                 }
-                ReceptionChat rc = new ReceptionChatReAssign
-                {
-                    From = imMember,
-                    ChatType = enum_ChatType.ReAssign,
-                    ReAssignedCustomerService = r.Value,
-                    To = r.Key,
-                    ServiceOrder = order,
-                    SendTime = DateTime.Now
-                };
+                ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(),
+                    imMember.Id.ToString(), r.Key.Id.ToString(), string.Empty, order.Id.ToString(), enum_XmppResource.YDBan_IMServer
+                   , enum_XmppResource.YDBan_User);
+                ReceptionChat rc = chatFactory.CreateReAssign(r.Value.Id.ToString(), r.Value.NickName, r.Value.AvatarUrl);
+                
+               
                 im.SendMessage(rc);
             }
         }
@@ -216,17 +213,13 @@ namespace Dianzhu.NotifyCenter
             }
             DZMembership imMember = dalMembership.FindById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
-           
-            ReceptionChat rc = new ReceptionChatUserStatus
-            {
-                From = imMember,
-                ChatType = enum_ChatType.UserStatus,
-                To = rs.CustomerService,
-                ServiceOrder = rs.Order,
-                SendTime = DateTime.Now,
-                User=rs.Customer,
-                Status = enum_UserStatus.unavailable
-            };
+
+            ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), string.Empty, rs.CustomerService.Id.ToString(), string.Empty, rs.Order.Id.ToString(), enum_XmppResource.YDBan_IMServer,
+                 enum_XmppResource.YDBan_CustomerService);
+            ReceptionChat rc = chatFactory.CreateNoticeUserStatus(rs.CustomerId, enum_UserStatus.unavailable);
+                
+          
+             
             im.SendMessage(rc);
         }
 
@@ -241,17 +234,12 @@ namespace Dianzhu.NotifyCenter
             }
             DZMembership imMember = dalMembership.FindById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
-        
-            ReceptionChat rc = new ReceptionChatUserStatus
-            {
-                From = imMember,
-                ChatType = enum_ChatType.UserStatus,
-                To = rs.CustomerService,
-                ServiceOrder = rs.Order,
-                SendTime = DateTime.Now,
-                User = rs.Customer,
-                Status = enum_UserStatus.available
-            };
+            ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), string.Empty, rs.CustomerService.Id.ToString(), string.Empty, rs.Order.Id.ToString(), enum_XmppResource.YDBan_IMServer,
+                    enum_XmppResource.YDBan_CustomerService);
+            ReceptionChat rc = chatFactory.CreateNoticeUserStatus(rs.CustomerId, enum_UserStatus.available);
+                  
+
+            
             im.SendMessage(rc);
         }
     }

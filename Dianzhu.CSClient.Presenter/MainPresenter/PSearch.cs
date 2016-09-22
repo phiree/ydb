@@ -270,6 +270,11 @@ namespace Dianzhu.CSClient.Presenter
         {
             errorMsg = string.Empty;
             SearchObj searchObj;
+            if (IdentityManager.CurrentIdentity == null)
+            {
+                errorMsg = "请选择用户后推送";
+                return null;
+            }
             if (localUIDataManager.LocalSearchTempObj.ContainsKey(IdentityManager.CurrentIdentity.Customer.Id.ToString()))
             {
                 searchObj = localUIDataManager.LocalSearchTempObj[IdentityManager.CurrentIdentity.Customer.Id.ToString()];
@@ -277,6 +282,16 @@ namespace Dianzhu.CSClient.Presenter
             else
             {
                 errorMsg = "订单已过期，请重新搜索";
+                return null;
+            }
+            if (string.IsNullOrEmpty(viewSearch.ServiceCustomerName))
+            {
+                errorMsg = "服务对象不能为空";
+                return null;
+            }
+            if (string.IsNullOrEmpty(viewSearch.ServiceCustomerPhone))
+            {
+                errorMsg = "联系电话不能为空";
                 return null;
             }
             if (searchObj.TargetTime < DateTime.Now)
@@ -289,13 +304,7 @@ namespace Dianzhu.CSClient.Presenter
                 errorMsg = "服务已过期，请重新搜索";
                 return null;
             }
-            if (IdentityManager.CurrentIdentity == null)
-            {
-                log.Error("IdentityManager.CurrentIdentity为null");
-                return null;
-            }
-            
-            
+
             //禁用推送按钮
             //viewSearchResult.BtnPush = false;
 
@@ -307,7 +316,7 @@ namespace Dianzhu.CSClient.Presenter
 
                 serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, searchObj.Address, searchObj.TargetTime, viewSearch.ServiceMemo ));
             }
-           // bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime);
+            bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //获取之前orderid
@@ -319,19 +328,32 @@ namespace Dianzhu.CSClient.Presenter
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //iim发送消息
-            ReceptionChat chat = new ReceptionChatPushService
-            {
-                Id = Guid.NewGuid(),
-                ServiceOrder =IdentityManager.CurrentIdentity,
-                ChatTarget = Model.Enums.enum_ChatTarget.cer,
-                From = GlobalViables.CurrentCustomerService,
-                To = IdentityManager.CurrentIdentity.Customer,
-                MessageBody = "推送的服务",
-                PushedServices = serviceOrderPushedServices,
-                SendTime = DateTime.Now,
-                SavedTime = DateTime.Now,
 
-            };
+            ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(),
+                IdentityManager.CurrentIdentity.Customer.Id.ToString(),"推送的服务",IdentityManager.CurrentIdentity.Id.ToString(), Model.Enums.enum_XmppResource.YDBan_CustomerService, Model.Enums.enum_XmppResource.YDBan_User);
+
+
+            IList<PushedServiceInfo> pushedServiceInfos = new List<PushedServiceInfo>();
+            foreach (var pushedService in serviceOrderPushedServices)
+            {
+                PushedServiceInfo psi = new PushedServiceInfo(
+                    pushedService.OriginalService.Id.ToString(),
+                    pushedService.ServiceName,
+                    pushedService.OriginalService.ServiceType.ToString(),
+                    pushedService.TargetTime.ToString(),
+                    string.Empty,
+                    pushedService.OriginalService.Business.Owner.Id.ToString(),
+                    pushedService.OriginalService.Business.Owner.NickName,
+                    pushedService.OriginalService.Business.Owner.AvatarUrl
+
+                    );
+                pushedServiceInfos.Add(psi);
+            }
+
+            ReceptionChat chat = chatFactory.CreateChatPushService(pushedServiceInfos);
+
+
+           
             //dalReceptionChat.Add(chat);//openfire插件存储消息
 
 
@@ -365,7 +387,6 @@ namespace Dianzhu.CSClient.Presenter
             IdentityTypeOfOrder type;
             log.Debug("更新当前界面的订单");
             IdentityManager.UpdateIdentityList(newOrder, out type);
-            viewIdentityList.SetCustomerOrder(oldOrder, newOrder);
             log.Debug("当前订单的id：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //更新view
@@ -380,7 +401,7 @@ namespace Dianzhu.CSClient.Presenter
             //发送订单通知.
 
             //存储消息到内存中
-            localChatManager.Add(chat.To.Id.ToString(), chat);
+            localChatManager.Add(chat.ToId, chat);
 
             return newOrder;
             iIM.SendMessage(chat);
@@ -395,7 +416,7 @@ namespace Dianzhu.CSClient.Presenter
                 
                 return;
             }
-            IdentityManager.CurrentIdentity.AddDetailFromIntelService(selectedService, viewSearch.UnitAmount,string.Empty,string.Empty, "实施服务的地点", DateTime.Now);
+            IdentityManager.CurrentIdentity.AddDetailFromIntelService(selectedService, viewSearch.UnitAmount,string.Empty,string.Empty, "实施服务的地点", DateTime.Now,string.Empty);
             //viewOrder.Order = IdentityManager.CurrentIdentity;
             bllServiceOrder.Update(IdentityManager.CurrentIdentity);
 
@@ -407,7 +428,11 @@ namespace Dianzhu.CSClient.Presenter
         private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId,string name,string lng,string lat)
         {
             SearchObj searchObj = new SearchObj(name, minPrice, maxPrice, servieTypeId, targetTime, double.Parse(lng), double.Parse(lat), viewSearch.ServiceTargetAddress);
-            localUIDataManager.SaveSearchObj(IdentityManager.CurrentIdentity.Customer.Id.ToString(), searchObj);
+            if (IdentityManager.CurrentIdentity != null)
+            {
+                localUIDataManager.SaveSearchObj(IdentityManager.CurrentIdentity.Customer.Id.ToString(), searchObj);
+            }
+            
             //Action a = () =>
             //{
             int total;

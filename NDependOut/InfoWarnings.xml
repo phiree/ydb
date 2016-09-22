@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<InfoWarnings>
+  <Info>Begin full analysis with NDepend v6.3.0.8686</Info>
+  <Info>No Baseline for Comparison loaded.</Info>
+  <Info>Concurrent mode</Info>
+  <Info>.NET Assemblies loaded from {E:\Projects\dianzhu\src_vs2015\Dianzhu.Test\bin\Debug}  [ 0 , 19 ]
+   Dianzhu.CSClient.MessageAdapter.dll   v1.0.0.0
+   Dianzhu.IDAL.dll   v1.0.0.0
+   Dianzhu.CSClient.Presenter.dll   v1.0.0.0
+   Dianzhu.DAL.dll   v1.0.0.0
+   Dianzhu.Test.dll   v1.0.0.0
+   Dianzhu.BLL.dll   v1.0.0.0
+   Dianzhu.Api.Model.dll   v1.0.0.0
+   Dianzhu.ApplicationService.dll   v1.0.0.0
+   log4net.dll   v1.2.15.0
+   Castle.Windsor.dll   v3.3.0.0
+   FluentValidation.dll   v6.2.1.0
+   AutoMapper.dll   v4.2.1.0
+   Newtonsoft.Json.dll   v8.0.0.0
+   FluentNHibernate.dll   v2.0.3.0
+   nunit.framework.dll   v2.6.4.14350
+   Ploeh.AutoFixture.dll   v3.49.1.0
+   agsXMPP.dll   v1.3.1.0
+   System.Web.Http.dll   v5.2.3.0
+   Rhino.Mocks.dll   v3.6.0.0
+   FizzWare.NBuilder.dll   v3.0.1.0</Info>
+  <Info>.NET Assemblies loaded from {E:\Projects\dianzhu\src_vs2015\Dianzhu.Test\bin\Debug}  [ 20 , 22 ]
+   System.Net.Http.Formatting.dll   v5.2.3.0
+   NPOI.dll   v2.1.3.1
+   JdSoft.Apns.Notifications.dll   v1.0.4.4</Info>
+  <Info>.NET Assemblies loaded from {E:\Projects\dianzhu\src_vs2015\Dianzhu.BLL\bin\Debug} 
+   PHSuit.dll   v1.0.0.0
+   Dianzhu.Push.dll   v1.0.0.0
+   DDDCommon.dll   v1.0.0.0
+   MediaServer.dll   v1.0.0.0
+   Dianzhu.Config.dll   v1.0.0.0
+   Dianzhu.Model.dll   v1.0.0.0
+   Dianzhu.Pay.dll   v1.0.0.0
+   NHibernate.dll   v4.0.0.4000
+   Interop.Shell32.dll   v1.0.0.0</Info>
+  <Info>.NET Assemblies loaded from {E:\Projects\dianzhu\output\csclient} 
+   Dianzhu.CSClient.exe   v1.0.0.0
+   Dianzhu.CSClient.XMPP.dll   v1.0.0.0
+   Dianzhu.CSClient.IInstantMessage.dll   v1.0.0.0
+   Dianzhu.CSClient.IMessageAdapter.dll   v1.0.0.0
+   Dianzhu.CSClient.LocalStorage.dll   v1.0.0.0
+   Dianzhu.CSClient.IView.dll   v1.0.0.0
+   Dianzhu.Dependency.dll   v1.0.0.0
+   JSYK.Infrastructure.dll   v1.0.0.0
+   RisCaptureLib.dll   v1.0.0.0
+   Dianzhu.CSClient.ViewWPF.dll   v1.0.0.0
+   HibernatingRhinos.Profiler.Appender.dll   v1.0.0.0</Info>
+  <Info>.NET Assembly loaded from {E:\Projects\dianzhu\output\democlient} 
+   Dianzhu.DemoClient.exe   v1.0.0.0</Info>
+  <Info>.NET Assembly loaded from {E:\Projects\dianzhu\src_vs2015\MediaServerTest\bin\Debug} 
+   MediaServerTest.dll   v1.0.0.0</Info>
+  <Info>.NET Assembly loaded from {E:\Projects\dianzhu\src_vs2015\Dianzhu.Notify\bin\Debug} 
+   Dianzhu.Notify.dll   v1.0.0.0</Info>
+  <Info>.NET Assembly loaded from {E:\Projects\dianzhu\output\diandian} 
+   DianzhuService.Diandian.exe   v1.0.0.0</Info>
+  <Info>.NET Assembly loaded from {E:\Projects\dianzhu\output\IMTest} 
+   Dianzhu.IM.Test.exe   v1.0.0.0</Info>
+  <Info>.NET Assemblies loaded from {E:\Projects\dianzhu\src_vs2015\Dianzhu.Web.RestfulApi\bin} 
+   Dianzhu.RequestRestful.dll   v1.0.0.0
+   Dianzhu.Web.RestfulApi.dll   v1.21.6100.19045
+   WebActivatorEx.dll   v2.0.0.0
+   Microsoft.Owin.dll   v3.0.1.0
+   System.Web.Optimization.dll   v1.1.0.0
+   System.Web.Mvc.dll   v5.2.3.0
+   Owin.dll   v1.0.0.0
+   Microsoft.Owin.Security.OAuth.dll   v3.0.1.0
+   Microsoft.Owin.Security.dll   v3.0.1.0
+   Microsoft.Owin.Cors.dll   v3.0.1.0
+   System.Web.Http.Owin.dll   v5.2.3.0
+   System.Web.Http.WebHost.dll   v5.2.3.0
+   RestSharp.dll   v105.2.2.0</Info>
+  <Info>.NET Assembly loaded from {E:\Projects\dianzhu\src_vs2015\Dianzhu.Web.Common\bin\Debug} 
+   Dianzhu.Web.Common.dll   v1.0.0.0</Info>
+  <Info>.NET Assembly loaded from {E:\Projects\dianzhu\src_vs2015\Swashbuckle.Core\bin\Debug} 
+   Swashbuckle.Core.dll   v1.0.0.0</Info>
+  <Info>.NET Assemblies loaded from {C:\Windows\Microsoft.NET\Framework\v4.0.30319}  [ 0 , 19 ]
+   mscorlib.dll   v4.0.0.0
+   System.Core.dll   v4.0.0.0
+   System.Web.dll   v4.0.0.0
+   System.dll   v4.0.0.0
+   System.Data.dll   v4.0.0.0
+   System.Web.ApplicationServices.dll   v4.0.0.0
+   System.Runtime.Caching.dll   v4.0.0.0
+   System.Device.dll   v4.0.0.0
+   System.Configuration.dll   v4.0.0.0
+   System.Xml.dll   v4.0.0.0
+   System.Net.Http.dll   v4.0.0.0
+   System.Drawing.dll   v4.0.0.0
+   System.Windows.Forms.dll   v4.0.0.0
+   System.Deployment.dll   v4.0.0.0
+   System.Configuration.Install.dll   v4.0.0.0
+   System.ServiceProcess.dll   v4.0.0.0
+   System.Xaml.dll   v4.0.0.0
+   System.ComponentModel.DataAnnotations.dll   v4.0.0.0
+   System.Web.Extensions.dll   v4.0.0.0
+   System.Runtime.Serialization.dll   v4.0.0.0</Info>
+  <Info>.NET Assemblies loaded from {C:\Windows\Microsoft.NET\Framework\v4.0.30319}  [ 20 , 21 ]
+   Microsoft.CSharp.dll   v4.0.0.0
+   System.Xml.Linq.dll   v4.0.0.0</Info>
+  <Info>.NET Assemblies loaded from {C:\Windows\Microsoft.NET\Framework\v4.0.30319\WPF} 
+   PresentationFramework.dll   v4.0.0.0
+   WindowsBase.dll   v4.0.0.0
+   PresentationCore.dll   v4.0.0.0</Info>
+  <Warning>Assembly Set Corrupted: The analyzed version of the assembly {Dianzhu.Model} is out-dated.</Warning>
+  <Warning>Assembly Set Corrupted: The analyzed version of the assembly {Dianzhu.CSClient.IView} is out-dated.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.CSClient.MessageAdapter\MessageAdapter.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.CSClient.MessageAdapter} (last modified 2016/9/7 15:01:07) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.CSClient.MessageAdapter\MessageBuilder.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.CSClient.MessageAdapter} (last modified 2016/9/7 15:01:07) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.CSClient.Presenter\MainPresenter\PMain.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.CSClient.Presenter} (last modified 2016/9/7 15:01:08) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.CSClient.Presenter\MainPresenter\PTabControl.cs} (last modified 2016/9/9 15:58:36) and the PDB file of the assembly {Dianzhu.CSClient.Presenter} (last modified 2016/9/7 15:01:08) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.CSClient.Presenter\MainPresenter\POrderHistory.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.CSClient.Presenter} (last modified 2016/9/7 15:01:08) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.CSClient.Presenter\MainPresenter\PChatSend.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.CSClient.Presenter} (last modified 2016/9/7 15:01:08) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.CSClient.Presenter\MainPresenter\PChatList.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.CSClient.Presenter} (last modified 2016/9/7 15:01:08) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.CSClient.Presenter\MainPresenter\PIdentyList.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.CSClient.Presenter} (last modified 2016/9/7 15:01:08) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.CSClient.Presenter\MainPresenter\PSearch.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.CSClient.Presenter} (last modified 2016/9/7 15:01:08) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.DAL\UnitOfWork\With.Transaction.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.DAL} (last modified 2016/9/7 15:01:05) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.DAL\DALReceptionChat.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.DAL} (last modified 2016/9/7 15:01:05) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.DAL\ServiceOrder\DALServiceOrderStateChangeHis.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.DAL} (last modified 2016/9/7 15:01:05) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.DAL\Mapping\ServiceOrder\ServiceOrderMap.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.DAL} (last modified 2016/9/7 15:01:05) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.DAL\Mapping\ReceptionChat\ReceptionMap.cs} (last modified 2016/9/13 10:57:47) and the PDB file of the assembly {Dianzhu.DAL} (last modified 2016/9/7 15:01:05) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.Test\Push\BLLPushTests.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.Test} (last modified 2016/9/7 15:01:45) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.Test\MessageAdapterTests.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.Test} (last modified 2016/9/7 15:01:45) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.Test\test_mainform.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.Test} (last modified 2016/9/7 15:01:45) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.Test\DZCSClientTest\PGlobalTest.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.Test} (last modified 2016/9/7 15:01:45) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.Test\DZCSClientTest\PCustomerListTest.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.Test} (last modified 2016/9/7 15:01:45) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.Test\DZCSClientTest\PIdentityListTest.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.Test} (last modified 2016/9/7 15:01:45) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.Test\DZCSClientTest\MessageAdapterTest\MessageAdapterTest.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.Test} (last modified 2016/9/7 15:01:45) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.Test\DALTest\TestDALReceptionChatDD.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.Test} (last modified 2016/9/7 15:01:45) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.BLL\Push\BLLPush.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.BLL} (last modified 2016/9/7 15:01:06) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.BLL\BLLPayment.cs} (last modified 2016/9/9 15:58:36) and the PDB file of the assembly {Dianzhu.BLL} (last modified 2016/9/7 15:01:06) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.BLL\Reception\BLLReceptionChat.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.BLL} (last modified 2016/9/7 15:01:06) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.BLL\Reception\BLLReceptionStatus.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.BLL} (last modified 2016/9/7 15:01:06) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.BLL\ServiceOrder\BLLServiceOrder.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.BLL} (last modified 2016/9/7 15:01:06) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.BLL\ServiceOrder\OrderFlow.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.BLL} (last modified 2016/9/7 15:01:06) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.BLL\ServiceOrder\PushService.cs} (last modified 2016/9/9 15:58:36) and the PDB file of the assembly {Dianzhu.BLL} (last modified 2016/9/7 15:01:06) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.BLL\ServiceOrder\IBLLServiceOrder.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.BLL} (last modified 2016/9/7 15:01:06) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.Api.Model\ORM.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.Api.Model} (last modified 2016/9/7 15:01:05) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.Api.Model\CHAT.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.Api.Model} (last modified 2016/9/7 15:01:05) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.ApplicationService\Common\utils.cs} (last modified 2016/9/9 15:58:36) and the PDB file of the assembly {Dianzhu.ApplicationService} (last modified 2016/9/6 15:31:36) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.ApplicationService\ModeDTO\Identity\assignObj.cs} (last modified 2016/9/9 15:58:36) and the PDB file of the assembly {Dianzhu.ApplicationService} (last modified 2016/9/6 15:31:36) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.ApplicationService\WorkTime\WorkTimeService.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.ApplicationService} (last modified 2016/9/6 15:31:36) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.ApplicationService\Store\StoreService.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.ApplicationService} (last modified 2016/9/6 15:31:36) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.ApplicationService\Service\ServiceService.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.ApplicationService} (last modified 2016/9/6 15:31:36) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.ApplicationService\Remind\RemindService.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.ApplicationService} (last modified 2016/9/6 15:31:36) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.ApplicationService\Pay\PayService.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.ApplicationService} (last modified 2016/9/6 15:31:36) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.ApplicationService\Order\OrderService.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.ApplicationService} (last modified 2016/9/6 15:31:36) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.ApplicationService\Mapping\ModelToDtoMappingProfile.cs} (last modified 2016/9/13 10:31:48) and the PDB file of the assembly {Dianzhu.ApplicationService} (last modified 2016/9/6 15:31:36) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.ApplicationService\Complaint\ComplaintService.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.ApplicationService} (last modified 2016/9/6 15:31:36) are not in-sync.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.ApplicationService\City\CityService.cs} (last modified 2016/9/13 10:31:57) and the PDB file of the assembly {Dianzhu.ApplicationService} (last modified 2016/9/6 15:31:36) are not in-sync.</Warning>
+  <Info>766 source files parsed ; 4 source files not found ; 43 source files not in-sync with PDB</Info>
+  <Info>0 code rule has been extracted from code.</Info>
+  <Info>No dependency cycle detected in assemblies referencement graph.</Info>
+  <Info>Do merge code generated by compiler into application code.</Info>
+  <Info>Analyse dependencies of your application.</Info>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.DAL\DALReceptionChatDD.cs} referenced by the PDB file of the assembly {Dianzhu.DAL} does not exist.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.BLL\Reception\BLLReceptionChatDD.cs} referenced by the PDB file of the assembly {Dianzhu.BLL} does not exist.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.CSClient.Presenter\MainPresenter\PNotice.cs} referenced by the PDB file of the assembly {Dianzhu.CSClient.Presenter} does not exist.</Warning>
+  <Warning>The source file {E:\Projects\dianzhu\src_vs2015\Dianzhu.Test\BLLTest\TestBLLReceptionChat.cs} referenced by the PDB file of the assembly {Dianzhu.Test} does not exist.</Warning>
+  <Info>Log trend metrics values.</Info>
+  <Info>Execute queries and rules</Info>
+  <Warning>11 critical rules are violated.
+  - Methods too complex - critical
+  - Methods with too many parameters - critical
+  - Avoid namespaces mutually dependent
+  - Potentially dead Types
+  - Potentially dead Methods
+  - Potentially dead Fields
+  - Don't assign a field from many methods
+  - Interface name should begin with a 'I'
+  - Exception class name should be suffixed with 'Exception'
+  - Avoid having different types with same name
+  - ...</Warning>
+  <Info>NDepend analysis done. Duration: 00:07</Info>
+  <Info>Building the report (standard).</Info>
+</InfoWarnings>

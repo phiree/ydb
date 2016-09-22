@@ -25,37 +25,6 @@ namespace Dianzhu.Test
            
        
         }
-        [Test]
-        public void sdfsdfsd()
-        {
-            DAL.DALMembership dalmember = Builder<DAL.DALMembership>.CreateNew().Build();
-            DAL.DALReceptionChat DALReception = Builder<DAL.DALReceptionChat>.CreateNew().Build();
-            DAL.DALDZService DALDZService = Builder<DAL.DALDZService>.CreateNew().Build();
-            DZMembershipProvider bllMember = Builder<DZMembershipProvider>.CreateNew().Build();
-
-            BLLReceptionChat bllReception = Builder<BLLReceptionChat>.CreateNew()
-             .With(x => x.DALReceptionChat = DALReception).Build();
-
-            //BLLDZService bllDZService = Builder<BLLDZService>.CreateNew().
-            //    With(x => x.DALDZService = DALDZService).Build();
-           // IMainFormView view = MockRepository.GenerateStub<IMainFormView>();
-            InstantMessage xmpp = MockRepository.GenerateStub<InstantMessage>();
-
-            Dianzhu.CSClient.IMessageAdapter.IAdapter adapter = MockRepository.GenerateStub<Dianzhu.CSClient.IMessageAdapter.IAdapter>();
-
-            //MainPresenter formController = new MainPresenter(
-            //    view, 
-            //    xmpp,
-            //    adapter,
-            //    bllMember
-            //     , bllReception, 
-            //     bllDZService,
-            //     Builder<BLLServiceOrder>.CreateNew().Build()
-            //     ,MockRepository.GenerateMock<BLLReceptionStatus>()
-            //     );
-           // formController.ReceiveMessage("a@a.a", "hello", "/pic.png",string.Empty);
-           // string result = view.ToString();
-           // Assert.AreEqual("hello", result);
-        }
+        
     }
 }

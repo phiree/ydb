@@ -106,7 +106,7 @@ namespace Dianzhu.CSClient.XMPP
         }
         void XmppClientConnection_OnMessage(object sender, Message msg)
         {
-            NHibernateUnitOfWork.UnitOfWork.Start();
+            
             //Action a = () => { 
             //接受消息,由presenter构建chat
             //message-->chat
@@ -115,10 +115,13 @@ namespace Dianzhu.CSClient.XMPP
             try
             {
                 Model.ReceptionChat chat = messageAdapter.MessageToChat(msg);// new Model.ReceptionChat();// MessageAdapter.MessageToChat(msg);
-
+               
                 if (IMReceivedMessage != null)
                 {
+                    NHibernateUnitOfWork.UnitOfWork.Start();
                     IMReceivedMessage(chat);
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                    NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
                 }
             }
             catch (Exception ex)
@@ -128,8 +131,7 @@ namespace Dianzhu.CSClient.XMPP
             }
             //};
             //NHibernateUnitOfWork.With.Transaction(a);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+           
         }
         void Connection_OnPresence(object sender, Presence pres)
         {
