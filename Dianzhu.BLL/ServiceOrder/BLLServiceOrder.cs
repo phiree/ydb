@@ -230,6 +230,11 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.OrderCreated <= beforeThisTime);
             }
+            if (!string.IsNullOrEmpty(filter.ids))
+            {
+                IList<string> ids = filter.ids.Split(',').ToList();
+                where = where.And(x =>  ids.Contains(x.Id.ToString()));
+            }
             ServiceOrder baseone = null;
             if (!string.IsNullOrEmpty(filter.baseID))
             {
