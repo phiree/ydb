@@ -108,9 +108,11 @@ namespace Dianzhu.BLL
                 log.Error(errorLog);
                 throw new Exception(errorLog);
             }
+            pushType = PushType.PushToUser;
             //客服->用户, 用户->商户,商户->用户
-            pushType = chat.ChatTarget == enum_ChatTarget.cer ? PushType.PushToUser :
-                PushType.PushToBusiness;
+            if (chat.ToResource == enum_XmppResource.YDBan_Store) { pushType = PushType.PushToBusiness; }
+            else if (chat.ToResource == enum_XmppResource.YDBan_User) { pushType = PushType.PushToUser; }
+            
             IPush ipush = Dianzhu.Push.PushFactory.Create(pushType, deviceName, orderId);
             int pushAmount = bind.PushAmount + 1;
             bind.PushAmount = pushAmount;
