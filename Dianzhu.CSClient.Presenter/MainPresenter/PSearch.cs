@@ -284,6 +284,16 @@ namespace Dianzhu.CSClient.Presenter
                 errorMsg = "订单已过期，请重新搜索";
                 return null;
             }
+            if (string.IsNullOrEmpty(viewSearch.ServiceCustomerName))
+            {
+                errorMsg = "服务对象不能为空";
+                return null;
+            }
+            if (string.IsNullOrEmpty(viewSearch.ServiceCustomerPhone))
+            {
+                errorMsg = "联系电话不能为空";
+                return null;
+            }
             if (searchObj.TargetTime < DateTime.Now)
             {
                 errorMsg = "订单已过期，请重新搜索";
@@ -294,7 +304,7 @@ namespace Dianzhu.CSClient.Presenter
                 errorMsg = "服务已过期，请重新搜索";
                 return null;
             }
-            
+
             //禁用推送按钮
             //viewSearchResult.BtnPush = false;
 
@@ -418,7 +428,11 @@ namespace Dianzhu.CSClient.Presenter
         private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId,string name,string lng,string lat)
         {
             SearchObj searchObj = new SearchObj(name, minPrice, maxPrice, servieTypeId, targetTime, double.Parse(lng), double.Parse(lat), viewSearch.ServiceTargetAddress);
-            localUIDataManager.SaveSearchObj(IdentityManager.CurrentIdentity.Customer.Id.ToString(), searchObj);
+            if (IdentityManager.CurrentIdentity != null)
+            {
+                localUIDataManager.SaveSearchObj(IdentityManager.CurrentIdentity.Customer.Id.ToString(), searchObj);
+            }
+            
             //Action a = () =>
             //{
             int total;

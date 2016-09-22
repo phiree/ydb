@@ -493,14 +493,6 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 MessageBox.Show("请选择服务类型");
             }
-            else if (string.IsNullOrEmpty(ServiceCustomerName))
-            {
-                MessageBox.Show("请填写联系人");
-            }
-            else if (string.IsNullOrEmpty(ServiceCustomerPhone))
-            {
-                MessageBox.Show("请填写联系电话");
-            }
             else
             {
                 BackgroundWorker worker = new BackgroundWorker();
