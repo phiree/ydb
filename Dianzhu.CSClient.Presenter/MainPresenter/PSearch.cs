@@ -428,7 +428,11 @@ namespace Dianzhu.CSClient.Presenter
         private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId,string name,string lng,string lat)
         {
             SearchObj searchObj = new SearchObj(name, minPrice, maxPrice, servieTypeId, targetTime, double.Parse(lng), double.Parse(lat), viewSearch.ServiceTargetAddress);
-            localUIDataManager.SaveSearchObj(IdentityManager.CurrentIdentity.Customer.Id.ToString(), searchObj);
+            if (IdentityManager.CurrentIdentity != null)
+            {
+                localUIDataManager.SaveSearchObj(IdentityManager.CurrentIdentity.Customer.Id.ToString(), searchObj);
+            }
+            
             //Action a = () =>
             //{
             int total;
