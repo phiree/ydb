@@ -30,7 +30,32 @@ namespace Dianzhu.Config
         static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");
 
         //配置访问协议(http/https)的访问端口
+        static Dictionary<string, int>HttpPort = new Dictionary<string, int>()
+        {
+            { "cdnroot",886 },
+            { "RestApiAuthUrl",8041 },
+            { "MediaUploadUrl",8038 },
+            { "MediaGetUrl",8038 },
+            { "MediaUploadUrlByDate",8038 },
+            { "PaySite",8168 },
+            { "OpenfireRestApiSessionListUrl",9090 },
+            { "APIBaseURL",8037 },
+            { "NotifyServer",8039 }
+        };
+        static Dictionary<string, int> HttpsPort = new Dictionary<string, int>()
+        {
+            { "cdnroot",686 },
+            { "RestApiAuthUrl",6041 },
+            { "MediaUploadUrl",6038 },
+            { "MediaGetUrl",6038 },
+            { "MediaUploadUrlByDate",6038 },
+            { "PaySite",6168 },
+            { "OpenfireRestApiSessionListUrl",9091 },
+            { "APIBaseURL",6037 },
+            { "NotifyServer",6039 }
+        };
         static int PortFirst = int.Parse(ConfigurationManager.AppSettings["PortFirst"]);
+        static Dictionary<string, int> PortSet = PortFirst == 8 ? HttpPort : HttpsPort;
         static string strHttp = PortFirst == 8 ? "http" : "https";
 
 
@@ -52,30 +77,30 @@ namespace Dianzhu.Config
          
 
         static Dictionary<string, string> DictsAppSettings = new Dictionary<string, string>() {
-             {"cdnroot", BuildHttpUrlString(ApplicationServer, PortFirst*100+86)}
+             {"cdnroot", BuildHttpUrlString(ApplicationServer, PortSet["cdnroot"])}
             , {"ImServer",IMServer  }
             , {"ImDomain",IMDomain  }
-              , {"RestApiAuthUrl",BuildHttpUrlString(ApplicationServer, PortFirst*1000+41,"api/v1/authorization")  }
-            , {"MediaUploadUrl",BuildHttpUrlString(ApplicationServer, PortFirst*1000+38,"UploadFile.ashx") }
-            , {"MediaGetUrl",BuildHttpUrlString(ApplicationServer, PortFirst*1000+38,"GetFile.ashx?fileName=")   }
-            , {"MediaUploadUrlByDate",BuildHttpUrlString(ApplicationServer, PortFirst*1000+38,"UploadFileByDate.ashx") }//按日期生成保存路径
+              , {"RestApiAuthUrl",BuildHttpUrlString(ApplicationServer, PortSet["RestApiAuthUrl"],"api/v1/authorization")  }
+            , {"MediaUploadUrl",BuildHttpUrlString(ApplicationServer, PortSet["MediaUploadUrl"],"UploadFile.ashx") }
+            , {"MediaGetUrl",BuildHttpUrlString(ApplicationServer, PortSet["MediaGetUrl"],"GetFile.ashx?fileName=")   }
+            , {"MediaUploadUrlByDate",BuildHttpUrlString(ApplicationServer, PortSet["MediaUploadUrlByDate"],"UploadFileByDate.ashx") }//按日期生成保存路径
 
             , {"ImageHandler",BuildHttpUrlString(ApplicationServer, "ImageHandler.ashx?imagename=")}
 
             , {"NoticeSenderId",DictsNotifySenderLogins[IMNotifyServer].Key  }
             , {"NoticeSenderPwd",DictsNotifySenderLogins[IMNotifyServer].Value  }
 
-            , {"PaySite",BuildHttpUrlString(PayServers[int.Parse(ConfigurationManager.AppSettings["PayServerNum"])],PortFirst*1000+168)   }
+            , {"PaySite",BuildHttpUrlString(PayServers[int.Parse(ConfigurationManager.AppSettings["PayServerNum"])],PortSet["PaySite"])   }
 
-            , {"OpenfireRestApiSessionListUrl",BuildHttpUrlString(IMServer, 9090,"plugins/restapi/v1/sessions/")  }
+            , {"OpenfireRestApiSessionListUrl",BuildHttpUrlString(IMServer, PortSet["OpenfireRestApiSessionListUrl"],"plugins/restapi/v1/sessions/")  }
 
             , {"DiandianLoginId",DictsDianDianLogins[IMNotifyServer].Key}
             , {"DiandianLoginPwd",DictsDianDianLogins[IMNotifyServer].Value  }
-            , {"APIBaseURL",BuildHttpUrlString(HttpApiServer, PortFirst*1000+37,"DianzhuApi.ashx")  }
+            , {"APIBaseURL",BuildHttpUrlString(HttpApiServer, PortSet["APIBaseURL"],"DianzhuApi.ashx")  }
             
-            , {"NotifyServer",BuildHttpUrlString(IMNotifyServer, PortFirst*1000+39, "IMServerAPI.ashx?")   }
-            , {"BaiduGeocodingAPI","https://api.map.baidu.com/geocoder/v2/?ak=&s=1"  }//http://api.map.baidu.com/geocoder/v2/?ak=
-            , {"BaiduTranAPI","https://api.map.baidu.com/geoconv/v1/?ak=&s=1"  }//http://api.map.baidu.com/geoconv/v1/?ak=
+            , {"NotifyServer",BuildHttpUrlString(IMNotifyServer, PortSet["NotifyServer"], "IMServerAPI.ashx?")   }
+            , {"BaiduGeocodingAPI","https://api.map.baidu.com/geocoder/v2/?s=1&ak="  }//http://api.map.baidu.com/geocoder/v2/?ak=
+            , {"BaiduTranAPI","https://api.map.baidu.com/geoconv/v1/?s=1&ak="  }//http://api.map.baidu.com/geoconv/v1/?ak=
             , {"BaiduGeocodingAK","SDHO8UtRNvOl4Cc29KA74UxF"  }
             , {"BaiduTranAK","McW4pZayH2PZyWqczoqj2xaV"  }
             , {"LocalMediaSaveDir","/localmedia/"  }

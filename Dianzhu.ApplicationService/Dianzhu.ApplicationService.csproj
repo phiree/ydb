@@ -108,6 +108,8 @@
     <Compile Include="App\IAppService.cs" />
     <Compile Include="Assign\AssignService.cs" />
     <Compile Include="Assign\IAssignService.cs" />
+    <Compile Include="BillSatistic\BillSatisticService.cs" />
+    <Compile Include="BillSatistic\IBillSatisticService.cs" />
     <Compile Include="Chat\ChatService.cs" />
     <Compile Include="Chat\IChatService.cs" />
     <Compile Include="City\CityService.cs" />
@@ -120,6 +122,7 @@
     <Compile Include="Common\common_Trait_400_Rsponses.cs" />
     <Compile Include="Common\common_Trait_AdFiltering.cs" />
     <Compile Include="Common\common_Trait_AssignFiltering.cs" />
+    <Compile Include="Common\common_Trait_BillFiltering.cs" />
     <Compile Include="Common\common_Trait_ChatFiltering.cs" />
     <Compile Include="Common\common_Trait_ComplainFiltering.cs" />
     <Compile Include="Common\common_Trait_Filtering.cs" />
@@ -164,6 +167,7 @@
     <Compile Include="ModeDTO\Identity\appObj.cs" />
     <Compile Include="ModeDTO\Identity\appraiseObj.cs" />
     <Compile Include="ModeDTO\Identity\assignObj.cs" />
+    <Compile Include="ModeDTO\Identity\billStatement.cs" />
     <Compile Include="ModeDTO\Identity\chatObj.cs" />
     <Compile Include="ModeDTO\Identity\cityObj.cs" />
     <Compile Include="ModeDTO\Identity\complaintObj.cs" />
@@ -183,6 +187,7 @@
     <Compile Include="ModeDTO\Identity\remindObj.cs" />
     <Compile Include="ModeDTO\Identity\serviceSnapshotObj.cs" />
     <Compile Include="ModeDTO\Identity\servicesObj.cs" />
+    <Compile Include="ModeDTO\Identity\serviceTypeBillObj.cs" />
     <Compile Include="ModeDTO\Identity\serviceTypeObj.cs" />
     <Compile Include="ModeDTO\Identity\snapshortsObj.cs" />
     <Compile Include="ModeDTO\Identity\staffObj.cs" />
