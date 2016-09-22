@@ -97,6 +97,8 @@ namespace Dianzhu.Config
             , {"DiandianLoginId",DictsDianDianLogins[IMNotifyServer].Key}
             , {"DiandianLoginPwd",DictsDianDianLogins[IMNotifyServer].Value  }
             , {"APIBaseURL",BuildHttpUrlString(HttpApiServer, PortSet["APIBaseURL"],"DianzhuApi.ashx")  }
+
+            , {"GetHttpAPIPort", PortSet["APIBaseURL"].ToString()}
             
             , {"NotifyServer",BuildHttpUrlString(IMNotifyServer, PortSet["NotifyServer"], "IMServerAPI.ashx?")   }
             , {"BaiduGeocodingAPI","https://api.map.baidu.com/geocoder/v2/?s=1&ak="  }//http://api.map.baidu.com/geocoder/v2/?ak=
