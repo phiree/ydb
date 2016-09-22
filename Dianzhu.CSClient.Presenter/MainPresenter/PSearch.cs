@@ -284,6 +284,16 @@ namespace Dianzhu.CSClient.Presenter
                 errorMsg = "订单已过期，请重新搜索";
                 return null;
             }
+            if (string.IsNullOrEmpty(viewSearch.ServiceCustomerName))
+            {
+                errorMsg = "服务对象不能为空";
+                return null;
+            }
+            if (string.IsNullOrEmpty(viewSearch.ServiceCustomerPhone))
+            {
+                errorMsg = "联系电话不能为空";
+                return null;
+            }
             if (searchObj.TargetTime < DateTime.Now)
             {
                 errorMsg = "订单已过期，请重新搜索";
@@ -294,7 +304,7 @@ namespace Dianzhu.CSClient.Presenter
                 errorMsg = "服务已过期，请重新搜索";
                 return null;
             }
-            
+
             //禁用推送按钮
             //viewSearchResult.BtnPush = false;
 
