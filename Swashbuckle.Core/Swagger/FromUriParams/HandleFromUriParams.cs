@@ -42,7 +42,7 @@ namespace Swashbuckle.Swagger.FromUriParams
                 var refSchema = schemaRegistry.GetOrRegister(type);
                 var schema = schemaRegistry.Definitions[refSchema.@ref.Replace("#/definitions/", "")];
 
-                var qualifier = string.IsNullOrEmpty(objectParam.name) ? "" : (objectParam.name + ".");
+                var qualifier = "";// string.IsNullOrEmpty(objectParam.name) ? "" : (objectParam.name + ".");
                 ExtractAndAddQueryParams(schema, qualifier, objectParam.required, schemaRegistry, operation.parameters);
                 operation.parameters.Remove(objectParam);
             }
