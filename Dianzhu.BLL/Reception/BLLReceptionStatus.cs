@@ -5,6 +5,10 @@ using System.Text;
 using Dianzhu.DAL;
 using Dianzhu.Model;
 using System.Diagnostics;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
+
 namespace Dianzhu.BLL
 {
     public class BLLReceptionStatus
@@ -353,6 +357,7 @@ namespace Dianzhu.BLL
     /// </summary>
     public class IMSessionsOpenfire : IIMSession
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLReceptionstatus.IMSessionOpenfire");
         string restApiUrl, restApiSecretKey;
         public IMSessionsOpenfire(string restApiUrl, string restApiSecretKey)
         {
@@ -378,13 +383,16 @@ namespace Dianzhu.BLL
 
         public bool IsUserOnline(string userId)
         {
-            var result = RequestAPI(API_Sessions + "/" + userId);
+            var result = RequestAPI(API_Sessions + userId);
             //todo: 
-            return result!=null||result.Count>0;
+            log.Debug(result);
+            return result!=null;
              
         }
         private IList<OnlineUserSession> RequestAPI(string apiName)
         {
+            ServicePointManager.ServerCertificateValidationCallback = ValidateServerCertificate;
+
             System.Net.WebClient wc = new System.Net.WebClient();
             
             Uri uri = new Uri(restApiUrl+apiName);
@@ -421,8 +429,12 @@ namespace Dianzhu.BLL
         }
 
         const string API_Sessions = "sessions/";//获取所有用户会话
-         
+        private static bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
+        }
     }
+   
 
     /// <summary>
     /// 直接查询数据库中用户状态表获取
