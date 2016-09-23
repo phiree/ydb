@@ -47,9 +47,9 @@ namespace Dianzhu.BLL.Client
             }
             //if (usertoken == null)
             //{
-            return true;
+            //return true;
             //}
-            //return false;
+            return false;
         }
 
         public bool CheckToken(string token)
