@@ -49,5 +49,12 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <type>string</type>
         //public string userID { get; set; }
+
+        /// <summary>
+        /// id数组
+        /// </summary>
+        /// <type>string</type>
+        public string ids { get; set; }
+        
     }
 }

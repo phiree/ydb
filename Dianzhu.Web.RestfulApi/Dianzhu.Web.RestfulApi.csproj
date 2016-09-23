@@ -270,6 +270,7 @@
     <Compile Include="Controllers\AD\adsController.cs" />
     <Compile Include="Controllers\APP\AppsController.cs" />
     <Compile Include="Controllers\ASSIGN\AssignsController.cs" />
+    <Compile Include="Controllers\BILLSATISTIC\BillSatisticsController.cs" />
     <Compile Include="Controllers\CHAT\ChatsController.cs" />
     <Compile Include="Controllers\Client\ClientController.cs" />
     <Compile Include="Controllers\COMPLAINT\ComplaintsController.cs" />
