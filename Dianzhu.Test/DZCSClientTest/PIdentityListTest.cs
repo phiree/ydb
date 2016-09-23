@@ -10,6 +10,8 @@ using Dianzhu.CSClient.IView;
 using Dianzhu.CSClient.Presenter;
 using FizzWare.NBuilder;
 using Dianzhu.Model;
+using Dianzhu.CSClient.Presenter.VMAdapter;
+
 namespace Dianzhu.Test.DZCSClientTest
 {
     [TestFixture]
@@ -26,6 +28,7 @@ namespace Dianzhu.Test.DZCSClientTest
         IViewSearchResult viewSearchResult;
         IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve;
         IDAL.IDALMembership dalMembership;
+        IVMChatAdapter vmChatAdapter;
 
 
         PIdentityList pIdentityList;
@@ -106,7 +109,7 @@ namespace Dianzhu.Test.DZCSClientTest
         {
             viewChatList.ChatList = Builder<ReceptionChat>.CreateListOfSize(1).Build();
 
-            PChatList pChatList = new PChatList(viewChatList, viewChatSend, viewIdentityList, dalReceptionChat, iIM,lcm);
+            PChatList pChatList = new PChatList(viewChatList, viewChatSend, viewIdentityList, dalReceptionChat, iIM,lcm, vmChatAdapter);
 
             IList<DZMembership> members = Builder<DZMembership>.CreateListOfSize(3)
                  .TheFirst(1).With(x => x.Id = new Guid("f197a81d-c984-4894-b21c-a5f00106e08b"))

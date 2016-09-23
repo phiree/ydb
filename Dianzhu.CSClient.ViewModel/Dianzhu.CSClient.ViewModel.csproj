@@ -38,6 +38,9 @@
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,9 +53,16 @@
     <Compile Include="ViewOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewOrderList.cs" />
+    <Compile Include="VMChatPushServie.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
+      <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
+      <Name>Dianzhu.Config</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

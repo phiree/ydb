@@ -1,4 +1,5 @@
-﻿using Dianzhu.Model;
+﻿using Dianzhu.CSClient.ViewModel;
+using Dianzhu.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +29,12 @@ namespace Dianzhu.CSClient.ViewWPF
             ClearData();
         }
 
-        public void LoadData(PushedServiceInfo pushService)
+        public void LoadData(VMChatPushServie pushService)
         {
             tbkServiceName.Text = pushService.ServiceName;
-           // lblUnitPrice.Content = (pushService.UnitPrice * pushService.UnitAmount).ToString("0.00");
-           // lblDepostiAmount.Content = pushService.DepositAmount.ToString("0.00");
-          //  tbxMemo.Text = pushService.;
+            lblUnitPrice.Content = pushService.UnitPrice.ToString("0.00");
+            lblDepostiAmount.Content = pushService.DepositAmount.ToString("0.00");
+            tbxMemo.Text = pushService.ServiceMemo;
         }
 
         private void ClearData()

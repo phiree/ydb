@@ -13,11 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
-using Dianzhu.Model;
 using System.Windows.Interop;
 using System.Windows.Controls.Primitives;
 using System.IO;
 using System.ComponentModel;
+using Dianzhu.CSClient.ViewModel;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -64,8 +64,8 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        IList<ReceptionChat> chatList = new List<ReceptionChat>();
-        public IList<ReceptionChat> ChatList
+        IList<VMChat> chatList = new List<VMChat>();
+        public IList<VMChat> ChatList
         {
             get
             {
@@ -228,32 +228,31 @@ namespace Dianzhu.CSClient.ViewWPF
             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
-        public void AddOneChat(ReceptionChat chat,string customerAvatar)
+        public void AddOneChat(VMChat vmChat)
         {
-            if (chat == null)
+            if (vmChat == null)
             {
-                log.Warn("chat is null");
+                log.Warn("vmChat is null");
                 return;
             }
 
             Action lamda = () =>
             {
-                log.Debug("chat begin, chatId:" + chat.Id + ",body:" + chat.MessageBody);
+                //log.Debug("vmChat begin, chatId:" + vmChat.Id + ",body:" + vmChat.MessageBody);
                 IViewChatCustomer chatCustomer = new UC_ChatCustomer()
                 {
-                    CurrentCS = currentCustomerService,
-                    Chat = chat,
-                    CustomerAvatar = customerAvatar
+                    CurrentCSId = currentCustomerServiceId,
+                    VMChat = vmChat
                 };
 
-                string chatId = PHSuit.StringHelper.SafeNameForWpfControl(chat.Id.ToString(), PRECHATCUSTOMER);
+                string chatId = PHSuit.StringHelper.SafeNameForWpfControl(vmChat.ChatId, PRECHATCUSTOMER);
                 if ((UC_ChatCustomer)stackPanel.FindName(chatId) == null)
                 {
                     stackPanel.RegisterName(chatId, chatCustomer);
                 }                
                 stackPanel.Children.Add((UC_ChatCustomer)chatCustomer);
 
-                log.Debug("chat begin, chatId:" + chat.Id + ",body:" + chat.MessageBody);
+                //log.Debug("chat begin, chatId:" + chat.Id + ",body:" + chat.MessageBody);
             };
             if (!Dispatcher.CheckAccess())
             {
@@ -265,15 +264,20 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        public void InsertOneChat(ReceptionChat chat,string customerAvatar)
+        public void InsertOneChat(VMChat vmChat)
         {
+            if (vmChat == null)
+            {
+                log.Warn("vmChat is null");
+                return;
+            }
+
             Action lamda = () =>
             {
                 IViewChatCustomer chatCustomer = new UC_ChatCustomer()
                 {
-                    CurrentCS = currentCustomerService,
-                    Chat = chat,
-                    CustomerAvatar= customerAvatar
+                    CurrentCSId = currentCustomerServiceId,
+                    VMChat = vmChat
                 };
 
                 stackPanel.Children.Insert(1,(UC_ChatCustomer)chatCustomer);
@@ -288,19 +292,19 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        DZMembership currentCustomerService;        
+        Guid currentCustomerServiceId;        
         public event BtnMoreChat BtnMoreChat;
 
-        public DZMembership CurrentCustomerService
+        public Guid CurrentCustomerServiceId
         {
             get
             {
-                return currentCustomerService;
+                return currentCustomerServiceId;
             }
 
             set
             {
-                currentCustomerService = value;
+                currentCustomerServiceId = value;
             }
         }
 
