@@ -10,32 +10,32 @@ using log4net;
 using Dianzhu.Push;
 namespace Dianzhu.BLL
 {
- 
+
     /// <summary>
     /// 负责消息推送.
     /// </summary>
- 
+
     public class BLLPush
     {
         ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL.BLLPush");
-        IDAL.IDALIMUserStatus dalIMStatus;
+       
         IDALDeviceBind dalDeviceBind;
- 
+
         IBLLServiceOrder bllServiceOrder;
         IIMSession iimSession;
         IDAL.IDALMembership dalMembership;
-        public BLLPush(IDAL.IDALIMUserStatus dalIMStatus, IDALDeviceBind dalDeviceBind, BLL.IBLLServiceOrder bllServiceOrder, IIMSession iimSession, IDAL.IDALMembership dalMembership)
- 
+        public BLLPush( IDALDeviceBind dalDeviceBind, BLL.IBLLServiceOrder bllServiceOrder, IIMSession iimSession, IDAL.IDALMembership dalMembership)
+
         {
-            this.dalIMStatus = dalIMStatus;
+          
             this.dalDeviceBind = dalDeviceBind;
             this.bllServiceOrder = bllServiceOrder;
             this.iimSession = iimSession;
             this.dalMembership = dalMembership;
         }
- 
-         
-        
+
+
+
         public void Push(Dianzhu.Model.ReceptionChat chat, Guid targetUserId, string orderId)
         {
             //判断用户是否在线的接口
@@ -65,11 +65,11 @@ namespace Dianzhu.BLL
                     serviceOrder.OrderStatus == enum_OrderStatus.EndRefund ||
                     serviceOrder.OrderStatus == enum_OrderStatus.EndIntervention)
                 {
-                    pushMessage = string.Format("<订单完成>{0}订单状态已变为{1},快来看看吧", serviceOrder.Id, serviceOrder.OrderStatusStr);
+                    pushMessage = string.Format("<订单完成>{0}订单状态已变为{1},快来看看吧", serviceOrder.SerialNo, serviceOrder.OrderStatusStr);
                 }
                 else
                 {
-                    pushMessage = string.Format("<订单更新>{0}订单状态已变为{1},快来看看吧", serviceOrder.Id, serviceOrder.OrderStatusStr);
+                    pushMessage = string.Format("<订单更新>{0}订单状态已变为{1},快来看看吧", serviceOrder.SerialNo, serviceOrder.OrderStatusStr);
 
                 }
 
@@ -78,7 +78,7 @@ namespace Dianzhu.BLL
             {
                 pushMessage = System.Text.RegularExpressions.Regex.Replace(chat.MessageBody, @"[\<|\>|\[|\]]", string.Empty);
             }
-            else if(chat.GetType() == typeof(Model.ReceptionChat)|| chat.GetType() == typeof(Model.ReceptionChatMedia))
+            else if (chat.GetType() == typeof(Model.ReceptionChat) || chat.GetType() == typeof(Model.ReceptionChatMedia))
             {
                 Model.DZMembership member = dalMembership.FindById(new Guid(chat.FromId));
                 switch (member.UserType)
@@ -88,14 +88,18 @@ namespace Dianzhu.BLL
                         break;
                     case enum_UserType.business:
                         Model.ServiceOrder serviceOrder = bllServiceOrder.GetOne(new Guid(chat.SessionId));
-                        
-                        pushMessage = "["+serviceOrder.ServiceBusinessName+"]" + chat.MessageBody;
+
+                        pushMessage = "[" + serviceOrder.ServiceBusinessName + "]" + chat.MessageBody;
                         break;
                     default:
-                        log.Info("from type is not suppported:"+member.UserType);
-                        return;  
+                        pushMessage = "[" + member.UserName + "]" + chat.MessageBody;
+                        break;
                 }
-                
+
+            }
+            else
+            {
+                log.Debug("未处理的消息类型:" + chat.GetType());
             }
 
             Model.DeviceBind bind = dalDeviceBind.getDevBindByUserID(targetUserId);
@@ -112,7 +116,12 @@ namespace Dianzhu.BLL
             //客服->用户, 用户->商户,商户->用户
             if (chat.ToResource == enum_XmppResource.YDBan_Store) { pushType = PushType.PushToBusiness; }
             else if (chat.ToResource == enum_XmppResource.YDBan_User) { pushType = PushType.PushToUser; }
-            
+            else
+            {
+                log.Warn("不需要推送的目标" + chat.Id);
+                return;
+            }
+
             IPush ipush = Dianzhu.Push.PushFactory.Create(pushType, deviceName, orderId);
             int pushAmount = bind.PushAmount + 1;
             bind.PushAmount = pushAmount;
@@ -121,7 +130,7 @@ namespace Dianzhu.BLL
             string pushResult = ipush.Push(pushMessage + chat.MessageBody, bind.AppToken, pushAmount);
             log.Debug("推送结果" + pushResult);
 
- 
+
         }
 
     }
