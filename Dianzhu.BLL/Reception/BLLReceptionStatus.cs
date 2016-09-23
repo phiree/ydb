@@ -5,6 +5,10 @@ using System.Text;
 using Dianzhu.DAL;
 using Dianzhu.Model;
 using System.Diagnostics;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
+
 namespace Dianzhu.BLL
 {
     public class BLLReceptionStatus
@@ -301,27 +305,34 @@ namespace Dianzhu.BLL
             //re assign
             Dictionary<DZMembership, DZMembership> newAssign
                 = stratage.Assign(customerWithCS.Select(x=>x.Customer).ToList(), CustomerServiceList,Diandian);
+
+            foreach(ReceptionStatus status in customerWithCS)
+            {
+                status.CustomerService = newAssign[status.Customer];
+                dalRS.Update(status);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            }
             
             // save assign to database 
-            foreach (KeyValuePair<DZMembership, DZMembership> pair in newAssign)
-            {
-                ReceptionStatus rs = new ReceptionStatus
-                {
-                    Customer = pair.Key,
-                    CustomerService = pair.Value,
-                    Order = dalRS.GetOrder(pair.Key, customerservice).Order,
-                    LastUpdateTime = DateTime.Now
-                };
-                dalRS.Add(rs);
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            }
+            //foreach (KeyValuePair<DZMembership, DZMembership> pair in newAssign)
+            //{
+            //    ReceptionStatus rs = new ReceptionStatus
+            //    {
+            //        Customer = pair.Key,
+            //        CustomerService = pair.Value,
+            //        Order = dalRS.GetOrder(pair.Key, customerservice).Order,
+            //        LastUpdateTime = DateTime.Now
+            //    };
+            //    dalRS.Add(rs);
+            //    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            //}
 
-            // delete old assign to database
-            foreach (ReceptionStatus oldrs in customerWithCS)
-            {
-                dalRS.Delete(oldrs);
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            }
+            //// delete old assign to database
+            //foreach (ReceptionStatus oldrs in customerWithCS)
+            //{
+            //    dalRS.Delete(oldrs);
+            //    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            //}
 
             //return new assign
             return newAssign;
@@ -338,6 +349,7 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <returns></returns>
         IList<OnlineUserSession> GetOnlineSessionUser(string xmppResource);
+        bool IsUserOnline(string userId);
     }
     /// <summary>
     /// IM 会话状态接口之: openfire的实现
@@ -345,6 +357,7 @@ namespace Dianzhu.BLL
     /// </summary>
     public class IMSessionsOpenfire : IIMSession
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLReceptionstatus.IMSessionOpenfire");
         string restApiUrl, restApiSecretKey;
         public IMSessionsOpenfire(string restApiUrl, string restApiSecretKey)
         {
@@ -354,31 +367,7 @@ namespace Dianzhu.BLL
 
         public IList<OnlineUserSession> GetOnlineSessionUser()
         {
-            System.Net.WebClient wc = new System.Net.WebClient();
-            Uri uri = new Uri(restApiUrl);
-            string host = uri.Host;
-            wc.Headers.Add("Authorization:" + restApiSecretKey);
-            wc.Headers.Add("Host: " + host);
-            wc.Headers.Add("Accept: application/json");
-            //System.Threading.Thread.Sleep(2000);
-            System.IO.Stream returnData = wc.OpenRead(uri);
-            System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
-            string result = reader.ReadToEnd();
-             
-            try
-            {
-                OnlineUserSessionResult sessionResult
-                    = Newtonsoft.Json.JsonConvert
-                    .DeserializeObject<OnlineUserSessionResult>(result);
-                return sessionResult.session;
-            }
-            catch (Exception ex)
-            {
-                OnlineUserSessionResult_OnlyOne sessionResult
-                   = Newtonsoft.Json.JsonConvert
-                   .DeserializeObject<OnlineUserSessionResult_OnlyOne>(result);
-                return new List<OnlineUserSession>(new OnlineUserSession[] { sessionResult.session });
-            }
+            return RequestAPI(API_Sessions);
 
         }
         public IList<OnlineUserSession> GetOnlineSessionUser(string xmppResource)
@@ -391,7 +380,61 @@ namespace Dianzhu.BLL
             var filteredByResourceName = onlineUsers.Where(x => x.ressource == xmppResource);
             return filteredByResourceName.ToList();
         }
+
+        public bool IsUserOnline(string userId)
+        {
+            var result = RequestAPI(API_Sessions + userId);
+            //todo: 
+            log.Debug(result);
+            return result!=null;
+             
+        }
+        private IList<OnlineUserSession> RequestAPI(string apiName)
+        {
+            ServicePointManager.ServerCertificateValidationCallback = ValidateServerCertificate;
+
+            System.Net.WebClient wc = new System.Net.WebClient();
+            
+            Uri uri = new Uri(restApiUrl+apiName);
+            string host = uri.Host;
+            wc.Headers.Add("Authorization:" + restApiSecretKey);
+            wc.Headers.Add("Host: " + host);
+            wc.Headers.Add("Accept: application/json");
+            //System.Threading.Thread.Sleep(2000);
+            System.IO.Stream returnData = wc.OpenRead(uri);
+            System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
+            string result = reader.ReadToEnd();
+
+            try
+            {
+                OnlineUserSessionResult sessionResult
+                    = Newtonsoft.Json.JsonConvert
+                    .DeserializeObject<OnlineUserSessionResult>(result);
+                return sessionResult.session;
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    OnlineUserSessionResult_OnlyOne sessionResult
+                       = Newtonsoft.Json.JsonConvert
+                       .DeserializeObject<OnlineUserSessionResult_OnlyOne>(result);
+                    return new List<OnlineUserSession>(new OnlineUserSession[] { sessionResult.session });
+                }
+                catch (Exception eex)
+                {
+                    return null;
+                }
+            }
+        }
+
+        const string API_Sessions = "sessions/";//获取所有用户会话
+        private static bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
+        }
     }
+   
 
     /// <summary>
     /// 直接查询数据库中用户状态表获取
@@ -429,6 +472,11 @@ namespace Dianzhu.BLL
             }            
 
             return resultList;
+        }
+
+        public bool IsUserOnline(string userId)
+        {
+            throw new NotImplementedException();
         }
     }
     #region ---------------openfire restapi 在线用户数据的结构---------------

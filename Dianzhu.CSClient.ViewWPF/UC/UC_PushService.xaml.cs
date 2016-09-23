@@ -28,12 +28,12 @@ namespace Dianzhu.CSClient.ViewWPF
             ClearData();
         }
 
-        public void LoadData(ServiceOrderPushedService pushService)
+        public void LoadData(PushedServiceInfo pushService)
         {
             tbkServiceName.Text = pushService.ServiceName;
-            lblUnitPrice.Content = (pushService.UnitPrice * pushService.UnitAmount).ToString("0.00");
-            lblDepostiAmount.Content = pushService.DepositAmount.ToString("0.00");
-            tbxMemo.Text = pushService.Description;
+           // lblUnitPrice.Content = (pushService.UnitPrice * pushService.UnitAmount).ToString("0.00");
+           // lblDepostiAmount.Content = pushService.DepositAmount.ToString("0.00");
+          //  tbxMemo.Text = pushService.;
         }
 
         private void ClearData()

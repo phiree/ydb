@@ -110,7 +110,6 @@
     <Compile Include="Finance\DALSharePoint.cs" />
     <Compile Include="IdentityAccess\DALMembership.cs" />
     <Compile Include="DALPaylog.cs" />
-    <Compile Include="DALReceptionChatDD.cs" />
     <Compile Include="DALReceptionChat.cs" />
     <Compile Include="DALReceptionStatusArchieve.cs" />
     <Compile Include="DALOrderAssignment.cs" />

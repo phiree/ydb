@@ -25,5 +25,19 @@ namespace Dianzhu.BLL.Finance
         {
             dalBalanceFlow.Add(flow);
         }
+
+        /// <summary>
+        /// 统计账单结果
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="serviceTypeLevel"></param>
+        /// <param name="dateType"></param>
+        /// <returns></returns>
+        public IList<BalanceFlow> GetBillSatistics(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string dateType)
+        {
+            return dalBalanceFlow.GetBillSatistics(userID, startTime, endTime, serviceTypeLevel, dateType);
+        }
     }
 }

@@ -72,7 +72,7 @@ namespace Dianzhu.Test.DZCSClientTest.MessageAdapterTest
             if (adapter != null)
             {
                 Model.ReceptionChat chat = adapter.MessageToChat(msg);
-                Assert.AreEqual(orderId, chat.ServiceOrder.Id);
+                Assert.AreEqual(orderId.ToString(), chat.SessionId);
 
                 Message msg2 = adapter.ChatToMessage(chat, server);
                 Assert.AreEqual(orderId.ToString(),msg2.SelectSingleElement("ext").SelectSingleElement("orderID").Value);
@@ -107,7 +107,7 @@ namespace Dianzhu.Test.DZCSClientTest.MessageAdapterTest
             {
                 Model.ReceptionChat chat = adapter.MessageToChat(msg);
                 Assert.AreEqual(mediaurl, ((Model.ReceptionChatMedia)chat).MedialUrl);
-                Assert.AreEqual(userid.ToString(), chat.From.Id.ToString())
+                Assert.AreEqual(userid.ToString(), chat.FromId)
     ;
                 Message msg2 = adapter.ChatToMessage(chat, server);
                 Assert.AreEqual(userid.ToString(), msg2.From.User);

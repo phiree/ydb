@@ -66,7 +66,7 @@ namespace Dianzhu.Api.Model
                 this.endTime = string.Empty;
             }
             this.updateTime = string.Format("{0:yyyyMMddHHmmss}", order.LatestOrderUpdated);
-            this.exDoc = order.Description ?? string.Empty;
+            this.exDoc = order.TargetMemo ?? string.Empty;
             this.orderAmount = order.OrderAmount.ToString("0.00");
             this.negotiateAmount = order.NegotiateAmount.ToString("0.00");
             this.address = order.TargetAddress ?? string.Empty;

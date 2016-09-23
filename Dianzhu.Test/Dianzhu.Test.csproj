@@ -132,12 +132,12 @@
     <Compile Include="BLLTest\OrderFlow.cs" />
     <Compile Include="BLLTest\TestBLLPayment.cs" />
     <Compile Include="BLLTest\TestBLLArea.cs" />
-    <Compile Include="BLLTest\TestBLLReceptionChat.cs" />
     <Compile Include="BLLTest\TestBLLServiceOrder.cs" />
     <Compile Include="BLLTest\TestDZService.cs" />
     <Compile Include="BLLTest\TestReceptionAssign.cs" />
     <Compile Include="Bootstrap.cs" />
     <Compile Include="ClassMapper\DZMapperTests.cs" />
+    <Compile Include="DALReceptionStatusTests.cs" />
     <Compile Include="DALTest\DALService.cs" />
     <Compile Include="DALTest\MapTest.cs" />
     <Compile Include="DALTest\TestDALReceptionChatDD.cs" />
@@ -170,7 +170,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExcelImportTest.cs" />
     <Compile Include="Push\BLLPushTests.cs" />
+    <Compile Include="Reception\BLLReceptionChatTests.cs" />
     <Compile Include="Reception\BLLReceptionTests.cs" />
+    <Compile Include="Reception\IMSessionsOpenfireTests.cs" />
     <Compile Include="RespDataSHM_snapshotObjTests.cs" />
     <Compile Include="SecurityTest.cs" />
     <Compile Include="SerialNo\SerialNoDbTests.cs" />

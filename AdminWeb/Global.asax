@@ -15,7 +15,7 @@
         Bootstrap.Boot();
         System.Timers.Timer timerOrderShare = new System.Timers.Timer(60*1000);
         timerOrderShare.Elapsed += new System.Timers.ElapsedEventHandler(timerOrderShare_Elapsed);
-        
+
         timerOrderShare.Start();
         PHSuit.HttpHelper._SetupRefreshJob(888);
         // timerOrderShare_Elapsed(null, null);
@@ -26,18 +26,23 @@
 
         Dianzhu.BLL.IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
         Dianzhu.BLL.Finance.IOrderShare orderShare = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IOrderShare>();
+      //  NHibernateUnitOfWork.UnitOfWork.Start();
+       
        
         Action a = () => {
              IList<Dianzhu.Model.ServiceOrder> ordersForShare= bllOrder.GetOrdersForShare();
-        log.Debug("批量分账开始,需要分账的订单数量:" + ordersForShare.Count);
+             log.Debug("批量分账开始,需要分账的订单数量:" + ordersForShare.Count);
             foreach (ServiceOrder order in ordersForShare)
             {
                 orderShare.ShareOrder(order);
                 bllOrder.OrderShared(order);
             }
         };
-           NHibernateUnitOfWork.With.Transaction(a);
+        NHibernateUnitOfWork.With.Transaction(a);
         log.Debug("批量分账结束");
+        //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+        //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+
     }
 
 </script>

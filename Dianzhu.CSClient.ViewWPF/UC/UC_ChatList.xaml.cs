@@ -230,9 +230,15 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public void AddOneChat(ReceptionChat chat,string customerAvatar)
         {
-            log.Debug("chat begin, body:" + chat.MessageBody);
+            if (chat == null)
+            {
+                log.Warn("chat is null");
+                return;
+            }
+
             Action lamda = () =>
             {
+                log.Debug("chat begin, chatId:" + chat.Id + ",body:" + chat.MessageBody);
                 IViewChatCustomer chatCustomer = new UC_ChatCustomer()
                 {
                     CurrentCS = currentCustomerService,
@@ -247,7 +253,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 }                
                 stackPanel.Children.Add((UC_ChatCustomer)chatCustomer);
 
-                log.Debug("chat end, body:" + chat.MessageBody);
+                log.Debug("chat begin, chatId:" + chat.Id + ",body:" + chat.MessageBody);
             };
             if (!Dispatcher.CheckAccess())
             {

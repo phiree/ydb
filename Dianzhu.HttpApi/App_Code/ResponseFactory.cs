@@ -210,8 +210,7 @@ public class ResponseFactory
                 return new ResponseRMM001006(request);
             #endregion
 
-            case "sys001001":
-                return new ResponseSYS001001(request);
+           
             case "shm001007":
                 return new ResponseSHM001007(request);
             case "ofp001001":

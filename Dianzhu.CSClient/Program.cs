@@ -81,7 +81,7 @@ namespace Dianzhu.CSClient
 
                 Presenter.PIdentityList pIdentityList = Bootstrap.Container.Resolve<Presenter.PIdentityList>(); ;
                 Presenter.PChatList pChatList = Bootstrap.Container.Resolve<Presenter.PChatList>();
-                Presenter.PNotice pNotice = Bootstrap.Container.Resolve<Presenter.PNotice>();
+              
                 Presenter.PSearch pSearch = Bootstrap.Container.Resolve<Presenter.PSearch>();
                 Presenter.PTabControl pTabControl = Bootstrap.Container.Resolve<Presenter.PTabControl>();
                 Presenter.POrderHistory pOrderHistory = Bootstrap.Container.Resolve<Presenter.POrderHistory>();
@@ -115,7 +115,7 @@ namespace Dianzhu.CSClient
                 .ConnectionStrings["DianzhuConnectionString"].ConnectionString, false);
             System.Text.RegularExpressions.Match m = System.Text.RegularExpressions.Regex.Match(connectionString, @"(?<=data\s+source\=).+?(?=;uid)");
             string ofserver = Dianzhu.Config.Config.GetAppSetting("ImServer");
-            System.Text.RegularExpressions.Match m2 = System.Text.RegularExpressions.Regex.Match(Dianzhu.Config.Config.GetAppSetting("APIBaseURL"), "(?<=https?://).+?(?=:8037)");
+            System.Text.RegularExpressions.Match m2 = System.Text.RegularExpressions.Regex.Match(Dianzhu.Config.Config.GetAppSetting("APIBaseURL"), "(?<=https?://).+?(?=:" + Dianzhu.Config.Config.GetAppSetting("GetHttpAPIPort") + ")");
 
             if (ofserver == m.Value && m.Value == m2.Value)
             {

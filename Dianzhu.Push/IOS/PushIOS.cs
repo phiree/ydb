@@ -30,7 +30,7 @@ namespace Dianzhu.Push
 
                         //
                          
-                        fileName="aps_development_Mark_Store.p12";
+                        fileName="aps_production_Mark_Store.p12";
 
                        
                      //   fileName ="aps_production_Mark_Store.p12";
@@ -39,7 +39,7 @@ namespace Dianzhu.Push
                     case PushType.PushToUser:
 
                       
-                        fileName = "aps_development_Mark_CustomerService.p12";
+                        fileName = "aps_production_Mark_CustomerService.p12";
 
                          
                      //   fileName = "aps_production_Mark_CustomerService.p12";

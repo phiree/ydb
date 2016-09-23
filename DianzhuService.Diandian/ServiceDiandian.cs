@@ -174,12 +174,13 @@ namespace DianzhuService.Diandian
 
                 //自动回复消息
                 string reply = "当前没有客服在线，请留言..";
-                csId = msg.To.User;
-                agsc.Message message = new MessageBuilder().Create(csId, customerId, reply, orderID).BuildText();
-                message.Id = Guid.NewGuid().ToString();
-                message.To = msg.From;
-                log.Debug("Sending message:" + message.ToString());
-                GlobalViables.XMPPConnection.Send(message);
+
+                msg.Id = Guid.NewGuid().ToString();
+                msg.To = msg.From;
+                msg.Body = reply;
+
+                log.Debug("Sending message:" + msg.ToString());
+                GlobalViables.XMPPConnection.Send(msg);
                 //AddLog(message);
             }
             catch (Exception e)

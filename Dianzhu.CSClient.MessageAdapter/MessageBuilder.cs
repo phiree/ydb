@@ -12,16 +12,16 @@ namespace Dianzhu.CSClient.MessageAdapter
    
     public  class MessageBuilder
     {
-        IDAL.IDALIMUserStatus dalIMUserStatus;
+        
         ILog ilog = LogManager.GetLogger("Dianzhu.CSClient.Dianzhu.CSClient.MessageBuilder");
 
         Node extNode;//message 中的ext节点
         Message message = null;
         public Message Message { get { return message; } }
 
-        public MessageBuilder(IDAL.IDALIMUserStatus dalIMUserStatus)
+        public MessageBuilder( )
         {
-            this.dalIMUserStatus = dalIMUserStatus;
+             
             message = new Message();
         }
         public MessageBuilder BuildBase(string id, string toJid, string fromJid, string body,string orderId)
@@ -83,7 +83,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             message.SetAttribute("type", "headline");
             return this;
         }
-        public MessageBuilder BuildPushedService(string svcID, string svcName,string svcType,string startTime,string userId,string alias,string imgUrl,string customerPhone, string customerName, string customerAddress)
+        public MessageBuilder BuildPushedService(string svcID, string svcName,string svcType,string startTime,string endTime, string userId,string alias,string imgUrl )
         {
             extNode.Namespace = "ihelper:chat:orderobj";
             var svcObj = new agsXMPP.Xml.Dom.Element("svcObj");
@@ -92,6 +92,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             svcObj.SetAttribute("name", svcName);
             svcObj.SetAttribute("type", svcType);
             svcObj.SetAttribute("startTime", startTime);
+            svcObj.SetAttribute("endTime", endTime);
             extNode.AddChild(svcObj);
 
             /* "storeObj": {
@@ -106,14 +107,21 @@ namespace Dianzhu.CSClient.MessageAdapter
             storeObj.SetAttribute("imgUrl", imgUrl);
             extNode.AddChild(storeObj);
 
-            var customerObj = new agsXMPP.Xml.Dom.Element("customerObj");
-
-            customerObj.SetAttribute("customerPhone", customerPhone);
-            customerObj.SetAttribute("customerName", customerName);
-            customerObj.SetAttribute("customerAddress", customerAddress);
-            extNode.AddChild(customerObj);
+           
             return this;
         }
+        
+        public MessageBuilder BuildNoticeOrder(string title, string status,string type)
+        {
+            extNode.Namespace = "ihelper:notice:order";
 
+
+            var extMedia = new agsXMPP.Xml.Dom.Element("orderObj");
+            extMedia.SetAttribute("status", status);
+            extMedia.SetAttribute("type", type);
+            extMedia.SetAttribute("title", title);
+            extNode.AddChild(extMedia);
+            return this;
+        }
     }
 }

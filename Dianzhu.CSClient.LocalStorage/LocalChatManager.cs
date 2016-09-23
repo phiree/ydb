@@ -68,7 +68,7 @@ namespace Dianzhu.CSClient.LocalStorage
             {
                 
                 //initdata 
-                IList<ReceptionChat> initChatList = InitChatList(chatData.From.Id, Guid.Empty, Guid.Empty);
+                IList<ReceptionChat> initChatList = InitChatList(new Guid( chatData.FromId), Guid.Empty, Guid.Empty);
                 //是否包含当前记录.  插件保存记录 和 xmpp接收 的顺序无法控制, 加此判断以保证列表中包含该消息.
                 if (initChatList.Where(x => x.Id == chatData.Id).Count() == 0)
                 {
@@ -78,7 +78,7 @@ namespace Dianzhu.CSClient.LocalStorage
 
             if (!LocalCustomerAvatarUrls.ContainsKey(customerId))
             {
-                LocalCustomerAvatarUrls.Add(customerId, chatData.From.AvatarUrl);
+                LocalCustomerAvatarUrls.Add(customerId, string.Empty);
             }
         }
 

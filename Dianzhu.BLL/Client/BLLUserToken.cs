@@ -22,7 +22,7 @@ namespace Dianzhu.BLL.Client
         /// </summary>
         /// <param name="usertoken"></param>
         /// <returns></returns>
-        public bool addToken(UserToken usertoken)
+         public bool addToken(UserToken usertoken)
         {
             var where = PredicateBuilder.True<UserToken>();
             where = where.And(x => x.UserID == usertoken.UserID && x.Flag==1);

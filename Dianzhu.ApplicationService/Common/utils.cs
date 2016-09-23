@@ -177,6 +177,7 @@ namespace Dianzhu.ApplicationService
             Model.Trait_Filtering filter1 = new Model.Trait_Filtering();
             filter1.baseID = filter.baseID;
             filter1.ascending = filter.ascending;
+            filter1.ids = filter.ids;
             if (filter.pageSize != null && filter.pageSize != "" && filter.pageNum != null && filter.pageNum != "")
             {
                 try
