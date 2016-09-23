@@ -89,6 +89,9 @@ namespace Dianzhu.ApplicationService
                     case "doneTime":
                         sort = "OrderServerFinishedTime";
                         break;
+                    case "updateTime":
+                        sort = "LatestOrderUpdated";
+                        break;
                     default:
                         sort = "OrderCreated";
                         break;
@@ -202,8 +205,12 @@ namespace Dianzhu.ApplicationService
                         break;
                 }
             }
-            
-            return sort;
+            if (TName == "BillSatisticService")
+            {
+                sort = sortby;
+            }
+
+           return sort;
         }
 
        

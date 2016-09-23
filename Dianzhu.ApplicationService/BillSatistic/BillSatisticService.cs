@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace Dianzhu.ApplicationService.BillSatistic
 {
     public class BillSatisticService: IBillSatisticService
     {
         BLL.Finance.IBalanceFlowService iBalanceFlowService;
-        public BillSatisticService(BLL.Finance.IBalanceFlowService iBalanceFlowService)
+        BLL.BLLServiceType bllServiceType;
+        public BillSatisticService(BLL.Finance.IBalanceFlowService iBalanceFlowService, BLL.BLLServiceType bllServiceType)
         {
             this.iBalanceFlowService = iBalanceFlowService;
+            this.bllServiceType = bllServiceType;
         }
 
         //Dianzhu.IDAL.Finance.IDALBalanceFlow dalBalance = Bootstrap.Container.Resolve<Dianzhu.IDAL.Finance.IDALBalanceFlow>();
@@ -29,10 +32,10 @@ namespace Dianzhu.ApplicationService.BillSatistic
         /// <param name="assign"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public IList<billStatement> GetBillSatistics( common_Trait_BillFiltering bill, Customer customer)
+        public IList<billStatementObj> GetBillSatistics( common_Trait_BillFiltering bill, Customer customer)
         {
             IList<Model.Finance.BalanceFlow> billList = null;
-            billList = iBalanceFlowService.GetBillSatistics(customer.UserID,utils.CheckDateTime(bill.startTime, "yyyyMMdd", "开始日期startTime"), utils.CheckDateTime(bill.endTime, "yyyyMMdd", "开始日期startTime"),bill.serviceTypeLevel, "%Y-%m-%d");
+            billList = iBalanceFlowService.GetBillSatistics(customer.UserID,utils.CheckDateTime(bill.startTime, "yyyyMMdd", "开始日期startTime"), utils.CheckDateTime(bill.endTime, "yyyyMMdd", "结束日期startTime"),bill.serviceTypeLevel, "%Y-%m-%d");
             return GetBillStatement(billList, "yyyy-MM-dd");
         }
 
@@ -43,16 +46,22 @@ namespace Dianzhu.ApplicationService.BillSatistic
         /// <param name="assign"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public IList<billStatement> GetMonthBillStatement(common_Trait_BillFiltering bill, Customer customer)
+        public IList<billStatementObj> GetMonthBillStatement(common_Trait_BillFiltering bill, Customer customer)
         {
             IList<Model.Finance.BalanceFlow> billList = null;
-            billList = iBalanceFlowService.GetBillSatistics(customer.UserID, utils.CheckDateTime(bill.startTime, "yyyyMM", "开始月份startTime"), utils.CheckDateTime(bill.endTime, "yyyyMM", "开始月份startTime"), bill.serviceTypeLevel, "%Y-%m");
+            billList = iBalanceFlowService.GetBillSatistics(customer.UserID, utils.CheckDateTime(bill.startTime, "yyyyMM", "开始月份startTime"), utils.CheckDateTime(bill.endTime, "yyyyMM", "结束月份startTime"), bill.serviceTypeLevel, "%Y-%m");
             return GetBillStatement(billList, "yyyy-MM");
         }
 
-        IList<billStatement> GetBillStatement(IList<Model.Finance.BalanceFlow> billList, string dateType)
+        /// <summary>
+        /// 根据查询结果统计账单结果
+        /// </summary>
+        /// <param name="billList"></param>
+        /// <param name="dateType"></param>
+        /// <returns></returns>
+        IList<billStatementObj> GetBillStatement(IList<Model.Finance.BalanceFlow> billList, string dateType)
         {
-            IList<billStatement> billStatementList = new List<billStatement>();
+            IList<billStatementObj> billStatementList = new List<billStatementObj>();
             if (billList == null)
             {
                 return billStatementList;
@@ -60,7 +69,7 @@ namespace Dianzhu.ApplicationService.BillSatistic
             DateTime tempTime = DateTime.Now;
             decimal sumAmount = 0;
             IList<serviceTypeBillObj> serviceTypeBillObjList = new List<serviceTypeBillObj>();
-            billStatement billstatement = new billStatement();
+            billStatementObj billstatement = new billStatementObj();
             for (int i = 0; i < billList.Count; i++)
             {
                 if (tempTime != billList[i].OccurTime)
@@ -71,7 +80,7 @@ namespace Dianzhu.ApplicationService.BillSatistic
                         billstatement.ServiceTypeBillObj = serviceTypeBillObjList;
                         billStatementList.Add(billstatement);
                     }
-                    billstatement = new billStatement();
+                    billstatement = new billStatementObj();
                     serviceTypeBillObjList = new List<serviceTypeBillObj>();
                     billstatement.date = billList[i].OccurTime.ToString(dateType);
                     billstatement.Expenditure = "0";
@@ -93,6 +102,49 @@ namespace Dianzhu.ApplicationService.BillSatistic
                 billStatementList.Add(billstatement);
             }
             return billStatementList;
+        }
+
+        /// <summary>
+        /// 根据用户ID获取用户的账单
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="bill"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public IList<billModelObj> GetBillList(common_Trait_Filtering filter, common_Trait_BillModelFiltering bill, Customer customer)
+        {
+            IList<billModelObj> billModelList = new List<billModelObj>();
+            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "BillSatisticService");
+            if (!string.IsNullOrEmpty(bill.billServiceType))
+            {
+                Model.ServiceType servicetype = bllServiceType.GetOne(utils.CheckGuidID(bill.billServiceType, "bill.billServiceType"));
+                if (servicetype != null)
+                {
+                    bill.serviceTypeLevel = servicetype.DeepLevel.ToString();
+                }
+            }
+            IList l = iBalanceFlowService.GetBillList(customer.UserID, utils.CheckDateTime(bill.startTime, "yyyyMMdd", "开始日期startTime"), utils.CheckDateTime(bill.endTime, "yyyyMMdd", "结束日期startTime"), bill.serviceTypeLevel,bill.status,bill.billType,bill.orderId,bill.billServiceType,filter1);
+            if (l != null)
+            {
+                for (int i = 0; i < l.Count; i++)
+                {
+                    billModelObj billmodel = new billModelObj();
+                    Hashtable ht = (Hashtable)l[i];
+                    billmodel.id = ht["id"] == null ? "" : ht["id"].ToString();
+                    billmodel.createTime = ht["createTime"] == null ? "" : ht["createTime"].ToString();
+                    billmodel.serialNo = ht["serialNo"] == null ? "" : ht["serialNo"].ToString();
+                    billmodel.type = ht["type"] == null ? "" : ht["type"].ToString();
+                    billmodel.amount = ht["amount"] == null ? "" : ht["amount"].ToString();
+                    billmodel.discount = ht["discount"] == null ? "" : ht["discount"].ToString();
+                    billmodel.billOrderInfo.orderId = ht["orderId"] == null ? "" : ht["orderId"].ToString();
+                    billmodel.billOrderInfo.orderAmount = ht["orderAmount"] == null ? "" : ht["orderAmount"].ToString();
+                    billmodel.billOrderInfo.customerName = ht["customerName"] == null ? "" : ht["customerName"].ToString();
+                    billmodel.billOrderInfo.customerImgUrl = ht["customerImgUrl"] == null ? "" : Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + ht["customerImgUrl"].ToString();
+                    billmodel.billOrderInfo.serviceType = ht["serviceType"] == null ? "" : ht["serviceType"].ToString();
+                    billModelList.Add(billmodel);
+                }
+            }
+            return billModelList;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.ApplicationService
 {
-    public class common_Trait_BillFiltering
+    public class common_Trait_BillModelFiltering
     {
         /// <summary>
         /// 开始日期(yyyyMMdd)/月份(yyyyMM)
@@ -37,6 +37,30 @@ namespace Dianzhu.ApplicationService
                 _serviceTypeLevel = value;
             }
         }
+
+        /// <summary>
+        /// 服务类型
+        /// </summary>
+        /// <type>string</type>
+        public string billServiceType { get; set; }
+
+        /// <summary>
+        /// 支出状态
+        /// </summary>
+        /// <type>string</type>
+        public string status { get; set; }
+
+        /// <summary>
+        /// 账单类型
+        /// </summary>
+        /// <type>string</type>
+        public string billType { get; set; }
+
         
+        /// <summary>
+        /// 订单ID
+        /// </summary>
+        /// <type>string</type>
+        public string orderId { get; set; }
     }
 }

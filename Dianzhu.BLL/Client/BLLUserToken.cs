@@ -22,29 +22,34 @@ namespace Dianzhu.BLL.Client
         /// </summary>
         /// <param name="usertoken"></param>
         /// <returns></returns>
-         public bool addToken(UserToken usertoken)
+        public bool addToken(UserToken usertoken)
         {
             var where = PredicateBuilder.True<UserToken>();
-            where = where.And(x => x.UserID == usertoken.UserID && x.Flag==1);
+            where = where.And(x => x.UserID == usertoken.UserID && x.Flag == 1);
             UserToken usertokenOld = dalusertoken.FindOne(where);
             if (usertokenOld != null)
             {
-                usertokenOld.Flag = 0;
+                //usertokenOld.Flag = 0;
+                usertokenOld.Token = usertoken.Token;
+                usertokenOld.CreatedTime = usertoken.CreatedTime;
                 dalusertoken.Update(usertokenOld);
             }
-
-            log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.ClientController");
-            ilog.Debug("PostToken(Baegin3):" + usertoken.Id + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
-            dalusertoken.Add(usertoken);
-            ilog.Debug("PostToken(Baegin4):" + usertoken.Id + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            usertoken = dalusertoken.FindById(usertoken.Id);
-            ilog.Debug("PostToken(Baegin5):" + usertoken.Id + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
-            if (usertoken == null)
+            else
             {
-                return true;
+
+                //log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.ClientController");
+                //ilog.Debug("PostToken(Baegin3):" + usertoken.Id + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
+                dalusertoken.Add(usertoken);
+                //ilog.Debug("PostToken(Baegin4):" + usertoken.Id + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
+                //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                //usertoken = dalusertoken.FindById(usertoken.Id);
+                //ilog.Debug("PostToken(Baegin5):" + usertoken.Id + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
             }
-            return false;
+            //if (usertoken == null)
+            //{
+            return true;
+            //}
+            //return false;
         }
 
         public bool CheckToken(string token)

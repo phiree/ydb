@@ -627,7 +627,11 @@ namespace Dianzhu.BLL
             order.OrderStatus = oldStatus;
 
             int Warranty = 4320;
-            double minutes = (DateTime.Now - order.OrderFinished).TotalMinutes;
+            double minutes = 0;
+            if (order.OrderFinished != DateTime.MinValue)
+            {
+                minutes=(DateTime.Now - order.OrderFinished).TotalMinutes;
+            }
             if (oldStatus != enum_OrderStatus.Finished && (minutes < 0 || minutes > Warranty))
             {
                 refund = false;
