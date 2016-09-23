@@ -53,9 +53,9 @@ namespace Dianzhu.Test.DianzhuPushTest
 }
                 ";
 
-            Push.JPush.JPushRequest jpushreq = 
+           Dianzhu.Push.JPush. JPushRequest jpushreq = 
                 Newtonsoft.Json.JsonConvert
-                .DeserializeObject<Push.JPush.JPushRequest>(request);
+                .DeserializeObject < Dianzhu.Push.JPush.JPushRequest>(request);
 
             Assert.AreEqual("深圳", jpushreq.audience.registration_id[0]);
             Assert.AreEqual("321", jpushreq .notification.android.extras.newsid);
@@ -65,7 +65,7 @@ namespace Dianzhu.Test.DianzhuPushTest
         public void TestJPushDeserial()
         {
 
-            Push.JPush.JPushRequest req = Push.JPush.JPushRequest.Create
+            Dianzhu.Push.JPush.JPushRequest req = Dianzhu.Push.JPush.JPushRequest.Create
                 (new string[] { "android" },new string[] { "aaa" },"alert","title","newsid"
                 );
 
