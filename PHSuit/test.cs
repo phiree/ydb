@@ -40,7 +40,7 @@ namespace PHSuit
             Console.WriteLine("localhost" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=dianzhu", false));
 
             Console.WriteLine("150:" + PHSuit.Security.Encrypt("data source=192.168.1.150;uid=ydb;pwd=jsyk2016;database=dianzhu_test", false));
-               Console.WriteLine("Aliyun_Official:" + PHSuit.Security.Encrypt("data source=112.74.17.34;uid=jsyk2016;pwd=X*G7czoy6twAYIz7;port=4407;database=dianzhu", false));
+               Console.WriteLine("Aliyun_Official:" + PHSuit.Security.Encrypt("data source=business.ydban.cn;uid=jsyk2016;pwd=X*G7czoy6twAYIz7;port=4407;database=dianzhu", false));
             Console.WriteLine("Aliyun_Test:" + PHSuit.Security.Encrypt("data source=112.74.198.215;uid=jsyk2016;pwd=IQDv$qefeqFWuq_L;port=4407;database=dianzhu_publish", false));
         }
         [Test]
