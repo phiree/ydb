@@ -121,7 +121,7 @@ public class ResponseCHAT001007:BaseResponse
 
         try
         {
-            IList<ReceptionChat> chatList = bllReceptionChat.GetReceptionChatListByTargetIdAndSize(userId, Guid.Empty, orderId, DateTime.MinValue, DateTime.MaxValue, pageSize, targetChat, requestData.low, chatTarget);
+            IList<ReceptionChat> chatList = bllReceptionChat.GetReceptionChatListByTargetIdAndSize(userId, Guid.Empty, orderId, DateTime.MinValue, DateTime.MaxValue, pageSize, targetChat.SavedTimestamp, requestData.low, chatTarget);
 
             RespDataCHAT001007 respData = new RespDataCHAT001007();
             respData.AdapList(chatList);

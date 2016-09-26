@@ -29,6 +29,6 @@ namespace Dianzhu.IDAL
                     );
 
         IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(Guid fromId, Guid toId, Guid orderId, DateTime timeBegin, DateTime timeEnd,
-         int pageSize, double savedTimestamp, string low, enum_ChatTarget? target);
+         int pageSize, double targetChatSavedTimestamp, string low, enum_ChatTarget? target);
     }
 }
