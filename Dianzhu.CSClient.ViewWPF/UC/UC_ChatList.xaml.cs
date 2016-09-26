@@ -27,9 +27,7 @@ namespace Dianzhu.CSClient.ViewWPF
     public partial class UC_ChatList : UserControl,IView.IViewChatList
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_ChatList");
-
-        private const string PRECHATCUSTOMER = "cc";
-
+        
         UC_Hint hint;
         StackPanel stackPanel;
         public UC_ChatList()
@@ -245,7 +243,7 @@ namespace Dianzhu.CSClient.ViewWPF
                     VMChat = vmChat
                 };
 
-                string chatId = PHSuit.StringHelper.SafeNameForWpfControl(vmChat.ChatId, PRECHATCUSTOMER);
+                string chatId = PHSuit.StringHelper.SafeNameForWpfControl(vmChat.ChatId,GlobalVariable.PRECHATCUSTOMER);
                 if ((UC_ChatCustomer)stackPanel.FindName(chatId) == null)
                 {
                     stackPanel.RegisterName(chatId, chatCustomer);
@@ -332,7 +330,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 try
                 {
-                    string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString(), PRECHATCUSTOMER);
+                    string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString(),GlobalVariable.PRECHATCUSTOMER);
                     UC_ChatCustomer ucC = stackPanel.FindName(id) as UC_ChatCustomer;
                     UC_ChatImageNoraml ucCI = ucC.FindName(id) as UC_ChatImageNoraml;
                     ucCI.ShowMask();
@@ -358,7 +356,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 try
                 {
-                    string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString(), PRECHATCUSTOMER);
+                    string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString(),GlobalVariable.PRECHATCUSTOMER);
                     UC_ChatCustomer ucC = stackPanel.FindName(id) as UC_ChatCustomer;
                     UC_ChatImageNoraml ucCI = ucC.FindName(id) as UC_ChatImageNoraml;
                     ucCI.RemoveMask();

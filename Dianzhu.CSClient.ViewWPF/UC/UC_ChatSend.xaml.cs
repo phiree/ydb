@@ -159,14 +159,14 @@ namespace Dianzhu.CSClient.ViewWPF
             }));
             byte[] fileData = File.ReadAllBytes(dlg.FileName);
 
-            NHibernateUnitOfWork.UnitOfWork.Start();
+            //NHibernateUnitOfWork.UnitOfWork.Start();
             //Action ac = () => {
                 SendMediaClick(fileData, domain, mediaType);
                 FinalChatTimerSend();
             //};
             //NHibernateUnitOfWork.With.Transaction(ac);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         #region 截图
@@ -238,15 +238,15 @@ namespace Dianzhu.CSClient.ViewWPF
                 bytes= BitmapSource2ByteArray(bmp);
             }));
 
-            NHibernateUnitOfWork.UnitOfWork.Start();
+            //NHibernateUnitOfWork.UnitOfWork.Start();
             //Action ac = () =>
             //{
                 SendMediaClick(bytes, "ChatImage", "image");
             FinalChatTimerSend();
             //};
             //NHibernateUnitOfWork.With.Transaction(ac);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         private Byte[] BitmapSource2ByteArray(BitmapSource source)
@@ -271,15 +271,15 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void SendText()
         {
-            NHibernateUnitOfWork.UnitOfWork.Start();
+            //NHibernateUnitOfWork.UnitOfWork.Start();
             //Action ac = () =>
             //{
             SendTextClick();
                 FinalChatTimerSend();
             //};
             //NHibernateUnitOfWork.With.Transaction(ac);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
 

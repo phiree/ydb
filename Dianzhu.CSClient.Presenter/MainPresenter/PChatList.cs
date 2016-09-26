@@ -108,6 +108,8 @@ namespace Dianzhu.CSClient.Presenter
             
             if (chatList.Count > 0)
             {
+                NHibernateUnitOfWork.UnitOfWork.Start();
+
                 if (chatList.Count >= 10)
                 {
                     viewChatList.ShowMoreLabel();
@@ -139,11 +141,15 @@ namespace Dianzhu.CSClient.Presenter
                     viewChatList.AddOneChat(vmChat);
                     viewChatList.ChatList.Add(vmChat);
                 }
+
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
             else
             {
                 viewChatList.ShowNoMoreLabel();
             }
+
             log.Debug("异步加载聊天记录完成");
         }
 

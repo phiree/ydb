@@ -24,12 +24,8 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
 
         public VMChat ChatToVMChat(ReceptionChat chat,string customerAvatar)
         {
-            NHibernateUnitOfWork.UnitOfWork.Start();
-
             DZMembership from = dalMembership.FindById(Guid.Parse(chat.FromId));
-
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
 
             if (from == null)
             {

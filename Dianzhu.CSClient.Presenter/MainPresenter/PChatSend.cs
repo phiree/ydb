@@ -58,7 +58,9 @@ namespace Dianzhu.CSClient.Presenter
         private void ViewChatSend_SendMediaClick(byte[] fileData, string domainType, string mediaType)
         {
             if (IdentityManager.CurrentIdentity == null) return;
-                        
+
+            NHibernateUnitOfWork.UnitOfWork.Start();
+
             string s = Convert.ToBase64String(fileData);
             string fileName = MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, domainType, mediaType);
 
@@ -87,9 +89,12 @@ namespace Dianzhu.CSClient.Presenter
             viewChatList.AddOneChat(vmChat);
             //viewChatList.AddOneChat(chat,string.Empty);
             chat.SetMediaUrl(chat.MedialUrl.Replace(GlobalViables.MediaGetUrl, ""));
-         
-           // dalReceptionChat.Add(chat);
-            
+
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+
+            // dalReceptionChat.Add(chat);
+
             //  PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
         }
 
@@ -99,6 +104,9 @@ namespace Dianzhu.CSClient.Presenter
             {
                 if (IdentityManager.CurrentIdentity == null)
                 { return; }
+
+                NHibernateUnitOfWork.UnitOfWork.Start();
+
                 string messageText = viewChatSend.MessageText;
                 if (string.IsNullOrEmpty(messageText)) return;
                 ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(), IdentityManager.CurrentIdentity.Customer.Id.ToString(),
@@ -115,6 +123,9 @@ namespace Dianzhu.CSClient.Presenter
  
                 //临时存放订单
                 order = IdentityManager.CurrentIdentity;
+
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
 
                 //PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat); 
             }
