@@ -44,7 +44,7 @@ namespace DianzhuService.Diandian
 
         private void XMPPConnection_OnStreamError(object sender, agsXMPP.Xml.Dom.Element e)
         {
-            ErrorAndStop("XMPPConnection_OnStreamError"+e.ToString());
+            log.Debug("XMPPConnection_OnStreamError"+e.ToString());
             
             //MessageBox.Show(e.ToString());
         }
@@ -57,27 +57,22 @@ namespace DianzhuService.Diandian
         string errMsg = string.Empty;
         private void XMPPConnection_OnSocketError(object sender, Exception ex)
         {
-            ErrorAndStop("XMPPConnection_OnSocketError" + ex.Source + Environment.NewLine + "CallStack" + ex.StackTrace);
+            log.Error("XMPPConnection_OnSocketError" + ex.Source + Environment.NewLine + "CallStack" + ex.StackTrace);
           
         }
 
         private void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
         {
-            ErrorAndStop("用户名/密码有误");
+            log.Error("用户名/密码有误");
             
         }
 
         private void XMPPConnection_OnError(object sender, Exception ex)
         {
-            ErrorAndStop("XMPPConnection_OnError" +ex.Message);
+            log.Error("XMPPConnection_OnError" +ex.Message);
             
         }
-        private void ErrorAndStop(string message)
-        {
-            log.Error(message);
-            this.Stop();
-            throw new Exception(message);
-        }
+       
 
         private void XMPPConnection_OnMessage(object sender, agsc.Message msg)
         {
@@ -174,14 +169,14 @@ namespace DianzhuService.Diandian
 
                 //自动回复消息
                 string reply = "当前没有客服在线，请留言..";
-
-                msg.Id = Guid.NewGuid().ToString();
-                msg.To = msg.From;
-                msg.Body = reply;
-
-                log.Debug("Sending message:" + msg.ToString());
-                GlobalViables.XMPPConnection.Send(msg);
-                //AddLog(message);
+                csId = msg.To.User;
+                agsc.Message message = new MessageBuilder().Create(csId, customerId, reply, orderID).BuildText();
+                message.Id = Guid.NewGuid().ToString();
+                message.To = msg.From;
+                log.Debug("Sending message:" + message.ToString());
+                GlobalViables.XMPPConnection.Send(message);
+              
+               
             }
             catch (Exception e)
             {
