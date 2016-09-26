@@ -42,7 +42,6 @@ namespace Dianzhu.CSClient.MessageAdapter
             if (message.SelectSingleElement("ext", true)==null)
             {
                 errMsg = "没有ext节点";
-                ilog.Error(errMsg);
                 throw new Exception(errMsg);
             }
             ReceptionChat chat;
