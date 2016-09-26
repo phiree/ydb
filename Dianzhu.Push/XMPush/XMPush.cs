@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Dianzhu.Push.XMPush
+{
+
+    public class XMPush : IPush
+    {
+        string apiUrl = "https://api.xmpush.xiaomi.com/v2/message/alias";
+    
+        PushType pushType;
+        string orderId;
+        string secret { get { return pushType == PushType.PushToUser ? "6TRMaje2tzRjzuQzO0Oq8Q==" : "ZKLdQ2Sdo0SfS84pxa3HTw=="; } }
+        public XMPush(PushType pushType,string orderId)
+        {
+            this.pushType = pushType;
+            this.orderId = orderId;
+        }
+
+        
+
+        public string Push( string message, string target, int amount)
+        {
+            string result = string.Empty;
+            XMRequestAndoird msg = new XMRequestAndoird(pushType);
+            msg.alias =target;
+            msg.description = message;
+            if (pushType == PushType.PushToBusiness)
+            {
+                msg.payload = orderId;
+            }
+            
+
+            string formData = msg.ToFormData();
+           
+            result= PHSuit.HttpHelper.CreateHttpRequest(apiUrl, "post", formData, "key=" + secret);
+            return result;
+
+            /*
+             Request URL: https://api.xmpush.xiaomi.com/v2/message/regid
+Request Method: POST
+Form Data:
+description=notification description
+&payload=this+is+xiaomi+push
+&restricted_package_name=com.xiaomi.mipushdemo
+&registration_id=123
+&title=notification title
+&notify_type=2
+&time_to_live=1000
+&notify_id=0
+             */
+        }
+    }
+}
