@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.ApplicationService
 {
-    public class billStatement
+    public class billStatementObj
     {
 
         string _date = "";

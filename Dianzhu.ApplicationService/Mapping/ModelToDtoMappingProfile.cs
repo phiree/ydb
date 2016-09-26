@@ -34,7 +34,7 @@ namespace Dianzhu.ApplicationService.Mapping
 
             Mapper.CreateMap<Model.DZMembership, merchantObj>()
            .ForMember(x => x.alias, opt => opt.MapFrom(source => source.DisplayName))
-           .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl))
+           .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.AvatarUrl : ""))
            .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Area, cityObj>()

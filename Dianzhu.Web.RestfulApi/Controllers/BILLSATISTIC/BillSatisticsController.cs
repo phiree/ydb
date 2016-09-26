@@ -59,5 +59,31 @@ namespace Dianzhu.Web.RestfulApi.Controllers.BILLSATISTIC
                 return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
             }
         }
+
+        /// <summary>
+        /// 根据日期统计账单结果
+        /// </summary>
+        /// <param name="billfilter"></param>
+        /// <returns></returns>
+        [Route("api/v1/bills")]
+        public IHttpActionResult GetBillList([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_BillModelFiltering billfilter)
+        {
+            try
+            {
+                if (filter == null)
+                {
+                    filter = new common_Trait_Filtering();
+                }
+                if (billfilter == null)
+                {
+                    billfilter = new common_Trait_BillModelFiltering();
+                }
+                return Json(ibill.GetBillList(filter,billfilter, GetRequestHeader.GetTraitHeaders("get/bills")));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
     }
 }
