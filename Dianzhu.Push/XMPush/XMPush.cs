@@ -9,10 +9,13 @@ namespace Dianzhu.Push.XMPush
     public class XMPush : IPush
     {
         string apiUrl = "https://api.xmpush.xiaomi.com/v2/message/alias";
-    
+        string secretUser = "6TRMaje2tzRjzuQzO0Oq8Q==";
+        string secretBusiness = "6TRMaje2tzRjzuQzO0Oq8Q==";
+
+
         PushType pushType;
         string orderId;
-        string secret { get { return pushType == PushType.PushToUser ? "6TRMaje2tzRjzuQzO0Oq8Q==" : "ZKLdQ2Sdo0SfS84pxa3HTw=="; } }
+        string secret { get { return pushType == PushType.PushToUser ? secretUser : secretBusiness; } }
         public XMPush(PushType pushType,string orderId)
         {
             this.pushType = pushType;
@@ -27,10 +30,9 @@ namespace Dianzhu.Push.XMPush
             XMRequestAndoird msg = new XMRequestAndoird(pushType);
             msg.alias =target;
             msg.description = message;
-            if (pushType == PushType.PushToBusiness)
-            {
+         
                 msg.payload = orderId;
-            }
+         
             
 
             string formData = msg.ToFormData();
