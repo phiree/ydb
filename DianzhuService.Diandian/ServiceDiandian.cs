@@ -44,8 +44,8 @@ namespace DianzhuService.Diandian
 
         private void XMPPConnection_OnStreamError(object sender, agsXMPP.Xml.Dom.Element e)
         {
-            ErrorAndStop("XMPPConnection_OnStreamError"+e.ToString());
-            
+            log.Debug("XMPPConnection_OnStreamError"+e.ToString());
+            this.Stop();
             //MessageBox.Show(e.ToString());
         }
 
@@ -57,27 +57,23 @@ namespace DianzhuService.Diandian
         string errMsg = string.Empty;
         private void XMPPConnection_OnSocketError(object sender, Exception ex)
         {
-            ErrorAndStop("XMPPConnection_OnSocketError" + ex.Source + Environment.NewLine + "CallStack" + ex.StackTrace);
-          
+            log.Error("XMPPConnection_OnSocketError" + ex.Source + Environment.NewLine + "CallStack" + ex.StackTrace);
+            this.Stop();
         }
 
         private void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
         {
-            ErrorAndStop("用户名/密码有误");
+            log.Error("用户名/密码有误");
+            this.Stop();
             
         }
 
         private void XMPPConnection_OnError(object sender, Exception ex)
         {
-            ErrorAndStop("XMPPConnection_OnError" +ex.Message);
-            
-        }
-        private void ErrorAndStop(string message)
-        {
-            log.Error(message);
+            log.Error("XMPPConnection_OnError" +ex.Message);
             this.Stop();
-            throw new Exception(message);
         }
+       
 
         private void XMPPConnection_OnMessage(object sender, agsc.Message msg)
         {
@@ -94,7 +90,13 @@ namespace DianzhuService.Diandian
                 string body = msg.Body ?? string.Empty;
                 string msgObj_url = String.Empty;
                 string msgObj_type = String.Empty;
-                string msgType = msg.SelectSingleElement("ext").Namespace;
+                var extNode = msg.SelectSingleElement("ext");
+                if (extNode == null)
+                {
+                    log.Error("没有ext节点,跳过");
+                    return;
+                }
+                string msgType = extNode.Namespace;
                 switch (msgType.ToLower())
                 {
                     case "ihelper:chat:text":
@@ -174,18 +176,18 @@ namespace DianzhuService.Diandian
 
                 //自动回复消息
                 string reply = "当前没有客服在线，请留言..";
-
-                msg.Id = Guid.NewGuid().ToString();
-                msg.To = msg.From;
-                msg.Body = reply;
-
-                log.Debug("Sending message:" + msg.ToString());
-                GlobalViables.XMPPConnection.Send(msg);
-                //AddLog(message);
+                csId = msg.To.User;
+                agsc.Message message = new MessageBuilder().Create(csId, customerId, reply, orderID).BuildText();
+                message.Id = Guid.NewGuid().ToString();
+                message.To = msg.From;
+                log.Debug("Sending message:" + message.ToString());
+                GlobalViables.XMPPConnection.Send(message);
+              
+               
             }
             catch (Exception e)
             {
-                log.Error("Message:"+e.Message+ "&InnerException.Message:" + e.InnerException.Message);
+                PHSuit.ExceptionLoger.ExceptionLog(log, e);
             }
         }
 
@@ -249,10 +251,7 @@ namespace DianzhuService.Diandian
             //    }
             //}
         }
-
-        protected override void OnStop()
-        {
-        }
+ 
     }
 
 }

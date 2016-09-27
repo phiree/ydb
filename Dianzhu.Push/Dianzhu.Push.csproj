@@ -63,6 +63,9 @@
     <Compile Include="IPush.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PushType.cs" />
+    <Compile Include="XMPush\XMPush.cs" />
+    <Compile Include="XMPush\XMRequestAndoird.cs" />
+    <Compile Include="XMPush\XMResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="lib\JdSoft.Apns.Notifications.dll" />

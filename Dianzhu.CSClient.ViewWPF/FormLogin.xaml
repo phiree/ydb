@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
         mc:Ignorable="d"
          WindowStartupLocation="CenterScreen"
-        Title="一点办:2016-09-22 12:25" Height="341" Width="385">
+        Title="一点办:2016-09-26 20:40" Height="341" Width="385">
 
     <Grid >
 
