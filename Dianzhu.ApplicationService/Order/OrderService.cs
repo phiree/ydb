@@ -480,6 +480,14 @@ namespace Dianzhu.ApplicationService.Order
         /// <returns></returns>
         public orderObj PutAppraisee(string orderID, appraiseObj appraiseobj,Customer customer)
         {
+            if (appraiseobj.target != "customerService" && appraiseobj.target != "store")
+            {
+                throw new FormatException("评价对象只能是客户和店铺！");
+            }
+            if (appraiseobj.target == "customerService")
+            {
+                appraiseobj.target = "cer";
+            }
             Model.Enums.enum_ChatTarget target;
             if (!Enum.TryParse(appraiseobj.target, out target))
             {

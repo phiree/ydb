@@ -34,9 +34,13 @@ namespace Dianzhu.ApplicationService.Complaint
             {
                 throw new FormatException("投诉的订单ID不能为空！");
             }
-            if (complaintobj.target.ToString ()!="cer" && complaintobj.target.ToString ()!="store")
+            if (complaintobj.target!= "customerService" && complaintobj.target!="store")
             {
-                throw new FormatException("投诉对象只能是客户(cer)和店铺(store)！");
+                throw new FormatException("投诉对象只能是客户和店铺！");
+            }
+            if(complaintobj.target == "customerService")
+            {
+                complaintobj.target = "cer";
             }
             if (string.IsNullOrEmpty(complaintobj.content))
             {
@@ -56,6 +60,7 @@ namespace Dianzhu.ApplicationService.Complaint
                 throw new Exception("不能投诉别人的订单！");
             }
             Model.Complaint complaint = Mapper.Map<complaintObj, Model.Complaint>(complaintobj);
+            //complaint.Target= (Model.Enums.enum_ComplaintTarget)Enum.Parse(typeof(Model.Enums.enum_ComplaintTarget), complaintobj.target); 
             for (int i = 0; i < complaintobj.resourcesUrl.Count; i++)
             {
                 complaint.ComplaitResourcesUrl.Add(utils.GetFileName(complaintobj.resourcesUrl[i]));

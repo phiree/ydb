@@ -39,6 +39,7 @@ namespace Dianzhu.ApplicationService.Mapping
 
             Mapper.CreateMap<complaintObj, Model.Complaint>()
             .ForMember(x => x.ComplaitResourcesUrl, opt => opt.MapFrom(source =>new List<string>()))
+            .ForMember(x => x.Target, opt => opt.MapFrom(source => (Model.Enums.enum_ComplaintTarget)Enum.Parse(typeof(Model.Enums.enum_ComplaintTarget), source.target)))
             .ForMember(x => x.Order, opt => opt.MapFrom(source => new DAL.DALServiceOrder().FindById(utils.CheckGuidID(source.orderID, "orderID"))))
             .ForMember(x => x.Operator, opt => opt.MapFrom(source => new DAL.DALMembership().FindById(utils.CheckGuidID(source.senderID, "senderID"))))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
