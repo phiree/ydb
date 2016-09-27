@@ -89,7 +89,13 @@ namespace DianzhuService.Diandian
                 string body = msg.Body ?? string.Empty;
                 string msgObj_url = String.Empty;
                 string msgObj_type = String.Empty;
-                string msgType = msg.SelectSingleElement("ext").Namespace;
+                var extNode = msg.SelectSingleElement("ext");
+                if (extNode == null)
+                {
+                    log.Error("没有ext节点,跳过");
+                    return;
+                }
+                string msgType = extNode.Namespace;
                 switch (msgType.ToLower())
                 {
                     case "ihelper:chat:text":
@@ -180,7 +186,7 @@ namespace DianzhuService.Diandian
             }
             catch (Exception e)
             {
-                log.Error("Message:"+e.Message+ "&InnerException.Message:" + e.InnerException.Message);
+                PHSuit.ExceptionLoger.ExceptionLog(log, e);
             }
         }
 
