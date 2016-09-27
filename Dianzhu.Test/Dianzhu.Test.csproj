@@ -170,6 +170,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExcelImportTest.cs" />
     <Compile Include="Push\BLLPushTests.cs" />
+    <Compile Include="Push\PushMessageBuilderTests.cs" />
     <Compile Include="Reception\BLLReceptionChatTests.cs" />
     <Compile Include="Reception\BLLReceptionTests.cs" />
     <Compile Include="Reception\IMSessionsOpenfireTests.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="tagTest.cs" />
     <Compile Include="test_mainform.cs" />
     <Compile Include="UnitOfWork\UnitOfWorkFactoryTests.cs" />
+    <Compile Include="XMPush\XMPushTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config">

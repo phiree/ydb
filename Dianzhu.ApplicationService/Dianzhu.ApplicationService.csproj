@@ -123,6 +123,7 @@
     <Compile Include="Common\common_Trait_AdFiltering.cs" />
     <Compile Include="Common\common_Trait_AssignFiltering.cs" />
     <Compile Include="Common\common_Trait_BillFiltering.cs" />
+    <Compile Include="Common\common_Trait_BillModelFiltering.cs" />
     <Compile Include="Common\common_Trait_ChatFiltering.cs" />
     <Compile Include="Common\common_Trait_ComplainFiltering.cs" />
     <Compile Include="Common\common_Trait_Filtering.cs" />
@@ -167,7 +168,9 @@
     <Compile Include="ModeDTO\Identity\appObj.cs" />
     <Compile Include="ModeDTO\Identity\appraiseObj.cs" />
     <Compile Include="ModeDTO\Identity\assignObj.cs" />
-    <Compile Include="ModeDTO\Identity\billStatement.cs" />
+    <Compile Include="ModeDTO\Identity\billModelObj.cs" />
+    <Compile Include="ModeDTO\Identity\billOrderInfoObj.cs" />
+    <Compile Include="ModeDTO\Identity\billStatementObj.cs" />
     <Compile Include="ModeDTO\Identity\chatObj.cs" />
     <Compile Include="ModeDTO\Identity\cityObj.cs" />
     <Compile Include="ModeDTO\Identity\complaintObj.cs" />

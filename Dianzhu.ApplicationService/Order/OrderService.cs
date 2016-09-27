@@ -480,6 +480,14 @@ namespace Dianzhu.ApplicationService.Order
         /// <returns></returns>
         public orderObj PutAppraisee(string orderID, appraiseObj appraiseobj,Customer customer)
         {
+            if (appraiseobj.target != "customerService" && appraiseobj.target != "store")
+            {
+                throw new FormatException("评价对象只能是客户和店铺！");
+            }
+            if (appraiseobj.target == "customerService")
+            {
+                appraiseobj.target = "cer";
+            }
             Model.Enums.enum_ChatTarget target;
             if (!Enum.TryParse(appraiseobj.target, out target))
             {
@@ -756,9 +764,12 @@ namespace Dianzhu.ApplicationService.Order
         public refundStatusObj PostRefundAction(string orderID, refundObj refundobj,Customer customer)
         {
             IList<string> resourcesurls = new List<string>();
-            for (int i = 0; i < refundobj.resourcesUrls.Count; i++)
+            if (refundobj.resourcesUrls != null)
             {
-                resourcesurls.Add(utils.GetFileName(refundobj.resourcesUrls[i]));
+                for (int i = 0; i < refundobj.resourcesUrls.Count; i++)
+                {
+                    resourcesurls.Add(utils.GetFileName(refundobj.resourcesUrls[i]));
+                }
             }
             Model.Enums.enum_RefundAction action ;
             try
@@ -772,13 +783,14 @@ namespace Dianzhu.ApplicationService.Order
             decimal amount = 0;
             bool isAmount = decimal.TryParse(refundobj.amount, out amount);
             if(action== Model.Enums.enum_RefundAction.submit|| action == Model.Enums.enum_RefundAction.askPay)
+            //开始服务后，取消订单走理赔流程，所以提交理赔时价格可以为零
             if (!isAmount)
             {
-                throw new FormatException("提交价格的格式有误,需为大于零的数值！");
+                throw new FormatException("提交价格的格式有误,需为大于等于零的数值！");
             }
-            if (amount <= 0)
+            if (amount < 0)
             {
-                throw new FormatException("提交价格的格式有误,需为大于零的数值！");
+                throw new FormatException("提交价格的格式有误,需为大于等于零的数值！");
             }
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
             Guid userId = utils.CheckGuidID(customer.UserID, "customer.UserID");

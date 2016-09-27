@@ -115,6 +115,7 @@
     <Compile Include="IdentityAccess\LoginDto.cs" />
     <Compile Include="IdentityAccess\RoleDto.cs" />
     <Compile Include="IdentityAccess\RoleService.cs" />
+    <Compile Include="Push\PushMessageBuilder.cs" />
     <Compile Include="Reception\BLLReceptionChat.cs" />
     <Compile Include="Reception\BLLReceptionStatus.cs" />
     <Compile Include="Reception\BLLReceptionStatusArchieve.cs" />

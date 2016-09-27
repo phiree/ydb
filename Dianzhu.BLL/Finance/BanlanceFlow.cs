@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model.Finance;
+using System.Collections;
 
 namespace Dianzhu.BLL.Finance
 {
@@ -39,5 +40,26 @@ namespace Dianzhu.BLL.Finance
         {
             return dalBalanceFlow.GetBillSatistics(userID, startTime, endTime, serviceTypeLevel, dateType);
         }
+
+        /// <summary>
+        /// 根据用户ID获取用户的账单
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="serviceTypeLevel"></param>
+        /// <param name="status"></param>
+        /// <param name="billType"></param>
+        /// <param name="orderId"></param>
+        /// <param name="billServiceType"></param>
+        /// <param name="filter"></param>
+        /// <param name=""></param>
+        /// <returns></returns>
+        public IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string status, string billType, string orderId, string billServiceType, Model.Trait_Filtering filter)
+        {
+            return dalBalanceFlow.GetBillList(userID, startTime, endTime, serviceTypeLevel, status, billType, orderId, billServiceType, filter);
+        }
+
+
     }
 }

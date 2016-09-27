@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.Model;
 
 namespace Dianzhu.ApplicationService
 {
-    public class complaintObj
+    public class billModelObj
     {
-        string _id = null;
+        string _id = "";
         /// <summary>
-        /// 投诉的ID
+        /// 账单id
         /// </summary>
         /// <type>string</type>
         public string id
@@ -26,107 +25,106 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _senderID = "";
+        string _createTime = "";
         /// <summary>
-        /// 发送者ID
+        /// 账单id
         /// </summary>
         /// <type>string</type>
-        public string senderID
+        public string createTime
         {
             get
             {
-                return _senderID;
+                return _createTime;
             }
             set
             {
-                _senderID = value;
+                _createTime = value;
             }
         }
 
-        string _orderID = "";
+        string _serialNo = "";
         /// <summary>
-        /// 投诉的订单ID
+        /// 账单id
         /// </summary>
         /// <type>string</type>
-        public string orderID
+        public string serialNo
         {
             get
             {
-                return _orderID;
+                return _serialNo;
             }
             set
             {
-                _orderID = value;
+                _serialNo = value;
             }
         }
 
-        string _target = "";
+        string _type = "";
         /// <summary>
-        /// 投诉的目标("cer":[客服]，"store":[商铺])
+        /// 账单id
         /// </summary>
         /// <type>string</type>
-        public string target
+        public string type
         {
             get
             {
-                return _target;
+                return _type;
             }
             set
             {
-                _target = value;
+                _type = value;
             }
         }
 
-        string _content = "";
+        string _amount = "";
         /// <summary>
-        /// 描述
+        /// 账单id
         /// </summary>
         /// <type>string</type>
-        public string content
+        public string amount
         {
             get
             {
-                return _content;
+                return _amount;
             }
             set
             {
-                _content = value;
+                _amount = value;
             }
         }
 
-        IList<String> _resourcesUrl =new List<String>();
+        string _discount = "";
         /// <summary>
-        /// 图片资源链接
-        /// </summary>
-        /// <type>array[string]</type>
-        public IList<String> resourcesUrl
-        {
-            get
-            {
-                return _resourcesUrl;
-            }
-            set
-            {
-                _resourcesUrl = value;
-            }
-        }
-
-        Model.Enums.enum_ComplaintStatus _status = 0;
-        /// <summary>
-        /// 该投诉的状态
+        /// 账单id
         /// </summary>
         /// <type>string</type>
-        public Model.Enums.enum_ComplaintStatus status
+        public string discount
         {
             get
             {
-                return _status;
+                return _discount;
             }
             set
             {
-                _status = value;
+                _discount = value;
             }
         }
 
+        billOrderInfoObj _billOrderInfo =new billOrderInfoObj();
+        /// <summary>
+        /// 账单id
+        /// </summary>
+        /// <type>string</type>
+        public billOrderInfoObj billOrderInfo
+        {
+            get
+            {
+                return _billOrderInfo;
+            }
+            set
+            {
+                _billOrderInfo = value;
+            }
+        }
     }
 }

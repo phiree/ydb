@@ -329,6 +329,7 @@ namespace Dianzhu.CSClient.Presenter
             string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
             oldOrder.SerialNo = serialNoForOrder;
             oldOrder.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
+            oldOrder.CustomerService = GlobalViables.CurrentCustomerService;
             bllServiceOrder.Update(oldOrder);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 

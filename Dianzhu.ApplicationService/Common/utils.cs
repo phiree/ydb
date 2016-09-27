@@ -194,6 +194,11 @@ namespace Dianzhu.ApplicationService
                     throw new FormatException("分页参数pageSize,pageNum错误！");
                 }
             }
+            else
+            {
+                filter1.pageSize = 0;
+                filter1.pageNum = 0;
+            }
             int intN = 0;
             //if (!int.TryParse(filter.offset, out intN))
             //{

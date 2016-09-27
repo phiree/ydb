@@ -46,7 +46,7 @@ public class ResponseCHAT001008:BaseResponse
         }
         catch (Exception ex)
         {
-
+            PHSuit.ExceptionLoger.ExceptionLog(Log, ex);
         }
 
 

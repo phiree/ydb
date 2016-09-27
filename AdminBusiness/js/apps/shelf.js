@@ -372,7 +372,7 @@
                 maxOrder : true
             };
 
-            //
+            // 当日剩余服务数量不足不允许上架货品
             if ( parseInt(this.model.get("maxOrder")) + parseInt(num) > this.model.attributes.dayEnableOrderCount ){
                 app.showWarnText(true, "当日剩余服务数量不足，请到服务设置进行调整");
                 return false;
@@ -470,9 +470,13 @@
                 if ( typeof resp.svcObj === "object" && resp.svcObj ){
                     if ( typeof resp.svcObj.maxOrderString === "string" && resp.svcObj.maxOrderString ){
                         respArray = resp.svcObj.maxOrderString.split(",");
-                        for ( var i = 0 ; i < respArray.length ; i++  ){
-                            respArray[i] = { maxOrder : respArray[i] , week : i + 1 + "" }
-                        }
+                    }
+                    // 数组右移一位，修正为星期日开始
+                    respArray.unshift(respArray.pop());
+
+                    // 设置week
+                    for ( var i = 0 ; i < respArray.length ; i ++ ){
+                        respArray[i] = {maxOrder : respArray[i], week : i};
                     }
                 }
 
@@ -757,7 +761,7 @@
 
                 orderSSArray = _this.snapshots.getOrderSnapshotByTime(dateStr, startTime, endTime);
 
-                model.attributes.dayMaxOrderCount = _this.workDays.where({week: (_this.reqDate.getDay() + 1).toString()})[0].attributes.maxOrder;
+                model.attributes.dayMaxOrderCount = _this.workDays.where({week: (_this.reqDate.getDay())})[0].attributes.maxOrder;
                 model.attributes.dayReorderCount = _this.snapshots.snapshotItems.length;
                 model.attributes.dayEnableOrderCount = parseInt(model.attributes.dayMaxOrderCount) - parseInt(model.attributes.dayReorderCount);
 
@@ -788,7 +792,7 @@
             this.clearDay();
 
             _.each(collection.models, function(dayModel, index, collection){
-                if (dayOfWeek == index ){
+                if (dayOfWeek == dayModel.attributes.week  ){
                     dayModel.attributes.reOrder = _this.snapshots.getOrderSnapshotByDate(dateStr).length;
                     dayModel.attributes.date = dateStr;
 

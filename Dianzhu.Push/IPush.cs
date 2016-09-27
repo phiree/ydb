@@ -34,7 +34,7 @@ namespace Dianzhu.Push
                         log.Error(errMsg);
                         throw new Exception(errMsg);
                     }
-                    return new JPush.JPush(orderid);
+                    return new XMPush.XMPush(pushType,orderid);
 
                 case "ios":
                     return new PushIOS(pushType);
