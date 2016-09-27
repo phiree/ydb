@@ -45,7 +45,7 @@ namespace DianzhuService.Diandian
         private void XMPPConnection_OnStreamError(object sender, agsXMPP.Xml.Dom.Element e)
         {
             log.Debug("XMPPConnection_OnStreamError"+e.ToString());
-            
+            this.Stop();
             //MessageBox.Show(e.ToString());
         }
 
@@ -58,19 +58,20 @@ namespace DianzhuService.Diandian
         private void XMPPConnection_OnSocketError(object sender, Exception ex)
         {
             log.Error("XMPPConnection_OnSocketError" + ex.Source + Environment.NewLine + "CallStack" + ex.StackTrace);
-          
+            this.Stop();
         }
 
         private void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
         {
             log.Error("用户名/密码有误");
+            this.Stop();
             
         }
 
         private void XMPPConnection_OnError(object sender, Exception ex)
         {
             log.Error("XMPPConnection_OnError" +ex.Message);
-            
+            this.Stop();
         }
        
 
@@ -250,10 +251,7 @@ namespace DianzhuService.Diandian
             //    }
             //}
         }
-
-        protected override void OnStop()
-        {
-        }
+ 
     }
 
 }
