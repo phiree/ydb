@@ -48,6 +48,7 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<IViewCustomer>().ImplementedBy<ViewWPF.UC_Customer>());
 
             container.Register(Component.For<Presenter.VMAdapter.IVMChatAdapter>().ImplementedBy<Presenter.VMAdapter.VMChatAdapter>());
+            container.Register(Component.For<Presenter.VMAdapter.IVMIdentityAdapter>().ImplementedBy<Presenter.VMAdapter.VMIdentityAdatper>());
         }
     }
 }

@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
 using System.Windows.Threading;
+using Dianzhu.CSClient.ViewModel;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -92,17 +93,17 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        ServiceOrder order;
-        public ServiceOrder Order
+        VMIdentity vmIdentity;
+        public VMIdentity Identity
         {
             get
             {
-                return order;
+                return vmIdentity;
             }
 
             set
             {
-                order = value;
+                vmIdentity = value;
             }
         }
 
@@ -113,7 +114,7 @@ namespace Dianzhu.CSClient.ViewWPF
             if (CustomerClick != null)
             {
                 CustomerReceptionStatus = enum_CustomerReceptionStatus.Actived;
-                CustomerClick(order);
+                CustomerClick(vmIdentity);
             }
         }
 
@@ -234,7 +235,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             if (IdleTimerOut != null)
             {
-                IdleTimerOut(order.Id);
+                IdleTimerOut(vmIdentity.OrderId);
                 StopFinalChatTimer();
             }           
         }

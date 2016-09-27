@@ -11,6 +11,7 @@ using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.Model.Enums;
 using Dianzhu.DAL;
 using System.ComponentModel;
+using Dianzhu.CSClient.ViewModel;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -73,7 +74,7 @@ namespace Dianzhu.CSClient.Presenter
         }
 
         BackgroundWorker worker;
-        private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
+        private void ViewIdentityList_IdentityClick(VMIdentity vmIdentity)
         {
             if (IdentityManager.CurrentIdentity == null)
             { return; }
@@ -81,7 +82,7 @@ namespace Dianzhu.CSClient.Presenter
             worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            worker.RunWorkerAsync(serviceOrder.Customer.Id);
+            worker.RunWorkerAsync(vmIdentity.CustomerId);
 
             log.Debug("开始异步加载历史订单");
         }

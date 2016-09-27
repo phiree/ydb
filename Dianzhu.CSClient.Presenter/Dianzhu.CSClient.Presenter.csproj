@@ -87,6 +87,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VMAdapter\IVMChatAdapter.cs" />
     <Compile Include="VMAdapter\VMChatFactory.cs" />
+    <Compile Include="VMAdapter\IVMIdentityAdapter.cs" />
+    <Compile Include="VMAdapter\VMIdentityAdatper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">

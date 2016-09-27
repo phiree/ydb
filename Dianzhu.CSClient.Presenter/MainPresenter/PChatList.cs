@@ -91,15 +91,15 @@ namespace Dianzhu.CSClient.Presenter
       
 
         BackgroundWorker worker;
-        public void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
+        public void ViewIdentityList_IdentityClick(VMIdentity vmIdentity)
         {
             worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            worker.RunWorkerAsync(serviceOrder);
+            worker.RunWorkerAsync(vmIdentity);
 
             log.Debug("开始异步加载聊天记录");
-            viewChatList.ChatListCustomerName = serviceOrder.Customer.DisplayName;
+            viewChatList.ChatListCustomerName = vmIdentity.CustomerName;
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -158,9 +158,9 @@ namespace Dianzhu.CSClient.Presenter
             try
             {
                 NHibernateUnitOfWork.UnitOfWork.Start();
-                ServiceOrder order = (ServiceOrder)e.Argument;
+                VMIdentity vmIdentity = e.Argument as VMIdentity;
 
-                e.Result = chatManager.InitChatList(order.Customer.Id, Guid.Empty, Guid.Empty);
+                e.Result = chatManager.InitChatList(vmIdentity.CustomerId, Guid.Empty, Guid.Empty);
                 //e.Result = dalReceptionChat.GetReceptionChatList(customerId, Guid.Empty, Guid.Empty,
                 //       DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.cer, out rowCount);
                 NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
