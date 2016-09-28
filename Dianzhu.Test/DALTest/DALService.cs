@@ -13,13 +13,18 @@ namespace Dianzhu.Test.DALTest
         [Test]
         public void Search()
         {
+            NHibernateUnitOfWork.UnitOfWork.Start();
+
             DALDZService dal = new DALDZService();
             int totalRecord;
-        IList<Model.DZService> serviceList=    dal.SearchService(string.Empty, 0, 9999, new Guid("4997bd4b-2b1a-4b61-9e02-014883a0d901"), Convert.ToDateTime("2016-3-22 4:00:00"),0,0, 0, 13, out totalRecord);
+        IList<Model.DZService> serviceList=    dal.SearchService(string.Empty, 0, 200, new Guid("2ccd3b34-8597-4076-81bc-520a91b42e29"), Convert.ToDateTime("2016/9/26 17:30:00"), 110.32973, 20.035808, 0, 10, out totalRecord);
             foreach (Model.DZService s in serviceList)
             {
                 Console.WriteLine(s.Name);
             }
+
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
     }
 }

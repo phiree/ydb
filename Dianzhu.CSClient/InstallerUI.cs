@@ -23,7 +23,6 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<CSClient.Presenter.PIdentityList>());
             container.Register(Component.For<CSClient.Presenter.PChatList>());
             container.Register(Component.For<CSClient.Presenter.PChatSend>());
-            
             container.Register(Component.For<CSClient.Presenter.PTabControl>());
             container.Register(Component.For<CSClient.Presenter.POrderHistory>());
  
@@ -47,6 +46,8 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<IViewTabControl>().ImplementedBy<ViewWPF.UC_TabControlTools>());
             container.Register(Component.For<IViewFormShowMessage>().ImplementedBy<ViewWPF.FormShowMessage>());
             container.Register(Component.For<IViewCustomer>().ImplementedBy<ViewWPF.UC_Customer>());
+
+            container.Register(Component.For<Presenter.VMAdapter.IVMChatAdapter>().ImplementedBy<Presenter.VMAdapter.VMChatAdapter>());
         }
     }
 }

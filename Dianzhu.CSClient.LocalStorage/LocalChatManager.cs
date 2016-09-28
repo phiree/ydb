@@ -15,6 +15,9 @@ namespace Dianzhu.CSClient.LocalStorage
     /// </summary>
     public interface LocalChatManager
     {
+        /// <summary>
+        /// 用户此次登录时的头像，保证在此次接待中的头像保持一致
+        /// </summary>
         Dictionary<string,string> LocalCustomerAvatarUrls { get; }
 
         Dictionary<string, IList<ReceptionChat>> LocalChats { get; }

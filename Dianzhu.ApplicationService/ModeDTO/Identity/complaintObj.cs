@@ -60,12 +60,12 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        Model.Enums.enum_ComplaintTarget _target = 0;
+        string _target = "";
         /// <summary>
         /// 投诉的目标("cer":[客服]，"store":[商铺])
         /// </summary>
         /// <type>string</type>
-        public Model.Enums.enum_ComplaintTarget target
+        public string target
         {
             get
             {

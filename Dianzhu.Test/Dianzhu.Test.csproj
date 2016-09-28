@@ -181,6 +181,7 @@
     <Compile Include="tagTest.cs" />
     <Compile Include="test_mainform.cs" />
     <Compile Include="UnitOfWork\UnitOfWorkFactoryTests.cs" />
+    <Compile Include="XMPush\XMPushTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config">
@@ -255,6 +256,10 @@
     <ProjectReference Include="..\Dianzhu.CSClient.Presenter\Dianzhu.CSClient.Presenter.csproj">
       <Project>{5AC8D7DE-A53D-4698-8957-C78D9243A793}</Project>
       <Name>Dianzhu.CSClient.Presenter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj">
+      <Project>{D7AA114D-AD19-4399-B152-969D240053C7}</Project>
+      <Name>Dianzhu.CSClient.ViewModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj">
       <Project>{125f0d3b-e83c-4743-9944-e82392cba6c5}</Project>
