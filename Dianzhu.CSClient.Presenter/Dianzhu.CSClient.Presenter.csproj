@@ -82,6 +82,7 @@
     <Compile Include="IdentityManager.cs" />
     <Compile Include="MainPresenter\PSearch.cs" />
     <Compile Include="MainPresenter\State.cs" />
+    <Compile Include="VMAdapter\IVMOrderHistoryAdapter.cs" />
     <Compile Include="VMAdapter\VMChatAdapter.cs" />
     <Compile Include="MessageLocalStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="VMAdapter\VMChatFactory.cs" />
     <Compile Include="VMAdapter\IVMIdentityAdapter.cs" />
     <Compile Include="VMAdapter\VMIdentityAdatper.cs" />
+    <Compile Include="VMAdapter\VMOrderHistoryAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">

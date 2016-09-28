@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
+using Dianzhu.CSClient.ViewModel;
+
 namespace Dianzhu.CSClient.IView
 {
     /// <summary>
@@ -11,7 +13,7 @@ namespace Dianzhu.CSClient.IView
     /// </summary>
     public interface IViewOrderHistory
     {
-        IList<ServiceOrder> OrderList { get; set; }
+        IList<VMOrderHistory> OrderList { get; set; }
         string SearchStr { get; set; }
         int OrderPage { get; set; }
 
@@ -21,8 +23,8 @@ namespace Dianzhu.CSClient.IView
         void ShowMoreOrderList();
         void ShowNoMoreOrderList();
 
-        void AddOneOrder(ServiceOrder order);
-        void InsertOneOrder(ServiceOrder order);
+        void AddOneOrder(VMOrderHistory vmOrderHistory);
+        void InsertOneOrder(VMOrderHistory vmOrderHistory);
 
         void ClearUCData();
 

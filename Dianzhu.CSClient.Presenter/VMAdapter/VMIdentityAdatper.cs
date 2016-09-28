@@ -10,7 +10,7 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
 {
     public class VMIdentityAdatper : IVMIdentityAdapter
     {
-        public VMIdentity OrderToIdentity(ServiceOrder order, string customerAvatarUrl)
+        public VMIdentity OrderToVMIdentity(ServiceOrder order, string customerAvatarUrl)
         {
             return new VMIdentity(order.Id, order.Customer.Id, order.Customer.DisplayName, customerAvatarUrl);
         }

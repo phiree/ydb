@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.CSClient.Presenter.VMAdapter
 {
-    public  interface IVMIdentityAdapter
+    public interface IVMOrderHistoryAdapter
     {
-        VMIdentity OrderToVMIdentity(ServiceOrder order, string customerAvatarUrl);
+        VMOrderHistory OrderToVMOrderHistory(ServiceOrder order);
     }
 }

@@ -135,7 +135,7 @@ namespace Dianzhu.CSClient.Presenter
                                 }
                                 localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()] = avatar;
                             }
-                            VMIdentity vmIdentity = vmIdentityAdapter.OrderToIdentity(rs.Order, localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()]);
+                            VMIdentity vmIdentity = vmIdentityAdapter.OrderToVMIdentity(rs.Order, localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()]);
                             AddIdentity(vmIdentity);
                         }
                     }
@@ -429,7 +429,7 @@ namespace Dianzhu.CSClient.Presenter
                     break;
                 case IdentityTypeOfOrder.NewIdentity:
                     ServiceOrder order = bllServiceOrder.GetOne(new Guid(chat.SessionId));
-                    VMIdentity vmIdentity = vmIdentityAdapter.OrderToIdentity(order, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
+                    VMIdentity vmIdentity = vmIdentityAdapter.OrderToVMIdentity(order, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
                     AddIdentity(vmIdentity);
                     iView.SetIdentityUnread(chat.SessionId, 1);
                     break;

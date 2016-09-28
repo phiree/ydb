@@ -402,7 +402,7 @@ namespace Dianzhu.CSClient.Presenter
             log.Debug("当前订单的id：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //更新view
-            VMIdentity vmIdentityNew = vmIdentityAdapter.OrderToIdentity(IdentityManager.CurrentIdentity, localChatManager.LocalCustomerAvatarUrls[IdentityManager.CurrentIdentity.Customer.Id.ToString()]);
+            VMIdentity vmIdentityNew = vmIdentityAdapter.OrderToVMIdentity(IdentityManager.CurrentIdentity, localChatManager.LocalCustomerAvatarUrls[IdentityManager.CurrentIdentity.Customer.Id.ToString()]);
             viewIdentityList.UpdateIdentityBtnName(oldOrder.Id, vmIdentityNew);
 
             //更新接待分配表

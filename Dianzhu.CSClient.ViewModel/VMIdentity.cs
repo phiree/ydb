@@ -16,9 +16,9 @@ namespace Dianzhu.CSClient.ViewModel
             this.CustomerAvatarUrl = customerAvatarUrl;            
         }
 
-        public Guid OrderId { get; set; }
-        public Guid CustomerId { get; set; }
-        public string CustomerName { get; set; }
-        public string CustomerAvatarUrl { get; set; }        
+        public Guid OrderId { get; protected internal set; }
+        public Guid CustomerId { get; protected internal set; }
+        public string CustomerName { get; protected internal set; }
+        public string CustomerAvatarUrl { get; protected internal set; }        
     }
 }

@@ -13,16 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
-using Dianzhu.Model;
 using System.ComponentModel;
 using System.Threading;
+using Dianzhu.CSClient.ViewModel;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
     /// <summary>
     /// UC_OrderHistory.xaml 的交互逻辑
     /// </summary>
-    public partial class UC_OrderHistory : UserControl, IView.IViewOrderHistory
+    public partial class UC_OrderHistory : UserControl, IViewOrderHistory
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_OrderHistory");
         UC_Hint hint;
@@ -53,66 +53,23 @@ namespace Dianzhu.CSClient.ViewWPF
             set { orderPage=value;}
         }
 
-        IList<ServiceOrder> orderList;
-        public IList<ServiceOrder> OrderList
+        IList<VMOrderHistory> orderList;
+        public IList<VMOrderHistory> OrderList
         {
             get { return orderList; }
             set
             {
                 orderList = value;
-                //Action lambda = () =>
-                //{
-                //    orderList = value;
-                //    //pnlOrderHistory.Children.Clear();
-                //    ((StackPanel)svChatList.FindName("StackPanel")).Children.Clear();
-
-                //    if (orderList == null)
-                //    {
-                //        orderList = new List<ServiceOrder>();
-                //        ShowNullListLable();
-                //        return;
-                //    }
-
-                //    if (orderList.Count > 0)
-                //    {
-                //        //BackgroundWorker worker = new BackgroundWorker();
-                //        //worker.DoWork += Worker_DoWork;
-                //        //worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-                //        //worker.RunWorkerAsync();
-
-                //        UC_OrderHistory_Order ucOrder;
-                //        foreach (ServiceOrder order in orderList)
-                //        {
-                //            //ucOrder = new UC_OrderHistory_Order();
-                //            //ucOrder.LoadData(order);
-                //            ////pnlOrderHistory.Children.Add(ucOrder);
-                //            //((StackPanel)svChatList.FindName("StackPanel")).Children.Add(ucOrder);
-                //            AddOneOrder(order);
-
-                //            Thread.Sleep(1000);
-                //        }
-                //        HideMsg();
-                //    }
-                //    else
-                //    {
-                //        ShowNullListLable();
-                //    }
-                //};
-                //if (!Dispatcher.CheckAccess())
-                //{
-                //    Dispatcher.Invoke(lambda);
-                //}
-                //else { lambda(); }
             }
         }
 
         #region 添加一张订单
-        public void AddOneOrder(ServiceOrder order)
+        public void AddOneOrder(VMOrderHistory vmOrderHistory)
         {
             Action lamda = () =>
             {
                 UC_OrderHistory_Order ucOrder = new UC_OrderHistory_Order();
-                ucOrder.LoadData(order);
+                ucOrder.LoadData(vmOrderHistory);
                 ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(ucOrder);
             };
             if (!Dispatcher.CheckAccess())
@@ -125,12 +82,12 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        public void InsertOneOrder(ServiceOrder order)
+        public void InsertOneOrder(VMOrderHistory vmOrderHistory)
         {
             Action lamda = () =>
             {
                 UC_OrderHistory_Order ucOrder = new UC_OrderHistory_Order();
-                ucOrder.LoadData(order);
+                ucOrder.LoadData(vmOrderHistory);
                 StackPanel sp = ((StackPanel)svChatList.FindName("StackPanel"));
                 sp.Children.Insert(sp.Children.Count - 1, ucOrder);
             };
@@ -220,9 +177,9 @@ namespace Dianzhu.CSClient.ViewWPF
 
             if (string.IsNullOrEmpty(SearchStr))
             {
-                foreach (ServiceOrder order in orderList)
+                foreach (var item in orderList)
                 {
-                    InsertOneOrder(order);
+                    InsertOneOrder(item);
                 }
                 return;
             }

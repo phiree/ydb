@@ -431,7 +431,17 @@ namespace Dianzhu.BLL
         {
             var where = PredicateBuilder.True<ServiceOrder>();
             where = where.And(x => x.Customer.Id == customerId);
-            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
+            //where = where.And(x => x.OrderStatus != enum_OrderStatus.Search
+            //                && x.OrderStatus != enum_OrderStatus.Draft
+            //                 && x.OrderStatus != enum_OrderStatus.DraftPushed);
+
+            where = where.And(x => x.OrderStatus == enum_OrderStatus.Finished
+                              || x.OrderStatus == enum_OrderStatus.Appraised
+                              || x.OrderStatus == enum_OrderStatus.EndCancel
+                              || x.OrderStatus == enum_OrderStatus.EndRefund
+                              || x.OrderStatus == enum_OrderStatus.EndIntervention
+                              || x.OrderStatus == enum_OrderStatus.EndComplaints
+                              || x.OrderStatus == enum_OrderStatus.ForceStop);
 
             long long_totalAmount;
             var result = repoServiceOrder.Find(where, pageNum, pageSize, out long_totalAmount).ToList();

@@ -49,6 +49,7 @@ namespace Dianzhu.CSClient
 
             container.Register(Component.For<Presenter.VMAdapter.IVMChatAdapter>().ImplementedBy<Presenter.VMAdapter.VMChatAdapter>());
             container.Register(Component.For<Presenter.VMAdapter.IVMIdentityAdapter>().ImplementedBy<Presenter.VMAdapter.VMIdentityAdatper>());
+            container.Register(Component.For<Presenter.VMAdapter.IVMOrderHistoryAdapter>().ImplementedBy<Presenter.VMAdapter.VMOrderHistoryAdapter>());
         }
     }
 }

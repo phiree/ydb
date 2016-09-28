@@ -12,6 +12,7 @@ using Dianzhu.Model.Enums;
 using Dianzhu.DAL;
 using System.ComponentModel;
 using Dianzhu.CSClient.ViewModel;
+using Dianzhu.CSClient.Presenter.VMAdapter;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -27,18 +28,23 @@ namespace Dianzhu.CSClient.Presenter
         IList<ServiceOrder> orderList;
         IBLLServiceOrder bllServiceOrder;
         LocalStorage.LocalHistoryOrderManager localHistoryOrderManager;
-           public POrderHistory() { }
+        IVMOrderHistoryAdapter vmOrderHistoryAdapter;
 
-        public POrderHistory(IViewOrderHistory viewOrderHistory,IViewIdentityList viewIdentityList,IBLLServiceOrder bllServiceOrder,IInstantMessage.InstantMessage iIM,LocalStorage.LocalHistoryOrderManager localHistoryOrderManager)
+        public POrderHistory() { }
+
+        public POrderHistory(IViewOrderHistory viewOrderHistory, IViewIdentityList viewIdentityList, IBLLServiceOrder bllServiceOrder, IInstantMessage.InstantMessage iIM, LocalStorage.LocalHistoryOrderManager localHistoryOrderManager, IVMOrderHistoryAdapter vmOrderHistoryAdapter)
         {
             this.viewOrderHistory = viewOrderHistory;
             this.orderList = new List<ServiceOrder>();
             this.bllServiceOrder = bllServiceOrder;
             this.localHistoryOrderManager = localHistoryOrderManager;
+            this.vmOrderHistoryAdapter = vmOrderHistoryAdapter;
 
             viewOrderHistory.SearchOrderHistoryClick += ViewOrderHistory_SearchOrderHistoryClick;
             viewOrderHistory.BtnMoreOrder += ViewOrderHistory_BtnMoreOrder;
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
+
+            viewOrderHistory.OrderList = new List<VMOrderHistory>();
         }
 
         private void ViewOrderHistory_BtnMoreOrder()
@@ -58,13 +64,16 @@ namespace Dianzhu.CSClient.Presenter
                     viewOrderHistory.ShowNoMoreOrderList();
                 }
 
+                VMOrderHistory vmOrderHistory;
                 foreach (ServiceOrder order in orderList)
                 {
-                    viewOrderHistory.OrderList.Add(order);
+                    vmOrderHistory = vmOrderHistoryAdapter.OrderToVMOrderHistory(order);
+
+                    viewOrderHistory.OrderList.Add(vmOrderHistory);
 
                     localHistoryOrderManager.Add(IdentityManager.CurrentIdentity.Customer.Id.ToString(), order);
 
-                    viewOrderHistory.InsertOneOrder(order);
+                    viewOrderHistory.InsertOneOrder(vmOrderHistory);
                 }
             }
             else
@@ -90,7 +99,7 @@ namespace Dianzhu.CSClient.Presenter
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             IList<ServiceOrder> orderList = e.Result as List<ServiceOrder>;
-            viewOrderHistory.OrderList = orderList;
+            
             if (orderList.Count > 0)
             {
                 if (orderList.Count == 5)
@@ -103,10 +112,14 @@ namespace Dianzhu.CSClient.Presenter
                     viewOrderHistory.ShowNoMoreOrderList();
                 }
 
+                VMOrderHistory vmOrderHistory;
                 foreach (ServiceOrder order in orderList)
                 {
-                    //viewOrderHistory.OrderList.Add(order);
-                    viewOrderHistory.InsertOneOrder(order);
+                    vmOrderHistory = vmOrderHistoryAdapter.OrderToVMOrderHistory(order);
+
+                    viewOrderHistory.InsertOneOrder(vmOrderHistory);
+
+                    viewOrderHistory.OrderList.Add(vmOrderHistory);
                 }
             }
             else
@@ -174,9 +187,11 @@ namespace Dianzhu.CSClient.Presenter
             
             if (searchList.Count > 0)
             {
-                foreach (ServiceOrder item in searchList)
+                VMOrderHistory vmOrderHistory;
+                foreach (ServiceOrder order in searchList)
                 {
-                    viewOrderHistory.InsertOneOrder(item);
+                    vmOrderHistory = vmOrderHistoryAdapter.OrderToVMOrderHistory(order);
+                    viewOrderHistory.InsertOneOrder(vmOrderHistory);
                 }
             }
         }
