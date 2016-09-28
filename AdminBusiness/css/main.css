@@ -5436,10 +5436,12 @@ a.time-trigger:hover {
   background: url("../images/components/stepByStep/step1_cur.png");
 }
 .steps-list .steps-step {
-  display: none;
+  visibility: hidden;
+  height: 0;
 }
 .steps-list .steps-step.cur-step {
-  display: block;
+  visibility: visible;
+  height: auto;
 }
 .sidebar {
   display: block;
