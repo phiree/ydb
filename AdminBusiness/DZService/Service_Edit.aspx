@@ -117,8 +117,12 @@
                 },
                 stepNextFunc : function(step){
                     if (step == "1"){
-                        // TODO: 简单粗暴的修复服务初始化时服务点不居中的问题，待重构解决。
-                        initializeService();
+//                         TODO: 简单粗暴的修复服务初始化时服务点不居中的问题，待重构解决。
+//                        initializeService();
+//                        if ( typeof window.readServerPoint === "function") {
+//                            window.readServerPoint()
+//
+//                        }
                     }
                 }
             });

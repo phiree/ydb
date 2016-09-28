@@ -73,9 +73,13 @@
 
 .steps-list {
   .steps-step {
-    display: none;
+    //display: none;
+    visibility: hidden;
+    height: 0;
     &.cur-step {
-      display: block;
+      //display: block;
+      visibility: visible;
+      height: auto;
     }
   }
 }
