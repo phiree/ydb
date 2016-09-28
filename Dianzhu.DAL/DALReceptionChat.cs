@@ -72,7 +72,7 @@ namespace Dianzhu.DAL
         }
 
         public virtual IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(Guid fromId, Guid toId, Guid orderId, DateTime timeBegin, DateTime timeEnd,
-             int pageSize, ReceptionChat targetChat, string low, enum_ChatTarget? target)
+             int pageSize, double targetChatSavedTimestamp, string low, enum_ChatTarget? target)
         {
             
                 var result = Session.QueryOver<ReceptionChat>();
@@ -82,11 +82,11 @@ namespace Dianzhu.DAL
                 }
             if (low == "Y")
                 {
-                    result = result.Where(x => x.SavedTimestamp < targetChat.SavedTimestamp).OrderBy(x => x.SavedTimestamp).Desc;
+                    result = result.Where(x => x.SavedTimestamp < targetChatSavedTimestamp).OrderBy(x => x.SavedTimestamp).Desc;
                 }
                 else
                 {
-                    result = result.Where(x => x.SavedTimestamp > targetChat.SavedTimestamp).OrderBy(x => x.SavedTimestamp).Desc;
+                    result = result.Where(x => x.SavedTimestamp > targetChatSavedTimestamp).OrderBy(x => x.SavedTimestamp).Desc;
                 }
                 if (toId != Guid.Empty)
                 {

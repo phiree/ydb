@@ -126,7 +126,7 @@ namespace Dianzhu.DAL
 
             string sql = string.Format(@"UPDATE receptionstatus SET customerservice_id='{0}'
                     WHERE customerservice_id = '{1}' LIMIT {2};
-            SELECT* FROM receptionstatus WHERE customerservice_id = '{0}'"
+            SELECT * FROM receptionstatus WHERE customerservice_id = '{0}'"
             , customerService.Id,diandian.Id,num);
 
             IQuery pureQry= Session.CreateSQLQuery(sql).AddEntity(typeof(ReceptionStatus));

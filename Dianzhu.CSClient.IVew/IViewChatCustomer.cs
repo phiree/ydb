@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
+using Dianzhu.CSClient.ViewModel;
+
 namespace Dianzhu.CSClient.IView
 {
     /// <summary>
@@ -11,9 +13,8 @@ namespace Dianzhu.CSClient.IView
     /// </summary>
     public interface IViewChatCustomer
     {
-        DZMembership CurrentCS { set; }
-        ReceptionChat Chat { set; }
-        string CustomerAvatar { set; }
+        Guid CurrentCSId { set; }
+        VMChat VMChat { set; }
     }
 
 

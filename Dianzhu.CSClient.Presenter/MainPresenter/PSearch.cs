@@ -7,6 +7,7 @@ using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.LocalStorage;
+using Dianzhu.CSClient.ViewModel;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -28,6 +29,8 @@ namespace Dianzhu.CSClient.Presenter
         BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder;
         LocalStorage.LocalChatManager localChatManager;
         LocalStorage.LocalUIDataManager localUIDataManager;
+        VMAdapter.IVMChatAdapter vmChatAdapter;
+
         #region 服务类型数据
         Dictionary<ServiceType, IList<ServiceType>> ServiceTypeCach;
         IList<ServiceType> ServiceTypeListTmp;
@@ -35,12 +38,13 @@ namespace Dianzhu.CSClient.Presenter
         ServiceType ServiceTypeSecond;
         ServiceType ServiceTypeThird;
         #endregion
+
         #region contructor
  
         public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
             IViewChatList viewChatList,IViewIdentityList viewIdentityList,
             IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder,IDAL.IDALReceptionChat dalReceptionChat, IDAL.IDALServiceType dalServiceType,                     
-                    PushService bllPushService, BLLReceptionStatus bllReceptionStatus,BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder, LocalStorage.LocalChatManager localChatManager, LocalStorage.LocalUIDataManager localUIDataManager)
+                    PushService bllPushService, BLLReceptionStatus bllReceptionStatus,BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder, LocalStorage.LocalChatManager localChatManager, LocalStorage.LocalUIDataManager localUIDataManager, VMAdapter.IVMChatAdapter vmChatAdapter)
         {
             this.serialNoBuilder = serialNoBuilder;
             this.viewSearch = viewSearch; ;
@@ -56,6 +60,7 @@ namespace Dianzhu.CSClient.Presenter
             this.viewIdentityList = viewIdentityList;
             this.localChatManager = localChatManager;
             this.localUIDataManager = localUIDataManager;
+            this.vmChatAdapter = vmChatAdapter;
 
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
 
@@ -367,7 +372,9 @@ namespace Dianzhu.CSClient.Presenter
             log.Debug("推送的订单：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //助理工具显示发送的消息
-            viewChatList.AddOneChat(chat,string.Empty);
+            VMChat vmChat = vmChatAdapter.ChatToVMChat(chat, string.Empty);
+            viewChatList.AddOneChat(vmChat);
+            //viewChatList.AddOneChat(chat,string.Empty);
 
             //发送推送聊天消息
             iIM.SendMessage(chat);

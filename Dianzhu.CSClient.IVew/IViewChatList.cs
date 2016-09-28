@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.Model;
+using Dianzhu.CSClient.ViewModel;
+
 namespace Dianzhu.CSClient.IView
 {
     /// <summary>
@@ -12,14 +13,14 @@ namespace Dianzhu.CSClient.IView
     public interface IViewChatList
     {
         
-        IList<ReceptionChat> ChatList { set;  get; }
-        void AddOneChat(ReceptionChat chat,string customerAvatar);
-        void InsertOneChat(ReceptionChat chat,string customerAvatar);
+        IList<VMChat> ChatList { set;  get; }
+        void AddOneChat(VMChat vmChat);
+        void InsertOneChat(VMChat vmChat);
         /// <summary>
         /// 当前助理. 
         /// 用来确定消息的显示格式.
         /// </summary>
-        DZMembership CurrentCustomerService { get; set; }
+        Guid CurrentCustomerServiceId { get; set; }
         event BtnMoreChat BtnMoreChat;
 
         void ShowMoreLabel();

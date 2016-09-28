@@ -12,6 +12,7 @@ using Dianzhu.Model.Enums;
 using Dianzhu.DAL;
 using log4net;
 using System.Windows.Threading;
+using Dianzhu.CSClient.ViewModel;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -32,11 +33,13 @@ namespace Dianzhu.CSClient.Presenter
         IViewIdentityList viewIdentityList;
         IViewOrderHistory viewOrderHistory;
         LocalStorage.LocalChatManager localChatManager;
+        VMAdapter.IVMChatAdapter vmChatAdapter;
+
         ServiceOrder order;
         
         public PChatSend(IViewChatSend viewChatSend, IView.IViewChatList viewChatList,
             InstantMessage iIM,IDAL.IDALReceptionChat dalReceptionChat,IViewIdentityList viewIdentityList,
-            IViewOrderHistory viewOrderHistory, LocalStorage.LocalChatManager localChatManager)
+            IViewOrderHistory viewOrderHistory, LocalStorage.LocalChatManager localChatManager, VMAdapter.IVMChatAdapter vmChatAdapter)
         {
             this.viewChatList = viewChatList;
             this.dalReceptionChat = dalReceptionChat;
@@ -49,12 +52,15 @@ namespace Dianzhu.CSClient.Presenter
             this.viewChatSend.SendTextClick += ViewChatSend_SendTextClick;
             this.viewChatSend.SendMediaClick += ViewChatSend_SendMediaClick;
             this.localChatManager = localChatManager;
+            this.vmChatAdapter = vmChatAdapter;
         }
 
         private void ViewChatSend_SendMediaClick(byte[] fileData, string domainType, string mediaType)
         {
             if (IdentityManager.CurrentIdentity == null) return;
-                        
+
+            NHibernateUnitOfWork.UnitOfWork.Start();
+
             string s = Convert.ToBase64String(fileData);
             string fileName = MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, domainType, mediaType);
 
@@ -79,11 +85,16 @@ namespace Dianzhu.CSClient.Presenter
 
             viewChatSend.MessageText = string.Empty;
             chat.SetMediaUrl(fileName);
-            viewChatList.AddOneChat(chat,string.Empty);
+            VMChat vmChat = vmChatAdapter.ChatToVMChat(chat, string.Empty);
+            viewChatList.AddOneChat(vmChat);
+            //viewChatList.AddOneChat(chat,string.Empty);
             chat.SetMediaUrl(chat.MedialUrl.Replace(GlobalViables.MediaGetUrl, ""));
-         
-           // dalReceptionChat.Add(chat);
-            
+
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+
+            // dalReceptionChat.Add(chat);
+
             //  PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
         }
 
@@ -93,6 +104,9 @@ namespace Dianzhu.CSClient.Presenter
             {
                 if (IdentityManager.CurrentIdentity == null)
                 { return; }
+
+                NHibernateUnitOfWork.UnitOfWork.Start();
+
                 string messageText = viewChatSend.MessageText;
                 if (string.IsNullOrEmpty(messageText)) return;
                 ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(), IdentityManager.CurrentIdentity.Customer.Id.ToString(),
@@ -100,13 +114,18 @@ namespace Dianzhu.CSClient.Presenter
                 ReceptionChat chat = chatFactory.CreateChatText();
                 localChatManager.Add(chat.ToId, chat);
                 viewChatSend.MessageText = string.Empty;
-                viewChatList.AddOneChat(chat,string.Empty);
-               //dalReceptionChat.Add(chat);
+                VMChat vmChat = vmChatAdapter.ChatToVMChat(chat, string.Empty);
+                viewChatList.AddOneChat(vmChat);
+                //viewChatList.AddOneChat(chat,string.Empty);
+                //dalReceptionChat.Add(chat);
                 iIM.SendMessage(chat);
 
  
                 //临时存放订单
                 order = IdentityManager.CurrentIdentity;
+
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
 
                 //PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat); 
             }

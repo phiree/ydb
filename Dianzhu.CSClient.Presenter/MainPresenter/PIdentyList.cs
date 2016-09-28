@@ -13,6 +13,7 @@ using Dianzhu.DAL;
 using System.ComponentModel;
 using System.IO;
 using System.Threading;
+using Dianzhu.CSClient.ViewModel;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -40,6 +41,7 @@ namespace Dianzhu.CSClient.Presenter
         LocalStorage.LocalChatManager localChatManager;
         LocalStorage.LocalHistoryOrderManager localHistoryOrderManager;
         LocalStorage.LocalUIDataManager localUIDataManager;
+        VMAdapter.IVMChatAdapter vmChatAdapter;
 
         public PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,
             InstantMessage iIM,
@@ -51,8 +53,8 @@ namespace Dianzhu.CSClient.Presenter
             IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve,
             LocalStorage.LocalChatManager localChatManager,
             LocalStorage.LocalHistoryOrderManager localHistoryOrderManager,
-            LocalStorage.LocalUIDataManager localUIDataManager
-            )
+            LocalStorage.LocalUIDataManager localUIDataManager,
+            VMAdapter.IVMChatAdapter vmChatAdapter)
         {
             this.localChatManager = localChatManager;
             this.localHistoryOrderManager = localHistoryOrderManager;
@@ -68,14 +70,14 @@ namespace Dianzhu.CSClient.Presenter
             this.viewSearchResult = viewSearchResult;
             this.dalReceptionStatusArchieve = dalReceptionStatusArchieve;
             this.dalMembership = dalMembership;
+            this.vmChatAdapter = vmChatAdapter;
+
             iView.IdentityClick += IView_IdentityClick;
             iView.FinalChatTimerTick += IView_FinalChatTimerTick;
             iViewChatSend.FinalChatTimerSend += IViewChatSend_FinalChatTimerSend;
 
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             viewSearchResult.PushServiceTimerSend += ViewSearchResult_PushServiceTimerSend;
-
-
 
             Thread t = new Thread(SysAssign);
             t.Start();
@@ -396,17 +398,15 @@ namespace Dianzhu.CSClient.Presenter
             switch (type)
             {
                 case IdentityTypeOfOrder.CurrentCustomer:
-                    //提示 用户的订单已经变更
-                    iViewChatList.AddOneChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
-                    break;
                 case IdentityTypeOfOrder.CurrentIdentity:
-                    iViewChatList.AddOneChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
+                    VMChat vmChat = vmChatAdapter.ChatToVMChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
+                    iViewChatList.AddOneChat(vmChat);
+                    //iViewChatList.AddOneChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
                     break;
                 case IdentityTypeOfOrder.InList:
                     iView.SetIdentityUnread(chat.SessionId, 1);
                     break;
                 case IdentityTypeOfOrder.NewIdentity:
-
                     ServiceOrder order = bllServiceOrder.GetOne(new Guid(chat.SessionId));
                     AddIdentity(order, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
                     iView.SetIdentityUnread(chat.SessionId, 1);

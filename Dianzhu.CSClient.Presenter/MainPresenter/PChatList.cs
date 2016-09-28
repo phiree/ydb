@@ -9,6 +9,7 @@ using Dianzhu.CSClient.IView;
 using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.Model.Enums;
 using System.ComponentModel;
+using Dianzhu.CSClient.ViewModel;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -27,9 +28,11 @@ namespace Dianzhu.CSClient.Presenter
         IViewIdentityList viewIdentityList;
         InstantMessage iIM;
         Dianzhu.CSClient.LocalStorage.LocalChatManager chatManager;
-        
+        VMAdapter.IVMChatAdapter vmChatAdapter;
+
+
         public PChatList(IViewChatList viewChatList,IViewChatSend viewChatSend, IViewIdentityList viewCustomerList,IDAL.IDALReceptionChat dalReceptionChat, InstantMessage iIM,
-            Dianzhu.CSClient.LocalStorage.LocalChatManager chatManager)
+            Dianzhu.CSClient.LocalStorage.LocalChatManager chatManager, VMAdapter.IVMChatAdapter vmChatAdapter)
         {
             this.chatManager = chatManager;
             this.viewChatList = viewChatList;
@@ -37,9 +40,10 @@ namespace Dianzhu.CSClient.Presenter
             this.dalReceptionChat = dalReceptionChat;
             this.iIM = iIM;
             this.viewIdentityList = viewCustomerList;
+            this.vmChatAdapter = vmChatAdapter;
 
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
-            viewChatList.CurrentCustomerService = GlobalViables.CurrentCustomerService;
+            viewChatList.CurrentCustomerServiceId = GlobalViables.CurrentCustomerService.Id;
             viewChatList.BtnMoreChat += ViewChatList_BtnMoreChat;
 
             
@@ -48,7 +52,7 @@ namespace Dianzhu.CSClient.Presenter
         private void ViewChatList_BtnMoreChat()
         {
             var chatHistory = dalReceptionChat.GetReceptionChatListByTargetIdAndSize(IdentityManager.CurrentIdentity.Customer.Id, Guid.Empty, Guid.Empty,
-                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 10, viewChatList.ChatList[0], "Y", enum_ChatTarget.cer).OrderByDescending(x=>x.SavedTimestamp).ToList();
+                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 10, viewChatList.ChatList[0].SavedTimestamp, "Y", enum_ChatTarget.cer).OrderByDescending(x=>x.SavedTimestamp).ToList();
 
             if (chatHistory.Count() > 0)
             {
@@ -61,19 +65,21 @@ namespace Dianzhu.CSClient.Presenter
                     viewChatList.ShowNoMoreLabel();
                 }
 
-                foreach (var item in chatHistory)
+                for (int i = 0; i < chatHistory.Count; i++)
                 {
-                    viewChatList.ChatList.Insert(0, item);
                     string customerId = string.Empty;
-                    if(item.FromResource== enum_XmppResource.YDBan_User)
+                    if(chatHistory[i].FromResource== enum_XmppResource.YDBan_User)
                     {
-                        customerId = item.FromId;
+                        customerId = chatHistory[i].FromId;
                     }
-                    else if(item.ToResource==  enum_XmppResource.YDBan_User)
+                    else if(chatHistory[i].ToResource==  enum_XmppResource.YDBan_User)
                     {
-                        customerId = item.ToId;
+                        customerId = chatHistory[i].ToId;
                     }
-                    viewChatList.InsertOneChat(item, chatManager.LocalCustomerAvatarUrls[customerId]);
+                    VMChat vmChat = vmChatAdapter.ChatToVMChat(chatHistory[i], chatManager.LocalCustomerAvatarUrls[customerId]);
+                    viewChatList.InsertOneChat(vmChat);
+                    viewChatList.ChatList.Insert(0, vmChat);
+                    //viewChatList.InsertOneChat(item, chatManager.LocalCustomerAvatarUrls[customerId]);
                 }
             }
             else
@@ -99,9 +105,11 @@ namespace Dianzhu.CSClient.Presenter
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             IList<ReceptionChat> chatList=e.Result as List<ReceptionChat>;
-            viewChatList.ChatList = chatList;
+            
             if (chatList.Count > 0)
             {
+                NHibernateUnitOfWork.UnitOfWork.Start();
+
                 if (chatList.Count >= 10)
                 {
                     viewChatList.ShowMoreLabel();
@@ -111,34 +119,37 @@ namespace Dianzhu.CSClient.Presenter
                     viewChatList.ShowNoMoreLabel();
                 }
 
-                //foreach (ReceptionChat chat in chatList)
-                //{
-                //    if(chat.From.UserType== enum_UserType.customer)
-                //    {
-                //        viewChatList.AddOneChat(chat, chatManager.LocalCustomerAvatarUrls[chat.From.Id.ToString()]);
-                //    }
-                //    else
-                //    {
-                //        viewChatList.AddOneChat(chat, string.Empty);
-                //    }                    
-                //}
-
+                VMChat vmChat;
                 for (int i = 0; i < chatList.Count; i++)
                 {
-                    if (chatList[i].FromResource == enum_XmppResource.YDBan_User)
+                    try
                     {
-                        viewChatList.AddOneChat(chatList[i], chatManager.LocalCustomerAvatarUrls[chatList[i].FromId]);
+                        if (chatList[i].FromResource == enum_XmppResource.YDBan_User)
+                        {
+                            vmChat = vmChatAdapter.ChatToVMChat(chatList[i], chatManager.LocalCustomerAvatarUrls[chatList[i].FromId]);
+                        }
+                        else
+                        {
+                            vmChat = vmChatAdapter.ChatToVMChat(chatList[i], string.Empty);
+                        }
                     }
-                    else
+                    catch (Exception eee)
                     {
-                        viewChatList.AddOneChat(chatList[i], string.Empty);
+                        log.Error(eee.Message);
+                        return;
                     }
+                    viewChatList.AddOneChat(vmChat);
+                    viewChatList.ChatList.Add(vmChat);
                 }
+
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
             else
             {
                 viewChatList.ShowNoMoreLabel();
             }
+
             log.Debug("异步加载聊天记录完成");
         }
 

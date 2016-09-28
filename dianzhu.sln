@@ -286,6 +286,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.RequestRestful", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.LocalStorage", "Dianzhu.CSClient.LocalStorage\Dianzhu.CSClient.LocalStorage.csproj", "{6F064359-8BBD-4BDA-9532-D93505472582}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.ViewModel", "Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj", "{D7AA114D-AD19-4399-B152-969D240053C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -774,6 +776,18 @@ Global
 		{6F064359-8BBD-4BDA-9532-D93505472582}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6F064359-8BBD-4BDA-9532-D93505472582}.Release|x86.ActiveCfg = Release|Any CPU
 		{6F064359-8BBD-4BDA-9532-D93505472582}.Release|x86.Build.0 = Release|Any CPU
+		{D7AA114D-AD19-4399-B152-969D240053C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7AA114D-AD19-4399-B152-969D240053C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7AA114D-AD19-4399-B152-969D240053C7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D7AA114D-AD19-4399-B152-969D240053C7}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D7AA114D-AD19-4399-B152-969D240053C7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D7AA114D-AD19-4399-B152-969D240053C7}.Debug|x86.Build.0 = Debug|Any CPU
+		{D7AA114D-AD19-4399-B152-969D240053C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7AA114D-AD19-4399-B152-969D240053C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7AA114D-AD19-4399-B152-969D240053C7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D7AA114D-AD19-4399-B152-969D240053C7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D7AA114D-AD19-4399-B152-969D240053C7}.Release|x86.ActiveCfg = Release|Any CPU
+		{D7AA114D-AD19-4399-B152-969D240053C7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -824,6 +838,7 @@ Global
 		{D50A26FF-02C6-4C16-BA94-4CD7D43EFBB3} = {4108D8F3-463D-4CD8-9028-3B31B67D9335}
 		{0EE24EE8-A508-463C-BC2F-83E52110E643} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{6F064359-8BBD-4BDA-9532-D93505472582} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
+		{D7AA114D-AD19-4399-B152-969D240053C7} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 	EndGlobalSection
 	GlobalSection(NDepend) = preSolution
 		Project = ".\dianzhu.ndproj"
