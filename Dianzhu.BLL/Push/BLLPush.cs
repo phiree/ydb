@@ -39,6 +39,7 @@ namespace Dianzhu.BLL
         public void Push(Dianzhu.Model.ReceptionChat chat, Guid targetUserId, string orderId)
         {
             //判断用户是否在线的接口
+            log.Debug("1");
             var isOnline = iimSession.IsUserOnline(targetUserId.ToString());// dalIMStatus.FindOne(x => x.UserID.ToString() == chat.ToId);
             if (isOnline)
             {
@@ -46,7 +47,7 @@ namespace Dianzhu.BLL
                 return;
             }
             chat.SetUnread();
-
+            log.Debug("12");
             string pushMessage = string.Empty;
             PushType pushType;
             string errorLog;
@@ -57,6 +58,7 @@ namespace Dianzhu.BLL
                 <订单完成>推送关于订单变成完成状态的信息，
                 例如订单变成了 EndCancel , EndRefound ， EndIntervention等等，app 跳转至已完成列表 
             */
+            log.Debug("13");
             if (chat.GetType() == typeof(Model.ReceptionChatNoticeOrder))
             {
                 Model.ServiceOrder serviceOrder = bllServiceOrder.GetOne(new Guid(chat.SessionId));
@@ -101,9 +103,11 @@ namespace Dianzhu.BLL
             {
                 log.Debug("未处理的消息类型:" + chat.GetType());
             }
-
+            log.Debug("14");
             Model.DeviceBind bind = dalDeviceBind.getDevBindByUserID(targetUserId);
+            log.Debug("141");
             string deviceName = bind.AppName;
+            log.Debug("142");
             if (deviceName.ToLower().Contains("ios")) { deviceName = "ios"; }
             else if (deviceName.ToLower().Contains("android")) { deviceName = "android"; }
             else
@@ -112,6 +116,7 @@ namespace Dianzhu.BLL
                 log.Error(errorLog);
                 throw new Exception(errorLog);
             }
+            log.Debug("15");
             pushType = PushType.PushToUser;
             //客服->用户, 用户->商户,商户->用户
             if (chat.ToResource == enum_XmppResource.YDBan_Store) { pushType = PushType.PushToBusiness; }
@@ -121,13 +126,14 @@ namespace Dianzhu.BLL
                 log.Warn("不需要推送的目标" + chat.Id);
                 return;
             }
-
+            log.Debug("16");
             IPush ipush = Dianzhu.Push.PushFactory.Create(pushType, deviceName, orderId);
             int pushAmount = bind.PushAmount + 1;
             bind.PushAmount = pushAmount;
             dalDeviceBind.Update(bind);
+            log.Debug("17");
             log.Debug("prepare for push,token:" + bind.AppToken);
-            string pushResult = ipush.Push(pushMessage + chat.MessageBody, bind.AppToken, pushAmount);
+            string pushResult = ipush.Push(pushMessage, bind.AppToken, pushAmount);
             log.Debug("推送结果" + pushResult);
 
 

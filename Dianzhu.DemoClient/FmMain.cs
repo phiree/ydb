@@ -23,7 +23,8 @@ namespace Dianzhu.DemoClient
         string csDisplayName;
         string customerId;
         string pwd;
-        string orderID {
+        string orderID
+        {
             get { return tbxOrderId.Text; }
             set { tbxOrderId.Text = value; }
         }
@@ -61,19 +62,19 @@ namespace Dianzhu.DemoClient
 
         private void XMPPConnection_OnStreamError(object sender, agsXMPP.Xml.Dom.Element e)
         {
-           // MessageBox.Show(e.ToString());
+            // MessageBox.Show(e.ToString());
         }
 
         private void XMPPConnection_OnIq(object sender, IQ iq)
         {
-           // MessageBox.Show(iq.ToString());
+            // MessageBox.Show(iq.ToString());
         }
 
         void XMPPConnection_OnSocketError(object sender, Exception ex)
         {
             //MessageBox.Show("socket error");
         }
-        private void GetCustomerInfo(string userName,string password)
+        private void GetCustomerInfo(string userName, string password)
         {
             string postData = string.Format(@"{{ 
                     ""protocol_CODE"": ""USM001005"", //用户信息获取
@@ -92,10 +93,10 @@ namespace Dianzhu.DemoClient
             }
             customerId = result["RespData"]["userObj"]["userID"].ToString();
             pwd = password;
-            this.Text= result["RespData"]["userObj"]["name"].ToString();
+            this.Text = result["RespData"]["userObj"]["name"].ToString();
 
         }
-        public void GetCustomerService(string username,string password ,string manualAssignedCS)
+        public void GetCustomerService(string username, string password, string manualAssignedCS)
         {
             string apiRequest = string.Format(@"{{ // 
                      ""protocol_CODE"": ""ORM002001"", 
@@ -127,13 +128,13 @@ namespace Dianzhu.DemoClient
             lblAssignedCS.Text = csDisplayName = result["RespData"]["cerObj"]["alias"].ToString();// result["RespData"]["cerObj"]["alias"].ToString();
 
             csId = result["RespData"]["cerObj"]["userID"].ToString();// result["RespData"]["cerObj"]["userID"].ToString();
-            //customerId = result["RespData"]["cerObj"]["userID"].ToString();
-           orderID = result["RespData"]["orderID"].ToString();
-          
+                                                                     //customerId = result["RespData"]["cerObj"]["userID"].ToString();
+            orderID = result["RespData"]["orderID"].ToString();
+
         }
         public void GetCustomerService(string username, string password)
         {
-            GetCustomerService( username, password,string.Empty);
+            GetCustomerService(username, password, string.Empty);
         }
         void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
         {
@@ -170,7 +171,7 @@ namespace Dianzhu.DemoClient
                     lblAssignedCS.Text = csDisplayName;
                     break;
                 case "ihelper:notice:cer:online":
-                    
+
                     GetCustomerService(GlobalViables.XMPPConnection.Username, GlobalViables.XMPPConnection.Password);
                     break;
                 case "ihelper:notice:draft:new":
@@ -199,7 +200,7 @@ namespace Dianzhu.DemoClient
                 GetCustomerService(conn.Username, conn.Password);
 
                 lblAssignedCS.Text = csDisplayName;
-                
+
                 lblLoginStatus.Text = "登录成功";
                 tbxUserName.Text = conn.Username;
             }
@@ -216,17 +217,62 @@ namespace Dianzhu.DemoClient
             //bug:关闭当前登录后，不能再监听原来的事件。
             //GlobalViables.XMPPConnection.Close();//关闭当前登录
             Login(tbxUserName.Text, tbxPwd.Text);
-            
+
 
         }
         private void Login(string userName, string password)
         {
-            
-            
+
+
             GlobalViables.log.Debug("获取用户信息开始");
-            GetCustomerInfo(userName,password);
+            GetCustomerInfo(userName, password);
             GlobalViables.log.Debug("连接openfire服务器");
+
             GlobalViables.XMPPConnection.Open(customerId, password);
+
+            //bind
+            /*
+             {
+        "protocol_CODE" : "App001001",
+        "ReqData": {
+            "AppObj": {
+                "userID": "246022dd-6c9c-4c27-8fb8-a60801188a70",
+                "appUUID": "d9cfe8e2-eb40-4930-bb8b-88ba2d1eeb7d",
+                "appName" : "IOS_User",
+                "appToken": "070d53e73941699b4a59232f505b914fbe50d364363e3d20e35ed08a5f4d6816"
+            },
+            "mark":"Y",
+        },
+        "stamp_TIMES" : "1490192929212",
+        "serial_NUMBER" : "00147001015869149751"
+    },
+             */
+            log.Debug("请求appbind");
+            string apiRequest = string.Format(
+                @"{{ 
+                    ""protocol_CODE"": ""App001001"", 
+                    ""ReqData"": 
+                    {{ 
+                        ""AppObj"":{{
+                            ""userID"": ""{0}"", 
+                            ""appUUID"": ""{1}"", 
+                            ""appName"": ""{2}"",
+                            ""appToken"":""{3}"" 
+                        }},
+                        ""mark"":""Y""
+                    }}, 
+                    ""stamp_TIMES"": ""{4}"", 
+                    ""serial_NUMBER"": ""00147001015869149751"" 
+                }}",
+                customerId,
+               "f0d3c7a0-c009-455b-811b-96610b038c51",
+                rbAndroid.Checked ? "android" : "IOS",
+                 "Token_" + customerId.GetHashCode().ToString(),
+                (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString()
+                );
+            Newtonsoft.Json.Linq.JObject result = API.GetApiResult(apiRequest);
+            log.Debug(result.ToString());
+
         }
         /// <summary>
         /// 增加一条聊天记录
@@ -235,7 +281,7 @@ namespace Dianzhu.DemoClient
         void AddLog(agsc.Message message)
         {
             GlobalViables.log.Debug("message:" + message.InnerXml);
-            tbxLog.AppendText(DateTime.Now.ToString()+":"+message.ToString() + Environment.NewLine);
+            tbxLog.AppendText(DateTime.Now.ToString() + ":" + message.ToString() + Environment.NewLine);
             //if (csDisplayName == null)
             //{
             //    GetCustomerService();
@@ -247,7 +293,7 @@ namespace Dianzhu.DemoClient
             //    p.From = new Jid(customerId + "@" + GlobalViables.ServerName);
             //    GlobalViables.XMPPConnection.Send(p);
             //}
-           
+
             string user = StringHelper.EnsureNormalUserName(message.From.User);
             string body = message.Body;
             string messageType = message.GetAttribute("MessageType");
@@ -329,7 +375,7 @@ namespace Dianzhu.DemoClient
                     pnlOneChat.Controls.Add(btnServiceSure);
                     break;
                 case "ihelper:notice:draft:new":
-                    lblMessage.Text += "通知:新的草稿单" +orderID;
+                    lblMessage.Text += "通知:新的草稿单" + orderID;
                     break;
 
                 case "ihelper:notice:order":
@@ -434,12 +480,12 @@ namespace Dianzhu.DemoClient
         private void btnSelectImage_Click(object sender, EventArgs e)
         {
             var result
-                = SelectFile("ChatImage","image");
+                = SelectFile("ChatImage", "image");
             if (!string.IsNullOrEmpty(result))
             {
                 agsc.Message msgnew = new MessageBuilder()
                     .Create(customerId, csId, string.Empty, orderID)
-                    .BuildMedia("image",   result)
+                    .BuildMedia("image", result)
                     ;
 
                 GlobalViables.XMPPConnection.Send(msgnew);
@@ -447,7 +493,7 @@ namespace Dianzhu.DemoClient
             }
 
         }
-        private string SelectFile(string domainName,string fileType)
+        private string SelectFile(string domainName, string fileType)
         {
             string result = string.Empty;
             if (dlgSelectPic.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -465,7 +511,7 @@ namespace Dianzhu.DemoClient
                 result = GlobalViables.MediaGetUrl + MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, domainName, fileType);
 
             }
-            return  result;
+            return result;
         }
 
         private void _AutoSize(Control c)
@@ -509,7 +555,7 @@ namespace Dianzhu.DemoClient
             {
                 agsc.Message msgnew = new MessageBuilder()
                     .Create(customerId, csId, string.Empty, orderID)
-                    .BuildMedia("voice",  result)
+                    .BuildMedia("voice", result)
                     ;
 
                 GlobalViables.XMPPConnection.Send(msgnew);
