@@ -156,7 +156,7 @@ namespace Dianzhu.ApplicationService.User
         public object PostUser3rds(U3RD_Model u3rd_Model, string userType)
         {
             Dianzhu.Model.DZMembership newMember = new DZMembership();
-            switch (u3rd_Model.target)
+            switch (u3rd_Model.platform)
             {
                 case "WeChat":
                     newMember=LoginByWeChat.GetUserInfo(u3rd_Model.code, u3rd_Model.appName, dzmsp, userType);
