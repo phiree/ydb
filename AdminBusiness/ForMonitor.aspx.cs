@@ -5,10 +5,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class error :Page
+public partial class ForMonitor : Dianzhu.Web.Common.BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Write(Request.Url.Authority);
+    
     }
 }

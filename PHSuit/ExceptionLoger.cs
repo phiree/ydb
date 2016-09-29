@@ -21,20 +21,27 @@ namespace PHSuit
         {
             string message = e.ToString();
             message = message.Replace(Environment.NewLine, "<br/>");
+            log.Error(message);
 
             string emails = ConfigurationManager.AppSettings["MonitorEmails"];
-            try {
+
+            try
+            {
+
+                if (string.IsNullOrEmpty(emails)) { return; }
                 string[] emailList = emails.Split(',');
+
                 EmailHelper.SendEmail(emailList[0], "异常_" + log.Logger.Name, message,
                 emailList);
             }
-            catch(Exception phEx) {
+            catch (Exception phEx)
+            {
                 log.Error(phEx.ToString());
             }
-            log.Error(message);
+
         }
         static int a = 0;
-        
+
         public static void ExceptionLogForLog(log4net.ILog log, Exception e)
         {
             string str = string.Empty;
@@ -43,9 +50,9 @@ namespace PHSuit
                 str = "InnerException:";
             }
             string err = str + e.Message;
-             
-                err += "___stack:" + e.StackTrace;
-             
+
+            err += "___stack:" + e.StackTrace;
+
             log.Error(err);
             if (e.InnerException != null)
             {
@@ -57,5 +64,5 @@ namespace PHSuit
                 a = 0;
             }
         }
-    } 
+    }
 }

@@ -10,12 +10,16 @@
     <form id="form1" runat="server">
     <div>
     <h1>出错了............</h1>
-    <div style="color:#888">
+    <div style="color:#888;display:none;">
     <label>技术细节:</label>
     <p>
     <%=Server.UrlDecode(Request.Params["msg"]) %>
     </p>
+       
     </div>
+         <p>
+            <a href="/">点击重试</a>
+        </p>
     </div>
     </form>
 </body>
