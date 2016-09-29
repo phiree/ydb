@@ -202,7 +202,7 @@ namespace Dianzhu.ApplicationService.User
         /// <param name="userChangeBody"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        public object PatchUser(string userID, UserChangeBody userChangeBody,string userType)
+        public object PatchUser(string userID, UserChangeBody userChangeBody, string userType)
         {
             if (string.IsNullOrEmpty(userChangeBody.oldPassWord))
             {
@@ -237,6 +237,14 @@ namespace Dianzhu.ApplicationService.User
             if (!string.IsNullOrEmpty(userChangeBody.sex))
             {
                 //dzm.Address = userChangeBody.sex;
+                //if (userType == "customer")
+                //{
+                //    ()
+                //}
+            } 
+            if (!string.IsNullOrEmpty(userChangeBody.imgUrl))
+            {
+                dzm.AvatarUrl = utils.GetFileName(userChangeBody.imgUrl);
             }
             if (!string.IsNullOrEmpty(userChangeBody.newPassWord))
             {
@@ -254,6 +262,24 @@ namespace Dianzhu.ApplicationService.User
             }
             DateTime dt = DateTime.Now;
             dzm.LastLoginTime = dt;
+
+            BLL.Validator.ValidatorDZMembership vd_member = new BLL.Validator.ValidatorDZMembership();
+            FluentValidation.Results.ValidationResult result = vd_member.Validate(dzm);
+            if (!result.IsValid)
+            {
+                string strErrors = "[";
+                for (int i = 0; i < result.Errors.Count; i++)
+                {
+                    strErrors += "{";
+                    strErrors += "ErrorCode:" + result.Errors[i].ErrorCode + ",";
+                    strErrors += "ErrorMessage:" + result.Errors[i].ErrorMessage + "";
+                    strErrors += "},";
+                }
+                strErrors.TrimEnd(',');
+                strErrors += "]";
+                throw new Exception(strErrors);
+            }
+
             dzmsp.UpdateDZMembership(dzm);
 
             dzm = dzmsp.GetUserById(guidUser);
