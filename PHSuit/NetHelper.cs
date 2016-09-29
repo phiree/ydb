@@ -30,13 +30,23 @@ namespace PHSuit
             }
     
         }
-        public static void SendEmail(string to, string subject,string body)
+        public static void SendEmail(string to, string subject, string body, params string[] cc)
         {
-            MailMessage mail = new MailMessage(from,to);
+            MailMessage mail = new MailMessage(from, to);
             mail.Subject = subject;
             mail.Body = body;
             mail.IsBodyHtml = true;
+
+            foreach (string c in cc)
+            {
+                mail.CC.Add(new MailAddress(c));
+            }
+
             client.Send(mail);
+        }
+        public static void SendEmail(string to, string subject,string body)
+        {
+            SendEmail(to, subject, body,null);
         }
     }
 }

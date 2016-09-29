@@ -17,7 +17,8 @@ $password = "jizwwslsngwbqbpe"
 Function Send-EMail {
     Param (
         [Parameter(Mandatory=$false)]
-        [String]$EmailTo="550700860@qq.com",
+        [String]$EmailTo="issumao@126.com,550700860@qq.com,609805657@qq.com",
+         
         [Parameter(Mandatory=$false)]
         [String]$Subject,
         [Parameter(Mandatory=$false)]
@@ -28,7 +29,7 @@ Function Send-EMail {
         [Parameter(mandatory=$false)]
         [String]$Password="jizwwslsngwbqbpe"
   )
-        Write-Host "emailto"+$EmailTo
+        Write-Host "emailto"+$EmailTo+$Cc
         $SMTPServer = "smtp.126.com"
         $SMTPMessage = New-Object System.Net.Mail.MailMessage($EmailFrom,$EmailTo,$Subject,$Body)
          
@@ -57,6 +58,7 @@ if(Test-Connection -ComputerName $_ -Count 1 -ea silentlycontinue)
      # if the Host is available then just write it to the screen 
      write-host "健在的服务器 ---> "$_ -BackgroundColor Green -ForegroundColor White 
      [Array]$available += $_ 
+      Send-EMail   -Body "$body" -Subject "  $_ 正常" 
     } 
 else 
     { 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using System.Configuration;
 namespace PHSuit
 {
     /// <summary>
@@ -17,9 +17,25 @@ namespace PHSuit
             //
         }
 
+        public static void ExceptionLog(log4net.ILog log, Exception e)
+        {
+            string message = e.ToString();
+            message = message.Replace(Environment.NewLine, "<br/>");
+
+            string emails = ConfigurationManager.AppSettings["MonitorEmails"];
+            try {
+                string[] emailList = emails.Split(',');
+                EmailHelper.SendEmail(emailList[0], "异常_" + log.Logger.Name, message,
+                emailList);
+            }
+            catch(Exception phEx) {
+                log.Error(phEx.ToString());
+            }
+            log.Error(message);
+        }
         static int a = 0;
         
-        public static void ExceptionLog(log4net.ILog log, Exception e)
+        public static void ExceptionLogForLog(log4net.ILog log, Exception e)
         {
             string str = string.Empty;
             if (a > 0)
@@ -34,7 +50,7 @@ namespace PHSuit
             if (e.InnerException != null)
             {
                 a++;
-                ExceptionLog(log, e.InnerException);
+                ExceptionLogForLog(log, e.InnerException);
             }
             else
             {
