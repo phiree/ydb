@@ -125,6 +125,7 @@ Function Send-mail {
 } 
 
 DO{ 
+$Global:AmountError=0
 $body = tEst-Websites 
  
 Write-Host "服务不正常数量:$Global:AmountError"
