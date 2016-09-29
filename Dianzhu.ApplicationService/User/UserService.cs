@@ -15,12 +15,19 @@ namespace Dianzhu.ApplicationService.User
 {
     public class UserService:IUserService
     {
+        log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.UserService");
         DZMembershipProvider dzmsp;
         BLL.Client.BLLUserToken bllUserToken;
-        public UserService(DZMembershipProvider dzmsp, BLL.Client.BLLUserToken bllUserToken)
+        ReceptionAssigner ra;
+        BLLReceptionStatus bllReceptionStatus;
+        IBLLServiceOrder bllServiceOrder;
+        public UserService(DZMembershipProvider dzmsp, BLL.Client.BLLUserToken bllUserToken, ReceptionAssigner ra, BLLReceptionStatus bllReceptionStatus, IBLLServiceOrder bllServiceOrder)
         {
             this.dzmsp = dzmsp;
             this.bllUserToken = bllUserToken;
+            this.ra = ra;
+            this.bllReceptionStatus = bllReceptionStatus;
+            this.bllServiceOrder = bllServiceOrder;
         }
 
         /// <summary>
@@ -266,6 +273,81 @@ namespace Dianzhu.ApplicationService.User
             }
 
         }
+
+        /// <summary>
+        ///  读取客服信息(申请客服资源)
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public customerServicesObj GetCustomerServices(Customer customer)
+        {
+            Guid guidUserID = utils.CheckGuidID(customer.UserID, "customer.UserID");
+            DZMembership member = dzmsp.GetUserById(guidUserID);
+            if (member == null)
+            {
+                throw new Exception("该用户不存在");
+            }
+            ilog.Debug("开始分配客服");
+            ServiceOrder orderToReturn = null;//分配的订单
+            ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(guidUserID);
+            Dictionary<DZMembership, DZMembership> assignedPair = new Dictionary<DZMembership, DZMembership>();
+            if (rs != null && rs.CustomerService.UserType == Model.Enums.enum_UserType.customerservice)
+            {
+                assignedPair.Add(rs.Customer, rs.CustomerService);
+
+                orderToReturn = rs.Order;
+            }
+            else if (rs != null && rs.CustomerService.UserType == Model.Enums.enum_UserType.diandian)
+            {
+                bllReceptionStatus.Delete(rs);
+                assignedPair = ra.AssignCustomerLogin(member);
+            }
+            else
+            {
+                assignedPair = ra.AssignCustomerLogin(member);
+            }
+
+            if (assignedPair.Count == 0)
+            {
+                throw new Exception("没有在线客服");
+                //this.state_CODE = Dicts.StateCode[4];
+                //this.err_Msg = "没有在线客服";
+                //return;
+            }
+            ilog.Debug("4");
+            if (assignedPair.Count > 1)
+            {
+                throw new Exception("返回了多个客服");
+                //this.state_CODE = Dicts.StateCode[4];
+                //this.err_Msg = "返回了多个客服";
+                //return;
+            }
+            ilog.Debug("5");
+           
+            if (orderToReturn == null)
+            {
+                orderToReturn = bllServiceOrder.GetDraftOrder(member, assignedPair[member]);
+            }
+            ilog.Debug("7");
+            if (orderToReturn == null)
+            {
+
+                orderToReturn = ServiceOrderFactory.CreateDraft(assignedPair[member], member);
+
+                bllServiceOrder.Save(orderToReturn);
+            }
+            ilog.Debug("8");
+            //更新 ReceptionStatus 中订单
+            bllReceptionStatus.UpdateOrder(member, assignedPair[member], orderToReturn);
+            ilog.Debug("9");
+            customerServicesObj customerservicesobj = new customerServicesObj();
+            customerservicesobj.id = assignedPair[member].Id.ToString();
+            customerservicesobj.imgUrl = string.IsNullOrEmpty(assignedPair[member].AvatarUrl)?string.Empty: Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + assignedPair[member].AvatarUrl;
+            customerservicesobj.alias = assignedPair[member].DisplayName ?? string.Empty;
+            customerservicesobj.draftOrderID = orderToReturn.Id.ToString();
+            return customerservicesobj;
+        }
+
 
 
         public void Dispose()
