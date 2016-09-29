@@ -186,11 +186,13 @@ namespace Dianzhu.ApplicationService.User
             if (userType == "customer")
             {
                 customerObj customerobj = Mapper.Map<Dianzhu.Model.DZMembership, customerObj>(dzm);
+                customerobj.pWord = dzm.PlainPassword;
                 return customerobj;
             }
             else
             {
                 merchantObj merchantobj = Mapper.Map<Dianzhu.Model.DZMembership, merchantObj>(dzm);
+                merchantobj.pWord = dzm.PlainPassword;
                 return merchantobj;
             }
         }

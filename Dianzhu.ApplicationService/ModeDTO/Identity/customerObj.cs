@@ -130,5 +130,22 @@ namespace Dianzhu.ApplicationService
             }
         }
 
+        string _pWord = "";
+        /// <summary>
+        /// 密码
+        /// </summary>
+        /// <type>string</type>
+        public string pWord
+        {
+            get
+            {
+                return _pWord;
+            }
+            set
+            {
+                _pWord = value;
+            }
+        }
+
     }
 }
