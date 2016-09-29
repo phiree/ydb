@@ -42,7 +42,7 @@ namespace Dianzhu.Pay
             string notify_id = coll["notify_id"];
             string sign = coll["sign"];
 
-            SortedDictionary<string, string> sPara = GetRequestGet(coll);
+            SortedDictionary<string, string> sPara = GetAliRequestGet.GetRequestGet(coll);
            
             bool isVerified = new Notify().Verify(sPara, notify_id, sign);
             log.Debug("参数验证结果:"+isVerified);
@@ -88,22 +88,7 @@ namespace Dianzhu.Pay
             }
 
         }
-
-        private SortedDictionary<string, string> GetRequestGet(NameValueCollection coll)
-        {
-            int i = 0;
-            SortedDictionary<string, string> sArray = new SortedDictionary<string, string>();
-            //Load Form variables into NameValueCollection variable.
-            // Get names of all forms into a string array.
-            String[] requestItem = coll.AllKeys;
-
-            for (i = 0; i < requestItem.Length; i++)
-            {
-                sArray.Add(requestItem[i], coll[requestItem[i]]);
-            }
-
-            return sArray;
-        }
+       
     }
     #endregion
 }

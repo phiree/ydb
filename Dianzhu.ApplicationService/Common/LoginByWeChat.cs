@@ -88,7 +88,14 @@ namespace Dianzhu.ApplicationService
 
             member.NickName = userObj.nickname;
             member.UserName = userObj.nickname+new Guid();//防止重复
-            member.AvatarUrl = utils.DownloadToMediaserver(userObj.headimgurl,string.Empty,"image");
+            if (string.IsNullOrEmpty(userObj.headimgurl))
+            {
+                member.AvatarUrl = "";
+            }
+            else
+            {
+                member.AvatarUrl = utils.DownloadToMediaserver(userObj.headimgurl, string.Empty, "image");
+            }
             member.Address = userObj.province + " " + userObj.city;
             member.PlainPassword = userObj.openid;
             member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(userObj.openid, "MD5");
