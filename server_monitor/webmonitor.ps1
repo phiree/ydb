@@ -134,7 +134,7 @@ if ($Global:AmountError -gt 0) {
 Write-Host "开始发送邮件"
 Send-mail($body)
 }
-Write-Host("30秒后再检查")
-sleep 30
+Write-Host("600秒后再检查")
+sleep 600
 }
 while ($Exit -ne $True) 
