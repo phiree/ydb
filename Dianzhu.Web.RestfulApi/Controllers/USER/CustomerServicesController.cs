@@ -31,7 +31,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
         {
             try
             {
-                return Json(GetRequestHeader.GetTraitHeaders("get/customerServices"));
+                return Json(iuserservice.GetCustomerServices(GetRequestHeader.GetTraitHeaders("get/customerServices")));
             }
             catch (Exception ex)
             {
