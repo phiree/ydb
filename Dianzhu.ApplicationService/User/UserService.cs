@@ -305,7 +305,7 @@ namespace Dianzhu.ApplicationService.User
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public customerServicesObj GetCustomerServices(Customer customer)
+        public applyCustomerServicesObj GetCustomerServices(Customer customer)
         {
             Guid guidUserID = utils.CheckGuidID(customer.UserID, "customer.UserID");
             DZMembership member = dzmsp.GetUserById(guidUserID);
@@ -366,12 +366,12 @@ namespace Dianzhu.ApplicationService.User
             //更新 ReceptionStatus 中订单
             bllReceptionStatus.UpdateOrder(member, assignedPair[member], orderToReturn);
             ilog.Debug("9");
-            customerServicesObj customerservicesobj = new customerServicesObj();
-            customerservicesobj.id = assignedPair[member].Id.ToString();
-            customerservicesobj.imgUrl = string.IsNullOrEmpty(assignedPair[member].AvatarUrl)?string.Empty: Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + assignedPair[member].AvatarUrl;
-            customerservicesobj.alias = assignedPair[member].DisplayName ?? string.Empty;
-            customerservicesobj.draftOrderID = orderToReturn.Id.ToString();
-            return customerservicesobj;
+            applyCustomerServicesObj applycustomerservicesobj = new applyCustomerServicesObj();
+            applycustomerservicesobj.customerServicesObj.id = assignedPair[member].Id.ToString();
+            applycustomerservicesobj.customerServicesObj.imgUrl = string.IsNullOrEmpty(assignedPair[member].AvatarUrl)?string.Empty: Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + assignedPair[member].AvatarUrl;
+            applycustomerservicesobj.customerServicesObj.alias = assignedPair[member].DisplayName ?? string.Empty;
+            applycustomerservicesobj.draftOrderID = orderToReturn.Id.ToString();
+            return applycustomerservicesobj;
         }
 
 

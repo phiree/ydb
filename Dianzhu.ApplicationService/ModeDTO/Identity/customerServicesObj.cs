@@ -60,22 +60,7 @@ namespace Dianzhu.ApplicationService
         }
 
 
-        string _draftOrderID = "";
-        /// <summary>
-        /// 草稿订单 ID
-        /// </summary>
-        /// <type>string</type>
-        public string draftOrderID
-        {
-            get
-            {
-                return _draftOrderID;
-            }
-            set
-            {
-                _draftOrderID = value;
-            }
-        }
+        
         /// <summary>
         /// 草稿订单 ID
         /// </summary>

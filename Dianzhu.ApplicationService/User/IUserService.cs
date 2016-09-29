@@ -70,7 +70,7 @@ namespace Dianzhu.ApplicationService.User
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        customerServicesObj GetCustomerServices(Customer customer);
+        applyCustomerServicesObj GetCustomerServices(Customer customer);
 
 
     }

@@ -165,6 +165,7 @@
     <Compile Include="ModeDTO\Client\RefreshTokenDTO.cs" />
     <Compile Include="ModeDTO\Client\UserTokentDTO.cs" />
     <Compile Include="ModeDTO\Identity\adObj.cs" />
+    <Compile Include="ModeDTO\Identity\applyCustomerServicesObj.cs" />
     <Compile Include="ModeDTO\Identity\appObj.cs" />
     <Compile Include="ModeDTO\Identity\appraiseObj.cs" />
     <Compile Include="ModeDTO\Identity\assignObj.cs" />
