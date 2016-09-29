@@ -10,7 +10,7 @@ namespace Dianzhu.Push.XMPush
     {
         string apiUrl = "https://api.xmpush.xiaomi.com/v2/message/alias";
         string secretUser = "6TRMaje2tzRjzuQzO0Oq8Q==";
-        string secretBusiness = "6TRMaje2tzRjzuQzO0Oq8Q==";
+        string secretBusiness = "ZKLdQ2Sdo0SfS84pxa3HTw==";
 
 
         PushType pushType;
