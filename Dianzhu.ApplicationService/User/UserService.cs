@@ -107,7 +107,7 @@ namespace Dianzhu.ApplicationService.User
             {
                 throw new FormatException("手机号码或邮箱至少一个不能没空！");
             }
-            if (!string.IsNullOrEmpty(userBody.pWord))
+            if (string.IsNullOrEmpty(userBody.pWord))
             {
                 throw new FormatException("密码不能没空！");
             }
