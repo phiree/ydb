@@ -30,6 +30,7 @@
             <Setter Property="Foreground" Value="#FF323232"/>
             <Setter Property="MaxLength" Value="1000"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
             <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -114,9 +115,13 @@
                 </Grid>
 
                 <Grid HorizontalAlignment="Right">
-                    <Button x:Name="btnSendTextMessage" Template="{StaticResource SendButton}" Click="btnSendTextMessage_Click">
-                        <TextBlock Foreground="White" Margin="-20,0,0,0" FontFamily="微软雅黑" FontWeight="Regular">发送</TextBlock>
-                    </Button>
+
+                    <Border CornerRadius="3" Background="#FF9da6ad" Width="72" Height="24" Margin="0,0,24,8">
+                        <Button x:Name="btnSendTextMessage" BorderThickness="0" Background="Transparent" Click="btnSendTextMessage_Click">
+                            <TextBlock Foreground="White" Margin="-20,0,0,0" FontFamily="微软雅黑" FontWeight="Regular">发送</TextBlock>
+                        </Button>
+                    </Border>
+
                 </Grid>
             </Grid>
         </Grid>
