@@ -34,6 +34,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.rbIOS = new System.Windows.Forms.RadioButton();
+            this.rbAndroid = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tbxOrderId = new System.Windows.Forms.TextBox();
@@ -53,8 +55,6 @@
             this.tbxLog = new System.Windows.Forms.RichTextBox();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
-            this.rbAndroid = new System.Windows.Forms.RadioButton();
-            this.rbIOS = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -127,6 +127,28 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(873, 81);
             this.panel1.TabIndex = 5;
+            // 
+            // rbIOS
+            // 
+            this.rbIOS.AutoSize = true;
+            this.rbIOS.Location = new System.Drawing.Point(494, 15);
+            this.rbIOS.Name = "rbIOS";
+            this.rbIOS.Size = new System.Drawing.Size(41, 16);
+            this.rbIOS.TabIndex = 13;
+            this.rbIOS.Text = "IOS";
+            this.rbIOS.UseVisualStyleBackColor = true;
+            // 
+            // rbAndroid
+            // 
+            this.rbAndroid.AutoSize = true;
+            this.rbAndroid.Checked = true;
+            this.rbAndroid.Location = new System.Drawing.Point(412, 15);
+            this.rbAndroid.Name = "rbAndroid";
+            this.rbAndroid.Size = new System.Drawing.Size(65, 16);
+            this.rbAndroid.TabIndex = 12;
+            this.rbAndroid.TabStop = true;
+            this.rbAndroid.Text = "Android";
+            this.rbAndroid.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -304,28 +326,6 @@
             this.pnlChat.Size = new System.Drawing.Size(873, 171);
             this.pnlChat.TabIndex = 8;
             this.pnlChat.WrapContents = false;
-            // 
-            // rbAndroid
-            // 
-            this.rbAndroid.AutoSize = true;
-            this.rbAndroid.Checked = true;
-            this.rbAndroid.Location = new System.Drawing.Point(412, 15);
-            this.rbAndroid.Name = "rbAndroid";
-            this.rbAndroid.Size = new System.Drawing.Size(65, 16);
-            this.rbAndroid.TabIndex = 12;
-            this.rbAndroid.TabStop = true;
-            this.rbAndroid.Text = "Android";
-            this.rbAndroid.UseVisualStyleBackColor = true;
-            // 
-            // rbIOS
-            // 
-            this.rbIOS.AutoSize = true;
-            this.rbIOS.Location = new System.Drawing.Point(494, 15);
-            this.rbIOS.Name = "rbIOS";
-            this.rbIOS.Size = new System.Drawing.Size(41, 16);
-            this.rbIOS.TabIndex = 13;
-            this.rbIOS.Text = "IOS";
-            this.rbIOS.UseVisualStyleBackColor = true;
             // 
             // FmMain
             // 
