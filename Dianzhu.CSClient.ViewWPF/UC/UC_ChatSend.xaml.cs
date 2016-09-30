@@ -263,7 +263,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void tbxTextMessage_KeyDown(object sender, KeyEventArgs e)
         {
-            if (SendTextClick != null && MessageText.Trim() != string.Empty && e.Key == Key.Enter)
+            if (SendTextClick != null && MessageText.Trim() != string.Empty && e.Key == Key.Enter && (Keyboard.Modifiers & (ModifierKeys.Control)) == (ModifierKeys.Control))
             {
                 SendText();
             }

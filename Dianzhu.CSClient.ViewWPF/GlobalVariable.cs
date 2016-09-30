@@ -10,6 +10,8 @@ namespace Dianzhu.CSClient.ViewWPF
     {
         public static readonly string PrefixName_Button = "btn";
 
+        public const string PRECBUTTON = "c";
+
         public const string PRECHATCUSTOMER = "cc";
     }
 }

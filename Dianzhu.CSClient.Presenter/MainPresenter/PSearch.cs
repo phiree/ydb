@@ -8,6 +8,7 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.LocalStorage;
 using Dianzhu.CSClient.ViewModel;
+using Dianzhu.CSClient.Presenter.VMAdapter;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -29,7 +30,8 @@ namespace Dianzhu.CSClient.Presenter
         BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder;
         LocalStorage.LocalChatManager localChatManager;
         LocalStorage.LocalUIDataManager localUIDataManager;
-        VMAdapter.IVMChatAdapter vmChatAdapter;
+        IVMChatAdapter vmChatAdapter;
+        IVMIdentityAdapter vmIdentityAdapter;
 
         #region 服务类型数据
         Dictionary<ServiceType, IList<ServiceType>> ServiceTypeCach;
@@ -44,7 +46,8 @@ namespace Dianzhu.CSClient.Presenter
         public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
             IViewChatList viewChatList,IViewIdentityList viewIdentityList,
             IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder,IDAL.IDALReceptionChat dalReceptionChat, IDAL.IDALServiceType dalServiceType,                     
-                    PushService bllPushService, BLLReceptionStatus bllReceptionStatus,BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder, LocalStorage.LocalChatManager localChatManager, LocalStorage.LocalUIDataManager localUIDataManager, VMAdapter.IVMChatAdapter vmChatAdapter)
+                    PushService bllPushService, BLLReceptionStatus bllReceptionStatus,BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder, LocalStorage.LocalChatManager localChatManager, LocalStorage.LocalUIDataManager localUIDataManager, 
+                    IVMChatAdapter vmChatAdapter,IVMIdentityAdapter vmIdentityAdapter)
         {
             this.serialNoBuilder = serialNoBuilder;
             this.viewSearch = viewSearch; ;
@@ -61,6 +64,7 @@ namespace Dianzhu.CSClient.Presenter
             this.localChatManager = localChatManager;
             this.localUIDataManager = localUIDataManager;
             this.vmChatAdapter = vmChatAdapter;
+            this.vmIdentityAdapter = vmIdentityAdapter;
 
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
 
@@ -82,11 +86,11 @@ namespace Dianzhu.CSClient.Presenter
            
         }
 
-        private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
+        private void ViewIdentityList_IdentityClick(VMIdentity vmIdentity)
         {
-            if (serviceOrder != null)
+            if (vmIdentity != null)
             {
-                string id = serviceOrder.Customer.Id.ToString();
+                string id = vmIdentity.CustomerId.ToString();
                 localUIDataManager.InitUIData(id);
                 viewSearch.ServiceCustomerName = localUIDataManager.LocalUIDatas[id].Name;
                 viewSearch.SearchKeywordTime = localUIDataManager.LocalUIDatas[id].Date;
@@ -154,28 +158,38 @@ namespace Dianzhu.CSClient.Presenter
 
         private void LoadTypes()
         {
-            NHibernateUnitOfWork.UnitOfWork.Start();
-            //Action ac = () =>
-            //{
-                System.Threading.Thread.Sleep(1000);
-            if (this.ServiceTypeListTmp != null) { return; }
-
-          
-            this.ServiceTypeListTmp = dalServiceType.GetTopList();
-            this.ServiceTypeCach = new Dictionary<ServiceType, IList<ServiceType>>();
-
-            foreach (ServiceType t in ServiceTypeListTmp)
+            try
             {
-                if (!ServiceTypeCach.ContainsKey(t))
+                NHibernateUnitOfWork.UnitOfWork.Start();
+                //Action ac = () =>
+                //{
+                System.Threading.Thread.Sleep(1000);
+                if (this.ServiceTypeListTmp != null) { return; }
+
+
+                this.ServiceTypeListTmp = dalServiceType.GetTopList();
+                this.ServiceTypeCach = new Dictionary<ServiceType, IList<ServiceType>>();
+
+                foreach (ServiceType t in ServiceTypeListTmp)
                 {
-                    ServiceTypeCach.Add(t, null);
+                    if (!ServiceTypeCach.ContainsKey(t))
+                    {
+                        ServiceTypeCach.Add(t, null);
+                    }
                 }
+                viewSearch.ServiceTypeFirst = ServiceTypeListTmp;
             }
-            viewSearch.ServiceTypeFirst = ServiceTypeListTmp;
+            catch (Exception ee)
+            {
+                log.Error(ee.ToString());
+            }
+            finally
+            {
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            }
             //};
-            //NHibernateUnitOfWork.With.Transaction(ac);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            //NHibernateUnitOfWork.With.Transaction(ac);            
         }
         private void ViewSearch_ServiceTypeThird_Select(ServiceType type)
         {
@@ -326,7 +340,7 @@ namespace Dianzhu.CSClient.Presenter
 
             //获取之前orderid
             ServiceOrder oldOrder = bllServiceOrder.GetOne(IdentityManager.CurrentIdentity.Id);
-            string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
+            string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"),2);
             oldOrder.SerialNo = serialNoForOrder;
             oldOrder.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
             oldOrder.CustomerService = GlobalViables.CurrentCustomerService;
@@ -372,8 +386,10 @@ namespace Dianzhu.CSClient.Presenter
             log.Debug("推送的订单：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //助理工具显示发送的消息
-            VMChat vmChat = vmChatAdapter.ChatToVMChat(chat, string.Empty);
+            VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
             viewChatList.AddOneChat(vmChat);
+            //存储消息到内存中
+            localChatManager.Add(chat.ToId, vmChat);
             //viewChatList.AddOneChat(chat,string.Empty);
 
             //发送推送聊天消息
@@ -398,7 +414,8 @@ namespace Dianzhu.CSClient.Presenter
             log.Debug("当前订单的id：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //更新view
-            viewIdentityList.UpdateIdentityBtnName(oldOrder.Id, IdentityManager.CurrentIdentity);
+            VMIdentity vmIdentityNew = vmIdentityAdapter.OrderToVMIdentity(IdentityManager.CurrentIdentity, localChatManager.LocalCustomerAvatarUrls[IdentityManager.CurrentIdentity.Customer.Id.ToString()]);
+            viewIdentityList.UpdateIdentityBtnName(oldOrder.Id, vmIdentityNew);
 
             //更新接待分配表
             log.Debug("更新ReceptionStatus，customerId:" + IdentityManager.CurrentIdentity.Customer.Id + ",csId:" + GlobalViables.CurrentCustomerService.Id + ",orderId:" + newOrder.Id);
@@ -407,9 +424,6 @@ namespace Dianzhu.CSClient.Presenter
             //清空搜索选项 todo:为了测试方便，先注释掉
             //viewSearch.ClearData();
             //发送订单通知.
-
-            //存储消息到内存中
-            localChatManager.Add(chat.ToId, chat);
 
             return newOrder;
             iIM.SendMessage(chat);

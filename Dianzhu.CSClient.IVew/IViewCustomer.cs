@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Dianzhu.CSClient.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.Model;
+
 namespace Dianzhu.CSClient.IView
 {
     /// <summary>
@@ -34,13 +35,13 @@ namespace Dianzhu.CSClient.IView
         /// <summary>
         /// 控件对应的订单
         /// </summary>
-        ServiceOrder Order { get; set; }
+        VMIdentity Identity { get; set; }
 
         void StartFinalChatTimer();
         void StopFinalChatTimer();
         event IdleTimerOut IdleTimerOut;
     }
 
-    public delegate void CustomerClick(ServiceOrder order);
+    public delegate void CustomerClick(VMIdentity vmIdentity);
     public delegate void IdleTimerOut(Guid orderId);
 }

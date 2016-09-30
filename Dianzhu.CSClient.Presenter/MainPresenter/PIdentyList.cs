@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading;
 using Dianzhu.CSClient.ViewModel;
+using Dianzhu.CSClient.Presenter.VMAdapter;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -41,7 +42,8 @@ namespace Dianzhu.CSClient.Presenter
         LocalStorage.LocalChatManager localChatManager;
         LocalStorage.LocalHistoryOrderManager localHistoryOrderManager;
         LocalStorage.LocalUIDataManager localUIDataManager;
-        VMAdapter.IVMChatAdapter vmChatAdapter;
+        IVMChatAdapter vmChatAdapter;
+        IVMIdentityAdapter vmIdentityAdapter;
 
         public PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,
             InstantMessage iIM,
@@ -54,7 +56,8 @@ namespace Dianzhu.CSClient.Presenter
             LocalStorage.LocalChatManager localChatManager,
             LocalStorage.LocalHistoryOrderManager localHistoryOrderManager,
             LocalStorage.LocalUIDataManager localUIDataManager,
-            VMAdapter.IVMChatAdapter vmChatAdapter)
+            IVMChatAdapter vmChatAdapter,
+            IVMIdentityAdapter vmIdentityAdapter)
         {
             this.localChatManager = localChatManager;
             this.localHistoryOrderManager = localHistoryOrderManager;
@@ -71,6 +74,7 @@ namespace Dianzhu.CSClient.Presenter
             this.dalReceptionStatusArchieve = dalReceptionStatusArchieve;
             this.dalMembership = dalMembership;
             this.vmChatAdapter = vmChatAdapter;
+            this.vmIdentityAdapter = vmIdentityAdapter;
 
             iView.IdentityClick += IView_IdentityClick;
             iView.FinalChatTimerTick += IView_FinalChatTimerTick;
@@ -131,17 +135,20 @@ namespace Dianzhu.CSClient.Presenter
                                 }
                                 localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()] = avatar;
                             }
-                            iView.AddIdentity(rs.Order, localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()]);
+                            VMIdentity vmIdentity = vmIdentityAdapter.OrderToVMIdentity(rs.Order, localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()]);
+                            AddIdentity(vmIdentity);
                         }
                     }
                 }
-
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
             catch (Exception e)
             {
-                PHSuit.ExceptionLoger.ExceptionLog(log, e);
+                log.Error(e.ToString());
+            }
+            finally
+            {
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
         }
 
@@ -219,8 +226,8 @@ namespace Dianzhu.CSClient.Presenter
                 localHistoryOrderManager.Remove(order.Customer.Id.ToString());
                 localUIDataManager.Remove(order.Customer.Id.ToString());
                 localUIDataManager.RemoveSearchObj(order.Customer.Id.ToString());
-                iView.IdentityOrderTemp = null;
-                RemoveIdentity(order);
+                iView.IdentityOrderTempId = Guid.Empty;
+                RemoveIdentity(order.Id);
             }
             else
             {
@@ -358,11 +365,27 @@ namespace Dianzhu.CSClient.Presenter
             e.Result = chat;
         }
 
-        public void IView_IdentityClick(ServiceOrder serviceOrder)
+        public void IView_IdentityClick(VMIdentity vmIdentity)
         {
             try
             {
-                IdentityManager.CurrentIdentity = iView.IdentityOrderTemp = serviceOrder;
+                iView.IdentityOrderTempId = vmIdentity.OrderId;
+
+                if (IdentityManager.CurrentIdentityList.Keys.Select(x => x.Id).ToList().Contains(vmIdentity.OrderId))
+                {
+                    foreach(var item in IdentityManager.CurrentIdentityList.Keys)
+                    {
+                        if (item.Id == vmIdentity.OrderId)
+                        {
+                            IdentityManager.CurrentIdentity = item;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    IdentityManager.CurrentIdentity = bllServiceOrder.GetOne(vmIdentity.OrderId);
+                }
 
                 iViewChatList.ClearUCData();
                 iViewChatList.ShowLoadingMsg();
@@ -394,21 +417,22 @@ namespace Dianzhu.CSClient.Presenter
         /// <param name="isCurrentCustomer"></param>
         public void ReceivedMessage(ReceptionChat chat, IdentityTypeOfOrder type)
         {
-            localChatManager.Add(chat.FromId, chat);
+            VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
+            
+            localChatManager.Add(vmChat.FromId, vmChat);
             switch (type)
             {
                 case IdentityTypeOfOrder.CurrentCustomer:
-                case IdentityTypeOfOrder.CurrentIdentity:
-                    VMChat vmChat = vmChatAdapter.ChatToVMChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
+                case IdentityTypeOfOrder.CurrentIdentity:                    
                     iViewChatList.AddOneChat(vmChat);
-                    //iViewChatList.AddOneChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
                     break;
                 case IdentityTypeOfOrder.InList:
                     iView.SetIdentityUnread(chat.SessionId, 1);
                     break;
                 case IdentityTypeOfOrder.NewIdentity:
                     ServiceOrder order = bllServiceOrder.GetOne(new Guid(chat.SessionId));
-                    AddIdentity(order, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
+                    VMIdentity vmIdentity = vmIdentityAdapter.OrderToVMIdentity(order, localChatManager.LocalCustomerAvatarUrls[vmChat.FromId]);
+                    AddIdentity(vmIdentity);
                     iView.SetIdentityUnread(chat.SessionId, 1);
                     break;
                 default:
@@ -417,16 +441,16 @@ namespace Dianzhu.CSClient.Presenter
             }
         }
 
-        public void AddIdentity(ServiceOrder order, string customerAvatarUrl)
+        public void AddIdentity(VMIdentity vmIdentity)
         {
-            iView.AddIdentity(order, customerAvatarUrl);
+            iView.AddIdentity(vmIdentity);
         }
 
-        public void RemoveIdentity(ServiceOrder order)
+        public void RemoveIdentity(Guid orderId)
         {
             if (iView != null)
             {
-                iView.RemoveIdentity(order);
+                iView.RemoveIdentity(orderId);
             }
         }
 

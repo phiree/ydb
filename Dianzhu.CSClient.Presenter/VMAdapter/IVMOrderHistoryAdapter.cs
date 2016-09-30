@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.CSClient.Presenter.VMAdapter
 {
-     public interface IVMChatAdapter
+    public interface IVMOrderHistoryAdapter
     {
-        VMChat ChatToVMChat(ReceptionChat chat);
+        VMOrderHistory OrderToVMOrderHistory(ServiceOrder order);
     }
 }

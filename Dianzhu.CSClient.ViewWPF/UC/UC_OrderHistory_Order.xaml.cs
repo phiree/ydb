@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
+using Dianzhu.CSClient.ViewModel;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -29,25 +30,23 @@ namespace Dianzhu.CSClient.ViewWPF
             ClearData();
         }
 
-        public void LoadData(ServiceOrder order)
+        public void LoadData(VMOrderHistory vmOrderHistory)
         {
             //lbOrderNum.Content = order.OrderNum;
-
-            lbOrderStatus.Text = order.GetStatusTitleFriendly(order.OrderStatus);
-            if(order.OrderStatus != enum_OrderStatus.Search)
-            {
-                lbOrdeSvcName.Text = order.Details.Count > 0 ? order.Details[0].ServieSnapShot.ServiceName : string.Empty;
-                //lbOrdrDepositAmount.Content = order.DepositAmount.ToString("0.00");
-                lbOrderTotalAmount.Text = order.OrderAmount.ToString("0.00");
-                lbOrderAddress.Text = order.TargetAddress;
-            }            
-            lbOrderStartTime.Text = order.OrderServerStartTime.ToString("yyyy-MM-dd HH:mm:ss");
-            lbOrderEndTime.Text = order.OrderServerFinishedTime.ToString("yyyy-MM-dd HH:mm:ss");
+            lbOrderName.Text = vmOrderHistory.BusinessName;
+            lbOrderStatus.Text = vmOrderHistory.OrderStatusStr;
+            lbOrdeSvcName.Text = vmOrderHistory.ServiceName;
+            //lbOrdrDepositAmount.Content = order.DepositAmount.ToString("0.00");
+            lbOrderTotalAmount.Text = vmOrderHistory.OrderAmount.ToString("0.00");
+            lbOrderAddress.Text = vmOrderHistory.TargetAddress;
+            lbOrderStartTime.Text = vmOrderHistory.StartTime.ToString("yyyy年MM月dd HH:mm:ss");
+            lbOrderEndTime.Text = vmOrderHistory.EntTime.ToString("yyyy年MM月dd HH:mm:ss");
         }
 
         private void ClearData()
         {
             //lbOrderNum.Content = string.Empty;
+            lbOrderName.Text = string.Empty;
             lbOrderStatus.Text = string.Empty;
             lbOrdeSvcName.Text = string.Empty;
             //lbOrdrDepositAmount.Content = string.Empty;

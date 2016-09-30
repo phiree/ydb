@@ -1,4 +1,5 @@
-﻿using Dianzhu.CSClient.ViewModel;
+﻿using Dianzhu.CSClient.LocalStorage;
+using Dianzhu.CSClient.ViewModel;
 using Dianzhu.IDAL;
 using Dianzhu.Model;
 using System;
@@ -15,14 +16,16 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
 
         IDALMembership dalMembership;
         IDALDZService dalDZService;
+        LocalChatManager localChatManager;
 
-        public VMChatAdapter(IDALMembership dalMembership,IDALDZService dalDZService)
+        public VMChatAdapter(IDALMembership dalMembership,IDALDZService dalDZService, LocalChatManager localChatManager)
         {
             this.dalMembership = dalMembership;
             this.dalDZService = dalDZService;
+            this.localChatManager = localChatManager;
         }
 
-        public VMChat ChatToVMChat(ReceptionChat chat,string customerAvatar)
+        public VMChat ChatToVMChat(ReceptionChat chat)
         {
             DZMembership from = dalMembership.FindById(Guid.Parse(chat.FromId));
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
@@ -38,9 +41,19 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
             DateTime savedTime = chat.SavedTime;
             double savedTimestamp = chat.SavedTimestamp;
             string csAvatar = "pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCS.png";
-            string cAvatar = customerAvatar ?? string.Empty;
+            string cAvatar = string.Empty;
             string chatBackground = "#b3d465";
             bool isFromCs = chat.IsfromCustomerService;
+
+            if (!chat.IsfromCustomerService )
+            {
+                if (!localChatManager.LocalCustomerAvatarUrls.Keys.Contains(chat.FromId))
+                {
+                    localChatManager.LocalCustomerAvatarUrls[chat.FromId] = from.AvatarUrl;
+                }
+
+                cAvatar = localChatManager.LocalCustomerAvatarUrls[chat.FromId];
+            }
 
             VMChatFactory vmChatFactory = new VMChatFactory(chatId, fromId, fromName, savedTime, savedTimestamp, csAvatar, cAvatar, chatBackground, isFromCs);
 

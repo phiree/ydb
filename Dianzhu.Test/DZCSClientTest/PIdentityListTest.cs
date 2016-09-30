@@ -30,6 +30,7 @@ namespace Dianzhu.Test.DZCSClientTest
         IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve;
         IDAL.IDALMembership dalMembership;
         IVMChatAdapter vmChatAdapter;
+        IVMIdentityAdapter vmIdentityAdapter;
 
 
         PIdentityList pIdentityList;
@@ -59,11 +60,12 @@ namespace Dianzhu.Test.DZCSClientTest
             luidm = MockRepository.GenerateStub<Dianzhu.CSClient.LocalStorage.LocalUIDataManager>();
              dalMembership = MockRepository.GenerateStub<IDAL.IDALMembership>();
             vmChatAdapter = MockRepository.GenerateStub<IVMChatAdapter>();
+            vmIdentityAdapter = MockRepository.GenerateStub<IVMIdentityAdapter>();
 
 
             pIdentityList = new PIdentityList(viewIdentityList, viewChatList, iIM, dalReceptionChat, dalMembership,
                 viewChatSend, bllServiceOrder, viewOrderHistory, dalReceptionStatus, viewSearchResult,
-                dalReceptionStatusArchieve,lcm,lhom,luidm, vmChatAdapter);
+                dalReceptionStatusArchieve,lcm,lhom,luidm, vmChatAdapter, vmIdentityAdapter);
 
             string[] customerIdList = { "17b2007f-0267-4224-8d5a-cbaafa7ed1fc", "153ef5fa-600a-4a32-aefb-27c5e5fa5a50", "4a3727f6-ec21-42a8-ba84-70ba9db06354" };
             string[] csIdList = { "20364ea5-c19c-409d-8b61-cb1905fc68d8", "684db3a7-6c2c-44bf-a50a-5ceb1b904a26", "8f506545-de72-4fdb-bbaa-85a8709ae63f" };
@@ -131,14 +133,14 @@ namespace Dianzhu.Test.DZCSClientTest
                 .With(x=>x.Id=new Guid("d9f216b5-92e4-4f7a-87a0-a5f00107b6bc"))
                 .Build();
 
-            pChatList.ViewIdentityList_IdentityClick(order_user1);
+            pChatList.ViewIdentityList_IdentityClick(null);
 
             ServiceOrder order_user2 = Builder<ServiceOrder>.CreateNew()
                .With(x => x.Customer = members[1])
                .With(x => x.CustomerService = members[2])
                .With(x => x.Id = new Guid("39a6f7ed-f9d8-4782-b75f-a5f001198475"))
                .Build();
-            pChatList.ViewIdentityList_IdentityClick(order_user2);
+            pChatList.ViewIdentityList_IdentityClick(null);
         }
 
         [Test]

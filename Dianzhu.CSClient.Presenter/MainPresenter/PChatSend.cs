@@ -59,39 +59,45 @@ namespace Dianzhu.CSClient.Presenter
         {
             if (IdentityManager.CurrentIdentity == null) return;
 
-            NHibernateUnitOfWork.UnitOfWork.Start();
-
-            string s = Convert.ToBase64String(fileData);
-            string fileName = MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, domainType, mediaType);
-
-            ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(),
-                IdentityManager.CurrentIdentity.Customer.Id.ToString(), viewChatSend.MessageText, IdentityManager.CurrentIdentity.Id.ToString(), enum_XmppResource.YDBan_CustomerService,
-                 enum_XmppResource.YDBan_User);
-            ReceptionChatMedia chat =(ReceptionChatMedia)chatFactory.CreateChatMedia(GlobalViables.MediaGetUrl + fileName, mediaType);
-           
-            
-            localChatManager.Add(chat.ToId, chat);
-
-
-            iIM.SendMessage(chat);
-
-            if (PHSuit.LocalFileManagement.DownLoad(string.Empty, chat.MedialUrl, fileName))
+            try
             {
-               chat.SetMediaUrl( fileName);
+                NHibernateUnitOfWork.UnitOfWork.Start();
+
+                string s = Convert.ToBase64String(fileData);
+                string fileName = MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, domainType, mediaType);
+
+                ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(),
+                    IdentityManager.CurrentIdentity.Customer.Id.ToString(), viewChatSend.MessageText, IdentityManager.CurrentIdentity.Id.ToString(), enum_XmppResource.YDBan_CustomerService,
+                     enum_XmppResource.YDBan_User);
+                ReceptionChatMedia chat = (ReceptionChatMedia)chatFactory.CreateChatMedia(GlobalViables.MediaGetUrl + fileName, mediaType);
+
+                iIM.SendMessage(chat);
+
+                if (PHSuit.LocalFileManagement.DownLoad(string.Empty, chat.MedialUrl, fileName))
+                {
+                    chat.SetMediaUrl(fileName);
+                }
+
+                //临时存放订单
+                order = IdentityManager.CurrentIdentity;
+
+                viewChatSend.MessageText = string.Empty;
+                chat.SetMediaUrl(fileName);
+                VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
+                viewChatList.AddOneChat(vmChat);
+                localChatManager.Add(chat.ToId, vmChat);
+                //viewChatList.AddOneChat(chat,string.Empty);
+                chat.SetMediaUrl(chat.MedialUrl.Replace(GlobalViables.MediaGetUrl, ""));
             }
-
-            //临时存放订单
-            order = IdentityManager.CurrentIdentity;
-
-            viewChatSend.MessageText = string.Empty;
-            chat.SetMediaUrl(fileName);
-            VMChat vmChat = vmChatAdapter.ChatToVMChat(chat, string.Empty);
-            viewChatList.AddOneChat(vmChat);
-            //viewChatList.AddOneChat(chat,string.Empty);
-            chat.SetMediaUrl(chat.MedialUrl.Replace(GlobalViables.MediaGetUrl, ""));
-
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            catch (Exception ee)
+            {
+                log.Error(ee.ToString());
+            }
+            finally
+            {
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            }
 
             // dalReceptionChat.Add(chat);
 
@@ -100,11 +106,11 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewChatSend_SendTextClick()
         {
+            if (IdentityManager.CurrentIdentity == null)
+            { return; }
+
             try
             {
-                if (IdentityManager.CurrentIdentity == null)
-                { return; }
-
                 NHibernateUnitOfWork.UnitOfWork.Start();
 
                 string messageText = viewChatSend.MessageText;
@@ -112,10 +118,10 @@ namespace Dianzhu.CSClient.Presenter
                 ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(), IdentityManager.CurrentIdentity.Customer.Id.ToString(),
                     messageText, IdentityManager.CurrentIdentity.Id.ToString(), enum_XmppResource.YDBan_CustomerService, enum_XmppResource.YDBan_User);
                 ReceptionChat chat = chatFactory.CreateChatText();
-                localChatManager.Add(chat.ToId, chat);
                 viewChatSend.MessageText = string.Empty;
-                VMChat vmChat = vmChatAdapter.ChatToVMChat(chat, string.Empty);
+                VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
                 viewChatList.AddOneChat(vmChat);
+                localChatManager.Add(chat.ToId, vmChat);
                 //viewChatList.AddOneChat(chat,string.Empty);
                 //dalReceptionChat.Add(chat);
                 iIM.SendMessage(chat);
@@ -124,16 +130,18 @@ namespace Dianzhu.CSClient.Presenter
                 //临时存放订单
                 order = IdentityManager.CurrentIdentity;
 
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-
                 //PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat); 
             }
             catch (Exception e)
             {
                 log.Error(e.Message);
                 return;
-            }            
+            }
+            finally
+            {
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            }
         }
     }
 

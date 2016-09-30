@@ -8,6 +8,6 @@ namespace Dianzhu.BLL.Common.SerialNo
 {
     public interface ISerialNoBuilder
     {
-          string GetSerialNo(string key);
+          string GetSerialNo(string key,int serialNoLength);
     }
 }

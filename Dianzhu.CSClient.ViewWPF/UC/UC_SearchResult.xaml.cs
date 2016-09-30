@@ -153,18 +153,27 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             this.Dispatcher.Invoke((Action)(() =>
             {
-                NHibernateUnitOfWork.UnitOfWork.Start();
-
-                string errorMsg = string.Empty;
-                e.Result = PushServices(new List<DZService>() { (DZService)e.Argument },out errorMsg);
-
-                if (!string.IsNullOrEmpty(errorMsg))
+                try
                 {
-                    MessageBox.Show(errorMsg);
-                }
+                    NHibernateUnitOfWork.UnitOfWork.Start();
 
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                    string errorMsg = string.Empty;
+                    e.Result = PushServices(new List<DZService>() { (DZService)e.Argument }, out errorMsg);
+
+                    if (!string.IsNullOrEmpty(errorMsg))
+                    {
+                        MessageBox.Show(errorMsg);
+                    }
+                }
+                catch (Exception ee)
+                {
+                    log.Error(ee.ToString());
+                }
+                finally
+                {
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                    NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                }
             }));
         }
 

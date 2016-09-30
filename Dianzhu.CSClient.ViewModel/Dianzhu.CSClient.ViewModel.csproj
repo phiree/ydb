@@ -53,7 +53,9 @@
     <Compile Include="ViewOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewOrderList.cs" />
-    <Compile Include="VMChatPushServie.cs" />
+    <Compile Include="VMChat.cs" />
+    <Compile Include="VMIdentity.cs" />
+    <Compile Include="VMOrderHistory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
