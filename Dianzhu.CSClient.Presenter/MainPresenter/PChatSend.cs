@@ -83,7 +83,7 @@ namespace Dianzhu.CSClient.Presenter
 
                 viewChatSend.MessageText = string.Empty;
                 chat.SetMediaUrl(fileName);
-                VMChat vmChat = vmChatAdapter.ChatToVMChat(chat, string.Empty);
+                VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
                 viewChatList.AddOneChat(vmChat);
                 localChatManager.Add(chat.ToId, vmChat);
                 //viewChatList.AddOneChat(chat,string.Empty);
@@ -119,7 +119,7 @@ namespace Dianzhu.CSClient.Presenter
                     messageText, IdentityManager.CurrentIdentity.Id.ToString(), enum_XmppResource.YDBan_CustomerService, enum_XmppResource.YDBan_User);
                 ReceptionChat chat = chatFactory.CreateChatText();
                 viewChatSend.MessageText = string.Empty;
-                VMChat vmChat = vmChatAdapter.ChatToVMChat(chat, string.Empty);
+                VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
                 viewChatList.AddOneChat(vmChat);
                 localChatManager.Add(chat.ToId, vmChat);
                 //viewChatList.AddOneChat(chat,string.Empty);

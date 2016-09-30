@@ -417,23 +417,14 @@ namespace Dianzhu.CSClient.Presenter
         /// <param name="isCurrentCustomer"></param>
         public void ReceivedMessage(ReceptionChat chat, IdentityTypeOfOrder type)
         {
-            VMChat vmChat;
-            if (localChatManager.LocalCustomerAvatarUrls.Keys.Contains(chat.FromId))
-            {
-                vmChat = vmChatAdapter.ChatToVMChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
-            }
-            else
-            {
-                vmChat = vmChatAdapter.ChatToVMChat(chat, string.Empty);
-            }
-            //VMChat vmChat = vmChatAdapter.ChatToVMChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
+            VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
+            
             localChatManager.Add(vmChat.FromId, vmChat);
             switch (type)
             {
                 case IdentityTypeOfOrder.CurrentCustomer:
                 case IdentityTypeOfOrder.CurrentIdentity:                    
                     iViewChatList.AddOneChat(vmChat);
-                    //iViewChatList.AddOneChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
                     break;
                 case IdentityTypeOfOrder.InList:
                     iView.SetIdentityUnread(chat.SessionId, 1);

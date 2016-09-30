@@ -76,7 +76,7 @@ namespace Dianzhu.CSClient.Presenter
                     {
                         customerId = chatHistory[i].ToId;
                     }
-                    VMChat vmChat = vmChatAdapter.ChatToVMChat(chatHistory[i], chatManager.LocalCustomerAvatarUrls[customerId]);
+                    VMChat vmChat = vmChatAdapter.ChatToVMChat(chatHistory[i]);
                     viewChatList.InsertOneChat(vmChat);
                     viewChatList.ChatList.Insert(0, vmChat);
                     //viewChatList.InsertOneChat(item, chatManager.LocalCustomerAvatarUrls[customerId]);
@@ -149,14 +149,8 @@ namespace Dianzhu.CSClient.Presenter
                     VMChat vmChat;
                     for (int i = 0; i < chatList.Count; i++)
                     {
-                        if(chatList[i].FromResource== enum_XmppResource.YDBan_User)
-                        {
-                            vmChat = vmChatAdapter.ChatToVMChat(chatList[i], chatManager.LocalCustomerAvatarUrls[chatList[i].FromId]);
-                        }
-                        else
-                        {
-                            vmChat = vmChatAdapter.ChatToVMChat(chatList[i], string.Empty);
-                        }
+                        vmChat = vmChatAdapter.ChatToVMChat(chatList[i]);
+
                         vmList.Add(vmChat);
                     }
                 }

@@ -386,7 +386,7 @@ namespace Dianzhu.CSClient.Presenter
             log.Debug("推送的订单：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //助理工具显示发送的消息
-            VMChat vmChat = vmChatAdapter.ChatToVMChat(chat, string.Empty);
+            VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
             viewChatList.AddOneChat(vmChat);
             //存储消息到内存中
             localChatManager.Add(chat.ToId, vmChat);
