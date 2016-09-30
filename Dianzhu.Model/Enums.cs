@@ -61,7 +61,8 @@ namespace Dianzhu.Model.Enums
     {
         None=0,
         Alipay =1,
-        Wechat=2
+        Wechat=2,
+        AliBatch=3
     }
     /// <summary>
     /// 计费单位
