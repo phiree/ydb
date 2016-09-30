@@ -23,14 +23,15 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
         /// <summary>
         /// 申请客服资源
         /// </summary>
-        /// <param name="userID"></param>
+        /// 
         /// <returns></returns>
-        public IHttpActionResult GetCustomerServices([FromBody]string userID)
+        /// 
+        [Route("api/v1/customerServices")]
+        public IHttpActionResult GetCustomerServices()
         {
             try
             {
-                //return Json(iuserservice.GetCustomerServices(userID));
-                return Json("没有申请客服资源的功能！");
+                return Json(iuserservice.GetCustomerServices(GetRequestHeader.GetTraitHeaders("get/customerServices")));
             }
             catch (Exception ex)
             {

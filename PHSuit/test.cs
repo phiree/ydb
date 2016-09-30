@@ -143,4 +143,47 @@ namespace PHSuit
             log.Debug("test line1" + Environment.NewLine + "test line2");
         }
     }
+    [TestFixture]
+    public class TestExceptionLogger
+    {
+        [Test]
+        public void ExceptionLog()
+        {
+            Logging.Config("Dianzhu.PHSuit.Test");
+            log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.PHSuit.Test");
+            try { M1(); }
+            catch(Exception ex)
+            {
+                ExceptionLoger.ExceptionLog(log, ex);
+
+            }
+           
+            
+        }
+        public void M1()
+        {
+            try
+            {
+                M2();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("m1ex", ex);
+            }
+        }
+        public void M2()
+        {
+            try
+            {
+                M3();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("m2ex", ex);
+            }
+            }
+        public void M3()
+        { throw new Exception("m3ex"); }
+    }
+    
 }

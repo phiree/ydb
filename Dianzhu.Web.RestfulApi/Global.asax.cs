@@ -48,6 +48,7 @@ namespace Dianzhu.Web.RestfulApi
                 log.Error("InnerException(Global.LastError):" + ex.InnerException.Message);
             }
             log.Error("Error(Global.LastError):" + ex.Message);
+            PHSuit.ExceptionLoger.ExceptionLog(log, ex);
         }
     }
 }

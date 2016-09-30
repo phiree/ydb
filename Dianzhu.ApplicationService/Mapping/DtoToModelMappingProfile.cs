@@ -100,7 +100,7 @@ namespace Dianzhu.ApplicationService.Mapping
 
             Mapper.CreateMap<storeObj, Model.Business>()
             .ForMember(x => x.Description, opt => opt.MapFrom(source => source.introduction))
-            .ForMember(x => x.Phone, opt => opt.MapFrom(source => utils.GetFileName(source.storePhone)))
+            .ForMember(x => x.Phone, opt => opt.MapFrom(source => source.storePhone))
             .ForMember(x => x.Contact, opt => opt.MapFrom(source => source.linkMan))
             .ForMember(x => x.WorkingYears, opt => opt.MapFrom(source => source.vintage))
             .ForMember(x => x.StaffAmount, opt => opt.MapFrom(source => source.headCount))

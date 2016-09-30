@@ -8,7 +8,7 @@ namespace Dianzhu.ApplicationService
 {
     public class U3RD_Model
     {
-        public string target { get; set; }
+        public string platform { get; set; }
         public string code { get; set; }
         public string appName { get; set; }
     }

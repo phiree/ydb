@@ -215,7 +215,7 @@ namespace Dianzhu.BLL
                 if (diandian == null )
                 {
                     IList<OnlineUserSession> onlineUsers = imSession.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_DianDian.ToString());
-                    Debug.Assert(onlineUsers.Count != 1, "点点没有登录，或者有多个点点账户登录");
+                    //Debug.Assert(onlineUsers.Count != 1, "点点没有登录，或者有多个点点账户登录");
                     string errMsg = string.Empty;
                     if (onlineUsers.Count == 1)
                     {

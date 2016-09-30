@@ -103,14 +103,15 @@ namespace Dianzhu.ApplicationService
 
             member.NickName = userObj.nickname;
             member.UserName = userObj.nickname + new Guid();//防止重复;
-            if (userObj.figureurl_qq_2 != "")
+            if (string.IsNullOrEmpty(userObj.figureurl_qq_2))
             {
-                member.AvatarUrl = utils.DownloadToMediaserver(userObj.figureurl_qq_2, string.Empty,  "image"); 
+                member.AvatarUrl = utils.DownloadToMediaserver(userObj.figureurl_qq_1, string.Empty, "image");
             }
             else
             {
-                member.AvatarUrl = utils.DownloadToMediaserver(userObj.figureurl_qq_1, string.Empty,  "image");
+                member.AvatarUrl = utils.DownloadToMediaserver(userObj.figureurl_qq_2, string.Empty, "image");
             }
+            
             member.Address = userObj.province + " " + userObj.city;
             member.PlainPassword = openidObj.openid;
             member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(openidObj.openid, "MD5");

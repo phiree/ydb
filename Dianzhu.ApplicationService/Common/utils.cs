@@ -489,7 +489,33 @@ namespace Dianzhu.ApplicationService
                     strFileName = strFileName.Replace(regexMatch.Groups[1].Value, string.Empty);
                 }
             }
+            if (!JudgeFileExist03(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + strFileName))
+            {
+                throw new Exception("该文件资源不存在！");
+            }
             return strFileName;
+        }
+
+        /// <summary>
+        /// 验证网络图片是否存在
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        private static bool JudgeFileExist03(string url)
+        {
+            try
+            {
+                //创建根据网络地址的请求对象
+                System.Net.HttpWebRequest httpWebRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.CreateDefault(new Uri(url));
+                httpWebRequest.Method = "HEAD";
+                httpWebRequest.Timeout = 1000;
+                //返回响应状态是否是成功比较的布尔值
+                return (((System.Net.HttpWebResponse)httpWebRequest.GetResponse()).StatusCode == System.Net.HttpStatusCode.OK);
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>

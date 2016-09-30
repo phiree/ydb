@@ -185,6 +185,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
             }
             catch (Exception ex)
             {
+                log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.OrdersController.confirmService");
+                ilog.Error(ex.ToString());
                 return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
             }
         }

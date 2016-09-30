@@ -15,12 +15,19 @@ namespace Dianzhu.ApplicationService.User
 {
     public class UserService:IUserService
     {
+        log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.UserService");
         DZMembershipProvider dzmsp;
         BLL.Client.BLLUserToken bllUserToken;
-        public UserService(DZMembershipProvider dzmsp, BLL.Client.BLLUserToken bllUserToken)
+        ReceptionAssigner ra;
+        BLLReceptionStatus bllReceptionStatus;
+        IBLLServiceOrder bllServiceOrder;
+        public UserService(DZMembershipProvider dzmsp, BLL.Client.BLLUserToken bllUserToken, ReceptionAssigner ra, BLLReceptionStatus bllReceptionStatus, IBLLServiceOrder bllServiceOrder)
         {
             this.dzmsp = dzmsp;
             this.bllUserToken = bllUserToken;
+            this.ra = ra;
+            this.bllReceptionStatus = bllReceptionStatus;
+            this.bllServiceOrder = bllServiceOrder;
         }
 
         /// <summary>
@@ -100,7 +107,7 @@ namespace Dianzhu.ApplicationService.User
             {
                 throw new FormatException("手机号码或邮箱至少一个不能没空！");
             }
-            if (!string.IsNullOrEmpty(userBody.pWord))
+            if (string.IsNullOrEmpty(userBody.pWord))
             {
                 throw new FormatException("密码不能没空！");
             }
@@ -156,7 +163,7 @@ namespace Dianzhu.ApplicationService.User
         public object PostUser3rds(U3RD_Model u3rd_Model, string userType)
         {
             Dianzhu.Model.DZMembership newMember = new DZMembership();
-            switch (u3rd_Model.target)
+            switch (u3rd_Model.platform)
             {
                 case "WeChat":
                     newMember=LoginByWeChat.GetUserInfo(u3rd_Model.code, u3rd_Model.appName, dzmsp, userType);
@@ -179,11 +186,13 @@ namespace Dianzhu.ApplicationService.User
             if (userType == "customer")
             {
                 customerObj customerobj = Mapper.Map<Dianzhu.Model.DZMembership, customerObj>(dzm);
+                customerobj.pWord = dzm.PlainPassword;
                 return customerobj;
             }
             else
             {
                 merchantObj merchantobj = Mapper.Map<Dianzhu.Model.DZMembership, merchantObj>(dzm);
+                merchantobj.pWord = dzm.PlainPassword;
                 return merchantobj;
             }
         }
@@ -195,7 +204,7 @@ namespace Dianzhu.ApplicationService.User
         /// <param name="userChangeBody"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        public object PatchUser(string userID, UserChangeBody userChangeBody,string userType)
+        public object PatchUser(string userID, UserChangeBody userChangeBody, string userType)
         {
             if (string.IsNullOrEmpty(userChangeBody.oldPassWord))
             {
@@ -230,6 +239,14 @@ namespace Dianzhu.ApplicationService.User
             if (!string.IsNullOrEmpty(userChangeBody.sex))
             {
                 //dzm.Address = userChangeBody.sex;
+                //if (userType == "customer")
+                //{
+                //    ()
+                //}
+            } 
+            if (!string.IsNullOrEmpty(userChangeBody.imgUrl))
+            {
+                dzm.AvatarUrl = utils.GetFileName(userChangeBody.imgUrl);
             }
             if (!string.IsNullOrEmpty(userChangeBody.newPassWord))
             {
@@ -247,6 +264,24 @@ namespace Dianzhu.ApplicationService.User
             }
             DateTime dt = DateTime.Now;
             dzm.LastLoginTime = dt;
+
+            BLL.Validator.ValidatorDZMembership vd_member = new BLL.Validator.ValidatorDZMembership();
+            FluentValidation.Results.ValidationResult result = vd_member.Validate(dzm);
+            if (!result.IsValid)
+            {
+                string strErrors = "[";
+                for (int i = 0; i < result.Errors.Count; i++)
+                {
+                    strErrors += "{";
+                    strErrors += "ErrorCode:" + result.Errors[i].ErrorCode + ",";
+                    strErrors += "ErrorMessage:" + result.Errors[i].ErrorMessage + "";
+                    strErrors += "},";
+                }
+                strErrors.TrimEnd(',');
+                strErrors += "]";
+                throw new Exception(strErrors);
+            }
+
             dzmsp.UpdateDZMembership(dzm);
 
             dzm = dzmsp.GetUserById(guidUser);
@@ -266,6 +301,81 @@ namespace Dianzhu.ApplicationService.User
             }
 
         }
+
+        /// <summary>
+        ///  读取客服信息(申请客服资源)
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public applyCustomerServicesObj GetCustomerServices(Customer customer)
+        {
+            Guid guidUserID = utils.CheckGuidID(customer.UserID, "customer.UserID");
+            DZMembership member = dzmsp.GetUserById(guidUserID);
+            if (member == null)
+            {
+                throw new Exception("该用户不存在");
+            }
+            ilog.Debug("开始分配客服");
+            ServiceOrder orderToReturn = null;//分配的订单
+            ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(guidUserID);
+            Dictionary<DZMembership, DZMembership> assignedPair = new Dictionary<DZMembership, DZMembership>();
+            if (rs != null && rs.CustomerService.UserType == Model.Enums.enum_UserType.customerservice)
+            {
+                assignedPair.Add(rs.Customer, rs.CustomerService);
+
+                orderToReturn = rs.Order;
+            }
+            else if (rs != null && rs.CustomerService.UserType == Model.Enums.enum_UserType.diandian)
+            {
+                bllReceptionStatus.Delete(rs);
+                assignedPair = ra.AssignCustomerLogin(member);
+            }
+            else
+            {
+                assignedPair = ra.AssignCustomerLogin(member);
+            }
+
+            if (assignedPair.Count == 0)
+            {
+                throw new Exception("没有在线客服");
+                //this.state_CODE = Dicts.StateCode[4];
+                //this.err_Msg = "没有在线客服";
+                //return;
+            }
+            ilog.Debug("4");
+            if (assignedPair.Count > 1)
+            {
+                throw new Exception("返回了多个客服");
+                //this.state_CODE = Dicts.StateCode[4];
+                //this.err_Msg = "返回了多个客服";
+                //return;
+            }
+            ilog.Debug("5");
+           
+            if (orderToReturn == null)
+            {
+                orderToReturn = bllServiceOrder.GetDraftOrder(member, assignedPair[member]);
+            }
+            ilog.Debug("7");
+            if (orderToReturn == null)
+            {
+
+                orderToReturn = ServiceOrderFactory.CreateDraft(assignedPair[member], member);
+
+                bllServiceOrder.Save(orderToReturn);
+            }
+            ilog.Debug("8");
+            //更新 ReceptionStatus 中订单
+            bllReceptionStatus.UpdateOrder(member, assignedPair[member], orderToReturn);
+            ilog.Debug("9");
+            applyCustomerServicesObj applycustomerservicesobj = new applyCustomerServicesObj();
+            applycustomerservicesobj.customerServicesObj.id = assignedPair[member].Id.ToString();
+            applycustomerservicesobj.customerServicesObj.imgUrl = string.IsNullOrEmpty(assignedPair[member].AvatarUrl)?string.Empty: Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + assignedPair[member].AvatarUrl;
+            applycustomerservicesobj.customerServicesObj.alias = assignedPair[member].DisplayName ?? string.Empty;
+            applycustomerservicesobj.draftOrderID = orderToReturn.Id.ToString();
+            return applycustomerservicesobj;
+        }
+
 
 
         public void Dispose()

@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Dianzhu.ApplicationService;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.USER
 {
@@ -124,6 +125,11 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     u3rd_Model = new U3RD_Model();
                 }
+                MySectionCollection1 mysection = (MySectionCollection1)ConfigurationManager.GetSection("MySectionCollection1");
+                //MySectionKeyValueSettings kv = mysection.KeyValues[Request.Headers.GetValues("appName").FirstOrDefault()];
+                string apiName = Request.Headers.GetValues("appName").FirstOrDefault();
+                string apiKey = mysection.KeyValues[apiName].Value;
+                u3rd_Model.appName = apiKey;
                 return Json(iuserservice.PostUser3rds(u3rd_Model, "customer"));
             }
             catch (Exception ex)

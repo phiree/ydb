@@ -64,6 +64,14 @@ namespace Dianzhu.ApplicationService.User
         /// <param name="userType"></param>
         /// <returns></returns>
         object PatchUser(string userID, UserChangeBody userChangeBody, string userType);
-        
+
+        /// <summary>
+        ///  读取客服信息(申请客服资源)
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        applyCustomerServicesObj GetCustomerServices(Customer customer);
+
+
     }
 }

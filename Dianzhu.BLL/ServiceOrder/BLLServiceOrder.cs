@@ -538,10 +538,10 @@ namespace Dianzhu.BLL
         public void OrderFlow_BusinessNegotiate(ServiceOrder order, decimal negotiateAmount)
         {
             order.NegotiateAmount = negotiateAmount;
-            if (negotiateAmount <= order.DepositAmount)
+            if (negotiateAmount < order.DepositAmount)//尾款可以为0，if (negotiateAmount <= order.DepositAmount)
             {
                 log.Warn("协商价格小于订金");
-                throw new Exception("协商价格小于等于订金");
+                throw new Exception("协商价格小于订金");
             }
 
             ChangeStatus(order, enum_OrderStatus.isNegotiate);
@@ -589,9 +589,15 @@ namespace Dianzhu.BLL
         public void OrderFlow_CustomerFinish(ServiceOrder order)
         {
             order.OrderServerFinishedTime = DateTime.Now;
-            ChangeStatus(order, enum_OrderStatus.Ended);
-
-            bllPayment.ApplyPay(order, enum_PayTarget.FinalPayment);
+            if (order.DepositAmount == order.NegotiateAmount)
+            {
+                ChangeStatus(order, enum_OrderStatus.Finished);
+            }
+            else
+            {
+                ChangeStatus(order, enum_OrderStatus.Ended);
+                bllPayment.ApplyPay(order, enum_PayTarget.FinalPayment);
+            }
         }
         /// <summary>
         /// 用户支付尾款

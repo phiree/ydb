@@ -373,7 +373,8 @@ function initializeService() {
                 jsonTranDate.serPointComp = result.addressComponents;
                 jsonTranDate.serPointAddress = result.address;
                 //console.log(JSON.stringify(jsonTranDate));
-                hiBussAreaCode.attr("value", JSON.stringify(jsonTranDate)).focus().blur();
+                // 重要！一定要用val来设置value的值，这样设置会才设置了property？
+                hiBussAreaCode.val(JSON.stringify(jsonTranDate)).attr("value", JSON.stringify(jsonTranDate)).focus().blur();
                 addressPrint(jsonTranDate);
 
             });
@@ -413,8 +414,8 @@ function initializeService() {
             jsonTranDate.serPointComp = result.addressComponents;
             jsonTranDate.serPointAddress = result.address;
             //console.log(JSON.stringify(jsonTranDate));
-
-            hiBussAreaCode.attr("value", JSON.stringify(jsonTranDate));
+            // 重要！一定要用val来设置value的值，这样设置会才设置了property？
+            hiBussAreaCode.val(JSON.stringify(jsonTranDate)).attr("value", JSON.stringify(jsonTranDate)).focus().blur();
             addressPrint(jsonTranDate);
 
         });

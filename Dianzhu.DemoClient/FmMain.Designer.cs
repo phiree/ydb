@@ -53,6 +53,8 @@
             this.tbxLog = new System.Windows.Forms.RichTextBox();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
+            this.rbAndroid = new System.Windows.Forms.RadioButton();
+            this.rbIOS = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -104,6 +106,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.rbIOS);
+            this.panel1.Controls.Add(this.rbAndroid);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.tbxOrderId);
@@ -151,7 +155,7 @@
             // 
             // btnLogout
             // 
-            this.btnLogout.Location = new System.Drawing.Point(686, 9);
+            this.btnLogout.Location = new System.Drawing.Point(795, 9);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(75, 23);
             this.btnLogout.TabIndex = 8;
@@ -161,7 +165,7 @@
             // 
             // btnOnlineUsers
             // 
-            this.btnOnlineUsers.Location = new System.Drawing.Point(605, 9);
+            this.btnOnlineUsers.Location = new System.Drawing.Point(714, 9);
             this.btnOnlineUsers.Name = "btnOnlineUsers";
             this.btnOnlineUsers.Size = new System.Drawing.Size(75, 23);
             this.btnOnlineUsers.TabIndex = 8;
@@ -172,7 +176,7 @@
             // lblAssignedCS
             // 
             this.lblAssignedCS.AutoSize = true;
-            this.lblAssignedCS.Location = new System.Drawing.Point(510, 18);
+            this.lblAssignedCS.Location = new System.Drawing.Point(687, 15);
             this.lblAssignedCS.Name = "lblAssignedCS";
             this.lblAssignedCS.Size = new System.Drawing.Size(17, 12);
             this.lblAssignedCS.TabIndex = 7;
@@ -189,7 +193,7 @@
             // 
             this.lblLoginStatus.AutoSize = true;
             this.lblLoginStatus.ForeColor = System.Drawing.Color.Chocolate;
-            this.lblLoginStatus.Location = new System.Drawing.Point(395, 17);
+            this.lblLoginStatus.Location = new System.Drawing.Point(572, 14);
             this.lblLoginStatus.Name = "lblLoginStatus";
             this.lblLoginStatus.Size = new System.Drawing.Size(17, 12);
             this.lblLoginStatus.TabIndex = 5;
@@ -198,7 +202,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(441, 17);
+            this.label3.Location = new System.Drawing.Point(618, 14);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 12);
             this.label3.TabIndex = 2;
@@ -301,6 +305,28 @@
             this.pnlChat.TabIndex = 8;
             this.pnlChat.WrapContents = false;
             // 
+            // rbAndroid
+            // 
+            this.rbAndroid.AutoSize = true;
+            this.rbAndroid.Checked = true;
+            this.rbAndroid.Location = new System.Drawing.Point(412, 15);
+            this.rbAndroid.Name = "rbAndroid";
+            this.rbAndroid.Size = new System.Drawing.Size(65, 16);
+            this.rbAndroid.TabIndex = 12;
+            this.rbAndroid.TabStop = true;
+            this.rbAndroid.Text = "Android";
+            this.rbAndroid.UseVisualStyleBackColor = true;
+            // 
+            // rbIOS
+            // 
+            this.rbIOS.AutoSize = true;
+            this.rbIOS.Location = new System.Drawing.Point(494, 15);
+            this.rbIOS.Name = "rbIOS";
+            this.rbIOS.Size = new System.Drawing.Size(41, 16);
+            this.rbIOS.TabIndex = 13;
+            this.rbIOS.Text = "IOS";
+            this.rbIOS.UseVisualStyleBackColor = true;
+            // 
             // FmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -349,5 +375,7 @@
         private System.Windows.Forms.TextBox tbxManualAssignedCS;
         private System.Windows.Forms.RichTextBox tbxLog;
         private System.Windows.Forms.Button btnLogout;
+        private System.Windows.Forms.RadioButton rbIOS;
+        private System.Windows.Forms.RadioButton rbAndroid;
     }
 }

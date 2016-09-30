@@ -58,10 +58,13 @@
     <Compile Include="AliPay\AopException.cs" />
     <Compile Include="AliPay\RSA.cs" />
     <Compile Include="AliPay\RSACryptoServiceProviderExtension.cs" />
+    <Compile Include="PayCallBack\GetAliRequestGet.cs" />
     <Compile Include="PayCallBack\IPayCallBack.cs" />
     <Compile Include="PayCallBack\PayCallBackAli.cs" />
+    <Compile Include="PayCallBack\PayCallBackAliBatch.cs" />
     <Compile Include="PayCallBack\PayCallBackWePay.cs" />
     <Compile Include="PayRequest\IPay.cs" />
+    <Compile Include="PayRequest\PayBatch.cs" />
     <Compile Include="RefundCallBack\IRefundCallBack.cs" />
     <Compile Include="RefundCallBack\RefundCallBackAli.cs" />
     <Compile Include="RefundRequest\IRefund.cs" />

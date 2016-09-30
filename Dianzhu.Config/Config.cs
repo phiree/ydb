@@ -80,7 +80,7 @@ namespace Dianzhu.Config
              {"cdnroot", BuildHttpUrlString(ApplicationServer, PortSet["cdnroot"])}
             , {"ImServer",IMServer  }
             , {"ImDomain",IMDomain  }
-              , {"RestApiAuthUrl",BuildHttpUrlString(ApplicationServer, PortSet["RestApiAuthUrl"],"api/v1/authorization")  }
+            , {"RestApiAuthUrl",BuildHttpUrlString(ApplicationServer, PortSet["RestApiAuthUrl"],"api/v1/authorization")  }
             , {"MediaUploadUrl",BuildHttpUrlString(ApplicationServer, PortSet["MediaUploadUrl"],"UploadFile.ashx") }
             , {"MediaGetUrl",BuildHttpUrlString(ApplicationServer, PortSet["MediaGetUrl"],"GetFile.ashx?fileName=")   }
             , {"MediaUploadUrlByDate",BuildHttpUrlString(ApplicationServer, PortSet["MediaUploadUrlByDate"],"UploadFileByDate.ashx") }//按日期生成保存路径
