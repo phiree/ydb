@@ -177,7 +177,7 @@ namespace Dianzhu.NotifyCenter
             //将新分配的客服发送给客户端.
             foreach (KeyValuePair<DZMembership, DZMembership> r in reassignList)
             {
- 
+                log.Debug("查询订单");
                 ServiceOrder order = dalReceptionStatus. GetOrder(r.Key, r.Value).Order;
  
                 if (order == null)
@@ -188,6 +188,7 @@ namespace Dianzhu.NotifyCenter
  
                 if (order.OrderStatus != enum_OrderStatus.Draft)
                 {
+                    log.Debug("创建新订单");
                     ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(r.Value,r.Key);
  
                     order = newOrder;
@@ -196,8 +197,8 @@ namespace Dianzhu.NotifyCenter
                     imMember.Id.ToString(), r.Key.Id.ToString(), string.Empty, order.Id.ToString(), enum_XmppResource.YDBan_IMServer
                    , enum_XmppResource.YDBan_User);
                 ReceptionChat rc = chatFactory.CreateReAssign(r.Value.Id.ToString(), r.Value.NickName, r.Value.AvatarUrl);
-                
-               
+
+                log.Debug("发送客服重新分配消息");
                 im.SendMessage(rc);
             }
         }
