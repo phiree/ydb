@@ -10,6 +10,9 @@ namespace Dianzhu.DAL
 {
     public class DALSerialNo : NHRepositoryBase<SerialNo, Guid>, IDAL.IDALSerialNo
     {
-
+        public IList<SerialNo> FindBySerialKey(string serialKey)
+        {
+            return Find(x => x.SerialKey == serialKey);
+        }
     }
 }

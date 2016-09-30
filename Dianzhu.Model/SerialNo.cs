@@ -11,13 +11,12 @@ namespace Dianzhu.Model
         public virtual string SerialKey { get; set; }
         public virtual int SerialValue { get; set; }
 
-        public virtual string FormatedNo
+        public virtual string BuildFormatedNo(int serialNoLength)
         {
-            get
-            {
-                return SerialKey + SerialValue.ToString().PadLeft(2, '0');
+             
+                return SerialKey + SerialValue.ToString().PadLeft(serialNoLength, '0');
 
-            }
+            
         }
     }
 }

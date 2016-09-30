@@ -340,7 +340,7 @@ namespace Dianzhu.CSClient.Presenter
 
             //获取之前orderid
             ServiceOrder oldOrder = bllServiceOrder.GetOne(IdentityManager.CurrentIdentity.Id);
-            string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
+            string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"),2);
             oldOrder.SerialNo = serialNoForOrder;
             oldOrder.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
             oldOrder.CustomerService = GlobalViables.CurrentCustomerService;

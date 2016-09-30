@@ -16,21 +16,21 @@ namespace JSYK.Infrastructure.SerialNo
         {
             this.dalSerialNo = dalSerialNo;
         }
-        public string GetSerialNo(string key)
+        public string GetSerialNo(string key,int serialNoLength)
         {
-           var list= dalSerialNo.Find(x => x.SerialKey == key);
+           var list= dalSerialNo.FindBySerialKey(key);
             if (list.Count == 1)
             {
                 var currentS = list[0];
                 
                 currentS.SerialValue += 1;
-                return currentS.FormatedNo;
+                return currentS.BuildFormatedNo(serialNoLength);
             }
             else if (list.Count == 0)
             {
                 Model.SerialNo s = new Dianzhu.Model.SerialNo { SerialKey = key, SerialValue = 1 };
                 dalSerialNo.Add(s);
-                return s.FormatedNo;
+                return s.BuildFormatedNo(serialNoLength);
             }
             else
             {
