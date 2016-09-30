@@ -64,12 +64,20 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void C_IdleTimerOut(Guid orderId)
         {
-            NHibernateUnitOfWork.UnitOfWork.Start();
-
-            FinalChatTimerTick(orderId);
-
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            try
+            {
+                NHibernateUnitOfWork.UnitOfWork.Start();
+                FinalChatTimerTick(orderId);
+            }
+            catch (Exception e)
+            {
+                log.Error(e);
+            }
+            finally
+            {
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            }
         }        
 
         public void RemoveIdentity(Guid serviceOrderId)
@@ -170,14 +178,20 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void UcIdentity_IdleTimerOut(Guid orderId)
         {
-            NHibernateUnitOfWork.UnitOfWork.Start();
-            //Action ac = () =>
-            //{
+            try
+            {
+                NHibernateUnitOfWork.UnitOfWork.Start();
                 FinalChatTimerTick(orderId);
-            //};
-            //NHibernateUnitOfWork.With.Transaction(ac);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            }
+            catch (Exception e)
+            {
+                log.Error(e.ToString());
+            }
+            finally
+            {
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            }
         }
 
         #endregion
@@ -233,12 +247,23 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            VMIdentity vmIdentity = e.Argument as VMIdentity;
-            NHibernateUnitOfWork.UnitOfWork.Start();
+            try
+            {
+                VMIdentity vmIdentity = e.Argument as VMIdentity;
 
-            IdentityClick(vmIdentity);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                NHibernateUnitOfWork.UnitOfWork.Start();
+
+                IdentityClick(vmIdentity);
+            }
+            catch (Exception ee)
+            {
+                log.Error(ee.ToString());
+            }
+            finally
+            {
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            }
         }
 
         #endregion

@@ -159,13 +159,16 @@ namespace Dianzhu.CSClient.Presenter
                 }
 
                 e.Result = vmList;
-
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
             catch (Exception ee)
             {
+                e.Result = new List<VMOrderHistory>();
                 PHSuit.ExceptionLoger.ExceptionLog(log, ee);
+            }
+            finally
+            {
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
         }
 

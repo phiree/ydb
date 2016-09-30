@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.IDAL;
-using Dianzhu.Model;
-using Dianzhu.Model.Enums;
-using Dianzhu.BLL;
+using Dianzhu.CSClient.ViewModel;
 
 namespace Dianzhu.CSClient.LocalStorage
 {
@@ -20,11 +17,11 @@ namespace Dianzhu.CSClient.LocalStorage
         /// </summary>
         Dictionary<string,string> LocalCustomerAvatarUrls { get; }
 
-        Dictionary<string, IList<ReceptionChat>> LocalChats { get; }
-        void Add(string customerId, ReceptionChat chatData);
+        Dictionary<string, IList<VMChat>> LocalChats { get; }
+        void Add(string customerId, VMChat chatData);
         void Remove(string customerId);
 
-        IList<ReceptionChat> InitChatList(Guid customerId, Guid customerServiceId, Guid serviceOrderId);
+        //IList<ReceptionChat> InitChatList(Guid customerId, Guid customerServiceId, Guid serviceOrderId);
     }    
 
     /// <summary>
@@ -32,18 +29,12 @@ namespace Dianzhu.CSClient.LocalStorage
     /// </summary>
     public class ChatManagerInMemory : LocalChatManager
     {
-        IDALReceptionChat idalReceptionChat;
-        IDALMembership idalMembership;
-
-        public ChatManagerInMemory(IDALReceptionChat idalReceptionChat,IDALMembership idalMembership)
+        public ChatManagerInMemory()
         {
-            LocalChats = new Dictionary<string, IList<ReceptionChat>>();
+            LocalChats = new Dictionary<string, IList<VMChat>>();
             LocalCustomerAvatarUrls = new Dictionary<string, string>();
-
-            this.idalReceptionChat = idalReceptionChat;
-            this.idalMembership = idalMembership;
         }
-        public Dictionary<string, IList<ReceptionChat>> LocalChats
+        public Dictionary<string, IList<VMChat>> LocalChats
         {
             get;
              
@@ -61,7 +52,7 @@ namespace Dianzhu.CSClient.LocalStorage
         /// </summary>
         /// <param name="customerId"></param>
         /// <param name="chatData"></param>
-        public void Add(string customerId, ReceptionChat chatData)
+        public void Add(string customerId, VMChat chatData)
         {
             if (LocalChats.ContainsKey(customerId))
             {
@@ -69,14 +60,17 @@ namespace Dianzhu.CSClient.LocalStorage
             }
             else
             {
-                
+                LocalChats[customerId] = new List<VMChat>();
+                LocalChats[customerId].Add(chatData);
+
                 //initdata 
-                IList<ReceptionChat> initChatList = InitChatList(new Guid( chatData.FromId), Guid.Empty, Guid.Empty);
+                //IList<ReceptionChat> initChatList = InitChatList(new Guid( chatData.FromId), Guid.Empty, Guid.Empty);
                 //是否包含当前记录.  插件保存记录 和 xmpp接收 的顺序无法控制, 加此判断以保证列表中包含该消息.
-                if (initChatList.Where(x => x.Id == chatData.Id).Count() == 0)
-                {
-                    LocalChats[customerId].Add(chatData);
-                }
+
+                //if (initChatList.Where(x => x.Id == chatData.Id).Count() == 0)
+                //{
+                //    LocalChats[customerId].Add(chatData);
+                //}
             }
 
             if (!LocalCustomerAvatarUrls.ContainsKey(customerId))
@@ -108,27 +102,27 @@ namespace Dianzhu.CSClient.LocalStorage
         /// <param name="customerServiceId"></param>
         /// <param name="serviceOrderId"></param>
         /// <returns></returns>
-        public IList<ReceptionChat> InitChatList(Guid customerId, Guid customerServiceId, Guid serviceOrderId)
-        {
-            string key = customerId.ToString();
-            DZMembership customer = idalMembership.FindById(customerId);
-            if (LocalChats.ContainsKey(key))
-            {
-                return LocalChats[key];
-            }
-            else
-            {
-                int rowCount;
-                //initdata 
-                IList<ReceptionChat> initChatList = idalReceptionChat.GetReceptionChatList(customerId, customerServiceId, serviceOrderId, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.cer, out rowCount);
-                LocalChats.Add(key, initChatList);
+        //public IList<ReceptionChat> InitChatList(Guid customerId, Guid customerServiceId, Guid serviceOrderId)
+        //{
+        //    string key = customerId.ToString();
+        //    DZMembership customer = idalMembership.FindById(customerId);
+        //    if (LocalChats.ContainsKey(key))
+        //    {
+        //        return LocalChats[key];
+        //    }
+        //    else
+        //    {
+        //        int rowCount;
+        //        //initdata 
+        //        IList<ReceptionChat> initChatList = idalReceptionChat.GetReceptionChatList(customerId, customerServiceId, serviceOrderId, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.cer, out rowCount);
+        //        LocalChats.Add(key, initChatList);
 
-                if (!LocalCustomerAvatarUrls.ContainsKey(key))
-                {
-                    LocalCustomerAvatarUrls.Add(key, customer.AvatarUrl);
-                }
-            }
-            return LocalChats[key];
-        }
+        //        if (!LocalCustomerAvatarUrls.ContainsKey(key))
+        //        {
+        //            LocalCustomerAvatarUrls.Add(key, customer.AvatarUrl);
+        //        }
+        //    }
+        //    return LocalChats[key];
+        //}
     }
 }

@@ -140,13 +140,15 @@ namespace Dianzhu.CSClient.Presenter
                         }
                     }
                 }
-
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
             catch (Exception e)
             {
-                PHSuit.ExceptionLoger.ExceptionLog(log, e);
+                log.Error(e.ToString());
+            }
+            finally
+            {
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
         }
 
@@ -415,12 +417,21 @@ namespace Dianzhu.CSClient.Presenter
         /// <param name="isCurrentCustomer"></param>
         public void ReceivedMessage(ReceptionChat chat, IdentityTypeOfOrder type)
         {
-            localChatManager.Add(chat.FromId, chat);
+            VMChat vmChat;
+            if (localChatManager.LocalCustomerAvatarUrls.Keys.Contains(chat.FromId))
+            {
+                vmChat = vmChatAdapter.ChatToVMChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
+            }
+            else
+            {
+                vmChat = vmChatAdapter.ChatToVMChat(chat, string.Empty);
+            }
+            //VMChat vmChat = vmChatAdapter.ChatToVMChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
+            localChatManager.Add(vmChat.FromId, vmChat);
             switch (type)
             {
                 case IdentityTypeOfOrder.CurrentCustomer:
-                case IdentityTypeOfOrder.CurrentIdentity:
-                    VMChat vmChat = vmChatAdapter.ChatToVMChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
+                case IdentityTypeOfOrder.CurrentIdentity:                    
                     iViewChatList.AddOneChat(vmChat);
                     //iViewChatList.AddOneChat(chat, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
                     break;
@@ -429,7 +440,7 @@ namespace Dianzhu.CSClient.Presenter
                     break;
                 case IdentityTypeOfOrder.NewIdentity:
                     ServiceOrder order = bllServiceOrder.GetOne(new Guid(chat.SessionId));
-                    VMIdentity vmIdentity = vmIdentityAdapter.OrderToVMIdentity(order, localChatManager.LocalCustomerAvatarUrls[chat.FromId]);
+                    VMIdentity vmIdentity = vmIdentityAdapter.OrderToVMIdentity(order, localChatManager.LocalCustomerAvatarUrls[vmChat.FromId]);
                     AddIdentity(vmIdentity);
                     iView.SetIdentityUnread(chat.SessionId, 1);
                     break;

@@ -25,6 +25,7 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class UC_Search : UserControl,IView.IViewSearch
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_Search");
         //IView.IViewSearchResult viewSearchResult;
         public UC_Search(/*IView.IViewSearchResult viewSearchResult*/)
         {
@@ -522,18 +523,21 @@ namespace Dianzhu.CSClient.ViewWPF
 
             if (Search != null)
             {
-                NHibernateUnitOfWork.UnitOfWork.Start();
-                //Action ac = () =>
-                //{
+                try
+                {
+                    NHibernateUnitOfWork.UnitOfWork.Start();
                     Search(targetTime, minPrice, maxPrice, selectedType.Id, serviceName, serviceTargetAddressObj.point.lng, serviceTargetAddressObj.point.lat);
-                //};
-                //NHibernateUnitOfWork.With.Transaction(ac);
-
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                }
+                catch (Exception ee)
+                {
+                    log.Error(ee);
+                }
+                finally
+                {
+                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                    NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                }
             }
-
-
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

@@ -220,10 +220,20 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            NHibernateUnitOfWork.UnitOfWork.Start();
-            BtnMoreChat();
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            try
+            {
+                NHibernateUnitOfWork.UnitOfWork.Start();
+                BtnMoreChat();
+            }
+            catch (Exception ee)
+            {
+                log.Error(ee.ToString());
+            }
+            finally
+            {
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            }
         }
 
         public void AddOneChat(VMChat vmChat)

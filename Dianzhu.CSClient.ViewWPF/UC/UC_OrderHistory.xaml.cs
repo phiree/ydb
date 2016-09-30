@@ -194,10 +194,20 @@ namespace Dianzhu.CSClient.ViewWPF
                 return;
             }
 
-            NHibernateUnitOfWork.UnitOfWork.Start();
-            BtnMoreOrder();
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            try
+            {
+                NHibernateUnitOfWork.UnitOfWork.Start();
+                BtnMoreOrder();
+            }
+            catch (Exception ee)
+            {
+                log.Error(ee);
+            }
+            finally
+            {
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            }
         }
     }
 }
