@@ -22,9 +22,9 @@ namespace RisCaptureLib
 
         private void Ini()
         {
-            
+
             //ini normal properties
-            //Topmost = true;
+            Topmost = true;
             WindowStyle = WindowStyle.None;
             ResizeMode = ResizeMode.NoResize;
             ShowInTaskbar = false;

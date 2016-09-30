@@ -173,16 +173,26 @@ namespace Dianzhu.CSClient.ViewWPF
 
         BitmapSource bmp;
         Window win;
+        Window mainForm;
         private void btnCaptureImage_Click(object sender, RoutedEventArgs e)
         {
             //Hide();
             //((Window)((Grid)((Grid)((WrapPanel)this.Parent).Parent).Parent).Parent).Hide();
+            //Window mainForm = (Window)((Grid)((Grid)((Grid)((Grid)((Grid)this.Parent).Parent).Parent).Parent).Parent).Parent;
+            if (mainForm == null)
+            {
+                mainForm = (Window)((Grid)((Grid)((Grid)((Grid)((Grid)this.Parent).Parent).Parent).Parent).Parent).Parent;
+            }
+            //mainForm.Visibility = Visibility.Collapsed;
+            mainForm.WindowState = WindowState.Minimized;
             Thread.Sleep(300);
             screenCaputre.StartCaputre(30, lastSize);
         }
 
         private void OnScreenCaputreCancelled(object sender, System.EventArgs e)
         {
+            //mainForm.Visibility = Visibility.Visible;
+            mainForm.WindowState = WindowState.Normal;
             //Show();
             Focus();
         }
@@ -192,7 +202,8 @@ namespace Dianzhu.CSClient.ViewWPF
             //set last size
             lastSize = new Size(e.Bmp.Width, e.Bmp.Height);
 
-
+            //mainForm.Visibility = Visibility.Visible;
+            mainForm.WindowState = WindowState.Normal;
             //Show();
 
             //test
