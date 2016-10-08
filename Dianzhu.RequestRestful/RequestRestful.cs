@@ -25,7 +25,7 @@ namespace Dianzhu.RequestRestful
                 //RequestParams param = setParams.SetParamByRequestInfo(context, appName, appKey,strHost);
                 var client = new RestClient(param.url);
                 var request = new RestRequest((Method)int.Parse(param.method));
-                if (param.method == "1" && (param.url.Contains("api/v1/authorization") || param.url.Contains("api/v1/customers") || param.url.Contains("api/v1/merchants") || param.url.Contains("api/v1/customer3rds")))
+                if ((param.method == "1" && (param.url.Contains("api/v1/authorization") || param.url.Contains("api/v1/customers") || param.url.Contains("api/v1/merchants") || param.url.Contains("api/v1/customer3rds")))|| (param.method == "0" &&  (param.url.Contains("api/v1/customers/count") || param.url.Contains("api/v1/merchants/count") )))
                 {
                 }
                 else
