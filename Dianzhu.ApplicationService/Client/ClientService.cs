@@ -52,9 +52,8 @@ namespace Dianzhu.ApplicationService.Client
                 throw new Exception("该用户不存在！");
             }
             string userUri = "";
-            switch (apiName)
+            switch (dzm.UserType.ToString())
             {
-                //dzm.UserType.ToString()
                 case "customer":
                     if (apiName != "UI3f4185e97b3E4a4496594eA3b904d60d" && apiName != "UA811Cd5343a1a41e4beB35227868541f8")
                     {
