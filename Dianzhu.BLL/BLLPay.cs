@@ -51,14 +51,21 @@ namespace Dianzhu.BLL
                             Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/return_url.aspx",
                             "http://www.ydban.cn");
                     ;
-                //payment_type,  notify_url,  return_url, show_url
-
                 case enum_PayAPI.Wechat:
                 default:
                     throw new NotImplementedException("尚未实现该接口");
 
             }
         }
+
+        public IPayRequest CreatePayBatch(decimal payAmount, string paymentId, string paySubject)
+        {
+                return new PayBatch(payAmount, paymentId, paySubject,"2",
+                        Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/notify_url.aspx?PayType=PayBatch",
+                        "http://www.ydban.cn");
+                ;
+        }
+
         /// <summary>
         /// 支付平台回调,通知支付结果.
         /// </summary>
