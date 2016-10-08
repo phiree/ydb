@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D90CDF37-7406-4DAE-9AE6-C894D83A796F}</ProjectGuid>
+    <ProjectGuid>{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DDDCommon</RootNamespace>
-    <AssemblyName>DDDCommon</AssemblyName>
+    <RootNamespace>Ydb.InstantMessage</RootNamespace>
+    <AssemblyName>Ydb.InstantMessage</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +20,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,7 +28,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -43,10 +40,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\IDomainEntity.cs" />
-    <Compile Include="IRepository.cs" />
+    <Compile Include="Application\Reception\ReceptionService.cs" />
+    <Compile Include="Application\Reception\IReceptionService.cs" />
+    <Compile Include="DomainModel\Chat\Enums\ChatTarget.cs" />
+    <Compile Include="DomainModel\Chat\Enums\ChatType.cs" />
+    <Compile Include="DomainModel\Chat\Enums\XmppResource.cs" />
+    <Compile Include="DomainModel\Chat\ReceptionChat.cs" />
+    <Compile Include="DomainModel\Chat\ReceptionChatFactory.cs" />
+    <Compile Include="DomainModel\Reception\AssignStratage.cs" />
+    <Compile Include="DomainModel\Reception\IReceptionSession.cs" />
+    <Compile Include="DomainModel\Reception\IRepositoryReception.cs" />
+    <Compile Include="DomainModel\Reception\OnlineUserSession.cs" />
+    <Compile Include="DomainModel\Reception\ReceptionStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Specification\PredicateBuilder.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">
+      <Project>{d90cdf37-7406-4dae-9ae6-c894d83a796f}</Project>
+      <Name>DDDCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="UL.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
