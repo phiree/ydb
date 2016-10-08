@@ -6,7 +6,7 @@
     var strPath = objHead.find('.path').find('a').html();
     var strToken = "";
     var objAuthorization = $('#resource__Authorization');
-    if (strPath != "/api/v1/authorization" && strPath != "/api/v1/customers" && strPath != "/api/v1/merchants" && strPath != "/api/v1/customer3rds")
+    if (strPath != "/api/v1/authorization" && strPath != "/api/v1/customers" && strPath != "/api/v1/merchants" && strPath != "/api/v1/customers/count" && strPath != "/api/v1/merchants/count" && strPath != "/api/v1/customer3rds")
     {
         var objResponseBody = objAuthorization.find('.response_body');
         if (objResponseBody.html() != "")
