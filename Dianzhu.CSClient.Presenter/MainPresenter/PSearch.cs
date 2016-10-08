@@ -32,6 +32,7 @@ namespace Dianzhu.CSClient.Presenter
         LocalStorage.LocalUIDataManager localUIDataManager;
         IVMChatAdapter vmChatAdapter;
         IVMIdentityAdapter vmIdentityAdapter;
+        IDAL.IDALMembership dalMembership;
 
         #region 服务类型数据
         Dictionary<ServiceType, IList<ServiceType>> ServiceTypeCach;
@@ -43,7 +44,7 @@ namespace Dianzhu.CSClient.Presenter
 
         #region contructor
  
-        public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
+        public PSearch(IDAL.IDALMembership dalMembership,IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
             IViewChatList viewChatList,IViewIdentityList viewIdentityList,
             IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder,IDAL.IDALReceptionChat dalReceptionChat, IDAL.IDALServiceType dalServiceType,                     
                     PushService bllPushService, BLLReceptionStatus bllReceptionStatus,BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder, LocalStorage.LocalChatManager localChatManager, LocalStorage.LocalUIDataManager localUIDataManager, 
@@ -65,6 +66,7 @@ namespace Dianzhu.CSClient.Presenter
             this.localUIDataManager = localUIDataManager;
             this.vmChatAdapter = vmChatAdapter;
             this.vmIdentityAdapter = vmIdentityAdapter;
+            this.dalMembership = dalMembership;
 
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
 
@@ -396,7 +398,9 @@ namespace Dianzhu.CSClient.Presenter
             iIM.SendMessage(chat);
 
             //生成新的草稿单并发送给客户端
-            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService,IdentityManager.CurrentIdentity.Customer);
+            DZMembership newCS = dalMembership.FindById(GlobalViables.CurrentCustomerService.Id);//  NHibernateUnitOfWork.UnitOfWork.CurrentSession.Merge(GlobalViables.CurrentCustomerService);
+            DZMembership newC = dalMembership.FindById(IdentityManager.CurrentIdentity.Customer.Id);//  NHibernateUnitOfWork.UnitOfWork.CurrentSession.Merge(GlobalViables.CurrentCustomerService);
+            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(newCS, newC);
             bllServiceOrder.Save(newOrder);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             //log.Debug("新草稿订单的id：" + newOrder.Id.ToString());
@@ -405,7 +409,8 @@ namespace Dianzhu.CSClient.Presenter
             //                                        <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:draft:new""><orderID>{3}</orderID></ext></message>", 
             //                                        IdentityManager.CurrentIdentity.Customer.Id + "@" + server, IdentityManager.CurrentIdentity.CustomerService.Id, Guid.NewGuid() + "@" + server, newOrder.Id);
             //iIM.SendMessage(noticeDraftNew);
-            
+
+           
 
             //更新当前订单
             IdentityTypeOfOrder type;
