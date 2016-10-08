@@ -10,8 +10,8 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <asp:Button ID="Button1" runat="server" Text="AliBatch" OnClick="Button1_Click" />
-        <asp:Button ID="Button2" runat="server" Text="WePay" OnClick="Button2_Click"  />
+        <asp:Button ID="Button1" runat="server" Text="AliBatch" OnClick="AliBatch_Click" />
+        <asp:Button ID="Button2" runat="server" Text="WePay" OnClick="WePay_Click"  />
     </div>
     </form>
 </body>
