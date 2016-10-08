@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Com.Alipay;
+using System.IO;
+using System.Web;
 
 namespace Dianzhu.Pay
 {
@@ -50,7 +52,11 @@ namespace Dianzhu.Pay
             sParaTemp.Add("batch_fee", string.Format("{0:N2}", PayAmount));
             sParaTemp.Add("batch_num", PaySubjectPre);
             sParaTemp.Add("detail_data", PaySubject);
-           
+
+            //string mysign = AlipaySignature.RSASign(sParaTemp, HttpRuntime.AppDomainAppPath + "/files/rsa_private_key.pem", Config.input_charset);
+            //sParaTemp.Add("sign", System.Web.HttpUtility.UrlEncode(mysign));
+            //sParaTemp.Add("sign_type", "RSA");
+
             //建立请求
             string sHtmlText = Submit.BuildRequest(sParaTemp, "get", "确认");
             return sHtmlText;
