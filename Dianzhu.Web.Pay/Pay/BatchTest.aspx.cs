@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Dianzhu.Pay;
 using Dianzhu.BLL;
 
-public partial class Pay_BatchTest : System.Web.UI.Page
+public partial class Pay_BatchTest : Dianzhu.Web.Common.BasePage
 {
     BLLPay bllPay = Bootstrap.Container.Resolve<BLLPay>();
     Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder iserialno = Bootstrap.Container.Resolve<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>();
