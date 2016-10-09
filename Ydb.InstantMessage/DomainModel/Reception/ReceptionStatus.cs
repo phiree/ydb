@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Ydb.Common.Domain;
 namespace Ydb.InstantMessage.DomainModel.Reception
 {
     /// <summary>
     /// 客服/用户 接待对应情况
     /// </summary>
-  public   class ReceptionStatus:DDDCommon.Domain.Entity<Guid>
+  public   class ReceptionStatus:Entity<Guid>
     {
         /// <summary>
         /// 构造
@@ -43,9 +43,7 @@ namespace Ydb.InstantMessage.DomainModel.Reception
         /// </summary>
         public virtual string OrderId { get; set; }
 
-        #region 临时存放，不用映射到数据库
-       
-        #endregion
+        
 
     }
 
@@ -53,7 +51,7 @@ namespace Ydb.InstantMessage.DomainModel.Reception
     /// <summary>
     /// 当前接待情况.
     /// </summary>
-    public class ReceptionStatusArchieve:DDDCommon.Domain.Entity<Guid>
+    public class ReceptionStatusArchieve: Entity<Guid>
     {
         /// <summary>
         /// 构造

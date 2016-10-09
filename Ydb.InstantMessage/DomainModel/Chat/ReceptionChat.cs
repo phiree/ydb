@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Ydb.InstantMessage.DomainModel.Chat.Enums;
+using Ydb.Common.Domain;
 namespace Ydb.InstantMessage.DomainModel.Chat
 {
     /*
@@ -15,7 +16,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
     /// <summary>
     ///文本消息
     /// </summary>
-    public class ReceptionChat : DDDCommon.Domain.Entity<Guid>
+    public class ReceptionChat : Entity<Guid>
     {
         public ReceptionChat() { }
         /// <summary>

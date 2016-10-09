@@ -290,6 +290,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.ViewModel"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.InstantMessage", "Ydb.InstantMessage\Ydb.InstantMessage.csproj", "{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.Common", "..\Ydb.Common\Ydb.Common.csproj", "{F351E700-E016-4A42-9154-54A6D92ECBDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -802,6 +804,18 @@ Global
 		{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}.Release|x86.ActiveCfg = Release|Any CPU
 		{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}.Release|x86.Build.0 = Release|Any CPU
+		{F351E700-E016-4A42-9154-54A6D92ECBDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F351E700-E016-4A42-9154-54A6D92ECBDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F351E700-E016-4A42-9154-54A6D92ECBDE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F351E700-E016-4A42-9154-54A6D92ECBDE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F351E700-E016-4A42-9154-54A6D92ECBDE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F351E700-E016-4A42-9154-54A6D92ECBDE}.Debug|x86.Build.0 = Debug|Any CPU
+		{F351E700-E016-4A42-9154-54A6D92ECBDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F351E700-E016-4A42-9154-54A6D92ECBDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F351E700-E016-4A42-9154-54A6D92ECBDE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F351E700-E016-4A42-9154-54A6D92ECBDE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F351E700-E016-4A42-9154-54A6D92ECBDE}.Release|x86.ActiveCfg = Release|Any CPU
+		{F351E700-E016-4A42-9154-54A6D92ECBDE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

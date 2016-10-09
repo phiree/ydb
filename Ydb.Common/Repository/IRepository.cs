@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
-using DDDCommon.Domain;
-namespace DDDCommon
+using Ydb.Common.Domain;
+namespace Ydb.Common
 {
     public interface IRepository { }
     public interface IRepository<TEntity, TPrimaryKey> : IRepository where TEntity : Entity<TPrimaryKey>

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}</ProjectGuid>
+    <ProjectGuid>{F351E700-E016-4A42-9154-54A6D92ECBDE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ydb.InstantMessage</RootNamespace>
-    <AssemblyName>Ydb.InstantMessage</AssemblyName>
+    <RootNamespace>Ydb.Common</RootNamespace>
+    <AssemblyName>Ydb.Common</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,38 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\Reception\ReceptionService.cs" />
-    <Compile Include="Application\Reception\IReceptionService.cs" />
-    <Compile Include="DomainModel\Chat\Enums\ChatTarget.cs" />
-    <Compile Include="DomainModel\Chat\Enums\ChatType.cs" />
-    <Compile Include="DomainModel\Chat\Enums\XmppResource.cs" />
-    <Compile Include="DomainModel\Chat\ReceptionChat.cs" />
-    <Compile Include="DomainModel\Chat\ReceptionChatFactory.cs" />
-    <Compile Include="DomainModel\Reception\AssignStratage.cs" />
-    <Compile Include="DomainModel\Reception\AssignStratageRandom.cs" />
-    <Compile Include="DomainModel\Reception\IReceptionSession.cs" />
-    <Compile Include="DomainModel\Reception\IRepositoryReception.cs" />
-    <Compile Include="DomainModel\Reception\OnlineUserSession.cs" />
-    <Compile Include="DomainModel\Reception\ReceptionAssigner.cs" />
-    <Compile Include="DomainModel\Reception\ReceptionStatus.cs" />
-    <Compile Include="DomainModel\XmppResource.cs" />
+    <Compile Include="Domain\IDomainEntity.cs" />
+    <Compile Include="ExceptionHandler.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="Logging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Infrastructure\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="UL.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Ydb.Common\Ydb.Common.csproj">
-      <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
-      <Name>Ydb.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
-      <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
-      <Name>Dianzhu.Config</Name>
-    </ProjectReference>
+    <Compile Include="Specification\PredicateBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
