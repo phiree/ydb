@@ -8,7 +8,7 @@ using Castle.Windsor;
 /// </summary>
 public class Global:HttpApplication 
 {
-    
+    static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
     void Application_Start(object sender, EventArgs e)
     {
         PHSuit.Logging.Config("Dianzhu.Web.Pay");
@@ -16,14 +16,19 @@ public class Global:HttpApplication
 
 
     }
+    void Application_Error(object sender, EventArgs e)
+    {
+        // Code that runs when an unhandled error occurs
 
+        log.Error("ApplicationError:" + Server.GetLastError().ToString());
+    }
     protected void Application_BeginRequest(object sender, EventArgs e)
     {
-        NHibernateUnitOfWork.UnitOfWork.Start();
+       // NHibernateUnitOfWork.UnitOfWork.Start();
     }
 
     protected void Application_EndRequest(object sender, EventArgs e)
     {
-        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+      //  NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
     }
 }
