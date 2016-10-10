@@ -79,7 +79,7 @@ namespace Dianzhu.CSClient.Presenter
                     VMChat vmChat = vmChatAdapter.ChatToVMChat(chatHistory[i]);
                     viewChatList.InsertOneChat(vmChat);
                     viewChatList.ChatList.Insert(0, vmChat);
-                    //viewChatList.InsertOneChat(item, chatManager.LocalCustomerAvatarUrls[customerId]);
+                    chatManager.Add(true, IdentityManager.CurrentIdentity.Customer.Id.ToString(), vmChat);
                 }
             }
             else
@@ -120,6 +120,7 @@ namespace Dianzhu.CSClient.Presenter
                 foreach(var vmChat in vmChatList)
                 {
                     viewChatList.AddOneChat(vmChat);
+                    viewChatList.ChatList = new List<VMChat>();
                     viewChatList.ChatList.Add(vmChat);
                 }
             }
@@ -138,20 +139,28 @@ namespace Dianzhu.CSClient.Presenter
                 NHibernateUnitOfWork.UnitOfWork.Start();
                 VMIdentity vmIdentity = e.Argument as VMIdentity;
 
-                int rowCount;
-
                 IList<VMChat> vmList = new List<VMChat>();
 
-                IList<ReceptionChat> chatList = dalReceptionChat.GetReceptionChatList(vmIdentity.CustomerId, Guid.Empty, Guid.Empty, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.cer, out rowCount);
-
-                if (chatList.Count > 0)
+                if (chatManager.LocalChats != null && chatManager.LocalChats.ContainsKey(vmIdentity.CustomerId.ToString()))
                 {
-                    VMChat vmChat;
-                    for (int i = 0; i < chatList.Count; i++)
-                    {
-                        vmChat = vmChatAdapter.ChatToVMChat(chatList[i]);
+                    vmList = chatManager.LocalChats[vmIdentity.CustomerId.ToString()];
+                }
+                else
+                {
+                    int rowCount;
 
-                        vmList.Add(vmChat);
+                    IList<ReceptionChat> chatList = dalReceptionChat.GetReceptionChatList(vmIdentity.CustomerId, Guid.Empty, Guid.Empty, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.cer, out rowCount);
+
+                    if (chatList.Count > 0)
+                    {
+                        VMChat vmChat;
+                        for (int i = 0; i < chatList.Count; i++)
+                        {
+                            vmChat = vmChatAdapter.ChatToVMChat(chatList[i]);
+
+                            vmList.Add(vmChat);
+                            chatManager.Add(vmIdentity.CustomerId.ToString(), vmChat);
+                        }
                     }
                 }
 
