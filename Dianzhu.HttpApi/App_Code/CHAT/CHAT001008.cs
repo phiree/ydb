@@ -34,8 +34,11 @@ public class ResponseCHAT001008:BaseResponse
             {
                 dalChat.Add(chat);
                 //离线推送
+                if(chat.ToResource != enum_XmppResource.YDBan_CustomerService)
+                {
+                    bllPush.Push(chat, new Guid(chat.ToId), chat.SessionId);
+                }
                
-                bllPush.Push(chat, new Guid( chat.ToId), chat.SessionId);
             }
             else
             {
