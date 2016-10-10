@@ -22,7 +22,7 @@ public partial class Pay_BatchTest : Dianzhu.Web.Common.BasePage
     /// <summary>
     /// 企业付款给个人，直接入帐到微信钱包中
     /// </summary>
-
+    //wxd928d1f351b77449
     public static string TENPAY = "1";
     public static string APPID = "wxd928d1f351b77449";              //开发者应用ID
     public static string PARTNER = "1304996701";          //商户号
@@ -42,7 +42,7 @@ public partial class Pay_BatchTest : Dianzhu.Web.Common.BasePage
     //=======【证书路径设置】===================================== 
     /* 证书路径,注意应该填写绝对路径（仅退款、撤销订单时需要）
     */
-    public const string SSLCERT_PATH = "weixin\\businesscard\\cert\\apiclient_cert.p12";
+    public const string SSLCERT_PATH = "files\\apiclient_cert.p12";
     public static string SSLCERT_PASSWORD = PARTNER;
 
 
@@ -66,7 +66,8 @@ public partial class Pay_BatchTest : Dianzhu.Web.Common.BasePage
 
     protected void WePay_Click(object sender, EventArgs e)
     {
-
+        string strSerialNo = iserialno.GetSerialNo("PAYW" + DateTime.Now.ToString("yyyyMMddHHmm"), 2);
+        EnterprisePay(strSerialNo, "of-miv8LIDiCdUjJLAlo2ffVs3tQ", 1, "龙辉", "测试");
     }
 
     /// <summary>

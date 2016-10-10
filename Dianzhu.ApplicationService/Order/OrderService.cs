@@ -190,6 +190,39 @@ namespace Dianzhu.ApplicationService.Order
         }
 
         /// <summary>
+        /// 查询订单合集的校验
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="orderfilter"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public ordersVerifyObj GetOrdersVerify(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter, Customer customer)
+        {
+            Guid guidStore = utils.CheckGuidID(orderfilter.storeID, "orderfilter.storeID");
+            string strStaffID = orderfilter.formanID == null ? null : utils.CheckGuidID(orderfilter.formanID, "orderfilter.formanID").ToString();
+            DateTime dtAfter = utils.CheckDateTime(orderfilter.afterThisTime, "yyyyMMddHHmmss", "orderfilter.afterThisTime");
+            DateTime dtBefore = utils.CheckDateTime(orderfilter.beforeThisTime, "yyyyMMddHHmmss", "orderfilter.beforeThisTime");
+            IList<Model.ServiceOrder> order = null;
+            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ServiceOrder");
+            Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
+            order = ibllserviceorder.GetOrders(filter1, orderfilter.statusSort, orderfilter.status, guidStore, strStaffID, dtAfter, dtBefore, guidUser, customer.UserType, orderfilter.assign);
+            
+            if (order == null)
+            {
+                //throw new Exception(Dicts.StateCode[4]);
+                return null;
+            }
+            ordersVerifyObj vo = new ordersVerifyObj();
+            string strVerify = "";
+            for (int i = 0; i < order.Count; i++)
+            {
+                strVerify = strVerify + order[i].Id.ToString() + "+" + order[i].LatestOrderUpdated.ToString("yyyyMMddHHmmss") + "+";
+            }
+            vo.verifyMD5 =utils.SignMD5( strVerify.TrimEnd('+'),"", "utf-8");
+            return vo;
+        }
+
+        /// <summary>
         /// 查询订单数量
         /// </summary>
         /// <param name="orderfilter"></param>

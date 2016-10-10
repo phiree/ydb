@@ -15,6 +15,7 @@ using System.Collections.Specialized;
 using PHSuit;
 using System.Reflection;
 using System.Drawing;
+using System.Security.Cryptography;
 
 namespace Dianzhu.ApplicationService
 {
@@ -635,6 +636,28 @@ namespace Dianzhu.ApplicationService
                 st = st.Parent;
             }
             return strType.TrimEnd('>');
+        }
+
+        /// <summary>
+        /// 签名字符串
+        /// </summary>
+        /// <param name="prestr">需要签名的字符串</param>
+        /// <param name="key">密钥</param>
+        /// <param name="_input_charset">编码格式</param>
+        /// <returns>签名结果</returns>
+        public static string SignMD5(string prestr, string key, string _input_charset)
+        {
+            StringBuilder sb = new StringBuilder(32);
+
+            prestr = prestr + key;
+
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] t = md5.ComputeHash(Encoding.GetEncoding(_input_charset).GetBytes(prestr));
+            for (int i = 0; i < t.Length; i++)
+            {
+                sb.Append(t[i].ToString("x").PadLeft(2, '0'));
+            }
+            return sb.ToString();
         }
     }
 }
