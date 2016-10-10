@@ -194,8 +194,12 @@ namespace Dianzhu.BLL
                     where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                          && x.OrderStatus != enum_OrderStatus.DraftPushed
                          && x.OrderStatus != enum_OrderStatus.Finished
-
                          && x.OrderStatus != enum_OrderStatus.Appraised
+                         && x.OrderStatus != enum_OrderStatus.EndCancel
+                         && x.OrderStatus != enum_OrderStatus.EndRefund
+                         && x.OrderStatus != enum_OrderStatus.EndIntervention
+                         && x.OrderStatus != enum_OrderStatus.EndComplaints
+                         && x.OrderStatus != enum_OrderStatus.ForceStop
                          && x.OrderStatus != enum_OrderStatus.Search);
 
                     break;
@@ -309,8 +313,12 @@ namespace Dianzhu.BLL
                     where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                          && x.OrderStatus != enum_OrderStatus.DraftPushed
                          && x.OrderStatus != enum_OrderStatus.Finished
-
                          && x.OrderStatus != enum_OrderStatus.Appraised
+                         && x.OrderStatus != enum_OrderStatus.EndCancel
+                         && x.OrderStatus != enum_OrderStatus.EndRefund
+                         && x.OrderStatus != enum_OrderStatus.EndIntervention
+                         && x.OrderStatus != enum_OrderStatus.EndComplaints
+                         && x.OrderStatus != enum_OrderStatus.ForceStop
                          && x.OrderStatus != enum_OrderStatus.Search);
 
                     break;
