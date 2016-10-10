@@ -117,7 +117,8 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void W_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            
+            //清空订单搜索内容
+            SearchedService = null;
 
             //ReceptionChat chat = (ReceptionChat)e.Result;
             //if (chat != null)
@@ -176,73 +177,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 }
             }));
         }
-
-        //public bool BtnPush
-        //{
-        //    get { return btnPush.IsEnabled; }
-        //    set
-        //    {
-        //        Action lambda = () =>
-        //        {
-        //            btnPush.IsEnabled = value;
-        //        };
-        //        if (!Dispatcher.CheckAccess())
-        //        {
-        //            Dispatcher.Invoke(lambda);
-        //        }
-        //        else
-        //        {
-        //            lambda();
-        //        }
-        //    }
-        //}
-
-        private void LoadServiceToPanel(DZService service)
-        {
-            WrapPanel pnl = new WrapPanel();
-            
-            pnl.Name =  PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString());
-            
-            pnl.FlowDirection = FlowDirection.LeftToRight;
-
-            CheckBox cbx = new CheckBox();
-            cbx.Tag = service;
-            pnl.Children.Add(cbx);
-
-            Label lblBusinessName = new Label();
-           
-            lblBusinessName.Content = service.Business.Name;
-             pnl.Children.Add(lblBusinessName);
-            Label lblServiceName = new Label();
-            
-            lblServiceName.Content = service.Description.ToString();
-            pnl.Children.Add(lblServiceName);
-           
-            pnlSearchResult.Children.Add(pnl);
-            pnlSearchResult.RegisterName(pnl.Name, pnl);
-
-        }
-
-        private void BtnSelectService_Click(object sender, RoutedEventArgs e)
-        {
-            //将已经选择的 panel 背景颜色还原
-            
-            foreach (WrapPanel con in pnlSearchResult.Children)
-            {
-                
-                if (con.Background == Brushes.Green)
-                {
-                    con.Background = Brushes.White; 
-                    break;
-                }
-            }
-            DZService selectedService = (DZService)((Button)sender).Tag;
-
-            Panel pnl = (Panel)pnlSearchResult.FindName(PHSuit.StringHelper.SafeNameForWpfControl(selectedService.Id.ToString()));
-            pnl.Background = Brushes.Green;
-            SelectService(selectedService);
-        }
-
+        
         public event SelectService SelectService;
         public event PushServices PushServices;
 
