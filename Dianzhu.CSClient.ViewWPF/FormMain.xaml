@@ -198,7 +198,7 @@
                 </WrapPanel>
                 <WrapPanel>
                     <Label>
-                        <TextBlock Text="假装有版本号：一点办测试版:2016-09-30 11:30" Foreground="White"/>
+                        <TextBlock Text="假装有版本号：一点办测试版:2016-10-10 11:10" Foreground="White"/>
                     </Label>
                 </WrapPanel>
                 <WrapPanel HorizontalAlignment="Right">
