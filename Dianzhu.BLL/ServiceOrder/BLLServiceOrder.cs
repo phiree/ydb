@@ -181,8 +181,12 @@ namespace Dianzhu.BLL
                 //case enum_OrderSearchType.De:
                 case "done":
                     where = where.And(x => x.OrderStatus == enum_OrderStatus.Finished
-
-                         || x.OrderStatus == enum_OrderStatus.Appraised)
+                              || x.OrderStatus == enum_OrderStatus.Appraised
+                              || x.OrderStatus == enum_OrderStatus.EndCancel
+                              || x.OrderStatus == enum_OrderStatus.EndRefund
+                              || x.OrderStatus == enum_OrderStatus.EndIntervention
+                              || x.OrderStatus == enum_OrderStatus.EndComplaints
+                              || x.OrderStatus == enum_OrderStatus.ForceStop)
                         ;
                     break;
                 //case enum_OrderSearchType.Nt:
@@ -292,8 +296,12 @@ namespace Dianzhu.BLL
                 //case enum_OrderSearchType.De:
                 case "done":
                     where = where.And(x => x.OrderStatus == enum_OrderStatus.Finished
-
-                         || x.OrderStatus == enum_OrderStatus.Appraised)
+                              || x.OrderStatus == enum_OrderStatus.Appraised
+                              || x.OrderStatus == enum_OrderStatus.EndCancel
+                              || x.OrderStatus == enum_OrderStatus.EndRefund
+                              || x.OrderStatus == enum_OrderStatus.EndIntervention
+                              || x.OrderStatus == enum_OrderStatus.EndComplaints
+                              || x.OrderStatus == enum_OrderStatus.ForceStop)
                         ;
                     break;
                 //case enum_OrderSearchType.Nt:
