@@ -338,9 +338,9 @@ namespace Dianzhu.Web.RestfulApi
             //var requestTotalSeconds = Convert.ToUInt64(requestTimeStamp);
             var requestTotalSeconds = Convert.ToInt64(requestTimeStamp);
             ilog.Debug("Request(stamp_TIMES1):" + requestTotalSeconds.ToString());
-            ilog.Debug("Request(requestMaxAgeInSeconds):" + requestMaxAgeInSeconds.ToString());
+            ilog.Debug("Request(requestMaxAgeInSeconds):120000");
             ilog.Debug("Check(bool):" + (serverTotalSeconds - requestTotalSeconds).ToString());
-            ilog.Debug("Check(bool1):" + ((serverTotalSeconds - requestTotalSeconds) > requestMaxAgeInSeconds).ToString());
+            ilog.Debug("Check(bool1):" + ((serverTotalSeconds - requestTotalSeconds) > 120000).ToString());
             if (Math.Abs(serverTotalSeconds - requestTotalSeconds) > 120000)
             {
                 ilog.Debug("Create(stamp_TIMES2):" + serverTotalSeconds.ToString());
