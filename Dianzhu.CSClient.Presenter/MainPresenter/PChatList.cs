@@ -52,7 +52,7 @@ namespace Dianzhu.CSClient.Presenter
         private void ViewChatList_BtnMoreChat()
         {
             var chatHistory = dalReceptionChat.GetReceptionChatListByTargetIdAndSize(IdentityManager.CurrentIdentity.Customer.Id, Guid.Empty, Guid.Empty,
-                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 10, viewChatList.ChatList[0].SavedTimestamp, "Y", enum_ChatTarget.cer).OrderByDescending(x=>x.SavedTimestamp).ToList();
+                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 10, chatManager.LocalChats[IdentityManager.CurrentIdentity.Customer.Id.ToString()][0].SavedTimestamp, "Y", enum_ChatTarget.cer).OrderByDescending(x=>x.SavedTimestamp).ToList();
 
             if (chatHistory.Count() > 0)
             {
