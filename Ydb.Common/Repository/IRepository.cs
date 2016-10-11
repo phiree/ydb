@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using Ydb.Common.Domain;
-namespace Ydb.Common
-{
+namespace Ydb.Common.Repository
+{    
+
     public interface IRepository { }
     public interface IRepository<TEntity, TPrimaryKey> : IRepository where TEntity : Entity<TPrimaryKey>
     {

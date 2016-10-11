@@ -127,13 +127,13 @@
     <Content Include="UL.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Ydb.Common\Ydb.Common.csproj">
-      <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
-      <Name>Ydb.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
       <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
       <Name>Dianzhu.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
+      <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
+      <Name>Ydb.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
