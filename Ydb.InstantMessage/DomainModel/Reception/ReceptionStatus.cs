@@ -17,6 +17,16 @@ namespace Ydb.InstantMessage.DomainModel.Reception
         {
             LastUpdateTime = DateTime.Now;
         }
+
+        public static ReceptionStatus Create(string customerId, string customerServiceId, DateTime lastUpdateTime, string orderId)
+        {
+            ReceptionStatus rs = new ReceptionStatus();
+            rs.CustomerServiceId = customerServiceId;
+            rs.CustomerId = customerId;
+            rs.LastUpdateTime = lastUpdateTime;
+            rs.OrderId = orderId;
+            return rs;
+        }
          
         /// <summary>
         /// guid

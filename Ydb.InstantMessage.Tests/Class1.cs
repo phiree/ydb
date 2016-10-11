@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ydb.InstantMessage.Infrastructure
+namespace Ydb.InstantMessage.Tests
 {
-    class ReceptionRepository
+    public class Class1
     {
     }
 }

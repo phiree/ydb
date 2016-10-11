@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ydb.InstantMessage.Application
+namespace Ydb.InstantMessage.Application.Reception
 {
     /// <summary>
     /// 分配关系
@@ -12,7 +12,7 @@ namespace Ydb.InstantMessage.Application
     public interface IReceptionService
     {
         //用户上线,申请客服
-        string AssignToCustomerService(string customerId);
+        string AssignToCustomerService(string customerId,string orderId);
 
         //用户超时未回复,删除分配关系
         void DeleteReception(string customerId);

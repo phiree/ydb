@@ -1,23 +1,29 @@
-﻿using System;
+﻿using Castle.Facilities.NHibernateIntegration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Reception;
-namespace Ydb.InstantMessage.Application
+using NHibernate;
+namespace Ydb.InstantMessage.Application.Reception
 {
     /// <summary>
     /// 分配关系
     /// </summary>
     public class ReceptionService : IReceptionService
     {
-        DomainModel.Reception.IRepositoryReception repositoryReception;
+        DomainModel.Reception.IRepositoryReception receptionRepository;
         DomainModel.Reception.IReceptionSession receptionSession;
-        public ReceptionService(DomainModel.Reception.IRepositoryReception repositoryReception,
-            DomainModel.Reception.IReceptionSession receptionSession)
+        
+        IReceptionAssigner receptionAssigner;
+       
+        ISession session;
+        public ReceptionService(IRepositoryReception receptionRepository,ISession session,IReceptionAssigner assigner)
         {
-            this.repositoryReception = repositoryReception;
-            this.receptionSession = receptionSession;
+            this.receptionRepository = receptionRepository;
+            this.session = session;
+            this.receptionAssigner = assigner;
         }
         /// <summary>
         /// 一个用户申请分配客服.
@@ -28,7 +34,6 @@ namespace Ydb.InstantMessage.Application
         {
             //是否已经存在分配关系
  
-           
         }
 
         public void DeleteReception(string customerId)
@@ -41,36 +46,21 @@ namespace Ydb.InstantMessage.Application
             throw new NotImplementedException();
         }
 
-        public string AssignToCustomerService(string customerId)
+        public string AssignToCustomerService(string customerId,string orderId)
         {
-            var existedReceptions = repositoryReception.Find(x => x.CustomerId == customerId);
-            //存在分配,且客服在线
-            //assert: 如果存在分配关系,则客服必定是在线的,而且只有一对分配关系
-             
-            string assignedCustomerServiceId = string.Empty;
-            if (existedReceptions.Count == 1)
+            using (var tr = session.BeginTransaction())
             {
-                var theone = existedReceptions[0];
-                if (receptionSession.IsUserOnline(theone.CustomerServiceId))
-                {
-                    assignedCustomerServiceId = theone.CustomerServiceId;
-                }
+                var existedReceptionForCustomer = receptionRepository.FindByCustomerId(customerId);
+        
+            string assignedCustomerServiceId= receptionAssigner.AssignCustomerServiceToCustomer(existedReceptionForCustomer, customerId);
+
+            ReceptionStatus rs = ReceptionStatus.Create(customerId, assignedCustomerServiceId, DateTime.Now, orderId);
+          
+                receptionRepository.Add(rs);
+                tr.Commit();
+                return assignedCustomerServiceId;
             }
-            else if (existedReceptions.Count == 0)
-            {
-                //获取在线客服,并按照策略分配
-
-            }
-            else {
-
-            }
-
-
-            foreach (ReceptionStatus rs in existedReceptions)
-            {
-
-            }
-            throw new NotImplementedException();
+          
         }
     }
 }
