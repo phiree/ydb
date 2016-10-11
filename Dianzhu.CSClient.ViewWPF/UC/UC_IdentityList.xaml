@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
              mc:Ignorable="d" 
              d:DesignHeight="58" d:DesignWidth="1460">
-    <Grid Height="58" Width="1460">
+    <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                 <GradientStop Color="#FFe7ecef" Offset="0"></GradientStop>

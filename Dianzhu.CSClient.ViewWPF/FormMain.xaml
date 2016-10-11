@@ -7,7 +7,9 @@
         xmlns:UC="clr-namespace:Dianzhu.CSClient.ViewWPF" 
         x:Class="Dianzhu.CSClient.ViewWPF.FormMain"
         mc:Ignorable="d"
-        Title="一点办客服工具" WindowStartupLocation="CenterScreen" Height="900" Width="1600" WindowStyle="None" AllowsTransparency="False" ResizeMode="NoResize">
+        Title="一点办客服工具" WindowStartupLocation="CenterScreen" 
+                 Height="900" Width="1600" MaxHeight="900" MaxWidth="1600" MinHeight="450" MinWidth="800"
+                WindowStyle="None" AllowsTransparency="True" ResizeMode="CanResizeWithGrip" Background="#FF264257">
 
     <Window.Resources>
         <ControlTemplate  x:Key="CornerButton" TargetType="{x:Type Button}">
@@ -114,179 +116,204 @@
     </Window.Resources>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4"/>
+            <RowDefinition/>
+            <RowDefinition Height="4"/>
+        </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="140"/>
-            <ColumnDefinition Width="1460"/>
+            <ColumnDefinition Width="4"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="4"/>
         </Grid.ColumnDefinitions>
 
-        <!--侧边栏-->
-        <Grid Grid.Column="0">
-            <Grid.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                    <GradientStop Color="#FF264257" Offset="0"></GradientStop>
-                    <GradientStop Color="#FF172734" Offset="1"></GradientStop>
-                </LinearGradientBrush>
-            </Grid.Background>
+        <Rectangle Name="ResizeTopLeft" Fill="Transparent" Grid.Row="0" Grid.Column="0" MouseMove="ResizePressed" MouseDown="ResizePressed"/>
+        <Rectangle Name="ResizeTop" Fill="Transparent" Grid.Row="0" Grid.Column="1" MouseMove="ResizePressed" MouseDown="ResizePressed"/>
+        <Rectangle Name="ResizeTopRight" Fill="Transparent" Grid.Row="0" Grid.Column="2" MouseMove="ResizePressed" MouseDown="ResizePressed"/>
+        <Rectangle Name="ResizeLeft" Fill="Transparent" Grid.Row="1" Grid.Column="0" MouseMove="ResizePressed" MouseDown="ResizePressed"/>
+        <Rectangle Name="ResizeRight" Fill="Transparent" Grid.Row="1" Grid.Column="3" MouseMove="ResizePressed" MouseDown="ResizePressed"/>
+        <Rectangle Name="ResizeBottomLeft" Fill="Transparent" Grid.Row="3" Grid.Column="0" MouseMove="ResizePressed" MouseDown="ResizePressed"/>
+        <Rectangle Name="ResizeBottom" Fill="Transparent" Grid.Row="3" Grid.Column="1" MouseMove="ResizePressed" MouseDown="ResizePressed"/>
+        <Rectangle Name="ResizeBottomRight" Fill="Transparent" Grid.Row="3" Grid.Column="2" MouseMove="ResizePressed" MouseDown="ResizePressed"/>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="110"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="110"/>
-            </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="0">
-                <Border CornerRadius="5">
-                    <Image x:Name="imgDZLogo" Height="50" Width="50" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png"/>
-                </Border>
-            </Grid>
+            <!--侧边栏-->
+            <Grid Grid.Column="0">
+                <Grid.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#FF264257" Offset="0"></GradientStop>
+                        <GradientStop Color="#FF172734" Offset="1"></GradientStop>
+                    </LinearGradientBrush>
+                </Grid.Background>
 
-            <Grid Grid.Row="1">
-                <StackPanel DockPanel.Dock="Top">
-                    <Button x:Name="btnWorkDesktop" Style="{DynamicResource ButtonOperate}">
-                        <StackPanel>
-                            <Image Height="60" Width="60" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/work.png"/>
-                            <TextBlock Text="工作台" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="btnCSInfo" Style="{DynamicResource ButtonOperate}">
-                        <StackPanel>
-                            <Image Height="60" Width="60" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/ass.png"/>
-                            <TextBlock Text="客服信息" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="btnSystemOperate" Style="{DynamicResource ButtonOperate}">
-                        <StackPanel>
-                            <Image Height="60" Width="60" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/set.png"/>
-                            <TextBlock Text="系统设置" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-            </Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="110"/>
+                </Grid.RowDefinitions>
 
-            <Grid Grid.Row="2">
-                <Button x:Name="btnClosedForm" Style="{DynamicResource ButtonOperate}" Click="btnWindowsClosed_Click">
-                    <StackPanel>
-                        <Image Height="60" Width="60" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/exit.png"/>
+                <Grid Grid.Row="0">
+                    <Border CornerRadius="5">
+                        <Image x:Name="imgDZLogo" Height="50" Width="50" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png"/>
+                    </Border>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <StackPanel DockPanel.Dock="Top">
+                        <Button x:Name="btnWorkDesktop" Style="{DynamicResource ButtonOperate}">
+                            <StackPanel>
+                                <Image Height="60" Width="60" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/work.png"/>
+                                <TextBlock Text="工作台" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btnCSInfo" Style="{DynamicResource ButtonOperate}">
+                            <StackPanel>
+                                <Image Height="60" Width="60" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/ass.png"/>
+                                <TextBlock Text="客服信息" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btnSystemOperate" Style="{DynamicResource ButtonOperate}">
+                            <StackPanel>
+                                <Image Height="60" Width="60" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/set.png"/>
+                                <TextBlock Text="系统设置" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
-                </Button>
-            </Grid>
-        </Grid>
-        <!--**********************************************************************************-->
-
-        <!--主要操作区域-->
-        <Grid Grid.Column="1" Grid.ColumnSpan="2">
-            <Grid.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                    <GradientStop Color="#FF172734" Offset="0"></GradientStop>
-                    <GradientStop Color="#FF34707b" Offset="0.8"></GradientStop>
-                    <GradientStop Color="#FF2c546d" Offset="1"></GradientStop>
-                </LinearGradientBrush>
-            </Grid.Background>
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="38"/>
-                <RowDefinition Height="58"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="434"/>
-            </Grid.RowDefinitions>
-
-            <!--窗体控制按钮-->
-            <Grid Grid.Row="0" Background="Transparent" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
-                <WrapPanel VerticalAlignment="Center">
-                    <Button Content="开始接单" Width="150" Height="25" Visibility="Collapsed"></Button>
-                    <Button Content="开始接单" Width="150" Height="25" Visibility="Collapsed"></Button>
-                </WrapPanel>
-                <WrapPanel>
-                    <Label>
-                        <TextBlock Text="假装有版本号：一点办正式版:2016-10-11 08:45" Foreground="White"/>
-                    </Label>
-                </WrapPanel>
-                <WrapPanel HorizontalAlignment="Right">
-                    <Canvas Height="30" Width="30">
-                        <Canvas.Clip>
-                            <EllipseGeometry RadiusX="15" RadiusY="15" Center="15,15"></EllipseGeometry>
-                        </Canvas.Clip>
-                        <Canvas.Background>
-                            <ImageBrush ImageSource="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png"></ImageBrush>
-                        </Canvas.Background>
-                    </Canvas>
-                    <Label Content="我是助理" VerticalAlignment="Center" Margin="0,0,30,0" Foreground="White"></Label>
-                    <Button x:Name="btnWindowsMin" Width="25" Margin="5" Template="{StaticResource CornerButton}" Click="btnWindowsMin_Click">
-                        <Button.ToolTip>
-                            <Grid>
-                                <TextBlock Text="最小化"/>
-                            </Grid>
-                        </Button.ToolTip>
-                        <TextBlock FontSize="20" Foreground="White" Text="—"></TextBlock>
-                    </Button>
-                    <Button x:Name="btnWindowsClosed" Width="25" Margin="5" Template="{StaticResource CornerButton}" Click="btnWindowsClosed_Click" >
-                        <Button.ToolTip>
-                            <Grid>
-                                <TextBlock Text="关闭"/>
-                            </Grid>
-                        </Button.ToolTip>
-                        <TextBlock FontSize="20" Foreground="White" Text="X"></TextBlock>
-                    </Button>
-                </WrapPanel>
-            </Grid>
-
-            <!--用户接待列表-->
-            <WrapPanel Grid.Row="1">
-                <Grid x:Name="pnlCustomerList"/>
-            </WrapPanel>
-
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="441"/>
-                </Grid.ColumnDefinitions>
-
-                <!--订单编辑-->
-                <Grid Grid.Column="1">
-                    <Grid x:Name="pnlSearch"/>
                 </Grid>
 
-                <!--服务货架-->
-                <Grid Grid.Column="0">
-                    <Grid x:Name="pnlSearchResult"/>
+                <Grid Grid.Row="2">
+                    <Button x:Name="btnClosedForm" Style="{DynamicResource ButtonOperate}" Click="btnWindowsClosed_Click">
+                        <StackPanel>
+                            <Image Height="60" Width="60" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/exit.png"/>
+                        </StackPanel>
+                    </Button>
                 </Grid>
             </Grid>
+            <!--**********************************************************************************-->
 
-            <Grid Grid.Row="3" Background="#FFe7ecf0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="26"/>
-                    <ColumnDefinition Width="442"/>
-                    <ColumnDefinition Width="16"/>
-                    <ColumnDefinition Width="518"/>
-                    <ColumnDefinition Width="16"/>
-                    <ColumnDefinition Width="442"/>
-                </Grid.ColumnDefinitions>
+            <!--主要操作区域-->
+            <Grid Grid.Column="1" Grid.ColumnSpan="2">
+                <Grid.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#FF172734" Offset="0"></GradientStop>
+                        <GradientStop Color="#FF34707b" Offset="0.8"></GradientStop>
+                        <GradientStop Color="#FF2c546d" Offset="1"></GradientStop>
+                    </LinearGradientBrush>
+                </Grid.Background>
 
-                <!--操作手册/服务商-->
-                <Grid Grid.Column="1">
-                    <!--<Grid x:Name="pnlNotice"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="38"/>
+                    <RowDefinition Height="58"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="434"/>
+                </Grid.RowDefinitions>
+
+                <!--窗体控制按钮-->
+                <Grid Grid.Row="0" Background="Transparent" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                    <WrapPanel VerticalAlignment="Center">
+                        <Button Content="开始接单" Width="150" Height="25" Visibility="Collapsed"></Button>
+                        <Button Content="开始接单" Width="150" Height="25" Visibility="Collapsed"></Button>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label>
+                            <TextBlock Text="假装有版本号：一点办正式版:2016-10-11 08:45" Foreground="White"/>
+                        </Label>
+                    </WrapPanel>
+                    <WrapPanel HorizontalAlignment="Right">
+                        <Canvas Height="30" Width="30">
+                            <Canvas.Clip>
+                                <EllipseGeometry RadiusX="15" RadiusY="15" Center="15,15"></EllipseGeometry>
+                            </Canvas.Clip>
+                            <Canvas.Background>
+                                <ImageBrush ImageSource="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCS.png"></ImageBrush>
+                            </Canvas.Background>
+                        </Canvas>
+                        <Label Content="我是助理：" VerticalAlignment="Center" Foreground="White"></Label>
+                        <Label x:Name="lblCSName" Content="" VerticalAlignment="Center" Margin="0,0,30,0" Foreground="White"></Label>
+                        <Button x:Name="btnWindowsMin" Width="25" Margin="5" Template="{StaticResource CornerButton}" Click="btnWindowsMin_Click">
+                            <Button.ToolTip>
+                                <Grid>
+                                    <TextBlock Text="最小化"/>
+                                </Grid>
+                            </Button.ToolTip>
+                            <TextBlock FontSize="20" Foreground="White" Text="—"></TextBlock>
+                        </Button>
+                        <Button x:Name="btnWindowsClosed" Width="25" Margin="5" Template="{StaticResource CornerButton}" Click="btnWindowsClosed_Click" >
+                            <Button.ToolTip>
+                                <Grid>
+                                    <TextBlock Text="关闭"/>
+                                </Grid>
+                            </Button.ToolTip>
+                            <TextBlock FontSize="20" Foreground="White" Text="X"></TextBlock>
+                        </Button>
+                    </WrapPanel>
+                </Grid>
+
+                <!--用户接待列表-->
+                <Grid Grid.Row="1">
+                    <Grid x:Name="pnlCustomerList"/>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="441"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--订单编辑-->
+                    <Grid Grid.Column="1">
+                        <Grid x:Name="pnlSearch"/>
+                    </Grid>
+
+                    <!--服务货架-->
+                    <Grid Grid.Column="0">
+                        <Grid x:Name="pnlSearchResult"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="3" Background="#FFe7ecf0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="26"/>
+                        <ColumnDefinition Width="442"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="442"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--操作手册/服务商-->
+                    <Grid Grid.Column="1">
+                        <!--<Grid x:Name="pnlNotice"/>
                     <Grid x:Name="pnlOrder"/>-->
-                    <Grid x:Name="pnlTools"/>
-                </Grid>
+                        <Grid x:Name="pnlTools"/>
+                    </Grid>
 
-                <!--聊天区域-->
-                <Grid Grid.Column="3">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="104"/>
-                    </Grid.RowDefinitions>
+                    <!--聊天区域-->
+                    <Grid Grid.Column="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="104"/>
+                        </Grid.RowDefinitions>
 
-                    <Grid x:Name="pnlChatList" Grid.Row="0"/>
-                    <Grid x:Name="pnlChatSend" Grid.Row="1"/>
-                </Grid>
+                        <Grid x:Name="pnlChatList" Grid.Row="0"/>
+                        <Grid x:Name="pnlChatSend" Grid.Row="1"/>
+                    </Grid>
 
-                <!--历史订单/用户资料-->
-                <Grid Grid.Column="5">
-                    <Grid x:Name="pnlOrderHistory"/>
+                    <!--历史订单/用户资料-->
+                    <Grid Grid.Column="5">
+                        <Grid x:Name="pnlOrderHistory"/>
+                    </Grid>
                 </Grid>
             </Grid>
-        </Grid>
-        <!--**********************************************************************************-->
+            <!--**********************************************************************************-->
 
+        </Grid>
+        
     </Grid>
 </Window>

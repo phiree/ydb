@@ -34,7 +34,7 @@ namespace Dianzhu.CSClient.Presenter
               IDAL.IDALIMUserStatus dalIMUserStatus, IViewFormShowMessage viewFormShowMessage)
         {
             this.viewMainForm = viewMainForm;
-            this.viewMainForm.FormTitle = GlobalViables.CurrentCustomerService.DisplayName;
+            this.viewMainForm.CSName = GlobalViables.CurrentCustomerService.DisplayName;
             this.iIM = iIM;
             this.iViewIdentityList = iViewIdentityList;
             this.dalReceptionStatus = dalReceptionStatus;
