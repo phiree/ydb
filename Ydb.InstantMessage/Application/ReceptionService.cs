@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Reception;
 using NHibernate;
-namespace Ydb.InstantMessage.Application.Reception
+namespace Ydb.InstantMessage.Application
 {
     /// <summary>
     /// 分配关系

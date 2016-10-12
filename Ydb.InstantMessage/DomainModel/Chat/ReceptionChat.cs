@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Ydb.InstantMessage.DomainModel.Chat.Enums;
+using Ydb.InstantMessage.DomainModel.Enums;
 using Ydb.Common.Domain;
 namespace Ydb.InstantMessage.DomainModel.Chat
 {

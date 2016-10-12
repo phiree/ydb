@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ydb.InstantMessage.Application.Reception
+namespace Ydb.InstantMessage.Application
 {
     /// <summary>
     /// 分配关系
