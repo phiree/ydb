@@ -25,55 +25,80 @@ namespace Ydb.InstantMessage.DomainModel.Reception
             this.receptionSession = receptionSession;
             this.assignStratage = assignStratage;
         }
-        public string AssignCustomerServiceToCustomer(IList<ReceptionStatus> existedReceptionForCustomer,string customerId)
+
+        /// <summary>
+        /// 用户上线分配，如果返回为空，则分配失败
+        /// </summary>
+        /// <param name="existedReceptionForCustomer"></param>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public string AssignCustomerLogin(IList<ReceptionStatus> existedReceptionForCustomer,string customerId)
         {
-            //获取对应的的分配列表
-            //  existedReception = receptionRepository.FindByCustomerId(customerId);
-
-            //如果是客户, 那么最多只有一条分配
-            if (existedReceptionForCustomer.Count > 1)
+            string csId = string.Empty;
+            
+            if (existedReceptionForCustomer.Count >= 1)
             {
-                log.Warn("同一个客户匹配了多个客服");
-                //返回不是diandian的客服
-                return existedReceptionForCustomer.First(x => x.CustomerServiceId != DianDianId).CustomerServiceId;
-
-            }
-            else if (existedReceptionForCustomer.Count == 1)
-            {
-
-                if (!receptionSession.IsUserOnline(existedReceptionForCustomer[0].CustomerServiceId))
+                if (existedReceptionForCustomer.Count > 1)
                 {
-                    log.Warn("客服应该是在线状态,但是现在不是");
+                    log.Warn("用户有多个分配");
                 }
-                return existedReceptionForCustomer[0].CustomerServiceId;
+
+                foreach(var item in existedReceptionForCustomer)
+                {
+                    if (receptionSession.IsUserOnline(item.CustomerServiceId) && item.CustomerServiceId!= DianDianId)
+                    {
+                        csId = item.CustomerServiceId;
+                    }
+                }
             }
-            else
+
+            if(string.IsNullOrEmpty(csId))
             {
-                var onlineList = receptionSession.GetOnlineSessionUser( XmppResource.YDBan_CustomerService);
-                Dictionary<string, string> assignResult = assignStratage.Assign(new List<string> { customerId }, onlineList.Select(x => x.username).ToList(),
-                                    DianDianId);
-                return assignResult[customerId];
-
+                try
+                {
+                    var onlineList = receptionSession.GetOnlineSessionUser(XmppResource.YDBan_CustomerService);
+                    Dictionary<string, string> assignResult = assignStratage.Assign(new List<string> { customerId }, onlineList, DianDianId);
+                    csId = assignResult[customerId];
+                }
+                catch (Exception ee)
+                {
+                    PHSuit.ExceptionLoger.ExceptionLog(log, ee);
+                }
             }
 
-
+            return csId;
         }
-        public Dictionary<string, string> ReAssignToOther(IList<ReceptionStatus> existedReceptionForCustomerService)
+
+        public Dictionary<string, string> AssignCSLogin(IList<ReceptionStatus> existReceptionDD, string csId)
         {
-           
-            //获取当前客户接待的客户
-              var onlineList = receptionSession.GetOnlineSessionUser( XmppResource.YDBan_CustomerService);
-            //re assign
-            Dictionary<string, string> newAssign
-                = assignStratage.Assign(existedReceptionForCustomerService.Select(x => x.CustomerId).ToList(), onlineList.Select(x => x.username).ToList(),
-                DianDianId);
+            Dictionary<string, string> assignList = new Dictionary<string, string>();
 
-            foreach (ReceptionStatus status in existedReceptionForCustomerService)
+            foreach (var item in existReceptionDD)
             {
-                status.CustomerServiceId = newAssign[status.CustomerId];
-                 
+                assignList[item.CustomerId] = csId;
             }
-            return newAssign;
+
+            return assignList;
         }
+
+        public Dictionary<string, string> AssignCSLogoff(IList<ReceptionStatus> existedReceptionForCustomerService)
+        {
+            Dictionary<string, string> assignList = new Dictionary<string, string>();
+
+            try
+            {
+                var onlineList = receptionSession.GetOnlineSessionUser(XmppResource.YDBan_CustomerService);
+                assignList = assignStratage.Assign(existedReceptionForCustomerService.Select(x => x.CustomerId).ToList(), onlineList, DianDianId);
+            }
+            catch (Exception ee)
+            {
+                PHSuit.ExceptionLoger.ExceptionLog(log, ee);
+                throw ee;
+            }
+
+            return assignList;
+        }
+
+        
     }
 }

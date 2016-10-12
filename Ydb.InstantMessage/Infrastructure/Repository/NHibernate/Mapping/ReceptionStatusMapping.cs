@@ -15,6 +15,7 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping
             Id(x => x.Id);
             Map(x => x.CustomerId);
             Map(x => x.CustomerServiceId);
+            Map(x => x.OrderId);
             Map(x => x.LastUpdateTime);
         }
     }

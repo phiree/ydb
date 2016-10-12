@@ -13,7 +13,7 @@ using NHibernate;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Ydb.InstantMessage.DomainModel.Reception;
 using Ydb.InstantMessage.Infrastructure.Repository.NHibernate;
-using Ydb.InstantMessage.Application.Reception;
+using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.Infrastructure;
 namespace Ydb.InstantMessage
 {

@@ -10,28 +10,23 @@ namespace Ydb.InstantMessage.DomainModel.Reception
     /// </summary>
   public   class ReceptionStatus:Entity<Guid>
     {
+        public ReceptionStatus() { }
+
         /// <summary>
         /// 构造
         /// </summary>
-        public ReceptionStatus()
+        public ReceptionStatus(string customerId, string customerServiceId,string orderId)
         {
-            LastUpdateTime = DateTime.Now;
-        }
+            this.CustomerServiceId = customerServiceId;
+            this.CustomerId = customerId;
+            this.LastUpdateTime = DateTime.Now; 
+            this.OrderId = orderId;
+        } 
 
-        public static ReceptionStatus Create(string customerId, string customerServiceId, DateTime lastUpdateTime, string orderId)
+        public virtual void ChangeCS(string csId)
         {
-            ReceptionStatus rs = new ReceptionStatus();
-            rs.CustomerServiceId = customerServiceId;
-            rs.CustomerId = customerId;
-            rs.LastUpdateTime = lastUpdateTime;
-            rs.OrderId = orderId;
-            return rs;
+            this.CustomerServiceId = csId;
         }
-         
-        /// <summary>
-        /// guid
-        /// </summary>
-    
 
         /// <summary>
         /// 客服
@@ -53,7 +48,7 @@ namespace Ydb.InstantMessage.DomainModel.Reception
         /// </summary>
         public virtual string OrderId { get; set; }
 
-        
+
 
     }
 
