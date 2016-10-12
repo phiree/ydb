@@ -15,25 +15,23 @@ namespace Ydb.InstantMessage.Application
     {
         DomainModel.Reception.IRepositoryReception receptionRepository;
         DomainModel.Reception.IReceptionSession receptionSession;
-        
+
         IReceptionAssigner receptionAssigner;
-       
+
         ISession session;
-        public ReceptionService(IRepositoryReception receptionRepository,ISession session,IReceptionAssigner assigner)
+        public ReceptionService(IRepositoryReception receptionRepository, ISession session, IReceptionAssigner receptionAssigner)
         {
             this.receptionRepository = receptionRepository;
             this.session = session;
-            this.receptionAssigner = assigner;
+            this.receptionAssigner = receptionAssigner;
         }
-        /// <summary>
-        /// 一个用户申请分配客服.
-        /// 他可能已经被分配到一个客服
-        /// </summary>
-        /// <param name="customerServiceId"></param>
-        public void AssignToOtherCustomerService(string customerId)
+
+        string DianDianId
         {
-            //是否已经存在分配关系
- 
+            get
+            {
+                return Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
+            }
         }
 
         public void DeleteReception(string customerId)
@@ -41,26 +39,72 @@ namespace Ydb.InstantMessage.Application
             throw new NotImplementedException();
         }
 
-        public void GetOnlineCustomers(string customerServiceId)
+        public string AssignCustomerLogin(string customerId)
         {
-            throw new NotImplementedException();
+            using (var t = session.BeginTransaction())
+            {
+                string assignCS = string.Empty;
+
+                IList<ReceptionStatus> existReceptions = receptionRepository.FindByCustomerId(customerId);
+
+
+                assignCS = receptionAssigner.AssignCustomerLogin(existReceptions, customerId);
+                if (string.IsNullOrEmpty(assignCS))
+                {
+                    throw new Exception("用户分配失败");
+                }
+
+                for (int i = 0; i < existReceptions.Count; i++)
+                {
+                    receptionRepository.Delete(existReceptions[i]);
+                }
+
+                ReceptionStatus status = new ReceptionStatus(customerId, assignCS, string.Empty);
+                receptionRepository.Add(status);
+
+
+                t.Commit();
+                return assignCS;
+            }
         }
 
-        public string AssignToCustomerService(string customerId,string orderId)
+        public void AssignCSLogin(string csId)
         {
-            using (var tr = session.BeginTransaction())
+            using (var t = session.BeginTransaction())
             {
-                var existedReceptionForCustomer = receptionRepository.FindByCustomerId(customerId);
-        
-            string assignedCustomerServiceId= receptionAssigner.AssignCustomerServiceToCustomer(existedReceptionForCustomer, customerId);
+                IList<ReceptionStatus> existReceptions = receptionRepository.FindByDiandian(DianDianId);
 
-            ReceptionStatus rs = ReceptionStatus.Create(customerId, assignedCustomerServiceId, DateTime.Now, orderId);
-          
-                receptionRepository.Add(rs);
-                tr.Commit();
-                return assignedCustomerServiceId;
+                Dictionary<string, string> assignReception = receptionAssigner.AssignCSLogin(existReceptions, csId);
+
+                foreach (var item in existReceptions)
+                {
+                    item.ChangeCS(assignReception[item.CustomerId]);
+                    receptionRepository.Update(item);
+                }
+
+                t.Commit();
             }
-          
+        }
+
+        public void AssignCSLogoff(string csId)
+        {
+            using (var t = session.BeginTransaction())
+            {
+                IList<ReceptionStatus> existReceptions = receptionRepository.FindByCustomerServiceId(csId);
+
+                if (existReceptions.Count > 0)
+                {
+                    var assignReception = receptionAssigner.AssignCSLogoff(existReceptions);
+
+                    foreach (var item in existReceptions)
+                    {
+                        item.ChangeCS(assignReception[item.CustomerId]);
+                        receptionRepository.Update(item);
+                    }
+                }
+
+                t.Commit();
+            }
         }
     }
 }
