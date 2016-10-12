@@ -36,7 +36,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat.Tests
             
 
             MessageAdapter adapter = new MessageAdapter();
-         Message m1 = adapter.RawXmlToMessage(rawXml);
+         Message m1 = adapter.RawXmlToMessage(rawXml2);
            
             
             Console.WriteLine(m1);

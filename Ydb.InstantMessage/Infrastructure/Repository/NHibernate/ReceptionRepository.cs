@@ -22,7 +22,15 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
         }
         public IList<ReceptionStatus> FindByCustomerId(string customerServiceId)
         {
-            return baseRepository.Find(x => x.CustomerServiceId == customerServiceId);
+            return baseRepository.Find(x => x.CustomerId == customerServiceId);
+        }
+        public IList<ReceptionStatus> FindByCustomerServiceId(string csId)
+        {
+            return baseRepository.Find(x => x.CustomerServiceId == csId);
+        }
+        public IList<ReceptionStatus> FindByDiandian(string diandianId)
+        {
+            return baseRepository.Find(x => x.CustomerServiceId == diandianId);
         }
         public ReceptionRepository(ISessionFactory sessionFactory)
         {
@@ -40,7 +48,7 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
 
         public void Delete(ReceptionStatus t)
         {
-            throw new NotImplementedException();
+            session.Delete(t);
         }
 
         public IList<ReceptionStatus> Find(Expression<Func<ReceptionStatus, bool>> where)
@@ -90,7 +98,8 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
 
         public void Update(ReceptionStatus t)
         {
-            throw new NotImplementedException();
+            t.LastUpdateTime = DateTime.Now;
+            session.Update(t);
         }
     }
 }
