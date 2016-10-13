@@ -25,6 +25,16 @@ namespace Dianzhu.ApplicationService.Order
         IList<orderObj> GetOrders(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter, Customer customer);
 
         /// <summary>
+        /// 查询订单合集的校验
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="orderfilter"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+         ordersVerifyObj GetOrdersVerify(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter, Customer customer);
+
+
+        /// <summary>
         /// 查询订单数量
         /// </summary>
         /// <param name="orderfilter"></param>

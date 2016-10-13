@@ -63,123 +63,125 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <Grid>
-        <Grid.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                <GradientStop Color="#FFe7ecf0" Offset="0"></GradientStop>
-                <GradientStop Color="#FFdee2e5" Offset="1"></GradientStop>
-            </LinearGradientBrush>
-        </Grid.Background>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#FFe7ecf0" Offset="0"></GradientStop>
+                    <GradientStop Color="#FFdee2e5" Offset="1"></GradientStop>
+                </LinearGradientBrush>
+            </Grid.Background>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="36"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="36"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" VerticalAlignment="Center">
-            <Label Margin="26,0,0,0">
-                <TextBlock FontFamily="微软雅黑" FontWeight="Bold" Foreground="#FF6f6f6f" FontSize="14" Text="订单编辑"></TextBlock>
-            </Label>
-        </Grid>
+            <Grid Grid.Row="0" VerticalAlignment="Center">
+                <Label Margin="26,0,0,0">
+                    <TextBlock FontFamily="微软雅黑" FontWeight="Bold" Foreground="#FF6f6f6f" FontSize="14" Text="订单编辑"></TextBlock>
+                </Label>
+            </Grid>
 
-        <Grid Grid.Row="1">
-            <Border BorderThickness="1" BorderBrush="#FFdee2e5">
-                <StackPanel Margin="26,10">
-                    <WrapPanel Margin="0,1" VerticalAlignment="Center">
-                        <Label>
-                            <TextBlock Text="服务对象" Style="{DynamicResource TextBlockKey}"></TextBlock>
-                        </Label>
-                        <TextBox x:Name="tbxKeywordPeople" Text="王女士" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordPeople_TextChanged"/>
-                    </WrapPanel>
-
-                    <WrapPanel Margin="0,1" VerticalAlignment="Center">
-                        <Label>
-                            <TextBlock Text="服务时间" Style="{DynamicResource TextBlockKey}"></TextBlock>
-                        </Label>
-                        
-                        <!--<TextBox x:Name="tbxKeywordTime" Text="2016-8-30 9:00" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordTime_TextChanged"/>-->
-
-                        <WrapPanel>
-                            <DatePicker x:Name="dateServiceDate" Width="150" FirstDayOfWeek="Sunday" SelectedDateFormat="Long" ToolTip="选择日期" AutomationProperties.IsRowHeader="True" Focusable="False" Cursor="Hand" SelectedDateChanged="dateServiceDate_SelectedDateChanged"/>
-                            <Label Content=" "></Label>
-                            <ComboBox x:Name="cbxHours" Width="50" IsEditable="True" ToolTip="小时" IsReadOnly="True" SelectionChanged="cbxHours_SelectionChanged"></ComboBox>
-                            <Label Content=":"></Label>
-                            <ComboBox x:Name="cbxMinutes" Width="50" IsEditable="True" ToolTip="分钟" IsReadOnly="True" SelectionChanged="cbxMinutes_SelectionChanged"></ComboBox>
+            <Grid Grid.Row="1">
+                <Border BorderThickness="1" BorderBrush="#FFdee2e5">
+                    <StackPanel Margin="26,10">
+                        <WrapPanel Margin="0,1" VerticalAlignment="Center">
+                            <Label>
+                                <TextBlock Text="服务对象" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                            </Label>
+                            <TextBox x:Name="tbxKeywordPeople" Text="王女士" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordPeople_TextChanged"/>
                         </WrapPanel>
-                    </WrapPanel>
 
-                    <WrapPanel Margin="0,1" VerticalAlignment="Center">
-                        <Label>
-                            <TextBlock Text="服务类型" Style="{DynamicResource TextBlockKey}"></TextBlock>
-                        </Label>
-                        <ComboBox x:Name="cbxSearchTypeF" Width="100" Margin="0,0,2,0" SelectionChanged="cbxSearchTypeF_SelectionChanged"/>
-                        <ComboBox x:Name="cbxSearchTypeS" Width="100" Margin="0,0,2,0" SelectionChanged="cbxSearchTypeS_SelectionChanged" Visibility="Collapsed"/>
-                        <ComboBox x:Name="cbxSearchTypeT" Width="100" SelectionChanged="cbxSearchTypeT_SelectionChanged" Visibility="Collapsed"/>
-                    </WrapPanel>
+                        <WrapPanel Margin="0,1" VerticalAlignment="Center">
+                            <Label>
+                                <TextBlock Text="服务时间" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                            </Label>
 
-                    <WrapPanel Margin="0,1" VerticalAlignment="Center">
-                        <Label>
-                            <TextBlock Text="服务名称" Style="{DynamicResource TextBlockKey}"></TextBlock>
-                        </Label>
-                        <TextBox x:Name="tbxKeywordServiceName" Text="" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordServiceName_TextChanged"/>
-                    </WrapPanel>
+                            <!--<TextBox x:Name="tbxKeywordTime" Text="2016-8-30 9:00" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordTime_TextChanged"/>-->
 
-                    <WrapPanel Margin="0,1" VerticalAlignment="Center">
-                        <Label>
-                            <TextBlock Text="价格区间" Style="{DynamicResource TextBlockKey}"></TextBlock>
-                        </Label>
-                        <!--￥-->
-                        <TextBox x:Name="tbxKeywordPriceMin" Text="1"  Style="{DynamicResource TextBoxValue}" Width="142" TextChanged="tbxKeywordPriceMin_TextChanged" PreviewTextInput="tbxKeywordNumber_PreviewTextInput"/>
-                        <Label>
-                            <TextBlock Text="-" Style="{DynamicResource TextBlockKey}" Margin="2,0,3,0"></TextBlock>
-                        </Label>
-                        <TextBox x:Name="tbxKeywordPriceMax" Text="200"  Style="{DynamicResource TextBoxValue}" Width="142" TextChanged="tbxKeywordPriceMax_TextChanged" PreviewTextInput="tbxKeywordNumber_PreviewTextInput"/>
-                    </WrapPanel>
+                            <WrapPanel>
+                                <DatePicker x:Name="dateServiceDate" Width="150" FirstDayOfWeek="Sunday" SelectedDateFormat="Long" ToolTip="选择日期" AutomationProperties.IsRowHeader="True" Focusable="False" Cursor="Hand" SelectedDateChanged="dateServiceDate_SelectedDateChanged"/>
+                                <Label Content=" "></Label>
+                                <ComboBox x:Name="cbxHours" Width="50" IsEditable="True" ToolTip="小时" IsReadOnly="True" SelectionChanged="cbxHours_SelectionChanged"></ComboBox>
+                                <Label Content=":"></Label>
+                                <ComboBox x:Name="cbxMinutes" Width="50" IsEditable="True" ToolTip="分钟" IsReadOnly="True" SelectionChanged="cbxMinutes_SelectionChanged"></ComboBox>
+                            </WrapPanel>
+                        </WrapPanel>
 
-                    <WrapPanel Margin="0,1" VerticalAlignment="Center">
-                        <Label>
-                            <TextBlock Text="联系电话" Style="{DynamicResource TextBlockKey}"></TextBlock>
-                        </Label>
-                        <TextBox x:Name="tbxKeywordPhone" Text="1580000000" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordPhone_TextChanged" PreviewTextInput="tbxKeywordNumber_PreviewTextInput"/>
-                    </WrapPanel>
+                        <WrapPanel Margin="0,1" VerticalAlignment="Center">
+                            <Label>
+                                <TextBlock Text="服务类型" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                            </Label>
+                            <ComboBox x:Name="cbxSearchTypeF" Width="100" Margin="0,0,2,0" SelectionChanged="cbxSearchTypeF_SelectionChanged"/>
+                            <ComboBox x:Name="cbxSearchTypeS" Width="100" Margin="0,0,2,0" SelectionChanged="cbxSearchTypeS_SelectionChanged" Visibility="Collapsed"/>
+                            <ComboBox x:Name="cbxSearchTypeT" Width="100" SelectionChanged="cbxSearchTypeT_SelectionChanged" Visibility="Collapsed"/>
+                        </WrapPanel>
 
-                    <WrapPanel Margin="0,1" VerticalAlignment="Center">
-                        <Label>
-                            <TextBlock Text="服务数量" Style="{DynamicResource TextBlockKey}"></TextBlock>
-                        </Label>
-                        <TextBox x:Name="tbxUnitAmount" Text="1" Style="{DynamicResource TextBoxValue}" TextChanged="tbxUnitAmount_TextChanged" PreviewTextInput="tbxKeywordNumber_PreviewTextInput"/>
-                    </WrapPanel>
+                        <WrapPanel Margin="0,1" VerticalAlignment="Center">
+                            <Label>
+                                <TextBlock Text="服务名称" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                            </Label>
+                            <TextBox x:Name="tbxKeywordServiceName" Text="" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordServiceName_TextChanged"/>
+                        </WrapPanel>
 
-                    <WrapPanel Margin="0,1" VerticalAlignment="Center">
-                        <Label>
-                            <TextBlock Text="服务地址" Style="{DynamicResource TextBlockKey}"></TextBlock>
-                        </Label>
-                        <TextBox x:Name="tbxKeywordAddress" Text="XXXXX" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordAddress_TextChanged"/>
-                    </WrapPanel>
+                        <WrapPanel Margin="0,1" VerticalAlignment="Center">
+                            <Label>
+                                <TextBlock Text="价格区间" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                            </Label>
+                            <!--￥-->
+                            <TextBox x:Name="tbxKeywordPriceMin" Text="1"  Style="{DynamicResource TextBoxValue}" Width="142" TextChanged="tbxKeywordPriceMin_TextChanged" PreviewTextInput="tbxKeywordNumber_PreviewTextInput"/>
+                            <Label>
+                                <TextBlock Text="-" Style="{DynamicResource TextBlockKey}" Margin="2,0,3,0"></TextBlock>
+                            </Label>
+                            <TextBox x:Name="tbxKeywordPriceMax" Text="200"  Style="{DynamicResource TextBoxValue}" Width="142" TextChanged="tbxKeywordPriceMax_TextChanged" PreviewTextInput="tbxKeywordNumber_PreviewTextInput"/>
+                        </WrapPanel>
 
-                    <WrapPanel Margin="0,3" VerticalAlignment="Center">
-                        <Label Foreground="Gray" Padding="0" Margin="5,0,0,0">
-                            <TextBlock Text="备" Style="{DynamicResource TextBlockKey}"></TextBlock>
-                        </Label>
-                        <Label Padding="0" Opacity="0">
-                            <TextBlock Text="" Style="{DynamicResource TextBlockKey}"></TextBlock>
-                        </Label>
-                        <Label Foreground="Gray" Padding="0" Margin="0,0,5,0">
-                            <TextBlock Text="注" Style="{DynamicResource TextBlockKey}"></TextBlock>
-                        </Label>
+                        <WrapPanel Margin="0,1" VerticalAlignment="Center">
+                            <Label>
+                                <TextBlock Text="联系电话" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                            </Label>
+                            <TextBox x:Name="tbxKeywordPhone" Text="1580000000" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordPhone_TextChanged" PreviewTextInput="tbxKeywordNumber_PreviewTextInput"/>
+                        </WrapPanel>
 
-                        <TextBox x:Name="tbxKeywordMemo" Text="XXX" Style="{DynamicResource TextBoxValue}" VerticalScrollBarVisibility="Auto" TextChanged="tbxKeywordMemo_TextChanged"/>
-                    </WrapPanel>
+                        <WrapPanel Margin="0,1" VerticalAlignment="Center">
+                            <Label>
+                                <TextBlock Text="服务数量" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                            </Label>
+                            <TextBox x:Name="tbxUnitAmount" Text="1" Style="{DynamicResource TextBoxValue}" TextChanged="tbxUnitAmount_TextChanged" PreviewTextInput="tbxKeywordNumber_PreviewTextInput"/>
+                        </WrapPanel>
 
-                    <WrapPanel HorizontalAlignment="Center" Margin="0,20,0,0">
-                        <Border CornerRadius="3" Background="#FF2bb7aa" Width="126" Height="24">
-                            <Button x:Name="btnSearch" Width="124" Height="22" BorderThickness="0" Background="Transparent" Click="btnSearch_Click">
-                                <TextBlock Text="生 成" Style="{DynamicResource TextBlockKey}" Foreground="White"></TextBlock>
-                            </Button>
-                        </Border>
-                    </WrapPanel>
-                </StackPanel>
-            </Border>
+                        <WrapPanel Margin="0,1" VerticalAlignment="Center">
+                            <Label>
+                                <TextBlock Text="服务地址" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                            </Label>
+                            <TextBox x:Name="tbxKeywordAddress" Text="XXXXX" Style="{DynamicResource TextBoxValue}" TextChanged="tbxKeywordAddress_TextChanged"/>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="0,3" VerticalAlignment="Center">
+                            <Label Foreground="Gray" Padding="0" Margin="5,0,0,0">
+                                <TextBlock Text="备" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                            </Label>
+                            <Label Padding="0" Opacity="0">
+                                <TextBlock Text="" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                            </Label>
+                            <Label Foreground="Gray" Padding="0" Margin="0,0,5,0">
+                                <TextBlock Text="注" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                            </Label>
+
+                            <TextBox x:Name="tbxKeywordMemo" Text="XXX" Style="{DynamicResource TextBoxValue}" VerticalScrollBarVisibility="Auto" TextChanged="tbxKeywordMemo_TextChanged"/>
+                        </WrapPanel>
+
+                        <WrapPanel HorizontalAlignment="Center" Margin="0,20,0,0">
+                            <Border CornerRadius="3" Background="#FF2bb7aa" Width="126" Height="24">
+                                <Button x:Name="btnSearch" Width="124" Height="22" BorderThickness="0" Background="Transparent" Click="btnSearch_Click">
+                                    <TextBlock Text="生 成" Style="{DynamicResource TextBlockKey}" Foreground="White"></TextBlock>
+                                </Button>
+                            </Border>
+                        </WrapPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
         </Grid>
-    </Grid>
+    </ScrollViewer>
 </UserControl>

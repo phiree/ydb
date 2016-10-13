@@ -61,7 +61,7 @@ namespace Dianzhu.BLL
         public IPayRequest CreatePayBatch(decimal payAmount, string paymentId, string paySubject)
         {
                 return new PayBatch(payAmount, paymentId, paySubject,"2",
-                        Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/notify_url.aspx?PayType=PayBatch",
+                        Dianzhu.Config.Config.GetAppSetting("PaySite") + "PayCallBack/alipay/notify_url.aspx?PayType=PayBatch",
                         "http://www.ydban.cn");
                 ;
         }
