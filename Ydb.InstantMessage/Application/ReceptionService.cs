@@ -17,11 +17,11 @@ namespace Ydb.InstantMessage.Application
 
         DomainModel.Reception.IRepositoryReception receptionRepository;
         DomainModel.Reception.IReceptionSession receptionSession;
-        
+
         IReceptionAssigner receptionAssigner;
-       
+
         ISession session;
-        public ReceptionService(IRepositoryReception receptionRepository,ISession session,IReceptionAssigner receptionAssigner)
+        public ReceptionService(IRepositoryReception receptionRepository, ISession session, IReceptionAssigner receptionAssigner)
         {
             this.receptionRepository = receptionRepository;
             this.session = session;
@@ -43,7 +43,7 @@ namespace Ydb.InstantMessage.Application
 
         public string AssignCustomerLogin(string customerId,out string errorMessage)
         {
-            using(var t = session.BeginTransaction())
+            using (var t = session.BeginTransaction())
             {
                 string assignCS = string.Empty;
                 errorMessage = string.Empty;
@@ -78,13 +78,13 @@ namespace Ydb.InstantMessage.Application
 
         public void AssignCSLogin(string csId)
         {
-            using(var t = session.BeginTransaction())
+            using (var t = session.BeginTransaction())
             {
                 IList<ReceptionStatus> existReceptions = receptionRepository.FindByDiandian(DianDianId);
 
-                Dictionary<string,string> assignReception = receptionAssigner.AssignCSLogin(existReceptions, csId);
+                Dictionary<string, string> assignReception = receptionAssigner.AssignCSLogin(existReceptions, csId);
 
-                foreach(var item in existReceptions)
+                foreach (var item in existReceptions)
                 {
                     item.ChangeCS(assignReception[item.CustomerId]);
                     receptionRepository.Update(item);
@@ -96,7 +96,7 @@ namespace Ydb.InstantMessage.Application
 
         public void AssignCSLogoff(string csId)
         {
-            using(var t = session.BeginTransaction())
+            using (var t = session.BeginTransaction())
             {
                 IList<ReceptionStatus> existReceptions = receptionRepository.FindByCustomerServiceId(csId);
 
@@ -104,7 +104,7 @@ namespace Ydb.InstantMessage.Application
                 {
                     var assignReception = receptionAssigner.AssignCSLogoff(existReceptions);
 
-                    foreach(var item in existReceptions)
+                    foreach (var item in existReceptions)
                     {
                         item.ChangeCS(assignReception[item.CustomerId]);
                         receptionRepository.Update(item);
