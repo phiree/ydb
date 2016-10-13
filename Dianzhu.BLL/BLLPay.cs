@@ -155,9 +155,10 @@ namespace Dianzhu.BLL
                 bllPayment.Update(payment);
 
                 //更新订单状态.
-                log.Debug("TRADE_SUCCESS,订单当前状态为：" + payment.Order.OrderStatus.ToString());
-                log.Debug("TRADE_SUCCESS,更新订单状态");
-                ServiceOrder order = payment.Order;
+             
+               
+                ServiceOrder order = bllOrder.GetOne(payment.Order.Id); //payment.Order;
+                log.Debug("TRADE_SUCCESS,订单当前状态为：" + order.OrderStatus.ToString());
                 switch (order.OrderStatus)
                 {
                     case enum_OrderStatus.checkPayWithDeposit:
