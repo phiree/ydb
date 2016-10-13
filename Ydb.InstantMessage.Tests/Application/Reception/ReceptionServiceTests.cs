@@ -21,8 +21,8 @@ namespace Ydb.InstantMessage.Application.Tests
         public void AssignCustomerLoginTest()
         {
             IReceptionService receptionService = Bootstrapper.Container.Resolve<IReceptionService>();
-
-            receptionService.AssignCustomerLogin("10d304fa-cfe9-4417-beb7-9a8062bd2ba2");
+            string errorMessage = string.Empty;
+            receptionService.AssignCustomerLogin("10d304fa-cfe9-4417-beb7-9a8062bd2ba2",out errorMessage);
         }
 
         [Test()]

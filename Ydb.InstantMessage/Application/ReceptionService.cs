@@ -13,6 +13,8 @@ namespace Ydb.InstantMessage.Application
     /// </summary>
     public class ReceptionService : IReceptionService
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Ydb.InstantMessage.Application.ReceptionService");
+
         DomainModel.Reception.IRepositoryReception receptionRepository;
         DomainModel.Reception.IReceptionSession receptionSession;
         
@@ -39,19 +41,25 @@ namespace Ydb.InstantMessage.Application
             throw new NotImplementedException();
         }
 
-        public string AssignCustomerLogin(string customerId)
+        public string AssignCustomerLogin(string customerId,out string errorMessage)
         {
             using(var t = session.BeginTransaction())
             {
                 string assignCS = string.Empty;
+                errorMessage = string.Empty;
 
                 IList<ReceptionStatus> existReceptions = receptionRepository.FindByCustomerId(customerId);
 
 
-                assignCS = receptionAssigner.AssignCustomerLogin(existReceptions, customerId);
-                if (string.IsNullOrEmpty(assignCS))
+                try
                 {
-                    throw new Exception("用户分配失败");
+                    assignCS = receptionAssigner.AssignCustomerLogin(existReceptions, customerId);
+                }
+                catch (Exception ee)
+                {
+                    PHSuit.ExceptionLoger.ExceptionLog(log, ee);
+                    errorMessage = "分配失败";
+                    return assignCS;
                 }
 
                 for (int i = 0; i < existReceptions.Count; i++)

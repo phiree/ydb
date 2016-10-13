@@ -31,7 +31,7 @@ namespace Ydb.InstantMessage
                         .Database(
                              MySQLConfiguration
                             .Standard
-                            .ConnectionString(System.Configuration.ConfigurationManager.ConnectionStrings["ydb_instantmessage"].ConnectionString)
+                            .ConnectionString("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test")
                       )
                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Infrastructure.Repository.NHibernate.Mapping.ReceptionStatusMapping>())
                     .ExposeConfiguration(BuildSchema)
