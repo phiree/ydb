@@ -33,6 +33,15 @@ namespace Dianzhu.ApplicationService.Order
         /// <returns></returns>
          ordersVerifyObj GetOrdersVerify(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter, Customer customer);
 
+        /// <summary>
+        /// 查询订单超媒体合集
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="orderfilter"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        IList<orderHypermediaObj> GetOrdersHypermedias(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter, Customer customer);
+
 
         /// <summary>
         /// 查询订单数量
