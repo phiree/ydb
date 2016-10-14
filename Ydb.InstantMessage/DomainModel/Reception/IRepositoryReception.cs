@@ -11,6 +11,6 @@ namespace Ydb.InstantMessage.DomainModel.Reception
     {
         IList<ReceptionStatus> FindByCustomerId(string customerId);
         IList<ReceptionStatus> FindByCustomerServiceId(string csId);
-        IList<ReceptionStatus> FindByDiandian(string diandianId);
+        IList<ReceptionStatus> FindByDiandian(string diandianId, int amount);
     }
 }

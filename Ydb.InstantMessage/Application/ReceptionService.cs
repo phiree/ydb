@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Reception;
 using NHibernate;
+using Ydb.InstantMessage.DomainModel.Enums;
+using Ydb.InstantMessage.DomainModel.Chat;
+
 namespace Ydb.InstantMessage.Application
 {
     /// <summary>
@@ -76,11 +79,13 @@ namespace Ydb.InstantMessage.Application
             }
         }
 
-        public void AssignCSLogin(string csId)
+        public IList<string> AssignCSLogin(string csId, int amount)
         {
             using (var t = session.BeginTransaction())
             {
-                IList<ReceptionStatus> existReceptions = receptionRepository.FindByDiandian(DianDianId);
+                IList<string> assignList = new List<string>();
+
+                IList<ReceptionStatus> existReceptions = receptionRepository.FindByDiandian(DianDianId, amount);
 
                 Dictionary<string, string> assignReception = receptionAssigner.AssignCSLogin(existReceptions, csId);
 
@@ -88,9 +93,12 @@ namespace Ydb.InstantMessage.Application
                 {
                     item.ChangeCS(assignReception[item.CustomerId]);
                     receptionRepository.Update(item);
+
+                    assignList.Add(item.CustomerId);
                 }
 
                 t.Commit();
+                return assignList;
             }
         }
 

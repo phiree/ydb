@@ -16,7 +16,7 @@ namespace Ydb.InstantMessage.Application
 
         string AssignCustomerLogin(string customerId,out string errorMessage);
 
-        void AssignCSLogin(string csId);
+        IList<string> AssignCSLogin(string csId, int amount);
 
         void AssignCSLogoff(string csId);
     }

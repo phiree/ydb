@@ -267,6 +267,10 @@
       <Project>{de79c6ab-b5a9-4baf-80fa-22835452785f}</Project>
       <Name>RisCaptureLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
+      <Project>{a141eb7d-6e71-43c1-9ca7-12af1b74c1c7}</Project>
+      <Name>Ydb.InstantMessage</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

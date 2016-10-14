@@ -12,7 +12,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
     public  class MessageBuilder
     {
         
-        ILog ilog = LogManager.GetLogger("Dianzhu.CSClient.Dianzhu.CSClient.MessageBuilder");
+        ILog ilog = LogManager.GetLogger("Ydb.InstantMessage.DomainModel.Chat.MessageBuilder");
 
         Node extNode;//message 中的ext节点
         Message message = null;

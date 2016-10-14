@@ -28,9 +28,9 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
         {
             return baseRepository.Find(x => x.CustomerServiceId == csId);
         }
-        public IList<ReceptionStatus> FindByDiandian(string diandianId)
+        public IList<ReceptionStatus> FindByDiandian(string diandianId,int amount)
         {
-            return baseRepository.Find(x => x.CustomerServiceId == diandianId);
+            return baseRepository.Find(x => x.CustomerServiceId == diandianId).Take(amount).ToList();
         }
         public ReceptionRepository(ISessionFactory sessionFactory)
         {

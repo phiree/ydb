@@ -58,9 +58,9 @@ namespace Dianzhu.CSClient
                 return;
             }
 
-             Bootstrap.Boot();
+            Bootstrap.Boot();
 
-            
+            Ydb.InstantMessage.Bootstrapper.Boot();
 
 
             string version = GetVersion();

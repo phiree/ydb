@@ -14,10 +14,10 @@ namespace Ydb.InstantMessage.DomainModel.Chat
     /// <summary>
     /// 聊天消息 和 xmpp消息之间的转换.
     /// </summary>
-    public class MessageAdapter 
+    public class MessageAdapter : IMessageAdapter
     {
  
-        log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.CSClient.MessageAdapter");
+        log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.InstantMessage.DomainModel.Chat.MessageAdapter");
          
         /// <summary>
         /// 将im的 message为 系统设计的格式(chat)

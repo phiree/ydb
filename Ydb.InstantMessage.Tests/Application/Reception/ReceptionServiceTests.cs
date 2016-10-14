@@ -30,7 +30,7 @@ namespace Ydb.InstantMessage.Application.Tests
         {
             IReceptionService receptionService = Bootstrapper.Container.Resolve<IReceptionService>();
 
-            receptionService.AssignCSLogin(Guid.NewGuid().ToString());
+            receptionService.AssignCSLogin(Guid.NewGuid().ToString(),3);
         }
 
         [Test()]
