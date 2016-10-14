@@ -9,6 +9,8 @@ using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Dianzhu.Api.Model;
+using Ydb.InstantMessage.Application;
+using im=Ydb.InstantMessage;
 /// <summary>
 /// 获取用户的服务订单列表
 /// </summary>
@@ -67,40 +69,54 @@ public class ResponseORM002001 : BaseResponse
                 //IIMSession imSession = new IMSessionsDB();
                
                 ReceptionAssigner ra = Bootstrap.Container.Resolve<ReceptionAssigner>("OpenFireRestAssigner");
-                 
+
+                IReceptionService receptionService =im.Bootstrapper.Container.Resolve<IReceptionService>();
                 ilog.Debug("开始分配客服");
+                string errorMessage = string.Empty;
+                string csId = receptionService.AssignCustomerLogin(userId.ToString(),out errorMessage);
+                if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = errorMessage;
+                    return;
+                }
+
+                DZMembership cs = p.GetUserById(Guid.Parse(csId));
+
+
+                //ilog.Debug("开始分配客服");
                 ServiceOrder orderToReturn = null;//分配的订单
-                ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(userId);
-                Dictionary<DZMembership, DZMembership> assignedPair = new Dictionary<DZMembership, DZMembership>();
-                if (rs != null && rs.CustomerService.UserType == enum_UserType.customerservice)
-                {
-                    assignedPair.Add(rs.Customer, rs.CustomerService);
+                //ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(userId);
+                //Dictionary<DZMembership, DZMembership> assignedPair = new Dictionary<DZMembership, DZMembership>();
+                //if (rs != null && rs.CustomerService.UserType == enum_UserType.customerservice)
+                //{
+                //    assignedPair.Add(rs.Customer, rs.CustomerService);
 
-                    orderToReturn = rs.Order;
-                }
-                else if (rs != null && rs.CustomerService.UserType == enum_UserType.diandian)
-                {
-                    bllReceptionStatus.Delete(rs);
-                    assignedPair = ra.AssignCustomerLogin(member);
-                }
-                else
-                {
-                    assignedPair = ra.AssignCustomerLogin(member);
-                }
+                //    orderToReturn = rs.Order;
+                //}
+                //else if (rs != null && rs.CustomerService.UserType == enum_UserType.diandian)
+                //{
+                //    bllReceptionStatus.Delete(rs);
+                //    assignedPair = ra.AssignCustomerLogin(member);
+                //}
+                //else
+                //{
+                //    assignedPair = ra.AssignCustomerLogin(member);
+                //}
 
-                if (assignedPair.Count == 0)
-                {
-                    this.state_CODE = Dicts.StateCode[4];
-                    this.err_Msg = "没有在线客服";
-                    return;
-                }
-                ilog.Debug("4");
-                if (assignedPair.Count > 1)
-                {
-                    this.state_CODE = Dicts.StateCode[4];
-                    this.err_Msg = "返回了多个客服";
-                    return;
-                }
+                //if (assignedPair.Count == 0)
+                //{
+                //    this.state_CODE = Dicts.StateCode[4];
+                //    this.err_Msg = "没有在线客服";
+                //    return;
+                //}
+                //ilog.Debug("4");
+                //if (assignedPair.Count > 1)
+                //{
+                //    this.state_CODE = Dicts.StateCode[4];
+                //    this.err_Msg = "返回了多个客服";
+                //    return;
+                //}
                 ilog.Debug("5");
                 string reqOrderId = requestData.orderID;
                 Guid order_ID;
@@ -122,13 +138,13 @@ public class ResponseORM002001 : BaseResponse
                 //{
                 if (orderToReturn == null)
                 {
-                    orderToReturn = bllServiceOrder.GetDraftOrder(member, assignedPair[member]);
+                    orderToReturn = bllServiceOrder.GetDraftOrder(member, cs);
                 }
                 
                 if (orderToReturn == null)
                 {
                 
-                    orderToReturn = ServiceOrderFactory.CreateDraft(assignedPair[member], member);
+                    orderToReturn = ServiceOrderFactory.CreateDraft(cs, member);
 
                     bllServiceOrder.Save(orderToReturn);
                 }
@@ -156,9 +172,9 @@ public class ResponseORM002001 : BaseResponse
                 respData.orderID = orderToReturn.Id.ToString();
                 ilog.Debug("8");
                 //更新 ReceptionStatus 中订单
-                bllReceptionStatus.UpdateOrder(member, assignedPair[member], orderToReturn);
+                bllReceptionStatus.UpdateOrder(member, cs, orderToReturn);
                 ilog.Debug("9");
-                RespDataORM002001_cerObj cerObj = new RespDataORM002001_cerObj().Adap(assignedPair[member]);
+                RespDataORM002001_cerObj cerObj = new RespDataORM002001_cerObj().Adap(cs);
                 ilog.Debug("10");
                 respData.cerObj = cerObj;
                 this.RespData = respData;
