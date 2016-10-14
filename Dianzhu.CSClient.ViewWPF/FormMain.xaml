@@ -9,9 +9,15 @@
         mc:Ignorable="d"
         Title="一点办客服工具" WindowStartupLocation="CenterScreen" 
                  Height="900" Width="1600" MaxHeight="900" MaxWidth="1600" MinHeight="450" MinWidth="800"
-                WindowStyle="None" AllowsTransparency="True" ResizeMode="CanResizeWithGrip" Background="#FF264257">
+                 WindowChrome.WindowChrome="{DynamicResource WindowChromeKey}"
+                 WindowStyle="None" AllowsTransparency="False" ResizeMode="CanResizeWithGrip" Background="#FF264257">
 
     <Window.Resources>
+        <WindowChrome x:Key="WindowChromeKey">
+            <WindowChrome.ResizeBorderThickness>
+                <Thickness>5</Thickness>
+            </WindowChrome.ResizeBorderThickness>
+        </WindowChrome>
         <ControlTemplate  x:Key="CornerButton" TargetType="{x:Type Button}">
             <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10">
                 <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -117,15 +123,15 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="4"/>
+            <RowDefinition Height="1"/>
             <RowDefinition/>
-            <RowDefinition Height="4"/>
+            <RowDefinition Height="1"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4"/>
+            <ColumnDefinition Width="1"/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="4"/>
+            <ColumnDefinition Width="1"/>
         </Grid.ColumnDefinitions>
 
         <Rectangle Name="ResizeTopLeft" Fill="Transparent" Grid.Row="0" Grid.Column="0" MouseMove="ResizePressed" MouseDown="ResizePressed"/>
