@@ -81,6 +81,13 @@ namespace Dianzhu.ApplicationService.Order
                         strTag = dztag.Text + ",";
                     }
                 }
+
+                decimal d = 0;
+                if ( !decimal.TryParse(orderobj.negotiateAmount,out d) || d <= 0)
+                {
+                    orderobj.orderAmount = orderobj.negotiateAmount = (serviceorder.Details[0].UnitAmount * serviceorder.Details[0].OriginalService.UnitPrice).ToString("0.00");
+                }
+
                 orderobj.serviceSnapshotObj.tag = strTag.TrimEnd(',');
                 orderobj.contactObj.address = serviceorder.Details[0].TargetAddress;
                 orderobj.contactObj.alias = serviceorder.Details[0].TargetCustomerName ?? "";
@@ -92,6 +99,11 @@ namespace Dianzhu.ApplicationService.Order
                 IList<Model.ServiceOrderPushedService> dzs = bllpushservice.GetPushedServicesForOrder(serviceorder);
                 if (dzs.Count > 0)
                 {
+                    decimal d = 0;
+                    if (!decimal.TryParse(orderobj.negotiateAmount, out d) || d <= 0)
+                    {
+                        orderobj.orderAmount = orderobj.negotiateAmount = (dzs[0].UnitAmount * dzs[0].OriginalService.UnitPrice).ToString("0.00");
+                    }
                     orderobj.contactObj.address = dzs[0].TargetAddress;
                     orderobj.contactObj.alias = dzs[0].TargetCustomerName ?? "";
                     orderobj.contactObj.phone = dzs[0].TargetCustomerPhone ?? "";
@@ -286,7 +298,7 @@ namespace Dianzhu.ApplicationService.Order
             }
             //排除草稿单，因为推送服务会有时间差
             if (order.OrderStatus == Model.Enums.enum_OrderStatus.Draft)
-            {
+            { 
                 throw new Exception("没有找到资源！");
             }
             orderObj orderobj = Mapper.Map<Model.ServiceOrder, orderObj>(order);

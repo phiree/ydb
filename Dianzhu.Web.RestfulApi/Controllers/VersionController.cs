@@ -17,7 +17,12 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             //Console.WriteLine(d.AddDays(3125).AddSeconds(14653 * 2).ToString("yyyy/MM/dd HH:mm:ss")); 
             string[] str = v.Split('.');
             string t = d.AddDays(int.Parse (str[2])).AddSeconds(int.Parse(str[3]) * 2).ToString("yyyy/MM/dd HH:mm:ss");
-            return new string[] { "版本号："+v, "发布时间："+t };
+#if dev
+             string s = "1";
+#else
+            string s = "0";
+#endif
+            return new string[] { s+"版本号："+v, "发布时间："+t };
         }
 
         // GET api/values/5
