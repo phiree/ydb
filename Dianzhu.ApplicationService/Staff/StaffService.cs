@@ -87,14 +87,36 @@ namespace Dianzhu.ApplicationService.Staff
         /// <returns></returns>
         public staffObj PostStaff(string storeID, staffObj staffobj, Customer customer)
         {
-            if (staffobj.loginName == "" || staffobj.pWord == "")
+            if (string.IsNullOrEmpty(staffobj.loginName))
             {
-                throw new Exception("登录的用户名或密码不能为空！");
+                staffobj.loginName = staffobj.phone;
+                //throw new Exception("登录的用户名或密码不能为空！");
+            }
+            if (string.IsNullOrEmpty(staffobj.pWord))
+            {
+                staffobj.pWord = "123456";
+                //throw new Exception("登录的用户名或密码不能为空！");
             }
             Model.Business business = checkRute(storeID, customer);
             Model.Staff staff = Mapper.Map<staffObj, Model.Staff>(staffobj);
-            System.Web.Security.MembershipCreateStatus mc = new System.Web.Security.MembershipCreateStatus();
-            Model.DZMembership dzms = DZM.CreateUser(staffobj.loginName, null, null, staffobj.pWord, out mc, Model.Enums.enum_UserType.staff);
+            Model.DZMembership dzms = DZM.GetUserByName(staffobj.loginName);
+            if (dzms == null)
+            {
+                System.Web.Security.MembershipCreateStatus mc = new System.Web.Security.MembershipCreateStatus();
+                dzms = DZM.CreateUser(staffobj.loginName, null, null, staffobj.pWord, out mc, Model.Enums.enum_UserType.staff);
+            }
+            else
+            {
+                if (dzms.UserType != Model.Enums.enum_UserType.staff)
+                {
+                    throw new Exception("该用户名已经存在其他类型的用户！");
+                }
+            }
+            Model.Staff staff1 = bllStaff.GetOneByUserID(business.Id, dzms.Id.ToString());
+            if (staff1 != null)
+            {
+                throw new Exception("该员工在该店铺中已经存在！");
+            }
             //staffobj.phone == "" ? null : staffobj.phone, staffobj.email == "" ? null : staffobj.email--防止出现重复异常
             staff.Enable = true;
             staff.UserID = dzms.Id.ToString();

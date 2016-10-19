@@ -474,6 +474,10 @@ namespace Dianzhu.ApplicationService
         public static string GetFileName(string fileUrl)
         {
             string strFileName = fileUrl;
+            if (string.IsNullOrEmpty(strFileName))
+            {
+                return "";
+            }
             if (fileUrl.Contains("?fileName="))
             {
                 string[] strN = fileUrl.Split(new string[] { "?fileName=" },StringSplitOptions.None);

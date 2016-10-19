@@ -87,6 +87,10 @@ namespace Dianzhu.ApplicationService.Order
                 {
                     orderobj.orderAmount = orderobj.negotiateAmount = (serviceorder.Details[0].UnitAmount * serviceorder.Details[0].OriginalService.UnitPrice).ToString("0.00");
                 }
+                if (string.IsNullOrEmpty(orderobj.serviceAddress))
+                {
+                    orderobj.serviceAddress = serviceorder.Details[0].TargetAddress;
+                }
 
                 orderobj.serviceSnapshotObj.tag = strTag.TrimEnd(',');
                 orderobj.contactObj.address = serviceorder.Details[0].TargetAddress;
@@ -114,6 +118,10 @@ namespace Dianzhu.ApplicationService.Order
                     {
                         orderobj.storeObj = Mapper.Map<Model.Business, storeObj>(dzs[0].OriginalService.Business);
                         Store.StoreService.changeObj(orderobj.storeObj, dzs[0].OriginalService.Business);
+                    }
+                    if (string.IsNullOrEmpty(orderobj.serviceAddress))
+                    {
+                        orderobj.serviceAddress = dzs[0].TargetAddress;
                     }
                 }
             }
