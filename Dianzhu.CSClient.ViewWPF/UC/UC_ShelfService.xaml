@@ -74,7 +74,7 @@
                                     <TextBlock Style="{DynamicResource TextBlockName}" Text="评价"/>
                                 </Label>
                                 <Label Padding="0" Margin="8,0">
-                                    <TextBlock Style="{DynamicResource TextBlockName}">★★★</TextBlock>
+                                    <TextBlock x:Name="tbkAppraiseScore" Style="{DynamicResource TextBlockName}">★★★</TextBlock>
                                 </Label>
                             </WrapPanel>
 
@@ -85,9 +85,9 @@
                                 <Label x:Name="lblServiceStartTime" Padding="0" Margin="8,0,8,0">
                                     <TextBlock x:Name="tbkServiceTime" Style="{DynamicResource TextBlockName}" Text="08:00-12:00"/>
                                 </Label>
-                                <Label Padding="0" FontSize="12">
+                                <!--<Label Padding="0" FontSize="12">
                                     <TextBlock Style="{DynamicResource TextBlockName}" Text="(工作日)"/>
-                                </Label>
+                                </Label>-->
                             </WrapPanel>
 
                             <WrapPanel Margin="16,0,0,8">

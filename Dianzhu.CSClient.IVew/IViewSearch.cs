@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
+using Dianzhu.CSClient.ViewModel;
+
 namespace Dianzhu.CSClient.IView
 {
     /// <summary>
@@ -52,8 +54,7 @@ namespace Dianzhu.CSClient.IView
     /// </summary>
     public interface IViewSearchResult
     {
-        IList<DZService> SearchedService { get; set; }
-        event SelectService SelectService;
+        IList<VMShelfService> SearchedService { get; set; }
         event PushServices PushServices;
         string LoadingText { set; }
         void AddSearchItem(IViewShelfService service);
@@ -61,9 +62,8 @@ namespace Dianzhu.CSClient.IView
         event PushServiceTimerSend PushServiceTimerSend;
         event FilterByBusinessName FilterByBusinessName;
     }
-   
-    public delegate void SelectService(DZService selectedService);
-    public delegate ServiceOrder PushServices(IList<DZService> pushedServices,out string errorMsg);
+    
+    public delegate ServiceOrder PushServices(IList<Guid> pushedServices,out string errorMsg);
     public delegate void PushServiceTimerSend();
     public delegate void FilterByBusinessName(string businessName);
 
