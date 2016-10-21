@@ -9,6 +9,7 @@ using Dianzhu.BLL;
 using Dianzhu.CSClient.LocalStorage;
 using Dianzhu.CSClient.ViewModel;
 using Dianzhu.CSClient.Presenter.VMAdapter;
+using Ydb.InstantMessage.Application;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -22,7 +23,7 @@ namespace Dianzhu.CSClient.Presenter
         IDAL.IDALDZService dalDzService;
         IBLLServiceOrder bllServiceOrder;
         PushService bllPushService;
-        IInstantMessage.InstantMessage iIM;
+        IInstantMessage iIM;
         IDAL.IDALReceptionChat dalReceptionChat;
         IDAL.IDALServiceType dalServiceType;
         BLLReceptionStatus bllReceptionStatus;
@@ -43,7 +44,7 @@ namespace Dianzhu.CSClient.Presenter
 
         #region contructor
  
-        public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
+        public PSearch(IInstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
             IViewChatList viewChatList,IViewIdentityList viewIdentityList,
             IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder,IDAL.IDALReceptionChat dalReceptionChat, IDAL.IDALServiceType dalServiceType,                     
                     PushService bllPushService, BLLReceptionStatus bllReceptionStatus,BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder, LocalStorage.LocalChatManager localChatManager, LocalStorage.LocalUIDataManager localUIDataManager, 
@@ -386,14 +387,14 @@ namespace Dianzhu.CSClient.Presenter
             log.Debug("推送的订单：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //助理工具显示发送的消息
-            VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
-            viewChatList.AddOneChat(vmChat);
+            //VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
+            //viewChatList.AddOneChat(vmChat);
             //存储消息到内存中
-            localChatManager.Add(chat.ToId, vmChat);
+            //localChatManager.Add(chat.ToId, vmChat);
             //viewChatList.AddOneChat(chat,string.Empty);
 
             //发送推送聊天消息
-            iIM.SendMessage(chat);
+            //iIM.SendMessage(chat);
 
             //生成新的草稿单并发送给客户端
             ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService,IdentityManager.CurrentIdentity.Customer);
@@ -426,7 +427,7 @@ namespace Dianzhu.CSClient.Presenter
             //发送订单通知.
 
             return newOrder;
-            iIM.SendMessage(chat);
+
             //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             //NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
         }

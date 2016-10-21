@@ -11,10 +11,17 @@ using Dianzhu.BLL;
 using NHibernate;
 using System.Configuration;
 using nhf = FluentNHibernate.Cfg;
+using nc = NHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
 using Dianzhu.BLL.Finance;
 using Castle.MicroKernel.SubSystems.Configuration;
+using Ydb.InstantMessage.DomainModel.Reception;
+using Ydb.InstantMessage.Infrastructure.Repository.NHibernate;
+using Ydb.InstantMessage.Application;
+using Ydb.InstantMessage.Infrastructure;
+using Ydb.InstantMessage.Infrastructure.OpenfireXMPP;
+using Ydb.InstantMessage.DomainModel.Chat;
 
 namespace Dianzhu.DependencyInstaller
 {
@@ -106,7 +113,7 @@ namespace Dianzhu.DependencyInstaller
 
 
             //todo: Registering components by conventions https://github.com/castleproject/Windsor/blob/master/docs/registering-components-by-conventions.md
-            container.Register(Component.For(typeof(IRepository<,>)).ImplementedBy(typeof(NHRepositoryBase<,>)));
+            container.Register(Component.For(typeof(IRepository<,>)).ImplementedBy(typeof(DAL.NHRepositoryBase<,>)));
 
             container.Register(Component.For<IRepository<Advertisement, Guid>, IDALAdvertisement>().ImplementedBy<DALAdvertisement>());
             container.Register(Component.For<IRepository<Area, int>, IDALArea>().ImplementedBy<DALArea>());
@@ -149,9 +156,9 @@ namespace Dianzhu.DependencyInstaller
             //rrrrrrrrrrrrrr
             container.Register(Component.For<IRepository<Refund, Guid>, IDALRefund>().ImplementedBy<DALRefund>());
             container.Register(Component.For<IRepository<RefundLog, Guid>, IDALRefundLog>().ImplementedBy<DALRefundLog>());
-            container.Register(Component.For<IRepository<ReceptionStatusArchieve, Guid>, IDALReceptionStatusArchieve>().ImplementedBy<DALReceptionStatusArchieve>());
-            container.Register(Component.For<IRepository<ReceptionStatus, Guid>, IDALReceptionStatus>().ImplementedBy<DALReceptionStatus>());
-            container.Register(Component.For<IRepository<ReceptionChat, Guid>, IDALReceptionChat>().ImplementedBy<DALReceptionChat>());
+            container.Register(Component.For<IRepository<Model.ReceptionStatusArchieve, Guid>, IDALReceptionStatusArchieve>().ImplementedBy<DALReceptionStatusArchieve>());
+            container.Register(Component.For<IRepository<Model.ReceptionStatus, Guid>, IDALReceptionStatus>().ImplementedBy<DALReceptionStatus>());
+            container.Register(Component.For<IRepository<Model.ReceptionChat, Guid>, IDALReceptionChat>().ImplementedBy<DALReceptionChat>());
 
 
 
@@ -191,7 +198,7 @@ namespace Dianzhu.DependencyInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IAssignStratage>().ImplementedBy<AssignStratageRandom>());
+            container.Register(Component.For<IAssignStratage>().ImplementedBy<BLL.AssignStratageRandom>());
 
             //finance
             container.Register(Component.For<IBLLSharePoint>().ImplementedBy<BLLSharePoint>());
@@ -208,7 +215,7 @@ namespace Dianzhu.DependencyInstaller
                                 .DependsOn(Dependency.OnValue("restApiSecretKey", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey")))
                 );
 
-            container.Register(Component.For<ReceptionAssigner>().Named("OpenFireRestAssigner").DependsOn(Dependency.OnComponent<IIMSession, IMSessionsOpenfire>()));
+            container.Register(Component.For<BLL.ReceptionAssigner>().Named("OpenFireRestAssigner").DependsOn(Dependency.OnComponent<IIMSession, IMSessionsOpenfire>()));
             container.Register(Component.For<BLLPush>().DependsOn(Dependency.OnComponent<IIMSession, IMSessionsOpenfire>()));
 
             container.Register(Component.For<IBLLServiceOrder>().ImplementedBy<BLLServiceOrder>()
@@ -259,6 +266,59 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<Dianzhu.BLL.IEmailService>().ImplementedBy<JSYK.Infrastructure.EmailService>());
             container.Register(Component.For<Dianzhu.BLL.IEncryptService>().ImplementedBy<JSYK.Infrastructure.EncryptService>());
             container.Register(Component.For<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>().ImplementedBy<JSYK.Infrastructure.SerialNo.SerialNoDb>());
+
+        }
+    }
+
+    public class InstallerIntantMessage: IWindsorInstaller
+    {
+        public void Install(IWindsorContainer container, IConfigurationStore store)
+        {
+            var _sessionFactory = nhf.Fluently.Configure()
+                        .Database(
+                             MySQLConfiguration
+                            .Standard
+                            .ConnectionString("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test")
+                      )
+                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping.ReceptionStatusMapping>())
+                    .ExposeConfiguration(BuildSchema)
+                    .BuildSessionFactory();
+            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+
+            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
+            container.Register(Component.For<ISession>().Instance(_sessionFactory.OpenSession()));
+
+            container.Register(Component.For<IMessageAdapter>().ImplementedBy<MessageAdapter>());
+            container.Register(Component.For<IReceptionSession>().ImplementedBy<ReceptionSessionOpenfireRestapi>()
+                .DependsOn(Dependency.OnValue("restApiUrl", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiBaseUrl")))
+                .DependsOn(Dependency.OnValue("restApiSecretKey", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey")))
+                .Named("OpenfireSession"));
+
+            string server =Dianzhu.Config.Config.GetAppSetting("ImServer");
+            string domain = Dianzhu.Config.Config.GetAppSetting("ImDomain");
+            container.Register(Component.For<IInstantMessage>().ImplementedBy<OpenfireXMPP>()
+                                .DependsOn(
+
+                                  Dependency.OnValue("server", server)
+                                , Dependency.OnValue("domain", domain)
+                                )
+                            );
+           
+            container.Register(Component.For<IRepositoryReception>().ImplementedBy<ReceptionRepository>());
+            container.Register(Component.For<AssignStratage>().ImplementedBy<Ydb.InstantMessage.DomainModel.Reception.AssignStratageRandom>());
+            container.Register(Component.For<IReceptionAssigner>().ImplementedBy<Ydb.InstantMessage.DomainModel.Reception.ReceptionAssigner>());
+
+            container.Register(Component.For<IReceptionService>().ImplementedBy<Ydb.InstantMessage.Application.ReceptionService>());
+        }
+
+        private void BuildSchema(nc.Configuration config)
+        {
+
+
+            // this NHibernate tool takes a configuration (with mapping info in)
+            // and exports a database schema from it
+            SchemaUpdate update = new SchemaUpdate(config);
+            update.Execute(true, true);
 
         }
     }

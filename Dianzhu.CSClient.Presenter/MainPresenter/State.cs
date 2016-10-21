@@ -4,10 +4,6 @@ using System.Linq;
 using System.Text;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-using Dianzhu.CSClient.IView;
-using Dianzhu.CSClient.IInstantMessage;
- 
-using System.Collections;
 
 namespace Dianzhu.CSClient.Presenter
 {

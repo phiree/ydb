@@ -11,7 +11,7 @@ using System.Net;
 
 namespace Ydb.InstantMessage.Infrastructure
 {
-    class ReceptionSessionOpenfireRestapi:IReceptionSession
+    public class ReceptionSessionOpenfireRestapi:IReceptionSession
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Ydb.InstantMessage.Infrastructure.ReceptionSessionOpenfireRestapi");
         string restApiUrl, restApiSecretKey;

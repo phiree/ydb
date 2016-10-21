@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dianzhu.DependencyInstaller;
 
 namespace Dianzhu.CSClient
 {
@@ -19,15 +20,18 @@ namespace Dianzhu.CSClient
         {
             container = new WindsorContainer();
             container.Install(
-                new Dianzhu.DependencyInstaller.InstallerComponent(),
-                new Dianzhu.DependencyInstaller.InstallerInfrstructure(),
-                new Dianzhu.DependencyInstaller.InstallerRepository(),
-                new Dianzhu.DependencyInstaller.InstallerApplicationService(),
+                new InstallerIntantMessage(),
+                new InstallerComponent(),
+                new InstallerInfrstructure(),
+                new InstallerRepository(),
+                new InstallerApplicationService(),
                 new InstallerUI()
                 );
 
+          
 
         }
+
 
     }
 }

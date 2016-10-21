@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ydb.InstantMessage.DomainModel.Chat;
 
 namespace Dianzhu.CSClient.Presenter.VMAdapter
 {
@@ -25,7 +26,7 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
             this.localChatManager = localChatManager;
         }
 
-        public VMChat ChatToVMChat(ReceptionChat chat)
+        public VMChat ChatToVMChat(ReceptionChatDto chat)
         {
             DZMembership from = dalMembership.FindById(Guid.Parse(chat.FromId));
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
@@ -55,36 +56,36 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
                 cAvatar = localChatManager.LocalCustomerAvatarUrls[chat.FromId];
             }
 
-            VMChatFactory vmChatFactory = new VMChatFactory(chatId, fromId, fromName, savedTime, savedTimestamp, csAvatar, cAvatar, chatBackground, isFromCs);
+            VMChatFactory vmChatFactory = new VMChatFactory(chatId, fromId, fromName, fromId, savedTime, savedTimestamp, csAvatar, cAvatar, chatBackground, isFromCs);
 
 
             switch (chat.GetType().Name)
             {
-                case "ReceptionChat":
+                case "ReceptionChatDto":
                     return vmChatFactory.CreateVMChatText(chat.MessageBody);
-                case "ReceptionChatMedia":
-                    ReceptionChatMedia chatMedia = chat as ReceptionChatMedia;
+                case "ReceptionChatMediaDto":
+                    ReceptionChatMediaDto chatMedia = chat as ReceptionChatMediaDto;
                     string mediaType = chatMedia.MediaType;
                     string mediaUrl = chatMedia.MedialUrl;
 
                     return vmChatFactory.CreateVMChatMedia(mediaType, mediaUrl);
-                case "ReceptionChatPushService":
-                    ReceptionChatPushService chatPushService = chat as ReceptionChatPushService;
-                    DZService service = dalDZService.FindById(Guid.Parse(chatPushService.ServiceInfos[0].ServiceId));
-                    if (service == null)
-                    {
-                        throw new Exception("服务不存在,id:"+ chatPushService.ServiceInfos[0].ServiceId);
-                    }
+                case "ReceptionChatPushServiceDto":
+                    //ReceptionChatPushService chatPushService = chat as ReceptionChatPushService;
+                    //DZService service = dalDZService.FindById(Guid.Parse(chatPushService.ServiceInfos[0].ServiceId));
+                    //if (service == null)
+                    //{
+                    //    throw new Exception("服务不存在,id:"+ chatPushService.ServiceInfos[0].ServiceId);
+                    //}
 
-                    string servieName = service.Name ?? string.Empty;
-                    bool isVerify = service.IsCertificated;
-                    string imageUrl = service.Business.BusinessAvatar.ImageName;
-                    int creditPoint = 5;//没有数据，暂时设置为5
-                    decimal unitPrice = service.UnitPrice;
-                    decimal depositAmount = service.DepositAmount;
-                    string serviceMemo = service.Description ?? string.Empty;
+                    //string servieName = service.Name ?? string.Empty;
+                    //bool isVerify = service.IsCertificated;
+                    //string imageUrl = service.Business.BusinessAvatar.ImageName;
+                    //int creditPoint = 5;//没有数据，暂时设置为5
+                    //decimal unitPrice = service.UnitPrice;
+                    //decimal depositAmount = service.DepositAmount;
+                    //string serviceMemo = service.Description ?? string.Empty;
 
-                    return vmChatFactory.CreateVMChatPushServie(servieName, isVerify, imageUrl, creditPoint, unitPrice, depositAmount, serviceMemo);
+                    //return vmChatFactory.CreateVMChatPushServie(servieName, isVerify, imageUrl, creditPoint, unitPrice, depositAmount, serviceMemo);
                 default:
                     throw new Exception("Unknow Type:" + chat.GetType().Name);
             }

@@ -75,7 +75,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHibernate.4.0.0.4000\lib\net40\NHibernate.dll</HintPath>
+      <HintPath>..\packages\NHibernate.4.0.4.4000\lib\net40\NHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -110,7 +110,10 @@
     <Compile Include="DomainModel\Chat\MessageAdapter.cs" />
     <Compile Include="DomainModel\Chat\MessageBuilder.cs" />
     <Compile Include="DomainModel\Chat\ReceptionChat.cs" />
+    <Compile Include="DomainModel\Chat\ReceptionChatDto.cs" />
     <Compile Include="DomainModel\Chat\ReceptionChatFactory.cs" />
+    <Compile Include="DomainModel\Chat\ReceptionChatMediaDto.cs" />
+    <Compile Include="DomainModel\Chat\ReceptionChatMedia.cs" />
     <Compile Include="DomainModel\Reception\AssignStratage.cs" />
     <Compile Include="DomainModel\Reception\AssignStratageRandom.cs" />
     <Compile Include="DomainModel\Reception\IReceptionSession.cs" />

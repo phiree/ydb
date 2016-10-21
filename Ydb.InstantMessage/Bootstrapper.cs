@@ -15,6 +15,10 @@ using Ydb.InstantMessage.DomainModel.Reception;
 using Ydb.InstantMessage.Infrastructure.Repository.NHibernate;
 using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.Infrastructure;
+using Ydb.InstantMessage.Infrastructure.OpenfireXMPP;
+using Dianzhu.Config;
+using Ydb.InstantMessage.DomainModel.Chat;
+
 namespace Ydb.InstantMessage
 {
    public static   class Bootstrapper
@@ -52,6 +56,18 @@ namespace Ydb.InstantMessage
 
             container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
             container.Register(Component.For<ISession>().Instance(_sessionFactory.OpenSession()));
+
+            string server = Config.GetAppSetting("ImServer");
+            string domain = Config.GetAppSetting("ImDomain");
+            container.Register(Component.For<IInstantMessage>().ImplementedBy<OpenfireXMPP>()
+                                .DependsOn(
+
+                                  Dependency.OnValue("server", server)
+                                , Dependency.OnValue("domain", domain)
+                                )
+                            );
+
+            container.Register(Component.For<IMessageAdapter>().ImplementedBy<MessageAdapter>());
         }
 
         private static void BuildSchema(Configuration config)

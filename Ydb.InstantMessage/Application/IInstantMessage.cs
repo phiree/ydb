@@ -6,7 +6,7 @@ using Ydb.InstantMessage.DomainModel.Chat;
  
 namespace   Ydb.InstantMessage.Application
 {
-    public delegate void IMReceivedMessage(ReceptionChat chat);
+    public delegate void IMReceivedMessage(ReceptionChatDto dto);
     public delegate void IMLogined(string jidUser);
     public delegate void IMAuthError();
     /// <summary>
@@ -33,6 +33,7 @@ namespace   Ydb.InstantMessage.Application
         string Server { get; }
         string Domain { get; }
         void OpenConnection(string userName, string password);
+        void OpenConnection(string userName, string password, string resource);
         event IMClosed IMClosed;
         event IMLogined IMLogined;
         event IMPresent IMPresent;
@@ -40,7 +41,9 @@ namespace   Ydb.InstantMessage.Application
         event IMError IMError;
         void Close();
         event IMConnectionError IMConnectionError;
-        void SendMessage(ReceptionChat chat);
+        void SendMessageText(Guid messageId, string messageBody, string to,string toResource, string sessionId);
+        void SendMessageMedia(Guid messageId, string mediaUrl, string mediaType,string to,string sessionId,string toResource);
+        
         void SendMessage(string xml);
         event IMReceivedMessage IMReceivedMessage;
         event IMIQ IMIQ;

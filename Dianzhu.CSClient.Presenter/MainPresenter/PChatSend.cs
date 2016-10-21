@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.CSClient.IView;
-using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.Model.Enums;
 using Dianzhu.DAL;
 using log4net;
 using System.Windows.Threading;
 using Dianzhu.CSClient.ViewModel;
+using Ydb.InstantMessage.Application;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -27,7 +27,7 @@ namespace Dianzhu.CSClient.Presenter
         IDAL.IDALReceptionChat dalReceptionChat;
         IView.IViewChatList viewChatList;
         IViewChatSend viewChatSend;
-        InstantMessage iIM;
+        Ydb.InstantMessage.Application.IInstantMessage iIM;
         IViewIdentityList viewIdentityList;
         IViewOrderHistory viewOrderHistory;
         LocalStorage.LocalChatManager localChatManager;
@@ -36,7 +36,7 @@ namespace Dianzhu.CSClient.Presenter
         ServiceOrder order;
         
         public PChatSend(IViewChatSend viewChatSend, IView.IViewChatList viewChatList,
-            InstantMessage iIM,IDAL.IDALReceptionChat dalReceptionChat,IViewIdentityList viewIdentityList,
+            Ydb.InstantMessage.Application.IInstantMessage iIM,IDAL.IDALReceptionChat dalReceptionChat,IViewIdentityList viewIdentityList,
             IViewOrderHistory viewOrderHistory, LocalStorage.LocalChatManager localChatManager, VMAdapter.IVMChatAdapter vmChatAdapter)
         {
             this.viewChatList = viewChatList;
@@ -63,29 +63,36 @@ namespace Dianzhu.CSClient.Presenter
 
                 string s = Convert.ToBase64String(fileData);
                 string fileName = MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, domainType, mediaType);
+                Guid messageId = Guid.NewGuid();
+                iIM.SendMessageMedia(messageId, GlobalViables.MediaGetUrl + fileName,mediaType, IdentityManager.CurrentIdentity.Customer.Id.ToString(), IdentityManager.CurrentIdentity.Id.ToString(), "YDBan_User");
 
-                ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(),
-                    IdentityManager.CurrentIdentity.Customer.Id.ToString(), viewChatSend.MessageText, IdentityManager.CurrentIdentity.Id.ToString(), enum_XmppResource.YDBan_CustomerService,
-                     enum_XmppResource.YDBan_User);
-                ReceptionChatMedia chat = (ReceptionChatMedia)chatFactory.CreateChatMedia(GlobalViables.MediaGetUrl + fileName, mediaType);
-
-                iIM.SendMessage(chat);
-
-                if (PHSuit.LocalFileManagement.DownLoad(string.Empty, chat.MedialUrl, fileName))
+                if (PHSuit.LocalFileManagement.DownLoad(string.Empty, GlobalViables.MediaGetUrl + fileName, fileName))
                 {
-                    chat.SetMediaUrl(fileName);
+                    //chat.SetMediaUrl(fileName);
                 }
 
                 //临时存放订单
                 order = IdentityManager.CurrentIdentity;
 
                 viewChatSend.MessageText = string.Empty;
-                chat.SetMediaUrl(fileName);
-                VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
+                //chat.SetMediaUrl(fileName);
+                VMChatMedia vmChat = new VMChatMedia(
+                    mediaType,
+                    fileName,
+                    messageId.ToString(), 
+                    GlobalViables.CurrentCustomerService.Id.ToString(), 
+                    GlobalViables.CurrentCustomerService.DisplayName,
+                    IdentityManager.CurrentIdentity.Customer.Id.ToString(),
+                    DateTime.Now,
+                    (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds,
+                    "pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCS.png",
+                    string.Empty,
+                    "#b3d465",
+                    true);
                 viewChatList.AddOneChat(vmChat);
-                localChatManager.Add(chat.ToId, vmChat);
+                localChatManager.Add(vmChat.ToId, vmChat);
                 //viewChatList.AddOneChat(chat,string.Empty);
-                chat.SetMediaUrl(chat.MedialUrl.Replace(GlobalViables.MediaGetUrl, ""));
+                //chat.SetMediaUrl(chat.MedialUrl.Replace(GlobalViables.MediaGetUrl, ""));
             }
             catch (Exception ee)
             {
@@ -113,16 +120,38 @@ namespace Dianzhu.CSClient.Presenter
 
                 string messageText = viewChatSend.MessageText;
                 if (string.IsNullOrEmpty(messageText)) return;
-                ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(), IdentityManager.CurrentIdentity.Customer.Id.ToString(),
-                    messageText, IdentityManager.CurrentIdentity.Id.ToString(), enum_XmppResource.YDBan_CustomerService, enum_XmppResource.YDBan_User);
-                ReceptionChat chat = chatFactory.CreateChatText();
-                viewChatSend.MessageText = string.Empty;
-                VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
-                viewChatList.AddOneChat(vmChat);
-                localChatManager.Add(chat.ToId, vmChat);
+
+                //ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(), IdentityManager.CurrentIdentity.Customer.Id.ToString(),
+                //    messageText, IdentityManager.CurrentIdentity.Id.ToString(), enum_XmppResource.YDBan_CustomerService, enum_XmppResource.YDBan_User);
+                //ReceptionChat chat = chatFactory.CreateChatText();
+
+                Guid messageId = Guid.NewGuid();
+                iIM.SendMessageText(
+                    messageId,
+                    messageText,
+                    IdentityManager.CurrentIdentity.Customer.Id.ToString(),
+                    "YDBan_User",
+                     IdentityManager.CurrentIdentity.Id.ToString());
+
+                viewChatSend.MessageText = string.Empty;//发送后清空文本框
+                //VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
+                VMChatText vmChatText = new VMChatText(
+                    messageText,
+                    messageId.ToString(),
+                    GlobalViables.CurrentCustomerService.Id.ToString(),
+                    GlobalViables.CurrentCustomerService.DisplayName,
+                    IdentityManager.CurrentIdentity.Customer.Id.ToString(),
+                    DateTime.Now,
+                    (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds,
+                    "pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCS.png",
+                    string.Empty,
+                    "#b3d465",
+                    true);
+                viewChatList.AddOneChat(vmChatText);
+                localChatManager.Add(vmChatText.ToId, vmChatText);
                 //viewChatList.AddOneChat(chat,string.Empty);
                 //dalReceptionChat.Add(chat);
-                iIM.SendMessage(chat);
+                //iIM.SendMessage(chat);
 
  
                 //临时存放订单

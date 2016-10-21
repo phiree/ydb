@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dianzhu.CSClient.IInstantMessage;
-
 using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.BLL.IdentityAccess;
 using System.Threading;
+using Ydb.InstantMessage.Application;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -20,14 +19,14 @@ namespace Dianzhu.CSClient.Presenter
 
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.LoginPresenter");
         IView.ILoginForm loginView;
-        InstantMessage instantMessage;
+        IInstantMessage instantMessage;
         Dianzhu.IDAL.IUnitOfWork iuow;
         BLLAdvertisement bllAdv;
         IBLLServiceOrder bllServiceOrder;
         IEncryptService encryptService;
         IDAL.IDALMembership dalMembership;
         public string[] Args { get; set; }
-        public LoginPresenter(IView.ILoginForm loginView, InstantMessage instantMessage, BLLAdvertisement bllAdv,
+        public LoginPresenter(IView.ILoginForm loginView, IInstantMessage instantMessage, BLLAdvertisement bllAdv,
             IBLLServiceOrder bllServiceOrder,IDAL.IDALMembership dalMembership 
             ,IEncryptService encryptService
             //,Dianzhu.IDAL.IUnitOfWork iuow
@@ -101,7 +100,7 @@ namespace Dianzhu.CSClient.Presenter
                 if (member != null && member.UserType == Model.Enums.enum_UserType.customerservice)
                 {
                     instantMessage.OpenConnection(member.Id.ToString()
-                         , loginView.Password);
+                         , loginView.Password, Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString());
                 }
                 else
                 {

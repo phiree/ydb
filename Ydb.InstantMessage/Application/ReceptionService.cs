@@ -19,7 +19,7 @@ namespace Ydb.InstantMessage.Application
         log4net.ILog log = log4net.LogManager.GetLogger("Ydb.InstantMessage.Application.ReceptionService");
 
         DomainModel.Reception.IRepositoryReception receptionRepository;
-        DomainModel.Reception.IReceptionSession receptionSession;
+        
 
         IReceptionAssigner receptionAssigner;
 

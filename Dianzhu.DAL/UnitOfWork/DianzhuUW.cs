@@ -42,7 +42,7 @@ namespace Dianzhu.DAL
                         )
                       .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.AreaMap>())
                       .BuildConfiguration();
-            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+         HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
             sessionFactory = _configuration.BuildSessionFactory();
 
 

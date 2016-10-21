@@ -1,11 +1,11 @@
-﻿ 
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Ydb.InstantMessage.DomainModel.Chat.Enums;
 using Ydb.InstantMessage.DomainModel.Enums;
 using Ydb.Common.Domain;
+
 namespace Ydb.InstantMessage.DomainModel.Chat
 {
     /*
@@ -107,31 +107,30 @@ namespace Ydb.InstantMessage.DomainModel.Chat
             this.IsReaded = true;
         }
 
-
-
-    }
-
-    /// <summary>
-    /// IM,信息,多媒体
-    /// </summary>
-    public class ReceptionChatMedia : ReceptionChat
-    {
-        public ReceptionChatMedia() { }
-        public ReceptionChatMedia(string mediaurl, string mediatype,
-         Guid id, string from, string to, string messageBody, string sessionId, XmppResource resourceFrom, XmppResource resourceTo)
-            : base(id, from, to, messageBody, sessionId, ChatType.Chat, resourceFrom, resourceTo)
+        public ReceptionChatDto ToDto()
         {
-            this.MedialUrl = mediaurl;
-            this.MediaType = mediatype;
+            ReceptionChatDto dto = new ReceptionChatDto();
+
+            dto.Id = Id;
+            dto.SessionId = SessionId;
+            dto.SavedTime = SavedTime;
+            dto.SavedTimestamp = SavedTimestamp;
+            dto.SendTime = SendTime;
+            dto.ReceiveTime = ReceiveTime;
+            dto.ChatType = ChatType.ToString();
+            dto.FromId = FromId;
+            dto.ToId = ToId;
+            dto.MessageBody = MessageBody;
+            dto.ChatTarget = ChatTarget.ToString();
+            dto.FromResource = FromResource.ToString();
+            dto.ToResource = ToResource.ToString();
+            dto.IsReaded = IsReaded;
+            dto.IsfromCustomerService = IsfromCustomerService;
+
+            return dto;
         }
 
-        public virtual void SetMediaUrl(string mediaUrl)
-        {
-            this.MedialUrl = mediaUrl;
-        }
 
-        public virtual string MedialUrl { get; protected internal set; }
-        public virtual string MediaType { get; protected internal set; }
     }
 
     /// <summary>

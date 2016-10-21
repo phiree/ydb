@@ -58,10 +58,9 @@ namespace Dianzhu.CSClient
                 return;
             }
 
+          
+
             Bootstrap.Boot();
-
-            Ydb.InstantMessage.Bootstrapper.Boot();
-
 
             string version = GetVersion();
             //  loginForm.FormText += "v" + version;

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
-using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.Model.Enums;
 using System.ComponentModel;
 using Dianzhu.CSClient.ViewModel;
+using Ydb.InstantMessage.Application;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -26,12 +26,12 @@ namespace Dianzhu.CSClient.Presenter
         IViewChatList viewChatList;
         IViewChatSend viewChatSend;
         IViewIdentityList viewIdentityList;
-        InstantMessage iIM;
+        IInstantMessage iIM;
         Dianzhu.CSClient.LocalStorage.LocalChatManager chatManager;
         VMAdapter.IVMChatAdapter vmChatAdapter;
 
 
-        public PChatList(IViewChatList viewChatList,IViewChatSend viewChatSend, IViewIdentityList viewCustomerList,IDAL.IDALReceptionChat dalReceptionChat, InstantMessage iIM,
+        public PChatList(IViewChatList viewChatList,IViewChatSend viewChatSend, IViewIdentityList viewCustomerList,IDAL.IDALReceptionChat dalReceptionChat, IInstantMessage iIM,
             Dianzhu.CSClient.LocalStorage.LocalChatManager chatManager, VMAdapter.IVMChatAdapter vmChatAdapter)
         {
             this.chatManager = chatManager;
@@ -76,9 +76,9 @@ namespace Dianzhu.CSClient.Presenter
                     {
                         customerId = chatHistory[i].ToId;
                     }
-                    VMChat vmChat = vmChatAdapter.ChatToVMChat(chatHistory[i]);
-                    viewChatList.InsertOneChat(vmChat);
-                    viewChatList.ChatList.Insert(0, vmChat);
+                    //VMChat vmChat = vmChatAdapter.ChatToVMChat(chatHistory[i]);
+                    //viewChatList.InsertOneChat(vmChat);
+                    //viewChatList.ChatList.Insert(0, vmChat);
                     //viewChatList.InsertOneChat(item, chatManager.LocalCustomerAvatarUrls[customerId]);
                 }
             }
@@ -149,9 +149,9 @@ namespace Dianzhu.CSClient.Presenter
                     VMChat vmChat;
                     for (int i = 0; i < chatList.Count; i++)
                     {
-                        vmChat = vmChatAdapter.ChatToVMChat(chatList[i]);
+                        //vmChat = vmChatAdapter.ChatToVMChat(chatList[i]);
 
-                        vmList.Add(vmChat);
+                        //vmList.Add(vmChat);
                     }
                 }
 

@@ -6,10 +6,6 @@ using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
-using Dianzhu.CSClient.IInstantMessage;
-
-using Dianzhu.Model.Enums;
-using Dianzhu.DAL;
 using System.ComponentModel;
 using Dianzhu.CSClient.ViewModel;
 using Dianzhu.CSClient.Presenter.VMAdapter;
@@ -32,7 +28,7 @@ namespace Dianzhu.CSClient.Presenter
 
         public POrderHistory() { }
 
-        public POrderHistory(IViewOrderHistory viewOrderHistory, IViewIdentityList viewIdentityList, IBLLServiceOrder bllServiceOrder, IInstantMessage.InstantMessage iIM, LocalStorage.LocalHistoryOrderManager localHistoryOrderManager, IVMOrderHistoryAdapter vmOrderHistoryAdapter)
+        public POrderHistory(IViewOrderHistory viewOrderHistory, IViewIdentityList viewIdentityList, IBLLServiceOrder bllServiceOrder, LocalStorage.LocalHistoryOrderManager localHistoryOrderManager, IVMOrderHistoryAdapter vmOrderHistoryAdapter)
         {
             this.viewOrderHistory = viewOrderHistory;
             this.orderList = new List<ServiceOrder>();

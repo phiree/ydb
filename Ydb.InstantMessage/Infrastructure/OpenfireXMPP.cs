@@ -6,6 +6,8 @@ using agsXMPP;
 using agsXMPP.protocol.client;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.Application;
+using Ydb.InstantMessage.DomainModel.Enums;
+
 namespace Ydb.InstantMessage.Infrastructure.OpenfireXMPP
 {
     /// <summary>
@@ -118,21 +120,14 @@ namespace Ydb.InstantMessage.Infrastructure.OpenfireXMPP
             {
                 try
                 {
-                   // NHibernateUnitOfWork.UnitOfWork.Start();
-
                     ReceptionChat chat = messageAdapter.MessageToChat(msg);// new Model.ReceptionChat();// MessageAdapter.MessageToChat(msg);
                     
-                    IMReceivedMessage(chat);
+                    IMReceivedMessage(chat.ToDto());
                 }
                 catch (Exception ex)
                 {
-                    log.Error("消息解析失败");
+                    log.Error(ex.Message);
                   //  PHSuit.ExceptionLoger.ExceptionLog(log, ex);
-                }
-                finally
-                {
-                   // NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                  //  NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
                 }
             }
 
@@ -212,6 +207,34 @@ namespace Ydb.InstantMessage.Infrastructure.OpenfireXMPP
             IMClosed();
         }
 
+        public void SendMessageMedia(Guid messageId, string mediaUrl, string mediaType, string to, string sessionId, string toResource)
+        {
+            XmppResource resourceTo;
+            if(!Enum.TryParse(toResource,out resourceTo))
+            {
+                throw new Exception("传入的toResource有误");
+            }
+            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, string.Empty, sessionId, XmppResource.Unknow, resourceTo);
+            ReceptionChat chat = receptionChatFactory.CreateChatMedia(mediaUrl, mediaType);
+            SendMessage(chat);
+        }
 
+        public void SendMessageText(Guid messageId, string messageBogy, string to, string toResource, string sessionId)
+        {
+            XmppResource resourceTo;
+            if (!Enum.TryParse(toResource, out resourceTo))
+            {
+                throw new Exception("传入的toResource有误");
+            }
+            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, messageBogy, sessionId, XmppResource.Unknow, resourceTo);
+            ReceptionChat chat = receptionChatFactory.CreateChatText();
+            SendMessage(chat);
+        }
+
+        public void OpenConnection(string userName, string password, string resource)
+        {
+            log.Debug("xmpp open connection:" + userName);
+            XmppClientConnection.Open(userName, password, resource);
+        }
     }
 }

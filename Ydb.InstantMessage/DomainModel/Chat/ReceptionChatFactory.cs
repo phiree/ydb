@@ -34,7 +34,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
             this.sessionId = sessionId;
            
         }
-        public ReceptionChat CreateChatText( )
+        public ReceptionChat CreateChatText()
         {
             return new ReceptionChat(id, fromId, toId, messageBody, sessionId, ChatType.Chat, fromResource, toResource);
 

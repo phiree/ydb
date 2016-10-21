@@ -1,14 +1,13 @@
 ﻿using Dianzhu.BLL;
-using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.CSClient.IView;
-using Dianzhu.Model;
-using Dianzhu.Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ydb.InstantMessage.Application;
+using Ydb.InstantMessage.DomainModel.Chat;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -24,11 +23,11 @@ namespace Dianzhu.CSClient.Presenter
         IViewMainForm viewMainForm;
         IViewFormShowMessage viewFormShowMessage;
 
-        InstantMessage iIM;
+        IInstantMessage iIM;
         IViewIdentityList iViewIdentityList;
         IBLLMembershipLoginLog bllLoginLog;
 
-        public PMain(IViewMainForm viewMainForm, InstantMessage iIM, IViewIdentityList iViewIdentityList, IBLLMembershipLoginLog bllLoginLog,
+        public PMain(IViewMainForm viewMainForm, IInstantMessage iIM, IViewIdentityList iViewIdentityList, IBLLMembershipLoginLog bllLoginLog,
             IDAL.IDALReceptionStatus dalReceptionStatus, IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve,
              IDAL.IDALReceptionChat dalReceptionChat,
               IDAL.IDALIMUserStatus dalIMUserStatus, IViewFormShowMessage viewFormShowMessage)
@@ -64,19 +63,16 @@ namespace Dianzhu.CSClient.Presenter
             CloseApplication();
         }
 
-        private void IIM_IMReceivedMessage(Model.ReceptionChat chat)
+        private void IIM_IMReceivedMessage(ReceptionChatDto chat)
         {
             string errMsg = string.Empty;
             //判断信息类型
             switch (chat.ChatType)
             {
                 //下列状态在其他地方已处理，此处直接跳过
-                case Model.Enums.enum_ChatType.Chat:
- 
+                case "Chat":
                     viewMainForm.FlashTaskBar();
                     break;
- 
-
                 default:
                     errMsg = "客服工具不必处理这种类型的message:" + chat.ChatType;
                     log.Error(errMsg);

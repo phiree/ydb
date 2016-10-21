@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.Model;
 using System.Diagnostics;
 using System.Collections.Concurrent;
+
 namespace Dianzhu.CSClient.Presenter
 {
     /// <summary>
