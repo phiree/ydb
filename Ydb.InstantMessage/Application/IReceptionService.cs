@@ -14,9 +14,9 @@ namespace Ydb.InstantMessage.Application
         //用户超时未回复,删除分配关系
         void DeleteReception(string customerId);
 
-        string AssignCustomerLogin(string customerId);
+        string AssignCustomerLogin(string customerId,out string errorMessage);
 
-        void AssignCSLogin(string csId);
+        IList<string> AssignCSLogin(string csId, int amount);
 
         void AssignCSLogoff(string csId);
     }

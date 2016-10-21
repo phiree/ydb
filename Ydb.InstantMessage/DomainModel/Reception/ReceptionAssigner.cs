@@ -52,18 +52,11 @@ namespace Ydb.InstantMessage.DomainModel.Reception
                 }
             }
 
-            if(string.IsNullOrEmpty(csId))
+            if (string.IsNullOrEmpty(csId))
             {
-                try
-                {
-                    var onlineList = receptionSession.GetOnlineSessionUser(XmppResource.YDBan_CustomerService);
-                    Dictionary<string, string> assignResult = assignStratage.Assign(new List<string> { customerId }, onlineList, DianDianId);
-                    csId = assignResult[customerId];
-                }
-                catch (Exception ee)
-                {
-                    PHSuit.ExceptionLoger.ExceptionLog(log, ee);
-                }
+                var onlineList = receptionSession.GetOnlineSessionUser(XmppResource.YDBan_CustomerService);
+                Dictionary<string, string> assignResult = assignStratage.Assign(new List<string> { customerId }, onlineList, DianDianId);
+                csId = assignResult[customerId];
             }
 
             return csId;
@@ -85,16 +78,8 @@ namespace Ydb.InstantMessage.DomainModel.Reception
         {
             Dictionary<string, string> assignList = new Dictionary<string, string>();
 
-            try
-            {
-                var onlineList = receptionSession.GetOnlineSessionUser(XmppResource.YDBan_CustomerService);
-                assignList = assignStratage.Assign(existedReceptionForCustomerService.Select(x => x.CustomerId).ToList(), onlineList, DianDianId);
-            }
-            catch (Exception ee)
-            {
-                PHSuit.ExceptionLoger.ExceptionLog(log, ee);
-                throw ee;
-            }
+            var onlineList = receptionSession.GetOnlineSessionUser(XmppResource.YDBan_CustomerService);
+            assignList = assignStratage.Assign(existedReceptionForCustomerService.Select(x => x.CustomerId).ToList(), onlineList, DianDianId);
 
             return assignList;
         }

@@ -179,29 +179,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
-      <Project>{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}</Project>
-      <Name>Dianzhu.BLL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
       <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
       <Name>Dianzhu.Config</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.IInstantMessage\Dianzhu.CSClient.IInstantMessage.csproj">
-      <Project>{820a465f-51fb-4f8d-8665-b80f9643281b}</Project>
-      <Name>Dianzhu.CSClient.IInstantMessage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.IMessageAdapter\Dianzhu.CSClient.IMessageAdapter.csproj">
-      <Project>{74f0963e-57ca-4d57-899c-d85ff096fe1f}</Project>
-      <Name>Dianzhu.CSClient.IMessageAdapter</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.MessageAdapter\Dianzhu.CSClient.MessageAdapter.csproj">
-      <Project>{a871c9e1-98a4-412f-a1b3-541189a4c4cf}</Project>
-      <Name>Dianzhu.CSClient.MessageAdapter</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj">
-      <Project>{125f0d3b-e83c-4743-9944-e82392cba6c5}</Project>
-      <Name>Dianzhu.CSClient.XMPP</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>

@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Reception;
 using NHibernate;
+using Ydb.InstantMessage.DomainModel.Enums;
+using Ydb.InstantMessage.DomainModel.Chat;
+
 namespace Ydb.InstantMessage.Application
 {
     /// <summary>
@@ -13,6 +16,8 @@ namespace Ydb.InstantMessage.Application
     /// </summary>
     public class ReceptionService : IReceptionService
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Ydb.InstantMessage.Application.ReceptionService");
+
         DomainModel.Reception.IRepositoryReception receptionRepository;
         DomainModel.Reception.IReceptionSession receptionSession;
 
@@ -39,19 +44,25 @@ namespace Ydb.InstantMessage.Application
             throw new NotImplementedException();
         }
 
-        public string AssignCustomerLogin(string customerId)
+        public string AssignCustomerLogin(string customerId,out string errorMessage)
         {
             using (var t = session.BeginTransaction())
             {
                 string assignCS = string.Empty;
+                errorMessage = string.Empty;
 
                 IList<ReceptionStatus> existReceptions = receptionRepository.FindByCustomerId(customerId);
 
 
-                assignCS = receptionAssigner.AssignCustomerLogin(existReceptions, customerId);
-                if (string.IsNullOrEmpty(assignCS))
+                try
                 {
-                    throw new Exception("用户分配失败");
+                    assignCS = receptionAssigner.AssignCustomerLogin(existReceptions, customerId);
+                }
+                catch (Exception ee)
+                {
+                    PHSuit.ExceptionLoger.ExceptionLog(log, ee);
+                    errorMessage = "分配失败";
+                    return assignCS;
                 }
 
                 for (int i = 0; i < existReceptions.Count; i++)
@@ -68,11 +79,13 @@ namespace Ydb.InstantMessage.Application
             }
         }
 
-        public void AssignCSLogin(string csId)
+        public IList<string> AssignCSLogin(string csId, int amount)
         {
             using (var t = session.BeginTransaction())
             {
-                IList<ReceptionStatus> existReceptions = receptionRepository.FindByDiandian(DianDianId);
+                IList<string> assignList = new List<string>();
+
+                IList<ReceptionStatus> existReceptions = receptionRepository.FindByDiandian(DianDianId, amount);
 
                 Dictionary<string, string> assignReception = receptionAssigner.AssignCSLogin(existReceptions, csId);
 
@@ -80,9 +93,12 @@ namespace Ydb.InstantMessage.Application
                 {
                     item.ChangeCS(assignReception[item.CustomerId]);
                     receptionRepository.Update(item);
+
+                    assignList.Add(item.CustomerId);
                 }
 
                 t.Commit();
+                return assignList;
             }
         }
 

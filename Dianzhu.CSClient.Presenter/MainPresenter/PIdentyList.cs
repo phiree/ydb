@@ -15,6 +15,8 @@ using System.IO;
 using System.Threading;
 using Dianzhu.CSClient.ViewModel;
 using Dianzhu.CSClient.Presenter.VMAdapter;
+using Ydb.InstantMessage.Application;
+using im = Ydb.InstantMessage;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -44,6 +46,7 @@ namespace Dianzhu.CSClient.Presenter
         LocalStorage.LocalUIDataManager localUIDataManager;
         IVMChatAdapter vmChatAdapter;
         IVMIdentityAdapter vmIdentityAdapter;
+        IReceptionService receptionService;
 
         public PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,
             InstantMessage iIM,
@@ -75,6 +78,7 @@ namespace Dianzhu.CSClient.Presenter
             this.dalMembership = dalMembership;
             this.vmChatAdapter = vmChatAdapter;
             this.vmIdentityAdapter = vmIdentityAdapter;
+            this.receptionService = im.Bootstrapper.Container.Resolve<IReceptionService>();
 
             iView.IdentityClick += IView_IdentityClick;
             iView.FinalChatTimerTick += IView_FinalChatTimerTick;
@@ -91,52 +95,40 @@ namespace Dianzhu.CSClient.Presenter
         {
             try
             {
+                log.Debug("-------开始 接收离线用户------");
+                IList<string> assignList = receptionService.AssignCSLogin(GlobalViables.CurrentCustomerService.Id.ToString(), 3);
+
                 NHibernateUnitOfWork.UnitOfWork.Start();
 
-                log.Debug("-------开始 接收离线消息------");
-                IList<ReceptionStatus> rsList = dalReceptionStatus.GetRSListByDiandianAndUpdate(GlobalViables.Diandian, 3,GlobalViables.CurrentCustomerService);
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                if (rsList.Count > 0)
+                //IList<ReceptionStatus> rsList = dalReceptionStatus.GetRSListByDiandianAndUpdate(GlobalViables.Diandian, 3, GlobalViables.CurrentCustomerService);
+                //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                if (assignList.Count > 0)
                 {
-
-
-                    log.Debug("需要接待的离线用户数量:" + rsList.Count);
-                    foreach (ReceptionStatus rs in rsList)
-
+                    log.Debug("需要接待的离线用户数量:" + assignList.Count);
+                    foreach (var customerId in assignList)
                     {
-                        #region 接待记录存档
-                        SaveRSA(rs.Customer, rs.CustomerService, rs.Order);
-                        #endregion
-                        rs.CustomerService = GlobalViables.CurrentCustomerService;
-                        log.Debug("保存新分配的接待记录");
-                      //  dalReceptionStatus.Update(rs);
-                       
+                        DZMembership customer = dalMembership.FindById(Guid.Parse(customerId));
+                        ClientState.customerList.Add(customer);
+                        ServiceOrder order = bllServiceOrder.GetDraftOrder(customer, GlobalViables.CurrentCustomerService);
 
-                        //CopyDDToChat(rsList.Select(x => x.Customer).ToList());
-
-                        ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.Diandian.Id.ToString(), rs.Customer.Id.ToString(),
-                            "客服" + rs.CustomerService.DisplayName + "已上线", rs.Order.Id.ToString(), enum_XmppResource.YDBan_DianDian, enum_XmppResource.YDBan_User);
-                        ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
-                        chatFactory.CreateReAssign(rs.CustomerService.Id.ToString(), rs.CustomerService.NickName, rs.CustomerService.AvatarUrl);
-
-                        iIM.SendMessage(rChatReAss);
-
-                        //ClientState.OrderList.Add(rs.Order);
-                        ClientState.customerList.Add(rs.Customer);
-                        //view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
-                        if (rs.Order != null)
+                        if (order != null)
                         {
-                            if (!localChatManager.LocalCustomerAvatarUrls.ContainsKey(rs.Order.Customer.Id.ToString()))
+                            if (!localChatManager.LocalCustomerAvatarUrls.ContainsKey(customerId))
                             {
                                 string avatar = string.Empty;
-                                if (rs.Customer.AvatarUrl != null)
+                                if (customer.AvatarUrl != null)
                                 {
-                                    avatar = rs.Customer.AvatarUrl;
+                                    avatar = customer.AvatarUrl;
                                 }
-                                localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()] = avatar;
+                                localChatManager.LocalCustomerAvatarUrls[customerId] = avatar;
                             }
-                            VMIdentity vmIdentity = vmIdentityAdapter.OrderToVMIdentity(rs.Order, localChatManager.LocalCustomerAvatarUrls[rs.Order.Customer.Id.ToString()]);
+                            VMIdentity vmIdentity = vmIdentityAdapter.OrderToVMIdentity(order, localChatManager.LocalCustomerAvatarUrls[customerId]);
                             AddIdentity(vmIdentity);
+
+                            ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.Diandian.Id.ToString(), customerId,
+                            "客服" + GlobalViables.CurrentCustomerService.DisplayName + "已上线", order.Id.ToString(), enum_XmppResource.YDBan_DianDian, enum_XmppResource.YDBan_User);
+                            ReceptionChat rChatReAss = chatFactory.CreateReAssign(GlobalViables.CurrentCustomerService.Id.ToString(), GlobalViables.CurrentCustomerService.DisplayName, string.Empty);
+                            iIM.SendMessage(rChatReAss);
                         }
                     }
                 }
