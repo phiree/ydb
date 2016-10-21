@@ -107,6 +107,7 @@
     <Compile Include="DomainModel\Chat\Enums\ChatType.cs" />
     <Compile Include="DomainModel\Chat\IMessageAdapter.cs" />
     <Compile Include="Application\IInstantMessage.cs" />
+    <Compile Include="DomainModel\Chat\IRepositoryChat.cs" />
     <Compile Include="DomainModel\Chat\MessageAdapter.cs" />
     <Compile Include="DomainModel\Chat\MessageBuilder.cs" />
     <Compile Include="DomainModel\Chat\ReceptionChat.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="DomainModel\Reception\ReceptionStatus.cs" />
     <Compile Include="DomainModel\XmppResource.cs" />
     <Compile Include="Infrastructure\ReceptionSessionOpenfireRestapi.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\ChatRepository.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\HybridSessionBuilder.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ReceptionStatusMapping.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\NHRepository.cs" />
@@ -131,9 +133,7 @@
     <Compile Include="Infrastructure\OpenfireXMPP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="dlls\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="UL.txt" />
   </ItemGroup>
