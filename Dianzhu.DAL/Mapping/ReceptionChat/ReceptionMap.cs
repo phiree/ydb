@@ -92,23 +92,41 @@ namespace Dianzhu.DAL.Mapping
     {
         public ReceptionChatPushServiceMap()
         {
-         
-            
-            HasMany<PushedServiceInfo>(x => x.ServiceInfos).Component(
-                x => {
-                    x.Map(c=>c.ServiceId);
-                    x.Map(c=>c.ServiceName);
-                    x.Map(c=>c.ServiceEndTime);
-                    x.Map(c=>c.ServiceStartTime);
-                    x.Map(c=>c.ServiceType);
-                    x.Map(c=>c.StoreAlias);
-                    x.Map(c=>c.StoreAvatar);
-                    x.Map(c=>c.StoreUserId);
-                }
-                );
+
+
+            //HasMany<PushedServiceInfo>(x => x.ServiceInfos).Component(
+            //    x => {
+            //        x.Map(c=>c.ServiceId);
+            //        x.Map(c=>c.ServiceName);
+            //        x.Map(c=>c.ServiceEndTime);
+            //        x.Map(c=>c.ServiceStartTime);
+            //        x.Map(c=>c.ServiceType);
+            //        x.Map(c=>c.StoreAlias);
+            //        x.Map(c=>c.StoreAvatar);
+            //        x.Map(c=>c.StoreUserId);
+            //    }
+            //    );
+            //这样设计可能会造成mapping错误
+            HasMany<PushedServiceInfo>(x => x.ServiceInfos);
         }
     }
- 
+
+    public class PushedServiceInfoMap : ClassMap<PushedServiceInfo>
+    {
+        public PushedServiceInfoMap()
+        {
+            Id(x => x.Id);
+            Map(c => c.ServiceId);
+            Map(c => c.ServiceName);
+            Map(c => c.ServiceEndTime);
+            Map(c => c.ServiceStartTime);
+            Map(c => c.ServiceType);
+            Map(c => c.StoreAlias);
+            Map(c => c.StoreAvatar);
+            Map(c => c.StoreUserId);
+        }
+    }
+
 
 
 

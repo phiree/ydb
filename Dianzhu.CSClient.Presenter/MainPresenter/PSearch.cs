@@ -358,7 +358,7 @@ namespace Dianzhu.CSClient.Presenter
             IList<PushedServiceInfo> pushedServiceInfos = new List<PushedServiceInfo>();
             foreach (var pushedService in serviceOrderPushedServices)
             {
-                PushedServiceInfo psi = new PushedServiceInfo(
+                PushedServiceInfo psi = new PushedServiceInfo(new Guid(),
                     pushedService.OriginalService.Id.ToString(),
                     pushedService.ServiceName,
                     pushedService.OriginalService.ServiceType.ToString(),
