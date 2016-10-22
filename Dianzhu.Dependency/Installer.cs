@@ -20,7 +20,7 @@ using Ydb.InstantMessage.DomainModel.Reception;
 using Ydb.InstantMessage.Infrastructure.Repository.NHibernate;
 using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.Infrastructure;
-using Ydb.InstantMessage.Infrastructure.OpenfireXMPP;
+ 
 using Ydb.InstantMessage.DomainModel.Chat;
 
 namespace Dianzhu.DependencyInstaller
@@ -270,61 +270,7 @@ namespace Dianzhu.DependencyInstaller
         }
     }
 
-    public class InstallerIntantMessage: IWindsorInstaller
-    {
-        public void Install(IWindsorContainer container, IConfigurationStore store)
-        {
-            var _sessionFactory = nhf.Fluently.Configure()
-                        .Database(
-                             MySQLConfiguration
-                            .Standard
-                            .ConnectionString("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test")
-                      )
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping.ReceptionStatusMap>())
-                    .ExposeConfiguration(BuildSchema)
-                    .BuildSessionFactory();
-            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-
-            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
-            container.Register(Component.For<ISession>().Instance(_sessionFactory.OpenSession()));
-
-            container.Register(Component.For<IMessageAdapter>().ImplementedBy<MessageAdapter>());
-            container.Register(Component.For<IReceptionSession>().ImplementedBy<ReceptionSessionOpenfireRestapi>()
-                .DependsOn(Dependency.OnValue("restApiUrl", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiBaseUrl")))
-                .DependsOn(Dependency.OnValue("restApiSecretKey", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey")))
-                .Named("OpenfireSession"));
-
-            string server =Dianzhu.Config.Config.GetAppSetting("ImServer");
-            string domain = Dianzhu.Config.Config.GetAppSetting("ImDomain");
-            container.Register(Component.For<IInstantMessage>().ImplementedBy<OpenfireXMPP>()
-                                .DependsOn(
-
-                                  Dependency.OnValue("server", server)
-                                , Dependency.OnValue("domain", domain)
-                                )
-                            );
-           
-            container.Register(Component.For<IRepositoryReception>().ImplementedBy<RepositoryReception>());
-            container.Register(Component.For<IRepositoryChat>().ImplementedBy<RepositoryChat>());
-
-            container.Register(Component.For<AssignStratage>().ImplementedBy<Ydb.InstantMessage.DomainModel.Reception.AssignStratageRandom>());
-            container.Register(Component.For<IReceptionAssigner>().ImplementedBy<Ydb.InstantMessage.DomainModel.Reception.ReceptionAssigner>());
-
-            container.Register(Component.For<IReceptionService>().ImplementedBy<Ydb.InstantMessage.Application.ReceptionService>()); 
-            container.Register(Component.For<IChatService>().ImplementedBy<Ydb.InstantMessage.Application.ChatService>()); 
-        }
-
-        private void BuildSchema(nc.Configuration config)
-        {
-
-
-            // this NHibernate tool takes a configuration (with mapping info in)
-            // and exports a database schema from it
-            SchemaUpdate update = new SchemaUpdate(config);
-            update.Execute(true, true);
-
-        }
-    }
+    
     /// <summary>
     /// Summary description for Installer
     /// </summary>

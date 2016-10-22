@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.DependencyInstaller;
+ 
 
 namespace Ydb.InstantMessage.Tests
 {
@@ -20,7 +20,7 @@ namespace Ydb.InstantMessage.Tests
         {
             container = new WindsorContainer();
             container.Install(
-                new InstallerIntantMessage()
+                new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage()
                 );
         }
 

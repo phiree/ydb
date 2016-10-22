@@ -8,7 +8,7 @@ using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.DomainModel.Enums;
 
-namespace Ydb.InstantMessage.Infrastructure.OpenfireXMPP
+namespace Ydb.InstantMessage.Infrastructure
 {
     /// <summary>
     /// 通讯接口的 XMPP实现. 使用 agsxmpp 类库.

@@ -30,6 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.0.0.4000\lib\net40\NHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,14 +52,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BalanceFlowService.cs" />
-    <Compile Include="DomainModel\BalanceFlowService.cs" />
+    <Compile Include="Application\BanlanceFlow.cs" />
+    <Compile Include="Application\IBalanceFlowService.cs" />
     <Compile Include="DomainModel\BalanceFlow.cs" />
+    <Compile Include="DomainModel\Repository\RepositoryBalanceFlow.cs" />
+    <Compile Include="DomainModel\Repository\RepositoryDefaultSharePoint.cs" />
+    <Compile Include="DomainModel\Repository\RepositoryServiceTypePoint.cs" />
+    <Compile Include="DomainModel\Repository\RepositorySharePoint.cs" />
     <Compile Include="DomainModel\DefaultSharePoint.cs" />
     <Compile Include="DomainModel\Enums\FlowType.cs" />
     <Compile Include="DomainModel\Enums\ShareType.cs" />
     <Compile Include="DomainModel\SharePoint.cs" />
     <Compile Include="DomainModel\ServiceTypePoint.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceFlowMap.cs" />
+    <Compile Include="Infrastructure\Repository\RepositoryBalanceFlow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,8 +74,9 @@
       <Name>Ydb.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Application\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
