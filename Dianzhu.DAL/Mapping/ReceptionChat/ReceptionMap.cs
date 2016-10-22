@@ -107,7 +107,7 @@ namespace Dianzhu.DAL.Mapping
             //    }
             //    );
             //这样设计可能会造成mapping错误
-            HasMany<PushedServiceInfo>(x => x.ServiceInfos);
+            HasMany<PushedServiceInfo>(x => x.ServiceInfos).Cascade.All();
         }
     }
 
