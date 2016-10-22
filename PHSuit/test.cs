@@ -36,7 +36,8 @@ namespace PHSuit
         {
 
             Console.WriteLine("172:" + PHSuit.Security.Encrypt("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test", false));
-             
+
+            Console.WriteLine("localhost" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=dianzhu_publish", false));
             Console.WriteLine("localhost" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=dianzhu", false));
             Console.WriteLine("localhost_yuanfei" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=dianzhu", false));
             Console.WriteLine("150:" + PHSuit.Security.Encrypt("data source=192.168.1.150;uid=ydb;pwd=jsyk2016;database=dianzhu_test", false));

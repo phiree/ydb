@@ -179,7 +179,11 @@ namespace Dianzhu.ApplicationService
             filter1.baseID = filter.baseID;
             filter1.ascending = filter.ascending;
             filter1.ids = filter.ids;
-            if (filter.pageSize != null && filter.pageSize != "" && filter.pageNum != null && filter.pageNum != "")
+            if (string.IsNullOrEmpty(filter.pageNum))
+            {
+                filter.pageNum = "1";
+            }
+            if (!string.IsNullOrEmpty(filter.pageSize))
             {
                 try
                 {
