@@ -192,16 +192,7 @@ namespace Ydb.Common.Repository
         public TEntity FindOne(Expression<Func<TEntity, bool>> where)
         {
             TEntity result;
-
-
-
-
             result = session.Query<TEntity>().Where(where).SingleOrDefault();
-
-            //NHibernateUtil.Initialize(result);
-            //在这里改为立即加载没有作用
-            //Session.Clear();
-
             return result;
         }
 

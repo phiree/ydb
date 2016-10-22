@@ -1,0 +1,62 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Ydb.Finance.DomainModel;
+using NHibernate;
+using Ydb.Finance.DomainModel.Enums;
+namespace Ydb.Finance.Application
+{
+   public class UserTypeSharePointService:IUserTypeSharePointService
+    {
+        ISession session;
+        IRepositoryUserTypeSharePoint repositoryUserTypeSharePoint;
+        public UserTypeSharePointService(ISession session, IRepositoryUserTypeSharePoint repositoryUserTypeSharePoint)
+        {
+            this.session = session;
+            this.repositoryUserTypeSharePoint = repositoryUserTypeSharePoint;
+        }
+       public void Add(string userType,decimal point ) {
+            UserType enumUserType;
+            bool isUserType = Enum.TryParse<UserType>(userType, out enumUserType);
+            if (!isUserType)
+            {
+                throw new ArgumentException("传入的UserType不是有效值");
+            }
+            repositoryUserTypeSharePoint.Add(enumUserType, point);
+        }
+        public decimal GetSharePoint(string userType,out string errMsg) {
+
+            errMsg = string.Empty;
+            UserType enumUserType;
+           bool isUserType= Enum.TryParse<UserType>(userType, out enumUserType);
+            if (!isUserType)
+            {
+                throw new ArgumentException("传入的UserType不是有效值");
+            }
+            try
+            {
+                var point = repositoryUserTypeSharePoint.GetSharePoint(enumUserType);
+
+                return point.Point;
+            }
+            catch (ArgumentNullException)
+            {
+                errMsg = "该用户类型尚未设置分成比:" + userType;
+                throw;
+
+            }
+            catch (InvalidOperationException)
+            {
+                errMsg = "该用户类型设置了多个分成比:" + userType;
+                throw;
+            }
+
+        }
+        public IList<UserTypeSharePoint> GetAll() {
+            return repositoryUserTypeSharePoint.Find(x => true);
+        }
+         
+    }
+}

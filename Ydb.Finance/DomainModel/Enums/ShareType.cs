@@ -11,13 +11,14 @@ namespace Ydb.Finance.DomainModel.Enums
     /// </summary>
    public enum UserType
     {
+        None=1,
         /// <summary>
         /// 助理
         /// </summary>
-        CustomerService,
+        CustomerService=2,
         /// <summary>
         /// 区域代理
         /// </summary>
-        AreaAgent
+        AreaAgent=4
     }
 }

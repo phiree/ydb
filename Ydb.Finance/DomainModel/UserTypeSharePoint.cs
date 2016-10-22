@@ -7,18 +7,22 @@ using Ydb.Common.Domain;
 using Ydb.Finance.DomainModel.Enums;
 namespace Ydb.Finance.DomainModel
 {
-    public class DefaultSharePoint :Entity<Guid>
+    /// <summary>
+    /// 用户类型的分成比
+    /// </summary>
+    public class UserTypeSharePoint :Entity<Guid>
     {
-        protected DefaultSharePoint() { }
-        public DefaultSharePoint(decimal point, UserType userType)
+        protected UserTypeSharePoint() { }
+        public UserTypeSharePoint(decimal point, UserType userType)
         {
             this.Point = point;
             this.UserType = UserType;
         }
-        public static DefaultSharePoint None
+        public static UserTypeSharePoint None
         {
-            get {//  return new DefaultSharePoint(0.0m, Enums.enum_UserType.admin);
-                throw new NotImplementedException();
+            get {
+                return new UserTypeSharePoint(0.0m, Enums.UserType.None);
+                
             }
         }
 
