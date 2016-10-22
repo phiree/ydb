@@ -100,9 +100,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\ChatService.cs" />
+    <Compile Include="Application\IChatService.cs" />
     <Compile Include="Application\ReceptionService.cs" />
     <Compile Include="Application\IReceptionService.cs" />
-    <Compile Include="Bootstrapper.cs" />
     <Compile Include="DomainModel\Chat\Enums\ChatTarget.cs" />
     <Compile Include="DomainModel\Chat\Enums\ChatType.cs" />
     <Compile Include="DomainModel\Chat\IMessageAdapter.cs" />

@@ -10,8 +10,8 @@ using Ydb.InstantMessage.Infrastructure.Repository.NHibernate;
 
 namespace Ydb.InstantMessage.DomainModel.Chat
 {
-   public interface IRepositoryChat: IRepository<ReceptionChat,Guid>
+    public interface IRepositoryChat: IRepository<ReceptionChat,Guid>
     {
-       
+        IList<ReceptionChat> GetListByCustomerId(string customerId);
     }
 }

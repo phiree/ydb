@@ -12,12 +12,12 @@ using Ydb.InstantMessage.DomainModel.Reception;
 
 namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
 {
-    public class ChatRepository : IRepositoryChat
+    public class RepositoryChat : IRepositoryChat
     {
 
         NHRepositoryBase<ReceptionChat,Guid> baseRepository;
         ISession session;
-        public ChatRepository(ISession session)
+        public RepositoryChat(ISession session)
         {
             this.session = session;
             baseRepository = new NHRepositoryBase<ReceptionChat, Guid>(session);
@@ -72,6 +72,11 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
         public ReceptionChat FindOne(Expression<Func<ReceptionChat, bool>> where)
         {
             throw new NotImplementedException();
+        }
+
+        public IList<ReceptionChat> GetListByCustomerId(string customerId)
+        {
+            return baseRepository.Find(x => x.FromId == customerId || x.ToId == customerId);
         }
 
         public long GetRowCount(Expression<Func<ReceptionChat, bool>> where)

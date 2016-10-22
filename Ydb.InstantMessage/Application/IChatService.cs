@@ -17,5 +17,6 @@ namespace Ydb.InstantMessage.Application
         /// <param name="textChat"></param>
         void ReceiveMessage(ReceptionChat chat);
         bool SendMessage(ReceptionChat chat);
+        IList<ReceptionChatDto> GetListByCustomerId(string customerId);
     }
 }

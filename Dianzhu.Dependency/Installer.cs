@@ -304,11 +304,14 @@ namespace Dianzhu.DependencyInstaller
                                 )
                             );
            
-            container.Register(Component.For<IRepositoryReception>().ImplementedBy<ReceptionRepository>());
+            container.Register(Component.For<IRepositoryReception>().ImplementedBy<RepositoryReception>());
+            container.Register(Component.For<IRepositoryChat>().ImplementedBy<RepositoryChat>());
+
             container.Register(Component.For<AssignStratage>().ImplementedBy<Ydb.InstantMessage.DomainModel.Reception.AssignStratageRandom>());
             container.Register(Component.For<IReceptionAssigner>().ImplementedBy<Ydb.InstantMessage.DomainModel.Reception.ReceptionAssigner>());
 
-            container.Register(Component.For<IReceptionService>().ImplementedBy<Ydb.InstantMessage.Application.ReceptionService>());
+            container.Register(Component.For<IReceptionService>().ImplementedBy<Ydb.InstantMessage.Application.ReceptionService>()); 
+            container.Register(Component.For<IChatService>().ImplementedBy<Ydb.InstantMessage.Application.ChatService>()); 
         }
 
         private void BuildSchema(nc.Configuration config)

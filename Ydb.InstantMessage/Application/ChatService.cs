@@ -10,13 +10,27 @@ namespace Ydb.InstantMessage.Application
     /// <summary>
     /// 聊天信息接口
     /// </summary>
-   public  class ChatService:IChatService
+    public class ChatService:IChatService
     {
         IRepositoryChat repositoryChat;
         public ChatService(IRepositoryChat repositoryChat)
         {
             this.repositoryChat = repositoryChat;
         }
+
+        public IList<ReceptionChatDto> GetListByCustomerId(string customerId)
+        {
+            IList<ReceptionChatDto> dtoList = new List<ReceptionChatDto>();
+
+            var list = repositoryChat.GetListByCustomerId(customerId);
+            foreach (var item in list)
+            {
+                dtoList.Add(item.ToDto());
+            }
+
+            return dtoList;
+        }
+
         /// <summary>
         /// 接收到消息之后进行的处理
         /// </summary>

@@ -12,6 +12,7 @@ using FizzWare.NBuilder;
 using Dianzhu.Model;
 using Dianzhu.CSClient.Presenter.VMAdapter;
 using Dianzhu.CSClient.ViewModel;
+using Ydb.InstantMessage.Application;
 
 namespace Dianzhu.Test.DZCSClientTest
 {
@@ -19,7 +20,7 @@ namespace Dianzhu.Test.DZCSClientTest
     public class PIdentityListTest
     {
         IViewIdentityList viewIdentityList;
-        InstantMessage iIM;
+        IInstantMessage iIM;
         IViewChatList viewChatList;
         IViewChatSend viewChatSend;
         IDAL.IDALReceptionChat dalReceptionChat;
@@ -31,7 +32,7 @@ namespace Dianzhu.Test.DZCSClientTest
         IDAL.IDALMembership dalMembership;
         IVMChatAdapter vmChatAdapter;
         IVMIdentityAdapter vmIdentityAdapter;
-
+        IReceptionService receptionService;
 
         PIdentityList pIdentityList;
         IList<DZMembership> customerList;
@@ -45,7 +46,7 @@ namespace Dianzhu.Test.DZCSClientTest
         public void setup()
         {
             viewIdentityList = MockRepository.GenerateStub<IViewIdentityList>();
-            iIM = MockRepository.GenerateStub<InstantMessage>();
+            iIM = MockRepository.GenerateStub<IInstantMessage>();
             viewChatList = MockRepository.GenerateStub<IViewChatList>();
             viewChatSend = MockRepository.GenerateStub<IViewChatSend>();
             dalReceptionChat = MockRepository.GenerateStub<IDAL.IDALReceptionChat>();
@@ -61,11 +62,12 @@ namespace Dianzhu.Test.DZCSClientTest
              dalMembership = MockRepository.GenerateStub<IDAL.IDALMembership>();
             vmChatAdapter = MockRepository.GenerateStub<IVMChatAdapter>();
             vmIdentityAdapter = MockRepository.GenerateStub<IVMIdentityAdapter>();
+            receptionService = MockRepository.GenerateStub<IReceptionService>();
 
 
             pIdentityList = new PIdentityList(viewIdentityList, viewChatList, iIM, dalReceptionChat, dalMembership,
                 viewChatSend, bllServiceOrder, viewOrderHistory, dalReceptionStatus, viewSearchResult,
-                dalReceptionStatusArchieve,lcm,lhom,luidm, vmChatAdapter, vmIdentityAdapter);
+                dalReceptionStatusArchieve,lcm,lhom,luidm, vmChatAdapter, vmIdentityAdapter, receptionService);
 
             string[] customerIdList = { "17b2007f-0267-4224-8d5a-cbaafa7ed1fc", "153ef5fa-600a-4a32-aefb-27c5e5fa5a50", "4a3727f6-ec21-42a8-ba84-70ba9db06354" };
             string[] csIdList = { "20364ea5-c19c-409d-8b61-cb1905fc68d8", "684db3a7-6c2c-44bf-a50a-5ceb1b904a26", "8f506545-de72-4fdb-bbaa-85a8709ae63f" };

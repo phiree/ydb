@@ -10,6 +10,7 @@ using Dianzhu.Model.Enums;
 using System.ComponentModel;
 using Dianzhu.CSClient.ViewModel;
 using Ydb.InstantMessage.Application;
+using Ydb.InstantMessage.DomainModel.Chat;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -29,10 +30,11 @@ namespace Dianzhu.CSClient.Presenter
         IInstantMessage iIM;
         Dianzhu.CSClient.LocalStorage.LocalChatManager chatManager;
         VMAdapter.IVMChatAdapter vmChatAdapter;
+        IChatService chatService;
 
 
         public PChatList(IViewChatList viewChatList,IViewChatSend viewChatSend, IViewIdentityList viewCustomerList,IDAL.IDALReceptionChat dalReceptionChat, IInstantMessage iIM,
-            Dianzhu.CSClient.LocalStorage.LocalChatManager chatManager, VMAdapter.IVMChatAdapter vmChatAdapter)
+            Dianzhu.CSClient.LocalStorage.LocalChatManager chatManager, VMAdapter.IVMChatAdapter vmChatAdapter,IChatService chatService)
         {
             this.chatManager = chatManager;
             this.viewChatList = viewChatList;
@@ -41,6 +43,7 @@ namespace Dianzhu.CSClient.Presenter
             this.iIM = iIM;
             this.viewIdentityList = viewCustomerList;
             this.vmChatAdapter = vmChatAdapter;
+            this.chatService = chatService;
 
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
             viewChatList.CurrentCustomerServiceId = GlobalViables.CurrentCustomerService.Id;
@@ -142,16 +145,18 @@ namespace Dianzhu.CSClient.Presenter
 
                 IList<VMChat> vmList = new List<VMChat>();
 
-                IList<ReceptionChat> chatList = dalReceptionChat.GetReceptionChatList(vmIdentity.CustomerId, Guid.Empty, Guid.Empty, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.cer, out rowCount);
+                //IList<ReceptionChat> chatList = dalReceptionChat.GetReceptionChatList(vmIdentity.CustomerId, Guid.Empty, Guid.Empty, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 10, enum_ChatTarget.cer, out rowCount);
 
-                if (chatList.Count > 0)
+                IList<ReceptionChatDto> dtoChatList = chatService.GetListByCustomerId(vmIdentity.CustomerId.ToString());
+
+                if (dtoChatList.Count > 0)
                 {
                     VMChat vmChat;
-                    for (int i = 0; i < chatList.Count; i++)
+                    for (int i = 0; i < dtoChatList.Count; i++)
                     {
-                        //vmChat = vmChatAdapter.ChatToVMChat(chatList[i]);
+                        vmChat = vmChatAdapter.ChatToVMChat(dtoChatList[i]);
 
-                        //vmList.Add(vmChat);
+                        vmList.Add(vmChat);
                     }
                 }
 
@@ -165,7 +170,7 @@ namespace Dianzhu.CSClient.Presenter
             }
             catch (Exception ee)
             {
-                e.Result = new List<ReceptionChat>();
+                e.Result = new List<ReceptionChatDto>();
                 PHSuit.ExceptionLoger.ExceptionLog(log, ee);
             }
             finally

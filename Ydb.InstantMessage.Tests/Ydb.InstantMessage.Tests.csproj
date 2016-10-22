@@ -68,7 +68,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\ChatServiceTests.cs" />
     <Compile Include="Application\Reception\ReceptionServiceTests.cs" />
+    <Compile Include="Bootstraper.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="DomainModel\Chat\MessageAdapterTests.cs" />
     <Compile Include="DomainModel\Reception\ReceptionAssignerTests.cs" />
@@ -78,6 +80,10 @@
     <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
       <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
       <Name>Dianzhu.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Dependency\Dianzhu.Dependency.csproj">
+      <Project>{f5f67c69-f9ee-4222-9f83-91c816fc686c}</Project>
+      <Name>Dianzhu.Dependency</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
       <Project>{a141eb7d-6e71-43c1-9ca7-12af1b74c1c7}</Project>

@@ -10,12 +10,12 @@ using Ydb.InstantMessage.DomainModel;
 using Ydb.InstantMessage.Infrastructure.Repository.NHibernate;
 namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
 {
-    public class ReceptionRepository : IRepositoryReception
+    public class RepositoryReception : IRepositoryReception
     {
 
         NHRepositoryBase<ReceptionStatus,Guid> baseRepository;
         ISession session;
-        public ReceptionRepository(ISession session)
+        public RepositoryReception(ISession session)
         {
             this.session = session;
             baseRepository = new NHRepositoryBase<ReceptionStatus, Guid>(session);
@@ -32,7 +32,7 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
         {
             return baseRepository.Find(x => x.CustomerServiceId == diandianId).Take(amount).ToList();
         }
-        public ReceptionRepository(ISessionFactory sessionFactory)
+        public RepositoryReception(ISessionFactory sessionFactory)
         {
 
         }
