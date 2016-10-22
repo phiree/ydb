@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.Infrastructure.Repository.NHibernate;
+using NHibernate;
 namespace Ydb.InstantMessage.Application
 {
     /// <summary>
@@ -13,22 +14,42 @@ namespace Ydb.InstantMessage.Application
     public class ChatService:IChatService
     {
         IRepositoryChat repositoryChat;
-        public ChatService(IRepositoryChat repositoryChat)
+        ISession session;
+        public ChatService(IRepositoryChat repositoryChat,ISession session)
         {
             this.repositoryChat = repositoryChat;
+            this.session = session;
         }
 
         public IList<ReceptionChatDto> GetListByCustomerId(string customerId)
         {
-            IList<ReceptionChatDto> dtoList = new List<ReceptionChatDto>();
-
-            var list = repositoryChat.GetListByCustomerId(customerId);
-            foreach (var item in list)
+            using (var t = session.BeginTransaction())
             {
-                dtoList.Add(item.ToDto());
-            }
+                try
+                {
+                    
 
-            return dtoList;
+                    IList<ReceptionChat> list = repositoryChat.GetListByCustomerId(customerId);
+
+                    IList<ReceptionChatDto> dtoList = new List<ReceptionChatDto>();
+                    foreach (var item in list)
+                    {
+                        dtoList.Add(item.ToDto());
+                    }
+                    t.Commit();
+                    return dtoList;
+                }
+                catch (Exception ex)
+                {
+                    t.Rollback();
+                    throw ex;
+                  
+                }
+                finally
+                {
+                    t.Dispose();  
+                }
+            }
         }
 
         /// <summary>

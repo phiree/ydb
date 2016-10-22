@@ -23,7 +23,7 @@ namespace Ydb.InstantMessage.Application.Tests
         {
             IChatService chatService = Bootstrap.Container.Resolve<IChatService>();
 
-            var list = chatService.GetListByCustomerId("0e3e9327-7b82-407c-a92f-a64300fd03db");
+            var list = chatService.GetListByCustomerId("fa7ef456-0978-4ccd-b664-a594014cbfe7");
 
             Assert.AreNotEqual(0, list.Count);
         }

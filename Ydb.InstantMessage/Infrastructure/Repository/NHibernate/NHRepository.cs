@@ -101,7 +101,7 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
 
             
                 var query = session.Query<TEntity>().Where(where);
-                totalRecords = query.Count();
+            totalRecords = query.Count();
 
                 if (pageIndex <= 0)
                 {

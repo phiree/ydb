@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Reception;
 using NHibernate;
-using Ydb.InstantMessage.DomainModel;
-using Ydb.InstantMessage.Infrastructure.Repository.NHibernate;
 namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
 {
     public class RepositoryReception : IRepositoryReception

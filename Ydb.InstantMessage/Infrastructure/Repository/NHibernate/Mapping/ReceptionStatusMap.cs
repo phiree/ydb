@@ -8,9 +8,9 @@ using FluentNHibernate.Mapping;
 using Ydb.Common.Domain;
 namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping
 {
-    public class ReceptionStatusMapping:ClassMap<ReceptionStatus>
+    public class ReceptionStatusMap:ClassMap<ReceptionStatus>
     {
-        public ReceptionStatusMapping()
+        public ReceptionStatusMap()
         {
             Id(x => x.Id);
             Map(x => x.CustomerId);

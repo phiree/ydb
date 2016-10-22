@@ -43,9 +43,12 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
                         .Database(
                              MySQLConfiguration
                             .Standard
-                            .ConnectionString(System.Configuration.ConfigurationManager.ConnectionStrings["ydb_instantmessage"].ConnectionString )
+                            .ConnectionString( 
+                                PHSuit.Security.Decrypt( System.Configuration.ConfigurationManager.ConnectionStrings["ydb_instantmessage"].ConnectionString,false)
+                                 
+                                 )
                       )
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Mapping.ReceptionStatusMapping>())
+                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Mapping.ReceptionChatMap>())
                     .ExposeConfiguration(BuildSchema)
                     .BuildSessionFactory();
                     HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();

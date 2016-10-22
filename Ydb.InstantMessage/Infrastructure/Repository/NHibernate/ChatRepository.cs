@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Chat;
 using NHibernate;
-using Ydb.InstantMessage.DomainModel;
-using Ydb.InstantMessage.Infrastructure.Repository.NHibernate;
-using Ydb.InstantMessage.DomainModel.Reception;
 
 namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
 {

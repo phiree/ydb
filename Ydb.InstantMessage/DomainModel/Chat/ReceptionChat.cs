@@ -107,7 +107,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
             this.IsReaded = true;
         }
 
-        public ReceptionChatDto ToDto()
+        public virtual ReceptionChatDto ToDto()
         {
             ReceptionChatDto dto = new ReceptionChatDto();
 
