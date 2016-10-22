@@ -41,10 +41,11 @@ namespace Dianzhu.Test.DZCSClientTest
         Dianzhu.CSClient.LocalStorage.LocalChatManager lcm;
         Dianzhu.CSClient.LocalStorage.LocalHistoryOrderManager lhom;
         Dianzhu.CSClient.LocalStorage.LocalUIDataManager luidm;
-
+       IChatService chatServive;
         [SetUp]
         public void setup()
         {
+            chatServive = MockRepository.GenerateStub<IChatService>();
             viewIdentityList = MockRepository.GenerateStub<IViewIdentityList>();
             iIM = MockRepository.GenerateStub<IInstantMessage>();
             viewChatList = MockRepository.GenerateStub<IViewChatList>();
@@ -115,7 +116,7 @@ namespace Dianzhu.Test.DZCSClientTest
         {
             viewChatList.ChatList = Builder<VMChat>.CreateListOfSize(1).Build();
 
-            PChatList pChatList = new PChatList(viewChatList, viewChatSend, viewIdentityList, dalReceptionChat, iIM,lcm, vmChatAdapter);
+            PChatList pChatList = new PChatList(viewChatList, viewChatSend, viewIdentityList, dalReceptionChat, iIM,lcm, vmChatAdapter, chatServive);
 
             IList<DZMembership> members = Builder<DZMembership>.CreateListOfSize(3)
                  .TheFirst(1).With(x => x.Id = new Guid("f197a81d-c984-4894-b21c-a5f00106e08b"))

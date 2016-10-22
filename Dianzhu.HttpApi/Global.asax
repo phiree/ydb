@@ -10,8 +10,7 @@
         PHSuit.Logging.Config("Dianzhu.HttpAPI");
 
         Bootstrap.Boot();
-
-        Ydb.InstantMessage.Bootstrapper.Boot();
+ 
     }
 
 

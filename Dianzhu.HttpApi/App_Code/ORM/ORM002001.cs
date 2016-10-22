@@ -70,7 +70,7 @@ public class ResponseORM002001 : BaseResponse
                
                 ReceptionAssigner ra = Bootstrap.Container.Resolve<ReceptionAssigner>("OpenFireRestAssigner");
 
-                IReceptionService receptionService =im.Bootstrapper.Container.Resolve<IReceptionService>();
+                IReceptionService receptionService =Bootstrap.Container.Resolve<IReceptionService>();
                 ilog.Debug("开始分配客服");
                 string errorMessage = string.Empty;
                 string csId = receptionService.AssignCustomerLogin(userId.ToString(),out errorMessage);
