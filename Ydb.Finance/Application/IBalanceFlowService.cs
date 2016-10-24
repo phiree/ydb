@@ -9,8 +9,16 @@ namespace Ydb.Finance.Application
 {
     public interface IBalanceFlowService
     {
+        /// <summary>
+        /// 保存一条流水
+        /// </summary>
+        /// <param name="flow"></param>
         void Save( BalanceFlow flow);
-        IList< BalanceFlow> GetList();
+        /// <summary>
+        /// 获取所有的财务流水
+        /// </summary>
+        /// <returns></returns>
+        IList< BalanceFlow> GetAll();
 
         /// <summary>
         /// 统计账单结果

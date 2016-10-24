@@ -9,15 +9,16 @@ using NHibernate;
 using Ydb.Common.Repository;
 using Ydb.Finance.DomainModel;
 using NHibernate.Transform;
+using Ydb.Finance.DomainModel.Enums;
 
 namespace Ydb.Finance.Infrastructure.Repository
 {
-    public class RepositoryBalanceFlow : NHRepositoryBase<BalanceFlow, Guid>, IRepositoryBalanceFlow
+    public class RepositoryUserTypeSharePoint : NHRepositoryBase<UserTypeSharePoint, Guid>, IRepositoryUserTypeSharePoint
     {
-        public RepositoryBalanceFlow(ISession session) : base(session)
+        public RepositoryUserTypeSharePoint(ISession session) : base(session)
         {
         }
- 
+
         /// <summary>
         /// 统计账单结果
         /// </summary>
@@ -27,7 +28,7 @@ namespace Ydb.Finance.Infrastructure.Repository
         /// <param name="serviceTypeLevel"></param>
         /// <param name="dateType"></param>
         /// <returns></returns>
-        public IList< BalanceFlow> GetBillSatistics(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string dateType)
+        public IList<BalanceFlow> GetBillSatistics(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string dateType)
 
         {
             //'%Y-%m-%d'
@@ -52,7 +53,7 @@ namespace Ydb.Finance.Infrastructure.Repository
             IList list = session.CreateSQLQuery(sql).SetResultTransformer(Transformers.AliasToEntityMap).List();
             if (list.Count > 0)
             {
-                IList< BalanceFlow> balanceFlowList = new List< BalanceFlow>();
+                IList<BalanceFlow> balanceFlowList = new List<BalanceFlow>();
                 for (int i = 0; i < list.Count; i++)
                 {
                     BalanceFlow balanceFlow = new BalanceFlow();
@@ -86,7 +87,7 @@ namespace Ydb.Finance.Infrastructure.Repository
         /// <param name="filter"></param>
         /// <param name=""></param>
         /// <returns></returns>
-        public IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string status, string billType, string orderId, string billServiceType,string filter)
+        public IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string status, string billType, string orderId, string billServiceType, string filter)
         {
             //'%Y-%m-%d'
             string sql = @"SELECT b.id,b.amount,b.occurtime as createTime,'' as serialNo,b.FlowType as type,'' as discount,o.id as orderId,o.NegotiateAmount as orderAmount,
@@ -150,7 +151,22 @@ namespace Ydb.Finance.Infrastructure.Repository
 
         }
 
-      
-     
+        public UserTypeSharePoint GetSharePoint(UserType userType )
+        {
+            
+                return FindOne(x => x.UserType == userType);
+
+          
+             
+
+
+        }
+
+        public UserTypeSharePoint Add(UserType userType, decimal point)
+        {
+            UserTypeSharePoint sharePoint = new UserTypeSharePoint(point, userType);
+            Add(sharePoint);
+            return sharePoint;
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace Ydb.Finance.Application
             this.repositoryBalanceFlow = repositoryBalanceFlow;
         }
 
-        public IList<BalanceFlow> GetList()
+        public IList<BalanceFlow> GetAll()
         {
           return repositoryBalanceFlow.Find(x => true);
         }

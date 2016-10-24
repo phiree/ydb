@@ -6,9 +6,9 @@ using System;
 
 namespace Ydb.Finance.DomainModel
 {
-    public interface IRepositorySharePoint : IRepository< SharePoint,Guid>
+    public interface IRepositorySharePoint : IRepository<UserTypeSharePoint,Guid>
     {
 
-          SharePoint GetSharePoint(string membershipId);
+        UserTypeSharePoint GetSharePoint(string userType);
     }
 }
