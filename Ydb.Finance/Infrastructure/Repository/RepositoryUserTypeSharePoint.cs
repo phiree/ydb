@@ -155,11 +155,6 @@ namespace Ydb.Finance.Infrastructure.Repository
         {
             
                 return FindOne(x => x.UserType == userType);
-
-          
-             
-
-
         }
 
         public UserTypeSharePoint Add(UserType userType, decimal point)
