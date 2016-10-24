@@ -31,6 +31,7 @@ public class Bootstrap
     {
         container = new WindsorContainer();
         container.Install(
+            new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(),
             new Dianzhu.DependencyInstaller.InstallerComponent(),
             new Dianzhu.DependencyInstaller.InstallerInfrstructure(),
             new Dianzhu.DependencyInstaller.InstallerRepository(),

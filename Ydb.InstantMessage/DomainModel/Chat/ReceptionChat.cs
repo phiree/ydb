@@ -258,23 +258,6 @@ namespace Ydb.InstantMessage.DomainModel.Chat
         public virtual string Status { get; protected internal set; }//用户状态
     }
 
-
-    /// <summary>
-    /// 推送的服务消息,供用户选择
-    /// </summary>
-    public class ReceptionChatPushService : ReceptionChat
-    {
-        public ReceptionChatPushService() { }
-        public ReceptionChatPushService(IList<PushedServiceInfo> serviceInfos,
-            Guid id, string from, string to, string messageBody, string sessionId, XmppResource resourceFrom, XmppResource resourceTo)
-            : base(id, from, to, messageBody, sessionId, ChatType.Chat, resourceFrom, resourceTo)
-        {
-            this.ServiceInfos = serviceInfos;
-        }
-
-        public virtual IList<PushedServiceInfo> ServiceInfos { get; protected internal set; }
-    }
-
     /// <summary>
     /// IM ,通知,新的草稿单
     /// </summary>
@@ -287,45 +270,5 @@ namespace Ydb.InstantMessage.DomainModel.Chat
         {
 
         }
-    }
-
-
-
-    /// <summary>
-    /// 消息推送的服务内容
-    /// </summary>
-    public class PushedServiceInfo
-    {
-        public PushedServiceInfo() { }
-        public PushedServiceInfo(string serviceId, string servicename,
-            string servicetype, string servicestarttime,
-            string serviceendtime, string storeuserid,
-            string storealias, string storeavatar
-            )
-        {
-            this.ServiceId = serviceId;
-            this.ServiceName = servicename;
-            this.ServiceType = servicetype;
-            this.ServiceStartTime = servicestarttime;
-            this.ServiceEndTime = serviceendtime;
-            this.StoreUserId = storeuserid;
-            this.StoreAlias = storealias;
-            this.StoreAvatar = storeavatar;
-        }
-        public virtual string ServiceId { get; protected internal set; }
-        public virtual string ServiceName { get; protected internal set; }
-        public virtual string ServiceType { get; protected internal set; }
-        public virtual string ServiceStartTime { get; protected internal set; }
-        public virtual string ServiceEndTime { get; protected internal set; }
-        public virtual string StoreUserId { get; protected internal set; }
-        public virtual string StoreAlias { get; protected internal set; }
-        public virtual string StoreAvatar { get; protected internal set; }
-
-
-        /*
-         <svcObj svcID = "SBWA-DKJI-OFNS-SDLK" name="小飞侠" type="设计>平面设计" startTime="20151116120000" endTime="20151117120000"></svcObj>
-        <storeObj userID = "SBWA-DKJI-OFNS-SDLK" alias="望海国际" imgUrl="http://i-guess.cn/ihelp/userimg/issumao_MD.png"></storeObj>
-        */
-
     }
 }

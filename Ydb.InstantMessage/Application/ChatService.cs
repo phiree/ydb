@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.Infrastructure.Repository.NHibernate;
 using NHibernate;
+using Ydb.InstantMessage.DomainModel.Chat.Enums;
+
 namespace Ydb.InstantMessage.Application
 {
     /// <summary>
@@ -21,57 +23,110 @@ namespace Ydb.InstantMessage.Application
             this.session = session;
         }
 
-        public IList<ReceptionChatDto> GetListByCustomerId(string customerId)
+        public IList<ReceptionChatDto> GetChatByOrder(string orderId)
+        {
+            using(var t = session.BeginTransaction())
+            {
+                try
+                {
+                    var list = repositoryChat.GetChatByOrder(orderId);
+
+                    IList<ReceptionChatDto> dtoList = new List<ReceptionChatDto>();
+                    foreach( var item in list)
+                    {
+                        dtoList.Add(item.ToDto());
+                    }
+
+                    t.Commit();
+
+                    return dtoList;
+                }
+                catch (Exception ee)
+                {
+                    t.Rollback();
+                    throw ee;
+                }
+                finally
+                {
+                    t.Dispose();
+                }
+            }
+        }
+
+        private IList<ReceptionChatDto> ToDto(IList<ReceptionChat> list)
+        {
+            IList<ReceptionChatDto> dtoList = new List<ReceptionChatDto>();
+
+            foreach (var item in list)
+            {
+                switch (item.GetType().Name)
+                {
+                    case "ReceptionChat":
+                        dtoList.Add(item.ToDto());
+                        break;
+                    case "ReceptionChatMedia":
+                        dtoList.Add(((ReceptionChatMedia)item).ToDto());
+                        break;
+                    case "ReceptionChatPushService":
+                        dtoList.Add(((ReceptionChatPushService)item).ToDto());
+                        break;
+                    default:
+                        throw new Exception("未知chat类型");
+                }
+
+            }
+
+            return dtoList;
+        }
+
+        public IList<ReceptionChatDto> GetReceptionChatListByCustomerId(Guid customerId, int pageSize)
         {
             using (var t = session.BeginTransaction())
             {
                 try
                 {
+                    int rouCount;
+                    var list = repositoryChat.GetReceptionChatList(customerId, Guid.Empty, Guid.Empty, DateTime.Now.AddYears(-1), DateTime.Now, 0, pageSize, ChatTarget.cer, out rouCount);
                     
-
-                    IList<ReceptionChat> list = repositoryChat.GetListByCustomerId(customerId);
-
-                    IList<ReceptionChatDto> dtoList = new List<ReceptionChatDto>();
-                    foreach (var item in list)
-                    {
-                        dtoList.Add(item.ToDto());
-                    }
                     t.Commit();
-                    return dtoList;
+
+                    return ToDto(list);
                 }
-                catch (Exception ex)
+                catch (Exception ee)
                 {
                     t.Rollback();
-                    throw ex;
-                  
+                    throw ee;
                 }
                 finally
                 {
-                    t.Dispose();  
+                    t.Dispose();
                 }
             }
         }
 
-        /// <summary>
-        /// 接收到消息之后进行的处理
-        /// </summary>
-        /// <param name="chat"></param>
-        void IChatService.ReceiveMessage(ReceptionChat chat)
+        public IList<ReceptionChatDto> GetReceptionChatListByTargetId(Guid customerId, int pageSize, Guid targetChatId, string low)
         {
-            throw new NotImplementedException();
+            using (var t = session.BeginTransaction())
+            {
+                try
+                {
+                    ReceptionChat targetChat = repositoryChat.FindById(targetChatId);
+                    var list = repositoryChat.GetReceptionChatListByTargetId(customerId, Guid.Empty, Guid.Empty, DateTime.Now.AddYears(-1), DateTime.Now, pageSize, targetChat.SavedTimestamp, low, ChatTarget.cer);
+                    
+                    t.Commit();
+
+                    return ToDto(list);
+                }
+                catch (Exception ee)
+                {
+                    t.Rollback();
+                    throw ee;
+                }
+                finally
+                {
+                    t.Dispose();
+                }
+            }
         }
-
-        /// <summary>
-        /// 接收到即使信息
-        /// </summary>
-        /// <param name="textChat"></param>
-        
-
-        bool IChatService.SendMessage(ReceptionChat chat)
-        {
-            throw new NotImplementedException();
-        }
-
-        
     }
 }

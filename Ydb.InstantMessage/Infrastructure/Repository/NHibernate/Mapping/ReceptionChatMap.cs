@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Chat;
 using FluentNHibernate.Mapping;
-using Ydb.Common.Domain;
+
 namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping
 {
     public class ReceptionChatMap:ClassMap<ReceptionChat>
@@ -27,8 +27,34 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.SessionId);
             Map(x => x.ToId);
             Map(x => x.ToResource).CustomType<Ydb.InstantMessage.DomainModel.Enums.XmppResource>();
-            
+        }
 
+        public class ReceptionChatMediaMap : SubclassMap<ReceptionChatMedia>
+        {
+            public ReceptionChatMediaMap()
+            {
+                Map(x => x.MedialUrl);
+                Map(x => x.MediaType);
+            }
+        }
+
+        public class ReceptionChatPushServiceMap : SubclassMap<ReceptionChatPushService>
+        {
+            public ReceptionChatPushServiceMap()
+            {
+                HasMany<PushedServiceInfo>(x => x.ServiceInfos).Component(
+                    x => {
+                        x.Map(c => c.ServiceId);
+                        x.Map(c => c.ServiceName);
+                        x.Map(c => c.ServiceEndTime);
+                        x.Map(c => c.ServiceStartTime);
+                        x.Map(c => c.ServiceType);
+                        x.Map(c => c.StoreAlias);
+                        x.Map(c => c.StoreAvatar);
+                        x.Map(c => c.StoreUserId);
+                    }
+                );
+            }
         }
     }
 }

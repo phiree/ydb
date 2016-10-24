@@ -236,5 +236,17 @@ namespace Ydb.InstantMessage.Infrastructure
             log.Debug("xmpp open connection:" + userName);
             XmppClientConnection.Open(userName, password, resource);
         }
+
+        public void SendMessagePushService(Guid messageId, IList<PushedServiceInfo> serviceInfos, string messageBody, string to, string toResource, string sessionId)
+        {
+            XmppResource resourceTo;
+            if (!Enum.TryParse(toResource, out resourceTo))
+            {
+                throw new Exception("传入的toResource有误");
+            }
+            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, string.Empty, sessionId, XmppResource.Unknow, resourceTo);
+            ReceptionChat chat = receptionChatFactory.CreateChatPushService(serviceInfos);
+            SendMessage(chat);
+        }
     }
 }

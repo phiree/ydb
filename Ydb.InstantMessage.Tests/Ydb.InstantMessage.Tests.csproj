@@ -74,6 +74,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="DomainModel\Chat\MessageAdapterTests.cs" />
     <Compile Include="DomainModel\Reception\ReceptionAssignerTests.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\RepositoryChatTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +85,10 @@
     <ProjectReference Include="..\Dianzhu.Dependency\Dianzhu.Dependency.csproj">
       <Project>{f5f67c69-f9ee-4222-9f83-91c816fc686c}</Project>
       <Name>Dianzhu.Dependency</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
+      <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
+      <Name>Ydb.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
       <Project>{a141eb7d-6e71-43c1-9ca7-12af1b74c1c7}</Project>

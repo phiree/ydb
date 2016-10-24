@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Ydb.InstantMessage.DomainModel.Chat
 {
+    /// <summary>
+    /// im消息：文本
+    /// </summary>
     public class ReceptionChatDto
     {
         public Guid Id { get;  set; }

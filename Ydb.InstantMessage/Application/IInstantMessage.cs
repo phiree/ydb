@@ -43,7 +43,7 @@ namespace   Ydb.InstantMessage.Application
         event IMConnectionError IMConnectionError;
         void SendMessageText(Guid messageId, string messageBody, string to,string toResource, string sessionId);
         void SendMessageMedia(Guid messageId, string mediaUrl, string mediaType,string to,string sessionId,string toResource);
-        
+        void SendMessagePushService(Guid messageId, IList<PushedServiceInfo> serviceInfos, string messageBody, string to, string toResource, string sessionId);
         void SendMessage(string xml);
         event IMReceivedMessage IMReceivedMessage;
         event IMIQ IMIQ;
