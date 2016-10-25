@@ -18,11 +18,7 @@ namespace Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.Amount);
             Map(x => x.FlowType).CustomType<FlowType>();
             Map(x => x.OccurTime);
-         
             Map(x => x.RelatedObjectId);
-          
-            
-
         }
     }
 }

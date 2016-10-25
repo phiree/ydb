@@ -61,7 +61,6 @@ namespace Ydb.Finance.Application
         /// <returns></returns>
         public IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, 
             string status, string billType, string orderId, string billServiceType,string filter)
-
         {
             return repositoryBalanceFlow.GetBillList(userID, startTime, endTime, serviceTypeLevel, status, billType, orderId, billServiceType, filter);
         }

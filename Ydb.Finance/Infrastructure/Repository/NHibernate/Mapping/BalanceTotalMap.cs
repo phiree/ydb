@@ -13,7 +13,7 @@ namespace Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping
         public BalanceTotalMap()
         {
             Id(x => x.Id);//.GeneratedBy.Assigned();加上这个表示必须先生成id,再传给数据库
-            Map(x => x.UserId);
+            Map(x => x.UserId).Unique();
             Map(x => x.Total);
         }
     }

@@ -10,7 +10,7 @@ using AutoMapper;
 
 namespace Ydb.Finance.Application
 {
-    public class ServiceTypePointService
+    public class ServiceTypePointService: IServiceTypePointService
     {
         ISession session;
         IRepositoryServiceTypePoint repositoryServiceTypePoint;
@@ -41,9 +41,8 @@ namespace Ydb.Finance.Application
                 //    errmsg = "该服务类型的扣点比例未设置:" + serviceType.Name + "(" + serviceType.Id + ")";
                 //    log.Error(errmsg);
                 //    throw new Exception("该服务类型的扣点比例未设置:" + serviceType.Name);
-
                 //}
-                return 0;
+                throw new Exception("该服务类型的扣点比例未设置!");
             }
             else
             {

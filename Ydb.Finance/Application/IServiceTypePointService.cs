@@ -8,5 +8,8 @@ namespace Ydb.Finance.Application
 {
     public interface IServiceTypePointService
     {
+        void Add(string serviceType, decimal point);
+        decimal GetPoint(string serviceTypeId);
+        IList<ServiceTypePointDto> GetAll();
     }
 }

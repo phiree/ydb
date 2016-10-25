@@ -54,6 +54,10 @@
       <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernate.4.0.0.4000\lib\net40\NHibernate.dll</HintPath>
       <Private>True</Private>
@@ -69,7 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\BalanceDTO\BalanceFlowDto.cs" />
+    <Compile Include="Application\BalanceDTO\BalanceParam.cs" />
     <Compile Include="Application\BalanceDTO\BalanceTotalDto.cs" />
+    <Compile Include="Application\BalanceDTO\BalanceUserParam.cs" />
     <Compile Include="Application\BalanceDTO\Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Application\BalanceDTO\Mapping\DtoToModelMappingProfile.cs" />
     <Compile Include="Application\BalanceDTO\Mapping\ModelToDtoMappingProfile.cs" />
@@ -77,13 +83,16 @@
     <Compile Include="Application\BalanceDTO\UserTypeSharePointDto.cs" />
     <Compile Include="Application\BanlanceFlow.cs" />
     <Compile Include="Application\IBalanceFlowService.cs" />
+    <Compile Include="Application\IOrderShareService.cs" />
     <Compile Include="Application\IServiceTypePointService.cs" />
+    <Compile Include="Application\OrderShareService.cs" />
     <Compile Include="Application\ServiceTypePointService.cs" />
     <Compile Include="Application\UserTypeSharePointService.cs" />
     <Compile Include="Application\IUserTypeSharePointService.cs" />
     <Compile Include="DomainModel\BalanceFlow.cs" />
     <Compile Include="DomainModel\BalanceTotal.cs" />
     <Compile Include="DomainModel\Repository\RepositoryBalanceFlow.cs" />
+    <Compile Include="DomainModel\Repository\RepositoryBalanceTotal.cs" />
     <Compile Include="DomainModel\Repository\RepositoryUserTypeSharePoint.cs" />
     <Compile Include="DomainModel\Repository\RepositoryServiceTypePoint.cs" />
     <Compile Include="DomainModel\Repository\RepositorySharePoint.cs" />
@@ -93,7 +102,10 @@
     <Compile Include="DomainModel\ServiceTypePoint.cs" />
     <Compile Include="Application\Installer.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceFlowMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceTotalMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceTypePointMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\UserTypeSharePointMap.cs" />
+    <Compile Include="Infrastructure\Repository\RepositoryBalanceTotal.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryServiceTypePoint.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryUserTypeSharePoint.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryBalanceFlow.cs" />

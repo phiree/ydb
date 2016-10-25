@@ -22,7 +22,10 @@ namespace Ydb.Finance.DomainModel
         /// </summary>
         public virtual string RelatedObjectId { get; set; }
         public virtual FlowType FlowType { get; set; }
-
+        /// <summary>
+        /// true为收入，false为支出
+        /// </summary>
+        public virtual bool Income { get; set; }
     }
   
 }
