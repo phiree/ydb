@@ -220,7 +220,7 @@ namespace Dianzhu.Web.RestfulApi
             }
 
             ilog.Debug("Request(RequestUri):" + req.RequestUri.AbsolutePath.ToLower());
-            if (req.Method == HttpMethod.Post && (req.RequestUri.AbsolutePath.ToLower() == "/api/v1/authorization" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customers" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/merchants" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customer3rds"))
+            if ((req.Method == HttpMethod.Post && (req.RequestUri.AbsolutePath.ToLower() == "/api/v1/authorization" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customers" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/merchants" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customer3rds"))|| (req.Method == HttpMethod.Get && (req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customers/count" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/merchants/count" )))
             { }
             else
             {
@@ -338,9 +338,9 @@ namespace Dianzhu.Web.RestfulApi
             //var requestTotalSeconds = Convert.ToUInt64(requestTimeStamp);
             var requestTotalSeconds = Convert.ToInt64(requestTimeStamp);
             ilog.Debug("Request(stamp_TIMES1):" + requestTotalSeconds.ToString());
-            ilog.Debug("Request(requestMaxAgeInSeconds):" + requestMaxAgeInSeconds.ToString());
+            ilog.Debug("Request(requestMaxAgeInSeconds):120000");
             ilog.Debug("Check(bool):" + (serverTotalSeconds - requestTotalSeconds).ToString());
-            ilog.Debug("Check(bool1):" + ((serverTotalSeconds - requestTotalSeconds) > requestMaxAgeInSeconds).ToString());
+            ilog.Debug("Check(bool1):" + ((serverTotalSeconds - requestTotalSeconds) > 120000).ToString());
             if (Math.Abs(serverTotalSeconds - requestTotalSeconds) > 120000)
             {
                 ilog.Debug("Create(stamp_TIMES2):" + serverTotalSeconds.ToString());

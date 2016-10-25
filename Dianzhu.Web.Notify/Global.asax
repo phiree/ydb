@@ -15,8 +15,6 @@
         PHSuit.Logging.Config("Dianzhu.Web.Notify");
         string host= System.Net.Dns.GetHostName();
         PHSuit.HttpHelper. _SetupRefreshJob(8039);
-
-
         Ydb.InstantMessage.Application.IInstantMessage im = Bootstrap.Container.Resolve<Ydb.InstantMessage.Application.IInstantMessage>();
 
         //= new Dianzhu.CSClient.XMPP.XMPP(server, domain,adapter, Dianzhu.Model.Enums.enum_XmppResource.YDBan_IMServer.ToString());
@@ -41,6 +39,21 @@
 
     void IMClosed()
     {
+        string emails = ConfigurationManager.AppSettings["MonitorEmails"];
+
+        try
+        {
+
+            if (string.IsNullOrEmpty(emails)) { return; }
+            string[] emailList = emails.Split(',');
+
+            PHSuit.EmailHelper.SendEmail(emailList[0], "异常_" + log.Logger.Name, "IMServer掉线了",
+               emailList);
+        }
+        catch (Exception ex)
+        {
+            log.Error(ex.ToString());
+        }
         log.Warn("Closed");
     }
     void IMLogined(string jidUser)

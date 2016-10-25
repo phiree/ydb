@@ -181,9 +181,11 @@
     <Compile Include="ModeDTO\Identity\linkManObj.cs" />
     <Compile Include="ModeDTO\Identity\locationObj.cs" />
     <Compile Include="ModeDTO\Identity\merchantObj.cs" />
+    <Compile Include="ModeDTO\Identity\orderHypermediaObj.cs" />
     <Compile Include="ModeDTO\Identity\orderObj.cs" />
     <Compile Include="ModeDTO\Identity\orderSnapshot.cs" />
     <Compile Include="ModeDTO\Identity\orderStatusObj.cs" />
+    <Compile Include="ModeDTO\Identity\ordersVerifyObj.cs" />
     <Compile Include="ModeDTO\Identity\pay3rdStringObj.cs" />
     <Compile Include="ModeDTO\Identity\payObj.cs" />
     <Compile Include="ModeDTO\Identity\refundObj.cs" />

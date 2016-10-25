@@ -80,6 +80,7 @@ namespace Dianzhu.CSClient.LocalStorage
             }
         }
 
+
         public void InsertTop(string customerId, VMChat chatData)
         {
             if (LocalChats.ContainsKey(customerId))

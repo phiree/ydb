@@ -90,7 +90,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                     var storeAlias = ext_store.GetAttribute("alias");
                     var storeAvatar = ext_store.GetAttribute("imgUrl");
 
-                    PushedServiceInfo serviceInfo = new PushedServiceInfo(serviceId, svcName, svcType, svcStarttime, svcEndtime, storeId,
+                    PushedServiceInfo serviceInfo = new PushedServiceInfo(new Guid(),serviceId, svcName, svcType, svcStarttime, svcEndtime, storeId,
                         storeAlias, storeAvatar);
                     return chatFactory.CreateChatPushService(new List<PushedServiceInfo>() { serviceInfo });
 

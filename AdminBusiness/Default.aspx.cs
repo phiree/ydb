@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class _Default : BasePage
+public partial class _Default : Page
 {
     protected override void OnInit(EventArgs e)
     {

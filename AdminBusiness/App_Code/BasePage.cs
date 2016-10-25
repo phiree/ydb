@@ -58,6 +58,7 @@ public class BasePage:  Dianzhu.Web.Common.BasePage
             MembershipUser mu = Membership.GetUser();
             if (mu == null)
             {
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 if(Request.RawUrl.Contains("/m/"))
                 {
                     Response.Redirect("/m/login.aspx?returnurl=" + HttpUtility.UrlEncode(Request.RawUrl), true);
