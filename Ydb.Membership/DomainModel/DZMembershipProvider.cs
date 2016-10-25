@@ -21,6 +21,7 @@ namespace Ydb.Membership.DomainModel
 {
     /// <summary>
     /// ddd:applicationservice
+    /// todo: 使用 aspnet identity 替代 membershipprovider
     /// </summary>
     public class DZMembershipProvider : MembershipProvider
     {
@@ -33,12 +34,13 @@ namespace Ydb.Membership.DomainModel
             this.encryptService = container.Resolve<IEncryptService>();
             this.emailService = container.Resolve<IEmailService>();
             this.repositoryUserToken = container.Resolve<IRepositoryUserToken>();
+            this.loginNameDetermine = container.Resolve<ILoginNameDetermine>();
 
         }
         IRepositoryDZMembership repositoryDZMembership = null;
         IEncryptService encryptService;
         IEmailService emailService;
-        
+        ILoginNameDetermine loginNameDetermine;
         IRepositoryUserToken repositoryUserToken;
         
 
@@ -269,7 +271,28 @@ namespace Ydb.Membership.DomainModel
 
         #region additional method for user
 
+        public Guid CreateUser(string loginName, string password, UserType userType, out string errMsg)
+        {
 
+            throw new NotImplementedException();
+            LoginNameType loginNameType = loginNameDetermine.Determin(loginName);
+            string userName= loginName, nickName = loginName,email, phone;
+            Guid registerValidateCode = Guid.Empty;
+            switch (loginNameType)
+            {
+                case LoginNameType.Email:  email = loginName;
+                    registerValidateCode = Guid.NewGuid();
+                    break;
+                case LoginNameType.PhoneNumber:  phone = loginName; break;
+            }
+            var existedUser = GetUserByName(loginName);
+            if (existedUser != null)
+            {
+                errMsg = "用户已存在";
+                return Guid.Empty;
+            }
+            
+        }
         public DZMembership CreateUser(string userName, string userPhone, string userEmail, string password, out MembershipCreateStatus createStatus, UserType userType)
         {
             createStatus = MembershipCreateStatus.ProviderError;
