@@ -304,18 +304,5 @@ namespace Ydb.InstantMessage.Infrastructure
             ReceptionChat chat = receptionChatFactory.CreateNoticeOrder(orderTilte,orderStatus,orderType);
             SendMessage(chat);
         }
-
-        public void SendCustomLoginMessage(string userId, string userStatus,
-            Guid messageId, string messageBody, string to, string toResource, string sessionId)
-        {
-            XmppResource resourceTo;
-            if (!Enum.TryParse(toResource, out resourceTo))
-            {
-                throw new Exception("传入的toResource有误");
-            }
-            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, string.Empty, sessionId, XmppResource.Unknow, resourceTo);
-            ReceptionChat chat = receptionChatFactory.CreateNoticeUserStatus(userId, userStatus);
-            SendMessage(chat);
-        }
     }
 }

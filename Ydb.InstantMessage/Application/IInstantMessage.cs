@@ -101,12 +101,6 @@ namespace   Ydb.InstantMessage.Application
         /// <param name="sessionId"></param>
         void SendOrderChangeStatusNotify(string orderTilte, string orderStatus, string orderType,
             Guid messageId, string messageBody, string to, string toResource, string sessionId);
-        /// <summary>
-        /// IM,通知, 用户状态改变. 
-        /// </summary>
-        /// <param name="customerId"></param>
-        void SendCustomLoginMessage(string userId, string userStatus,
-            Guid messageId, string messageBody, string to, string toResource, string sessionId);
 
         void SendMessage(string xml);
         event IMReceivedMessage IMReceivedMessage;
