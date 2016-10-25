@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Ydb.InstantMessage.DomainModel.Chat
 {
+    /// <summary>
+    /// im消息：文本
+    /// </summary>
     public class ReceptionChatDto
     {
         public Guid Id { get;  set; }
@@ -27,5 +30,11 @@ namespace Ydb.InstantMessage.DomainModel.Chat
         public string ToResource { get;  set; }//to 的资源名
         public bool IsReaded { get;  set; }
         public bool IsfromCustomerService { get;  set; }
+
+        public override string ToString()
+        {
+            //todo:
+            return base.ToString();
+        }
     }
 }

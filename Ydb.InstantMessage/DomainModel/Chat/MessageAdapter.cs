@@ -207,7 +207,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
 
                     var svcObj = new agsXMPP.Xml.Dom.Element("svcObj");
                     ReceptionChatPushService chatPushService = (ReceptionChatPushService)chat;
-                    foreach (PushedServiceInfo serviceInfo in chatPushService.ServiceInfos)
+                    foreach (var serviceInfo in chatPushService.ServiceInfos)
                     {
                         svcObj.SetAttribute("svcID", serviceInfo.ServiceId);
                         svcObj.SetAttribute("name", serviceInfo.ServiceName);

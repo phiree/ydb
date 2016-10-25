@@ -112,6 +112,11 @@
     <Compile Include="DomainModel\Chat\MessageAdapter.cs" />
     <Compile Include="DomainModel\Chat\MessageBuilder.cs" />
     <Compile Include="DomainModel\Chat\ReceptionChat.cs" />
+    <Compile Include="DomainModel\Chat\ReceptionChatNoticeCustomerServiceOffline.cs" />
+    <Compile Include="DomainModel\Chat\ReceptionChatNoticeOrder.cs" />
+    <Compile Include="DomainModel\Chat\ReceptionChatNoticeCustomerServiceOnline.cs" />
+    <Compile Include="DomainModel\Chat\ReceptionChatPushService.cs" />
+    <Compile Include="DomainModel\Chat\ReceptionChatPushServiceDto.cs" />
     <Compile Include="DomainModel\Chat\ReceptionChatDto.cs" />
     <Compile Include="DomainModel\Chat\ReceptionChatFactory.cs" />
     <Compile Include="DomainModel\Chat\ReceptionChatMediaDto.cs" />

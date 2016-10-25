@@ -25,7 +25,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
         public virtual string MedialUrl { get; protected internal set; }
         public virtual string MediaType { get; protected internal set; }
 
-        public new ReceptionChatMediaDto ToDto()
+        public virtual new ReceptionChatMediaDto ToDto()
         {
             ReceptionChatMediaDto dto = new ReceptionChatMediaDto();
 

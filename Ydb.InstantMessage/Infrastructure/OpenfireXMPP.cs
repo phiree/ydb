@@ -121,8 +121,27 @@ namespace Ydb.InstantMessage.Infrastructure
                 try
                 {
                     ReceptionChat chat = messageAdapter.MessageToChat(msg);// new Model.ReceptionChat();// MessageAdapter.MessageToChat(msg);
-                    
-                    IMReceivedMessage(chat.ToDto());
+                    ReceptionChatDto dtoChat = new ReceptionChatDto();
+                    switch (chat.GetType().Name)
+                    {
+                        case "ReceptionChat":
+                            dtoChat = chat.ToDto();
+                            break;
+                        case "ReceptionChatMedia":
+                            dtoChat = ((ReceptionChatMedia)chat).ToDto();
+                            break;
+                        case "ReceptionChatPushService":
+                            dtoChat = ((ReceptionChatPushService)chat).ToDto();
+                            break;
+                        case "ReceptionChatNoticeCustomerServiceOnline":
+                        case "ReceptionChatNoticeCustomerServiceOffline":
+                        case "ReceptionChatNoticeOrder":
+                            throw new Exception("暂时不处理该类型聊天消息");
+                        default:
+                            throw new Exception("未知chat类型");
+                    }
+
+                    IMReceivedMessage(dtoChat);
                 }
                 catch (Exception ex)
                 {
@@ -235,6 +254,55 @@ namespace Ydb.InstantMessage.Infrastructure
         {
             log.Debug("xmpp open connection:" + userName);
             XmppClientConnection.Open(userName, password, resource);
+        }
+
+        public void SendMessagePushService(Guid messageId, IList<PushedServiceInfo> serviceInfos, string messageBody, string to, string toResource, string sessionId)
+        {
+            XmppResource resourceTo;
+            if (!Enum.TryParse(toResource, out resourceTo))
+            {
+                throw new Exception("传入的toResource有误");
+            }
+            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, string.Empty, sessionId, XmppResource.Unknow, resourceTo);
+            ReceptionChat chat = receptionChatFactory.CreateChatPushService(serviceInfos);
+            SendMessage(chat);
+        }
+
+        public void SendCSLoginMessageToDD(Guid messageId, string messageBody, string to, string toResource, string sessionId)
+        {
+            XmppResource resourceTo;
+            if (!Enum.TryParse(toResource, out resourceTo))
+            {
+                throw new Exception("传入的toResource有误");
+            }
+            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, string.Empty, sessionId, XmppResource.Unknow, resourceTo);
+            ReceptionChat chat = receptionChatFactory.CreateNoticeCSOnline();
+            SendMessage(chat);
+        }
+
+        public void SendCSLogoffMessageToDD(Guid messageId, string messageBody, string to, string toResource, string sessionId)
+        {
+            XmppResource resourceTo;
+            if (!Enum.TryParse(toResource, out resourceTo))
+            {
+                throw new Exception("传入的toResource有误");
+            }
+            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, string.Empty, sessionId, XmppResource.Unknow, resourceTo);
+            ReceptionChat chat = receptionChatFactory.CreateNoticeCSOffline();
+            SendMessage(chat);
+        }
+
+        public void SendOrderChangeStatusNotify(string orderTilte, string orderStatus, string orderType,
+            Guid messageId, string messageBody, string to, string toResource, string sessionId)
+        {
+            XmppResource resourceTo;
+            if (!Enum.TryParse(toResource, out resourceTo))
+            {
+                throw new Exception("传入的toResource有误");
+            }
+            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, string.Empty, sessionId, XmppResource.Unknow, resourceTo);
+            ReceptionChat chat = receptionChatFactory.CreateNoticeOrder(orderTilte,orderStatus,orderType);
+            SendMessage(chat);
         }
     }
 }

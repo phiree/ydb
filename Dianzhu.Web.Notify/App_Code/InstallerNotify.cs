@@ -15,10 +15,11 @@ using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
 using Dianzhu.NotifyCenter;
 using Castle.MicroKernel.SubSystems.Configuration;
+using Ydb.InstantMessage.DomainModel.Reception;
 /// <summary>
 /// Summary description for Installer
 /// </summary>
- 
+
 
 public class  InstallerNofity : IWindsorInstaller
 {
@@ -28,7 +29,9 @@ public class  InstallerNofity : IWindsorInstaller
         //container.Register(Component.For<IMNotify>()
         //    .DependsOn(Dependency.OnComponent<IIMSession,IMSessionsOpenfire>())
         //    );
-        container.Register(Component.For<Dianzhu.NotifyCenter.IMNotify>().DependsOn(Dependency.OnValue("assigner",container.Resolve<ReceptionAssigner>("OpenFireRestAssigner"))));
+
+        container.Register(Component.For<Dianzhu.NotifyCenter.IMNotify>()
+            .DependsOn(Dependency.OnComponent<IReceptionSession, IMSessionsOpenfire>()));
 
 
     }

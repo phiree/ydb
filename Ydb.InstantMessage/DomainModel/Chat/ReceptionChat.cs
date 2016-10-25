@@ -146,29 +146,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
 
         }
 
-    }
-
-
-    /// <summary>
-    /// IM,通知,订单状态变更通知
-    /// ihelper:notice:order 订单状态通知.
-    /// </summary>
-    public class ReceptionChatNoticeOrder : ReceptionChat
-    {
-        public ReceptionChatNoticeOrder() { }
-        public ReceptionChatNoticeOrder(string orderTilte, string orderStatus, string orderType,
-             Guid id, string from, string to, string messageBody, string sessionId, XmppResource resourceFrom, XmppResource resourceTo)
-            : base(id, from, to, messageBody, sessionId, ChatType.Notice, resourceFrom, resourceTo)
-        {
-            this.OrderTitle = orderTilte;
-            this.CurrentStatus = orderStatus;
-            this.OrderType = orderType;
-        }
-        public virtual string OrderTitle { get; protected internal set; }
-        public virtual string CurrentStatus { get; protected internal set; }
-        public virtual string OrderType { get; protected internal set; }
-
-    }
+    }    
 
     /// <summary>
     /// IM,通知,客服更换
@@ -212,35 +190,6 @@ namespace Ydb.InstantMessage.DomainModel.Chat
     }
 
     /// <summary>
-    /// IM,通知,客服离线. 不需要指定离线的客服id. 客户端收到该消息后会再次申请客服.
-    /// </summary>
-    public class ReceptionChatNoticeCustomerServiceOffline : ReceptionChat
-    {
-        public ReceptionChatNoticeCustomerServiceOffline() { }
-        public ReceptionChatNoticeCustomerServiceOffline(
-           Guid id, string from, string to, string messageBody, string sessionId, XmppResource resourceFrom, XmppResource resourceTo)
-            : base(id, from, to, messageBody, sessionId, ChatType.Notice, resourceFrom, resourceTo)
-        {
-
-        }
-    }
-
-    /// <summary>
-    /// IM,通知,客服上线. 不需要指定上线的客服id. 客户端收到该消息后会再次申请客服,避免客户端一直被未上线客服或者点点接待.
-    /// </summary>
-    public class ReceptionChatNoticeCustomerServiceOnline : ReceptionChat
-    {
-        public ReceptionChatNoticeCustomerServiceOnline() { }
-        public ReceptionChatNoticeCustomerServiceOnline(
-          Guid id, string from, string to, string messageBody, string sessionId, XmppResource resourceFrom, XmppResource resourceTo)
-            : base(id, from, to, messageBody, sessionId, ChatType.Notice, resourceFrom, resourceTo)
-        {
-
-        }
-    }
-
-
-    /// <summary>
     /// IM,通知, 用户状态改变. 文档内没有的.
     /// </summary>
     public class ReceptionChatUserStatus : ReceptionChat
@@ -258,23 +207,6 @@ namespace Ydb.InstantMessage.DomainModel.Chat
         public virtual string Status { get; protected internal set; }//用户状态
     }
 
-
-    /// <summary>
-    /// 推送的服务消息,供用户选择
-    /// </summary>
-    public class ReceptionChatPushService : ReceptionChat
-    {
-        public ReceptionChatPushService() { }
-        public ReceptionChatPushService(IList<PushedServiceInfo> serviceInfos,
-            Guid id, string from, string to, string messageBody, string sessionId, XmppResource resourceFrom, XmppResource resourceTo)
-            : base(id, from, to, messageBody, sessionId, ChatType.Chat, resourceFrom, resourceTo)
-        {
-            this.ServiceInfos = serviceInfos;
-        }
-
-        public virtual IList<PushedServiceInfo> ServiceInfos { get; protected internal set; }
-    }
-
     /// <summary>
     /// IM ,通知,新的草稿单
     /// </summary>
@@ -287,45 +219,5 @@ namespace Ydb.InstantMessage.DomainModel.Chat
         {
 
         }
-    }
-
-
-
-    /// <summary>
-    /// 消息推送的服务内容
-    /// </summary>
-    public class PushedServiceInfo
-    {
-        public PushedServiceInfo() { }
-        public PushedServiceInfo(string serviceId, string servicename,
-            string servicetype, string servicestarttime,
-            string serviceendtime, string storeuserid,
-            string storealias, string storeavatar
-            )
-        {
-            this.ServiceId = serviceId;
-            this.ServiceName = servicename;
-            this.ServiceType = servicetype;
-            this.ServiceStartTime = servicestarttime;
-            this.ServiceEndTime = serviceendtime;
-            this.StoreUserId = storeuserid;
-            this.StoreAlias = storealias;
-            this.StoreAvatar = storeavatar;
-        }
-        public virtual string ServiceId { get; protected internal set; }
-        public virtual string ServiceName { get; protected internal set; }
-        public virtual string ServiceType { get; protected internal set; }
-        public virtual string ServiceStartTime { get; protected internal set; }
-        public virtual string ServiceEndTime { get; protected internal set; }
-        public virtual string StoreUserId { get; protected internal set; }
-        public virtual string StoreAlias { get; protected internal set; }
-        public virtual string StoreAvatar { get; protected internal set; }
-
-
-        /*
-         <svcObj svcID = "SBWA-DKJI-OFNS-SDLK" name="小飞侠" type="设计>平面设计" startTime="20151116120000" endTime="20151117120000"></svcObj>
-        <storeObj userID = "SBWA-DKJI-OFNS-SDLK" alias="望海国际" imgUrl="http://i-guess.cn/ihelp/userimg/issumao_MD.png"></storeObj>
-        */
-
     }
 }

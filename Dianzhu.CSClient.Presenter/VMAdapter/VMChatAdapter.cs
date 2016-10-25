@@ -70,22 +70,22 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
 
                     return vmChatFactory.CreateVMChatMedia(mediaType, mediaUrl);
                 case "ReceptionChatPushServiceDto":
-                    //ReceptionChatPushService chatPushService = chat as ReceptionChatPushService;
-                    //DZService service = dalDZService.FindById(Guid.Parse(chatPushService.ServiceInfos[0].ServiceId));
-                    //if (service == null)
-                    //{
-                    //    throw new Exception("服务不存在,id:"+ chatPushService.ServiceInfos[0].ServiceId);
-                    //}
+                    ReceptionChatPushServiceDto chatPushService = chat as ReceptionChatPushServiceDto;
+                    DZService service = dalDZService.FindById(Guid.Parse(chatPushService.ServiceInfos[0].ServiceId));
+                    if (service == null)
+                    {
+                        throw new Exception("服务不存在,id:" + chatPushService.ServiceInfos[0].ServiceId);
+                    }
 
-                    //string servieName = service.Name ?? string.Empty;
-                    //bool isVerify = service.IsCertificated;
-                    //string imageUrl = service.Business.BusinessAvatar.ImageName;
-                    //int creditPoint = 5;//没有数据，暂时设置为5
-                    //decimal unitPrice = service.UnitPrice;
-                    //decimal depositAmount = service.DepositAmount;
-                    //string serviceMemo = service.Description ?? string.Empty;
+                    string servieName = service.Name ?? string.Empty;
+                    bool isVerify = service.IsCertificated;
+                    string imageUrl = service.Business.BusinessAvatar.ImageName;
+                    int creditPoint = 5;//没有数据，暂时设置为5
+                    decimal unitPrice = service.UnitPrice;
+                    decimal depositAmount = service.DepositAmount;
+                    string serviceMemo = service.Description ?? string.Empty;
 
-                    //return vmChatFactory.CreateVMChatPushServie(servieName, isVerify, imageUrl, creditPoint, unitPrice, depositAmount, serviceMemo);
+                    return vmChatFactory.CreateVMChatPushServie(servieName, isVerify, imageUrl, creditPoint, unitPrice, depositAmount, serviceMemo);
                 default:
                     throw new Exception("Unknow Type:" + chat.GetType().Name);
             }

@@ -59,6 +59,7 @@
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\NHRepository.cs" />
     <Compile Include="Specification\PredicateBuilder.cs" />
+    <Compile Include="Specification\TraitFilter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
