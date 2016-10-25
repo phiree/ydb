@@ -1,4 +1,5 @@
 ﻿<%@ Application Language="C#" %>
+<%@ Import Namespace="Ydb.InstantMessage.DomainModel.Chat" %>
 
 <script RunAt="server">
 
@@ -13,14 +14,11 @@
         //防止网站被iis喀嚓,导致发送通知的用户从openfire掉线.
         PHSuit.Logging.Config("Dianzhu.Web.Notify");
         string host= System.Net.Dns.GetHostName();
-         PHSuit.HttpHelper. _SetupRefreshJob(8039);
-        string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
-        string domain = Dianzhu.Config.Config.GetAppSetting("ImDomain");
+        PHSuit.HttpHelper. _SetupRefreshJob(8039);
 
-        Dianzhu.CSClient.IInstantMessage.InstantMessage im
-            = Bootstrap.Container.Resolve<Dianzhu.CSClient.IInstantMessage.InstantMessage>
-            //();
-            (new { resourceName = Dianzhu.Model.Enums.enum_XmppResource.YDBan_IMServer.ToString() });
+
+        Ydb.InstantMessage.Application.IInstantMessage im = Bootstrap.Container.Resolve<Ydb.InstantMessage.Application.IInstantMessage>();
+
         //= new Dianzhu.CSClient.XMPP.XMPP(server, domain,adapter, Dianzhu.Model.Enums.enum_XmppResource.YDBan_IMServer.ToString());
         //login in
         string noticesenderId = Dianzhu.Config.Config.GetAppSetting("NoticeSenderId");
@@ -35,7 +33,7 @@
         im.IMReceivedMessage += IMReceivedMessage;
         im.IMIQ += IMIQ;
         im.IMStreamError += IMStreamError;
-        im.OpenConnection(noticesenderId, noticesenderPwd);
+        im.OpenConnection(noticesenderId, noticesenderPwd,"YDBan_IMServer");
         Application["IM"] = im;
     }
 
@@ -61,9 +59,9 @@
     {
         log.Error("ConnectionError:" + error);
     }
-    void IMReceivedMessage(Dianzhu.Model.ReceptionChat chat)
+    void IMReceivedMessage(ReceptionChatDto chat)
     {
-        log.Debug("ReceiveMsg:" + adapter.ChatToMessage(chat, Dianzhu.Config.Config.GetAppSetting("ImServer")).InnerXml);
+        log.Debug("ReceiveMsg:" + chat.ToString());
     }
     void IMIQ()
     {
@@ -114,6 +112,6 @@
     {
         //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
     }
-     
+
 
 </script>

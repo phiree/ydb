@@ -146,29 +146,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
 
         }
 
-    }
-
-
-    /// <summary>
-    /// IM,通知,订单状态变更通知
-    /// ihelper:notice:order 订单状态通知.
-    /// </summary>
-    public class ReceptionChatNoticeOrder : ReceptionChat
-    {
-        public ReceptionChatNoticeOrder() { }
-        public ReceptionChatNoticeOrder(string orderTilte, string orderStatus, string orderType,
-             Guid id, string from, string to, string messageBody, string sessionId, XmppResource resourceFrom, XmppResource resourceTo)
-            : base(id, from, to, messageBody, sessionId, ChatType.Notice, resourceFrom, resourceTo)
-        {
-            this.OrderTitle = orderTilte;
-            this.CurrentStatus = orderStatus;
-            this.OrderType = orderType;
-        }
-        public virtual string OrderTitle { get; protected internal set; }
-        public virtual string CurrentStatus { get; protected internal set; }
-        public virtual string OrderType { get; protected internal set; }
-
-    }
+    }    
 
     /// <summary>
     /// IM,通知,客服更换
@@ -210,35 +188,6 @@ namespace Ydb.InstantMessage.DomainModel.Chat
         /// </summary>
         public virtual string PromotionUrl { get; protected internal set; }
     }
-
-    /// <summary>
-    /// IM,通知,客服离线. 不需要指定离线的客服id. 客户端收到该消息后会再次申请客服.
-    /// </summary>
-    public class ReceptionChatNoticeCustomerServiceOffline : ReceptionChat
-    {
-        public ReceptionChatNoticeCustomerServiceOffline() { }
-        public ReceptionChatNoticeCustomerServiceOffline(
-           Guid id, string from, string to, string messageBody, string sessionId, XmppResource resourceFrom, XmppResource resourceTo)
-            : base(id, from, to, messageBody, sessionId, ChatType.Notice, resourceFrom, resourceTo)
-        {
-
-        }
-    }
-
-    /// <summary>
-    /// IM,通知,客服上线. 不需要指定上线的客服id. 客户端收到该消息后会再次申请客服,避免客户端一直被未上线客服或者点点接待.
-    /// </summary>
-    public class ReceptionChatNoticeCustomerServiceOnline : ReceptionChat
-    {
-        public ReceptionChatNoticeCustomerServiceOnline() { }
-        public ReceptionChatNoticeCustomerServiceOnline(
-          Guid id, string from, string to, string messageBody, string sessionId, XmppResource resourceFrom, XmppResource resourceTo)
-            : base(id, from, to, messageBody, sessionId, ChatType.Notice, resourceFrom, resourceTo)
-        {
-
-        }
-    }
-
 
     /// <summary>
     /// IM,通知, 用户状态改变. 文档内没有的.
