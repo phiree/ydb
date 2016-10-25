@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ydb.Common.Domain;
 
-namespace Ydb.Finance.DomainModel.Enums
+namespace Ydb.Finance.Application
 {
-    internal enum FlowType
+    public class BalanceTotalDto : Entity<Guid>
     {
-        OrderShare,//订单分账
-        Withdrawals//提现
+
     }
 }

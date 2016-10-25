@@ -9,7 +9,7 @@ using FluentNHibernate.Mapping;
 using Ydb.Common.Domain;
 namespace Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping
 {
-    public class BalanceFlowMap:ClassMap<BalanceFlow>
+    internal class BalanceFlowMap:ClassMap<BalanceFlow>
     {
         public BalanceFlowMap()
         {

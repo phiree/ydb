@@ -7,12 +7,10 @@ using System.Collections.Generic;
 
 namespace Ydb.Finance.DomainModel
 {
-    public interface IRepositoryServiceTypePoint : IRepository< ServiceTypePoint,Guid>
+    internal interface IRepositoryServiceTypePoint : IRepository< ServiceTypePoint,Guid>
     {
 
           ServiceTypePoint GetOneByServiceType(string serviceTypeId);
-
-
           IList<ServiceTypePoint> GetAll();
         void SaveList(IList<ServiceTypePoint> list);
     }

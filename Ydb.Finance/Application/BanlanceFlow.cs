@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NHibernate;
 using System.Collections;
 using Ydb.Finance.DomainModel;
+using AutoMapper;
 
 namespace Ydb.Finance.Application
 {
@@ -14,20 +15,20 @@ namespace Ydb.Finance.Application
 
         ISession session;
         IRepositoryBalanceFlow repositoryBalanceFlow;
-        public BalanceFlowService(ISession session,
+        internal BalanceFlowService(ISession session,
         IRepositoryBalanceFlow repositoryBalanceFlow)
         {
             this.repositoryBalanceFlow = repositoryBalanceFlow;
         }
 
-        public IList<BalanceFlow> GetAll()
+        public IList<BalanceFlowDto> GetAll()
         {
-          return repositoryBalanceFlow.Find(x => true);
+            return Mapper.Map<IList<BalanceFlow>, IList<BalanceFlowDto>>(repositoryBalanceFlow.Find(x => true)); 
         }
 
-        public void Save(BalanceFlow flow)
+        public void Save(BalanceFlowDto flow)
         {
-            repositoryBalanceFlow.Add(flow);
+            repositoryBalanceFlow.Add(Mapper.Map<BalanceFlowDto, BalanceFlow>(flow));
         }
 
         /// <summary>
@@ -39,9 +40,9 @@ namespace Ydb.Finance.Application
         /// <param name="serviceTypeLevel"></param>
         /// <param name="dateType"></param>
         /// <returns></returns>
-        public IList<BalanceFlow> GetBillSatistics(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string dateType)
+        public IList<BalanceFlowDto> GetBillSatistics(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string dateType)
         {
-            return repositoryBalanceFlow.GetBillSatistics(userID, startTime, endTime, serviceTypeLevel, dateType);
+            return Mapper.Map<IList<BalanceFlow>, IList<BalanceFlowDto>>(repositoryBalanceFlow.GetBillSatistics(userID, startTime, endTime, serviceTypeLevel, dateType));
         }
 
         /// <summary>

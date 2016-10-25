@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ydb.Finance.DomainModel.Enums
+namespace Ydb.Finance.Application
 {
-    internal enum FlowType
+    public interface IServiceTypePointService
     {
-        OrderShare,//订单分账
-        Withdrawals//提现
     }
 }

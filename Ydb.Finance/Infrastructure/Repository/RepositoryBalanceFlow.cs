@@ -12,7 +12,7 @@ using NHibernate.Transform;
 
 namespace Ydb.Finance.Infrastructure.Repository
 {
-    public class RepositoryBalanceFlow : NHRepositoryBase<BalanceFlow, Guid>, IRepositoryBalanceFlow
+    internal class RepositoryBalanceFlow : NHRepositoryBase<BalanceFlow, Guid>, IRepositoryBalanceFlow
     {
         public RepositoryBalanceFlow(ISession session) : base(session)
         {

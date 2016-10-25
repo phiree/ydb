@@ -7,7 +7,7 @@ using Ydb.Common.Repository;
 using Ydb.Finance.DomainModel;
 namespace Ydb.Finance.DomainModel
 {
-    public interface IRepositoryBalanceFlow:IRepository<BalanceFlow,Guid>
+    internal interface IRepositoryBalanceFlow:IRepository<BalanceFlow,Guid>
     {
         /// <summary>
         /// 统计账单结果
