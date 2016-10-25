@@ -13,7 +13,7 @@ using Ydb.Finance.DomainModel.Enums;
 
 namespace Ydb.Finance.Infrastructure.Repository
 {
-    public class RepositoryUserTypeSharePoint : NHRepositoryBase<UserTypeSharePoint, Guid>, IRepositoryUserTypeSharePoint
+    internal class RepositoryUserTypeSharePoint : NHRepositoryBase<UserTypeSharePoint, Guid>, IRepositoryUserTypeSharePoint
     {
         public RepositoryUserTypeSharePoint(ISession session) : base(session)
         {
@@ -151,10 +151,9 @@ namespace Ydb.Finance.Infrastructure.Repository
 
         }
 
-        public UserTypeSharePoint GetSharePoint(UserType userType )
+        public UserTypeSharePoint GetSharePoint(UserType userType)
         {
-            
-                return FindOne(x => x.UserType == userType);
+            return FindOne(x => x.UserType == userType);
         }
 
         public UserTypeSharePoint Add(UserType userType, decimal point)

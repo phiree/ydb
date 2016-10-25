@@ -13,12 +13,12 @@ namespace Ydb.Finance.Application
         /// 保存一条流水
         /// </summary>
         /// <param name="flow"></param>
-        void Save( BalanceFlow flow);
+        void Save( BalanceFlowDto flow);
         /// <summary>
         /// 获取所有的财务流水
         /// </summary>
         /// <returns></returns>
-        IList< BalanceFlow> GetAll();
+        IList< BalanceFlowDto> GetAll();
 
         /// <summary>
         /// 统计账单结果
@@ -29,7 +29,7 @@ namespace Ydb.Finance.Application
         /// <param name="serviceTypeLevel"></param>
         /// <param name="dateType"></param>
         /// <returns></returns>
-        IList< BalanceFlow> GetBillSatistics(string userID, DateTime startTime, DateTime endTime, 
+        IList< BalanceFlowDto> GetBillSatistics(string userID, DateTime startTime, DateTime endTime, 
                         string serviceTypeLevel, string dateType);
 
         /// <summary>

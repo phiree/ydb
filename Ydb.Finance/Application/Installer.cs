@@ -17,7 +17,7 @@ using Ydb.Finance.Application;
 using Ydb.Finance.Infrastructure.Repository;
 using Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping;
 
-namespace Ydb.Finance.Infrastructure
+namespace Ydb.Finance.Application
 {
     public class InstallerFinance : IWindsorInstaller
     {

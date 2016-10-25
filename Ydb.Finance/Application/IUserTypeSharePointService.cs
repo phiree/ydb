@@ -11,7 +11,8 @@ namespace Ydb.Finance.Application
     {
         void Add(string userType,decimal sharepoint);
         decimal GetSharePoint(string userType,out string errMsg);
-       
-         
+        IList<UserTypeSharePointDto> GetAll();
+
+
     }
 }

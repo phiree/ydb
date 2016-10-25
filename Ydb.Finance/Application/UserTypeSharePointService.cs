@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using Ydb.Finance.DomainModel;
 using NHibernate;
 using Ydb.Finance.DomainModel.Enums;
+using AutoMapper;
 namespace Ydb.Finance.Application
 {
    public class UserTypeSharePointService:IUserTypeSharePointService
     {
         ISession session;
         IRepositoryUserTypeSharePoint repositoryUserTypeSharePoint;
-        public UserTypeSharePointService(ISession session, IRepositoryUserTypeSharePoint repositoryUserTypeSharePoint)
+        internal UserTypeSharePointService(ISession session, IRepositoryUserTypeSharePoint repositoryUserTypeSharePoint)
         {
             this.session = session;
             this.repositoryUserTypeSharePoint = repositoryUserTypeSharePoint;
@@ -60,8 +61,8 @@ namespace Ydb.Finance.Application
             }
 
         }
-        public IList<UserTypeSharePoint> GetAll() {
-            return repositoryUserTypeSharePoint.Find(x => true);
+        public IList<UserTypeSharePointDto> GetAll() {
+            return Mapper.Map<IList<UserTypeSharePoint>, IList<UserTypeSharePointDto>>(repositoryUserTypeSharePoint.Find(x => true));
         }
          
     }
