@@ -134,10 +134,6 @@
       <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
       <Name>Ydb.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
-      <Project>{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}</Project>
-      <Name>Ydb.InstantMessage</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

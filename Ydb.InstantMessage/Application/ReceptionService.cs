@@ -23,11 +23,11 @@ namespace Ydb.InstantMessage.Application
 
         IReceptionAssigner receptionAssigner;
 
-        ISession session;
-        public ReceptionService(IRepositoryReception receptionRepository, ISession session, IReceptionAssigner receptionAssigner)
+       
+        public ReceptionService(IRepositoryReception receptionRepository,  IReceptionAssigner receptionAssigner)
         {
             this.receptionRepository = receptionRepository;
-            this.session = session;
+           
             this.receptionAssigner = receptionAssigner;
         }
 
@@ -44,10 +44,10 @@ namespace Ydb.InstantMessage.Application
             throw new NotImplementedException();
         }
 
+        [Ydb.Common.Repository.UnitOfWork]
         public string AssignCustomerLogin(string customerId,out string errorMessage)
         {
-            using (var t = session.BeginTransaction())
-            {
+            
                 string assignCS = string.Empty;
                 errorMessage = string.Empty;
 
@@ -73,16 +73,15 @@ namespace Ydb.InstantMessage.Application
                 ReceptionStatus status = new ReceptionStatus(customerId, assignCS, string.Empty);
                 receptionRepository.Add(status);
 
-
-                t.Commit();
+             
                 return assignCS;
-            }
+            
         }
 
+        [Ydb.Common.Repository.UnitOfWork]
         public IList<string> AssignCSLogin(string csId, int amount)
         {
-            using (var t = session.BeginTransaction())
-            {
+            
                 IList<string> assignList = new List<string>();
 
                 IList<ReceptionStatus> existReceptions = receptionRepository.FindByDiandian(DianDianId, amount);
@@ -97,15 +96,14 @@ namespace Ydb.InstantMessage.Application
                     assignList.Add(item.CustomerId);
                 }
 
-                t.Commit();
+               
                 return assignList;
-            }
+           
         }
-
+        [Ydb.Common.Repository.UnitOfWork]
         public void AssignCSLogoff(string csId)
         {
-            using (var t = session.BeginTransaction())
-            {
+          
                 IList<ReceptionStatus> existReceptions = receptionRepository.FindByCustomerServiceId(csId);
 
                 if (existReceptions.Count > 0)
@@ -118,9 +116,7 @@ namespace Ydb.InstantMessage.Application
                         receptionRepository.Update(item);
                     }
                 }
-
-                t.Commit();
-            }
+ 
         }
     }
 }

@@ -56,5 +56,7 @@ namespace Ydb.InstantMessage.Application.Tests
             Console.WriteLine(list[3].MessageBody);
             Console.WriteLine(list[4].MessageBody);
         }
+
+        
     }
 }

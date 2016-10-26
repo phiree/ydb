@@ -7,96 +7,22 @@ using NHibernate;
 using Ydb.Common.Repository;
 namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
 {
-    public class RepositoryReception : IRepositoryReception
+    public class RepositoryReception :NHRepositoryBase<ReceptionStatus,Guid>,  IRepositoryReception
     {
 
-        NHRepositoryBase<ReceptionStatus,Guid> baseRepository;
-        ISession session;
-        public RepositoryReception(ISession session)
-        {
-            this.session = session;
-            baseRepository = new NHRepositoryBase<ReceptionStatus, Guid>(session);
-        }
+        
         public IList<ReceptionStatus> FindByCustomerId(string customerServiceId)
         {
-            return baseRepository.Find(x => x.CustomerId == customerServiceId);
+            return  Find(x => x.CustomerId == customerServiceId);
         }
         public IList<ReceptionStatus> FindByCustomerServiceId(string csId)
         {
-            return baseRepository.Find(x => x.CustomerServiceId == csId);
+            return  Find(x => x.CustomerServiceId == csId);
         }
         public IList<ReceptionStatus> FindByDiandian(string diandianId,int amount)
         {
-            return baseRepository.Find(x => x.CustomerServiceId == diandianId).Take(amount).ToList();
+            return  Find(x => x.CustomerServiceId == diandianId).Take(amount).ToList();
         }
-        public RepositoryReception(ISessionFactory sessionFactory)
-        {
-
-        }
-        public void Add(ReceptionStatus t)
-        {
-            session.Save(t);
-        }
-
-        public void Add(ReceptionStatus t, Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(ReceptionStatus t)
-        {
-            session.Delete(t);
-        }
-
-        public IList<ReceptionStatus> Find(Expression<Func<ReceptionStatus, bool>> where)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<ReceptionStatus> Find(Expression<Func<ReceptionStatus, bool>> where, int pageIndex, int pageSize, out long totalRecords)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<ReceptionStatus> Find(Expression<Func<ReceptionStatus, bool>> where, string sortBy, bool ascending, int offset, ReceptionStatus baseone)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<ReceptionStatus> Find(Expression<Func<ReceptionStatus, bool>> where, int pageIndex, int pageSize, out long totalRecords, string sortBy, bool ascending, int offset, ReceptionStatus baseone)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ReceptionStatus FindByBaseId(Guid strBaseID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ReceptionStatus FindById(Guid identityId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ReceptionStatus FindOne(Expression<Func<ReceptionStatus, bool>> where)
-        {
-            throw new NotImplementedException();
-        }
-
-        public long GetRowCount(Expression<Func<ReceptionStatus, bool>> where)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveOrUpdate(ReceptionStatus t)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(ReceptionStatus t)
-        {
-            t.LastUpdateTime = DateTime.Now;
-            session.Update(t);
-        }
+ 
     }
 }

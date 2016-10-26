@@ -18,11 +18,8 @@ namespace Ydb.Common.Repository
     {
 
 
-        public NHRepositoryBase(ISession session)
-        {
-            this.session = session;
-        }
-        protected ISession session;
+        
+        protected ISession session { get { return NhUnitOfWork.Current.Session; } }
 
 
         public void Add(TEntity t)

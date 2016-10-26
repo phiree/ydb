@@ -6,14 +6,12 @@ using NHibernate;
 using Ydb.Common.Repository;
 using System.Linq;
 using Ydb.InstantMessage.DomainModel.Chat.Enums;
-
+using Ydb.Common.Repository;
 namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
 {
     public class RepositoryChat : NHRepositoryBase<ReceptionChat,Guid>,IRepositoryChat
     {
-        public RepositoryChat(ISession session) : base(session)
-        {
-        }
+       
 
         public IList<ReceptionChat> GetChatByOrder(string orderId)
         {
