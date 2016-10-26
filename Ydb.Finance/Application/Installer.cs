@@ -32,12 +32,16 @@ namespace Ydb.Finance.Application
         private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IRepositoryBalanceFlow>().ImplementedBy<RepositoryBalanceFlow>());
-            
+            container.Register(Component.For<IRepositoryBalanceTotal>().ImplementedBy<RepositoryBalanceTotal>());
+            container.Register(Component.For<IRepositoryServiceTypePoint>().ImplementedBy<RepositoryServiceTypePoint>());
+            container.Register(Component.For<IRepositoryUserTypeSharePoint>().ImplementedBy<RepositoryUserTypeSharePoint>());
+
         }
         private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IBalanceFlowService>().ImplementedBy<BalanceFlowService>());
-            
+            container.Register(Component.For<IBalanceFlowService>().ImplementedBy<BalanceFlowService>());
+
         }
         private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
         {
