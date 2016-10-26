@@ -181,8 +181,12 @@ namespace Dianzhu.BLL
                 //case enum_OrderSearchType.De:
                 case "done":
                     where = where.And(x => x.OrderStatus == enum_OrderStatus.Finished
-
-                         || x.OrderStatus == enum_OrderStatus.Appraised)
+                              || x.OrderStatus == enum_OrderStatus.Appraised
+                              || x.OrderStatus == enum_OrderStatus.EndCancel
+                              || x.OrderStatus == enum_OrderStatus.EndRefund
+                              || x.OrderStatus == enum_OrderStatus.EndIntervention
+                              || x.OrderStatus == enum_OrderStatus.EndComplaints
+                              || x.OrderStatus == enum_OrderStatus.ForceStop)
                         ;
                     break;
                 //case enum_OrderSearchType.Nt:
@@ -190,8 +194,12 @@ namespace Dianzhu.BLL
                     where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                          && x.OrderStatus != enum_OrderStatus.DraftPushed
                          && x.OrderStatus != enum_OrderStatus.Finished
-
                          && x.OrderStatus != enum_OrderStatus.Appraised
+                         && x.OrderStatus != enum_OrderStatus.EndCancel
+                         && x.OrderStatus != enum_OrderStatus.EndRefund
+                         && x.OrderStatus != enum_OrderStatus.EndIntervention
+                         && x.OrderStatus != enum_OrderStatus.EndComplaints
+                         && x.OrderStatus != enum_OrderStatus.ForceStop
                          && x.OrderStatus != enum_OrderStatus.Search);
 
                     break;
@@ -292,8 +300,12 @@ namespace Dianzhu.BLL
                 //case enum_OrderSearchType.De:
                 case "done":
                     where = where.And(x => x.OrderStatus == enum_OrderStatus.Finished
-
-                         || x.OrderStatus == enum_OrderStatus.Appraised)
+                              || x.OrderStatus == enum_OrderStatus.Appraised
+                              || x.OrderStatus == enum_OrderStatus.EndCancel
+                              || x.OrderStatus == enum_OrderStatus.EndRefund
+                              || x.OrderStatus == enum_OrderStatus.EndIntervention
+                              || x.OrderStatus == enum_OrderStatus.EndComplaints
+                              || x.OrderStatus == enum_OrderStatus.ForceStop)
                         ;
                     break;
                 //case enum_OrderSearchType.Nt:
@@ -301,8 +313,12 @@ namespace Dianzhu.BLL
                     where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                          && x.OrderStatus != enum_OrderStatus.DraftPushed
                          && x.OrderStatus != enum_OrderStatus.Finished
-
                          && x.OrderStatus != enum_OrderStatus.Appraised
+                         && x.OrderStatus != enum_OrderStatus.EndCancel
+                         && x.OrderStatus != enum_OrderStatus.EndRefund
+                         && x.OrderStatus != enum_OrderStatus.EndIntervention
+                         && x.OrderStatus != enum_OrderStatus.EndComplaints
+                         && x.OrderStatus != enum_OrderStatus.ForceStop
                          && x.OrderStatus != enum_OrderStatus.Search);
 
                     break;
@@ -505,6 +521,20 @@ namespace Dianzhu.BLL
  
 
         #region 订单流程变化
+
+        public void OrderFlow_ConfirmOrder(ServiceOrder order)
+        {
+            if (order.DepositAmount > 0)
+            {
+                ChangeStatus(order, enum_OrderStatus.Created);
+
+                Payment payment = bllPayment.ApplyPay(order, enum_PayTarget.Deposit);
+            }
+            else
+            {
+                OrderFlow_ConfirmDeposit(order);
+            }
+        }
 
         /// <summary>
         /// 用户定金支付完成,等待后台确认订单是否到帐
@@ -923,9 +953,45 @@ namespace Dianzhu.BLL
             log.Debug("当前订单状态为:" + targetStatus);
 
             log.Debug("调用IMServer,发送订单状态变更通知");
+            //订单的主要参数
+            string uriParameter = "&orderid=" + order.Id
+                                + "&ordertitle=" + order.Title
+                                + "&orderstatus=" + order.OrderStatus.ToString()
+                                + "&ordertype=" + order.Service.ServiceType.Name
+                                + "&orderstatusfriendly=" + order.GetStatusTitleFriendly(order.OrderStatus);
+            //发送给用户
+            string uriParameterByCustomer = uriParameter + "&userid=" + order.Customer.Id
+                                                         + "&toresource=" + enum_XmppResource.YDBan_User;
+            RequestUri(uriParameterByCustomer);
+
+            //发送给商户
+            if (order.Business == null)
+            {
+                return;
+            }
+            if (order.Business.Owner == null)
+            {
+                return;
+            }
+            string uriParameterByStore = uriParameter + "&userid=" + order.Business.Owner.Id
+                                                      + "&toresource=" + enum_XmppResource.YDBan_Store;
+            RequestUri(uriParameterByStore);
+
+            //发送给指派的员工
+            if (order.Staff == null)
+            {
+                return;
+            }
+            string uriParameterByStaff = uriParameter + "&userid=" + order.Staff.Id
+                                                      + "&toresource=" + enum_XmppResource.YDBan_Staff;
+            RequestUri(uriParameterByStaff);
+        }
+
+        private void RequestUri(string uriStr)
+        {
             System.Net.WebClient wc = new System.Net.WebClient();
             string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
-            Uri uri = new Uri(notifyServer + "type=ordernotice&orderId=" + order.Id);
+            Uri uri = new Uri(notifyServer + "type=ordernotice" + uriStr);
             System.IO.Stream returnData = wc.OpenRead(uri);
             System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
             string result = reader.ReadToEnd();

@@ -46,6 +46,60 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         }
 
         /// <summary>
+        /// 查询订单合集的校验
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="orderfilter"></param>
+        /// <returns></returns>
+        [Route("api/v1/orders/verify")]
+        public IHttpActionResult GetOrdersVerify([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_OrderFiltering orderfilter)
+        {
+            try
+            {
+                if (filter == null)
+                {
+                    filter = new common_Trait_Filtering();
+                }
+                if (orderfilter == null)
+                {
+                    orderfilter = new common_Trait_OrderFiltering();
+                }
+                return Json(iorder.GetOrdersVerify(filter, orderfilter, GetRequestHeader.GetTraitHeaders("get/orders/verify")) ?? new object());
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
+        /// 查询订单超媒体合集
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="orderfilter"></param>
+        /// <returns></returns>
+        [Route("api/v1/orderHypermedias")]
+        public IHttpActionResult GetOrdersHypermedias([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_OrderFiltering orderfilter)
+        {
+            try
+            {
+                if (filter == null)
+                {
+                    filter = new common_Trait_Filtering();
+                }
+                if (orderfilter == null)
+                {
+                    orderfilter = new common_Trait_OrderFiltering();
+                }
+                return Json(iorder.GetOrdersHypermedias(filter, orderfilter, GetRequestHeader.GetTraitHeaders("get/orderHypermedias")) ?? new object());
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
         /// 查询订单数量
         /// </summary>
         /// <param name="orderfilter"></param>

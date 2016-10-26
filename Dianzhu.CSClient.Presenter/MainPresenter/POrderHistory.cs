@@ -133,7 +133,7 @@ namespace Dianzhu.CSClient.Presenter
                 viewOrderHistory.OrderPage = 1;
 
                 IList<VMOrderHistory> vmList = new List<VMOrderHistory>();
-                if (localHistoryOrderManager.LocalHistoryOrders.ContainsKey(customerId.ToString()))
+                if (localHistoryOrderManager.LocalHistoryOrders != null && localHistoryOrderManager.LocalHistoryOrders.ContainsKey(customerId.ToString()))
                 {
                     vmList = localHistoryOrderManager.LocalHistoryOrders[customerId.ToString()];
                 }

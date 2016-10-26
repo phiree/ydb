@@ -11,7 +11,8 @@ namespace Dianzhu.CSClient.IView
         void ShowMessage(string message);
         void CloseApplication();
         bool? ShowDialog();
-        string FormTitle { set; }
+
+        string CSName { set; }
 
         void FlashTaskBar();//任务栏闪烁
     }

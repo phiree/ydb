@@ -50,7 +50,14 @@ public partial class CallBackHandler :BasePage
             {
                 payLogType = enum_PaylogType.ResultNotifyFromAli;
             }
-            payCallBack = new PayCallBackAli();
+            if (rawUrl.ToLower().Contains("PayBatch"))
+            {
+                payCallBack = new PayCallBackAliBatch();
+            }
+            else
+            {
+                payCallBack = new PayCallBackAli();
+            }
             
         }
         else

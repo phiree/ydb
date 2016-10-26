@@ -56,7 +56,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             //var chatHistory = dalReceptionChat.GetReceptionChatListByTargetIdAndSize(IdentityManager.CurrentIdentity.Customer.Id, Guid.Empty, Guid.Empty,
             //       DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 10, viewChatList.ChatList[0].SavedTimestamp, "Y", enum_ChatTarget.cer).OrderByDescending(x=>x.SavedTimestamp).ToList();
-
+            
             try
             {
                 NHibernateUnitOfWork.UnitOfWork.Start();
@@ -154,7 +154,6 @@ namespace Dianzhu.CSClient.Presenter
                 {
                     viewChatList.AddOneChat(vmChat);
                     //viewChatList.ChatList.Add(vmChat);
-
                 }
             }
             else
