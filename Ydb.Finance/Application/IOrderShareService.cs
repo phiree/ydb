@@ -11,7 +11,7 @@ namespace Ydb.Finance.Application
         /// <summary>
         /// 订单分成操作
         /// </summary>
-        /// <param name="order" type="BalanceParam">分账的订单及用户信息</param>
-        void ShareOrder(BalanceParam order);
+        /// <param name="order" type="OrderShareParam">分账的订单及用户信息</param>
+        void ShareOrder(OrderShareParam order);
     }
 }

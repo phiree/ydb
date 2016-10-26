@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ydb.Finance.Application
 {
-    public class BalanceParam
+    public class OrderShareParam
     {
         /// <summary>
         /// 关联对象的Id, 比如 订单, 提现单,充值单..等等.
