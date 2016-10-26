@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ydb.Finance.DomainModel.Enums
+namespace Ydb.Membership.DomainModel
 {
-    internal enum FlowType
+   public  interface ILoginNameDetermine
     {
-        OrderShare,//订单分账
-        Withdrawals//提现
+        Enums.LoginNameType Determin(string loginName);
     }
 }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ydb.Finance.DomainModel.Enums;
 using Ydb.Common.Domain;
-namespace Ydb.Finance.DomainModel
+
+namespace Ydb.Finance.Application
 {
-    internal class BalanceFlow : Entity<Guid>
+    public class BalanceFlowDto : Entity<Guid>
     {
         /// <summary>
         /// 用户账户ID
@@ -32,12 +32,11 @@ namespace Ydb.Finance.DomainModel
         /// <summary>
         /// 发生类型
         /// </summary>
-        public virtual FlowType FlowType { get; set; }
+        public virtual string FlowType { get; set; }
 
         /// <summary>
         /// true为收入，false为支出
         /// </summary>
         public virtual bool Income { get; set; }
     }
-  
 }

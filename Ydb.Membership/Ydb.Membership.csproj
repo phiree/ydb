@@ -42,6 +42,10 @@
       <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="HibernatingRhinos.Profiler.Appender, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernateProfiler.Appender.3.0.3103.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
@@ -68,20 +72,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\DZMembershipService.cs" />
+    <Compile Include="Application\IDZMembershipService.cs" />
+    <Compile Include="Application\InstallerMembership.cs" />
     <Compile Include="DomainModel\DZMembership.cs" />
     <Compile Include="DomainModel\DZMembershipProvider.cs" />
     <Compile Include="DomainModel\DZMembershipSinaWeibo.cs" />
     <Compile Include="DomainModel\DZMembershipQQ.cs" />
     <Compile Include="DomainModel\DZMembershipWeChat.cs" />
+    <Compile Include="DomainModel\Enums\LoginNameType.cs" />
     <Compile Include="DomainModel\Enums\UserType.cs" />
     <Compile Include="DomainModel\Enums\LoginType.cs" />
     <Compile Include="DomainModel\IEmailService.cs" />
     <Compile Include="DomainModel\IEncryptService.cs" />
+    <Compile Include="DomainModel\LoginNameDetermine.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryUserToken.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryDZMembership.cs" />
     <Compile Include="DomainModel\UserToken.cs" />
     <Compile Include="Infrastructure\EmailService.cs" />
     <Compile Include="Infrastructure\EncryptService.cs" />
+    <Compile Include="Infrastructure\LoginNameDetermine.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipQQMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipSinaWeiboMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipWeChatMap.cs" />
@@ -90,9 +100,7 @@
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryDZMembership.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Application\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122c6d5-6348-4b65-88b7-3c43a6e642f3}</Project>

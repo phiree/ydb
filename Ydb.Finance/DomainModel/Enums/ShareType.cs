@@ -9,16 +9,24 @@ namespace Ydb.Finance.DomainModel.Enums
     /// <summary>
     /// 参与分账的用户的类型
     /// </summary>
-   public enum UserType
+   internal enum UserType
     {
-        None=1,
+        None=0,
         /// <summary>
-        /// 助理
+        /// 商户
         /// </summary>
-        CustomerService=2,
+        business = 2,
         /// <summary>
-        /// 区域代理
+        /// 客服
         /// </summary>
-        AreaAgent=4
+        customerservice = 4,
+        /// <summary>
+        /// 代理商
+        /// </summary>
+        agent = 32,
+        /// <summary>
+        /// 点点
+        /// </summary>
+        diandian = 64
     }
 }

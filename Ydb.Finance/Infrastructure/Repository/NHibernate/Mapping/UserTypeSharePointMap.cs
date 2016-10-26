@@ -6,19 +6,16 @@ using System.Threading.Tasks;
 using Ydb.Finance.DomainModel;
 using Ydb.Finance.DomainModel.Enums;
 using FluentNHibernate.Mapping;
-using Ydb.Common.Domain;
+
 namespace Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping
 {
-    internal class BalanceFlowMap:ClassMap<BalanceFlow>
+    internal class UserTypeSharePointMap : ClassMap<UserTypeSharePoint>
     {
-        public BalanceFlowMap()
+        public UserTypeSharePointMap()
         {
             Id(x => x.Id);
-            Map(x => x.AccountId); 
-            Map(x => x.Amount);
-            Map(x => x.FlowType).CustomType<FlowType>();
-            Map(x => x.OccurTime);
-            Map(x => x.RelatedObjectId);
+            Map(x => x.UserType).CustomType<UserType>();
+            Map(x => x.Point);
         }
     }
 }

@@ -4,22 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.Common.Domain;
-namespace Ydb.Finance.DomainModel
+
+namespace Ydb.Finance.Application
 {
-    /// <summary>
-    /// 服务分类的平台扣点比例
-    /// </summary>
-    internal class ServiceTypePoint : Entity<Guid>
+    public class UserTypeSharePointDto : Entity<Guid>
     {
         /// <summary>
-        /// 服务类型ID
+        /// 用户类型
         /// </summary>
-        public virtual string  ServiceTypeId { get; set; }
+        public virtual string UserType { get; set; }
 
         /// <summary>
-        /// 服务扣点比例
+        /// 分账比例
         /// </summary>
         public virtual decimal Point { get; set; }
-
     }
 }
