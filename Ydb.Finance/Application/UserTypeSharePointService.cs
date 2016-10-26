@@ -12,9 +12,10 @@ namespace Ydb.Finance.Application
    public class UserTypeSharePointService:IUserTypeSharePointService
     {
         IRepositoryUserTypeSharePoint repositoryUserTypeSharePoint;
-        internal UserTypeSharePointService( IRepositoryUserTypeSharePoint repositoryUserTypeSharePoint)
+        public UserTypeSharePointService()
         {
-            this.repositoryUserTypeSharePoint = repositoryUserTypeSharePoint;
+            Bootstrap.Boot();
+            repositoryUserTypeSharePoint = Bootstrap.Container.Resolve<IRepositoryUserTypeSharePoint>();
         }
 
         /// <summary>

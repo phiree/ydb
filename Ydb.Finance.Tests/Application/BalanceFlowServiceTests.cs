@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ydb.Finance.Tests;
-namespace Ydb.Finance.Application.Tests
+namespace Ydb.Finance.Tests.Application
 {
     [TestFixture()]
     public class BalanceFlowServiceTests

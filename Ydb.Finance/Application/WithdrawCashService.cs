@@ -14,10 +14,11 @@ namespace Ydb.Finance.Application
       
         IRepositoryBalanceFlow repositoryBalanceFlow;
         IRepositoryBalanceTotal repositoryBalanceTotal;
-        internal WithdrawCashService(IRepositoryBalanceFlow repositoryBalanceFlow, IRepositoryBalanceTotal repositoryBalanceTotal)
+        public WithdrawCashService()
         {
-            this.repositoryBalanceFlow = repositoryBalanceFlow;
-            this.repositoryBalanceTotal = repositoryBalanceTotal;
+            Bootstrap.Boot();
+            repositoryBalanceFlow = Bootstrap.Container.Resolve<IRepositoryBalanceFlow>();
+            repositoryBalanceTotal = Bootstrap.Container.Resolve<IRepositoryBalanceTotal>();
         }
 
         /// <summary>

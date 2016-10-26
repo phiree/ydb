@@ -83,6 +83,7 @@
     <Compile Include="Application\BalanceDTO\UserTypeSharePointDto.cs" />
     <Compile Include="Application\BalanceDTO\WithdrawCashParam.cs" />
     <Compile Include="Application\BanlanceFlow.cs" />
+    <Compile Include="Application\Bootstrap.cs" />
     <Compile Include="Application\IBalanceFlowService.cs" />
     <Compile Include="Application\IOrderShareService.cs" />
     <Compile Include="Application\IServiceTypePointService.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="DomainModel\Enums\ShareType.cs" />
     <Compile Include="DomainModel\ServiceTypePoint.cs" />
     <Compile Include="Application\Installer.cs" />
+    <Compile Include="Infrastructure\Installer.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceFlowMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceTotalMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceTypePointMap.cs" />

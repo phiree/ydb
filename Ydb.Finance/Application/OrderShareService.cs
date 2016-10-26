@@ -16,13 +16,13 @@ namespace Ydb.Finance.Application
         IUserTypeSharePointService userTypeSharePointService;
         IRepositoryBalanceFlow repositoryBalanceFlow;
         IRepositoryBalanceTotal repositoryBalanceTotal;
-        internal OrderShareService(IServiceTypePointService serviceTypePointService, IUserTypeSharePointService userTypeSharePointService,
-        IRepositoryBalanceFlow repositoryBalanceFlow, IRepositoryBalanceTotal repositoryBalanceTotal)
+        public OrderShareService(IServiceTypePointService serviceTypePointService, IUserTypeSharePointService userTypeSharePointService)
         {
             this.serviceTypePointService = serviceTypePointService;
             this.userTypeSharePointService = userTypeSharePointService;
-            this.repositoryBalanceFlow = repositoryBalanceFlow;
-            this.repositoryBalanceTotal = repositoryBalanceTotal;
+            Bootstrap.Boot();
+            repositoryBalanceFlow = Bootstrap.Container.Resolve<IRepositoryBalanceFlow>();
+            repositoryBalanceTotal = Bootstrap.Container.Resolve<IRepositoryBalanceTotal>();
         }
 
         /// <summary>

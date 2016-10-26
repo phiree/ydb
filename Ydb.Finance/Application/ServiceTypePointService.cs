@@ -13,9 +13,10 @@ namespace Ydb.Finance.Application
     public class ServiceTypePointService: IServiceTypePointService
     {
         IRepositoryServiceTypePoint repositoryServiceTypePoint;
-        internal ServiceTypePointService(IRepositoryServiceTypePoint repositoryServiceTypePoint)
+        public ServiceTypePointService()
         {
-            this.repositoryServiceTypePoint = repositoryServiceTypePoint;
+            Bootstrap.Boot();
+            repositoryServiceTypePoint = Bootstrap.Container.Resolve<IRepositoryServiceTypePoint>();
         }
 
         /// <summary>
