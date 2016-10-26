@@ -18,7 +18,13 @@ namespace Ydb.Finance.Application
             this.session = session;
             this.repositoryUserTypeSharePoint = repositoryUserTypeSharePoint;
         }
-       public void Add(string userType,decimal point) {
+
+        /// <summary>
+        /// 新增用户类型分配比例信息
+        /// </summary>
+        /// <param name="userType" type="string"></param>
+        /// <param name="point" type="decimal"></param>
+        public void Add(string userType,decimal point) {
             UserType enumUserType;
             bool isUserType = Enum.TryParse<UserType>(userType, out enumUserType);
             if (!isUserType)
@@ -33,6 +39,12 @@ namespace Ydb.Finance.Application
             }
             repositoryUserTypeSharePoint.Add(enumUserType, point);
         }
+
+        /// <summary>
+        /// 根据用户类型获取用户类型分配比例信息
+        /// </summary>
+        /// <param name="userType" type="string">用户类型</param>
+        /// <returns type="UserTypeSharePoint">用户类型分配比例信息</returns>
         public decimal GetSharePoint(string userType,out string errMsg) {
 
             errMsg = string.Empty;
@@ -61,6 +73,11 @@ namespace Ydb.Finance.Application
             }
 
         }
+
+        /// <summary>
+        /// 获取所有用户类型分配比例信息
+        /// </summary>
+        /// <returns type="IList<UserTypeSharePointDto>">用户类型分配比例信息列表</returns>
         public IList<UserTypeSharePointDto> GetAll() {
             return Mapper.Map<IList<UserTypeSharePoint>, IList<UserTypeSharePointDto>>(repositoryUserTypeSharePoint.Find(x => true));
         }

@@ -16,21 +16,23 @@ namespace Ydb.Finance.Application
         IUserTypeSharePointService userTypeSharePointService;
         ISession session;
         IRepositoryBalanceFlow repositoryBalanceFlow;
+        IRepositoryBalanceTotal repositoryBalanceTotal;
         internal OrderShareService(IServiceTypePointService serviceTypePointService, IUserTypeSharePointService userTypeSharePointService,
-        ISession session,IRepositoryBalanceFlow repositoryBalanceFlow)
+        ISession session,IRepositoryBalanceFlow repositoryBalanceFlow, IRepositoryBalanceTotal repositoryBalanceTotal)
         {
             this.serviceTypePointService = serviceTypePointService;
             this.userTypeSharePointService = userTypeSharePointService;
             this.session = session;
             this.repositoryBalanceFlow = repositoryBalanceFlow;
+            this.repositoryBalanceTotal = repositoryBalanceTotal;
         }
 
         /// <summary>
         /// 订单分成,should be domain service
         /// </summary>
-        /// <param name="order"></param>
-        /// <returns>分成详情.</returns>
-        internal IList<BalanceFlow> Share(BalanceParam order)
+        /// <param name="order" type="OrderShareParam">分账的订单及用户信息</param>
+        /// <returns type="IList<BalanceFlow>">分成详情列表.</returns>
+        internal IList<BalanceFlow> Share(OrderShareParam order)
         {
             IList<BalanceFlow> balanceFlows = new List<BalanceFlow>();
             //- 获取该订单总的分账额度
@@ -84,14 +86,16 @@ namespace Ydb.Finance.Application
         }
 
         /// <summary>
-        /// ddd: should be application service
+        /// 订单分成操作
         /// </summary>
-        public void ShareOrder(BalanceParam order)
+        /// <param name="order" type="OrderShareParam">分账的订单及用户信息</param>
+        public void ShareOrder(OrderShareParam order)
         {
             IList<BalanceFlow> balanceFlow = Share(order);
             foreach (BalanceFlow bf in balanceFlow)
             {
                 repositoryBalanceFlow.Add(bf);
+                repositoryBalanceTotal.InBalance(bf.AccountId, bf.Amount);
             }
         }
     }

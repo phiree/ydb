@@ -15,6 +15,9 @@ namespace Ydb.Finance.Application
             get { return "DtoToModelMappings"; }
         }
 
+        /// <summary>
+        /// DtoToModel映射配置
+        /// </summary>
         [System.Obsolete("No Use")]
         protected override void Configure()
         {

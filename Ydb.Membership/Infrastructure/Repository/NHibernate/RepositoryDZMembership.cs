@@ -14,10 +14,7 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate
 {
    public class RepositoryDZMembership:NHRepositoryBase<DZMembership,Guid>,IRepositoryDZMembership
     {
-        public RepositoryDZMembership(ISession session) : base(session)
-        {
-        }
-
+       
         public void CreateUser(DZMembership user)
         {
             Add(user);

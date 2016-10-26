@@ -65,7 +65,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
         /// </summary>
         /// <param name="userFilter"></param>
         /// <returns></returns>
-        [Route("api/v1/users/count")]
+        [Route("api/v1/merchants/count")]
         public IHttpActionResult GetUsersCount([FromUri]common_Trait_UserFiltering userFilter)
         {
             try

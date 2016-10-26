@@ -9,7 +9,14 @@ namespace Ydb.Finance.DomainModel
 {
    internal class BalanceTotal : Entity<Guid>
     {
+        /// <summary>
+        /// 用户账户ID
+        /// </summary>
         public virtual string UserId { get; set; }
+
+        /// <summary>
+        /// 用户账户余额
+        /// </summary>
         public virtual decimal Total { get; set; }
     }
 }

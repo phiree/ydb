@@ -78,7 +78,7 @@ namespace   Ydb.InstantMessage.Application
         /// <param name="to"></param>
         /// <param name="toResource"></param>
         /// <param name="sessionId"></param>
-        void SendCSLoginMessageToDD(Guid messageId, string messageBody, string to, string toResource, string sessionId);
+        void SendCSLoginMessage();
         /// <summary>
         /// 客服下线通知点点
         /// </summary>
@@ -87,7 +87,7 @@ namespace   Ydb.InstantMessage.Application
         /// <param name="to"></param>
         /// <param name="toResource"></param>
         /// <param name="sessionId"></param>
-        void SendCSLogoffMessageToDD(Guid messageId, string messageBody, string to, string toResource, string sessionId);
+        void SendCSLogoffMessage();
         /// <summary>
         /// 发送订单状态变更消息
         /// </summary>
@@ -99,8 +99,25 @@ namespace   Ydb.InstantMessage.Application
         /// <param name="to"></param>
         /// <param name="toResource"></param>
         /// <param name="sessionId"></param>
-        void SendOrderChangeStatusNotify(string orderTilte, string orderStatus, string orderType,
+        void SendNoticeOrderChangeStatus(string orderTilte, string orderStatus, string orderType,
             Guid messageId, string messageBody, string to, string toResource, string sessionId);
+        /// <summary>
+        /// 发送草稿订单通知
+        /// </summary>
+        /// <param name="messageId"></param>
+        /// <param name="messageBody"></param>
+        /// <param name="to"></param>
+        /// <param name="toResource"></param>
+        /// <param name="sessionId"></param>
+        void SendNoticeNewOrder(Guid messageId, string to, string toResource, string sessionId);
+        /// <summary>
+        /// 重新分配后发送通知给用户
+        /// </summary>
+        /// <param name="reAssignedCustomerServiceId"></param>
+        /// <param name="csAlias"></param>
+        /// <param name="csAvatar"></param>
+        void SendReAssignToCustomer(string reAssignedCustomerServiceId, string csAlias, string csAvatar,
+            Guid messageId, string to, string toResource, string sessionId);
 
         void SendMessage(string xml);
         event IMReceivedMessage IMReceivedMessage;

@@ -14,9 +14,7 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate
 {
    public class RepositoryUserToken:NHRepositoryBase<UserToken,Guid>,IRepositoryUserToken
     {
-        public RepositoryUserToken(ISession session) : base(session)
-        {
-        }
+        
 
         public  UserToken GetToken(string userID)
         {

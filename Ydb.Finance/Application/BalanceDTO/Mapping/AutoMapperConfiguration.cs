@@ -9,6 +9,9 @@ namespace Ydb.Finance.Application
 {
     public class AutoMapperConfiguration
     {
+        /// <summary>
+        /// Dto映射配置
+        /// </summary>
         public static void Configure()
         {
             Mapper.Initialize(x =>

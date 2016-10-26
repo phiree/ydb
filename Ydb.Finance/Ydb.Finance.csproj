@@ -73,7 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\BalanceDTO\BalanceFlowDto.cs" />
-    <Compile Include="Application\BalanceDTO\BalanceParam.cs" />
+    <Compile Include="Application\BalanceDTO\OrderShareParam.cs" />
     <Compile Include="Application\BalanceDTO\BalanceTotalDto.cs" />
     <Compile Include="Application\BalanceDTO\BalanceUserParam.cs" />
     <Compile Include="Application\BalanceDTO\Mapping\AutoMapperConfiguration.cs" />
@@ -81,14 +81,17 @@
     <Compile Include="Application\BalanceDTO\Mapping\ModelToDtoMappingProfile.cs" />
     <Compile Include="Application\BalanceDTO\ServiceTypePointDto.cs" />
     <Compile Include="Application\BalanceDTO\UserTypeSharePointDto.cs" />
+    <Compile Include="Application\BalanceDTO\WithdrawCashParam.cs" />
     <Compile Include="Application\BanlanceFlow.cs" />
     <Compile Include="Application\IBalanceFlowService.cs" />
     <Compile Include="Application\IOrderShareService.cs" />
     <Compile Include="Application\IServiceTypePointService.cs" />
+    <Compile Include="Application\IWithdrawCashService.cs" />
     <Compile Include="Application\OrderShareService.cs" />
     <Compile Include="Application\ServiceTypePointService.cs" />
     <Compile Include="Application\UserTypeSharePointService.cs" />
     <Compile Include="Application\IUserTypeSharePointService.cs" />
+    <Compile Include="Application\WithdrawCashService.cs" />
     <Compile Include="DomainModel\BalanceFlow.cs" />
     <Compile Include="DomainModel\BalanceTotal.cs" />
     <Compile Include="DomainModel\Repository\RepositoryBalanceFlow.cs" />

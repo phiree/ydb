@@ -134,37 +134,17 @@ public class ResponseOFP001001 : BaseResponse
             switch (currentIM.Status)
             {
                 case enum_UserStatus.available:
-                    string imServerAPIInvokeUrl = string.Empty;
-                    if (member.UserType == enum_UserType.customer)
-                    {
-                        //用户上线后，通知客服工具
-                        imServerAPIInvokeUrl = "type=customlogin&userId=" + userId;
-                        VisitIMServerApi(imServerAPIInvokeUrl);
-                    }
-                    else
-                    {
-                        //客服上线，通知点点
-                        imServerAPIInvokeUrl = "type=cslogin&userId=" + userId;
-                        VisitIMServerApi(imServerAPIInvokeUrl);
-                    }
+                    //string imServerAPIInvokeUrl = string.Empty;
+                    //if (member.UserType == enum_UserType.customerservice)
+                    //{
+                    //    //客服上线，通知点点
+                    //    imServerAPIInvokeUrl = "type=cslogin&userId=" + userId;
+                    //    VisitIMServerApi(imServerAPIInvokeUrl);
+                    //}
                     break;
                 case enum_UserStatus.unavailable:
                     string imServerAPIInvokeUrlUn = string.Empty;
-                    if (member.UserType == enum_UserType.customer)
-                    {
-                        //用户下线后，通知客服工具
-                        imServerAPIInvokeUrlUn = "type=customlogoff&userId=" + userId;
-                        VisitIMServerApi(imServerAPIInvokeUrlUn);
-
-                        //接待关系存档
-                        ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(userId);
-                        if (rs == null) return;
-                        bllReceptionStatusArchieve.Save(RSToRsa(rs));
-
-                        //删掉接待关系
-                        //bllReceptionStatus.Delete(rs);
-                    }
-                    else
+                    if (member.UserType == enum_UserType.customerservice)
                     {
                         //客服下线后，将正在接待的用户转到其他客服或者点点
                         imServerAPIInvokeUrlUn = "type=cslogoff&userId=" + userId;

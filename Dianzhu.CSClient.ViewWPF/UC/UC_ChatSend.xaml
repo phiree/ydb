@@ -118,6 +118,11 @@
 
                     <Border CornerRadius="3" Background="#FF9da6ad" Width="72" Height="24" Margin="0,0,24,8">
                         <Button x:Name="btnSendTextMessage" BorderThickness="0" Background="Transparent" Click="btnSendTextMessage_Click">
+                            <Button.ToolTip>
+                                <Grid>
+                                    <TextBlock Text="发送(Ctrl+Enter)"/>
+                                </Grid>
+                            </Button.ToolTip>
                             <TextBlock Foreground="White" Margin="-20,0,0,0" FontFamily="微软雅黑" FontWeight="Regular">发送</TextBlock>
                         </Button>
                     </Border>

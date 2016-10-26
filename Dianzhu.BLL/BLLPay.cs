@@ -51,14 +51,21 @@ namespace Dianzhu.BLL
                             Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/return_url.aspx",
                             "http://www.ydban.cn");
                     ;
-                //payment_type,  notify_url,  return_url, show_url
-
                 case enum_PayAPI.Wechat:
                 default:
                     throw new NotImplementedException("尚未实现该接口");
 
             }
         }
+
+        public IPayRequest CreatePayBatch(decimal payAmount, string paymentId, string paySubject)
+        {
+                return new PayBatch(payAmount, paymentId, paySubject,"2",
+                        Dianzhu.Config.Config.GetAppSetting("PaySite") + "PayCallBack/alipay/notify_url.aspx?PayType=PayBatch",
+                        "http://www.ydban.cn");
+                ;
+        }
+
         /// <summary>
         /// 支付平台回调,通知支付结果.
         /// </summary>
@@ -148,9 +155,10 @@ namespace Dianzhu.BLL
                 bllPayment.Update(payment);
 
                 //更新订单状态.
-                log.Debug("TRADE_SUCCESS,订单当前状态为：" + payment.Order.OrderStatus.ToString());
-                log.Debug("TRADE_SUCCESS,更新订单状态");
-                ServiceOrder order = payment.Order;
+             
+               
+                ServiceOrder order = bllOrder.GetOne(payment.Order.Id); //payment.Order;
+                log.Debug("TRADE_SUCCESS,订单当前状态为：" + order.OrderStatus.ToString());
                 switch (order.OrderStatus)
                 {
                     case enum_OrderStatus.checkPayWithDeposit:

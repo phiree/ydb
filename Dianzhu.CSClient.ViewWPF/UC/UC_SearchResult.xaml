@@ -199,19 +199,19 @@
                     </Grid>
 
                     <Grid Grid.Row="1">
-                        <StackPanel>
-                            <WrapPanel x:Name="pnlSearchResult">
-                                
-                            </WrapPanel>
-                            
-                            <Label x:Name="lblLoadingText"></Label>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel>
+                                <WrapPanel x:Name="pnlSearchResult">
 
-                            <!--<WrapPanel>
+                                </WrapPanel>
+
+                                <Label x:Name="lblLoadingText"></Label>
+
+                                <!--<WrapPanel>
                                 <Button x:Name="btnPush" Click="btnPush_Click" IsEnabled="False">推送</Button>
                             </WrapPanel>-->
-                        </StackPanel>
-
-                        
+                            </StackPanel>
+                        </ScrollViewer>
                     </Grid>
                 </Grid>
             </Grid>

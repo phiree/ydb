@@ -57,34 +57,34 @@ namespace Dianzhu.ApplicationService.Client
                 case "customer":
                     if (apiName != "UI3f4185e97b3E4a4496594eA3b904d60d" && apiName != "UA811Cd5343a1a41e4beB35227868541f8")
                     {
-                        throw new Exception("用户类型不正确，该App只能登陆客户账号！");
+                        throw new Exception("用户类型不正确，不能登录该App！");
                     }
                     userUri = strPath+"/api/v1/customers/" +dzm.Id;
                     break;
                 case "business":
                     if (apiName != "MI354d5aaa55Ff42fba7716C4e70e015f2" && apiName != "MAA6096436548346B0b70ffb58A9b0426d" && apiName != "ABc907a34381Cd436eBfed1F90ac8f823b")
                     {
-                        throw new Exception("用户类型不正确，该App只能登陆商户账号和员工账号！");
+                        throw new Exception("用户类型不正确，不能登录该App！");
                     }
                     userUri = strPath + "/api/v1/merchants/" + dzm.Id;
                     break;
                 case "customerservice":
                     if (apiName != "CI5baFa6180f5d4b9D85026073884c3566" && apiName != "CA660838f88147463CAF3a52bae6c30cbd")
                     {
-                        throw new Exception("用户类型不正确，该App只能登陆客服账号！");
+                        throw new Exception("用户类型不正确，不能登录该App！");
                     }
                     userUri = strPath + "/api/v1/CustomerServices/" + dzm.Id;
                     break;
                 case "staff":
                     if (apiName != "MI354d5aaa55Ff42fba7716C4e70e015f2" && apiName != "MAA6096436548346B0b70ffb58A9b0426d")
                     {
-                        throw new Exception("用户类型不正确，该App只能登陆商户账号和员工账号！");
+                        throw new Exception("用户类型不正确，不能登录该App！");
                     }
                     Model.Staff staff = bllstaff.GetOneByUserID(Guid.Empty, dzm.Id.ToString()) ;
                     userUri = strPath + "/api/v1/stores/" + staff.Belongto.Id + "/staffs/" + staff.Id;
                     break;
                 default:
-                    throw new Exception("用户类型不正确！App不支持该用户类型");
+                    throw new Exception("用户类型不正确，不能登录该App！");
             }
             Customer customer = new Customer();
             customer.loginName = loginName;

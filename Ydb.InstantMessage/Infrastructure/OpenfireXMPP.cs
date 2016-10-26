@@ -7,6 +7,7 @@ using agsXMPP.protocol.client;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.DomainModel.Enums;
+using Ydb.InstantMessage.DomainModel.Reception;
 
 namespace Ydb.InstantMessage.Infrastructure
 {
@@ -15,7 +16,7 @@ namespace Ydb.InstantMessage.Infrastructure
     /// </summary>
     public class OpenfireXMPP : IInstantMessage
     {
-        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.XMPP");
+        log4net.ILog log = log4net.LogManager.GetLogger("Ydb.InstantMessage.Infrastructure.OpenfireXMPP");
  
         static agsXMPP.XmppClientConnection XmppClientConnection;
 
@@ -30,6 +31,7 @@ namespace Ydb.InstantMessage.Infrastructure
         public event IMIQ IMIQ;
         public event IMStreamError IMStreamError;
         IMessageAdapter messageAdapter;
+        IReceptionAssigner receptionAssigner;
         private string server = string.Empty;
         private string domain = string.Empty;
         public string Server
@@ -40,15 +42,18 @@ namespace Ydb.InstantMessage.Infrastructure
         {
             get { return domain; }
         }
-        public OpenfireXMPP(string server,string domain, IMessageAdapter messageAdapter, string resourceName) : this(server,domain, messageAdapter)
+        public OpenfireXMPP(string server,string domain, IMessageAdapter messageAdapter, IReceptionAssigner receptionAssigner, string resourceName)
+            : this(server,domain, messageAdapter, receptionAssigner)
         {
             XmppClientConnection.Resource = resourceName;
         }
-        public OpenfireXMPP(string server,string domain, IMessageAdapter messageAdapter)
+        public OpenfireXMPP(string server,string domain, IMessageAdapter messageAdapter, IReceptionAssigner receptionAssigner)
         {
             this.server = server;
             this.domain = domain;
             this.messageAdapter = messageAdapter;
+            this.receptionAssigner = receptionAssigner;
+
             if (XmppClientConnection == null)
             {
                 XmppClientConnection = new agsXMPP.XmppClientConnection();
@@ -263,36 +268,28 @@ namespace Ydb.InstantMessage.Infrastructure
             {
                 throw new Exception("传入的toResource有误");
             }
-            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, string.Empty, sessionId, XmppResource.Unknow, resourceTo);
+            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, messageBody, sessionId, XmppResource.Unknow, resourceTo);
             ReceptionChat chat = receptionChatFactory.CreateChatPushService(serviceInfos);
             SendMessage(chat);
         }
 
-        public void SendCSLoginMessageToDD(Guid messageId, string messageBody, string to, string toResource, string sessionId)
+        public void SendCSLoginMessage()
         {
-            XmppResource resourceTo;
-            if (!Enum.TryParse(toResource, out resourceTo))
-            {
-                throw new Exception("传入的toResource有误");
-            }
-            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, string.Empty, sessionId, XmppResource.Unknow, resourceTo);
-            ReceptionChat chat = receptionChatFactory.CreateNoticeCSOnline();
-            SendMessage(chat);
+            string ddId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
+            ReceptionChatFactory receptionChatFactoryDD = new ReceptionChatFactory(Guid.NewGuid(), string.Empty, ddId, string.Empty, string.Empty, XmppResource.Unknow, XmppResource.YDBan_DianDian);
+            ReceptionChat chatDD = receptionChatFactoryDD.CreateNoticeCSOnline();
+            SendMessage(chatDD);
         }
 
-        public void SendCSLogoffMessageToDD(Guid messageId, string messageBody, string to, string toResource, string sessionId)
+        public void SendCSLogoffMessage()
         {
-            XmppResource resourceTo;
-            if (!Enum.TryParse(toResource, out resourceTo))
-            {
-                throw new Exception("传入的toResource有误");
-            }
-            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, string.Empty, sessionId, XmppResource.Unknow, resourceTo);
-            ReceptionChat chat = receptionChatFactory.CreateNoticeCSOffline();
-            SendMessage(chat);
+            string ddId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
+            ReceptionChatFactory receptionChatFactoryDD = new ReceptionChatFactory(Guid.NewGuid(), string.Empty, ddId, string.Empty, string.Empty, XmppResource.Unknow, XmppResource.YDBan_DianDian);
+            ReceptionChat chatDD = receptionChatFactoryDD.CreateNoticeCSOffline();
+            SendMessage(chatDD);
         }
 
-        public void SendOrderChangeStatusNotify(string orderTilte, string orderStatus, string orderType,
+        public void SendNoticeOrderChangeStatus(string orderTilte, string orderStatus, string orderType,
             Guid messageId, string messageBody, string to, string toResource, string sessionId)
         {
             XmppResource resourceTo;
@@ -300,8 +297,33 @@ namespace Ydb.InstantMessage.Infrastructure
             {
                 throw new Exception("传入的toResource有误");
             }
-            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, string.Empty, sessionId, XmppResource.Unknow, resourceTo);
+            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, messageBody, sessionId, XmppResource.Unknow, resourceTo);
             ReceptionChat chat = receptionChatFactory.CreateNoticeOrder(orderTilte,orderStatus,orderType);
+            SendMessage(chat);
+        }
+
+        public void SendNoticeNewOrder(Guid messageId, string to, string toResource, string sessionId)
+        {
+            XmppResource resourceTo;
+            if (!Enum.TryParse(toResource, out resourceTo))
+            {
+                throw new Exception("传入的toResource有误");
+            }
+            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, string.Empty, sessionId, XmppResource.Unknow, resourceTo);
+            ReceptionChat chat = receptionChatFactory.CreateNoticeNewOrder();
+            SendMessage(chat);
+        }
+
+        public void SendReAssignToCustomer(string reAssignedCustomerServiceId, string csAlias, string csAvatar,
+            Guid messageId, string to, string toResource, string sessionId)
+        {
+            XmppResource resourceTo;
+            if (!Enum.TryParse(toResource, out resourceTo))
+            {
+                throw new Exception("传入的toResource有误");
+            }
+            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, string.Empty, sessionId, XmppResource.Unknow, resourceTo);
+            ReceptionChat chat = receptionChatFactory.CreateReAssign(reAssignedCustomerServiceId, csAlias, csAvatar);
             SendMessage(chat);
         }
     }

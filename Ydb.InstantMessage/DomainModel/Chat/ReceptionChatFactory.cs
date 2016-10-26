@@ -18,8 +18,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
         Guid id;string sessionId;DateTime savedTime;double savedTimeStamp;DateTime sendTime;DateTime receivedTime ;string fromId;string toId;
         string messageBody; XmppResource fromResource;XmppResource toResource;
       
-        public ReceptionChatFactory(Guid id, string from, string to, string messageBody, string sessionId,
-           
+        public ReceptionChatFactory(Guid id, string from, string to, string messageBody, string sessionId,           
             XmppResource resourceFrom, XmppResource resourceTo)
         {
             this.id = id;

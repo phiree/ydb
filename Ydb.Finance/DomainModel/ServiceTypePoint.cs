@@ -11,8 +11,14 @@ namespace Ydb.Finance.DomainModel
     /// </summary>
     internal class ServiceTypePoint : Entity<Guid>
     {
-        
+        /// <summary>
+        /// 服务类型ID
+        /// </summary>
         public virtual string  ServiceTypeId { get; set; }
+
+        /// <summary>
+        /// 服务扣点比例
+        /// </summary>
         public virtual decimal Point { get; set; }
 
     }
