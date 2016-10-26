@@ -8,6 +8,10 @@ namespace Ydb.Finance.Application
 {
     public interface IOrderShareService
     {
+        /// <summary>
+        /// 订单分成操作
+        /// </summary>
+        /// <param name="order" type="BalanceParam">分账的订单及用户信息</param>
         void ShareOrder(BalanceParam order);
     }
 }

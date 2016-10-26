@@ -9,8 +9,24 @@ namespace Ydb.Finance.Application
 {
    public interface IUserTypeSharePointService
     {
+        /// <summary>
+        /// 新增用户类型分配比例信息
+        /// </summary>
+        /// <param name="userType" type="string"></param>
+        /// <param name="point" type="decimal"></param>
         void Add(string userType,decimal sharepoint);
+
+        /// <summary>
+        /// 根据用户类型获取用户类型分配比例信息
+        /// </summary>
+        /// <param name="userType" type="string">用户类型</param>
+        /// <returns type="UserTypeSharePoint">用户类型分配比例信息</returns>
         decimal GetSharePoint(string userType,out string errMsg);
+
+        /// <summary>
+        /// 获取所有用户类型分配比例信息
+        /// </summary>
+        /// <returns type="IList<UserTypeSharePointDto>">用户类型分配比例信息列表</returns>
         IList<UserTypeSharePointDto> GetAll();
 
 

@@ -26,7 +26,14 @@ namespace Ydb.Finance.DomainModel
             }
         }
 
+        /// <summary>
+        /// 用户类型
+        /// </summary>
         public virtual UserType UserType { get; set; }
+
+        /// <summary>
+        /// 分账比例
+        /// </summary>
         public virtual decimal Point { get; set; }
 
     }

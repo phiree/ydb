@@ -20,13 +20,22 @@ namespace Ydb.Finance.Application
             this.repositoryServiceTypePoint = repositoryServiceTypePoint;
         }
 
-        public void Add(string serviceType, decimal point)
+        /// <summary>
+        /// 添加一条服务类型扣点比例
+        /// </summary>
+        /// <param name="serviceTypeId" type="string">服务类型ID</param>
+        /// <param name="point" type="decimal">扣点比例</param>
+        public void Add(string serviceTypeId, decimal point)
         {
-            ServiceTypePoint stp = new ServiceTypePoint { ServiceTypeId = serviceType, Point = point };
+            ServiceTypePoint stp = new ServiceTypePoint { ServiceTypeId = serviceTypeId, Point = point };
             repositoryServiceTypePoint.Add(stp);
         }
 
-        string errmsg;
+        /// <summary>
+        /// 根据服务类型ID获取扣点比例
+        /// </summary>
+        /// <param name="serviceTypeId" type="string">服务类型ID</param>
+        /// <returns type="decimal">扣点比例</returns>
         public decimal GetPoint(string serviceTypeId)
         {
             var serviceTypePoint = repositoryServiceTypePoint.GetOneByServiceType(serviceTypeId);
@@ -49,6 +58,11 @@ namespace Ydb.Finance.Application
                 return serviceTypePoint.Point;
             }
         }
+
+        /// <summary>
+        /// 获取所有的服务类型扣点比例
+        /// </summary>
+        /// <returns type="IList<ServiceTypePointDto>">服务类型扣点比例信息列表</returns>
         public IList<ServiceTypePointDto> GetAll()
         {
             return Mapper.Map<IList<ServiceTypePoint>, IList<ServiceTypePointDto>>(repositoryServiceTypePoint.GetAll());

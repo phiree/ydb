@@ -28,8 +28,8 @@ namespace Ydb.Finance.Application
         /// <summary>
         /// 订单分成,should be domain service
         /// </summary>
-        /// <param name="order"></param>
-        /// <returns>分成详情.</returns>
+        /// <param name="order" type="BalanceParam">分账的订单及用户信息</param>
+        /// <returns type="IList<BalanceFlow>">分成详情列表.</returns>
         internal IList<BalanceFlow> Share(BalanceParam order)
         {
             IList<BalanceFlow> balanceFlows = new List<BalanceFlow>();
@@ -84,8 +84,9 @@ namespace Ydb.Finance.Application
         }
 
         /// <summary>
-        /// ddd: should be application service
+        /// 订单分成操作
         /// </summary>
+        /// <param name="order" type="BalanceParam">分账的订单及用户信息</param>
         public void ShareOrder(BalanceParam order)
         {
             IList<BalanceFlow> balanceFlow = Share(order);
