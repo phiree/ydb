@@ -53,7 +53,7 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping
                         x.Map(c => c.StoreAvatar);
                         x.Map(c => c.StoreUserId);
                     }
-                );
+                ).Not.LazyLoad();
             }
         }
     }

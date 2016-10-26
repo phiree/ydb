@@ -70,8 +70,13 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
 
                     return vmChatFactory.CreateVMChatMedia(mediaType, mediaUrl);
                 case "ReceptionChatPushServiceDto":
-                    ReceptionChatPushServiceDto chatPushService = chat as ReceptionChatPushServiceDto;
-                    DZService service = dalDZService.FindById(Guid.Parse(chatPushService.ServiceInfos[0].ServiceId));
+                    ReceptionChatPushServiceDto chatPushService = chat as ReceptionChatPushServiceDto;                    
+                    Guid serviceId;
+                    if (Guid.TryParse(chatPushService.ServiceInfos[0].ServiceId, out serviceId))
+                    {
+                        throw new Exception("ServiceInfos有误,chatPushServiceId:" + chatPushService.Id);
+                    }
+                    DZService service = dalDZService.FindById(serviceId);
                     if (service == null)
                     {
                         throw new Exception("服务不存在,id:" + chatPushService.ServiceInfos[0].ServiceId);

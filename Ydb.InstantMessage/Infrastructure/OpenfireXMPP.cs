@@ -273,18 +273,26 @@ namespace Ydb.InstantMessage.Infrastructure
             SendMessage(chat);
         }
 
-        public void SendCSLoginMessage()
+        public void SendCSLoginMessage(Guid messageId, string messageBody, string to, string toResource, string sessionId)
         {
-            string ddId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
-            ReceptionChatFactory receptionChatFactoryDD = new ReceptionChatFactory(Guid.NewGuid(), string.Empty, ddId, string.Empty, string.Empty, XmppResource.Unknow, XmppResource.YDBan_DianDian);
+            XmppResource resourceTo;
+            if (!Enum.TryParse(toResource, out resourceTo))
+            {
+                throw new Exception("传入的toResource有误");
+            }
+            ReceptionChatFactory receptionChatFactoryDD = new ReceptionChatFactory(messageId, string.Empty, to, messageBody, sessionId, XmppResource.Unknow, resourceTo);
             ReceptionChat chatDD = receptionChatFactoryDD.CreateNoticeCSOnline();
             SendMessage(chatDD);
         }
 
-        public void SendCSLogoffMessage()
+        public void SendCSLogoffMessage(Guid messageId, string messageBody, string to, string toResource, string sessionId)
         {
-            string ddId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
-            ReceptionChatFactory receptionChatFactoryDD = new ReceptionChatFactory(Guid.NewGuid(), string.Empty, ddId, string.Empty, string.Empty, XmppResource.Unknow, XmppResource.YDBan_DianDian);
+            XmppResource resourceTo;
+            if (!Enum.TryParse(toResource, out resourceTo))
+            {
+                throw new Exception("传入的toResource有误");
+            }
+            ReceptionChatFactory receptionChatFactoryDD = new ReceptionChatFactory(messageId, string.Empty, to, messageBody, sessionId, XmppResource.Unknow, resourceTo);
             ReceptionChat chatDD = receptionChatFactoryDD.CreateNoticeCSOffline();
             SendMessage(chatDD);
         }

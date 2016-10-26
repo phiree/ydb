@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\ChatService.cs" />
+    <Compile Include="Application\Dto\ReceptionStatusDto.cs" />
     <Compile Include="Application\IChatService.cs" />
     <Compile Include="Application\ReceptionService.cs" />
     <Compile Include="Application\IReceptionService.cs" />
