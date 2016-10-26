@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7FE22A7C-FBB8-4DF0-BABA-FCD2CC516A2C}</ProjectGuid>
+    <ProjectGuid>{3D510583-1C11-48FB-8380-12E183E5914B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ydb.Finance.Tests</RootNamespace>
-    <AssemblyName>Ydb.Finance.Tests</AssemblyName>
+    <RootNamespace>Ydb.Infrastructure</RootNamespace>
+    <AssemblyName>Ydb.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -38,14 +38,6 @@
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -56,26 +48,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\BalanceFlowServiceTests.cs" />
-    <Compile Include="Application\OrderShareServiceTest.cs" />
-    <Compile Include="Application\ServiceTypePointServiceTest.cs" />
-    <Compile Include="Application\UserTypeSharePointServiceTest.cs" />
-    <Compile Include="Application\WithdrawCashServiceTest.cs" />
-    <Compile Include="Bootstrap.cs" />
+    <Compile Include="EmailService.cs" />
+    <Compile Include="EncryptService.cs" />
+    <Compile Include="Installer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ydb.Membership\Ydb.Membership.csproj">
+      <Project>{6a7ed67d-846d-46c6-84b0-82b8556f0b8f}</Project>
+      <Name>Ydb.Membership</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Ydb.Finance\Ydb.Finance.csproj">
-      <Project>{343214F8-A523-4BDA-B783-4D77942269B9}</Project>
-      <Name>Ydb.Finance</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

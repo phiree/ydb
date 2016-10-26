@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NHibernate;
+using NHibernate.Tool.hbm2ddl;
+
 namespace Ydb.Common.Repository
 {
     public class NhUnitOfWork : IUnitOfWork
@@ -50,6 +52,7 @@ namespace Ydb.Common.Repository
         public void BeginTransaction()
         {
             Session = _sessionFactory.OpenSession();
+            
             _transaction = Session.BeginTransaction();
         }
 

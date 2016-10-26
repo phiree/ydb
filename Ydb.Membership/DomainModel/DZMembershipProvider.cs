@@ -37,6 +37,18 @@ namespace Ydb.Membership.DomainModel
             this.loginNameDetermine = container.Resolve<ILoginNameDetermine>();
 
         }
+        public DZMembershipProvider(IRepositoryDZMembership repositoryDZMembership,
+        IEncryptService encryptService,
+        IEmailService emailService,
+        ILoginNameDetermine loginNameDetermine,
+        IRepositoryUserToken repositoryUserToken)
+        {
+            this.repositoryDZMembership = repositoryDZMembership;
+            this.encryptService = encryptService;
+            this.repositoryUserToken = repositoryUserToken;
+            this.encryptService = encryptService;
+            this.loginNameDetermine = loginNameDetermine;
+        }
         IRepositoryDZMembership repositoryDZMembership = null;
         IEncryptService encryptService;
         IEmailService emailService;
@@ -274,9 +286,12 @@ namespace Ydb.Membership.DomainModel
         public Guid CreateUser(string loginName, string password, UserType userType, out string errMsg)
         {
 
-            throw new NotImplementedException();
+            errMsg = string.Empty;
             LoginNameType loginNameType = loginNameDetermine.Determin(loginName);
-            string userName= loginName, nickName = loginName,email, phone;
+            string userName= loginName,
+                    nickName = loginName,
+                    email=string.Empty, 
+                    phone=string.Empty;
             Guid registerValidateCode = Guid.Empty;
             switch (loginNameType)
             {
@@ -291,7 +306,28 @@ namespace Ydb.Membership.DomainModel
                 errMsg = "用户已存在";
                 return Guid.Empty;
             }
-            
+            var password_cred = encryptService.GetMD5Hash(password).ToUpper();
+            DZMembership newMember = new DZMembership
+            {
+                UserName = userName,
+                Password = password_cred,
+                Email =email,
+                Phone = phone,
+                NickName = nickName,
+                PlainPassword = password,
+                
+                UserType = userType,
+                LoginType = LoginType.original
+            };
+            if (registerValidateCode != Guid.Empty)
+            {
+                newMember.RegisterValidateCode = registerValidateCode.ToString();
+            }
+
+            repositoryDZMembership.Add(newMember);
+           
+            return newMember.Id;
+
         }
         public DZMembership CreateUser(string userName, string userPhone, string userEmail, string password, out MembershipCreateStatus createStatus, UserType userType)
         {
