@@ -12,14 +12,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.Membership.DomainModel.Repository;
+using Ydb.Membership.DomainModel;
+using Ydb.Membership.Infrastructure;
 using Ydb.Membership.Infrastructure.Repository.NHibernate;
 using Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping;
 namespace Ydb.Membership.Application
 {
-    public class InstallerFinance : IWindsorInstaller
+    public class InstallerMembershipForTest : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
             InstallInfrastructure(container, store);
             InstallDomainService(container, store);
             InstallRepository(container, store);
@@ -34,24 +37,14 @@ namespace Ydb.Membership.Application
         }
         private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
         {
-             
+            container.Register(Component.For<IDZMembershipService>().ImplementedBy<DZMembershipService>());
 
         }
         private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
         {
-            //Database
-            var _sessionFactory = Fluently.Configure()
-                       .Database(
-                            MySQLConfiguration
-                           .Standard
-                           .ConnectionString("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test")
-                     )
-                   .Mappings(m => m.FluentMappings.AddFromAssemblyOf<DZMembershipMap>())
-                   .ExposeConfiguration(BuildSchema)
-                   .BuildSessionFactory();
-            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
-            container.Register(Component.For<ISession>().Instance(_sessionFactory.OpenSession()));
+           
+
+           
 
         }
         private void BuildSchema(Configuration config)
@@ -61,7 +54,9 @@ namespace Ydb.Membership.Application
         }
         private void InstallDomainService(IWindsorContainer container, IConfigurationStore store)
         {
-
+            container.Register(Component.For<DZMembershipProvider>());
+           
+            container.Register(Component.For<ILoginNameDetermine>().ImplementedBy < LoginNameDetermine>());
 
         }
 

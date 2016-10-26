@@ -1,45 +1,45 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
+using Castle.Windsor;
+using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using NHibernate;
+using NHibernate.Cfg;
+using NHibernate.Tool.hbm2ddl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FluentNHibernate;
-using FluentNHibernate.Cfg;
-using NHibernate;
-using NHibernate.Cfg;
-using NHibernate.Tool.hbm2ddl;
-using Castle.Windsor;
-using Ydb.Finance.DomainModel;
-using Ydb.Finance.Application;
-using Ydb.Finance.Infrastructure.Repository;
-using Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping;
-
-namespace Ydb.Finance.Application
+using Ydb.Membership.DomainModel.Repository;
+using Ydb.Membership.DomainModel;
+using Ydb.Membership.Infrastructure;
+using Ydb.Membership.Infrastructure.Repository.NHibernate;
+using Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping;
+namespace Ydb.Membership.Application
 {
-    public class InstallerFinance : IWindsorInstaller
+    public class InstallerMembership : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
             InstallInfrastructure(container, store);
             InstallDomainService(container, store);
             InstallRepository(container, store);
             InstallApplicationService(container, store);
         }
 
+        
         private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IRepositoryBalanceFlow>().ImplementedBy<RepositoryBalanceFlow>());
-            container.Register(Component.For<IRepositoryBalanceTotal>().ImplementedBy<RepositoryBalanceTotal>());
-            container.Register(Component.For<IRepositoryServiceTypePoint>().ImplementedBy<RepositoryServiceTypePoint>());
-            container.Register(Component.For<IRepositoryUserTypeSharePoint>().ImplementedBy<RepositoryUserTypeSharePoint>());
+            container.Register(Component.For<IRepositoryDZMembership>().ImplementedBy<RepositoryDZMembership>());
+            container.Register(Component.For<IRepositoryUserToken>().ImplementedBy<RepositoryUserToken>());
 
         }
         private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IBalanceFlowService>().ImplementedBy<BalanceFlowService>()); 
+            container.Register(Component.For<IDZMembershipService>().ImplementedBy<DZMembershipService>());
+
         }
         private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
         {
@@ -48,15 +48,20 @@ namespace Ydb.Finance.Application
                        .Database(
                             MySQLConfiguration
                            .Standard
-                           .ConnectionString("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test")
+                           
+                           .ConnectionString(
+                                System.Configuration.ConfigurationManager
+                                .ConnectionStrings["ydb_membership"].ConnectionString
+                                )
                      )
-                   .Mappings(m => m.FluentMappings.AddFromAssemblyOf<BalanceFlowMap>())
+                   .Mappings(m => m.FluentMappings.AddFromAssemblyOf<DZMembershipMap>())
                    .ExposeConfiguration(BuildSchema)
                    .BuildSessionFactory();
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
             container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
-            container.Register(Component.For<ISession>().Instance(_sessionFactory.OpenSession()));
-            
+
+           
+
         }
         private void BuildSchema(Configuration config)
         {
@@ -65,7 +70,9 @@ namespace Ydb.Finance.Application
         }
         private void InstallDomainService(IWindsorContainer container, IConfigurationStore store)
         {
-             
+            container.Register(Component.For<DZMembershipProvider>());
+           
+            container.Register(Component.For<ILoginNameDetermine>().ImplementedBy < LoginNameDetermine>());
 
         }
 

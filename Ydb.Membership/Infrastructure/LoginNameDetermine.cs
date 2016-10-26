@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Ydb.Membership.DomainModel
@@ -10,7 +10,13 @@ namespace Ydb.Membership.DomainModel
     {
         public Enums.LoginNameType Determin(string loginName)
         {
-            throw new NotImplementedException();
+            if (Regex.IsMatch(loginName, @".+@.+\..+"))
+                 { return Enums.LoginNameType.Email; }
+            else if (Regex.IsMatch(loginName, @"d{11}"))
+            {
+                return Enums.LoginNameType.PhoneNumber;
+            }
+            return Enums.LoginNameType.NormalString;
         }
     }
 }
