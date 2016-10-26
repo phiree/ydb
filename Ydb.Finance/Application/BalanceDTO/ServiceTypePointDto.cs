@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ydb.Common.Domain;
 
 namespace Ydb.Finance.Application
 {
-    public class ServiceTypePointDto : Entity<Guid>
+    public class ServiceTypePointDto 
     {
+        /// <summary>
+        /// ID
+        /// </summary>
+        public Guid Id { get; set; }
+
         /// <summary>
         /// 服务类型ID
         /// </summary>

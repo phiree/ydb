@@ -14,17 +14,15 @@ namespace Ydb.Finance.Application
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Finance.OrderShareService");
         IServiceTypePointService serviceTypePointService;
         IUserTypeSharePointService userTypeSharePointService;
-        ISession session;
         IRepositoryBalanceFlow repositoryBalanceFlow;
         IRepositoryBalanceTotal repositoryBalanceTotal;
-        internal OrderShareService(IServiceTypePointService serviceTypePointService, IUserTypeSharePointService userTypeSharePointService,
-        ISession session,IRepositoryBalanceFlow repositoryBalanceFlow, IRepositoryBalanceTotal repositoryBalanceTotal)
+        public OrderShareService(IServiceTypePointService serviceTypePointService, IUserTypeSharePointService userTypeSharePointService)
         {
             this.serviceTypePointService = serviceTypePointService;
             this.userTypeSharePointService = userTypeSharePointService;
-            this.session = session;
-            this.repositoryBalanceFlow = repositoryBalanceFlow;
-            this.repositoryBalanceTotal = repositoryBalanceTotal;
+            Bootstrap.Boot();
+            repositoryBalanceFlow = Bootstrap.Container.Resolve<IRepositoryBalanceFlow>();
+            repositoryBalanceTotal = Bootstrap.Container.Resolve<IRepositoryBalanceTotal>();
         }
 
         /// <summary>
@@ -89,6 +87,7 @@ namespace Ydb.Finance.Application
         /// 订单分成操作
         /// </summary>
         /// <param name="order" type="OrderShareParam">分账的订单及用户信息</param>
+        [Ydb.Common.Repository.UnitOfWork]
         public void ShareOrder(OrderShareParam order)
         {
             IList<BalanceFlow> balanceFlow = Share(order);
