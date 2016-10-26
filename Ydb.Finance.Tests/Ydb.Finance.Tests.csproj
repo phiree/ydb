@@ -57,6 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\BalanceFlowServiceTests.cs" />
+    <Compile Include="Application\OrderShareServiceTest.cs" />
+    <Compile Include="Application\ServiceTypePointServiceTest.cs" />
+    <Compile Include="Application\UserTypeSharePointServiceTest.cs" />
+    <Compile Include="Application\WithdrawCashServiceTest.cs" />
     <Compile Include="Bootstrap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

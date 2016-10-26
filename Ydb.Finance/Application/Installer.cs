@@ -40,8 +40,10 @@ namespace Ydb.Finance.Application
         private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IBalanceFlowService>().ImplementedBy<BalanceFlowService>());
-            container.Register(Component.For<IBalanceFlowService>().ImplementedBy<BalanceFlowService>());
-
+            container.Register(Component.For<IOrderShareService>().ImplementedBy<OrderShareService>());
+            container.Register(Component.For<IServiceTypePointService>().ImplementedBy<ServiceTypePointService>());
+            container.Register(Component.For<IUserTypeSharePointService>().ImplementedBy<UserTypeSharePointService>());
+            container.Register(Component.For<IWithdrawCashService>().ImplementedBy<WithdrawCashService>());
         }
         private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
         {

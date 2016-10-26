@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NHibernate;
 using System.Collections;
+using Ydb.Finance.DomainModel.Enums;
 using Ydb.Finance.DomainModel;
 using AutoMapper;
 
@@ -35,6 +36,16 @@ namespace Ydb.Finance.Application
         [Ydb.Common.Repository.UnitOfWork]
         public void Save(BalanceFlowDto flow)
         {
+            FlowType enumFlowType;
+            bool isFlowType = Enum.TryParse<FlowType>(flow.FlowType, out enumFlowType);
+            if (!isFlowType)
+            {
+                throw new ArgumentException("传入的流水类型(FlowType)不是有效值！");
+            }
+            if (flow.Amount < 0)
+            {
+                throw new ArgumentException("传入的流水金额不能为负值！");
+            }
             repositoryBalanceFlow.Add(Mapper.Map<BalanceFlowDto, BalanceFlow>(flow));
         }
 
