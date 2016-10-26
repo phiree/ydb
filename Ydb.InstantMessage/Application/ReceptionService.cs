@@ -19,13 +19,13 @@ namespace Ydb.InstantMessage.Application
         log4net.ILog log = log4net.LogManager.GetLogger("Ydb.InstantMessage.Application.ReceptionService");
 
         DomainModel.Reception.IRepositoryReception receptionRepository;
-        
-
+        IInstantMessage im;
         IReceptionAssigner receptionAssigner;
 
         ISession session;
-        public ReceptionService(IRepositoryReception receptionRepository, ISession session, IReceptionAssigner receptionAssigner)
+        public ReceptionService(IInstantMessage im, IRepositoryReception receptionRepository, ISession session, IReceptionAssigner receptionAssigner)
         {
+            this.im = im;
             this.receptionRepository = receptionRepository;
             this.session = session;
             this.receptionAssigner = receptionAssigner;
@@ -83,6 +83,8 @@ namespace Ydb.InstantMessage.Application
         {
             using (var t = session.BeginTransaction())
             {
+                im.SendCSLoginMessage();
+
                 IList<string> assignList = new List<string>();
 
                 IList<ReceptionStatus> existReceptions = receptionRepository.FindByDiandian(DianDianId, amount);
@@ -95,6 +97,9 @@ namespace Ydb.InstantMessage.Application
                     receptionRepository.Update(item);
 
                     assignList.Add(item.CustomerId);
+
+                    im.SendReAssignToCustomer(assignReception[item.CustomerId], string.Empty, string.Empty,
+                        Guid.NewGuid(), item.CustomerId, XmppResource.YDBan_User.ToString(), item.OrderId);
                 }
 
                 t.Commit();
@@ -106,6 +111,8 @@ namespace Ydb.InstantMessage.Application
         {
             using (var t = session.BeginTransaction())
             {
+                im.SendCSLogoffMessage();
+
                 IList<ReceptionStatus> existReceptions = receptionRepository.FindByCustomerServiceId(csId);
 
                 if (existReceptions.Count > 0)
@@ -116,6 +123,9 @@ namespace Ydb.InstantMessage.Application
                     {
                         item.ChangeCS(assignReception[item.CustomerId]);
                         receptionRepository.Update(item);
+
+                        im.SendReAssignToCustomer(assignReception[item.CustomerId], string.Empty, string.Empty,
+                            Guid.NewGuid(), item.CustomerId, XmppResource.YDBan_User.ToString(), item.OrderId);
                     }
                 }
 

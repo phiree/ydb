@@ -71,26 +71,12 @@ namespace Dianzhu.BLL
                 order.AddDetailFromIntelService(s.OriginalService, s.UnitAmount,s.TargetCustomerName,s.TargetCustomerPhone, s.TargetAddress, s.TargetTime,s.Memo);
 
                 order.CreatedFromDraft();
+                bllServiceOrder.OrderFlow_ConfirmOrder(order);
                 NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
-                //保存订单历史记录
-                bllServiceOrderStateChangeHis.Save(order, enum_OrderStatus.DraftPushed);
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-
-                Payment payment = bllPayment.ApplyPay(order, enum_PayTarget.Deposit);
-
-                if (order.DepositAmount > 0)
-                {
-                    PHSuit.HttpHelper.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice&orderId=" + order.Id.ToString(), "get", null);
-                }
-                else
-                {
-                    bllServiceOrder.OrderFlow_ConfirmDeposit(order);
-
-                    payment.Status = enum_PaymentStatus.Trade_Success;
-                    bllPayment.Update(payment);
-                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                }
+                ////保存订单历史记录
+                //bllServiceOrderStateChangeHis.Save(order, enum_OrderStatus.DraftPushed);
+                //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             }
         }
     }

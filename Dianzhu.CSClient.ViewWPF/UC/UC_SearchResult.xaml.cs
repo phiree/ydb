@@ -16,6 +16,7 @@ using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
 using System.ComponentModel;
 using System.Globalization;
+using Ydb.InstantMessage.Application;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -26,8 +27,8 @@ namespace Dianzhu.CSClient.ViewWPF
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_SearchResult");
 
-        IInstantMessage.InstantMessage iIm;
-        public UC_SearchResult(IInstantMessage.InstantMessage iIm)
+        IInstantMessage iIm;
+        public UC_SearchResult(IInstantMessage iIm)
         {
             InitializeComponent();
             this.iIm = iIm;
@@ -143,10 +144,11 @@ namespace Dianzhu.CSClient.ViewWPF
 
                 log.Debug("新草稿订单的id：" + order.Id.ToString());
                 string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
-                string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
-                                                    <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:draft:new""><orderID>{3}</orderID></ext></message>",
-                                                        order.Customer.Id + "@" + server, order.CustomerService.Id, Guid.NewGuid() + "@" + server, order.Id);
-                iIm.SendMessage(noticeDraftNew);
+                //string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
+                //                                    <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:draft:new""><orderID>{3}</orderID></ext></message>",
+                //                                        order.Customer.Id + "@" + server+ "/YDBan_User", order.CustomerService.Id, Guid.NewGuid() + "@" + server, order.Id);
+                //iIm.SendMessage(noticeDraftNew);
+                iIm.SendNoticeNewOrder(Guid.NewGuid(), order.Customer.Id.ToString(), "YDBan_User", order.Id.ToString());
             }
         }
 
@@ -168,7 +170,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 }
                 catch (Exception ee)
                 {
-                    log.Error(ee.ToString());
+                    log.Error(ee);
                 }
                 finally
                 {

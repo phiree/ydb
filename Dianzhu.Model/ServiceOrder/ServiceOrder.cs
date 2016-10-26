@@ -512,7 +512,7 @@ namespace Dianzhu.Model
                 this.NegotiateAmount += detail.ServiceAmount;
                 this.DepositAmount += detail.ServieSnapShot.DepositAmount;
             }
-            this.OrderStatus = enum_OrderStatus.Created;
+            //this.OrderStatus = enum_OrderStatus.Created;
             this.OrderConfirmTime = DateTime.Now;
         }
 

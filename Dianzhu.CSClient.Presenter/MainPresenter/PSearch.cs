@@ -50,7 +50,7 @@ namespace Dianzhu.CSClient.Presenter
             IViewChatList viewChatList,IViewIdentityList viewIdentityList,
             IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder,IDAL.IDALReceptionChat dalReceptionChat, IDAL.IDALServiceType dalServiceType,                     
                     PushService bllPushService, BLLReceptionStatus bllReceptionStatus,BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder, LocalStorage.LocalChatManager localChatManager, LocalStorage.LocalUIDataManager localUIDataManager, 
-                    IVMChatAdapter vmChatAdapter,IVMIdentityAdapter vmIdentityAdapter)
+                    IVMChatAdapter vmChatAdapter,IVMIdentityAdapter vmIdentityAdapter, IDAL.IDALMembership dalMembership)
         {
             this.serialNoBuilder = serialNoBuilder;
             this.viewSearch = viewSearch; ;

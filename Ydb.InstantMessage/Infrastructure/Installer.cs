@@ -55,7 +55,7 @@ namespace Ydb.InstantMessage.Infrastructure
                    .BuildSessionFactory();
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
             container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
-            container.Register(Component.For<ISession>().Instance(_sessionFactory.OpenSession()));
+            container.Register(Component.For<ISession>().Instance(_sessionFactory.OpenSession()).LifeStyle.PerWebRequest);
             //OpenFire
             string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
             string domain = Dianzhu.Config.Config.GetAppSetting("ImDomain");
