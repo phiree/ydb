@@ -16,7 +16,6 @@ namespace Ydb.Finance.Application
         IRepositoryBalanceTotal repositoryBalanceTotal;
         internal WithdrawCashService(IRepositoryBalanceFlow repositoryBalanceFlow, IRepositoryBalanceTotal repositoryBalanceTotal)
         {
-         
             this.repositoryBalanceFlow = repositoryBalanceFlow;
             this.repositoryBalanceTotal = repositoryBalanceTotal;
         }

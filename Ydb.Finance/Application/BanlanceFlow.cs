@@ -12,11 +12,8 @@ namespace Ydb.Finance.Application
 {
     public class BalanceFlowService : IBalanceFlowService
     {
-
-        ISession session;
         IRepositoryBalanceFlow repositoryBalanceFlow;
-        internal BalanceFlowService(ISession session,
-        IRepositoryBalanceFlow repositoryBalanceFlow)
+        internal BalanceFlowService(IRepositoryBalanceFlow repositoryBalanceFlow)
         {
             this.repositoryBalanceFlow = repositoryBalanceFlow;
         }
@@ -25,6 +22,7 @@ namespace Ydb.Finance.Application
         /// 获取所有账户流水信息
         /// </summary>
         /// <returns type="IList<BalanceFlowDto>">账户流水信息列表</returns>
+        [Ydb.Common.Repository.UnitOfWork]
         public IList<BalanceFlowDto> GetAll()
         {
             return Mapper.Map<IList<BalanceFlow>, IList<BalanceFlowDto>>(repositoryBalanceFlow.Find(x => true)); 
@@ -34,6 +32,7 @@ namespace Ydb.Finance.Application
         /// 保存一条账户流水信息
         /// </summary>
         /// <param name="flow" type="BalanceFlowDto">账户流水信息</param>
+        [Ydb.Common.Repository.UnitOfWork]
         public void Save(BalanceFlowDto flow)
         {
             repositoryBalanceFlow.Add(Mapper.Map<BalanceFlowDto, BalanceFlow>(flow));
@@ -48,6 +47,7 @@ namespace Ydb.Finance.Application
         /// <param name="serviceTypeLevel" type="string">服务类型级别</param>
         /// <param name="dateType" type="string">时间类型</param>
         /// <returns type="IList< BalanceFlowDto>">账户统计信息列表</returns>
+        [Ydb.Common.Repository.UnitOfWork]
         public IList<BalanceFlowDto> GetBillSatistics(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string dateType)
         {
             return Mapper.Map<IList<BalanceFlow>, IList<BalanceFlowDto>>(repositoryBalanceFlow.GetBillSatistics(userID, startTime, endTime, serviceTypeLevel, dateType));
@@ -66,6 +66,7 @@ namespace Ydb.Finance.Application
         /// <param name="billServiceType" type="string">服务类型</param>
         /// <param name="filter" type="string">筛选器</param>
         /// <returns type="IList">统计结果列表</returns>
+        [Ydb.Common.Repository.UnitOfWork]
         public IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, 
             string status, string billType, string orderId, string billServiceType,string filter)
         {

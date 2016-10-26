@@ -11,11 +11,9 @@ namespace Ydb.Finance.Application
 {
    public class UserTypeSharePointService:IUserTypeSharePointService
     {
-        ISession session;
         IRepositoryUserTypeSharePoint repositoryUserTypeSharePoint;
-        internal UserTypeSharePointService(ISession session, IRepositoryUserTypeSharePoint repositoryUserTypeSharePoint)
+        internal UserTypeSharePointService( IRepositoryUserTypeSharePoint repositoryUserTypeSharePoint)
         {
-            this.session = session;
             this.repositoryUserTypeSharePoint = repositoryUserTypeSharePoint;
         }
 
@@ -24,6 +22,7 @@ namespace Ydb.Finance.Application
         /// </summary>
         /// <param name="userType" type="string"></param>
         /// <param name="point" type="decimal"></param>
+        [Ydb.Common.Repository.UnitOfWork]
         public void Add(string userType,decimal point) {
             UserType enumUserType;
             bool isUserType = Enum.TryParse<UserType>(userType, out enumUserType);
