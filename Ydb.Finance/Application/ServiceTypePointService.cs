@@ -15,7 +15,6 @@ namespace Ydb.Finance.Application
         IRepositoryServiceTypePoint repositoryServiceTypePoint;
         public ServiceTypePointService()
         {
-            Bootstrap.Boot();
             repositoryServiceTypePoint = Bootstrap.Container.Resolve<IRepositoryServiceTypePoint>();
         }
 

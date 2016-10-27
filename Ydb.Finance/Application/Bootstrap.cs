@@ -18,9 +18,11 @@ namespace Ydb.Finance.Application
         public static void Boot()
         {
             container = new WindsorContainer();
+            //container=container1;
             container.Install(
                 new Ydb.Finance.Infrastructure.InstallerFinance()
                 );
+            AutoMapperConfiguration.Configure();
         }
 
     }
