@@ -29,7 +29,11 @@ namespace Ydb.InstantMessage.Infrastructure
                         .Database(
                              MySQLConfiguration
                             .Standard
-                            .ConnectionString("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test")
+                            .ConnectionString(
+                                 Ydb.Common.Infrastructure.EncryptService.Decrypt(
+                                 System.Configuration.ConfigurationManager
+                               .ConnectionStrings["ydb_instantmessage"].ConnectionString, false)
+                                 )
                       )
                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping.ReceptionStatusMap>())
                     .ExposeConfiguration(BuildSchema)
@@ -40,7 +44,10 @@ namespace Ydb.InstantMessage.Infrastructure
         private void BuildSchema(Configuration config)
         {
             SchemaUpdate update = new SchemaUpdate(config);
-            update.Execute(true, true);
+            if (System.Configuration.ConfigurationManager.AppSettings["UpdateSchema"] == "1")
+            {
+                update.Execute(true, true);
+            }
         }
 
 

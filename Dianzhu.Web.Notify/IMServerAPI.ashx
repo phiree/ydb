@@ -5,7 +5,7 @@ using System.Web;
 public class IMServerAPI : IHttpHandler
 {
 
-    log4net.ILog log = log4net.LogManager.GetLogger("debug");
+    log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
 
     public void ProcessRequest(HttpContext context)
     {

@@ -36,6 +36,7 @@ namespace Dianzhu.Web.RestfulApi
                 new Dianzhu.DependencyInstaller.InstallerRepository(),
                 new Dianzhu.DependencyInstaller.InstallerApplicationService(),
                 new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(),
+                new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(),
                 new InstallerRestfulApi()
                 );
 

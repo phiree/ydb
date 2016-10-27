@@ -21,6 +21,7 @@ namespace Dianzhu.CSClient
             container = new WindsorContainer();
             container.Install(
                 new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(),
+                new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(),
                 new InstallerComponent(),
                 new InstallerInfrstructure(),
                 new InstallerRepository(),

@@ -24,6 +24,7 @@ namespace Ydb.InstantMessage.Application
             this.repositoryChat = repositoryChat;           
         }
 
+        [Ydb.Common.Repository.UnitOfWork]
         public void Add(ReceptionChat chat)
         {
             repositoryChat.Add(chat);

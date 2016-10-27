@@ -12,7 +12,7 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping
     {
         public ReceptionChatMap()
         {
-            Id(x => x.Id);
+            Id(x => x.Id).GeneratedBy.Assigned();
             Map(x => x.ChatTarget).CustomType<Ydb.InstantMessage.DomainModel.Chat.Enums.ChatTarget>();
             Map(x => x.ChatType).CustomType<Ydb.InstantMessage.DomainModel.Chat.Enums.ChatType>();
             Map(x => x.FromId);
@@ -54,6 +54,16 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping
                         x.Map(c => c.StoreUserId);
                     }
                 ).Not.LazyLoad();
+            }
+        }
+
+        public class ReceptionChatReAssignMap : SubclassMap<ReceptionChatReAssign>
+        {
+            public ReceptionChatReAssignMap()
+            {
+                Map(x => x.ReAssignedCustomerServiceId);
+                Map(x => x.CSAlias);
+                Map(x => x.CSAvatar);
             }
         }
     }
