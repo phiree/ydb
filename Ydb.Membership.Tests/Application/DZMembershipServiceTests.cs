@@ -27,7 +27,7 @@ namespace Ydb.Membership.Application.Tests
         public void RegisterBusinessUserTest()
         {
 
-            string errMsg;
+            
            
            Dto.RegisterResult registerResult= dzmembershipService.RegisterBusinessUser(userName,"123456", "123456");
            
