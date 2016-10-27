@@ -6,15 +6,18 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 using Dianzhu.Api.Model;
-using Dianzhu.CSClient.IMessageAdapter;
 using agsXMPP.protocol.client;
+using Ydb.InstantMessage.DomainModel.Chat;
+using Ydb.InstantMessage.DomainModel.Enums;
+using Ydb.InstantMessage.Application;
 /// <summary>
 /// Summary description for CHAT001001
 /// </summary>
 public class ResponseCHAT001008:BaseResponse
 {
-    Dianzhu.CSClient.IMessageAdapter.IAdapter messageAdapter = Bootstrap.Container.Resolve<Dianzhu.CSClient.IMessageAdapter.IAdapter>();
-    Dianzhu.IDAL.IDALReceptionChat dalChat = Bootstrap.Container.Resolve<Dianzhu.IDAL.IDALReceptionChat>();
+    IMessageAdapter messageAdapter = Bootstrap.Container.Resolve<IMessageAdapter>();
+    IChatService chatService = Bootstrap.Container.Resolve<IChatService>();
+
     Dianzhu.IDAL.IDALIMUserStatus dalIMStatus = Bootstrap.Container.Resolve<Dianzhu.IDAL.IDALIMUserStatus>();
     BLLPush bllPush = Bootstrap.Container.Resolve<BLLPush>();
     public ResponseCHAT001008(BaseRequest request):base(request)
@@ -30,11 +33,11 @@ public class ResponseCHAT001008:BaseResponse
             ReqDataCHAT001008 requestData = this.request.ReqData.ToObject<ReqDataCHAT001008>();
 
             ReceptionChat chat = messageAdapter.RawXmlToChat(requestData.message);
-            if (chat.FromResource != enum_XmppResource.YDBan_DianDian)
+            if (chat.FromResource != XmppResource.YDBan_DianDian)
             {
-                dalChat.Add(chat);
+                chatService.Add(chat);
                 //离线推送
-                if(chat.ToResource != enum_XmppResource.YDBan_CustomerService)
+                if(chat.ToResource != XmppResource.YDBan_CustomerService)
                 {
                     bllPush.Push(chat, new Guid(chat.ToId), chat.SessionId);
                 }

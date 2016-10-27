@@ -20,6 +20,9 @@ namespace Ydb.Finance.Application
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
+            InstallInfrastructure(container, store);
+            Bootstrap.Boot();
             InstallApplicationService(container, store);
         }
         
@@ -30,6 +33,29 @@ namespace Ydb.Finance.Application
             container.Register(Component.For<IServiceTypePointService>().ImplementedBy<ServiceTypePointService>());
             container.Register(Component.For<IUserTypeSharePointService>().ImplementedBy<UserTypeSharePointService>());
             container.Register(Component.For<IWithdrawCashService>().ImplementedBy<WithdrawCashService>());
+        }
+
+        private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
+        {
+            //Database
+            var _sessionFactory = Fluently.Configure()
+                       .Database(
+                            MySQLConfiguration
+                           .Standard
+                           .ConnectionString("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test")
+                     )
+                   .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap>())
+                   .ExposeConfiguration(BuildSchema)
+                   .BuildSessionFactory();
+            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
+            container.Register(Component.For<ISession>().Instance(_sessionFactory.OpenSession()));
+
+        }
+        private void BuildSchema(Configuration config)
+        {
+            SchemaUpdate update = new SchemaUpdate(config);
+            update.Execute(true, true);
         }
     }
 }

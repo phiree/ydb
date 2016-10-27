@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Dianzhu.Model;
 using Dianzhu.DAL;
-
+using Ydb.InstantMessage.DomainModel.Chat;
 
 namespace Dianzhu.ApplicationService.Mapping
 {
@@ -114,7 +114,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.LastUpdateTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.updateTime, "yyyyMMddHHmmss", "remindObj.time")))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<chatObj, Model.ReceptionChat>()
+            Mapper.CreateMap<chatObj, ReceptionChatDto>()
             .ForMember(x => x.MessageBody, opt => opt.MapFrom(source => source.body))
             .ForMember(x => x.ChatType, opt => opt.MapFrom(source => source.type))
             .ForMember(x => x.SendTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.sendTime, "yyyyMMddHHmmss", "remindObj.time")))

@@ -39,7 +39,7 @@ namespace Ydb.InstantMessage.Application.Tests
         [Test()]
         public void AssignCSLogoffTest()
         {
-            receptionService.AssignCSLogoff("369dbe11-75a8-4b78-90f0-f85403b2c81f");
+            receptionService.AssignCSLogoff("10d304fa-cfe9-4417-beb7-9a8062bd2ba2");
         }
 
         [Test()]

@@ -6,7 +6,9 @@ using NHibernate;
 using Ydb.Common.Repository;
 using System.Linq;
 using Ydb.InstantMessage.DomainModel.Chat.Enums;
-using Ydb.Common.Repository;
+using Ydb.Common.Specification;
+using Ydb.InstantMessage.DomainModel.Enums;
+
 namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
 {
     public class RepositoryChat : NHRepositoryBase<ReceptionChat,Guid>,IRepositoryChat
@@ -16,6 +18,57 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
         public IList<ReceptionChat> GetChatByOrder(string orderId)
         {
             return Find(x => x.SessionId == orderId).OrderByDescending(x => x.SavedTimestamp).ToList();
+        }
+
+        public long GetUnreadChatsCount(Guid userID)
+        {
+            var where = PredicateBuilder.True<ReceptionChat>();
+            where = where.And(x => x.ToId == userID.ToString());
+            where = where.And(x => x.IsReaded == false);
+            long count = GetRowCount(where);
+            return count;
+        }
+
+        public IList<ReceptionChat> GetUnreadChatsAndSetReaded(Guid userID)
+        {
+            var where = PredicateBuilder.True<ReceptionChat>();
+            where = where.And(x => x.ToId == userID.ToString());
+            where = where.And(x => x.IsReaded == false);
+            long t = 0;
+            var list = Find(where).ToList();
+            foreach (var chat in list)
+            {
+                chat.SetReaded();
+            }
+            return list;
+        }
+
+        public long GetChatsCount(string type, string fromTarget, Guid orderID, Guid userID, string userType)
+        {
+            var where = BuildQuery(type, fromTarget, orderID, userID, userType);
+
+            long count = GetRowCount(where);
+            return count;
+        }
+
+        public IList<ReceptionChat> GetChats(TraitFilter filter, string type, string fromTarget, Guid orderID, Guid userID, string userType)
+        {
+            var where = BuildQuery(type, fromTarget, orderID, userID, userType);
+            ReceptionChat baseone = null;
+            if (!string.IsNullOrEmpty(filter.baseID))
+            {
+                try
+                {
+                    baseone = FindByBaseId(new Guid(filter.baseID));
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("filter.baseID错误，" + ex.Message);
+                }
+            }
+            long t = 0;
+            var list = filter.pageSize == 0 ? Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList() : Find(where, filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
+            return list;
         }
 
         public IList<ReceptionChat> GetReceptionChatList(Guid fromId, Guid toId, Guid orderId, DateTime timeBegin, DateTime timeEnd, int pageIndex, int pageSize, ChatTarget? target, out int rowCount)
@@ -106,6 +159,89 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
             }
             return result;
 
+        }
+
+
+        /// <summary>
+        /// 赛选器
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="fromTarget"></param>
+        /// <param name="orderID"></param>
+        /// <param name="userID"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        private Expression<Func<ReceptionChat, bool>> BuildQuery(string type, string fromTarget, Guid orderID, Guid userID, string userType)
+        {
+
+
+            var where = PredicateBuilder.True<ReceptionChat>();
+            if (orderID != Guid.Empty)
+            {
+                where = where.And(x => x.SessionId == orderID.ToString());
+            }
+            if (!string.IsNullOrEmpty(type))
+            {
+                // throw new NotImplementedException();
+                switch (type)
+                {
+                    case "pushOrder":
+                        //ReceptionChatPushService
+                        //Type.GetType("MyFormName").IsAssignableFrom(x.GetType())
+                        where = where.And(x => x is ReceptionChatPushService);
+                        break;
+                    case "chat":
+
+                        break;
+                    default:
+                        where = where.And(x => x is ReceptionChatMedia);
+                        //  where = where.And(x => x.ChatType == enum_ChatType.Media && ((ReceptionChatMedia)x).MediaType == type);
+                        break;
+                }
+            }
+            if (userType == "customer" || userType == "customerservice")
+            {
+                switch (fromTarget)
+                {
+                    case "store":
+                        where = where.And(x => (x.FromId == userID.ToString() && x.ToResource == XmppResource.YDBan_Store)
+                                            || (x.ToId == userID.ToString() && x.FromResource == XmppResource.YDBan_Store));
+                        break;
+                    case "customerService":
+                        where = where.And(x => (x.FromId == userID.ToString() && (x.ToResource == XmppResource.YDBan_CustomerService || x.ToResource == XmppResource.YDBan_DianDian))
+                     || (x.ToId == userID.ToString() && (x.FromResource == XmppResource.YDBan_CustomerService || x.FromResource == XmppResource.YDBan_DianDian)));
+                        break;
+                    case "customer":
+                        where = where.And(x => (x.FromId == userID.ToString() && x.ToResource == XmppResource.YDBan_User)
+                        || (x.ToId == userID.ToString() && x.FromResource == XmppResource.YDBan_User));
+                        break;
+                    default:
+                        where = where.And(x => x.FromId == userID.ToString() || x.ToId == userID.ToString());
+                        break;
+                }
+            }
+            else
+            {
+                switch (fromTarget)
+                {
+                    case "customerService":
+                        where = where.And(x => (x.FromResource == XmppResource.YDBan_Store &&
+                        x.ToResource == XmppResource.YDBan_CustomerService) ||
+                        (x.ToResource == XmppResource.YDBan_Store && x.FromResource == XmppResource.YDBan_CustomerService));
+                        break;
+                    case "customer":
+                        where = where.And(x => (x.FromResource == XmppResource.YDBan_Store
+                         && x.ToResource == XmppResource.YDBan_User) ||
+                         (x.ToResource == XmppResource.YDBan_Store && x.FromResource == XmppResource.YDBan_User));
+                        break;
+                    default:
+                        where = where.And(x => x.FromResource == XmppResource.YDBan_Store || x.ToResource == XmppResource.YDBan_Store);
+                        break;
+                }
+            }
+
+
+            return where;
         }
     }
 }

@@ -7,7 +7,10 @@ using Dianzhu.Push;
 using Dianzhu.IDAL;
 using Dianzhu.Model.Enums;
 using log4net;
-using Dianzhu.Push;
+using Ydb.InstantMessage.DomainModel.Chat;
+using Ydb.InstantMessage.DomainModel.Enums;
+using Ydb.InstantMessage.DomainModel.Reception;
+
 namespace Dianzhu.BLL
 {
 
@@ -22,9 +25,9 @@ namespace Dianzhu.BLL
         IDALDeviceBind dalDeviceBind;
 
         IBLLServiceOrder bllServiceOrder;
-        IIMSession iimSession;
+        IReceptionSession iimSession;
         IDAL.IDALMembership dalMembership;
-        public BLLPush( IDALDeviceBind dalDeviceBind, BLL.IBLLServiceOrder bllServiceOrder, IIMSession iimSession, IDAL.IDALMembership dalMembership)
+        public BLLPush( IDALDeviceBind dalDeviceBind, BLL.IBLLServiceOrder bllServiceOrder, IReceptionSession iimSession, IDAL.IDALMembership dalMembership)
 
         {
           
@@ -36,7 +39,7 @@ namespace Dianzhu.BLL
 
 
 
-        public void Push(Dianzhu.Model.ReceptionChat chat, Guid targetUserId, string orderId)
+        public void Push(ReceptionChat chat, Guid targetUserId, string orderId)
         {
             //判断用户是否在线的接口
             log.Debug("1");
@@ -59,7 +62,7 @@ namespace Dianzhu.BLL
                 例如订单变成了 EndCancel , EndRefound ， EndIntervention等等，app 跳转至已完成列表 
             */
             log.Debug("13");
-            if (chat.GetType() == typeof(Model.ReceptionChatNoticeOrder))
+            if (chat.GetType() == typeof(ReceptionChatNoticeOrder))
             {
                 Model.ServiceOrder serviceOrder = bllServiceOrder.GetOne(new Guid(chat.SessionId));
                 if (serviceOrder.OrderStatus == enum_OrderStatus.EndWarranty) { return; }
@@ -76,11 +79,11 @@ namespace Dianzhu.BLL
                 }
 
             }
-            else if (chat.GetType() == typeof(Model.ReceptionChatNoticeSys))
+            else if (chat.GetType() == typeof(ReceptionChatNoticeSys))
             {
                 pushMessage = System.Text.RegularExpressions.Regex.Replace(chat.MessageBody, @"[\<|\>|\[|\]]", string.Empty);
             }
-            else if (chat.GetType() == typeof(Model.ReceptionChat) || chat.GetType() == typeof(Model.ReceptionChatMedia))
+            else if (chat.GetType() == typeof(ReceptionChat) || chat.GetType() == typeof(ReceptionChatMedia))
             {
                 Model.DZMembership member = dalMembership.FindById(new Guid(chat.FromId));
                 switch (member.UserType)
@@ -119,8 +122,8 @@ namespace Dianzhu.BLL
             log.Debug("15");
             pushType = PushType.PushToUser;
             //客服->用户, 用户->商户,商户->用户
-            if (chat.ToResource == enum_XmppResource.YDBan_Store) { pushType = PushType.PushToBusiness; }
-            else if (chat.ToResource == enum_XmppResource.YDBan_User) { pushType = PushType.PushToUser; }
+            if (chat.ToResource == XmppResource.YDBan_Store) { pushType = PushType.PushToBusiness; }
+            else if (chat.ToResource == XmppResource.YDBan_User) { pushType = PushType.PushToUser; }
             else
             {
                 log.Warn("不需要推送的目标" + chat.Id);

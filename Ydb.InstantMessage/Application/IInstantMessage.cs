@@ -71,23 +71,23 @@ namespace   Ydb.InstantMessage.Application
         /// <param name="sessionId"></param>
         void SendMessagePushService(Guid messageId, IList<PushedServiceInfo> serviceInfos, string messageBody, string to, string toResource, string sessionId);
         /// <summary>
-        /// 客服上线通知点点
+        /// 发送客服上线通知
         /// </summary>
         /// <param name="messageId"></param>
         /// <param name="messageBody"></param>
         /// <param name="to"></param>
         /// <param name="toResource"></param>
         /// <param name="sessionId"></param>
-        void SendCSLoginMessage();
+        void SendCSLoginMessage(Guid messageId, string messageBody, string to, string toResource, string sessionId);
         /// <summary>
-        /// 客服下线通知点点
+        /// 发送客服下线通知
         /// </summary>
         /// <param name="messageId"></param>
         /// <param name="messageBody"></param>
         /// <param name="to"></param>
         /// <param name="toResource"></param>
         /// <param name="sessionId"></param>
-        void SendCSLogoffMessage();
+        void SendCSLogoffMessage(Guid messageId, string messageBody, string to, string toResource, string sessionId);
         /// <summary>
         /// 发送订单状态变更消息
         /// </summary>

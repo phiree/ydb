@@ -16,6 +16,7 @@ using Dianzhu.CSClient.ViewModel;
 using Dianzhu.CSClient.Presenter.VMAdapter;
 using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.DomainModel.Chat;
+using Ydb.InstantMessage.Application.Dto;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -30,16 +31,13 @@ namespace Dianzhu.CSClient.Presenter
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PIdentityList");
         IViewIdentityList iView;
         IViewChatList iViewChatList;
-        IDAL.IDALReceptionChat dalReceptionChat;
         IInstantMessage iIM;
         IViewChatSend iViewChatSend;
         IBLLServiceOrder bllServiceOrder;
         IViewOrderHistory iViewOrderHistory;
-
-        IDAL.IDALReceptionStatus dalReceptionStatus;
+        
         IViewSearchResult viewSearchResult;
         IDAL.IDALMembership dalMembership;
-        IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve;
         LocalStorage.LocalChatManager localChatManager;
         LocalStorage.LocalHistoryOrderManager localHistoryOrderManager;
         LocalStorage.LocalUIDataManager localUIDataManager;
@@ -49,12 +47,10 @@ namespace Dianzhu.CSClient.Presenter
 
         public PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,
             IInstantMessage iIM,
-            IDAL.IDALReceptionChat dalReceptionChat,
              IDAL.IDALMembership dalMembership,
         IViewChatSend iViewChatSend,
             IBLLServiceOrder bllServiceOrder, IViewOrderHistory iViewOrderHistory,
-            IDAL.IDALReceptionStatus dalReceptionStatus, IViewSearchResult viewSearchResult,
-            IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve,
+            IViewSearchResult viewSearchResult,
             LocalStorage.LocalChatManager localChatManager,
             LocalStorage.LocalHistoryOrderManager localHistoryOrderManager,
             LocalStorage.LocalUIDataManager localUIDataManager,
@@ -68,13 +64,10 @@ namespace Dianzhu.CSClient.Presenter
             this.iView = iView;
             this.iIM = iIM;
             this.iViewChatList = iViewChatList;
-            this.dalReceptionChat = dalReceptionChat;
             this.iViewChatSend = iViewChatSend;
             this.bllServiceOrder = bllServiceOrder;
             this.iViewOrderHistory = iViewOrderHistory;
-            this.dalReceptionStatus = dalReceptionStatus;
             this.viewSearchResult = viewSearchResult;
-            this.dalReceptionStatusArchieve = dalReceptionStatusArchieve;
             this.dalMembership = dalMembership;
             this.vmChatAdapter = vmChatAdapter;
             this.vmIdentityAdapter = vmIdentityAdapter;
@@ -96,33 +89,34 @@ namespace Dianzhu.CSClient.Presenter
             try
             {
                 log.Debug("-------开始 接收离线用户------");
-                IList<string> assignList = receptionService.AssignCSLogin(GlobalViables.CurrentCustomerService.Id.ToString(), 3);
+                IList<ReceptionStatusDto> assignList = receptionService.AssignCSLogin(GlobalViables.CurrentCustomerService.Id.ToString(), 3);
 
                 NHibernateUnitOfWork.UnitOfWork.Start();
-
-                //IList<ReceptionStatus> rsList = dalReceptionStatus.GetRSListByDiandianAndUpdate(GlobalViables.Diandian, 3, GlobalViables.CurrentCustomerService);
-                //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                
                 if (assignList.Count > 0)
                 {
                     log.Debug("需要接待的离线用户数量:" + assignList.Count);
-                    foreach (var customerId in assignList)
+                    foreach (var assign in assignList)
                     {
-                        DZMembership customer = dalMembership.FindById(Guid.Parse(customerId));
+                        DZMembership customer = dalMembership.FindById(Guid.Parse(assign.CustomerId));
                         ClientState.customerList.Add(customer);
-                        ServiceOrder order = bllServiceOrder.GetDraftOrder(customer, GlobalViables.CurrentCustomerService);
+                        ServiceOrder order = bllServiceOrder.GetOne(Guid.Parse(assign.OrderId));
+
+                        IdentityTypeOfOrder type;
+                        IdentityManager.UpdateIdentityList(order, out type);
 
                         if (order != null)
                         {
-                            if (!localChatManager.LocalCustomerAvatarUrls.ContainsKey(customerId))
+                            if (!localChatManager.LocalCustomerAvatarUrls.ContainsKey(assign.CustomerId))
                             {
                                 string avatar = string.Empty;
                                 if (customer.AvatarUrl != null)
                                 {
                                     avatar = customer.AvatarUrl;
                                 }
-                                localChatManager.LocalCustomerAvatarUrls[customerId] = avatar;
+                                localChatManager.LocalCustomerAvatarUrls[assign.CustomerId] = avatar;
                             }
-                            VMIdentity vmIdentity = vmIdentityAdapter.OrderToVMIdentity(order, localChatManager.LocalCustomerAvatarUrls[customerId]);
+                            VMIdentity vmIdentity = vmIdentityAdapter.OrderToVMIdentity(order, localChatManager.LocalCustomerAvatarUrls[assign.CustomerId]);
                             AddIdentity(vmIdentity);
 
                             //ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.Diandian.Id.ToString(), customerId,
@@ -142,25 +136,6 @@ namespace Dianzhu.CSClient.Presenter
                 NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
-        }
-
-        /// <summary>
-        /// 接待记录存档
-        /// </summary>
-        /// <param name="customer"></param>
-        /// <param name="cs"></param>
-        /// <param name="order"></param>
-        private void SaveRSA(DZMembership customer, DZMembership cs, ServiceOrder order)
-        {
-            log.Debug("-------开始 接待记录存档------");
-            ReceptionStatusArchieve rsa = new ReceptionStatusArchieve
-            {
-                Customer = customer,
-                CustomerService = cs,
-                Order = order,
-            };
-            dalReceptionStatusArchieve.Add(rsa);
-            log.Debug("-------结束 接待记录存档------");
         }
 
         private void ViewSearchResult_PushServiceTimerSend()
@@ -196,20 +171,7 @@ namespace Dianzhu.CSClient.Presenter
                 }
             }
 
-            //删除分配表中用户和客服的关系
-            ReceptionStatus rs = dalReceptionStatus.GetOneByCustomerAndCS(GlobalViables.CurrentCustomerService, order.Customer);
-            if (rs != null)
-            {
-                log.Debug("删除ReceptionStatus中的关系，rs.Id:" + rs.Id + ",csId:" + rs.CSId + ",customerId:" + rs.CustomerId + ",orderId" + rs.Order.Id);
-                dalReceptionStatus.Delete(rs);
-            }
-
-            //发送客服离线消息给用户
-            string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
-            string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
-                                                  <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:cer:offline""></ext></message>",
-                                              order.Customer.Id + "@" + server, GlobalViables.CurrentCustomerService.Id, Guid.NewGuid());
-            iIM.SendMessage(noticeDraftNew);
+            receptionService.DeleteReception(order.Customer.Id.ToString());
 
             //删除当前订单临时变量
             if (IdentityManager.DeleteIdentity(order))

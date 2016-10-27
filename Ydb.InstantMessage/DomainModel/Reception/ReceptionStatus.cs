@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Ydb.Common.Domain;
+using Ydb.InstantMessage.Application.Dto;
+
 namespace Ydb.InstantMessage.DomainModel.Reception
 {
     /// <summary>
@@ -48,7 +50,17 @@ namespace Ydb.InstantMessage.DomainModel.Reception
         /// </summary>
         public virtual string OrderId { get; set; }
 
+        public virtual ReceptionStatusDto ToDto()
+        {
+            ReceptionStatusDto dto = new ReceptionStatusDto();
 
+            dto.Id = this.Id;
+            dto.CustomerId = this.CustomerId;
+            dto.CustomerServiceId = this.CustomerServiceId;
+            dto.OrderId = this.OrderId;
+
+            return dto;
+        }
 
     }
 

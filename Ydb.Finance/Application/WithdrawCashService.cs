@@ -16,7 +16,6 @@ namespace Ydb.Finance.Application
         IRepositoryBalanceTotal repositoryBalanceTotal;
         public WithdrawCashService()
         {
-            Bootstrap.Boot();
             repositoryBalanceFlow = Bootstrap.Container.Resolve<IRepositoryBalanceFlow>();
             repositoryBalanceTotal = Bootstrap.Container.Resolve<IRepositoryBalanceTotal>();
         }

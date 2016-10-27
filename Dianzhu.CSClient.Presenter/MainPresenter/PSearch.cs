@@ -25,9 +25,7 @@ namespace Dianzhu.CSClient.Presenter
         IBLLServiceOrder bllServiceOrder;
         PushService bllPushService;
         IInstantMessage iIM;
-        IDAL.IDALReceptionChat dalReceptionChat;
         IDAL.IDALServiceType dalServiceType;
-        BLLReceptionStatus bllReceptionStatus;
         IList<DZService> SelectedServiceList;
         BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder;
         LocalStorage.LocalChatManager localChatManager;
@@ -35,6 +33,8 @@ namespace Dianzhu.CSClient.Presenter
         IVMChatAdapter vmChatAdapter;
         IVMIdentityAdapter vmIdentityAdapter;
         IDAL.IDALMembership dalMembership;
+
+        IReceptionService receptionService;
 
         #region 服务类型数据
         Dictionary<ServiceType, IList<ServiceType>> ServiceTypeCach;
@@ -48,9 +48,9 @@ namespace Dianzhu.CSClient.Presenter
  
         public PSearch(IInstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
             IViewChatList viewChatList,IViewIdentityList viewIdentityList,
-            IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder,IDAL.IDALReceptionChat dalReceptionChat, IDAL.IDALServiceType dalServiceType,                     
-                    PushService bllPushService, BLLReceptionStatus bllReceptionStatus,BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder, LocalStorage.LocalChatManager localChatManager, LocalStorage.LocalUIDataManager localUIDataManager, 
-                    IVMChatAdapter vmChatAdapter,IVMIdentityAdapter vmIdentityAdapter, IDAL.IDALMembership dalMembership)
+            IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder, IDAL.IDALServiceType dalServiceType,                     
+                    PushService bllPushService, BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder, LocalStorage.LocalChatManager localChatManager, LocalStorage.LocalUIDataManager localUIDataManager, 
+                    IVMChatAdapter vmChatAdapter,IVMIdentityAdapter vmIdentityAdapter, IDAL.IDALMembership dalMembership, IReceptionService receptionService)
         {
             this.serialNoBuilder = serialNoBuilder;
             this.viewSearch = viewSearch; ;
@@ -59,16 +59,15 @@ namespace Dianzhu.CSClient.Presenter
             this.viewChatList = viewChatList;
             this.bllServiceOrder = bllServiceOrder;
             this.iIM = iIM;
-            this.dalReceptionChat = dalReceptionChat;
             this.dalServiceType = dalServiceType;            
             this.bllPushService = bllPushService; 
-            this.bllReceptionStatus = bllReceptionStatus;
             this.viewIdentityList = viewIdentityList;
             this.localChatManager = localChatManager;
             this.localUIDataManager = localUIDataManager;
             this.vmChatAdapter = vmChatAdapter;
             this.vmIdentityAdapter = vmIdentityAdapter;
             this.dalMembership = dalMembership;
+            this.receptionService = receptionService;
 
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
 
@@ -431,7 +430,8 @@ namespace Dianzhu.CSClient.Presenter
 
             //更新接待分配表
             log.Debug("更新ReceptionStatus，customerId:" + IdentityManager.CurrentIdentity.Customer.Id + ",csId:" + GlobalViables.CurrentCustomerService.Id + ",orderId:" + newOrder.Id);
-            bllReceptionStatus.UpdateOrder(IdentityManager.CurrentIdentity.Customer, GlobalViables.CurrentCustomerService, newOrder);
+            //bllReceptionStatus.UpdateOrder(IdentityManager.CurrentIdentity.Customer, GlobalViables.CurrentCustomerService, newOrder);
+            receptionService.UpdateOrderId(IdentityManager.CurrentIdentity.Customer.Id.ToString(), GlobalViables.CurrentCustomerService.Id.ToString(), newOrder.Id.ToString());
 
             //清空搜索选项 todo:为了测试方便，先注释掉
             //viewSearch.ClearData();

@@ -15,7 +15,7 @@ using FluentValidation;
 using Dianzhu.IDAL;
 using System.Runtime.Remoting.Contexts;
 using Castle.Windsor;
-using DDDCommon;
+using Ydb.Common.Specification;
 
 namespace Dianzhu.BLL
 {
@@ -389,9 +389,9 @@ namespace Dianzhu.BLL
         /// <param name="platform"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        public IList<DZMembership> GetUsers(Model.Trait_Filtering filter, string name, string email, string phone, string platform,string userType)
+        public IList<DZMembership> GetUsers(TraitFilter filter, string name, string email, string phone, string platform,string userType)
         {
-            var where = PredicateBuilder.True<DZMembership>();
+            var where = Ydb.Common.Specification.PredicateBuilder.True<DZMembership>();
             where = where.And(x => x.UserType == (Model.Enums.enum_UserType)Enum.Parse(typeof(Model.Enums.enum_UserType), userType));
             if (!string.IsNullOrEmpty(name))
             {
@@ -437,7 +437,7 @@ namespace Dianzhu.BLL
         /// <returns></returns>
         public long GetUsersCount(string name, string email, string phone, string platform, string userType)
         {
-            var where = PredicateBuilder.True<DZMembership>();
+            var where = Ydb.Common.Specification.PredicateBuilder.True<DZMembership>();
             where = where.And(x => x.UserType == (Model.Enums.enum_UserType)Enum.Parse(typeof(Model.Enums.enum_UserType), userType));
             if (!string.IsNullOrEmpty(name))
             {

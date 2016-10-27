@@ -23,8 +23,7 @@ namespace Dianzhu.CSClient.Presenter
     public  class PChatSend
     {
         ILog log = LogManager.GetLogger("Dianzhu.CSClient");
-
-        IDAL.IDALReceptionChat dalReceptionChat;
+        
         IView.IViewChatList viewChatList;
         IViewChatSend viewChatSend;
         Ydb.InstantMessage.Application.IInstantMessage iIM;
@@ -36,11 +35,10 @@ namespace Dianzhu.CSClient.Presenter
         ServiceOrder order;
         
         public PChatSend(IViewChatSend viewChatSend, IView.IViewChatList viewChatList,
-            Ydb.InstantMessage.Application.IInstantMessage iIM,IDAL.IDALReceptionChat dalReceptionChat,IViewIdentityList viewIdentityList,
+            Ydb.InstantMessage.Application.IInstantMessage iIM,IViewIdentityList viewIdentityList,
             IViewOrderHistory viewOrderHistory, LocalStorage.LocalChatManager localChatManager, VMAdapter.IVMChatAdapter vmChatAdapter)
         {
             this.viewChatList = viewChatList;
-            this.dalReceptionChat = dalReceptionChat;
             this.viewChatSend = viewChatSend;
             //     viewCustomerList.IdentityClick += ViewCustomerList_CustomerClick;
             this.iIM = iIM;
@@ -104,8 +102,6 @@ namespace Dianzhu.CSClient.Presenter
                 NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
 
-            // dalReceptionChat.Add(chat);
-
             //  PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
         }
 
@@ -149,10 +145,6 @@ namespace Dianzhu.CSClient.Presenter
                     true);
                 viewChatList.AddOneChat(vmChatText);
                 localChatManager.Add(vmChatText.ToId, vmChatText);
-                //viewChatList.AddOneChat(chat,string.Empty);
-                //dalReceptionChat.Add(chat);
-                //iIM.SendMessage(chat);
-
  
                 //临时存放订单
                 order = IdentityManager.CurrentIdentity;

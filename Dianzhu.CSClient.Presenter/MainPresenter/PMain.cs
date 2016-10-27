@@ -15,10 +15,6 @@ namespace Dianzhu.CSClient.Presenter
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PMain");
 
-        IDAL.IDALReceptionStatus dalReceptionStatus;
-        IDAL.IDALReceptionChat dalReceptionChat;
-        
-        IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve;
         IDAL.IDALIMUserStatus dalIMUserStatus;
         IViewMainForm viewMainForm;
         IViewFormShowMessage viewFormShowMessage;
@@ -28,21 +24,16 @@ namespace Dianzhu.CSClient.Presenter
         IBLLMembershipLoginLog bllLoginLog;
 
         public PMain(IViewMainForm viewMainForm, IInstantMessage iIM, IViewIdentityList iViewIdentityList, IBLLMembershipLoginLog bllLoginLog,
-            IDAL.IDALReceptionStatus dalReceptionStatus, IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve,
-             IDAL.IDALReceptionChat dalReceptionChat,
               IDAL.IDALIMUserStatus dalIMUserStatus, IViewFormShowMessage viewFormShowMessage)
         {
             this.viewMainForm = viewMainForm;
             this.viewMainForm.CSName = GlobalViables.CurrentCustomerService.DisplayName;
             this.iIM = iIM;
             this.iViewIdentityList = iViewIdentityList;
-            this.dalReceptionStatus = dalReceptionStatus;
-            this.dalReceptionChat = dalReceptionChat;
-          
-            this.dalReceptionStatusArchieve = dalReceptionStatusArchieve;
             this.dalIMUserStatus = dalIMUserStatus;
             this.bllLoginLog = bllLoginLog;
             this.viewFormShowMessage = viewFormShowMessage;
+
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             iIM.IMStreamError += IIM_IMStreamError;
             iIM.IMClosed += IIM_IMClosed;

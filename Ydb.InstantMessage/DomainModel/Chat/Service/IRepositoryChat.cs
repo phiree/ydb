@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.Common.Repository;
+using Ydb.Common.Specification;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.DomainModel.Chat.Enums;
 using Ydb.InstantMessage.Infrastructure.Repository.NHibernate;
@@ -51,5 +52,42 @@ namespace Ydb.InstantMessage.DomainModel.Chat
         /// <returns></returns>
         IList<ReceptionChat> GetReceptionChatListByTargetId(Guid fromId, Guid toId, Guid orderId, DateTime timeBegin, DateTime timeEnd,
          int pageSize, double targetChatSavedTimestamp, string low, ChatTarget? target);
+
+        /// <summary>
+        /// 条件读取聊天记录
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="type"></param>
+        /// <param name="fromTarget"></param>
+        /// <param name="orderID"></param>
+        /// <param name="userID"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        IList<ReceptionChat> GetChats(TraitFilter filter, string type, string fromTarget, Guid orderID, Guid userID, string userType);
+
+        /// <summary>
+        /// 统计聊天信息的数量
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="fromTarget"></param>
+        /// <param name="orderID"></param>
+        /// <param name="userID"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        long GetChatsCount(string type, string fromTarget, Guid orderID, Guid userID, string userType);
+
+        /// <summary>
+        /// 条件读取未读聊天记录
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        IList<ReceptionChat> GetUnreadChatsAndSetReaded(Guid userID);
+
+        /// <summary>
+        /// 统计未读聊天信息的数量
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        long GetUnreadChatsCount(Guid userID);
     }
 }

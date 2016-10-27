@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.CSClient.IView;
 using Dianzhu.CSClient.Presenter;
 using FizzWare.NBuilder;
@@ -23,12 +22,9 @@ namespace Dianzhu.Test.DZCSClientTest
         IInstantMessage iIM;
         IViewChatList viewChatList;
         IViewChatSend viewChatSend;
-        IDAL.IDALReceptionChat dalReceptionChat;
         BLL.BLLServiceOrder bllServiceOrder;
         IViewOrderHistory viewOrderHistory;
-        IDAL.IDALReceptionStatus dalReceptionStatus;
         IViewSearchResult viewSearchResult;
-        IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve;
         IDAL.IDALMembership dalMembership;
         IVMChatAdapter vmChatAdapter;
         IVMIdentityAdapter vmIdentityAdapter;
@@ -50,13 +46,10 @@ namespace Dianzhu.Test.DZCSClientTest
             iIM = MockRepository.GenerateStub<IInstantMessage>();
             viewChatList = MockRepository.GenerateStub<IViewChatList>();
             viewChatSend = MockRepository.GenerateStub<IViewChatSend>();
-            dalReceptionChat = MockRepository.GenerateStub<IDAL.IDALReceptionChat>();
           
             bllServiceOrder = MockRepository.GenerateStub<BLL.BLLServiceOrder>();
             viewOrderHistory = MockRepository.GenerateStub<IViewOrderHistory>();
-            dalReceptionStatus = MockRepository.GenerateStub<IDAL.IDALReceptionStatus>();
             viewSearchResult = MockRepository.GenerateStub<IViewSearchResult>();
-            dalReceptionStatusArchieve = MockRepository.GenerateStub<IDAL.IDALReceptionStatusArchieve>();
             lcm = MockRepository.GenerateStub<Dianzhu.CSClient.LocalStorage.LocalChatManager>();
             lhom = MockRepository.GenerateStub<Dianzhu.CSClient.LocalStorage.LocalHistoryOrderManager>();
             luidm = MockRepository.GenerateStub<Dianzhu.CSClient.LocalStorage.LocalUIDataManager>();
@@ -66,9 +59,9 @@ namespace Dianzhu.Test.DZCSClientTest
             receptionService = MockRepository.GenerateStub<IReceptionService>();
 
 
-            pIdentityList = new PIdentityList(viewIdentityList, viewChatList, iIM, dalReceptionChat, dalMembership,
-                viewChatSend, bllServiceOrder, viewOrderHistory, dalReceptionStatus, viewSearchResult,
-                dalReceptionStatusArchieve,lcm,lhom,luidm, vmChatAdapter, vmIdentityAdapter, receptionService);
+            pIdentityList = new PIdentityList(viewIdentityList, viewChatList, iIM, dalMembership,
+                viewChatSend, bllServiceOrder, viewOrderHistory, viewSearchResult,
+                lcm,lhom,luidm, vmChatAdapter, vmIdentityAdapter, receptionService);
 
             string[] customerIdList = { "17b2007f-0267-4224-8d5a-cbaafa7ed1fc", "153ef5fa-600a-4a32-aefb-27c5e5fa5a50", "4a3727f6-ec21-42a8-ba84-70ba9db06354" };
             string[] csIdList = { "20364ea5-c19c-409d-8b61-cb1905fc68d8", "684db3a7-6c2c-44bf-a50a-5ceb1b904a26", "8f506545-de72-4fdb-bbaa-85a8709ae63f" };
@@ -116,7 +109,7 @@ namespace Dianzhu.Test.DZCSClientTest
         {
             viewChatList.ChatList = Builder<VMChat>.CreateListOfSize(1).Build();
 
-            PChatList pChatList = new PChatList(viewChatList, viewChatSend, viewIdentityList, dalReceptionChat, iIM,lcm, vmChatAdapter, chatServive);
+            PChatList pChatList = new PChatList(viewChatList, viewChatSend, viewIdentityList, iIM,lcm, vmChatAdapter, chatServive);
 
             IList<DZMembership> members = Builder<DZMembership>.CreateListOfSize(3)
                  .TheFirst(1).With(x => x.Id = new Guid("f197a81d-c984-4894-b21c-a5f00106e08b"))

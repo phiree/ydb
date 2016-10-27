@@ -17,19 +17,15 @@ public class ResponseORM002003 : BaseResponse
 {
     //todo: 这个接口是不是弃用了?
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
+
     IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
-    IIMSession imSession;
-    public ResponseORM002003(BaseRequest request,IIMSession imSession) : base(request) {
-        this.imSession = imSession;
-    }
+
+    public ResponseORM002003(BaseRequest request) : base(request) {    }
     protected override void BuildRespData()
     {
         ReqDataORM002003 requestData = this.request.ReqData.ToObject<ReqDataORM002003>();
-
  
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-        BLLReceptionStatus bllReceptionStatus = Bootstrap.Container.Resolve<BLLReceptionStatus>();
-
         BLLOrderAssignment bllOrderAssignment = Bootstrap.Container.Resolve<BLLOrderAssignment>();
  
         string raw_id = requestData.userID;

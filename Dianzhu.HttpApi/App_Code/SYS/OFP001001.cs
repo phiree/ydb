@@ -65,11 +65,6 @@ public class ResponseOFP001001 : BaseResponse
             BLLIMUserStatus bllIMUserStatus = Bootstrap.Container.Resolve<BLLIMUserStatus>();
             BLLIMUserStatusArchieve bllIMUserStatusArchieve = Bootstrap.Container.Resolve<BLLIMUserStatusArchieve>();
             IMUserStatus currentIM = reqDataToImData(requestData);
- 
-            BLLReceptionStatus bllReceptionStatus = Bootstrap.Container.Resolve<BLLReceptionStatus>(); 
-            BLLReceptionStatusArchieve bllReceptionStatusArchieve = Bootstrap.Container.Resolve<BLLReceptionStatusArchieve>();
- 
-           
         
             DZMembershipProvider bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
 
@@ -165,17 +160,7 @@ public class ResponseOFP001001 : BaseResponse
             return;
         }
     }
-
-    public ReceptionStatusArchieve RSToRsa(ReceptionStatus rs)
-    {
-        ReceptionStatusArchieve rsa = new ReceptionStatusArchieve();
-        rsa.Customer = rs.Customer;
-        rsa.CustomerService = rs.CustomerService;
-        rsa.Order = rs.Order;
-
-        return rsa;
-    }
-
+    
     public void VisitIMServerApi(string url)
     {
         System.Net.WebClient wc = new System.Net.WebClient();
