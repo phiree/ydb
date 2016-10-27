@@ -192,7 +192,11 @@ namespace Dianzhu.CSClient.Presenter
                 else
                 {
                     log.Error("当前列表中存在重复项");
-
+                    foreach(var item in existedCustomer)
+                    {
+                        log.Debug("orderId:" + item.Key);
+                        log.Debug("isTrueOrFalse:" + item.Value);
+                    }
                 }
                 log.Debug("更新完成");
             }

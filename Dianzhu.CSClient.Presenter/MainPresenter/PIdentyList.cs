@@ -342,7 +342,7 @@ namespace Dianzhu.CSClient.Presenter
                 }
                 else
                 {
-                    IdentityManager.CurrentIdentity = bllServiceOrder.GetOne(vmIdentity.OrderId);
+                    throw new Exception("IdentityManager.CurrentIdentity is null");
                 }
 
                 iViewChatList.ClearUCData();

@@ -66,5 +66,16 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping
                 Map(x => x.CSAvatar);
             }
         }
+
+        public class ReceptionChatNoticeOrderMap : SubclassMap<ReceptionChatNoticeOrder>
+        {
+            public ReceptionChatNoticeOrderMap()
+            {
+                Map(x => x.OrderTitle);
+                Map(x => x.CurrentStatus);
+                Map(x => x.OrderType);
+            }
+        }
+
     }
 }
