@@ -4,8 +4,6 @@ using System.Web;
 using System.Web.Security;
 using Dianzhu.Model;
 using Dianzhu.BLL;
-using Ydb.Membership.Application;
-using Ydb.Membership.Application.Dto;
 /// <summary>
 ///BasePage 的摘要说明
 /// </summary>
@@ -45,14 +43,13 @@ public class BasePage:  Dianzhu.Web.Common.BasePage
         }
     }
     
-   
+    DZMembershipProvider mp = Bootstrap.Container.Resolve<DZMembershipProvider>();
 	public BasePage()
 	{
 		//
 		//TODO: 在此处添加构造函数逻辑
 		//
 	}
-    IDZMembershipService memebrService = Bootstrap.Container.Resolve<IDZMembershipService>();
     //如果没有登录,则跳转至登录界面
     protected override void OnLoad(EventArgs e)
     {
@@ -61,7 +58,7 @@ public class BasePage:  Dianzhu.Web.Common.BasePage
             MembershipUser mu = Membership.GetUser();
             if (mu == null)
             {
-                
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 if(Request.RawUrl.Contains("/m/"))
                 {
                     Response.Redirect("/m/login.aspx?returnurl=" + HttpUtility.UrlEncode(Request.RawUrl), true);
@@ -71,7 +68,7 @@ public class BasePage:  Dianzhu.Web.Common.BasePage
                 Response.Redirect("/login.aspx?returnurl="+HttpUtility.UrlEncode(Request.RawUrl), true);
                 }
             }
-            MemberDto member = memebrService.GetUserByName(mu.UserName);
+            currentUser = mp.GetUserById((Guid)mu.ProviderUserKey);
 
             //if (currentUser == null)
             //{
