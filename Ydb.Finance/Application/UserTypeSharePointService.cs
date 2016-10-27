@@ -14,7 +14,6 @@ namespace Ydb.Finance.Application
         IRepositoryUserTypeSharePoint repositoryUserTypeSharePoint;
         public UserTypeSharePointService()
         {
-            Bootstrap.Boot();
             repositoryUserTypeSharePoint = Bootstrap.Container.Resolve<IRepositoryUserTypeSharePoint>();
         }
 
@@ -33,10 +32,10 @@ namespace Ydb.Finance.Application
             }
             string errMsg;
             decimal existed = GetSharePoint(userType, out errMsg);
-            if (string.IsNullOrEmpty(errMsg))
-            {
-                throw new Exception("该用户类型已经设置了分成比");
-            }
+            //if (string.IsNullOrEmpty(errMsg))
+            //{
+            //    throw new Exception("该用户类型已经设置了分成比");
+            //}
             repositoryUserTypeSharePoint.Add(enumUserType, point);
         }
 
@@ -45,11 +44,12 @@ namespace Ydb.Finance.Application
         /// </summary>
         /// <param name="userType" type="string">用户类型</param>
         /// <returns type="UserTypeSharePoint">用户类型分配比例信息</returns>
+        [Ydb.Common.Repository.UnitOfWork]
         public decimal GetSharePoint(string userType,out string errMsg) {
 
             errMsg = string.Empty;
             UserType enumUserType;
-           bool isUserType= Enum.TryParse<UserType>(userType, out enumUserType);
+            bool isUserType= Enum.TryParse<UserType>(userType, out enumUserType);
             if (!isUserType)
             {
                 throw new ArgumentException("传入的UserType不是有效值");
@@ -57,7 +57,11 @@ namespace Ydb.Finance.Application
             try
             {
                 var point = repositoryUserTypeSharePoint.GetSharePoint(enumUserType);
-
+                if (point == null)
+                {
+                    errMsg = "该用户类型尚未设置分成比:" + userType;
+                    throw new ArgumentException(errMsg);
+                }
                 return point.Point;
             }
             catch (ArgumentNullException)
@@ -78,6 +82,7 @@ namespace Ydb.Finance.Application
         /// 获取所有用户类型分配比例信息
         /// </summary>
         /// <returns type="IList<UserTypeSharePointDto>">用户类型分配比例信息列表</returns>
+        [Ydb.Common.Repository.UnitOfWork]
         public IList<UserTypeSharePointDto> GetAll() {
             return Mapper.Map<IList<UserTypeSharePoint>, IList<UserTypeSharePointDto>>(repositoryUserTypeSharePoint.Find(x => true));
         }

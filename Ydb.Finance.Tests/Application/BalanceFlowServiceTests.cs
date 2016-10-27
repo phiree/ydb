@@ -54,7 +54,7 @@ namespace Ydb.Finance.Tests.Application
             var list=  balanceFlowService.GetBillSatistics("09ccc183-ed87-462a-8d11-a66600fbbd24", DateTime.MinValue, DateTime.MaxValue, "0", " %Y-%m-%d");
             Console.WriteLine("BalanceFlowServiceTests.GetBillSatisticsTest:" + list.Count);
         }
-
+        
         [Test()]
         public void GetBillListTest()
         {

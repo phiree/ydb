@@ -18,13 +18,13 @@ namespace Ydb.Finance.Application
         /// <summary>
         /// DtoToModel映射配置
         /// </summary>
-        [System.Obsolete("No Use")]
+        //[System.Obsolete("No Use")]
         protected override void Configure()
         {
-            CreateMap<BalanceFlowDto, BalanceFlow>();
-            CreateMap<BalanceTotalDto, BalanceTotal>();
-            CreateMap<ServiceTypePointDto, ServiceTypePoint>();
-            CreateMap<UserTypeSharePointDto, UserTypeSharePoint>();
+            Mapper.CreateMap<BalanceFlowDto, BalanceFlow>();
+            Mapper.CreateMap<BalanceTotalDto, BalanceTotal>();
+            Mapper.CreateMap<ServiceTypePointDto, ServiceTypePoint>();
+            Mapper.CreateMap<UserTypeSharePointDto, UserTypeSharePoint>();
         }
     }
 }
