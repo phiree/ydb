@@ -29,15 +29,8 @@ namespace Ydb.Finance.Tests.Application
                     RelatedObjectId = "0763ec35-e349-425f-8217-a69b0114bb1e",
                 }
             };
-            try
-            {
-                withdrawCashService.WithdrawCash(flow);
-                Console.WriteLine("BalanceFlowServiceTests.WithdrawCashTest:提现成功！");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("BalanceFlowServiceTests.WithdrawCashTest:"+ex.ToString());
-            }
+            withdrawCashService.WithdrawCash(flow);
+            Console.WriteLine("BalanceFlowServiceTests.WithdrawCashTest:提现成功！");
         }
     }
 }

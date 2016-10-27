@@ -22,29 +22,15 @@ namespace Ydb.Finance.Tests.Application
         [Test()]
         public void AddTest()
         {
-            try
-            {
-                serviceTypePointService.Add("003fa8eb-3649-4ddd-8c7d-9028c0f6a94f", 0.08m);
-                Console.WriteLine("ServiceTypePointServiceTest.AddTest:添加成功！");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("ServiceTypePointServiceTest.AddTest:" + ex.ToString());
-            }
+            serviceTypePointService.Add("003fa8eb-3649-4ddd-8c7d-9028c0f6a94f", 0.08m);
+            Console.WriteLine("ServiceTypePointServiceTest.AddTest:添加成功！");
         }
 
         [Test()]
         public void GetPointTest()
         {
-            try
-            {
-                decimal dPoint = serviceTypePointService.GetPoint("003fa8eb-3649-4ddd-8c7d-9028c0f6a94f");
-                Console.WriteLine("ServiceTypePointServiceTest.GetPointTest:" + dPoint);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("ServiceTypePointServiceTest.GetPointTest:" + ex.ToString());
-            }
+            decimal dPoint = serviceTypePointService.GetPoint("003fa8eb-3649-4ddd-8c7d-9028c0f6a94f");
+            Console.WriteLine("ServiceTypePointServiceTest.GetPointTest:" + dPoint);
         }
 
         [Test()]

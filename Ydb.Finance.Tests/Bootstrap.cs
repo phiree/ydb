@@ -20,6 +20,7 @@ namespace Ydb.Finance.Tests
         {
             container = new WindsorContainer();
             container.Install(
+                new Ydb.Finance.Tests.Application.InstallerFinanceDB(),
                 new Ydb.Finance.Application.InstallerFinance()
                 );
         }

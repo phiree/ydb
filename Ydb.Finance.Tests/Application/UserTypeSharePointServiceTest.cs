@@ -22,33 +22,19 @@ namespace Ydb.Finance.Tests.Application
         [Test()]
         public void AddTest()
         {
-            try
-            {
-                userTypeSharePointService.Add("customerservice",0.35m);
-                Console.WriteLine("UserTypeSharePointServiceTest.AddTest:添加成功！");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("UserTypeSharePointServiceTest.AddTest:" + ex.ToString());
-            }
+            userTypeSharePointService.Add("customerservice", 0.35m);
+            Console.WriteLine("UserTypeSharePointServiceTest.AddTest:添加成功！");
         }
 
         [Test()]
         public void GetSharePointTest()
         {
-            try
+            string errMsg = "";
+            decimal dPoint = userTypeSharePointService.GetSharePoint("customerservice", out errMsg);
+            Console.WriteLine("UserTypeSharePointServiceTest.GetSharePointTest:" + dPoint);
+            if (errMsg != "")
             {
-                string errMsg = "";
-                decimal dPoint = userTypeSharePointService.GetSharePoint("customerservice", out errMsg);
-                Console.WriteLine("UserTypeSharePointServiceTest.GetSharePointTest:" + dPoint);
-                if (errMsg != "")
-                {
-                    Console.WriteLine("UserTypeSharePointServiceTest.GetSharePointTest:" + errMsg);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("UserTypeSharePointServiceTest.GetSharePointTest:" + ex.ToString());
+                Console.WriteLine("UserTypeSharePointServiceTest.GetSharePointTest:" + errMsg);
             }
         }
 
