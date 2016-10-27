@@ -7,39 +7,32 @@ using NHibernate;
 using Ydb.Membership.DomainModel;
 using Ydb.Membership.DomainModel.Enums;
 using Ydb.Membership.DomainModel.Repository;
-
+using Ydb.Common.Repository;
 namespace Ydb.Membership.Application
 {
   public class DZMembershipService:IDZMembershipService
     {
-
-        public DZMembershipService(IRepositoryDZMembership repositoryDZMembership,
-        
-         IRepositoryUserToken repositoryUserToken,
-          DZMembershipProvider memberProvider)
+        IDZMembershipDomainService dzmembershipDomainService;
+        public DZMembershipService(IDZMembershipDomainService dzmembershipDomainService)
         {
-            this.repositoryDZMembership = repositoryDZMembership;
-          
-            this.repositoryUserToken = repositoryUserToken;
-           
-            this.memberProvider = memberProvider;
+            this.dzmembershipDomainService = dzmembershipDomainService;
+ 
         }
-        DZMembershipProvider memberProvider;
-        IRepositoryDZMembership repositoryDZMembership = null;
-        IEncryptService encryptService;
-       
-        IRepositoryUserToken repositoryUserToken;
+        
 
+        [UnitOfWork]
         public bool RegisterBusinessUser( string registerName, string password, out string errMsg)
         {
+
             errMsg = string.Empty;
-            Guid memberId= memberProvider.CreateUser(registerName, password, UserType.business, out errMsg);
+            Guid memberId= dzmembershipDomainService.CreateUser(registerName, password, UserType.business, out errMsg);
             return string.IsNullOrEmpty(errMsg);
 
         }
+        [UnitOfWork]
         public DZMembership GetUserByName(string userName)
         {
-            return memberProvider.GetUserByName(userName);
+            return dzmembershipDomainService.GetUserByName(userName);
         }
            
 

@@ -43,24 +43,7 @@ namespace Ydb.Membership.Application
         }
         private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
         {
-            //Database
-            var _sessionFactory = Fluently.Configure()
-                       .Database(
-                            MySQLConfiguration
-                           .Standard
-                           
-                           .ConnectionString(
-                                System.Configuration.ConfigurationManager
-                                .ConnectionStrings["ydb_membership"].ConnectionString
-                                )
-                     )
-                   .Mappings(m => m.FluentMappings.AddFromAssemblyOf<DZMembershipMap>())
-                   .ExposeConfiguration(BuildSchema)
-                   .BuildSessionFactory();
-            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
-
-           
+            
 
         }
         private void BuildSchema(Configuration config)
@@ -70,11 +53,39 @@ namespace Ydb.Membership.Application
         }
         private void InstallDomainService(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<DZMembershipProvider>());
-           
+            container.Register(Component.For<IDZMembershipDomainService>().ImplementedBy<DZMembershipDomainService>());
+
             container.Register(Component.For<ILoginNameDetermine>().ImplementedBy < LoginNameDetermine>());
 
         }
 
+    }
+    public class InstallerMembershipDB : IWindsorInstaller
+    {
+        public void Install(IWindsorContainer container, IConfigurationStore store)
+        {
+            var _sessionFactory = Fluently.Configure()
+                      .Database(
+                           MySQLConfiguration
+                          .Standard
+
+                          .ConnectionString(
+                               System.Configuration.ConfigurationManager
+                               .ConnectionStrings["ydb_membership"].ConnectionString
+                               )
+                    )
+                  .Mappings(m => m.FluentMappings.AddFromAssemblyOf<DZMembershipMap>())
+                  .ExposeConfiguration(BuildSchema)
+                  .BuildSessionFactory();
+            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
+
+
+        }
+        private void BuildSchema(Configuration config)
+        {
+            SchemaUpdate update = new SchemaUpdate(config);
+            update.Execute(true, true);
+        }
     }
 }

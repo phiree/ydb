@@ -18,7 +18,7 @@ using Ydb.Membership.Infrastructure.Repository.NHibernate;
 using Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping;
 namespace Ydb.Membership.Tests.Application
 {
-    public class Installer : IWindsorInstaller
+    public class InstallerMembershipTestDB : IWindsorInstaller
     {
         ISessionFactory _sessionFactory;
         public void Install(IWindsorContainer container, IConfigurationStore store)

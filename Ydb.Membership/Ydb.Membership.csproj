@@ -78,10 +78,12 @@
   <ItemGroup>
     <Compile Include="Application\DZMembershipService.cs" />
     <Compile Include="Application\IDZMembershipService.cs" />
-    <Compile Include="Infrastructure\InstallerMembershipForTest.cs" />
+    <Compile Include="DomainModel\Service\IDZMembershipDomainService.cs" />
+    <Compile Include="DomainModel\Service\DZMembershipDomainService.cs" />
+    <Compile Include="Infrastructure\InstallerMembershipDB.cs" />
     <Compile Include="Infrastructure\InstallerMembership.cs" />
     <Compile Include="DomainModel\DZMembership.cs" />
-    <Compile Include="DomainModel\DZMembershipProvider.cs" />
+    <Compile Include="Application\DZMembershipProvider.cs" />
     <Compile Include="DomainModel\DZMembershipSinaWeibo.cs" />
     <Compile Include="DomainModel\DZMembershipQQ.cs" />
     <Compile Include="DomainModel\DZMembershipWeChat.cs" />
