@@ -1,91 +1,52 @@
-﻿using System;
+﻿ 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web.Security;
-using System.Web.Util;
-
-using System.Net.Mail;
-using System.Net.Configuration;
-using System.Configuration;
-using System.Net;
-
-using System.Runtime.Remoting.Contexts;
-
-
+ 
+using Ydb.Common.Domain;
 using Ydb.Common.Specification;
 using Ydb.Membership.DomainModel.Enums;
-using Castle.Windsor;
 using Ydb.Membership.DomainModel.Repository;
 namespace Ydb.Membership.DomainModel
 {
     /// <summary>
-    /// ddd:applicationservice
-    /// todo: 使用 aspnet identity 替代 membershipprovider
+    /// 基本的用户类.
     /// </summary>
-    public class DZMembershipProvider : MembershipProvider
+    public class DZMembershipDomainService:IDZMembershipDomainService
     {
-       
-        public DZMembershipProvider() {
-           
-            var containerAccessor = System.Web.HttpContext.Current.ApplicationInstance as IContainerAccessor;
-            var container = containerAccessor.Container;
-            this.repositoryDZMembership = container.Resolve<IRepositoryDZMembership>();
-            this.encryptService = container.Resolve<IEncryptService>();
-            this.emailService = container.Resolve<IEmailService>();
-            this.repositoryUserToken = container.Resolve<IRepositoryUserToken>();
-            this.loginNameDetermine = container.Resolve<ILoginNameDetermine>();
-
-        }
-        public DZMembershipProvider(IRepositoryDZMembership repositoryDZMembership,
+        IRepositoryDZMembership repositoryDZMembership;
+        IRepositoryUserToken repositoryUserToken;
+        IEmailService emailService;
+        IEncryptService encryptService;
+        ILoginNameDetermine loginNameDetermine;
+        public DZMembershipDomainService(IRepositoryDZMembership repositoryDZMembership, IEmailService emailService,
         IEncryptService encryptService,
-        IEmailService emailService,
-        ILoginNameDetermine loginNameDetermine,
-        IRepositoryUserToken repositoryUserToken)
+            IRepositoryUserToken repositoryUserToken, ILoginNameDetermine loginNameDetermine)
         {
+            this.emailService = emailService;
+            this.encryptService = encryptService;
             this.repositoryDZMembership = repositoryDZMembership;
-            this.encryptService = encryptService;
             this.repositoryUserToken = repositoryUserToken;
-            this.encryptService = encryptService;
             this.loginNameDetermine = loginNameDetermine;
         }
-        IRepositoryDZMembership repositoryDZMembership = null;
-        IEncryptService encryptService;
-        IEmailService emailService;
-        ILoginNameDetermine loginNameDetermine;
-        IRepositoryUserToken repositoryUserToken;
-        
-
-        #region override of membership provider
-        public override string ApplicationName
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public override bool ChangePassword(string username, string oldPassword, string newPassword)
+        public   bool ChangePassword(string username, string oldPassword, string newPassword)
         {
 
             if (!this.ValidateUser(username, oldPassword))
             {
                 throw new Exception("原密码有误,请核实后重新输入");
             }
-            if (newPassword.Length < this.MinRequiredPasswordLength)
+            if (newPassword.Length <6)
             {
 
-                throw new ArgumentException("密码长度至少" + this.MinRequiredPasswordLength + "位");
+                throw new ArgumentException("密码长度至少6位");
             }
 
             DZMembership member = repositoryDZMembership.GetMemberByName(username);
             string oldPasswordEncrypted = encryptService.Encrypt(oldPassword, false);
             string newPasswordEncrypted = encryptService.Encrypt(newPassword, false);
-            member.ChangePassword(oldPasswordEncrypted,newPassword, newPasswordEncrypted);
+            member.ChangePassword(oldPasswordEncrypted, newPassword, newPasswordEncrypted);
             repositoryDZMembership.Update(member);
 
             System.Runtime.Caching.MemoryCache.Default.Remove(member.Id.ToString());
@@ -96,12 +57,9 @@ namespace Ydb.Membership.DomainModel
             return true;
         }
 
-        public override bool ChangePasswordQuestionAndAnswer(string username, string password, string newPasswordQuestion, string newPasswordAnswer)
-        {
-            throw new NotImplementedException();
-        }
+      
 
-        public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
+        public   DZMembership CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey)
         {
             DZMembership user = new DZMembership
             {
@@ -110,134 +68,27 @@ namespace Ydb.Membership.DomainModel
                 TimeCreated = DateTime.Now
             };
             repositoryDZMembership.CreateUser(user);
-            MembershipUser mu = new MembershipUser("DZMembershipProvider",
-                 username, user.Id, "", "", string.Empty,
-                 true, true, DateTime.Now,
-                 DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);
-            status = MembershipCreateStatus.Success;
-            return mu;
+            
+            return user;
         }
 
-        public override bool DeleteUser(string username, bool deleteAllRelatedData)
-        {
-            throw new NotImplementedException();
-        }
+       
 
-        public override bool EnablePasswordReset
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public override bool EnablePasswordRetrieval
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize, out int totalRecords)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize, out int totalRecords)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords)
-        {
-
-            throw new NotImplementedException("请调用IList<DZMembership>  DZMembershipProvider.GetALLUsers");
-        }
-
-        public override int GetNumberOfUsersOnline()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string GetPassword(string username, string answer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override MembershipUser GetUser(string username, bool userIsOnline)
+        public   DZMembership GetUser(string username, bool userIsOnline)
         {
 
             DZMembership user = repositoryDZMembership.GetMemberByName(username);
             if (user == null) return null;
-            MembershipUser mu = new MembershipUser("DZMembershipProvider",
-                 username, user.Id, "", "", string.Empty,
-                 true, true, DateTime.Now,
-                 DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);
-            return mu;
+             
+            return user;
 
         }
 
-        public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
-        {
-            throw new NotImplementedException();
-        }
+       
 
-        public override string GetUserNameByEmail(string email)
-        {
-            throw new NotImplementedException();
-        }
+       
 
-        public override int MaxInvalidPasswordAttempts
-        {
-            get { return 10; }
-        }
-
-        public override int MinRequiredNonAlphanumericCharacters
-        {
-            get { return 0; }
-        }
-
-        public override int MinRequiredPasswordLength
-        {
-            get { return 6; }
-        }
-
-        public override int PasswordAttemptWindow
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public override MembershipPasswordFormat PasswordFormat
-        {
-            get { return MembershipPasswordFormat.Encrypted; }
-        }
-
-        public override string PasswordStrengthRegularExpression
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public override bool RequiresQuestionAndAnswer
-        {
-            get { return false; }
-        }
-
-        public override bool RequiresUniqueEmail
-        {
-            get { return true; }
-        }
-
-        public override string ResetPassword(string username, string answer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool UnlockUser(string userName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void UpdateUser(MembershipUser user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool ValidateUser(string username, string password)
+        public   bool ValidateUser(string username, string password)
         {
 
             string encryptedPwd = encryptService.GetMD5Hash(password);
@@ -245,7 +96,8 @@ namespace Ydb.Membership.DomainModel
             DZMembership member = repositoryDZMembership.ValidateUser(username, encryptedPwd);
 
             if (member == null) { return false; }
-            else {
+            else
+            {
                 member.LoginTimes += 1;
                 repositoryDZMembership.Update(member);
                 return true;
@@ -253,10 +105,17 @@ namespace Ydb.Membership.DomainModel
 
         }
 
-        public bool ValidateUser(string username, string password,out string errorMsg)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="requireUserType">该用户应该的登录类型</param>
+        /// <returns></returns>
+        public bool ValidateUser(string username, string password, UserType requireUserType,out string errMsg )
         {
             bool valid = false;
-            errorMsg = string.Empty;
+            errMsg = string.Empty;
 
             string encryptedPwd = encryptService.GetMD5Hash(password);
 
@@ -264,11 +123,11 @@ namespace Ydb.Membership.DomainModel
 
             if (member == null)
             {
-                errorMsg = "用户名或密码有误";
+                errMsg = "用户名或密码有误";
             }
-            else if(member.UserType!=  UserType.business)
+            else if (member.UserType !=requireUserType)
             {
-                errorMsg = "该用户不是商户";
+                errMsg = "用户类型有误";
             }
             else
             {
@@ -279,7 +138,7 @@ namespace Ydb.Membership.DomainModel
 
             return valid;
         }
-        #endregion
+ 
 
         #region additional method for user
 
@@ -288,17 +147,18 @@ namespace Ydb.Membership.DomainModel
 
             errMsg = string.Empty;
             LoginNameType loginNameType = loginNameDetermine.Determin(loginName);
-            string userName= loginName,
+            string userName = loginName,
                     nickName = loginName,
-                    email=string.Empty, 
-                    phone=string.Empty;
+                    email = string.Empty,
+                    phone = string.Empty;
             Guid registerValidateCode = Guid.Empty;
             switch (loginNameType)
             {
-                case LoginNameType.Email:  email = loginName;
+                case LoginNameType.Email:
+                    email = loginName;
                     registerValidateCode = Guid.NewGuid();
                     break;
-                case LoginNameType.PhoneNumber:  phone = loginName; break;
+                case LoginNameType.PhoneNumber: phone = loginName; break;
             }
             var existedUser = GetUserByName(loginName);
             if (existedUser != null)
@@ -311,11 +171,11 @@ namespace Ydb.Membership.DomainModel
             {
                 UserName = userName,
                 Password = password_cred,
-                Email =email,
+                Email = email,
                 Phone = phone,
                 NickName = nickName,
                 PlainPassword = password,
-                
+
                 UserType = userType,
                 LoginType = LoginType.original
             };
@@ -325,66 +185,9 @@ namespace Ydb.Membership.DomainModel
             }
 
             repositoryDZMembership.Add(newMember);
-           
+
             return newMember.Id;
 
-        }
-        public DZMembership CreateUser(string userName, string userPhone, string userEmail, string password, out MembershipCreateStatus createStatus, UserType userType)
-        {
-            createStatus = MembershipCreateStatus.ProviderError;
-            var savedUserName = !string.IsNullOrEmpty(userName) ? userName : string.IsNullOrEmpty(userPhone) ? userEmail : userPhone;
-            string userNameForOpenfire = savedUserName;
-
-            Guid validateCode = Guid.Empty;
-            if (System.Text.RegularExpressions.Regex.IsMatch(savedUserName, @".+@.+\..+"))
-            {
-                if (string.IsNullOrEmpty(userEmail))
-                {
-                    userEmail = savedUserName;
-
-                }
-
-                userNameForOpenfire = savedUserName.Replace("@", "||");
-                validateCode = Guid.NewGuid();
-            }
-            else
-            {
-                if (string.IsNullOrEmpty(userPhone))
-                {
-                    userPhone = savedUserName;
-                }
-            }
-
-            var user = GetUserByName(savedUserName);
-            if (user != null)
-            {
-                createStatus = MembershipCreateStatus.DuplicateUserName;
-                return null;
-            }
-            else
-            {
-                var password_cred = encryptService.GetMD5Hash(password).ToUpper();
-                DZMembership newMember = new DZMembership
-                {
-                    UserName = savedUserName,
-                    Password = password_cred,
-                    Email = userEmail,
-                    Phone = userPhone,
-                    NickName = savedUserName,
-                    PlainPassword = password,
-                    UserNameForOpenFire = userNameForOpenfire,
-                    UserType = userType,
-                    LoginType = LoginType.original
-                };
-                if (validateCode != Guid.Empty)
-                {
-                    newMember.RegisterValidateCode = validateCode.ToString();
-                }
-
-                repositoryDZMembership.Add(newMember);
-                createStatus = MembershipCreateStatus.Success;
-                return newMember;
-            }
         }
         public void CreateUserForU3rd(DZMembership member)
         {
@@ -446,13 +249,13 @@ namespace Ydb.Membership.DomainModel
         /// <param name="platform"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        public IList<DZMembership> GetUsers( TraitFilter filter, string name, string email, string phone, string platform,string userType)
+        public IList<DZMembership> GetUsers(TraitFilter filter, string name, string email, string phone, string platform, string userType)
         {
             var where = PredicateBuilder.True<DZMembership>();
-            where = where.And(x => x.UserType == ( UserType)Enum.Parse(typeof( UserType), userType));
+            where = where.And(x => x.UserType == (UserType)Enum.Parse(typeof(UserType), userType));
             if (!string.IsNullOrEmpty(name))
             {
-                where = where.And(x => x.DisplayName .Contains(name));
+                where = where.And(x => x.DisplayName.Contains(name));
             }
             if (!string.IsNullOrEmpty(email))
             {
@@ -495,7 +298,7 @@ namespace Ydb.Membership.DomainModel
         public long GetUsersCount(string name, string email, string phone, string platform, string userType)
         {
             var where = PredicateBuilder.True<DZMembership>();
-            where = where.And(x => x.UserType == ( UserType)Enum.Parse(typeof( UserType), userType));
+            where = where.And(x => x.UserType == (UserType)Enum.Parse(typeof(UserType), userType));
             if (!string.IsNullOrEmpty(name))
             {
                 where = where.And(x => x.DisplayName.Contains(name));
@@ -537,7 +340,7 @@ namespace Ydb.Membership.DomainModel
             {
                 sendSuccess = false;
                 PHSuit.ExceptionLoger.ExceptionLog(log, ex);
-                
+
             }
             return sendSuccess;
             //SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
@@ -580,6 +383,4 @@ namespace Ydb.Membership.DomainModel
         }
 
     }
-
-    
 }

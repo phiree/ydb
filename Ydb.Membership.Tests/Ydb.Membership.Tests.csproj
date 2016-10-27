@@ -94,7 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\DZMembershipServiceTests.cs" />
-    <Compile Include="Application\InstallerMembership.cs" />
+    <Compile Include="Application\InstallerMembershipTestDB.cs" />
     <Compile Include="Bootstraper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
