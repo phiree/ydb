@@ -406,6 +406,14 @@
       <Project>{d50a26ff-02c6-4c16-ba94-4cd7d43efbb3}</Project>
       <Name>Swashbuckle.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
+      <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
+      <Name>Ydb.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
+      <Project>{a141eb7d-6e71-43c1-9ca7-12af1b74c1c7}</Project>
+      <Name>Ydb.InstantMessage</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
