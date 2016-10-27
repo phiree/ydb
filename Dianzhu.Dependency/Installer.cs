@@ -45,13 +45,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<BLLServiceOpenTime>());
             container.Register(Component.For<BLLServiceOpenTimeForDay>());
             container.Register(Component.For<BLLServiceType>());
-
-
-            container.Register(Component.For<BLLReceptionChat>());
-
-            container.Register(Component.For<BLLReceptionStatus>());
-            container.Register(Component.For<BLLReceptionStatusArchieve>());
-
+            
 
             container.Register(Component.For<BLLServiceOrderAppraise>());
 
@@ -141,10 +135,6 @@ namespace Dianzhu.DependencyInstaller
             //rrrrrrrrrrrrrr
             container.Register(Component.For<IRepository<Refund, Guid>, IDALRefund>().ImplementedBy<DALRefund>());
             container.Register(Component.For<IRepository<RefundLog, Guid>, IDALRefundLog>().ImplementedBy<DALRefundLog>());
-            container.Register(Component.For<IRepository<Model.ReceptionStatusArchieve, Guid>, IDALReceptionStatusArchieve>().ImplementedBy<DALReceptionStatusArchieve>());
-            container.Register(Component.For<IRepository<Model.ReceptionStatus, Guid>, IDALReceptionStatus>().ImplementedBy<DALReceptionStatus>());
-            container.Register(Component.For<IRepository<Model.ReceptionChat, Guid>, IDALReceptionChat>().ImplementedBy<DALReceptionChat>());
-
 
 
             //ssssssssss
@@ -183,8 +173,6 @@ namespace Dianzhu.DependencyInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IAssignStratage>().ImplementedBy<BLL.AssignStratageRandom>());
-
             //finance
             container.Register(Component.For<IBLLSharePoint>().ImplementedBy<BLLSharePoint>());
             container.Register(Component.For<IBLLServiceTypePoint>().ImplementedBy<BLLServiceTypePoint>());
@@ -194,15 +182,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<Dianzhu.BLL.Agent.IAgentService>().ImplementedBy<Dianzhu.BLL.Agent.AgentService>());
 
             container.Register(Component.For<IBLLMembershipLoginLog>().ImplementedBy<BLLMembershipLoginLog>());
-            container.Register(Component.For<IIMSession>().ImplementedBy<IMSessionsDB>());
-            container.Register(Component.For<IIMSession>().ImplementedBy<IMSessionsOpenfire>()
-                                .DependsOn(Dependency.OnValue("restApiUrl", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiBaseUrl")))
-                                .DependsOn(Dependency.OnValue("restApiSecretKey", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey")))
-                );
-
-            container.Register(Component.For<BLL.ReceptionAssigner>().Named("OpenFireRestAssigner").DependsOn(Dependency.OnComponent<IIMSession, IMSessionsOpenfire>()));
-            container.Register(Component.For<BLLPush>().DependsOn(Dependency.OnComponent<IIMSession, IMSessionsOpenfire>()));
-
+            
             container.Register(Component.For<IBLLServiceOrder>().ImplementedBy<BLLServiceOrder>()
                                .DependsOn(Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>())))
                                .DependsOn(Dependency.OnValue("bllPayment", new BLLPayment(container.Resolve<IDALPayment>(), container.Resolve<IDALClaims>())))
@@ -234,20 +214,8 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<CSClient.LocalStorage.LocalChatManager>().ImplementedBy<CSClient.LocalStorage.ChatManagerInMemory>());
             container.Register(Component.For<CSClient.LocalStorage.LocalHistoryOrderManager>().ImplementedBy<CSClient.LocalStorage.HistoryChatManagerInMemory>());
             container.Register(Component.For<CSClient.LocalStorage.LocalUIDataManager>().ImplementedBy<CSClient.LocalStorage.UIDataManagerInMemory>());
-            //iadapter
-            container.Register(Component.For<CSClient.IMessageAdapter.IAdapter>().ImplementedBy<CSClient.MessageAdapter.MessageAdapter>());
 
-            //instantmessage
-            string server = Config.Config.GetAppSetting("ImServer");
-            string domain = Config.Config.GetAppSetting("ImDomain");
-            container.Register(Component.For<CSClient.IInstantMessage.InstantMessage>().ImplementedBy<Dianzhu.CSClient.XMPP.XMPP>()
-                                .DependsOn(
-
-                                  Dependency.OnValue("server", server)
-                                , Dependency.OnValue("domain", domain)
-                                , Dependency.OnValue("resourceName", Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString())
-                                )
-                            );
+            
             container.Register(Component.For<Dianzhu.BLL.IEmailService>().ImplementedBy<JSYK.Infrastructure.EmailService>());
             container.Register(Component.For<Dianzhu.BLL.IEncryptService>().ImplementedBy<JSYK.Infrastructure.EncryptService>());
             container.Register(Component.For<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>().ImplementedBy<JSYK.Infrastructure.SerialNo.SerialNoDb>());

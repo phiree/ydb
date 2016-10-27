@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using Ydb.Common.Specification;
 
 namespace Dianzhu.Model
 {
@@ -56,5 +57,23 @@ namespace Dianzhu.Model
         /// </summary>
         /// <type>string</type>
         public string ids { get; set; }
+
+        public TraitFilter filter2
+        {
+            get
+            {
+                return new TraitFilter()
+                {
+                    pageSize = this.pageSize,
+                    pageNum = this.pageNum,
+                    offset = this.offset,
+                    ascending = this.ascending,
+                    sortby = this.sortby,
+                    baseID = this.baseID,
+                    userID = this.userID,
+                    ids = this.ids
+                };
+            }
+        }
     }
 }

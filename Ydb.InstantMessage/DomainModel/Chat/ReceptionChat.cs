@@ -146,30 +146,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
 
         }
 
-    }    
-
-    /// <summary>
-    /// IM,通知,客服更换
-    /// </summary>
-    public class ReceptionChatReAssign : ReceptionChat
-    {
-        public ReceptionChatReAssign() { }
-        public ReceptionChatReAssign(string reAssignedCustomerServiceId, string csAlias, string csAvatar,
-            Guid id, string from, string to, string messageBody, string sessionId, XmppResource resourceFrom, XmppResource resourceTo)
-            : base(id, from, to, messageBody, sessionId, ChatType.Notice, resourceFrom, resourceTo)
-        {
-            this.ReAssignedCustomerServiceId = reAssignedCustomerServiceId;
-            this.CSAlias = csAlias;
-            this.CSAvatar = csAvatar;
-        }
-        /// <summary>
-        /// 重新分配的客服
-        /// </summary>
-        public virtual string ReAssignedCustomerServiceId { get; protected internal set; }
-        public virtual string CSAlias { get; protected internal set; }
-        public virtual string CSAvatar { get; protected internal set; }
     }
-
 
     /// <summary>
     /// IM,通知,促销通知.

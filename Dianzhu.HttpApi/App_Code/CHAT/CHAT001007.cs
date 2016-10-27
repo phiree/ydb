@@ -6,6 +6,8 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 using Dianzhu.Api.Model;
+using Ydb.InstantMessage.Application;
+using Ydb.InstantMessage.DomainModel.Chat;
 /// <summary>
 /// Summary description for CHAT001001
 /// </summary>
@@ -24,7 +26,7 @@ public class ResponseCHAT001007:BaseResponse
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
 
         IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
-        BLLReceptionChat bllReceptionChat = Bootstrap.Container.Resolve<BLLReceptionChat>();
+        IChatService bllReceptionChat = Bootstrap.Container.Resolve<IChatService>();
 
         string user_id = requestData.userID;
         string order_id = requestData.orderID;
@@ -110,18 +112,9 @@ public class ResponseCHAT001007:BaseResponse
             return;
         }
 
-        ReceptionChat targetChat = bllReceptionChat.GetOne(targetId);
-        if (targetChat == null)
-        {
-            this.state_CODE = Dicts.StateCode[1];
-            this.err_Msg = "TargetId不存在";
-            return;
-
-        }
-
         try
         {
-            IList<ReceptionChat> chatList = bllReceptionChat.GetReceptionChatListByTargetIdAndSize(userId, Guid.Empty, orderId, DateTime.MinValue, DateTime.MaxValue, pageSize, targetChat.SavedTimestamp, requestData.low, chatTarget);
+            IList<ReceptionChatDto> chatList = bllReceptionChat.GetReceptionChatListByTargetId(userId, pageSize, targetId, requestData.low);
 
             RespDataCHAT001007 respData = new RespDataCHAT001007();
             respData.AdapList(chatList);

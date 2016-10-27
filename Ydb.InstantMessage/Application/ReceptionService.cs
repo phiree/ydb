@@ -54,6 +54,15 @@ namespace Ydb.InstantMessage.Application
         }
 
         [Ydb.Common.Repository.UnitOfWork]
+        public void UpdateOrderId(string customerId, string csId, string newOrderId)
+        {
+            ReceptionStatus reception = receptionRepository.FindOne(x=>x.CustomerId==customerId&&x.CustomerServiceId==csId);
+            reception.OrderId = newOrderId;
+            reception.LastUpdateTime = DateTime.Now;
+            receptionRepository.Update(reception);
+        }
+
+        [Ydb.Common.Repository.UnitOfWork]
         public void DeleteReception(string customerId)
         {
             IList< ReceptionStatus> rsList = receptionRepository.FindByCustomerId(customerId);

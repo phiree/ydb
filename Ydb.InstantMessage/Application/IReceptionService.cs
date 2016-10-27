@@ -20,6 +20,13 @@ namespace Ydb.InstantMessage.Application
         void UpdateOrderId(Guid Id, string newOrderId);
 
         /// <summary>
+        /// 通过客户id与客服id更新orderId
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="csId"></param>
+        void UpdateOrderId(string customerId, string csId, string newOrderId);
+
+        /// <summary>
         /// 用户超时未回复，删除分配关系，并给该用户发送客服离线通知
         /// </summary>
         /// <param name="customerId"></param>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ydb.Common.Specification;
 using Ydb.InstantMessage.DomainModel.Chat;
 namespace Ydb.InstantMessage.Application
 {
@@ -12,11 +13,20 @@ namespace Ydb.InstantMessage.Application
    public  interface IChatService
     {
         /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="chat"></param>
+        void Add(ReceptionChat chat);
+
+        /// <summary>
         /// 根据订单获取聊天记录列表
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
         IList<ReceptionChatDto> GetChatByOrder(string orderId);
+
+        IList<ReceptionChatDto> GetReceptionChatList(Guid fromId, Guid toId, Guid orderId, DateTime timeBegin, DateTime timeEnd,
+            int pageIndex, int pageSize, string target, out int rowCount);
 
 
         /// <summary>
@@ -43,5 +53,42 @@ namespace Ydb.InstantMessage.Application
         /// <param name="low"></param>
         /// <returns></returns>
         IList<ReceptionChatDto> GetReceptionChatListByTargetId(Guid customerId, int pageSize, Guid targetChatId, string low);
+
+        /// <summary>
+        /// 条件读取聊天记录
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="type"></param>
+        /// <param name="fromTarget"></param>
+        /// <param name="orderID"></param>
+        /// <param name="userID"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        IList<ReceptionChatDto> GetChats(TraitFilter filter, string type, string fromTarget, Guid orderID, Guid userID, string userType);
+
+        /// <summary>
+        /// 统计聊天信息的数量
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="fromTarget"></param>
+        /// <param name="orderID"></param>
+        /// <param name="userID"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        long GetChatsCount(string type, string fromTarget, Guid orderID, Guid userID, string userType);
+
+        /// <summary>
+        /// 条件读取未读聊天记录
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        IList<ReceptionChatDto> GetUnreadChatsAndSetReaded(Guid userID);
+
+        /// <summary>
+        /// 统计未读聊天信息的数量
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        long GetUnreadChatsCount(Guid userID);
     }
 }

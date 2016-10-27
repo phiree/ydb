@@ -23,7 +23,6 @@ namespace Dianzhu.CSClient.Presenter
     public class PChatList
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PChatList");
-        IDAL.IDALReceptionChat dalReceptionChat;
         IViewChatList viewChatList;
         IViewChatSend viewChatSend;
         IViewIdentityList viewIdentityList;
@@ -33,13 +32,12 @@ namespace Dianzhu.CSClient.Presenter
         IChatService chatService;
 
 
-        public PChatList(IViewChatList viewChatList,IViewChatSend viewChatSend, IViewIdentityList viewCustomerList,IDAL.IDALReceptionChat dalReceptionChat, IInstantMessage iIM,
+        public PChatList(IViewChatList viewChatList,IViewChatSend viewChatSend, IViewIdentityList viewCustomerList, IInstantMessage iIM,
             Dianzhu.CSClient.LocalStorage.LocalChatManager chatManager, VMAdapter.IVMChatAdapter vmChatAdapter,IChatService chatService)
         {
             this.chatManager = chatManager;
             this.viewChatList = viewChatList;
             this.viewChatSend = viewChatSend;
-            this.dalReceptionChat = dalReceptionChat;
             this.iIM = iIM;
             this.viewIdentityList = viewCustomerList;
             this.vmChatAdapter = vmChatAdapter;
@@ -48,8 +46,6 @@ namespace Dianzhu.CSClient.Presenter
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
             viewChatList.CurrentCustomerServiceId = GlobalViables.CurrentCustomerService.Id;
             viewChatList.BtnMoreChat += ViewChatList_BtnMoreChat;
-
-            
         }
 
         private void ViewChatList_BtnMoreChat()

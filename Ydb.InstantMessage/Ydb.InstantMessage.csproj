@@ -113,9 +113,11 @@
     <Compile Include="DomainModel\Chat\Enums\ChatType.cs" />
     <Compile Include="DomainModel\Chat\IMessageAdapter.cs" />
     <Compile Include="Application\IInstantMessage.cs" />
-    <Compile Include="DomainModel\Chat\IRepositoryChat.cs" />
+    <Compile Include="DomainModel\Chat\Service\IRepositoryChat.cs" />
     <Compile Include="DomainModel\Chat\MessageAdapter.cs" />
     <Compile Include="DomainModel\Chat\MessageBuilder.cs" />
+    <Compile Include="DomainModel\Chat\ReceptionChatReAssignDto.cs" />
+    <Compile Include="DomainModel\Chat\ReceptionChatReAssign.cs" />
     <Compile Include="DomainModel\Chat\ReceptionChat.cs" />
     <Compile Include="DomainModel\Chat\ReceptionChatNoticeCustomerServiceOffline.cs" />
     <Compile Include="DomainModel\Chat\ReceptionChatNoticeOrder.cs" />
@@ -144,7 +146,10 @@
     <Compile Include="Infrastructure\OpenfireXMPP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DomainModel\Chat\Dto\" />
+    <Folder Include="DomainModel\Chat\Model\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="UL.txt" />
   </ItemGroup>

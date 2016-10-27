@@ -26,12 +26,10 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<CSClient.Presenter.PTabControl>());
             container.Register(Component.For<CSClient.Presenter.POrderHistory>());
  
-            container.Register(Component.For<CSClient.Presenter.PSearch>().DependsOn(
-               
-                Dependency.OnValue("bllPushService", new PushService(container.Resolve<IDALServiceOrderPushedService>(), container.Resolve<IBLLServiceOrder>(),new BLLPayment(container.Resolve<IDALPayment>(),container.Resolve<IDALClaims>()),new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>()))),
- 
-                Dependency.OnValue("bllReceptionStatus", container.Resolve<BLLReceptionStatus>())
-
+            container.Register(Component.For<CSClient.Presenter.PSearch>().DependsOn(               
+                Dependency.OnValue("bllPushService", new PushService(container.Resolve<IDALServiceOrderPushedService>(), 
+                container.Resolve<IBLLServiceOrder>(),new BLLPayment(container.Resolve<IDALPayment>(),
+                container.Resolve<IDALClaims>()),new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>())))
                 ));
 
             container.Register(Component.For<IView.IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());

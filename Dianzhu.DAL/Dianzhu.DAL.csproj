@@ -110,8 +110,6 @@
     <Compile Include="Finance\DALSharePoint.cs" />
     <Compile Include="IdentityAccess\DALMembership.cs" />
     <Compile Include="DALPaylog.cs" />
-    <Compile Include="DALReceptionChat.cs" />
-    <Compile Include="DALReceptionStatusArchieve.cs" />
     <Compile Include="DALOrderAssignment.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderStateChangeHis.cs" />
     <Compile Include="IdentityAccess\DALRoleMember.cs" />
@@ -156,9 +154,7 @@
     <Compile Include="Mapping\CashTicketAssignRecord.cs" />
     <Compile Include="Mapping\DeviceBindMap.cs" />
     <Compile Include="Mapping\DZTagMap.cs" />
-    <Compile Include="Mapping\ReceptionChat\ReceptionMap.cs" />
     <Compile Include="Mapping\ServiceOpenTimeMap.cs" />
-    <Compile Include="Mapping\ReceptionStatusMap.cs" />
     <Compile Include="NHCustomDialect.cs" />
     <Compile Include="NHRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -169,7 +165,6 @@
     <Compile Include="DALBusinessImage.cs" />
     <Compile Include="DALDeviceBind.cs" />
     <Compile Include="ServiceOrder\DALServiceOrder.cs" />
-    <Compile Include="DALReceptionStatus.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderPushedService.cs" />
     <Compile Include="StorageManager\DALStorageFileInfo.cs" />
     <Compile Include="UnitOfWork\GenericTransaction.cs" />

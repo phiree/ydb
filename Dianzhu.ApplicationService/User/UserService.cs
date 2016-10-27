@@ -9,7 +9,10 @@ using System.Configuration;
 using AutoMapper;
 using DDDCommon;
 using System.Text.RegularExpressions;
-
+using Ydb.Common.Specification;
+using Ydb.InstantMessage.Application;
+using Ydb.InstantMessage.Application.Dto;
+using Ydb.InstantMessage.DomainModel.Chat;
 
 namespace Dianzhu.ApplicationService.User
 {
@@ -18,15 +21,15 @@ namespace Dianzhu.ApplicationService.User
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.UserService");
         DZMembershipProvider dzmsp;
         BLL.Client.BLLUserToken bllUserToken;
-        ReceptionAssigner ra;
-        BLLReceptionStatus bllReceptionStatus;
+        ReceptionChatReAssignDto ra;
+        IReceptionService receptionService;
         IBLLServiceOrder bllServiceOrder;
-        public UserService(DZMembershipProvider dzmsp, BLL.Client.BLLUserToken bllUserToken, ReceptionAssigner ra, BLLReceptionStatus bllReceptionStatus, IBLLServiceOrder bllServiceOrder)
+        public UserService(DZMembershipProvider dzmsp, BLL.Client.BLLUserToken bllUserToken, ReceptionChatReAssignDto ra, IReceptionService receptionService, IBLLServiceOrder bllServiceOrder)
         {
             this.dzmsp = dzmsp;
             this.bllUserToken = bllUserToken;
             this.ra = ra;
-            this.bllReceptionStatus = bllReceptionStatus;
+            this.receptionService = receptionService;
             this.bllServiceOrder = bllServiceOrder;
         }
 
@@ -71,7 +74,7 @@ namespace Dianzhu.ApplicationService.User
         public IList<customerObj> GetUsers(common_Trait_Filtering filter,common_Trait_UserFiltering userFilter, string userType)
         {
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "DZMembership");
-            IList<Dianzhu.Model.DZMembership> dzm = dzmsp.GetUsers(filter1, userFilter.alias, userFilter.email, userFilter.phone, userFilter.platform, userType);
+            IList<Dianzhu.Model.DZMembership> dzm = dzmsp.GetUsers(filter1.filter2, userFilter.alias, userFilter.email, userFilter.phone, userFilter.platform, userType);
             if (dzm == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
@@ -315,63 +318,34 @@ namespace Dianzhu.ApplicationService.User
             {
                 throw new Exception("该用户不存在");
             }
-            ilog.Debug("开始分配客服");
-            ServiceOrder orderToReturn = null;//分配的订单
-            ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(guidUserID);
-            Dictionary<DZMembership, DZMembership> assignedPair = new Dictionary<DZMembership, DZMembership>();
-            if (rs != null && rs.CustomerService.UserType == Model.Enums.enum_UserType.customerservice)
-            {
-                assignedPair.Add(rs.Customer, rs.CustomerService);
 
-                orderToReturn = rs.Order;
-            }
-            else if (rs != null && rs.CustomerService.UserType == Model.Enums.enum_UserType.diandian)
-            {
-                bllReceptionStatus.Delete(rs);
-                assignedPair = ra.AssignCustomerLogin(member);
-            }
-            else
-            {
-                assignedPair = ra.AssignCustomerLogin(member);
-            }
+            string errorMessage = string.Empty;
+            ReceptionStatusDto rs = receptionService.AssignCustomerLogin(customer.UserID, out errorMessage);
 
-            if (assignedPair.Count == 0)
-            {
-                throw new Exception("没有在线客服");
-                //this.state_CODE = Dicts.StateCode[4];
-                //this.err_Msg = "没有在线客服";
-                //return;
-            }
-            ilog.Debug("4");
-            if (assignedPair.Count > 1)
-            {
-                throw new Exception("返回了多个客服");
-                //this.state_CODE = Dicts.StateCode[4];
-                //this.err_Msg = "返回了多个客服";
-                //return;
-            }
-            ilog.Debug("5");
-           
+            DZMembership customerService = dzmsp.GetUserById(Guid.Parse(rs.CustomerServiceId));
+
+            ServiceOrder orderToReturn = bllServiceOrder.GetOne(Guid.Parse(rs.OrderId));
+
             if (orderToReturn == null)
             {
-                orderToReturn = bllServiceOrder.GetDraftOrder(member, assignedPair[member]);
+                orderToReturn = bllServiceOrder.GetDraftOrder(member, customerService);
             }
             ilog.Debug("7");
             if (orderToReturn == null)
             {
 
-                orderToReturn = ServiceOrderFactory.CreateDraft(assignedPair[member], member);
+                orderToReturn = ServiceOrderFactory.CreateDraft(customerService, member);
 
                 bllServiceOrder.Save(orderToReturn);
             }
             ilog.Debug("8");
             //更新 ReceptionStatus 中订单
-            bllReceptionStatus.UpdateOrder(member, assignedPair[member], orderToReturn);
+            receptionService.UpdateOrderId(rs.Id, orderToReturn.Id.ToString());
             ilog.Debug("9");
             applyCustomerServicesObj applycustomerservicesobj = new applyCustomerServicesObj();
-            applycustomerservicesobj.customerServicesObj.id = assignedPair[member].Id.ToString();
-            applycustomerservicesobj.customerServicesObj.imgUrl = string.IsNullOrEmpty(assignedPair[member].AvatarUrl)?string.Empty: Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + assignedPair[member].AvatarUrl;
-            applycustomerservicesobj.customerServicesObj.alias = assignedPair[member].DisplayName ?? string.Empty;
+            applycustomerservicesobj.customerServicesObj.id = rs.CustomerServiceId;
+            applycustomerservicesobj.customerServicesObj.imgUrl = string.IsNullOrEmpty(customerService.AvatarUrl)?string.Empty: Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + customerService.AvatarUrl;
+            applycustomerservicesobj.customerServicesObj.alias = customerService.DisplayName ?? string.Empty;
             applycustomerservicesobj.draftOrderID = orderToReturn.Id.ToString();
             return applycustomerservicesobj;
         }
