@@ -195,15 +195,7 @@ namespace Ydb.Membership.Application
             
 
         }
-
-    
-        public Guid CreateUser(string loginName, string password, UserType userType, out string errMsg)
-        {
-            return dzmembershipDomainService.CreateUser(loginName, password, userType, out errMsg);
-
-         
-
-        }
+ 
         
     }
 

@@ -8,6 +8,7 @@ using Ydb.Common.Domain;
 using Ydb.Common.Specification;
 using Ydb.Membership.DomainModel.Enums;
 using Ydb.Membership.DomainModel.Repository;
+using Ydb.Common.Infrastructure;
 namespace Ydb.Membership.DomainModel
 {
     /// <summary>
@@ -18,14 +19,14 @@ namespace Ydb.Membership.DomainModel
         IRepositoryDZMembership repositoryDZMembership;
         IRepositoryUserToken repositoryUserToken;
         IEmailService emailService;
-        IEncryptService encryptService;
+        
         ILoginNameDetermine loginNameDetermine;
         public DZMembershipDomainService(IRepositoryDZMembership repositoryDZMembership, IEmailService emailService,
-        IEncryptService encryptService,
+    
             IRepositoryUserToken repositoryUserToken, ILoginNameDetermine loginNameDetermine)
         {
             this.emailService = emailService;
-            this.encryptService = encryptService;
+           
             this.repositoryDZMembership = repositoryDZMembership;
             this.repositoryUserToken = repositoryUserToken;
             this.loginNameDetermine = loginNameDetermine;
@@ -44,8 +45,8 @@ namespace Ydb.Membership.DomainModel
             }
 
             DZMembership member = repositoryDZMembership.GetMemberByName(username);
-            string oldPasswordEncrypted = encryptService.Encrypt(oldPassword, false);
-            string newPasswordEncrypted = encryptService.Encrypt(newPassword, false);
+            string oldPasswordEncrypted =EncryptService.GetMD5Hash(oldPassword);
+            string newPasswordEncrypted = EncryptService.GetMD5Hash(newPassword);
             member.ChangePassword(oldPasswordEncrypted, newPassword, newPasswordEncrypted);
             repositoryDZMembership.Update(member);
 
@@ -57,23 +58,7 @@ namespace Ydb.Membership.DomainModel
             return true;
         }
 
-      
-
-        public   DZMembership CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey)
-        {
-            DZMembership user = new DZMembership
-            {
-                UserName = username,
-                Password = encryptService.GetMD5Hash(password),
-                TimeCreated = DateTime.Now
-            };
-            repositoryDZMembership.CreateUser(user);
-            
-            return user;
-        }
-
-       
-
+ 
         public   DZMembership GetUser(string username, bool userIsOnline)
         {
 
@@ -91,7 +76,7 @@ namespace Ydb.Membership.DomainModel
         public   bool ValidateUser(string username, string password)
         {
 
-            string encryptedPwd = encryptService.GetMD5Hash(password);
+            string encryptedPwd = EncryptService.GetMD5Hash(password);
 
             DZMembership member = repositoryDZMembership.ValidateUser(username, encryptedPwd);
 
@@ -117,7 +102,7 @@ namespace Ydb.Membership.DomainModel
             bool valid = false;
             errMsg = string.Empty;
 
-            string encryptedPwd = encryptService.GetMD5Hash(password);
+            string encryptedPwd = EncryptService.GetMD5Hash(password);
 
             DZMembership member = repositoryDZMembership.ValidateUser(username, encryptedPwd);
 
@@ -142,7 +127,7 @@ namespace Ydb.Membership.DomainModel
 
         #region additional method for user
 
-        public Guid CreateUser(string loginName, string password, UserType userType, out string errMsg)
+        public DZMembership CreateUser(string loginName, string password, UserType userType, out string errMsg)
         {
 
             errMsg = string.Empty;
@@ -164,9 +149,9 @@ namespace Ydb.Membership.DomainModel
             if (existedUser != null)
             {
                 errMsg = "用户已存在";
-                return Guid.Empty;
+                return existedUser;
             }
-            var password_cred = encryptService.GetMD5Hash(password).ToUpper();
+            var password_cred = EncryptService.GetMD5Hash(password).ToUpper();
             DZMembership newMember = new DZMembership
             {
                 UserName = userName,
@@ -186,7 +171,7 @@ namespace Ydb.Membership.DomainModel
 
             repositoryDZMembership.Add(newMember);
 
-            return newMember.Id;
+            return newMember;
 
         }
         public void CreateUserForU3rd(DZMembership member)

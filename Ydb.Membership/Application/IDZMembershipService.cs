@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.Membership.DomainModel;
+using Ydb.Membership.DomainModel.Enums;
 namespace Ydb.Membership.Application
 {
   public interface  IDZMembershipService
     {
-        bool RegisterBusinessUser(string registerName, string password, out string errMsg);
-        DZMembership GetUserByName(string userName);
+        Dto.RegisterResult RegisterBusinessUser(string registerName, string password,string confirmPassword );
+        Dto.MemberDto GetUserByName(string userName);
 
+        Dto.LoginResult  Login(string userName, string password,UserType userType);
 
 
 

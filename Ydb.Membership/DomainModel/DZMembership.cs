@@ -134,7 +134,31 @@ namespace Ydb.Membership.DomainModel
         /// 用户所属城市
         /// </summary>
         public virtual string UserCity { get; set; }
- 
- 
+        
+        public virtual string RegisterValidationContent {
+
+            get {
+                string body = string.Empty;
+                if (IsRegisterValidated)
+                {
+                      body = "您已经通过了邮件验证,无需重复验证";
+                }
+                else
+                { 
+
+                string verifyUrl = "http://" + System.Web.HttpContext.Current.Request.Url.Authority + "/verify.aspx"
+                                 +  "?userId=" + Id + "&verifyCode=" + RegisterValidateCode;
+
+                  body ="感谢您加入一点办.请点击下面的连接验证您的注册邮箱.</br>"
+                       + "<a style='border:solid 1px #999;margin:20px;padding:10px 40px; background-color:#eee' href='"
+                           + verifyUrl + "'>点击验证</a><br/><br/><br/>"
+                       + "如果你无法点击此链接,请将下面的网址粘贴到浏览器地址栏.<br/><br/><br/>"
+                       + verifyUrl;
+                }
+                return body;
+            }
+        }
+
+
     }
 }

@@ -29,20 +29,20 @@ namespace Ydb.Membership.Application.Tests
 
             string errMsg;
            
-            bool success = dzmembershipService.RegisterBusinessUser(userName, "123456", out errMsg);
-            Console.WriteLine(errMsg);
-            Assert.AreEqual(true, success);  // your test code here
-            DomainModel.DZMembership membership = dzmembershipService.GetUserByName(userName);
-            Assert.AreEqual(userName, membership.UserName);
+           Dto.RegisterResult registerResult= dzmembershipService.RegisterBusinessUser(userName,"123456", "123456");
+           
+            Assert.AreEqual(true, registerResult.RegisterSuccess);  // your test code here
+            Dto.MemberDto memberDto = dzmembershipService.GetUserByName(userName);
+            Assert.AreEqual(userName, memberDto.UserName);
 
 
         }
        
         [Test()]
-        public void zGetUserByNameTest()
+        public void  GetUserByNameTest()
         {
-            DomainModel.DZMembership membership = dzmembershipService.GetUserByName(userName);
-            Assert.AreEqual(userName, membership.UserName);
+            Dto.MemberDto memberDto = dzmembershipService.GetUserByName(userName);
+            Assert.AreEqual(userName, memberDto.UserName);
         }
     }
 }

@@ -76,6 +76,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Dto\MemberDto.cs" />
+    <Compile Include="Application\Dto\LoginResult.cs" />
+    <Compile Include="Application\Dto\RegisterResult.cs" />
     <Compile Include="Application\DZMembershipService.cs" />
     <Compile Include="Application\IDZMembershipService.cs" />
     <Compile Include="DomainModel\Service\IDZMembershipDomainService.cs" />
@@ -91,7 +94,6 @@
     <Compile Include="DomainModel\Enums\UserType.cs" />
     <Compile Include="DomainModel\Enums\LoginType.cs" />
     <Compile Include="DomainModel\IEmailService.cs" />
-    <Compile Include="DomainModel\IEncryptService.cs" />
     <Compile Include="DomainModel\LoginNameDetermine.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryUserToken.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryDZMembership.cs" />

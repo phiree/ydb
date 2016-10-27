@@ -18,9 +18,7 @@ namespace Ydb.Membership.DomainModel
       ;
 
 
-
-         DZMembership CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey)
-       ;
+ 
 
 
          DZMembership GetUser(string username, bool userIsOnline)
@@ -45,7 +43,7 @@ namespace Ydb.Membership.DomainModel
 
 
         
-         Guid CreateUser(string loginName, string password, UserType userType, out string errMsg)
+         DZMembership CreateUser(string loginName, string password, UserType userType, out string errMsg)
        ;
          void CreateUserForU3rd(DZMembership member)
         ;

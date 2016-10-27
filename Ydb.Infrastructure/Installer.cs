@@ -10,7 +10,7 @@ namespace Ydb.Infrastructure
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IEmailService>().ImplementedBy<EmailService>());
-            container.Register(Component.For<IEncryptService>().ImplementedBy<EncryptService>());
+           
         }
 
       
