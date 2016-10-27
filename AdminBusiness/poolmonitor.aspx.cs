@@ -6,15 +6,13 @@ using System.Reflection;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Ydb.Membership.Application;
-using Ydb.Membership.Application.Dto;
+ 
 public partial class poolmonitor : System.Web.UI.Page
 {
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.AdminBusiness.PoolMonitor");
     protected void Page_Load(object sender, EventArgs e)
     {
-        AccessToDb();
-        AccessToDb2();
+       
         string path = Server.MapPath("~/bin/MySql.Data.dll");
         Assembly ms = Assembly.LoadFrom(path);
         Type type = ms.GetType("MySql.Data.MySqlClient.MySqlPoolManager");
@@ -37,17 +35,5 @@ public partial class poolmonitor : System.Web.UI.Page
         
        
     }
-    IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
-    private void AccessToDb()
-    {
-        
-        memberService.GetUserByName("abcde");
-
-    }
-    private void AccessToDb2()
-    {
-       
-        memberService.RegisterBusinessUser("abcde","abcdefg","abcdefg");
-
-    }
+    
 }
