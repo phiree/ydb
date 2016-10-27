@@ -8,13 +8,10 @@ using System.Web.Security;
 using Newtonsoft.Json;
 using Dianzhu.BLL;
 using Dianzhu.RequestRestful;
-using Ydb.Membership.Application;
-using Ydb.Membership.Application.Dto;
+
 public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
 {
-   // DZMembershipProvider bllMembership = Bootstrap.Container.Resolve<DZMembershipProvider>();
-
-       IDZMembershipService membershipService = Bootstrap.Container.Resolve<IDZMembershipService>();
+    DZMembershipProvider bllMembership = Bootstrap.Container.Resolve<DZMembershipProvider>();
     protected void Page_Load(object sender, EventArgs e)
     {
         //PHSuit.Logging.GetLog(Dianzhu.Config.Config.GetAppSetting("LoggerName")).Debug("login page");
@@ -38,9 +35,9 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
         }
 
 
-       
-       LoginResult loginResult= membershipService.Login(tbxUserName.Text, tbxPassword.Text, Ydb.Membership.DomainModel.Enums.UserType.business);
-        if (loginResult.LoginSuccess)
+        string errorMsg;
+        bool isValid = bllMembership.ValidateUser(tbxUserName.Text, tbxPassword.Text,out errorMsg);
+        if (isValid)
         {
             bool rememberMe = savePass.Checked;
             RequestResponse res = ReqResponse(tbxUserName.Text, tbxPassword.Text);
@@ -84,7 +81,7 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
             CookieErrorTime.Value = (int.Parse( CookieErrorTime.Value ) + 1).ToString();
             Response.Cookies.Add(CookieErrorTime);
 
-            lblMsg.Text = loginResult.LoginErrMsg;
+            lblMsg.Text = errorMsg;
             lblMsg.CssClass = "lblMsg lblMsgShow";
 
             // PHSuit.Notification.Show(Page,"","登录失败",Request.RawUrl);
@@ -101,6 +98,8 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
         rp = SetCommon.SetParams("ABc907a34381Cd436eBfed1F90ac8f823b", "2bdKTgh9SiNlGnSajt4E6c4w1ZoZJfb9ATKrzCZ1a3A=", rp);
         IRequestRestful req = new RequestRestful();
         RequestResponse res = req.RequestRestfulApi(rp);
+
+       
         return res;
         
 
