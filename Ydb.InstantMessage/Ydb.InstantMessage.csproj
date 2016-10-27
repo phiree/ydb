@@ -137,6 +137,7 @@
     <Compile Include="DomainModel\Reception\ReceptionAssigner.cs" />
     <Compile Include="DomainModel\Reception\ReceptionStatus.cs" />
     <Compile Include="DomainModel\XmppResource.cs" />
+    <Compile Include="Infrastructure\InstallerDB.cs" />
     <Compile Include="Infrastructure\Installer.cs" />
     <Compile Include="Infrastructure\ReceptionSessionOpenfireRestapi.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\ChatRepository.cs" />

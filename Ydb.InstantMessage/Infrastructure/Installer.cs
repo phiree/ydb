@@ -45,20 +45,7 @@ namespace Ydb.InstantMessage.Infrastructure
         }
         private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
         {
-            //Database
-            var _sessionFactory = Fluently.Configure()
-                       .Database(
-                            MySQLConfiguration
-                           .Standard
-                           .ConnectionString("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test")
-                     )
-                   .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping.ReceptionStatusMap>())
-                   .ExposeConfiguration(BuildSchema)
-                   .BuildSessionFactory();
-            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
-            container.Register(Component.For<ISession>().Instance(_sessionFactory.OpenSession()).LifeStyle.PerWebRequest);
-            //OpenFire
+                //OpenFire
             string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
             string domain = Dianzhu.Config.Config.GetAppSetting("ImDomain");
             container.Register(Component.For<IInstantMessage>().ImplementedBy<OpenfireXMPP>()
