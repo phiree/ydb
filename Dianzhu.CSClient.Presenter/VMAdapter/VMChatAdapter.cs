@@ -72,7 +72,7 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
                 case "ReceptionChatPushServiceDto":
                     ReceptionChatPushServiceDto chatPushService = chat as ReceptionChatPushServiceDto;                    
                     Guid serviceId;
-                    if (Guid.TryParse(chatPushService.ServiceInfos[0].ServiceId, out serviceId))
+                    if (!Guid.TryParse(chatPushService.ServiceInfos[0].ServiceId, out serviceId))
                     {
                         throw new Exception("ServiceInfos有误,chatPushServiceId:" + chatPushService.Id);
                     }

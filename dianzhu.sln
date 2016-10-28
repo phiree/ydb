@@ -128,7 +128,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Notify", "Dianzhu.Web.Notify\", "{0B7AB42A-DED4-41A7-8A94-265686227268}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
-		ProjectReferences = "{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}|Ydb.InstantMessage.dll;"
+		ProjectReferences = "{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}|Ydb.InstantMessage.dll;{3d510583-1c11-48fb-8380-12e183e5914b}|Ydb.Infrastructure.dll;{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}|Ydb.Membership.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_50182"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.Web.Notify\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50182\"

@@ -15,7 +15,9 @@ public class Bootstrap
     {
         container = new WindsorContainer();
         container.Install(
-            new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage()            
+            new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(),
+            new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(),
+            new Ydb.Infrastructure.Installer()
             );
         
 

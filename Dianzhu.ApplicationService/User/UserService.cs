@@ -21,14 +21,12 @@ namespace Dianzhu.ApplicationService.User
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.UserService");
         DZMembershipProvider dzmsp;
         BLL.Client.BLLUserToken bllUserToken;
-        ReceptionChatReAssignDto ra;
         IReceptionService receptionService;
         IBLLServiceOrder bllServiceOrder;
-        public UserService(DZMembershipProvider dzmsp, BLL.Client.BLLUserToken bllUserToken, ReceptionChatReAssignDto ra, IReceptionService receptionService, IBLLServiceOrder bllServiceOrder)
+        public UserService(DZMembershipProvider dzmsp, BLL.Client.BLLUserToken bllUserToken, IReceptionService receptionService, IBLLServiceOrder bllServiceOrder)
         {
             this.dzmsp = dzmsp;
             this.bllUserToken = bllUserToken;
-            this.ra = ra;
             this.receptionService = receptionService;
             this.bllServiceOrder = bllServiceOrder;
         }

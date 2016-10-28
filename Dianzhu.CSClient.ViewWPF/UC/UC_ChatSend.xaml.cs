@@ -181,7 +181,7 @@ namespace Dianzhu.CSClient.ViewWPF
             //Window mainForm = (Window)((Grid)((Grid)((Grid)((Grid)((Grid)this.Parent).Parent).Parent).Parent).Parent).Parent;
             if (mainForm == null)
             {
-                mainForm = (Window)((Grid)((Grid)((Grid)((Grid)((Grid)this.Parent).Parent).Parent).Parent).Parent).Parent;
+                mainForm = (Window)((Grid)((Grid)((Grid)((Grid)((Grid)((Grid)this.Parent).Parent).Parent).Parent).Parent).Parent).Parent;
             }
             //mainForm.Visibility = Visibility.Collapsed;
             mainForm.WindowState = WindowState.Minimized;

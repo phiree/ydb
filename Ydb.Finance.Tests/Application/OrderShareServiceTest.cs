@@ -32,15 +32,8 @@ namespace Ydb.Finance.Tests.Application
                     new BalanceUserParam { AccountId = "c64d9dda-4f6e-437b-89d2-a591012d8c65", UserType = "diandian" }
                 }
             };
-            try
-            {
-                orderShareService.ShareOrder(order);
-                Console.WriteLine("OrderShareServiceTest.ShareOrderTest:分账成功！");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("OrderShareServiceTest.ShareOrderTest:" + ex.ToString());
-            }
+            orderShareService.ShareOrder(order);
+            Console.WriteLine("OrderShareServiceTest.ShareOrderTest:分账成功！");
         }
     }
 }

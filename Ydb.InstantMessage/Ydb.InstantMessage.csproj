@@ -116,18 +116,18 @@
     <Compile Include="DomainModel\Chat\Service\IRepositoryChat.cs" />
     <Compile Include="DomainModel\Chat\MessageAdapter.cs" />
     <Compile Include="DomainModel\Chat\MessageBuilder.cs" />
-    <Compile Include="DomainModel\Chat\ReceptionChatReAssignDto.cs" />
-    <Compile Include="DomainModel\Chat\ReceptionChatReAssign.cs" />
-    <Compile Include="DomainModel\Chat\ReceptionChat.cs" />
+    <Compile Include="DomainModel\Chat\Dto\ReceptionChatReAssignDto.cs" />
+    <Compile Include="DomainModel\Chat\Model\ReceptionChatReAssign.cs" />
+    <Compile Include="DomainModel\Chat\Model\ReceptionChat.cs" />
     <Compile Include="DomainModel\Chat\ReceptionChatNoticeCustomerServiceOffline.cs" />
-    <Compile Include="DomainModel\Chat\ReceptionChatNoticeOrder.cs" />
+    <Compile Include="DomainModel\Chat\Model\ReceptionChatNoticeOrder.cs" />
     <Compile Include="DomainModel\Chat\ReceptionChatNoticeCustomerServiceOnline.cs" />
-    <Compile Include="DomainModel\Chat\ReceptionChatPushService.cs" />
-    <Compile Include="DomainModel\Chat\ReceptionChatPushServiceDto.cs" />
-    <Compile Include="DomainModel\Chat\ReceptionChatDto.cs" />
+    <Compile Include="DomainModel\Chat\Model\ReceptionChatPushService.cs" />
+    <Compile Include="DomainModel\Chat\Dto\ReceptionChatPushServiceDto.cs" />
+    <Compile Include="DomainModel\Chat\Dto\ReceptionChatDto.cs" />
     <Compile Include="DomainModel\Chat\ReceptionChatFactory.cs" />
-    <Compile Include="DomainModel\Chat\ReceptionChatMediaDto.cs" />
-    <Compile Include="DomainModel\Chat\ReceptionChatMedia.cs" />
+    <Compile Include="DomainModel\Chat\Dto\ReceptionChatMediaDto.cs" />
+    <Compile Include="DomainModel\Chat\Model\ReceptionChatMedia.cs" />
     <Compile Include="DomainModel\Reception\AssignStratage.cs" />
     <Compile Include="DomainModel\Reception\AssignStratageRandom.cs" />
     <Compile Include="DomainModel\Reception\IReceptionSession.cs" />
@@ -147,10 +147,7 @@
     <Compile Include="Infrastructure\OpenfireXMPP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DomainModel\Chat\Dto\" />
-    <Folder Include="DomainModel\Chat\Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="UL.txt" />
   </ItemGroup>

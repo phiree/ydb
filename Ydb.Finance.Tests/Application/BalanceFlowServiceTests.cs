@@ -37,15 +37,8 @@ namespace Ydb.Finance.Tests.Application
                 FlowType = "OrderShare",
                 Income = true
             };
-            try
-            {
-                balanceFlowService.Save(flow);
-                Console.WriteLine("BalanceFlowServiceTests.SaveTest:保存成功！");
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine("BalanceFlowServiceTests.SaveTest:"+ex.ToString());
-            }
+            balanceFlowService.Save(flow);
+            Console.WriteLine("BalanceFlowServiceTests.SaveTest:保存成功！");
         }
 
         [Test()]

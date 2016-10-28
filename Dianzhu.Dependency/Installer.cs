@@ -40,7 +40,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<BLLRefund>());
             container.Register(Component.For<BLLRefundLog>());
 
-
+            container.Register(Component.For<BLLPush>());
 
             container.Register(Component.For<BLLServiceOpenTime>());
             container.Register(Component.For<BLLServiceOpenTimeForDay>());

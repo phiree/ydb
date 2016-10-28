@@ -992,6 +992,7 @@ namespace Dianzhu.BLL
             System.Net.WebClient wc = new System.Net.WebClient();
             string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
             Uri uri = new Uri(notifyServer + "type=ordernotice" + uriStr);
+            log.Debug(uri);
             System.IO.Stream returnData = wc.OpenRead(uri);
             System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
             string result = reader.ReadToEnd();
