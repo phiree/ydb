@@ -31,6 +31,12 @@ namespace Ydb.InstantMessage.Application
         }
 
         [Ydb.Common.Repository.UnitOfWork]
+        public void Update(ReceptionChat chat)
+        {
+            repositoryChat.Update(chat);
+        }
+
+        [Ydb.Common.Repository.UnitOfWork]
         public IList<ReceptionChatDto> GetChatByOrder(string orderId)
         {
             var list = repositoryChat.GetChatByOrder(orderId);
