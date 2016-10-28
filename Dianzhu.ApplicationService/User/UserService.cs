@@ -322,8 +322,12 @@ namespace Dianzhu.ApplicationService.User
 
             DZMembership customerService = dzmsp.GetUserById(Guid.Parse(rs.CustomerServiceId));
 
-            ServiceOrder orderToReturn = bllServiceOrder.GetOne(Guid.Parse(rs.OrderId));
-
+            ServiceOrder orderToReturn=null;
+            Guid guidOrder;
+            if (Guid.TryParse(rs.OrderId, out guidOrder))
+            {
+                orderToReturn = bllServiceOrder.GetOne(guidOrder);
+            }
             if (orderToReturn == null)
             {
                 orderToReturn = bllServiceOrder.GetDraftOrder(member, customerService);
