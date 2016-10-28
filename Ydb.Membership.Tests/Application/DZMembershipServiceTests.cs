@@ -38,11 +38,6 @@ namespace Ydb.Membership.Application.Tests
 
         }
        
-        [Test()]
-        public void  GetUserByNameTest()
-        {
-            Dto.MemberDto memberDto = dzmembershipService.GetUserByName(userName);
-            Assert.AreEqual(userName, memberDto.UserName);
-        }
+         
     }
 }

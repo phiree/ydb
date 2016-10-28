@@ -29,10 +29,9 @@ namespace Ydb.Membership.Tests.Application
                             SQLiteConfiguration
                            .Standard
                            //.InMemory
-                     .UsingFile("test.db3") 
+                     .UsingFile("test_ydb_membership.db3") 
                      )
-                  
-                        .ExposeConfiguration(BuildSchema)
+                   .ExposeConfiguration(BuildSchema)
                    .BuildSessionFactory();
            
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
