@@ -51,22 +51,28 @@
                             </label>
                             <asp:TextBox class="register-input" runat="server" ID="tbxPassword" placeholder="密码" TextMode="Password"></asp:TextBox>
                         </div>
-
-                        <div class="register-input-w fluid captchaDisplay" ID="captchaBox">
-                            <span class="register-input-title">验证码</span>
-                            <label class="register-input-icon" for="captcha">
-                                <i class="passwordIcon"></i>
-                            </label>
-                            <!--<asp:TextBox class="register-input" runat="server" placeholder="验证码" ID="captcha"></asp:TextBox>-->
-                            <div id="code"></div>
+                        <div class="register-input-w fluid thin-b captcha captchaDisplay" ID="captchaBox">
+                            <div class="control-group">
+                                <div class="control-label" for="inputEmail">
+                                    <span class="register-input-title" id="passwordIcon">验证码</span>
+                                    <label class="register-input-icon" for="tbxPassword">
+                                        <i class="passwordIcon"></i>
+                                    </label>
+                                    <!--<input name='captcha' type='text' id='captcha' class='register-input error' placeholder='验证码' aria-required='true' aria-describedby='lblMsg'>-->
+                                </div>
+                                <div class="controls">
+                                    <div id="code"></div>
+                                </div>
+                            </div>
                         </div>
-
                         <div class="loginBox">
-                            <p class="savePass">
-                                <input runat="server" id="savePass" type="checkbox" /><label for="savePass">记住我</label>
+                            <div class="savePass">
+                            <div class="register-agree" style="width: 100%">
+                                <input runat="server" id="savePass" type="checkbox"/><label for="savePass">记住我</label>
                                 <a class="fr" href="/account/forget.aspx">忘记密码？</a>
                                 <a class="doReg fr m-r10" href="register.aspx">注册会员</a>
-                            </p>
+                            </div>
+                            </div>
                         </div>
                     </div>
                     <div class="register-go">

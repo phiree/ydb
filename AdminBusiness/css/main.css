@@ -8227,19 +8227,476 @@ a.doReg:hover {
   margin-top: -235px;
 }
 #captcha {
-  width: 60%;
+  float: left;
+}
+.captcha {
+  float: left;
+  width: 100%;
 }
 .register-captcha {
   margin-left: -20px;
 }
 #code {
   display: inline;
+  float: left;
+  background-image: url(../../images/captcha/yanzhengma-beijing.png);
+  height: 50px;
+  border: 1px solid #b3b5b5;
+  border-radius: 3px;
 }
-#code img {
-  width: 30px;
+.no-padding {
+  padding: 0;
 }
-#captchaBox_forget {
-  margin-left: -20px;
+.control-label {
+  margin-right: 145px;
+}
+.controls {
+  float: right;
+}
+.control-group {
+  height: 100%;
+}
+#captcha_H {
+  background: url(../../images/captcha/sprite.png) 0px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 0px;
+  _margin-left: 0px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_0 {
+  background: url(../../images/captcha/sprite.png) -32px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 32px;
+  _margin-left: -32px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_2 {
+  background: url(../../images/captcha/sprite.png) -64px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 64px;
+  _margin-left: -64px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_3 {
+  background: url(../../images/captcha/sprite.png) -96px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 96px;
+  _margin-left: -96px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_4 {
+  background: url(../../images/captcha/sprite.png) -128px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 128px;
+  _margin-left: -128px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_5 {
+  background: url(../../images/captcha/sprite.png) -160px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 160px;
+  _margin-left: -160px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_6 {
+  background: url(../../images/captcha/sprite.png) -192px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 192px;
+  _margin-left: -192px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_7 {
+  background: url(../../images/captcha/sprite.png) -224px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 224px;
+  _margin-left: -224px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_8 {
+  background: url(../../images/captcha/sprite.png) -256px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 256px;
+  _margin-left: -256px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_9 {
+  background: url(../../images/captcha/sprite.png) -288px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 288px;
+  _margin-left: -288px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_A {
+  background: url(../../images/captcha/sprite.png) -320px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 320px;
+  _margin-left: -320px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_B {
+  background: url(../../images/captcha/sprite.png) -352px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 352px;
+  _margin-left: -352px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_C {
+  background: url(../../images/captcha/sprite.png) -384px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 384px;
+  _margin-left: -384px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_D {
+  background: url(../../images/captcha/sprite.png) -416px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 416px;
+  _margin-left: -416px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_E {
+  background: url(../../images/captcha/sprite.png) -448px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 448px;
+  _margin-left: -448px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_F {
+  background: url(../../images/captcha/sprite.png) -480px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 480px;
+  _margin-left: -480px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_G {
+  background: url(../../images/captcha/sprite.png) -512px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 512px;
+  _margin-left: -512px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_1 {
+  background: url(../../images/captcha/sprite.png) -544px 0px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 544px;
+  _margin-left: -544px;
+  _padding-top: 0px;
+  _margin-top: 0px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_J {
+  background: url(../../images/captcha/sprite.png) 0px -32px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 0px;
+  _margin-left: 0px;
+  _padding-top: 32px;
+  _margin-top: -32px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_K {
+  background: url(../../images/captcha/sprite.png) -32px -32px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 32px;
+  _margin-left: -32px;
+  _padding-top: 32px;
+  _margin-top: -32px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_L {
+  background: url(../../images/captcha/sprite.png) -64px -32px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 64px;
+  _margin-left: -64px;
+  _padding-top: 32px;
+  _margin-top: -32px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_M {
+  background: url(../../images/captcha/sprite.png) -96px -32px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 96px;
+  _margin-left: -96px;
+  _padding-top: 32px;
+  _margin-top: -32px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_N {
+  background: url(../../images/captcha/sprite.png) -128px -32px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 128px;
+  _margin-left: -128px;
+  _padding-top: 32px;
+  _margin-top: -32px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_P {
+  background: url(../../images/captcha/sprite.png) -160px -32px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 160px;
+  _margin-left: -160px;
+  _padding-top: 32px;
+  _margin-top: -32px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_Q {
+  background: url(../../images/captcha/sprite.png) -192px -32px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 192px;
+  _margin-left: -192px;
+  _padding-top: 32px;
+  _margin-top: -32px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_R {
+  background: url(../../images/captcha/sprite.png) -224px -32px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 224px;
+  _margin-left: -224px;
+  _padding-top: 32px;
+  _margin-top: -32px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_S {
+  background: url(../../images/captcha/sprite.png) -256px -32px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 256px;
+  _margin-left: -256px;
+  _padding-top: 32px;
+  _margin-top: -32px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_T {
+  background: url(../../images/captcha/sprite.png) -288px -32px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 288px;
+  _margin-left: -288px;
+  _padding-top: 32px;
+  _margin-top: -32px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_U {
+  background: url(../../images/captcha/sprite.png) -320px -32px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 320px;
+  _margin-left: -320px;
+  _padding-top: 32px;
+  _margin-top: -32px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_V {
+  background: url(../../images/captcha/sprite.png) -352px -32px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 352px;
+  _margin-left: -352px;
+  _padding-top: 32px;
+  _margin-top: -32px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_W {
+  background: url(../../images/captcha/sprite.png) -384px -32px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 384px;
+  _margin-left: -384px;
+  _padding-top: 32px;
+  _margin-top: -32px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_X {
+  background: url(../../images/captcha/sprite.png) -416px -32px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 416px;
+  _margin-left: -416px;
+  _padding-top: 32px;
+  _margin-top: -32px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_Y {
+  background: url(../../images/captcha/sprite.png) -448px -32px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 448px;
+  _margin-left: -448px;
+  _padding-top: 32px;
+  _margin-top: -32px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
+}
+#captcha_Z {
+  background: url(../../images/captcha/sprite.png) -480px -32px no-repeat;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: 9px;
+  _background: none;
+  _padding-left: 480px;
+  _margin-left: -480px;
+  _padding-top: 32px;
+  _margin-top: -32px;
+  _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop, src="../../images/captcha/sprite.png");
 }
 .order-list-head {
   color: #333;
