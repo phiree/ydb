@@ -17,6 +17,7 @@ namespace Ydb.Membership.Application.Tests
         public void SetUp()
         {
             Bootstrap.Boot();
+            AutoMapperConfiguration.Configure();
             dzmembershipService = Bootstrap.Container.Resolve<IDZMembershipService>();
 
         }

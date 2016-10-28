@@ -63,7 +63,7 @@ namespace Dianzhu.DAL
 
            
 
-                Business business = Session.QueryOver<Business>().Where(x => x.Id == Id).And(x => x.Owner.Id == ownerId).SingleOrDefault(); 
+                Business business = Session.QueryOver<Business>().Where(x => x.Id == Id).And(x => x.OwnerId == ownerId).SingleOrDefault(); 
                
                 return business;
            
@@ -78,7 +78,7 @@ namespace Dianzhu.DAL
             
 
 
-                var result = Session.QueryOver<Business>().Where(x => x.Owner.Id == ownerId).And(x => x.Enabled == true).List();
+                var result = Session.QueryOver<Business>().Where(x =>x.OwnerId == ownerId).And(x => x.Enabled == true).List();
                 
                 return result; 
               
@@ -114,7 +114,7 @@ namespace Dianzhu.DAL
             
 
 
-                int result = Session.QueryOver<Business>().Where(x => x.Owner == member).And(x => x.Enabled == true).RowCount();
+                int result = Session.QueryOver<Business>().Where(x => x.OwnerId == member.Id).And(x => x.Enabled == true).RowCount();
                
                 
                 return result;

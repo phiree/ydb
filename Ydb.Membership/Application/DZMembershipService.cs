@@ -8,6 +8,9 @@ using Ydb.Membership.DomainModel;
 using Ydb.Membership.DomainModel.Enums;
 using Ydb.Membership.DomainModel.Repository;
 using Ydb.Common.Repository;
+using AutoMapper;
+using Ydb.Membership.Application.Dto;
+
 namespace Ydb.Membership.Application
 {
     public class DZMembershipService : IDZMembershipService
@@ -15,6 +18,7 @@ namespace Ydb.Membership.Application
         log4net.ILog log = log4net.LogManager.GetLogger(" Ydb.Membership.Application.DZMembershipService");
         IDZMembershipDomainService dzmembershipDomainService;
         IEmailService emailService;
+        
         public DZMembershipService(IDZMembershipDomainService dzmembershipDomainService, IEmailService emailService)
         {
             this.dzmembershipDomainService = dzmembershipDomainService;
@@ -40,7 +44,9 @@ namespace Ydb.Membership.Application
             {
                 try
                 {
-                    emailService.SendEmail(createdUser.Email, "一点办注册验证邮件", createdUser.RegisterValidationContent);
+                    emailService.SendEmail(createdUser.Email, "一点办注册验证邮件", 
+                        createdUser.BuildRegisterValidationContent(Dianzhu.Config.Config.GetAppSetting("ImServer"))
+                        );
                 }
                 catch (Exception ex)
                 {
@@ -61,24 +67,33 @@ namespace Ydb.Membership.Application
             DZMembership membership = dzmembershipDomainService.GetUserByName(userName);
             if (membership == null) { return null; }
 
-            Dto.MemberDto memberDto = new Dto.MemberDto { Id = membership.Id, UserName = membership.UserName };
+            Dto.MemberDto memberDto = Mapper.Map<DZMembership, Dto.MemberDto>(membership);//new Dto.MemberDto { Id = membership.Id, UserName = membership.UserName };
             return memberDto;
         }
-        public Dto.LoginResult Login(string username, string password, UserType userType)
+        [UnitOfWork]
+        public Dto.ValidateResult ValidateUser(string username, string password,bool isLogin)
         {
-            Dto.LoginResult loginResult = new Dto.LoginResult();
+            Dto.ValidateResult validateResult = new Dto.ValidateResult();
             string errMsg;
-            bool isvalidate = dzmembershipDomainService.ValidateUser(username, password, userType, out errMsg);
-            if (!isvalidate)
+             
+            DZMembership member= dzmembershipDomainService.ValidateUser(username, password,isLogin,out errMsg);
+            if (member == null)
             {
-                loginResult.LoginSuccess = false;
-                loginResult.LoginErrMsg = errMsg;
+                validateResult.IsValidated = false;
+                validateResult.ValidateErrMsg = errMsg;
             }
-            return loginResult;
+            else
+            {
+                validateResult.ValidatedMember= Mapper.Map<DZMembership, Dto.MemberDto>(member);
+            }
+            return validateResult;
 
         }
 
-
-
+        [UnitOfWork]
+        public ValidateResult Login(string userNameOrUserId, string password)
+        {
+            return ValidateUser(userNameOrUserId, password, true);
+        }
     }
 }

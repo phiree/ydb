@@ -67,7 +67,7 @@ namespace Dianzhu.BLL.Finance
                 Dianzhu.Model.Finance.BalanceFlow flowAgent= new Model.Finance.BalanceFlow
                 {
                     Amount = agentShare,
-                    Member = agent,
+                    MemberId = agent.Id,
                     RelatedObjectId = order.Id.ToString(),
                     OccurTime = DateTime.Now,
                     FlowType = Model.Finance.enumFlowType.OrderShare
@@ -82,7 +82,7 @@ namespace Dianzhu.BLL.Finance
             Dianzhu.Model.Finance.BalanceFlow flowCustomerService = new Model.Finance.BalanceFlow
             {
                 Amount = customerServiceShare,
-                Member =order.CustomerService,
+                MemberId =order.CustomerService.Id,
                 RelatedObjectId= order.Id.ToString(),
                 OccurTime = DateTime.Now,
                 FlowType = Model.Finance.enumFlowType.OrderShare
@@ -94,7 +94,7 @@ namespace Dianzhu.BLL.Finance
 
             Dianzhu.Model.Finance.BalanceFlow flowBusiness = new Model.Finance.BalanceFlow {
                 Amount = businessAmount,
-                Member = order.Business.Owner,
+                MemberId = order.Business.OwnerId,
                 FlowType = Model.Finance.enumFlowType.OrderShare,
                 OccurTime = DateTime.Now,
                 RelatedObjectId = order.Id.ToString()

@@ -8,10 +8,13 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using System.Web.Security;
 using System.Text.RegularExpressions;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
+
 public partial class register : Dianzhu.Web.Common.BasePage//System.Web.UI.Page
 {
     BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-    DZMembershipProvider dz = Bootstrap.Container.Resolve<DZMembershipProvider>();
+    IDZMembershipService dzMembershipService = Bootstrap.Container.Resolve<IDZMembershipService>();
     protected void Page_Load(object sender, EventArgs e)
     {
         BrowserCheck.CheckVersion();
@@ -21,45 +24,19 @@ public partial class register : Dianzhu.Web.Common.BasePage//System.Web.UI.Page
     {
         string userName = tbxUserName.Text.Trim();// tbx_MobilePhone.Text.Trim();
 
-        string name = string.Empty;// tbxUserName.Text.Trim();
+ 
         string password = regPs.Text.Trim();
         string password2 = regPsConf.Text.Trim();
+ 
+        RegisterResult registerResult =
+         dzMembershipService.RegisterBusinessUser(userName, password, password2);
 
-        string address = string.Empty;// tbxAddress.Text.Trim();
-        string category = string.Empty;//  tbxCategory.Text.Trim();
-        string cert = string.Empty;// tbxCertification.Text.Trim();
-        string description = string.Empty;// tbxDescription.Text.Trim();
-        double latitude = 0;// Convert.ToDouble(tbxLat.Text.Trim());
-        double longtitude = 0;// Convert.ToDouble(tbxLon.Text.Trim());
-
-        // Membership.CreateUser(tbxUserName.Text, regPs.Text);
-
-          //  bllBusiness.Register(address, description, latitude, longtitude, name, userName, password);
-        MembershipCreateStatus createStatus;
-        DZMembership newUser =
-           dz.CreateUser(userName, null, null, password, out createStatus, Dianzhu.Model.Enums.enum_UserType.business);
-        //如果是电子邮箱,则发送验证邮件
-        if (createStatus != MembershipCreateStatus.Success)
+        if (!registerResult.RegisterSuccess)
         {
-            Response.Redirect("error.aspx?msg=" + createStatus);
+            Response.Redirect("error.aspx?msg=" + registerResult.RegisterErrMsg);
         }
-        bool sendSuccess = true;
-        if(Regex.IsMatch(userName,@".+@.+\..+")){
-            string verifyUrl = "http://" + Request.Url.Authority + "/verify.aspx";
-            verifyUrl += "?userId=" + newUser.Id + "&verifyCode=" + newUser.RegisterValidateCode;
-            if (!Request.IsLocal)
-            {
-                sendSuccess = dz.SendValidationMail(userName, verifyUrl);
-            }
-            
-             
-        }
-
-       
-        //PHSuit.Notification.Show(Page, "", "注册成功", "register_suc.aspx");
         FormsAuthentication.SetAuthCookie(userName, true);
-        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-        Response.Redirect("register_suc.aspx?send="+sendSuccess, true);
+        Response.Redirect("register_suc.aspx?send="+registerResult.SendEmailSuccess, true);
     }
 
 

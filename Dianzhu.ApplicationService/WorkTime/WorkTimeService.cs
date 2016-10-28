@@ -82,7 +82,7 @@ namespace Dianzhu.ApplicationService.WorkTime
             {
                 throw new Exception("该服务不属于该店铺！");
             }
-            if (service.Business.Owner.Id.ToString() != customer.UserID)
+            if (service.Business.OwnerId.ToString() != customer.UserID)
             {
                 throw new Exception("这不是你店铺的服务！");
             }
@@ -270,7 +270,7 @@ namespace Dianzhu.ApplicationService.WorkTime
             {
                 throw new Exception("该服务不属于该店铺！");
             }
-            if (service.Business.Owner.Id.ToString() != customer.UserID)
+            if (service.Business.OwnerId.ToString() != customer.UserID)
             {
                 throw new Exception("这不是你店铺的服务！");
             }
@@ -361,7 +361,7 @@ namespace Dianzhu.ApplicationService.WorkTime
             {
                 throw new Exception("该服务不属于该店铺！");
             }
-            if (service.Business.Owner.Id.ToString() != customer.UserID)
+            if (service.Business.OwnerId.ToString() != customer.UserID)
             {
                 throw new Exception("这不是你店铺的服务！");
             }
@@ -501,7 +501,7 @@ namespace Dianzhu.ApplicationService.WorkTime
             {
                 throw new Exception("该服务不属于该店铺！");
             }
-            if (service.Business.Owner.Id.ToString() != customer.UserID)
+            if (service.Business.OwnerId.ToString() != customer.UserID)
             {
                 throw new Exception("这不是你店铺的服务！");
             }

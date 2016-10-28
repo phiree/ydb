@@ -268,6 +268,10 @@
       <Project>{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}</Project>
       <Name>Ydb.InstantMessage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ydb.Membership\Ydb.Membership.csproj">
+      <Project>{6a7ed67d-846d-46c6-84b0-82b8556f0b8f}</Project>
+      <Name>Ydb.Membership</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

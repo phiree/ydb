@@ -6,13 +6,12 @@ using System.Reflection;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
- 
+
 public partial class poolmonitor : System.Web.UI.Page
 {
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.AdminBusiness.PoolMonitor");
     protected void Page_Load(object sender, EventArgs e)
     {
-       
         string path = Server.MapPath("~/bin/MySql.Data.dll");
         Assembly ms = Assembly.LoadFrom(path);
         Type type = ms.GetType("MySql.Data.MySqlClient.MySqlPoolManager");
@@ -35,5 +34,4 @@ public partial class poolmonitor : System.Web.UI.Page
         
        
     }
-    
 }

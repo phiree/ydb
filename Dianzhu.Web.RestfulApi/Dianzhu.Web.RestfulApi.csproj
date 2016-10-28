@@ -414,6 +414,10 @@
       <Project>{a141eb7d-6e71-43c1-9ca7-12af1b74c1c7}</Project>
       <Name>Ydb.InstantMessage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ydb.Membership\Ydb.Membership.csproj">
+      <Project>{6a7ed67d-846d-46c6-84b0-82b8556f0b8f}</Project>
+      <Name>Ydb.Membership</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

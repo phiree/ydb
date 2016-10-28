@@ -426,7 +426,7 @@ namespace Dianzhu.Model
         {
             get
             {
-                return Staff==null?business.Owner.Id.ToString():Staff.UserID;
+                return Staff==null?business.OwnerId.ToString():Staff.UserID;
             }
         }
         /// <summary>

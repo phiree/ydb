@@ -353,7 +353,7 @@ namespace Dianzhu.ApplicationService.Order
             }
             if (customer.UserType == "business")
             {
-                if (order.Business == null || order.Business.Owner.Id.ToString() != customer.UserID)
+                if (order.Business == null || order.Business.OwnerId.ToString() != customer.UserID)
                 {
                     throw new Exception("这不是你的订单！");
                 }
@@ -421,7 +421,7 @@ namespace Dianzhu.ApplicationService.Order
             }
             if (customer.UserType == "business")
             {
-                if (order.Business == null || order.Business.Owner.Id.ToString() != customer.UserID)
+                if (order.Business == null || order.Business.OwnerId.ToString() != customer.UserID)
                 {
                     throw new Exception("这不是你的订单！");
                 }
@@ -627,7 +627,7 @@ namespace Dianzhu.ApplicationService.Order
             linkManObj linkman = new linkManObj();
             //linkman.linkManID = order.OpenFireLinkMan;
             string strIp = System.Web.HttpContext.Current.Request.Url.Host;//.Url.ToString();
-            //if (order.OpenFireLinkMan == order.Business.Owner.Id.ToString() )
+            //if (order.OpenFireLinkMan == order.Business.OwnerId )
             //{
             //    linkman.linkManID = order.OpenFireLinkMan + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Store;
             //}
@@ -635,7 +635,7 @@ namespace Dianzhu.ApplicationService.Order
             //{
             //    linkman.linkManID = order.OpenFireLinkMan + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Staff;
             //}
-            linkman.linkManID = order.Business.Owner.Id.ToString() + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Store;
+            linkman.linkManID = order.Business.OwnerId + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Store;
             return linkman;
 
             //string targetId = "";
@@ -656,7 +656,7 @@ namespace Dianzhu.ApplicationService.Order
             //}
             //else
             //{
-            //    targetId = order.Details[0].OriginalService.Business.Owner.Id.ToString();
+            //    targetId = order.Details[0].OriginalService.Business.OwnerId;
             //}
             //return targetId ;
         }
@@ -748,11 +748,11 @@ namespace Dianzhu.ApplicationService.Order
             else if (member.UserType == Model.Enums.enum_UserType.business)
             {
                 order = ibllserviceorder.GetOne(guidOrder);
-                if (order.Details[0].OriginalService.Business.Owner.Id != userId)
+                if (order.Details[0].OriginalService.Business.OwnerId != userId)
                 {
                     throw new Exception("没有对应的订单！");
                 }
-                if (order.Details[0].OriginalService.Business.Owner.Id != member.Id)
+                if (order.Details[0].OriginalService.Business.OwnerId != member.Id)
                 {
                     throw new Exception("该订单不属于该用商户！");
                 }
@@ -950,11 +950,11 @@ namespace Dianzhu.ApplicationService.Order
                 target = Model.Enums.enum_ChatTarget.store;
                 ServiceOrder order = ibllserviceorder.GetOne(guidOrder);
                 Model.Enums.enum_OrderStatus oldStatus = order.OrderStatus;
-                if (order.Details[0].OriginalService.Business.Owner.Id != userId)
+                if (order.Details[0].OriginalService.Business.OwnerId != userId)
                 {
                     throw new Exception("没有对应的订单！");
                 }
-                if (order.Details[0].OriginalService.Business.Owner.Id != member.Id)
+                if (order.Details[0].OriginalService.Business.OwnerId != member.Id)
                 {
                     throw new Exception("该订单不属于该用商户！");
                 }
@@ -1037,7 +1037,7 @@ namespace Dianzhu.ApplicationService.Order
             //{
             //    throw new Exception("该订单不存在!");
             //}
-            //if (order.Business == null || order.Business.Owner.Id.ToString() != customer.UserID)
+            //if (order.Business == null || order.Business.OwnerId != customer.UserID)
             //{
             //    throw new Exception("这不是你的订单!");
             //}

@@ -10,7 +10,7 @@ namespace Dianzhu.DAL.Mapping.Finance
         public BalanceFlowMap()
         {
             Id(x => x.Id);//.GeneratedBy.Assigned();
-            References<Model.DZMembership>(x => x.Member);
+            Map(x => x.MemberId);
             Map(x => x.FlowType).CustomType<Dianzhu.Model.Finance.enumFlowType>();
             Map(x => x.Amount);
             Map(x => x.OccurTime);

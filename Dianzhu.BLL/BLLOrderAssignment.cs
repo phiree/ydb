@@ -71,7 +71,7 @@ namespace Dianzhu.BLL
             where = where.And(x => x.Enabled);
             if (userID != Guid.Empty)
             {
-                where = where.And(x => x.Order.Business.Owner.Id == userID);
+                where = where.And(x => x.Order.Business.OwnerId == userID);
             }
             if (staffID != Guid.Empty)
             {
@@ -119,7 +119,7 @@ namespace Dianzhu.BLL
             where = where.And(x => x.Enabled);
             if (userID != Guid.Empty)
             {
-                where = where.And(x => x.Order.Business.Owner.Id == userID);
+                where = where.And(x => x.Order.Business.OwnerId == userID);
             }
             if (staffID != Guid.Empty)
             {

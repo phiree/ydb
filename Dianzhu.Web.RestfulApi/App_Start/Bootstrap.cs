@@ -41,6 +41,7 @@ namespace Dianzhu.Web.RestfulApi
                 );
 
             Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
+            
         }
     }
 }

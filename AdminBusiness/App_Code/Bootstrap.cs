@@ -34,8 +34,14 @@ public class Bootstrap
             new Dianzhu.DependencyInstaller.InstallerComponent(),
             new Dianzhu.DependencyInstaller.InstallerInfrstructure(),
             new Dianzhu.DependencyInstaller.InstallerRepository(),
-            new Dianzhu.DependencyInstaller.InstallerApplicationService()
+            new Dianzhu.DependencyInstaller.InstallerApplicationService(),
+          
+            new Ydb.Membership.Application.InstallerMembership(),
+            new Ydb.Membership.Application.InstallerMembershipDB(),
+            new Ydb.Infrastructure.Installer()
+             
             );
+        Ydb.Membership.Application.AutoMapperConfiguration.Configure();
         
 
     }

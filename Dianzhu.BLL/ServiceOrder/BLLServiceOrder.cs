@@ -168,7 +168,7 @@ namespace Dianzhu.BLL
                 }
                 else
                 {
-                    where = where.And(x => x.Business.Owner.Id == UserID);
+                    where = where.And(x => x.Business.OwnerId == UserID);
                 }
             }
             if(!string.IsNullOrEmpty(status))
@@ -287,7 +287,7 @@ namespace Dianzhu.BLL
                 }
                 else
                 {
-                    where = where.And(x => x.Business.Owner.Id == UserID);
+                    where = where.And(x => x.Business.OwnerId == UserID);
                 }
             }
             if (!string.IsNullOrEmpty(status))
@@ -372,7 +372,7 @@ namespace Dianzhu.BLL
             var where = PredicateBuilder.True<ServiceOrder>();
             if (UserID != Guid.Empty)
             {
-                where = where.And(x => x.Business.Owner.Id == UserID);
+                where = where.And(x => x.Business.OwnerId == UserID);
             }
             where = where.And(x => x.Id == guid);
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
@@ -969,11 +969,11 @@ namespace Dianzhu.BLL
             {
                 return;
             }
-            if (order.Business.Owner == null)
+            if ( order.Business.OwnerId ==null)
             {
                 return;
             }
-            string uriParameterByStore = uriParameter + "&userid=" + order.Business.Owner.Id
+            string uriParameterByStore = uriParameter + "&userid=" + order.Business.OwnerId
                                                       + "&toresource=" + enum_XmppResource.YDBan_Store;
             RequestUri(uriParameterByStore);
 

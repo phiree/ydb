@@ -31,17 +31,18 @@ namespace Ydb.Membership.DomainModel
             this.repositoryUserToken = repositoryUserToken;
             this.loginNameDetermine = loginNameDetermine;
         }
-        public   bool ChangePassword(string username, string oldPassword, string newPassword)
+        public   bool ChangePassword(string username, string oldPassword, string newPassword,out string errMsg)
         {
 
-            if (!this.ValidateUser(username, oldPassword))
+            DZMembership validatedUser = ValidateUser(username, oldPassword,false, out errMsg);
+            if (validatedUser==null)
             {
-                throw new Exception("原密码有误,请核实后重新输入");
+                return false;
             }
             if (newPassword.Length <6)
             {
 
-                throw new ArgumentException("密码长度至少6位");
+                errMsg = "密码长度至少6位";
             }
 
             DZMembership member = repositoryDZMembership.GetMemberByName(username);
@@ -73,57 +74,38 @@ namespace Ydb.Membership.DomainModel
 
        
 
-        public   bool ValidateUser(string username, string password)
-        {
-
-            string encryptedPwd = EncryptService.GetMD5Hash(password);
-
-            DZMembership member = repositoryDZMembership.ValidateUser(username, encryptedPwd);
-
-            if (member == null) { return false; }
-            else
-            {
-                member.LoginTimes += 1;
-                repositoryDZMembership.Update(member);
-                return true;
-            }
-
-        }
-
         /// <summary>
-        /// 
+        /// 用户验证
         /// </summary>
         /// <param name="username"></param>
         /// <param name="password"></param>
-        /// <param name="requireUserType">该用户应该的登录类型</param>
+        /// <param name="isLogin">是否是登录动作</param>
+        /// <param name="errMsg"></param>
         /// <returns></returns>
-        public bool ValidateUser(string username, string password, UserType requireUserType,out string errMsg )
+        public   DZMembership ValidateUser(string username, string password,bool isLogin ,out string errMsg)
         {
-            bool valid = false;
             errMsg = string.Empty;
-
             string encryptedPwd = EncryptService.GetMD5Hash(password);
 
             DZMembership member = repositoryDZMembership.ValidateUser(username, encryptedPwd);
 
             if (member == null)
             {
-                errMsg = "用户名或密码有误";
-            }
-            else if (member.UserType !=requireUserType)
-            {
-                errMsg = "用户类型有误";
+                errMsg = "用户名/密码有误";
+
             }
             else
             {
-                member.LoginTimes += 1;
-                repositoryDZMembership.Update(member);
-                valid = true;
+                if (isLogin)
+                {
+                    member.LoginTimes += 1;
+                }
             }
+            return member;
 
-            return valid;
         }
- 
+         
+
 
         #region additional method for user
 

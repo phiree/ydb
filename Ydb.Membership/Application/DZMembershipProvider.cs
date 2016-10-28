@@ -55,7 +55,8 @@ namespace Ydb.Membership.Application
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-          return  dzmembershipDomainService.ChangePassword(username, oldPassword, newPassword);
+            string errmsg;
+          return  dzmembershipDomainService.ChangePassword(username, oldPassword, newPassword,out errmsg);
  
         }
 
@@ -190,9 +191,9 @@ namespace Ydb.Membership.Application
 
         public override bool ValidateUser(string username, string password)
         {
-
-          return  dzmembershipDomainService.ValidateUser(username, password);
-            
+            string errMsg;
+           DZMembership member=  dzmembershipDomainService.ValidateUser(username, password,false,out errMsg);
+            return member != null;
 
         }
  

@@ -82,7 +82,7 @@ namespace Dianzhu.ApplicationService.Store
                 throw new Exception("该商户账号不存在！");
             }
             Model.Business business = Mapper.Map<storeObj, Model.Business>(storeobj);
-            business.Owner = dzmember;
+            business.OwnerId= dzmember.Id;
             DateTime dt = DateTime.Now;
             business.CreatedTime = dt;
             double dd = 0;

@@ -47,7 +47,7 @@ namespace Dianzhu.ApplicationService.Snapshot
             Guid guidService = utils.CheckGuidID(ServiceID, "ServiceID");
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Snapshots");
             DZService dzService = blldzservice.GetOne(guidService);
-            if (dzService.Business.Owner.Id.ToString() != customer.UserID)
+            if (dzService.Business.OwnerId.ToString() != customer.UserID)
             {
                 throw new Exception("你的店铺没有该项服务！");
             }
