@@ -45,16 +45,15 @@ namespace Ydb.InstantMessage.Application.Tests
             var list = chatService.GetReceptionChatListByTargetId(
                 Guid.Parse("0e3e9327-7b82-407c-a92f-a64300fd03db"),
                 5,
-                Guid.Parse("620fbd69-c234-4d54-ae65-1f32e464eb5a"),
+                Guid.Parse("3174c0fd-96f3-4add-a224-6c088873977a"),
                 "Y"
                 );
 
             Console.WriteLine("list.Count: " + list.Count);
-            Console.WriteLine(list[0].MessageBody);
-            Console.WriteLine(list[1].MessageBody);
-            Console.WriteLine(list[2].MessageBody);
-            Console.WriteLine(list[3].MessageBody);
-            Console.WriteLine(list[4].MessageBody);
+            for(int i=0; i < list.Count; i++)
+            {
+                Console.WriteLine(list[i].MessageBody);
+            }
         }
 
         
