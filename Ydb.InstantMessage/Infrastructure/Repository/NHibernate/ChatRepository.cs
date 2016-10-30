@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Ydb.InstantMessage.DomainModel.Chat;
 using NHibernate;
-using Ydb.Common.Repository;
+ 
 using System.Linq;
 using Ydb.InstantMessage.DomainModel.Chat.Enums;
 using Ydb.Common.Specification;

@@ -29,7 +29,7 @@ namespace Ydb.Membership.Application
                   .ExposeConfiguration(BuildSchema)
                   .BuildSessionFactory();
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
+            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory).Named("MembershipSessionFactory"));
 
 
         }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.Membership.DomainModel;
-using Ydb.Common.Repository;
+ 
 namespace Ydb.Membership.DomainModel.Repository
 {
    public interface IRepositoryDZMembership:IRepository<DZMembership,Guid>

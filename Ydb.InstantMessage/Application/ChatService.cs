@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.Infrastructure.Repository.NHibernate;
+using Ydb.InstantMessage.Infrastructure.UnitOfWork;
 using NHibernate;
 using Ydb.InstantMessage.DomainModel.Chat.Enums;
-using Ydb.Common.Repository;
+ 
 using Ydb.Common.Specification;
 
 namespace Ydb.InstantMessage.Application
@@ -24,13 +25,13 @@ namespace Ydb.InstantMessage.Application
             this.repositoryChat = repositoryChat;           
         }
 
-        [Ydb.Common.Repository.UnitOfWork]
+        [ UnitOfWork]
         public void Add(ReceptionChat chat)
         {
             repositoryChat.Add(chat);
         }
 
-        [Ydb.Common.Repository.UnitOfWork]
+        [ UnitOfWork]
         public IList<ReceptionChatDto> GetChatByOrder(string orderId)
         {
             var list = repositoryChat.GetChatByOrder(orderId);

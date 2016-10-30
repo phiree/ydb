@@ -20,8 +20,11 @@ namespace Ydb.InstantMessage.Tests
         {
             container = new WindsorContainer();
             container.Install(
-                new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(),
-                 new Ydb.InstantMessage.Tests.InstallerInstantMessageTestDB()
+                    new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
+                      new Ydb.InstantMessage.Tests.InstallerInstantMessageTestDB(),
+                new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage()
+               
+                
                 );
         }
 

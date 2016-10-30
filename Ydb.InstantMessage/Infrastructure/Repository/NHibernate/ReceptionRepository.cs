@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Ydb.InstantMessage.DomainModel.Reception;
 using NHibernate;
-using Ydb.Common.Repository;
+using Ydb.InstantMessage.Infrastructure.Repository;
 namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
 {
     public class RepositoryReception :NHRepositoryBase<ReceptionStatus,Guid>,  IRepositoryReception

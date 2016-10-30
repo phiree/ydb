@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.Membership.DomainModel;
 using Ydb.Membership.DomainModel.Enums;
-using Ydb.Common.Repository;
+ 
 using Ydb.Membership.DomainModel.Repository;
 using NHibernate;
 using System.Linq.Expressions;

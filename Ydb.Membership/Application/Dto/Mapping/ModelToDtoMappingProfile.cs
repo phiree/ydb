@@ -22,6 +22,7 @@ namespace Ydb.Membership.Application
         protected override void Configure()
         {
             Mapper.CreateMap<DZMembership, Dto.MemberDto>()
+                  .ForMember(x => x.UserType, opt => opt.MapFrom(source => source.UserType.ToString()))
             .ForAllMembers(opt => opt.NullSubstitute(""));
         }
     }

@@ -7,7 +7,7 @@ using NHibernate;
 using Ydb.Membership.DomainModel;
 using Ydb.Membership.DomainModel.Enums;
 using Ydb.Membership.DomainModel.Repository;
-using Ydb.Common.Repository;
+using Ydb.Membership.Infrastructure.UnitOfWork;
 using AutoMapper;
 using Ydb.Membership.Application.Dto;
 

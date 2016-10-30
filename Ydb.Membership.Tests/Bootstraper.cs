@@ -20,9 +20,11 @@ namespace Ydb.Membership.Tests
         {
             container = new WindsorContainer();
             container.Install(
+                    new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
+                     new Application.InstallerMembershipTestDB(),
                 new Ydb.Membership.Application.InstallerMembership(),
-                new Ydb.Infrastructure.Installer(),
-                new Application.InstallerMembershipTestDB()
+                new Ydb.Infrastructure.Installer()
+               
                 );
             
             

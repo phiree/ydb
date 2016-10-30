@@ -88,6 +88,7 @@
     <Compile Include="Application\Dto\RegisterResult.cs" />
     <Compile Include="Application\DZMembershipService.cs" />
     <Compile Include="Application\IDZMembershipService.cs" />
+    <Compile Include="DomainModel\IRepository.cs" />
     <Compile Include="DomainModel\Service\IDZMembershipDomainService.cs" />
     <Compile Include="DomainModel\Service\DZMembershipDomainService.cs" />
     <Compile Include="Infrastructure\InstallerMembershipDB.cs" />
@@ -105,13 +106,18 @@
     <Compile Include="DomainModel\Repository\IRepositoryUserToken.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryDZMembership.cs" />
     <Compile Include="DomainModel\UserToken.cs" />
+    <Compile Include="Infrastructure\InstallerUnitOfWork.cs" />
     <Compile Include="Infrastructure\LoginNameDetermine.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipQQMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipSinaWeiboMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipWeChatMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\NHRepository.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryUserToken.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryDZMembership.cs" />
+    <Compile Include="Infrastructure\UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="Infrastructure\UnitOfWork\NHibernateUnitOfWork.cs" />
+    <Compile Include="Infrastructure\UnitOfWork\NhUnitOfWorkInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

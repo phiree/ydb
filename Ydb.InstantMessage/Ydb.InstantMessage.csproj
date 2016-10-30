@@ -128,6 +128,7 @@
     <Compile Include="DomainModel\Chat\ReceptionChatFactory.cs" />
     <Compile Include="DomainModel\Chat\Dto\ReceptionChatMediaDto.cs" />
     <Compile Include="DomainModel\Chat\Model\ReceptionChatMedia.cs" />
+    <Compile Include="DomainModel\IRepository.cs" />
     <Compile Include="DomainModel\Reception\AssignStratage.cs" />
     <Compile Include="DomainModel\Reception\AssignStratageRandom.cs" />
     <Compile Include="DomainModel\Reception\IReceptionSession.cs" />
@@ -139,12 +140,17 @@
     <Compile Include="DomainModel\XmppResource.cs" />
     <Compile Include="Infrastructure\InstallerDB.cs" />
     <Compile Include="Infrastructure\Installer.cs" />
+    <Compile Include="Infrastructure\InstallerInstantMessageUnifOfWork.cs" />
     <Compile Include="Infrastructure\ReceptionSessionOpenfireRestapi.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\ChatRepository.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ReceptionChatMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ReceptionStatusMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\NHRepository.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\ReceptionRepository.cs" />
     <Compile Include="Infrastructure\OpenfireXMPP.cs" />
+    <Compile Include="Infrastructure\UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="Infrastructure\UnitOfWork\NHibernateUnitOfWork.cs" />
+    <Compile Include="Infrastructure\UnitOfWork\NhUnitOfWorkInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

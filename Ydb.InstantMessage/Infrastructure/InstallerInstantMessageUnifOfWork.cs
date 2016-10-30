@@ -4,33 +4,34 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using Castle.Windsor;
-using Ydb.InstantMessage.Infrastructure.UnitOfWork;
+using Ydb.Common.Repository;
 using Castle.Core;
 
-namespace Ydb.Common.Depentcy
+namespace Ydb.InstantMessage.Infrastructure
 {
-    public class InstallerCommon : IWindsorInstaller
+    public class InstallerUnitOfWorkInstantMessage : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Kernel.ComponentRegistered += Kernel_ComponentRegistered;
             InstallRepository(container, store);
-           
+
         }
 
         private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
         {
-            if (!container.Kernel.HasComponent("IUnitOfWorkMembership" ))// HasComponent(typeof(IUnitOfWork)))
-            { 
-            container.Register(Component.For<IUnitOfWork>().ImplementedBy<NhUnitOfWork>().Named("IUnitOfWorkMembership"));
-            }
-            if (!container.Kernel.HasComponent("IUnitOfWorkInstantMessage"))// HasComponent(typeof(IUnitOfWork)))
+            if (!container.Kernel.HasComponent(typeof(IUnitOfWork)))//.HasComponent("IUnitOfWorkMembership" ))
             {
-                container.Register(Component.For<IUnitOfWork>().ImplementedBy<NhUnitOfWork>().Named("IUnitOfWorkInstantMessage"));
+                container.Register(Component.For<IUnitOfWork>().ImplementedBy<NhUnitOfWork>()
+                       .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
+                    );
             }
+
             if (!container.Kernel.HasComponent(typeof(NhUnitOfWorkInterceptor)))
             {
-                container.Register(Component.For<NhUnitOfWorkInterceptor>().LifeStyle.Transient);
+                container.Register(Component.For<NhUnitOfWorkInterceptor>()
+                      .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
+                    .LifeStyle.Transient);
             }
         }
         void Kernel_ComponentRegistered(string key, Castle.MicroKernel.IHandler handler)

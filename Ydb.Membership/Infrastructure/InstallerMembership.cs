@@ -22,7 +22,7 @@ namespace Ydb.Membership.Application
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
+          //  new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
             InstallInfrastructure(container, store);
             InstallDomainService(container, store);
             InstallRepository(container, store);
@@ -32,8 +32,12 @@ namespace Ydb.Membership.Application
         
         private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IRepositoryDZMembership>().ImplementedBy<RepositoryDZMembership>());
-            container.Register(Component.For<IRepositoryUserToken>().ImplementedBy<RepositoryUserToken>());
+            container.Register(Component.For<IRepositoryDZMembership>().ImplementedBy<RepositoryDZMembership>()
+                .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("MembershipSessionFactory"))
+                );
+            container.Register(Component.For<IRepositoryUserToken>().ImplementedBy<RepositoryUserToken>()
+                 .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("MembershipSessionFactory"))
+                );
 
         }
         private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
