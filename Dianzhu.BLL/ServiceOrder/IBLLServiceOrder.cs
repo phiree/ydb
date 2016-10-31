@@ -124,7 +124,8 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <param name="order"></param>
         void OrderFlow_CustomConfirmNegotiate(ServiceOrder order);
-        void OrderFlow_CustomDisagreeNegotiate(ServiceOrder order);
+        void OrderFlow_CustomerDisagreeNegotiate(ServiceOrder order);
+
         /// <summary>
         /// 用户确认协商价格,并确定开始服务
         /// </summary>

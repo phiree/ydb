@@ -567,8 +567,8 @@ namespace Dianzhu.BLL
         /// <param name="negotiateAmount"></param>
         public void OrderFlow_BusinessNegotiate(ServiceOrder order, decimal negotiateAmount)
         {
-            order.NegotiateAmount_Modified = negotiateAmount;
-            //order.NegotiateAmount = negotiateAmount;
+            //order.NegotiateAmount_Modified = negotiateAmount;
+            order.NegotiateAmount = negotiateAmount;
             if (negotiateAmount < order.DepositAmount)//尾款可以为0，if (negotiateAmount <= order.DepositAmount)
             {
                 log.Warn("协商价格小于订金");
@@ -584,7 +584,7 @@ namespace Dianzhu.BLL
 
         public void OrderFlow_CustomConfirmNegotiate(ServiceOrder order)
         {
-            order.NegotiateAmount = order.NegotiateAmount_Modified;
+            //order.NegotiateAmount = order.NegotiateAmount_Modified;
             ChangeStatus(order, enum_OrderStatus.Assigned);
         }
         /// <summary>
@@ -593,7 +593,7 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_CustomerDisagreeNegotiate(ServiceOrder order)
         {
-            //order.NegotiateAmount = order.OrderAmount;
+            order.NegotiateAmount = order.OrderAmount;
             ChangeStatus(order, enum_OrderStatus.Negotiate);
         }
         /// <summary>
@@ -1410,16 +1410,6 @@ namespace Dianzhu.BLL
             return repoServiceOrder.Find(where).ToList();
 
             // return DALServiceOrder.GetAllCompleteOrdersForBusiness(businessId);
-        }
-
-        /// <summary>
-        /// 客户不同意协商的金额
-        /// </summary>
-        /// <param name="order"></param>
-        public void OrderFlow_CustomDisagreeNegotiate(ServiceOrder order)
-        {
-            //throw new NotImplementedException();
-            ChangeStatus(order, enum_OrderStatus.Negotiate);
         }
 
         public IList<ServiceOrder> GetOrdersForShare()
