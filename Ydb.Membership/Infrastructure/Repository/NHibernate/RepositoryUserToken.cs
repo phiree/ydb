@@ -9,7 +9,7 @@ using Ydb.Membership.DomainModel.Enums;
 using Ydb.Membership.DomainModel.Repository;
 using NHibernate;
 using System.Linq.Expressions;
-
+using Ydb.Common.Repository;
 namespace Ydb.Membership.Infrastructure.Repository.NHibernate
 {
    public class RepositoryUserToken:NHRepositoryBase<UserToken,Guid>,IRepositoryUserToken

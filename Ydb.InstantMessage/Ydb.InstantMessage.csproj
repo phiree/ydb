@@ -128,7 +128,6 @@
     <Compile Include="DomainModel\Chat\ReceptionChatFactory.cs" />
     <Compile Include="DomainModel\Chat\Dto\ReceptionChatMediaDto.cs" />
     <Compile Include="DomainModel\Chat\Model\ReceptionChatMedia.cs" />
-    <Compile Include="DomainModel\IRepository.cs" />
     <Compile Include="DomainModel\Reception\AssignStratage.cs" />
     <Compile Include="DomainModel\Reception\AssignStratageRandom.cs" />
     <Compile Include="DomainModel\Reception\IReceptionSession.cs" />
@@ -148,12 +147,13 @@
     <Compile Include="Infrastructure\Repository\NHibernate\NHRepository.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\ReceptionRepository.cs" />
     <Compile Include="Infrastructure\OpenfireXMPP.cs" />
-    <Compile Include="Infrastructure\UnitOfWork\IUnitOfWork.cs" />
-    <Compile Include="Infrastructure\UnitOfWork\NHibernateUnitOfWork.cs" />
-    <Compile Include="Infrastructure\UnitOfWork\NhUnitOfWorkInterceptor.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernateUnitOfWork.cs" />
+    <Compile Include="Infrastructure\Repository\NhUnitOfWorkInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Infrastructure\UnitOfWork\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="UL.txt" />
   </ItemGroup>

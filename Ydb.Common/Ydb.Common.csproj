@@ -68,9 +68,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\IUnitOfWork.cs" />
-    <Compile Include="Repository\NHibernateUnitOfWork.cs" />
-    <Compile Include="Repository\NHRepository.cs" />
-    <Compile Include="Repository\NhUnitOfWorkInterceptor.cs" />
     <Compile Include="Specification\PredicateBuilder.cs" />
     <Compile Include="Specification\TraitFilter.cs" />
   </ItemGroup>

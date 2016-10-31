@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
-
-namespace Ydb.Membership.Infrastructure.UnitOfWork
+using Ydb.Common.Repository;
+namespace Ydb.Membership.Infrastructure
 {
     public class NhUnitOfWork : IUnitOfWork
     {

@@ -10,12 +10,12 @@ using Ydb.Common.Domain;
  
 using Ydb.Common.Specification;
 using Ydb.Membership.DomainModel;
-using Ydb.Membership.Infrastructure.UnitOfWork;
-
+using Ydb.Common.Repository;
+using Ydb.Common.Repository;
 
 namespace Ydb.Membership.Infrastructure.Repository.NHibernate
 {
-    public class NHRepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
+    public class NHRepositoryBase<TEntity, TPrimaryKey> :IRepository<TEntity, TPrimaryKey>
         where TEntity : Entity<TPrimaryKey>
     {
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.InstantMessage.Infrastructure.Repository;
 using Ydb.InstantMessage.DomainModel.Reception;
+using Ydb.Common.Repository;
 namespace Ydb.InstantMessage.DomainModel.Reception
 {
    public interface IRepositoryReception: IRepository<ReceptionStatus,Guid>

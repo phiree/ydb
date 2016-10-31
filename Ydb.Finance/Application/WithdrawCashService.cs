@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Ydb.Finance.DomainModel;
 using Ydb.Finance.DomainModel.Enums;
 using NHibernate;
-
+using Ydb.Common.Repository;
 namespace Ydb.Finance.Application
 {
     public class WithdrawCashService: IWithdrawCashService
@@ -24,7 +24,7 @@ namespace Ydb.Finance.Application
         /// 提现操作
         /// </summary>
         /// <param name="order" type="IList<WithdrawCashParam>">提现信息列表</param>
-        [Ydb.Common.Repository.UnitOfWork]
+        [ UnitOfWork]
         public void WithdrawCash(IList<WithdrawCashParam> cashList)
         {
             foreach (WithdrawCashParam cash in cashList)

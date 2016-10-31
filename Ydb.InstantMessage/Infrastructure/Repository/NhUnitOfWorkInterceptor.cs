@@ -4,7 +4,9 @@ using System;
 using System.Reflection;
 using IInterceptor = Castle.DynamicProxy.IInterceptor;
 using Ydb.InstantMessage.DomainModel;
-namespace Ydb.InstantMessage.Infrastructure.UnitOfWork
+
+using Ydb.Common.Repository;
+namespace Ydb.InstantMessage.Infrastructure
 {
     /// <summary>
     /// Represents a transactional job.

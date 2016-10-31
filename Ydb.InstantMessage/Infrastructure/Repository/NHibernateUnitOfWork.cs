@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
-
-namespace Ydb.InstantMessage.Infrastructure.UnitOfWork
+using Ydb.Common.Repository;
+namespace Ydb.InstantMessage.Infrastructure
 {
     public class NhUnitOfWork : IUnitOfWork
     {

@@ -35,7 +35,7 @@ namespace Ydb.Membership.Tests.Application
                    .BuildSessionFactory();
            
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
+            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory).Named("MembershipSessionFactory"));
 
 
 

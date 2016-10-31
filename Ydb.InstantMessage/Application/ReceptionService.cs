@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Reception;
 using NHibernate;
 using Ydb.InstantMessage.DomainModel.Enums;
-using Ydb.InstantMessage.Infrastructure.UnitOfWork;
+using Ydb.Common.Repository;
 using Ydb.InstantMessage.Application.Dto;
 
+using Ydb.InstantMessage.Infrastructure;
 namespace Ydb.InstantMessage.Application
 {
     /// <summary>

@@ -7,10 +7,11 @@ using NHibernate;
 using Ydb.Membership.DomainModel;
 using Ydb.Membership.DomainModel.Enums;
 using Ydb.Membership.DomainModel.Repository;
-using Ydb.Membership.Infrastructure.UnitOfWork;
+//using Ydb.Membership.Infrastructure.UnitOfWork;
 using AutoMapper;
 using Ydb.Membership.Application.Dto;
-
+using Ydb.Common.Repository;
+using Ydb.Membership.Infrastructure;
 namespace Ydb.Membership.Application
 {
     public class DZMembershipService : IDZMembershipService
@@ -27,7 +28,7 @@ namespace Ydb.Membership.Application
         }
 
 
-        [UnitOfWork]
+        [ UnitOfWork]
         public Dto.RegisterResult RegisterBusinessUser(string registerName, string password, string confirmPassword)
         {
             Dto.RegisterResult registerResult = new Dto.RegisterResult();

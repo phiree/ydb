@@ -4,7 +4,8 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using Castle.Windsor;
-using Ydb.Membership.Infrastructure.UnitOfWork;
+//using Ydb.Membership.Infrastructure.UnitOfWork;
+using Ydb.Common.Repository;
 using Castle.Core;
 
 namespace Ydb.Membership.Infrastructure

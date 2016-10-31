@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.Infrastructure.Repository.NHibernate;
-using Ydb.InstantMessage.Infrastructure.UnitOfWork;
+using Ydb.Common.Repository;
 using NHibernate;
 using Ydb.InstantMessage.DomainModel.Chat.Enums;
  
 using Ydb.Common.Specification;
-
+using Ydb.InstantMessage.Infrastructure;
 namespace Ydb.InstantMessage.Application
 {
     /// <summary>

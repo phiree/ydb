@@ -8,7 +8,7 @@ using System.Linq;
 using Ydb.InstantMessage.DomainModel.Chat.Enums;
 using Ydb.Common.Specification;
 using Ydb.InstantMessage.DomainModel.Enums;
-
+using Ydb.Common.Repository;
 namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
 {
     public class RepositoryChat : NHRepositoryBase<ReceptionChat,Guid>,IRepositoryChat

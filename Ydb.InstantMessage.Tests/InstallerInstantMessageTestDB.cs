@@ -26,7 +26,7 @@ namespace Ydb.InstantMessage.Tests
                    .BuildSessionFactory();
            
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
+            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory).Named("InstantMessageSessionFactory"));
 
 
 

@@ -7,8 +7,9 @@ using System.Linq.Expressions;
 using NHibernate;
 using NHibernate.Linq;
 using Ydb.Common.Domain;
-using Ydb.InstantMessage.Infrastructure.UnitOfWork;
+ 
 using Ydb.Common.Specification;
+using Ydb.Common.Repository;
 using Ydb.InstantMessage.DomainModel;
 
 namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
