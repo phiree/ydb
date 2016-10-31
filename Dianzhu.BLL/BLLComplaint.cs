@@ -60,7 +60,7 @@ namespace Dianzhu.BLL
             }
             if (customerServiceID != Guid.Empty)
             {
-                where = where.And(x => x.Order.CustomerService.Id== customerServiceID);
+                where = where.And(x => x.Order.CustomerServiceId.Id== customerServiceID);
             }
             Model.Complaint baseone = null;
             if (!string.IsNullOrEmpty(filter.baseID))
@@ -97,7 +97,7 @@ namespace Dianzhu.BLL
             }
             if (customerServiceID != Guid.Empty)
             {
-                where = where.And(x => x.Order.CustomerService.Id == customerServiceID);
+                where = where.And(x => x.Order.CustomerServiceId.Id == customerServiceID);
             }
             long count= dalComplaint.GetRowCount(where) ;
             return count;

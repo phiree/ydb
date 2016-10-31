@@ -128,7 +128,7 @@ namespace Dianzhu.ApplicationService.Order
             //{
             //    orderobj.serviceSnapshotObj.serviceType.fullDescription = serviceorder.Service.ServiceType.ToString();
             //}
-            orderobj.customerObj = Mapper.Map<Model.DZMembership, customerObj>(serviceorder.Customer);
+            orderobj.customerObj = Mapper.Map<Model.DZMembership, customerObj>(serviceorder.CustomerId);
             
             orderobj.formanObj = Mapper.Map<Model.Staff, staffObj>(serviceorder.Staff);
             if (orderobj.formanObj != null)
@@ -167,11 +167,11 @@ namespace Dianzhu.ApplicationService.Order
                 orderobj.storeObj.location.longitude = serviceorder.Business.Longitude.ToString();
                 orderobj.storeObj.location.address = serviceorder.Business.RawAddressFromMapAPI==null?"":serviceorder.Business.RawAddressFromMapAPI;
             }
-            if (serviceorder.CustomerService != null)
+            if (serviceorder.CustomerServiceId != null)
             {
-                orderobj.customerServicesObj.id = serviceorder.CustomerService.Id.ToString();
-                orderobj.customerServicesObj.alias = serviceorder.CustomerService.DisplayName;
-                orderobj.customerServicesObj.imgUrl = serviceorder.CustomerService.AvatarUrl==null?"" : Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + serviceorder.CustomerService.AvatarUrl;
+                orderobj.customerServicesObj.id = serviceorder.CustomerServiceId.Id.ToString();
+                orderobj.customerServicesObj.alias = serviceorder.CustomerServiceId.DisplayName;
+                orderobj.customerServicesObj.imgUrl = serviceorder.CustomerServiceId.AvatarUrl==null?"" : Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + serviceorder.CustomerServiceId.AvatarUrl;
             }
             
         }
@@ -488,7 +488,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单不存在！");
             }
-            if (customer.UserType == "customer" && order.Customer.Id.ToString ()!=customer.UserID)
+            if (customer.UserType == "customer" && order.CustomerId.Id.ToString ()!=customer.UserID)
             {
                 throw new Exception("这不是你的订单！");
             }
@@ -518,7 +518,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单不存在！");
             }
-            if (order.Customer.Id.ToString() != customer.UserID)
+            if (order.CustomerId.Id.ToString() != customer.UserID)
             {
                 throw new Exception("这不是你的订单！");
             }
@@ -543,7 +543,7 @@ namespace Dianzhu.ApplicationService.Order
             //order.Details.Count > 0? order.Details[0].ServieSnapShot.ServiceName ?? string.Empty: pushService.ServiceName ?? string.Empty;
 
             //增加订单提醒
-            ServiceOrderRemind remind = new ServiceOrderRemind(strName, strAlias + "提供" + strType, order.Details[0].TargetTime, true, order.Id, order.Customer.Id);
+            ServiceOrderRemind remind = new ServiceOrderRemind(strName, strAlias + "提供" + strType, order.Details[0].TargetTime, true, order.Id, order.CustomerId.Id);
             bllServiceOrderRemind.Save(remind);
 
             orderObj orderobj = Mapper.Map<Model.ServiceOrder, orderObj>(order);
@@ -588,7 +588,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单不存在！");
             }
-            if (order.Customer.Id.ToString() != customer.UserID)
+            if (order.CustomerId.Id.ToString() != customer.UserID)
             {
                 throw new Exception("这不是你的订单！");
             }
@@ -616,7 +616,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单不存在！");
             }
-            if (order.Customer.Id.ToString() != customer.UserID)
+            if (order.CustomerId.Id.ToString() != customer.UserID)
             {
                 throw new Exception("这不是你的订单！");
             }

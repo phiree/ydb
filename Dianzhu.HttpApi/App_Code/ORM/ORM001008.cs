@@ -152,7 +152,7 @@ public class ResponseORM001008 : BaseResponse
                 respData.orderObj = orderObj;
 
                 //增加订单提醒
-                ServiceOrderRemind remind = new ServiceOrderRemind(orderObj.svcObj.name,orderObj.storeObj.alias+"提供"+orderObj.svcObj.type, order.Details[0].TargetTime,true, order.Id, order.Customer.Id);
+                ServiceOrderRemind remind = new ServiceOrderRemind(orderObj.svcObj.name,orderObj.storeObj.alias+"提供"+orderObj.svcObj.type, order.Details[0].TargetTime,true, order.Id, order.CustomerId.Id);
                 bllServiceOrderRemind.Save(remind);
 
                 this.state_CODE = Dicts.StateCode[0];

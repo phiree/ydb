@@ -127,9 +127,9 @@ namespace Dianzhu.CSClient.Presenter
         {
             lock (lockObj)
             {
-                log.Debug("1开始更新聊天标志的状态.订单:" + order.Id + ",用户:" + order.Customer.DisplayName);
+                log.Debug("1开始更新聊天标志的状态.订单:" + order.Id + ",用户:" + order.CustomerId.DisplayName);
                 type = IdentityTypeOfOrder.None;
-                var existedCustomer = currentIdentityList.Where(x => x.Key.Customer.Id == order.Customer.Id);
+                var existedCustomer = currentIdentityList.Where(x => x.Key.CustomerId.Id == order.CustomerId.Id);
 
                 if (existedCustomer.Count() == 1)
                 {
@@ -167,7 +167,7 @@ namespace Dianzhu.CSClient.Presenter
                         }
                         currentIdentityList[order] = true;
 
-                        log.Debug("用户名：" + order.Customer.DisplayName);
+                        log.Debug("用户名：" + order.CustomerId.DisplayName);
                         if (existedOrder.Value == true)
                         {
                             type = IdentityTypeOfOrder.CurrentCustomer;

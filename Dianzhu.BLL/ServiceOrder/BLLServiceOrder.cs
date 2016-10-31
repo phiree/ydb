@@ -63,7 +63,7 @@ namespace Dianzhu.BLL
         {
 
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Customer.Id == userId);
+            where = where.And(x => x.CustomerId == userId.ToString());
 
             switch (searchType)
             {
@@ -108,7 +108,7 @@ namespace Dianzhu.BLL
         public IList<ServiceOrder> GetServiceOrderList(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType, int pageNum, int pageSize)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Customer.Id == userId);
+            where = where.And(x => x.CustomerId == userId.ToString());
 
             switch (searchType)
             {
@@ -164,7 +164,7 @@ namespace Dianzhu.BLL
             {
                 if (userType == "customer")
                 {
-                    where = where.And(x => x.Customer.Id == UserID);
+                    where = where.And(x => x.CustomerId == UserID.ToString());
                 }
                 else
                 {
@@ -283,7 +283,7 @@ namespace Dianzhu.BLL
             {
                 if (userType == "customer")
                 {
-                    where = where.And(x => x.Customer.Id == UserID);
+                    where = where.And(x => x.CustomerId == UserID.ToString());
                 }
                 else
                 {
@@ -446,7 +446,7 @@ namespace Dianzhu.BLL
         public IList<ServiceOrder> GetListForCustomer(Guid customerId, int pageNum, int pageSize, out int totalAmount)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Customer.Id == customerId);
+            where = where.And(x => x.CustomerId == customerId.ToString());
             //where = where.And(x => x.OrderStatus != enum_OrderStatus.Search
             //                && x.OrderStatus != enum_OrderStatus.Draft
             //                 && x.OrderStatus != enum_OrderStatus.DraftPushed);
@@ -475,7 +475,7 @@ namespace Dianzhu.BLL
         public virtual ServiceOrder GetDraftOrder(DZMembership c, DZMembership cs)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Customer.Id == c.Id && x.CustomerService.Id == cs.Id && x.OrderStatus == enum_OrderStatus.Draft);
+            where = where.And(x => x.CustomerId == c.Id.ToString() && x.CustomerServiceId == cs.Id.ToString() && x.OrderStatus == enum_OrderStatus.Draft);
             ServiceOrder order = null;
             try
             {
@@ -512,7 +512,7 @@ namespace Dianzhu.BLL
         public ServiceOrder GetOrderByIdAndCustomer(Guid Id, DZMembership customer)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Id == Id && x.Customer == customer);
+            where = where.And(x => x.Id == Id && x.CustomerId == customer.Id.ToString());
 
             return repoServiceOrder.FindOne(where);
 
@@ -960,7 +960,7 @@ namespace Dianzhu.BLL
                                 + "&ordertype=" + order.Service.ServiceType.Name
                                 + "&orderstatusfriendly=" + order.GetStatusTitleFriendly(order.OrderStatus);
             //发送给用户
-            string uriParameterByCustomer = uriParameter + "&userid=" + order.Customer.Id
+            string uriParameterByCustomer = uriParameter + "&userid=" + order.CustomerId
                                                          + "&toresource=" + enum_XmppResource.YDBan_User;
             RequestUri(uriParameterByCustomer);
 
@@ -1354,11 +1354,11 @@ namespace Dianzhu.BLL
             var where = PredicateBuilder.True<ServiceOrder>();
             if (isCustomerService)
             {
-                where = where.And(x => x.CustomerService.Id == userid);
+                where = where.And(x => x.CustomerServiceId == userid.ToString());
             }
             else
             {
-                where = where.And(x => x.Customer.Id == userid);
+                where = where.And(x => x.CustomerId == userid.ToString());
             }
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
 
@@ -1372,11 +1372,11 @@ namespace Dianzhu.BLL
             var where = PredicateBuilder.True<ServiceOrder>();
             if (isCustomerService)
             {
-                where = where.And(x => x.CustomerService.Id == userid);
+                where = where.And(x => x.CustomerServiceId == userid.ToString());
             }
             else
             {
-                where = where.And(x => x.Customer.Id == userid);
+                where = where.And(x => x.CustomerId == userid.ToString());
             }
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
 

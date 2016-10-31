@@ -331,8 +331,11 @@ namespace Dianzhu.ApplicationService.User
             ilog.Debug("7");
             if (orderToReturn == null)
             {
-
-                orderToReturn = ServiceOrderFactory.CreateDraft(customerService, member);
+                orderToReturn = new ServiceOrder()
+                {
+                    CustomerId = customer.UserID,
+                    CustomerServiceId = customerService.Id.ToString()
+                };
 
                 bllServiceOrder.Save(orderToReturn);
             }

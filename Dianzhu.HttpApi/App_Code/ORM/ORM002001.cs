@@ -126,8 +126,12 @@ public class ResponseORM002001 : BaseResponse
 
                 ilog.Debug("7");
                 if (orderToReturn == null)
-                {                
-                    orderToReturn = ServiceOrderFactory.CreateDraft(cs, member);
+                {
+                    orderToReturn = new ServiceOrder()
+                    {
+                        CustomerId = member.Id.ToString(),
+                        CustomerServiceId = cs.Id.ToString()
+                    };
 
                     bllServiceOrder.Save(orderToReturn);
                 }

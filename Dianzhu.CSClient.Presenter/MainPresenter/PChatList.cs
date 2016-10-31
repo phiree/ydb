@@ -63,7 +63,7 @@ namespace Dianzhu.CSClient.Presenter
                     return;
                 }
 
-                Guid customerId = IdentityManager.CurrentIdentity.Customer.Id;
+                Guid customerId = IdentityManager.CurrentIdentity.CustomerId.Id;
 
                 var chatHistory = chatService.GetReceptionChatListByTargetId(
                     customerId,

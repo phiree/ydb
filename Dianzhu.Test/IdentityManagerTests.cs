@@ -31,7 +31,7 @@ namespace Dianzhu.CSClient.Presenter.Tests
             for (int i = 0; i < 10; i++)
             {
                 DZMembership c = new DZMembership { Id = Guid.NewGuid(), UserName = "customer"+i };
-                ServiceOrder order = new ServiceOrder { Customer = c, Id = Guid.NewGuid() };
+                ServiceOrder order = new ServiceOrder { CustomerId = c, Id = Guid.NewGuid() };
                 IdentityTypeOfOrder itoo;
         
                 IdentityManager.UpdateIdentityList(order, out itoo);
@@ -50,7 +50,7 @@ namespace Dianzhu.CSClient.Presenter.Tests
             for (int i = 0; i < 1000; i++)
             {
                 DZMembership c = new DZMembership { Id = Guid.NewGuid(), UserName = "customer" + i };
-                ServiceOrder order = new ServiceOrder { Customer = c, Id = Guid.NewGuid() };
+                ServiceOrder order = new ServiceOrder { CustomerId = c, Id = Guid.NewGuid() };
  
                 System.Threading.Thread t = new System.Threading.Thread(() => AddIdentityAndSetCurrent(order,false));
                 t.Start();
@@ -79,7 +79,7 @@ namespace Dianzhu.CSClient.Presenter.Tests
             for (int i = 0; i < 1000; i++)
             {
                 DZMembership c = new DZMembership { Id = Guid.NewGuid(), UserName = "customer" + i };
-                ServiceOrder order = new ServiceOrder { Customer = c, Id = Guid.NewGuid() };
+                ServiceOrder order = new ServiceOrder { CustomerId = c, Id = Guid.NewGuid() };
 
                 /*
                 System.Threading.Thread t = new System.Threading.Thread(() => IdentityManager.UpdateIdentityList(order, out itoo));

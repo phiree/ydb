@@ -187,15 +187,7 @@ namespace Dianzhu.Model
             }
             return str;
         }
-
-        /// <summary>
-        /// 订单概要文本
-        /// </summary>
-        public virtual string GetSummaryString()
-        {
-            return string.Format("订单状态:{5} 用户:{0},定金金额:{1},服务项:{2},商家:{3}, 服务时间:{4}",
-                Customer.DisplayName,DepositAmount, Title,ServiceBusinessName,TargetTime,GetStatusTitleFriendly(this.OrderStatus));
-        }
+        
         #endregion
 
 
@@ -316,7 +308,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 客户 
         /// </summary>
-        public virtual DZMembership Customer { get; set; }
+        public virtual string CustomerId { get; set; }
 
         /// <summary>
         /// 下单时间
@@ -468,7 +460,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 创建此订单的客服
         /// </summary>
-        public virtual DZMembership CustomerService { get; set; }
+        public virtual string CustomerServiceId { get; set; }
 
 
         /// <summary>

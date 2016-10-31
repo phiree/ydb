@@ -100,9 +100,9 @@ namespace Dianzhu.Api.Model
                 this.svcObj = null;
                 this.storeObj = null;
             }
-            if (order.Customer != null)
+            if (order.CustomerId != null)
             {
-                this.userObj = new RespDataORM_UserObj().Adap(order.Customer);
+                this.userObj = new RespDataORM_UserObj().Adap(order.CustomerId);
             }
             //todo,这里只能获取系统内订单
             //if (order.Service != null)

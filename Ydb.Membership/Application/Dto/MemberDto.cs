@@ -19,7 +19,8 @@ namespace Ydb.Membership.Application.Dto
         public virtual string Address { get; set; }
         public virtual bool IsRegisterValidated { get; set; }
         public virtual string RegisterValidateCode { get; set; }
-        public virtual string UserType { get; set; }
+        public virtual string UserType { get; set; }        
         public virtual string RecoveryCode { get; set; }
+        public virtual string AvatarUrl { get; set; }
     }
 }

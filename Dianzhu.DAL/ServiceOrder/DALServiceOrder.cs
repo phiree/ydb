@@ -17,7 +17,7 @@ namespace Dianzhu.DAL
         }
         private IQueryOver<ServiceOrder> GetList(Guid userId, enum_OrderSearchType searchType)
         {
-            IQueryOver<ServiceOrder, ServiceOrder> iqueryover = Session.QueryOver<ServiceOrder>().Where(x => x.Customer.Id == userId);
+            IQueryOver<ServiceOrder, ServiceOrder> iqueryover = Session.QueryOver<ServiceOrder>().Where(x => x.CustomerId == userId.ToString());
 
             switch (searchType)
             {
@@ -80,8 +80,8 @@ namespace Dianzhu.DAL
             //todo:
             
                 var iqueryover = Session.QueryOver<ServiceOrder>();
-                iqueryover = isCustomerService ? iqueryover.Where(x => x.CustomerService.Id == userid)
-                                            : iqueryover.Where(x => x.Customer.Id == userid);
+                iqueryover = isCustomerService ? iqueryover.Where(x => x.CustomerServiceId == userid.ToString())
+                                            : iqueryover.Where(x => x.CustomerId == userid.ToString());
                 iqueryover = iqueryover.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
               
                 return iqueryover.RowCount();
@@ -92,8 +92,8 @@ namespace Dianzhu.DAL
             //todo:
             
                 var iqueryover = Session.QueryOver<ServiceOrder>();
-                iqueryover = isCustomerService ? iqueryover.Where(x => x.CustomerService.Id == userid)
-                                            : iqueryover.Where(x => x.Customer.Id == userid);
+                iqueryover = isCustomerService ? iqueryover.Where(x => x.CustomerServiceId == userid.ToString())
+                                            : iqueryover.Where(x => x.CustomerId == userid.ToString());
                 iqueryover = iqueryover.And(x => (int)x.OrderStatus != (int)enum_OrderStatus.Draft).And(x => (int)x.OrderStatus != (int)enum_OrderStatus.DraftPushed);
 
                
@@ -132,7 +132,7 @@ namespace Dianzhu.DAL
         public IList<ServiceOrder> GetListForCustomer(DZMembership customer,int pageNum,int pageSize,out int totalAmount)
         {
             
-                var iquery = Session.QueryOver<ServiceOrder>().Where(x => x.Customer == customer).Where(x => x.OrderStatus != enum_OrderStatus.Draft).Where(x => x.OrderStatus != enum_OrderStatus.DraftPushed);
+                var iquery = Session.QueryOver<ServiceOrder>().Where(x => x.CustomerId == customer.Id.ToString()).Where(x => x.OrderStatus != enum_OrderStatus.Draft).Where(x => x.OrderStatus != enum_OrderStatus.DraftPushed);
                 totalAmount = iquery.RowCount();
 
                 IList<ServiceOrder> list = iquery.OrderBy(x => x.OrderFinished).Desc.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
@@ -151,7 +151,7 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public ServiceOrder GetDraftOrder(DZMembership c, DZMembership cs)
         {
-            return FindOne(x => x.Customer.Id == c.Id && x.CustomerService.Id == cs.Id && x.OrderStatus == enum_OrderStatus.Draft);
+            return FindOne(x => x.CustomerId == c.Id.ToString() && x.CustomerServiceId == cs.Id.ToString() && x.OrderStatus == enum_OrderStatus.Draft);
         }
 
         public IList<ServiceOrder> GetOrderListByDate(DZService service, DateTime dateTime)
@@ -161,7 +161,7 @@ namespace Dianzhu.DAL
 
         public ServiceOrder GetOrderByIdAndCustomer(Guid Id, DZMembership customer)
         {
-            return FindOne(x => x.Id == Id && x.Customer.Id == customer.Id);
+            return FindOne(x => x.Id == Id && x.CustomerId == customer.Id.ToString());
         }
         //public IList<ServiceOrder> GetAllOrdersForBusiness(Guid businessId, int pageIndex, int pageSize, out int totalRecords)
         //{

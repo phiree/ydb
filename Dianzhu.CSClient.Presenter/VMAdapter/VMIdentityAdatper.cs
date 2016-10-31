@@ -12,7 +12,7 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
     {
         public VMIdentity OrderToVMIdentity(ServiceOrder order, string customerAvatarUrl)
         {
-            return new VMIdentity(order.Id, order.Customer.Id, order.Customer.DisplayName, customerAvatarUrl);
+            return new VMIdentity(order.Id, order.CustomerId.Id, order.CustomerId.DisplayName, customerAvatarUrl);
         }
     }
 }

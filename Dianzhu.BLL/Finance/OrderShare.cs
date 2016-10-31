@@ -77,12 +77,12 @@ namespace Dianzhu.BLL.Finance
             }
 
             //- 助理分成
-            var customerServiceSharePoint = bllSharePoint.GetSharePoint(order.CustomerService);
+            var customerServiceSharePoint = bllSharePoint.GetSharePoint(order.CustomerServiceId);
             var customerServiceShare = Math.Truncate(customerServiceSharePoint * sharedAmount * 100) / 100m; ;
             Dianzhu.Model.Finance.BalanceFlow flowCustomerService = new Model.Finance.BalanceFlow
             {
                 Amount = customerServiceShare,
-                MemberId =order.CustomerService.Id,
+                MemberId =order.CustomerServiceId.Id,
                 RelatedObjectId= order.Id.ToString(),
                 OccurTime = DateTime.Now,
                 FlowType = Model.Finance.enumFlowType.OrderShare

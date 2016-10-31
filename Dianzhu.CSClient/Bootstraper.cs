@@ -22,6 +22,10 @@ namespace Dianzhu.CSClient
             container.Install(
                 new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(),
                 new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(),
+                new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
+                new Ydb.Membership.Application.InstallerMembership(),
+                new Ydb.Membership.Application.InstallerMembershipDB(),
+                new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
                 new InstallerComponent(),
                 new InstallerInfrstructure(),
                 new InstallerRepository(),

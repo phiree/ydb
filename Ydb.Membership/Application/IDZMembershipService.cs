@@ -43,6 +43,13 @@ namespace Ydb.Membership.Application
          Dto.MemberDto GetUserByName(string userName);
 
         /// <summary>
+        /// 根据用户名id获取用户信息
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        Dto.MemberDto GetUserById(string id);
+
+        /// <summary>
         /// 用户验证
         /// </summary>
         /// <param name="userNameOrUserId">用户登录名或者ID</param>

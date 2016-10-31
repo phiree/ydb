@@ -99,7 +99,7 @@ namespace Dianzhu.Api.Model
             this.address = order.TargetAddress;
             this.km = string.Empty;
             this.svcObj = new RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_svcObj().Adap(order.Details[0]);
-            this.userObj = new RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_userObj().Adap(order.Customer);
+            this.userObj = new RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_userObj().Adap(order.CustomerId);
             this.storeObj = new RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_storeObj().Adap(order.Business);
             return this;
         }

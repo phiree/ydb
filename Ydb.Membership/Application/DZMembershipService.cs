@@ -121,6 +121,17 @@ namespace Ydb.Membership.Application
             Dto.MemberDto memberDto = Mapper.Map<DZMembership, Dto.MemberDto>(membership);//new Dto.MemberDto { Id = membership.Id, UserName = membership.UserName };
             return memberDto;
         }
+
+        [UnitOfWork]
+        public Dto.MemberDto GetUserById(string id)
+        {
+            DZMembership membership = repositoryMembership.GetMemberById(new Guid (id));
+            if (membership == null) { return null; }
+
+            Dto.MemberDto memberDto = Mapper.Map<DZMembership, Dto.MemberDto>(membership);//new Dto.MemberDto { Id = membership.Id, UserName = membership.UserName };
+            return memberDto;
+        }
+
         [UnitOfWork]
         public Dto.ValidateResult ValidateUser(string username, string password, bool isLogin)
         {

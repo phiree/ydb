@@ -80,7 +80,7 @@ public class ResponseCLM001001 : BaseResponse
                 {
                     complaint.ComplaitResourcesUrl[i] = utils.GetFileName(complaint.ComplaitResourcesUrl[i].ToString());
                 }
-                complaint.Operator = order.Customer;
+                complaint.Operator = order.CustomerId;
                 bllComplaint.AddComplaint(complaint);
 
                 this.state_CODE = Dicts.StateCode[0];
