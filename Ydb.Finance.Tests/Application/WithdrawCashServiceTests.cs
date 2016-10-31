@@ -9,7 +9,7 @@ using Ydb.Finance.Application;
 namespace Ydb.Finance.Tests.Application
 {
     [TestFixture()]
-    public class WithdrawCashServiceTest
+    public class WithdrawCashServiceTests
     {
         IWithdrawCashService withdrawCashService;
         [SetUp]
@@ -19,8 +19,11 @@ namespace Ydb.Finance.Tests.Application
             withdrawCashService = Bootstrap.Container.Resolve<IWithdrawCashService>();
         }
 
+        /// <summary>
+        /// 提现操作
+        /// </summary>
         [Test()]
-        public void WithdrawCashTest()
+        public void WithdrawCashServiceTests_WithdrawCashTest()
         {
             IList<WithdrawCashParam> flow = new List<WithdrawCashParam> {
                 new WithdrawCashParam{
