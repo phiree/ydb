@@ -54,13 +54,19 @@
                         </label>
                         <asp:TextBox CssClass="register-input" runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"></asp:TextBox>
                     </div>
-                    <div class="register-input-w fluid thin-b" ID="captchaBox">
-                        <span class="register-input-title">验证码</span>
-                        <label class="register-input-icon" for="tbxPassword">
-                            <i class="passwordIcon"></i>
-                        </label>
-                        <!--<asp:TextBox class="register-input" runat="server" ID="captcha" placeholder="验证码" TextMode="SingleLine"></asp:TextBox>-->
-                        <div id="code"></div>
+                    <div class="register-input-w fluid thin-b captcha" ID="captchaBox">
+                        <div class="control-group">
+                            <div class="control-label" for="inputEmail">
+                                <span class="register-input-title" id="passwordIcon">验证码</span>
+                                <label class="register-input-icon" for="tbxPassword">
+                                    <i class="passwordIcon"></i>
+                                </label>
+                                <!--<input name='captcha' type='text' id='captcha' class='register-input error' placeholder='验证码' aria-required='true' aria-describedby='lblMsg'>-->
+                            </div>
+                            <div class="controls">
+                                <div id="code"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="loginBox">
                         <div class="savePass">

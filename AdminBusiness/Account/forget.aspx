@@ -43,12 +43,18 @@
                         </div>
                         <br><br>
                         <div class="register-input-w short thin-b" ID="captchaBox_forget">
-                            <span class="register-input-title">验证码</span>
-                            <label class="register-input-icon" for="tbxPassword">
-                                <i class="passwordIcon"></i>
-                            </label>
-                            <!--<asp:TextBox class="register-input" runat="server" ID="captcha" placeholder="验证码" TextMode="SingleLine"></asp:TextBox>-->
-                            <div id="code"></div>
+                            <div class="control-group">
+                                <div class="control-label" for="inputEmail">
+                                    <span class="register-input-title" id="passwordIcon">验证码</span>
+                                    <label class="register-input-icon" for="tbxPassword">
+                                        <i class="passwordIcon"></i>
+                                    </label>
+                                    <!--<input name='captcha' type='text' id='captcha' class='register-input error' placeholder='验证码' aria-required='true' aria-describedby='lblMsg'>-->
+                                </div>
+                                <div class="controls">
+                                    <div id="code"></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="login_err_msg_static" id="loginError">
                             <asp:Label runat="server" ID="lblMsg"></asp:Label>

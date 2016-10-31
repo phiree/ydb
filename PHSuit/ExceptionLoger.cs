@@ -31,7 +31,7 @@ namespace PHSuit
                 if (string.IsNullOrEmpty(emails)) { return; }
                 string[] emailList = emails.Split(',');
 
-                EmailHelper.SendEmail(emailList[0], "异常_" + log.Logger.Name, message,
+                EmailHelper.SendEmail(emailList[0], "异常_"+ Environment.MachineName + log.Logger.Name, message,
                 emailList);
             }
             catch (Exception phEx)

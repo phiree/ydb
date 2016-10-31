@@ -293,15 +293,16 @@ namespace Dianzhu.Model
     /// <summary>
     /// 消息推送的服务内容
     /// </summary>
-    public class PushedServiceInfo
+    public class PushedServiceInfo : DDDCommon.Domain.Entity<Guid>
     {
         public PushedServiceInfo() { }
-        public PushedServiceInfo(string serviceId, string servicename,
+        public PushedServiceInfo(Guid Id,string serviceId, string servicename,
             string servicetype, string servicestarttime,
             string serviceendtime, string storeuserid,
             string storealias, string storeavatar
             )
         {
+            this.Id = Id;
             this.ServiceId = serviceId;
             this.ServiceName = servicename;
             this.ServiceType = servicetype;
