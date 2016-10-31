@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NHibernate;
 using Ydb.Membership.DomainModel;
 using Ydb.Membership.DomainModel.Enums;
 using Ydb.Membership.DomainModel.Repository;
 //using Ydb.Membership.Infrastructure.UnitOfWork;
 using AutoMapper;
 using Ydb.Membership.Application.Dto;
-using Ydb.Common.Repository;
 using Ydb.Membership.Infrastructure;
 using Ydb.Common.Application;
-
+using Ydb.Common.Infrastructure;
 namespace Ydb.Membership.Application
 {
     public class DZMembershipService : IDZMembershipService
@@ -21,18 +15,21 @@ namespace Ydb.Membership.Application
         log4net.ILog log = log4net.LogManager.GetLogger(" Ydb.Membership.Application.DZMembershipService");
         IDZMembershipDomainService dzmembershipDomainService;
         IEmailService emailService;
-        
-        public DZMembershipService(IDZMembershipDomainService dzmembershipDomainService, IEmailService emailService)
+        IRepositoryDZMembership repositoryMembership;
+
+
+        public DZMembershipService(IDZMembershipDomainService dzmembershipDomainService, IEmailService emailService, IRepositoryDZMembership repositoryMembership)
         {
             this.dzmembershipDomainService = dzmembershipDomainService;
             this.emailService = emailService;
+            this.repositoryMembership = repositoryMembership;
 
         }
 
-        
-        
-        [ UnitOfWork]
-        public Dto.RegisterResult RegisterBusinessUser(string registerName, string password, string confirmPassword,string hostInMail)
+
+
+        [UnitOfWork]
+        public Dto.RegisterResult RegisterBusinessUser(string registerName, string password, string confirmPassword, string hostInMail)
         {
             Dto.RegisterResult registerResult = new Dto.RegisterResult();
             if (password != confirmPassword)
@@ -48,7 +45,7 @@ namespace Ydb.Membership.Application
             {
                 try
                 {
-                    emailService.SendEmail(createdUser.Email, "一点办注册验证邮件", 
+                    emailService.SendEmail(createdUser.Email, "一点办注册验证邮件",
                         createdUser.BuildRegisterValidationContent(hostInMail)
                         );
                 }
@@ -75,12 +72,12 @@ namespace Ydb.Membership.Application
             return memberDto;
         }
         [UnitOfWork]
-        public Dto.ValidateResult ValidateUser(string username, string password,bool isLogin)
+        public Dto.ValidateResult ValidateUser(string username, string password, bool isLogin)
         {
             Dto.ValidateResult validateResult = new Dto.ValidateResult();
             string errMsg;
-             
-            DZMembership member= dzmembershipDomainService.ValidateUser(username, password,isLogin,out errMsg);
+
+            DZMembership member = dzmembershipDomainService.ValidateUser(username, password, isLogin, out errMsg);
             if (member == null)
             {
                 validateResult.IsValidated = false;
@@ -88,7 +85,7 @@ namespace Ydb.Membership.Application
             }
             else
             {
-                validateResult.ValidatedMember= Mapper.Map<DZMembership, Dto.MemberDto>(member);
+                validateResult.ValidatedMember = Mapper.Map<DZMembership, Dto.MemberDto>(member);
             }
             return validateResult;
 
@@ -105,7 +102,7 @@ namespace Ydb.Membership.Application
         /// </summary>
         /// <param name="userName"></param>
         [UnitOfWork]
-        public ActionResult ApplyRecovery(string userName,string hostInMail)
+        public ActionResult ApplyRecovery(string userName, string hostInMail)
         {
             ActionResult result = new ActionResult();
             DZMembership member = dzmembershipDomainService.GetUserByName(userName);
@@ -131,6 +128,28 @@ namespace Ydb.Membership.Application
             }
 
             return result;
+        }
+
+        [UnitOfWork]
+        public ActionResult RecoveryPassword(string recoveryString, string newPassword)
+        {
+            string[] recoveryParameters = recoveryString.Split(new string[] { Config.pwssword_recovery_spliter }, StringSplitOptions.None);
+            string userName =EncryptService.Decrypt( recoveryParameters[0],false);
+            string recoveryCode = recoveryParameters[1];
+
+            DZMembership member = repositoryMembership.GetMemberByName(userName);
+            return member.RecoveryPassword(recoveryCode, newPassword, EncryptService.GetMD5Hash(newPassword));
+
+
+        }
+
+        [UnitOfWork]
+        public ActionResult ChangePassword(string userName, string oldPassword, string newPassword)
+        {
+            DZMembership member = repositoryMembership.GetMemberByName(userName);
+            string oldEncryptedPassword = EncryptService.GetMD5Hash(oldPassword);
+            string newEncryptedPassword = EncryptService.GetMD5Hash(newPassword);
+            return member.ChangePassword(oldEncryptedPassword, newPassword, newEncryptedPassword);
         }
     }
 }

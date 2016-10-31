@@ -22,7 +22,7 @@ public partial class forget : Dianzhu.Web.Common.BasePage
     {
         string username = tbxEmail.Text;
 
-        ActionResult applyResult = memberService.ApplyRecovery(username,Request.Url.Authority+"://"+ Request.Url.Authority);
+        ActionResult applyResult = memberService.ApplyRecovery(username,Request.Url.Scheme+"://"+ Request.Url.Authority);
 
         MemberDto member = memberService.GetUserByName(username);
         if (member == null)

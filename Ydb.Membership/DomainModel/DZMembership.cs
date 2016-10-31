@@ -112,13 +112,18 @@ namespace Ydb.Membership.DomainModel
         /// <returns></returns>
         public virtual ActionResult ChangePassword(string oldEncryptedPassword, string newPlainPassword, string newEncryptedPassword)
         {
+            return ChangePassword(oldEncryptedPassword, newPlainPassword, newEncryptedPassword, true);
+
+        }
+        protected virtual ActionResult ChangePassword(string oldEncryptedPassword, string newPlainPassword, string newEncryptedPassword, bool needOldPassword)
+        {
             ActionResult result = new ActionResult();
             if (newPlainPassword.Length < 6)
             {
                 result.IsSuccess = false;
                 result.ErrMsg = "密码不能少于6个字符";
             }
-            else if (this.Password != oldEncryptedPassword)
+            else if (needOldPassword&& this.Password != oldEncryptedPassword)
             {
                 result.ErrMsg = "原密码有误";
                 result.IsSuccess = false;
@@ -199,6 +204,21 @@ namespace Ydb.Membership.DomainModel
                         + "如果你无法点击此链接,请将下面的网址粘贴到浏览器地址栏.<br/><br/><br/>"
                         + recoveryUrl;
             return body;
+        }
+        public virtual ActionResult RecoveryPassword(string recoveryCode, string newPassword,string newEncryptedPassword)
+        {
+            ActionResult actionresult = new ActionResult();
+            //todo: 关于验证, 应该使用统一的验证机制, 区分不同的适用环境.
+            if (recoveryCode != RecoveryCode.ToString())
+            {
+                actionresult.IsSuccess = false;
+                actionresult.ErrMsg = "重置代码有误";
+            }
+            else
+            {
+             actionresult=   ChangePassword(string.Empty, newPassword, newEncryptedPassword, false);
+            }
+            return actionresult;
         }
     }
 }

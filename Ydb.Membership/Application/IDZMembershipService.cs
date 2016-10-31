@@ -42,5 +42,10 @@ namespace Ydb.Membership.Application
         /// <returns></returns>
         ActionResult ApplyRecovery(string userName,string hostInMail);
 
+        
+
+        ActionResult ChangePassword(string userName, string oldPassword, string newPassword);
+        ActionResult RecoveryPassword( string recoveryString, string newPassword);
+
     }
 }
