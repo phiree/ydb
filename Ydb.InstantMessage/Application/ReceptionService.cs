@@ -111,16 +111,23 @@ namespace Ydb.InstantMessage.Application
 
             for (int i = 0; i < existReceptions.Count; i++)
             {
-                receptionRepository.Delete(existReceptions[i]);
+                if(assignCS!= existReceptions[i].CustomerServiceId.ToString())
+                {
+                    receptionRepository.Delete(existReceptions[i]);
+                }
+                else
+                {
+                    rsDto.Id = existReceptions[i].Id;
+                    rsDto.CustomerId = existReceptions[i].CustomerId;
+                    rsDto.CustomerServiceId = existReceptions[i].CustomerServiceId;
+                    rsDto.OrderId = existReceptions[i].OrderId;
+                }
             }
 
-            ReceptionStatus status = new ReceptionStatus(customerId, assignCS, string.Empty);
-            receptionRepository.Add(status);
+            //ReceptionStatus status = new ReceptionStatus(customerId, assignCS, string.Empty);
+            //receptionRepository.Add(status);
 
-            rsDto.Id = status.Id;
-            rsDto.CustomerId = customerId;
-            rsDto.CustomerServiceId = assignCS;
-            rsDto.OrderId = status.OrderId;
+            
 
             return rsDto;
         }
