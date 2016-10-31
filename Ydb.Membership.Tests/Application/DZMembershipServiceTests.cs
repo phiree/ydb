@@ -30,7 +30,7 @@ namespace Ydb.Membership.Application.Tests
 
             
            
-           Dto.RegisterResult registerResult= dzmembershipService.RegisterBusinessUser(userName,"123456", "123456");
+           Dto.RegisterResult registerResult= dzmembershipService.RegisterBusinessUser(userName,"123456", "123456","http://localhost/");
            
             Assert.AreEqual(true, registerResult.RegisterSuccess);  // your test code here
             Dto.MemberDto memberDto = dzmembershipService.GetUserByName(userName);

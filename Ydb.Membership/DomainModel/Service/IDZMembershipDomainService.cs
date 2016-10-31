@@ -80,12 +80,7 @@ namespace Ydb.Membership.DomainModel
         /// <returns></returns>
          long GetUsersCount(string name, string email, string phone, string platform, string userType)
         ;
-
-
-         bool SendValidationMail(string to, string verifyUrl)
-        ;
-        bool SendRecoveryMail(string to, string recoveryUrl)
-      ;
+ 
          IList<DZMembership> GetAllCustomer(int pageIndex, int pageSize, out long totalRecords)
      ;
 

@@ -12,6 +12,8 @@ using AutoMapper;
 using Ydb.Membership.Application.Dto;
 using Ydb.Common.Repository;
 using Ydb.Membership.Infrastructure;
+using Ydb.Common.Application;
+
 namespace Ydb.Membership.Application
 {
     public class DZMembershipService : IDZMembershipService
@@ -27,9 +29,10 @@ namespace Ydb.Membership.Application
 
         }
 
-
+        
+        
         [ UnitOfWork]
-        public Dto.RegisterResult RegisterBusinessUser(string registerName, string password, string confirmPassword)
+        public Dto.RegisterResult RegisterBusinessUser(string registerName, string password, string confirmPassword,string hostInMail)
         {
             Dto.RegisterResult registerResult = new Dto.RegisterResult();
             if (password != confirmPassword)
@@ -46,7 +49,7 @@ namespace Ydb.Membership.Application
                 try
                 {
                     emailService.SendEmail(createdUser.Email, "一点办注册验证邮件", 
-                        createdUser.BuildRegisterValidationContent(Dianzhu.Config.Config.GetAppSetting("ImServer"))
+                        createdUser.BuildRegisterValidationContent(hostInMail)
                         );
                 }
                 catch (Exception ex)
@@ -95,6 +98,39 @@ namespace Ydb.Membership.Application
         public ValidateResult Login(string userNameOrUserId, string password)
         {
             return ValidateUser(userNameOrUserId, password, true);
+        }
+
+        /// <summary>
+        /// 申请密码恢复
+        /// </summary>
+        /// <param name="userName"></param>
+        [UnitOfWork]
+        public ActionResult ApplyRecovery(string userName,string hostInMail)
+        {
+            ActionResult result = new ActionResult();
+            DZMembership member = dzmembershipDomainService.GetUserByName(userName);
+            if (member == null)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "不存在此用户";
+            }
+            else
+            {
+                try
+                {
+                    string body = member.BuildRecoveryContent(hostInMail);
+                    string tilte = "一点办-密码重置";
+                    emailService.SendEmail(member.Email, tilte, body);
+
+                }
+                catch (Exception ex)
+                {
+                    result.IsSuccess = false;
+                    result.ErrMsg = "发送邮件失败";
+                }
+            }
+
+            return result;
         }
     }
 }

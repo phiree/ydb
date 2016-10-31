@@ -29,7 +29,7 @@ public partial class register : Dianzhu.Web.Common.BasePage//System.Web.UI.Page
         string password2 = regPsConf.Text.Trim();
  
         RegisterResult registerResult =
-         dzMembershipService.RegisterBusinessUser(userName, password, password2);
+         dzMembershipService.RegisterBusinessUser(userName, password, password2,Request.Url.Scheme+"://"+ Request.Url.Authority);
 
         if (!registerResult.RegisterSuccess)
         {

@@ -84,10 +84,12 @@
     <Compile Include="Application\Dto\Mapping\DtoToModelMappingProfile.cs" />
     <Compile Include="Application\Dto\Mapping\ModelToDtoMappingProfile.cs" />
     <Compile Include="Application\Dto\MemberDto.cs" />
+    <Compile Include="Application\Dto\ApplyRecoveryResult.cs" />
     <Compile Include="Application\Dto\ValidateResult.cs" />
     <Compile Include="Application\Dto\RegisterResult.cs" />
     <Compile Include="Application\DZMembershipService.cs" />
     <Compile Include="Application\IDZMembershipService.cs" />
+    <Compile Include="DomainModel\Config.cs" />
     <Compile Include="DomainModel\Service\IDZMembershipDomainService.cs" />
     <Compile Include="DomainModel\Service\DZMembershipDomainService.cs" />
     <Compile Include="Infrastructure\InstallerMembershipDB.cs" />

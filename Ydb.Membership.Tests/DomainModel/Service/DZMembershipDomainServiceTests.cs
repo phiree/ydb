@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Ydb.Membership.DomainModel.Repository;
 using Rhino.Mocks;
 using FizzWare.NBuilder;
- 
+using Ydb.Common.Application;
 namespace Ydb.Membership.DomainModel.Tests
 {
     [TestFixture()]
@@ -39,7 +39,7 @@ namespace Ydb.Membership.DomainModel.Tests
               .CreateNew()
              .With(x => x.Password = "oldpassword")
               .Build();
-            Ydb.Common.Domain.ActionResult result = member.ChangePassword(oldpassword, newpassword_less_then_6, newpassword_less_then_6);
+             ActionResult result = member.ChangePassword(oldpassword, newpassword_less_then_6, newpassword_less_then_6);
 
             Assert.AreEqual(false, result.IsSuccess);
 

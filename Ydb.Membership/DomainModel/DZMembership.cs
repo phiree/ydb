@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 
 using Ydb.Common.Domain;
+using Ydb.Common.Application;
 using Ydb.Membership.DomainModel.Enums;
 namespace Ydb.Membership.DomainModel
 {
@@ -157,7 +158,7 @@ namespace Ydb.Membership.DomainModel
         public virtual string BuildRegisterValidationContent(string host)
         {
 
-
+            
             string body = string.Empty;
             if (IsRegisterValidated)
             {
@@ -180,6 +181,24 @@ namespace Ydb.Membership.DomainModel
             return body;
         }
 
+        public virtual string BuildRecoveryContent(string host)
+        {
+           
+            string body = string.Empty;
 
+
+            RecoveryCode = Guid.NewGuid();
+
+            string recoveryUrl = host+ "/account/recovery.aspx"
+                             +"?p=" + System.Uri.EscapeUriString(PHSuit.Security.Encrypt(UserName, false).Replace("+", "kewudejiahao")) 
+                             + Config.pwssword_recovery_spliter + RecoveryCode;
+
+              body = "您已申请密码重置.请点击下面的连接重置您的密码.</br>"
+                        + "<a style='border:solid 1px #999;margin:20px;padding:10px 40px; background-color:#eee' href='"
+                        + recoveryUrl + "'>点击验证</a><br/><br/><br/>"
+                        + "如果你无法点击此链接,请将下面的网址粘贴到浏览器地址栏.<br/><br/><br/>"
+                        + recoveryUrl;
+            return body;
+        }
     }
 }

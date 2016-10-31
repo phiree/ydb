@@ -37,9 +37,12 @@ namespace Ydb.Infrastructure
             mail.Body = body;
             mail.IsBodyHtml = true;
 
+            if(cc!=null)
+            { 
             foreach (string c in cc)
             {
                 mail.CC.Add(new MailAddress(c));
+            }
             }
 
             client.Send(mail);

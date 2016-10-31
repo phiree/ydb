@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.Membership.DomainModel;
 using Ydb.Membership.DomainModel.Enums;
+using Ydb.Common.Application;
 namespace Ydb.Membership.Application
 {
   public interface  IDZMembershipService
@@ -15,8 +16,9 @@ namespace Ydb.Membership.Application
         /// <param name="registerName">登录名</param>
         /// <param name="password">密码</param>
         /// <param name="confirmPassword"></param>
+        /// <param name="hostInMail">验证邮件中链接的主机名称或者ip地址</param>
         /// <returns></returns>
-        Dto.RegisterResult RegisterBusinessUser(string registerName, string password,string confirmPassword);
+        Dto.RegisterResult RegisterBusinessUser(string registerName, string password,string confirmPassword,string hostInMail);
         /// <summary>
         /// 根据用户名获取用户信息
         /// </summary>
@@ -32,7 +34,13 @@ namespace Ydb.Membership.Application
         /// <returns>验证结果,如果验证通过则包含memberdto</returns>
         Dto.ValidateResult  ValidateUser(string userNameOrUserId, string password,bool isLogin);
         Dto.ValidateResult Login(string userNameOrUserId, string password);
-
+        /// <summary>
+        /// 申请重置密码
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="hostInMail">验证邮件中链接的主机名称或者ip地址</param>
+        /// <returns></returns>
+        ActionResult ApplyRecovery(string userName,string hostInMail);
 
     }
 }

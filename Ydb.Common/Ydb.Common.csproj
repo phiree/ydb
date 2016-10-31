@@ -60,7 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\ActionResult.cs" />
+    <Compile Include="Application\ActionResult.cs" />
     <Compile Include="Domain\IDomainEntity.cs" />
     <Compile Include="Infrastructure\EncryptService.cs" />
     <Compile Include="ExceptionHandler.cs" />
