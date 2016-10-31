@@ -27,13 +27,18 @@ namespace Ydb.InstantMessage.Application.Tests
         public void AssignCustomerLoginTest()
         {
             string errorMessage = string.Empty;
-            receptionService.AssignCustomerLogin("10d304fa-cfe9-4417-beb7-9a8062bd2ba2", out errorMessage);
+            var rs = receptionService.AssignCustomerLogin("10d304fa-cfe9-4417-beb7-9a8062bd2ba2", out errorMessage);
+            Console.WriteLine("CustomerService:" + rs.CustomerServiceId);
         }
 
         [Test()]
         public void AssignCSLoginTest()
         {
-            receptionService.AssignCSLogin("10d304fa-cfe9-4417-beb7-9a8062bd2ba2", 3);
+            var list = receptionService.AssignCSLogin("10d304fa-cfe9-4417-beb7-9a8062bd2ba2", 3);
+            for(int i = 0; i < list.Count; i++)
+            {
+                Console.WriteLine("Customer " + i + ":" + list[i].CustomerId);
+            }
         }
 
         [Test()]

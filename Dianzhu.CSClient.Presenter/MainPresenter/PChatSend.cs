@@ -11,6 +11,7 @@ using log4net;
 using System.Windows.Threading;
 using Dianzhu.CSClient.ViewModel;
 using Ydb.InstantMessage.Application;
+using Dianzhu.CSClient.LocalStorage;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -31,12 +32,14 @@ namespace Dianzhu.CSClient.Presenter
         IViewOrderHistory viewOrderHistory;
         LocalStorage.LocalChatManager localChatManager;
         VMAdapter.IVMChatAdapter vmChatAdapter;
+        LocalUIDataManager localUIDataManager;
 
         ServiceOrder order;
         
         public PChatSend(IViewChatSend viewChatSend, IView.IViewChatList viewChatList,
             Ydb.InstantMessage.Application.IInstantMessage iIM,IViewIdentityList viewIdentityList,
-            IViewOrderHistory viewOrderHistory, LocalStorage.LocalChatManager localChatManager, VMAdapter.IVMChatAdapter vmChatAdapter)
+            IViewOrderHistory viewOrderHistory, LocalStorage.LocalChatManager localChatManager, VMAdapter.IVMChatAdapter vmChatAdapter,
+            LocalUIDataManager localUIDataManager)
         {
             this.viewChatList = viewChatList;
             this.viewChatSend = viewChatSend;
@@ -45,10 +48,33 @@ namespace Dianzhu.CSClient.Presenter
             this.viewIdentityList = viewIdentityList;
             this.viewOrderHistory = viewOrderHistory;
 
+            this.viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
             this.viewChatSend.SendTextClick += ViewChatSend_SendTextClick;
             this.viewChatSend.SendMediaClick += ViewChatSend_SendMediaClick;
+            this.viewChatSend.SaveMessageText += ViewChatSend_SaveMessageText;
+
             this.localChatManager = localChatManager;
             this.vmChatAdapter = vmChatAdapter;
+            this.localUIDataManager = localUIDataManager;
+        }
+
+        private void ViewChatSend_SaveMessageText(string key, object value)
+        {
+            if (IdentityManager.CurrentIdentity != null)
+            {
+                localUIDataManager.Save(IdentityManager.CurrentIdentity.Customer.Id.ToString(), key, value);
+            }
+        }
+
+        private void ViewIdentityList_IdentityClick(VMIdentity vmIdentity)
+        {
+            if (vmIdentity != null)
+            {
+                string id = vmIdentity.CustomerId.ToString();
+                localUIDataManager.InitUIData(id);
+
+                viewChatSend.MessageText = localUIDataManager.LocalUIDatas[id].MessageText;
+            }
         }
 
         private void ViewChatSend_SendMediaClick(byte[] fileData, string domainType, string mediaType)

@@ -331,14 +331,7 @@ namespace Dianzhu.CSClient.Presenter
 
                 if (IdentityManager.CurrentIdentityList.Keys.Select(x => x.Id).ToList().Contains(vmIdentity.OrderId))
                 {
-                    foreach(var item in IdentityManager.CurrentIdentityList.Keys)
-                    {
-                        if (item.Id == vmIdentity.OrderId)
-                        {
-                            IdentityManager.CurrentIdentity = item;
-                            break;
-                        }
-                    }
+                    IdentityManager.CurrentIdentity = IdentityManager.CurrentIdentityList.Keys.ToList().Find(x => x.Id == vmIdentity.OrderId);
                 }
                 else
                 {

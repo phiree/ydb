@@ -122,6 +122,9 @@ namespace Dianzhu.CSClient.Presenter
         BackgroundWorker worker;
         public void ViewIdentityList_IdentityClick(VMIdentity vmIdentity)
         {
+            if (IdentityManager.CurrentIdentity == null)
+            { return; }
+
             worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;

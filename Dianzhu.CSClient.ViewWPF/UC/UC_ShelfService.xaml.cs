@@ -12,8 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Dianzhu.Model;
 using Dianzhu.CSClient.IView;
+using Dianzhu.CSClient.ViewModel;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -22,28 +22,36 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class UC_ShelfService : UserControl, IView.IViewShelfService
     {
-        public UC_ShelfService(DZService service)
+        public UC_ShelfService(VMShelfService service)
         {
             InitializeComponent();
-            LoadData(service,1);
+            LoadData(service);
            // ClearData();
         }
 
-        public void LoadData(DZService service, int num)
+        public void LoadData(VMShelfService service)
         {
-            btnSendService.Tag = service;
+            btnSendService.Tag = service.ServiceId;
 
-            tbkServiceNo.Text = num.ToString();
-            tbkServiceName.Text = service.Name;
-            tbkServiceTime.Text = service.CreatedTime.TimeOfDay.ToString();
+            tbkServiceNo.Text = service.Number.ToString();
+            tbkIsVerify.Text = service.IsVerify ? "已验证" : "未验证";
+            for(int i=0;i<service.AppraiseScore;i++)
+            {
+                tbkAppraiseScore.Text += "★";
+            }
+            tbkServiceName.Text = service.ServiceName;
+            tbkServiceTime.Text = service.TimeInterval;
             tbkServiceUnitPrice.Text = service.UnitPrice.ToString("0.00");
-            tbkServiceDepPrice.Text = service.DepositAmount.ToString("0.00");
-            tbkBusinessName.Text = service.Business.Name;
+            tbkServiceDepPrice.Text = service.DepositPrice.ToString("0.00");
+            tbkBusinessName.Text = service.BusinessName;
         }
 
         public void ClearData()
         {
+            btnSendService.Tag = Guid.Empty;
             tbkServiceNo.Text = string.Empty;
+            tbkIsVerify.Text = string.Empty;
+            tbkAppraiseScore.Text = string.Empty;
             tbkServiceName.Text = string.Empty;
             tbkServiceTime.Text = string.Empty;
             tbkServiceUnitPrice.Text = string.Empty;
@@ -91,7 +99,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             if (PushShelfService != null)
             {
-                PushShelfService((DZService)this.btnSendService.Tag);
+                PushShelfService(Guid.Parse(btnSendService.Tag.ToString()));
             }
         }
     }

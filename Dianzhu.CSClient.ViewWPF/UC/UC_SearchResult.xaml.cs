@@ -17,6 +17,7 @@ using Dianzhu.Model;
 using System.ComponentModel;
 using System.Globalization;
 using Ydb.InstantMessage.Application;
+using Dianzhu.CSClient.ViewModel;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -36,8 +37,8 @@ namespace Dianzhu.CSClient.ViewWPF
             SearchedService = null;
         }
 
-        IList<DZService> searchedService;
-        public IList<DZService> SearchedService
+        IList<VMShelfService> searchedService;
+        public IList<VMShelfService> SearchedService
         {
             get
             {
@@ -60,17 +61,13 @@ namespace Dianzhu.CSClient.ViewWPF
                     {
                         searchedService = value;
                         
-                        //foreach (DZService service in searchedService)
-                        //{
-                        //    LoadServiceToPanel(service);
-                        //}Hashtable ht = (Hashtable)list[i];
                         UC_ShelfService shelfService;
                         int num = 1;
-                        foreach (DZService service in searchedService)
+                        foreach (VMShelfService service in searchedService)
                         {
-                            if (pnlSearchResult.FindName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString())) != null)
+                            if (pnlSearchResult.FindName(PHSuit.StringHelper.SafeNameForWpfControl(service.ServiceId.ToString())) != null)
                             {
-                                pnlSearchResult.UnregisterName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString()));
+                                pnlSearchResult.UnregisterName(PHSuit.StringHelper.SafeNameForWpfControl(service.ServiceId.ToString()));
                             }
                             //LoadServiceToPanel(service);
                             shelfService = new UC_ShelfService(service);
@@ -90,7 +87,7 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         BackgroundWorker w;
-        private void ShelfService_PushShelfService(DZService pushedService)
+        private void ShelfService_PushShelfService(Guid pushedServiceId)
         {
             w = new BackgroundWorker();
             w.DoWork += W_DoWork;
@@ -100,7 +97,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 return;
             }
-            w.RunWorkerAsync(pushedService);
+            w.RunWorkerAsync(pushedServiceId);
             log.Debug("开始推送");
 
             //ReceptionChat chat = null;
@@ -161,7 +158,7 @@ namespace Dianzhu.CSClient.ViewWPF
                     NHibernateUnitOfWork.UnitOfWork.Start();
 
                     string errorMsg = string.Empty;
-                    e.Result = PushServices(new List<DZService>() { (DZService)e.Argument }, out errorMsg);
+                    e.Result = PushServices(new List<Guid>() { Guid.Parse( e.Argument.ToString()) }, out errorMsg);
 
                     if (!string.IsNullOrEmpty(errorMsg))
                     {
@@ -180,30 +177,8 @@ namespace Dianzhu.CSClient.ViewWPF
             }));
         }
         
-        public event SelectService SelectService;
         public event PushServices PushServices;
-
-        private void btnPush_Click(object sender, RoutedEventArgs e)
-        {
-            string errorMsg = string.Empty;
-            IList<DZService> services = new List<DZService>();
-            foreach (Panel p in pnlSearchResult.Children)
-            {
-                foreach (Control ctl in p.Children)
-                {
-                    if (ctl is CheckBox)
-                    {
-                        CheckBox cbx = (CheckBox)ctl;
-                    if (cbx.IsChecked.Value==true)
-                    {
-                        services.Add((DZService)cbx.Tag);
-                    }
-                    }
-                }
-            }
-            PushServices(services,out errorMsg);
-            
-        }
+        
 
         public void AddSearchItem(IViewShelfService service)
         {
@@ -228,7 +203,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 case Model.Enums.enum_FilterType.ByApprise:
                     break;
                 case Model.Enums.enum_FilterType.ByDistance:
-                    SearchedService = searchedService.OrderBy(x => x.CreatedTime).ToList();
+                    SearchedService = searchedService.OrderBy(x => x.Number).ToList();
                     break;
                 case Model.Enums.enum_FilterType.ByPrice:
                     SearchedService = searchedService.OrderBy(x => x.UnitPrice).ToList();
@@ -245,16 +220,7 @@ namespace Dianzhu.CSClient.ViewWPF
         public event FilterByBusinessName FilterByBusinessName;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //SearchedService = (IList<DZService>)searchedService.Select(x => x.Business.Name.Contains(txtFilter.Text.Trim())).ToList();
-            //NHibernateUnitOfWork.UnitOfWork.Start();
-            //Action ac = () =>
-            //{
-                FilterByBusinessName(txtFilter.Text.Trim());
-            //};
-            //NHibernateUnitOfWork.With.Transaction(ac);
-            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-
+            FilterByBusinessName(txtFilter.Text.Trim());
         }
 
         #endregion

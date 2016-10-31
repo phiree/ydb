@@ -106,7 +106,7 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <TextBox x:Name="tbxTextMessage" Style="{StaticResource ChatText}" KeyDown="tbxTextMessage_KeyDown"></TextBox>
+                <TextBox x:Name="tbxTextMessage" Style="{StaticResource ChatText}" KeyDown="tbxTextMessage_KeyDown" TextChanged="tbxTextMessage_TextChanged"></TextBox>
             </Grid>
 
             <Grid Grid.Row="2">

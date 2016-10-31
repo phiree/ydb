@@ -30,6 +30,8 @@ namespace Dianzhu.CSClient.ViewWPF
         private readonly ScreenCaputre screenCaputre = new ScreenCaputre();
         private Size? lastSize;
 
+        public event SaveMessageText SaveMessageText;
+
         public UC_ChatSend()
         {
             InitializeComponent();
@@ -376,5 +378,13 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         #endregion
+
+        private void tbxTextMessage_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (SaveMessageText != null)
+            {
+                SaveMessageText("MessageText", MessageText);
+            }
+        }
     }
 }

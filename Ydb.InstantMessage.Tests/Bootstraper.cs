@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
- 
+using Ydb.InstantMessage.Infrastructure;
 
 namespace Ydb.InstantMessage.Tests
 {
@@ -20,8 +20,9 @@ namespace Ydb.InstantMessage.Tests
         {
             container = new WindsorContainer();
             container.Install(
-                new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(),
-                 new Ydb.InstantMessage.Tests.InstallerInstantMessageTestDB()
+                new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(), 
+                 //new Ydb.InstantMessage.Tests.InstallerInstantMessageTestDB() //测试数据库
+                 new InstallerIntantMessageDB() //本地数据库
                 );
         }
 
