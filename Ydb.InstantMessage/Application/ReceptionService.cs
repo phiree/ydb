@@ -109,25 +109,33 @@ namespace Ydb.InstantMessage.Application
                 return rsDto;
             }
 
-            for (int i = 0; i < existReceptions.Count; i++)
+            if (existReceptions.Count > 0)
             {
-                if(assignCS!= existReceptions[i].CustomerServiceId.ToString())
+                for (int i = 0; i < existReceptions.Count; i++)
                 {
-                    receptionRepository.Delete(existReceptions[i]);
-                }
-                else
-                {
-                    rsDto.Id = existReceptions[i].Id;
-                    rsDto.CustomerId = existReceptions[i].CustomerId;
-                    rsDto.CustomerServiceId = existReceptions[i].CustomerServiceId;
-                    rsDto.OrderId = existReceptions[i].OrderId;
+                    if (assignCS != existReceptions[i].CustomerServiceId.ToString())
+                    {
+                        receptionRepository.Delete(existReceptions[i]);
+                    }
+                    else
+                    {
+                        rsDto.Id = existReceptions[i].Id;
+                        rsDto.CustomerId = existReceptions[i].CustomerId;
+                        rsDto.CustomerServiceId = existReceptions[i].CustomerServiceId;
+                        rsDto.OrderId = existReceptions[i].OrderId;
+                    }
                 }
             }
+            else
+            {
+                ReceptionStatus status = new ReceptionStatus(customerId, assignCS, string.Empty);
+                receptionRepository.Add(status);
 
-            //ReceptionStatus status = new ReceptionStatus(customerId, assignCS, string.Empty);
-            //receptionRepository.Add(status);
-
-            
+                rsDto.Id = status.Id;
+                rsDto.CustomerId = status.CustomerId;
+                rsDto.CustomerServiceId = status.CustomerServiceId;
+                rsDto.OrderId = status.OrderId;
+            }
 
             return rsDto;
         }
