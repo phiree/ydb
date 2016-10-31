@@ -63,5 +63,8 @@ namespace Ydb.Membership.Application
         ActionResult ChangePassword(string userName, string oldPassword, string newPassword);
         ActionResult RecoveryPassword( string recoveryString, string newPassword);
 
+        ActionResult ChangePhone(string userId,string newPhone);
+        ActionResult ChangeEmail(string userId, string newEmail);
+
     }
 }

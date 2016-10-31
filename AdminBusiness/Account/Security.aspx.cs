@@ -19,20 +19,16 @@ public partial class Account_Security :BasePage
     protected void Page_Load(object sender, EventArgs e)
     {
         NeedBusiness = false;
-        if (!IsPostBack)
-        {
-            
-        }
+        
     }
-
-   protected void change_error(object sender, EventArgs e)
+    protected void change_error(object sender, EventArgs e)
     {
-        Exception ex= Server.GetLastError();
-        Response.Redirect("~/error.aspx?msg="+ex.Message);
+        Exception ex = Server.GetLastError();
+        Response.Redirect("~/error.aspx?msg=" + ex.Message);
     }
 
- 
-   protected void btnResendEmailVerify_Click(object sender, EventArgs e)
+
+    protected void btnResendEmailVerify_Click(object sender, EventArgs e)
    { 
        
          ActionResult result=  memberService.ResendVerifyEmail(CurrentUser.UserName,Request.Url.Scheme+"://"+Request.Url.Authority);

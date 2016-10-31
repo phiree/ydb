@@ -201,5 +201,48 @@ namespace Ydb.Membership.Application
             string newEncryptedPassword = EncryptService.GetMD5Hash(newPassword);
             return member.ChangePassword(oldEncryptedPassword, newPassword, newEncryptedPassword);
         }
+
+        [UnitOfWork]
+        public ActionResult ChangePhone(string userId, string newPhone)
+        {
+            ActionResult result = new ActionResult();
+            DZMembership member = repositoryMembership.GetMemberById(new Guid(userId));
+            if (member == null)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "用户不存在";
+                return result;
+            }
+            if (member.Phone == newPhone)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "新号码和旧号码一样,无需修改";
+                return result;
+            }
+            member.Phone = newPhone;
+            return result;
+        }
+        [UnitOfWork]
+        public ActionResult ChangeEmail(string userId, string newEmail)
+        {
+            ActionResult result = new ActionResult();
+            DZMembership member = repositoryMembership.GetMemberById(new Guid(userId));
+            if (member == null)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "用户不存在";
+                return result;
+            }
+            if (member.Email == newEmail)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "新邮箱和旧邮箱一样,无需修改";
+                return result;
+            }
+            member.Email = newEmail;
+            member.IsRegisterValidated = false;
+            member.RegisterValidateCode = Guid.NewGuid().ToString();
+            return result;
+        }
     }
 }
