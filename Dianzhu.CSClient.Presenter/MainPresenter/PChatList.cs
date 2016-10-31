@@ -149,10 +149,17 @@ namespace Dianzhu.CSClient.Presenter
                     viewChatList.ShowNoMoreLabel();
                 }
                 
-                foreach(var vmChat in vmChatList)
+                for(int i = 0; i < vmChatList.Count; i++)
                 {
-                    viewChatList.AddOneChat(vmChat);
-                    //viewChatList.ChatList.Add(vmChat);
+                    try
+                    {
+                        viewChatList.AddOneChat(vmChatList[i]);
+                    }
+                    catch (Exception ee)
+                    {
+                        log.Error("ChatId:" + vmChatList[i].ChatId);
+                        log.Error(ee);
+                    }
                 }
             }
             else
