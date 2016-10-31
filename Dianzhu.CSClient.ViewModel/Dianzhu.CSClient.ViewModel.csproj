@@ -55,6 +55,7 @@
     <Compile Include="ViewOrderList.cs" />
     <Compile Include="VMChat.cs" />
     <Compile Include="VMIdentity.cs" />
+    <Compile Include="VMShelfService.cs" />
     <Compile Include="VMOrderHistory.cs" />
   </ItemGroup>
   <ItemGroup>
