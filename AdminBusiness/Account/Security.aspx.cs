@@ -7,9 +7,14 @@ using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using System.Text.RegularExpressions;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
+using Ydb.Common.Application;
+
 public partial class Account_Security :BasePage
 {
-    DZMembershipProvider dzp = Bootstrap.Container.Resolve<DZMembershipProvider>();
+ //   DZMembershipProvider dzp = Bootstrap.Container.Resolve<DZMembershipProvider>();
+    IDZMembershipService memberService= Bootstrap.Container.Resolve<IDZMembershipService>();
     BLLBusinessImage bllBi =Bootstrap.Container.Resolve<BLLBusinessImage>();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -29,17 +34,15 @@ public partial class Account_Security :BasePage
  
    protected void btnResendEmailVerify_Click(object sender, EventArgs e)
    { 
-       string verifyUrl = "http://" + Request.Url.Authority + "/verify.aspx";
-            verifyUrl += "?userId=" + CurrentUser.Id + "&verifyCode=" + CurrentUser.RegisterValidateCode;
-
-          bool sendSuccess=  dzp.SendValidationMail(CurrentUser.Email, verifyUrl);
-          if (sendSuccess)
+       
+         ActionResult result=  memberService.ResendVerifyEmail(CurrentUser.UserName,Request.Url.Scheme+"://"+Request.Url.Authority);
+          if (result.IsSuccess)
           {
               Response.Redirect("/send_suc.aspx", true);
           }
           else
           {
-              Response.Redirect("error.aspx?msg=发送邮件失败,您可以在账户安全页面重新发送验证.");
+              Response.Redirect("error.aspx?msg="+result.ErrMsg);
           }
    }
  

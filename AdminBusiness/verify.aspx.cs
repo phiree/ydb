@@ -6,25 +6,22 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
+using Ydb.Membership.Application;
+using Ydb.Common.Application;
 public partial class verify : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         string userId = Request.Params["userId"];
         string verifyCode = Request.Params["verifyCode"];
-        DZMembershipProvider dz = Bootstrap.Container.Resolve<DZMembershipProvider>();
-       DZMembership member=  dz.GetUserById(new Guid(userId));
-       if (member == null)
-       { Response.Write("请求参数有误,请确认URL地址是否有误."); }
 
-       if (member.IsRegisterValidated == true)
+        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
+        ActionResult result = memberService.VerifyRegisterCode(verifyCode, userId);
+
+     
+       if (result.IsSuccess  )
        {
-           Response.Write("您已经通过了邮箱验证,无须再次验证.");
-       }
-       if (verifyCode == member.RegisterValidateCode)
-       {
-           member.IsRegisterValidated = true;
-           dz.UpdateDZMembership(member);
+          
            Response.Write("验证成功. <a href='/'>返回首页</a>");
        }
        else

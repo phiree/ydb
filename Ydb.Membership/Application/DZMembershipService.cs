@@ -63,6 +63,56 @@ namespace Ydb.Membership.Application
 
         }
         [UnitOfWork]
+        public ActionResult ResendVerifyEmail(string username, string hostInEmail)
+        {
+            ActionResult result = new ActionResult();
+            DZMembership member = repositoryMembership.GetMemberByName(username);
+            try
+            {
+                emailService.SendEmail(member.Email, "一点办注册验证邮件",
+                    member.BuildRegisterValidationContent(hostInEmail)
+                    );
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "邮件发送失败";
+
+                log.Warn("注册邮件发送失败.注册用户" + member.Id
+                    + Environment.NewLine + ex.ToString());
+
+            }
+            return result;
+        }
+
+        [UnitOfWork]
+        public ActionResult VerifyRegisterCode(string verifyCode, string userid) {
+
+            ActionResult result = new ActionResult();
+            DZMembership member = repositoryMembership.GetMemberById(new Guid(userid));
+            if (member == null)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "没有该用户";
+                return result;
+            }
+            if (member.IsRegisterValidated)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "您已经通过了邮箱验证,无须再次验证.";
+                return result;
+            }
+            if (member.RegisterValidateCode != verifyCode)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "注册验证码有误";
+                return result;
+            }
+            member.IsRegisterValidated = true;
+            return result;
+        }
+
+        [UnitOfWork]
         public Dto.MemberDto GetUserByName(string userName)
         {
             DZMembership membership = dzmembershipDomainService.GetUserByName(userName);
@@ -134,7 +184,7 @@ namespace Ydb.Membership.Application
         public ActionResult RecoveryPassword(string recoveryString, string newPassword)
         {
             string[] recoveryParameters = recoveryString.Split(new string[] { Config.pwssword_recovery_spliter }, StringSplitOptions.None);
-            string userName =EncryptService.Decrypt( recoveryParameters[0],false);
+            string userName = EncryptService.Decrypt(recoveryParameters[0], false);
             string recoveryCode = recoveryParameters[1];
 
             DZMembership member = repositoryMembership.GetMemberByName(userName);

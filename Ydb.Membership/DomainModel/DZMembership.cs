@@ -183,6 +183,7 @@ namespace Ydb.Membership.DomainModel
 
 
             }
+            IsRegisterValidated = false;
             return body;
         }
 

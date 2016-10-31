@@ -20,11 +20,27 @@ namespace Ydb.Membership.Application
         /// <returns></returns>
         Dto.RegisterResult RegisterBusinessUser(string registerName, string password,string confirmPassword,string hostInMail);
         /// <summary>
+        /// 重新发送注册验证邮件
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="hostInEmail"></param>
+        /// <returns></returns>
+          ActionResult ResendVerifyEmail(string username, string hostInEmail);
+
+        /// <summary>
+        /// 验证注册代码
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="verifyCode">注册验证码</param>
+        /// <returns></returns>
+        ActionResult VerifyRegisterCode(string verifyCode, string userid);
+        
+        /// <summary>
         /// 根据用户名获取用户信息
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        Dto.MemberDto GetUserByName(string userName);
+         Dto.MemberDto GetUserByName(string userName);
 
         /// <summary>
         /// 用户验证
