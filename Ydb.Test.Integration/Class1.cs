@@ -22,6 +22,7 @@ namespace Ydb.Test.Integration
             IDZMembershipService memberService = Bootstrap.Container.Resolve< IDZMembershipService>();
            IChatService chatService = Bootstrap.Container.Resolve< IChatService>();
             memberService.GetUserByName("abcd");
+            chatService.GetUnreadChatsCount(Guid.NewGuid());
 
         }
         [Test]

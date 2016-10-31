@@ -4,7 +4,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using Castle.Windsor;
-using Ydb.Common.Repository;
+using Ydb.InstantMessage.Infrastructure.UnitOfWork;
 using Castle.Core;
 
 namespace Ydb.InstantMessage.Infrastructure
