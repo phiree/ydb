@@ -567,8 +567,8 @@ namespace Dianzhu.BLL
         /// <param name="negotiateAmount"></param>
         public void OrderFlow_BusinessNegotiate(ServiceOrder order, decimal negotiateAmount)
         {
-            order.NegotiateAmount_Modified = order.NegotiateAmount;
-            order.NegotiateAmount = negotiateAmount;
+            order.NegotiateAmount_Modified = negotiateAmount;
+            //order.NegotiateAmount = negotiateAmount;
             if (negotiateAmount < order.DepositAmount)//尾款可以为0，if (negotiateAmount <= order.DepositAmount)
             {
                 log.Warn("协商价格小于订金");
@@ -584,6 +584,7 @@ namespace Dianzhu.BLL
 
         public void OrderFlow_CustomConfirmNegotiate(ServiceOrder order)
         {
+            order.NegotiateAmount = order.NegotiateAmount_Modified;
             ChangeStatus(order, enum_OrderStatus.Assigned);
         }
         /// <summary>
@@ -592,7 +593,7 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_CustomerDisagreeNegotiate(ServiceOrder order)
         {
-            order.NegotiateAmount = order.OrderAmount;
+            //order.NegotiateAmount = order.OrderAmount;
             ChangeStatus(order, enum_OrderStatus.Negotiate);
         }
         /// <summary>
