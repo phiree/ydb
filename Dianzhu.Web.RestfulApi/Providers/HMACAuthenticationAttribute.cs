@@ -56,12 +56,23 @@ namespace Dianzhu.Web.RestfulApi
         }
 
         /// <summary>
+        /// ceshiyong
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        private async Task<bool> isValidRequest1(HttpRequestMessage req)
+        {
+            byte[] hash = await ComputeHash(req.Content).ConfigureAwait(false);
+            return false;
+        }
+
+        /// <summary>
         /// 认证
         /// </summary>
         /// <param name="context"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
+        public  Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
         {
             var req = context.Request;
             bool b = true;
@@ -102,6 +113,8 @@ namespace Dianzhu.Web.RestfulApi
             {
                 b = false;
             }
+           //var bb= isValidRequest1(req);
+
             if (b)
             {
                 //bool bb = bool.Parse(ConfigurationManager.AppSettings["NoAuthentication"]);
@@ -374,9 +387,10 @@ namespace Dianzhu.Web.RestfulApi
                 byte[] hash = null;
                 try
                 {
+                    ilog.Debug("Request(httpContent):begin");
                     var content = await httpContent.ReadAsByteArrayAsync().ConfigureAwait(false);//await
-                    string str = Encoding.Default.GetString(content);
-                    ilog.Debug("Request(httpContent):" + str.ToString());
+                    //string str = Encoding.Default.GetString(content);
+                    ilog.Debug("Request(httpContent):end") ;// + str.ToString());
                     //string signatureRawData = await httpContent.ReadAsStringAsync();
                     //byte[] signature = Encoding.UTF8.GetBytes(str);
 
