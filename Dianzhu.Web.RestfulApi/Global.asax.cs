@@ -27,7 +27,9 @@ namespace Dianzhu.Web.RestfulApi
         }
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
+            log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.Result");
             NHibernateUnitOfWork.UnitOfWork.Start();
+            log.Info("Info(begin):*******************************************************");
         }
 
         protected void Application_EndRequest(object sender, EventArgs e)
@@ -38,6 +40,8 @@ namespace Dianzhu.Web.RestfulApi
             log.Info("Info(response.StatusCode):" + Context.Response.StatusCode);
             log.Info("Info(response.StatusCode):" + Context.Response.StatusDescription);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+
+            log.Info("Info(end):*******************************************************");
         }
         protected void Application_Error(object sender, EventArgs e)
         {

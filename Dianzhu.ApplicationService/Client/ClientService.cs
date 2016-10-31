@@ -35,8 +35,8 @@ namespace Dianzhu.ApplicationService.Client
         /// <returns></returns>
         public UserTokentDTO CreateToken(string loginName, string password, string apiName, string apiKey,string strPath)
         {
-            log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.ClientController");
-            ilog.Debug("PostToken(Baegin1):" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
+            //log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.ClientController");
+            //ilog.Debug("PostToken(Baegin1):" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
             if (!dzmp.ValidateUser(loginName, password))
             {
                 //throw new Exception("用户名或密码错误！");
@@ -105,7 +105,7 @@ namespace Dianzhu.ApplicationService.Client
             string requestTimeStamp = currentTs.TotalSeconds.ToString ();
             System.Runtime.Caching.MemoryCache.Default.Remove(dzm.Id.ToString());
             System.Runtime.Caching.MemoryCache.Default.Add(dzm.Id.ToString(), usertokendto.token, DateTimeOffset.UtcNow.AddSeconds(172800));
-            ilog.Debug("PostToken(End):" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
+            //ilog.Debug("PostToken(End):" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
             return usertokendto;
         }
 

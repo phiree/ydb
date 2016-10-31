@@ -27,6 +27,7 @@ namespace Dianzhu.Web.RestfulApi
         private static Dictionary<string, string> allowedApps = new Dictionary<string, string>();
         private readonly Int64 requestMaxAgeInSeconds = 300000;  //5 mins
         private readonly string authenticationScheme = "amx";
+        private  string reqTime = "";
         /// <summary>
         /// 设定appName和security_key
         /// </summary>
@@ -85,6 +86,7 @@ namespace Dianzhu.Web.RestfulApi
             {
                 stamp_TIMES = keyValue.FirstOrDefault();
                 ilog.Debug("Request(stamp_TIMES):" + stamp_TIMES);
+                reqTime = stamp_TIMES;
             }
             else
             {
@@ -93,7 +95,7 @@ namespace Dianzhu.Web.RestfulApi
             if (req.Headers.TryGetValues("appName", out keyValue))
             {
                 appName = keyValue.FirstOrDefault();
-                ilog.Debug("Request(appName):" + appName);
+                ilog.Debug("Request(appName)"+ reqTime + ":" + appName);
             }
             else
             {
@@ -102,12 +104,12 @@ namespace Dianzhu.Web.RestfulApi
             if (req.Headers.TryGetValues("token", out keyValue))
             {
                 token = keyValue.FirstOrDefault();
-                ilog.Debug("Request(token):" + token);
+                ilog.Debug("Request(token)" + reqTime + ":" + token);
             }
             if (req.Headers.TryGetValues("sign", out keyValue))
             {
                 sign = keyValue.FirstOrDefault();
-                ilog.Debug("Request(sign):" + sign);
+                ilog.Debug("Request(sign)" + reqTime + ":" + sign);
             }
             else
             {
@@ -226,13 +228,14 @@ namespace Dianzhu.Web.RestfulApi
                 sharedKey = allowedApps[stringToken[3]];
                 token = stringToken[0] + "." + stringToken[1] + "." + stringToken[2];
             }
-            ilog.Debug("Request(apiKey):" + sharedKey);
+            ilog.Debug("Request(apiKey)" + reqTime + ":" + sharedKey);
             if (isReplayRequest(sign, stamp_TIMES))
             {
                 return false;
             }
 
-            ilog.Debug("Request(RequestUri):" + req.RequestUri.AbsolutePath.ToLower());
+            ilog.Debug("Request(RequestMethod)" + reqTime + ":" + req.Method.ToString());
+            ilog.Debug("Request(RequestUri)" + reqTime + ":" + req.RequestUri.AbsolutePath.ToLower());
             if ((req.Method == HttpMethod.Post && (req.RequestUri.AbsolutePath.ToLower() == "/api/v1/authorization" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customers" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/merchants" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customer3rds"))|| (req.Method == HttpMethod.Get && (req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customers/count" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/merchants/count" )))
             { }
             else
@@ -273,7 +276,7 @@ namespace Dianzhu.Web.RestfulApi
                 requestContentBase64String = sb.ToString();
                 //byte[] baseBuffer = Encoding.UTF8.GetBytes(sb.ToString()); //把转码后的MD5 32位密文转成byte[ ] txtNeed.Text = Convert.ToBase64String(baseBuffer); //这个要注意，不要在newbuffer就转，你解密的时候会乱码（有时候）
                 //requestContentBase64String = Convert.ToBase64String(baseBuffer);
-                ilog.Debug("Create(requestContentBase64String):" + requestContentBase64String);
+                ilog.Debug("Create(requestContentBase64String)" + reqTime + ":" + requestContentBase64String);
             }
             string data = String.Format("{0}{1}{2}{3}{4}", appName, token, requestContentBase64String, stamp_TIMES, requestUri);
             //data = "123";
@@ -321,7 +324,7 @@ namespace Dianzhu.Web.RestfulApi
                     //string strsb = sb.ToString();
                     baseBuffer = Encoding.UTF8.GetBytes(sb.ToString());
                     string tt = Convert.ToBase64String(baseBuffer);
-                    ilog.Debug("Create(sign):" + tt);
+                    ilog.Debug("Create(sign)" + reqTime + ":" + tt);
                     return (sign.Equals(tt, StringComparison.Ordinal));
                 }
             }
@@ -347,28 +350,28 @@ namespace Dianzhu.Web.RestfulApi
             //TimeSpan currentTs = DateTime.Now - epochStart;
             //var serverTotalSeconds = Convert.ToUInt64(currentTs.TotalSeconds);
             var serverTotalSeconds = Convert.ToInt64(currentTs.TotalMilliseconds);//.TotalSeconds
-            ilog.Debug("Create(stamp_TIMES):" + serverTotalSeconds.ToString());
+            ilog.Debug("Create(stamp_TIMES)" + reqTime + ":" + serverTotalSeconds.ToString());
             //var requestTotalSeconds = Convert.ToUInt64(requestTimeStamp);
             var requestTotalSeconds = Convert.ToInt64(requestTimeStamp);
-            ilog.Debug("Request(stamp_TIMES1):" + requestTotalSeconds.ToString());
-            ilog.Debug("Request(requestMaxAgeInSeconds):120000");
-            ilog.Debug("Check(bool):" + (serverTotalSeconds - requestTotalSeconds).ToString());
-            ilog.Debug("Check(bool1):" + ((serverTotalSeconds - requestTotalSeconds) > 120000).ToString());
+            ilog.Debug("Request(stamp_TIMES1)" + reqTime + ":" + requestTotalSeconds.ToString());
+            ilog.Debug("Request(requestMaxAgeInSeconds)" + reqTime + ":120000");
+            ilog.Debug("Check(bool)" + reqTime + ":" + (serverTotalSeconds - requestTotalSeconds).ToString());
+            ilog.Debug("Check(bool1)" + reqTime + ":" + ((serverTotalSeconds - requestTotalSeconds) > 120000).ToString());
             if (Math.Abs(serverTotalSeconds - requestTotalSeconds) > 120000)
             {
-                ilog.Debug("Create(stamp_TIMES2):" + serverTotalSeconds.ToString());
+                ilog.Debug("Create(stamp_TIMES2)" + reqTime + ":" + serverTotalSeconds.ToString());
                 return true;
             }
-            ilog.Debug("Create(stamp_TIMES3):" + serverTotalSeconds.ToString());
+            ilog.Debug("Create(stamp_TIMES3)" + reqTime + ":" + serverTotalSeconds.ToString());
             try
             {
                 System.Runtime.Caching.MemoryCache.Default.Add(nonce, requestTimeStamp, DateTimeOffset.UtcNow.AddSeconds(requestMaxAgeInSeconds));
             }
             catch (Exception ex)
             {
-                ilog.Error("Cache(sgin):" + ex.Message);
+                ilog.Error("Cache(sgin)" + reqTime + ":" + ex.Message);
             }
-            ilog.Debug("Create(stamp_TIMES4):" + serverTotalSeconds.ToString());
+            ilog.Debug("Create(stamp_TIMES4)" + reqTime + ":" + serverTotalSeconds.ToString());
             return false;
         }
 
@@ -387,10 +390,10 @@ namespace Dianzhu.Web.RestfulApi
                 byte[] hash = null;
                 try
                 {
-                    ilog.Debug("Request(httpContent):begin");
+                    ilog.Debug("Request(httpContent)" + reqTime + ":begin" );
                     var content = await httpContent.ReadAsByteArrayAsync().ConfigureAwait(false);//await
                     //string str = Encoding.Default.GetString(content);
-                    ilog.Debug("Request(httpContent):end") ;// + str.ToString());
+                    ilog.Debug("Request(httpContent)" + reqTime + ":end") ;// + str.ToString());
                     //string signatureRawData = await httpContent.ReadAsStringAsync();
                     //byte[] signature = Encoding.UTF8.GetBytes(str);
 
@@ -432,7 +435,15 @@ namespace Dianzhu.Web.RestfulApi
                 response.Headers.WwwAuthenticate.Add(new AuthenticationHeaderValue(authenticationScheme));
                 response.Content = new StringContent("{\"errCode\":\"001001\",\"errString\":\"用户认证失败\"}");
             }
-            ilog.Debug("Response(Content):" + await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+
+            IEnumerable<string> keyValue = null;
+            string strT = "";
+            if( response.RequestMessage.Headers.TryGetValues("stamp_TIMES", out keyValue))
+            {
+                strT = keyValue.FirstOrDefault();
+            }
+
+            ilog.Debug("Response(Content)"+ strT + ":" + await response.Content.ReadAsStringAsync().ConfigureAwait(false));
             return response;
         }
     }

@@ -567,6 +567,7 @@ namespace Dianzhu.BLL
         /// <param name="negotiateAmount"></param>
         public void OrderFlow_BusinessNegotiate(ServiceOrder order, decimal negotiateAmount)
         {
+            order.NegotiateAmount_Modified = order.NegotiateAmount;
             order.NegotiateAmount = negotiateAmount;
             if (negotiateAmount < order.DepositAmount)//尾款可以为0，if (negotiateAmount <= order.DepositAmount)
             {
