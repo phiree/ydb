@@ -445,7 +445,7 @@ namespace Dianzhu.ApplicationService
             {
                 string url = Dianzhu.Config.Config.GetAppSetting("MediaUploadUrlByDate");
                 //url = "http://192.168.1.172:8038/UploadFileByDate.ashx";
-                url = "http://192.168.1.177:8038/UploadFileByDate.ashx";
+                //url = "http://192.168.1.177:8038/UploadFileByDate.ashx";
                 var respData = new NameValueCollection();
                 respData.Add("fileBase64", fileBase64);
                 respData.Add("originalName", strOriginalName);
