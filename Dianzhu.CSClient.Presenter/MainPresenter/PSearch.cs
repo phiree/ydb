@@ -395,7 +395,7 @@ namespace Dianzhu.CSClient.Presenter
                 pushedServices[0].Description,
                 messageId.ToString(),
                 GlobalViables.CurrentCustomerService.Id.ToString(),
-                GlobalViables.CurrentCustomerService.DisplayName,
+                GlobalViables.CurrentCustomerService.NickName,
                 IdentityManager.CurrentIdentity.CustomerId,
                 DateTime.Now,
                 (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds,

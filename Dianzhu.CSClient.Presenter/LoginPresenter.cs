@@ -7,6 +7,9 @@ using Dianzhu.BLL;
 using Dianzhu.BLL.IdentityAccess;
 using System.Threading;
 using Ydb.InstantMessage.Application;
+using Ydb.Membership.Application.Dto;
+using Ydb.Membership.Application;
+using System.Threading.Tasks;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -20,21 +23,19 @@ namespace Dianzhu.CSClient.Presenter
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.LoginPresenter");
         IView.ILoginForm loginView;
         IInstantMessage instantMessage;
-        Dianzhu.IDAL.IUnitOfWork iuow;
         BLLAdvertisement bllAdv;
         IBLLServiceOrder bllServiceOrder;
         IEncryptService encryptService;
-        IDAL.IDALMembership dalMembership;
+        
+        IDZMembershipService memberServcie;
+
         public string[] Args { get; set; }
         public LoginPresenter(IView.ILoginForm loginView, IInstantMessage instantMessage, BLLAdvertisement bllAdv,
-            IBLLServiceOrder bllServiceOrder,IDAL.IDALMembership dalMembership 
-            ,IEncryptService encryptService
-            //,Dianzhu.IDAL.IUnitOfWork iuow
+            IBLLServiceOrder bllServiceOrder, IDZMembershipService memberServcie, IEncryptService encryptService
  )
         {
             this.encryptService = encryptService;
-            this.dalMembership = dalMembership;
-           // this.loginService = loginService;
+            this.memberServcie = memberServcie;
             this.bllServiceOrder = bllServiceOrder;
             this.loginView = loginView;
             this.instantMessage = instantMessage;
@@ -45,7 +46,6 @@ namespace Dianzhu.CSClient.Presenter
             instantMessage.IMConnectionError += new IMConnectionError(instantMessage_IMConenctionError);
             instantMessage.IMLogined += new IMLogined(IMLogined);
             instantMessage.IMAuthError += new IMAuthError(XMPP_IMAuthError);
-           // this.iuow= iuow;
         }
 
         private void LoginView_TestClick(object sender, EventArgs e)
@@ -90,27 +90,21 @@ namespace Dianzhu.CSClient.Presenter
 
         public async void Login(string username, string plainPassword)
         {
-            NHibernateUnitOfWork.UnitOfWork.Start();
-            //Action ac=()=>
-            //{
+            await Task.Run(() =>
+            {
+                //string encryptPassword = encryptService.GetMD5Hash(plainPassword);
 
-                string encryptPassword = encryptService.GetMD5Hash(plainPassword);
-                var member = dalMembership.ValidateUser(username, encryptPassword);
-                //DZMembership member = dalme.GetUserByName(loginView.UserName);
-                if (member != null && member.UserType == Model.Enums.enum_UserType.customerservice)
+                var member = memberServcie.ValidateUser(username, plainPassword, true).ValidatedMember;
+
+                if (member != null && member.UserType == Model.Enums.enum_UserType.customerservice.ToString())
                 {
-                    instantMessage.OpenConnection(member.Id.ToString()
-                         , loginView.Password, Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString());
+                    instantMessage.OpenConnection(member.Id.ToString(), loginView.Password, Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString());
                 }
                 else
                 {
                     XMPP_IMAuthError();
                 }
-            //};
-            //NHibernateUnitOfWork.With.Transaction(ac);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-
+            });
         }
        public  void loginView_ViewLogin()
         {
@@ -119,10 +113,7 @@ namespace Dianzhu.CSClient.Presenter
             loginView.LoginButtonEnabled = false;
             loginView.LoginMessage = string.Empty;
 
-           
-
             Login(loginView.UserName, loginView.Password);
-
         }
 
         void instantMessage_IMConenctionError(string error)
@@ -130,7 +121,6 @@ namespace Dianzhu.CSClient.Presenter
             loginView.LoginButtonEnabled = true;
             loginView.LoginButtonText = "重新登录";
             loginView.ErrorMessage = "服务器错误, 请确保通讯服务器已开启." + error;
-
         }
 
 
@@ -140,8 +130,6 @@ namespace Dianzhu.CSClient.Presenter
             loginView.LoginButtonEnabled = true;
             loginView.LoginButtonText = "重新登录";
             loginView.ErrorMessage = "服务器错误:" + error;
-
-
         }
 
         void XMPP_IMAuthError()
@@ -157,30 +145,19 @@ namespace Dianzhu.CSClient.Presenter
         /// <param name="jidUser"></param>
         void IMLogined(string jidUser)
         {
-            Action ac = () =>
+            MemberDto customerService = memberServcie.GetUserById(jidUser);
+            GlobalViables.CurrentCustomerService = customerService;
+
+            MemberDto diandian = memberServcie.GetUserById(Dianzhu.Config.Config.GetAppSetting("DiandianLoginId"));
+            if (diandian == null)
             {
-
-                DZMembership customerService = dalMembership.FindById(new Guid(jidUser));
-
-                GlobalViables.CurrentCustomerService = customerService;
-
-                Guid id = new Guid(Dianzhu.Config.Config.GetAppSetting("DiandianLoginId"));
-                DZMembership diandian = dalMembership.FindById(id);
-                if (diandian == null)
-                {
-                    log.Error("点点获取失败");
-                }
-                GlobalViables.Diandian = diandian;
-                if (Args.Length == 0)
-                {
-                    loginView.IsLoginSuccess = true;
-                }
-            };
-
-            NHibernateUnitOfWork.With.Transaction(ac);
-
-
-
+                log.Error("点点获取失败");
+            }
+            GlobalViables.Diandian = diandian;
+            if (Args.Length == 0)
+            {
+                loginView.IsLoginSuccess = true;
+            }
         }
 
         void loginView_Logined(object sender, EventArgs e)
