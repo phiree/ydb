@@ -69,12 +69,12 @@ namespace Ydb.Finance.Application
                 switch (strUserTypes[i])
                 {
                     case "agent":
-                        sharePoint = userTypeSharePointService.GetSharePoint(order.BalanceUser[i].UserType, out errMsg);
+                        sharePoint = userTypeSharePointService.GetSharePoint(strUserTypes[i], out errMsg);
                         share = Math.Truncate(sharedAmount * sharePoint * 100) / 100m;
                         shareDiandian = shareDiandian - share;
                         break;
                     case "customerservice":
-                        sharePoint = userTypeSharePointService.GetSharePoint(order.BalanceUser[i].UserType, out errMsg);
+                        sharePoint = userTypeSharePointService.GetSharePoint(strUserTypes[i], out errMsg);
                         share = Math.Truncate(sharedAmount * sharePoint * 100) / 100m;
                         shareDiandian = shareDiandian - share;
                         break;
