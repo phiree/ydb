@@ -20,12 +20,15 @@ namespace Dianzhu.CSClient
         {
             container = new WindsorContainer();
             container.Install(
+                new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
+                new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
                 new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(),
                 new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(),
-                new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
+                
                 new Ydb.Membership.Application.InstallerMembership(),
                 new Ydb.Membership.Application.InstallerMembershipDB(),
-                new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
+                
+                new Ydb.Infrastructure.Installer(),
                 new InstallerComponent(),
                 new InstallerInfrstructure(),
                 new InstallerRepository(),
@@ -33,7 +36,8 @@ namespace Dianzhu.CSClient
                 new InstallerUI()
                 );
 
-          
+            Ydb.Membership.Application.AutoMapperConfiguration.Configure();
+
 
         }
 

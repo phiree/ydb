@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Dianzhu.BLL;
 using Dianzhu.Model;
+using Ydb.Membership.Application.Dto;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -13,14 +14,14 @@ namespace Dianzhu.CSClient.Presenter
     public partial class ClientState
     {
         //当前客服
-        public static DZMembership customerService = GlobalViables.CurrentCustomerService;
+        public static MemberDto customerService = GlobalViables.CurrentCustomerService;
 
         //当前激活客户
-        public static DZMembership CurrentCustomer = null;        
+        public static MemberDto CurrentCustomer = null;        
         //当前接待的 客户列表
-        public static IList<DZMembership> customerList = new List<DZMembership>();
+        public static IList<MemberDto> customerList = new List<MemberDto>();
         //在线的客户列表
-        public static IList<DZMembership> customerOnlineList = new List<DZMembership>();
+        public static IList<MemberDto> customerOnlineList = new List<MemberDto>();
 
         //当前界面内的订单
         public static ServiceOrder CurrentServiceOrder;

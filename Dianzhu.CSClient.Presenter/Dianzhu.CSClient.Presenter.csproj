@@ -70,7 +70,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLLFactory.cs" />
     <Compile Include="GlobalViables.cs" />
     <Compile Include="LoginPresenter.cs" />
     <Compile Include="MainPresenter\PMain.cs" />
