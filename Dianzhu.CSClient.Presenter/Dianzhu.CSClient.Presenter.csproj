@@ -84,7 +84,6 @@
     <Compile Include="MainPresenter\State.cs" />
     <Compile Include="VMAdapter\IVMOrderHistoryAdapter.cs" />
     <Compile Include="VMAdapter\VMChatAdapter.cs" />
-    <Compile Include="MessageLocalStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VMAdapter\IVMChatAdapter.cs" />
     <Compile Include="VMAdapter\VMChatFactory.cs" />
@@ -104,14 +103,6 @@
     <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
       <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
       <Name>Dianzhu.Config</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.IInstantMessage\Dianzhu.CSClient.IInstantMessage.csproj">
-      <Project>{820A465F-51FB-4F8D-8665-B80F9643281B}</Project>
-      <Name>Dianzhu.CSClient.IInstantMessage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.IMessageAdapter\Dianzhu.CSClient.IMessageAdapter.csproj">
-      <Project>{74F0963E-57CA-4D57-899C-D85FF096FE1F}</Project>
-      <Name>Dianzhu.CSClient.IMessageAdapter</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IView.csproj">
       <Project>{755eea8c-9d5e-406e-83dd-36b3ba4eb158}</Project>
@@ -152,6 +143,10 @@
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
       <Name>PHSuit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
+      <Project>{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}</Project>
+      <Name>Ydb.InstantMessage</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

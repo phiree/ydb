@@ -36,6 +36,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <PublishDatabases>false</PublishDatabases>
+    <IncludeIisSettings>true</IncludeIisSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -344,7 +346,8 @@
     <Content Include="config\appSettings.config" />
     <Content Include="config\connectionstrings.config" />
     <Content Include="Content\stoplight.json" />
-    <None Include="Properties\PublishProfiles\RestfulApi.pubxml" />
+    <None Include="Properties\PublishProfiles\Report_RestfulApi_dev_ydban_cn.pubxml" />
+    <None Include="Properties\PublishProfiles\Report_RestfulApi_localhsot.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -405,6 +408,14 @@
     <ProjectReference Include="..\Swashbuckle.Core\Swashbuckle.Core.csproj">
       <Project>{d50a26ff-02c6-4c16-ba94-4cd7d43efbb3}</Project>
       <Name>Swashbuckle.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
+      <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
+      <Name>Ydb.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
+      <Project>{a141eb7d-6e71-43c1-9ca7-12af1b74c1c7}</Project>
+      <Name>Ydb.InstantMessage</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

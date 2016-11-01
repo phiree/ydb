@@ -60,14 +60,6 @@
       <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
       <Name>Dianzhu.Config</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.IInstantMessage\Dianzhu.CSClient.IInstantMessage.csproj">
-      <Project>{820A465F-51FB-4F8D-8665-B80F9643281B}</Project>
-      <Name>Dianzhu.CSClient.IInstantMessage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.IMessageAdapter\Dianzhu.CSClient.IMessageAdapter.csproj">
-      <Project>{74F0963E-57CA-4D57-899C-D85FF096FE1F}</Project>
-      <Name>Dianzhu.CSClient.IMessageAdapter</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
       <Project>{2e67aa78-6780-42bd-a3ab-ad953781e511}</Project>
       <Name>Dianzhu.DAL</Name>

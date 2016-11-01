@@ -63,7 +63,6 @@
     <Compile Include="Client\Client.cs" />
     <Compile Include="Client\RefreshToken.cs" />
     <Compile Include="Client\UserToken.cs" />
-    <Compile Include="Reception\ReceptionChatFactory.cs" />
     <Compile Include="SerialNo.cs" />
     <Compile Include="StorageManager\StorageFileInfo.cs" />
     <Compile Include="Trait_Filtering.cs" />
@@ -110,8 +109,6 @@
     <Compile Include="IdentityAccess\DZMembership.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CashTicketAssignRecord.cs" />
-    <Compile Include="Reception\ReceptionChat.cs" />
-    <Compile Include="Reception\ReceptionStatus.cs" />
     <Compile Include="Resource\ServiceOpenTime.cs" />
     <Compile Include="Payment\Payment.cs" />
     <Compile Include="ServiceOrderStateChangeHis.cs" />
@@ -134,6 +131,10 @@
     <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">
       <Project>{d90cdf37-7406-4dae-9ae6-c894d83a796f}</Project>
       <Name>DDDCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
+      <Project>{F351E700-E016-4A42-9154-54A6D92ECBDE}</Project>
+      <Name>Ydb.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

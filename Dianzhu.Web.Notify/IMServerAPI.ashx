@@ -2,106 +2,80 @@
 
 using System;
 using System.Web;
-using Dianzhu.BLL;
-using Dianzhu.Model;
-using Dianzhu.NotifyCenter;
-public class IMServerAPI : IHttpHandler {
+public class IMServerAPI : IHttpHandler
+{
 
-    log4net.ILog log = log4net.LogManager.GetLogger("debug");
-    IBLLServiceOrder bllOrder =Bootstrap.Container.Resolve<IBLLServiceOrder>();
+    log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
 
     public void ProcessRequest(HttpContext context)
     {
-        NHibernateUnitOfWork.UnitOfWork.Start();
-
-
-        string type = context.Request["type"];
-        Dianzhu.CSClient.IInstantMessage.InstantMessage im
-        = (Dianzhu.CSClient.IInstantMessage.InstantMessage)context.Application["im"];
-        Dianzhu.NotifyCenter.IMNotify imNotify = Bootstrap.Container.Resolve<IMNotify>();
-        switch (type.ToLower())
+        try
         {
-            case "systemnotice":
-                string sysMsg = context.Request["body"];
-                imNotify.SendSysNoitification(sysMsg);
-                break;
-            case "ordernotice":
-                string strOrderId = context.Request["orderId"];
+            string type = context.Request["type"];
 
-                Guid orderId;
-                bool isGuid = Guid.TryParse(strOrderId, out orderId);
-                if (isGuid)
-                {
-                    ServiceOrder order = bllOrder.GetOne(orderId);
-                    imNotify.SendOrderChangedNotify(order);
-                }
-                else
-                {
-                    log.Error("传入的orderid无效:'" + strOrderId + "'");
-                }
-                break;
-            case "cslogin":
-                string strCSUserLoginId = context.Request["userId"];
-                Guid CSUserLoginId;
-                bool isCSUserLoginId = Guid.TryParse(strCSUserLoginId, out CSUserLoginId);
-                if (isCSUserLoginId)
-                {
-                    imNotify.SendCSLoginMessageToDD(CSUserLoginId);
-                }
-                else
-                {
-                    log.Error("传入的csId无效:'" + strCSUserLoginId + "'");
-                }
-                break;
-            case "cslogoff":
-                string struserId = context.Request["userId"];
-                Guid userId;
-                bool isGid = Guid.TryParse(struserId, out userId);
-                if (isGid)
-                {
-                    imNotify.SendRessaginMessage(userId);
-                }
-                else
-                {
-                    log.Error("传入的csId无效:'" + struserId + "'");
-                }
-                break;
-            case "customlogoff":
-                string strcustomId = context.Request["userId"];
-                Guid customId;
-                bool isGidcustom = Guid.TryParse(strcustomId, out customId);
-                if (isGidcustom)
-                {
-                    imNotify.SendCustomLogoffMessage(customId);
-                }
-                else
-                {
-                    log.Error("传入的customerId无效:'" + strcustomId + "'");
-                }
-                break;
-            case "customlogin":
-                string strlogincustomId = context.Request["userId"];
-                Guid logincustomId;
-                bool isGidlogincustom = Guid.TryParse(strlogincustomId, out logincustomId);
-                if (isGidlogincustom)
-                {
-                    imNotify.SendCustomLoginMessage(logincustomId);
-                }
-                else
-                {
-                    log.Error("传入的customerId无效:'" + strlogincustomId + "'");
-                }
-                break;
+            Ydb.InstantMessage.Application.IInstantMessage im = (Ydb.InstantMessage.Application.IInstantMessage)context.Application["im"];
+            Ydb.InstantMessage.Application.IReceptionService receptionService = Bootstrap.Container.Resolve<Ydb.InstantMessage.Application.IReceptionService>();
+
+
+            switch (type.ToLower())
+            {
+                case "systemnotice":
+                    string sysMsg = context.Request["body"];
+                    break;
+                case "ordernotice":
+                    string strOrderId = context.Request["orderid"];
+                    string strOrderTitle = context.Request["ordertitle"];
+                    string strOrderStatus = context.Request["orderstatus"];
+                    string strOrderType = context.Request["ordertype"];
+                    string strOrderStatusFriendly = context.Request["orderstatusfriendly"];
+                    string strUserId = context.Request["userid"];
+                    string strToResource = context.Request["toresource"];
+
+                    Guid orderId;
+                    bool isGuid = Guid.TryParse(strOrderId, out orderId);
+                    if (isGuid)
+                    {
+                        //发送给客户
+                        im.SendNoticeOrderChangeStatus(strOrderTitle, strOrderStatus, strOrderType,
+                            Guid.NewGuid(), "订单状态已变为:" + strOrderStatusFriendly, strUserId, strToResource, strOrderId);
+                    }
+                    else
+                    {
+                        log.Error("传入的orderid无效:'" + strOrderId + "'");
+                    }
+                    break;
+                case "cslogin":
+                    string strCSUserLoginId = context.Request["userId"];
+                    Guid CSUserLoginId;
+                    if (Guid.TryParse(strCSUserLoginId, out CSUserLoginId))
+                    {
+                        //imNotify.SendCSLoginMessageToDD(CSUserLoginId);
+                        receptionService.AssignCSLogin(strCSUserLoginId, 3);
+                    }
+                    else
+                    {
+                        throw new Exception("传入的csId无效:'" + strCSUserLoginId + "'");
+                    }
+                    break;
+                case "cslogoff":
+                    string struserId = context.Request["userId"];
+                    Guid userId;
+                    if (Guid.TryParse(struserId, out userId))
+                    {
+                        //imNotify.SendRessaginMessage(userId);
+                        receptionService.AssignCSLogoff(struserId);
+                    }
+                    else
+                    {
+                        throw new Exception("传入的csId无效:" + struserId);
+                    }
+                    break;
+            }
         }
-
-        //get cslist, using xmpp
-
-        //get order or create new order
-        // return cs,and order 
-
-        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-        NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-        //NHibernateUnitOfWork.With.Transaction(ac);
+        catch (Exception ee)
+        {
+            log.Error(ee);
+        }
     }
 
     public bool IsReusable

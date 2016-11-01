@@ -10,6 +10,6 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
 {
      public interface IVMChatAdapter
     {
-        VMChat ChatToVMChat(ReceptionChat chat);
+        VMChat ChatToVMChat(Ydb.InstantMessage.DomainModel.Chat.ReceptionChatDto chat);
     }
 }

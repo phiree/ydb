@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.Model;
 using System.Diagnostics;
 using System.Collections.Concurrent;
+
 namespace Dianzhu.CSClient.Presenter
 {
     /// <summary>
@@ -192,7 +192,11 @@ namespace Dianzhu.CSClient.Presenter
                 else
                 {
                     log.Error("当前列表中存在重复项");
-
+                    foreach(var item in existedCustomer)
+                    {
+                        log.Debug("orderId:" + item.Key);
+                        log.Debug("isTrueOrFalse:" + item.Value);
+                    }
                 }
                 log.Debug("更新完成");
             }

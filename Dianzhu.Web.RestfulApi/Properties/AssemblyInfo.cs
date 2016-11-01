@@ -34,7 +34,7 @@ using System.Runtime.InteropServices;
 //[assembly: AssemblyVersion("1.0.0.0")]
 //[assembly: AssemblyFileVersion("1.0.0.0")]
 //[assembly: AssemblyInformationalVersion("1.0.0.0")]
-[assembly: AssemblyVersion("1.36.*")]//6061.21139=>2016-08-05 11:45
+[assembly: AssemblyVersion("1.37.*")]//6061.21139=>2016-08-05 11:45
 //[assembly: AssemblyFileVersion("1.0.0.2")]
 //[assembly: AssemblyInformationalVersion("1.0.160805.1153")]
 //DateTime d = new DateTime(2000, 1, 1);

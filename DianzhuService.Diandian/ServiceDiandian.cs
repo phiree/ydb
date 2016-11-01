@@ -108,14 +108,14 @@ namespace DianzhuService.Diandian
                         break;
                     case "ihelper:notice:cer:online":
                         csOnLine++;
-                        log.Debug("收到客服上线通知,num:"+csOnLine);                        
+                        log.Debug("收到客服上线通知,当前在线客服人数:"+csOnLine);                        
                         return;
                     case "ihelper:notice:cer:offline":
                         if (csOnLine > 0)
                         {
                             csOnLine--;
                         }
-                        log.Debug("收到客服离线通知,num:"+csOnLine);                        
+                        log.Debug("收到客服离线通知,当前在线客服人数:"+csOnLine);                        
                         return;
                     default:
                         log.Warn("请求的类型" + msgType.ToLower() + "无法处理，直接返回");

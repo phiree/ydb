@@ -4,11 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using Dianzhu.Model;
-using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Dianzhu.Api.Model;
+using Ydb.InstantMessage.Application;
+using Ydb.InstantMessage.Application.Dto;
 /// <summary>
 /// 获取用户的服务订单列表
 /// </summary>
@@ -21,11 +20,12 @@ public class ResponseORM002001 : BaseResponse
     protected override void BuildRespData()
     {
         ReqDataORM002001 requestData = this.request.ReqData.ToObject<ReqDataORM002001>();
+        
+        IReceptionService receptionService = Bootstrap.Container.Resolve<IReceptionService>();
 
         IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder  serialNoBuilder = Bootstrap.Container.Resolve<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>();
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-        BLLReceptionStatus bllReceptionStatus =      Bootstrap.Container.Resolve<BLLReceptionStatus>();
       
         string user_id = requestData.userID;
 
@@ -63,77 +63,75 @@ public class ResponseORM002001 : BaseResponse
                 }
 
                 ilog.Debug("1");
-                RespDataORM002001 respData = new RespDataORM002001();
-                //IIMSession imSession = new IMSessionsDB();
-               
-                ReceptionAssigner ra = Bootstrap.Container.Resolve<ReceptionAssigner>("OpenFireRestAssigner");
-                 
+                RespDataORM002001 respData = new RespDataORM002001();               
+                
                 ilog.Debug("开始分配客服");
+                string errorMessage = string.Empty;
+                ReceptionStatusDto rsDto = receptionService.AssignCustomerLogin(userId.ToString(),out errorMessage);
+                if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = errorMessage;
+                    return;
+                }
+
+                DZMembership cs = p.GetUserById(Guid.Parse(rsDto.CustomerServiceId));
+
+
+                //ilog.Debug("开始分配客服");
                 ServiceOrder orderToReturn = null;//分配的订单
-                ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(userId);
-                Dictionary<DZMembership, DZMembership> assignedPair = new Dictionary<DZMembership, DZMembership>();
-                if (rs != null && rs.CustomerService.UserType == enum_UserType.customerservice)
-                {
-                    assignedPair.Add(rs.Customer, rs.CustomerService);
-
-                    orderToReturn = rs.Order;
-                }
-                else if (rs != null && rs.CustomerService.UserType == enum_UserType.diandian)
-                {
-                    bllReceptionStatus.Delete(rs);
-                    assignedPair = ra.AssignCustomerLogin(member);
-                }
-                else
-                {
-                    assignedPair = ra.AssignCustomerLogin(member);
-                }
-
-                if (assignedPair.Count == 0)
-                {
-                    this.state_CODE = Dicts.StateCode[4];
-                    this.err_Msg = "没有在线客服";
-                    return;
-                }
-                ilog.Debug("4");
-                if (assignedPair.Count > 1)
-                {
-                    this.state_CODE = Dicts.StateCode[4];
-                    this.err_Msg = "返回了多个客服";
-                    return;
-                }
-                ilog.Debug("5");
-                string reqOrderId = requestData.orderID;
-                Guid order_ID;
-                if (reqOrderId != "")
-                {
-                    bool isValidGuid = Guid.TryParse(reqOrderId, out order_ID);
-                    if (!isValidGuid)
-                    {
-                        this.state_CODE = Dicts.StateCode[1];
-                        this.err_Msg = "OrderId格式有误";
-                        return;
-                    }
-                }
-                ilog.Debug("6");
-                //bool hasOrder = false;
-                //bool needNewOrder = false;
-
-                //if (isValidGuid)
+                //ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(userId);
+                //Dictionary<DZMembership, DZMembership> assignedPair = new Dictionary<DZMembership, DZMembership>();
+                //if (rs != null && rs.CustomerService.UserType == enum_UserType.customerservice)
                 //{
-                if (orderToReturn == null)
+                //    assignedPair.Add(rs.Customer, rs.CustomerService);
+
+                //    orderToReturn = rs.Order;
+                //}
+                //else if (rs != null && rs.CustomerService.UserType == enum_UserType.diandian)
+                //{
+                //    bllReceptionStatus.Delete(rs);
+                //    assignedPair = ra.AssignCustomerLogin(member);
+                //}
+                //else
+                //{
+                //    assignedPair = ra.AssignCustomerLogin(member);
+                //}
+
+                //if (assignedPair.Count == 0)
+                //{
+                //    this.state_CODE = Dicts.StateCode[4];
+                //    this.err_Msg = "没有在线客服";
+                //    return;
+                //}
+                //ilog.Debug("4");
+                //if (assignedPair.Count > 1)
+                //{
+                //    this.state_CODE = Dicts.StateCode[4];
+                //    this.err_Msg = "返回了多个客服";
+                //    return;
+                //}
+                ilog.Debug("5");
+                Guid order_ID;
+                if (Guid.TryParse(rsDto.OrderId, out order_ID))
                 {
-                    orderToReturn = bllServiceOrder.GetDraftOrder(member, assignedPair[member]);
+                    orderToReturn = bllServiceOrder.GetOne(order_ID);
                 }
-                
+
+                ilog.Debug("6");
                 if (orderToReturn == null)
                 {
-                
-                    orderToReturn = ServiceOrderFactory.CreateDraft(assignedPair[member], member);
+                    orderToReturn = bllServiceOrder.GetDraftOrder(member, cs);
+                }
+
+                ilog.Debug("7");
+                if (orderToReturn == null)
+                {                
+                    orderToReturn = ServiceOrderFactory.CreateDraft(cs, member);
 
                     bllServiceOrder.Save(orderToReturn);
                 }
-                //}
-                ilog.Debug("7");
+                
                 // if (!hasOrder||needNewOrder)
                 // {
                 //     /* string serviceName,string serviceBusinessName,string serviceDescription,decimal serviceUnitPrice,string serviceUrl,
@@ -156,9 +154,10 @@ public class ResponseORM002001 : BaseResponse
                 respData.orderID = orderToReturn.Id.ToString();
                 ilog.Debug("8");
                 //更新 ReceptionStatus 中订单
-                bllReceptionStatus.UpdateOrder(member, assignedPair[member], orderToReturn);
+                receptionService.UpdateOrderId(rsDto.Id, respData.orderID);
+
                 ilog.Debug("9");
-                RespDataORM002001_cerObj cerObj = new RespDataORM002001_cerObj().Adap(assignedPair[member]);
+                RespDataORM002001_cerObj cerObj = new RespDataORM002001_cerObj().Adap(cs);
                 ilog.Debug("10");
                 respData.cerObj = cerObj;
                 this.RespData = respData;

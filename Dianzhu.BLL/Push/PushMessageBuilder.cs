@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model.Enums;
 using Dianzhu.Model;
+using Ydb.InstantMessage.DomainModel.Chat;
+using Ydb.InstantMessage.DomainModel.Enums;
+
 namespace Dianzhu.BLL.Push
 {
     public interface IPushMessageBiulder
@@ -37,7 +40,7 @@ namespace Dianzhu.BLL.Push
             needPush = true;
             string pushMessage = string.Empty;
             //服务推送消息
-            if (chat.GetType() == typeof(Model.ReceptionChatNoticeOrder))
+            if (chat.GetType() == typeof(ReceptionChatNoticeOrder))
             {
                 serviceOrder = GetCurrentOrder(chat.SessionId);
                 if (serviceOrder.OrderStatus == enum_OrderStatus.EndWarranty) { needPush = false; return pushMessage; }
@@ -55,20 +58,20 @@ namespace Dianzhu.BLL.Push
                 }
 
             }
-            else if (chat.GetType() == typeof(Model.ReceptionChatNoticeSys))
+            else if (chat.GetType() == typeof(ReceptionChatNoticeSys))
             {
                 pushMessage = System.Text.RegularExpressions.Regex.Replace(chat.MessageBody, @"[\<|\>|\[|\]]", string.Empty);
             }
-            else if (chat.GetType() == typeof(Model.ReceptionChat) || chat.GetType() == typeof(Model.ReceptionChatMedia))
+            else if (chat.GetType() == typeof(ReceptionChat) || chat.GetType() == typeof(ReceptionChatMedia))
             {
 
                 Model.DZMembership member = dalMembership.FindById(new Guid(chat.FromId));
                 switch (chat.FromResource)// member.UserType)
                 {
-                    case  enum_XmppResource.YDBan_CustomerService:
+                    case  XmppResource.YDBan_CustomerService:
                         pushMessage = "[小助理]" + chat.MessageBody;
                         break;
-                    case  enum_XmppResource.YDBan_Store:
+                    case  XmppResource.YDBan_Store:
                         serviceOrder = GetCurrentOrder(chat.SessionId);
                         pushMessage = "[" + serviceOrder.ServiceBusinessName + "]" + chat.MessageBody;
                         break;

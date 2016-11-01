@@ -12,14 +12,11 @@ public class VMCustomerAdapter
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.AdminWeb.VMCustomerAdapter");
     Dianzhu.BLL.DZMembershipProvider bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
     
-    Dianzhu.IDAL.IDALReceptionStatusArchieve dalRSA;
     //  Dianzhu.BLL.BLLServiceOrder bllOrder = new Dianzhu.BLL.BLLServiceOrder();
     private Dianzhu.BLL.IBLLServiceOrder bllOrder;
-    public VMCustomerAdapter(IBLLServiceOrder bllOrder,Dianzhu.IDAL.IDALReceptionStatusArchieve dalRSA)
+    public VMCustomerAdapter(IBLLServiceOrder bllOrder)
     {
-        this.bllOrder = bllOrder;
-        this.dalRSA = dalRSA;
-        
+        this.bllOrder = bllOrder;        
     }
     string errMsg;
     public VMCustomer  Adapt(Dianzhu.Model.DZMembership member)
@@ -31,14 +28,14 @@ public class VMCustomerAdapter
             throw new Exception(errMsg);
         }
         VMCustomer vm = new VMCustomer();
-        vm.CallTimes =dalRSA.GetReceptionAmount(member);
+        //vm.CallTimes =dalRSA.GetReceptionAmount(member);
         vm.Email = member.Email;
         vm.FriendlyUserType = member.FriendlyUserType;
         vm.LoginTimes = member.LoginTimes;
         vm.OrderAmount = bllOrder.GetServiceOrderAmountWithoutDraft(member.Id, false);
         vm.OrderCount = bllOrder.GetServiceOrderCountWithoutDraft(member.Id, false);
         vm.TimeCreated = member.TimeCreated;
-        vm.LoginDates = dalRSA.GetReceptionDates(member);
+        //vm.LoginDates = dalRSA.GetReceptionDates(member);
         vm.UserName = member.UserName;
         return vm;
     }

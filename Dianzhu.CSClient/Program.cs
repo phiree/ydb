@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Dianzhu.CSClient.MessageAdapter;
 using log4net;
 
 using System.Deployment;
@@ -58,10 +57,9 @@ namespace Dianzhu.CSClient
                 return;
             }
 
-             Bootstrap.Boot();
+          
 
-            
-
+            Bootstrap.Boot();
 
             string version = GetVersion();
             //  loginForm.FormText += "v" + version;

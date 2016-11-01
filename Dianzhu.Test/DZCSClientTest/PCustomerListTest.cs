@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.CSClient.IView;
 using Dianzhu.CSClient.Presenter;
 using FizzWare.NBuilder;
@@ -17,14 +16,10 @@ namespace Dianzhu.Test.DZCSClientTest
     public class PCustomerListTest
     {
         IViewIdentityList viewCustomerList;
-        InstantMessage iIM;
         IViewChatList viewChatList;
         IViewChatSend viewChatSend;
         IViewOrderHistory viewOrderHistory;
         IViewSearchResult viewSearchResult;
-        IDAL.IDALReceptionChat dalReceptionChat;
-        IDAL.IDALReceptionStatus dalReceptionStaus;
-        IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve;
         BLL.IBLLServiceOrder bllServiceOrder;
         Dianzhu.CSClient.LocalStorage.LocalChatManager lcm;
         Dianzhu.CSClient.LocalStorage.LocalHistoryOrderManager lhom;
@@ -33,14 +28,10 @@ namespace Dianzhu.Test.DZCSClientTest
         public void setup()
         {
             viewCustomerList = MockRepository.GenerateStub<IViewIdentityList>();
-            iIM = MockRepository.GenerateStub<InstantMessage>();
             viewChatList = MockRepository.GenerateStub<IViewChatList>();
             viewChatSend = MockRepository.GenerateStub<IViewChatSend>();
             viewOrderHistory = MockRepository.GenerateStub<IViewOrderHistory>();
             viewSearchResult = MockRepository.GenerateStub<IViewSearchResult>();
-            dalReceptionChat = MockRepository.GenerateStub<IDAL.IDALReceptionChat>();
-            dalReceptionStatusArchieve = MockRepository.GenerateStub<IDAL.IDALReceptionStatusArchieve>();
-            dalReceptionStaus = MockRepository.GenerateStub<IDAL.IDALReceptionStatus>(); 
              bllServiceOrder = MockRepository.GenerateStub<BLL.IBLLServiceOrder>();
             lcm = MockRepository.GenerateStub<Dianzhu.CSClient.LocalStorage.LocalChatManager>();
             lhom = MockRepository.GenerateStub<Dianzhu.CSClient.LocalStorage.LocalHistoryOrderManager>();

@@ -9,6 +9,8 @@ using Dianzhu.BLL;
 using Dianzhu.CSClient.LocalStorage;
 using Dianzhu.CSClient.ViewModel;
 using Dianzhu.CSClient.Presenter.VMAdapter;
+using Ydb.InstantMessage.Application;
+using Ydb.InstantMessage.DomainModel.Chat;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -22,10 +24,8 @@ namespace Dianzhu.CSClient.Presenter
         IDAL.IDALDZService dalDzService;
         IBLLServiceOrder bllServiceOrder;
         PushService bllPushService;
-        IInstantMessage.InstantMessage iIM;
-        IDAL.IDALReceptionChat dalReceptionChat;
+        IInstantMessage iIM;
         IDAL.IDALServiceType dalServiceType;
-        BLLReceptionStatus bllReceptionStatus;
         IList<VMShelfService> SelectedServiceList;
         BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder;
         LocalStorage.LocalChatManager localChatManager;
@@ -33,6 +33,8 @@ namespace Dianzhu.CSClient.Presenter
         IVMChatAdapter vmChatAdapter;
         IVMIdentityAdapter vmIdentityAdapter;
         IDAL.IDALMembership dalMembership;
+
+        IReceptionService receptionService;
 
         #region 服务类型数据
         Dictionary<ServiceType, IList<ServiceType>> ServiceTypeCach;
@@ -44,11 +46,11 @@ namespace Dianzhu.CSClient.Presenter
 
         #region contructor
  
-        public PSearch(IDAL.IDALMembership dalMembership,IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
+        public PSearch(IInstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
             IViewChatList viewChatList,IViewIdentityList viewIdentityList,
-            IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder,IDAL.IDALReceptionChat dalReceptionChat, IDAL.IDALServiceType dalServiceType,                     
-                    PushService bllPushService, BLLReceptionStatus bllReceptionStatus,BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder, LocalStorage.LocalChatManager localChatManager, LocalStorage.LocalUIDataManager localUIDataManager, 
-                    IVMChatAdapter vmChatAdapter,IVMIdentityAdapter vmIdentityAdapter)
+            IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder, IDAL.IDALServiceType dalServiceType,                     
+                    PushService bllPushService, BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder, LocalStorage.LocalChatManager localChatManager, LocalStorage.LocalUIDataManager localUIDataManager, 
+                    IVMChatAdapter vmChatAdapter,IVMIdentityAdapter vmIdentityAdapter, IDAL.IDALMembership dalMembership, IReceptionService receptionService)
         {
             this.serialNoBuilder = serialNoBuilder;
             this.viewSearch = viewSearch; ;
@@ -57,16 +59,15 @@ namespace Dianzhu.CSClient.Presenter
             this.viewChatList = viewChatList;
             this.bllServiceOrder = bllServiceOrder;
             this.iIM = iIM;
-            this.dalReceptionChat = dalReceptionChat;
             this.dalServiceType = dalServiceType;            
             this.bllPushService = bllPushService; 
-            this.bllReceptionStatus = bllReceptionStatus;
             this.viewIdentityList = viewIdentityList;
             this.localChatManager = localChatManager;
             this.localUIDataManager = localUIDataManager;
             this.vmChatAdapter = vmChatAdapter;
             this.vmIdentityAdapter = vmIdentityAdapter;
             this.dalMembership = dalMembership;
+            this.receptionService = receptionService;
 
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
 
@@ -351,16 +352,14 @@ namespace Dianzhu.CSClient.Presenter
             bllServiceOrder.Update(oldOrder);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
-            //iim发送消息
-
-            ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(),
-                IdentityManager.CurrentIdentity.Customer.Id.ToString(),"推送的服务",IdentityManager.CurrentIdentity.Id.ToString(), Model.Enums.enum_XmppResource.YDBan_CustomerService, Model.Enums.enum_XmppResource.YDBan_User);
-
-
-            IList<PushedServiceInfo> pushedServiceInfos = new List<PushedServiceInfo>();
+            
+            //ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(),
+            //    IdentityManager.CurrentIdentity.Customer.Id.ToString(),"推送的服务",IdentityManager.CurrentIdentity.Id.ToString(), Model.Enums.enum_XmppResource.YDBan_CustomerService, Model.Enums.enum_XmppResource.YDBan_User);
+            
+            IList<Ydb.InstantMessage.DomainModel.Chat.PushedServiceInfo> pushedServiceInfos = new List<Ydb.InstantMessage.DomainModel.Chat.PushedServiceInfo>();
             foreach (var pushedService in serviceOrderPushedServices)
             {
-                PushedServiceInfo psi = new PushedServiceInfo(new Guid(),
+                Ydb.InstantMessage.DomainModel.Chat.PushedServiceInfo psi = new Ydb.InstantMessage.DomainModel.Chat.PushedServiceInfo(
                     pushedService.OriginalService.Id.ToString(),
                     pushedService.ServiceName,
                     pushedService.OriginalService.ServiceType.ToString(),
@@ -369,35 +368,42 @@ namespace Dianzhu.CSClient.Presenter
                     pushedService.OriginalService.Business.Owner.Id.ToString(),
                     pushedService.OriginalService.Business.Owner.NickName,
                     pushedService.OriginalService.Business.Owner.AvatarUrl
-
                     );
                 pushedServiceInfos.Add(psi);
             }
-
-            ReceptionChat chat = chatFactory.CreateChatPushService(pushedServiceInfos);
-
-
-           
-            //dalReceptionChat.Add(chat);//openfire插件存储消息
-
-
-            //加到缓存数组中
-            //if (PChatList.chatHistoryAll != null)
-            //{
-            //    PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
-            //}
+            //ReceptionChat chat = chatFactory.CreateChatPushService(pushedServiceInfos);
 
             log.Debug("推送的订单：" + IdentityManager.CurrentIdentity.Id.ToString());
 
-            //助理工具显示发送的消息
-            VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
-            viewChatList.AddOneChat(vmChat);
-            //存储消息到内存中
-            localChatManager.Add(chat.ToId, vmChat);
-            //viewChatList.AddOneChat(chat,string.Empty);
+            //iim发送消息
+            Guid messageId = Guid.NewGuid();
+            iIM.SendMessagePushService(messageId, pushedServiceInfos, "推送的服务", IdentityManager.CurrentIdentity.Customer.Id.ToString(), "YDBan_User", IdentityManager.CurrentIdentity.Id.ToString());
 
-            //发送推送聊天消息
-            iIM.SendMessage(chat);
+
+
+            //助理工具显示发送的消息
+            //VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
+            VMChatPushServie vmChatPushService = new VMChatPushServie(
+                serviceOrderPushedServices[0].ServiceName,
+                true,
+                serviceOrderPushedServices[0].OriginalService.Business.BusinessAvatar.ImageName,
+                5,
+                serviceOrderPushedServices[0].UnitPrice,
+                serviceOrderPushedServices[0].DepositAmount,
+                serviceOrderPushedServices[0].Description,
+                messageId.ToString(),
+                GlobalViables.CurrentCustomerService.Id.ToString(),
+                GlobalViables.CurrentCustomerService.DisplayName,
+                IdentityManager.CurrentIdentity.Customer.Id.ToString(),
+                DateTime.Now,
+                (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds,
+                "pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCS.png",
+                string.Empty,
+                "#b3d465",
+                true);
+            viewChatList.AddOneChat(vmChatPushService);
+            //存储消息到内存中
+            localChatManager.Add(vmChatPushService.ToId, vmChatPushService);
 
             //生成新的草稿单并发送给客户端
             DZMembership newCS = dalMembership.FindById(GlobalViables.CurrentCustomerService.Id);//  NHibernateUnitOfWork.UnitOfWork.CurrentSession.Merge(GlobalViables.CurrentCustomerService);
@@ -426,14 +432,15 @@ namespace Dianzhu.CSClient.Presenter
 
             //更新接待分配表
             log.Debug("更新ReceptionStatus，customerId:" + IdentityManager.CurrentIdentity.Customer.Id + ",csId:" + GlobalViables.CurrentCustomerService.Id + ",orderId:" + newOrder.Id);
-            bllReceptionStatus.UpdateOrder(IdentityManager.CurrentIdentity.Customer, GlobalViables.CurrentCustomerService, newOrder);
+            //bllReceptionStatus.UpdateOrder(IdentityManager.CurrentIdentity.Customer, GlobalViables.CurrentCustomerService, newOrder);
+            receptionService.UpdateOrderId(IdentityManager.CurrentIdentity.Customer.Id.ToString(), GlobalViables.CurrentCustomerService.Id.ToString(), newOrder.Id.ToString());
 
             //清空搜索选项 todo:为了测试方便，先注释掉
             //viewSearch.ClearData();
             //发送订单通知.
 
             return newOrder;
-            iIM.SendMessage(chat);
+
             //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             //NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
         }

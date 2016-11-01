@@ -6,6 +6,8 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 using Dianzhu.Api.Model;
+using Ydb.InstantMessage.Application;
+using Ydb.InstantMessage.DomainModel.Chat;
 /// <summary>
 /// Summary description for CHAT001001
 /// </summary>
@@ -52,10 +54,10 @@ public class ResponseCHAT001004:BaseResponse
             return;
         }
 
-        BLLReceptionChat bllReceptionChat = Bootstrap.Container.Resolve<BLLReceptionChat>();
+        IChatService bllReceptionChat = Bootstrap.Container.Resolve<IChatService>();
         int rowCount;
         string target = requestData.target;
-        IList<ReceptionChat> chatList;
+        IList<ReceptionChatDto> chatList;
         Guid orderId;
         enum_ChatTarget chatTarget;
         bool is_EnumTarget = Enum.TryParse<enum_ChatTarget>(target, out chatTarget);
@@ -67,7 +69,7 @@ public class ResponseCHAT001004:BaseResponse
         }
         if (requestData.orderID == "")
         {
-            chatList = bllReceptionChat.GetReceptionChatList(userId, Guid.Empty, Guid.Empty, DateTime.MinValue, DateTime.Now, -1, -1, chatTarget, out rowCount);
+            chatList = bllReceptionChat.GetReceptionChatList(userId, Guid.Empty, Guid.Empty, DateTime.MinValue, DateTime.Now, -1, -1, chatTarget.ToString(), out rowCount);
         }
         else
         {
@@ -79,7 +81,7 @@ public class ResponseCHAT001004:BaseResponse
                 return;
             }
 
-            chatList = bllReceptionChat.GetReceptionChatList(userId, Guid.Empty, orderId, DateTime.MinValue, DateTime.Now, -1, -1, chatTarget, out rowCount);            
+            chatList = bllReceptionChat.GetReceptionChatList(userId, Guid.Empty, orderId, DateTime.MinValue, DateTime.Now, -1, -1, chatTarget.ToString(), out rowCount);            
         }
         
         try

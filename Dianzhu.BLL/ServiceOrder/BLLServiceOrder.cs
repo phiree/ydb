@@ -522,6 +522,20 @@ namespace Dianzhu.BLL
 
         #region 订单流程变化
 
+        public void OrderFlow_ConfirmOrder(ServiceOrder order)
+        {
+            if (order.DepositAmount > 0)
+            {
+                ChangeStatus(order, enum_OrderStatus.Created);
+
+                Payment payment = bllPayment.ApplyPay(order, enum_PayTarget.Deposit);
+            }
+            else
+            {
+                OrderFlow_ConfirmDeposit(order);
+            }
+        }
+
         /// <summary>
         /// 用户定金支付完成,等待后台确认订单是否到帐
         /// </summary>
@@ -553,6 +567,7 @@ namespace Dianzhu.BLL
         /// <param name="negotiateAmount"></param>
         public void OrderFlow_BusinessNegotiate(ServiceOrder order, decimal negotiateAmount)
         {
+            //order.NegotiateAmount_Modified = negotiateAmount;
             order.NegotiateAmount = negotiateAmount;
             if (negotiateAmount < order.DepositAmount)//尾款可以为0，if (negotiateAmount <= order.DepositAmount)
             {
@@ -569,6 +584,7 @@ namespace Dianzhu.BLL
 
         public void OrderFlow_CustomConfirmNegotiate(ServiceOrder order)
         {
+            //order.NegotiateAmount = order.NegotiateAmount_Modified;
             ChangeStatus(order, enum_OrderStatus.Assigned);
         }
         /// <summary>
@@ -939,9 +955,46 @@ namespace Dianzhu.BLL
             log.Debug("当前订单状态为:" + targetStatus);
 
             log.Debug("调用IMServer,发送订单状态变更通知");
+            //订单的主要参数
+            string uriParameter = "&orderid=" + order.Id
+                                + "&ordertitle=" + order.Title
+                                + "&orderstatus=" + order.OrderStatus.ToString()
+                                + "&ordertype=" + order.Service.ServiceType.Name
+                                + "&orderstatusfriendly=" + order.GetStatusTitleFriendly(order.OrderStatus);
+            //发送给用户
+            string uriParameterByCustomer = uriParameter + "&userid=" + order.Customer.Id
+                                                         + "&toresource=" + enum_XmppResource.YDBan_User;
+            RequestUri(uriParameterByCustomer);
+
+            //发送给商户
+            if (order.Business == null)
+            {
+                return;
+            }
+            if (order.Business.Owner == null)
+            {
+                return;
+            }
+            string uriParameterByStore = uriParameter + "&userid=" + order.Business.Owner.Id
+                                                      + "&toresource=" + enum_XmppResource.YDBan_Store;
+            RequestUri(uriParameterByStore);
+
+            //发送给指派的员工
+            if (order.Staff == null)
+            {
+                return;
+            }
+            string uriParameterByStaff = uriParameter + "&userid=" + order.Staff.Id
+                                                      + "&toresource=" + enum_XmppResource.YDBan_Staff;
+            RequestUri(uriParameterByStaff);
+        }
+
+        private void RequestUri(string uriStr)
+        {
             System.Net.WebClient wc = new System.Net.WebClient();
             string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
-            Uri uri = new Uri(notifyServer + "type=ordernotice&orderId=" + order.Id);
+            Uri uri = new Uri(notifyServer + "type=ordernotice" + uriStr);
+            log.Debug(uri);
             System.IO.Stream returnData = wc.OpenRead(uri);
             System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
             string result = reader.ReadToEnd();
@@ -1357,16 +1410,6 @@ namespace Dianzhu.BLL
             return repoServiceOrder.Find(where).ToList();
 
             // return DALServiceOrder.GetAllCompleteOrdersForBusiness(businessId);
-        }
-
-        /// <summary>
-        /// 客户不同意协商的金额
-        /// </summary>
-        /// <param name="order"></param>
-        public void OrderFlow_CustomDisagreeNegotiate(ServiceOrder order)
-        {
-            //throw new NotImplementedException();
-            ChangeStatus(order, enum_OrderStatus.Negotiate);
         }
 
         public IList<ServiceOrder> GetOrdersForShare()

@@ -11,11 +11,12 @@ namespace Dianzhu.CSClient.ViewModel
     /// </summary>
     public class VMChat
     {
-        public VMChat(string chatId, string fromId, string fromName, DateTime savedTime,double savedTimestamp, string csAvatar, string customerAvatar, string chatBackground, bool isFromCs)
+        public VMChat(string chatId, string fromId, string fromName,string toId, DateTime savedTime,double savedTimestamp, string csAvatar, string customerAvatar, string chatBackground, bool isFromCs)
         {
             this.ChatId = chatId;
             this.FromId = fromId;
             this.FromName = fromName;
+            this.ToId = toId;
             this.SavedTime = savedTime;
             this.SavedTimestamp = savedTimestamp;
             this.CSAvatar = csAvatar;
@@ -33,6 +34,10 @@ namespace Dianzhu.CSClient.ViewModel
         /// 发送方名称
         /// </summary>
         public string FromName { get; protected internal set; }
+        /// <summary>
+        /// 接收方Id
+        /// </summary>
+        public string ToId { get; protected internal set; }
         /// <summary>
         /// Chat保存时间
         /// </summary>
@@ -66,8 +71,8 @@ namespace Dianzhu.CSClient.ViewModel
     {
         public string MessageBody { get; protected internal set; }
         public VMChatText(string messageBody,
-            string chatId,string fromId,string fromName,DateTime savedTime,double savedTimestamp, string csAvatar,string customerAvatar,string chatBackground,bool isFromCs) 
-            : base(chatId, fromId, fromName, savedTime, savedTimestamp, csAvatar, customerAvatar, chatBackground, isFromCs)
+            string chatId,string fromId,string fromName,string toId, DateTime savedTime,double savedTimestamp, string csAvatar,string customerAvatar,string chatBackground,bool isFromCs) 
+            : base(chatId, fromId, fromName,toId, savedTime, savedTimestamp, csAvatar, customerAvatar, chatBackground, isFromCs)
         {
             this.MessageBody = messageBody;
         }
@@ -81,8 +86,8 @@ namespace Dianzhu.CSClient.ViewModel
         public string MediaType { get; set; }
         public string MedialUrl { get; set; }
         public VMChatMedia(string mediaType,string mediaUrl,
-            string chatId, string fromId, string fromName, DateTime savedTime,double savedTimestamp, string csAvatar, string customerAvatar, string chatBackground, bool isFromCs)
-            : base(chatId, fromId, fromName, savedTime, savedTimestamp, csAvatar, customerAvatar, chatBackground, isFromCs)
+            string chatId, string fromId, string fromName,string toId, DateTime savedTime,double savedTimestamp, string csAvatar, string customerAvatar, string chatBackground, bool isFromCs)
+            : base(chatId, fromId, fromName,toId, savedTime, savedTimestamp, csAvatar, customerAvatar, chatBackground, isFromCs)
         {
             this.MediaType = mediaType;
             this.MedialUrl = mediaUrl;
@@ -95,8 +100,8 @@ namespace Dianzhu.CSClient.ViewModel
     public class VMChatPushServie : VMChat
     {
         public VMChatPushServie(string servieName,bool isVerify,string imageUrl,int creditPoint, decimal unitPrice,decimal depositAmount,string serviceMemo, 
-            string chatId, string fromId, string fromName, DateTime savedTime,double savedTimestamp, string csAvatar, string customerAvatar, string chatBackground, bool isFromCs)
-            :base(chatId, fromId, fromName, savedTime, savedTimestamp, csAvatar, customerAvatar, chatBackground, isFromCs)
+            string chatId, string fromId, string fromName,string toId, DateTime savedTime,double savedTimestamp, string csAvatar, string customerAvatar, string chatBackground, bool isFromCs)
+            :base(chatId, fromId, fromName,toId, savedTime, savedTimestamp, csAvatar, customerAvatar, chatBackground, isFromCs)
         {
             this.ServiceName = servieName;
             this.IsVerify = isVerify;

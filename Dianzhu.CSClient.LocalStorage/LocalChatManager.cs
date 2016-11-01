@@ -19,7 +19,7 @@ namespace Dianzhu.CSClient.LocalStorage
 
         Dictionary<string, IList<VMChat>> LocalChats { get; }
         void Add(string customerId, VMChat chatData);
-        void Add(bool isTop, string customerId, VMChat chatData);
+        void InsertTop(string customerId, VMChat chatData);
         void Remove(string customerId);
 
         //IList<ReceptionChat> InitChatList(Guid customerId, Guid customerServiceId, Guid serviceOrderId);
@@ -80,11 +80,12 @@ namespace Dianzhu.CSClient.LocalStorage
             }
         }
 
-        public void Add(bool isTop, string customerId, VMChat chatData)
+
+        public void InsertTop(string customerId, VMChat chatData)
         {
-            if (isTop && LocalChats.ContainsKey(customerId))
+            if (LocalChats.ContainsKey(customerId))
             {
-                LocalChats[customerId].Insert(0,chatData);
+                LocalChats[customerId].Insert(0, chatData);
             }
         }
 

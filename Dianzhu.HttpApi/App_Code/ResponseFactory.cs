@@ -12,9 +12,8 @@ using Newtonsoft.Json.Linq;
 
 public class ResponseFactory
 {
-    IIMSession imSession;
-    public ResponseFactory(IIMSession imSession)
-    { this.imSession = imSession; }
+    public ResponseFactory()
+    {  }
     public   BaseResponse GetApiResponse(BaseRequest request)
     {
         switch (request.protocol_CODE.ToLower())
@@ -61,7 +60,7 @@ public class ResponseFactory
             case "orm002001":
                 return new ResponseORM002001(request);
             case "orm002003":
-                  return new ResponseORM002003(request,imSession);
+                  return new ResponseORM002003(request);
               //  return  Installer.Container. Resolve<ResponseORM002003>();
             case "orm003005":
                 return new ResponseORM003005(request);

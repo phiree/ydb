@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Ydb.InstantMessage.DomainModel.Chat;
 
 namespace Dianzhu.ApplicationService.Mapping
 {
@@ -156,12 +157,12 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             //order.OpenFireLinkMan + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Store;            source.ChatType == Model.Enums.enum_ChatType.PushedService ? source.ServiceOrder.Id.ToString() :
-            Mapper.CreateMap<Model.ReceptionChat, chatObj>()
+            Mapper.CreateMap<ReceptionChatDto, chatObj>()
             .ForMember(x => x.to, opt => opt.MapFrom(source => source.ToId + "@"+ System.Web.HttpContext.Current.Request.Url.Host+ "/" + source.ToResource.ToString()))
             .ForMember(x => x.from, opt => opt.MapFrom(source => source.FromId+ "@" + System.Web.HttpContext.Current.Request.Url.Host + "/" + source.FromResource.ToString()))
             .ForMember(x => x.orderID, opt => opt.MapFrom(source => source.SessionId))
-            .ForMember(x => x.body, opt => opt.MapFrom(source => source.GetType() == typeof(Model.ReceptionChatMedia)? string.IsNullOrEmpty(((Model.ReceptionChatMedia)source).MedialUrl)?"": Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")+ ((Model.ReceptionChatMedia)source).MedialUrl :  source.MessageBody))
-            .ForMember(x => x.type, opt => opt.MapFrom(source => source.GetType() == typeof(Model.ReceptionChat) ? "chat": source.GetType() ==typeof(Model.ReceptionChatMedia)?((Model.ReceptionChatMedia)source).MediaType: source.GetType() == typeof(Model.ReceptionChatPushService) ? "pushOrder" : source.ChatType.ToString()))
+            .ForMember(x => x.body, opt => opt.MapFrom(source => source.GetType() == typeof(ReceptionChatMediaDto)? string.IsNullOrEmpty(((ReceptionChatMediaDto)source).MedialUrl)?"": Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")+ ((ReceptionChatMediaDto)source).MedialUrl :  source.MessageBody))
+            .ForMember(x => x.type, opt => opt.MapFrom(source => source.GetType() == typeof(ReceptionChatDto) ? "chat": source.GetType() ==typeof(ReceptionChatMediaDto)?((ReceptionChatMediaDto)source).MediaType: source.GetType() == typeof(ReceptionChatPushServiceDto) ? "pushOrder" : source.ChatType.ToString()))
             .ForMember(x => x.sendTime, opt => opt.MapFrom(source => source.SavedTime == DateTime.MinValue ? "" : source.SavedTime.ToString("yyyyMMddHHmmss")))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 

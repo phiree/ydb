@@ -61,9 +61,9 @@
       <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="HibernatingRhinos.Profiler.Appender, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dianzhu.DAL\dlls\HibernatingRhinos.Profiler.Appender.dll</HintPath>
+    <Reference Include="HibernatingRhinos.Profiler.Appender, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernateProfiler.Appender.3.0.3103.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
@@ -134,10 +134,8 @@
     <Compile Include="BLLTest\TestBLLArea.cs" />
     <Compile Include="BLLTest\TestBLLServiceOrder.cs" />
     <Compile Include="BLLTest\TestDZService.cs" />
-    <Compile Include="BLLTest\TestReceptionAssign.cs" />
     <Compile Include="Bootstrap.cs" />
     <Compile Include="ClassMapper\DZMapperTests.cs" />
-    <Compile Include="DALReceptionStatusTests.cs" />
     <Compile Include="DALTest\DALService.cs" />
     <Compile Include="DALTest\MapTest.cs" />
     <Compile Include="DALTest\TestDALReceptionChatDD.cs" />
@@ -164,22 +162,17 @@
     <Compile Include="JPush\JPushTests.cs" />
     <Compile Include="jsonconvert_test.cs" />
     <Compile Include="jsontest.cs" />
-    <Compile Include="MessageAdapterTests.cs" />
     <Compile Include="ModelTest\DZServiceTest.cs" />
     <Compile Include="PayTest\payTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExcelImportTest.cs" />
     <Compile Include="Push\BLLPushTests.cs" />
     <Compile Include="Push\PushMessageBuilderTests.cs" />
-    <Compile Include="Reception\BLLReceptionChatTests.cs" />
-    <Compile Include="Reception\BLLReceptionTests.cs" />
-    <Compile Include="Reception\IMSessionsOpenfireTests.cs" />
     <Compile Include="RespDataSHM_snapshotObjTests.cs" />
     <Compile Include="SecurityTest.cs" />
     <Compile Include="SerialNo\SerialNoDbTests.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderTests.cs" />
     <Compile Include="tagTest.cs" />
-    <Compile Include="test_mainform.cs" />
     <Compile Include="UnitOfWork\UnitOfWorkFactoryTests.cs" />
     <Compile Include="XMPush\XMPushTests.cs" />
   </ItemGroup>
@@ -233,14 +226,6 @@
       <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
       <Name>Dianzhu.Config</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.IInstantMessage\Dianzhu.CSClient.IInstantMessage.csproj">
-      <Project>{820A465F-51FB-4F8D-8665-B80F9643281B}</Project>
-      <Name>Dianzhu.CSClient.IInstantMessage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.IMessageAdapter\Dianzhu.CSClient.IMessageAdapter.csproj">
-      <Project>{74F0963E-57CA-4D57-899C-D85FF096FE1F}</Project>
-      <Name>Dianzhu.CSClient.IMessageAdapter</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IView.csproj">
       <Project>{755eea8c-9d5e-406e-83dd-36b3ba4eb158}</Project>
       <Name>Dianzhu.CSClient.IView</Name>
@@ -249,10 +234,6 @@
       <Project>{6f064359-8bbd-4bda-9532-d93505472582}</Project>
       <Name>Dianzhu.CSClient.LocalStorage</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.MessageAdapter\Dianzhu.CSClient.MessageAdapter.csproj">
-      <Project>{A871C9E1-98A4-412F-A1B3-541189A4C4CF}</Project>
-      <Name>Dianzhu.CSClient.MessageAdapter</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.Presenter\Dianzhu.CSClient.Presenter.csproj">
       <Project>{5AC8D7DE-A53D-4698-8957-C78D9243A793}</Project>
       <Name>Dianzhu.CSClient.Presenter</Name>
@@ -260,10 +241,6 @@
     <ProjectReference Include="..\Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj">
       <Project>{D7AA114D-AD19-4399-B152-969D240053C7}</Project>
       <Name>Dianzhu.CSClient.ViewModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj">
-      <Project>{125f0d3b-e83c-4743-9944-e82392cba6c5}</Project>
-      <Name>Dianzhu.CSClient.XMPP</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
       <Project>{2E67AA78-6780-42BD-A3AB-AD953781E511}</Project>
@@ -281,10 +258,6 @@
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Notify\Dianzhu.Notify.csproj">
-      <Project>{1baad173-a641-435a-ad03-0cd0146674b9}</Project>
-      <Name>Dianzhu.Notify</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Pay\Dianzhu.Pay.csproj">
       <Project>{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}</Project>
       <Name>Dianzhu.Pay</Name>
@@ -300,6 +273,10 @@
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
       <Name>PHSuit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
+      <Project>{a141eb7d-6e71-43c1-9ca7-12af1b74c1c7}</Project>
+      <Name>Ydb.InstantMessage</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

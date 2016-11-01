@@ -34,7 +34,6 @@ public partial class register : Dianzhu.Web.Common.BasePage//System.Web.UI.Page
 
         // Membership.CreateUser(tbxUserName.Text, regPs.Text);
 
-       
           //  bllBusiness.Register(address, description, latitude, longtitude, name, userName, password);
         MembershipCreateStatus createStatus;
         DZMembership newUser =

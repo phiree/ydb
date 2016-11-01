@@ -13,7 +13,6 @@ namespace Dianzhu.ApplicationService.Order
     {
 
         BLL.IBLLServiceOrder ibllserviceorder;
-        BLL.IIMSession imSession;
 
         public static BLL.BLLServiceOrderStateChangeHis bllstatehis;
         public static BLL.BLLDZService blldzservice;
@@ -26,7 +25,7 @@ namespace Dianzhu.ApplicationService.Order
         BLL.BLLClaimsDetails bLLClaimsDetails;
         public static BLL.BLLStaff bllStaff;
         public OrderService(BLL.IBLLServiceOrder ibllserviceorder, BLL.BLLServiceOrderStateChangeHis bllstatehis, BLL.BLLDZService blldzservice, BLL.PushService bllpushservice, BLL.BLLServiceOrderRemind bllServiceOrderRemind,
-        BLL.BLLServiceOrderAppraise bllServiceOrderAppraise, BLL.IIMSession imSession, BLL.BLLOrderAssignment bllOrderAssignment, BLL.DZMembershipProvider bllDZM, BLL.BLLClaims bllClaims, BLL.BLLClaimsDetails bLLClaimsDetails, BLL.BLLStaff bllStaff)
+        BLL.BLLServiceOrderAppraise bllServiceOrderAppraise, BLL.BLLOrderAssignment bllOrderAssignment, BLL.DZMembershipProvider bllDZM, BLL.BLLClaims bllClaims, BLL.BLLClaimsDetails bLLClaimsDetails, BLL.BLLStaff bllStaff)
         {
             this.ibllserviceorder = ibllserviceorder;
             OrderService.bllstatehis = bllstatehis;
@@ -34,7 +33,6 @@ namespace Dianzhu.ApplicationService.Order
             OrderService.bllpushservice = bllpushservice;
             this.bllServiceOrderRemind = bllServiceOrderRemind;
             this.bllServiceOrderAppraise = bllServiceOrderAppraise;
-            this.imSession = imSession;
             OrderService.bllOrderAssignment = bllOrderAssignment;
             this.bllDZM = bllDZM;
             this.bllClaims = bllClaims;
@@ -626,7 +624,6 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单没有确定的服务！");
             }
-            //ReceptionAssigner ra = new ReceptionAssigner(imSession);
             linkManObj linkman = new linkManObj();
             //linkman.linkManID = order.OpenFireLinkMan;
             string strIp = System.Web.HttpContext.Current.Request.Url.Host;//.Url.ToString();
@@ -706,7 +703,7 @@ namespace Dianzhu.ApplicationService.Order
                         ibllserviceorder.OrderFlow_PayDepositAndWaiting(order);
                         break;
                     case Model.Enums.enum_OrderStatus.Negotiate:
-                        ibllserviceorder.OrderFlow_CustomDisagreeNegotiate(order);
+                        ibllserviceorder.OrderFlow_CustomerDisagreeNegotiate(order);
                         break;
                     case Model.Enums.enum_OrderStatus.Assigned:
                         ibllserviceorder.OrderFlow_CustomConfirmNegotiate(order);
