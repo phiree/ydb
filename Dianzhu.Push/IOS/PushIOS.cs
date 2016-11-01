@@ -30,7 +30,7 @@ namespace Dianzhu.Push
 
                         //
                          
-                        fileName="aps_production_Mark_Store.p12";
+                        fileName= "aps_production_Mark_Store.p12";
 
                        
                      //   fileName ="aps_production_Mark_Store.p12";
@@ -39,7 +39,7 @@ namespace Dianzhu.Push
                     case PushType.PushToUser:
 
                       
-                        fileName = "aps_production_Mark_CustomerService.p12";
+                        fileName = "aps_production_Mark.p12";
 
                          
                      //   fileName = "aps_production_Mark_CustomerService.p12";
@@ -105,6 +105,7 @@ namespace Dianzhu.Push
             catch (Exception ex)
             {
                 PHSuit.ExceptionLoger.ExceptionLog(log, ex);
+                throw;
             }
            
             service.SendRetries = 5; //5 retries before generating notificationfailed event
