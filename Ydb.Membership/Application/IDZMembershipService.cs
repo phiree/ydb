@@ -19,13 +19,14 @@ namespace Ydb.Membership.Application
         /// <param name="hostInMail">验证邮件中链接的主机名称或者ip地址</param>
         /// <returns></returns>
         Dto.RegisterResult RegisterBusinessUser(string registerName, string password,string confirmPassword,string hostInMail);
+        Dto.RegisterResult RegisterCustomerService(string registerName, string password, string confirmPassword, string hostInMail);
         /// <summary>
         /// 重新发送注册验证邮件
         /// </summary>
         /// <param name="username"></param>
         /// <param name="hostInEmail"></param>
         /// <returns></returns>
-          ActionResult ResendVerifyEmail(string username, string hostInEmail);
+        ActionResult ResendVerifyEmail(string username, string hostInEmail);
 
         /// <summary>
         /// 验证注册代码

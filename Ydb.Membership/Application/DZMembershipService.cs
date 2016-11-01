@@ -28,8 +28,8 @@ namespace Ydb.Membership.Application
 
 
 
-        [UnitOfWork]
-        public Dto.RegisterResult RegisterBusinessUser(string registerName, string password, string confirmPassword, string hostInMail)
+         
+        private Dto.RegisterResult RegisterMember(string registerName, string password, string confirmPassword, UserType userType, string hostInMail)
         {
             Dto.RegisterResult registerResult = new Dto.RegisterResult();
             if (password != confirmPassword)
@@ -40,7 +40,7 @@ namespace Ydb.Membership.Application
                 return registerResult;
             }
             string errMsg;
-            DZMembership createdUser = dzmembershipDomainService.CreateUser(registerName, password, UserType.business, out errMsg);
+            DZMembership createdUser = dzmembershipDomainService.CreateUser(registerName, password, userType, out errMsg);
             if (!string.IsNullOrEmpty(createdUser.Email))
             {
                 try
@@ -62,6 +62,23 @@ namespace Ydb.Membership.Application
             return registerResult;
 
         }
+        [UnitOfWork]
+        public Dto.RegisterResult RegisterCustomerService(string registerName, string password, string confirmPassword, string hostInMail)
+        {
+            return RegisterMember(registerName, password, confirmPassword, UserType.customerservice, hostInMail);
+
+        }
+
+        [UnitOfWork]
+        public Dto.RegisterResult RegisterBusinessUser(string registerName, string password, string confirmPassword, string hostInMail)
+        {
+            return RegisterMember(registerName, password, confirmPassword, UserType.business, hostInMail);
+
+        }
+      
+
+
+         
         [UnitOfWork]
         public ActionResult ResendVerifyEmail(string username, string hostInEmail)
         {
