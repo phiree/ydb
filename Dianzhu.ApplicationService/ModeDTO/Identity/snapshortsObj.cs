@@ -42,7 +42,7 @@ namespace Dianzhu.ApplicationService
         }
 
 
-        public IList<snapshortsObj> Adap(IList<Dianzhu.Model.ServiceOrder> orderList, BLL.BLLServiceOrderStateChangeHis bllstatehis)
+        public IList<snapshortsObj> Adap(IList<Dianzhu.Model.ServiceOrder> orderList, BLL.BLLServiceOrderStateChangeHis bllstatehis,Order.IOrderService orderService)
         {
             IList<snapshortsObj> snapshortsobjs = new List<snapshortsObj>();
             IList <DateTime> dates = orderList.Select(x => x.OrderCreated.Date).Distinct().ToList();
@@ -52,7 +52,7 @@ namespace Dianzhu.ApplicationService
                 //接单量平均值
                 snapshortsObj snapshortsobj = new snapshortsObj();
                 snapshortsobj.date = date.ToString("yyyyMMdd");
-                snapshortsobj.ordersnapshot = new orderSnapshot().Adap(date, orderInDateList, bllstatehis);
+                snapshortsobj.ordersnapshot = new orderSnapshot().Adap(date, orderInDateList, bllstatehis,orderService);
                 snapshortsobjs.Add(snapshortsobj);
             }
             return snapshortsobjs;

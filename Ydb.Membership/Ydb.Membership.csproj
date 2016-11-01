@@ -62,6 +62,10 @@
       <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernate.4.0.0.4000\lib\net40\NHibernate.dll</HintPath>
       <Private>True</Private>
@@ -83,15 +87,21 @@
     <Compile Include="Application\Dto\Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Application\Dto\Mapping\DtoToModelMappingProfile.cs" />
     <Compile Include="Application\Dto\Mapping\ModelToDtoMappingProfile.cs" />
+    <Compile Include="Application\Dto\MemberWeChatDto.cs" />
     <Compile Include="Application\Dto\MemberDto.cs" />
     <Compile Include="Application\Dto\ApplyRecoveryResult.cs" />
     <Compile Include="Application\Dto\ValidateResult.cs" />
     <Compile Include="Application\Dto\RegisterResult.cs" />
     <Compile Include="Application\DZMembershipService.cs" />
     <Compile Include="Application\IDZMembershipService.cs" />
+    <Compile Include="Application\ILoginService.cs" />
     <Compile Include="DomainModel\Config.cs" />
+    <Compile Include="DomainModel\Dicts.cs" />
     <Compile Include="DomainModel\Service\IDZMembershipDomainService.cs" />
     <Compile Include="DomainModel\Service\DZMembershipDomainService.cs" />
+    <Compile Include="DomainModel\Service\ILogin3rd.cs" />
+    <Compile Include="DomainModel\Service\Login3rd.cs" />
+    <Compile Include="DomainModel\Service\U3RD_Model.cs" />
     <Compile Include="Infrastructure\InstallerMembershipDB.cs" />
     <Compile Include="Infrastructure\InstallerMembership.cs" />
     <Compile Include="DomainModel\DZMembership.cs" />

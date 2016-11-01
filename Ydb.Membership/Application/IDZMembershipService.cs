@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Ydb.Membership.DomainModel;
 using Ydb.Membership.DomainModel.Enums;
 using Ydb.Common.Application;
+using Ydb.Common.Specification;
 namespace Ydb.Membership.Application
 {
   public interface  IDZMembershipService
@@ -20,6 +21,7 @@ namespace Ydb.Membership.Application
         /// <returns></returns>
         Dto.RegisterResult RegisterBusinessUser(string registerName, string password,string confirmPassword,string hostInMail);
         Dto.RegisterResult RegisterCustomerService(string registerName, string password, string confirmPassword, string hostInMail);
+        Dto.RegisterResult RegisterMember(string registerName, string password, string confirmPassword, string userType, string hostInMail);
         /// <summary>
         /// 重新发送注册验证邮件
         /// </summary>
@@ -58,6 +60,7 @@ namespace Ydb.Membership.Application
         /// <returns>验证结果,如果验证通过则包含memberdto</returns>
         Dto.ValidateResult  ValidateUser(string userNameOrUserId, string password,bool isLogin);
         Dto.ValidateResult Login(string userNameOrUserId, string password);
+        void Login3rd(string code, string appName,  string userType);
         /// <summary>
         /// 申请重置密码
         /// </summary>
@@ -73,6 +76,7 @@ namespace Ydb.Membership.Application
 
         ActionResult ChangePhone(string userId,string newPhone);
         ActionResult ChangeEmail(string userId, string newEmail);
-
+        IList<Dto.MemberDto> GetUsers(TraitFilter filter, string name, string email, string phone, string loginType, string userType);
+        long GetUsersCount(string name, string email, string phone, string loginType, string userType);
     }
 }

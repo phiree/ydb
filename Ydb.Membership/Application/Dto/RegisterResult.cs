@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ydb.Membership.Application.Dto
 {
-   public class RegisterResult
+   public class RegisterResult:Ydb.Common.Application.ActionResult<MemberDto>
     {
         public RegisterResult()
         {

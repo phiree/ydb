@@ -7,7 +7,7 @@ using AutoMapper;
 using Dianzhu.Model;
 using Dianzhu.DAL;
 using Ydb.InstantMessage.DomainModel.Chat;
-
+using Ydb.Membership.Application.Dto;
 namespace Dianzhu.ApplicationService.Mapping
 {
 
@@ -29,7 +29,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<RefreshTokenDTO, RefreshToken>()
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<customerObj, DZMembership>()
+            Mapper.CreateMap<customerObj, MemberDto>()
             .ForMember(x => x.NickName, opt => opt.MapFrom(source => source.alias))
             .ForMember(x => x.AvatarUrl, opt => opt.MapFrom(source => source.imgUrl))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));

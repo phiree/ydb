@@ -76,10 +76,10 @@ namespace Dianzhu.Model
         /// <param name="resourcesUrl"></param>
         /// <param name="target"></param>
         /// <param name="member"></param>
-        public virtual void AddDetailsFromClaims(Claims claims, string context, decimal amount, IList<string> resourcesUrl, enum_ChatTarget target, DZMembership member)
+        public virtual void AddDetailsFromClaims(Claims claims, string context, decimal amount, IList<string> resourcesUrl, enum_ChatTarget target, string memberId)
         {
             
-            ClaimsDetails claimsDetails = new ClaimsDetails(claims, context, amount, resourcesUrl, target, member);
+            ClaimsDetails claimsDetails = new ClaimsDetails(claims, context, amount, resourcesUrl, target, memberId);
             ClaimsDatailsList.Add(claimsDetails);
         }
     }

@@ -27,8 +27,8 @@ namespace Dianzhu.Model
         /// <param name="amount"></param>
         /// <param name="resourcesUrl"></param>
         /// <param name="target"></param>
-        /// <param name="member">提交理赔的用户</param>
-        public ClaimsDetails(Claims claims, string context,decimal amount,IList<string> resourcesUrl,enum_ChatTarget target,DZMembership member)
+        /// <param name="memberId">提交理赔的用户</param>
+        public ClaimsDetails(Claims claims, string context,decimal amount,IList<string> resourcesUrl,enum_ChatTarget target,string memberId)
         {
             this.CreatTime = this.LastUpdateTime = DateTime.Now;
 
@@ -37,7 +37,7 @@ namespace Dianzhu.Model
             this.Amount = amount;
             this.ClaimsDetailsResourcesUrl = resourcesUrl;
             this.Target = target;
-            this.Member = member;
+            this.MemberId = memberId;
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 操作人员
         /// </summary>
-        public virtual DZMembership Member { get; set; }
+        public virtual string MemberId { get; set; }
         /// <summary>
         /// 最后更新时间
         /// </summary>

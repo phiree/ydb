@@ -55,7 +55,7 @@ namespace Dianzhu.ApplicationService.Complaint
             {
                 throw new Exception("投诉的订单不存在！");
             }
-            if (order.CustomerId.Id.ToString () != complaintobj.senderID)
+            if (order.CustomerId != complaintobj.senderID)
             {
                 throw new Exception("不能投诉别人的订单！");
             }

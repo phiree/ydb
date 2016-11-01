@@ -8,6 +8,9 @@ using Ydb.Membership.Application.Dto;
 using Ydb.Membership.Infrastructure;
 using Ydb.Common.Application;
 using Ydb.Common.Infrastructure;
+using System.Collections.Generic;
+using Ydb.Common.Specification;
+
 namespace Ydb.Membership.Application
 {
     public class DZMembershipService : IDZMembershipService
@@ -29,8 +32,10 @@ namespace Ydb.Membership.Application
 
 
          
-        private Dto.RegisterResult RegisterMember(string registerName, string password, string confirmPassword, UserType userType, string hostInMail)
+        public Dto.RegisterResult RegisterMember(string registerName, string password, string confirmPassword, string strUserType, string hostInMail)
         {
+            UserType userType =(UserType) Enum.Parse(typeof(UserType), strUserType);
+
             Dto.RegisterResult registerResult = new Dto.RegisterResult();
             if (password != confirmPassword)
             {
@@ -59,21 +64,30 @@ namespace Ydb.Membership.Application
 
                 }
             }
+            MemberDto registeredUser = Mapper.Map<MemberDto>(createdUser);
+            registerResult.o = registeredUser;
             return registerResult;
 
         }
         [UnitOfWork]
         public Dto.RegisterResult RegisterCustomerService(string registerName, string password, string confirmPassword, string hostInMail)
         {
-            return RegisterMember(registerName, password, confirmPassword, UserType.customerservice, hostInMail);
+            return RegisterMember(registerName, password, confirmPassword, UserType.customerservice.ToString(), hostInMail);
 
         }
 
         [UnitOfWork]
         public Dto.RegisterResult RegisterBusinessUser(string registerName, string password, string confirmPassword, string hostInMail)
         {
-            return RegisterMember(registerName, password, confirmPassword, UserType.business, hostInMail);
+            return RegisterMember(registerName, password, confirmPassword, UserType.business.ToString(), hostInMail);
 
+        }
+
+        [UnitOfWork]
+        public void RegisterWeChat(MemberWeChatDto wechatDto)
+        {
+            DZMembershipWeChat wechatUser = new DZMembershipWeChat();
+            repositoryMembership.Add(wechatUser);
         }
       
 
@@ -271,6 +285,23 @@ namespace Ydb.Membership.Application
             member.IsRegisterValidated = false;
             member.RegisterValidateCode = Guid.NewGuid().ToString();
             return result;
+        }
+
+        [UnitOfWork]
+        public IList<MemberDto> GetUsers(TraitFilter filter, string name, string email, string phone, string loginType, string userType)
+        {
+            IList<DZMembership> memberList = repositoryMembership.GetUsers(filter, name, email, phone, loginType, userType);
+
+          return  Mapper.Map<IList<DZMembership>, IList<MemberDto>>(memberList);
+        }
+        [UnitOfWork]
+        public long GetUsersCount(string name, string email, string phone, string loginType, string userType)
+        {
+         return   repositoryMembership.GetUsersCount(name, email, phone, loginType, userType);
+        }
+        public void Login3rd(string code, string appName, string userType)
+        {
+
         }
     }
 }

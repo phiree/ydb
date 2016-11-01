@@ -32,7 +32,7 @@ namespace Dianzhu.ApplicationService.Order
         /// <param name="customer"></param>
         /// <returns></returns>
          ordersVerifyObj GetOrdersVerify(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter, Customer customer);
-
+        void changeObj(orderObj orderobj, Model.ServiceOrder serviceorder);
         /// <summary>
         /// 查询订单超媒体合集
         /// </summary>

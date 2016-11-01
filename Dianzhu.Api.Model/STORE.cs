@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.Config;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 namespace Dianzhu.Api.Model
 {
     public class RespDataSTORE_storeObj
@@ -25,11 +27,11 @@ namespace Dianzhu.Api.Model
         public string vintage { get; set; }
         public string headCount { get; set; }
         public string appraise { get; set; }
-        public RespDataSTORE_storeObj Adapt(Business business)
+        public RespDataSTORE_storeObj Adapt(Business business,IDZMembershipService   memberService)
         {
-            //if (business.Owner.Id != Guid.Empty)
+            //if (business.OwnerId != Guid.Empty)
             //{
-            //    this.merchantID = business.Owner.Id != null ? business.Owner.Id.ToString() : "";
+            //    this.merchantID = business.OwnerId != null ? business.OwnerId.ToString() : "";
             //}
             this.userID = business.Id != null ? business.Id.ToString() : "";
             this.alias = business.Name != null ? business.Name : "";
@@ -56,9 +58,10 @@ namespace Dianzhu.Api.Model
             }
             else
             {
-                if (business.Owner.Id != Guid.Empty)
+                if (business.OwnerId != Guid.Empty)
                 {
-                    this.linkMan = business.Owner.NickName != null ? business.Owner.NickName : "";
+                    MemberDto member = memberService.GetUserById(business.OwnerId.ToString());
+                    this.linkMan = member.NickName != null ? member.NickName : "";
                 }
                 else
                 {
@@ -186,13 +189,13 @@ namespace Dianzhu.Api.Model
     public class RespDataSTORE001006
     {
         public IList<RespDataSTORE_storeObj> arrayData { get; set; }
-        public RespDataSTORE001006 AdaptList(IList<Business> storeList)
+        public RespDataSTORE001006 AdaptList(IList<Business> storeList,IDZMembershipService memberService)
         {
             this.arrayData = new List<RespDataSTORE_storeObj>();
             RespDataSTORE_storeObj obj;
             foreach(Business b in storeList)
             {
-                obj = new RespDataSTORE_storeObj().Adapt(b);
+                obj = new RespDataSTORE_storeObj().Adapt(b,memberService);
                 this.arrayData.Add(obj);
             }
 

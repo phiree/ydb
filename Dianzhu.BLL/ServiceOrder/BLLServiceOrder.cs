@@ -472,10 +472,10 @@ namespace Dianzhu.BLL
             // DALServiceOrder.Delete(order);
         }
 
-        public virtual ServiceOrder GetDraftOrder(DZMembership c, DZMembership cs)
+        public virtual ServiceOrder GetDraftOrder(string cId, string csId)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.CustomerId == c.Id.ToString() && x.CustomerServiceId == cs.Id.ToString() && x.OrderStatus == enum_OrderStatus.Draft);
+            where = where.And(x => x.CustomerId == cId&& x.CustomerServiceId == csId && x.OrderStatus == enum_OrderStatus.Draft);
             ServiceOrder order = null;
             try
             {
@@ -509,10 +509,10 @@ namespace Dianzhu.BLL
 
             return repoServiceOrder.GetOrderListOfServiceByDateRange(serviceId,timeBegin,timeEnd);
         }
-        public ServiceOrder GetOrderByIdAndCustomer(Guid Id, DZMembership customer)
+        public ServiceOrder GetOrderByIdAndCustomer(Guid Id, string customerId)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Id == Id && x.CustomerId == customer.Id.ToString());
+            where = where.And(x => x.Id == Id && x.CustomerId == customerId);
 
             return repoServiceOrder.FindOne(where);
 
@@ -714,7 +714,7 @@ namespace Dianzhu.BLL
         /// 商户裁定理赔
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_BusinessIsRefund(ServiceOrder order, DZMembership member)
+        public void OrderFlow_BusinessIsRefund(ServiceOrder order, string memberId)
         {
             enum_OrderStatus oldStatus = order.OrderStatus;
             log.Debug("当前订单状态:" + oldStatus.ToString());
@@ -763,7 +763,7 @@ namespace Dianzhu.BLL
 
                 log.Debug("记录商户操作");
 
-                claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, member);
+                claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, memberId);
                 dalClaims.Update(claims);
             }
             else
@@ -786,7 +786,7 @@ namespace Dianzhu.BLL
         /// 商户要求支付赔偿金
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order, string context, decimal amount, IList<string> resourcesUrl, DZMembership member)
+        public void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order, string context, decimal amount, IList<string> resourcesUrl, string memberId)
         {
             log.Debug("查询订单的理赔");
             Claims claims = dalClaims.GetOneByOrder(order);
@@ -797,7 +797,7 @@ namespace Dianzhu.BLL
             }
 
             log.Debug("记录商户操作");
-            claims.AddDetailsFromClaims(claims, context, amount, resourcesUrl, enum_ChatTarget.store, member);
+            claims.AddDetailsFromClaims(claims, context, amount, resourcesUrl, enum_ChatTarget.store, memberId);
             dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.AskPayWithRefund);
@@ -807,7 +807,7 @@ namespace Dianzhu.BLL
         /// 商户驳回理赔请求
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_BusinessRejectRefund(ServiceOrder order, DZMembership member)
+        public void OrderFlow_BusinessRejectRefund(ServiceOrder order, string memberId)
         {
             log.Debug("查询订单的理赔");
             Claims claims = dalClaims.GetOneByOrder(order);
@@ -819,7 +819,7 @@ namespace Dianzhu.BLL
 
             log.Debug("记录商户操作");
 
-            claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, member);
+            claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, memberId);
             dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.RejectRefund);
@@ -829,7 +829,7 @@ namespace Dianzhu.BLL
         /// 用户同意支付赔偿金
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_WaitingPayWithRefund(ServiceOrder order, DZMembership member)
+        public void OrderFlow_WaitingPayWithRefund(ServiceOrder order, string memberId)
         {
             log.Debug("查询订单的理赔");
             Claims claims = dalClaims.GetOneByOrder(order);
@@ -855,7 +855,7 @@ namespace Dianzhu.BLL
             bllPayment.ApplyPay(order, enum_PayTarget.Compensation);
 
             log.Debug("记录用户操作");
-            claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.user, member);
+            claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.user, memberId);
             dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.WaitingPayWithRefund);

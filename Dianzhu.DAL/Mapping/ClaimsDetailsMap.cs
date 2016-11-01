@@ -21,7 +21,7 @@ namespace Dianzhu.DAL.Mapping
             .Cascade.AllDeleteOrphan().KeyColumn("ResourcesUrlId").EntityName("ClaimsDetailsResourcesUrl").Elemen‌​t("ResourcesUrl");
 
             Map(x => x.CreatTime);
-            References(x => x.Member);
+            Map(x => x.MemberId);
             Map(x => x.LastUpdateTime);
         }
     }

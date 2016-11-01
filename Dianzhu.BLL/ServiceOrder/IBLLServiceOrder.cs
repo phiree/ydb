@@ -85,9 +85,9 @@ namespace Dianzhu.BLL
         IList<ServiceOrder> GetListForCustomer(Guid customerId, int pageNum, int pageSize, out int totalAmount);
 
         void Delete(ServiceOrder order);
-        ServiceOrder GetDraftOrder(DZMembership c, DZMembership cs);
+        ServiceOrder GetDraftOrder(string cId, string  csId);
         IList<ServiceOrder> GetOrderListByDate(DZService service, DateTime date);
-        ServiceOrder GetOrderByIdAndCustomer(Guid Id, DZMembership customer);
+        ServiceOrder GetOrderByIdAndCustomer(Guid Id, string customerId);
         #endregion
 
         #region 订单流程变化
@@ -172,7 +172,7 @@ namespace Dianzhu.BLL
         /// 商户裁定理赔
         /// </summary>
         /// <param name="order"></param>
-        void OrderFlow_BusinessIsRefund(ServiceOrder order, DZMembership member);
+        void OrderFlow_BusinessIsRefund(ServiceOrder order, string memberId);
 
         /// <summary>
         /// 理赔成功
@@ -184,19 +184,19 @@ namespace Dianzhu.BLL
         /// 商户要求支付赔偿金
         /// </summary>
         /// <param name="order"></param>
-        void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order, string context, decimal amount, IList<string> resourcesUrl, DZMembership member);
+        void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order, string context, decimal amount, IList<string> resourcesUrl, string memberId);
 
         /// <summary>
         /// 商户驳回理赔请求
         /// </summary>
         /// <param name="order"></param>
-        void OrderFlow_BusinessRejectRefund(ServiceOrder order, DZMembership member);
+        void OrderFlow_BusinessRejectRefund(ServiceOrder order, string memberId);
 
         /// <summary>
         /// 商户裁定理赔
         /// </summary>
         /// <param name="order"></param>
-        void OrderFlow_WaitingPayWithRefund(ServiceOrder order, DZMembership member);
+        void OrderFlow_WaitingPayWithRefund(ServiceOrder order, string memberId);
 
         /// <summary>
         /// 用户支付赔偿金

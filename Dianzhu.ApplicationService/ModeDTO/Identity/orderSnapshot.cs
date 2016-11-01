@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
 using AutoMapper;
-
+using Ydb.Membership.Application;
+using Dianzhu.ApplicationService.Order;
 namespace Dianzhu.ApplicationService
 {
     public class orderSnapshot
@@ -43,7 +44,7 @@ namespace Dianzhu.ApplicationService
         }
 
 
-        public IList<orderSnapshot> Adap(DateTime date,IList<ServiceOrder> orderList, BLL.BLLServiceOrderStateChangeHis bllstatehis)
+        public IList<orderSnapshot> Adap(DateTime date,IList<ServiceOrder> orderList, BLL.BLLServiceOrderStateChangeHis bllstatehis,IOrderService orderService)
         {
             IList<orderSnapshot> ordersnapshots = new List<orderSnapshot>();
             foreach (ServiceOrder order in orderList)
@@ -51,7 +52,7 @@ namespace Dianzhu.ApplicationService
                 orderSnapshot ordersnapshot = new orderSnapshot();
                 orderObj orderobj = Mapper.Map<Model.ServiceOrder, orderObj>(order);
                 Order.OrderService.bllstatehis = bllstatehis;
-                Order.OrderService.changeObj(orderobj, order);
+                orderService.changeObj(orderobj, order);
                 ServiceOpenTimeForDaySnapShotForOrder forday = order.Service.GetOpenTimeSnapShot(order.Details[0].TargetTime);
                 workTimeObj worktimeobj = new workTimeObj();
                 worktimeobj.id = forday.Id.ToString();
