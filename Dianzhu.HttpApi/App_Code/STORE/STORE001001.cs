@@ -60,7 +60,7 @@ public class ResponseSTORE001001 : BaseResponse
             try
             {
                 Business b = new Business();
-                b.Owner = member;
+                b.OwnerId = member.Id;
 
                 bllBusiness.Add(b);
 

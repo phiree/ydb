@@ -90,7 +90,7 @@ public class ResponseORM005007 : BaseResponse
                     return;
                 }
 
-                if (order.Details[0].OriginalService.Business.Owner.Id != member.Id)
+                if (order.Details[0].OriginalService.Business.OwnerId != member.Id)
                 {
                     this.state_CODE = Dicts.StateCode[4];
                     this.err_Msg = "该订单不属于该用商户";

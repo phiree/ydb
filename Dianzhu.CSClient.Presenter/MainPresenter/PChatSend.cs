@@ -62,7 +62,7 @@ namespace Dianzhu.CSClient.Presenter
                 string s = Convert.ToBase64String(fileData);
                 string fileName = MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, domainType, mediaType);
                 Guid messageId = Guid.NewGuid();
-                iIM.SendMessageMedia(messageId, GlobalViables.MediaGetUrl + fileName,mediaType, IdentityManager.CurrentIdentity.CustomerId.Id.ToString(), IdentityManager.CurrentIdentity.Id.ToString(), "YDBan_User");
+                iIM.SendMessageMedia(messageId, GlobalViables.MediaGetUrl + fileName,mediaType, IdentityManager.CurrentIdentity.CustomerId, IdentityManager.CurrentIdentity.Id.ToString(), "YDBan_User");
 
                 if (PHSuit.LocalFileManagement.DownLoad(string.Empty, GlobalViables.MediaGetUrl + fileName, fileName))
                 {
@@ -80,7 +80,7 @@ namespace Dianzhu.CSClient.Presenter
                     messageId.ToString(), 
                     GlobalViables.CurrentCustomerService.Id.ToString(), 
                     GlobalViables.CurrentCustomerService.DisplayName,
-                    IdentityManager.CurrentIdentity.CustomerId.Id.ToString(),
+                    IdentityManager.CurrentIdentity.CustomerId,
                     DateTime.Now,
                     (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds,
                     "pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCS.png",
@@ -125,7 +125,7 @@ namespace Dianzhu.CSClient.Presenter
                 iIM.SendMessageText(
                     messageId,
                     messageText,
-                    IdentityManager.CurrentIdentity.CustomerId.Id.ToString(),
+                    IdentityManager.CurrentIdentity.CustomerId,
                     "YDBan_User",
                      IdentityManager.CurrentIdentity.Id.ToString());
 
@@ -136,7 +136,7 @@ namespace Dianzhu.CSClient.Presenter
                     messageId.ToString(),
                     GlobalViables.CurrentCustomerService.Id.ToString(),
                     GlobalViables.CurrentCustomerService.DisplayName,
-                    IdentityManager.CurrentIdentity.CustomerId.Id.ToString(),
+                    IdentityManager.CurrentIdentity.CustomerId,
                     DateTime.Now,
                     (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds,
                     "pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCS.png",

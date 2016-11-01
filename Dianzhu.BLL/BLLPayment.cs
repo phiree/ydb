@@ -202,7 +202,7 @@ namespace Dianzhu.BLL
             }
             if (userID != Guid.Empty)
             {
-                where = where.And(x => x.Order.CustomerId.Id == userID);
+                where = where.And(x => x.Order.CustomerId == userID.ToString());
             }
             if (payStatus != null && payStatus != "")
             {
@@ -247,7 +247,7 @@ namespace Dianzhu.BLL
             }
             if (userID != Guid.Empty)
             {
-                where = where.And(x => x.Order.CustomerId.Id == userID);
+                where = where.And(x => x.Order.CustomerId == userID.ToString());
             }
             if (payStatus != null && payStatus != "")
             {
@@ -277,7 +277,7 @@ namespace Dianzhu.BLL
             }
             if (userID != Guid.Empty)
             {
-                where = where.And(x => x.Order.CustomerId.Id == userID);
+                where = where.And(x => x.Order.CustomerId == userID.ToString());
             }
             if (payID != Guid.Empty)
             {

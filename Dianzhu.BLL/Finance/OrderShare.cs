@@ -16,13 +16,14 @@ namespace Dianzhu.BLL.Finance
         IBLLServiceTypePoint bllServiceTypePoint;
         IBalanceFlowService balanceService;
         IBLLSharePoint bllSharePoint;
-        
+        IDAL.IDALMembership dalMembership;
         Agent.IAgentService agentService;
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL.Finance.OrderShare");
         public OrderShare(IBLLServiceTypePoint bllServiceTypePoint,
         IBLLSharePoint bllSharePoint,
         Agent.IAgentService agentService,
-        IBalanceFlowService balanceService)
+        IBalanceFlowService balanceService,
+        IDAL.IDALMembership dalMembership)
         {
             this.bllServiceTypePoint = bllServiceTypePoint;
             this.bllSharePoint = bllSharePoint;
@@ -77,12 +78,13 @@ namespace Dianzhu.BLL.Finance
             }
 
             //- 助理分成
-            var customerServiceSharePoint = bllSharePoint.GetSharePoint(order.CustomerServiceId);
+            DZMembership member = dalMembership.GetMemberById(new Guid(order.CustomerServiceId));
+            var customerServiceSharePoint = bllSharePoint.GetSharePoint(member);
             var customerServiceShare = Math.Truncate(customerServiceSharePoint * sharedAmount * 100) / 100m; ;
             Dianzhu.Model.Finance.BalanceFlow flowCustomerService = new Model.Finance.BalanceFlow
             {
                 Amount = customerServiceShare,
-                MemberId =order.CustomerServiceId.Id,
+                MemberId =new Guid( order.CustomerServiceId),
                 RelatedObjectId= order.Id.ToString(),
                 OccurTime = DateTime.Now,
                 FlowType = Model.Finance.enumFlowType.OrderShare

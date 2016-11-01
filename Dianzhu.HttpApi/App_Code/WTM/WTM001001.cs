@@ -89,7 +89,7 @@ public class ResponseWTM001001 : BaseResponse
                     return;
                 }
 
-                if (service.Business.Owner.Id != userID)
+                if (service.Business.OwnerId != userID)
                 {
                     this.state_CODE = Dicts.StateCode[1];
                     this.err_Msg = "该商户没有该服务！";

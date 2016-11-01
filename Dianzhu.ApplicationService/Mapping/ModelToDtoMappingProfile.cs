@@ -45,7 +45,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<Model.Complaint, complaintObj>()
             .ForMember(x => x.resourcesUrl, opt => opt.MapFrom(source => source.ComplaitResourcesUrl))
             .ForMember(x => x.orderID, opt => opt.MapFrom(source => source.Order.Id))
-            .ForMember(x => x.senderID, opt => opt.MapFrom(source => source.Operator.Id))
+            .ForMember(x => x.senderID, opt => opt.MapFrom(source => source.OperatorId))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Advertisement, adObj>()

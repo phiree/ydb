@@ -137,7 +137,7 @@ public class ResponseORM003007 : BaseResponse
                     else if(member.UserType == enum_UserType.business)
                     {
                         ServiceOrder order = bllServiceOrder.GetOne(orderId);
-                        if (order.Details[0].OriginalService.Business.Owner.Id != userId)
+                        if (order.Details[0].OriginalService.Business.OwnerId != userId)
                         {
                             this.state_CODE = Dicts.StateCode[4];
                             this.err_Msg = "没有对应的订单!";

@@ -23,7 +23,7 @@ namespace Dianzhu.DAL.Mapping
 
             Map(x => x.CreatTime);
             Map(x => x.Result);
-            References<DZMembership>(x => x.Operator);
+            Map(x => x.OperatorId);
             Map(x => x.LastUpdateTime);
         }
     }

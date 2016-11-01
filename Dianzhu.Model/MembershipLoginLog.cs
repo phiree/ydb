@@ -12,14 +12,14 @@ namespace Dianzhu.Model
     {
         public MembershipLoginLog()
         { }
-        public MembershipLoginLog(DZMembership membership, enumLoginLogType logType, string memo)
+        public MembershipLoginLog(string memberId, enumLoginLogType logType, string memo)
         {
             LogTime = DateTime.Now;
-            Membership = membership;
-            logType = logType;
+            MemberId = memberId;
+            LogType = logType;
             Memo = memo;
         }
-        public virtual DZMembership Membership { get; protected set; }
+        public virtual string MemberId { get; protected set; }
         public virtual DateTime LogTime { get; protected set; }
         public virtual enumLoginLogType LogType { get; protected set; }
         //备注

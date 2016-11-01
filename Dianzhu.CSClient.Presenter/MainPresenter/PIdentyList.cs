@@ -171,15 +171,15 @@ namespace Dianzhu.CSClient.Presenter
                 }
             }
 
-            receptionService.DeleteReception(order.CustomerId.Id.ToString());
+            receptionService.DeleteReception(order.CustomerId);
 
             //删除当前订单临时变量
             if (IdentityManager.DeleteIdentity(order))
             {
-                localChatManager.Remove(order.CustomerId.Id.ToString());
-                localHistoryOrderManager.Remove(order.CustomerId.Id.ToString());
-                localUIDataManager.Remove(order.CustomerId.Id.ToString());
-                localUIDataManager.RemoveSearchObj(order.CustomerId.Id.ToString());
+                localChatManager.Remove(order.CustomerId);
+                localHistoryOrderManager.Remove(order.CustomerId);
+                localUIDataManager.Remove(order.CustomerId);
+                localUIDataManager.RemoveSearchObj(order.CustomerId);
                 iView.IdentityOrderTempId = Guid.Empty;
                 RemoveIdentity(order.Id);
             }

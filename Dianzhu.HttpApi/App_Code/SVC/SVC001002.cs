@@ -81,7 +81,7 @@ public class ResponseSVC001002 : BaseResponse
             try
             {
                 DZService service = bllDZService.GetOne(svcID);
-                if (service.Business.Owner != member)
+                if (service.Business.OwnerId != member.Id)
                 {
                     this.state_CODE = Dicts.StateCode[1];
                     this.err_Msg = "商户没有该服务！";

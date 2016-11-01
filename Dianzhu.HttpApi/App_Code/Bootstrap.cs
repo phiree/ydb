@@ -34,6 +34,10 @@ public class Bootstrap
         container.Install(
             new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(),
             new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(),
+            new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
+            new Ydb.Membership.Application.InstallerMembership(),
+            new Ydb.Membership.Application.InstallerMembershipDB(),
+            new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
             new Dianzhu.DependencyInstaller.InstallerComponent(),
             new Dianzhu.DependencyInstaller.InstallerInfrstructure(),
             new Dianzhu.DependencyInstaller.InstallerRepository(),

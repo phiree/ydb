@@ -9,6 +9,8 @@ using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Dianzhu.Api.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 /// <summary>
 /// 获取用户的服务订单列表
 /// </summary>
@@ -33,6 +35,7 @@ public class ResponseORM001008 : BaseResponse
 
 
         IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        IDZMembershipService memberServcie = Bootstrap.Container.Resolve<IDZMembershipService>();
 
         try
         {
@@ -119,10 +122,12 @@ public class ResponseORM001008 : BaseResponse
                 bllServiceOrder.Update(order);
                 IList<ServiceOrderPushedService> pushServiceList = bllPushService.GetPushedServicesForOrder(order);
                 RespDataORM_orderObj orderObj = new RespDataORM_orderObj();
+                MemberDto customer = memberServcie.GetUserById(order.CustomerId);
                 IList<DZTag> tagsList = new List<DZTag>();//标签
                 if (pushServiceList.Count > 0)
                 {
-                    orderObj.Adap(order, pushServiceList[0]);
+
+                    orderObj.Adap(order, customer, pushServiceList[0]);
 
                     if (order.Details.Count > 0)
                     {
@@ -152,7 +157,7 @@ public class ResponseORM001008 : BaseResponse
                 respData.orderObj = orderObj;
 
                 //增加订单提醒
-                ServiceOrderRemind remind = new ServiceOrderRemind(orderObj.svcObj.name,orderObj.storeObj.alias+"提供"+orderObj.svcObj.type, order.Details[0].TargetTime,true, order.Id, order.CustomerId.Id);
+                ServiceOrderRemind remind = new ServiceOrderRemind(orderObj.svcObj.name,orderObj.storeObj.alias+"提供"+orderObj.svcObj.type, order.Details[0].TargetTime,true, order.Id,new Guid( order.CustomerId));
                 bllServiceOrderRemind.Save(remind);
 
                 this.state_CODE = Dicts.StateCode[0];

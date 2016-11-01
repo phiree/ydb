@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.Config;
 using Dianzhu.Model.Enums;
+using Ydb.Membership.Application.Dto;
 
 namespace Dianzhu.Api.Model
 {
@@ -13,11 +14,11 @@ namespace Dianzhu.Api.Model
     public class RespDataORM_Order
     {
         public RespDataORM_orderObj orderObj { get; set; }
-        public RespDataORM_Order Adap(ServiceOrder order, ServiceOrderPushedService pushService)
+        public RespDataORM_Order Adap(ServiceOrder order, MemberDto customer, ServiceOrderPushedService pushService)
         {
             if (order != null)
             {
-                this.orderObj = new RespDataORM_orderObj().Adap(order, pushService);
+                this.orderObj = new RespDataORM_orderObj().Adap(order,customer, pushService);
             }
             return this;
         }
@@ -43,7 +44,7 @@ namespace Dianzhu.Api.Model
         public RespDataORM_storeObj storeObj { get; set; }
         public RespDataORM_contactObj contactObj { get; set; }
 
-        public RespDataORM_orderObj Adap(ServiceOrder order, ServiceOrderPushedService pushSevice)
+        public RespDataORM_orderObj Adap(ServiceOrder order, MemberDto customer, ServiceOrderPushedService pushSevice)
         {
             this.orderID = order.Id.ToString();
             //todo: serviceorder change
@@ -102,7 +103,7 @@ namespace Dianzhu.Api.Model
             }
             if (order.CustomerId != null)
             {
-                this.userObj = new RespDataORM_UserObj().Adap(order.CustomerId);
+                this.userObj = new RespDataORM_UserObj().Adap(customer);
             }
             //todo,这里只能获取系统内订单
             //if (order.Service != null)
@@ -131,7 +132,7 @@ namespace Dianzhu.Api.Model
         public string userID { get; set; }
         public string alias { get; set; }
         public string imgUrl { get; set; }
-        public RespDataORM_UserObj Adap(DZMembership member)
+        public RespDataORM_UserObj Adap(MemberDto member)
         {
             this.userID = member.Id.ToString();
             this.alias = member.NickName ?? string.Empty;
@@ -398,7 +399,7 @@ namespace Dianzhu.Api.Model
         {
             foreach (KeyValuePair<ServiceOrder,ServiceOrderPushedService> item in serviceOrderList)
             {
-                RespDataORM_orderObj adapted_order = new RespDataORM_orderObj().Adap(item.Key,item.Value);
+                RespDataORM_orderObj adapted_order = new RespDataORM_orderObj().Adap(item.Key, item.Value);
                 arrayData.Add(adapted_order);
             }
         }
