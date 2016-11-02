@@ -16,7 +16,7 @@ namespace Ydb.Finance.DomainModel
         public UserTypeSharePoint(decimal point, UserType userType)
         {
             this.Point = point;
-            this.UserType = UserType;
+            this.UserType = userType;
         }
         public static UserTypeSharePoint None
         {

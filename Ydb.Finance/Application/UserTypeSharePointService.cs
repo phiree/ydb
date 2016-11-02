@@ -14,7 +14,7 @@ namespace Ydb.Finance.Application
         IRepositoryUserTypeSharePoint repositoryUserTypeSharePoint;
         public UserTypeSharePointService()
         {
-            repositoryUserTypeSharePoint = Bootstrap.Container.Resolve<IRepositoryUserTypeSharePoint>();
+            repositoryUserTypeSharePoint = Ydb.Finance.Infrastructure.Bootstrap.Container.Resolve<IRepositoryUserTypeSharePoint>();
         }
 
         /// <summary>
@@ -30,12 +30,11 @@ namespace Ydb.Finance.Application
             {
                 throw new ArgumentException("传入的UserType不是有效值");
             }
-            string errMsg;
-            decimal existed = GetSharePoint(userType, out errMsg);
-            //if (string.IsNullOrEmpty(errMsg))
-            //{
-            //    throw new Exception("该用户类型已经设置了分成比");
-            //}
+            var userTypePoint = repositoryUserTypeSharePoint.GetSharePoint(enumUserType);
+            if (userTypePoint!=null)
+            {
+                throw new Exception("该用户类型已经设置了分成比");
+            }
             repositoryUserTypeSharePoint.Add(enumUserType, point);
         }
 

@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Dianzhu.Model;
+
 namespace Dianzhu.CSClient.IView
 {
     /// <summary>
@@ -14,6 +13,6 @@ namespace Dianzhu.CSClient.IView
         event PushShelfService PushShelfService;
     }
 
-    public delegate void PushShelfService(DZService pushedService);
+    public delegate void PushShelfService(Guid pushedServiceId);
 
 }

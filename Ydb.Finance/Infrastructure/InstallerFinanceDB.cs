@@ -14,18 +14,19 @@ using NHibernate.Tool.hbm2ddl;
 using Castle.Windsor;
 using Ydb.Finance.DomainModel;
 
-namespace Ydb.Finance.Tests.Application
+namespace Ydb.Finance.Infrastructure
 {
-    public class InstallerFinanceDB : IWindsorInstaller
+    internal class InstallerFinanceDB : IWindsorInstaller
     {
-        ISessionFactory _sessionFactory;
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
-            _sessionFactory = Ydb.Finance.Application.InstallerFinanceDB.GetSessionFactory();
+            //Database
+            var _sessionFactory = Ydb.Finance.Application.InstallerFinanceDB.GetSessionFactory();
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
             container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
-            container.Register(Component.For<ISession>().Instance(_sessionFactory.OpenSession()));
+            //container.Register(Component.For<ISession>().Instance(_sessionFactory.OpenSession()));
         }
+
     }
 }

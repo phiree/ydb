@@ -9,9 +9,11 @@ using NHibernate;
 using Ydb.Common.Repository;
 using Ydb.Finance.DomainModel;
 using NHibernate.Transform;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 namespace Ydb.Finance.Infrastructure.Repository
-{
+{ 
     internal class RepositoryBalanceFlow : NHRepositoryBase<BalanceFlow, Guid>, IRepositoryBalanceFlow
     {
         

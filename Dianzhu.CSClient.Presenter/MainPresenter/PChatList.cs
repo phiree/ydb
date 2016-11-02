@@ -122,6 +122,9 @@ namespace Dianzhu.CSClient.Presenter
         BackgroundWorker worker;
         public void ViewIdentityList_IdentityClick(VMIdentity vmIdentity)
         {
+            if (IdentityManager.CurrentIdentity == null)
+            { return; }
+
             worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
@@ -146,10 +149,17 @@ namespace Dianzhu.CSClient.Presenter
                     viewChatList.ShowNoMoreLabel();
                 }
                 
-                foreach(var vmChat in vmChatList)
+                for(int i = 0; i < vmChatList.Count; i++)
                 {
-                    viewChatList.AddOneChat(vmChat);
-                    //viewChatList.ChatList.Add(vmChat);
+                    try
+                    {
+                        viewChatList.AddOneChat(vmChatList[i]);
+                    }
+                    catch (Exception ee)
+                    {
+                        log.Error("ChatId:" + vmChatList[i].ChatId);
+                        log.Error(ee);
+                    }
                 }
             }
             else

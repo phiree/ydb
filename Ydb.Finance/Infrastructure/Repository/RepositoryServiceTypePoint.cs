@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Ydb.Finance.DomainModel;
 using NHibernate;
 using Ydb.Common.Repository;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace Ydb.Finance.Infrastructure.Repository
 {

@@ -28,7 +28,7 @@ namespace Dianzhu.CSClient.Presenter
         PushService bllPushService;
         IInstantMessage iIM;
         IDAL.IDALServiceType dalServiceType;
-        IList<DZService> SelectedServiceList;
+        IList<VMShelfService> SelectedServiceList;
         BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder;
         LocalStorage.LocalChatManager localChatManager;
         LocalStorage.LocalUIDataManager localUIDataManager;
@@ -81,8 +81,7 @@ namespace Dianzhu.CSClient.Presenter
             this.ServiceTypeFirst = new ServiceType();
             this.ServiceTypeSecond = new ServiceType();
             this.ServiceTypeThird = new ServiceType();
-
-            viewSearchResult.SelectService += ViewSearchResult_SelectService;
+            
             viewSearchResult.PushServices += ViewSearchResult_PushServices;
             viewSearchResult.FilterByBusinessName += ViewSearchResult_FilterByBusinessName; ;
             viewSearch.ServiceTypeFirst_Select += ViewSearch_ServiceTypeFirst_Select;
@@ -148,10 +147,10 @@ namespace Dianzhu.CSClient.Presenter
         {
             if (SelectedServiceList != null)
             {
-                IList<DZService> list = new List<DZService>();
-                foreach (DZService item in SelectedServiceList)
+                IList<VMShelfService> list = new List<VMShelfService>();
+                foreach (var item in SelectedServiceList)
                 {
-                    if (item.Business.Name.Contains(businessName))
+                    if (item.BusinessName.Contains(businessName))
                     {
                         list.Add(item);
                     }
@@ -290,7 +289,7 @@ namespace Dianzhu.CSClient.Presenter
 
         }
 
-        private ServiceOrder ViewSearchResult_PushServices(IList<Model.DZService> pushedServices,out string errorMsg)
+        private ServiceOrder ViewSearchResult_PushServices(IList<Guid> pushedServices,out string errorMsg)
         {
             errorMsg = string.Empty;
             SearchObj searchObj;
@@ -334,8 +333,11 @@ namespace Dianzhu.CSClient.Presenter
 
             //NHibernateUnitOfWork.UnitOfWork.Start();
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
-            foreach (DZService service in pushedServices)
+            DZService service;
+            foreach (var serviceId in pushedServices)
             {
+                service = dalDzService.FindById(serviceId);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 //NHibernateUnitOfWork.UnitOfWork.Current.Refresh(service);//来自上个session，需刷新
 
                 serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, searchObj.Address, searchObj.TargetTime, viewSearch.ServiceMemo ));
@@ -386,13 +388,13 @@ namespace Dianzhu.CSClient.Presenter
             //助理工具显示发送的消息
             //VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
             VMChatPushServie vmChatPushService = new VMChatPushServie(
-                pushedServices[0].Name,
+                serviceOrderPushedServices[0].ServiceName,
                 true,
-                pushedServices[0].Business.BusinessAvatar.ImageName,
+                serviceOrderPushedServices[0].OriginalService.Business.BusinessAvatar.ImageName,
                 5,
-                pushedServices[0].UnitPrice,
-                pushedServices[0].DepositAmount,
-                pushedServices[0].Description,
+                serviceOrderPushedServices[0].UnitPrice,
+                serviceOrderPushedServices[0].DepositAmount,
+                serviceOrderPushedServices[0].Description,
                 messageId.ToString(),
                 GlobalViables.CurrentCustomerService.Id.ToString(),
                 GlobalViables.CurrentCustomerService.NickName,
@@ -442,21 +444,6 @@ namespace Dianzhu.CSClient.Presenter
             //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             //NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
         }
-
-        private void ViewSearchResult_SelectService(Model.DZService selectedService)
-        {
-            if (IdentityManager.CurrentIdentity == null)
-            {
-                
-                return;
-            }
-            IdentityManager.CurrentIdentity.AddDetailFromIntelService(selectedService, viewSearch.UnitAmount,string.Empty,string.Empty, "实施服务的地点", DateTime.Now,string.Empty);
-            //viewOrder.Order = IdentityManager.CurrentIdentity;
-            bllServiceOrder.Update(IdentityManager.CurrentIdentity);
-
-            
-
-        }
         #endregion
         
         private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId,string name,string lng,string lat)
@@ -472,12 +459,23 @@ namespace Dianzhu.CSClient.Presenter
             int total;
 
             IList<DZService> services = dalDzService.SearchService(name, minPrice, maxPrice, servieTypeId, targetTime, double.Parse(lng), double.Parse(lat), 0, 999, out total);
-            //foreach (DZService service in services)
-            //{
+            IList<VMShelfService> vmShelfServiceList = new List<VMShelfService>();
+            VMShelfService vmShelfService;
+            int num = 1;//用来显示查询出来的服务数量
+            foreach (DZService service in services)
+            {
+                var opentimeObj = service.GetOpenTimeSnapShot(targetTime);
+                string timeBegin = PHSuit.StringHelper.ConvertPeriodToTimeString(opentimeObj.PeriodBegin);
+                string timeEnd = PHSuit.StringHelper.ConvertPeriodToTimeString(opentimeObj.PeriodEnd);
+                string time = timeBegin + "-" + timeEnd;
 
-            //}
-            viewSearchResult.SearchedService = services;
-            SelectedServiceList = services;
+                vmShelfService = new VMShelfService(service.Id, num, true, service.Business.Name, service.Name, 5, time, service.UnitPrice, service.DepositAmount);
+                vmShelfServiceList.Add(vmShelfService);
+
+                num++;
+            }
+            viewSearchResult.SearchedService = vmShelfServiceList;
+            SelectedServiceList = vmShelfServiceList;
 
             //NHibernateUnitOfWork.With.Transaction(a);
 

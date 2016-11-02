@@ -20,8 +20,8 @@ namespace Ydb.Finance.Application
         {
             this.serviceTypePointService = serviceTypePointService;
             this.userTypeSharePointService = userTypeSharePointService;
-            repositoryBalanceFlow = Bootstrap.Container.Resolve<IRepositoryBalanceFlow>();
-            repositoryBalanceTotal = Bootstrap.Container.Resolve<IRepositoryBalanceTotal>();
+            repositoryBalanceFlow = Ydb.Finance.Infrastructure.Bootstrap.Container.Resolve<IRepositoryBalanceFlow>();
+            repositoryBalanceTotal = Ydb.Finance.Infrastructure.Bootstrap.Container.Resolve<IRepositoryBalanceTotal>();
         }
 
         /// <summary>
@@ -42,26 +42,48 @@ namespace Ydb.Finance.Application
             var share= 0m;
             decimal sharePoint = 0;
             string errMsg = string.Empty;
+            IList<string> strUserTypes = new List<string>();
+            strUserTypes.Add("business");
             for (int i = 0; i < order.BalanceUser.Count; i++)
             {
-                sharePoint = userTypeSharePointService.GetSharePoint(order.BalanceUser[i].UserType, out errMsg);
                 switch (order.BalanceUser[i].UserType)
                 {
                     case "agent":
-                        share = Math.Truncate(sharedAmount * sharePoint * 100) / 100m;
+                        strUserTypes.Add("agent");
                         break;
                     case "customerservice":
+                        strUserTypes.Add("customerservice");
+                        break;
+                    case "business":
+                        break;
+                    case "diandian":
+                        break;
+                    default:
+                        throw new Exception("分账用户类型不正确!");
+                }
+            }
+            strUserTypes.Add("diandian");
+            decimal shareDiandian = order.Amount;
+            for (int i = 0; i < strUserTypes.Count; i++)
+            {
+                switch (strUserTypes[i])
+                {
+                    case "agent":
+                        sharePoint = userTypeSharePointService.GetSharePoint(strUserTypes[i], out errMsg);
                         share = Math.Truncate(sharedAmount * sharePoint * 100) / 100m;
+                        shareDiandian = shareDiandian - share;
+                        break;
+                    case "customerservice":
+                        sharePoint = userTypeSharePointService.GetSharePoint(strUserTypes[i], out errMsg);
+                        share = Math.Truncate(sharedAmount * sharePoint * 100) / 100m;
+                        shareDiandian = shareDiandian - share;
                         break;
                     case "business":
                         share = Math.Truncate(order.Amount * (1 - typePoint) * 100) / 100m;
+                        shareDiandian = shareDiandian - share;
                         break;
                     case "diandian":
-                        share = order.Amount - Math.Truncate(order.Amount * (1 - typePoint) * 100) / 100m;
-                        sharePoint = userTypeSharePointService.GetSharePoint("agent", out errMsg);
-                        share = share - Math.Truncate(sharedAmount * sharePoint * 100) / 100m;
-                        sharePoint = userTypeSharePointService.GetSharePoint("customerservice", out errMsg);
-                        share = share - Math.Truncate(sharedAmount * sharePoint * 100) / 100m;
+                        share = shareDiandian;
                         break;
                     default:
                         throw new Exception("分账用户类型不正确!");

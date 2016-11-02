@@ -98,32 +98,34 @@ namespace Dianzhu.CSClient.Presenter
                 if (assignList.Count > 0)
                 {
                     log.Debug("需要接待的离线用户数量:" + assignList.Count);
-                    foreach (var assign in assignList)
+                    for(int i=0;i< assignList.Count;i++)
                     {
-                        MemberDto customer = memberService.GetUserById(assign.CustomerId);
+ 
+                        MemberDto customer = memberService.GetUserById(assignList[i].CustomerId);
+ 
                         ClientState.customerList.Add(customer);
-                        ServiceOrder order = bllServiceOrder.GetOne(Guid.Parse(assign.OrderId));
+                        ServiceOrder order = bllServiceOrder.GetOne(Guid.Parse(assignList[i].OrderId));
 
                         IdentityTypeOfOrder type;
                         IdentityManager.UpdateIdentityList(order, out type);
 
                         if (order != null)
                         {
-                            if (!localChatManager.LocalCustomerAvatarUrls.ContainsKey(assign.CustomerId))
+                            if (!localChatManager.LocalCustomerAvatarUrls.ContainsKey(assignList[i].CustomerId))
                             {
                                 string avatar = string.Empty;
                                 if (customer.AvatarUrl != null)
                                 {
                                     avatar = customer.AvatarUrl;
                                 }
-                                localChatManager.LocalCustomerAvatarUrls[assign.CustomerId] = avatar;
+                                localChatManager.LocalCustomerAvatarUrls[assignList[i].CustomerId] = avatar;
                             }
-                            VMIdentity vmIdentity = vmIdentityAdapter.OrderToVMIdentity(order, localChatManager.LocalCustomerAvatarUrls[assign.CustomerId]);
+                            VMIdentity vmIdentity = vmIdentityAdapter.OrderToVMIdentity(order, localChatManager.LocalCustomerAvatarUrls[assignList[i].CustomerId]);
                             AddIdentity(vmIdentity);
 
                             //ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.Diandian.Id.ToString(), customerId,
                             //"客服" + GlobalViables.CurrentCustomerService.DisplayName + "已上线", order.Id.ToString(), enum_XmppResource.YDBan_DianDian, enum_XmppResource.YDBan_User);
-                            //ReceptionChat rChatReAss = chatFactory.CreateReAssign(GlobalViables.CurrentCustomerService.Id.ToString(), GlobalViables.CurrentCustomerService.DisplayName, string.Empty);
+                            //ReceptionChat rChatReAss = chatFactory.CreateReassignList[i](GlobalViables.CurrentCustomerService.Id.ToString(), GlobalViables.CurrentCustomerService.DisplayName, string.Empty);
                             //iIM.SendMessage(rChatReAss);
                         }
                     }
@@ -333,14 +335,7 @@ namespace Dianzhu.CSClient.Presenter
 
                 if (IdentityManager.CurrentIdentityList.Keys.Select(x => x.Id).ToList().Contains(vmIdentity.OrderId))
                 {
-                    foreach(var item in IdentityManager.CurrentIdentityList.Keys)
-                    {
-                        if (item.Id == vmIdentity.OrderId)
-                        {
-                            IdentityManager.CurrentIdentity = item;
-                            break;
-                        }
-                    }
+                    IdentityManager.CurrentIdentity = IdentityManager.CurrentIdentityList.Keys.ToList().Find(x => x.Id == vmIdentity.OrderId);
                 }
                 else
                 {

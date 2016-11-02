@@ -18,12 +18,12 @@ namespace Ydb.Membership.Application
                       .Database(
                            MySQLConfiguration
                           .Standard
-
-                          .ConnectionString(
-                            Ydb.Common.Infrastructure.EncryptService.Decrypt(
-                                 System.Configuration.ConfigurationManager
-                               .ConnectionStrings["ydb_membership"].ConnectionString, false)
-                               )
+                           .ConnectionString("data source=192.168.1.172;uid=root;pwd=root;database=ydb_membership")
+                          //.ConnectionString(
+                          //  Ydb.Common.Infrastructure.EncryptService.Decrypt(
+                          //       System.Configuration.ConfigurationManager
+                          //     .ConnectionStrings["ydb_membership"].ConnectionString, false)
+                          //     )
                     )
                   .Mappings(m => m.FluentMappings.AddFromAssemblyOf<DZMembershipMap>())
                   .ExposeConfiguration(BuildSchema)

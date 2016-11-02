@@ -20,8 +20,7 @@ namespace Ydb.Finance.Application
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
-            Bootstrap.Boot();
+            Ydb.Finance.Infrastructure.Bootstrap.Boot();
             InstallApplicationService(container, store);
         }
         

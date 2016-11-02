@@ -25,7 +25,7 @@ namespace Dianzhu.DAL.Mapping
             HasMany<ServiceOrderDetail>(x => x.Details).Cascade.All();
             References<Business>(x => x.Business);
             Map(x => x.NegotiateAmount);
-
+            Map(x => x.NegotiateAmount_Modified);
             Map(x => x.DepositAmount);
 
             //指派的负责人

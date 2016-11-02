@@ -63,6 +63,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -83,7 +84,6 @@
     <Compile Include="Application\BalanceDTO\UserTypeSharePointDto.cs" />
     <Compile Include="Application\BalanceDTO\WithdrawCashParam.cs" />
     <Compile Include="Application\BanlanceFlow.cs" />
-    <Compile Include="Application\Bootstrap.cs" />
     <Compile Include="Application\IBalanceFlowService.cs" />
     <Compile Include="Application\InstallerFinanceDB.cs" />
     <Compile Include="Application\IOrderShareService.cs" />
@@ -106,7 +106,9 @@
     <Compile Include="DomainModel\Enums\ShareType.cs" />
     <Compile Include="DomainModel\ServiceTypePoint.cs" />
     <Compile Include="Application\InstallerFinance.cs" />
+    <Compile Include="Infrastructure\Bootstrap.cs" />
     <Compile Include="Infrastructure\Installer.cs" />
+    <Compile Include="Infrastructure\InstallerFinanceDB.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceFlowMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceTotalMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceTypePointMap.cs" />

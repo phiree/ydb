@@ -10,6 +10,9 @@ using Ydb.Common.Repository;
 using Ydb.Finance.DomainModel;
 using NHibernate.Transform;
 using Ydb.Finance.DomainModel.Enums;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace Ydb.Finance.Infrastructure.Repository
 {

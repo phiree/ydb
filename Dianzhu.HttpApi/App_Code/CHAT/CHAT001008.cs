@@ -40,6 +40,7 @@ public class ResponseCHAT001008:BaseResponse
                 if(chat.ToResource != XmppResource.YDBan_CustomerService)
                 {
                     bllPush.Push(chat, new Guid(chat.ToId), chat.SessionId);
+                    chatService.Update(chat);
                 }
                
             }

@@ -456,7 +456,12 @@ namespace Dianzhu.Model
         /// 协商总价
         /// </summary>
         public virtual decimal NegotiateAmount { get; set; }
-        
+
+        /// <summary>
+        /// 商家修改过的协商总价
+        /// </summary>
+        public virtual decimal NegotiateAmount_Modified { get; set; }
+
         /// <summary>
         /// 创建此订单的客服
         /// </summary>

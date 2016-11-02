@@ -16,7 +16,7 @@ namespace Ydb.Finance.Application
         IRepositoryBalanceFlow repositoryBalanceFlow;
         public BalanceFlowService()
         {
-            repositoryBalanceFlow= Bootstrap.Container.Resolve<IRepositoryBalanceFlow>();
+            repositoryBalanceFlow= Ydb.Finance.Infrastructure.Bootstrap.Container.Resolve<IRepositoryBalanceFlow>();
         }
 
         /// <summary>

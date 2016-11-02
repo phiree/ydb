@@ -707,7 +707,7 @@ namespace Dianzhu.ApplicationService.Order
                         ibllserviceorder.OrderFlow_PayDepositAndWaiting(order);
                         break;
                     case Model.Enums.enum_OrderStatus.Negotiate:
-                        ibllserviceorder.OrderFlow_CustomDisagreeNegotiate(order);
+                        ibllserviceorder.OrderFlow_CustomerDisagreeNegotiate(order);
                         break;
                     case Model.Enums.enum_OrderStatus.Assigned:
                         ibllserviceorder.OrderFlow_CustomConfirmNegotiate(order);

@@ -1,12 +1,11 @@
-﻿using Castle.Windsor;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Castle.Windsor;
 
-
-namespace Ydb.Finance.Tests
+namespace Ydb.Test.Integration
 {
     public class Bootstrap
     {
@@ -20,12 +19,12 @@ namespace Ydb.Finance.Tests
         {
             container = new WindsorContainer();
             container.Install(
-                //new Ydb.Finance.Tests.Application.InstallerFinanceDB(),
+                new Ydb.Infrastructure.Installer(),
                 //new Ydb.Finance.Application.InstallerFinanceDB(),
-                new Ydb.Finance.Application.InstallerFinance()
+                new Ydb.Finance.Application.InstallerFinance(),
+                new Ydb.Membership.Application.InstallerMembershipDB(),
+                new Ydb.Membership.Application.InstallerMembership()
                 );
         }
-
-
     }
 }

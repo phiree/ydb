@@ -16,16 +16,8 @@ using Ydb.Finance.DomainModel;
 
 namespace Ydb.Finance.Application
 {
-    public class InstallerFinanceDB : IWindsorInstaller
+    public class InstallerFinanceDB 
     {
-        public void Install(IWindsorContainer container, IConfigurationStore store)
-        {
-            //Database
-            var _sessionFactory = GetSessionFactory(true);
-            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
-            container.Register(Component.For<ISession>().Instance(_sessionFactory.OpenSession()));
-        }
 
         private static void BuildSchema(Configuration config)
         {
@@ -33,10 +25,10 @@ namespace Ydb.Finance.Application
             update.Execute(true, true);
         }
 
-        public static ISessionFactory GetSessionFactory(bool b)
+        public static ISessionFactory GetSessionFactory()
         {
             ISessionFactory _sessionFactory;
-            if (b)
+            if (bool.Parse(System.Configuration.ConfigurationManager.AppSettings["NoTest"]))
             {
                 _sessionFactory = Fluently.Configure()
                         .Database(

@@ -31,7 +31,9 @@ namespace Ydb.InstantMessage.Application
             repositoryChat.Add(chat);
         }
 
+ 
         [ UnitOfWork]
+ 
         public IList<ReceptionChatDto> GetChatByOrder(string orderId)
         {
             var list = repositoryChat.GetChatByOrder(orderId);
@@ -125,6 +127,12 @@ namespace Ydb.InstantMessage.Application
         public long GetUnreadChatsCount(Guid userID)
         {
             return repositoryChat.GetUnreadChatsCount(userID);
+        }
+
+        [UnitOfWork]
+        public void Update(ReceptionChat chat)
+        {
+            repositoryChat.Update(chat);
         }
     }
 }

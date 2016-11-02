@@ -97,18 +97,28 @@
   <ItemGroup>
     <Compile Include="Application\BalanceFlowServiceTests.cs" />
     <Compile Include="Application\InstallerFinanceDB.cs" />
-    <Compile Include="Application\OrderShareServiceTest.cs" />
-    <Compile Include="Application\ServiceTypePointServiceTest.cs" />
-    <Compile Include="Application\UserTypeSharePointServiceTest.cs" />
-    <Compile Include="Application\WithdrawCashServiceTest.cs" />
+    <Compile Include="Application\OrderShareServiceTests.cs" />
+    <Compile Include="Application\ServiceTypePointServiceTests.cs" />
+    <Compile Include="Application\UserTypeSharePointServiceTests.cs" />
+    <Compile Include="Application\WithdrawCashServiceTests.cs" />
     <Compile Include="Bootstrap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="config\appSettings.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\connectionstrings.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
+      <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
+      <Name>Ydb.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ydb.Finance\Ydb.Finance.csproj">
       <Project>{343214F8-A523-4BDA-B783-4D77942269B9}</Project>
       <Name>Ydb.Finance</Name>
