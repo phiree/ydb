@@ -1,5 +1,5 @@
 ﻿using System;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
 
@@ -13,15 +13,15 @@ public class ResponseLCT001007 : BaseResponse
     {
         ReqDataLCT001007 requestData = this.request.ReqData.ToObject<ReqDataLCT001007>();
 
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+       IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
         string raw_id = requestData.userID;
 
         try
         {
             if (request.NeedAuthenticate)
             {
-                DZMembership member;
-                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                MemberDto member;
+                bool validated = new Account(memberService).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;

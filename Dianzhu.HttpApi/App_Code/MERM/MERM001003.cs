@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.BLL.Validator;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
@@ -17,15 +17,15 @@ public class ResponseMERM001003 : BaseResponse
     {
         ReqDataMERM001003 requestData = this.request.ReqData.ToObject<ReqDataMERM001003>();
 
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+       IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
         string raw_id = requestData.userID;
 
         try
         {
-            DZMembership member;
+            MemberDto member;
             if (request.NeedAuthenticate)
             {
-                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                bool validated = new Account(memberService).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -33,9 +33,9 @@ public class ResponseMERM001003 : BaseResponse
             }
             else
             {
-                member = p.GetUserById(new Guid(raw_id));
+                member = memberService.GetUserById(new Guid(raw_id).ToString());
             }
-            DZMembership memberOriginal = new DZMembership();
+            MemberDto memberOriginal = new MemberDto();
             member.CopyTo(memberOriginal);
             ReqDataMERM001003 memberUpdateResult = new ReqDataMERM001003();
             if (requestData.alias != null)
@@ -58,8 +58,8 @@ public class ResponseMERM001003 : BaseResponse
             
             if (requestData.password != null)
             {
-                member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.password, "MD5");
-                memberUpdateResult.password = "Y";
+                //todo: 密码不能传给前端
+             
             }
              
             
@@ -90,15 +90,12 @@ public class ResponseMERM001003 : BaseResponse
                     case "phone": 
                         if(memberUpdateResult.phone!=null)
                         {
-                            memberUpdateResult.phone = "N"; member.Phone = memberOriginal.Phone;
+                            memberUpdateResult.phone = "N";
+
+                            member.Phone = memberOriginal.Phone;
                         }
                         break;
-                    case "password":
-                        if(memberUpdateResult.password!=null)
-                        {
-                        memberUpdateResult.password = "N";
-                        member.Password = memberOriginal.Password;
-                        }break;
+                    
                     
                     default: break;
                 }
@@ -106,20 +103,19 @@ public class ResponseMERM001003 : BaseResponse
 
             }
 
-            if (requestData.email != null && p.GetUserByEmail(requestData.email) != null)
+            if (requestData.email != null )
             {
                 memberUpdateResult.email = "N";
                 member.Email = memberOriginal.Email;
+                memberService.ChangeEmail(raw_id, memberOriginal.Email);
 
             }
-            if (requestData.phone != null && p.GetUserByPhone(requestData.phone) != null)
+            if (requestData.phone != null )
             {
                 memberUpdateResult.phone = "N";
-                member.Phone = memberOriginal.Phone;
+                memberService.ChangeEmail(raw_id, memberOriginal.Phone); 
             }
-
-            p.UpdateDZMembership(member);
-
+ 
             this.state_CODE = Dicts.StateCode[0];
             this.RespData = memberUpdateResult;
         }

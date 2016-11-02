@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Dianzhu.Api.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 /// <summary>
 /// 获取一条服务信息的详情
 /// </summary>
@@ -21,7 +23,7 @@ public class ResponseORM001005 : BaseResponse
         ReqDataORM001005 requestData = this.request.ReqData.ToObject<ReqDataORM001005>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
         IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
        
         PushService bllPushService =  Bootstrap.Container.Resolve<PushService>();
@@ -33,8 +35,8 @@ public class ResponseORM001005 : BaseResponse
         {
             if (request.NeedAuthenticate)
             {
-                DZMembership member;
-                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                MemberDto member;
+                bool validated = new Account(memberService).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -64,7 +66,7 @@ public class ResponseORM001005 : BaseResponse
                         tagsList = bllDZService.GetServiceTags(pushServiceList[0].OriginalService);
                     }
 
-                    respData.Adap(order, pushServiceList[0]);
+                    respData.Adap(order,memberService,  pushServiceList[0]);
                 }
                 else
                 {
@@ -73,7 +75,7 @@ public class ResponseORM001005 : BaseResponse
                         tagsList = bllDZService.GetServiceTags(order.Details[0].OriginalService);
                     }
 
-                    respData.Adap(order, null);
+                    respData.Adap(order,memberService, null);
                 }
 
                 respData.orderObj.svcObj.SetTag(respData.orderObj.svcObj, tagsList);

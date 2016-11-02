@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
 using Dianzhu.Api.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 /// <summary>
 /// 用户设备认证
 /// </summary>
@@ -19,17 +21,18 @@ public class ResponseUSM001007 : BaseResponse
     {
         ReqDataUSM001007 requestData = this.request.ReqData.ToObject<ReqDataUSM001007>();
 
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
+
         string raw_id = requestData.userID;
 
         try
         {
 
 
-            DZMembership member;
+            MemberDto member;
             if (request.NeedAuthenticate)
             {
-                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                bool validated = new Account(memberService).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -37,7 +40,7 @@ public class ResponseUSM001007 : BaseResponse
             }
             else
             {
-                member = p.GetUserById(new Guid(raw_id));
+                member = memberService.GetUserById( raw_id);
             }
             try
             {
@@ -49,9 +52,8 @@ public class ResponseUSM001007 : BaseResponse
                    requestData.imgData, "UserAvatar", "image");
                 respData.imgUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + savedFileName;
 
-
-                member.AvatarUrl = savedFileName;
-                p.UpdateDZMembership(member);
+                memberService.ChangeAvatar(raw_id, savedFileName);
+                
                 this.RespData = respData;
             }
             catch (Exception ex)

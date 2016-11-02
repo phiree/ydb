@@ -94,9 +94,10 @@
     <Compile Include="Application\Dto\RegisterResult.cs" />
     <Compile Include="Application\DZMembershipService.cs" />
     <Compile Include="Application\IDZMembershipService.cs" />
-    <Compile Include="Application\ILoginService.cs" />
     <Compile Include="DomainModel\Config.cs" />
     <Compile Include="DomainModel\Dicts.cs" />
+    <Compile Include="DomainModel\IDownloadAvatarToMediaServer.cs" />
+    <Compile Include="DomainModel\IHttpRequest.cs" />
     <Compile Include="DomainModel\Service\IDZMembershipDomainService.cs" />
     <Compile Include="DomainModel\Service\DZMembershipDomainService.cs" />
     <Compile Include="DomainModel\Service\ILogin3rd.cs" />

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 
 /// <summary>
 /// 获取一条服务信息的详情
@@ -22,7 +24,7 @@ public class ResponseORM005001 : BaseResponse
 
         IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
 
         BLLServiceOrderAppraise bllServiceOrderAppraise = Bootstrap.Container.Resolve<BLLServiceOrderAppraise>();
 
@@ -81,10 +83,10 @@ public class ResponseORM005001 : BaseResponse
                 return;
             }
 
-            DZMembership member;
+            MemberDto member;
             if (request.NeedAuthenticate)
             {
-                bool validated = new Account(p).ValidateUser(userID, requestData.pWord, this, out member);
+                bool validated = new Account(memberService).ValidateUser(userID, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -92,7 +94,7 @@ public class ResponseORM005001 : BaseResponse
             }
             else
             {
-                member = p.GetUserById(userID);
+                member = memberService.GetUserById(userID.ToString());
                 if (member == null)
                 {
                     this.state_CODE = Dicts.StateCode[4];
@@ -102,7 +104,7 @@ public class ResponseORM005001 : BaseResponse
             }
             try
             {
-                ServiceOrder order = bllServiceOrder.GetOrderByIdAndCustomer(orderID, member);
+                ServiceOrder order = bllServiceOrder.GetOrderByIdAndCustomer(orderID, member.Id.ToString());
                 enum_OrderStatus oldStatus = order.OrderStatus;
                 if (order == null)
                 {
@@ -140,8 +142,8 @@ public class ResponseORM005001 : BaseResponse
                 //20160623_longphui_modify
                 string[] resourcesUrls = resourcesUrl.Split(',');
 
-                Claims claims = new Claims(order, oldStatus, member);
-                claims.AddDetailsFromClaims(claims, context, amount, resourcesUrls.ToList(), enum_ChatTarget.user, member);
+                Claims claims = new Claims(order, oldStatus, member.Id.ToString());
+                claims.AddDetailsFromClaims(claims, context, amount, resourcesUrls.ToList(), enum_ChatTarget.user, member.Id.ToString());
                 bllClaims.Save(claims);
 
                 RespDataORM005001 respData = new RespDataORM005001();

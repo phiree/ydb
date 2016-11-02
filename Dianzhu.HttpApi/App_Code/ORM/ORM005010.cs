@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
@@ -21,7 +21,7 @@ public class ResponseORM005010 : BaseResponse
 
         IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+       IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
       
         string user_ID = requestData.userID;
         string order_ID = requestData.orderID;
@@ -45,10 +45,10 @@ public class ResponseORM005010 : BaseResponse
                 return;
             }
 
-            DZMembership member;
+            MemberDto member;
             if (request.NeedAuthenticate)
             {
-                bool validated = new Account(p).ValidateUser(userID, requestData.pWord, this, out member);
+                bool validated = new Account(memberService).ValidateUser(userID, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -56,7 +56,7 @@ public class ResponseORM005010 : BaseResponse
             }
             else
             {
-                member = p.GetUserById(userID);
+                member = memberService.GetUserById(userID.ToString());
                 if (member == null)
                 {
                     this.state_CODE = Dicts.StateCode[4];

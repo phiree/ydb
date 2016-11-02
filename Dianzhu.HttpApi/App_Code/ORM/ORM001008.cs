@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
@@ -25,7 +25,7 @@ public class ResponseORM001008 : BaseResponse
         ReqDataORM001008 requestData = this.request.ReqData.ToObject<ReqDataORM001008>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+       
       
         BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
         PushService bllPushService = Bootstrap.Container.Resolve<PushService>();
@@ -68,10 +68,10 @@ public class ResponseORM001008 : BaseResponse
                 return;
             }
 
-            DZMembership member = null;
+            MemberDto member = null;
             if (request.NeedAuthenticate)
             {
-                bool validated = new Account(p).ValidateUser(uid, requestData.pWord, this, out member);
+                bool validated = new Account(memberServcie).ValidateUser(uid, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -79,7 +79,7 @@ public class ResponseORM001008 : BaseResponse
             }
             else
             {
-                member = p.GetUserById(uid);
+                member = memberServcie.GetUserById(uid.ToString());
                 if (member == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -127,7 +127,7 @@ public class ResponseORM001008 : BaseResponse
                 if (pushServiceList.Count > 0)
                 {
 
-                    orderObj.Adap(order, customer, pushServiceList[0]);
+                    orderObj.Adap(order, memberServcie, pushServiceList[0]);
 
                     if (order.Details.Count > 0)
                     {
@@ -140,7 +140,7 @@ public class ResponseORM001008 : BaseResponse
                 }
                 else
                 {
-                    orderObj.Adap(order, null);
+                    orderObj.Adap(order,memberServcie, null);
 
                     if (order.Details.Count > 0)
                     {

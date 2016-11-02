@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Dianzhu.BLL;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using System.Net;
 using Dianzhu.Model.Enums;
 using Dianzhu.Api.Model;
@@ -12,9 +12,9 @@ using Dianzhu.Api.Model;
 /// </summary>
 public class ResponseAPP001001:BaseResponse
 {
-    DZMembershipProvider bllMembership = Bootstrap.Container.Resolve<DZMembershipProvider>();
-    
-    DZMembership member;
+    IDZMembershipService bllMembership = Bootstrap.Container.Resolve<IDZMembershipService>();
+ 
+    MemberDto member;
 
     public ResponseAPP001001(BaseRequest request):base(request)
     {
@@ -54,7 +54,7 @@ public class ResponseAPP001001:BaseResponse
                     return;
                 }
 
-                member = bllMembership.GetUserById(new Guid(requestData.appObj.userId));
+                member = bllMembership.GetUserById( requestData.appObj.userId);
                 if (member == null)
                 {
                     this.state_CODE = Dicts.StateCode[8];
@@ -69,7 +69,7 @@ public class ResponseAPP001001:BaseResponse
                 DeviceBind uuid = bllDeviceBind.getDevBindByUUID(devB.AppUUID);
                 if (uuid != null)
                 {
-                    uuid.DZMembership = devB.DZMembership;
+                    uuid.MemberDto = devB.MemberDto;
                     uuid.AppName = devB.AppName;
                     uuid.AppToken = devB.AppToken;
                     uuid.BindChangedTime = DateTime.Now;
@@ -114,7 +114,7 @@ public class ResponseAPP001001:BaseResponse
     public DeviceBind reqDataToDevB(ReqDataAPP001001 app)
     {
         DeviceBind result = new DeviceBind();
-        result.DZMembership = member;        
+        result.MemberDto = member;        
         result.AppName = app.appObj.appName;
         result.AppUUID = new Guid(app.appObj.appUUID);
         result.AppToken = app.appObj.appToken;

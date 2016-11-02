@@ -25,13 +25,13 @@ namespace Dianzhu.Model
         /// <param name="order"></param>
         /// <param name="status"></param>
         /// <param name="applicant"></param>
-        public Claims(ServiceOrder order,enum_OrderStatus status,DZMembership applicant)
+        public Claims(ServiceOrder order,enum_OrderStatus status,string applicantId)
         {
             this.CreatTime = this.LastUpdateTime = DateTime.Now;
 
             this.Order = order;
             this.Status = status;
-            this.Applicant = applicant;
+            this.ApplicantId = applicantId;
 
             ClaimsDatailsList = new List<ClaimsDetails>();
         }
@@ -56,7 +56,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 操作人员
         /// </summary>
-        public virtual DZMembership Applicant { get; set; }
+        public virtual string ApplicantId { get; set; }
         /// <summary>
         /// 最后更新时间
         /// </summary>

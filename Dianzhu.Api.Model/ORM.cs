@@ -480,12 +480,12 @@ namespace Dianzhu.Api.Model
         public string alias { get; set; }
         public string userName { get; set; }
         public string imgUrl { get; set; }
-        public RespDataORM002001_cerObj Adap(DZMembership customerService)
+        public RespDataORM002001_cerObj Adap(MemberDto customerService)
         {
             this.userID = customerService.Id.ToString();
             this.imgUrl = string.Empty;
              
-            this.alias = customerService.DisplayName ?? string.Empty;
+            this.alias = customerService.NickName ?? string.Empty;
             this.userName = customerService.UserName ?? string.Empty;
             return this;
         }

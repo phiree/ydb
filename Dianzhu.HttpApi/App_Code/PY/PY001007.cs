@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Dianzhu.BLL;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.Pay;
 using System.Net;
 using Dianzhu.Model.Enums;
@@ -29,7 +29,7 @@ public class ResponsePY001007:BaseResponse
     {
         ReqDataPY001007 requestData = this.request.ReqData.ToObject<ReqDataPY001007>();
 
-        DZMembershipProvider bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        IDZMembershipService bllMember = Bootstrap.Container.Resolve<IDZMembershipService>();
         BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
 
         try
@@ -38,7 +38,7 @@ public class ResponsePY001007:BaseResponse
             
             if (request.NeedAuthenticate)
             {
-                DZMembership member;
+                MemberDto member;
                 bool validated = new Account(bllMember).ValidateUser(new Guid(requestData.userID), requestData.pWord, this, out member);
                 if (!validated)
                 {

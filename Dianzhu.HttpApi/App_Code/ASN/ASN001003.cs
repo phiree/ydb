@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
@@ -25,7 +25,7 @@ public class ResponseASN001003 : BaseResponse
         ReqDataASN001003 requestData = this.request.ReqData.ToObject<ReqDataASN001003>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+       IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
 
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
         BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>();
@@ -60,8 +60,8 @@ public class ResponseASN001003 : BaseResponse
 
             if (request.NeedAuthenticate)
             {
-                DZMembership member;
-                bool validated = new Account(p).ValidateUser(merchantID, requestData.pWord, this, out member);
+                MemberDto member;
+                bool validated = new Account(memberService).ValidateUser(merchantID, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;

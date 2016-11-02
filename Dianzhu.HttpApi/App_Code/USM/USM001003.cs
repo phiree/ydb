@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.BLL.Validator;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
@@ -18,13 +18,13 @@ public class ResponseUSM001003 : BaseResponse
         ReqDataUSM001003 requestData = this.request.ReqData.ToObject<ReqDataUSM001003>();
 
           string raw_id = requestData.userID;
-          DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+         IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
         try
         {
-            DZMembership member;
+            MemberDto member;
             if (request.NeedAuthenticate)
             {
-                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                bool validated = new Account(memberService).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -32,9 +32,9 @@ public class ResponseUSM001003 : BaseResponse
             }
             else
             {
-                member = p.GetUserById(new Guid(raw_id));
+                member = memberService.GetUserById(new Guid(raw_id).ToString());
             }
-            DZMembership memberOriginal = new DZMembership();
+            MemberDto memberOriginal = new MemberDto();
             member.CopyTo(memberOriginal);
             RespDataUSM001003 memberUpdateResult = new RespDataUSM001003(raw_id);
             if (requestData.alias != null)

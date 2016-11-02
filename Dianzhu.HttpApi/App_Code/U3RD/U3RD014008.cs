@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Dianzhu.BLL;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using System.Net;
 using Dianzhu.Model.Enums;
 using Newtonsoft.Json;
@@ -16,7 +16,7 @@ using Dianzhu.Api.Model;
 /// </summary>
 public class ResponseU3RD014008:BaseResponse
 {
-    DZMembershipProvider bllMember;
+    IDZMembershipService bllMember;
 
     public ResponseU3RD014008(BaseRequest request):base(request)
     {
@@ -28,7 +28,7 @@ public class ResponseU3RD014008:BaseResponse
     {
         ReqDataU3RD014008 requestData = this.request.ReqData.ToObject<ReqDataU3RD014008>();
 
-        bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        bllMember = Bootstrap.Container.Resolve<IDZMembershipService>();
 
 
         try
@@ -225,14 +225,14 @@ public class ResponseU3RD014008:BaseResponse
         DZMembershipWeChat member = (DZMembershipWeChat)bllMember.GetUserByWechatOpenId(tokenObj.openid);
         if (member == null)
         {
-            member = (DZMembershipWeChat)DZMembership.Create(enum_LoginType.WeChat);
+            member = (DZMembershipWeChat)MemberDto.Create(enum_LoginType.WeChat);
             isAdd = true;
         }
         else
         {
             return member;
         }
-        //DZMembershipWeChat member =(DZMembershipWeChat)DZMembership.Create(enum_LoginType.WeChat);
+        //DZMembershipWeChat member =(DZMembershipWeChat)MemberDto.Create(enum_LoginType.WeChat);
 
         member.AccessToken = tokenObj.access_token;
         member.ExpiresIn = tokenObj.expires_in;
@@ -265,7 +265,7 @@ public class ResponseU3RD014008:BaseResponse
         DZMembershipSinaWeibo member = (DZMembershipSinaWeibo)bllMember.GetUserBySinaWeiboUId(long.Parse(tokenInfo.uid));
         if (member == null)
         {
-            member = (DZMembershipSinaWeibo)DZMembership.Create(enum_LoginType.SinaWeiBo);
+            member = (DZMembershipSinaWeibo)MemberDto.Create(enum_LoginType.SinaWeiBo);
             isAdd = true;
         }
         else
@@ -330,14 +330,14 @@ public class ResponseU3RD014008:BaseResponse
         DZMembershipQQ member = (DZMembershipQQ)bllMember.GetUserByQQOpenId(openidObj.openid);
         if (member == null)
         {
-            member = (DZMembershipQQ)DZMembership.Create(enum_LoginType.TencentQQ);
+            member = (DZMembershipQQ)MemberDto.Create(enum_LoginType.TencentQQ);
             isAdd = true;
         }
         else
         {
             return member;
         }
-        //DZMembershipWeChat member =(DZMembershipWeChat)DZMembership.Create(enum_LoginType.WeChat);
+        //DZMembershipWeChat member =(DZMembershipWeChat)MemberDto.Create(enum_LoginType.WeChat);
 
         member.ClientId = openidObj.client_id;
         member.OpenId = openidObj.openid;

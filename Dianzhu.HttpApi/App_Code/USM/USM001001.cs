@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -15,9 +15,9 @@ public class ResponseUSM001001 : BaseResponse
     protected override void BuildRespData()
     {        
         ReqDataUSM requestData = request.ReqData.ToObject<ReqDataUSM>();
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+       IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
         MembershipCreateStatus createStatus;
-        DZMembership newMember = p.CreateUser(string.Empty,
+        MemberDto newMember = p.CreateUser(string.Empty,
              requestData.phone,
              requestData.email,
              requestData.pWord,

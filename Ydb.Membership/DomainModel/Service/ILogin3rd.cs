@@ -8,6 +8,6 @@ namespace Ydb.Membership.DomainModel.Service
 {
    public  interface ILogin3rd
     {
-        void Login(string code, string appName, string userType);
+        DZMembership Login(string platform, string code, string appName, string userType);
     }
 }

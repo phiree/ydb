@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Dianzhu.BLL;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.Model.Enums;
 using Dianzhu.Api.Model;
 using Ydb.InstantMessage.Application;
@@ -23,7 +23,7 @@ public class ResponseCHAT001007:BaseResponse
     protected override void BuildRespData()
     {
         ReqDataCHAT001007 requestData = this.request.ReqData.ToObject<ReqDataCHAT001007>();
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+       IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
 
         IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         IChatService bllReceptionChat = Bootstrap.Container.Resolve<IChatService>();
@@ -63,10 +63,10 @@ public class ResponseCHAT001007:BaseResponse
             }
         }        
 
-        DZMembership member;
+        MemberDto member;
         if (request.NeedAuthenticate)
         {
-            bool validated = new Account(p).ValidateUser(userId, requestData.pWord, this, out member);
+            bool validated = new Account(memberService).ValidateUser(userId, requestData.pWord, this, out member);
             if (!validated)
             {
                 return;
@@ -74,7 +74,7 @@ public class ResponseCHAT001007:BaseResponse
         }
         else
         {
-            member = p.GetUserById(userId);
+            member = memberService.GetUserById(userId.ToString());
         }
         if (member == null)
         {

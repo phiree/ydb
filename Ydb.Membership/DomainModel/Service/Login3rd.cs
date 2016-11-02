@@ -16,15 +16,32 @@ namespace Ydb.Membership.DomainModel.Service
     {
         IHttpRequest httpRequest;
         IDownloadAvatarToMediaServer avatarDownloader;
+        IRepositoryDZMembership repMem;
         
-        public Login3rd(IHttpRequest httpRequest, IDownloadAvatarToMediaServer avatarDownloader)
+        public Login3rd(IHttpRequest httpRequest, IDownloadAvatarToMediaServer avatarDownloader, IRepositoryDZMembership repMem)
         {
             this.httpRequest = httpRequest;
             this.avatarDownloader = avatarDownloader;
+            this.repMem = repMem;
         }
-        public void Login(string code, string appName, string userType)
+        public DZMembership Login(string platform, string code, string appName, string userType)
         {
-            throw new NotImplementedException();
+            DZMembership newMember;
+            switch (platform)
+            {
+                case "WeChat":
+                    newMember = GetWechatUserInfo(code, appName, repMem, userType);
+                    break;
+                case "SinaWeiBo":
+                    newMember = GetSinaWeiboUserInfo(code, appName, repMem, userType);
+                    break;
+                case "TencentQQ":
+                    newMember = GeQQtUserInfo(code, appName, repMem, userType);
+                    break;
+                default:
+                    throw new Exception("传入的第三方平台类型有误，请重新上传！!");
+            }
+            return newMember;
         }
         public    DZMembership GetSinaWeiboUserInfo(string code, string appName, IRepositoryDZMembership repositoryMembership, string userType)
         {

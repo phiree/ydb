@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
-
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 /// <summary>
 /// 获取一条服务信息的详情
 /// </summary>
@@ -21,7 +22,8 @@ public class ResponseORM005007 : BaseResponse
 
         IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
+
         string merchant_ID = requestData.merchantID;
         RespDataORM_refundObj refundObj = requestData.refundObj;
         string refundAction = requestData.refundAction;
@@ -54,10 +56,10 @@ public class ResponseORM005007 : BaseResponse
                 return;
             }
 
-            DZMembership member;
+            MemberDto member;
             if (request.NeedAuthenticate)
             {
-                bool validated = new Account(p).ValidateUser(merchantID, requestData.pWord, this, out member);
+                bool validated = new Account(memberService).ValidateUser(merchantID, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -65,7 +67,7 @@ public class ResponseORM005007 : BaseResponse
             }
             else
             {
-                member = p.GetUserById(merchantID);
+                member = memberService.GetUserById(merchantID.ToString());
                 if (member == null)
                 {
                     this.state_CODE = Dicts.StateCode[4];
@@ -75,7 +77,7 @@ public class ResponseORM005007 : BaseResponse
             }
             try
             {
-                if(member.UserType!= enum_UserType.business)
+                if(member.UserType!= enum_UserType.business.ToString())
                 {
                     this.state_CODE = Dicts.StateCode[4];
                     this.err_Msg = "该账号不是商户";
@@ -101,11 +103,11 @@ public class ResponseORM005007 : BaseResponse
                 switch (action)
                 {
                     case enum_refundAction.refund:
-                        bllServiceOrder.OrderFlow_BusinessIsRefund(order, member);
+                        bllServiceOrder.OrderFlow_BusinessIsRefund(order, member.Id.ToString());
                         status = order.OrderStatus;
                         break;
                     case enum_refundAction.reject:
-                        bllServiceOrder.OrderFlow_BusinessRejectRefund(order,member);
+                        bllServiceOrder.OrderFlow_BusinessRejectRefund(order,member.Id.ToString());
                         status = order.OrderStatus;
                         break;
                     case enum_refundAction.askPay:
@@ -127,7 +129,7 @@ public class ResponseORM005007 : BaseResponse
                         //20160623_longphui_modify
                         string[] resourcesUrls = refundObj.resourcesUrl.Split(',');
 
-                        bllServiceOrder.OrderFlow_BusinessAskPayWithRefund(order, refundObj.context, refundAmount, resourcesUrls.ToList(), member);
+                        bllServiceOrder.OrderFlow_BusinessAskPayWithRefund(order, refundObj.context, refundAmount, resourcesUrls.ToList(), member.Id.ToString());
 
                         status = order.OrderStatus;
                         break;

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Dianzhu.Api.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
+
 /// <summary>
 /// 获取用户的服务订单列表
 /// </summary>
@@ -24,8 +27,8 @@ public class ResponseORM002003 : BaseResponse
     protected override void BuildRespData()
     {
         ReqDataORM002003 requestData = this.request.ReqData.ToObject<ReqDataORM002003>();
- 
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+
+        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
         BLLOrderAssignment bllOrderAssignment = Bootstrap.Container.Resolve<BLLOrderAssignment>();
  
         string raw_id = requestData.userID;
@@ -50,10 +53,10 @@ public class ResponseORM002003 : BaseResponse
                 return;
             }
 
-            DZMembership member;
+            MemberDto member;
             if (request.NeedAuthenticate)
             {
-                bool validated = new Account(p).ValidateUser(user_ID, requestData.pWord, this, out member);
+                bool validated = new Account(memberService).ValidateUser(user_ID, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -61,7 +64,7 @@ public class ResponseORM002003 : BaseResponse
             }
             else
             {
-                member = p.GetUserById(user_ID);
+                member =memberService.GetUserById(user_ID.ToString());
                 if (member == null)
                 {
                     this.state_CODE = Dicts.StateCode[4];
@@ -71,7 +74,7 @@ public class ResponseORM002003 : BaseResponse
             }
             try
             {
-                ServiceOrder order = bllOrder.GetOrderByIdAndCustomer(order_ID, member);
+                ServiceOrder order = bllOrder.GetOrderByIdAndCustomer(order_ID, member.Id.ToString());
                 if (order == null)
                 {
                     this.state_CODE = Dicts.StateCode[4];

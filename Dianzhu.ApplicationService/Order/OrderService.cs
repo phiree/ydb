@@ -732,7 +732,7 @@ namespace Dianzhu.ApplicationService.Order
                         ibllserviceorder.OrderFlow_CustomerPayFinalPayment(order);
                         break;
                     case Model.Enums.enum_OrderStatus.WaitingPayWithRefund:
-                        ibllserviceorder.OrderFlow_WaitingPayWithRefund(order, member);
+                        ibllserviceorder.OrderFlow_WaitingPayWithRefund(order, member.Id.ToString());
                         break;
                     case Model.Enums.enum_OrderStatus.checkPayWithRefund:
                         ibllserviceorder.OrderFlow_CustomerPayRefund(order);
@@ -749,7 +749,7 @@ namespace Dianzhu.ApplicationService.Order
                         //return;
                 }
             }
-            else if (member.UserType == Model.Enums.enum_UserType.business)
+            else if (member.UserType == Model.Enums.enum_UserType.business.ToString())
             {
                 order = ibllserviceorder.GetOne(guidOrder);
                 if (order.Details[0].OriginalService.Business.OwnerId != userId)
@@ -877,16 +877,16 @@ namespace Dianzhu.ApplicationService.Order
             }
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
             Guid userId = utils.CheckGuidID(customer.UserID, "customer.UserID");
-            DZMembership member = bllDZM.GetUserById(userId);
+            MemberDto  member =memberService .GetUserById(userId.ToString());
 
             OrderServiceFlow osf = new OrderServiceFlow();
             bool ActionSuccess = false;
             refundStatusObj refundstatusobj = new refundStatusObj();
             Model.Enums.enum_ChatTarget target = Model.Enums.enum_ChatTarget.all;
-            if (member.UserType == Model.Enums.enum_UserType.customer)
+            if (member.UserType == Model.Enums.enum_UserType.customer.ToString())
             {
                 target = Model.Enums.enum_ChatTarget.user;
-                ServiceOrder order = ibllserviceorder.GetOrderByIdAndCustomer(guidOrder, member);
+                ServiceOrder order = ibllserviceorder.GetOrderByIdAndCustomer(guidOrder, member.Id.ToString());
                 Model.Enums.enum_OrderStatus oldStatus = order.OrderStatus;
                 if (order == null)
                 {
@@ -920,7 +920,7 @@ namespace Dianzhu.ApplicationService.Order
                         ActionSuccess = true;
                         break;
                     case Model.Enums.enum_RefundAction.agree:
-                        ibllserviceorder.OrderFlow_WaitingPayWithRefund(order, member);
+                        ibllserviceorder.OrderFlow_WaitingPayWithRefund(order, member.Id.ToString());
                         //target = Model.Enums.enum_ChatTarget.store;
                         ActionSuccess = true;
                         break;
@@ -939,8 +939,8 @@ namespace Dianzhu.ApplicationService.Order
                 }
                 if (ActionSuccess)
                 {
-                    Claims claims = new Claims(order, oldStatus, member);
-                    claims.AddDetailsFromClaims(claims, refundobj.content, amount, resourcesurls, target, member);
+                    Claims claims = new Claims(order, oldStatus, member.Id.ToString());
+                    claims.AddDetailsFromClaims(claims, refundobj.content, amount, resourcesurls, target, member.Id.ToString());
                     bllClaims.Save(claims);
                     refundstatusobj.content = refundobj.content;
                     refundstatusobj.amount = refundobj.amount;
@@ -949,7 +949,7 @@ namespace Dianzhu.ApplicationService.Order
                     refundstatusobj.orderStatus =order.OrderStatus.ToString();
                 }
             }
-            else if (member.UserType == Model.Enums.enum_UserType.business)
+            else if (member.UserType == Model.Enums.enum_UserType.business.ToString())
             {
                 target = Model.Enums.enum_ChatTarget.store;
                 ServiceOrder order = ibllserviceorder.GetOne(guidOrder);
@@ -965,17 +965,17 @@ namespace Dianzhu.ApplicationService.Order
                 switch (action)
                 {
                     case Model.Enums.enum_RefundAction.refund:
-                        ibllserviceorder.OrderFlow_BusinessIsRefund(order, member);
+                        ibllserviceorder.OrderFlow_BusinessIsRefund(order, member.Id.ToString());
                         //target = Model.Enums.enum_ChatTarget.user;
                         ActionSuccess = true;
                         break;
                     case Model.Enums.enum_RefundAction.reject:
-                        ibllserviceorder.OrderFlow_BusinessRejectRefund(order, member);
+                        ibllserviceorder.OrderFlow_BusinessRejectRefund(order, member.Id.ToString());
                         //target = Model.Enums.enum_ChatTarget.user;
                         ActionSuccess = true;
                         break;
                     case Model.Enums.enum_RefundAction.askPay:
-                        ibllserviceorder.OrderFlow_BusinessAskPayWithRefund(order, refundobj.content, amount, resourcesurls, member);
+                        ibllserviceorder.OrderFlow_BusinessAskPayWithRefund(order, refundobj.content, amount, resourcesurls, member.Id.ToString());
                         refundstatusobj.content = refundobj.content;
                         refundstatusobj.amount = refundobj.amount;
                         refundstatusobj.resourcesUrls = refundobj.resourcesUrls;
@@ -988,8 +988,8 @@ namespace Dianzhu.ApplicationService.Order
                 }
                 if (ActionSuccess)
                 {
-                    Claims claims = new Claims(order, oldStatus, member);
-                    claims.AddDetailsFromClaims(claims, refundobj.content, amount, resourcesurls, target, member);
+                    Claims claims = new Claims(order, oldStatus, member.Id.ToString());
+                    claims.AddDetailsFromClaims(claims, refundobj.content, amount, resourcesurls, target, member.Id.ToString());
                     bllClaims.Save(claims);
                     refundstatusobj.content = refundobj.content;
                     refundstatusobj.amount = refundobj.amount;

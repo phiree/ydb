@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -19,11 +19,11 @@ public class ResponseUSM001010 : BaseResponse
     {
         ReqDataUSM001010 requestData = this.request.ReqData.ToObject<ReqDataUSM001010>();
 
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+       IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
 
         try
         {
-            DZMembership member = p.GetUserByPhone(requestData.phone);
+            MemberDto member = p.GetUserByPhone(requestData.phone);
 
             string result = string.Empty;
             if (member != null)

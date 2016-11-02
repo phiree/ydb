@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Dianzhu.Api.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 /// <summary>
 /// 获取用户的服务订单列表
 /// </summary>
@@ -22,7 +24,7 @@ public class ResponseORM001006 : BaseResponse
         ReqDataORM001006 requestData = this.request.ReqData.ToObject<ReqDataORM001006>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
         PushService bllPushService = Bootstrap.Container.Resolve<PushService>();
         BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<BLLServiceOrderStateChangeHis>();
@@ -39,10 +41,10 @@ public class ResponseORM001006 : BaseResponse
                 return;
             }
 
-            DZMembership member;
+            MemberDto member;
             if (request.NeedAuthenticate)
             {
-                bool validated = new Account(p).ValidateUser(userId, requestData.pWord, this, out member);
+                bool validated = new Account(memberService).ValidateUser(userId, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -50,7 +52,7 @@ public class ResponseORM001006 : BaseResponse
             }
             else
             {
-                member = p.GetUserById(userId);
+                member =memberService.GetUserById(userId.ToString());
                 if (member == null)
                 {
                     this.state_CODE = Dicts.StateCode[8];
@@ -97,7 +99,7 @@ public class ResponseORM001006 : BaseResponse
                 }
 
                 RespDataORM001006 respData = new RespDataORM001006();         
-                respData.AdapList(dicList);
+                respData.AdapList(dicList,memberService);
 
                 ServiceOrderStateChangeHis orderHis;
                 IList<DZTag> tagsList = new List<DZTag>();//标签

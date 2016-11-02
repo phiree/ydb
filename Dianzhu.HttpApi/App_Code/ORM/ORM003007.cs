@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 
 /// <summary>
 /// 获取一条服务信息的详情
@@ -23,8 +25,9 @@ public class ResponseORM003007 : BaseResponse
 
         IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-         string user_id = requestData.userID;
+
+        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
+        string user_id = requestData.userID;
         string order_id = requestData.orderID;
 
         try
@@ -46,10 +49,10 @@ public class ResponseORM003007 : BaseResponse
                 return;
             }
 
-            DZMembership member;
+            MemberDto member;
             if (request.NeedAuthenticate)
             {
-                bool validated = new Account(p).ValidateUser(userId, requestData.pWord, this, out member);
+                bool validated = new Account(memberService).ValidateUser(userId, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -57,7 +60,7 @@ public class ResponseORM003007 : BaseResponse
             }
             else
             {
-                member = p.GetUserById(userId);
+                member =memberService.GetUserById(userId.ToString());
             }
             try
             {
@@ -77,9 +80,9 @@ public class ResponseORM003007 : BaseResponse
                 try
                 {
                     OrderServiceFlow osf = new OrderServiceFlow();
-                    if (member.UserType == enum_UserType.customer)
+                    if (member.UserType == enum_UserType.customer.ToString())
                     {
-                        ServiceOrder order = bllServiceOrder.GetOrderByIdAndCustomer(orderId, member);
+                        ServiceOrder order = bllServiceOrder.GetOrderByIdAndCustomer(orderId, member.Id.ToString());
                         if (order == null)
                         {
                             this.state_CODE = Dicts.StateCode[4];
@@ -118,7 +121,7 @@ public class ResponseORM003007 : BaseResponse
                                 bllServiceOrder.OrderFlow_CustomerPayFinalPayment(order);
                                 break;
                             case enum_OrderStatus.WaitingPayWithRefund:
-                                bllServiceOrder.OrderFlow_WaitingPayWithRefund(order, member);
+                                bllServiceOrder.OrderFlow_WaitingPayWithRefund(order, member.Id.ToString());
                                 break;
                             case enum_OrderStatus.checkPayWithRefund:
                                 bllServiceOrder.OrderFlow_CustomerPayRefund(order);
@@ -134,7 +137,7 @@ public class ResponseORM003007 : BaseResponse
                                 return;
                         }
                     }
-                    else if(member.UserType == enum_UserType.business)
+                    else if(member.UserType == enum_UserType.business.ToString())
                     {
                         ServiceOrder order = bllServiceOrder.GetOne(orderId);
                         if (order.Details[0].OriginalService.Business.OwnerId != userId)

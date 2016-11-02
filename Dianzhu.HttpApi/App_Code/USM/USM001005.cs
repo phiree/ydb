@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -15,15 +15,15 @@ public class ResponseUSM001005 : BaseResponse
     protected override void BuildRespData()
     {
         ReqDataUSM requestData = request.ReqData.ToObject<ReqDataUSM>();
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-        DZMembership member;
+       IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
+        MemberDto member;
         bool validated;
 
         Guid userId;
         bool isGuid = Guid.TryParse(requestData.email, out userId);
         if (isGuid)
         {
-            validated = new Account(p).ValidateUser(userId, requestData.pWord, this, out member);
+            validated = new Account(memberService).ValidateUser(userId, requestData.pWord, this, out member);
             if (!validated)
             {
                 return;
@@ -33,7 +33,7 @@ public class ResponseUSM001005 : BaseResponse
         {
             string userName = requestData.phone ?? requestData.email;
 
-            validated = new Account(p).ValidateUser(userName, requestData.pWord, this, out member);
+            validated = new Account(memberService).ValidateUser(userName, requestData.pWord, this, out member);
             if (!validated)
             {
                 return;

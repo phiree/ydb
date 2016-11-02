@@ -19,13 +19,17 @@ namespace Ydb.Membership.Application
         IDZMembershipDomainService dzmembershipDomainService;
         IEmailService emailService;
         IRepositoryDZMembership repositoryMembership;
+        DomainModel.Service.ILogin3rd login3rdService;
 
 
-        public DZMembershipService(IDZMembershipDomainService dzmembershipDomainService, IEmailService emailService, IRepositoryDZMembership repositoryMembership)
+        public DZMembershipService(IDZMembershipDomainService dzmembershipDomainService, IEmailService emailService,
+            IRepositoryDZMembership repositoryMembership
+            , DomainModel.Service.ILogin3rd login3rdService)
         {
             this.dzmembershipDomainService = dzmembershipDomainService;
             this.emailService = emailService;
             this.repositoryMembership = repositoryMembership;
+            this.login3rdService = login3rdService;
 
         }
 
@@ -299,9 +303,40 @@ namespace Ydb.Membership.Application
         {
          return   repositoryMembership.GetUsersCount(name, email, phone, loginType, userType);
         }
-        public void Login3rd(string code, string appName, string userType)
+        [UnitOfWork]
+        public MemberDto Login3rd(string platform, string code, string appName, string userType)
         {
+          DZMembership membership=  login3rdService.Login(platform, code, appName, userType);
 
+            return Mapper.Map<MemberDto>(membership);
+            
+        }
+        [UnitOfWork]
+        public ActionResult ChangeAlias(string userId, string neAlias)
+        {
+            DZMembership member = repositoryMembership.GetMemberById(new Guid(userId));
+
+            member.NickName = neAlias;
+
+            return new ActionResult();
+        }
+        [UnitOfWork]
+        public ActionResult ChangeAddress(string userId, string newAddress)
+        {
+            DZMembership member = repositoryMembership.GetMemberById(new Guid(userId));
+
+            member.Address = newAddress;
+
+            return new ActionResult();
+        }
+        [UnitOfWork]
+        public ActionResult ChangeAvatar(string userId, string newAvatar)
+        {
+            DZMembership member = repositoryMembership.GetMemberById(new Guid(userId));
+
+            member.AvatarUrl = newAvatar;
+
+            return new ActionResult();
         }
     }
 }

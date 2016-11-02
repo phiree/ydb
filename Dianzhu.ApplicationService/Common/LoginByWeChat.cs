@@ -12,6 +12,7 @@ using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 namespace Dianzhu.ApplicationService
 {
+    /*
     public class LoginByWeChat
     {
         public static Model.DZMembership GetUserInfo(string code,string appName,IDZMembershipService memberService,string userType)
@@ -105,5 +106,5 @@ namespace Dianzhu.ApplicationService
             return member;
             
         }
-    }
+    }*/
 }

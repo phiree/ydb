@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using Dianzhu.BLL;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using System.Net;
 using Dianzhu.Model.Enums;
 using System.Security.Cryptography;

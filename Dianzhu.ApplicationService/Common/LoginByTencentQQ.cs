@@ -11,6 +11,7 @@ using PHSuit;
 
 namespace Dianzhu.ApplicationService
 {
+    /*
     public class LoginByTencentQQ
     {
         public static Model.DZMembership GetUserInfo(string code, string appName, BLL.DZMembershipProvider bllMember, string userType)
@@ -119,5 +120,5 @@ namespace Dianzhu.ApplicationService
 
             return member;
         }
-    }
+    }*/
 }

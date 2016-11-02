@@ -13,7 +13,7 @@ namespace Dianzhu.DAL.Mapping
             References(x => x.Order);
             Map(x => x.Status).CustomType<Model.Enums.enum_OrderStatus>();
             Map(x => x.CreatTime);
-            References(x => x.Applicant);
+            Map(x => x.ApplicantId);
             Map(x => x.LastUpdateTime);
             HasMany(x => x.ClaimsDatailsList).Cascade.All();
         }

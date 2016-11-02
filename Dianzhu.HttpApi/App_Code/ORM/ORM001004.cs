@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
@@ -24,7 +24,7 @@ public class ResponseORM001004 : BaseResponse
 
         try
         {
-            DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+           IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
            
             string user_id = requestData.userID;
             string srvTarget = requestData.target;
@@ -40,8 +40,8 @@ public class ResponseORM001004 : BaseResponse
 
             if (request.NeedAuthenticate)
             {
-                DZMembership member;
-                bool validated = new Account(p).ValidateUser(userId, requestData.pWord, this, out member);
+                MemberDto member;
+                bool validated = new Account(memberService).ValidateUser(userId, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     this.state_CODE = Dicts.StateCode[2];

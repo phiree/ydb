@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
 using System.Collections.Specialized;
 using PHSuit;
-
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 /// <summary>
 /// 新增店铺
 /// </summary>
@@ -23,7 +24,8 @@ public class ResponseSTORE001005 : BaseResponse
         ReqDataSTORE001005 requestData = this.request.ReqData.ToObject<ReqDataSTORE001005>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
+
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
         try
         {
@@ -48,7 +50,7 @@ public class ResponseSTORE001005 : BaseResponse
                     return;
                 }
 
-                RespDataSTORE_storeObj storeObj = new RespDataSTORE_storeObj().Adapt(b);
+                RespDataSTORE_storeObj storeObj = new RespDataSTORE_storeObj().Adapt(b,memberService);
 
                 RespDataSTORE001005 respData = new RespDataSTORE001005();
                 respData.storeObj = storeObj;

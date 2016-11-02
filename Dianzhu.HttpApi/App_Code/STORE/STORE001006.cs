@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
 using System.Collections.Specialized;
 using PHSuit;
-
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 /// <summary>
 /// 新增店铺
 /// </summary>
@@ -23,7 +24,8 @@ public class ResponseSTORE001006 : BaseResponse
         ReqDataSTORE001006 requestData = this.request.ReqData.ToObject<ReqDataSTORE001006>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
+
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
         try
         {
@@ -38,10 +40,10 @@ public class ResponseSTORE001006 : BaseResponse
                 return;
             }
 
-            DZMembership member = null;
+            MemberDto member = null;
             if (request.NeedAuthenticate)
             {                
-                bool validated = new Account(p).ValidateUser(userID, requestData.pWord, this, out member);
+                bool validated = new Account(memberService).ValidateUser(userID, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -49,7 +51,7 @@ public class ResponseSTORE001006 : BaseResponse
             }
             else
             {
-                member = p.GetUserById(userID);
+                member = memberService.GetUserById(userID.ToString());
                 if (member == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -61,7 +63,7 @@ public class ResponseSTORE001006 : BaseResponse
             {
                 IList<Business> storeList = bllBusiness.GetBusinessListByOwner(userID);
                 
-                RespDataSTORE001006 respData = new RespDataSTORE001006().AdaptList(storeList);
+                RespDataSTORE001006 respData = new RespDataSTORE001006().AdaptList(storeList,memberService);
 
                 this.state_CODE = Dicts.StateCode[0];
                 this.RespData = respData;

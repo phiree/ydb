@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
@@ -23,7 +23,7 @@ public class ResponseSTORE002003 : BaseResponse
         ReqDataSTORE002003 requestData = this.request.ReqData.ToObject<ReqDataSTORE002003>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+       IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
         BLLBusinessImage bllBusinessImage = Bootstrap.Container.Resolve<BLLBusinessImage>();
 
@@ -50,10 +50,10 @@ public class ResponseSTORE002003 : BaseResponse
                 return;
             }
 
-            DZMembership member = null;
+ MemberDto member = null;
             if (request.NeedAuthenticate)
-            {                
-                bool validated = new Account(p).ValidateUser(userID, requestData.pWord, this, out member);
+            {
+                bool validated = new Account(memberService).ValidateUser(userID, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -61,7 +61,7 @@ public class ResponseSTORE002003 : BaseResponse
             }
             else
             {
-                member = p.GetUserById(userID);
+                member = memberService.GetUserById(userID.ToString());
                 if (member == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];

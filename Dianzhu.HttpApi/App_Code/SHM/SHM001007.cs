@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Dianzhu.Api.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
+
 /// <summary>
 /// 获取用户的服务订单列表
 /// </summary>
@@ -24,6 +27,8 @@ public class ResponseSHM001007 : BaseResponse
         //todo:用户验证的复用
         BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
         BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
+
+        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
 
         string start_Time = requestData.startTime;
         string end_Time = requestData.endTime;
@@ -64,7 +69,7 @@ public class ResponseSHM001007 : BaseResponse
              
           //  RespDataSHM001007 respData = new RespDataSHM001007();
           
-            this.RespData = new RespDataSHM_snapshots().Adap(orderList);
+            this.RespData = new RespDataSHM_snapshots(memberService).Adap(orderList);
             this.state_CODE = Dicts.StateCode[0];
 
         }

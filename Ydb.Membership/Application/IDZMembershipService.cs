@@ -60,7 +60,7 @@ namespace Ydb.Membership.Application
         /// <returns>验证结果,如果验证通过则包含memberdto</returns>
         Dto.ValidateResult  ValidateUser(string userNameOrUserId, string password,bool isLogin);
         Dto.ValidateResult Login(string userNameOrUserId, string password);
-        void Login3rd(string code, string appName,  string userType);
+        Dto.MemberDto Login3rd(string platForm, string code, string appName,  string userType);
         /// <summary>
         /// 申请重置密码
         /// </summary>
@@ -72,11 +72,16 @@ namespace Ydb.Membership.Application
         
 
         ActionResult ChangePassword(string userName, string oldPassword, string newPassword);
+      
         ActionResult RecoveryPassword( string recoveryString, string newPassword);
 
         ActionResult ChangePhone(string userId,string newPhone);
         ActionResult ChangeEmail(string userId, string newEmail);
+        ActionResult ChangeAlias(string userId, string neAlias);
+        ActionResult ChangeAddress(string userId, string newAddress);
+        ActionResult ChangeAvatar(string userId, string newAvatar);
         IList<Dto.MemberDto> GetUsers(TraitFilter filter, string name, string email, string phone, string loginType, string userType);
         long GetUsersCount(string name, string email, string phone, string loginType, string userType);
+         
     }
 }

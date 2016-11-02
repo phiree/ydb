@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
 using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.Application.Dto;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
+
 /// <summary>
 /// 获取用户的服务订单列表
 /// </summary>
@@ -25,8 +28,8 @@ public class ResponseORM002001 : BaseResponse
 
         IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder  serialNoBuilder = Bootstrap.Container.Resolve<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>();
-        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-      
+        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
+
         string user_id = requestData.userID;
 
         Guid userId;
@@ -40,10 +43,10 @@ public class ResponseORM002001 : BaseResponse
 
         try
         {
-            DZMembership member;
+            MemberDto member;
             if (request.NeedAuthenticate)
             {
-                bool validated = new Account(p).ValidateUser(userId, requestData.pWord, this, out member);
+                bool validated = new Account(memberService).ValidateUser(userId, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -51,7 +54,7 @@ public class ResponseORM002001 : BaseResponse
             }
             else
             {
-                member = p.GetUserById(userId);
+                member = memberService.GetUserById(userId.ToString());
             }
             try
             {
@@ -75,13 +78,13 @@ public class ResponseORM002001 : BaseResponse
                     return;
                 }
 
-                DZMembership cs = p.GetUserById(Guid.Parse(rsDto.CustomerServiceId));
+                MemberDto cs = memberService.GetUserById( rsDto.CustomerServiceId);
 
 
                 //ilog.Debug("开始分配客服");
                 ServiceOrder orderToReturn = null;//分配的订单
                 //ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(userId);
-                //Dictionary<DZMembership, DZMembership> assignedPair = new Dictionary<DZMembership, DZMembership>();
+                //Dictionary<MemberDto, MemberDto> assignedPair = new Dictionary<MemberDto, MemberDto>();
                 //if (rs != null && rs.CustomerService.UserType == enum_UserType.customerservice)
                 //{
                 //    assignedPair.Add(rs.Customer, rs.CustomerService);
@@ -121,7 +124,7 @@ public class ResponseORM002001 : BaseResponse
                 ilog.Debug("6");
                 if (orderToReturn == null)
                 {
-                    orderToReturn = bllServiceOrder.GetDraftOrder(member, cs);
+                    orderToReturn = bllServiceOrder.GetDraftOrder(member.Id.ToString(), cs.Id.ToString());
                 }
 
                 ilog.Debug("7");
@@ -139,7 +142,7 @@ public class ResponseORM002001 : BaseResponse
                 // if (!hasOrder||needNewOrder)
                 // {
                 //     /* string serviceName,string serviceBusinessName,string serviceDescription,decimal serviceUnitPrice,string serviceUrl,
-                //DZMembership member,
+                //MemberDto member,
                 //string targetAddress, int unitAmount, decimal orderAmount*/
                 //       orderToReturn = ServiceOrder.Create(
                 //          enum_ServiceScopeType.OSIM
