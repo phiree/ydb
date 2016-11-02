@@ -35,16 +35,15 @@ public partial class finance_SharePoint : BasePage
     {
         var sharePoint = bllSharePoint.GetOne(new Guid(strItemId));
         tbxSharePoint.Text = sharePoint.Point.ToString("0.00");
-        ddlUserType.SelectedValue =((int)  sharePoint.UserType).ToString();
+        ddlUserType.SelectedValue = sharePoint.UserType;
     }
  
 
     
     protected void btnSaveSharePoint_Click(object sender, EventArgs e)
     {
-        var usertype = (Dianzhu.Model.Enums.enum_UserType)(Convert.ToInt32(ddlUserType.SelectedValue));
         var point = Convert.ToDecimal(tbxSharePoint.Text);
-        DefaultSharePoint defaultSharePoint = new DefaultSharePoint(point,usertype);
+        DefaultSharePoint defaultSharePoint = new DefaultSharePoint(point, ddlUserType.SelectedValue);
         bllSharePoint.Save(defaultSharePoint);
         lblMsg.Text = "保存成功";
         BindSharePoint();

@@ -8,6 +8,6 @@ namespace Dianzhu.IDAL.Finance
     public interface IDALDefaultSharePoint:IRepository<Dianzhu.Model.Finance.DefaultSharePoint,Guid>
     {
 
-        Dianzhu.Model.Finance.DefaultSharePoint GetDefaultSharePoint(Model.Enums.enum_UserType userType);
+        Dianzhu.Model.Finance.DefaultSharePoint GetDefaultSharePoint(string userType);
     }
 }

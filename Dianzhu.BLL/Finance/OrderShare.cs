@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
-
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 namespace Dianzhu.BLL.Finance
 {
     /// <summary>
@@ -16,19 +17,20 @@ namespace Dianzhu.BLL.Finance
         IBLLServiceTypePoint bllServiceTypePoint;
         IBalanceFlowService balanceService;
         IBLLSharePoint bllSharePoint;
-        IDAL.IDALMembership dalMembership;
+        IDZMembershipService memberService;
         Agent.IAgentService agentService;
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL.Finance.OrderShare");
         public OrderShare(IBLLServiceTypePoint bllServiceTypePoint,
         IBLLSharePoint bllSharePoint,
         Agent.IAgentService agentService,
         IBalanceFlowService balanceService,
-        IDAL.IDALMembership dalMembership)
+       IDZMembershipService memberService)
         {
             this.bllServiceTypePoint = bllServiceTypePoint;
             this.bllSharePoint = bllSharePoint;
             this.agentService = agentService;
             this.balanceService = balanceService;
+            this.memberService = memberService;
         }
         /// <summary>
         /// 订单分成,should be domain service
@@ -78,7 +80,7 @@ namespace Dianzhu.BLL.Finance
             }
 
             //- 助理分成
-            DZMembership member = dalMembership.GetMemberById(new Guid(order.CustomerServiceId));
+            MemberDto member = memberService.GetUserById(order.CustomerServiceId);
             var customerServiceSharePoint = bllSharePoint.GetSharePoint(member);
             var customerServiceShare = Math.Truncate(customerServiceSharePoint * sharedAmount * 100) / 100m; ;
             Dianzhu.Model.Finance.BalanceFlow flowCustomerService = new Model.Finance.BalanceFlow

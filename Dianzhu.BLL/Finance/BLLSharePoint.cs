@@ -6,6 +6,8 @@ using System.Threading.Tasks;
  
 using Dianzhu.Model.Finance;
 using Dianzhu.DAL.Finance;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 namespace Dianzhu.BLL.Finance
 {
     
@@ -35,9 +37,9 @@ namespace Dianzhu.BLL.Finance
             }
         }
  
-        public decimal GetSharePoint(Model.DZMembership member)
+        public decimal GetSharePoint(MemberDto member)
         {
-            var memberPoint = dalSharePoint.GetSharePoint(member);
+            var memberPoint = dalSharePoint.GetSharePoint(member.Id.ToString());
             decimal defaultPoint=0;
             if (memberPoint==null)
             {
@@ -51,7 +53,7 @@ namespace Dianzhu.BLL.Finance
           
             string errMsg = string.Empty;
             if (defaultPoint == 0) {
-                errMsg = "该用户及其对应的用户类型未设置分成比例" + member.DisplayName;
+                errMsg = "该用户及其对应的用户类型未设置分成比例" + member.UserName;
                 log.Error(errMsg);
                 throw new Exception(errMsg);
             }

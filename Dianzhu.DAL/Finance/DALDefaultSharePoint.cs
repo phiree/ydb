@@ -10,7 +10,7 @@ namespace Dianzhu.DAL.Finance
         
         
 
-        public DefaultSharePoint GetDefaultSharePoint(Model.Enums.enum_UserType userType)
+        public DefaultSharePoint GetDefaultSharePoint(string userType)
         {
             
 

@@ -10,7 +10,7 @@ namespace Dianzhu.DAL.Mapping.Finance
         public SharePointMapping()
         {
             Id(x => x.Id);//.GeneratedBy.Assigned();
-            References<Model.DZMembership>(x => x.Membership);
+            Map(x => x.MembershipId);
             Map(x => x.Point);
         }
     }
