@@ -14,7 +14,7 @@ namespace Ydb.Finance.Application
         IRepositoryUserTypeSharePoint repositoryUserTypeSharePoint;
         public UserTypeSharePointService()
         {
-            repositoryUserTypeSharePoint = Bootstrap.Container.Resolve<IRepositoryUserTypeSharePoint>();
+            repositoryUserTypeSharePoint = Ydb.Finance.Infrastructure.Bootstrap.Container.Resolve<IRepositoryUserTypeSharePoint>();
         }
 
         /// <summary>

@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Castle.Windsor;
+//using System.Runtime.CompilerServices;
 
-namespace Ydb.Finance.Application
+//[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
+
+namespace Ydb.Finance.Infrastructure
 {
-    public class Bootstrap
+    internal class Bootstrap
     {
         static IWindsorContainer container;
         public static IWindsorContainer Container
@@ -20,9 +23,10 @@ namespace Ydb.Finance.Application
             container = new WindsorContainer();
             //container=container1;
             container.Install(
-                new Ydb.Finance.Infrastructure.InstallerFinance()
+            new Ydb.Finance.Infrastructure.InstallerFinanceDB(),
+            new Ydb.Finance.Infrastructure.InstallerFinance()
                 );
-            AutoMapperConfiguration.Configure();
+            Ydb.Finance.Application.AutoMapperConfiguration.Configure();
         }
 
     }

@@ -20,8 +20,8 @@ namespace Ydb.Finance.Application
         {
             this.serviceTypePointService = serviceTypePointService;
             this.userTypeSharePointService = userTypeSharePointService;
-            repositoryBalanceFlow = Bootstrap.Container.Resolve<IRepositoryBalanceFlow>();
-            repositoryBalanceTotal = Bootstrap.Container.Resolve<IRepositoryBalanceTotal>();
+            repositoryBalanceFlow = Ydb.Finance.Infrastructure.Bootstrap.Container.Resolve<IRepositoryBalanceFlow>();
+            repositoryBalanceTotal = Ydb.Finance.Infrastructure.Bootstrap.Container.Resolve<IRepositoryBalanceTotal>();
         }
 
         /// <summary>

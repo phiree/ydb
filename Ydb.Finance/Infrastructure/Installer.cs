@@ -15,10 +15,12 @@ using Castle.Windsor;
 using Ydb.Finance.DomainModel;
 using Ydb.Finance.Infrastructure.Repository;
 using Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping;
+using Ydb.Common.Repository;
+using Castle.Core;
 
 namespace Ydb.Finance.Infrastructure
 {
-    public class InstallerFinance : IWindsorInstaller
+    internal class InstallerFinance : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {

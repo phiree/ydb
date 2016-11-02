@@ -15,7 +15,7 @@ namespace Ydb.Finance.Application
         IRepositoryServiceTypePoint repositoryServiceTypePoint;
         public ServiceTypePointService()
         {
-            repositoryServiceTypePoint = Bootstrap.Container.Resolve<IRepositoryServiceTypePoint>();
+            repositoryServiceTypePoint = Ydb.Finance.Infrastructure.Bootstrap.Container.Resolve<IRepositoryServiceTypePoint>();
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Ydb.Finance.Application
         /// </summary>
         /// <param name="serviceTypeId" type="string">服务类型ID</param>
         /// <returns type="decimal">扣点比例</returns>
-        [Ydb.Common.Repository.UnitOfWork]
+        [Ydb.Common.Repository.UnitOfWork()]
         public decimal GetPoint(string serviceTypeId)
         {
             var serviceTypePoint = repositoryServiceTypePoint.GetOneByServiceType(serviceTypeId);
