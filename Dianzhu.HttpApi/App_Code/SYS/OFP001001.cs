@@ -117,7 +117,7 @@ public class ResponseOFP001001 : BaseResponse
             //    bllIMUserStatus.Save(currentIM);
             //}
 
-            MemberDto member = bllMember.GetUserById(userId);
+            MemberDto member = bllMember.GetUserById(userId.ToString());
             if (member == null)
             {
                 ilog.Error("该用户不存在！访问参数UserId为：" + userId);
@@ -139,7 +139,7 @@ public class ResponseOFP001001 : BaseResponse
                     break;
                 case enum_UserStatus.unavailable:
                     string imServerAPIInvokeUrlUn = string.Empty;
-                    if (member.UserType == enum_UserType.customerservice)
+                    if (member.UserType == enum_UserType.customerservice.ToString())
                     {
                         //客服下线后，将正在接待的用户转到其他客服或者点点
                         imServerAPIInvokeUrlUn = "type=cslogoff&userId=" + userId;
