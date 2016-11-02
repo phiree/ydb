@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.Config;
 using Dianzhu.Model.Enums;
-
+using Ydb.Membership.Application.Dto;
+using Ydb.Membership.Application;
 namespace Dianzhu.Api.Model
 {
     #region orm接口公用的类
     public class RespDataORM_Order
     {
         public RespDataORM_orderObj orderObj { get; set; }
-        public RespDataORM_Order Adap(ServiceOrder order, ServiceOrderPushedService pushService)
+        public RespDataORM_Order Adap(ServiceOrder order, IDZMembershipService memberService, ServiceOrderPushedService pushService)
         {
             if (order != null)
             {
-                this.orderObj = new RespDataORM_orderObj().Adap(order, pushService);
+                this.orderObj = new RespDataORM_orderObj().Adap(order, memberService, pushService);
             }
             return this;
         }
@@ -43,7 +44,7 @@ namespace Dianzhu.Api.Model
         public RespDataORM_storeObj storeObj { get; set; }
         public RespDataORM_contactObj contactObj { get; set; }
 
-        public RespDataORM_orderObj Adap(ServiceOrder order, ServiceOrderPushedService pushSevice)
+        public RespDataORM_orderObj Adap(ServiceOrder order, IDZMembershipService memberService, ServiceOrderPushedService pushSevice)
         {
             this.orderID = order.Id.ToString();
             //todo: serviceorder change
@@ -100,9 +101,10 @@ namespace Dianzhu.Api.Model
                 this.svcObj = null;
                 this.storeObj = null;
             }
-            if (order.Customer != null)
+            if (order.CustomerId != null)
             {
-                this.userObj = new RespDataORM_UserObj().Adap(order.Customer);
+                MemberDto member = memberService.GetUserById(order.CustomerId);
+                this.userObj = new RespDataORM_UserObj().Adap(member);
             }
             //todo,这里只能获取系统内订单
             //if (order.Service != null)
@@ -131,7 +133,7 @@ namespace Dianzhu.Api.Model
         public string userID { get; set; }
         public string alias { get; set; }
         public string imgUrl { get; set; }
-        public RespDataORM_UserObj Adap(DZMembership member)
+        public RespDataORM_UserObj Adap(MemberDto member)
         {
             this.userID = member.Id.ToString();
             this.alias = member.NickName ?? string.Empty;
@@ -394,11 +396,11 @@ namespace Dianzhu.Api.Model
             arrayData = new List<RespDataORM_orderObj>();
         }
 
-        public void AdapList(Dictionary<ServiceOrder,ServiceOrderPushedService> serviceOrderList)
+        public void AdapList(Dictionary<ServiceOrder,ServiceOrderPushedService> serviceOrderList,IDZMembershipService memberService)
         {
             foreach (KeyValuePair<ServiceOrder,ServiceOrderPushedService> item in serviceOrderList)
             {
-                RespDataORM_orderObj adapted_order = new RespDataORM_orderObj().Adap(item.Key,item.Value);
+                RespDataORM_orderObj adapted_order = new RespDataORM_orderObj().Adap(item.Key, memberService, item.Value);
                 arrayData.Add(adapted_order);
             }
         }
@@ -478,12 +480,12 @@ namespace Dianzhu.Api.Model
         public string alias { get; set; }
         public string userName { get; set; }
         public string imgUrl { get; set; }
-        public RespDataORM002001_cerObj Adap(DZMembership customerService)
+        public RespDataORM002001_cerObj Adap(MemberDto customerService)
         {
             this.userID = customerService.Id.ToString();
             this.imgUrl = string.Empty;
              
-            this.alias = customerService.DisplayName ?? string.Empty;
+            this.alias = customerService.NickName ?? string.Empty;
             this.userName = customerService.UserName ?? string.Empty;
             return this;
         }

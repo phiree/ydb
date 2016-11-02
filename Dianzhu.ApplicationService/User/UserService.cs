@@ -13,19 +13,21 @@ using Ydb.Common.Specification;
 using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.Application.Dto;
 using Ydb.InstantMessage.DomainModel.Chat;
-
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
+using Ydb.Common.Application;
 namespace Dianzhu.ApplicationService.User
 {
     public class UserService:IUserService
     {
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.UserService");
-        DZMembershipProvider dzmsp;
+        IDZMembershipService memberService;
         BLL.Client.BLLUserToken bllUserToken;
         IReceptionService receptionService;
         IBLLServiceOrder bllServiceOrder;
-        public UserService(DZMembershipProvider dzmsp, BLL.Client.BLLUserToken bllUserToken, IReceptionService receptionService, IBLLServiceOrder bllServiceOrder)
+        public UserService(IDZMembershipService memberService, BLL.Client.BLLUserToken bllUserToken, IReceptionService receptionService, IBLLServiceOrder bllServiceOrder)
         {
-            this.dzmsp = dzmsp;
+            this.memberService = memberService;
             this.bllUserToken = bllUserToken;
             this.receptionService = receptionService;
             this.bllServiceOrder = bllServiceOrder;
@@ -39,7 +41,8 @@ namespace Dianzhu.ApplicationService.User
         /// <returns></returns>
         public bool ValidateUser(string username, string password)
         {
-            return dzmsp.ValidateUser(username, password);
+             var result= memberService.ValidateUser(username, password,false);
+            return result.IsValidated;
         }
 
         /// <summary>
@@ -49,11 +52,11 @@ namespace Dianzhu.ApplicationService.User
         /// <returns></returns>
         public customerObj GetUserById(string userID,string userType)
         {
-            Dianzhu.Model.DZMembership dzm =dzmsp .GetUserById(utils.CheckGuidID(userID, "userID"));
+         MemberDto member =memberService .GetUserById(utils.CheckGuidID(userID, "userID").ToString());
             customerObj userobj = null;
-            if (dzm.UserType.ToString()== userType)//customer=1"customer"
+            if (member.UserType == userType)//customer=1"customer"
             {
-                userobj = Mapper.Map<Dianzhu.Model.DZMembership, customerObj>(dzm);
+                userobj = Mapper.Map<MemberDto, customerObj>(member);
             }
             //if (userobj == null)
             //{
@@ -72,13 +75,13 @@ namespace Dianzhu.ApplicationService.User
         public IList<customerObj> GetUsers(common_Trait_Filtering filter,common_Trait_UserFiltering userFilter, string userType)
         {
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "DZMembership");
-            IList<Dianzhu.Model.DZMembership> dzm = dzmsp.GetUsers(filter1.filter2, userFilter.alias, userFilter.email, userFilter.phone, userFilter.platform, userType);
+            IList<MemberDto> dzm = memberService.GetUsers(filter1.filter2, userFilter.alias, userFilter.email, userFilter.phone, userFilter.platform, userType);
             if (dzm == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<customerObj>();
             }
-            IList<customerObj> customerobj = Mapper.Map<IList<Dianzhu.Model.DZMembership>, IList<customerObj>>(dzm);
+            IList<customerObj> customerobj = Mapper.Map<IList<MemberDto>, IList<customerObj>>(dzm);
             return customerobj;
         }
 
@@ -91,7 +94,7 @@ namespace Dianzhu.ApplicationService.User
         public countObj GetUsersCount(common_Trait_UserFiltering userFilter, string userType)
         {
             countObj c = new countObj();
-            c.count = dzmsp.GetUsersCount(userFilter.alias, userFilter.email, userFilter.phone, userFilter.platform, userType).ToString();
+            c.count = memberService.GetUsersCount(userFilter.alias, userFilter.email, userFilter.phone, userFilter.platform, userType).ToString();
             return c;
         }
 
@@ -121,20 +124,18 @@ namespace Dianzhu.ApplicationService.User
                 }
             }
             System.Web.Security.MembershipCreateStatus createStatus;
-            Dianzhu.Model.Enums.enum_UserType usertype = (Model.Enums.enum_UserType)Enum.Parse(typeof(Model.Enums.enum_UserType), userType); 
-            DZMembership newMember = dzmsp.CreateUser(string.Empty,
-                 userBody.phone,
-                 string.Empty,
-                 userBody.pWord,
-                 out createStatus,
-                 usertype);
-            if (createStatus == System.Web.Security.MembershipCreateStatus.DuplicateUserName)
+            Dianzhu.Model.Enums.enum_UserType usertype = (Model.Enums.enum_UserType)Enum.Parse(typeof(Model.Enums.enum_UserType), userType);
+
+          RegisterResult registerResult=    memberService.RegisterMember(userBody.phone, userBody.pWord, userBody.pWord, userType,
+                System.Web.HttpContext.Current.Request.Url.Scheme + "://" + System.Web.HttpContext.Current.Request.Url.Authority);
+
+            if (!registerResult.RegisterSuccess)
             {
-                throw new Exception("该手机号码用户已存在!");
+                throw new Exception(registerResult.RegisterErrMsg);
             }
-            else if (createStatus != System.Web.Security.MembershipCreateStatus.Success)
+             if (!registerResult.SendEmailSuccess)
             {
-                throw new Exception("注册失败!");
+                throw new Exception(registerResult.SendEmailErrMsg);
             }
             //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             //Dianzhu.Model.DZMembership dzm = dzmsp.GetUserById(newMember.Id);
@@ -145,12 +146,12 @@ namespace Dianzhu.ApplicationService.User
 
             if (userType == "customer")
             {
-                customerObj customerobj = Mapper.Map<Dianzhu.Model.DZMembership, customerObj>(newMember);
+                customerObj customerobj = Mapper.Map<MemberDto, customerObj>(registerResult.o);
                 return customerobj;
             }
             else
             {
-                merchantObj merchantobj = Mapper.Map<Dianzhu.Model.DZMembership, merchantObj>(newMember);
+                merchantObj merchantobj = Mapper.Map<merchantObj>(registerResult.o);
                 return merchantobj;
             }
         }
@@ -163,37 +164,25 @@ namespace Dianzhu.ApplicationService.User
         /// <returns></returns>
         public object PostUser3rds(U3RD_Model u3rd_Model, string userType)
         {
-            Dianzhu.Model.DZMembership newMember = new DZMembership();
-            switch (u3rd_Model.platform)
-            {
-                case "WeChat":
-                    newMember=LoginByWeChat.GetUserInfo(u3rd_Model.code, u3rd_Model.appName, dzmsp, userType);
-                    break;
-                case "SinaWeiBo":
-                    newMember = LoginBySinaWeiBo.GetUserInfo(u3rd_Model.code, u3rd_Model.appName, dzmsp, userType);
-                    break;
-                case "TencentQQ":
-                    newMember = LoginByTencentQQ.GetUserInfo(u3rd_Model.code, u3rd_Model.appName, dzmsp, userType);
-                    break;
-                default:
-                    throw new Exception("传入的第三方平台类型有误，请重新上传！!");
-            }
-           
-            Dianzhu.Model.DZMembership dzm = dzmsp.GetUserById(newMember.Id);
-            if (dzm == null)
+            MemberDto newMember = memberService.Login3rd(u3rd_Model.platform, u3rd_Model.code, u3rd_Model.appName, userType);
+
+              if (newMember == null)
             {
                 throw new Exception("注册失败!");
             }
+
             if (userType == "customer")
             {
-                customerObj customerobj = Mapper.Map<Dianzhu.Model.DZMembership, customerObj>(dzm);
-                customerobj.pWord = dzm.PlainPassword;
+                customerObj customerobj = Mapper.Map<customerObj>(newMember);
+                //客户端返回密码是不安全的行为,需要重新整理需求
+                //customerobj.pWord = dzm.PlainPassword;
+
                 return customerobj;
             }
             else
             {
-                merchantObj merchantobj = Mapper.Map<Dianzhu.Model.DZMembership, merchantObj>(dzm);
-                merchantobj.pWord = dzm.PlainPassword;
+                merchantObj merchantobj = Mapper.Map<  merchantObj>(newMember);
+            
                 return merchantobj;
             }
         }
@@ -212,30 +201,37 @@ namespace Dianzhu.ApplicationService.User
                 throw new FormatException("原密码不能为空！");
             }
             Guid guidUser = utils.CheckGuidID(userID, "userID");
-            Dianzhu.Model.DZMembership dzm = dzmsp.GetUserById(guidUser);
-            if (dzm == null)
+            ValidateResult validateResult = memberService.ValidateUser(userID, userChangeBody.oldPassWord, false);
+
+            if (!validateResult.IsValidated)
             {
                 throw new Exception("该用户不存在！");
             }
-            if (dzm.PlainPassword != userChangeBody.oldPassWord)
+
+            MemberDto validatedUser = validateResult.ValidatedMember;
+                
+            if (validatedUser == null)
             {
-                throw new Exception("原密码错误！");
+                throw new Exception("该用户不存在！");
             }
+            
             if (!string.IsNullOrEmpty(userChangeBody.alias))
             {
-                dzm.NickName = userChangeBody.alias;
+                
+                memberService.ChangeAlias(userID, userChangeBody.alias);
             }
             if (!string.IsNullOrEmpty(userChangeBody.email))
             {
-                dzm.Email = userChangeBody.email;
+
+                memberService.ChangeEmail(userID, userChangeBody.email);
             }
             if (!string.IsNullOrEmpty(userChangeBody.phone))
             {
-                dzm.Phone = userChangeBody.phone;
+                memberService.ChangePhone(userID, userChangeBody.phone);
             }
             if (!string.IsNullOrEmpty(userChangeBody.address))
             {
-                dzm.Address = userChangeBody.address;
+               memberService.ChangeAddress(userID, userChangeBody.address);
             }
             if (!string.IsNullOrEmpty(userChangeBody.sex))
             {
@@ -247,22 +243,27 @@ namespace Dianzhu.ApplicationService.User
             } 
             if (!string.IsNullOrEmpty(userChangeBody.imgUrl))
             {
-                dzm.AvatarUrl = utils.GetFileName(userChangeBody.imgUrl);
+                
+                memberService.ChangeAvatar(userID, utils.GetFileName(userChangeBody.imgUrl));
             }
             if (!string.IsNullOrEmpty(userChangeBody.newPassWord))
             {
-                if (!dzm.ChangePassword(userChangeBody.oldPassWord, userChangeBody.newPassWord))
+                //todo: 需要完善
+
+             ActionResult changePasswordResult=   memberService.ChangePassword(memberService.GetUserById(userID).UserName, userChangeBody.oldPassWord, userChangeBody.newPassWord);
+                if (!changePasswordResult.IsSuccess)
                 {
-                    throw new Exception("密码错误!");
+                    throw new Exception(changePasswordResult.ErrMsg);
                 }
-                System.Runtime.Caching.MemoryCache.Default.Remove(dzm.Id.ToString());
-                Model.UserToken usertoken=bllUserToken.GetToken(dzm.Id.ToString());
+                System.Runtime.Caching.MemoryCache.Default.Remove(userID.ToString());
+                Model.UserToken usertoken=bllUserToken.GetToken(userID.ToString());
                 usertoken.Flag = 0;
                 //Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.token, Flag = 0, CreatedTime = DateTime.Now };
                 //UserToken ut = usertoken.GetToken(member.Id.ToString());
                 //ut.Flag = 0;
                 //usertoken.Update(ut);
             }
+            /* 领域内部验证.
             DateTime dt = DateTime.Now;
             dzm.LastLoginTime = dt;
 
@@ -290,14 +291,15 @@ namespace Dianzhu.ApplicationService.User
             {
                 throw new Exception("修改失败!");
             }
+            */
             if (userType == "customer")
             {
-                customerObj customerobj = Mapper.Map<Dianzhu.Model.DZMembership, customerObj>(dzm);
+                customerObj customerobj = Mapper.Map<customerObj>(validatedUser);
                 return customerobj;
             }
             else
             {
-                merchantObj merchantobj = Mapper.Map<Dianzhu.Model.DZMembership, merchantObj>(dzm);
+                merchantObj merchantobj = Mapper.Map<merchantObj>(validatedUser);
                 return merchantobj;
             }
 
@@ -311,7 +313,7 @@ namespace Dianzhu.ApplicationService.User
         public applyCustomerServicesObj GetCustomerServices(Customer customer)
         {
             Guid guidUserID = utils.CheckGuidID(customer.UserID, "customer.UserID");
-            DZMembership member = dzmsp.GetUserById(guidUserID);
+            MemberDto member = memberService.GetUserById(guidUserID.ToString());
             if (member == null)
             {
                 throw new Exception("该用户不存在");
@@ -320,7 +322,7 @@ namespace Dianzhu.ApplicationService.User
             string errorMessage = string.Empty;
             ReceptionStatusDto rs = receptionService.AssignCustomerLogin(customer.UserID, out errorMessage);
 
-            DZMembership customerService = dzmsp.GetUserById(Guid.Parse(rs.CustomerServiceId));
+            MemberDto customerService = memberService.GetUserById( rs.CustomerServiceId);
 
             ServiceOrder orderToReturn=null;
             Guid guidOrder;
@@ -330,13 +332,16 @@ namespace Dianzhu.ApplicationService.User
             }
             if (orderToReturn == null)
             {
-                orderToReturn = bllServiceOrder.GetDraftOrder(member, customerService);
+                orderToReturn = bllServiceOrder.GetDraftOrder(member.Id.ToString(), customerService.Id.ToString());
             }
             ilog.Debug("7");
             if (orderToReturn == null)
             {
-
-                orderToReturn = ServiceOrderFactory.CreateDraft(customerService, member);
+                orderToReturn = new ServiceOrder()
+                {
+                    CustomerId = customer.UserID,
+                    CustomerServiceId = customerService.Id.ToString()
+                };
 
                 bllServiceOrder.Save(orderToReturn);
             }
@@ -347,7 +352,7 @@ namespace Dianzhu.ApplicationService.User
             applyCustomerServicesObj applycustomerservicesobj = new applyCustomerServicesObj();
             applycustomerservicesobj.customerServicesObj.id = rs.CustomerServiceId;
             applycustomerservicesobj.customerServicesObj.imgUrl = string.IsNullOrEmpty(customerService.AvatarUrl)?string.Empty: Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + customerService.AvatarUrl;
-            applycustomerservicesobj.customerServicesObj.alias = customerService.DisplayName ?? string.Empty;
+            applycustomerservicesobj.customerServicesObj.alias = customerService.NickName ?? string.Empty;
             applycustomerservicesobj.draftOrderID = orderToReturn.Id.ToString();
             return applycustomerservicesobj;
         }

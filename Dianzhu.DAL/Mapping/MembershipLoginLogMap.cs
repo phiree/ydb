@@ -13,7 +13,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x=>x.LogTime);
             Map(x => x.LogType).CustomType<enumLoginLogType>();
             Map(x => x.Memo);
-            References<DZMembership>(x => x.Membership);
+            Map(x => x.MemberId);
            
         }
     }

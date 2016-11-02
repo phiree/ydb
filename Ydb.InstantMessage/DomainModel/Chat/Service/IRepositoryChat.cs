@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ydb.Common.Repository;
+ 
 using Ydb.Common.Specification;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.DomainModel.Chat.Enums;
 using Ydb.InstantMessage.Infrastructure.Repository.NHibernate;
-
+using Ydb.Common.Repository;
 namespace Ydb.InstantMessage.DomainModel.Chat
 {
     public interface IRepositoryChat: IRepository<ReceptionChat,Guid>

@@ -12,7 +12,7 @@ namespace Dianzhu.Model.Finance
    public  class BalanceFlow:DDDCommon.Domain.Entity<Guid>
     {
         
-        public virtual Dianzhu.Model.DZMembership Member { get; set; }
+        public virtual Guid MemberId { get; set; }
        
         /// <summary>
         /// 本次发生金额

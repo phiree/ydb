@@ -15,7 +15,7 @@ namespace Dianzhu.Model.Finance
             get { return new SharePoint(); }
         }
          
-        public virtual DZMembership Membership { get; set; }
+        public virtual string MembershipId{ get; set; }
         public virtual  decimal Point { get; set; }
  
 
@@ -32,16 +32,16 @@ namespace Dianzhu.Model.Finance
        
      
         protected  DefaultSharePoint() { }
-        public DefaultSharePoint(decimal point, Dianzhu.Model.Enums.enum_UserType UserType)
+        public DefaultSharePoint(decimal point, string UserType)
         {
             this.Point = point;
             this.UserType = UserType;
         }
         public static DefaultSharePoint None {
-            get { return new DefaultSharePoint(0.0m, Enums.enum_UserType.admin); }
+            get { return new DefaultSharePoint(0.0m, Enums.enum_UserType.admin.ToString()); }
         }
         
-        public virtual Dianzhu.Model.Enums.enum_UserType UserType { get; set; }
+        public virtual string UserType { get; set; }
         public virtual decimal Point { get; set; }
     
     }

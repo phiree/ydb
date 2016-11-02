@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Reception;
 using NHibernate;
 using Ydb.InstantMessage.DomainModel.Enums;
-using Ydb.InstantMessage.DomainModel.Chat;
+using Ydb.Common.Repository;
 using Ydb.InstantMessage.Application.Dto;
 
+using Ydb.InstantMessage.Infrastructure;
 namespace Ydb.InstantMessage.Application
 {
     /// <summary>
@@ -44,7 +45,7 @@ namespace Ydb.InstantMessage.Application
             }
         }
 
-        [Ydb.Common.Repository.UnitOfWork]
+        [ UnitOfWork]
         public void UpdateOrderId(Guid Id, string newOrderId)
         {
             ReceptionStatus reception = receptionRepository.FindById(Id);
@@ -53,7 +54,7 @@ namespace Ydb.InstantMessage.Application
             receptionRepository.Update(reception);
         }
 
-        [Ydb.Common.Repository.UnitOfWork]
+        [ UnitOfWork]
         public void UpdateOrderId(string customerId, string csId, string newOrderId)
         {
             ReceptionStatus reception = receptionRepository.FindOne(x=>x.CustomerId==customerId&&x.CustomerServiceId==csId);
@@ -62,7 +63,7 @@ namespace Ydb.InstantMessage.Application
             receptionRepository.Update(reception);
         }
 
-        [Ydb.Common.Repository.UnitOfWork]
+        [ UnitOfWork]
         public void DeleteReception(string customerId)
         {
             IList< ReceptionStatus> rsList = receptionRepository.FindByCustomerId(customerId);
@@ -89,7 +90,7 @@ namespace Ydb.InstantMessage.Application
             }
         }
 
-        [Ydb.Common.Repository.UnitOfWork]
+        [ UnitOfWork]
         public ReceptionStatusDto AssignCustomerLogin(string customerId, out string errorMessage)
         {
             ReceptionStatusDto rsDto = new ReceptionStatusDto();
@@ -140,7 +141,7 @@ namespace Ydb.InstantMessage.Application
             return rsDto;
         }
 
-        [Ydb.Common.Repository.UnitOfWork]
+        [ UnitOfWork]
         public IList<ReceptionStatusDto> AssignCSLogin(string csId, int amount)
         {
             string ddId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
@@ -166,7 +167,7 @@ namespace Ydb.InstantMessage.Application
             return assignList;
         }
 
-        [Ydb.Common.Repository.UnitOfWork]
+        [ UnitOfWork]
         public void AssignCSLogoff(string csId)
         {
             string ddId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");

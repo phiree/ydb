@@ -10,11 +10,11 @@ namespace Dianzhu.DAL.Finance
         
        
 
-        public SharePoint GetSharePoint(Model.DZMembership membership)
+        public SharePoint GetSharePoint(string membershipId)
         {
              
 
-            return FindOne(x => x.Membership.Id == membership.Id);
+            return FindOne(x => x.MembershipId == membershipId);
         }
     }
 }

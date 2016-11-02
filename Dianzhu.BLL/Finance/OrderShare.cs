@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
-
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 namespace Dianzhu.BLL.Finance
 {
     /// <summary>
@@ -16,18 +17,20 @@ namespace Dianzhu.BLL.Finance
         IBLLServiceTypePoint bllServiceTypePoint;
         IBalanceFlowService balanceService;
         IBLLSharePoint bllSharePoint;
-        
+        IDZMembershipService memberService;
         Agent.IAgentService agentService;
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL.Finance.OrderShare");
         public OrderShare(IBLLServiceTypePoint bllServiceTypePoint,
         IBLLSharePoint bllSharePoint,
         Agent.IAgentService agentService,
-        IBalanceFlowService balanceService)
+        IBalanceFlowService balanceService,
+       IDZMembershipService memberService)
         {
             this.bllServiceTypePoint = bllServiceTypePoint;
             this.bllSharePoint = bllSharePoint;
             this.agentService = agentService;
             this.balanceService = balanceService;
+            this.memberService = memberService;
         }
         /// <summary>
         /// 订单分成,should be domain service
@@ -67,7 +70,7 @@ namespace Dianzhu.BLL.Finance
                 Dianzhu.Model.Finance.BalanceFlow flowAgent= new Model.Finance.BalanceFlow
                 {
                     Amount = agentShare,
-                    Member = agent,
+                    MemberId = agent.Id,
                     RelatedObjectId = order.Id.ToString(),
                     OccurTime = DateTime.Now,
                     FlowType = Model.Finance.enumFlowType.OrderShare
@@ -77,12 +80,13 @@ namespace Dianzhu.BLL.Finance
             }
 
             //- 助理分成
-            var customerServiceSharePoint = bllSharePoint.GetSharePoint(order.CustomerService);
+            MemberDto member = memberService.GetUserById(order.CustomerServiceId);
+            var customerServiceSharePoint = bllSharePoint.GetSharePoint(member);
             var customerServiceShare = Math.Truncate(customerServiceSharePoint * sharedAmount * 100) / 100m; ;
             Dianzhu.Model.Finance.BalanceFlow flowCustomerService = new Model.Finance.BalanceFlow
             {
                 Amount = customerServiceShare,
-                Member =order.CustomerService,
+                MemberId =new Guid( order.CustomerServiceId),
                 RelatedObjectId= order.Id.ToString(),
                 OccurTime = DateTime.Now,
                 FlowType = Model.Finance.enumFlowType.OrderShare
@@ -94,7 +98,7 @@ namespace Dianzhu.BLL.Finance
 
             Dianzhu.Model.Finance.BalanceFlow flowBusiness = new Model.Finance.BalanceFlow {
                 Amount = businessAmount,
-                Member = order.Business.Owner,
+                MemberId = order.Business.OwnerId,
                 FlowType = Model.Finance.enumFlowType.OrderShare,
                 OccurTime = DateTime.Now,
                 RelatedObjectId = order.Id.ToString()

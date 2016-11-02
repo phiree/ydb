@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.Membership.DomainModel;
 using Ydb.Common.Repository;
+using Ydb.Common.Specification;
 namespace Ydb.Membership.DomainModel.Repository
 {
    public interface IRepositoryDZMembership:IRepository<DZMembership,Guid>
@@ -40,7 +41,8 @@ namespace Ydb.Membership.DomainModel.Repository
 
 
 
-
+        IList<DZMembership> GetUsers(TraitFilter filter, string name, string email, string phone, string loginType, string userType);
+        long GetUsersCount(string name, string email, string phone, string loginType, string userType);
         IList< DZMembership> GetAll();
         
 

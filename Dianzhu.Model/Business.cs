@@ -46,7 +46,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 商户所有者.
         /// </summary>
-        public virtual DZMembership Owner { get; set; }
+        public virtual Guid OwnerId { get; set; }
 
         /// <summary>
         /// 店铺是否可用
@@ -330,7 +330,7 @@ namespace Dianzhu.Model
         public virtual void CopyTo(Business newBusiness)
         {
             newBusiness.Id = Id;
-            newBusiness.Owner = Owner;
+            newBusiness.OwnerId = OwnerId;
             newBusiness.Name = Name;
             newBusiness.AreaBelongTo = AreaBelongTo;
             newBusiness.Description = Description;

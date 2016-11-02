@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ydb.InstantMessage.Infrastructure;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using NHibernate.Cfg;
+using NHibernate.Tool.hbm2ddl;
 
 namespace Ydb.InstantMessage.Tests
 {
@@ -20,12 +23,22 @@ namespace Ydb.InstantMessage.Tests
         {
             container = new WindsorContainer();
             container.Install(
-                new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(), 
-                 //new Ydb.InstantMessage.Tests.InstallerInstantMessageTestDB() //测试数据库
-                 new InstallerIntantMessageDB() //本地数据库
+
+                new Ydb.InstantMessage.Application.InstallerInstantMessage(BuildConfig())
                 );
         }
+        private static FluentConfiguration BuildConfig()
+        {
 
+            FluentConfiguration config = Fluently.Configure()
+                             .Database(
+                               SQLiteConfiguration
+                              .Standard
+                        .UsingFile("test_instantmessage.db3")
+                        )
+                      .ExposeConfiguration(schemaConfig => { new SchemaExport(schemaConfig).Create(true, true); });
+            return config;
+        }
 
     }
 }

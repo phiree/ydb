@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Ydb.InstantMessage.DomainModel.Chat;
-
+using Ydb.Membership.Application.Dto;
 namespace Dianzhu.ApplicationService.Mapping
 {
 
@@ -28,13 +28,13 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<Model.RefreshToken, RefreshTokenDTO>()
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
-            Mapper.CreateMap<Model.DZMembership, customerObj>()
-            .ForMember(x => x.alias, opt => opt.MapFrom(source => source.DisplayName))
+            Mapper.CreateMap<MemberDto, customerObj>()
+            .ForMember(x => x.alias, opt => opt.MapFrom(source => source.UserName))
             .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.AvatarUrl : ""))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
-            Mapper.CreateMap<Model.DZMembership, merchantObj>()
-           .ForMember(x => x.alias, opt => opt.MapFrom(source => source.DisplayName))
+            Mapper.CreateMap<MemberDto, merchantObj>()
+           .ForMember(x => x.alias, opt => opt.MapFrom(source => source.UserName))
            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.AvatarUrl : ""))
            .ForAllMembers(opt => opt.NullSubstitute(""));
 
@@ -45,7 +45,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<Model.Complaint, complaintObj>()
             .ForMember(x => x.resourcesUrl, opt => opt.MapFrom(source => source.ComplaitResourcesUrl))
             .ForMember(x => x.orderID, opt => opt.MapFrom(source => source.Order.Id))
-            .ForMember(x => x.senderID, opt => opt.MapFrom(source => source.Operator.Id))
+            .ForMember(x => x.senderID, opt => opt.MapFrom(source => source.OperatorId))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Advertisement, adObj>()
@@ -207,24 +207,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.createTime, opt => opt.MapFrom(source => source.CreatTime == DateTime.MinValue ? "" : source.CreatTime.ToString("yyyyMMddHHmmss")))
           .ForAllMembers(opt => opt.NullSubstitute(""));
 
-            //.ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
-
-
-
-            //Mapper.CreateMap<CommentFormModel, Comment>();
-            //Mapper.CreateMap<GroupFormModel, Group>();
-            //Mapper.CreateMap<FocusFormModel, Focus>();
-            //Mapper.CreateMap<UpdateFormModel, Update>();
-            //Mapper.CreateMap<UserFormModel, ApplicationUser>();
-            //Mapper.CreateMap<UserProfileFormModel, UserProfile>();
-            //Mapper.CreateMap<GroupGoalFormModel, GroupGoal>();
-            //Mapper.CreateMap<GroupUpdateFormModel, GroupUpdate>();
-            //Mapper.CreateMap<GroupCommentFormModel, GroupComment>();
-            //Mapper.CreateMap<GroupRequestFormModel, GroupRequest>();
-            //Mapper.CreateMap<FollowRequestFormModel, FollowRequest>();
-            //Mapper.CreateMap<GoalFormModel, Goal>();
-            //Mapper.CreateMap<XViewModel, X()
-            //    .ForMember(x => x.PropertyXYZ, opt => opt.MapFrom(source => source.Property1));     
+                 
         }
 
 

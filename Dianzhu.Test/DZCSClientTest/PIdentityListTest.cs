@@ -93,8 +93,8 @@ namespace Dianzhu.Test.DZCSClientTest
 
             orderList = Builder<ServiceOrder>.CreateListOfSize(3)
                     .TheFirst(1).With(x => x.Id = new Guid(orderIdList[0]))
-                                .With(x => x.Customer = customerList[0])
-                                .With(x => x.CustomerService = csList[0])
+                                .With(x => x.CustomerId = customerList[0])
+                                .With(x => x.CustomerServiceId = csList[0])
                     .TheNext(1).With(x => x.Id = new Guid(orderIdList[1]))
                                 .With(x => x.Customer = customerList[1])
                                 .With(x => x.CustomerService = csList[1])
@@ -124,16 +124,16 @@ namespace Dianzhu.Test.DZCSClientTest
                  .Build();
 
             ServiceOrder order_user1 = Builder<ServiceOrder>.CreateNew()
-                .With(x => x.Customer = members[0])
-                .With(x => x.CustomerService = members[2])
+                .With(x => x.CustomerId = members[0])
+                .With(x => x.CustomerServiceId = members[2])
                 .With(x=>x.Id=new Guid("d9f216b5-92e4-4f7a-87a0-a5f00107b6bc"))
                 .Build();
 
             pChatList.ViewIdentityList_IdentityClick(null);
 
             ServiceOrder order_user2 = Builder<ServiceOrder>.CreateNew()
-               .With(x => x.Customer = members[1])
-               .With(x => x.CustomerService = members[2])
+               .With(x => x.CustomerId = members[1])
+               .With(x => x.CustomerServiceId = members[2])
                .With(x => x.Id = new Guid("39a6f7ed-f9d8-4782-b75f-a5f001198475"))
                .Build();
             pChatList.ViewIdentityList_IdentityClick(null);

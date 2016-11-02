@@ -18,15 +18,23 @@ namespace Ydb.Finance.Infrastructure
 {
     internal class InstallerFinanceDB : IWindsorInstaller
     {
+        FluentConfiguration config;
+        public InstallerFinanceDB(FluentConfiguration config)
+        {
+            this.config = config;
+        }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
             //Database
-            var _sessionFactory = Ydb.Finance.Application.InstallerFinanceDB.GetSessionFactory();
+             
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
-            //container.Register(Component.For<ISession>().Instance(_sessionFactory.OpenSession()));
+            container.Register(Component.For<ISessionFactory>().Instance(config
+               .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap>())
+               . BuildSessionFactory())); 
         }
+       
 
+      
     }
 }

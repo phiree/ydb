@@ -52,7 +52,7 @@ namespace Dianzhu.Test.BLLTest.Finance
             order.NegotiateAmount = 100;
             //customerservice
             var customerService = fix.Create<DZMembership>();
-            order.CustomerService = customerService;
+            order.CustomerServiceId = customerService;
             //agent
             var agent = fix.Create<DZMembership>();
             //该类别分成0.3

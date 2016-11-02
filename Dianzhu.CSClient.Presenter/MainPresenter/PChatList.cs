@@ -63,12 +63,12 @@ namespace Dianzhu.CSClient.Presenter
                     return;
                 }
 
-                Guid customerId = IdentityManager.CurrentIdentity.Customer.Id;
+                string customerId = IdentityManager.CurrentIdentity.CustomerId;
 
                 var chatHistory = chatService.GetReceptionChatListByTargetId(
-                    customerId,
+                    new Guid( customerId),
                     10,
-                    Guid.Parse(chatManager.LocalChats[customerId.ToString()][0].ChatId),
+                    Guid.Parse(chatManager.LocalChats[customerId][0].ChatId),
                     "Y"
                     );
 
@@ -98,7 +98,7 @@ namespace Dianzhu.CSClient.Presenter
 
                         viewChatList.InsertOneChat(vmChat);
                         //viewChatList.ChatList.Insert(0, vmChat);
-                        chatManager.InsertTop(customerId.ToString(), vmChat);
+                        chatManager.InsertTop(customerId, vmChat);
                     }
                 }
                 else

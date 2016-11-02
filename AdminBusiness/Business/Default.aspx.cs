@@ -55,7 +55,7 @@ public partial class Business_Default : BasePage
         Business b = new Business();
         b.Name = tbxName.Value;
         
-        b.Owner = CurrentUser;
+        b.OwnerId   = CurrentUser.Id;
         if (tbxWebSite.Value.Contains("@"))
         {
             b.Email = tbxWebSite.Value;

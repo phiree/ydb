@@ -33,8 +33,8 @@
                     </div>
                     <div class="order-list-item">
                         <div class="order-list-pra">
-                            <div class="order-list-title"><%=Order.Customer.DisplayName %></div>
-                            <div class="order-list-content"> <%=Order.Customer.Phone %></div>
+                            <div class="order-list-title"><%=Order.CustomerId %></div>
+                            <div class="order-list-content"> <%=Order.CustomerId%></div>
                         </div>
                         <div class="order-list-pra">
                             <div class="order-list-title">服务地址</div>

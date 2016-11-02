@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.Infrastructure.Repository.NHibernate;
+using Ydb.Common.Repository;
 using NHibernate;
 using Ydb.InstantMessage.DomainModel.Chat.Enums;
-using Ydb.Common.Repository;
+ 
 using Ydb.Common.Specification;
-
+using Ydb.InstantMessage.Infrastructure;
 namespace Ydb.InstantMessage.Application
 {
     /// <summary>
@@ -19,24 +20,20 @@ namespace Ydb.InstantMessage.Application
     {
         IRepositoryChat repositoryChat;
       
-        public ChatService(IRepositoryChat repositoryChat )
+        public ChatService(  )
         {
-            this.repositoryChat = repositoryChat;           
+            repositoryChat = Bootstrap.Container.Resolve<IRepositoryChat>();
         }
 
-        [Ydb.Common.Repository.UnitOfWork]
+        [ UnitOfWork]
         public void Add(ReceptionChat chat)
         {
             repositoryChat.Add(chat);
         }
 
-        [Ydb.Common.Repository.UnitOfWork]
-        public void Update(ReceptionChat chat)
-        {
-            repositoryChat.Update(chat);
-        }
-
-        [Ydb.Common.Repository.UnitOfWork]
+ 
+        [ UnitOfWork]
+ 
         public IList<ReceptionChatDto> GetChatByOrder(string orderId)
         {
             var list = repositoryChat.GetChatByOrder(orderId);
@@ -130,6 +127,12 @@ namespace Ydb.InstantMessage.Application
         public long GetUnreadChatsCount(Guid userID)
         {
             return repositoryChat.GetUnreadChatsCount(userID);
+        }
+
+        [UnitOfWork]
+        public void Update(ReceptionChat chat)
+        {
+            repositoryChat.Update(chat);
         }
     }
 }

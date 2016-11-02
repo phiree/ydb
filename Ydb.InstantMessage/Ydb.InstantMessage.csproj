@@ -107,6 +107,7 @@
     <Compile Include="Application\ChatService.cs" />
     <Compile Include="Application\Dto\ReceptionStatusDto.cs" />
     <Compile Include="Application\IChatService.cs" />
+    <Compile Include="Application\InstallerInstantMessage.cs" />
     <Compile Include="Application\ReceptionService.cs" />
     <Compile Include="Application\IReceptionService.cs" />
     <Compile Include="DomainModel\Chat\Enums\ChatTarget.cs" />
@@ -137,8 +138,9 @@
     <Compile Include="DomainModel\Reception\ReceptionAssigner.cs" />
     <Compile Include="DomainModel\Reception\ReceptionStatus.cs" />
     <Compile Include="DomainModel\XmppResource.cs" />
-    <Compile Include="Infrastructure\InstallerDB.cs" />
-    <Compile Include="Infrastructure\Installer.cs" />
+    <Compile Include="Infrastructure\Ioc\Bootstrap.cs" />
+    <Compile Include="Infrastructure\Ioc\InstallerDB.cs" />
+    <Compile Include="Infrastructure\Ioc\Installer.cs" />
     <Compile Include="Infrastructure\ReceptionSessionOpenfireRestapi.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\ChatRepository.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ReceptionChatMap.cs" />

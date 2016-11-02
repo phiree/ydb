@@ -115,7 +115,6 @@ namespace Dianzhu.CSClient.LocalStorage
         //public IList<ReceptionChat> InitChatList(Guid customerId, Guid customerServiceId, Guid serviceOrderId)
         //{
         //    string key = customerId.ToString();
-        //    DZMembership customer = idalMembership.FindById(customerId);
         //    if (LocalChats.ContainsKey(key))
         //    {
         //        return LocalChats[key];

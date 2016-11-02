@@ -7,7 +7,7 @@ using AutoMapper;
 using Dianzhu.Model;
 using Dianzhu.DAL;
 using Ydb.InstantMessage.DomainModel.Chat;
-
+using Ydb.Membership.Application.Dto;
 namespace Dianzhu.ApplicationService.Mapping
 {
 
@@ -29,7 +29,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<RefreshTokenDTO, RefreshToken>()
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<customerObj, DZMembership>()
+            Mapper.CreateMap<customerObj, MemberDto>()
             .ForMember(x => x.NickName, opt => opt.MapFrom(source => source.alias))
             .ForMember(x => x.AvatarUrl, opt => opt.MapFrom(source => source.imgUrl))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
@@ -41,7 +41,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.ComplaitResourcesUrl, opt => opt.MapFrom(source =>new List<string>()))
             .ForMember(x => x.Target, opt => opt.MapFrom(source => (Model.Enums.enum_ComplaintTarget)Enum.Parse(typeof(Model.Enums.enum_ComplaintTarget), source.target)))
             .ForMember(x => x.Order, opt => opt.MapFrom(source => new DAL.DALServiceOrder().FindById(utils.CheckGuidID(source.orderID, "orderID"))))
-            .ForMember(x => x.Operator, opt => opt.MapFrom(source => new DAL.DALMembership().FindById(utils.CheckGuidID(source.senderID, "senderID"))))
+            .ForMember(x => x.OperatorId, opt => opt.MapFrom(source => source.senderID))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<adObj, Model.Advertisement>()

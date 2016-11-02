@@ -9,6 +9,7 @@ using Ydb.Common.Specification;
 using Ydb.Membership.DomainModel.Enums;
 using Ydb.Membership.DomainModel.Repository;
 using Ydb.Common.Infrastructure;
+using Ydb.Membership.Infrastructure;
 namespace Ydb.Membership.DomainModel
 {
     /// <summary>
@@ -18,30 +19,39 @@ namespace Ydb.Membership.DomainModel
     {
         IRepositoryDZMembership repositoryDZMembership;
         IRepositoryUserToken repositoryUserToken;
-        IEmailService emailService;
+        
         
         ILoginNameDetermine loginNameDetermine;
-        public DZMembershipDomainService(IRepositoryDZMembership repositoryDZMembership, IEmailService emailService,
-    
-            IRepositoryUserToken repositoryUserToken, ILoginNameDetermine loginNameDetermine)
+        public DZMembershipDomainService(IRepositoryDZMembership repositoryDZMembership,
+
+               IRepositoryUserToken repositoryUserToken, ILoginNameDetermine loginNameDetermine)
         {
-            this.emailService = emailService;
-           
+            
+
             this.repositoryDZMembership = repositoryDZMembership;
             this.repositoryUserToken = repositoryUserToken;
             this.loginNameDetermine = loginNameDetermine;
         }
-        public   bool ChangePassword(string username, string oldPassword, string newPassword)
+        public DZMembershipDomainService(   ):this(Bootstrap.Container.Resolve<IRepositoryDZMembership>()
+            , Bootstrap.Container.Resolve<IRepositoryUserToken>()
+           , Bootstrap.Container.Resolve<ILoginNameDetermine>()
+            )
+        {
+           
+             
+        }
+        public   bool ChangePassword(string username, string oldPassword, string newPassword,out string errMsg)
         {
 
-            if (!this.ValidateUser(username, oldPassword))
+            DZMembership validatedUser = ValidateUser(username, oldPassword,false, out errMsg);
+            if (validatedUser==null)
             {
-                throw new Exception("原密码有误,请核实后重新输入");
+                return false;
             }
             if (newPassword.Length <6)
             {
 
-                throw new ArgumentException("密码长度至少6位");
+                errMsg = "密码长度至少6位";
             }
 
             DZMembership member = repositoryDZMembership.GetMemberByName(username);
@@ -68,62 +78,39 @@ namespace Ydb.Membership.DomainModel
             return user;
 
         }
-
-       
-
-       
-
-        public   bool ValidateUser(string username, string password)
-        {
-
-            string encryptedPwd = EncryptService.GetMD5Hash(password);
-
-            DZMembership member = repositoryDZMembership.ValidateUser(username, encryptedPwd);
-
-            if (member == null) { return false; }
-            else
-            {
-                member.LoginTimes += 1;
-                repositoryDZMembership.Update(member);
-                return true;
-            }
-
-        }
-
+ 
         /// <summary>
-        /// 
+        /// 用户验证
         /// </summary>
         /// <param name="username"></param>
         /// <param name="password"></param>
-        /// <param name="requireUserType">该用户应该的登录类型</param>
+        /// <param name="isLogin">是否是登录动作</param>
+        /// <param name="errMsg"></param>
         /// <returns></returns>
-        public bool ValidateUser(string username, string password, UserType requireUserType,out string errMsg )
+        public   DZMembership ValidateUser(string username, string password,bool isLogin ,out string errMsg)
         {
-            bool valid = false;
             errMsg = string.Empty;
-
             string encryptedPwd = EncryptService.GetMD5Hash(password);
 
             DZMembership member = repositoryDZMembership.ValidateUser(username, encryptedPwd);
 
             if (member == null)
             {
-                errMsg = "用户名或密码有误";
-            }
-            else if (member.UserType !=requireUserType)
-            {
-                errMsg = "用户类型有误";
+                errMsg = "用户名/密码有误";
+
             }
             else
             {
-                member.LoginTimes += 1;
-                repositoryDZMembership.Update(member);
-                valid = true;
+                if (isLogin)
+                {
+                    member.LoginTimes += 1;
+                }
             }
+            return member;
 
-            return valid;
         }
- 
+         
+
 
         #region additional method for user
 
@@ -307,61 +294,8 @@ namespace Ydb.Membership.DomainModel
 
 
         log4net.ILog log = log4net.LogManager.GetLogger("Ydb.DZMembership.DomainModel.DZMembershipProvider");
-        public bool SendValidationMail(string to, string verifyUrl)
-        {
-            string subjecst = "一点办验证邮件";
-            bool sendSuccess = true;
-            string body = "感谢您加入一点办.请点击下面的连接验证您的注册邮箱.</br>"
-                        + "<a style='border:solid 1px #999;margin:20px;padding:10px 40px; background-color:#eee' href='"
-                            + verifyUrl + "'>点击验证</a><br/><br/><br/>"
-                        + "如果你无法点击此链接,请将下面的网址粘贴到浏览器地址栏.<br/><br/><br/>"
-                        + verifyUrl;
-            ;
-            try
-            {
-                emailService.SendEmail(to, subjecst, body);
-            }
-            catch (Exception ex)
-            {
-                sendSuccess = false;
-                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
-
-            }
-            return sendSuccess;
-            //SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
-            //SmtpClient client = new SmtpClient(smtpSection.Network.Host, smtpSection.Network.Port);
-            //client.Credentials = new NetworkCredential(smtpSection.Network.UserName, smtpSection.Network.Password);
-            //MailMessage mail = new MailMessage(smtpSection.From, "550700860@qq.com");
-            //mail.Subject = "this is a test email.";
-            //mail.Body = "this is my test email body";
-            //client.Send(mail);
-        }
-        public bool SendRecoveryMail(string to, string recoveryUrl)
-        {
-            string subjecst = "一点办--密码重置邮件";
-            bool sendSuccess = true;
-            string body = "您已申请密码重置.请点击下面的连接重置您的密码.</br>"
-                        + "<a style='border:solid 1px #999;margin:20px;padding:10px 40px; background-color:#eee' href='"
-                        + recoveryUrl + "'>点击验证</a><br/><br/><br/>"
-                        + "如果你无法点击此链接,请将下面的网址粘贴到浏览器地址栏.<br/><br/><br/>"
-                        + recoveryUrl;
-            try
-            {
-                emailService.SendEmail(to, subjecst, body);
-            }
-            catch (Exception ex)
-            {
-                sendSuccess = false;
-            }
-            return sendSuccess;
-            //SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
-            //SmtpClient client = new SmtpClient(smtpSection.Network.Host, smtpSection.Network.Port);
-            //client.Credentials = new NetworkCredential(smtpSection.Network.UserName, smtpSection.Network.Password);
-            //MailMessage mail = new MailMessage(smtpSection.From, "550700860@qq.com");
-            //mail.Subject = "this is a test email.";
-            //mail.Body = "this is my test email body";
-            //client.Send(mail);
-        }
+       
+       
         public IList<DZMembership> GetAllCustomer(int pageIndex, int pageSize, out long totalRecords)
         {
             return repositoryDZMembership.GetAllCustomer(pageIndex, pageSize, out totalRecords);

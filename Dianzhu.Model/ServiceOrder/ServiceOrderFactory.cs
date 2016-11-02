@@ -12,7 +12,7 @@ namespace Dianzhu.Model
     {
         public static ServiceOrder CreateDraft(DZMembership customerService,DZMembership customer)
         {
-            ServiceOrder order = new Model.ServiceOrder { CustomerService=customerService,Customer= customer};
+            ServiceOrder order = new Model.ServiceOrder { CustomerServiceId=customerService.Id.ToString(),CustomerId= customer.Id.ToString()};
             return order;
             
         }

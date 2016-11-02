@@ -18,7 +18,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Email);
             Map(x => x.Phone);
             Map(x => x.WebSite);
-            References<DZMembership>(x => x.Owner);
+            Map(x => x.OwnerId);
             Map(x => x.Enabled);
             Map(x => x.CreatedTime);
         }

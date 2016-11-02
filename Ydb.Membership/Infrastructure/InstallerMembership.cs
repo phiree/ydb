@@ -16,17 +16,17 @@ using Ydb.Membership.DomainModel;
 using Ydb.Membership.Infrastructure;
 using Ydb.Membership.Infrastructure.Repository.NHibernate;
 using Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping;
-namespace Ydb.Membership.Application
+using Ydb.Membership.DomainModel.Service;
+namespace Ydb.Membership.Infrastructure
 {
     public class InstallerMembership : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
-            InstallInfrastructure(container, store);
+            
             InstallDomainService(container, store);
             InstallRepository(container, store);
-            InstallApplicationService(container, store);
+            
         }
 
         
@@ -36,23 +36,23 @@ namespace Ydb.Membership.Application
             container.Register(Component.For<IRepositoryUserToken>().ImplementedBy<RepositoryUserToken>());
 
         }
-        private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
-        {
-            container.Register(Component.For<IDZMembershipService>().ImplementedBy<DZMembershipService>());
-
-        }
-        private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
-        {
-        }
+       
       
         private void InstallDomainService(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IDZMembershipDomainService>().ImplementedBy<DZMembershipDomainService>());
-
             container.Register(Component.For<ILoginNameDetermine>().ImplementedBy < LoginNameDetermine>());
+            container.Register(Component.For<ILogin3rd>().ImplementedBy<Login3rd>());
+            container.Register(Component.For<IHttpRequest>().ImplementedBy<HttpRequestImpl>());
+            container.Register(Component.For<IDownloadAvatarToMediaServer>().ImplementedBy<DownloadAvatarToMediaServer>());
 
         }
+        private void InstallInstructure(IWindsorContainer container, IConfigurationStore store)
+        {
+            
+            
 
+        }
     }
     
 }

@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 using Dianzhu.Model;
 using Newtonsoft.Json;
 using PHSuit;
-
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 namespace Dianzhu.ApplicationService
 {
+    /*
     public class LoginByWeChat
     {
-        public static Model.DZMembership GetUserInfo(string code,string appName,BLL.DZMembershipProvider bllMember,string userType)
+        public static Model.DZMembership GetUserInfo(string code,string appName,IDZMembershipService memberService,string userType)
         {
             string AppIDWeChat = Dicts.AppIDWeChat;
             string AppSecretWeChat = Dicts.AppSecretWeChat;
@@ -41,7 +43,7 @@ namespace Dianzhu.ApplicationService
                 DZMembershipWeChat wechatMember = ConvertToWechatMember(refreshTokenObjWeChat, userObjWeChat, out isAddWechat, bllMember, userType);
                 if (isAddWechat)
                 {
-                    bllMember.CreateUserForU3rd(wechatMember);
+                    memberService.CreateUserForU3rd(wechatMember);
                     wechatMember.UserName = wechatMember.Id.ToString();
                     NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 }
@@ -104,5 +106,5 @@ namespace Dianzhu.ApplicationService
             return member;
             
         }
-    }
+    }*/
 }

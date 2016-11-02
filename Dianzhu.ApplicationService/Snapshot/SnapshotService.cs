@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Dianzhu.BLL;
 using AutoMapper;
 using Dianzhu.Model;
-
+using Dianzhu.ApplicationService.Order;
 namespace Dianzhu.ApplicationService.Snapshot
 {
     public class SnapshotService: ISnapshotService
@@ -14,12 +14,13 @@ namespace Dianzhu.ApplicationService.Snapshot
         BLL.IBLLServiceOrder ibllserviceorder;
         BLL.BLLDZService blldzservice;
         BLL.BLLServiceOrderStateChangeHis bllstatehis;
-
-        public SnapshotService(BLL.IBLLServiceOrder ibllserviceorder, BLL.BLLDZService blldzservice, BLL.BLLServiceOrderStateChangeHis bllstatehis)
+        Order.IOrderService orderService;
+        public SnapshotService(BLL.IBLLServiceOrder ibllserviceorder, BLL.BLLDZService blldzservice, BLL.BLLServiceOrderStateChangeHis bllstatehis,IOrderService orderService)
         {
             this.ibllserviceorder = ibllserviceorder;
             this.blldzservice = blldzservice;
             this.bllstatehis = bllstatehis;
+            this.orderService = orderService;
         }
 
         /// <summary>
@@ -47,13 +48,13 @@ namespace Dianzhu.ApplicationService.Snapshot
             Guid guidService = utils.CheckGuidID(ServiceID, "ServiceID");
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Snapshots");
             DZService dzService = blldzservice.GetOne(guidService);
-            if (dzService.Business.Owner.Id.ToString() != customer.UserID)
+            if (dzService.Business.OwnerId.ToString() != customer.UserID)
             {
                 throw new Exception("你的店铺没有该项服务！");
             }
             IList<snapshortsObj> snapshortsobj = new List<snapshortsObj>();
             IList<ServiceOrder> orderList = ibllserviceorder.GetOrderListOfServiceByDateRange(guidService, StartTime, EndTime);
-            snapshortsobj = new snapshortsObj().Adap(orderList, bllstatehis);
+            snapshortsobj = new snapshortsObj().Adap(orderList, bllstatehis,orderService);
             return snapshortsobj;
         }
 

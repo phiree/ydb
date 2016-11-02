@@ -42,7 +42,7 @@ namespace Dianzhu.ApplicationService.Chat
             }
             if (customer.UserType == "business")
             {
-                if (order.Business == null || order.Business.Owner.Id.ToString() != customer.UserID)
+                if (order.Business == null || order.Business.OwnerId.ToString() != customer.UserID)
                 {
                     throw new Exception("这不是你的订单！");
                 }

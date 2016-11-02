@@ -74,6 +74,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.103.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.103\lib\net46\System.Data.SQLite.dll</HintPath>
@@ -96,7 +97,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\BalanceFlowServiceTests.cs" />
-    <Compile Include="Application\InstallerFinanceDB.cs" />
     <Compile Include="Application\OrderShareServiceTests.cs" />
     <Compile Include="Application\ServiceTypePointServiceTests.cs" />
     <Compile Include="Application\UserTypeSharePointServiceTests.cs" />
@@ -107,9 +107,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="config\appSettings.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\connectionstrings.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

@@ -17,6 +17,7 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor.Installer;
 using Dianzhu.ApplicationService;
 
+
 namespace Dianzhu.Web.RestfulApi
 {
     public class Bootstrap
@@ -35,12 +36,24 @@ namespace Dianzhu.Web.RestfulApi
                 new Dianzhu.DependencyInstaller.InstallerInfrstructure(),
                 new Dianzhu.DependencyInstaller.InstallerRepository(),
                 new Dianzhu.DependencyInstaller.InstallerApplicationService(),
+
+                new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
+                   new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
+
                 new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(),
                 new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(),
+
+                new Ydb.Membership.Application.InstallerMembership(),
+                 new Ydb.Membership.Application.InstallerMembershipDB(),
+
+
+                   new Ydb.Infrastructure.Installer(),
                 new InstallerRestfulApi()
                 );
 
             Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
+            Ydb.Membership.Application.AutoMapperConfiguration.Configure();
+            
         }
     }
 }

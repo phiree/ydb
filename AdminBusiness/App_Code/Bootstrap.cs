@@ -1,20 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Castle.Windsor;
-using Castle.MicroKernel.Registration;
-using Dianzhu.Model;
-using Dianzhu.IDAL;
-using Dianzhu.DAL;
-using Dianzhu.BLL;
-using NHibernate;
-using System.Configuration;
-using nhf = FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
-using NHibernate.Tool.hbm2ddl;
-using Castle.MicroKernel.SubSystems.Configuration;
-using Castle.Windsor.Installer;
+﻿using Castle.Windsor;
 /// <summary>
 /// Summary description for Installer
 /// </summary>
@@ -34,8 +18,21 @@ public class Bootstrap
             new Dianzhu.DependencyInstaller.InstallerComponent(),
             new Dianzhu.DependencyInstaller.InstallerInfrstructure(),
             new Dianzhu.DependencyInstaller.InstallerRepository(),
-            new Dianzhu.DependencyInstaller.InstallerApplicationService()
+            new Dianzhu.DependencyInstaller.InstallerApplicationService(),
+
+
+          new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
+                   new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
+
+                new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(),
+                new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(),
+
+                new Ydb.Membership.Application.InstallerMembership(),
+                 new Ydb.Membership.Application.InstallerMembershipDB(),
+            new Ydb.Infrastructure.Installer()
+             
             );
+        Ydb.Membership.Application.AutoMapperConfiguration.Configure();
         
 
     }

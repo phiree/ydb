@@ -63,7 +63,7 @@ namespace Dianzhu.BLL
         {
 
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Customer.Id == userId);
+            where = where.And(x => x.CustomerId == userId.ToString());
 
             switch (searchType)
             {
@@ -108,7 +108,7 @@ namespace Dianzhu.BLL
         public IList<ServiceOrder> GetServiceOrderList(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType, int pageNum, int pageSize)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Customer.Id == userId);
+            where = where.And(x => x.CustomerId == userId.ToString());
 
             switch (searchType)
             {
@@ -164,11 +164,11 @@ namespace Dianzhu.BLL
             {
                 if (userType == "customer")
                 {
-                    where = where.And(x => x.Customer.Id == UserID);
+                    where = where.And(x => x.CustomerId == UserID.ToString());
                 }
                 else
                 {
-                    where = where.And(x => x.Business.Owner.Id == UserID);
+                    where = where.And(x => x.Business.OwnerId == UserID);
                 }
             }
             if(!string.IsNullOrEmpty(status))
@@ -283,11 +283,11 @@ namespace Dianzhu.BLL
             {
                 if (userType == "customer")
                 {
-                    where = where.And(x => x.Customer.Id == UserID);
+                    where = where.And(x => x.CustomerId == UserID.ToString());
                 }
                 else
                 {
-                    where = where.And(x => x.Business.Owner.Id == UserID);
+                    where = where.And(x => x.Business.OwnerId == UserID);
                 }
             }
             if (!string.IsNullOrEmpty(status))
@@ -372,7 +372,7 @@ namespace Dianzhu.BLL
             var where = PredicateBuilder.True<ServiceOrder>();
             if (UserID != Guid.Empty)
             {
-                where = where.And(x => x.Business.Owner.Id == UserID);
+                where = where.And(x => x.Business.OwnerId == UserID);
             }
             where = where.And(x => x.Id == guid);
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
@@ -446,7 +446,7 @@ namespace Dianzhu.BLL
         public IList<ServiceOrder> GetListForCustomer(Guid customerId, int pageNum, int pageSize, out int totalAmount)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Customer.Id == customerId);
+            where = where.And(x => x.CustomerId == customerId.ToString());
             //where = where.And(x => x.OrderStatus != enum_OrderStatus.Search
             //                && x.OrderStatus != enum_OrderStatus.Draft
             //                 && x.OrderStatus != enum_OrderStatus.DraftPushed);
@@ -472,10 +472,10 @@ namespace Dianzhu.BLL
             // DALServiceOrder.Delete(order);
         }
 
-        public virtual ServiceOrder GetDraftOrder(DZMembership c, DZMembership cs)
+        public virtual ServiceOrder GetDraftOrder(string cId, string csId)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Customer.Id == c.Id && x.CustomerService.Id == cs.Id && x.OrderStatus == enum_OrderStatus.Draft);
+            where = where.And(x => x.CustomerId == cId&& x.CustomerServiceId == csId && x.OrderStatus == enum_OrderStatus.Draft);
             ServiceOrder order = null;
             try
             {
@@ -509,10 +509,10 @@ namespace Dianzhu.BLL
 
             return repoServiceOrder.GetOrderListOfServiceByDateRange(serviceId,timeBegin,timeEnd);
         }
-        public ServiceOrder GetOrderByIdAndCustomer(Guid Id, DZMembership customer)
+        public ServiceOrder GetOrderByIdAndCustomer(Guid Id, string customerId)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Id == Id && x.Customer == customer);
+            where = where.And(x => x.Id == Id && x.CustomerId == customerId);
 
             return repoServiceOrder.FindOne(where);
 
@@ -716,7 +716,7 @@ namespace Dianzhu.BLL
         /// 商户裁定理赔
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_BusinessIsRefund(ServiceOrder order, DZMembership member)
+        public void OrderFlow_BusinessIsRefund(ServiceOrder order, string memberId)
         {
             enum_OrderStatus oldStatus = order.OrderStatus;
             log.Debug("当前订单状态:" + oldStatus.ToString());
@@ -765,7 +765,7 @@ namespace Dianzhu.BLL
 
                 log.Debug("记录商户操作");
 
-                claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, member);
+                claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, memberId);
                 dalClaims.Update(claims);
             }
             else
@@ -788,7 +788,7 @@ namespace Dianzhu.BLL
         /// 商户要求支付赔偿金
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order, string context, decimal amount, IList<string> resourcesUrl, DZMembership member)
+        public void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order, string context, decimal amount, IList<string> resourcesUrl, string memberId)
         {
             log.Debug("查询订单的理赔");
             Claims claims = dalClaims.GetOneByOrder(order);
@@ -799,7 +799,7 @@ namespace Dianzhu.BLL
             }
 
             log.Debug("记录商户操作");
-            claims.AddDetailsFromClaims(claims, context, amount, resourcesUrl, enum_ChatTarget.store, member);
+            claims.AddDetailsFromClaims(claims, context, amount, resourcesUrl, enum_ChatTarget.store, memberId);
             dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.AskPayWithRefund);
@@ -809,7 +809,7 @@ namespace Dianzhu.BLL
         /// 商户驳回理赔请求
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_BusinessRejectRefund(ServiceOrder order, DZMembership member)
+        public void OrderFlow_BusinessRejectRefund(ServiceOrder order, string memberId)
         {
             log.Debug("查询订单的理赔");
             Claims claims = dalClaims.GetOneByOrder(order);
@@ -821,7 +821,7 @@ namespace Dianzhu.BLL
 
             log.Debug("记录商户操作");
 
-            claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, member);
+            claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, memberId);
             dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.RejectRefund);
@@ -831,7 +831,7 @@ namespace Dianzhu.BLL
         /// 用户同意支付赔偿金
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_WaitingPayWithRefund(ServiceOrder order, DZMembership member)
+        public void OrderFlow_WaitingPayWithRefund(ServiceOrder order, string memberId)
         {
             log.Debug("查询订单的理赔");
             Claims claims = dalClaims.GetOneByOrder(order);
@@ -857,7 +857,7 @@ namespace Dianzhu.BLL
             bllPayment.ApplyPay(order, enum_PayTarget.Compensation);
 
             log.Debug("记录用户操作");
-            claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.user, member);
+            claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.user, memberId);
             dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.WaitingPayWithRefund);
@@ -962,7 +962,7 @@ namespace Dianzhu.BLL
                                 + "&ordertype=" + order.Service.ServiceType.Name
                                 + "&orderstatusfriendly=" + order.GetStatusTitleFriendly(order.OrderStatus);
             //发送给用户
-            string uriParameterByCustomer = uriParameter + "&userid=" + order.Customer.Id
+            string uriParameterByCustomer = uriParameter + "&userid=" + order.CustomerId
                                                          + "&toresource=" + enum_XmppResource.YDBan_User;
             RequestUri(uriParameterByCustomer);
 
@@ -971,11 +971,11 @@ namespace Dianzhu.BLL
             {
                 return;
             }
-            if (order.Business.Owner == null)
+            if ( order.Business.OwnerId ==null)
             {
                 return;
             }
-            string uriParameterByStore = uriParameter + "&userid=" + order.Business.Owner.Id
+            string uriParameterByStore = uriParameter + "&userid=" + order.Business.OwnerId
                                                       + "&toresource=" + enum_XmppResource.YDBan_Store;
             RequestUri(uriParameterByStore);
 
@@ -1356,11 +1356,11 @@ namespace Dianzhu.BLL
             var where = PredicateBuilder.True<ServiceOrder>();
             if (isCustomerService)
             {
-                where = where.And(x => x.CustomerService.Id == userid);
+                where = where.And(x => x.CustomerServiceId == userid.ToString());
             }
             else
             {
-                where = where.And(x => x.Customer.Id == userid);
+                where = where.And(x => x.CustomerId == userid.ToString());
             }
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
 
@@ -1374,11 +1374,11 @@ namespace Dianzhu.BLL
             var where = PredicateBuilder.True<ServiceOrder>();
             if (isCustomerService)
             {
-                where = where.And(x => x.CustomerService.Id == userid);
+                where = where.And(x => x.CustomerServiceId == userid.ToString());
             }
             else
             {
-                where = where.And(x => x.Customer.Id == userid);
+                where = where.And(x => x.CustomerId == userid.ToString());
             }
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
 

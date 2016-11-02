@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using Dianzhu.BLL;
 using AutoMapper;
 using Dianzhu.Model;
-
+using Ydb.Membership.Application.Dto;
+using Ydb.Membership.Application;
 namespace Dianzhu.ApplicationService.Order
 {
     public class OrderService : IOrderService
@@ -20,12 +21,13 @@ namespace Dianzhu.ApplicationService.Order
         BLL.BLLServiceOrderRemind bllServiceOrderRemind;
         BLL.BLLServiceOrderAppraise bllServiceOrderAppraise;
         static BLL.BLLOrderAssignment bllOrderAssignment;
-        BLL.DZMembershipProvider bllDZM;
+        IDZMembershipService memberService;
         BLL.BLLClaims bllClaims;
         BLL.BLLClaimsDetails bLLClaimsDetails;
+
         public static BLL.BLLStaff bllStaff;
         public OrderService(BLL.IBLLServiceOrder ibllserviceorder, BLL.BLLServiceOrderStateChangeHis bllstatehis, BLL.BLLDZService blldzservice, BLL.PushService bllpushservice, BLL.BLLServiceOrderRemind bllServiceOrderRemind,
-        BLL.BLLServiceOrderAppraise bllServiceOrderAppraise, BLL.BLLOrderAssignment bllOrderAssignment, BLL.DZMembershipProvider bllDZM, BLL.BLLClaims bllClaims, BLL.BLLClaimsDetails bLLClaimsDetails, BLL.BLLStaff bllStaff)
+        BLL.BLLServiceOrderAppraise bllServiceOrderAppraise, BLL.BLLOrderAssignment bllOrderAssignment, IDZMembershipService memberService, BLL.BLLClaims bllClaims, BLL.BLLClaimsDetails bLLClaimsDetails, BLL.BLLStaff bllStaff)
         {
             this.ibllserviceorder = ibllserviceorder;
             OrderService.bllstatehis = bllstatehis;
@@ -34,7 +36,7 @@ namespace Dianzhu.ApplicationService.Order
             this.bllServiceOrderRemind = bllServiceOrderRemind;
             this.bllServiceOrderAppraise = bllServiceOrderAppraise;
             OrderService.bllOrderAssignment = bllOrderAssignment;
-            this.bllDZM = bllDZM;
+            this.memberService = memberService;
             this.bllClaims = bllClaims;
             this.bLLClaimsDetails = bLLClaimsDetails;
             OrderService.bllStaff = bllStaff;
@@ -51,7 +53,7 @@ namespace Dianzhu.ApplicationService.Order
             return orderobj;
         }
 
-       public static void changeObj(orderObj orderobj, Model.ServiceOrder serviceorder)
+       public   void changeObj(orderObj orderobj, Model.ServiceOrder serviceorder)
         {
             Model.ServiceOrderStateChangeHis statehis = bllstatehis.GetMaxNumberOrderHis(serviceorder);
             orderobj.currentStatusObj = Mapper.Map<Model.ServiceOrderStateChangeHis, orderStatusObj>(statehis);
@@ -128,7 +130,8 @@ namespace Dianzhu.ApplicationService.Order
             //{
             //    orderobj.serviceSnapshotObj.serviceType.fullDescription = serviceorder.Service.ServiceType.ToString();
             //}
-            orderobj.customerObj = Mapper.Map<Model.DZMembership, customerObj>(serviceorder.Customer);
+            
+            orderobj.customerObj = Mapper.Map<MemberDto, customerObj>(memberService.GetUserById( serviceorder.CustomerId));
             
             orderobj.formanObj = Mapper.Map<Model.Staff, staffObj>(serviceorder.Staff);
             if (orderobj.formanObj != null)
@@ -167,11 +170,12 @@ namespace Dianzhu.ApplicationService.Order
                 orderobj.storeObj.location.longitude = serviceorder.Business.Longitude.ToString();
                 orderobj.storeObj.location.address = serviceorder.Business.RawAddressFromMapAPI==null?"":serviceorder.Business.RawAddressFromMapAPI;
             }
-            if (serviceorder.CustomerService != null)
+            if (serviceorder.CustomerServiceId != null)
             {
-                orderobj.customerServicesObj.id = serviceorder.CustomerService.Id.ToString();
-                orderobj.customerServicesObj.alias = serviceorder.CustomerService.DisplayName;
-                orderobj.customerServicesObj.imgUrl = serviceorder.CustomerService.AvatarUrl==null?"" : Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + serviceorder.CustomerService.AvatarUrl;
+                MemberDto member = memberService.GetUserById(serviceorder.CustomerId);
+                orderobj.customerServicesObj.id = serviceorder.CustomerServiceId ;
+                orderobj.customerServicesObj.alias = member.UserName;
+                orderobj.customerServicesObj.imgUrl = member.AvatarUrl == null?"" : Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + member.AvatarUrl;
             }
             
         }
@@ -353,7 +357,7 @@ namespace Dianzhu.ApplicationService.Order
             }
             if (customer.UserType == "business")
             {
-                if (order.Business == null || order.Business.Owner.Id.ToString() != customer.UserID)
+                if (order.Business == null || order.Business.OwnerId.ToString() != customer.UserID)
                 {
                     throw new Exception("这不是你的订单！");
                 }
@@ -421,7 +425,7 @@ namespace Dianzhu.ApplicationService.Order
             }
             if (customer.UserType == "business")
             {
-                if (order.Business == null || order.Business.Owner.Id.ToString() != customer.UserID)
+                if (order.Business == null || order.Business.OwnerId.ToString() != customer.UserID)
                 {
                     throw new Exception("这不是你的订单！");
                 }
@@ -488,7 +492,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单不存在！");
             }
-            if (customer.UserType == "customer" && order.Customer.Id.ToString ()!=customer.UserID)
+            if (customer.UserType == "customer" && order.CustomerId !=customer.UserID)
             {
                 throw new Exception("这不是你的订单！");
             }
@@ -518,7 +522,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单不存在！");
             }
-            if (order.Customer.Id.ToString() != customer.UserID)
+            if (order.CustomerId != customer.UserID)
             {
                 throw new Exception("这不是你的订单！");
             }
@@ -543,7 +547,7 @@ namespace Dianzhu.ApplicationService.Order
             //order.Details.Count > 0? order.Details[0].ServieSnapShot.ServiceName ?? string.Empty: pushService.ServiceName ?? string.Empty;
 
             //增加订单提醒
-            ServiceOrderRemind remind = new ServiceOrderRemind(strName, strAlias + "提供" + strType, order.Details[0].TargetTime, true, order.Id, order.Customer.Id);
+            ServiceOrderRemind remind = new ServiceOrderRemind(strName, strAlias + "提供" + strType, order.Details[0].TargetTime, true, order.Id,new Guid( order.CustomerId) );
             bllServiceOrderRemind.Save(remind);
 
             orderObj orderobj = Mapper.Map<Model.ServiceOrder, orderObj>(order);
@@ -588,7 +592,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单不存在！");
             }
-            if (order.Customer.Id.ToString() != customer.UserID)
+            if (order.CustomerId  != customer.UserID)
             {
                 throw new Exception("这不是你的订单！");
             }
@@ -616,7 +620,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单不存在！");
             }
-            if (order.Customer.Id.ToString() != customer.UserID)
+            if (order.CustomerId  != customer.UserID)
             {
                 throw new Exception("这不是你的订单！");
             }
@@ -627,7 +631,7 @@ namespace Dianzhu.ApplicationService.Order
             linkManObj linkman = new linkManObj();
             //linkman.linkManID = order.OpenFireLinkMan;
             string strIp = System.Web.HttpContext.Current.Request.Url.Host;//.Url.ToString();
-            //if (order.OpenFireLinkMan == order.Business.Owner.Id.ToString() )
+            //if (order.OpenFireLinkMan == order.Business.OwnerId )
             //{
             //    linkman.linkManID = order.OpenFireLinkMan + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Store;
             //}
@@ -635,7 +639,7 @@ namespace Dianzhu.ApplicationService.Order
             //{
             //    linkman.linkManID = order.OpenFireLinkMan + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Staff;
             //}
-            linkman.linkManID = order.Business.Owner.Id.ToString() + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Store;
+            linkman.linkManID = order.Business.OwnerId + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Store;
             return linkman;
 
             //string targetId = "";
@@ -656,7 +660,7 @@ namespace Dianzhu.ApplicationService.Order
             //}
             //else
             //{
-            //    targetId = order.Details[0].OriginalService.Business.Owner.Id.ToString();
+            //    targetId = order.Details[0].OriginalService.Business.OwnerId;
             //}
             //return targetId ;
         }
@@ -685,13 +689,13 @@ namespace Dianzhu.ApplicationService.Order
             }
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
             Guid userId = utils.CheckGuidID(customer.UserID, "customer.UserID");
-            DZMembership member = bllDZM.GetUserById(userId);
+            MemberDto member = memberService.GetUserById(userId.ToString());
 
             OrderServiceFlow osf = new OrderServiceFlow();
             ServiceOrder order = new ServiceOrder();
-            if (member.UserType == Model.Enums.enum_UserType.customer)
+            if (member.UserType == Model.Enums.enum_UserType.customer.ToString())
             {
-                order = ibllserviceorder.GetOrderByIdAndCustomer(guidOrder, member);
+                order = ibllserviceorder.GetOrderByIdAndCustomer(guidOrder, member.Id.ToString());
                 if (order == null)
                 {
                     throw new Exception("没有对应的订单！");
@@ -728,7 +732,7 @@ namespace Dianzhu.ApplicationService.Order
                         ibllserviceorder.OrderFlow_CustomerPayFinalPayment(order);
                         break;
                     case Model.Enums.enum_OrderStatus.WaitingPayWithRefund:
-                        ibllserviceorder.OrderFlow_WaitingPayWithRefund(order, member);
+                        ibllserviceorder.OrderFlow_WaitingPayWithRefund(order, member.Id.ToString());
                         break;
                     case Model.Enums.enum_OrderStatus.checkPayWithRefund:
                         ibllserviceorder.OrderFlow_CustomerPayRefund(order);
@@ -745,14 +749,14 @@ namespace Dianzhu.ApplicationService.Order
                         //return;
                 }
             }
-            else if (member.UserType == Model.Enums.enum_UserType.business)
+            else if (member.UserType == Model.Enums.enum_UserType.business.ToString())
             {
                 order = ibllserviceorder.GetOne(guidOrder);
-                if (order.Details[0].OriginalService.Business.Owner.Id != userId)
+                if (order.Details[0].OriginalService.Business.OwnerId != userId)
                 {
                     throw new Exception("没有对应的订单！");
                 }
-                if (order.Details[0].OriginalService.Business.Owner.Id != member.Id)
+                if (order.Details[0].OriginalService.Business.OwnerId != member.Id)
                 {
                     throw new Exception("该订单不属于该用商户！");
                 }
@@ -873,16 +877,16 @@ namespace Dianzhu.ApplicationService.Order
             }
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
             Guid userId = utils.CheckGuidID(customer.UserID, "customer.UserID");
-            DZMembership member = bllDZM.GetUserById(userId);
+            MemberDto  member =memberService .GetUserById(userId.ToString());
 
             OrderServiceFlow osf = new OrderServiceFlow();
             bool ActionSuccess = false;
             refundStatusObj refundstatusobj = new refundStatusObj();
             Model.Enums.enum_ChatTarget target = Model.Enums.enum_ChatTarget.all;
-            if (member.UserType == Model.Enums.enum_UserType.customer)
+            if (member.UserType == Model.Enums.enum_UserType.customer.ToString())
             {
                 target = Model.Enums.enum_ChatTarget.user;
-                ServiceOrder order = ibllserviceorder.GetOrderByIdAndCustomer(guidOrder, member);
+                ServiceOrder order = ibllserviceorder.GetOrderByIdAndCustomer(guidOrder, member.Id.ToString());
                 Model.Enums.enum_OrderStatus oldStatus = order.OrderStatus;
                 if (order == null)
                 {
@@ -916,7 +920,7 @@ namespace Dianzhu.ApplicationService.Order
                         ActionSuccess = true;
                         break;
                     case Model.Enums.enum_RefundAction.agree:
-                        ibllserviceorder.OrderFlow_WaitingPayWithRefund(order, member);
+                        ibllserviceorder.OrderFlow_WaitingPayWithRefund(order, member.Id.ToString());
                         //target = Model.Enums.enum_ChatTarget.store;
                         ActionSuccess = true;
                         break;
@@ -935,8 +939,8 @@ namespace Dianzhu.ApplicationService.Order
                 }
                 if (ActionSuccess)
                 {
-                    Claims claims = new Claims(order, oldStatus, member);
-                    claims.AddDetailsFromClaims(claims, refundobj.content, amount, resourcesurls, target, member);
+                    Claims claims = new Claims(order, oldStatus, member.Id.ToString());
+                    claims.AddDetailsFromClaims(claims, refundobj.content, amount, resourcesurls, target, member.Id.ToString());
                     bllClaims.Save(claims);
                     refundstatusobj.content = refundobj.content;
                     refundstatusobj.amount = refundobj.amount;
@@ -945,33 +949,33 @@ namespace Dianzhu.ApplicationService.Order
                     refundstatusobj.orderStatus =order.OrderStatus.ToString();
                 }
             }
-            else if (member.UserType == Model.Enums.enum_UserType.business)
+            else if (member.UserType == Model.Enums.enum_UserType.business.ToString())
             {
                 target = Model.Enums.enum_ChatTarget.store;
                 ServiceOrder order = ibllserviceorder.GetOne(guidOrder);
                 Model.Enums.enum_OrderStatus oldStatus = order.OrderStatus;
-                if (order.Details[0].OriginalService.Business.Owner.Id != userId)
+                if (order.Details[0].OriginalService.Business.OwnerId != userId)
                 {
                     throw new Exception("没有对应的订单！");
                 }
-                if (order.Details[0].OriginalService.Business.Owner.Id != member.Id)
+                if (order.Details[0].OriginalService.Business.OwnerId != member.Id)
                 {
                     throw new Exception("该订单不属于该用商户！");
                 }
                 switch (action)
                 {
                     case Model.Enums.enum_RefundAction.refund:
-                        ibllserviceorder.OrderFlow_BusinessIsRefund(order, member);
+                        ibllserviceorder.OrderFlow_BusinessIsRefund(order, member.Id.ToString());
                         //target = Model.Enums.enum_ChatTarget.user;
                         ActionSuccess = true;
                         break;
                     case Model.Enums.enum_RefundAction.reject:
-                        ibllserviceorder.OrderFlow_BusinessRejectRefund(order, member);
+                        ibllserviceorder.OrderFlow_BusinessRejectRefund(order, member.Id.ToString());
                         //target = Model.Enums.enum_ChatTarget.user;
                         ActionSuccess = true;
                         break;
                     case Model.Enums.enum_RefundAction.askPay:
-                        ibllserviceorder.OrderFlow_BusinessAskPayWithRefund(order, refundobj.content, amount, resourcesurls, member);
+                        ibllserviceorder.OrderFlow_BusinessAskPayWithRefund(order, refundobj.content, amount, resourcesurls, member.Id.ToString());
                         refundstatusobj.content = refundobj.content;
                         refundstatusobj.amount = refundobj.amount;
                         refundstatusobj.resourcesUrls = refundobj.resourcesUrls;
@@ -984,8 +988,8 @@ namespace Dianzhu.ApplicationService.Order
                 }
                 if (ActionSuccess)
                 {
-                    Claims claims = new Claims(order, oldStatus, member);
-                    claims.AddDetailsFromClaims(claims, refundobj.content, amount, resourcesurls, target, member);
+                    Claims claims = new Claims(order, oldStatus, member.Id.ToString());
+                    claims.AddDetailsFromClaims(claims, refundobj.content, amount, resourcesurls, target, member.Id.ToString());
                     bllClaims.Save(claims);
                     refundstatusobj.content = refundobj.content;
                     refundstatusobj.amount = refundobj.amount;
@@ -1037,7 +1041,7 @@ namespace Dianzhu.ApplicationService.Order
             //{
             //    throw new Exception("该订单不存在!");
             //}
-            //if (order.Business == null || order.Business.Owner.Id.ToString() != customer.UserID)
+            //if (order.Business == null || order.Business.OwnerId != customer.UserID)
             //{
             //    throw new Exception("这不是你的订单!");
             //}

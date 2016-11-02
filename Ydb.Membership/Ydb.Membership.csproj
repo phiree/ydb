@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
@@ -58,6 +62,10 @@
       <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernate.4.0.0.4000\lib\net40\NHibernate.dll</HintPath>
       <Private>True</Private>
@@ -76,13 +84,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Dto\Mapping\AutoMapperConfiguration.cs" />
+    <Compile Include="Application\Dto\Mapping\DtoToModelMappingProfile.cs" />
+    <Compile Include="Application\Dto\Mapping\ModelToDtoMappingProfile.cs" />
+    <Compile Include="Application\Dto\MemberWeChatDto.cs" />
     <Compile Include="Application\Dto\MemberDto.cs" />
-    <Compile Include="Application\Dto\LoginResult.cs" />
+    <Compile Include="Application\Dto\ApplyRecoveryResult.cs" />
+    <Compile Include="Application\Dto\ValidateResult.cs" />
     <Compile Include="Application\Dto\RegisterResult.cs" />
     <Compile Include="Application\DZMembershipService.cs" />
     <Compile Include="Application\IDZMembershipService.cs" />
+    <Compile Include="Application\InstallerMembership.cs" />
+    <Compile Include="DomainModel\Config.cs" />
+    <Compile Include="DomainModel\Dicts.cs" />
+    <Compile Include="DomainModel\IDownloadAvatarToMediaServer.cs" />
+    <Compile Include="DomainModel\IHttpRequest.cs" />
     <Compile Include="DomainModel\Service\IDZMembershipDomainService.cs" />
     <Compile Include="DomainModel\Service\DZMembershipDomainService.cs" />
+    <Compile Include="DomainModel\Service\ILogin3rd.cs" />
+    <Compile Include="DomainModel\Service\Login3rd.cs" />
+    <Compile Include="DomainModel\Service\U3RD_Model.cs" />
+    <Compile Include="Infrastructure\Bootstrap.cs" />
+    <Compile Include="Infrastructure\DownloadAvatarToMediaServer.cs" />
+    <Compile Include="Infrastructure\HttpRequestImpl.cs" />
     <Compile Include="Infrastructure\InstallerMembershipDB.cs" />
     <Compile Include="Infrastructure\InstallerMembership.cs" />
     <Compile Include="DomainModel\DZMembership.cs" />
@@ -107,8 +131,14 @@
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryDZMembership.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="Infrastructure\UnitOfWork\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
+      <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
+      <Name>Dianzhu.Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122c6d5-6348-4b65-88b7-3c43a6e642f3}</Project>
       <Name>PHSuit</Name>

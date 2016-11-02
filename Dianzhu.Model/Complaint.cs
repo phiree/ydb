@@ -50,7 +50,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 操作人员
         /// </summary>
-        public virtual DZMembership Operator { get; set; }
+        public virtual string OperatorId { get; set; }
         /// <summary>
         /// 最后更新时间
         /// </summary>

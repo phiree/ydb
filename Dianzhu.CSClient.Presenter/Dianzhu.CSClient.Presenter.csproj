@@ -70,7 +70,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLLFactory.cs" />
     <Compile Include="GlobalViables.cs" />
     <Compile Include="LoginPresenter.cs" />
     <Compile Include="MainPresenter\PMain.cs" />
@@ -147,6 +146,10 @@
     <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
       <Project>{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}</Project>
       <Name>Ydb.InstantMessage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Membership\Ydb.Membership.csproj">
+      <Project>{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}</Project>
+      <Name>Ydb.Membership</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -4,8 +4,9 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using Castle.Windsor;
-using Ydb.Common.Repository;
+ 
 using Castle.Core;
+using Ydb.Common.Repository;
 
 namespace Ydb.Common.Depentcy
 {
@@ -20,9 +21,18 @@ namespace Ydb.Common.Depentcy
 
         private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IUnitOfWork>().ImplementedBy<NhUnitOfWork>());
-            container.Register(Component.For<NhUnitOfWorkInterceptor>().LifeStyle.Transient);
-          
+            if (!container.Kernel.HasComponent("IUnitOfWorkMembership" ))// HasComponent(typeof(IUnitOfWork)))
+            { 
+            container.Register(Component.For<IUnitOfWork>().ImplementedBy<NhUnitOfWork>().Named("IUnitOfWorkMembership"));
+            }
+            if (!container.Kernel.HasComponent("IUnitOfWorkInstantMessage"))// HasComponent(typeof(IUnitOfWork)))
+            {
+                container.Register(Component.For<IUnitOfWork>().ImplementedBy<NhUnitOfWork>().Named("IUnitOfWorkInstantMessage"));
+            }
+            if (!container.Kernel.HasComponent(typeof(NhUnitOfWorkInterceptor)))
+            {
+                container.Register(Component.For<NhUnitOfWorkInterceptor>().LifeStyle.Transient);
+            }
         }
         void Kernel_ComponentRegistered(string key, Castle.MicroKernel.IHandler handler)
         {

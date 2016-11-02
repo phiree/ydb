@@ -17,6 +17,8 @@ using Dianzhu.CSClient.Presenter.VMAdapter;
 using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.Application.Dto;
+using Ydb.Membership.Application.Dto;
+using Ydb.Membership.Application;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -37,18 +39,17 @@ namespace Dianzhu.CSClient.Presenter
         IViewOrderHistory iViewOrderHistory;
         
         IViewSearchResult viewSearchResult;
-        IDAL.IDALMembership dalMembership;
         LocalStorage.LocalChatManager localChatManager;
         LocalStorage.LocalHistoryOrderManager localHistoryOrderManager;
         LocalStorage.LocalUIDataManager localUIDataManager;
         IVMChatAdapter vmChatAdapter;
         IVMIdentityAdapter vmIdentityAdapter;
         IReceptionService receptionService;
+        IDZMembershipService memberService;
 
         public PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,
             IInstantMessage iIM,
-             IDAL.IDALMembership dalMembership,
-        IViewChatSend iViewChatSend,
+            IViewChatSend iViewChatSend,
             IBLLServiceOrder bllServiceOrder, IViewOrderHistory iViewOrderHistory,
             IViewSearchResult viewSearchResult,
             LocalStorage.LocalChatManager localChatManager,
@@ -56,7 +57,8 @@ namespace Dianzhu.CSClient.Presenter
             LocalStorage.LocalUIDataManager localUIDataManager,
             IVMChatAdapter vmChatAdapter,
             IVMIdentityAdapter vmIdentityAdapter,
-            IReceptionService receptionService)
+            IReceptionService receptionService,
+            IDZMembershipService memberService)
         {
             this.localChatManager = localChatManager;
             this.localHistoryOrderManager = localHistoryOrderManager;
@@ -68,10 +70,10 @@ namespace Dianzhu.CSClient.Presenter
             this.bllServiceOrder = bllServiceOrder;
             this.iViewOrderHistory = iViewOrderHistory;
             this.viewSearchResult = viewSearchResult;
-            this.dalMembership = dalMembership;
             this.vmChatAdapter = vmChatAdapter;
             this.vmIdentityAdapter = vmIdentityAdapter;
             this.receptionService = receptionService;
+            this.memberService = memberService;
 
             iView.IdentityClick += IView_IdentityClick;
             iView.FinalChatTimerTick += IView_FinalChatTimerTick;
@@ -98,7 +100,9 @@ namespace Dianzhu.CSClient.Presenter
                     log.Debug("需要接待的离线用户数量:" + assignList.Count);
                     for(int i=0;i< assignList.Count;i++)
                     {
-                        DZMembership customer = dalMembership.FindById(Guid.Parse(assignList[i].CustomerId));
+ 
+                        MemberDto customer = memberService.GetUserById(assignList[i].CustomerId);
+ 
                         ClientState.customerList.Add(customer);
                         ServiceOrder order = bllServiceOrder.GetOne(Guid.Parse(assignList[i].OrderId));
 
@@ -171,15 +175,15 @@ namespace Dianzhu.CSClient.Presenter
                 }
             }
 
-            receptionService.DeleteReception(order.Customer.Id.ToString());
+            receptionService.DeleteReception(order.CustomerId);
 
             //删除当前订单临时变量
             if (IdentityManager.DeleteIdentity(order))
             {
-                localChatManager.Remove(order.Customer.Id.ToString());
-                localHistoryOrderManager.Remove(order.Customer.Id.ToString());
-                localUIDataManager.Remove(order.Customer.Id.ToString());
-                localUIDataManager.RemoveSearchObj(order.Customer.Id.ToString());
+                localChatManager.Remove(order.CustomerId);
+                localHistoryOrderManager.Remove(order.CustomerId);
+                localUIDataManager.Remove(order.CustomerId);
+                localUIDataManager.RemoveSearchObj(order.CustomerId);
                 iView.IdentityOrderTempId = Guid.Empty;
                 RemoveIdentity(order.Id);
             }
@@ -222,7 +226,7 @@ namespace Dianzhu.CSClient.Presenter
                     workerChatImage.RunWorkerAsync(chat);
 
                     // 用户头像的本地化处理
-                    DZMembership from = dalMembership.FindById(new Guid(chat.FromId));
+                    MemberDto from = memberService.GetUserById(chat.FromId);
                     if (from.AvatarUrl != null)
                     {
                         workerCustomerAvatar = new BackgroundWorker();
@@ -244,7 +248,7 @@ namespace Dianzhu.CSClient.Presenter
 
         private void WorkerCustomerAvatar_DoWork(object sender, DoWorkEventArgs e)
         {
-            DZMembership customer = e.Argument as DZMembership;
+            MemberDto customer = e.Argument as MemberDto;
 
             string mediaUrl = customer.AvatarUrl;
             string mediaUrl_32X32 = customer.AvatarUrl + "_32X32";

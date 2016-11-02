@@ -14,7 +14,7 @@ namespace Ydb.Membership.DomainModel
    public  interface IDZMembershipDomainService
     {
 
-         bool ChangePassword(string username, string oldPassword, string newPassword)
+         bool ChangePassword(string username, string oldPassword, string newPassword,out string errMsg)
       ;
 
 
@@ -26,23 +26,10 @@ namespace Ydb.Membership.DomainModel
 
 
 
-         bool ValidateUser(string username, string password)
+         DZMembership ValidateUser(string username, string password,bool isLogin,out string errMsg)
       ;
 
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <param name="requireUserType">该用户应该的登录类型</param>
-        /// <returns></returns>
-         bool ValidateUser(string username, string password, UserType requireUserType, out string errMsg)
-      ;
-
-
-        
+         
          DZMembership CreateUser(string loginName, string password, UserType userType, out string errMsg)
        ;
          void CreateUserForU3rd(DZMembership member)
@@ -93,12 +80,7 @@ namespace Ydb.Membership.DomainModel
         /// <returns></returns>
          long GetUsersCount(string name, string email, string phone, string platform, string userType)
         ;
-
-
-         bool SendValidationMail(string to, string verifyUrl)
-        ;
-        bool SendRecoveryMail(string to, string recoveryUrl)
-      ;
+ 
          IList<DZMembership> GetAllCustomer(int pageIndex, int pageSize, out long totalRecords)
      ;
 

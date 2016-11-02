@@ -1,42 +1,40 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
-using Castle.Windsor;
-using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FluentNHibernate;
+using FluentNHibernate.Cfg;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
-using Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping;
-using Ydb.Common.Infrastructure;
-namespace Ydb.Membership.Application
+using Castle.Windsor;
+using Ydb.Membership.DomainModel;
+
+namespace Ydb.Membership.Infrastructure
 {
-    public class InstallerMembershipDB : IWindsorInstaller
+    internal class InstallerMembershipDB : IWindsorInstaller
     {
+        FluentConfiguration config;
+        public InstallerMembershipDB(FluentConfiguration config)
+        {
+            this.config = config;
+        }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            var _sessionFactory = Fluently.Configure()
-                      .Database(
-                           MySQLConfiguration
-                          .Standard
-                           .ConnectionString("data source=192.168.1.172;uid=root;pwd=root;database=ydb_membership")
-                          //.ConnectionString(
-                          //  Ydb.Common.Infrastructure.EncryptService.Decrypt(
-                          //       System.Configuration.ConfigurationManager
-                          //     .ConnectionStrings["ydb_membership"].ConnectionString, false)
-                          //     )
-                    )
-                  .Mappings(m => m.FluentMappings.AddFromAssemblyOf<DZMembershipMap>())
-                  .ExposeConfiguration(BuildSchema)
-                  .BuildSessionFactory();
+            new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
+            //Database
+
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
+            container.Register(Component.For<ISessionFactory>().Instance(config
+               .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping.DZMembershipMap>())
+               .BuildSessionFactory()));
+        }
 
 
-        }
-        private void BuildSchema(Configuration config)
-        {
-            SchemaUpdate update = new SchemaUpdate(config);
-            update.Execute(true, true);
-        }
+
     }
 }

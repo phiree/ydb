@@ -145,7 +145,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 //                                    <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:draft:new""><orderID>{3}</orderID></ext></message>",
                 //                                        order.Customer.Id + "@" + server+ "/YDBan_User", order.CustomerService.Id, Guid.NewGuid() + "@" + server, order.Id);
                 //iIm.SendMessage(noticeDraftNew);
-                iIm.SendNoticeNewOrder(Guid.NewGuid(), order.Customer.Id.ToString(), "YDBan_User", order.Id.ToString());
+                iIm.SendNoticeNewOrder(Guid.NewGuid(), order.CustomerId.ToString(), "YDBan_User", order.Id.ToString());
             }
         }
 

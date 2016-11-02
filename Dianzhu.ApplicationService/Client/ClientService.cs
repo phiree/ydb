@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Dianzhu.BLL;
 using AutoMapper;
 
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 namespace Dianzhu.ApplicationService.Client
 {
     public class ClientService:IClientService
@@ -13,15 +15,18 @@ namespace Dianzhu.ApplicationService.Client
         BLL.Client.IBLLClient ibllclient;
         BLL.Client.IBLLRefreshToken ibllrefreshtoken;
         BLL.Client.BLLUserToken bllusertoken = null;
-        DZMembershipProvider dzmp = null;
+         BLL.DZMembershipProvider dzmp = null;
         BLL.BLLStaff bllstaff = null;
-        public ClientService(BLL.Client.BLLUserToken bllusertoken, DZMembershipProvider dzmp, BLL.BLLStaff bllstaff)
+        IDZMembershipService memberService;
+        public ClientService(BLL.Client.BLLUserToken bllusertoken, BLL.DZMembershipProvider dzmp, BLL.BLLStaff bllstaff
+            ,IDZMembershipService memberService)
         {
             //this.ibllclient = ibllclient;
             //this.ibllrefreshtoken = ibllrefreshtoken;
             this.bllusertoken = bllusertoken;
             this.dzmp = dzmp;
             this.bllstaff = bllstaff;
+            this.memberService = memberService;
         }
 
         /// <summary>
@@ -35,24 +40,29 @@ namespace Dianzhu.ApplicationService.Client
         /// <returns></returns>
         public UserTokentDTO CreateToken(string loginName, string password, string apiName, string apiKey,string strPath)
         {
-            //log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.ClientController");
-            //ilog.Debug("PostToken(Baegin1):" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
-            if (!dzmp.ValidateUser(loginName, password))
+ 
+            log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.ClientController");
+            ilog.Debug("PostToken(Baegin1):" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
+          ValidateResult validateResult=   memberService.Login(loginName, password);
+            
+            if (!validateResult.IsValidated )
+ 
             {
                 //throw new Exception("用户名或密码错误！");
                 throw new Exception("001002");
             }
-            Model.DZMembership dzm = dzmp.GetUserByName(loginName);
-            if (dzm == null)
-            {
-                dzm = dzmp.GetUserById(utils.CheckGuidID(loginName, "loginName"));
-            }
-            if (dzm == null)
-            {
-                throw new Exception("该用户不存在！");
-            }
+            //Model.DZMembership dzm = dzmp.GetUserByName(loginName);
+            //if (dzm == null)
+            //{
+            //    dzm = dzmp.GetUserById(utils.CheckGuidID(loginName, "loginName"));
+            //}
+            //if (dzm == null)
+            //{
+            //    throw new Exception("该用户不存在！");
+            //}
+            MemberDto dzm = validateResult.ValidatedMember;
             string userUri = "";
-            switch (dzm.UserType.ToString())
+            switch (dzm.UserType)
             {
                 case "customer":
                     if (apiName != "UI3f4185e97b3E4a4496594eA3b904d60d" && apiName != "UA811Cd5343a1a41e4beB35227868541f8")
@@ -88,7 +98,7 @@ namespace Dianzhu.ApplicationService.Client
             }
             Customer customer = new Customer();
             customer.loginName = loginName;
-            customer.password = JWT.JsonWebToken.Encode(dzm.Password, apiKey, JWT.JwtHashAlgorithm.HS256);
+            customer.password = JWT.JsonWebToken.Encode(password, apiKey, JWT.JwtHashAlgorithm.HS256);
             customer.UserType = dzm.UserType.ToString();
             customer.UserID = dzm.Id.ToString();
             UserTokentDTO usertokendto = new UserTokentDTO();

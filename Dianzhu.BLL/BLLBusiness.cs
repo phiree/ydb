@@ -72,7 +72,7 @@ namespace Dianzhu.BLL
         {
            // return DALBusiness.GetEnableSum(member);
             // x.Owner == member).And(x => x.Enabled == true)
-            Expression<Func<Model.Business, bool>> sameOwner = i => i.Owner.Id ==member.Id;
+            Expression<Func<Model.Business, bool>> sameOwner = i => i.OwnerId ==member.Id;
             Expression<Func<Model.Business, bool>> isEnabled = i => i.Enabled;
 
             var where = PredicateBuilder.And(sameOwner, isEnabled);
@@ -85,7 +85,7 @@ namespace Dianzhu.BLL
         /// </summary>
         public IList<Business> GetBusinessListByOwner(Guid memberId)
         {
-            return dalBusiness.Find(x => x.Owner.Id == memberId);
+            return dalBusiness.Find(x => x.OwnerId== memberId);
        //     return DALBusiness.GetBusinessListByOwner(memberId);
         }
         //如果图片保存不是通过编辑 Business 对象来完成的(比如 通过ajax mediaserver)
@@ -94,7 +94,7 @@ namespace Dianzhu.BLL
 
         public Business GetBusinessByIdAndOwner(Guid id, Guid ownerId)
         {
-            return dalBusiness.FindOne(x => x.Id == id && x.Owner.Id == ownerId);
+            return dalBusiness.FindOne(x => x.Id == id && x.OwnerId== ownerId);
           //  return DALBusiness.GetBusinessByIdAndOwner(id, ownerId);
         }
         public IList<Business> GetListByPage(int pageIndex, int pageSize, out long totalRecord)
@@ -115,7 +115,7 @@ namespace Dianzhu.BLL
             //where = where.And(x => x.Enabled);
             if (!string.IsNullOrEmpty(UserID))
             {
-                where = where.And(x => x.Owner.Id == new Guid(UserID));
+                where = where.And(x => x.OwnerId== new Guid(UserID));
             }
             if (!string.IsNullOrEmpty(strName))
             {
@@ -150,7 +150,7 @@ namespace Dianzhu.BLL
             //where = where.And(x => x.Enabled);
             if (ownerId != Guid.Empty)
             {
-                where = where.And(x => x.Owner.Id == ownerId);
+                where = where.And(x => x.OwnerId== ownerId);
             }
             if (!string.IsNullOrEmpty(alias))
             {
