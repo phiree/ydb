@@ -21,7 +21,7 @@ using Ydb.InstantMessage.Application;
 
 namespace Ydb.InstantMessage.Infrastructure
 {
-    public class InstallerIntantMessageDB : IWindsorInstaller
+    internal class InstallerIntantMessageDB : IWindsorInstaller
     {
         FluentConfiguration config;
         public InstallerIntantMessageDB(FluentConfiguration config)
