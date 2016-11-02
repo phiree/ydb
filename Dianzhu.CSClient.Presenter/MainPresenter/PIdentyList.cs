@@ -98,15 +98,22 @@ namespace Dianzhu.CSClient.Presenter
                     log.Debug("需要接待的离线用户数量:" + assignList.Count);
                     for(int i=0;i< assignList.Count;i++)
                     {
-                        DZMembership customer = dalMembership.FindById(Guid.Parse(assignList[i].CustomerId));
-                        ClientState.customerList.Add(customer);
-                        ServiceOrder order = bllServiceOrder.GetOne(Guid.Parse(assignList[i].OrderId));
+                        Guid orderId;
+                        if (!Guid.TryParse(assignList[i].OrderId, out orderId))
+                        {
+                            continue;
+                        }
 
-                        IdentityTypeOfOrder type;
-                        IdentityManager.UpdateIdentityList(order, out type);
+                        ServiceOrder order = bllServiceOrder.GetOne(orderId);
 
                         if (order != null)
                         {
+                            IdentityTypeOfOrder type;
+                            IdentityManager.UpdateIdentityList(order, out type);
+
+                            DZMembership customer = dalMembership.FindById(Guid.Parse(assignList[i].CustomerId));
+                            ClientState.customerList.Add(customer);
+
                             if (!localChatManager.LocalCustomerAvatarUrls.ContainsKey(assignList[i].CustomerId))
                             {
                                 string avatar = string.Empty;
