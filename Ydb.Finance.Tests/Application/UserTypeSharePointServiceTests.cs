@@ -31,6 +31,17 @@ namespace Ydb.Finance.Tests.Application
         }
 
         /// <summary>
+        /// 修改一条用户类型分配比例
+        /// </summary>
+        [Test()]
+        public void UserTypeSharePointServiceTests_UpdateTest_UpdateOneUserTypeSharePoint()
+        {
+            userTypeSharePointService.Update("customerservice", 0.36m);
+            userTypeSharePointService.Update("agent", 0.41m);
+            Console.WriteLine("UserTypeSharePointServiceTest.UpdateTest:修改成功！");
+        }
+
+        /// <summary>
         /// 根据用户类型获取该用户类型的分配比例
         /// </summary>
         [Test()]

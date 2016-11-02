@@ -82,8 +82,6 @@ namespace Dianzhu.Web.RestfulApi
             IRequestRestful req = new Dianzhu.RequestRestful.RequestRestful();
             RequestResponse res = req.RequestRestfulApi(rp);
             return res;
-
-
         }
     }
 }

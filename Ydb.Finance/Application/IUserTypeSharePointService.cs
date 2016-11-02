@@ -12,9 +12,16 @@ namespace Ydb.Finance.Application
         /// <summary>
         /// 新增用户类型分配比例信息
         /// </summary>
-        /// <param name="userType" type="string"></param>
-        /// <param name="point" type="decimal"></param>
+        /// <param name="userType" type="string">用户类型</param>
+        /// <param name="point" type="decimal">分成比例</param>
         void Add(string userType,decimal sharepoint);
+
+        /// <summary>
+        /// 修改用户类型分配比例信息
+        /// </summary>
+        /// <param name="userType" type="string">用户类型</param>
+        /// <param name="point" type="decimal">分成比例</param>
+        void Update(string userType, decimal point);
 
         /// <summary>
         /// 根据用户类型获取用户类型分配比例信息

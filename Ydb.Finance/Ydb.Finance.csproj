@@ -73,7 +73,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\BalanceAccountService.cs" />
+    <Compile Include="Application\IBalanceAccountService.cs" />
+    <Compile Include="Application\BalanceDTO\BalanceAccountDto.cs" />
     <Compile Include="Application\BalanceDTO\BalanceFlowDto.cs" />
+    <Compile Include="Application\BalanceDTO\Enums\AccountTypeEnums.cs" />
     <Compile Include="Application\BalanceDTO\OrderShareParam.cs" />
     <Compile Include="Application\BalanceDTO\BalanceTotalDto.cs" />
     <Compile Include="Application\BalanceDTO\BalanceUserParam.cs" />
@@ -94,8 +98,10 @@
     <Compile Include="Application\UserTypeSharePointService.cs" />
     <Compile Include="Application\IUserTypeSharePointService.cs" />
     <Compile Include="Application\WithdrawCashService.cs" />
+    <Compile Include="DomainModel\BalanceAccount.cs" />
     <Compile Include="DomainModel\BalanceFlow.cs" />
     <Compile Include="DomainModel\BalanceTotal.cs" />
+    <Compile Include="DomainModel\Repository\RepositoryBalanceAccount.cs" />
     <Compile Include="DomainModel\Repository\RepositoryBalanceFlow.cs" />
     <Compile Include="DomainModel\Repository\RepositoryBalanceTotal.cs" />
     <Compile Include="DomainModel\Repository\RepositoryUserTypeSharePoint.cs" />
@@ -109,10 +115,12 @@
     <Compile Include="Infrastructure\Bootstrap.cs" />
     <Compile Include="Infrastructure\Installer.cs" />
     <Compile Include="Infrastructure\InstallerFinanceDB.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceAccountMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceFlowMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceTotalMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceTypePointMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\UserTypeSharePointMap.cs" />
+    <Compile Include="Infrastructure\Repository\RepositoryBalanceAccount.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryBalanceTotal.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryServiceTypePoint.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryUserTypeSharePoint.cs" />

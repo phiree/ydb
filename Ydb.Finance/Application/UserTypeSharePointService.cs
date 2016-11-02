@@ -20,8 +20,8 @@ namespace Ydb.Finance.Application
         /// <summary>
         /// 新增用户类型分配比例信息
         /// </summary>
-        /// <param name="userType" type="string"></param>
-        /// <param name="point" type="decimal"></param>
+        /// <param name="userType" type="string">用户类型</param>
+        /// <param name="point" type="decimal">分成比例</param>
         [Ydb.Common.Repository.UnitOfWork]
         public void Add(string userType,decimal point) {
             UserType enumUserType;
@@ -33,9 +33,32 @@ namespace Ydb.Finance.Application
             var userTypePoint = repositoryUserTypeSharePoint.GetSharePoint(enumUserType);
             if (userTypePoint!=null)
             {
-                throw new Exception("该用户类型已经设置了分成比");
+                throw new Exception("该用户类型已经设置了分成比例");
             }
             repositoryUserTypeSharePoint.Add(enumUserType, point);
+        }
+
+        /// <summary>
+        /// 修改用户类型分配比例信息
+        /// </summary>
+        /// <param name="userType" type="string">用户类型</param>
+        /// <param name="point" type="decimal">分成比例</param>
+        [Ydb.Common.Repository.UnitOfWork]
+        public void Update(string userType, decimal point)
+        {
+            UserType enumUserType;
+            bool isUserType = Enum.TryParse<UserType>(userType, out enumUserType);
+            if (!isUserType)
+            {
+                throw new ArgumentException("传入的UserType不是有效值");
+            }
+            var userTypePoint = repositoryUserTypeSharePoint.GetSharePoint(enumUserType);
+            if (userTypePoint == null)
+            {
+                throw new Exception("该用户类型还没有设置分成比例");
+            }
+            userTypePoint.Point = point;
+            repositoryUserTypeSharePoint.Update(userTypePoint);
         }
 
         /// <summary>

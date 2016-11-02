@@ -29,6 +29,8 @@ namespace Ydb.Finance.Application
             .ForAllMembers(opt => opt.NullSubstitute(""));
             Mapper.CreateMap<UserTypeSharePoint, UserTypeSharePointDto>()
             .ForAllMembers(opt => opt.NullSubstitute(""));
+            Mapper.CreateMap<BalanceAccount, BalanceAccountDto>()
+            .ForAllMembers(opt => opt.NullSubstitute(""));
         }
     }
 }

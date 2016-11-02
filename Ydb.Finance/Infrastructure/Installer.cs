@@ -34,6 +34,7 @@ namespace Ydb.Finance.Infrastructure
             container.Register(Component.For<IRepositoryBalanceTotal>().ImplementedBy<RepositoryBalanceTotal>());
             container.Register(Component.For<IRepositoryServiceTypePoint>().ImplementedBy<RepositoryServiceTypePoint>());
             container.Register(Component.For<IRepositoryUserTypeSharePoint>().ImplementedBy<RepositoryUserTypeSharePoint>());
+            container.Register(Component.For<IRepositoryBalanceAccount>().ImplementedBy<RepositoryBalanceAccount>());
 
         }
 

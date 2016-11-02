@@ -30,6 +30,16 @@ namespace Ydb.Finance.Tests.Application
         }
 
         /// <summary>
+        /// 修改一条服务类型扣点比例
+        /// </summary>
+        [Test()]
+        public void ServiceTypePointServiceTests_UpdateTest_UpdateOneServiceTypePoint()
+        {
+            serviceTypePointService.Update("003fa8eb-3649-4ddd-8c7d-9028c0f6a94f", 0.09m);
+            Console.WriteLine("ServiceTypePointServiceTest.UpdateTest:修改成功！");
+        }
+
+        /// <summary>
         /// 根据服务类型ID获取该服务类型的扣点比例
         /// </summary>
         [Test()]

@@ -26,8 +26,30 @@ namespace Ydb.Finance.Application
         [Ydb.Common.Repository.UnitOfWork]
         public void Add(string serviceTypeId, decimal point)
         {
-            ServiceTypePoint stp = new ServiceTypePoint { ServiceTypeId = serviceTypeId, Point = point };
+            ServiceTypePoint stp = repositoryServiceTypePoint.GetOneByServiceType(serviceTypeId);
+            if (stp != null)
+            {
+                throw new Exception("该服务类型已经设置了扣点比例");
+            }
+            stp = new ServiceTypePoint { ServiceTypeId = serviceTypeId, Point = point };
             repositoryServiceTypePoint.Add(stp);
+        }
+
+        /// <summary>
+        /// 修改一条服务类型扣点比例
+        /// </summary>
+        /// <param name="serviceTypeId" type="string">服务类型ID</param>
+        /// <param name="point" type="decimal">扣点比例</param>
+        [Ydb.Common.Repository.UnitOfWork]
+        public void Update(string serviceTypeId, decimal point)
+        {
+            ServiceTypePoint stp = repositoryServiceTypePoint.GetOneByServiceType(serviceTypeId);
+            if (stp == null)
+            {
+                throw new Exception("该服务类型还没有设置扣点比例");
+            }
+            stp.Point = point;
+            repositoryServiceTypePoint.Update(stp);
         }
 
         /// <summary>
