@@ -7,6 +7,7 @@ using Ydb.Finance.DomainModel;
 using Ydb.Finance.DomainModel.Enums;
 using FluentNHibernate.Mapping;
 using Ydb.Common.Domain;
+ 
 namespace Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping
 {
     internal class BalanceFlowMap:ClassMap<BalanceFlow>

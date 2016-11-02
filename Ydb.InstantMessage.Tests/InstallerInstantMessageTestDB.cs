@@ -34,7 +34,7 @@ namespace Ydb.InstantMessage.Tests
         private void BuildSchema(NHibernate.Cfg.Configuration config)
         {
             new SchemaExport(config)
-   .Create(true, true);
+            .Create(true, true);
             //SchemaUpdate update = new SchemaUpdate(config);
             //update.Execute(true, true);
 

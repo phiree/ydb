@@ -18,51 +18,23 @@ namespace Ydb.Finance.Infrastructure
 {
     internal class InstallerFinanceDB : IWindsorInstaller
     {
+        FluentConfiguration config;
+        public InstallerFinanceDB(FluentConfiguration config)
+        {
+            this.config = config;
+        }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
             //Database
-            var _sessionFactory =  GetSessionFactory();
+             
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
-            //container.Register(Component.For<ISession>().Instance(_sessionFactory.OpenSession()));
+            container.Register(Component.For<ISessionFactory>().Instance(config
+               .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap>())
+               . BuildSessionFactory())); 
         }
        
 
-        private   ISessionFactory GetSessionFactory()
-        {
-            ISessionFactory _sessionFactory;
-            if (!bool.Parse(System.Configuration.ConfigurationManager.AppSettings["UsingTestDb"]))
-            {
-                _sessionFactory = Fluently.Configure()
-                        .Database(
-                             MySQLConfiguration
-                            .Standard
-                            .ConnectionString("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test")
-                      )
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap>())
-                    .ExposeConfiguration(BuildSchema)
-                    .BuildSessionFactory();
-            }
-            else
-            {
-                //Database
-                _sessionFactory = Fluently.Configure()
-                         .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap>())
-                         .Database(
-                              SQLiteConfiguration
-                             .Standard
-                       //.InMemory
-                       .UsingFile("test.db3")
-                       )
-                     .ExposeConfiguration(BuildSchema)
-                     .BuildSessionFactory();
-            }
-            return _sessionFactory;
-        }
-        private void BuildSchema(Configuration config)
-        {
-            new SchemaExport(config) .Create(true, true);
-        }
+      
     }
 }

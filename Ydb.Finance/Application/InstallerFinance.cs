@@ -18,9 +18,14 @@ namespace Ydb.Finance.Application
 {
     public class InstallerFinance : IWindsorInstaller
     {
+        FluentConfiguration config;
+        public InstallerFinance(FluentConfiguration config)
+        {
+            this.config = config;
+        }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            Ydb.Finance.Infrastructure.Bootstrap.Boot();
+            Ydb.Finance.Infrastructure.Bootstrap.Boot(config);
             InstallApplicationService(container, store);
         }
         

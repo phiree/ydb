@@ -1,4 +1,6 @@
 ﻿using Castle.Windsor;
+using NHibernate.Cfg;
+using NHibernate.Tool.hbm2ddl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +31,15 @@ namespace Ydb.InstantMessage.Tests
  
                 );
         }
+        private static void BuildSchema(Configuration config)
+        {
+            SchemaUpdate update = new SchemaUpdate(config);
+            if (System.Configuration.ConfigurationManager.AppSettings["UpdateSchema"] == "1")
+            {
+                update.Execute(true, true);
+            }
+        }
+
 
 
     }
