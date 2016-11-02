@@ -19,27 +19,22 @@ namespace Ydb.Membership.DomainModel
     {
         IRepositoryDZMembership repositoryDZMembership;
         IRepositoryUserToken repositoryUserToken;
-        
-        
+
+        IEncryptService encryptService;
         ILoginNameDetermine loginNameDetermine;
         public DZMembershipDomainService(IRepositoryDZMembership repositoryDZMembership,
 
-               IRepositoryUserToken repositoryUserToken, ILoginNameDetermine loginNameDetermine)
+               IRepositoryUserToken repositoryUserToken, ILoginNameDetermine loginNameDetermine
+            ,IEncryptService encryptService)
         {
-            
 
-            this.repositoryDZMembership = repositoryDZMembership;
-            this.repositoryUserToken = repositoryUserToken;
-            this.loginNameDetermine = loginNameDetermine;
+
+            this.repositoryDZMembership = Bootstrap.Container.Resolve<IRepositoryDZMembership>();
+            this.repositoryUserToken = Bootstrap.Container.Resolve<IRepositoryUserToken>();
+            this.loginNameDetermine = Bootstrap.Container.Resolve<ILoginNameDetermine>();
+            this.encryptService = encryptService;
         }
-        public DZMembershipDomainService(   ):this(Bootstrap.Container.Resolve<IRepositoryDZMembership>()
-            , Bootstrap.Container.Resolve<IRepositoryUserToken>()
-           , Bootstrap.Container.Resolve<ILoginNameDetermine>()
-            )
-        {
-           
-             
-        }
+       
         public   bool ChangePassword(string username, string oldPassword, string newPassword,out string errMsg)
         {
 
@@ -55,8 +50,8 @@ namespace Ydb.Membership.DomainModel
             }
 
             DZMembership member = repositoryDZMembership.GetMemberByName(username);
-            string oldPasswordEncrypted =EncryptService.GetMD5Hash(oldPassword);
-            string newPasswordEncrypted = EncryptService.GetMD5Hash(newPassword);
+            string oldPasswordEncrypted =encryptService.GetMD5Hash(oldPassword);
+            string newPasswordEncrypted = encryptService.GetMD5Hash(newPassword);
             member.ChangePassword(oldPasswordEncrypted, newPassword, newPasswordEncrypted);
             repositoryDZMembership.Update(member);
 
@@ -90,7 +85,7 @@ namespace Ydb.Membership.DomainModel
         public   DZMembership ValidateUser(string username, string password,bool isLogin ,out string errMsg)
         {
             errMsg = string.Empty;
-            string encryptedPwd = EncryptService.GetMD5Hash(password);
+            string encryptedPwd = encryptService.GetMD5Hash(password);
 
             DZMembership member = repositoryDZMembership.ValidateUser(username, encryptedPwd);
 
@@ -138,7 +133,7 @@ namespace Ydb.Membership.DomainModel
                 errMsg = "用户已存在";
                 return existedUser;
             }
-            var password_cred = EncryptService.GetMD5Hash(password).ToUpper();
+            var password_cred = encryptService.GetMD5Hash(password).ToUpper();
             DZMembership newMember = new DZMembership
             {
                 UserName = userName,

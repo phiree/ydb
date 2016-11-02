@@ -17,5 +17,10 @@ copy /Y appSettings_common.config ..\dianzhu.test\config\appSettings.config
 copy /Y appSettings_common.config ..\Dianzhu.DemoClient\config\appSettings.config
 copy /Y appSettings_common.config ..\DianzhuService.Diandian\config\appSettings.config
 
+copy /Y appSettings_common.config ..\Ydb.Membership.Tests\config\appSettings.config
+copy /Y appSettings_common.config ..\Ydb.Finance.Tests\config\appSettings.config
+copy /Y appSettings_common.config ..\Ydb.InstantMessage.Tests\config\appSettings.config
+
+
 copy /Y appSettings_restful.config ..\dianzhu.Web.RestfulApi\config\appSettings.config
 pause

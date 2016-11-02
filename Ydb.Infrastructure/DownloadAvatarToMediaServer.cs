@@ -6,7 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Ydb.Membership.DomainModel;
-namespace Ydb.Membership.Infrastructure
+using Ydb.Common.Infrastructure;
+namespace Ydb.Infrastructure
 {
   
    public class DownloadAvatarToMediaServer: IDownloadAvatarToMediaServer

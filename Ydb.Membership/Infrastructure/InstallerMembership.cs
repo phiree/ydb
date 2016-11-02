@@ -43,9 +43,7 @@ namespace Ydb.Membership.Infrastructure
             container.Register(Component.For<IDZMembershipDomainService>().ImplementedBy<DZMembershipDomainService>());
             container.Register(Component.For<ILoginNameDetermine>().ImplementedBy < LoginNameDetermine>());
             container.Register(Component.For<ILogin3rd>().ImplementedBy<Login3rd>());
-            container.Register(Component.For<IHttpRequest>().ImplementedBy<HttpRequestImpl>());
-            container.Register(Component.For<IDownloadAvatarToMediaServer>().ImplementedBy<DownloadAvatarToMediaServer>());
-
+            
         }
         private void InstallInstructure(IWindsorContainer container, IConfigurationStore store)
         {

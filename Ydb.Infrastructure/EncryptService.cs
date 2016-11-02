@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Ydb.Membership.DomainModel;
+using Ydb.Common.Infrastructure;
 namespace Ydb.Infrastructure
 {
     public class EncryptService:IEncryptService
