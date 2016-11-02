@@ -137,23 +137,18 @@
     <Compile Include="DomainModel\Reception\ReceptionAssigner.cs" />
     <Compile Include="DomainModel\Reception\ReceptionStatus.cs" />
     <Compile Include="DomainModel\XmppResource.cs" />
-    <Compile Include="Infrastructure\InstallerDB.cs" />
-    <Compile Include="Infrastructure\Installer.cs" />
-    <Compile Include="Infrastructure\InstallerInstantMessageUnifOfWork.cs" />
+    <Compile Include="Infrastructure\Ioc\Bootstrap.cs" />
+    <Compile Include="Infrastructure\Ioc\InstallerDB.cs" />
+    <Compile Include="Infrastructure\Ioc\Installer.cs" />
     <Compile Include="Infrastructure\ReceptionSessionOpenfireRestapi.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\ChatRepository.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ReceptionChatMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ReceptionStatusMap.cs" />
-    <Compile Include="Infrastructure\Repository\NHibernate\NHRepository.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\ReceptionRepository.cs" />
     <Compile Include="Infrastructure\OpenfireXMPP.cs" />
-    <Compile Include="Infrastructure\Repository\NHibernateUnitOfWork.cs" />
-    <Compile Include="Infrastructure\Repository\NhUnitOfWorkInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Infrastructure\UnitOfWork\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="UL.txt" />
   </ItemGroup>

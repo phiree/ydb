@@ -33,8 +33,6 @@ namespace Ydb.Finance.Application
             container.Register(Component.For<IWithdrawCashService>().ImplementedBy<WithdrawCashService>());
         }
 
-        private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
-        {
-        }
+        
     }
 }

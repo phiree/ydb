@@ -10,7 +10,7 @@ using Ydb.Common.Application;
 using Ydb.Common.Infrastructure;
 using System.Collections.Generic;
 using Ydb.Common.Specification;
-
+using Ydb.Common.Repository;
 namespace Ydb.Membership.Application
 {
     public class DZMembershipService : IDZMembershipService

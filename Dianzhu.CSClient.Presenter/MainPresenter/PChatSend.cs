@@ -62,7 +62,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             if (IdentityManager.CurrentIdentity != null)
             {
-                localUIDataManager.Save(IdentityManager.CurrentIdentity.Customer.Id.ToString(), key, value);
+                localUIDataManager.Save(IdentityManager.CurrentIdentity.CustomerId , key, value);
             }
         }
 

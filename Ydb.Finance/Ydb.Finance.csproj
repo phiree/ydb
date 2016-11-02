@@ -85,7 +85,6 @@
     <Compile Include="Application\BalanceDTO\WithdrawCashParam.cs" />
     <Compile Include="Application\BanlanceFlow.cs" />
     <Compile Include="Application\IBalanceFlowService.cs" />
-    <Compile Include="Application\InstallerFinanceDB.cs" />
     <Compile Include="Application\IOrderShareService.cs" />
     <Compile Include="Application\IServiceTypePointService.cs" />
     <Compile Include="Application\IWithdrawCashService.cs" />

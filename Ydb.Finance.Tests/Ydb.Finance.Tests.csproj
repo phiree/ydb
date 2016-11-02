@@ -96,7 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\BalanceFlowServiceTests.cs" />
-    <Compile Include="Application\InstallerFinanceDB.cs" />
     <Compile Include="Application\OrderShareServiceTests.cs" />
     <Compile Include="Application\ServiceTypePointServiceTests.cs" />
     <Compile Include="Application\UserTypeSharePointServiceTests.cs" />
@@ -107,9 +106,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="config\appSettings.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="config\connectionstrings.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

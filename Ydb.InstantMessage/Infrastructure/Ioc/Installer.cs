@@ -25,7 +25,7 @@ namespace Ydb.InstantMessage.Infrastructure
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-       //   new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
+           new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
             InstallInfrastructure(container, store);
             InstallDomainService(container, store);
             InstallRepository(container, store);
@@ -34,12 +34,8 @@ namespace Ydb.InstantMessage.Infrastructure
 
         private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IRepositoryReception>().ImplementedBy<RepositoryReception>()
-                 .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
-                );
-            container.Register(Component.For<IRepositoryChat>().ImplementedBy<RepositoryChat>()
-                    .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
-                );
+            container.Register(Component.For<IRepositoryReception>().ImplementedBy<RepositoryReception>()) ;
+            container.Register(Component.For<IRepositoryChat>().ImplementedBy<RepositoryChat>()  );
           
         }
         private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
