@@ -89,7 +89,6 @@
     <Compile Include="Application\BalanceDTO\WithdrawCashParam.cs" />
     <Compile Include="Application\BanlanceFlow.cs" />
     <Compile Include="Application\IBalanceFlowService.cs" />
-    <Compile Include="Application\InstallerFinanceDB.cs" />
     <Compile Include="Application\IOrderShareService.cs" />
     <Compile Include="Application\IServiceTypePointService.cs" />
     <Compile Include="Application\IWithdrawCashService.cs" />
@@ -135,6 +134,10 @@
     <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
       <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
       <Name>Ydb.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Membership\Ydb.Membership.csproj">
+      <Project>{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}</Project>
+      <Name>Ydb.Membership</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
