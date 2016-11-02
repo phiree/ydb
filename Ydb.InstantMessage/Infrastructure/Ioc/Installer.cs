@@ -25,11 +25,11 @@ namespace Ydb.InstantMessage.Infrastructure
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-           new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
+           
             InstallInfrastructure(container, store);
             InstallDomainService(container, store);
             InstallRepository(container, store);
-            InstallApplicationService(container, store);
+           
         }
 
         private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
@@ -38,11 +38,7 @@ namespace Ydb.InstantMessage.Infrastructure
             container.Register(Component.For<IRepositoryChat>().ImplementedBy<RepositoryChat>()  );
           
         }
-        private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
-        {
-            container.Register(Component.For<IReceptionService>().ImplementedBy<Ydb.InstantMessage.Application.ReceptionService>());
-            container.Register(Component.For<IChatService>().ImplementedBy<Ydb.InstantMessage.Application.ChatService>());
-        }
+     
         private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
         {
                 //OpenFire
@@ -55,11 +51,7 @@ namespace Ydb.InstantMessage.Infrastructure
                                 )
                             );
         }
-        private void BuildSchema(Configuration config)
-        {
-            SchemaUpdate update = new SchemaUpdate(config);
-            update.Execute(true, true);
-        }
+        
         private void InstallDomainService(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<AssignStratage>().ImplementedBy<Ydb.InstantMessage.DomainModel.Reception.AssignStratageRandom>());

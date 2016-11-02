@@ -23,68 +23,21 @@ namespace Ydb.InstantMessage.Infrastructure
 {
     public class InstallerIntantMessageDB : IWindsorInstaller
     {
+        FluentConfiguration config;
+        public InstallerIntantMessageDB(FluentConfiguration config)
+        {
+            this.config = config;
+        }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            var _sessionFactory = Fluently.Configure()
-                        .Database(
-                             MySQLConfiguration
-                            .Standard
-                            .ConnectionString(
-                                 Ydb.Common.Infrastructure.EncryptService.Decrypt(
-                                 System.Configuration.ConfigurationManager
-                               .ConnectionStrings["ydb_instantmessage"].ConnectionString, false)
-                                 )
-                      )
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping.ReceptionStatusMap>())
-                    .ExposeConfiguration(BuildSchema)
-                    .BuildSessionFactory();
+            new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
+ 
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));
+            container.Register(Component.For<ISessionFactory>().Instance(config
+            .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping.ReceptionChatMap>())
+            .BuildSessionFactory()));
         }
-        private ISessionFactory GetSessionFactory()
-        {
-            ISessionFactory _sessionFactory;
-            if (!bool.Parse(System.Configuration.ConfigurationManager.AppSettings["UsingTestDb"]))
-            {
-                _sessionFactory = Fluently.Configure()
-                        .Database(
-                             MySQLConfiguration
-                            .Standard
-                            .ConnectionString("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test")
-                      )
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap>())
-                    .ExposeConfiguration(BuildSchema)
-                    .BuildSessionFactory();
-            }
-            else
-            {
-                //Database
-                _sessionFactory = Fluently.Configure()
-                         .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap>())
-                         .Database(
-                              SQLiteConfiguration
-                             .Standard
-                       //.InMemory
-                       .UsingFile("test.db3")
-                       )
-                     .ExposeConfiguration(BuildSchema)
-                     .BuildSessionFactory();
-            }
-            return _sessionFactory;
-        }
-        private void BuildSchema(Configuration config)
-        {
-            new SchemaExport(config).Create(true, true);
-        }
-        private void BuildSchema(Configuration config)
-        {
-            SchemaUpdate update = new SchemaUpdate(config);
-            if (System.Configuration.ConfigurationManager.AppSettings["UpdateSchema"] == "1")
-            {
-                update.Execute(true, true);
-            }
-        }
-
+       
 
     }
 }

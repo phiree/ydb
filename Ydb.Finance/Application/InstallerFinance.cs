@@ -25,6 +25,7 @@ namespace Ydb.Finance.Application
         }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            
             Ydb.Finance.Infrastructure.Bootstrap.Boot(config);
             InstallApplicationService(container, store);
         }

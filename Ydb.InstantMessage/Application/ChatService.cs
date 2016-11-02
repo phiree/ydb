@@ -20,9 +20,9 @@ namespace Ydb.InstantMessage.Application
     {
         IRepositoryChat repositoryChat;
       
-        public ChatService(IRepositoryChat repositoryChat )
+        public ChatService(  )
         {
-            this.repositoryChat = repositoryChat;           
+            repositoryChat = Bootstrap.Container.Resolve<IRepositoryChat>();
         }
 
         [ UnitOfWork]

@@ -7,7 +7,7 @@ using Castle.Windsor;
 //using System.Runtime.CompilerServices;
 
 //[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
-
+//领域内部的container.
 namespace Ydb.Finance.Infrastructure
 {
     internal class Bootstrap
