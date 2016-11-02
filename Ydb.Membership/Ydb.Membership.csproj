@@ -94,6 +94,7 @@
     <Compile Include="Application\Dto\RegisterResult.cs" />
     <Compile Include="Application\DZMembershipService.cs" />
     <Compile Include="Application\IDZMembershipService.cs" />
+    <Compile Include="Application\InstallerMembership.cs" />
     <Compile Include="DomainModel\Config.cs" />
     <Compile Include="DomainModel\Dicts.cs" />
     <Compile Include="DomainModel\IDownloadAvatarToMediaServer.cs" />
@@ -103,6 +104,9 @@
     <Compile Include="DomainModel\Service\ILogin3rd.cs" />
     <Compile Include="DomainModel\Service\Login3rd.cs" />
     <Compile Include="DomainModel\Service\U3RD_Model.cs" />
+    <Compile Include="Infrastructure\Bootstrap.cs" />
+    <Compile Include="Infrastructure\DownloadAvatarToMediaServer.cs" />
+    <Compile Include="Infrastructure\HttpRequestImpl.cs" />
     <Compile Include="Infrastructure\InstallerMembershipDB.cs" />
     <Compile Include="Infrastructure\InstallerMembership.cs" />
     <Compile Include="DomainModel\DZMembership.cs" />
@@ -118,7 +122,6 @@
     <Compile Include="DomainModel\Repository\IRepositoryUserToken.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryDZMembership.cs" />
     <Compile Include="DomainModel\UserToken.cs" />
-    <Compile Include="Infrastructure\InstallerUnitOfWork.cs" />
     <Compile Include="Infrastructure\LoginNameDetermine.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipQQMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipSinaWeiboMap.cs" />

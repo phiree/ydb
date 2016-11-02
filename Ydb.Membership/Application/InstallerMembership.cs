@@ -14,26 +14,26 @@ using NHibernate.Tool.hbm2ddl;
 using Castle.Windsor;
 using Ydb.Membership.DomainModel;
 
-namespace Ydb.Membership.Infrastructure
+namespace Ydb.Membership.Application
 {
-    internal class InstallerMembershipDB : IWindsorInstaller
+    public class InstallerMembership : IWindsorInstaller
     {
         FluentConfiguration config;
-        public InstallerMembershipDB(FluentConfiguration config)
+        public InstallerMembership(FluentConfiguration config)
         {
             this.config = config;
         }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
-            //Database
-
-            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-            container.Register(Component.For<ISessionFactory>().Instance(config
-               .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping.DZMembershipMap>())
-               .BuildSessionFactory()));
+            
+            Ydb.Membership.Infrastructure.Bootstrap.Boot(config);
+            InstallApplicationService(container, store);
         }
-
+        
+        private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
+        {
+            container.Register(Component.For<IDZMembershipService>().ImplementedBy<DZMembershipService>());
+        }
 
 
     }

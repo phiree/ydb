@@ -9,7 +9,7 @@ using PHSuit;
 using Newtonsoft.Json;
 using Ydb.Membership.DomainModel.Enums;
 using System.Web;
-
+using Ydb.Membership.Infrastructure;
 namespace Ydb.Membership.DomainModel.Service
 {
    public  class Login3rd:ILogin3rd
@@ -17,7 +17,11 @@ namespace Ydb.Membership.DomainModel.Service
         IHttpRequest httpRequest;
         IDownloadAvatarToMediaServer avatarDownloader;
         IRepositoryDZMembership repMem;
-        
+
+        public Login3rd(IHttpRequest httpRequest, IDownloadAvatarToMediaServer avatarDownloader)
+            : this(Bootstrap.Container.Resolve<IHttpRequest>(),
+                  Bootstrap.Container.Resolve<IDownloadAvatarToMediaServer>(),
+                  Bootstrap.Container.Resolve<IRepositoryDZMembership>()) { }
         public Login3rd(IHttpRequest httpRequest, IDownloadAvatarToMediaServer avatarDownloader, IRepositoryDZMembership repMem)
         {
             this.httpRequest = httpRequest;

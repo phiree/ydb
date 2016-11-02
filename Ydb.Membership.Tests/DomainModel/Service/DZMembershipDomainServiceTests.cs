@@ -59,7 +59,7 @@ namespace Ydb.Membership.DomainModel.Tests
             DZMembership membership = Builder<DZMembership>.CreateNew().Build();
             repositoryDZMembership.Stub(x => x.ValidateUser(username, "5f4dcc3b5aa765d61d8327deb882cf99")).Return(membership);
             
-            IDZMembershipDomainService mds = new DZMembershipDomainService(repositoryDZMembership, null, null, null);
+            IDZMembershipDomainService mds = new DZMembershipDomainService(   );
             string errMsg;
            DZMembership m=  mds.ValidateUser(username, password, false, out errMsg);
 
@@ -72,7 +72,7 @@ namespace Ydb.Membership.DomainModel.Tests
             DZMembership membership = Builder<DZMembership>.CreateNew().Build();
             repositoryDZMembership.Stub(x => x.ValidateUser(username, "25f4dcc3b5aa765d61d8327deb882cf99")).Return(membership);
 
-            IDZMembershipDomainService mds = new DZMembershipDomainService(repositoryDZMembership, null, null, null);
+            IDZMembershipDomainService mds = new DZMembershipDomainService(   );
             string errMsg;
             DZMembership m = mds.ValidateUser(username, password, false, out errMsg);
             Assert.AreEqual(null, m);

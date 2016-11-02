@@ -11,6 +11,8 @@ using Ydb.Common.Infrastructure;
 using System.Collections.Generic;
 using Ydb.Common.Specification;
 using Ydb.Common.Repository;
+using Ydb.Membership.DomainModel.Service;
+
 namespace Ydb.Membership.Application
 {
     public class DZMembershipService : IDZMembershipService
@@ -19,17 +21,16 @@ namespace Ydb.Membership.Application
         IDZMembershipDomainService dzmembershipDomainService;
         IEmailService emailService;
         IRepositoryDZMembership repositoryMembership;
-        DomainModel.Service.ILogin3rd login3rdService;
+        ILogin3rd login3rdService;
 
 
-        public DZMembershipService(IDZMembershipDomainService dzmembershipDomainService, IEmailService emailService,
-            IRepositoryDZMembership repositoryMembership
-            , DomainModel.Service.ILogin3rd login3rdService)
+        public DZMembershipService(  IEmailService emailService)
         {
-            this.dzmembershipDomainService = dzmembershipDomainService;
+            this.dzmembershipDomainService = Bootstrap.Container.Resolve<IDZMembershipDomainService>();
+            this.login3rdService= Bootstrap.Container.Resolve<ILogin3rd>();
             this.emailService = emailService;
-            this.repositoryMembership = repositoryMembership;
-            this.login3rdService = login3rdService;
+            this.repositoryMembership = Bootstrap.Container.Resolve<IRepositoryDZMembership>();
+          
 
         }
 

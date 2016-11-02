@@ -9,6 +9,7 @@ using Ydb.Common.Specification;
 using Ydb.Membership.DomainModel.Enums;
 using Ydb.Membership.DomainModel.Repository;
 using Ydb.Common.Infrastructure;
+using Ydb.Membership.Infrastructure;
 namespace Ydb.Membership.DomainModel
 {
     /// <summary>
@@ -18,18 +19,26 @@ namespace Ydb.Membership.DomainModel
     {
         IRepositoryDZMembership repositoryDZMembership;
         IRepositoryUserToken repositoryUserToken;
-        IEmailService emailService;
+        
         
         ILoginNameDetermine loginNameDetermine;
-        public DZMembershipDomainService(IRepositoryDZMembership repositoryDZMembership, IEmailService emailService,
-    
-            IRepositoryUserToken repositoryUserToken, ILoginNameDetermine loginNameDetermine)
+        public DZMembershipDomainService(IRepositoryDZMembership repositoryDZMembership,
+
+               IRepositoryUserToken repositoryUserToken, ILoginNameDetermine loginNameDetermine)
         {
-            this.emailService = emailService;
-           
+            
+
             this.repositoryDZMembership = repositoryDZMembership;
             this.repositoryUserToken = repositoryUserToken;
             this.loginNameDetermine = loginNameDetermine;
+        }
+        public DZMembershipDomainService(   ):this(Bootstrap.Container.Resolve<IRepositoryDZMembership>()
+            , Bootstrap.Container.Resolve<IRepositoryUserToken>()
+           , Bootstrap.Container.Resolve<ILoginNameDetermine>()
+            )
+        {
+           
+             
         }
         public   bool ChangePassword(string username, string oldPassword, string newPassword,out string errMsg)
         {
