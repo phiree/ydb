@@ -23,6 +23,7 @@ namespace Dianzhu.Test.BLLTest.Finance
             var IBalanceFlowService = MockRepository.GenerateStub<IBalanceFlowService>();
             var IBLLSharePoint = MockRepository.GenerateStub<IBLLSharePoint>();
             var IAgentService = MockRepository.GenerateStub<BLL.Agent.IAgentService>();
+            var memberService = MockRepository.GenerateStub<Ydb.Membership.Application.IDZMembershipService>();
 
             Fixture fix = new Fixture();
             fix.Behaviors.Add(new OmitOnRecursionBehavior());
@@ -51,10 +52,10 @@ namespace Dianzhu.Test.BLLTest.Finance
             //amount
             order.NegotiateAmount = 100;
             //customerservice
-            var customerService = fix.Create<DZMembership>();
-            order.CustomerServiceId = customerService;
+            var customerService = fix.Create<Ydb.Membership.Application.Dto.MemberDto>();
+            order.CustomerServiceId = customerService.Id.ToString();
             //agent
-            var agent = fix.Create<DZMembership>();
+            var agent = fix.Create<Ydb.Membership.Application.Dto.MemberDto>();
             //该类别分成0.3
             IBLLServiceTypePoint.Stub(x => x.GetPoint(serviceType)).Return(0.3m);
             //该区域的代理是agent
@@ -67,7 +68,7 @@ namespace Dianzhu.Test.BLLTest.Finance
 
 
 
-            OrderShare ordershare = new OrderShare(IBLLServiceTypePoint,IBLLSharePoint,IAgentService,IBalanceFlowService);
+            OrderShare ordershare = new OrderShare(IBLLServiceTypePoint,IBLLSharePoint,IAgentService,IBalanceFlowService, memberService);
           IList<BalanceFlow> flows= ordershare.Share(order);
             
 
