@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Ydb.Membership.DomainModel.Enums;
 using System.Web;
 using Ydb.Membership.Infrastructure;
+using Ydb.Common.Infrastructure;
 namespace Ydb.Membership.DomainModel.Service
 {
    public  class Login3rd:ILogin3rd
@@ -17,16 +18,18 @@ namespace Ydb.Membership.DomainModel.Service
         IHttpRequest httpRequest;
         IDownloadAvatarToMediaServer avatarDownloader;
         IRepositoryDZMembership repMem;
+        IEncryptService encryptService;
 
-        public Login3rd(IHttpRequest httpRequest, IDownloadAvatarToMediaServer avatarDownloader)
-            : this(Bootstrap.Container.Resolve<IHttpRequest>(),
-                  Bootstrap.Container.Resolve<IDownloadAvatarToMediaServer>(),
-                  Bootstrap.Container.Resolve<IRepositoryDZMembership>()) { }
-        public Login3rd(IHttpRequest httpRequest, IDownloadAvatarToMediaServer avatarDownloader, IRepositoryDZMembership repMem)
+        
+        public Login3rd(IHttpRequest httpRequest, IDownloadAvatarToMediaServer avatarDownloader,
+            IRepositoryDZMembership repMem, IEncryptService encryptService)
         {
+            
             this.httpRequest = httpRequest;
             this.avatarDownloader = avatarDownloader;
-            this.repMem = repMem;
+            this.repMem = repMem;// Bootstrap.Container.Resolve<IRepositoryDZMembership>();
+            this.encryptService = encryptService;
+            
         }
         public DZMembership Login(string platform, string code, string appName, string userType)
         {
@@ -166,7 +169,7 @@ namespace Ydb.Membership.DomainModel.Service
             }
             member.Address = userObj.location;
             member.PlainPassword = tokenInfo.uid;
-            member.Password =Ydb.Common.Infrastructure.EncryptService.GetMD5Hash(tokenInfo.uid);
+            member.Password = encryptService.GetMD5Hash(tokenInfo.uid);
             member.UserType = (Enums.UserType)Enum.Parse(typeof( UserType), userType);
 
             return member;
@@ -274,7 +277,7 @@ namespace Ydb.Membership.DomainModel.Service
 
             member.Address = userObj.province + " " + userObj.city;
             member.PlainPassword = openidObj.openid;
-            member.Password = Ydb.Common.Infrastructure.EncryptService.GetMD5Hash(openidObj.openid);
+            member.Password = encryptService.GetMD5Hash(openidObj.openid);
             member.UserType = ( Enums. UserType)Enum.Parse(typeof( Enums.UserType), userType);
 
             return member;
@@ -368,7 +371,7 @@ namespace Ydb.Membership.DomainModel.Service
             }
             member.Address = userObj.province + " " + userObj.city;
             member.PlainPassword = userObj.openid;
-            member.Password =Ydb.Common.Infrastructure.EncryptService.GetMD5Hash(userObj.openid);
+            member.Password = encryptService.GetMD5Hash(userObj.openid);
             member.UserType = ( UserType)Enum.Parse(typeof( UserType), userType);
 
             return member;

@@ -9,6 +9,7 @@ using Ydb.Membership.DomainModel.Repository;
 using Rhino.Mocks;
 using FizzWare.NBuilder;
 using Ydb.Common.Application;
+using Ydb.Common.Infrastructure;
 namespace Ydb.Membership.DomainModel.Tests
 {
     [TestFixture()]
@@ -17,7 +18,7 @@ namespace Ydb.Membership.DomainModel.Tests
         IRepositoryDZMembership repositoryDZMembership;
         IRepositoryUserToken repositoryUserToken;
         IEmailService emailService;
-        
+
         ILoginNameDetermine loginNameDetermine;
         [SetUp]
         public void Setup()
@@ -39,7 +40,7 @@ namespace Ydb.Membership.DomainModel.Tests
               .CreateNew()
              .With(x => x.Password = "oldpassword")
               .Build();
-             ActionResult result = member.ChangePassword(oldpassword, newpassword_less_then_6, newpassword_less_then_6);
+            ActionResult result = member.ChangePassword(oldpassword, newpassword_less_then_6, newpassword_less_then_6);
 
             Assert.AreEqual(false, result.IsSuccess);
 
@@ -58,10 +59,10 @@ namespace Ydb.Membership.DomainModel.Tests
             string username = "user", password = "password";
             DZMembership membership = Builder<DZMembership>.CreateNew().Build();
             repositoryDZMembership.Stub(x => x.ValidateUser(username, "5f4dcc3b5aa765d61d8327deb882cf99")).Return(membership);
-            
-            IDZMembershipDomainService mds = new DZMembershipDomainService(   );
+
+            IDZMembershipDomainService mds = new DZMembershipDomainService(repositoryDZMembership, null, null, null);
             string errMsg;
-           DZMembership m=  mds.ValidateUser(username, password, false, out errMsg);
+            DZMembership m = mds.ValidateUser(username, password, false, out errMsg);
 
             Assert.AreEqual(membership, m);
         }
@@ -72,7 +73,7 @@ namespace Ydb.Membership.DomainModel.Tests
             DZMembership membership = Builder<DZMembership>.CreateNew().Build();
             repositoryDZMembership.Stub(x => x.ValidateUser(username, "25f4dcc3b5aa765d61d8327deb882cf99")).Return(membership);
 
-            IDZMembershipDomainService mds = new DZMembershipDomainService(   );
+            IDZMembershipDomainService mds = new DZMembershipDomainService(repositoryDZMembership, null, null, null);
             string errMsg;
             DZMembership m = mds.ValidateUser(username, password, false, out errMsg);
             Assert.AreEqual(null, m);

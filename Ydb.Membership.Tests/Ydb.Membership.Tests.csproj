@@ -125,6 +125,7 @@
     <None Include="app.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="config\connectionstrings.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -132,7 +133,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\" />
-    <Folder Include="config\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="acknowledgements.txt" />

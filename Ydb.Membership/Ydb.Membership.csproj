@@ -94,21 +94,15 @@
     <Compile Include="Application\Dto\RegisterResult.cs" />
     <Compile Include="Application\DZMembershipService.cs" />
     <Compile Include="Application\IDZMembershipService.cs" />
-    <Compile Include="Application\InstallerMembership.cs" />
     <Compile Include="DomainModel\Config.cs" />
     <Compile Include="DomainModel\Dicts.cs" />
-    <Compile Include="DomainModel\IDownloadAvatarToMediaServer.cs" />
-    <Compile Include="DomainModel\IHttpRequest.cs" />
     <Compile Include="DomainModel\Service\IDZMembershipDomainService.cs" />
     <Compile Include="DomainModel\Service\DZMembershipDomainService.cs" />
     <Compile Include="DomainModel\Service\ILogin3rd.cs" />
     <Compile Include="DomainModel\Service\Login3rd.cs" />
     <Compile Include="DomainModel\Service\U3RD_Model.cs" />
-    <Compile Include="Infrastructure\Bootstrap.cs" />
-    <Compile Include="Infrastructure\DownloadAvatarToMediaServer.cs" />
-    <Compile Include="Infrastructure\HttpRequestImpl.cs" />
-    <Compile Include="Infrastructure\InstallerMembershipDB.cs" />
-    <Compile Include="Infrastructure\InstallerMembership.cs" />
+    <Compile Include="Installers\InstallerMembershipDB.cs" />
+    <Compile Include="Installers\InstallerMembership.cs" />
     <Compile Include="DomainModel\DZMembership.cs" />
     <Compile Include="Application\DZMembershipProvider.cs" />
     <Compile Include="DomainModel\DZMembershipSinaWeibo.cs" />
@@ -117,11 +111,11 @@
     <Compile Include="DomainModel\Enums\LoginNameType.cs" />
     <Compile Include="DomainModel\Enums\UserType.cs" />
     <Compile Include="DomainModel\Enums\LoginType.cs" />
-    <Compile Include="DomainModel\IEmailService.cs" />
     <Compile Include="DomainModel\LoginNameDetermine.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryUserToken.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryDZMembership.cs" />
     <Compile Include="DomainModel\UserToken.cs" />
+    <Compile Include="Installers\InstallerMembershipUnitOfWork.cs" />
     <Compile Include="Infrastructure\LoginNameDetermine.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipQQMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipSinaWeiboMap.cs" />
@@ -129,11 +123,12 @@
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryUserToken.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryDZMembership.cs" />
+    <Compile Include="Infrastructure\UnitOfWork\NHibernateUnitOfWork.cs" />
+    <Compile Include="Infrastructure\UnitOfWork\NHRepository.cs" />
+    <Compile Include="Infrastructure\UnitOfWork\NhUnitOfWorkInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Infrastructure\UnitOfWork\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
       <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>

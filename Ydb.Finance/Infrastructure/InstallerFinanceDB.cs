@@ -14,18 +14,21 @@ using NHibernate.Tool.hbm2ddl;
 using Castle.Windsor;
 using Ydb.Finance.DomainModel;
 using Ydb.Common.Infrastructure;
+using System.Configuration;
+
 namespace Ydb.Finance.Infrastructure
 {
     internal class InstallerFinanceDB : IWindsorInstaller
     {
         string dbType;
         string connectionString;
-
+       
         public InstallerFinanceDB(string dbType,
-        string connectionString,)
+        string connectionString)
         {
             this.connectionString = connectionString;
             this.dbType = dbType;
+        
         }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
@@ -55,8 +58,8 @@ namespace Ydb.Finance.Infrastructure
                               MySQLConfiguration
                              .Standard
                              .ConnectionString(
-                                  PHSuit.Security.Decrypt(connectionString
-                               , false)
+                                connectionString
+                               
                                 )
                            )
                           .ExposeConfiguration(c =>

@@ -22,15 +22,18 @@ namespace Ydb.Membership.Application
         IEmailService emailService;
         IRepositoryDZMembership repositoryMembership;
         ILogin3rd login3rdService;
+        IEncryptService encryptService;
 
-
-        public DZMembershipService(  IEmailService emailService)
+        public DZMembershipService(IDZMembershipDomainService dzmembershipDomainService,
+            IRepositoryDZMembership repositoryMembership,
+            IEmailService emailService,IEncryptService encryptService,
+            ILogin3rd login3rdService)
         {
-            this.dzmembershipDomainService = Bootstrap.Container.Resolve<IDZMembershipDomainService>();
-            this.login3rdService= Bootstrap.Container.Resolve<ILogin3rd>();
+            this.dzmembershipDomainService = dzmembershipDomainService;// Bootstrap.Container.Resolve<IDZMembershipDomainService>();
+            this.login3rdService = login3rdService;// Bootstrap.Container.Resolve<ILogin3rd>();
             this.emailService = emailService;
-            this.repositoryMembership = Bootstrap.Container.Resolve<IRepositoryDZMembership>();
-          
+            this.repositoryMembership = repositoryMembership;// Bootstrap.Container.Resolve<IRepositoryDZMembership>();
+            this.encryptService = encryptService;
 
         }
 
@@ -51,6 +54,11 @@ namespace Ydb.Membership.Application
             }
             string errMsg;
             DZMembership createdUser = dzmembershipDomainService.CreateUser(registerName, password, userType, out errMsg);
+            if (!string.IsNullOrEmpty(errMsg))
+            {
+                registerResult.RegisterSuccess = false;
+                registerResult.RegisterErrMsg = errMsg;
+            }
             if (!string.IsNullOrEmpty(createdUser.Email))
             {
                 try
@@ -231,11 +239,11 @@ namespace Ydb.Membership.Application
         public ActionResult RecoveryPassword(string recoveryString, string newPassword)
         {
             string[] recoveryParameters = recoveryString.Split(new string[] { Config.pwssword_recovery_spliter }, StringSplitOptions.None);
-            string userName = EncryptService.Decrypt(recoveryParameters[0], false);
+            string userName = encryptService.Decrypt(recoveryParameters[0], false);
             string recoveryCode = recoveryParameters[1];
 
             DZMembership member = repositoryMembership.GetMemberByName(userName);
-            return member.RecoveryPassword(recoveryCode, newPassword, EncryptService.GetMD5Hash(newPassword));
+            return member.RecoveryPassword(recoveryCode, newPassword, encryptService.GetMD5Hash(newPassword));
 
 
         }
@@ -244,8 +252,8 @@ namespace Ydb.Membership.Application
         public ActionResult ChangePassword(string userName, string oldPassword, string newPassword)
         {
             DZMembership member = repositoryMembership.GetMemberByName(userName);
-            string oldEncryptedPassword = EncryptService.GetMD5Hash(oldPassword);
-            string newEncryptedPassword = EncryptService.GetMD5Hash(newPassword);
+            string oldEncryptedPassword = encryptService.GetMD5Hash(oldPassword);
+            string newEncryptedPassword = encryptService.GetMD5Hash(newPassword);
             return member.ChangePassword(oldEncryptedPassword, newPassword, newEncryptedPassword);
         }
 

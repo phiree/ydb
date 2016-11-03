@@ -8,7 +8,7 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
-
+using Ydb.Common.Infrastructure;
 namespace Ydb.InstantMessage.Tests
 {
     public class Bootstrap
@@ -23,8 +23,12 @@ namespace Ydb.InstantMessage.Tests
         {
             container = new WindsorContainer();
             container.Install(
-
-                new Ydb.InstantMessage.Application.InstallerInstantMessage("sqlite","ydb_instantmessage.db3")
+                new Ydb.Infrastructure.Installer()
+                );
+            container.Install(
+new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
+new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(container.Resolve<IEncryptService>()),
+new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
                 );
         }
         

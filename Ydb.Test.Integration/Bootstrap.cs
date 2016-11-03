@@ -7,7 +7,7 @@ using Castle.Windsor;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
-
+using Ydb.Common.Infrastructure;
 namespace Ydb.Test.Integration
 {
     public class Bootstrap
@@ -21,24 +21,28 @@ namespace Ydb.Test.Integration
         public static void Boot()
         {
             container = new WindsorContainer();
+           
             container.Install(
-                new Ydb.Infrastructure.Installer(),
-                //new Ydb.Finance.Application.InstallerFinanceDB(),
-                new Ydb.Finance.Application.InstallerFinance(BuildConfig("test_finance.db3")),
-                new Ydb.Membership.Application.InstallerMembership(BuildConfig("test_membership.db3"))
+                new Ydb.Infrastructure.Installer()
                 );
-        }
-        private static FluentConfiguration BuildConfig(string fileName)
-        {
+            container.Install(
+new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
+new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(container.Resolve<IEncryptService>()),
+new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
+                );
 
-            FluentConfiguration config = Fluently.Configure()
-                             .Database(
-                               SQLiteConfiguration
-                              .Standard
-                        .UsingFile(fileName)
-                        )
-                      .ExposeConfiguration(schemaConfig => { new SchemaExport(schemaConfig).Create(true, true); });
-            return config;
+            container.Install(
+             
+               new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
+               new Ydb.Membership.Infrastructure.InstallerMembership(),            
+               new Ydb.Membership.Application.InstallerMembershipDB(container.Resolve<IEncryptService>())
+                // new Application.InstallerMembershipTestDB()
+
+
+
+                );
+
         }
+      
     }
 }
