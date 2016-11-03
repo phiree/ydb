@@ -29,9 +29,9 @@ namespace Ydb.Membership.DomainModel
         {
 
 
-            this.repositoryDZMembership = Bootstrap.Container.Resolve<IRepositoryDZMembership>();
-            this.repositoryUserToken = Bootstrap.Container.Resolve<IRepositoryUserToken>();
-            this.loginNameDetermine = Bootstrap.Container.Resolve<ILoginNameDetermine>();
+            this.repositoryDZMembership = repositoryDZMembership;// Bootstrap.Container.Resolve<IRepositoryDZMembership>();
+            this.repositoryUserToken = repositoryUserToken;// Bootstrap.Container.Resolve<IRepositoryUserToken>();
+            this.loginNameDetermine = loginNameDetermine;// Bootstrap.Container.Resolve<ILoginNameDetermine>();
             this.encryptService = encryptService;
         }
        

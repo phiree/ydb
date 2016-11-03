@@ -5,6 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.DependencyInstaller;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using System.Configuration;
+using NHibernate.Tool.hbm2ddl;
 
 namespace Dianzhu.CSClient
 {
@@ -20,14 +24,21 @@ namespace Dianzhu.CSClient
         {
             container = new WindsorContainer();
             container.Install(
-                new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
-                new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
-                new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(),
-                new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(),
-                
-                new Ydb.Membership.Application.InstallerMembership(),
-                new Ydb.Membership.Application.InstallerMembershipDB(),
-                
+
+               new Ydb.InstantMessage.Application.InstallerInstantMessage(
+                        BuildConfig(System.Configuration.ConfigurationManager
+                            .ConnectionStrings["ydb_instantmessage"].ConnectionString)
+                            ),
+
+
+
+
+                new Ydb.Membership.Application.InstallerMembership(
+                     BuildConfig(System.Configuration.ConfigurationManager
+                            .ConnectionStrings["ydb_membership"].ConnectionString)
+                    ),
+
+
                 new Ydb.Infrastructure.Installer(),
                 new InstallerComponent(),
                 new InstallerInfrstructure(),
@@ -39,6 +50,26 @@ namespace Dianzhu.CSClient
             Ydb.Membership.Application.AutoMapperConfiguration.Configure();
 
 
+        }
+        public static FluentNHibernate.Cfg.FluentConfiguration BuildConfig(string connectionstring)
+        {
+            var config = Fluently.Configure()
+                         .Database(
+                              MySQLConfiguration
+                             .Standard
+                             .ConnectionString(
+                                  PHSuit.Security.Decrypt(connectionstring
+                               , false)
+                                )
+                           )
+                          .ExposeConfiguration(c =>
+                          {
+                              if (ConfigurationManager.AppSettings["UpdateSchema"] == "1")
+                              {
+                                  new SchemaUpdate(c).Execute(true, true);
+                              }
+                          });
+            return config;
         }
 
 

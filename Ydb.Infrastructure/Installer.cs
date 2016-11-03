@@ -11,6 +11,8 @@ namespace Ydb.Infrastructure
         {
             container.Register(Component.For<IEmailService>().ImplementedBy<EmailService>());
             container.Register(Component.For<IEncryptService>().ImplementedBy<EncryptService>());
+            container.Register(Component.For<IHttpRequest>().ImplementedBy<HttpRequestImpl>());
+            container.Register(Component.For<IDownloadAvatarToMediaServer>().ImplementedBy<DownloadAvatarToMediaServer>());
         }
 
       

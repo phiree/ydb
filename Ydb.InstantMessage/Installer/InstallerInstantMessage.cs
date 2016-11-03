@@ -21,27 +21,35 @@ using Ydb.InstantMessage.Application;
 
 namespace Ydb.InstantMessage.Infrastructure
 {
-    internal class InstallerIntantMessage : IWindsorInstaller
+    public class InstallerInstantMessage : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-           
+            //   new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
             InstallInfrastructure(container, store);
             InstallDomainService(container, store);
             InstallRepository(container, store);
-           
+            InstallApplicationService(container, store);
         }
 
         private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IRepositoryReception>().ImplementedBy<RepositoryReception>()) ;
-            container.Register(Component.For<IRepositoryChat>().ImplementedBy<RepositoryChat>()  );
-          
+            container.Register(Component.For<IRepositoryReception>().ImplementedBy<RepositoryReception>()
+                 .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
+                );
+            container.Register(Component.For<IRepositoryChat>().ImplementedBy<RepositoryChat>()
+                    .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
+                );
+
         }
-     
+        private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
+        {
+            container.Register(Component.For<IReceptionService>().ImplementedBy<Ydb.InstantMessage.Application.ReceptionService>());
+            container.Register(Component.For<IChatService>().ImplementedBy<Ydb.InstantMessage.Application.ChatService>());
+        }
         private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
         {
-                //OpenFire
+            //OpenFire
             string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
             string domain = Dianzhu.Config.Config.GetAppSetting("ImDomain");
             container.Register(Component.For<IInstantMessage>().ImplementedBy<OpenfireXMPP>()
@@ -51,7 +59,11 @@ namespace Ydb.InstantMessage.Infrastructure
                                 )
                             );
         }
-        
+        private void BuildSchema(Configuration config)
+        {
+            SchemaUpdate update = new SchemaUpdate(config);
+            update.Execute(true, true);
+        }
         private void InstallDomainService(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<AssignStratage>().ImplementedBy<Ydb.InstantMessage.DomainModel.Reception.AssignStratageRandom>());

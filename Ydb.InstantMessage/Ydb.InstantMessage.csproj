@@ -107,7 +107,7 @@
     <Compile Include="Application\ChatService.cs" />
     <Compile Include="Application\Dto\ReceptionStatusDto.cs" />
     <Compile Include="Application\IChatService.cs" />
-    <Compile Include="Application\InstallerInstantMessage.cs" />
+    <Compile Include="Installer\InstallerInstantMessage.cs" />
     <Compile Include="Application\ReceptionService.cs" />
     <Compile Include="Application\IReceptionService.cs" />
     <Compile Include="DomainModel\Chat\Enums\ChatTarget.cs" />
@@ -138,15 +138,17 @@
     <Compile Include="DomainModel\Reception\ReceptionAssigner.cs" />
     <Compile Include="DomainModel\Reception\ReceptionStatus.cs" />
     <Compile Include="DomainModel\XmppResource.cs" />
-    <Compile Include="Infrastructure\Ioc\Bootstrap.cs" />
-    <Compile Include="Infrastructure\Ioc\InstallerDB.cs" />
-    <Compile Include="Infrastructure\Ioc\Installer.cs" />
+    <Compile Include="Installer\InstallerInstantMessageUnitOfWork.cs" />
+    <Compile Include="Installer\InstallerInstantMessageDB.cs" />
     <Compile Include="Infrastructure\ReceptionSessionOpenfireRestapi.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\ChatRepository.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ReceptionChatMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ReceptionStatusMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\ReceptionRepository.cs" />
     <Compile Include="Infrastructure\OpenfireXMPP.cs" />
+    <Compile Include="Infrastructure\UnitOfWork\NHibernateUnitOfWork.cs" />
+    <Compile Include="Infrastructure\UnitOfWork\NHRepository.cs" />
+    <Compile Include="Infrastructure\UnitOfWork\NhUnitOfWorkInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

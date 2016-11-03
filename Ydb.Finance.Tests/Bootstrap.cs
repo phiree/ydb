@@ -8,6 +8,8 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
+using Ydb.Common.Infrastructure;
+using System.Configuration;
 
 namespace Ydb.Finance.Tests
 {
@@ -22,23 +24,15 @@ namespace Ydb.Finance.Tests
         public static void Boot()
         {
             container = new WindsorContainer();
+
+         
+
             container.Install(
                
-                new Ydb.Finance.Application.InstallerFinance(BuildConfig())
+                new Ydb.Finance.Application.InstallerFinance("sqlite","test_finance.db3")
                 );
         }
-        private  static FluentConfiguration BuildConfig()
-        {
-
-            FluentConfiguration config = Fluently.Configure()
-                             .Database(
-                               SQLiteConfiguration
-                              .Standard
-                        .UsingFile("test.db3")
-                        )
-                      .ExposeConfiguration(schemaConfig=> { new SchemaExport(schemaConfig).Create(true, true); });
-            return config;
-        }
+        
        
     }
 }

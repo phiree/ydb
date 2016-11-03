@@ -27,7 +27,7 @@ namespace Ydb.Membership.DomainModel.Service
             
             this.httpRequest = httpRequest;
             this.avatarDownloader = avatarDownloader;
-            this.repMem = Bootstrap.Container.Resolve<IRepositoryDZMembership>();
+            this.repMem = repMem;// Bootstrap.Container.Resolve<IRepositoryDZMembership>();
             this.encryptService = encryptService;
             
         }

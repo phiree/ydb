@@ -17,6 +17,8 @@ using Ydb.Membership.Infrastructure;
 using Ydb.Membership.Infrastructure.Repository.NHibernate;
 using Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping;
 using Ydb.Membership.DomainModel.Service;
+using Ydb.Membership.Application;
+
 namespace Ydb.Membership.Infrastructure
 {
     public class InstallerMembership : IWindsorInstaller
@@ -26,7 +28,9 @@ namespace Ydb.Membership.Infrastructure
             
             InstallDomainService(container, store);
             InstallRepository(container, store);
-            
+            InstallApplicationService(container, store);
+
+            AutoMapperConfiguration.Configure();
         }
 
         
@@ -45,12 +49,11 @@ namespace Ydb.Membership.Infrastructure
             container.Register(Component.For<ILogin3rd>().ImplementedBy<Login3rd>());
             
         }
-        private void InstallInstructure(IWindsorContainer container, IConfigurationStore store)
+        private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
         {
-            
-            
-
+            container.Register(Component.For<IDZMembershipService>().ImplementedBy<DZMembershipService>());
         }
+
     }
     
 }

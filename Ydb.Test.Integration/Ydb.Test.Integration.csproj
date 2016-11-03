@@ -88,7 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
-    <Compile Include="FinanceAndMembershipTest.cs" />
+    <Compile Include="InstantMessageAndMembershipTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -101,10 +101,6 @@
     <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
       <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
       <Name>Ydb.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ydb.Finance\Ydb.Finance.csproj">
-      <Project>{343214f8-a523-4bda-b783-4d77942269b9}</Project>
-      <Name>Ydb.Finance</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ydb.Infrastructure\Ydb.Infrastructure.csproj">
       <Project>{3d510583-1c11-48fb-8380-12e183e5914b}</Project>

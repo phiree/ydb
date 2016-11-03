@@ -4,15 +4,17 @@ using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Ydb.Common.Infrastructure;
 
 namespace Ydb.Membership.Tests
 {
     public class Bootstrap
     {
+
         static IWindsorContainer container;
         public static IWindsorContainer Container
         {
@@ -23,26 +25,24 @@ namespace Ydb.Membership.Tests
         {
             
             container = new WindsorContainer();
+
+
             container.Install(
                 new Ydb.Infrastructure.Installer(),
-               new Ydb.Membership.Application.InstallerMembership(BuildConfig())
+                new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
+                new Ydb.Membership.Infrastructure.InstallerMembership());
+            container.Install(
+               new Ydb.Membership.Application.InstallerMembershipDB(container.Resolve<IEncryptService>())
+               // new Application.InstallerMembershipTestDB()
+                
+                
                
                 );
+         
             
             
         }
-        private static FluentConfiguration BuildConfig()
-        {
-
-            FluentConfiguration config = Fluently.Configure()
-                             .Database(
-                               SQLiteConfiguration
-                              .Standard
-                        .UsingFile("test_membership.db3")
-                        )
-                      .ExposeConfiguration(schemaConfig => { new SchemaExport(schemaConfig).Create(true, true); });
-            return config;
-        }
+         
 
 
     }

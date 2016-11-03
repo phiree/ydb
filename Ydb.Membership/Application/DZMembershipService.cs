@@ -24,12 +24,15 @@ namespace Ydb.Membership.Application
         ILogin3rd login3rdService;
         IEncryptService encryptService;
 
-        public DZMembershipService(  IEmailService emailService,IEncryptService encryptService)
+        public DZMembershipService(IDZMembershipDomainService dzmembershipDomainService,
+            IRepositoryDZMembership repositoryMembership,
+            IEmailService emailService,IEncryptService encryptService,
+            ILogin3rd login3rdService)
         {
-            this.dzmembershipDomainService = Bootstrap.Container.Resolve<IDZMembershipDomainService>();
-            this.login3rdService= Bootstrap.Container.Resolve<ILogin3rd>();
+            this.dzmembershipDomainService = dzmembershipDomainService;// Bootstrap.Container.Resolve<IDZMembershipDomainService>();
+            this.login3rdService = login3rdService;// Bootstrap.Container.Resolve<ILogin3rd>();
             this.emailService = emailService;
-            this.repositoryMembership = Bootstrap.Container.Resolve<IRepositoryDZMembership>();
+            this.repositoryMembership = repositoryMembership;// Bootstrap.Container.Resolve<IRepositoryDZMembership>();
             this.encryptService = encryptService;
 
         }
@@ -51,6 +54,11 @@ namespace Ydb.Membership.Application
             }
             string errMsg;
             DZMembership createdUser = dzmembershipDomainService.CreateUser(registerName, password, userType, out errMsg);
+            if (!string.IsNullOrEmpty(errMsg))
+            {
+                registerResult.RegisterSuccess = false;
+                registerResult.RegisterErrMsg = errMsg;
+            }
             if (!string.IsNullOrEmpty(createdUser.Email))
             {
                 try
