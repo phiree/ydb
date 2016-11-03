@@ -42,5 +42,15 @@ namespace Ydb.Finance.Application
         /// true为收入，false为支出
         /// </summary>
         public bool Income { get; set; }
+
+        /// <summary>
+        /// true为收入，false为支出
+        /// </summary>
+        public string AmountTotal { get; set; }
+
+        /// <summary>
+        /// true为收入，false为支出
+        /// </summary>
+        public string Rate { get; set; }
     }
 }

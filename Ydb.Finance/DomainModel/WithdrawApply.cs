@@ -3,31 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ydb.Finance.DomainModel.Enums;
 using Ydb.Common.Domain;
+
 namespace Ydb.Finance.DomainModel
 {
-    internal class BalanceFlow : Entity<Guid>
+    internal class WithdrawApply : Entity<Guid>
     {
         /// <summary>
         /// 用户账户ID
         /// </summary>
-        public virtual string AccountId { get; set; }
+        public virtual string ApplyUserId { get; set; }
 
         /// <summary>
         /// 本次发生金额
         /// </summary>
-        public virtual decimal Amount { get; set; }
+        public virtual decimal ApplyAmount { get; set; }
 
         /// <summary>
         /// 发生时间
         /// </summary>
-        public virtual DateTime OccurTime { get; set; }
+        public virtual DateTime ApplyTime { get; set; }
 
         /// <summary>
         /// 关联对象的Id, 比如 订单, 提现单,充值单..等等.
         /// </summary>
-        public virtual string RelatedObjectId { get; set; }
+        public virtual BalanceAccount RelatedObjectId { get; set; }
 
         /// <summary>
         /// 发生类型
@@ -49,5 +49,4 @@ namespace Ydb.Finance.DomainModel
         /// </summary>
         public virtual string Rate { get; set; }
     }
-  
 }
