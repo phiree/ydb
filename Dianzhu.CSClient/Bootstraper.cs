@@ -9,7 +9,7 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using System.Configuration;
 using NHibernate.Tool.hbm2ddl;
-
+using Ydb.Common.Infrastructure;
 namespace Dianzhu.CSClient
 {
     public class Bootstrap
@@ -23,23 +23,28 @@ namespace Dianzhu.CSClient
         public static void Boot()
         {
             container = new WindsorContainer();
+
+            //领域注册
+            container.Install(
+                new Ydb.Infrastructure.Installer()
+                );
+            container.Install(
+            new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
+            new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(container.Resolve<IEncryptService>()),
+            new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
+                );
+
             container.Install(
 
-               new Ydb.InstantMessage.Application.InstallerInstantMessage(
-                        BuildConfig(System.Configuration.ConfigurationManager
-                            .ConnectionStrings["ydb_instantmessage"].ConnectionString)
-                            ),
+               new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
+               new Ydb.Membership.Infrastructure.InstallerMembership(),
+               new Ydb.Membership.Application.InstallerMembershipDB(container.Resolve<IEncryptService>())
+                // new Application.InstallerMembershipTestDB()
 
 
 
-
-                new Ydb.Membership.Application.InstallerMembership(
-                     BuildConfig(System.Configuration.ConfigurationManager
-                            .ConnectionStrings["ydb_membership"].ConnectionString)
-                    ),
-
-
-                new Ydb.Infrastructure.Installer(),
+                );
+            container.Install(
                 new InstallerComponent(),
                 new InstallerInfrstructure(),
                 new InstallerRepository(),
@@ -47,7 +52,7 @@ namespace Dianzhu.CSClient
                 new InstallerUI()
                 );
 
-            Ydb.Membership.Application.AutoMapperConfiguration.Configure();
+          
 
 
         }
