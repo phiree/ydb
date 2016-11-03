@@ -17,7 +17,7 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor.Installer;
 using Dianzhu.ApplicationService;
 using Ydb.Common.Infrastructure;
-
+using AutoMapper;
 namespace Dianzhu.Web.RestfulApi
 {
     public class Bootstrap
@@ -57,10 +57,13 @@ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
             // new Application.InstallerMembershipTestDB()
             new InstallerRestfulApi()
                 );
-
-            Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
-            Ydb.Membership.Application.AutoMapperConfiguration.Configure();
-
+           // Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
+            Mapper.Initialize(x =>
+            {
+                x.AddProfile<ApplicationService.Mapping.ModelToDtoMappingProfile>();
+                x.AddProfile<ApplicationService.Mapping.DtoToModelMappingProfile>();
+                x.AddProfile<Ydb.Membership.Application.ModelToDtoMappingProfile>();
+            });
         }
     }
 }
