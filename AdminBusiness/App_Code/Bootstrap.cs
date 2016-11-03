@@ -42,6 +42,12 @@ public class Bootstrap
 
 
             );
+        // Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
+       AutoMapper.Mapper.Initialize(x =>
+        {
+            
+            x.AddProfile<Ydb.Membership.Application.ModelToDtoMappingProfile>();
+        });
     }
     
 

@@ -1,21 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Castle.Windsor;
-using Castle.MicroKernel.Registration;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
-using Dianzhu.IDAL;
-using Dianzhu.DAL;
-using Dianzhu.BLL;
-using NHibernate;
-using System.Configuration;
-using nhf = FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
-using NHibernate.Tool.hbm2ddl;
-using Castle.MicroKernel.SubSystems.Configuration;
-using Castle.Windsor.Installer;
-using Dianzhu.DependencyInstaller;
+﻿using Castle.Windsor;
+using Ydb.Common.Infrastructure;
 /// <summary>
 /// Summary description for Installer
 /// </summary>
@@ -32,20 +16,38 @@ public class Bootstrap
     {
         container = new WindsorContainer();
         container.Install(
-            new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(),
-            new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(),
-            new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
-            new Ydb.Membership.Application.InstallerMembership(),
-            new Ydb.Membership.Application.InstallerMembershipDB(),
-            new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
             new Dianzhu.DependencyInstaller.InstallerComponent(),
             new Dianzhu.DependencyInstaller.InstallerInfrstructure(),
             new Dianzhu.DependencyInstaller.InstallerRepository(),
-            new Dianzhu.DependencyInstaller.InstallerApplicationService(),
-            new InstallerApi()
-           
+            new Dianzhu.DependencyInstaller.InstallerApplicationService()
             );
-        
+
+
+
+        container.Install(
+            new Ydb.Infrastructure.Installer()
+            );
+        container.Install(
+new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
+new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(container.Resolve<IEncryptService>()),
+new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
+            );
+
+        container.Install(
+
+           new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
+           new Ydb.Membership.Infrastructure.InstallerMembership(),
+           new Ydb.Membership.Application.InstallerMembershipDB(container.Resolve<IEncryptService>())
+        // new Application.InstallerMembershipTestDB()
+       
+            );
+        // Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
+       AutoMapper.Mapper.Initialize(x =>
+        {
+           
+            x.AddProfile<Ydb.Membership.Application.ModelToDtoMappingProfile>();
+        });
+
 
     }
 
