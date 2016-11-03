@@ -13,6 +13,7 @@ namespace Ydb.Membership.Tests
 {
     public class Bootstrap
     {
+
         static IWindsorContainer container;
         public static IWindsorContainer Container
         {
@@ -25,24 +26,13 @@ namespace Ydb.Membership.Tests
             container = new WindsorContainer();
             container.Install(
                 new Ydb.Infrastructure.Installer(),
-               new Ydb.Membership.Application.InstallerMembership(BuildConfig())
+               new Ydb.Membership.Application.InstallerMembership("sqlite", "ydb_membership.db3")
                
                 );
             
             
         }
-        private static FluentConfiguration BuildConfig()
-        {
-
-            FluentConfiguration config = Fluently.Configure()
-                             .Database(
-                               SQLiteConfiguration
-                              .Standard
-                        .UsingFile("test_membership.db3")
-                        )
-                      .ExposeConfiguration(schemaConfig => { new SchemaExport(schemaConfig).Create(true, true); });
-            return config;
-        }
+         
 
 
     }

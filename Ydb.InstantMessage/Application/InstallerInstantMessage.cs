@@ -19,14 +19,18 @@ namespace Ydb.InstantMessage.Application
 {
     public class InstallerInstantMessage : IWindsorInstaller
     {
-        FluentConfiguration config;
-        public InstallerInstantMessage(FluentConfiguration config)
+        string dbType;
+        string connectionString;
+
+        public InstallerInstantMessage(string dbType,
+        string connectionString)
         {
-            this.config = config;
+            this.connectionString = connectionString;
+            this.dbType = dbType;
         }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            Ydb.InstantMessage.Infrastructure.Bootstrap.Boot(config);
+            Ydb.InstantMessage.Infrastructure.Bootstrap.Boot(dbType,connectionString);
             InstallApplicationService(container, store);
         }
 

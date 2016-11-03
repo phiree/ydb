@@ -24,21 +24,10 @@ namespace Ydb.InstantMessage.Tests
             container = new WindsorContainer();
             container.Install(
 
-                new Ydb.InstantMessage.Application.InstallerInstantMessage(BuildConfig())
+                new Ydb.InstantMessage.Application.InstallerInstantMessage("sqlite","ydb_instantmessage.db3")
                 );
         }
-        private static FluentConfiguration BuildConfig()
-        {
-
-            FluentConfiguration config = Fluently.Configure()
-                             .Database(
-                               SQLiteConfiguration
-                              .Standard
-                        .UsingFile("test_instantmessage.db3")
-                        )
-                      .ExposeConfiguration(schemaConfig => { new SchemaExport(schemaConfig).Create(true, true); });
-            return config;
-        }
+        
 
     }
 }

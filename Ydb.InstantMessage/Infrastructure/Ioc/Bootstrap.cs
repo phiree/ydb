@@ -18,12 +18,12 @@ namespace Ydb.InstantMessage.Infrastructure
             get { return container; }
             private set { container = value; }
         }
-        public static void Boot(FluentNHibernate.Cfg.FluentConfiguration config)
+        public static void Boot(string dbType, string connectionString)
         {
             container = new WindsorContainer();
             //container=container1;
             container.Install(
-            new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(config),
+            new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(dbType,connectionString),
             new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage()
                 );
            

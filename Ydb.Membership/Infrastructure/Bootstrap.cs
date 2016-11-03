@@ -19,12 +19,12 @@ namespace Ydb.Membership.Infrastructure
             get { return container; }
             private set { container = value; }
         }
-        public static void Boot(FluentNHibernate.Cfg.FluentConfiguration config)
+        public static void Boot(string dbType,string connectionString)
         {
             container = new WindsorContainer();
             //container=container1;
             container.Install(
-            new Ydb.Membership.Infrastructure.InstallerMembershipDB(config),
+            new Ydb.Membership.Infrastructure.InstallerMembershipDB(dbType, connectionString),
             new Ydb.Membership.Infrastructure.InstallerMembership()
                 );
             Ydb.Membership.Application.AutoMapperConfiguration.Configure();

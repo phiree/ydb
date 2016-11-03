@@ -18,26 +18,73 @@ using Ydb.InstantMessage.DomainModel.Reception;
 using Ydb.InstantMessage.Infrastructure.Repository.NHibernate;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.Application;
+using System.Configuration;
 
 namespace Ydb.InstantMessage.Infrastructure
 {
     internal class InstallerIntantMessageDB : IWindsorInstaller
     {
-        FluentConfiguration config;
-        public InstallerIntantMessageDB(FluentConfiguration config)
+        string dbType;
+        string connectionString;
+
+        public InstallerIntantMessageDB(string dbType,
+        string connectionString)
         {
-            this.config = config;
+            this.connectionString = connectionString;
+            this.dbType = dbType;
         }
+
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
  
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-            container.Register(Component.For<ISessionFactory>().Instance(config
+            container.Register(Component.For<ISessionFactory>().Instance(BuildConfig()
             .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping.ReceptionChatMap>())
             .BuildSessionFactory()));
         }
-       
 
+        FluentConfiguration BuildConfig()
+        {
+            switch (dbType)
+            {
+                case "mysql": return BuildMysqlConfig();
+                case "sqlite": return BuildSqliteConfig();
+            }
+
+            throw new Exception("不支持的数据库类型:" + dbType);
+        }
+        FluentNHibernate.Cfg.FluentConfiguration BuildMysqlConfig()
+        {
+            var config = Fluently.Configure()
+                         .Database(
+                              MySQLConfiguration
+                             .Standard
+                             .ConnectionString(
+                                  PHSuit.Security.Decrypt(connectionString
+                               , false)
+                                )
+                           )
+                          .ExposeConfiguration(c =>
+                          {
+                              if (ConfigurationManager.AppSettings["UpdateSchema"] == "1")
+                              {
+                                  new SchemaUpdate(c).Execute(true, true);
+                              }
+                          });
+            return config;
+        }
+        FluentConfiguration BuildSqliteConfig()
+        {
+
+            FluentConfiguration config = Fluently.Configure()
+                             .Database(
+                               SQLiteConfiguration
+                              .Standard
+                        .UsingFile(connectionString)
+                        )
+                      .ExposeConfiguration(schemaConfig => { new SchemaExport(schemaConfig).Create(true, true); });
+            return config;
+        }
     }
 }

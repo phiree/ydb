@@ -18,15 +18,19 @@ namespace Ydb.Membership.Application
 {
     public class InstallerMembership : IWindsorInstaller
     {
-        FluentConfiguration config;
-        public InstallerMembership(FluentConfiguration config)
+        string dbType;
+        string connectionString;
+
+        public InstallerMembership (string dbType,
+        string connectionString)
         {
-            this.config = config;
+            this.connectionString = connectionString;
+            this.dbType = dbType;
         }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             
-            Ydb.Membership.Infrastructure.Bootstrap.Boot(config);
+            Ydb.Membership.Infrastructure.Bootstrap.Boot(dbType,connectionString);
             InstallApplicationService(container, store);
         }
         
