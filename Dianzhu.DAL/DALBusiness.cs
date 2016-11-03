@@ -109,12 +109,12 @@ namespace Dianzhu.DAL
 
         }
 
-        public int GetEnableSum(DZMembership member)
+        public int GetEnableSum(string memberId)
         {
             
 
 
-                int result = Session.QueryOver<Business>().Where(x => x.OwnerId == member.Id).And(x => x.Enabled == true).RowCount();
+                int result = Session.QueryOver<Business>().Where(x => x.OwnerId.ToString() == memberId).And(x => x.Enabled == true).RowCount();
                
                 
                 return result;

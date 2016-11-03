@@ -20,7 +20,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.NegotiateAmount);
             Map(x => x.Remark);
             Map(x => x.CreatTime);
-            References<DZMembership>(x => x.Controller);
+            Map(x => x.ControllerId);
             Map(x => x.Number);
         }
     }

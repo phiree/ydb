@@ -32,6 +32,6 @@ namespace Dianzhu.IDAL
         /// <returns></returns>
         IList<Business> GetListByPage(int pageIndex, int pageSize, out long totalRecord);
 
-        int GetEnableSum(DZMembership member);
+        int GetEnableSum(string memberId);
     }
 }

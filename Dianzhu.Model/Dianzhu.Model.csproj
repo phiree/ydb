@@ -78,11 +78,8 @@
     <Compile Include="Payment\Refund.cs" />
     <Compile Include="Resource\ServiceOpenTimeSnapshot.cs" />
     <Compile Include="ServiceOrderRemind.cs" />
-    <Compile Include="Agent\Agent.cs" />
     <Compile Include="Complaint.cs" />
     <Compile Include="Resource\Advertisement.cs" />
-    <Compile Include="IdentityAccess\MembershipFactory.cs" />
-    <Compile Include="IdentityAccess\RoleMember.cs" />
     <Compile Include="Reception\IMUserStatus.cs" />
     <Compile Include="City.cs" />
     <Compile Include="Resource\ServiceOpenTimeForDay.cs" />
@@ -96,19 +93,13 @@
     <Compile Include="OrderAssignment.cs" />
     <Compile Include="Payment\PaymentLog.cs" />
     <Compile Include="Area.cs" />
-    <Compile Include="CashTIcketAssignDetail.cs" />
-    <Compile Include="CashTicketTemplate.cs" />
     <Compile Include="DeviceBind.cs" />
     <Compile Include="IdentityAccess\DZRole.cs" />
     <Compile Include="Resource\DZService.cs" />
     <Compile Include="DZTag.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Business.cs" />
-    <Compile Include="CashTicketCreateRecord.cs" />
-    <Compile Include="CashTicket.cs" />
-    <Compile Include="IdentityAccess\DZMembership.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CashTicketAssignRecord.cs" />
     <Compile Include="Resource\ServiceOpenTime.cs" />
     <Compile Include="Payment\Payment.cs" />
     <Compile Include="ServiceOrderStateChangeHis.cs" />
@@ -124,6 +115,7 @@
     <Content Include="ServiceOrder\UL.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Agent\" />
     <Folder Include="Resource\Agent\" />
     <Folder Include="Resource\Specs\" />
   </ItemGroup>

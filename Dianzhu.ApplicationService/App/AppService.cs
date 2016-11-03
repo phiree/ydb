@@ -4,18 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 namespace Dianzhu.ApplicationService.App
 {
     public class AppService : IAppService
     {
 
         BLL.BLLDeviceBind blldevicebind;
-        BLL.DZMembershipProvider dzm;
-        public AppService(BLL.BLLDeviceBind blldevicebind, BLL.DZMembershipProvider dzm)
+        IDZMembershipService memberService;
+        public AppService(BLL.BLLDeviceBind blldevicebind, IDZMembershipService memberService)
         {
             this.blldevicebind = blldevicebind;
-            this.dzm = dzm;
+            this.memberService = memberService;
         }
 
         /// <summary>
@@ -41,18 +42,18 @@ namespace Dianzhu.ApplicationService.App
             //}
             //Model.DeviceBind devicebind = Mapper.Map<appObj, Model.DeviceBind>(appobj);
             Model.DeviceBind devicebind = new Model.DeviceBind();
-            Model.DZMembership dzmembership = null;
+           MemberDto dzmembership = null;
             if (!string.IsNullOrEmpty(appobj.userID))
             {
                 Guid userId=utils.CheckGuidID(appobj.userID, "UserId");
-                dzmembership = dzm.GetUserById(userId);
+                dzmembership = memberService.GetUserById(userId.ToString());
             }
             DateTime dt= DateTime.Now;
             devicebind.IsBinding = true;
             devicebind.SaveTime = dt;
             devicebind.AppUUID = uuId;
             devicebind.BindChangedTime = dt;
-            devicebind.DZMembership = dzmembership;
+            devicebind.DZMembershipId = dzmembership.Id.ToString();
             devicebind.AppName = appobj.appName.ToString();
             devicebind.AppToken = appobj.appToken;
             blldevicebind.UpdateAndSave(devicebind);

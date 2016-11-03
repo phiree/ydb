@@ -15,16 +15,17 @@ namespace Dianzhu.ApplicationService.Client
         BLL.Client.IBLLClient ibllclient;
         BLL.Client.IBLLRefreshToken ibllrefreshtoken;
         BLL.Client.BLLUserToken bllusertoken = null;
-         BLL.DZMembershipProvider dzmp = null;
-        BLL.BLLStaff bllstaff = null;
+        
         IDZMembershipService memberService;
-        public ClientService(BLL.Client.BLLUserToken bllusertoken, BLL.DZMembershipProvider dzmp, BLL.BLLStaff bllstaff
+        BLL.BLLStaff bllstaff = null;
+      
+        public ClientService(BLL.Client.BLLUserToken bllusertoken, BLL.BLLStaff bllstaff
             ,IDZMembershipService memberService)
         {
             //this.ibllclient = ibllclient;
             //this.ibllrefreshtoken = ibllrefreshtoken;
             this.bllusertoken = bllusertoken;
-            this.dzmp = dzmp;
+        
             this.bllstaff = bllstaff;
             this.memberService = memberService;
         }

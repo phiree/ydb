@@ -7,7 +7,8 @@ using Dianzhu.Model.Enums;
 using Dianzhu.Model;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.DomainModel.Enums;
-
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 namespace Dianzhu.BLL.Push
 {
     public interface IPushMessageBiulder
@@ -17,13 +18,13 @@ namespace Dianzhu.BLL.Push
    public  class PushMessageBuilder: IPushMessageBiulder
     {
         IBLLServiceOrder bllServiceOrder;
-        IDAL.IDALMembership dalMembership;
+        IDZMembershipService memberService;
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BllPush.BuildMessage");
         public PushMessageBuilder(IBLLServiceOrder bllServiceOrder,
-        IDAL.IDALMembership dalMembership)
+         IDZMembershipService memberService)
         {
             this.bllServiceOrder = bllServiceOrder;
-            this.dalMembership = dalMembership;
+            this.memberService = memberService;
         }
         private ServiceOrder serviceOrder;
         private ServiceOrder GetCurrentOrder(string chatSessionId) {
@@ -65,7 +66,7 @@ namespace Dianzhu.BLL.Push
             else if (chat.GetType() == typeof(ReceptionChat) || chat.GetType() == typeof(ReceptionChatMedia))
             {
 
-                Model.DZMembership member = dalMembership.FindById(new Guid(chat.FromId));
+              MemberDto member = memberService.GetUserById( chat.FromId);
                 switch (chat.FromResource)// member.UserType)
                 {
                     case  XmppResource.YDBan_CustomerService:
