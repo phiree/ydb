@@ -60,10 +60,6 @@
     <Compile Include="DALIMUserStatus.cs" />
     <Compile Include="DALOrderAssignment.cs" />
     <Compile Include="DALPayment.cs" />
-    <Compile Include="DALReceptionChat.cs" />
-    <Compile Include="DALReceptionChatDD.cs" />
-    <Compile Include="DALReceptionStatus.cs" />
-    <Compile Include="DALReceptionStatusArchieve.cs" />
     <Compile Include="DALRefundLog.cs" />
     <Compile Include="DALRefund.cs" />
     <Compile Include="DALUserToken.cs" />
@@ -102,7 +98,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Order\" />
-    <Folder Include="Reception\" />
     <Folder Include="Resource\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

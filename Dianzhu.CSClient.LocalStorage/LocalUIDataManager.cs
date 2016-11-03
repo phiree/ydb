@@ -59,7 +59,7 @@ namespace Dianzhu.CSClient.LocalStorage
             switch (key)
             {
                 case "Name":
-                    LocalUIDatas[customerId].Name = (string)value;
+                    LocalUIDatas[customerId].Name = value.ToString().ToString();
                     break;
                 case "Date":
                     LocalUIDatas[customerId].Date = (DateTime)value;
@@ -68,7 +68,7 @@ namespace Dianzhu.CSClient.LocalStorage
                     LocalUIDatas[customerId].ServiceType = (ServiceType)value;
                     break;
                 case "ServiceName":
-                    LocalUIDatas[customerId].ServiceName = (string)value;
+                    LocalUIDatas[customerId].ServiceName = value.ToString();
                     break;
                 case "PriceMin":
                     LocalUIDatas[customerId].PriceMin = (decimal)value;
@@ -77,19 +77,22 @@ namespace Dianzhu.CSClient.LocalStorage
                     LocalUIDatas[customerId].PriceMax = (decimal)value;
                     break;
                 case "Phone":
-                    LocalUIDatas[customerId].Phone = (string)value;
+                    LocalUIDatas[customerId].Phone = value.ToString();
                     break;
                 case "Amount":
                     LocalUIDatas[customerId].Amount = (int)value;
                     break;
                 case "Address":
-                    LocalUIDatas[customerId].Address = (string)value;
+                    LocalUIDatas[customerId].Address = value.ToString();
                     break;
                 case "Memo":
-                    LocalUIDatas[customerId].Memo = (string)value;
+                    LocalUIDatas[customerId].Memo = value.ToString();
                     break;
                 case "TargetAddressObj":
                     LocalUIDatas[customerId].TargetAddressObj = (TargetAddressObj)value;
+                    break;
+                case "MessageText":
+                    LocalUIDatas[customerId].MessageText = value.ToString();
                     break;
                 default: break;
             }
@@ -120,6 +123,7 @@ namespace Dianzhu.CSClient.LocalStorage
                 LocalUIDatas[customerId].Address = string.Empty;
                 LocalUIDatas[customerId].Memo = string.Empty;
                 LocalUIDatas[customerId].TargetAddressObj = null;
+                LocalUIDatas[customerId].MessageText = string.Empty;
             }
         }
 
@@ -155,6 +159,7 @@ namespace Dianzhu.CSClient.LocalStorage
         public string Address { get; set; }
         public string Memo { get; set; }
         public TargetAddressObj TargetAddressObj { get; set; }
+        public string MessageText { get; set; }
     }
 
     public class TargetAddressObj

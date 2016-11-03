@@ -20,11 +20,22 @@
                             <div class="model-m">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="fi-remain-txt">当前账户余额：<strong id="fi-amount">0.00</strong>元</div>
-                                        <!--<div>当前可用余额： 0.00元</div>-->
-                                        <div class="fi-remain-btns m-l50">
-                                            <!--<a href="/Finance/Recharge.aspx?businessid=<%=Request["businessid"]%>" class="btn btn-info m-r20">充值</a>-->
-                                            <!--<a href="/Finance/withDraw.aspx?businessid=<%=Request["businessid"]%>" class="btn btn-create">提现</a>-->
+                                        <div class="fl-remain-module">
+                                            <div class="_remain-col">
+                                                <div class="_remain-title">账户余额</div>
+                                                <div class="_remain-count"><span class="_remain-count-s"><strong class="_s-red">56,00.00</strong>元</span></div>
+                                                <a href='/Finance/withDraw.aspx?businessid=<%=Request["businessid"]%>' class="btn _remain-btn _btn-fin-green">提现</a>
+                                            </div>
+                                            <div class="_remain-col">
+                                                <div class="_remain-title">先行赔付余额</div>
+                                                <div class="_remain-count"><span class="_remain-count-s"><strong class="_s">600,00.00</strong>元</span></div>
+                                                <a href='/Finance/recharge.aspx?businessid=<%=Request["businessid"]%>' class="btn _remain-btn _btn-fin-blue">充值</a>
+                                            </div>
+                                            <div class="_remain-col">
+                                                <div class="_remain-title">绑定账户</div>
+                                                <div class="_remain-count"><span class="_remain-count-s"><strong class="_s">licdream@126.com</strong>元</span></div>
+                                                <a href='/Finance/thirdParty_Edit.aspx?businessid=<%=Request["businessid"]%>' class="btn _remain-btn _btn-fin-yellow">变更/绑定</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -37,8 +48,6 @@
                         <div class="fi-model-wrap">
                             <div class="fi-h-tabs">
                                 <div class="fi-h-tab active">交易记录</div>
-                                <!--<div class="fi-h-tab">充值记录</div>-->
-                                <!--<div class="fi-h-tab">提现记录</div>-->
                             </div>
                             <div class="fi-model">
                                 <div class="fi-model-h">
@@ -73,11 +82,7 @@
                                 <div class="model-m no-padding">
                                     <div class="order-list-head finance-list-head">
                                         <div class="custom-grid">
-                                            <div class="custom-col col-10-2">
-                                                <div class="l-b">
-                                                    时间
-                                                </div>
-                                            </div>
+
                                             <div class="custom-col col-10-2">
                                                 <div class="l-b">
                                                     流水号
@@ -93,31 +98,16 @@
                                                     订单号
                                                 </div>
                                             </div>
-                                            <!--<div class="custom-col col-10-2">-->
-                                                <!--<div class="l-b">-->
-                                                    <!--行为概述-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                            <!--<div class="custom-col col-10-1">-->
-                                                <!--<div class="l-b">-->
-                                                    <!--金额-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                            <!--<div class="custom-col col-10-1">-->
-                                                <!--<div class="l-b">-->
-                                                    <!--扣点比例-->
-                                                <!--</div>-->
-                                            <!--</div>-->
                                             <div class="custom-col col-10-2">
                                                 <div class="l-b">
                                                     收入
                                                 </div>
                                             </div>
-                                            <!--<div class="custom-col col-10-1">-->
-                                                <!--<div class="l-b">-->
-                                                    <!--等待付款-->
-                                                <!--</div>-->
-                                            <!--</div>-->
+                                            <div class="custom-col col-10-2">
+                                                <div class="l-b">
+                                                    时间
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="order-list finance-list" >
@@ -125,11 +115,7 @@
                                             <ItemTemplate>
                                                 <div class="order-row">
                                                     <div class="custom-grid">
-                                                        <div class="custom-col col-10-2">
-                                                            <div class="order-li">
-                                                                <%#Eval("OccurTime") %>
-                                                            </div>
-                                                        </div>
+
                                                         <div class="custom-col col-10-2">
                                                             <div class="order-li">
                                                                 <%#Eval("id") %>
@@ -148,6 +134,11 @@
                                                         <div class="custom-col col-10-2">
                                                             <div class="order-li finance-amount">
                                                                 <%# String.Format( "{0:F}", Eval("Amount")) %>
+                                                            </div>
+                                                        </div>
+                                                        <div class="custom-col col-10-2">
+                                                            <div class="order-li">
+                                                                <%#Eval("OccurTime") %>
                                                             </div>
                                                         </div>
                                                     </div>

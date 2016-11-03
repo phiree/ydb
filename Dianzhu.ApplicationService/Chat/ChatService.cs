@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Ydb.InstantMessage.DomainModel.Chat;
+using Ydb.Common.Specification;
 
 namespace Dianzhu.ApplicationService.Chat
 {
     public class ChatService: IChatService
     {
-        BLL.BLLReceptionChat bllChat;
+        Ydb.InstantMessage.Application.IChatService bllChat;
         BLL.BLLStaff bllStaff;
         BLL.IBLLServiceOrder bllOrder;
         // BLL.DZMembershipProvider bllDZM;
-        public ChatService(BLL.BLLReceptionChat bllChat, BLL.IBLLServiceOrder bllOrder, BLL.BLLStaff bllStaff)
+        public ChatService(Ydb.InstantMessage.Application.IChatService bllChat, BLL.IBLLServiceOrder bllOrder, BLL.BLLStaff bllStaff)
         {
             this.bllChat = bllChat;
             this.bllOrder = bllOrder;
@@ -64,19 +66,19 @@ namespace Dianzhu.ApplicationService.Chat
         /// <param name="chatfilter"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public IList<chatObj> GetChats(string orderID, common_Trait_Filtering filter, common_Trait_ChatFiltering chatfilter,Customer customer)
+        public IList<chatObj> GetChats(string orderID, common_Trait_Filtering filter, common_Trait_ChatFiltering chatfilter, Customer customer)
         {
             Guid guidOrder = checkRute(orderID, customer);
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
-            IList<Model.ReceptionChat> chat = null;
+            IList<ReceptionChatDto> chat = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ReceptionChat");
-            chat = bllChat.GetChats(filter1, chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer,customer.UserType);
+            chat = bllChat.GetChats(filter1.filter2, chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer,customer.UserType);
             if (chat == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<chatObj>();
             }
-            IList<chatObj> staffobj = Mapper.Map<IList<Model.ReceptionChat>, IList<chatObj>>(chat);
+            IList<chatObj> staffobj = Mapper.Map<IList<ReceptionChatDto>, IList<chatObj>>(chat);
             return staffobj;
         }
 
@@ -112,15 +114,15 @@ namespace Dianzhu.ApplicationService.Chat
                 guidOrder= checkRute(chatfilter.orderID, customer);
             }
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
-            IList<Model.ReceptionChat> chat = null;
+            IList<ReceptionChatDto> chat = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ReceptionChat");
-            chat = bllChat.GetChats(filter1, chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer, customer.UserType);
+            chat = bllChat.GetChats(filter1.filter2, chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer, customer.UserType);
             if (chat == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<chatObj>();
             }
-            IList<chatObj> staffobj = Mapper.Map<IList<Model.ReceptionChat>, IList<chatObj>>(chat);
+            IList<chatObj> staffobj = Mapper.Map<IList<ReceptionChatDto>, IList<chatObj>>(chat);
             return staffobj;
         }
 
@@ -152,14 +154,14 @@ namespace Dianzhu.ApplicationService.Chat
         public IList<chatObj> GetAllUnreadChats(Customer customer)
         {
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
-            IList<Model.ReceptionChat> chat = null;
+            IList<ReceptionChatDto> chat = null;
             chat = bllChat.GetUnreadChatsAndSetReaded(guidCustomer);
             if (chat == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<chatObj>();
             }
-            IList<chatObj> staffobj = Mapper.Map<IList<Model.ReceptionChat>, IList<chatObj>>(chat);
+            IList<chatObj> staffobj = Mapper.Map<IList<ReceptionChatDto>, IList<chatObj>>(chat);
             return staffobj;
         }
 

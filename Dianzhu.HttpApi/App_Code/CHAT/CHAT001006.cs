@@ -6,6 +6,8 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 using Dianzhu.Api.Model;
+using Ydb.InstantMessage.Application;
+using Ydb.InstantMessage.DomainModel.Chat;
 /// <summary>
 /// Summary description for CHAT001001
 /// </summary>
@@ -52,11 +54,11 @@ public class ResponseCHAT001006:BaseResponse
             return;
         }
 
-        BLLReceptionChat bllReceptionChat = Bootstrap.Container.Resolve<BLLReceptionChat>();
+        IChatService bllReceptionChat = Bootstrap.Container.Resolve<IChatService>();
         int rowCount;
         Guid orderId;
         string target = requestData.target; 
-        IList<ReceptionChat> chatList;
+        IList<ReceptionChatDto> chatList;
 
         int pageIndex = 1, pageSize = 5;
         try
@@ -87,7 +89,7 @@ public class ResponseCHAT001006:BaseResponse
 
         if (requestData.orderID == "")
         {
-            chatList = bllReceptionChat.GetReceptionChatList(userId, Guid.Empty, Guid.Empty, DateTime.MinValue, DateTime.MaxValue, pageIndex-1, pageSize, chatTarget, out rowCount);
+            chatList = bllReceptionChat.GetReceptionChatList(userId, Guid.Empty, Guid.Empty, DateTime.MinValue, DateTime.MaxValue, pageIndex-1, pageSize, chatTarget.ToString(), out rowCount);
         }
         else
         {
@@ -99,7 +101,7 @@ public class ResponseCHAT001006:BaseResponse
                 return;
             }
 
-            chatList = bllReceptionChat.GetReceptionChatList(userId, Guid.Empty, orderId, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, chatTarget, out rowCount);
+            chatList = bllReceptionChat.GetReceptionChatList(userId, Guid.Empty, orderId, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, chatTarget.ToString(), out rowCount);
         }
         
         try

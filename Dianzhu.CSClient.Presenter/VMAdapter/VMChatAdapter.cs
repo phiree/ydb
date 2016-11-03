@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ydb.InstantMessage.DomainModel.Chat;
 
 namespace Dianzhu.CSClient.Presenter.VMAdapter
 {
@@ -25,7 +26,7 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
             this.localChatManager = localChatManager;
         }
 
-        public VMChat ChatToVMChat(ReceptionChat chat)
+        public VMChat ChatToVMChat(ReceptionChatDto chat)
         {
             DZMembership from = dalMembership.FindById(Guid.Parse(chat.FromId));
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
@@ -55,25 +56,30 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
                 cAvatar = localChatManager.LocalCustomerAvatarUrls[chat.FromId];
             }
 
-            VMChatFactory vmChatFactory = new VMChatFactory(chatId, fromId, fromName, savedTime, savedTimestamp, csAvatar, cAvatar, chatBackground, isFromCs);
+            VMChatFactory vmChatFactory = new VMChatFactory(chatId, fromId, fromName, fromId, savedTime, savedTimestamp, csAvatar, cAvatar, chatBackground, isFromCs);
 
 
             switch (chat.GetType().Name)
             {
-                case "ReceptionChat":
+                case "ReceptionChatDto":
                     return vmChatFactory.CreateVMChatText(chat.MessageBody);
-                case "ReceptionChatMedia":
-                    ReceptionChatMedia chatMedia = chat as ReceptionChatMedia;
+                case "ReceptionChatMediaDto":
+                    ReceptionChatMediaDto chatMedia = chat as ReceptionChatMediaDto;
                     string mediaType = chatMedia.MediaType;
                     string mediaUrl = chatMedia.MedialUrl;
 
                     return vmChatFactory.CreateVMChatMedia(mediaType, mediaUrl);
-                case "ReceptionChatPushService":
-                    ReceptionChatPushService chatPushService = chat as ReceptionChatPushService;
-                    DZService service = dalDZService.FindById(Guid.Parse(chatPushService.ServiceInfos[0].ServiceId));
+                case "ReceptionChatPushServiceDto":
+                    ReceptionChatPushServiceDto chatPushService = chat as ReceptionChatPushServiceDto;                    
+                    Guid serviceId;
+                    if (!Guid.TryParse(chatPushService.ServiceInfos[0].ServiceId, out serviceId))
+                    {
+                        throw new Exception("ServiceInfos有误,chatPushServiceId:" + chatPushService.Id);
+                    }
+                    DZService service = dalDZService.FindById(serviceId);
                     if (service == null)
                     {
-                        throw new Exception("服务不存在,id:"+ chatPushService.ServiceInfos[0].ServiceId);
+                        throw new Exception("服务不存在,id:" + chatPushService.ServiceInfos[0].ServiceId);
                     }
 
                     string servieName = service.Name ?? string.Empty;

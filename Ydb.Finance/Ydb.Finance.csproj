@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{343214F8-A523-4BDA-B783-4D77942269B9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ydb.Finance</RootNamespace>
+    <AssemblyName>Ydb.Finance</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HibernatingRhinos.Profiler.Appender, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernateProfiler.Appender.3.0.3103.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.0.0.4000\lib\net40\NHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Application\BalanceDTO\BalanceFlowDto.cs" />
+    <Compile Include="Application\BalanceDTO\OrderShareParam.cs" />
+    <Compile Include="Application\BalanceDTO\BalanceTotalDto.cs" />
+    <Compile Include="Application\BalanceDTO\BalanceUserParam.cs" />
+    <Compile Include="Application\BalanceDTO\Mapping\AutoMapperConfiguration.cs" />
+    <Compile Include="Application\BalanceDTO\Mapping\DtoToModelMappingProfile.cs" />
+    <Compile Include="Application\BalanceDTO\Mapping\ModelToDtoMappingProfile.cs" />
+    <Compile Include="Application\BalanceDTO\ServiceTypePointDto.cs" />
+    <Compile Include="Application\BalanceDTO\UserTypeSharePointDto.cs" />
+    <Compile Include="Application\BalanceDTO\WithdrawCashParam.cs" />
+    <Compile Include="Application\BanlanceFlow.cs" />
+    <Compile Include="Application\Bootstrap.cs" />
+    <Compile Include="Application\IBalanceFlowService.cs" />
+    <Compile Include="Application\InstallerFinanceDB.cs" />
+    <Compile Include="Application\IOrderShareService.cs" />
+    <Compile Include="Application\IServiceTypePointService.cs" />
+    <Compile Include="Application\IWithdrawCashService.cs" />
+    <Compile Include="Application\OrderShareService.cs" />
+    <Compile Include="Application\ServiceTypePointService.cs" />
+    <Compile Include="Application\UserTypeSharePointService.cs" />
+    <Compile Include="Application\IUserTypeSharePointService.cs" />
+    <Compile Include="Application\WithdrawCashService.cs" />
+    <Compile Include="DomainModel\BalanceFlow.cs" />
+    <Compile Include="DomainModel\BalanceTotal.cs" />
+    <Compile Include="DomainModel\Repository\RepositoryBalanceFlow.cs" />
+    <Compile Include="DomainModel\Repository\RepositoryBalanceTotal.cs" />
+    <Compile Include="DomainModel\Repository\RepositoryUserTypeSharePoint.cs" />
+    <Compile Include="DomainModel\Repository\RepositoryServiceTypePoint.cs" />
+    <Compile Include="DomainModel\Repository\RepositorySharePoint.cs" />
+    <Compile Include="DomainModel\UserTypeSharePoint.cs" />
+    <Compile Include="DomainModel\Enums\FlowType.cs" />
+    <Compile Include="DomainModel\Enums\ShareType.cs" />
+    <Compile Include="DomainModel\ServiceTypePoint.cs" />
+    <Compile Include="Application\InstallerFinance.cs" />
+    <Compile Include="Infrastructure\Installer.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceFlowMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceTotalMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceTypePointMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\UserTypeSharePointMap.cs" />
+    <Compile Include="Infrastructure\Repository\RepositoryBalanceTotal.cs" />
+    <Compile Include="Infrastructure\Repository\RepositoryServiceTypePoint.cs" />
+    <Compile Include="Infrastructure\Repository\RepositoryUserTypeSharePoint.cs" />
+    <Compile Include="Infrastructure\Repository\RepositoryBalanceFlow.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
+      <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
+      <Name>Dianzhu.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
+      <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
+      <Name>Ydb.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

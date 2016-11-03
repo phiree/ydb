@@ -37,7 +37,7 @@ namespace Dianzhu.BLL.Finance
                 }
                 else
                 {
-                    errmsg = "该服务类型的扣点比例未设置:" + serviceType.Name+"("+serviceType.Id+")";
+                   errmsg = "该服务类型的扣点比例未设置:" + serviceType.Name+"("+serviceType.Id+")";
                    log.Error(errmsg);
                    throw new Exception("该服务类型的扣点比例未设置:" + serviceType.Name);
                    

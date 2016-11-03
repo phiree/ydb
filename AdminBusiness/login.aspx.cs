@@ -62,17 +62,15 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
                 }
                 else
                 {
-                    Response.Redirect("~/business/", true);
+                    CookieErrorTime.Value = "0";
+                    Response.Cookies.Add(CookieErrorTime);
+                    Response.Redirect("~/business/", true); 
                 }
-
             }
             else {
                 lblMsg.Text = "登录失败，请重试";
                 lblMsg.CssClass = "lblMsg lblMsgShow";
             }
-
-            CookieErrorTime.Value = "0";
-            Response.Cookies.Add(CookieErrorTime);
 
         }
         else

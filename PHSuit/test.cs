@@ -37,12 +37,19 @@ namespace PHSuit
 
             Console.WriteLine("172:" + PHSuit.Security.Encrypt("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test", false));
 
-            Console.WriteLine("localhost" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=dianzhu_publish", false));
-            Console.WriteLine("localhost" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=dianzhu", false));
+            Console.WriteLine("localhost_ydb_membership" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=ydb_membership", false));
+            Console.WriteLine("localhost_ydb_instantmessage" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=ydb_instantmessage", false));
+
             Console.WriteLine("localhost_yuanfei" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=dianzhu", false));
-            Console.WriteLine("150:" + PHSuit.Security.Encrypt("data source=192.168.1.150;uid=ydb;pwd=jsyk2016;database=dianzhu_test", false));
-               Console.WriteLine("Aliyun_Official:" + PHSuit.Security.Encrypt("data source=business.ydban.cn;uid=jsyk2016;pwd=X*G7czoy6twAYIz7;port=4407;database=dianzhu", false));
-            Console.WriteLine("Aliyun_Test:" + PHSuit.Security.Encrypt("data source=dev.ydban.cn;uid=jsyk2016;pwd=IQDv$qefeqFWuq_L;port=4407;database=dianzhu_publish", false));
+
+            Console.WriteLine("150_dianzhu_test:" + PHSuit.Security.Encrypt("data source=192.168.1.150;uid=ydb;pwd=jsyk2016;database=dianzhu_test", false));
+            Console.WriteLine("150_ydb_instantmessage:" + PHSuit.Security.Encrypt("data source=192.168.1.150;uid=ydb;pwd=jsyk2016;database=ydb_instantmessage", false));
+
+            Console.WriteLine("Aliyun_Official_dianzhu_publish:" + PHSuit.Security.Encrypt("data source=business.ydban.cn;uid=jsyk2016;pwd=X*G7czoy6twAYIz7;port=4407;database=dianzhu", false));
+            Console.WriteLine("Aliyun_Official_ydb_instantmessage:" + PHSuit.Security.Encrypt("data source=business.ydban.cn;uid=jsyk2016;pwd=X*G7czoy6twAYIz7;port=4407;database=ydb_instantmessage", false));
+
+            Console.WriteLine("Aliyun_Test_dianzhu_publish:" + PHSuit.Security.Encrypt("data source=dev.ydban.cn;uid=jsyk2016;pwd=IQDv$qefeqFWuq_L;port=4407;database=dianzhu_publish", false));
+            Console.WriteLine("Aliyun_Test_ydb_instantmessage:" + PHSuit.Security.Encrypt("data source=dev.ydban.cn;uid=jsyk2016;pwd=IQDv$qefeqFWuq_L;port=4407;database=ydb_instantmessage", false));
         }
         [Test]
         public void TestIOSPush()

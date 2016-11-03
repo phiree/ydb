@@ -30,6 +30,8 @@ namespace Dianzhu.CSClient.ViewWPF
         private readonly ScreenCaputre screenCaputre = new ScreenCaputre();
         private Size? lastSize;
 
+        public event SaveMessageText SaveMessageText;
+
         public UC_ChatSend()
         {
             InitializeComponent();
@@ -181,7 +183,7 @@ namespace Dianzhu.CSClient.ViewWPF
             //Window mainForm = (Window)((Grid)((Grid)((Grid)((Grid)((Grid)this.Parent).Parent).Parent).Parent).Parent).Parent;
             if (mainForm == null)
             {
-                mainForm = (Window)((Grid)((Grid)((Grid)((Grid)((Grid)this.Parent).Parent).Parent).Parent).Parent).Parent;
+                mainForm = (Window)((Grid)((Grid)((Grid)((Grid)((Grid)((Grid)this.Parent).Parent).Parent).Parent).Parent).Parent).Parent;
             }
             //mainForm.Visibility = Visibility.Collapsed;
             mainForm.WindowState = WindowState.Minimized;
@@ -376,5 +378,13 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         #endregion
+
+        private void tbxTextMessage_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (SaveMessageText != null)
+            {
+                SaveMessageText("MessageText", MessageText);
+            }
+        }
     }
 }

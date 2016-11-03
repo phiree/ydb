@@ -9,7 +9,7 @@
 //"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
 //"wtm001001",,"wtm001002","wtm001004","wtm001005","wtm001006"
 //"rmm001003","rmm001004","rmm001005","rmm001006",
-"app001001"
+"orm002001"
 
 ];
 var test_data = [
@@ -56,7 +56,7 @@ var test_data = [
      
         "ReqData":  {
          
-            "userID":  "1d789c3d-962b-473a-8bb0-a594009cf2c0",
+            "userID": "03b647cb-a449-4f93-abf3-a67c0098ecdf",
          
             "pWord":  "123456",
          

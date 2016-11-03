@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.Config;
 using Dianzhu.Model.Enums;
+using Ydb.InstantMessage.DomainModel.Chat;
 
 namespace Dianzhu.Api.Model
 {
@@ -18,25 +19,25 @@ namespace Dianzhu.Api.Model
         public string body { get; set; }
         public string type { get; set; }
         public string date { get; set; }
-        public RespDataCHAT_chatObj Adapt(ReceptionChat chat)
+        public RespDataCHAT_chatObj Adapt(ReceptionChatDto chat)
         {
-            this.id = chat.Id.ToString();
+            //this.id = chat.Id.ToString();
             this.to = chat.ToId;
             this.from = chat.FromId;
             this.orderID = chat.SessionId;
             this.type = "chat";
             this.date = chat.SavedTime.ToString("yyyyMMddHHmmss");
-            if (chat is ReceptionChatMedia)
+            if (chat is ReceptionChatMediaDto)
             {
-                this.type = ((ReceptionChatMedia)chat).MediaType;
-                this.body = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + ((ReceptionChatMedia)chat).MedialUrl;
+                this.type = ((ReceptionChatMediaDto)chat).MediaType;
+                this.body = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + ((ReceptionChatMediaDto)chat).MedialUrl;
             }
-            else if (chat is ReceptionChatReAssign)
+            else if (chat is ReceptionChatReAssignDto)
             {
                 this.type = "reassign";
-                this.body = "(Reassign to)" + ((ReceptionChatReAssign)chat).ReAssignedCustomerServiceId;
+                this.body = "(Reassign to)" + ((ReceptionChatReAssignDto)chat).ReAssignedCustomerServiceId;
             }
-            else if(chat is ReceptionChatPushService)
+            else if(chat is ReceptionChatPushServiceDto)
             {
                 this.type = "pushOrder";
                 this.body = string.Empty;
@@ -101,9 +102,9 @@ namespace Dianzhu.Api.Model
         {
             arrayData = new List<RespDataCHAT_chatObj>();
         }
-        public void AdapList(IList<ReceptionChat> chatList)
+        public void AdapList(IList<ReceptionChatDto> chatList)
         {
-            foreach (ReceptionChat chat in chatList)
+            foreach (var chat in chatList)
             {
                 RespDataCHAT_chatObj chatObj = new RespDataCHAT_chatObj().Adapt(chat);
                 arrayData.Add(chatObj);
@@ -140,9 +141,9 @@ namespace Dianzhu.Api.Model
         {
             arrayData = new List<RespDataCHAT_chatObj>();
         }
-        public void AdapList(IList<ReceptionChat> chatList)
+        public void AdapList(IList<ReceptionChatDto> chatList)
         {
-            foreach (ReceptionChat chat in chatList)
+            foreach (var chat in chatList)
             {
                 RespDataCHAT_chatObj chatObj = new RespDataCHAT_chatObj().Adapt(chat);
                 arrayData.Add(chatObj);

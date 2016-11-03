@@ -250,19 +250,12 @@ namespace Dianzhu.CSClient.ViewWPF
             try
             {
                 VMIdentity vmIdentity = e.Argument as VMIdentity;
-
-                NHibernateUnitOfWork.UnitOfWork.Start();
-
+                
                 IdentityClick(vmIdentity);
             }
             catch (Exception ee)
             {
                 log.Error(ee.ToString());
-            }
-            finally
-            {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
         }
 

@@ -1,9 +1,8 @@
 ﻿<%@ Application Language="C#" %>
+<%@ Import Namespace="Ydb.InstantMessage.DomainModel.Chat" %>
 
 <script RunAt="server">
-
-    Dianzhu.CSClient.IMessageAdapter.IAdapter adapter
-            = new Dianzhu.CSClient.MessageAdapter.MessageAdapter();
+    
     static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
     void Application_Start(object sender, EventArgs e)
     {
@@ -14,13 +13,8 @@
         PHSuit.Logging.Config("Dianzhu.Web.Notify");
         string host= System.Net.Dns.GetHostName();
         PHSuit.HttpHelper. _SetupRefreshJob(8039);
-        string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
-        string domain = Dianzhu.Config.Config.GetAppSetting("ImDomain");
+        Ydb.InstantMessage.Application.IInstantMessage im = Bootstrap.Container.Resolve<Ydb.InstantMessage.Application.IInstantMessage>();
 
-        Dianzhu.CSClient.IInstantMessage.InstantMessage im
-            = Bootstrap.Container.Resolve<Dianzhu.CSClient.IInstantMessage.InstantMessage>
-            //();
-            (new { resourceName = Dianzhu.Model.Enums.enum_XmppResource.YDBan_IMServer.ToString() });
         //= new Dianzhu.CSClient.XMPP.XMPP(server, domain,adapter, Dianzhu.Model.Enums.enum_XmppResource.YDBan_IMServer.ToString());
         //login in
         string noticesenderId = Dianzhu.Config.Config.GetAppSetting("NoticeSenderId");
@@ -35,7 +29,7 @@
         im.IMReceivedMessage += IMReceivedMessage;
         im.IMIQ += IMIQ;
         im.IMStreamError += IMStreamError;
-        im.OpenConnection(noticesenderId, noticesenderPwd);
+        im.OpenConnection(noticesenderId, noticesenderPwd,"YDBan_IMServer");
         Application["IM"] = im;
     }
 
@@ -76,9 +70,9 @@
     {
         log.Error("ConnectionError:" + error);
     }
-    void IMReceivedMessage(Dianzhu.Model.ReceptionChat chat)
+    void IMReceivedMessage(ReceptionChatDto chat)
     {
-        log.Debug("ReceiveMsg:" + adapter.ChatToMessage(chat, Dianzhu.Config.Config.GetAppSetting("ImServer")).InnerXml);
+        log.Debug("ReceiveMsg:" + chat.ToString());
     }
     void IMIQ()
     {

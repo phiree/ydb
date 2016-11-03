@@ -222,8 +222,11 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             try
             {
-                NHibernateUnitOfWork.UnitOfWork.Start();
-                BtnMoreChat();
+                //NHibernateUnitOfWork.UnitOfWork.Start();
+                if (BtnMoreChat != null)
+                {
+                    BtnMoreChat();
+                }
             }
             catch (Exception ee)
             {
@@ -231,8 +234,8 @@ namespace Dianzhu.CSClient.ViewWPF
             }
             finally
             {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
         }
 

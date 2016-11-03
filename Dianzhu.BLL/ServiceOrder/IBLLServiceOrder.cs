@@ -93,6 +93,12 @@ namespace Dianzhu.BLL
         #region 订单流程变化
 
         /// <summary>
+        /// 用户确认订单：有订金生成支付项，没有订金直接变为已支付状态
+        /// </summary>
+        /// <param name="order"></param>
+        void OrderFlow_ConfirmOrder(ServiceOrder order);
+
+        /// <summary>
         /// 用户定金支付完成,等待后台确认订单是否到帐
         /// </summary>
         /// <param name="order"></param>
@@ -118,7 +124,8 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <param name="order"></param>
         void OrderFlow_CustomConfirmNegotiate(ServiceOrder order);
-        void OrderFlow_CustomDisagreeNegotiate(ServiceOrder order);
+        void OrderFlow_CustomerDisagreeNegotiate(ServiceOrder order);
+
         /// <summary>
         /// 用户确认协商价格,并确定开始服务
         /// </summary>

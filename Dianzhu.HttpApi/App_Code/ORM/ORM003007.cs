@@ -93,7 +93,7 @@ public class ResponseORM003007 : BaseResponse
                                 bllServiceOrder.OrderFlow_PayDepositAndWaiting(order);
                                 break;
                             case enum_OrderStatus.Negotiate:
-                                bllServiceOrder.OrderFlow_CustomDisagreeNegotiate(order);
+                                bllServiceOrder.OrderFlow_CustomerDisagreeNegotiate(order);
                                 break;
                             case enum_OrderStatus.Assigned:
                                 bllServiceOrder.OrderFlow_CustomConfirmNegotiate(order);
