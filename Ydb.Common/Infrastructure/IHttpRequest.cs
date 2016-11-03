@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ydb.Membership.DomainModel
+namespace Ydb.Common.Infrastructure
 {
    public interface IHttpRequest
     {

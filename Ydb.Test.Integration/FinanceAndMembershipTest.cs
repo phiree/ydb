@@ -20,19 +20,20 @@ namespace Ydb.Test.Integration
             Bootstrap.Boot();
         }
         [Test]
-        public void testabc()
+        public void GetUserNameAndGetAllFlowService()
         {
             IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
-            IBalanceFlowService balanceFlowService= Bootstrap.Container.Resolve<IBalanceFlowService>();
+            IServiceTypePointService serviceTypePointService= Bootstrap.Container.Resolve<IServiceTypePointService>();
 
-            Console.WriteLine(memberService.GetUserByName("18889387677").UserName);
-            Console.WriteLine(balanceFlowService.GetAll().Count);
+            string username = "18889387677";
+            memberService.RegisterMember(username, "123456","123456","business","localhost");
+            Assert.AreEqual(username, memberService.GetUserByName(username).UserName);
+
+
+            serviceTypePointService.Add("type1", 0.01m);
+            Assert.AreEqual(0.01m, serviceTypePointService.GetPoint("type1"));
 
         }
-        [Test]
-        public void Testavc()
-        {
-            Assert.Fail();
-        }
+         
     }
 }

@@ -21,7 +21,7 @@ using Ydb.InstantMessage.Application;
 
 namespace Ydb.InstantMessage.Infrastructure
 {
-    public class InstallerIntantMessage : IWindsorInstaller
+    internal class InstallerIntantMessage : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {

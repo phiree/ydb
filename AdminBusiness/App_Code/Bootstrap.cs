@@ -1,4 +1,8 @@
 ﻿using Castle.Windsor;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using NHibernate.Tool.hbm2ddl;
+using System.Configuration;
 /// <summary>
 /// Summary description for Installer
 /// </summary>
@@ -21,20 +25,42 @@ public class Bootstrap
             new Dianzhu.DependencyInstaller.InstallerApplicationService(),
 
 
-          new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
-                   new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
+          new Ydb.InstantMessage.Application.InstallerInstantMessage(
+                        BuildConfig(System.Configuration.ConfigurationManager
+                            .ConnectionStrings["ydb_instantmessage"].ConnectionString)
+                            ),
+                   
 
-                new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(),
-                new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(),
+               
 
-                new Ydb.Membership.Application.InstallerMembership(),
-                 new Ydb.Membership.Application.InstallerMembershipDB(),
+                new Ydb.Membership.Application.InstallerMembership(
+                     BuildConfig(System.Configuration.ConfigurationManager
+                            .ConnectionStrings["ydb_membership"].ConnectionString)
+                    ),
+             
             new Ydb.Infrastructure.Installer()
              
             );
-        Ydb.Membership.Application.AutoMapperConfiguration.Configure();
-        
-
+    }
+    public static FluentNHibernate.Cfg.FluentConfiguration BuildConfig(string connectionstring)
+    {
+        var config = Fluently.Configure()
+                     .Database(
+                          MySQLConfiguration
+                         .Standard
+                         .ConnectionString(
+                              PHSuit.Security.Decrypt(connectionstring
+                           , false)
+                            )
+                       )
+                      .ExposeConfiguration(c =>
+                      {
+                          if (ConfigurationManager.AppSettings["UpdateSchema"] == "1")
+                          {
+                              new SchemaUpdate(c).Execute(true, true);
+                          }
+                      });
+        return config;
     }
 
 }
