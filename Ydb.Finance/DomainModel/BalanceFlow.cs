@@ -7,7 +7,7 @@ using Ydb.Finance.DomainModel.Enums;
 using Ydb.Common.Domain;
 namespace Ydb.Finance.DomainModel
 {
-    internal class BalanceFlow : Entity<Guid>
+    public class BalanceFlow : Entity<Guid>
     {
         /// <summary>
         /// 用户账户ID

@@ -14,17 +14,17 @@ namespace Ydb.Finance.Application
       
         IRepositoryBalanceFlow repositoryBalanceFlow;
         IRepositoryBalanceTotal repositoryBalanceTotal;
-        public WithdrawCashService()
+        public WithdrawCashService(IRepositoryBalanceFlow repositoryBalanceFlow, IRepositoryBalanceTotal repositoryBalanceTotal)
         {
-            repositoryBalanceFlow = Ydb.Finance.Infrastructure.Bootstrap.Container.Resolve<IRepositoryBalanceFlow>();
-            repositoryBalanceTotal = Ydb.Finance.Infrastructure.Bootstrap.Container.Resolve<IRepositoryBalanceTotal>();
+            this.repositoryBalanceFlow = repositoryBalanceFlow;
+            this.repositoryBalanceTotal = repositoryBalanceTotal;
         }
 
         /// <summary>
         /// 提现操作
         /// </summary>
         /// <param name="order" type="IList<WithdrawCashParam>">提现信息列表</param>
-        [ UnitOfWork]
+        [Ydb.Finance.Infrastructure.UnitOfWork]
         public void WithdrawCash(IList<WithdrawCashParam> cashList)
         {
             foreach (WithdrawCashParam cash in cashList)

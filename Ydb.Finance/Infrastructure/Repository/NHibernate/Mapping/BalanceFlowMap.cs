@@ -10,7 +10,7 @@ using Ydb.Common.Domain;
  
 namespace Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping
 {
-    internal class BalanceFlowMap:ClassMap<BalanceFlow>
+    public class BalanceFlowMap:ClassMap<BalanceFlow>
     {
         public BalanceFlowMap()
         {

@@ -9,7 +9,7 @@ namespace Ydb.Finance.DomainModel.Enums
     /// <summary>
     /// 参与分账的用户的类型
     /// </summary>
-   internal enum UserType
+   public enum UserType
     {
         None=0,
         /// <summary>

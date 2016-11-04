@@ -16,7 +16,7 @@ using System.Runtime.CompilerServices;
 
 namespace Ydb.Finance.Infrastructure.Repository
 {
-    internal class RepositoryUserTypeSharePoint : NHRepositoryBase<UserTypeSharePoint, Guid>, IRepositoryUserTypeSharePoint
+    public class RepositoryUserTypeSharePoint : NHRepositoryBase<UserTypeSharePoint, Guid>, IRepositoryUserTypeSharePoint
     {
         
         /// <summary>

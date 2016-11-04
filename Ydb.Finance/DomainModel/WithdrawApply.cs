@@ -7,7 +7,7 @@ using Ydb.Common.Domain;
 
 namespace Ydb.Finance.DomainModel
 {
-    internal class WithdrawApply : Entity<Guid>
+    public class WithdrawApply : Entity<Guid>
     {
         /// <summary>
         /// 用户账户ID
@@ -32,7 +32,7 @@ namespace Ydb.Finance.DomainModel
         /// <summary>
         /// 发生类型
         /// </summary>
-        public virtual FlowType FlowType { get; set; }
+        public virtual Enums.FlowType FlowType { get; set; }
 
         /// <summary>
         /// true为收入，false为支出

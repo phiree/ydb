@@ -7,7 +7,7 @@ using Ydb.Common.Domain;
 
 namespace Ydb.Finance.DomainModel
 {
-    internal class BalanceAccount : Entity<Guid>
+    public class BalanceAccount : Entity<Guid>
     {
         /// <summary>
         /// 用户账户ID

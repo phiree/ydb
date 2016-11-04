@@ -9,7 +9,7 @@ using Ydb.Finance.DomainModel;
 
 namespace Ydb.Finance.DomainModel
 {
-    internal interface IRepositoryBalanceTotal : IRepository<BalanceTotal, Guid>
+    public interface IRepositoryBalanceTotal : IRepository<BalanceTotal, Guid>
     {
         /// <summary>
         /// 根据账户用户ID获取该账户信息

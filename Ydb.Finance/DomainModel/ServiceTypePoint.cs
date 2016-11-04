@@ -9,7 +9,7 @@ namespace Ydb.Finance.DomainModel
     /// <summary>
     /// 服务分类的平台扣点比例
     /// </summary>
-    internal class ServiceTypePoint : Entity<Guid>
+    public class ServiceTypePoint : Entity<Guid>
     {
         /// <summary>
         /// 服务类型ID

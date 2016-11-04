@@ -6,7 +6,7 @@ using Ydb.Finance.DomainModel;
 using Ydb.Finance.DomainModel.Enums;
 namespace Ydb.Finance.DomainModel
 {
-    internal interface IRepositoryUserTypeSharePoint :IRepository< UserTypeSharePoint,Guid>
+    public interface IRepositoryUserTypeSharePoint :IRepository< UserTypeSharePoint,Guid>
     {
         /// <summary>
         /// 根据用户类型获取用户类型分配比例信息

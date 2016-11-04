@@ -16,12 +16,12 @@ namespace Ydb.Finance.Application
         IUserTypeSharePointService userTypeSharePointService;
         IRepositoryBalanceFlow repositoryBalanceFlow;
         IRepositoryBalanceTotal repositoryBalanceTotal;
-        public OrderShareService(IServiceTypePointService serviceTypePointService, IUserTypeSharePointService userTypeSharePointService)
+        public OrderShareService(IServiceTypePointService serviceTypePointService, IUserTypeSharePointService userTypeSharePointService, IRepositoryBalanceFlow repositoryBalanceFlow, IRepositoryBalanceTotal repositoryBalanceTotal)
         {
             this.serviceTypePointService = serviceTypePointService;
             this.userTypeSharePointService = userTypeSharePointService;
-            repositoryBalanceFlow = Ydb.Finance.Infrastructure.Bootstrap.Container.Resolve<IRepositoryBalanceFlow>();
-            repositoryBalanceTotal = Ydb.Finance.Infrastructure.Bootstrap.Container.Resolve<IRepositoryBalanceTotal>();
+            this.repositoryBalanceFlow = repositoryBalanceFlow;
+            this.repositoryBalanceTotal = repositoryBalanceTotal;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Ydb.Finance.Application
         /// </summary>
         /// <param name="order" type="OrderShareParam">分账的订单及用户信息</param>
         /// <returns type="IList<BalanceFlow>">分成详情列表.</returns>
-        internal IList<BalanceFlow> Share(OrderShareParam order)
+        public IList<BalanceFlow> Share(OrderShareParam order)
         {
             IList<BalanceFlow> balanceFlows = new List<BalanceFlow>();
             //- 获取该订单总的分账额度
@@ -108,7 +108,7 @@ namespace Ydb.Finance.Application
         /// 订单分成操作
         /// </summary>
         /// <param name="order" type="OrderShareParam">分账的订单及用户信息</param>
-        [Ydb.Common.Repository.UnitOfWork]
+        [Ydb.Finance.Infrastructure.UnitOfWork]
         public void ShareOrder(OrderShareParam order)
         {
             IList<BalanceFlow> balanceFlow = Share(order);

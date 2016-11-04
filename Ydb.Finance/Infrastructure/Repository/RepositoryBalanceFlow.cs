@@ -14,7 +14,7 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 namespace Ydb.Finance.Infrastructure.Repository
 { 
-    internal class RepositoryBalanceFlow : NHRepositoryBase<BalanceFlow, Guid>, IRepositoryBalanceFlow
+    public class RepositoryBalanceFlow : NHRepositoryBase<BalanceFlow, Guid>, IRepositoryBalanceFlow
     {
         
         /// <summary>

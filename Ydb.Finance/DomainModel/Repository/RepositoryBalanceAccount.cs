@@ -9,7 +9,7 @@ using Ydb.Finance.DomainModel;
 
 namespace Ydb.Finance.DomainModel
 {
-    internal interface IRepositoryBalanceAccount : IRepository<BalanceAccount, Guid>
+    public interface IRepositoryBalanceAccount : IRepository<BalanceAccount, Guid>
     {
         /// <summary>
         /// 根据提现账号及提现账号类型获取绑定的提现账号信息

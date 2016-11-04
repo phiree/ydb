@@ -6,7 +6,7 @@ using System;
 
 namespace Ydb.Finance.DomainModel
 {
-    internal interface IRepositorySharePoint : IRepository<UserTypeSharePoint,Guid>
+    public interface IRepositorySharePoint : IRepository<UserTypeSharePoint,Guid>
     {
 
         UserTypeSharePoint GetSharePoint(string userType);

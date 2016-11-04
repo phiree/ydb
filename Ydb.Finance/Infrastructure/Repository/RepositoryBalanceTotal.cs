@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 
 namespace Ydb.Finance.Infrastructure.Repository
 {
-    internal class RepositoryBalanceTotal : NHRepositoryBase<BalanceTotal, Guid>, IRepositoryBalanceTotal
+    public class RepositoryBalanceTotal : NHRepositoryBase<BalanceTotal, Guid>, IRepositoryBalanceTotal
     {
         
 

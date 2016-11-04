@@ -14,16 +14,16 @@ namespace Ydb.Finance.Application
     public class BalanceAccountService: IBalanceAccountService
     {
         IRepositoryBalanceAccount repositoryBalanceAccount;
-        public BalanceAccountService()
+        public BalanceAccountService(IRepositoryBalanceAccount repositoryBalanceAccount)
         {
-            repositoryBalanceAccount = Ydb.Finance.Infrastructure.Bootstrap.Container.Resolve<IRepositoryBalanceAccount>();
+            this.repositoryBalanceAccount = repositoryBalanceAccount;
         }
 
         /// <summary>
         /// 绑定提现账号
         /// </summary>
         /// <param name="balanceAccountDto" type="BalanceAccountDto">要绑定的账号信息</param>
-        [Ydb.Common.Repository.UnitOfWork]
+        [Ydb.Finance.Infrastructure.UnitOfWork]
         public void BindingAccount(BalanceAccountDto balanceAccountDto)
         {
             BalanceAccount balanceAccountNow = repositoryBalanceAccount.GetOneByUserId(balanceAccountDto.UserId);
@@ -40,7 +40,7 @@ namespace Ydb.Finance.Application
         /// 修改提现账号
         /// </summary>
         /// <param name="balanceAccountDto" type="BalanceAccountDto">要修改的账号信息</param>
-        [Ydb.Common.Repository.UnitOfWork]
+        [Ydb.Finance.Infrastructure.UnitOfWork]
         public void UpdateAccount(BalanceAccountDto balanceAccountDto)
         {
             BalanceAccount balanceAccountNow = repositoryBalanceAccount.GetOneByUserId(balanceAccountDto.UserId);
@@ -66,7 +66,7 @@ namespace Ydb.Finance.Application
         /// </summary>
         /// <param name="userId" type="string"用户账号ID</param>
         /// <returns type="BalanceAccountDto">提现账号信息</returns>
-        [Ydb.Common.Repository.UnitOfWork]
+        [Ydb.Finance.Infrastructure.UnitOfWork]
         public BalanceAccountDto GetAccount(string userId)
         {
             BalanceAccount balanceAccountNow = repositoryBalanceAccount.GetOneByUserId(userId);

@@ -73,8 +73,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\BalanceAccountService.cs" />
-    <Compile Include="Application\IBalanceAccountService.cs" />
+    <Compile Include="Application\Service\BalanceAccountService.cs" />
+    <Compile Include="Application\IService\IBalanceAccountService.cs" />
     <Compile Include="Application\BalanceDTO\BalanceAccountDto.cs" />
     <Compile Include="Application\BalanceDTO\BalanceFlowDto.cs" />
     <Compile Include="Application\BalanceDTO\Enums\AccountTypeEnums.cs" />
@@ -87,16 +87,16 @@
     <Compile Include="Application\BalanceDTO\ServiceTypePointDto.cs" />
     <Compile Include="Application\BalanceDTO\UserTypeSharePointDto.cs" />
     <Compile Include="Application\BalanceDTO\WithdrawCashParam.cs" />
-    <Compile Include="Application\BanlanceFlow.cs" />
-    <Compile Include="Application\IBalanceFlowService.cs" />
-    <Compile Include="Application\IOrderShareService.cs" />
-    <Compile Include="Application\IServiceTypePointService.cs" />
-    <Compile Include="Application\IWithdrawCashService.cs" />
-    <Compile Include="Application\OrderShareService.cs" />
-    <Compile Include="Application\ServiceTypePointService.cs" />
-    <Compile Include="Application\UserTypeSharePointService.cs" />
-    <Compile Include="Application\IUserTypeSharePointService.cs" />
-    <Compile Include="Application\WithdrawCashService.cs" />
+    <Compile Include="Application\Service\BanlanceFlow.cs" />
+    <Compile Include="Application\IService\IBalanceFlowService.cs" />
+    <Compile Include="Application\IService\IOrderShareService.cs" />
+    <Compile Include="Application\IService\IServiceTypePointService.cs" />
+    <Compile Include="Application\IService\IWithdrawCashService.cs" />
+    <Compile Include="Application\Service\OrderShareService.cs" />
+    <Compile Include="Application\Service\ServiceTypePointService.cs" />
+    <Compile Include="Application\Service\UserTypeSharePointService.cs" />
+    <Compile Include="Application\IService\IUserTypeSharePointService.cs" />
+    <Compile Include="Application\Service\WithdrawCashService.cs" />
     <Compile Include="DomainModel\BalanceAccount.cs" />
     <Compile Include="DomainModel\BalanceFlow.cs" />
     <Compile Include="DomainModel\BalanceTotal.cs" />
@@ -110,10 +110,7 @@
     <Compile Include="DomainModel\Enums\FlowType.cs" />
     <Compile Include="DomainModel\Enums\ShareType.cs" />
     <Compile Include="DomainModel\ServiceTypePoint.cs" />
-    <Compile Include="Application\InstallerFinance.cs" />
-    <Compile Include="Infrastructure\Bootstrap.cs" />
-    <Compile Include="Infrastructure\Installer.cs" />
-    <Compile Include="Infrastructure\InstallerFinanceDB.cs" />
+    <Compile Include="DomainModel\WithdrawApply.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceAccountMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceFlowMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceTotalMap.cs" />
@@ -124,6 +121,12 @@
     <Compile Include="Infrastructure\Repository\RepositoryServiceTypePoint.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryUserTypeSharePoint.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryBalanceFlow.cs" />
+    <Compile Include="Infrastructure\UnitOfWork\NHibernateUnitOfWork.cs" />
+    <Compile Include="Infrastructure\UnitOfWork\NHRepository.cs" />
+    <Compile Include="Infrastructure\UnitOfWork\NhUnitOfWorkInterceptor.cs" />
+    <Compile Include="Installer\InstallerFinance.cs" />
+    <Compile Include="Installer\InstallerFinanceDB.cs" />
+    <Compile Include="Installer\InstallerFinanceUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -102,6 +102,7 @@
     <Compile Include="Application\UserTypeSharePointServiceTests.cs" />
     <Compile Include="Application\WithdrawCashServiceTests.cs" />
     <Compile Include="Bootstrap.cs" />
+    <Compile Include="InstallerFinanceTestDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +120,10 @@
     <ProjectReference Include="..\Ydb.Finance\Ydb.Finance.csproj">
       <Project>{343214F8-A523-4BDA-B783-4D77942269B9}</Project>
       <Name>Ydb.Finance</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Infrastructure\Ydb.Infrastructure.csproj">
+      <Project>{3d510583-1c11-48fb-8380-12e183e5914b}</Project>
+      <Name>Ydb.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

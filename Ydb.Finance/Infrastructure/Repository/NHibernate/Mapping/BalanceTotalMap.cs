@@ -8,7 +8,7 @@ using FluentNHibernate.Mapping;
 
 namespace Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping
 {
-   internal class BalanceTotalMap : ClassMap<BalanceTotal>
+   public class BalanceTotalMap : ClassMap<BalanceTotal>
     {
         public BalanceTotalMap()
         {

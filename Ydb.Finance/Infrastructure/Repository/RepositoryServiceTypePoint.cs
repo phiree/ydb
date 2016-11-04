@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 
 namespace Ydb.Finance.Infrastructure.Repository
 {
-   internal class RepositoryServiceTypePoint : NHRepositoryBase<ServiceTypePoint, Guid>, IRepositoryServiceTypePoint
+   public class RepositoryServiceTypePoint : NHRepositoryBase<ServiceTypePoint, Guid>, IRepositoryServiceTypePoint
     {
        
         /// <summary>

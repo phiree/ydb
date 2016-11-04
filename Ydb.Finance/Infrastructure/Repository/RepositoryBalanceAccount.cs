@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 
 namespace Ydb.Finance.Infrastructure.Repository
 {
-    internal class RepositoryBalanceAccount : NHRepositoryBase<BalanceAccount, Guid>, IRepositoryBalanceAccount
+    public class RepositoryBalanceAccount : NHRepositoryBase<BalanceAccount, Guid>, IRepositoryBalanceAccount
     {
         /// <summary>
         /// 根据提现账号及提现账号类型获取绑定的提现账号信息

@@ -24,12 +24,14 @@ namespace Ydb.Finance.Tests
         public static void Boot()
         {
             container = new WindsorContainer();
-
-         
-
             container.Install(
-               
-                new Ydb.Finance.Application.InstallerFinance("sqlite","test_finance.db3")
+                new Ydb.Infrastructure.Installer()
+                );
+            container.Install(
+new Ydb.Finance.Infrastructure.InstallerUnitOfWorkFinance(),
+new Ydb.Finance.Infrastructure.InstallerFinanceDB(container.Resolve<IEncryptService>()),
+// new InstallerMembershipTestDB(),
+new Ydb.Finance.Infrastructure.InstallerFinance()
                 );
         }
         

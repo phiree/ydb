@@ -8,7 +8,7 @@ using FluentNHibernate.Mapping;
 
 namespace Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping
 {
-   internal class ServiceTypePointMap : ClassMap<ServiceTypePoint>
+   public class ServiceTypePointMap : ClassMap<ServiceTypePoint>
     {
         public ServiceTypePointMap()
         {

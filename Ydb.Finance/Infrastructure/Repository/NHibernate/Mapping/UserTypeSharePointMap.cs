@@ -9,7 +9,7 @@ using FluentNHibernate.Mapping;
 
 namespace Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping
 {
-    internal class UserTypeSharePointMap : ClassMap<UserTypeSharePoint>
+    public class UserTypeSharePointMap : ClassMap<UserTypeSharePoint>
     {
         public UserTypeSharePointMap()
         {

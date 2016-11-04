@@ -10,7 +10,7 @@ namespace Ydb.Finance.DomainModel
     /// <summary>
     /// 用户类型的分成比
     /// </summary>
-    internal class UserTypeSharePoint :Entity<Guid>
+    public class UserTypeSharePoint :Entity<Guid>
     {
         protected UserTypeSharePoint() { }
         public UserTypeSharePoint(decimal point, UserType userType)

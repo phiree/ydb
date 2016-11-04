@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Ydb.Finance.DomainModel
 {
-    internal interface IRepositoryServiceTypePoint : IRepository< ServiceTypePoint,Guid>
+    public interface IRepositoryServiceTypePoint : IRepository< ServiceTypePoint,Guid>
     {
         /// <summary>
         /// 根据服务ID获取服务扣点比例信息
