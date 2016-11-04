@@ -481,6 +481,7 @@ namespace Dianzhu.Model.Enums
         Trade_Closed = 2,//在指定时间内未支付时关闭的交易；在交易完成全额退款成功时关闭的交易。
         Trade_Finished = 3,//交易成功且结束，即不可再做任何操作。
         Fail=4,//交易失败
+        None=-1
     }
 
     /// <summary>

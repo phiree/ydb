@@ -204,13 +204,47 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.Order.Customer.Id == userID);
             }
-            if (payStatus != null && payStatus != "")
+            if (!string.IsNullOrEmpty(payStatus))
             {
-                where = where.And(x => x.Status == (Model.Enums.enum_PaymentStatus)Enum.Parse(typeof(Model.Enums.enum_PaymentStatus), payStatus));
+                Model.Enums.enum_PaymentStatus ps;
+                switch (payStatus.ToLower())
+                {
+                    case "waitforpay":
+                        ps = Model.Enums.enum_PaymentStatus.Wait_Buyer_Pay;
+                        break;
+                    case "success":
+                        ps = Model.Enums.enum_PaymentStatus.Trade_Success;
+                        break;
+                    case "failed":
+                        ps = Model.Enums.enum_PaymentStatus.Fail;
+                        break;
+                    case "waitforverify":
+                        ///没有对应状态
+                    default:
+                        ps = Model.Enums.enum_PaymentStatus.None;
+                            break;
+                }
+                where = where.And(x => x.Status == ps);
             }
-            if (payType != null && payType != "")
+            if (!string.IsNullOrEmpty(payType))
             {
-                where = where.And(x => x.PayTarget == (Model.Enums.enum_PayTarget)Enum.Parse(typeof(Model.Enums.enum_PayTarget), payType));
+                Model.Enums.enum_PayTarget ps;
+                switch (payType.ToLower())
+                {
+                    case "deposit":
+                        ps = Model.Enums.enum_PayTarget.Deposit;
+                        break;
+                    case "finalpayment":
+                        ps = Model.Enums.enum_PayTarget.FinalPayment;
+                        break;
+                    case "compensation":
+                        ps = Model.Enums.enum_PayTarget.Compensation;
+                        break;
+                    default:
+                        ps = Model.Enums.enum_PayTarget.None;
+                        break;
+                }
+                where = where.And(x => x.PayTarget == ps);
             }
             Payment baseone = null;
             if (!string.IsNullOrEmpty(filter.baseID))

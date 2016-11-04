@@ -12,7 +12,7 @@ namespace Dianzhu.BLL.Validator
     {
         public ValidatorDZMembership()
         {
-            RuleFor(x => x.Email).EmailAddress().WithMessage("邮箱格式有误");
+            RuleFor(x => x.Email).EmailAddress().When(x => !string.IsNullOrEmpty(x.Email)).WithMessage("邮箱格式有误");//.EmailAddress()
             RuleFor(x => x.Phone).SetValidator(new PhoneValidator());
             RuleFor(x => x.Password).Length(6, 99).WithMessage("密码长度至少6位");
             RuleFor(x => x.NickName).Length(0, 20).WithMessage("昵称不能超过20个字符");
