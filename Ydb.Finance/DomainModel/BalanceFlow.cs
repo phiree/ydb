@@ -48,6 +48,11 @@ namespace Ydb.Finance.DomainModel
         /// 比率
         /// </summary>
         public virtual string Rate { get; set; }
+
+        /// <summary>
+        /// 本次发生金额显示字符串
+        /// </summary>
+        public virtual string AmountView { get; set; }
     }
   
 }

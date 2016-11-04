@@ -10,43 +10,79 @@ namespace Ydb.Finance.DomainModel
     public class WithdrawApply : Entity<Guid>
     {
         /// <summary>
-        /// 用户账户ID
+        /// 申请提现用户账户ID
         /// </summary>
         public virtual string ApplyUserId { get; set; }
 
         /// <summary>
-        /// 本次发生金额
+        /// 申请提现金额
         /// </summary>
         public virtual decimal ApplyAmount { get; set; }
 
         /// <summary>
-        /// 发生时间
+        /// 申请时间
         /// </summary>
         public virtual DateTime ApplyTime { get; set; }
 
         /// <summary>
-        /// 关联对象的Id, 比如 订单, 提现单,充值单..等等.
+        /// 收款账户
         /// </summary>
-        public virtual BalanceAccount RelatedObjectId { get; set; }
+        public virtual BalanceAccount ReceiveAccount { get; set; }
 
         /// <summary>
-        /// 发生类型
+        /// 实际转账金额
         /// </summary>
-        public virtual Enums.FlowType FlowType { get; set; }
+        public virtual decimal TransferAmount { get; set; }
 
         /// <summary>
-        /// true为收入，false为支出
+        /// 手续费
         /// </summary>
-        public virtual bool Income { get; set; }
+        public virtual decimal ServiceFee { get; set; }
 
         /// <summary>
-        /// 订单总金额
+        /// 申请状态
         /// </summary>
-        public virtual string AmountTotal { get; set; }
+        public virtual string ApplyStatus { get; set; }
 
         /// <summary>
-        /// 比率
+        /// 申请备注
+        /// </summary>
+        public virtual string ApplyRemark { get; set; }
+
+        /// <summary>
+        /// 手续费率
         /// </summary>
         public virtual string Rate { get; set; }
+
+        /// <summary>
+        /// 付款人
+        /// </summary>
+        public virtual string PayUserId { get; set; }
+
+        /// <summary>
+        /// 付款时间
+        /// </summary>
+        public virtual string PayTime { get; set; }
+
+        /// <summary>
+        /// 付款状态
+        /// </summary>
+        public virtual string PayStatus { get; set; }
+
+        /// <summary>
+        /// 付款备注
+        /// </summary>
+        public virtual string PayRemark { get; set; }
+
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public virtual DateTime CreateTime { get; set; }
+
+        /// <summary>
+        /// 更新时间
+        /// </summary>
+        public virtual DateTime UpdateTime { get; set; }
+
     }
 }

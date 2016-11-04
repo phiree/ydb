@@ -23,6 +23,7 @@ namespace Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.Income);
             Map(x => x.AmountTotal);
             Map(x => x.Rate);
+            Map(x => x.AmountView);
         }
     }
 }
