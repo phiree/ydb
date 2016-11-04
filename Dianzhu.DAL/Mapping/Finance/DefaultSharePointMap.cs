@@ -13,7 +13,7 @@ namespace Dianzhu.DAL.Mapping.Finance
             Id(x => x.Id);//.GeneratedBy.Assigned();
             
             Map(x => x.Point);
-            Map(x => x.UserType).CustomType<enum_UserType>();
+            Map(x => x.UserType);
         }
     }
 }
