@@ -6,10 +6,12 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 public partial class customer_ToExcel : BasePage
 {
-    DZMembershipProvider dzmp = Bootstrap.Container.Resolve<DZMembershipProvider>();
+    IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
+
     VMCustomerAdapter vmcAdapter = Bootstrap.Container.Resolve<VMCustomerAdapter>();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -56,7 +58,7 @@ public partial class customer_ToExcel : BasePage
         if (!config.EnableCache || cached_list == null)
         {
 
-            IList<DZMembership> list = dzmp.GetAllCustomer(currentPageIndex, intSize, out totalRecord);
+            IList<MemberDto> list = memberService.GetAllCustomer(currentPageIndex, intSize, out totalRecord);
             vmList = vmcAdapter.AdaptList(list);
             System.Web.HttpRuntime.Cache.Insert(cache_key, vmList);
             System.Web.HttpRuntime.Cache.Insert(cache_key_vmcount, totalRecord);

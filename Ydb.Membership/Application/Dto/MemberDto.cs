@@ -22,6 +22,10 @@ namespace Ydb.Membership.Application.Dto
         public virtual string UserType { get; set; }        
         public virtual string RecoveryCode { get; set; }
         public virtual string AvatarUrl { get; set; }
+        public virtual string FriendlyUserType { get; set; }
+        public virtual int LoginTimes { get; set; }
+        public virtual string UserCity { get; set; }
+        public virtual string DisplayName { get; set; }
 
         public virtual void CopyTo(MemberDto newMember)
         {

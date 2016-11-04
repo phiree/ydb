@@ -6,9 +6,11 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 public partial class register : BasePage
 {
-    DZMembershipProvider bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
+    IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -17,8 +19,7 @@ public partial class register : BasePage
     protected void btnRegister_Click(object sender, EventArgs e)
     {
         System.Web.Security.MembershipCreateStatus createStatus;
-        bllMember.CreateUser(tbxUserName.Text,null, null, tbxPwd.Text,
-            out createStatus, (Dianzhu.Model.Enums.enum_UserType)(Convert.ToInt16(rblUserType.SelectedValue)));
-        lblMsg.Text = createStatus.ToString();
+     RegisterResult result=   memberService.RegisterMember(tbxUserName.Text,  tbxPwd.Text,tbxPwd.Text, rblUserType.Text,Request.Url.Scheme+"://"+Request.Url.Authority);
+        lblMsg.Text = result.RegisterSuccess.ToString();
     }
 }

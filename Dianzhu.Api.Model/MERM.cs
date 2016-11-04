@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.Config;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 namespace Dianzhu.Api.Model
 {
     public class ReqDataMERM001003
@@ -82,7 +84,7 @@ public class RespDataMERM_merObj
     public string imgUrl { get; set; }
     public string userType { get; set; }
 
-    public RespDataMERM_merObj Adapt(DZMembership membership)
+    public RespDataMERM_merObj Adapt(MemberDto membership)
     {
         this.userID = membership.Id.ToString();
         this.alias = membership.NickName ?? "";

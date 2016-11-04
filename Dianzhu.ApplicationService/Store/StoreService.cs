@@ -4,18 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 namespace Dianzhu.ApplicationService.Store
 {
     public class StoreService: IStoreService
     {
-        BLL.DZMembershipProvider bllDZM;
+        IDZMembershipService memberService;
         BLL.BLLBusiness bllBusiness;
        public static BLL.BLLStaff bllStaff;
-        public StoreService(BLL.BLLBusiness bllBusiness, BLL.DZMembershipProvider bllDZM, BLL.BLLStaff bllStaff)
+        public StoreService(BLL.BLLBusiness bllBusiness, IDZMembershipService memberService, BLL.BLLStaff bllStaff)
         {
             this.bllBusiness = bllBusiness;
-            this.bllDZM = bllDZM;
+            this.memberService = memberService;
             StoreService.bllStaff = bllStaff;
         }
 
@@ -76,13 +77,13 @@ namespace Dianzhu.ApplicationService.Store
                 throw new FormatException("店铺电话不能为空！");
             }
             Guid guidUser = utils.CheckGuidID(customer.UserID, "customer.UserID");
-            Model.DZMembership dzmember = bllDZM.GetUserById(guidUser);
-            if (dzmember == null || dzmember.UserType .ToString()!= "business")
+          MemberDto member= memberService.GetUserById(guidUser.ToString());
+            if (member == null || member.UserType  != "business")
             {
                 throw new Exception("该商户账号不存在！");
             }
             Model.Business business = Mapper.Map<storeObj, Model.Business>(storeobj);
-            business.OwnerId= dzmember.Id;
+            business.OwnerId= member.Id;
             DateTime dt = DateTime.Now;
             business.CreatedTime = dt;
             double dd = 0;

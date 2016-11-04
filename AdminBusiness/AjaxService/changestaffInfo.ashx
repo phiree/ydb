@@ -4,11 +4,11 @@ using System;
 using System.Web;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-using System.Web.Security;
+ 
+    
 public class changepassword : IHttpHandler,System.Web.SessionState.IRequiresSessionState {
 
-    DZMembershipProvider dzp = Bootstrap.Container.Resolve<DZMembershipProvider>();
-
+    
     BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>();
     public void ProcessRequest (HttpContext context) {
         //权限判断

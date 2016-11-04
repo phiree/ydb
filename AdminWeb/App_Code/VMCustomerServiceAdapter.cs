@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using log4net;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 /// <summary>
 /// VMAgentAdapter 的摘要说明
 /// </summary>
@@ -18,9 +20,9 @@ public class VMCustomerServiceAdapter
         //
     }
     string errMsg;
-    public VMCustomerService Adapt(Dianzhu.Model.DZMembership agentUser)
+    public VMCustomerService Adapt(MemberDto agentUser)
     {
-        if (agentUser.UserType != Dianzhu.Model.Enums.enum_UserType.customerservice)
+        if (agentUser.UserType != Dianzhu.Model.Enums.enum_UserType.customerservice.ToString())
         {
             errMsg = "该用户不是助理";
             log.Error(errMsg);

@@ -300,6 +300,7 @@ namespace Ydb.Membership.Application
             return result;
         }
 
+        [Obsolete("尽快移除,用语义明确的方法代替")]
         [UnitOfWork]
         public IList<MemberDto> GetUsers(TraitFilter filter, string name, string email, string phone, string loginType, string userType)
         {
@@ -307,6 +308,7 @@ namespace Ydb.Membership.Application
 
           return  Mapper.Map<IList<DZMembership>, IList<MemberDto>>(memberList);
         }
+        [Obsolete("尽快移除")]
         [UnitOfWork]
         public long GetUsersCount(string name, string email, string phone, string loginType, string userType)
         {
@@ -351,6 +353,14 @@ namespace Ydb.Membership.Application
         public RegisterResult RegisterStaff(string registerName, string password, string confirmPassword, string hostInMail)
         {
             return RegisterMember(registerName, password, confirmPassword, UserType.staff.ToString(), hostInMail);
+        }
+
+        public IList<MemberDto> GetAllCustomer(int currentPageIndex, int pageSize, out long totalRecord)
+        {
+            TraitFilter filter = new TraitFilter { pageNum=currentPageIndex,pageSize=pageSize };
+            IList<DZMembership> memberList = repositoryMembership.GetUsers(filter, string.Empty, string.Empty, string.Empty, string.Empty,UserType.customer.ToString());
+            totalRecord = repositoryMembership.GetUsersCount(string.Empty, string.Empty, string.Empty, string.Empty, UserType.customer.ToString());
+            return Mapper.Map<IList<DZMembership>, IList<MemberDto>>(memberList);
         }
     }
 }

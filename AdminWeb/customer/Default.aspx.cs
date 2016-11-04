@@ -6,9 +6,11 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 public partial class membership_Default : BasePage
 {
-    DZMembershipProvider dzmp = Bootstrap.Container.Resolve<DZMembershipProvider>();
+    IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -57,7 +59,7 @@ public partial class membership_Default : BasePage
         if (!config.EnableCache || cached_list == null)
         {
             var VMCustomerAdapter = Bootstrap.Container.Resolve<VMCustomerAdapter>();
-            IList<DZMembership> list = dzmp.GetAllCustomer(currentPageIndex, pager.PageSize, out totalRecord);
+            IList<MemberDto> list = memberService.GetAllCustomer(currentPageIndex, pager.PageSize, out totalRecord);
             vmList = VMCustomerAdapter.AdaptList(list);
             System.Web.HttpRuntime.Cache.Insert(cache_key, vmList);
             System.Web.HttpRuntime.Cache.Insert(cache_key_vmcount, totalRecord);
