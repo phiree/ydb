@@ -22,7 +22,7 @@ namespace Ydb.InstantMessage.Application
       
         public ChatService(IRepositoryChat repositoryChat)
         {
-         this.   repositoryChat = repositoryChat;
+         this.repositoryChat = repositoryChat;
         }
 
         [ UnitOfWork]

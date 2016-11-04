@@ -222,7 +222,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.ViewWPF", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "updatescripts", "updatescripts", "{88588187-ABFC-409D-B934-1164B09CCBE2}"
 	ProjectSection(SolutionItems) = preProject
-		updatescripts\dbupdatescript_2019-3-3.sql = updatescripts\dbupdatescript_2019-3-3.sql
+		updatescripts\dbupdatescript_2016-11-4.sql = updatescripts\dbupdatescript_2016-11-4.sql
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.IM.Test", "Dianzhu.IM.Test\Dianzhu.IM.Test.csproj", "{6931F336-83BE-4E6C-A945-588D636E5C73}"
@@ -303,6 +303,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.Infrastructure", "Ydb.Infrastructure\Ydb.Infrastructure.csproj", "{3D510583-1C11-48FB-8380-12E183E5914B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.Test.Integration", "Ydb.Test.Integration\Ydb.Test.Integration.csproj", "{FDF1085A-91EC-4546-8649-F929D6A2CEB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.Test.System", "Ydb.Test.System\Ydb.Test.System.csproj", "{8CA79734-2B50-4EA4-A4C8-408E0F935EF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -870,6 +872,18 @@ Global
 		{FDF1085A-91EC-4546-8649-F929D6A2CEB1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FDF1085A-91EC-4546-8649-F929D6A2CEB1}.Release|x86.ActiveCfg = Release|Any CPU
 		{FDF1085A-91EC-4546-8649-F929D6A2CEB1}.Release|x86.Build.0 = Release|Any CPU
+		{8CA79734-2B50-4EA4-A4C8-408E0F935EF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CA79734-2B50-4EA4-A4C8-408E0F935EF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CA79734-2B50-4EA4-A4C8-408E0F935EF1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8CA79734-2B50-4EA4-A4C8-408E0F935EF1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8CA79734-2B50-4EA4-A4C8-408E0F935EF1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8CA79734-2B50-4EA4-A4C8-408E0F935EF1}.Debug|x86.Build.0 = Debug|Any CPU
+		{8CA79734-2B50-4EA4-A4C8-408E0F935EF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CA79734-2B50-4EA4-A4C8-408E0F935EF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CA79734-2B50-4EA4-A4C8-408E0F935EF1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8CA79734-2B50-4EA4-A4C8-408E0F935EF1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8CA79734-2B50-4EA4-A4C8-408E0F935EF1}.Release|x86.ActiveCfg = Release|Any CPU
+		{8CA79734-2B50-4EA4-A4C8-408E0F935EF1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -920,7 +934,10 @@ Global
 		{343214F8-A523-4BDA-B783-4D77942269B9} = {D1C8406E-DF0C-4956-99AE-D49FAEE8F062}
 		{7FE22A7C-FBB8-4DF0-BABA-FCD2CC516A2C} = {D1C8406E-DF0C-4956-99AE-D49FAEE8F062}
 		{6A7ED67D-846D-46C6-84B0-82B8556F0B8F} = {28906400-A285-402F-9A18-7E947A314AA2}
+		{F4947081-34B4-436F-843C-F5216B7E1E2C} = {E4338C9B-90F1-4640-A650-F903E722C878}
 		{DD8C5C56-C156-4957-89AF-5B089EDDFBD3} = {28906400-A285-402F-9A18-7E947A314AA2}
+		{FDF1085A-91EC-4546-8649-F929D6A2CEB1} = {E4338C9B-90F1-4640-A650-F903E722C878}
+		{8CA79734-2B50-4EA4-A4C8-408E0F935EF1} = {E4338C9B-90F1-4640-A650-F903E722C878}
 	EndGlobalSection
 	GlobalSection(NDepend) = preSolution
 		Project = ".\dianzhu.ndproj"
