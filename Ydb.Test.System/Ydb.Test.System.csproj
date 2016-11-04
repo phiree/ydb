@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>8ca79734-2b50-4ea4-a4c8-408e0f935ef1</ProjectGuid>
+    <ProjectGuid>{8CA79734-2B50-4EA4-A4C8-408E0F935EF1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Ydb.Test.System</RootNamespace>
@@ -30,24 +30,39 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="scripts\batch_create_user.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IView.csproj">
+      <Project>{755eea8c-9d5e-406e-83dd-36b3ba4eb158}</Project>
+      <Name>Dianzhu.CSClient.IView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.Presenter\Dianzhu.CSClient.Presenter.csproj">
+      <Project>{5ac8d7de-a53d-4698-8957-c78d9243a793}</Project>
+      <Name>Dianzhu.CSClient.Presenter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
+      <Project>{a141eb7d-6e71-43c1-9ca7-12af1b74c1c7}</Project>
+      <Name>Ydb.InstantMessage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Membership\Ydb.Membership.csproj">
+      <Project>{6a7ed67d-846d-46c6-84b0-82b8556f0b8f}</Project>
+      <Name>Ydb.Membership</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -57,5 +72,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
- </Project>
+</Project>
