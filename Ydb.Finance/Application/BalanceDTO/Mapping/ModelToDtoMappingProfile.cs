@@ -31,6 +31,8 @@ namespace Ydb.Finance.Application
             .ForAllMembers(opt => opt.NullSubstitute(""));
             Mapper.CreateMap<BalanceAccount, BalanceAccountDto>()
             .ForAllMembers(opt => opt.NullSubstitute(""));
+            Mapper.CreateMap<WithdrawApply, WithdrawApplyDto>()
+            .ForAllMembers(opt => opt.NullSubstitute(""));
         }
     }
 }

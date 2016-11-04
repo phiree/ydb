@@ -73,6 +73,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\BalanceDTO\Enums\ApplyStatusEnums.cs" />
+    <Compile Include="Application\BalanceDTO\WithdrawApplyDto.cs" />
+    <Compile Include="Application\IService\IWithdrawApplyService.cs" />
     <Compile Include="Application\Service\BalanceAccountService.cs" />
     <Compile Include="Application\IService\IBalanceAccountService.cs" />
     <Compile Include="Application\BalanceDTO\BalanceAccountDto.cs" />
@@ -96,6 +99,7 @@
     <Compile Include="Application\Service\ServiceTypePointService.cs" />
     <Compile Include="Application\Service\UserTypeSharePointService.cs" />
     <Compile Include="Application\IService\IUserTypeSharePointService.cs" />
+    <Compile Include="Application\Service\WithdrawApplyService.cs" />
     <Compile Include="Application\Service\WithdrawCashService.cs" />
     <Compile Include="DomainModel\BalanceAccount.cs" />
     <Compile Include="DomainModel\BalanceFlow.cs" />
@@ -106,16 +110,19 @@
     <Compile Include="DomainModel\Repository\RepositoryUserTypeSharePoint.cs" />
     <Compile Include="DomainModel\Repository\RepositoryServiceTypePoint.cs" />
     <Compile Include="DomainModel\Repository\RepositorySharePoint.cs" />
+    <Compile Include="DomainModel\Repository\RepositoryWithdrawApply.cs" />
     <Compile Include="DomainModel\UserTypeSharePoint.cs" />
     <Compile Include="DomainModel\Enums\FlowType.cs" />
     <Compile Include="DomainModel\Enums\ShareType.cs" />
     <Compile Include="DomainModel\ServiceTypePoint.cs" />
     <Compile Include="DomainModel\WithdrawApply.cs" />
+    <Compile Include="Infrastructure\Repository\RepositoryWithdrawApply.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceAccountMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceFlowMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\BalanceTotalMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceTypePointMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\UserTypeSharePointMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\WithdrawApplyMap.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryBalanceAccount.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryBalanceTotal.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryServiceTypePoint.cs" />

@@ -1,0 +1,91 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ydb.Finance.Application
+{
+    public class WithdrawApplyDto
+    {
+        /// <summary>
+        /// ID
+        /// </summary>
+        public Guid Id { get; set; }
+
+        /// <summary>
+        /// 申请提现用户账户ID
+        /// </summary>
+        public virtual string ApplyUserId { get; set; }
+
+        /// <summary>
+        /// 申请提现金额
+        /// </summary>
+        public virtual decimal ApplyAmount { get; set; }
+
+        /// <summary>
+        /// 申请时间
+        /// </summary>
+        public virtual DateTime ApplyTime { get; set; }
+
+        /// <summary>
+        /// 收款账户
+        /// </summary>
+        public virtual BalanceAccountDto ReceiveAccount { get; set; }
+
+        /// <summary>
+        /// 实际转账金额
+        /// </summary>
+        public virtual decimal TransferAmount { get; set; }
+
+        /// <summary>
+        /// 手续费
+        /// </summary>
+        public virtual decimal ServiceFee { get; set; }
+
+        /// <summary>
+        /// 申请状态
+        /// </summary>
+        public virtual ApplyStatusEnums ApplyStatus { get; set; }
+
+        /// <summary>
+        /// 申请备注
+        /// </summary>
+        public virtual string ApplyRemark { get; set; }
+
+        /// <summary>
+        /// 手续费率
+        /// </summary>
+        public virtual string Rate { get; set; }
+
+        /// <summary>
+        /// 付款人
+        /// </summary>
+        public virtual string PayUserId { get; set; }
+
+        /// <summary>
+        /// 付款时间
+        /// </summary>
+        public virtual string PayTime { get; set; }
+
+        /// <summary>
+        /// 付款回调状态
+        /// </summary>
+        public virtual string PayStatus { get; set; }
+
+        /// <summary>
+        /// 付款备注
+        /// </summary>
+        public virtual string PayRemark { get; set; }
+
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public virtual DateTime CreateTime { get; set; }
+
+        /// <summary>
+        /// 更新时间
+        /// </summary>
+        public virtual DateTime UpdateTime { get; set; }
+    }
+}
