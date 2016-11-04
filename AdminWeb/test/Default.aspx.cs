@@ -6,31 +6,31 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 public partial class test_Default : BasePage
 {
     public IBLLServiceOrder bllOrder =Bootstrap.Container.Resolve<IBLLServiceOrder>();
     Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder = Bootstrap.Container.Resolve<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>();
-
+    IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
     protected void Page_Load(object sender, EventArgs e)
     {
 
     }
     protected void btnCreateOrder_Click(object sender,EventArgs e)
     {
-        DZMembershipProvider bllMembership = Bootstrap.Container.Resolve<DZMembershipProvider>();
-
+      
         BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
         BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
 
-        DZMembership customer = bllMembership.GetUserByName(tbxCustomerName.Text);
+        MemberDto customer = memberService.GetUserByName(tbxCustomerName.Text);
         if (customer == null)
         {
             lblCreateOrderResult.Text = "用户不存在";
             return;
         }
-        DZMembership customerService = bllMembership.GetUserByName("aa@aa.aa");
-        ServiceOrder order= ServiceOrderFactory.CreateDraft(customerService, customer);
+        MemberDto customerService = memberService.GetUserByName("aa@aa.aa");
+        ServiceOrder order= ServiceOrderFactory.CreateDraft(customerService.Id.ToString(), customer.Id.ToString());
         DZService service = bllService.GetOne(new Guid("0f4bdace-dad0-43aa-8cce-a5c501180535"));
          order.AddDetailFromIntelService(service, 1, "test_用户名", "13999999999", "test_服务地址", DateTime.Now, string.Empty);
 

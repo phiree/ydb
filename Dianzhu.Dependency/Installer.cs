@@ -27,7 +27,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<BLLDeviceBind>());
             container.Register(Component.For<BLLDZService>());
             container.Register(Component.For<BLLDZTag>());
-            container.Register(Component.For<DZMembershipProvider>());
+          
 
             container.Register(Component.For<BLLIMUserStatus>());
             container.Register(Component.For<BLLIMUserStatusArchieve>());
@@ -110,7 +110,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<IRepository<DeviceBind, Guid>, IDALDeviceBind>().ImplementedBy<DALDeviceBind>());
             container.Register(Component.For<IRepository<DZService, Guid>, IDALDZService>().ImplementedBy<DALDZService>());
             container.Register(Component.For<IRepository<DZTag, Guid>, IDALDZTag>().ImplementedBy<DALDZTag>());
-            container.Register(Component.For<IRepository<DZMembership, Guid>, IDALMembership>().ImplementedBy<DALMembership>());
+          
             //fffffffff
             container.Register(Component.For<IRepository<Model.Finance.BalanceFlow, Guid>, IDAL.Finance.IDALBalanceFlow>().ImplementedBy<DAL.Finance.DALBalanceFlow>());
             container.Register(Component.For<IRepository<Model.Finance.DefaultSharePoint, Guid>, IDAL.Finance.IDALDefaultSharePoint>().ImplementedBy<DAL.Finance.DALDefaultSharePoint>());

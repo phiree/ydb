@@ -7,6 +7,8 @@ using Ydb.Membership.DomainModel;
 using Ydb.Membership.DomainModel.Enums;
 using Ydb.Common.Application;
 using Ydb.Common.Specification;
+using Ydb.Membership.Application.Dto;
+
 namespace Ydb.Membership.Application
 {
   public interface  IDZMembershipService
@@ -52,6 +54,7 @@ namespace Ydb.Membership.Application
         /// <param name="userName"></param>
         /// <returns></returns>
         Dto.MemberDto GetUserById(string id);
+        IList<MemberDto> GetAllCustomer(int currentPageIndex, int pageSize, out long totalRecord);
 
         /// <summary>
         /// 用户验证

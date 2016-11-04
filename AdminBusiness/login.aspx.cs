@@ -67,6 +67,7 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
             }
             else {
                 lblMsg.Text = "登录失败，请重试";
+                Config.log.Error(res.msg);
                 lblMsg.CssClass = "lblMsg lblMsgShow";
             }
 

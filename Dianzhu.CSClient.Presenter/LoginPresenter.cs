@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model;
 using Dianzhu.BLL;
-using Dianzhu.BLL.IdentityAccess;
+ 
 using System.Threading;
 using Ydb.InstantMessage.Application;
 using Ydb.Membership.Application.Dto;

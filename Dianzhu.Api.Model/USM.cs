@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.Config;
+using Ydb.Membership.Application.Dto;
 namespace Dianzhu.Api.Model
 {
     #region USM接口公用类
@@ -17,7 +18,7 @@ namespace Dianzhu.Api.Model
         public string imgUrl { get; set; }
         public string address { get; set; }
         public string name { get; set; }
-        public RespDataUSM_userObj Adapt(DZMembership membership)
+        public RespDataUSM_userObj Adapt(MemberDto membership)
         {
             this.userID = membership.Id.ToString();
             this.alias = membership.DisplayName ?? "";

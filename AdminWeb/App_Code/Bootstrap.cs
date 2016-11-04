@@ -1,24 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Castle.Windsor;
-using Castle.MicroKernel.Registration;
-using Dianzhu.Model;
-using Dianzhu.IDAL;
-using Dianzhu.DAL;
-using Dianzhu.BLL;
-using NHibernate;
-using System.Configuration;
-using nhf = FluentNHibernate.Cfg;
+﻿using Castle.Windsor;
+using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
-using Castle.MicroKernel.SubSystems.Configuration;
-using Castle.Windsor.Installer;
+using System.Configuration;
 /// <summary>
 /// Summary description for Installer
 /// </summary>
-
+using Ydb.Common.Infrastructure;
 public class Bootstrap
 {
     static IWindsorContainer container;
@@ -38,8 +26,30 @@ public class Bootstrap
             new InstallerAdminWeb()
             );
 
-        
+        container.Install(new Ydb.Infrastructure.Installer());
+        container.Install(
+                        new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
+                        new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(container.Resolve<IEncryptService>()),
+                        new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
+                        );
 
+        container.Install(
+
+           new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
+           new Ydb.Membership.Infrastructure.InstallerMembership(),
+           new Ydb.Membership.Application.InstallerMembershipDB(container.Resolve<IEncryptService>())
+            // new Application.InstallerMembershipTestDB()
+
+
+
+            );
+        // Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
+        AutoMapper.Mapper.Initialize(x =>
+        {
+
+            x.AddProfile<Ydb.Membership.Application.ModelToDtoMappingProfile>();
+        });
     }
+
 
 }
