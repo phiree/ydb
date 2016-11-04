@@ -77,9 +77,6 @@
     <Compile Include="DALServiceType.cs" />
     <Compile Include="DALStaff.cs" />
     <Compile Include="Finance\DALServiceTypePoint.cs" />
-    <Compile Include="IdentityAccess\DALMembership.cs" />
-    <Compile Include="IdentityAccess\DALRole.cs" />
-    <Compile Include="IdentityAccess\DALRoleMember.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,6 +94,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="IdentityAccess\" />
     <Folder Include="Order\" />
     <Folder Include="Resource\" />
   </ItemGroup>

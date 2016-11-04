@@ -12,6 +12,7 @@ using Dianzhu.Model;
 using Dianzhu.CSClient.Presenter.VMAdapter;
 using Dianzhu.CSClient.ViewModel;
 using Ydb.InstantMessage.Application;
+using Ydb.Membership.Application;
 
 namespace Dianzhu.Test.DZCSClientTest
 {
@@ -29,6 +30,7 @@ namespace Dianzhu.Test.DZCSClientTest
         IVMChatAdapter vmChatAdapter;
         IVMIdentityAdapter vmIdentityAdapter;
         IReceptionService receptionService;
+        Ydb.Membership.Application.IDZMembershipService memberService;
 
         PIdentityList pIdentityList;
         IList<DZMembership> customerList;
@@ -57,11 +59,11 @@ namespace Dianzhu.Test.DZCSClientTest
             vmChatAdapter = MockRepository.GenerateStub<IVMChatAdapter>();
             vmIdentityAdapter = MockRepository.GenerateStub<IVMIdentityAdapter>();
             receptionService = MockRepository.GenerateStub<IReceptionService>();
+            memberService = MockRepository.GenerateStub<IDZMembershipService>();
 
-
-            pIdentityList = new PIdentityList(viewIdentityList, viewChatList, iIM, dalMembership,
+            pIdentityList = new PIdentityList(viewIdentityList, viewChatList, iIM,
                 viewChatSend, bllServiceOrder, viewOrderHistory, viewSearchResult,
-                lcm,lhom,luidm, vmChatAdapter, vmIdentityAdapter, receptionService);
+                lcm,lhom,luidm, vmChatAdapter, vmIdentityAdapter, receptionService, memberService);
 
             string[] customerIdList = { "17b2007f-0267-4224-8d5a-cbaafa7ed1fc", "153ef5fa-600a-4a32-aefb-27c5e5fa5a50", "4a3727f6-ec21-42a8-ba84-70ba9db06354" };
             string[] csIdList = { "20364ea5-c19c-409d-8b61-cb1905fc68d8", "684db3a7-6c2c-44bf-a50a-5ceb1b904a26", "8f506545-de72-4fdb-bbaa-85a8709ae63f" };
@@ -93,14 +95,14 @@ namespace Dianzhu.Test.DZCSClientTest
 
             orderList = Builder<ServiceOrder>.CreateListOfSize(3)
                     .TheFirst(1).With(x => x.Id = new Guid(orderIdList[0]))
-                                .With(x => x.CustomerId = customerList[0])
-                                .With(x => x.CustomerServiceId = csList[0])
+                                .With(x => x.CustomerId = customerList[0].Id.ToString())
+                                .With(x => x.CustomerServiceId = csList[0].Id.ToString())
                     .TheNext(1).With(x => x.Id = new Guid(orderIdList[1]))
-                                .With(x => x.Customer = customerList[1])
-                                .With(x => x.CustomerService = csList[1])
-                    .TheLast(1).With(x => x.Id = new Guid(orderIdList[2]))
-                                .With(x => x.Customer = customerList[2])
-                                .With(x => x.CustomerService = csList[2])
+                                .With(x => x.CustomerId = customerList[1].Id.ToString())
+                                .With(x => x.CustomerServiceId = csList[1].Id.ToString())
+                    .TheLast(1).With(x => x.Id = new Guid( orderIdList[2] ))
+                                .With(x => x.CustomerId = customerList[2].Id.ToString())
+                                .With(x => x.CustomerServiceId = csList[2].Id.ToString())
                     .Build();
         }
 
@@ -124,16 +126,16 @@ namespace Dianzhu.Test.DZCSClientTest
                  .Build();
 
             ServiceOrder order_user1 = Builder<ServiceOrder>.CreateNew()
-                .With(x => x.CustomerId = members[0])
-                .With(x => x.CustomerServiceId = members[2])
+                .With(x => x.CustomerId = members[0].Id.ToString())
+                .With(x => x.CustomerServiceId = members[2].Id.ToString())
                 .With(x=>x.Id=new Guid("d9f216b5-92e4-4f7a-87a0-a5f00107b6bc"))
                 .Build();
 
             pChatList.ViewIdentityList_IdentityClick(null);
 
             ServiceOrder order_user2 = Builder<ServiceOrder>.CreateNew()
-               .With(x => x.CustomerId = members[1])
-               .With(x => x.CustomerServiceId = members[2])
+               .With(x => x.CustomerId = members[1].Id.ToString())
+               .With(x => x.CustomerServiceId = members[2].Id.ToString())
                .With(x => x.Id = new Guid("39a6f7ed-f9d8-4782-b75f-a5f001198475"))
                .Build();
             pChatList.ViewIdentityList_IdentityClick(null);

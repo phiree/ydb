@@ -251,6 +251,10 @@
       <Project>{de79c6ab-b5a9-4baf-80fa-22835452785f}</Project>
       <Name>RisCaptureLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
+      <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
+      <Name>Ydb.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ydb.Infrastructure\Ydb.Infrastructure.csproj">
       <Project>{3d510583-1c11-48fb-8380-12e183e5914b}</Project>
       <Name>Ydb.Infrastructure</Name>

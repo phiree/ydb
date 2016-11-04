@@ -73,7 +73,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 订单操作人员
         /// </summary>
-        public virtual DZMembership Controller { get; set; }
+        public virtual string ControllerId { get; set; }
         /// <summary>
         /// 序号
         /// </summary>

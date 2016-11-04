@@ -108,17 +108,13 @@
     <Compile Include="Finance\DALSalePoint.cs" />
     <Compile Include="Finance\DALBalanceFlow.cs" />
     <Compile Include="Finance\DALSharePoint.cs" />
-    <Compile Include="IdentityAccess\DALMembership.cs" />
     <Compile Include="DALPaylog.cs" />
     <Compile Include="DALOrderAssignment.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderStateChangeHis.cs" />
-    <Compile Include="IdentityAccess\DALRoleMember.cs" />
-    <Compile Include="IdentityAccess\DALRole.cs" />
     <Compile Include="Mapping\ClaimsDetailsMap.cs" />
     <Compile Include="Mapping\Client\ClientMap.cs" />
     <Compile Include="Mapping\Client\RefreshTokenMap.cs" />
     <Compile Include="Mapping\Finance\BalanceFlowMap.cs" />
-    <Compile Include="Mapping\IdentityAccess\AgentMap.cs" />
     <Compile Include="Mapping\Finance\SharePointMap.cs" />
     <Compile Include="Mapping\Finance\DefaultSharePointMap.cs" />
     <Compile Include="Mapping\MembershipLoginLogMap.cs" />
@@ -126,8 +122,6 @@
     <Compile Include="Mapping\ComplaintMap.cs" />
     <Compile Include="Mapping\AdvertisementMap.cs" />
     <Compile Include="Mapping\Finance\SalePointMapping.cs" />
-    <Compile Include="Mapping\IdentityAccess\DZRoleMap.cs" />
-    <Compile Include="Mapping\IdentityAccess\DZRoleMemberMap.cs" />
     <Compile Include="Mapping\IMUserStatusMap.cs" />
     <Compile Include="Mapping\CityMap.cs" />
     <Compile Include="Mapping\RefundLogMap.cs" />
@@ -139,11 +133,7 @@
     <Compile Include="Mapping\StaffServiceTypeMap.cs" />
     <Compile Include="Mapping\PaymentLogMap.cs" />
     <Compile Include="Mapping\AreaMap.cs" />
-    <Compile Include="Mapping\CashTicketTemplateMap.cs" />
-    <Compile Include="Mapping\CashTicketMap.cs" />
-    <Compile Include="Mapping\CashTicketCreateRecord.cs" />
     <Compile Include="Mapping\BusinessMap.cs" />
-    <Compile Include="Mapping\IdentityAccess\DZMembershipMap.cs" />
     <Compile Include="Mapping\ServiceOrderStateChangeHisMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderMap.cs" />
     <Compile Include="Mapping\ServiceTypeMap.cs" />
@@ -151,7 +141,6 @@
     <Compile Include="Mapping\OrderAssignment.cs" />
     <Compile Include="Mapping\PaymentMap.cs" />
     <Compile Include="Mapping\StaffMap.cs" />
-    <Compile Include="Mapping\CashTicketAssignRecord.cs" />
     <Compile Include="Mapping\DeviceBindMap.cs" />
     <Compile Include="Mapping\DZTagMap.cs" />
     <Compile Include="Mapping\ServiceOpenTimeMap.cs" />
@@ -211,6 +200,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="dlls\" />
+    <Folder Include="IdentityAccess\" />
+    <Folder Include="Mapping\IdentityAccess\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

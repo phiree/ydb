@@ -7,7 +7,7 @@ using Castle.MicroKernel.Registration;
 using Dianzhu.Model;
 using Dianzhu.IDAL;
 using Dianzhu.DAL;
-using Dianzhu.BLL;
+
 //using NHibernate;
 using System.Configuration;
 //using nhf = FluentNHibernate.Cfg;
@@ -16,8 +16,8 @@ using System.Configuration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor.Installer;
 using Dianzhu.ApplicationService;
-
-
+using Ydb.Common.Infrastructure;
+using AutoMapper;
 namespace Dianzhu.Web.RestfulApi
 {
     public class Bootstrap
@@ -35,25 +35,35 @@ namespace Dianzhu.Web.RestfulApi
                 new Dianzhu.DependencyInstaller.InstallerComponent(),
                 new Dianzhu.DependencyInstaller.InstallerInfrstructure(),
                 new Dianzhu.DependencyInstaller.InstallerRepository(),
-                new Dianzhu.DependencyInstaller.InstallerApplicationService(),
-
-                new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
-                   new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
-
-                new Ydb.InstantMessage.Infrastructure.InstallerIntantMessage(),
-                new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(),
-
-                new Ydb.Membership.Application.InstallerMembership(),
-                 new Ydb.Membership.Application.InstallerMembershipDB(),
-
-
-                   new Ydb.Infrastructure.Installer(),
-                new InstallerRestfulApi()
+                new Dianzhu.DependencyInstaller.InstallerApplicationService()
                 );
 
-            Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
-            Ydb.Membership.Application.AutoMapperConfiguration.Configure();
-            
+
+
+            container.Install(
+                new Ydb.Infrastructure.Installer()
+                );
+            container.Install(
+new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
+new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(container.Resolve<IEncryptService>()),
+new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
+                );
+
+            container.Install(
+
+               new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
+               new Ydb.Membership.Infrastructure.InstallerMembership(),
+               new Ydb.Membership.Application.InstallerMembershipDB(container.Resolve<IEncryptService>()),
+            // new Application.InstallerMembershipTestDB()
+            new InstallerRestfulApi()
+                );
+           // Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
+            Mapper.Initialize(x =>
+            {
+                x.AddProfile<ApplicationService.Mapping.ModelToDtoMappingProfile>();
+                x.AddProfile<ApplicationService.Mapping.DtoToModelMappingProfile>();
+                x.AddProfile<Ydb.Membership.Application.ModelToDtoMappingProfile>();
+            });
         }
     }
 }

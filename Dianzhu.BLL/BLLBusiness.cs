@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Linq.Expressions;
 using DDDCommon;
 using System.Reflection;
+using Ydb.Membership.Application;
 namespace Dianzhu.BLL
 {
     /// <summary>
@@ -19,11 +20,12 @@ namespace Dianzhu.BLL
     public class BLLBusiness
     {
          IDAL.IDALBusiness dalBusiness;
-        IDAL.IDALMembership dalMembership;
+    
+        IDZMembershipService memberService;
         public BLLBusiness(IDAL.IDALBusiness dalBusiness,
-        IDAL.IDALMembership dalMembership)
+        IDZMembershipService memberService)
         {
-            this.dalMembership = dalMembership;
+            this.memberService = memberService;
             this.dalBusiness = dalBusiness;
         }
          
@@ -68,11 +70,11 @@ namespace Dianzhu.BLL
             return dalBusiness.FindOne(x => x.Email == email);
         }
 
-        public int GetEnableSum(DZMembership member)
+        public int GetEnableSum(string memberId)
         {
            // return DALBusiness.GetEnableSum(member);
             // x.Owner == member).And(x => x.Enabled == true)
-            Expression<Func<Model.Business, bool>> sameOwner = i => i.OwnerId ==member.Id;
+            Expression<Func<Model.Business, bool>> sameOwner = i => i.OwnerId.ToString()==memberId;
             Expression<Func<Model.Business, bool>> isEnabled = i => i.Enabled;
 
             var where = PredicateBuilder.And(sameOwner, isEnabled);

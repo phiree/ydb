@@ -10,7 +10,7 @@ namespace Dianzhu.IDAL
     public interface IDALDeviceBind  :IRepository<DeviceBind,Guid>
     {
 
-          void UpdateBindStatus(DZMembership member, string appToken, string appName);
+          void UpdateBindStatus(string memberId, string appToken, string appName);
 
         /// <summary>
         /// 解除之前所有 apptoken  和 member的绑定,然后保存新的绑定

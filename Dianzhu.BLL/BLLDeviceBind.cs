@@ -19,9 +19,9 @@ namespace Dianzhu.BLL
             this.DALDeviceBind = DALDeviceBind;
         }
  
-        public void UpdateDeviceBindStatus(DZMembership member,string appToken,string appName)
+        public void UpdateDeviceBindStatus(string memberId,string appToken,string appName)
         { 
-         DALDeviceBind.UpdateBindStatus(member, appToken, appName);
+         DALDeviceBind.UpdateBindStatus(memberId, appToken, appName);
         }
 
         public void Save(DeviceBind db)
@@ -60,9 +60,9 @@ namespace Dianzhu.BLL
         {
             return DALDeviceBind.getDevBindByUUID(uuid);
         }
-        public DeviceBind getDevBindByUserID(DZMembership user)
+        public DeviceBind getDevBindByUserID(string userId)
         {
-            return DALDeviceBind.getDevBindByUserID(user.Id);
+            return DALDeviceBind.getDevBindByUserID(new Guid( userId));
         }
     }
 }

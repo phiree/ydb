@@ -22,6 +22,7 @@ namespace Ydb.Membership.Application
         Dto.RegisterResult RegisterBusinessUser(string registerName, string password,string confirmPassword,string hostInMail);
         Dto.RegisterResult RegisterCustomerService(string registerName, string password, string confirmPassword, string hostInMail);
         Dto.RegisterResult RegisterMember(string registerName, string password, string confirmPassword, string userType, string hostInMail);
+        Dto.RegisterResult RegisterStaff(string registerName, string password, string confirmPassword,   string hostInMail);
         /// <summary>
         /// 重新发送注册验证邮件
         /// </summary>

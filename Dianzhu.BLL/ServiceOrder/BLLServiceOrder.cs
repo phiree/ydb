@@ -14,6 +14,8 @@ using System.Web;
 using System.Text.RegularExpressions;
 using System.Net;
 using Dianzhu.IDAL;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 using DDDCommon;
 namespace Dianzhu.BLL
 {
@@ -27,7 +29,7 @@ namespace Dianzhu.BLL
 
         IDALServiceOrder repoServiceOrder = null;
 
-        IDALMembership repoMembership;
+        IDZMembershipService memberService;
         IDALOrderAssignment repoOrderAssignment;
       
         BLLPayment bllPayment = null;
@@ -40,14 +42,14 @@ namespace Dianzhu.BLL
 
 
         public BLLServiceOrder(IDAL.IDALServiceOrder repoServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis,
- 
-           IDALMembership repoMembership, IDALRefund bllRefund, IDALOrderAssignment repoOrderAssignment, BLLPayment bllPayment ,IDALClaims dalClaims)
+
+           IDZMembershipService memberService, IDALRefund bllRefund, IDALOrderAssignment repoOrderAssignment, BLLPayment bllPayment ,IDALClaims dalClaims)
  
  
         {
             this.repoServiceOrder = repoServiceOrder;
             this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
-            this.repoMembership = repoMembership;
+            this.memberService = memberService;
             this.repoOrderAssignment = repoOrderAssignment;
 
             this.bllPayment = bllPayment;

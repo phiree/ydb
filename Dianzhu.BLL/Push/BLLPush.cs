@@ -10,6 +10,8 @@ using log4net;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.DomainModel.Enums;
 using Ydb.InstantMessage.DomainModel.Reception;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 
 namespace Dianzhu.BLL
 {
@@ -26,15 +28,16 @@ namespace Dianzhu.BLL
 
         IBLLServiceOrder bllServiceOrder;
         IReceptionSession iimSession;
-        IDAL.IDALMembership dalMembership;
-        public BLLPush( IDALDeviceBind dalDeviceBind, BLL.IBLLServiceOrder bllServiceOrder, IReceptionSession iimSession, IDAL.IDALMembership dalMembership)
+       
+        IDZMembershipService memberService;
+        public BLLPush( IDALDeviceBind dalDeviceBind, BLL.IBLLServiceOrder bllServiceOrder, IReceptionSession iimSession, IDZMembershipService memberService)
 
         {
           
             this.dalDeviceBind = dalDeviceBind;
             this.bllServiceOrder = bllServiceOrder;
             this.iimSession = iimSession;
-            this.dalMembership = dalMembership;
+            this.memberService = memberService;
         }
 
 
@@ -85,13 +88,13 @@ namespace Dianzhu.BLL
             }
             else if (chat.GetType() == typeof(ReceptionChat) || chat.GetType() == typeof(ReceptionChatMedia))
             {
-                Model.DZMembership member = dalMembership.FindById(new Guid(chat.FromId));
-                switch (member.UserType)
+               MemberDto member = memberService.GetUserById( chat.FromId);
+                switch (  member.UserType)
                 {
-                    case enum_UserType.customerservice:
+                    case"customerservice":
                         pushMessage = "[小助理]" + chat.MessageBody;
                         break;
-                    case enum_UserType.business:
+                    case "business":
                         Model.ServiceOrder serviceOrder = bllServiceOrder.GetOne(new Guid(chat.SessionId));
 
                         pushMessage = "[" + serviceOrder.ServiceBusinessName + "]" + chat.MessageBody;

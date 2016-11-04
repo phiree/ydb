@@ -15,7 +15,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.AppName);
             Map(x => x.AppToken);
             Map(x => x.BindChangedTime);
-            References<DZMembership>(x => x.DZMembership);
+            Map(x => x.DZMembershipId);
             Map(x =>x.IsBinding);
             Map(x => x.AppUUID);
             Map(x => x.SaveTime);

@@ -11,12 +11,12 @@ namespace Dianzhu.DAL
     {
 
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.DeviceBind");
-        public void UpdateBindStatus(DZMembership member, string appToken, string appName)
+        public void UpdateBindStatus(string memberId, string appToken, string appName)
         {
             using (var t = Session.BeginTransaction())
             {
                 //解除所有 apptoken  和 member的绑定
-                string unbind_sql = "update DeviceBind db set db.IsBinding=0 where db.DZMembership.Id='" + member.Id
+                string unbind_sql = "update DeviceBind db set db.IsBinding=0 where db.DZMembership.Id='" + memberId
                                 + "' or  db.AppToken='" + appToken + "'";
                 IQuery query = Session.CreateQuery(unbind_sql);
                 query.ExecuteUpdate();
@@ -25,7 +25,7 @@ namespace Dianzhu.DAL
             }
 
             //记录本次绑定
-            DeviceBind newDb = new DeviceBind { DZMembership = member, AppName = appName, BindChangedTime = DateTime.Now, AppToken = appToken, IsBinding = true };
+            DeviceBind newDb = new DeviceBind { DZMembershipId = memberId, AppName = appName, BindChangedTime = DateTime.Now, AppToken = appToken, IsBinding = true };
             Add(newDb);
 
         }
@@ -97,14 +97,14 @@ namespace Dianzhu.DAL
                 ilog.Debug("DeviceBind(1)");
                 db.AppToken = devicebind.AppToken;
                 db.IsBinding = true;
-                db.DZMembership = devicebind.DZMembership;
+                db.DZMembershipId = devicebind.DZMembershipId;
                 db.BindChangedTime = devicebind.BindChangedTime;
                 Update(db);
                 ilog.Debug("DeviceBind(2):"+db.Id);
             }
-            if (devicebind.DZMembership != null)
+            if (devicebind.DZMembershipId != null)
             {
-                IList<DeviceBind> dbs = Find(x => x.AppUUID != devicebind.AppUUID && x.DZMembership.Id == devicebind.DZMembership.Id);
+                IList<DeviceBind> dbs = Find(x => x.AppUUID != devicebind.AppUUID && x.DZMembershipId == devicebind.DZMembershipId);
                 foreach (DeviceBind d in dbs)
                 {
                     d.IsBinding = false;
@@ -123,7 +123,7 @@ namespace Dianzhu.DAL
         }
         public DeviceBind getDevBindByUserID(Guid userId)
         {
-            return FindOne(x => x.DZMembership.Id == userId && x.IsBinding == true);
+            return FindOne(x => x.DZMembershipId == userId.ToString() && x.IsBinding == true);
         }
     }
 }

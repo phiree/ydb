@@ -129,10 +129,10 @@ namespace Dianzhu.DAL
             
         }
 
-        public IList<ServiceOrder> GetListForCustomer(DZMembership customer,int pageNum,int pageSize,out int totalAmount)
+        public IList<ServiceOrder> GetListForCustomer(string customerId,int pageNum,int pageSize,out int totalAmount)
         {
             
-                var iquery = Session.QueryOver<ServiceOrder>().Where(x => x.CustomerId == customer.Id.ToString()).Where(x => x.OrderStatus != enum_OrderStatus.Draft).Where(x => x.OrderStatus != enum_OrderStatus.DraftPushed);
+                var iquery = Session.QueryOver<ServiceOrder>().Where(x => x.CustomerId == customerId).Where(x => x.OrderStatus != enum_OrderStatus.Draft).Where(x => x.OrderStatus != enum_OrderStatus.DraftPushed);
                 totalAmount = iquery.RowCount();
 
                 IList<ServiceOrder> list = iquery.OrderBy(x => x.OrderFinished).Desc.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
@@ -149,9 +149,9 @@ namespace Dianzhu.DAL
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public ServiceOrder GetDraftOrder(DZMembership c, DZMembership cs)
+        public ServiceOrder GetDraftOrder(string cId, string csId)
         {
-            return FindOne(x => x.CustomerId == c.Id.ToString() && x.CustomerServiceId == cs.Id.ToString() && x.OrderStatus == enum_OrderStatus.Draft);
+            return FindOne(x => x.CustomerId == cId && x.CustomerServiceId == csId && x.OrderStatus == enum_OrderStatus.Draft);
         }
 
         public IList<ServiceOrder> GetOrderListByDate(DZService service, DateTime dateTime)
@@ -159,9 +159,9 @@ namespace Dianzhu.DAL
             return Find(x => x.Service.Id == service.Id && x.OrderCreated.Date == dateTime.Date);
         }
 
-        public ServiceOrder GetOrderByIdAndCustomer(Guid Id, DZMembership customer)
+        public ServiceOrder GetOrderByIdAndCustomer(Guid Id, string customerId)
         {
-            return FindOne(x => x.Id == Id && x.CustomerId == customer.Id.ToString());
+            return FindOne(x => x.Id == Id && x.CustomerId == customerId);
         }
         //public IList<ServiceOrder> GetAllOrdersForBusiness(Guid businessId, int pageIndex, int pageSize, out int totalRecords)
         //{

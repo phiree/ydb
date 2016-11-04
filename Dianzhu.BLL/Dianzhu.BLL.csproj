@@ -111,16 +111,11 @@
     <Compile Include="Finance\OrderShare.cs" />
     <Compile Include="IEmailService.cs" />
     <Compile Include="IEncryptService.cs" />
-    <Compile Include="IdentityAccess\ILoginService.cs" />
-    <Compile Include="IdentityAccess\LoginDto.cs" />
-    <Compile Include="IdentityAccess\RoleDto.cs" />
-    <Compile Include="IdentityAccess\RoleService.cs" />
     <Compile Include="Push\PushMessageBuilder.cs" />
     <Compile Include="ServiceBase.cs" />
     <Compile Include="ServiceOrder\IBLLServiceOrder.cs" />
     <Compile Include="ServiceOrder\BLLServiceOrder.cs" />
     <Compile Include="BLLServiceType.cs" />
-    <Compile Include="IdentityAccess\DZMembershipProvider.cs" />
     <Compile Include="DZRoleProvidercs.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -201,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FormModel\" />
+    <Folder Include="IdentityAccess\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

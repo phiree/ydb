@@ -30,7 +30,7 @@ namespace Ydb.Membership.Infrastructure
             InstallRepository(container, store);
             InstallApplicationService(container, store);
 
-            AutoMapperConfiguration.Configure();
+            
         }
 
         

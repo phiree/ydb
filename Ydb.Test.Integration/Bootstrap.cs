@@ -37,9 +37,7 @@ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
                new Ydb.Membership.Infrastructure.InstallerMembership(),            
                new Ydb.Membership.Application.InstallerMembershipDB(container.Resolve<IEncryptService>())
                 // new Application.InstallerMembershipTestDB()
-
-
-
+ 
                 );
 
         }

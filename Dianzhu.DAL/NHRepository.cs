@@ -114,11 +114,11 @@ namespace Dianzhu.DAL
                     pageIndex = 1;
                 }
 
-                result = query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList(); 
+           var result2 = query.Skip(pageSize * (pageIndex - 1)).Take(pageSize);//.ToList(); 
                 
 
 
-            return result;
+            return result2.ToList();
         }
 
         /// <summary>

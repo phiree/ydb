@@ -347,5 +347,10 @@ namespace Ydb.Membership.Application
 
             return new ActionResult();
         }
+
+        public RegisterResult RegisterStaff(string registerName, string password, string confirmPassword, string hostInMail)
+        {
+            return RegisterMember(registerName, password, confirmPassword, UserType.staff.ToString(), hostInMail);
+        }
     }
 }

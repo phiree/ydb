@@ -4,20 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 namespace Dianzhu.ApplicationService.Staff
 {
     public class StaffService : IStaffService
     {
         BLL.BLLBusiness bllBusiness;
         BLL.BLLStaff bllStaff;
-        BLL.DZMembershipProvider DZM;
-       public static BLL.BLLOrderAssignment bllAssignment;
-        public StaffService(BLL.BLLBusiness bllBusiness, BLL.BLLStaff bllStaff, BLL.DZMembershipProvider DZM, BLL.BLLOrderAssignment bllAssignment)
+        IDZMembershipService memberService;
+        public static BLL.BLLOrderAssignment bllAssignment;
+        public StaffService(BLL.BLLBusiness bllBusiness, BLL.BLLStaff bllStaff, IDZMembershipService memberService, BLL.BLLOrderAssignment bllAssignment)
         {
             this.bllBusiness = bllBusiness;
             this.bllStaff = bllStaff;
-            this.DZM = DZM;
+            this.memberService = memberService;
             StaffService.bllAssignment = bllAssignment;
         }
 
@@ -99,15 +100,16 @@ namespace Dianzhu.ApplicationService.Staff
             }
             Model.Business business = checkRute(storeID, customer);
             Model.Staff staff = Mapper.Map<staffObj, Model.Staff>(staffobj);
-            Model.DZMembership dzms = DZM.GetUserByName(staffobj.loginName);
+          MemberDto dzms = memberService.GetUserByName(staffobj.loginName);
             if (dzms == null)
             {
                 System.Web.Security.MembershipCreateStatus mc = new System.Web.Security.MembershipCreateStatus();
-                dzms = DZM.CreateUser(staffobj.loginName, null, null, staffobj.pWord, out mc, Model.Enums.enum_UserType.staff);
+                RegisterResult registerResult = memberService.RegisterStaff(staffobj.loginName,  staffobj.pWord, staffobj.pWord,
+                    System.Web.HttpContext.Current.Request.Url.Scheme+"://" + System.Web.HttpContext.Current.Request.Url.Authority);
             }
             else
             {
-                if (dzms.UserType != Model.Enums.enum_UserType.staff)
+                if (dzms. UserType != Model.Enums.enum_UserType.staff.ToString())
                 {
                     throw new Exception("该用户名已经存在其他类型的用户！");
                 }
