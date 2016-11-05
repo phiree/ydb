@@ -82,7 +82,7 @@ namespace Dianzhu.CSClient.Presenter
         }
         public void CloseApplication()
         {
-             bllLoginLog.MemberLogoff(IdentityManager.CurrentIdentity.CustomerService, string.Empty);
+             bllLoginLog.MemberLogoff(GlobalViables.CurrentCustomerService, string.Empty);
             viewMainForm.CloseApplication();
         }
     }

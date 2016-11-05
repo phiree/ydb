@@ -69,7 +69,7 @@ public class ResponseCHAT001004:BaseResponse
         }
         if (requestData.orderID == "")
         {
-            chatList = bllReceptionChat.GetReceptionChatList(userId, Guid.Empty, Guid.Empty, DateTime.MinValue, DateTime.Now, -1, -1, chatTarget.ToString(), out rowCount);
+            chatList = bllReceptionChat.GetReceptionChatList(userId.ToString(), string.Empty, string.Empty, DateTime.MinValue, DateTime.Now, -1, -1, chatTarget.ToString(), out rowCount);
         }
         else
         {
@@ -81,7 +81,7 @@ public class ResponseCHAT001004:BaseResponse
                 return;
             }
 
-            chatList = bllReceptionChat.GetReceptionChatList(userId, Guid.Empty, orderId, DateTime.MinValue, DateTime.Now, -1, -1, chatTarget.ToString(), out rowCount);            
+            chatList = bllReceptionChat.GetReceptionChatList(userId.ToString(), string.Empty, orderId.ToString(), DateTime.MinValue, DateTime.Now, -1, -1, chatTarget.ToString(), out rowCount);            
         }
         
         try

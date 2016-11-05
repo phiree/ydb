@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
-using Dianzhu.BLL;
 using Dianzhu.Model.Enums;
 using Dianzhu.DAL;
 using System.ComponentModel;
@@ -33,7 +32,6 @@ namespace Dianzhu.CSClient.Presenter
         IViewChatList iViewChatList;
         IInstantMessage iIM;
         IViewChatSend iViewChatSend;
-        IBLLServiceOrder bllServiceOrder;
         IViewOrderHistory iViewOrderHistory;
         
         IViewSearchResult viewSearchResult;
@@ -46,10 +44,8 @@ namespace Dianzhu.CSClient.Presenter
         IReceptionService receptionService;
 
         public PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,
-            IInstantMessage iIM,
-             IDAL.IDALMembership dalMembership,
-        IViewChatSend iViewChatSend,
-            IBLLServiceOrder bllServiceOrder, IViewOrderHistory iViewOrderHistory,
+            IInstantMessage iIM, IDAL.IDALMembership dalMembership,
+            IViewChatSend iViewChatSend, IViewOrderHistory iViewOrderHistory,
             IViewSearchResult viewSearchResult,
             LocalStorage.LocalChatManager localChatManager,
             LocalStorage.LocalHistoryOrderManager localHistoryOrderManager,
@@ -65,7 +61,6 @@ namespace Dianzhu.CSClient.Presenter
             this.iIM = iIM;
             this.iViewChatList = iViewChatList;
             this.iViewChatSend = iViewChatSend;
-            this.bllServiceOrder = bllServiceOrder;
             this.iViewOrderHistory = iViewOrderHistory;
             this.viewSearchResult = viewSearchResult;
             this.dalMembership = dalMembership;
@@ -104,33 +99,23 @@ namespace Dianzhu.CSClient.Presenter
                             continue;
                         }
 
-                        ServiceOrder order = bllServiceOrder.GetOne(orderId);
+                        IdentityTypeOfOrder type = IdentityManager.UpdateCustomerList(assignList[i].CustomerId, assignList[i].OrderId);
+                        //IdentityManager.UpdateIdentityList(order, out type);
 
-                        if (order != null)
+                        DZMembership customer = dalMembership.FindById(Guid.Parse(assignList[i].CustomerId));
+                        ClientState.customerList.Add(customer);
+
+                        if (!localChatManager.LocalCustomerAvatarUrls.ContainsKey(assignList[i].CustomerId))
                         {
-                            IdentityTypeOfOrder type;
-                            IdentityManager.UpdateIdentityList(order, out type);
-
-                            DZMembership customer = dalMembership.FindById(Guid.Parse(assignList[i].CustomerId));
-                            ClientState.customerList.Add(customer);
-
-                            if (!localChatManager.LocalCustomerAvatarUrls.ContainsKey(assignList[i].CustomerId))
+                            string avatar = string.Empty;
+                            if (customer.AvatarUrl != null)
                             {
-                                string avatar = string.Empty;
-                                if (customer.AvatarUrl != null)
-                                {
-                                    avatar = customer.AvatarUrl;
-                                }
-                                localChatManager.LocalCustomerAvatarUrls[assignList[i].CustomerId] = avatar;
+                                avatar = customer.AvatarUrl;
                             }
-                            VMIdentity vmIdentity = vmIdentityAdapter.OrderToVMIdentity(order, localChatManager.LocalCustomerAvatarUrls[assignList[i].CustomerId]);
-                            AddIdentity(vmIdentity);
-
-                            //ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.Diandian.Id.ToString(), customerId,
-                            //"客服" + GlobalViables.CurrentCustomerService.DisplayName + "已上线", order.Id.ToString(), enum_XmppResource.YDBan_DianDian, enum_XmppResource.YDBan_User);
-                            //ReceptionChat rChatReAss = chatFactory.CreateReassignList[i](GlobalViables.CurrentCustomerService.Id.ToString(), GlobalViables.CurrentCustomerService.DisplayName, string.Empty);
-                            //iIM.SendMessage(rChatReAss);
+                            localChatManager.LocalCustomerAvatarUrls[assignList[i].CustomerId] = avatar;
                         }
+                        VMIdentity vmIdentity = new VMIdentity(orderId.ToString(), customer.Id.ToString(), customer.DisplayName, localChatManager.LocalCustomerAvatarUrls[assignList[i].CustomerId]);
+                        AddIdentity(vmIdentity);
                     }
                 }
             }
@@ -147,48 +132,46 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewSearchResult_PushServiceTimerSend()
         {
-            if (IdentityManager.CurrentIdentity != null)
+            if (!string.IsNullOrEmpty( IdentityManager.CurrentCustomerId))
             {
-                iView.IdleTimerStart(IdentityManager.CurrentIdentity.Id);
+                iView.IdleTimerStart(IdentityManager.CurrentCustomerId);
             }
         }
 
         private void IViewChatSend_FinalChatTimerSend()
         {
-            if (IdentityManager.CurrentIdentity != null)
+            if (!string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
             {
-                iView.IdleTimerStart(IdentityManager.CurrentIdentity.Id);
+                iView.IdleTimerStart(IdentityManager.CurrentCustomerId);
             }
         }
 
-        private void IView_FinalChatTimerTick(Guid orderId)
+        private void IView_FinalChatTimerTick(string customerId)
         {
-            log.Debug("计时结束，orderId：" + orderId);
-
-            ServiceOrder order = bllServiceOrder.GetOne(orderId);
+            log.Debug("计时结束，customerId：" + customerId);
+            
             string errMsg = string.Empty;
-            if (IdentityManager.CurrentIdentity != null)
+
+            if (!string.IsNullOrEmpty(IdentityManager.CurrentCustomerId) && IdentityManager.CurrentCustomerId == customerId)
             {
-                if (IdentityManager.CurrentIdentity.Id == order.Id)
-                {
-                    iViewChatList.ClearUCData();
-                    iViewChatList.ShowNoChatMsg();
-                    iViewOrderHistory.ClearUCData();
-                    iViewOrderHistory.ShowNullListLable();
-                }
+                iViewChatList.ClearUCData();
+                iViewChatList.ShowNoChatMsg();
+                iViewOrderHistory.ClearUCData();
+                iViewOrderHistory.ShowNullListLable();
             }
 
-            receptionService.DeleteReception(order.Customer.Id.ToString());
+            receptionService.DeleteReception(customerId);
 
             //删除当前订单临时变量
-            if (IdentityManager.DeleteIdentity(order))
+            //if (IdentityManager.DeleteIdentity(order))
+            if (IdentityManager.DeleteCustomer(customerId))
             {
-                localChatManager.Remove(order.Customer.Id.ToString());
-                localHistoryOrderManager.Remove(order.Customer.Id.ToString());
-                localUIDataManager.Remove(order.Customer.Id.ToString());
-                localUIDataManager.RemoveSearchObj(order.Customer.Id.ToString());
-                iView.IdentityOrderTempId = Guid.Empty;
-                RemoveIdentity(order.Id);
+                localChatManager.Remove(customerId.ToString());
+                localHistoryOrderManager.Remove(customerId.ToString());
+                localUIDataManager.Remove(customerId.ToString());
+                localUIDataManager.RemoveSearchObj(customerId.ToString());
+                iView.IdentityCustomerTempId = string.Empty;
+                RemoveIdentity(customerId);
             }
             else
             {
@@ -207,19 +190,16 @@ namespace Dianzhu.CSClient.Presenter
             {
                 if (!string.IsNullOrEmpty(chat.SessionId))
                 {
-                    NHibernateUnitOfWork.UnitOfWork.Start();
-
-                    ServiceOrder order = bllServiceOrder.GetOne(new Guid(chat.SessionId));                   
+                    NHibernateUnitOfWork.UnitOfWork.Start();                 
 
                     iView.PlayVoice();
 
                     //1 更新当前聊天列表
                     //2 判断消息 和 聊天列表,当前聊天项的关系(是当前聊天项 但是需要修改订单 非激活的列表, 新聊天.
                     IdentityTypeOfOrder type;
-                    IdentityManager.UpdateIdentityList(order, out type);
-                    //todo:
-                    //chat.SetReceiveTime(DateTime.Now);
+                    //IdentityManager.UpdateIdentityList(order, out type);
 
+                    type = IdentityManager.UpdateCustomerList(chat.FromId, chat.SessionId);
 
                     ReceivedMessage(chat, type);
 
@@ -287,7 +267,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 if (!string.IsNullOrEmpty(chat.SessionId))
                 {
-                    iView.IdleTimerStop(new Guid(chat.SessionId));
+                    iView.IdleTimerStop(chat.FromId);
                 }
 
                 if (chat is ReceptionChatMediaDto)
@@ -334,16 +314,18 @@ namespace Dianzhu.CSClient.Presenter
         {
             try
             {
-                iView.IdentityOrderTempId = vmIdentity.OrderId;
+                iView.IdentityCustomerTempId = vmIdentity.CustomerId;
 
-                if (IdentityManager.CurrentIdentityList.Keys.Select(x => x.Id).ToList().Contains(vmIdentity.OrderId))
-                {
-                    IdentityManager.CurrentIdentity = IdentityManager.CurrentIdentityList.Keys.ToList().Find(x => x.Id == vmIdentity.OrderId);
-                }
-                else
-                {
-                    throw new Exception("IdentityManager.CurrentIdentity is null");
-                }
+                IdentityManager.SetCurrentCustomerId(vmIdentity.CustomerId);
+
+                //if (IdentityManager.CurrentIdentityList.Keys.Select(x => x.Id).ToList().Contains(vmIdentity.OrderId))
+                //{
+                //    IdentityManager.CurrentIdentity = IdentityManager.CurrentIdentityList.Keys.ToList().Find(x => x.Id == vmIdentity.OrderId);
+                //}
+                //else
+                //{
+                //    throw new Exception("IdentityManager.CurrentIdentity is null");
+                //}
 
                 iViewChatList.ClearUCData();
                 iViewChatList.ShowLoadingMsg();
@@ -381,15 +363,14 @@ namespace Dianzhu.CSClient.Presenter
             switch (type)
             {
                 case IdentityTypeOfOrder.CurrentCustomer:
-                case IdentityTypeOfOrder.CurrentIdentity:                    
                     iViewChatList.AddOneChat(vmChat);
                     break;
                 case IdentityTypeOfOrder.InList:
                     iView.SetIdentityUnread(chat.SessionId, 1);
                     break;
                 case IdentityTypeOfOrder.NewIdentity:
-                    ServiceOrder order = bllServiceOrder.GetOne(new Guid(chat.SessionId));
-                    VMIdentity vmIdentity = vmIdentityAdapter.OrderToVMIdentity(order, localChatManager.LocalCustomerAvatarUrls[vmChat.FromId]);
+                    DZMembership customer = dalMembership.GetMemberById(new Guid(chat.FromId));
+                    VMIdentity vmIdentity = new VMIdentity (chat.SessionId,chat.FromId,customer.DisplayName, localChatManager.LocalCustomerAvatarUrls[vmChat.FromId]);
                     AddIdentity(vmIdentity);
                     iView.SetIdentityUnread(chat.SessionId, 1);
                     break;
@@ -404,11 +385,11 @@ namespace Dianzhu.CSClient.Presenter
             iView.AddIdentity(vmIdentity);
         }
 
-        public void RemoveIdentity(Guid orderId)
+        public void RemoveIdentity(string customerId)
         {
             if (iView != null)
             {
-                iView.RemoveIdentity(orderId);
+                iView.RemoveIdentity(customerId);
             }
         }
 

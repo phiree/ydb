@@ -135,9 +135,9 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewSearch_SaveUIData(string key, object value)
         {
-            if (IdentityManager.CurrentIdentity != null)
+            if (!string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
             {
-                localUIDataManager.Save(IdentityManager.CurrentIdentity.Customer.Id.ToString(), key, value);
+                localUIDataManager.Save(IdentityManager.CurrentCustomerId, key, value);
             }
         }
 
@@ -196,9 +196,9 @@ namespace Dianzhu.CSClient.Presenter
         private void ViewSearch_ServiceTypeThird_Select(ServiceType type)
         {
             ServiceTypeThird = type;
-            if (IdentityManager.CurrentIdentity != null)
+            if (!string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
             {
-                localUIDataManager.Save(IdentityManager.CurrentIdentity.Customer.Id.ToString(), "ServiceType", type);
+                localUIDataManager.Save(IdentityManager.CurrentCustomerId, "ServiceType", type);
             }
         }
 
@@ -235,9 +235,9 @@ namespace Dianzhu.CSClient.Presenter
                             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
                         }
-                        if (IdentityManager.CurrentIdentity != null)
+                        if (!string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
                         {
-                            localUIDataManager.Save(IdentityManager.CurrentIdentity.Customer.Id.ToString(), "ServiceType", type);
+                            localUIDataManager.Save(IdentityManager.CurrentCustomerId, "ServiceType", type);
                         }
                     }
                     viewSearch.ServiceTypeThird = ServiceTypeCach[type];
@@ -291,14 +291,14 @@ namespace Dianzhu.CSClient.Presenter
         {
             errorMsg = string.Empty;
             SearchObj searchObj;
-            if (IdentityManager.CurrentIdentity == null)
+            if (string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
             {
                 errorMsg = "请选择用户后推送";
                 return null;
             }
-            if (localUIDataManager.LocalSearchTempObj.ContainsKey(IdentityManager.CurrentIdentity.Customer.Id.ToString()))
+            if (localUIDataManager.LocalSearchTempObj.ContainsKey(IdentityManager.CurrentCustomerId))
             {
-                searchObj = localUIDataManager.LocalSearchTempObj[IdentityManager.CurrentIdentity.Customer.Id.ToString()];
+                searchObj = localUIDataManager.LocalSearchTempObj[IdentityManager.CurrentCustomerId];
             }
             else
             {
@@ -332,19 +332,18 @@ namespace Dianzhu.CSClient.Presenter
             //NHibernateUnitOfWork.UnitOfWork.Start();
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
             DZService service;
+            ServiceOrder oldOrder = bllServiceOrder.GetOne(new Guid(IdentityManager.CurrentOrderId));
             foreach (var serviceId in pushedServices)
             {
                 service = dalDzService.FindById(serviceId);
                 NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                //NHibernateUnitOfWork.UnitOfWork.Current.Refresh(service);//来自上个session，需刷新
 
-                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, searchObj.Address, searchObj.TargetTime, viewSearch.ServiceMemo ));
+                serviceOrderPushedServices.Add(new ServiceOrderPushedService(oldOrder, service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, searchObj.Address, searchObj.TargetTime, viewSearch.ServiceMemo ));
             }
-            bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime);
+            bllPushService.Push(oldOrder, serviceOrderPushedServices, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //获取之前orderid
-            ServiceOrder oldOrder = bllServiceOrder.GetOne(IdentityManager.CurrentIdentity.Id);
             string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"),2);
             oldOrder.SerialNo = serialNoForOrder;
             oldOrder.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
@@ -373,11 +372,11 @@ namespace Dianzhu.CSClient.Presenter
             }
             //ReceptionChat chat = chatFactory.CreateChatPushService(pushedServiceInfos);
 
-            log.Debug("推送的订单：" + IdentityManager.CurrentIdentity.Id.ToString());
+            log.Debug("推送的订单：" + IdentityManager.CurrentOrderId);
 
             //iim发送消息
             Guid messageId = Guid.NewGuid();
-            iIM.SendMessagePushService(messageId, pushedServiceInfos, "推送的服务", IdentityManager.CurrentIdentity.Customer.Id.ToString(), "YDBan_User", IdentityManager.CurrentIdentity.Id.ToString());
+            iIM.SendMessagePushService(messageId, pushedServiceInfos, "推送的服务", IdentityManager.CurrentCustomerId, "YDBan_User", IdentityManager.CurrentOrderId);
 
 
 
@@ -394,7 +393,7 @@ namespace Dianzhu.CSClient.Presenter
                 messageId.ToString(),
                 GlobalViables.CurrentCustomerService.Id.ToString(),
                 GlobalViables.CurrentCustomerService.DisplayName,
-                IdentityManager.CurrentIdentity.Customer.Id.ToString(),
+                IdentityManager.CurrentCustomerId,
                 DateTime.Now,
                 (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds,
                 "pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCS.png",
@@ -407,7 +406,7 @@ namespace Dianzhu.CSClient.Presenter
 
             //生成新的草稿单并发送给客户端
             DZMembership newCS = dalMembership.FindById(GlobalViables.CurrentCustomerService.Id);//  NHibernateUnitOfWork.UnitOfWork.CurrentSession.Merge(GlobalViables.CurrentCustomerService);
-            DZMembership newC = dalMembership.FindById(IdentityManager.CurrentIdentity.Customer.Id);//  NHibernateUnitOfWork.UnitOfWork.CurrentSession.Merge(GlobalViables.CurrentCustomerService);
+            DZMembership newC = dalMembership.FindById(new Guid(IdentityManager.CurrentCustomerId));//  NHibernateUnitOfWork.UnitOfWork.CurrentSession.Merge(GlobalViables.CurrentCustomerService);
             ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(newCS, newC);
             bllServiceOrder.Save(newOrder);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
@@ -421,19 +420,21 @@ namespace Dianzhu.CSClient.Presenter
            
 
             //更新当前订单
-            IdentityTypeOfOrder type;
+            //IdentityTypeOfOrder type;
             log.Debug("更新当前界面的订单");
-            IdentityManager.UpdateIdentityList(newOrder, out type);
-            log.Debug("当前订单的id：" + IdentityManager.CurrentIdentity.Id.ToString());
+            //IdentityManager.UpdateIdentityList(newOrder, out type);
+            IdentityTypeOfOrder type = IdentityManager.UpdateCustomerList(IdentityManager.CurrentCustomerId, newOrder.Id.ToString());
+            log.Debug("当前订单的id：" + IdentityManager.CurrentOrderId);
 
             //更新view
-            VMIdentity vmIdentityNew = vmIdentityAdapter.OrderToVMIdentity(IdentityManager.CurrentIdentity, localChatManager.LocalCustomerAvatarUrls[IdentityManager.CurrentIdentity.Customer.Id.ToString()]);
-            viewIdentityList.UpdateIdentityBtnName(oldOrder.Id, vmIdentityNew);
+            DZMembership cusomter = dalMembership.GetMemberById(new Guid(IdentityManager.CurrentCustomerId));
+            VMIdentity vmIdentityNew = new VMIdentity(newOrder.Id.ToString(), IdentityManager.CurrentCustomerId,cusomter.DisplayName, localChatManager.LocalCustomerAvatarUrls[IdentityManager.CurrentCustomerId]);
+            viewIdentityList.UpdateIdentityBtnName(IdentityManager.CurrentCustomerId, vmIdentityNew);
 
             //更新接待分配表
-            log.Debug("更新ReceptionStatus，customerId:" + IdentityManager.CurrentIdentity.Customer.Id + ",csId:" + GlobalViables.CurrentCustomerService.Id + ",orderId:" + newOrder.Id);
+            log.Debug("更新ReceptionStatus，customerId:" + IdentityManager.CurrentCustomerId + ",csId:" + GlobalViables.CurrentCustomerService.Id + ",orderId:" + newOrder.Id);
             //bllReceptionStatus.UpdateOrder(IdentityManager.CurrentIdentity.Customer, GlobalViables.CurrentCustomerService, newOrder);
-            receptionService.UpdateOrderId(IdentityManager.CurrentIdentity.Customer.Id.ToString(), GlobalViables.CurrentCustomerService.Id.ToString(), newOrder.Id.ToString());
+            receptionService.UpdateOrderId(IdentityManager.CurrentCustomerId, GlobalViables.CurrentCustomerService.Id.ToString(), newOrder.Id.ToString());
 
             //清空搜索选项 todo:为了测试方便，先注释掉
             //viewSearch.ClearData();
@@ -449,9 +450,9 @@ namespace Dianzhu.CSClient.Presenter
         private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId,string name,string lng,string lat)
         {
             SearchObj searchObj = new SearchObj(name, minPrice, maxPrice, servieTypeId, targetTime, double.Parse(lng), double.Parse(lat), viewSearch.ServiceTargetAddress);
-            if (IdentityManager.CurrentIdentity != null)
+            if (!string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
             {
-                localUIDataManager.SaveSearchObj(IdentityManager.CurrentIdentity.Customer.Id.ToString(), searchObj);
+                localUIDataManager.SaveSearchObj(IdentityManager.CurrentCustomerId, searchObj);
             }
             
             //Action a = () =>

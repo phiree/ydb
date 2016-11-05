@@ -33,8 +33,6 @@ namespace Dianzhu.CSClient.Presenter
         LocalStorage.LocalChatManager localChatManager;
         VMAdapter.IVMChatAdapter vmChatAdapter;
         LocalUIDataManager localUIDataManager;
-
-        ServiceOrder order;
         
         public PChatSend(IViewChatSend viewChatSend, IView.IViewChatList viewChatList,
             Ydb.InstantMessage.Application.IInstantMessage iIM,IViewIdentityList viewIdentityList,
@@ -60,9 +58,9 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewChatSend_SaveMessageText(string key, object value)
         {
-            if (IdentityManager.CurrentIdentity != null)
+            if (!string.IsNullOrEmpty( IdentityManager.CurrentCustomerId))
             {
-                localUIDataManager.Save(IdentityManager.CurrentIdentity.Customer.Id.ToString(), key, value);
+                localUIDataManager.Save(IdentityManager.CurrentCustomerId, key, value);
             }
         }
 
@@ -79,7 +77,8 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewChatSend_SendMediaClick(byte[] fileData, string domainType, string mediaType)
         {
-            if (IdentityManager.CurrentIdentity == null) return;
+            if (string.IsNullOrEmpty( IdentityManager.CurrentCustomerId))
+                return;
 
             try
             {
@@ -88,7 +87,7 @@ namespace Dianzhu.CSClient.Presenter
                 string s = Convert.ToBase64String(fileData);
                 string fileName = MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, domainType, mediaType);
                 Guid messageId = Guid.NewGuid();
-                iIM.SendMessageMedia(messageId, GlobalViables.MediaGetUrl + fileName,mediaType, IdentityManager.CurrentIdentity.Customer.Id.ToString(), IdentityManager.CurrentIdentity.Id.ToString(), "YDBan_User");
+                iIM.SendMessageMedia(messageId, GlobalViables.MediaGetUrl + fileName,mediaType, IdentityManager.CurrentCustomerId, IdentityManager.CurrentOrderId, "YDBan_User");
 
                 if (PHSuit.LocalFileManagement.DownLoad(string.Empty, GlobalViables.MediaGetUrl + fileName, fileName))
                 {
@@ -96,7 +95,6 @@ namespace Dianzhu.CSClient.Presenter
                 }
 
                 //临时存放订单
-                order = IdentityManager.CurrentIdentity;
 
                 viewChatSend.MessageText = string.Empty;
                 //chat.SetMediaUrl(fileName);
@@ -106,7 +104,7 @@ namespace Dianzhu.CSClient.Presenter
                     messageId.ToString(), 
                     GlobalViables.CurrentCustomerService.Id.ToString(), 
                     GlobalViables.CurrentCustomerService.DisplayName,
-                    IdentityManager.CurrentIdentity.Customer.Id.ToString(),
+                    IdentityManager.CurrentCustomerId,
                     DateTime.Now,
                     (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds,
                     "pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCS.png",
@@ -133,7 +131,7 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewChatSend_SendTextClick()
         {
-            if (IdentityManager.CurrentIdentity == null)
+            if (string.IsNullOrEmpty( IdentityManager.CurrentCustomerId))
             { return; }
 
             try
@@ -151,9 +149,9 @@ namespace Dianzhu.CSClient.Presenter
                 iIM.SendMessageText(
                     messageId,
                     messageText,
-                    IdentityManager.CurrentIdentity.Customer.Id.ToString(),
+                    IdentityManager.CurrentCustomerId,
                     "YDBan_User",
-                     IdentityManager.CurrentIdentity.Id.ToString());
+                     IdentityManager.CurrentOrderId);
 
                 viewChatSend.MessageText = string.Empty;//发送后清空文本框
                 //VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
@@ -162,7 +160,7 @@ namespace Dianzhu.CSClient.Presenter
                     messageId.ToString(),
                     GlobalViables.CurrentCustomerService.Id.ToString(),
                     GlobalViables.CurrentCustomerService.DisplayName,
-                    IdentityManager.CurrentIdentity.Customer.Id.ToString(),
+                    IdentityManager.CurrentCustomerId,
                     DateTime.Now,
                     (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds,
                     "pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCS.png",
@@ -173,7 +171,6 @@ namespace Dianzhu.CSClient.Presenter
                 localChatManager.Add(vmChatText.ToId, vmChatText);
  
                 //临时存放订单
-                order = IdentityManager.CurrentIdentity;
 
                 //PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat); 
             }

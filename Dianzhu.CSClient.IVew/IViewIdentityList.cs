@@ -15,20 +15,20 @@ namespace Dianzhu.CSClient.IView
         //增加一个标志
         void AddIdentity(VMIdentity vmIdentity);
         //删除一个用户
-        void RemoveIdentity(Guid serviceOrderId);
-        void UpdateIdentityBtnName(Guid oldOrderId, VMIdentity vmIdentity);
+        void RemoveIdentity(string customerId);
+        void UpdateIdentityBtnName(string customerId, VMIdentity vmIdentity);
         //设置为未读
-        void SetIdentityUnread(string  orderId, int messageAmount);
+        void SetIdentityUnread(string customerId, int messageAmount);
         //设置为已读
-        void SetIdentityReaded(Guid serviceOrderId);
+        void SetIdentityReaded(string customerId);
 
-        void IdleTimerStart(Guid orderId);
-        void IdleTimerStop(Guid orderId);
+        void IdleTimerStart(string cusomterId);
+        void IdleTimerStop(string customerId);
 
         event FinalChatTimerTick FinalChatTimerTick;
 
         //当前订单临时变量
-        Guid IdentityOrderTempId { get; set; }
+        string IdentityCustomerTempId { get; set; }
 
         /// <summary>
         /// 播放提示音
@@ -43,5 +43,5 @@ namespace Dianzhu.CSClient.IView
     /// <summary>
     /// 客服发消息后在指定时间内触发的事件
     /// </summary>
-    public delegate void FinalChatTimerTick(Guid orderId);
+    public delegate void FinalChatTimerTick(string customerId);
 }
