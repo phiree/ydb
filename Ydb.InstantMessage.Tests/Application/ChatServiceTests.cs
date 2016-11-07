@@ -34,7 +34,7 @@ namespace Ydb.InstantMessage.Application.Tests
         [Test()]
         public void GetReceptionChatListByCustomerIdTest()
         {
-            var list = chatService.GetReceptionChatListByCustomerId(Guid.Parse("0e3e9327-7b82-407c-a92f-a64300fd03db"), 10);
+            var list = chatService.GetReceptionChatListByCustomerId("0e3e9327-7b82-407c-a92f-a64300fd03db", 10);
 
             Console.WriteLine("list.Count:" + list.Count);
         }
@@ -43,9 +43,9 @@ namespace Ydb.InstantMessage.Application.Tests
         public void GetReceptionChatListByTargetIdTest()
         {
             var list = chatService.GetReceptionChatListByTargetId(
-                Guid.Parse("0e3e9327-7b82-407c-a92f-a64300fd03db"),
+                "0e3e9327-7b82-407c-a92f-a64300fd03db",
                 5,
-                Guid.Parse("3174c0fd-96f3-4add-a224-6c088873977a"),
+                "3174c0fd-96f3-4add-a224-6c088873977a",
                 "Y"
                 );
 

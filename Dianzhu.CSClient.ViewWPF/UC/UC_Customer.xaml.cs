@@ -235,7 +235,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             if (IdleTimerOut != null)
             {
-                IdleTimerOut(vmIdentity.OrderId);
+                IdleTimerOut(vmIdentity.CustomerId);
                 StopFinalChatTimer();
             }           
         }

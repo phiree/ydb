@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using System.Web.Security;
 using Newtonsoft.Json;
+using Dianzhu.BLL;
 using Dianzhu.RequestRestful;
 using Ydb.Membership.Application;
-using Ydb.Membership.Application.Dto;
+
 public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
 {
-   // DZMembershipProvider bllMembership = Bootstrap.Container.Resolve<DZMembershipProvider>();
-
-       IDZMembershipService membershipService = Bootstrap.Container.Resolve<IDZMembershipService>();
+    DZMembershipProvider bllMembership = Bootstrap.Container.Resolve<DZMembershipProvider>();
     protected void Page_Load(object sender, EventArgs e)
     {
         //PHSuit.Logging.GetLog(Dianzhu.Config.Config.GetAppSetting("LoggerName")).Debug("login page");
@@ -33,9 +36,9 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
         }
 
 
-       
-       ValidateResult loginResult= membershipService.Login(tbxUserName.Text, tbxPassword.Text);
-        if (loginResult.IsValidated)
+        string errorMsg;
+        bool isValid = bllMembership.ValidateUser(tbxUserName.Text, tbxPassword.Text);
+        if (isValid)
         {
             bool rememberMe = savePass.Checked;
             RequestResponse res = ReqResponse(tbxUserName.Text, tbxPassword.Text);
@@ -63,12 +66,11 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
                     HttpCookie CookieErrorTimeInit = new HttpCookie("errorTime");
                     CookieErrorTimeInit.Value = "0";
                     Response.Cookies.Add(CookieErrorTimeInit);
-                    Response.Redirect("~/business/", true); 
+                    Response.Redirect("~/business/", true);
                 }
             }
             else {
                 lblMsg.Text = "登录失败，请重试";
-                Config.log.Error(res.msg);
                 lblMsg.CssClass = "lblMsg lblMsgShow";
             }
 
@@ -79,7 +81,7 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
             CookieErrorTime.Value = (int.Parse( CookieErrorTime.Value ) + 1).ToString();
             Response.Cookies.Add(CookieErrorTime);
 
-            lblMsg.Text = loginResult.ValidateErrMsg;
+            lblMsg.Text = "用户名或密码有误";
             lblMsg.CssClass = "lblMsg lblMsgShow";
 
             // PHSuit.Notification.Show(Page,"","登录失败",Request.RawUrl);
@@ -96,6 +98,8 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
         rp = SetCommon.SetParams("ABc907a34381Cd436eBfed1F90ac8f823b", "2bdKTgh9SiNlGnSajt4E6c4w1ZoZJfb9ATKrzCZ1a3A=", rp);
         IRequestRestful req = new RequestRestful();
         RequestResponse res = req.RequestRestfulApi(rp);
+
+       
         return res;
         
 

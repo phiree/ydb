@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.DAL;
 namespace Dianzhu.DAL.Tests
 {
     [TestFixture()]
@@ -14,8 +13,8 @@ namespace Dianzhu.DAL.Tests
         [Test()]
         public void GetMemberByWechatOpenIdTest()
         {
-            DAL.DALMembership dal = new DALMembership();
-            dal.GetMemberByWechatOpenId("aa");
+            //IDZMembershipService dal = new DALMembership();
+            //dal.GetMemberByWechatOpenId("aa");
         }
     }
 }

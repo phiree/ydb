@@ -11,6 +11,7 @@ using Rhino.Mocks;
 using FizzWare.NBuilder;
 using Dianzhu.Model;
 using Ydb.InstantMessage.DomainModel.Chat;
+using Ydb.Membership.Application;
 
 namespace Dianzhu.BLL.Tests
   
@@ -20,7 +21,7 @@ namespace Dianzhu.BLL.Tests
     {
         IDALDeviceBind dalDeviceBind;
         IBLLServiceOrder bllServiceOrder;
-        IDAL.IDALMembership dalMembership;
+        IDZMembershipService dalMembership;
         Dianzhu.BLL.Push.IPushMessageBiulder pushMessageBuilder;
 
         Guid   fromMemberId=Guid.NewGuid();
@@ -34,11 +35,11 @@ namespace Dianzhu.BLL.Tests
         
             bllServiceOrder = MockRepository.GenerateStub<IBLLServiceOrder>();
            
-            dalMembership = MockRepository.GenerateStub<IDALMembership>();
+            dalMembership = MockRepository.GenerateStub<IDZMembershipService>();
             pushMessageBuilder = new Dianzhu.BLL.Push.PushMessageBuilder( bllServiceOrder, dalMembership);
 
-            dalMembership.Stub(x => x.GetMemberById(fromMemberId)).Return(new DZMembership());
-            dalMembership.Stub(x => x.GetMemberById(toMemberId)).Return(new DZMembership());
+            //dalMembership.Stub(x => x.GetMemberById(fromMemberId)).Return(new DZMembership());
+            //dalMembership.Stub(x => x.GetMemberById(toMemberId)).Return(new DZMembership());
 
             order = new ServiceOrder();
             order.SerialNo = "FW001001";

@@ -31,7 +31,7 @@ namespace Ydb.InstantMessage.Application
         /// <returns></returns>
         IList<ReceptionChatDto> GetChatByOrder(string orderId);
 
-        IList<ReceptionChatDto> GetReceptionChatList(Guid fromId, Guid toId, Guid orderId, DateTime timeBegin, DateTime timeEnd,
+        IList<ReceptionChatDto> GetReceptionChatList(string fromId, string toId, string orderId, DateTime timeBegin, DateTime timeEnd,
             int pageIndex, int pageSize, string target, out int rowCount);
 
 
@@ -48,7 +48,7 @@ namespace Ydb.InstantMessage.Application
         /// <param name="target"></param>
         /// <param name="rowCount"></param>
         /// <returns></returns>
-        IList<ReceptionChatDto> GetReceptionChatListByCustomerId(Guid customerId, int pageSize);
+        IList<ReceptionChatDto> GetReceptionChatListByCustomerId(string customerId, int pageSize);
 
         /// <summary>
         /// 根据用户的聊天记录的时间戳向上或向下获取数据
@@ -58,7 +58,7 @@ namespace Ydb.InstantMessage.Application
         /// <param name="targetChatSavedTimestamp"></param>
         /// <param name="low"></param>
         /// <returns></returns>
-        IList<ReceptionChatDto> GetReceptionChatListByTargetId(Guid customerId, int pageSize, Guid targetChatId, string low);
+        IList<ReceptionChatDto> GetReceptionChatListByTargetId(string customerId, int pageSize, string targetChatId, string low);
 
         /// <summary>
         /// 条件读取聊天记录
@@ -70,7 +70,7 @@ namespace Ydb.InstantMessage.Application
         /// <param name="userID"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        IList<ReceptionChatDto> GetChats(TraitFilter filter, string type, string fromTarget, Guid orderID, Guid userID, string userType);
+        IList<ReceptionChatDto> GetChats(TraitFilter filter, string type, string fromTarget, string orderID, string userID, string userType);
 
         /// <summary>
         /// 统计聊天信息的数量
@@ -81,20 +81,20 @@ namespace Ydb.InstantMessage.Application
         /// <param name="userID"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        long GetChatsCount(string type, string fromTarget, Guid orderID, Guid userID, string userType);
+        long GetChatsCount(string type, string fromTarget, string orderID, string userID, string userType);
 
         /// <summary>
         /// 条件读取未读聊天记录
         /// </summary>
         /// <param name="userID"></param>
         /// <returns></returns>
-        IList<ReceptionChatDto> GetUnreadChatsAndSetReaded(Guid userID);
+        IList<ReceptionChatDto> GetUnreadChatsAndSetReaded(string userID);
 
         /// <summary>
         /// 统计未读聊天信息的数量
         /// </summary>
         /// <param name="userID"></param>
         /// <returns></returns>
-        long GetUnreadChatsCount(Guid userID);
+        long GetUnreadChatsCount(string userID);
     }
 }

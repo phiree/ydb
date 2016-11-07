@@ -9,6 +9,8 @@ using Rhino.Mocks;
 using Dianzhu.Model;
 using FizzWare.NBuilder;
 using System.Threading;
+using Ydb.Membership.DomainModel;
+using Ydb.Membership.DomainModel.Enums;
 
 namespace Dianzhu.DAL.Tests
 {
@@ -31,15 +33,18 @@ namespace Dianzhu.DAL.Tests
             
 
             members = Builder<DZMembership>.CreateListOfSize(3)
-                 .TheFirst(1).With(x => x.Id = new Guid("f197a81d-c984-4894-b21c-a5f00106e08b"))
+                 .TheFirst(1)
+                 //.With(x => x.Id = new Guid("f197a81d-c984-4894-b21c-a5f00106e08b"))
                              .With(x => x.UserName = "user1")
-                             .With(x => x.UserType = Model.Enums.enum_UserType.customer)
-                  .TheNext(1).With(x => x.Id = new Guid("a8a2fe97-33cc-4602-85ed-a5f001197c72"))
+                             .With(x => x.UserType = UserType.customer)
+                  .TheNext(1)
+                  //.With(x => x.Id = new Guid("a8a2fe97-33cc-4602-85ed-a5f001197c72"))
                              .With(x => x.UserName = "user2")
-                             .With(x => x.UserType = Model.Enums.enum_UserType.customer)
-                 .TheLast(1).With(x => x.Id = new Guid("6ba73c46-83ea-450d-90b2-a5f00101da01"))
+                             .With(x => x.UserType = UserType.customer)
+                 .TheLast(1)
+                 //.With(x => x.Id = new Guid("6ba73c46-83ea-450d-90b2-a5f00101da01"))
                              .With(x => x.UserName = "cs001")
-                             .With(x => x.UserType = Model.Enums.enum_UserType.customerservice)
+                             .With(x => x.UserType = UserType.customerservice)
                  .Build();
 
             //order = bllServiceOrder.GetOne(new Guid("16ae7044-6522-49a8-abf2-a68100f578a6"));

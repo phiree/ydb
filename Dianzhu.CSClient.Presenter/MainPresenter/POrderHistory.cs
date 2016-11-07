@@ -47,7 +47,8 @@ namespace Dianzhu.CSClient.Presenter
         {
             viewOrderHistory.ShowListLoadingMsg();
             int totalAmount;
-            IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(new Guid( IdentityManager.CurrentIdentity.CustomerId), viewOrderHistory.OrderPage, 5, out totalAmount);
+            IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(new Guid( IdentityManager.CurrentCustomerId), viewOrderHistory.OrderPage, 5, out totalAmount);
+
             if (orderList.Count > 0)
             {
                 if (orderList.Count == 5)
@@ -67,7 +68,7 @@ namespace Dianzhu.CSClient.Presenter
 
                     viewOrderHistory.OrderList.Add(vmOrderHistory);
 
-                    localHistoryOrderManager.Add(IdentityManager.CurrentIdentity.CustomerId, vmOrderHistory);
+                    localHistoryOrderManager.Add(IdentityManager.CurrentCustomerId, vmOrderHistory);
 
                     viewOrderHistory.InsertOneOrder(vmOrderHistory);
                 }
@@ -81,7 +82,7 @@ namespace Dianzhu.CSClient.Presenter
         BackgroundWorker worker;
         private void ViewIdentityList_IdentityClick(VMIdentity vmIdentity)
         {
-            if (IdentityManager.CurrentIdentity == null)
+            if (string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
             { return; }
 
             worker = new BackgroundWorker();
@@ -170,9 +171,10 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewOrderHistory_SearchOrderHistoryClick()
         {
-            string orderId = IdentityManager.CurrentIdentity.CustomerId;
+            string orderId = IdentityManager.CurrentCustomerId;
+
             //fix #143
-            if (IdentityManager.CurrentIdentity == null)
+            if (string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
             {
                 return;
             }
