@@ -17,13 +17,13 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
 
         public IList<ReceptionChat> GetChatByOrder(string orderId)
         {
-            return Find(x => x.SessionId == orderId).OrderByDescending(x => x.SavedTimestamp).ToList();
+            return Find(x => x.SessionId == orderId && x.ChatType==ChatType.Chat).OrderByDescending(x => x.SavedTimestamp).ToList();
         }
 
         public long GetUnreadChatsCount(string userID)
         {
             var where = PredicateBuilder.True<ReceptionChat>();
-            where = where.And(x => x.ToId == userID);
+            where = where.And(x => x.ToId == userID && x.ChatType == ChatType.Chat);
             where = where.And(x => x.IsReaded == false);
             long count = GetRowCount(where);
             return count;
@@ -32,7 +32,7 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
         public IList<ReceptionChat> GetUnreadChatsAndSetReaded(string userID)
         {
             var where = PredicateBuilder.True<ReceptionChat>();
-            where = where.And(x => x.ToId == userID);
+            where = where.And(x => x.ToId == userID && x.ChatType == ChatType.Chat);
             where = where.And(x => x.IsReaded == false);
             long t = 0;
             var list = Find(where).ToList();
@@ -176,6 +176,8 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
 
 
             var where = PredicateBuilder.True<ReceptionChat>();
+
+            where = where.And(x => x.ChatType == ChatType.Chat);
             if (!string.IsNullOrEmpty(orderID))
             {
                 where = where.And(x => x.SessionId == orderID);

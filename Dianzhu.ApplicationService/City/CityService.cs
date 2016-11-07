@@ -41,26 +41,30 @@ namespace Dianzhu.ApplicationService.City
         {
             IList<Model.Area> listarea=null;
             Model.Area area;
-            if (location.longitude != null && location.latitude != null && location.longitude != "" && location.latitude != "")
+            if (!string.IsNullOrEmpty(location.longitude) && !string.IsNullOrEmpty(location.latitude))
             {
                 RespGeo geoObj = utils.Deserialize<RespGeo>(utils.GetCity(location.longitude, location.latitude));
                 area = bllarea.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city);
-                if (location.code != null && location.code != "" && area != null)
+                //if (location.code != null && location.code != "" && area != null)
+                //{
+                //    if (location.code != area.Code)
+                //    {
+                //        area = null;
+                //    }
+                //}
+                if (area == null)
                 {
-                    if (location.code != area.Code)
-                    {
-                        area = null;
-                    }
+                    area = new Model.Area();
+                    area.Name = geoObj.result.addressComponent.city;
+                    area.Code = geoObj.result.cityCode;
                 }
-                if (area != null)
-                {
-                    listarea = new List<Model.Area>();
-                    listarea.Add(area);
-                }
+                listarea = new List<Model.Area>();
+                listarea.Add(area);
+
             }
             else
             {
-                if (location.code != null && location.code != "")
+                if (!string.IsNullOrEmpty(location.code))
                 {
                     area = bllarea.GetCityByAreaCode(location.code);
                     if (area != null)

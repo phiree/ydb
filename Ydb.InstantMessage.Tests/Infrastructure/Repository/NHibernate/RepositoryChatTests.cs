@@ -35,9 +35,9 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Tests
         {
             int rowCount;
             var list = repositoryChat.GetReceptionChatList(
-                Guid.Parse("0e3e9327-7b82-407c-a92f-a64300fd03db"),
-                Guid.Empty,
-                Guid.Empty,
+                "0e3e9327-7b82-407c-a92f-a64300fd03db",
+                string.Empty,
+                string.Empty,
                 DateTime.Now.AddMonths(-1),
                 DateTime.Now,
                 0, 999, DomainModel.Chat.Enums.ChatTarget.cer, out rowCount);
@@ -49,9 +49,9 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Tests
         public void GetReceptionChatListByTargetIdTest_Y()
         {
             var list = repositoryChat.GetReceptionChatListByTargetId(
-                Guid.Parse("0e3e9327-7b82-407c-a92f-a64300fd03db"),
-                Guid.Empty,
-                Guid.Empty,
+                "0e3e9327-7b82-407c-a92f-a64300fd03db",
+                string.Empty,
+                string.Empty,
                 DateTime.Now.AddMonths(-1),
                 DateTime.Now,
                 5,
@@ -71,9 +71,9 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Tests
         public void GetReceptionChatListByTargetIdTest_N()
         {
             var list = repositoryChat.GetReceptionChatListByTargetId(
-                Guid.Parse("0e3e9327-7b82-407c-a92f-a64300fd03db"),
-                Guid.Empty,
-                Guid.Empty,
+                "0e3e9327-7b82-407c-a92f-a64300fd03db",
+                string.Empty,
+                string.Empty,
                 DateTime.Now.AddMonths(-1),
                 DateTime.Now,
                 5,
