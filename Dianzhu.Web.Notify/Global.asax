@@ -1,8 +1,9 @@
 ﻿<%@ Application Language="C#" %>
 <%@ Import Namespace="Ydb.InstantMessage.DomainModel.Chat" %>
+<%@ Import Namespace="Ydb.Common.Infrastructure" %>
 
 <script RunAt="server">
-    
+
     static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
     void Application_Start(object sender, EventArgs e)
     {
@@ -44,9 +45,9 @@
 
             if (string.IsNullOrEmpty(emails)) { return; }
             string[] emailList = emails.Split(',');
-
-            PHSuit.EmailHelper.SendEmail(emailList[0], "异常_" + log.Logger.Name, "IMServer掉线了",
-               emailList);
+            IEmailService emailService = Bootstrap.Container.Resolve<IEmailService>();
+            emailService.SendEmail(emailList[0], "异常_" + log.Logger.Name, "IMServer掉线了",
+              emailList);
         }
         catch (Exception ex)
         {

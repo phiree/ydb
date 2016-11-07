@@ -312,6 +312,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.BusinessResource", "Ydb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.BusinessResource.Tests", "Ydb.BusinessResource.Tests\Ydb.BusinessResource.Tests.csproj", "{E9218BB6-ED15-464E-8C96-AD5883396B08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.InfrastructureTests", "Ydb.InfrastructureTests\Ydb.InfrastructureTests.csproj", "{68CB4B39-AD5A-46EE-B743-B2DAE8429288}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -914,6 +916,18 @@ Global
 		{E9218BB6-ED15-464E-8C96-AD5883396B08}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E9218BB6-ED15-464E-8C96-AD5883396B08}.Release|x86.ActiveCfg = Release|Any CPU
 		{E9218BB6-ED15-464E-8C96-AD5883396B08}.Release|x86.Build.0 = Release|Any CPU
+		{68CB4B39-AD5A-46EE-B743-B2DAE8429288}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68CB4B39-AD5A-46EE-B743-B2DAE8429288}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68CB4B39-AD5A-46EE-B743-B2DAE8429288}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{68CB4B39-AD5A-46EE-B743-B2DAE8429288}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{68CB4B39-AD5A-46EE-B743-B2DAE8429288}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{68CB4B39-AD5A-46EE-B743-B2DAE8429288}.Debug|x86.Build.0 = Debug|Any CPU
+		{68CB4B39-AD5A-46EE-B743-B2DAE8429288}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68CB4B39-AD5A-46EE-B743-B2DAE8429288}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68CB4B39-AD5A-46EE-B743-B2DAE8429288}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{68CB4B39-AD5A-46EE-B743-B2DAE8429288}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{68CB4B39-AD5A-46EE-B743-B2DAE8429288}.Release|x86.ActiveCfg = Release|Any CPU
+		{68CB4B39-AD5A-46EE-B743-B2DAE8429288}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
