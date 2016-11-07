@@ -39,6 +39,12 @@ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
                 // new Application.InstallerMembershipTestDB()
  
                 );
+            AutoMapper.Mapper.Initialize(x => {
+                Membership.Application.AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
+                Ydb.Finance.Application.AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
+                
+                
+            });
 
         }
       

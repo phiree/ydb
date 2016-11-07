@@ -60,8 +60,9 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
                 }
                 else
                 {
-                    CookieErrorTime.Value = "0";
-                    Response.Cookies.Add(CookieErrorTime);
+                    HttpCookie CookieErrorTimeInit = new HttpCookie("errorTime");
+                    CookieErrorTimeInit.Value = "0";
+                    Response.Cookies.Add(CookieErrorTimeInit);
                     Response.Redirect("~/business/", true); 
                 }
             }

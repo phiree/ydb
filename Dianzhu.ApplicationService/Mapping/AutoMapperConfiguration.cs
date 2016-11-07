@@ -9,13 +9,15 @@ namespace Dianzhu.ApplicationService.Mapping
 {
     public class AutoMapperConfiguration
     {
-        public static void Configure()
+        
+
+
+        public static Action<IConfiguration> AutoMapperApplicationService= new Action<IConfiguration>(x =>
         {
-            Mapper.Initialize(x =>
-            {
-                x.AddProfile<DtoToModelMappingProfile>();
-                x.AddProfile<ModelToDtoMappingProfile>();
-            });
-        }
+            x.AddProfile<DtoToModelMappingProfile>();
+            x.AddProfile<ModelToDtoMappingProfile>();
+            //... more profiles
+        });
+    
     }
 }

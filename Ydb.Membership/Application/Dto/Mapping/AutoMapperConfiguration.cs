@@ -12,13 +12,12 @@ namespace Ydb.Membership.Application
         /// <summary>
         /// Dto映射配置
         /// </summary>
-        public static void Configure()
+       
+        public static Action<IConfiguration> AutoMapperMembership= new Action<IConfiguration>(x =>
         {
-            Mapper.Initialize(x =>
-            {
-                x.AddProfile<DtoToModelMappingProfile>();
-                x.AddProfile<ModelToDtoMappingProfile>();
-            });
-        }
+            x.AddProfile<DtoToModelMappingProfile>();
+            x.AddProfile<ModelToDtoMappingProfile>();
+            //... more profiles
+        });
     }
 }
