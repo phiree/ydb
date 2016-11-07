@@ -163,6 +163,7 @@ namespace PHSuit
                 return true;
             return false;
         }
+        static int totalRefreshTimes = 0;
         public static void _SetupRefreshJob(int port)
         {
             string refreshUrl = "http://localhost:" + port + "/?refresh=1";
@@ -188,7 +189,13 @@ namespace PHSuit
                     System.Net.WebClient refresh = new System.Net.WebClient();
                     try
                     {
-                        log.Debug("    Begin request");
+                        totalRefreshTimes++;
+                        if(totalRefreshTimes%60==0)
+                        { 
+                            
+                        log.Debug("    Begin request.  "+totalRefreshTimes);
+
+                        }
                         refresh.UploadString(refreshUrl, string.Empty);
                     }
                     catch (Exception ex)
