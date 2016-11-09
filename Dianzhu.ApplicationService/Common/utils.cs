@@ -667,5 +667,27 @@ namespace Dianzhu.ApplicationService
             }
             return sb.ToString();
         }
+
+        public static bool CheckRoute(string strRoute,string strMethod)
+        {
+            bool b = false;
+            if (strMethod.ToLower() == "post")
+            {
+                b = b || strRoute.ToLower() == "/api/v1/authorization";
+                b = b || strRoute.ToLower() == "/api/v1/customers";
+                b = b || strRoute.ToLower() == "/api/v1/merchants";
+                b = b || strRoute.ToLower() == "/api/v1/customer3rds";
+            }
+            if (strMethod.ToLower() == "get")
+            {
+                b = b || strRoute.ToLower() == "/api/v1/customers/count";
+                b = b || strRoute.ToLower() == "/api/v1/merchants/count";
+            }
+            if (strMethod.ToLower() == "patch")
+            {
+                b = b || strRoute.ToLower().Contains("/api/v1/customers/phones");
+            }
+            return b;
+        }
     }
 }
