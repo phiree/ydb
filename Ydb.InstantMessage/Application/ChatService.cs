@@ -73,25 +73,25 @@ namespace Ydb.InstantMessage.Application
         }
 
         [UnitOfWork]
-        public IList<ReceptionChatDto> GetReceptionChatListByCustomerId(Guid customerId, int pageSize)
+        public IList<ReceptionChatDto> GetReceptionChatListByCustomerId(string customerId, int pageSize)
         {
             int rouCount;
-            var list = repositoryChat.GetReceptionChatList(customerId, Guid.Empty, Guid.Empty, DateTime.Now.AddYears(-1), DateTime.Now, 0, pageSize, ChatTarget.cer, out rouCount);
+            var list = repositoryChat.GetReceptionChatList(customerId, string.Empty, string.Empty, DateTime.Now.AddYears(-1), DateTime.Now, 0, pageSize, ChatTarget.cer, out rouCount);
             
             return ToDto(list);
         }
 
         [UnitOfWork]
-        public IList<ReceptionChatDto> GetReceptionChatListByTargetId(Guid customerId, int pageSize, Guid targetChatId, string low)
+        public IList<ReceptionChatDto> GetReceptionChatListByTargetId(string customerId, int pageSize, string targetChatId, string low)
         {
-            ReceptionChat targetChat = repositoryChat.FindById(targetChatId);
-            var list = repositoryChat.GetReceptionChatListByTargetId(customerId, Guid.Empty, Guid.Empty, DateTime.Now.AddYears(-1), DateTime.Now, pageSize, targetChat.SavedTimestamp, low, ChatTarget.cer);
+            ReceptionChat targetChat = repositoryChat.FindById(new Guid( targetChatId));
+            var list = repositoryChat.GetReceptionChatListByTargetId(customerId, string.Empty, string.Empty, DateTime.Now.AddYears(-1), DateTime.Now, pageSize, targetChat.SavedTimestamp, low, ChatTarget.cer);
 
             return ToDto(list);
         }
 
         [UnitOfWork]
-        public IList<ReceptionChatDto> GetReceptionChatList(Guid fromId, Guid toId, Guid orderId, DateTime timeBegin, DateTime timeEnd, int pageIndex, int pageSize, string target, out int rowCount)
+        public IList<ReceptionChatDto> GetReceptionChatList(string fromId, string toId, string orderId, DateTime timeBegin, DateTime timeEnd, int pageIndex, int pageSize, string target, out int rowCount)
         {
             ChatTarget chatTarget;
             if(!Enum.TryParse(target, out chatTarget))
@@ -104,7 +104,7 @@ namespace Ydb.InstantMessage.Application
         }
 
         [UnitOfWork]
-        public IList<ReceptionChatDto> GetChats(TraitFilter filter, string type, string fromTarget, Guid orderID, Guid userID, string userType)
+        public IList<ReceptionChatDto> GetChats(TraitFilter filter, string type, string fromTarget, string orderID, string userID, string userType)
         {
             var list = repositoryChat.GetChats(filter, type, fromTarget, orderID, userID, userType);
 
@@ -112,19 +112,19 @@ namespace Ydb.InstantMessage.Application
         }
 
         [UnitOfWork]
-        public long GetChatsCount(string type, string fromTarget, Guid orderID, Guid userID, string userType)
+        public long GetChatsCount(string type, string fromTarget, string orderID, string userID, string userType)
         {
             return repositoryChat.GetChatsCount(type, fromTarget, orderID, userID, userType);
         }
 
         [UnitOfWork]
-        public IList<ReceptionChatDto> GetUnreadChatsAndSetReaded(Guid userID)
+        public IList<ReceptionChatDto> GetUnreadChatsAndSetReaded(string userID)
         {
             return ToDto(repositoryChat.GetUnreadChatsAndSetReaded(userID));
         }
 
         [UnitOfWork]
-        public long GetUnreadChatsCount(Guid userID)
+        public long GetUnreadChatsCount(string userID)
         {
             return repositoryChat.GetUnreadChatsCount(userID);
         }

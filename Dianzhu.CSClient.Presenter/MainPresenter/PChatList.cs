@@ -57,18 +57,18 @@ namespace Dianzhu.CSClient.Presenter
             {
                 NHibernateUnitOfWork.UnitOfWork.Start();
 
-                if (IdentityManager.CurrentIdentity == null)
+                if (string.IsNullOrEmpty( IdentityManager.CurrentCustomerId))
                 {
                     log.Error("IdentityManager.CurrentIdentity为null");
                     return;
                 }
 
-                string customerId = IdentityManager.CurrentIdentity.CustomerId;
+                string customerId = IdentityManager.CurrentCustomerId;
 
                 var chatHistory = chatService.GetReceptionChatListByTargetId(
-                    new Guid( customerId),
+                    customerId,
                     10,
-                    Guid.Parse(chatManager.LocalChats[customerId][0].ChatId),
+                    chatManager.LocalChats[customerId][0].ChatId,
                     "Y"
                     );
 
@@ -97,7 +97,7 @@ namespace Dianzhu.CSClient.Presenter
                         }
 
                         viewChatList.InsertOneChat(vmChat);
-                        //viewChatList.ChatList.Insert(0, vmChat);
+
                         chatManager.InsertTop(customerId, vmChat);
                     }
                 }
@@ -122,7 +122,7 @@ namespace Dianzhu.CSClient.Presenter
         BackgroundWorker worker;
         public void ViewIdentityList_IdentityClick(VMIdentity vmIdentity)
         {
-            if (IdentityManager.CurrentIdentity == null)
+            if (string.IsNullOrEmpty( IdentityManager.CurrentCustomerId))
             { return; }
 
             worker = new BackgroundWorker();
@@ -186,7 +186,7 @@ namespace Dianzhu.CSClient.Presenter
                         IList<ReceptionChatDto> dtoChatList = chatService.GetReceptionChatListByTargetId(
                             vmIdentity.CustomerId, 
                             10, 
-                            Guid.Parse(chatManager.LocalChats[vmIdentity.CustomerId.ToString()][0].ChatId),
+                            chatManager.LocalChats[vmIdentity.CustomerId][0].ChatId,
                             "Y");
 
                         if (dtoChatList.Count > 0)

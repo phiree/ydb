@@ -8,7 +8,7 @@ namespace Dianzhu.CSClient.ViewModel
 {
     public class VMIdentity
     {
-        public VMIdentity(Guid orderId,Guid customerId, string customerName,string customerAvatarUrl)
+        public VMIdentity(string orderId,string customerId, string customerName,string customerAvatarUrl)
         {
             this.OrderId = orderId;
             this.CustomerId = customerId;
@@ -16,8 +16,8 @@ namespace Dianzhu.CSClient.ViewModel
             this.CustomerAvatarUrl = customerAvatarUrl;            
         }
 
-        public Guid OrderId { get; protected internal set; }
-        public Guid CustomerId { get; protected internal set; }
+        public string OrderId { get; protected internal set; }
+        public string CustomerId { get; protected internal set; }
         public string CustomerName { get; protected internal set; }
         public string CustomerAvatarUrl { get; protected internal set; }        
     }

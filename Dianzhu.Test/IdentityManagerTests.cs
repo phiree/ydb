@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Dianzhu.CSClient.Presenter;
 using Dianzhu.Model;
 using System.Threading;
+using Ydb.Membership.DomainModel;
+
 namespace Dianzhu.CSClient.Presenter.Tests
 {
     [TestFixture()]
@@ -25,17 +27,17 @@ namespace Dianzhu.CSClient.Presenter.Tests
         public void UpdateIdentityListSingleThreadTest()
         {
             
-            DZMembership customer1 = new DZMembership { Id=Guid.NewGuid(),UserName="customer1" };
-            DZMembership customer2 = new DZMembership { Id = Guid.NewGuid(), UserName = "customer2" };
+            //DZMembership customer1 = new DZMembership { Id=Guid.NewGuid(),UserName="customer1" };
+            //DZMembership customer2 = new DZMembership { Id = Guid.NewGuid(), UserName = "customer2" };
             
             for (int i = 0; i < 10; i++)
             {
-                DZMembership c = new DZMembership { Id = Guid.NewGuid(), UserName = "customer"+i };
-                ServiceOrder order = new ServiceOrder { CustomerId = c.Id.ToString(), Id = Guid.NewGuid() };
+                //DZMembership c = new DZMembership { Id = Guid.NewGuid(), UserName = "customer"+i };
+                //ServiceOrder order = new ServiceOrder { CustomerId = c.Id.ToString(), Id = Guid.NewGuid() };
                 IdentityTypeOfOrder itoo;
         
-                IdentityManager.UpdateIdentityList(order, out itoo);
-                IdentityManager.CurrentIdentity = order;
+                //IdentityManager.UpdateIdentityList(order, out itoo);
+                //IdentityManager.CurrentIdentity = order;
             }
             PrintResult();
         }
@@ -44,16 +46,16 @@ namespace Dianzhu.CSClient.Presenter.Tests
         public void UpdateIdentityListMultiThreadTest()
         {
 
-            DZMembership customer1 = new DZMembership { Id = Guid.NewGuid(), UserName = "customer1" };
-            DZMembership customer2 = new DZMembership { Id = Guid.NewGuid(), UserName = "customer2" };
+            //DZMembership customer1 = new DZMembership { Id = Guid.NewGuid(), UserName = "customer1" };
+            //DZMembership customer2 = new DZMembership { Id = Guid.NewGuid(), UserName = "customer2" };
 
             for (int i = 0; i < 1000; i++)
             {
-                DZMembership c = new DZMembership { Id = Guid.NewGuid(), UserName = "customer" + i };
-                ServiceOrder order = new ServiceOrder { CustomerId = c.Id.ToString(), Id = Guid.NewGuid() };
+                //DZMembership c = new DZMembership { Id = Guid.NewGuid(), UserName = "customer" + i };
+                //ServiceOrder order = new ServiceOrder { CustomerId = c.Id.ToString(), Id = Guid.NewGuid() };
  
-                System.Threading.Thread t = new System.Threading.Thread(() => AddIdentityAndSetCurrent(order,false));
-                t.Start();
+                //System.Threading.Thread t = new System.Threading.Thread(() => AddIdentityAndSetCurrent(order,false));
+                //t.Start();
                 
                 
             }
@@ -73,26 +75,26 @@ namespace Dianzhu.CSClient.Presenter.Tests
         public void UpdateIdentityListMultiThreadWithLockTest()
         {
 
-            DZMembership customer1 = new DZMembership { Id = Guid.NewGuid(), UserName = "customer1" };
-            DZMembership customer2 = new DZMembership { Id = Guid.NewGuid(), UserName = "customer2" };
+            //DZMembership customer1 = new DZMembership { Id = Guid.NewGuid(), UserName = "customer1" };
+            //DZMembership customer2 = new DZMembership { Id = Guid.NewGuid(), UserName = "customer2" };
 
             for (int i = 0; i < 1000; i++)
             {
-                DZMembership c = new DZMembership { Id = Guid.NewGuid(), UserName = "customer" + i };
-                ServiceOrder order = new ServiceOrder { CustomerId = c.Id.ToString(), Id = Guid.NewGuid() };
+                //DZMembership c = new DZMembership { Id = Guid.NewGuid(), UserName = "customer" + i };
+                //ServiceOrder order = new ServiceOrder { CustomerId = c.Id.ToString(), Id = Guid.NewGuid() };
 
-                /*
-                System.Threading.Thread t = new System.Threading.Thread(() => IdentityManager.UpdateIdentityList(order, out itoo));
-                t.Start();
 
-                 IdentityManager.UpdateIdentityList(order, out itoo);
-                IdentityManager.CurrentIdentity = order;
-                */
-                System.Threading.Thread t = new System.Threading.Thread(() => AddIdentityAndSetCurrent(order,true));
-                
-                t.Start();
-                 
-                
+                //System.Threading.Thread t = new System.Threading.Thread(() => IdentityManager.UpdateIdentityList(order, out itoo));
+                //t.Start();
+
+                //IdentityManager.UpdateIdentityList(order, out itoo);
+                //IdentityManager.CurrentIdentity = order;
+
+                //System.Threading.Thread t = new System.Threading.Thread(() => AddIdentityAndSetCurrent(order,true));
+
+                //t.Start();
+
+
             }
             PrintResult();
         }

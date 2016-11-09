@@ -72,7 +72,7 @@ namespace Dianzhu.ApplicationService.Chat
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
             IList<ReceptionChatDto> chat = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ReceptionChat");
-            chat = bllChat.GetChats(filter1.filter2, chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer,customer.UserType);
+            chat = bllChat.GetChats(filter1.filter2, chatfilter.type, chatfilter.fromTarget, orderID, guidCustomer.ToString(),customer.UserType);
             if (chat == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
@@ -94,7 +94,7 @@ namespace Dianzhu.ApplicationService.Chat
             Guid guidOrder = checkRute(orderID, customer);
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
             countObj c = new countObj();
-            c.count = bllChat.GetChatsCount(chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer,customer.UserType).ToString();
+            c.count = bllChat.GetChatsCount(chatfilter.type, chatfilter.fromTarget, orderID, guidCustomer.ToString(),customer.UserType).ToString();
             return c;
         }
 
@@ -108,15 +108,15 @@ namespace Dianzhu.ApplicationService.Chat
         public IList<chatObj> GetAllChats(common_Trait_Filtering filter, common_Trait_ChatFiltering chatfilter, Customer customer)
         {
             //Guid guidOrder = checkRute(chatfilter.orderID, customer);
-            Guid guidOrder = Guid.Empty;// utils.CheckGuidID(chatfilter.orderID, "chatfilter.orderID");
-            if (!string.IsNullOrEmpty(chatfilter.orderID))
-            {
-                guidOrder= checkRute(chatfilter.orderID, customer);
-            }
+            //Guid guidOrder = Guid.Empty;// utils.CheckGuidID(chatfilter.orderID, "chatfilter.orderID");
+            //if (!string.IsNullOrEmpty(chatfilter.orderID))
+            //{
+            //    guidOrder = checkRute(chatfilter.orderID, customer);
+            //}
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
             IList<ReceptionChatDto> chat = null;
             Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ReceptionChat");
-            chat = bllChat.GetChats(filter1.filter2, chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer, customer.UserType);
+            chat = bllChat.GetChats(filter1.filter2, chatfilter.type, chatfilter.fromTarget, chatfilter.orderID, guidCustomer.ToString(), customer.UserType);
             if (chat == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
@@ -135,14 +135,14 @@ namespace Dianzhu.ApplicationService.Chat
         public countObj GetAllChatsCount( common_Trait_ChatFiltering chatfilter, Customer customer)
         {
             //Guid guidOrder = checkRute(orderID, customer);
-            Guid guidOrder = Guid.Empty;// utils.CheckGuidID(chatfilter.orderID, "chatfilter.orderID");
-            if (!string.IsNullOrEmpty(chatfilter.orderID))
-            {
-                guidOrder = checkRute(chatfilter.orderID, customer);
-            }
+            //Guid guidOrder = Guid.Empty;// utils.CheckGuidID(chatfilter.orderID, "chatfilter.orderID");
+            //if (!string.IsNullOrEmpty(chatfilter.orderID))
+            //{
+            //    guidOrder = checkRute(chatfilter.orderID, customer);
+            //}
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
             countObj c = new countObj();
-            c.count = bllChat.GetChatsCount(chatfilter.type, chatfilter.fromTarget, guidOrder, guidCustomer, customer.UserType).ToString();
+            c.count = bllChat.GetChatsCount(chatfilter.type, chatfilter.fromTarget, chatfilter.orderID, guidCustomer.ToString(), customer.UserType).ToString();
             return c;
         }
 
@@ -155,7 +155,7 @@ namespace Dianzhu.ApplicationService.Chat
         {
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
             IList<ReceptionChatDto> chat = null;
-            chat = bllChat.GetUnreadChatsAndSetReaded(guidCustomer);
+            chat = bllChat.GetUnreadChatsAndSetReaded(guidCustomer.ToString());
             if (chat == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
@@ -174,7 +174,7 @@ namespace Dianzhu.ApplicationService.Chat
         {
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
             countObj c = new countObj();
-            c.count = bllChat.GetUnreadChatsCount(guidCustomer).ToString();
+            c.count = bllChat.GetUnreadChatsCount(guidCustomer.ToString()).ToString();
             return c;
         }
     }
