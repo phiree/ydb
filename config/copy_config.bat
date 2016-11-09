@@ -6,6 +6,7 @@ copy /Y connectionstrings_common.config ..\dianzhu.web.pay\config\connectionstri
 copy /Y connectionstrings_common.config ..\dianzhu.csclient\config\connectionstrings.config
 copy /Y connectionstrings_common.config ..\dianzhu.test\config\connectionstrings.config
 copy /Y connectionstrings_common.config ..\dianzhu.Web.RestfulApi\config\connectionstrings.config
+copy /Y connectionstrings_common.config ..\Ydb.Test.Integration\config\connectionstrings.config
 
 copy /Y appSettings_common.config ..\adminbusiness\config\appSettings.config
 copy /Y appSettings_common.config ..\adminweb\config\appSettings.config
