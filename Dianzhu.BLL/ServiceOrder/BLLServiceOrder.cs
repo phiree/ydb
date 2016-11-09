@@ -488,8 +488,7 @@ namespace Dianzhu.BLL
             {
                 string errMsg = "错误:用户和客服有多张草稿单!";
                 log.Error(errMsg);
-                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
-
+                log.Error(ex);
             }
             return order;
 

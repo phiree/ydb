@@ -110,11 +110,11 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        public void ShowMoreLabel()
+        public void ShowMoreLabel(string targetChatId)
         {
             Action lamda = () =>
             {
-                HideLoadingMsg();
+                HideLoadingMsg(targetChatId);
                 hint.btnMore.Visibility = Visibility.Visible;
             };
             if (!Dispatcher.CheckAccess())
@@ -145,10 +145,11 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        public void HideLoadingMsg()
+        public void HideLoadingMsg(string targetChatId)
         {
             Action lamda = () =>
             {
+                hint.btnMore.Tag = targetChatId;
                 hint.lblHint.Content = string.Empty;
                 hint.lblHint.Visibility = Visibility.Collapsed;
             };
@@ -210,7 +211,7 @@ namespace Dianzhu.CSClient.ViewWPF
             worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            worker.RunWorkerAsync();
+            worker.RunWorkerAsync(((Button)sender).Tag);
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -220,22 +221,9 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            try
+            if (BtnMoreChat != null)
             {
-                //NHibernateUnitOfWork.UnitOfWork.Start();
-                if (BtnMoreChat != null)
-                {
-                    BtnMoreChat();
-                }
-            }
-            catch (Exception ee)
-            {
-                log.Error(ee.ToString());
-            }
-            finally
-            {
-                //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                BtnMoreChat(e.Argument.ToString());
             }
         }
 

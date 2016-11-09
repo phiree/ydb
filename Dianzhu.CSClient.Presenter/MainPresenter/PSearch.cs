@@ -248,7 +248,7 @@ namespace Dianzhu.CSClient.Presenter
             }
             catch (Exception e)
             {
-                PHSuit.ExceptionLoger.ExceptionLog(log, e);
+                log.Error(e);
             }
             //};
             //if (NHibernateUnitOfWork.UnitOfWork.IsStarted)

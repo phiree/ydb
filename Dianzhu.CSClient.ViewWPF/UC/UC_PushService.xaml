@@ -40,13 +40,14 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
-                            <Image Width="60" Height="60" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png"></Image>
+                            <Image x:Name="imgBusinessAvatar" Width="60" Height="60" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png"></Image>
                         </Grid>
 
                         <Grid Grid.Column="1">
                             <StackPanel>
                                 <WrapPanel>
                                     <Label>信用评价</Label>
+                                    <Label x:Name="lblCreditPoint" Padding="5,5,0,5">★</Label>
                                 </WrapPanel>
 
                                 <WrapPanel>

@@ -80,6 +80,12 @@ namespace Dianzhu.CSClient.ViewWPF
             }
             else if(vmChat is VMChatPushServie)
             {
+                if (string.IsNullOrEmpty(((VMChatPushServie)vmChat).ServiceName))
+                {
+                    log.Error("服务名不存在，不显示该推送服务");
+                    return;
+                }
+
                 UC_PushService pushService = new UC_PushService();
                 pushService.LoadData((VMChatPushServie)vmChat);
                 pushService.FlowDirection = FlowDirection.LeftToRight;
@@ -127,7 +133,14 @@ namespace Dianzhu.CSClient.ViewWPF
                     tbTimeCustomer.Text = vmChat.SavedTime.ToString();
                 }
 
-                InitData(vmChat);
+                try
+                {
+                    InitData(vmChat);
+                }
+                catch (Exception ee)
+                {
+                    log.Error(ee);
+                }
             }
         }
         
