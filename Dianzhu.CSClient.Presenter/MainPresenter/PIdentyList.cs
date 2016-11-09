@@ -90,7 +90,7 @@ namespace Dianzhu.CSClient.Presenter
                 log.Debug("-------开始 接收离线用户------");
                 IList<ReceptionStatusDto> assignList = receptionService.AssignCSLogin(GlobalViables.CurrentCustomerService.Id.ToString(), 3);
 
-                NHibernateUnitOfWork.UnitOfWork.Start();
+                //NHibernateUnitOfWork.UnitOfWork.Start();
                 
                 if (assignList.Count > 0)
                 {
@@ -129,8 +129,8 @@ namespace Dianzhu.CSClient.Presenter
             }
             finally
             {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
         }
 
@@ -370,13 +370,13 @@ namespace Dianzhu.CSClient.Presenter
                     iViewChatList.AddOneChat(vmChat);
                     break;
                 case IdentityTypeOfOrder.InList:
-                    iView.SetIdentityUnread(chat.SessionId, 1);
+                    iView.SetIdentityUnread(chat.FromId, 1);
                     break;
                 case IdentityTypeOfOrder.NewIdentity:
                     MemberDto customer = memberService.GetUserById(chat.FromId);
                     VMIdentity vmIdentity = new VMIdentity (chat.SessionId,chat.FromId,customer.DisplayName, localChatManager.LocalCustomerAvatarUrls[vmChat.FromId]);
                     AddIdentity(vmIdentity);
-                    iView.SetIdentityUnread(chat.SessionId, 1);
+                    iView.SetIdentityUnread(chat.FromId, 1);
                     break;
                 default:
                     throw new Exception("无法判断消息属性");
