@@ -239,7 +239,8 @@ namespace Dianzhu.Web.RestfulApi
             ilog.Debug("Request(RequestMethod)" + reqTime + ":" + req.Method.ToString());
             reqUri = req.RequestUri.AbsolutePath.ToLower();
             ilog.Debug("Request(RequestUri)" + reqTime + ":" + req.RequestUri.AbsolutePath.ToLower());
-            if ((req.Method == HttpMethod.Post && (req.RequestUri.AbsolutePath.ToLower() == "/api/v1/authorization" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customers" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/merchants" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customer3rds"))|| (req.Method == HttpMethod.Get && (req.RequestUri.AbsolutePath.ToLower() == "/api/v1/customers/count" || req.RequestUri.AbsolutePath.ToLower() == "/api/v1/merchants/count" )))
+            //认证时是否加入token
+            if (utils.CheckRoute(req.RequestUri.AbsolutePath.ToLower(),req.Method.ToString()))
             { }
             else
             {
