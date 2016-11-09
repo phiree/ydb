@@ -304,6 +304,20 @@ namespace Dianzhu.ApplicationService.User
         }
 
         /// <summary>
+        /// 修改用户城市信息
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="cityCode"></param>
+        /// <returns></returns>
+        public object PatchCurrentGeolocation(string userID, string cityCode)
+        {
+            Guid guidUser = utils.CheckGuidID(userID, "userID");
+            Dianzhu.Model.DZMembership dzm = dzmsp.GetUserById(guidUser);
+            return new string[] { "修改成功" };
+
+        }
+
+        /// <summary>
         ///  读取客服信息(申请客服资源)
         /// </summary>
         /// <param name="customer"></param>
