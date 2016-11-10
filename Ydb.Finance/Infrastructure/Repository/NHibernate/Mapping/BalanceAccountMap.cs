@@ -17,6 +17,7 @@ namespace Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping
             Id(x => x.Id);
             Map(x => x.UserId);
             Map(x => x.Account);
+            Map(x => x.AccountName);
             Map(x => x.AccountType);
             Map(x => x.AccountPhone);
             Map(x => x.AccountCode);

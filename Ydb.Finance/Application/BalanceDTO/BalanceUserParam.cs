@@ -11,11 +11,11 @@ namespace Ydb.Finance.Application
         /// <summary>
         /// 分账用户ID
         /// </summary>
-        public virtual string AccountId { get; set; }
+        public string AccountId { get; set; }
 
         /// <summary>
         /// 分账用户类型
         /// </summary>
-        public virtual string UserType { get; set; }
+        public string UserType { get; set; }
     }
 }

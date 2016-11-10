@@ -25,6 +25,14 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             return new string[] { s+"版本号："+v, "发布时间："+t };
         }
 
+
+        [Route("api/v1/getOutTime")]
+        public IEnumerable<string> GetTest()
+        {
+            System.Threading.Thread.Sleep(600000);
+            return new string[] { "测试时长：10分钟" };
+        }
+
         // GET api/values/5
         //public string Get(int id)
         //{

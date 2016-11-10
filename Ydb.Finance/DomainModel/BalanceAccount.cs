@@ -20,6 +20,11 @@ namespace Ydb.Finance.DomainModel
         public virtual string Account { get; set; }
 
         /// <summary>
+        /// 用户绑定的提现账户的真实姓名
+        /// </summary>
+        public virtual string AccountName { get; set; }
+
+        /// <summary>
         /// 用户绑定支付账户类型
         /// </summary>
         public virtual string AccountType { get; set; }

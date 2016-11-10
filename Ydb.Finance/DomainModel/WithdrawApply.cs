@@ -9,6 +9,12 @@ namespace Ydb.Finance.DomainModel
 {
     public class WithdrawApply : Entity<Guid>
     {
+        public WithdrawApply()
+        {
+            CreateTime = DateTime.Now;
+            UpdateTime = DateTime.Now;
+        }
+
         /// <summary>
         /// 申请提现用户账户ID
         /// </summary>
@@ -62,7 +68,7 @@ namespace Ydb.Finance.DomainModel
         /// <summary>
         /// 付款时间
         /// </summary>
-        public virtual string PayTime { get; set; }
+        public virtual DateTime PayTime { get; set; }
 
         /// <summary>
         /// 付款状态
@@ -83,6 +89,11 @@ namespace Ydb.Finance.DomainModel
         /// 更新时间
         /// </summary>
         public virtual DateTime UpdateTime { get; set; }
+
+        /// <summary>
+        /// 申请单流水编号
+        /// </summary>
+        public virtual string SerialNo { get; set; }
 
     }
 }

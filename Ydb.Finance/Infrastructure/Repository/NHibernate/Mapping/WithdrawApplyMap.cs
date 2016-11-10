@@ -30,6 +30,7 @@ namespace Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.PayRemark);
             Map(x => x.CreateTime);
             Map(x => x.UpdateTime);
+            Map(x => x.SerialNo);
         }
     }
 

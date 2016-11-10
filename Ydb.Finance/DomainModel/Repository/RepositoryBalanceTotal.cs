@@ -37,5 +37,26 @@ namespace Ydb.Finance.DomainModel
         /// <param name="userId" type="string">账户用户ID</param>
         /// <param name="amount" type="decimal">出账金额</param>
         void OutBalance(string userId, decimal amount);
+
+        /// <summary>
+        /// 账户冻结
+        /// </summary>
+        /// <param name="userId" type="string">账户用户ID</param>
+        /// <param name="amount" type="decimal">冻结金额</param>
+        void FrozenBalance(string userId, decimal amount);
+
+        /// <summary>
+        /// 账户解冻
+        /// </summary>
+        /// <param name="userId" type="string">账户用户ID</param>
+        /// <param name="amount" type="decimal">解冻金额</param>
+        void ReleaseBalance(string userId, decimal amount);
+
+        /// <summary>
+        /// 账户出账,从冻结的余额中出账
+        /// </summary>
+        /// <param name="userId" type="string">账户用户ID</param>
+        /// <param name="amount" type="decimal">出账金额</param>
+        void OutFrozenBalance(string userId, decimal amount);
     }
 }

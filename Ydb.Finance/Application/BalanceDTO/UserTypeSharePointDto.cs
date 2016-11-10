@@ -16,11 +16,11 @@ namespace Ydb.Finance.Application
         /// <summary>
         /// 用户类型
         /// </summary>
-        public virtual string UserType { get; set; }
+        public string UserType { get; set; }
 
         /// <summary>
         /// 分账比例
         /// </summary>
-        public virtual decimal Point { get; set; }
+        public decimal Point { get; set; }
     }
 }

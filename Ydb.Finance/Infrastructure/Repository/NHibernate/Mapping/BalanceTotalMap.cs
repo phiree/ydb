@@ -15,6 +15,7 @@ namespace Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping
             Id(x => x.Id);//.GeneratedBy.Assigned();加上这个表示必须先生成id,再传给数据库
             Map(x => x.UserId).Unique();
             Map(x => x.Total);
+            Map(x => x.Frozen);
         }
     }
 }

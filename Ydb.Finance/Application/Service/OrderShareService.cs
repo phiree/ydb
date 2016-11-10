@@ -43,15 +43,19 @@ namespace Ydb.Finance.Application
             decimal sharePoint = 0;
             string errMsg = string.Empty;
             IList<string> strUserTypes = new List<string>();
+            IList<string> strUserId = new List<string>();
             strUserTypes.Add("business");
+            strUserId.Add(order.BusinessUserId);
             for (int i = 0; i < order.BalanceUser.Count; i++)
             {
                 switch (order.BalanceUser[i].UserType)
                 {
                     case "agent":
+                        strUserId.Add(order.BalanceUser[i].AccountId);
                         strUserTypes.Add("agent");
                         break;
                     case "customerservice":
+                        strUserId.Add(order.BalanceUser[i].AccountId);
                         strUserTypes.Add("customerservice");
                         break;
                     case "business":
@@ -63,6 +67,7 @@ namespace Ydb.Finance.Application
                 }
             }
             strUserTypes.Add("diandian");
+            strUserId.Add("dc73ba0f-91a4-4e14-b17a-a567009dfd6a");
             decimal shareDiandian = order.Amount;
             for (int i = 0; i < strUserTypes.Count; i++)
             {
@@ -88,11 +93,13 @@ namespace Ydb.Finance.Application
                     default:
                         throw new Exception("分账用户类型不正确!");
                 }
+
                 BalanceFlow flow = new BalanceFlow
                 {
-                    AccountId = order.BalanceUser[i].AccountId,
-                    Amount = share,
+                    AccountId = strUserId[i],
+                    Amount=share,
                     RelatedObjectId = order.RelatedObjectId,
+                    SerialNo = order.SerialNo,
                     OccurTime = DateTime.Now,
                     FlowType = FlowType.OrderShare,
                     Income = true
