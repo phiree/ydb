@@ -44,7 +44,7 @@ namespace Ydb.InstantMessage.Infrastructure
                     .ExposeConfiguration(BuildSchema)
                     .BuildSessionFactory();
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory).Named("InstantMessageSessionFactory"));
+            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory));//.Named("InstantMessageSessionFactory"));
         }
         private void BuildSchema(Configuration config)
         {

@@ -35,10 +35,10 @@ namespace Ydb.InstantMessage.Infrastructure
         private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IRepositoryReception>().ImplementedBy<RepositoryReception>()
-                 .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
+             //    .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
                 );
             container.Register(Component.For<IRepositoryChat>().ImplementedBy<RepositoryChat>()
-                    .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
+               //     .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
                 );
 
         }

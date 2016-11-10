@@ -24,14 +24,14 @@ namespace Ydb.InstantMessage.Infrastructure
             if (!container.Kernel.HasComponent(typeof(IUnitOfWork)))//.HasComponent("IUnitOfWorkInstantMessage" ))
             {
                 container.Register(Component.For<IUnitOfWork>().ImplementedBy<NhUnitOfWork>()
-                       .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
+                   //    .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
                     );
             }
 
             if (!container.Kernel.HasComponent(typeof(NhUnitOfWorkInterceptor)))
             {
                 container.Register(Component.For<NhUnitOfWorkInterceptor>()
-                      .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
+                  //    .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
                     .LifeStyle.Transient);
             }
         }

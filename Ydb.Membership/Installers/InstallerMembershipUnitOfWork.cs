@@ -24,14 +24,14 @@ namespace Ydb.Membership.Infrastructure
             if (!container.Kernel.HasComponent(typeof(IUnitOfWork)))//.HasComponent("IUnitOfWorkMembership" ))
             {
                 container.Register(Component.For<IUnitOfWork>().ImplementedBy<NhUnitOfWork>()
-                       .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("MembershipSessionFactory"))
+                    //   .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("MembershipSessionFactory"))
                     );
             }
 
             if (!container.Kernel.HasComponent(typeof(NhUnitOfWorkInterceptor)))
             {
                 container.Register(Component.For<NhUnitOfWorkInterceptor>()
-                      .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("MembershipSessionFactory"))
+                    //  .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("MembershipSessionFactory"))
                     .LifeStyle.Transient);
             }
         }
