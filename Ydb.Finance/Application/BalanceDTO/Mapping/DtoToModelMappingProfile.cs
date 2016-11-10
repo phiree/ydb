@@ -26,6 +26,7 @@ namespace Ydb.Finance.Application
             Mapper.CreateMap<ServiceTypePointDto, ServiceTypePoint>();
             Mapper.CreateMap<UserTypeSharePointDto, UserTypeSharePoint>();
             Mapper.CreateMap<BalanceAccountDto, BalanceAccount>();
+            Mapper.CreateMap<WithdrawApplyDto, WithdrawApply>();
         }
     }
 }

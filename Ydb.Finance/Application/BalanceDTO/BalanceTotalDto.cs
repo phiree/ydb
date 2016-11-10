@@ -16,11 +16,16 @@ namespace Ydb.Finance.Application
         /// <summary>
         /// 用户账户ID
         /// </summary>
-        public virtual string UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// 用户账户余额
         /// </summary>
-        public virtual decimal Total { get; set; }
+        public decimal Total { get; set; }
+
+        /// <summary>
+        /// 用户账户冻结金额
+        /// </summary>
+        public decimal Frozen { get; set; }
     }
 }

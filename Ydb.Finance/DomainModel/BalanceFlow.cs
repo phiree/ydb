@@ -30,6 +30,11 @@ namespace Ydb.Finance.DomainModel
         public virtual string RelatedObjectId { get; set; }
 
         /// <summary>
+        /// 关联对象的流水编号
+        /// </summary>
+        public virtual string SerialNo { get; set; }
+
+        /// <summary>
         /// 发生类型
         /// </summary>
         public virtual FlowType FlowType { get; set; }
@@ -48,6 +53,11 @@ namespace Ydb.Finance.DomainModel
         /// 比率
         /// </summary>
         public virtual string Rate { get; set; }
+
+        /// <summary>
+        /// 本次发生金额显示字符串
+        /// </summary>
+        public virtual string AmountView { get; set; }
     }
   
 }

@@ -8,7 +8,8 @@ namespace Ydb.Finance.Application
 {
     public enum AccountTypeEnums
     {
-        Alipay,//支付宝
+        None=0,//初始值
+        Alipay=1,//支付宝
         //WeChat//微信
     }
 }

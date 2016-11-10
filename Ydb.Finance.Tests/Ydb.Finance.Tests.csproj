@@ -104,7 +104,6 @@
     <Compile Include="Application\OrderShareServiceTests.cs" />
     <Compile Include="Application\ServiceTypePointServiceTests.cs" />
     <Compile Include="Application\UserTypeSharePointServiceTests.cs" />
-    <Compile Include="Application\WithdrawCashServiceTests.cs" />
     <Compile Include="Bootstrap.cs" />
     <Compile Include="InstallerFinanceTestDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

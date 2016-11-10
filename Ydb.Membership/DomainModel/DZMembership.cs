@@ -142,6 +142,24 @@ namespace Ydb.Membership.DomainModel
             return result;
 
         }
+
+
+        internal virtual ActionResult ChangePasswordByPhone(string newPlainPassword, string newEncryptedPassword)
+        {
+            ActionResult result = new ActionResult();
+            if (newPlainPassword.Length < 6)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "密码不能少于6个字符";
+            }
+            else
+            {
+                this.Password = newEncryptedPassword;
+                this.PlainPassword = newPlainPassword;
+                result.IsSuccess = true;
+            }
+            return result;
+        }
         public virtual string FriendlyUserType
         {
             get

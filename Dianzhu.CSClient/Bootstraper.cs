@@ -1,16 +1,12 @@
 ﻿using Castle.Windsor;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
-using NHibernate.Tool.hbm2ddl;
 using Dianzhu.DependencyInstaller;
-using System.Configuration;
+using Ydb.Common.Infrastructure;
 /// <summary>
 /// Summary description for Installer
 /// </summary>
-using Ydb.Common.Infrastructure;
 namespace Dianzhu.CSClient
-{ 
-public class Bootstrap
+{
+    public class Bootstrap
 {
     static IWindsorContainer container;
     public static IWindsorContainer Container

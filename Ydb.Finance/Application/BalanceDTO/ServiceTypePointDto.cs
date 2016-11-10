@@ -16,11 +16,11 @@ namespace Ydb.Finance.Application
         /// <summary>
         /// 服务类型ID
         /// </summary>
-        public virtual string ServiceTypeId { get; set; }
+        public string ServiceTypeId { get; set; }
 
         /// <summary>
         /// 服务扣点比例
         /// </summary>
-        public virtual decimal Point { get; set; }
+        public decimal Point { get; set; }
     }
 }
