@@ -397,7 +397,7 @@ namespace Dianzhu.Web.RestfulApi
                     //ilog.Debug("Request(httpContent)" + reqTime + ":begin" );
                     var content = await httpContent.ReadAsByteArrayAsync().ConfigureAwait(false);//await
                     string str = Encoding.Default.GetString(content);
-                    if (reqUri != "api/v1/storages/images" && reqUri != "api/v1/storages/avatarimages" && reqUri != "api/v1/storages/audios")
+                    if (reqUri.ToLower() != "/api/v1/storages/images" && reqUri.ToLower() != "/api/v1/storages/avatarimages" && reqUri.ToLower() != "/api/v1/storages/audios")
                     {
                         ilog.Debug("Request(httpContent)" + reqTime + ":" + str.ToString());
                     }
