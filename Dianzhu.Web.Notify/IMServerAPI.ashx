@@ -62,6 +62,7 @@ public class IMServerAPI : IHttpHandler
                     if (Guid.TryParse(struserId, out userId))
                     {
                         receptionService.SendCSLogoffMessageToDD();
+                        receptionService.AssignCSLogoff(struserId);
                     }
                     else
                     {
