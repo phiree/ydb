@@ -249,6 +249,35 @@ namespace Ydb.Membership.Application
         }
 
         [UnitOfWork]
+        public ActionResult RecoveryPasswordByPhone(string phone, string newPassword)
+        {
+            ActionResult result = new ActionResult();
+            DZMembership member = repositoryMembership.GetMemberByName(phone);
+            if (member == null)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "该手机用户不存在!";
+            }
+            return member.ChangePasswordByPhone( newPassword, encryptService.GetMD5Hash(newPassword));
+        }
+
+
+        [UnitOfWork]
+        public ActionResult ChangeUserCity(Guid memberId, string cityCode)
+        {
+            ActionResult result = new ActionResult();
+            DZMembership member = repositoryMembership.GetMemberById(memberId);
+            if (member == null)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "该用户不存在!";
+            }
+            member.UserCity = cityCode;
+            repositoryMembership.Update(member);
+            return result;
+        }
+
+        [UnitOfWork]
         public ActionResult ChangePassword(string userName, string oldPassword, string newPassword)
         {
             DZMembership member = repositoryMembership.GetMemberByName(userName);

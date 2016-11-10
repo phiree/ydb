@@ -76,7 +76,13 @@ namespace Ydb.Membership.Application
         
 
         ActionResult ChangePassword(string userName, string oldPassword, string newPassword);
-      
+
+
+        ActionResult RecoveryPasswordByPhone(string phone, string newPassword);
+
+         ActionResult ChangeUserCity(Guid memberId, string cityCode);
+
+
         ActionResult RecoveryPassword( string recoveryString, string newPassword);
 
         ActionResult ChangePhone(string userId,string newPhone);

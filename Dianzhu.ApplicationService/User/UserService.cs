@@ -316,21 +316,18 @@ namespace Dianzhu.ApplicationService.User
             {
                 throw new Exception("密码不能为空!");
             }
-            Dianzhu.Model.DZMembership dzm = dzmsp.GetUserByName(phone);
-            if (dzm==null)
+            ActionResult actionResult = memberService.RecoveryPasswordByPhone(phone, newPassword);
+            if (!actionResult.IsSuccess)
             {
-                throw new Exception("该手机用户不存在!");
+                throw new Exception(actionResult.ErrMsg);
             }
-            if (!dzm.ChangePassword(dzm.PlainPassword, newPassword))
-            {
-                throw new Exception("密码错误!");
-            }
-            System.Runtime.Caching.MemoryCache.Default.Remove(dzm.Id.ToString());
-            Model.UserToken usertoken = bllUserToken.GetToken(dzm.Id.ToString());
-            if (usertoken != null)
-            {
-                usertoken.Flag = 0;
-            }
+
+            //System.Runtime.Caching.MemoryCache.Default.Remove(dzm.Id.ToString());
+            //Model.UserToken usertoken = bllUserToken.GetToken(dzm.Id.ToString());
+            //if (usertoken != null)
+            //{
+            //    usertoken.Flag = 0;
+            //}
             return new string[] { "修改成功" };
 
         }
@@ -344,14 +341,12 @@ namespace Dianzhu.ApplicationService.User
         public object PatchCurrentGeolocation(string userID, string cityCode, Customer customer)
         {
             Guid guidUser = utils.CheckGuidID(userID, "userID");
-            Dianzhu.Model.DZMembership dzm = dzmsp.GetUserById(guidUser);
-            if (dzm == null)
+            ActionResult actionResult = memberService.ChangeUserCity(guidUser, cityCode);
+            if (!actionResult.IsSuccess)
             {
-                throw new Exception("该用户不存在!");
+                throw new Exception(actionResult.ErrMsg);
             }
-            dzm.UserCity = cityCode;
             return new string[] { "修改成功" };
-
         }
 
         /// <summary>
