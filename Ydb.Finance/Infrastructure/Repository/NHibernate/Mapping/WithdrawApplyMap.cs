@@ -18,7 +18,7 @@ namespace Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.ApplyUserId);
             Map(x => x.ApplyAmount);
             Map(x => x.ApplyTime);
-            Map(x => x.ReceiveAccount);
+            References< BalanceAccount>(x => x.ReceiveAccount);
             Map(x => x.TransferAmount);
             Map(x => x.ServiceFee);
             Map(x => x.ApplyStatus);
