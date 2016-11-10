@@ -13,6 +13,8 @@ using Dianzhu.CSClient.Presenter.VMAdapter;
 using Dianzhu.CSClient.ViewModel;
 using Ydb.InstantMessage.Application;
 using Ydb.Membership.Application;
+using Ydb.Membership.DomainModel;
+using Ydb.Membership.DomainModel.Enums;
 
 namespace Dianzhu.Test.DZCSClientTest
 {
@@ -26,11 +28,10 @@ namespace Dianzhu.Test.DZCSClientTest
         BLL.BLLServiceOrder bllServiceOrder;
         IViewOrderHistory viewOrderHistory;
         IViewSearchResult viewSearchResult;
-        IDAL.IDALMembership dalMembership;
         IVMChatAdapter vmChatAdapter;
         IVMIdentityAdapter vmIdentityAdapter;
         IReceptionService receptionService;
-        Ydb.Membership.Application.IDZMembershipService memberService;
+        IDZMembershipService memberService;
 
         PIdentityList pIdentityList;
         IList<DZMembership> customerList;
@@ -55,7 +56,6 @@ namespace Dianzhu.Test.DZCSClientTest
             lcm = MockRepository.GenerateStub<Dianzhu.CSClient.LocalStorage.LocalChatManager>();
             lhom = MockRepository.GenerateStub<Dianzhu.CSClient.LocalStorage.LocalHistoryOrderManager>();
             luidm = MockRepository.GenerateStub<Dianzhu.CSClient.LocalStorage.LocalUIDataManager>();
-             dalMembership = MockRepository.GenerateStub<IDAL.IDALMembership>();
             vmChatAdapter = MockRepository.GenerateStub<IVMChatAdapter>();
             vmIdentityAdapter = MockRepository.GenerateStub<IVMIdentityAdapter>();
             receptionService = MockRepository.GenerateStub<IReceptionService>();
@@ -70,40 +70,40 @@ namespace Dianzhu.Test.DZCSClientTest
             string[] orderIdList = { "eb524d39-6800-4477-9b03-6c1347f766b2", "b8d66f6e-45c7-444a-a055-96429049eac0", "e858b491-d295-4978-9b83-4571cc05c030" };
 
             customerList = Builder<DZMembership>.CreateListOfSize(3)
-                    .TheFirst(1).With(x => x.Id = new Guid(customerIdList[0]))
+                    .TheFirst(1)
                                 .With(x => x.UserName = "user1")
-                                .With(x => x.UserType = Model.Enums.enum_UserType.customer)
-                    .TheNext(1).With(x => x.Id = new Guid(customerIdList[1]))
+                                .With(x => x.UserType = UserType.customer)
+                    .TheNext(1)
                                 .With(x => x.UserName = "user2")
-                                .With(x => x.UserType = Model.Enums.enum_UserType.customer)
-                    .TheLast(1).With(x => x.Id = new Guid(customerIdList[2]))
+                                .With(x => x.UserType = UserType.customer)
+                    .TheLast(1)
                                 .With(x => x.UserName = "user1")
-                                .With(x => x.UserType = Model.Enums.enum_UserType.customer)
+                                .With(x => x.UserType = UserType.customer)
                     .Build();
 
             csList = Builder<DZMembership>.CreateListOfSize(3)
-                    .TheFirst(1).With(x => x.Id = new Guid(csIdList[0]))
+                    .TheFirst(1)
                                 .With(x => x.UserName = "user1")
-                                .With(x => x.UserType = Model.Enums.enum_UserType.customer)
-                    .TheNext(1).With(x => x.Id = new Guid(csIdList[1]))
+                                .With(x => x.UserType = UserType.customer)
+                    .TheNext(1)
                                 .With(x => x.UserName = "user2")
-                                .With(x => x.UserType = Model.Enums.enum_UserType.customer)
-                    .TheLast(1).With(x => x.Id = new Guid(csIdList[2]))
+                                .With(x => x.UserType = UserType.customer)
+                    .TheLast(1)
                                 .With(x => x.UserName = "user1")
-                                .With(x => x.UserType = Model.Enums.enum_UserType.customer)
+                                .With(x => x.UserType = UserType.customer)
                     .Build();
 
-            orderList = Builder<ServiceOrder>.CreateListOfSize(3)
-                    .TheFirst(1).With(x => x.Id = new Guid(orderIdList[0]))
-                                .With(x => x.CustomerId = customerList[0].Id.ToString())
-                                .With(x => x.CustomerServiceId = csList[0].Id.ToString())
-                    .TheNext(1).With(x => x.Id = new Guid(orderIdList[1]))
-                                .With(x => x.CustomerId = customerList[1].Id.ToString())
-                                .With(x => x.CustomerServiceId = csList[1].Id.ToString())
-                    .TheLast(1).With(x => x.Id = new Guid( orderIdList[2] ))
-                                .With(x => x.CustomerId = customerList[2].Id.ToString())
-                                .With(x => x.CustomerServiceId = csList[2].Id.ToString())
-                    .Build();
+            //orderList = Builder<ServiceOrder>.CreateListOfSize(3)
+            //        .TheFirst(1)
+            //                    .With(x => x.CustomerId = customerList[0].Id.ToString())
+            //                    .With(x => x.CustomerServiceId = csList[0].Id.ToString())
+            //        .TheNext(1).With(x => x.Id = new Guid(orderIdList[1]))
+            //                    .With(x => x.CustomerId = customerList[1].Id.ToString())
+            //                    .With(x => x.CustomerServiceId = csList[1].Id.ToString())
+            //        .TheLast(1).With(x => x.Id = new Guid( orderIdList[2] ))
+            //                    .With(x => x.CustomerId = customerList[2].Id.ToString())
+            //                    .With(x => x.CustomerServiceId = csList[2].Id.ToString())
+            //        .Build();
         }
 
         [Test]
@@ -114,28 +114,28 @@ namespace Dianzhu.Test.DZCSClientTest
             PChatList pChatList = new PChatList(viewChatList, viewChatSend, viewIdentityList, iIM,lcm, vmChatAdapter, chatServive);
 
             IList<DZMembership> members = Builder<DZMembership>.CreateListOfSize(3)
-                 .TheFirst(1).With(x => x.Id = new Guid("f197a81d-c984-4894-b21c-a5f00106e08b"))
-                             .With(x => x.UserName = "user1")
-                             .With(x => x.UserType = Model.Enums.enum_UserType.customer)
-                  .TheNext(1).With(x => x.Id = new Guid("a8a2fe97-33cc-4602-85ed-a5f001197c72"))
-                             .With(x => x.UserName = "user2")
-                             .With(x => x.UserType = Model.Enums.enum_UserType.customer)
-                 .TheLast(1).With(x => x.Id = new Guid("6ba73c46-83ea-450d-90b2-a5f00101da01"))
-                             .With(x => x.UserName = "cs001")
-                             .With(x => x.UserType = Model.Enums.enum_UserType.customerservice)
+                 //.TheFirst(1).With(x => x.Id = new Guid("f197a81d-c984-4894-b21c-a5f00106e08b"))
+                 //            .With(x => x.UserName = "user1")
+                 //            .With(x => x.UserType = Model.Enums.enum_UserType.customer)
+                 // .TheNext(1).With(x => x.Id = new Guid("a8a2fe97-33cc-4602-85ed-a5f001197c72"))
+                 //            .With(x => x.UserName = "user2")
+                 //            .With(x => x.UserType = Model.Enums.enum_UserType.customer)
+                 //.TheLast(1).With(x => x.Id = new Guid("6ba73c46-83ea-450d-90b2-a5f00101da01"))
+                 //            .With(x => x.UserName = "cs001")
+                 //            .With(x => x.UserType = Model.Enums.enum_UserType.customerservice)
                  .Build();
 
             ServiceOrder order_user1 = Builder<ServiceOrder>.CreateNew()
-                .With(x => x.CustomerId = members[0].Id.ToString())
-                .With(x => x.CustomerServiceId = members[2].Id.ToString())
+                //.With(x => x.CustomerId = members[0].Id.ToString())
+                //.With(x => x.CustomerServiceId = members[2].Id.ToString())
                 .With(x=>x.Id=new Guid("d9f216b5-92e4-4f7a-87a0-a5f00107b6bc"))
                 .Build();
 
             pChatList.ViewIdentityList_IdentityClick(null);
 
             ServiceOrder order_user2 = Builder<ServiceOrder>.CreateNew()
-               .With(x => x.CustomerId = members[1].Id.ToString())
-               .With(x => x.CustomerServiceId = members[2].Id.ToString())
+               //.With(x => x.CustomerId = members[1].Id.ToString())
+               //.With(x => x.CustomerServiceId = members[2].Id.ToString())
                .With(x => x.Id = new Guid("39a6f7ed-f9d8-4782-b75f-a5f001198475"))
                .Build();
             pChatList.ViewIdentityList_IdentityClick(null);

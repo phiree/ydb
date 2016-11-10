@@ -13,7 +13,7 @@ namespace Dianzhu.BLL.Validator
     {
         public ValidatorDZMembership()
         {
-            RuleFor(x => x.Email).EmailAddress().WithMessage("邮箱格式有误");
+            RuleFor(x => x.Email).EmailAddress().When(x => !string.IsNullOrEmpty(x.Email)).WithMessage("邮箱格式有误");//.EmailAddress()
             RuleFor(x => x.Phone).SetValidator(new PhoneValidator());
             //todo: 密码不能传给前端
             

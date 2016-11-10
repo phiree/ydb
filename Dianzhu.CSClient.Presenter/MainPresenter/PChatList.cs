@@ -48,62 +48,77 @@ namespace Dianzhu.CSClient.Presenter
             viewChatList.BtnMoreChat += ViewChatList_BtnMoreChat;
         }
 
-        private void ViewChatList_BtnMoreChat()
+        private void ViewChatList_BtnMoreChat(string targetChatId)
         {
             //var chatHistory = dalReceptionChat.GetReceptionChatListByTargetIdAndSize(IdentityManager.CurrentIdentity.Customer.Id, Guid.Empty, Guid.Empty,
             //       DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 10, viewChatList.ChatList[0].SavedTimestamp, "Y", enum_ChatTarget.cer).OrderByDescending(x=>x.SavedTimestamp).ToList();
             
             try
             {
-                NHibernateUnitOfWork.UnitOfWork.Start();
+                NHibernateUnitOfWork.UnitOfWork.Start();//查询服务需开启
 
-                if (IdentityManager.CurrentIdentity == null)
+                if (string.IsNullOrEmpty( IdentityManager.CurrentCustomerId))
                 {
                     log.Error("IdentityManager.CurrentIdentity为null");
                     return;
                 }
 
-                string customerId = IdentityManager.CurrentIdentity.CustomerId;
+                string customerId = IdentityManager.CurrentCustomerId;
 
-                var chatHistory = chatService.GetReceptionChatListByTargetId(
-                    new Guid( customerId),
-                    10,
-                    Guid.Parse(chatManager.LocalChats[customerId][0].ChatId),
-                    "Y"
-                    );
-
-                if (chatHistory.Count() > 0)
+                if (chatManager.LocalChats.Keys.Contains(customerId))
                 {
-                    if (chatHistory.Count == 10)
+                    var existList = chatManager.LocalChats[customerId].ToList();
+                    var targetSavedTimestamp = existList.Where(x => x.ChatId == targetChatId).ToList()[0].SavedTimestamp;
+                    var list = existList.Where(x => x.SavedTimestamp < targetSavedTimestamp).Take(10).OrderByDescending(x=>x.SavedTimestamp).ToList();
+                    if (list.Count > 0)
                     {
-                        viewChatList.ShowMoreLabel();
+                        viewChatList.ShowMoreLabel(list[list.Count - 1].ChatId);
+
+                        for (int i = 0; i < list.Count; i++)
+                        {
+                            viewChatList.InsertOneChat(list[i]);
+                        }
                     }
                     else
                     {
-                        viewChatList.ShowNoMoreLabel();
-                    }
+                        var chatHistory = chatService.GetReceptionChatListByTargetId(
+                                            customerId,
+                                            10,
+                                            targetChatId,
+                                            "Y"
+                                            );
 
-                    for (int i = 0; i < chatHistory.Count; i++)
-                    {
-                        VMChat vmChat;
-                        try
+                        if (chatHistory.Count() > 0)
                         {
-                            vmChat = vmChatAdapter.ChatToVMChat(chatHistory[i]);
-                        }
-                        catch (Exception ee)
-                        {
-                            log.Error(ee);
-                            continue;
-                        }
+                            for (int i = 0; i < chatHistory.Count; i++)
+                            {
+                                VMChat vmChat;
+                                try
+                                {
+                                    vmChat = vmChatAdapter.ChatToVMChat(chatHistory[i]);
+                                }
+                                catch (Exception ee)
+                                {
+                                    log.Error(ee);
+                                    continue;
+                                }
 
-                        viewChatList.InsertOneChat(vmChat);
-                        //viewChatList.ChatList.Insert(0, vmChat);
-                        chatManager.InsertTop(customerId, vmChat);
+                                viewChatList.InsertOneChat(vmChat);
+
+                                chatManager.InsertTop(customerId, vmChat);
+                            }
+
+                            viewChatList.ShowMoreLabel(chatHistory[chatHistory.Count - 1].Id.ToString());
+                        }
+                        else
+                        {
+                            viewChatList.ShowNoMoreLabel();
+                        }
                     }
                 }
                 else
                 {
-                    viewChatList.ShowNoMoreLabel();
+                    log.Error("该用户没有缓存数据");
                 }
             }
             catch (Exception ee)
@@ -122,7 +137,7 @@ namespace Dianzhu.CSClient.Presenter
         BackgroundWorker worker;
         public void ViewIdentityList_IdentityClick(VMIdentity vmIdentity)
         {
-            if (IdentityManager.CurrentIdentity == null)
+            if (string.IsNullOrEmpty( IdentityManager.CurrentCustomerId))
             { return; }
 
             worker = new BackgroundWorker();
@@ -140,14 +155,15 @@ namespace Dianzhu.CSClient.Presenter
             
             if (vmChatList.Count > 0)
             {
-                if (vmChatList.Count >= 10)
-                {
-                    viewChatList.ShowMoreLabel();
-                }
-                else
-                {
-                    viewChatList.ShowNoMoreLabel();
-                }
+                viewChatList.ShowMoreLabel(vmChatList[0].ChatId);
+                //if (vmChatList.Count >= 10)
+                //{
+                //    viewChatList.ShowMoreLabel();
+                //}
+                //else
+                //{
+                //    viewChatList.ShowNoMoreLabel();
+                //}
                 
                 for(int i = 0; i < vmChatList.Count; i++)
                 {
@@ -174,19 +190,20 @@ namespace Dianzhu.CSClient.Presenter
         {
             try
             {
-                NHibernateUnitOfWork.UnitOfWork.Start();
+                NHibernateUnitOfWork.UnitOfWork.Start();//查询服务需开启
                 VMIdentity vmIdentity = e.Argument as VMIdentity;
                 
                 IList<VMChat> vmList = new List<VMChat>();
 
-                if (chatManager.LocalChats.Keys.Contains(vmIdentity.CustomerId.ToString()))
+                if (chatManager.LocalChats.Keys.Contains(vmIdentity.CustomerId))
                 {
-                    if(chatManager.LocalChats[vmIdentity.CustomerId.ToString()].Count < 10)
+                    int count = chatManager.LocalChats[vmIdentity.CustomerId].Count;
+                    if( count < 10)
                     {
                         IList<ReceptionChatDto> dtoChatList = chatService.GetReceptionChatListByTargetId(
                             vmIdentity.CustomerId, 
-                            10, 
-                            Guid.Parse(chatManager.LocalChats[vmIdentity.CustomerId.ToString()][0].ChatId),
+                            10 - count, 
+                            chatManager.LocalChats[vmIdentity.CustomerId][0].ChatId,
                             "Y");
 
                         if (dtoChatList.Count > 0)
@@ -204,12 +221,16 @@ namespace Dianzhu.CSClient.Presenter
                                     continue;
                                 }
                                 
-                                chatManager.InsertTop(vmIdentity.CustomerId.ToString(), vmChat);
+                                chatManager.InsertTop(vmIdentity.CustomerId, vmChat);
                             }
                         }
-                    }
 
-                    vmList = chatManager.LocalChats[vmIdentity.CustomerId.ToString()];
+                        vmList = chatManager.LocalChats[vmIdentity.CustomerId];
+                    }
+                    else
+                    {
+                        vmList = chatManager.LocalChats[vmIdentity.CustomerId].OrderByDescending(x => x.SavedTimestamp).Take(10).OrderBy(x => x.SavedTimestamp).ToList();
+                    }
                 }
                 else
                 {
@@ -233,7 +254,7 @@ namespace Dianzhu.CSClient.Presenter
                             }
 
                             vmList.Add(vmChat);
-                            chatManager.Add(vmIdentity.CustomerId.ToString(), vmChat);
+                            chatManager.Add(vmIdentity.CustomerId, vmChat);
                         }
                     }
                 }

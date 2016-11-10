@@ -48,7 +48,7 @@ namespace Dianzhu.Test
                                  System.Configuration.ConfigurationManager.ConnectionStrings["DianzhuConnectionString"]
                                  .ConnectionString,false))
                       )
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
+                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.AdvertisementMap>())
                     .ExposeConfiguration(BuildSchema)
                     .BuildSessionFactory();
                     HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();

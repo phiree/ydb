@@ -112,18 +112,30 @@ namespace Ydb.InstantMessage.Application
 
             if (existReceptions.Count > 0)
             {
+                ReceptionStatus assignStatus;
+                if (existReceptions.Where(x=>x.CustomerServiceId==assignCS).ToList().Count>0)
+                {
+                    assignStatus = existReceptions.Where(x => x.CustomerServiceId == assignCS).ToList()[0];
+                }
+                else
+                {
+                    assignStatus = new ReceptionStatus(customerId, assignCS, string.Empty);
+                    receptionRepository.Add(assignStatus);
+                }
+
+                rsDto.Id = assignStatus.Id;
+                rsDto.CustomerId = assignStatus.CustomerId;
+                rsDto.CustomerServiceId = assignStatus.CustomerServiceId;
+                rsDto.OrderId = assignStatus.OrderId;
+
+                //删除冗余数据
                 for (int i = 0; i < existReceptions.Count; i++)
                 {
-                    if (assignCS != existReceptions[i].CustomerServiceId.ToString())
+                    if (assignStatus.Id != existReceptions[i].Id)
                     {
+                        log.Debug("删除分配关系:rsid:" + existReceptions[i].Id + ",cusomterId:" + existReceptions[i].CustomerId
+                            + ",csId:" + existReceptions[i].CustomerServiceId + ",orderId:" + existReceptions[i].OrderId);
                         receptionRepository.Delete(existReceptions[i]);
-                    }
-                    else
-                    {
-                        rsDto.Id = existReceptions[i].Id;
-                        rsDto.CustomerId = existReceptions[i].CustomerId;
-                        rsDto.CustomerServiceId = existReceptions[i].CustomerServiceId;
-                        rsDto.OrderId = existReceptions[i].OrderId;
                     }
                 }
             }

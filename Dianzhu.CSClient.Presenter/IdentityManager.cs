@@ -18,6 +18,123 @@ namespace Dianzhu.CSClient.Presenter
     {
         static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Presenter.IdentityManager");
         static object lockObj = new object();
+
+        /// <summary>
+        /// 当前接待用户的Id
+        /// </summary>
+        public static string CurrentCustomerId
+        {
+            get; private set;
+        }
+
+        public static string CurrentOrderId
+        {
+            get
+            {
+                if (customerList.Keys.Contains(CurrentCustomerId))
+                    return customerList[CurrentCustomerId];
+                else
+                    return string.Empty;
+            }
+        }
+
+        static ConcurrentDictionary<string, string> customerList = new ConcurrentDictionary<string, string>();
+        /// <summary>
+        /// 用户列表，key为用户的id，value为该用户当前的订单id
+        /// </summary>
+        public static ConcurrentDictionary<string,string> CustomerList
+        {
+            get
+            {
+                return customerList;
+            }
+        }
+
+        /// <summary>
+        /// 更新当前用户列表，有用户更新订单，没有用户新增用户
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        public static IdentityTypeOfOrder UpdateCustomerList(string customerId,string orderId)
+        {
+            lock (lockObj)
+            {
+                log.Debug("开始更新聊天标志的状态.用户id:" + customerId + ",订单id:" + orderId);
+                IdentityTypeOfOrder orderType = IdentityTypeOfOrder.None;
+
+                log.Debug("存在用户");
+                if (customerList.Keys.Contains(customerId))
+                {
+                    if (customerId == CurrentCustomerId)
+                    {
+                        log.Debug("当前接待的用户");
+                        orderType = IdentityTypeOfOrder.CurrentCustomer;
+                    }
+                    else
+                    {
+                        log.Debug("列表中存在的用户");
+                        orderType = IdentityTypeOfOrder.InList;
+                    }
+
+                    if (customerList[customerId] != orderId)
+                    {
+                        log.Debug("订单不同，更新用户的当前订单id");
+                        customerList[customerId] = orderId;
+                    }
+                }
+                else
+                {
+                    log.Debug("新用户");
+                    if (!customerList.TryAdd(customerId, orderId))
+                    {
+                        log.Warn("新增用户失败");
+                    }
+                    else
+                    {
+                        orderType = IdentityTypeOfOrder.NewIdentity;
+                    }
+                }
+
+
+                return orderType;
+            }
+        }
+
+        public static bool DeleteCustomer(string customerId)
+        {
+            if (customerList.Keys.Contains(customerId))
+            {
+                string orderId;
+                log.Debug("删除用户");
+                if(customerList.TryRemove(customerId,out orderId))
+                {
+                    log.Debug("用户删除成功");
+                    return true;
+                }
+                else
+                {
+                    log.Warn("用户删除失败");
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 设置当前接待用户的Id
+        /// </summary>
+        /// <param name="cusomterId"></param>
+        public static void SetCurrentCustomerId (string cusomterId)
+        {
+            CurrentCustomerId = cusomterId;
+        }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         #region propertys
         /// <summary>
         /// 当前激活的通讯
@@ -204,16 +321,7 @@ namespace Dianzhu.CSClient.Presenter
 
         }
     }
-    public static class DictExtension
-    {
-        public static void RenameKey<TKey, TValue>(this IDictionary<TKey, TValue> dic,
-                                     TKey fromKey, TKey toKey)
-        {
-            TValue value = dic[fromKey];
-            dic.Remove(fromKey);
-            dic[toKey] = value;
-        }
-    }
+
     public enum IdentityTypeOfOrder
     {
         /// <summary>

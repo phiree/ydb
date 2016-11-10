@@ -17,9 +17,10 @@ namespace Ydb.Membership.Application.Tests
         public void SetUp()
         {
             Bootstrap.Boot();
-            AutoMapperConfiguration.Configure();
+            AutoMapper.Mapper.Initialize(x => {
+                AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
+            });
             dzmembershipService = Bootstrap.Container.Resolve<IDZMembershipService>();
-
         }
         IDZMembershipService dzmembershipService;
         string userName = "132909201331";

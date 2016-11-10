@@ -99,7 +99,7 @@ namespace Dianzhu.ApplicationService
         /// 图片资源链接
         /// </summary>
         /// <type>array[string]</type>
-        public IList<String> resourcesUrl
+        public IList<String> resourcesUrls
         {
             get
             {

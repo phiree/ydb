@@ -45,43 +45,58 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewOrderHistory_BtnMoreOrder()
         {
-            viewOrderHistory.ShowListLoadingMsg();
-            int totalAmount;
-            IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(new Guid( IdentityManager.CurrentIdentity.CustomerId), viewOrderHistory.OrderPage, 5, out totalAmount);
-            if (orderList.Count > 0)
+            try
             {
-                if (orderList.Count == 5)
+                NHibernateUnitOfWork.UnitOfWork.Start();//查询订单需开启
+
+                viewOrderHistory.ShowListLoadingMsg();
+                int totalAmount;
+                IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(new Guid(IdentityManager.CurrentCustomerId), viewOrderHistory.OrderPage, 5, out totalAmount);
+
+                if (orderList.Count > 0)
                 {
-                    viewOrderHistory.ShowMoreOrderList();
-                    viewOrderHistory.OrderPage++;
+                    if (orderList.Count == 5)
+                    {
+                        viewOrderHistory.ShowMoreOrderList();
+                        viewOrderHistory.OrderPage++;
+                    }
+                    else
+                    {
+                        viewOrderHistory.ShowNoMoreOrderList();
+                    }
+
+                    VMOrderHistory vmOrderHistory;
+                    for (int i = 0; i < orderList.Count; i++)
+                    {
+                        vmOrderHistory = vmOrderHistoryAdapter.OrderToVMOrderHistory(orderList[i]);
+
+                        viewOrderHistory.OrderList.Add(vmOrderHistory);
+
+                        localHistoryOrderManager.Add(IdentityManager.CurrentCustomerId, vmOrderHistory);
+
+                        viewOrderHistory.InsertOneOrder(vmOrderHistory);
+                    }
                 }
                 else
                 {
                     viewOrderHistory.ShowNoMoreOrderList();
                 }
-
-                VMOrderHistory vmOrderHistory;
-                foreach (ServiceOrder order in orderList)
-                {
-                    vmOrderHistory = vmOrderHistoryAdapter.OrderToVMOrderHistory(order);
-
-                    viewOrderHistory.OrderList.Add(vmOrderHistory);
-
-                    localHistoryOrderManager.Add(IdentityManager.CurrentIdentity.CustomerId, vmOrderHistory);
-
-                    viewOrderHistory.InsertOneOrder(vmOrderHistory);
-                }
             }
-            else
+            catch (Exception ee)
             {
-                viewOrderHistory.ShowNoMoreOrderList();
+                log.Error(ee);
+            }
+            finally
+            {
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
         }
 
         BackgroundWorker worker;
         private void ViewIdentityList_IdentityClick(VMIdentity vmIdentity)
         {
-            if (IdentityManager.CurrentIdentity == null)
+            if (string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
             { return; }
 
             worker = new BackgroundWorker();
@@ -107,12 +122,12 @@ namespace Dianzhu.CSClient.Presenter
                 {
                     viewOrderHistory.ShowNoMoreOrderList();
                 }
-                
-                foreach (var vmOrderHistory in orderList)
-                {
-                    viewOrderHistory.InsertOneOrder(vmOrderHistory);
 
-                    viewOrderHistory.OrderList.Add(vmOrderHistory);
+                for(int i=0;i< orderList.Count; i++)
+                {
+                    viewOrderHistory.InsertOneOrder(orderList[i]);
+
+                    viewOrderHistory.OrderList.Add(orderList[i]);
                 }
             }
             else
@@ -144,9 +159,9 @@ namespace Dianzhu.CSClient.Presenter
                     if (list.Count > 0)
                     {
                         VMOrderHistory vmOrderHistory;
-                        foreach (var item in list)
+                        for (int i = 0; i < list.Count; i++)
                         {
-                            vmOrderHistory = vmOrderHistoryAdapter.OrderToVMOrderHistory(item);
+                            vmOrderHistory = vmOrderHistoryAdapter.OrderToVMOrderHistory(list[i]);
                             localHistoryOrderManager.Add(customerId.ToString(), vmOrderHistory);
                         }
 
@@ -159,7 +174,7 @@ namespace Dianzhu.CSClient.Presenter
             catch (Exception ee)
             {
                 e.Result = new List<VMOrderHistory>();
-                PHSuit.ExceptionLoger.ExceptionLog(log, ee);
+                log.Error(ee);
             }
             finally
             {
@@ -170,9 +185,10 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewOrderHistory_SearchOrderHistoryClick()
         {
-            string orderId = IdentityManager.CurrentIdentity.CustomerId;
+            string orderId = IdentityManager.CurrentCustomerId;
+
             //fix #143
-            if (IdentityManager.CurrentIdentity == null)
+            if (string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
             {
                 return;
             }

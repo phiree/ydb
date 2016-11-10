@@ -33,6 +33,11 @@ new Ydb.Finance.Infrastructure.InstallerFinanceDB(container.Resolve<IEncryptServ
 // new InstallerMembershipTestDB(),
 new Ydb.Finance.Infrastructure.InstallerFinance()
                 );
+
+            AutoMapper.Mapper.Initialize(x =>
+            {
+                Ydb.Finance.Application.AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
+            });
         }
         
        

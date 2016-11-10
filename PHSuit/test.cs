@@ -47,9 +47,11 @@ namespace PHSuit
 
             Console.WriteLine("Aliyun_Official_dianzhu_publish:" + PHSuit.Security.Encrypt("data source=business.ydban.cn;uid=jsyk2016;pwd=X*G7czoy6twAYIz7;port=4407;database=dianzhu", false));
             Console.WriteLine("Aliyun_Official_ydb_instantmessage:" + PHSuit.Security.Encrypt("data source=business.ydban.cn;uid=jsyk2016;pwd=X*G7czoy6twAYIz7;port=4407;database=ydb_instantmessage", false));
+            Console.WriteLine("Aliyun_Official_ydb_membership:" + PHSuit.Security.Encrypt("data source=business.ydban.cn;uid=jsyk2016;pwd=X*G7czoy6twAYIz7;port=4407;database=ydb_membership", false));
 
             Console.WriteLine("Aliyun_Test_dianzhu_publish:" + PHSuit.Security.Encrypt("data source=dev.ydban.cn;uid=jsyk2016;pwd=IQDv$qefeqFWuq_L;port=4407;database=dianzhu_publish", false));
             Console.WriteLine("Aliyun_Test_ydb_instantmessage:" + PHSuit.Security.Encrypt("data source=dev.ydban.cn;uid=jsyk2016;pwd=IQDv$qefeqFWuq_L;port=4407;database=ydb_instantmessage", false));
+            Console.WriteLine("Aliyun_Test_ydb_membership:" + PHSuit.Security.Encrypt("data source=dev.ydban.cn;uid=jsyk2016;pwd=IQDv$qefeqFWuq_L;port=4407;database=ydb_membership", false));
         }
         [Test]
         public void TestIOSPush()

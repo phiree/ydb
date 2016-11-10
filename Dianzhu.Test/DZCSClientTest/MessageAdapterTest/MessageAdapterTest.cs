@@ -12,7 +12,7 @@ namespace Dianzhu.Test.DZCSClientTest.MessageAdapterTest
     [TestFixture]
     public class MessageAdapterTest
     {
-        DZMembershipProvider bllMember;
+        //DZMembershipProvider bllMember;
         BLLDZService bllService;
         BLLServiceOrder bllOrder;
         IMessageAdapter adapter;
@@ -25,17 +25,17 @@ namespace Dianzhu.Test.DZCSClientTest.MessageAdapterTest
         [SetUp]
         public void setup()
         {
-            var dalMember = MockRepository.GenerateStub<DAL.DALMembership>(string.Empty);
+            //var dalMember = MockRepository.GenerateStub<DAL.DALMembership>(string.Empty);
             var dalService = MockRepository.GenerateStub<DAL.DALDZService>(string.Empty);
             var dalOrder = MockRepository.GenerateStub<DAL.DALServiceOrder>(string.Empty);
 
-              bllMember = MockRepository.GenerateStub<DZMembershipProvider>( dalMember );
-            bllMember.Stub(x => x.GetUserById(userid)).Return(
-                Builder<Model.DZMembership>.CreateNew().With(x => x.Id = userid).Build()
-                  );
-              bllMember.Stub(x => x.GetUserById(csid)).Return(
-                  Builder<Model.DZMembership>.CreateNew().With(x => x.Id = csid).Build()
-                  );
+            //  bllMember = MockRepository.GenerateStub<DZMembershipProvider>( dalMember );
+            //bllMember.Stub(x => x.GetUserById(userid)).Return(
+            //    Builder<Model.DZMembership>.CreateNew().With(x => x.Id = userid).Build()
+            //      );
+            //  bllMember.Stub(x => x.GetUserById(csid)).Return(
+            //      Builder<Model.DZMembership>.CreateNew().With(x => x.Id = csid).Build()
+            //      );
 
               bllService = MockRepository.GenerateStub<BLLDZService>(dalService);
               bllService.Stub(x => x.GetOne(serviceId)).Return(

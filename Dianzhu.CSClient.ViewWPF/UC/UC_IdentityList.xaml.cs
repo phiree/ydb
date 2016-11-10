@@ -38,7 +38,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
-                string cbtnName = PHSuit.StringHelper.SafeNameForWpfControl(vmIdentity.OrderId.ToString(),GlobalVariable.PRECBUTTON);
+                string cbtnName = PHSuit.StringHelper.SafeNameForWpfControl(vmIdentity.CustomerId,GlobalVariable.PRECBUTTON);
                 var ucCustomer = (UC_Customer)wpNotTopIdentityList.FindName(cbtnName);
                 if (ucCustomer == null)
                 {
@@ -62,12 +62,12 @@ namespace Dianzhu.CSClient.ViewWPF
             else { lambda(); }
         }
 
-        private void C_IdleTimerOut(Guid orderId)
+        private void C_IdleTimerOut(string customerId)
         {
             try
             {
                 NHibernateUnitOfWork.UnitOfWork.Start();
-                FinalChatTimerTick(orderId);
+                FinalChatTimerTick(customerId);
             }
             catch (Exception e)
             {
@@ -80,11 +80,11 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }        
 
-        public void RemoveIdentity(Guid serviceOrderId)
+        public void RemoveIdentity(string customerId)
         {
             Action lambda = () =>
             {
-                string cbtnName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrderId.ToString(), GlobalVariable.PRECBUTTON);
+                string cbtnName = PHSuit.StringHelper.SafeNameForWpfControl(customerId, GlobalVariable.PRECBUTTON);
                 var ucCustomer = (UC_Customer)wpNotTopIdentityList.FindName(cbtnName);
                 if (ucCustomer != null)
                 {
@@ -98,12 +98,12 @@ namespace Dianzhu.CSClient.ViewWPF
             else { lambda(); }
         }
 
-        public void UpdateIdentityBtnName(Guid oldOrderId, VMIdentity vmIdentity)
+        public void UpdateIdentityBtnName(string oldCustomerId, VMIdentity vmIdentity)
         {
             Action lambda = () =>
             {
-                string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrderId.ToString(),GlobalVariable.PRECBUTTON);
-                string ctrNewlName = PHSuit.StringHelper.SafeNameForWpfControl(vmIdentity.OrderId.ToString(),GlobalVariable.PRECBUTTON);
+                string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldCustomerId, GlobalVariable.PRECBUTTON);
+                string ctrNewlName = PHSuit.StringHelper.SafeNameForWpfControl(vmIdentity.CustomerId,GlobalVariable.PRECBUTTON);
                 
                 var btnOldCustomer = (UC_Customer)wpNotTopIdentityList.FindName(ctrOldlName);
 
@@ -115,7 +115,7 @@ namespace Dianzhu.CSClient.ViewWPF
                     //重新注册
                     wpNotTopIdentityList.RegisterName(ctrNewlName, btnOldCustomer);
 
-                    //更新order
+                    //更新
                     btnOldCustomer.Identity = vmIdentity;
                 }
                 else
@@ -136,11 +136,11 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public event FinalChatTimerTick FinalChatTimerTick;
 
-        public void IdleTimerStart(Guid orderId)
+        public void IdleTimerStart(string customerId)
         {
             Action lambda = () =>
             {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(orderId.ToString(),GlobalVariable.PRECBUTTON);
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(customerId,GlobalVariable.PRECBUTTON);
 
                 var ucCutomer = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
                 if (ucCutomer != null)
@@ -156,11 +156,11 @@ namespace Dianzhu.CSClient.ViewWPF
             else { lambda(); }
         }
 
-        public void IdleTimerStop(Guid orderId)
+        public void IdleTimerStop(string customerId)
         {
             Action lambda = () =>
             {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(orderId.ToString(), GlobalVariable.PRECBUTTON);
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(customerId, GlobalVariable.PRECBUTTON);
 
                 var ucCutomer = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
                 if (ucCutomer != null)
@@ -176,12 +176,12 @@ namespace Dianzhu.CSClient.ViewWPF
             else { lambda(); }
         }
 
-        private void UcIdentity_IdleTimerOut(Guid orderId)
+        private void UcIdentity_IdleTimerOut(string customerId)
         {
             try
             {
                 NHibernateUnitOfWork.UnitOfWork.Start();
-                FinalChatTimerTick(orderId);
+                FinalChatTimerTick(customerId);
             }
             catch (Exception e)
             {
@@ -201,11 +201,11 @@ namespace Dianzhu.CSClient.ViewWPF
         public event IdentityClick IdentityClick;
 
         BackgroundWorker worker;
-        Guid identityOrderTempId;
-        public Guid IdentityOrderTempId
+        string identityCustomerTempId;
+        public string IdentityCustomerTempId
         {
-            get { return identityOrderTempId; }
-            set { identityOrderTempId = value; }
+            get { return identityCustomerTempId; }
+            set { identityCustomerTempId = value; }
         }
 
         private void C_CustomerClick(VMIdentity vmIdentity)
@@ -213,22 +213,22 @@ namespace Dianzhu.CSClient.ViewWPF
             if (IdentityClick != null)
             {
                 VMIdentity Identity = vmIdentity;
-                if (identityOrderTempId == null)
+                if (identityCustomerTempId == null)
                 {
-                    identityOrderTempId = Identity.OrderId;
+                    identityCustomerTempId = Identity.CustomerId;
                 }
                 else
                 {
-                    if (identityOrderTempId == Identity.OrderId)
+                    if (identityCustomerTempId == Identity.CustomerId)
                     {
                         return;
                     }
                     else
                     {
-                        identityOrderTempId = Identity.OrderId;
+                        identityCustomerTempId = Identity.CustomerId;
                     }
                 }
-                SetIdentityReaded(Identity.OrderId);
+                SetIdentityReaded(Identity.CustomerId);
 
 
 
@@ -266,12 +266,12 @@ namespace Dianzhu.CSClient.ViewWPF
         /// <summary>
         /// 已读后，用户控件从置顶区移到非置顶区
         /// </summary>
-        /// <param name="serviceOrderId"></param>
-        public void SetIdentityReaded(Guid serviceOrderId)
+        /// <param name="customerId"></param>
+        public void SetIdentityReaded(string customerId)
         {
             Action lambda = () =>
             {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrderId.ToString(), GlobalVariable.PRECBUTTON);
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(customerId, GlobalVariable.PRECBUTTON);
 
                 var ucCustomer = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
                 if (ucCustomer != null)
@@ -296,13 +296,13 @@ namespace Dianzhu.CSClient.ViewWPF
         /// <summary>
         /// 收到未读消息，用户控件从非置顶区移到置顶区
         /// </summary>
-        /// <param name="serviceOrder"></param>
+        /// <param name="customerId"></param>
         /// <param name="messageAmount"></param>
-        public void SetIdentityUnread(string orderId, int messageAmount)
+        public void SetIdentityUnread(string customerId, int messageAmount)
         {
             Action lambda = () =>
             {
-                string ctrlNameNew = PHSuit.StringHelper.SafeNameForWpfControl(orderId, GlobalVariable.PRECBUTTON);
+                string ctrlNameNew = PHSuit.StringHelper.SafeNameForWpfControl(customerId, GlobalVariable.PRECBUTTON);
                 var u = (UC_Customer)wpTopIdentityList.FindName(ctrlNameNew);
                 if (u != null)
                 {

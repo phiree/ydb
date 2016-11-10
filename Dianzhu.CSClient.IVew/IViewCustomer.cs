@@ -43,5 +43,5 @@ namespace Dianzhu.CSClient.IView
     }
 
     public delegate void CustomerClick(VMIdentity vmIdentity);
-    public delegate void IdleTimerOut(Guid orderId);
+    public delegate void IdleTimerOut(string customerId);
 }

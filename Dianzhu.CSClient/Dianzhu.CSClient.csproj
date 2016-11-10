@@ -32,7 +32,7 @@
     <MinimumRequiredVersion>1.0.0.9</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>default.htm</WebPage>
-    <ApplicationRevision>155</ApplicationRevision>
+    <ApplicationRevision>164</ApplicationRevision>
     <ApplicationVersion>1.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -251,21 +251,9 @@
       <Project>{de79c6ab-b5a9-4baf-80fa-22835452785f}</Project>
       <Name>RisCaptureLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
-      <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
-      <Name>Ydb.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ydb.Infrastructure\Ydb.Infrastructure.csproj">
-      <Project>{3d510583-1c11-48fb-8380-12e183e5914b}</Project>
-      <Name>Ydb.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
       <Project>{a141eb7d-6e71-43c1-9ca7-12af1b74c1c7}</Project>
       <Name>Ydb.InstantMessage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ydb.Membership\Ydb.Membership.csproj">
-      <Project>{6a7ed67d-846d-46c6-84b0-82b8556f0b8f}</Project>
-      <Name>Ydb.Membership</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -32,6 +32,21 @@ namespace Dianzhu.CSClient.ViewWPF
         public void LoadData(VMChatPushServie pushService)
         {
             tbkServiceName.Text = pushService.ServiceName;
+            Uri uri;
+            if (string.IsNullOrEmpty(pushService.ImageUrl))
+            {
+                uri = new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png");
+            }
+            else
+            {
+                uri = new Uri(pushService.ImageUrl);
+            }
+            imgBusinessAvatar.Source = new BitmapImage(uri);
+            lblCreditPoint.Content = string.Empty;
+            for (int i = 1; i <= pushService.CreditPoint; i++)
+            {
+                lblCreditPoint.Content += "★";
+            }
             lblUnitPrice.Content = pushService.UnitPrice.ToString("0.00");
             lblDepostiAmount.Content = pushService.DepositAmount.ToString("0.00");
             tbxMemo.Text = pushService.ServiceMemo;

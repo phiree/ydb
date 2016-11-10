@@ -16,12 +16,32 @@ namespace Ydb.Test.Integration
         [Test]
         public void automaptest()
         {
-           
-            Ydb.Membership.Application.AutoMapperConfiguration.Configure();
-            Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
-            MemberDto member = Builder<MemberDto>.CreateNew().With(x=>x.Email="email2"). Build();
-            customerObj    userobj = Mapper.Map<MemberDto, customerObj>(member);
+
+            AutoMapper.Mapper.Initialize(x => {
+                Membership.Application.AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
+                Ydb.Finance.Application.AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
+                Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.AutoMapperApplicationService.Invoke(x);
+
+            });
+
+            Membership.DomainModel.DZMembership member = new Membership.DomainModel.DZMembership {  Email="email2"};
+
+           var memebrDto= Mapper.Map<MemberDto>(member);
+
+            Assert.AreEqual("email2", memebrDto.Email);
+            
+            var    userobj = Mapper.Map< customerObj>(memebrDto);
             Assert.AreEqual("email2", userobj.email);
+
+          
+            Ydb.Finance.DomainModel.BalanceTotal total = new Finance.DomainModel.BalanceTotal { Total = 15 };
+            Ydb.Finance.Application.BalanceTotalDto bdto = Mapper.Map<Ydb.Finance.Application.BalanceTotalDto>(total);
+
+            Assert.AreEqual(15, bdto.Total);
+
+
+
+
 
 
         }
