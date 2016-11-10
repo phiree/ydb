@@ -61,9 +61,9 @@ namespace Dianzhu.ApplicationService.Complaint
             }
             Model.Complaint complaint = Mapper.Map<complaintObj, Model.Complaint>(complaintobj);
             //complaint.Target= (Model.Enums.enum_ComplaintTarget)Enum.Parse(typeof(Model.Enums.enum_ComplaintTarget), complaintobj.target); 
-            for (int i = 0; i < complaintobj.resourcesUrl.Count; i++)
+            for (int i = 0; i < complaintobj.resourcesUrls.Count; i++)
             {
-                complaint.ComplaitResourcesUrl.Add(utils.GetFileName(complaintobj.resourcesUrl[i]));
+                complaint.ComplaitResourcesUrl.Add(utils.GetFileName(complaintobj.resourcesUrls[i]));
             }
             //Guid g = new Guid();
             //bool b = g == complaint.Id;
@@ -77,9 +77,9 @@ namespace Dianzhu.ApplicationService.Complaint
             //    throw new Exception("没有获取到新增的数据，可能新增失败！");
             //}
             complaintobj = Mapper.Map<Model.Complaint,complaintObj > (complaint);
-            for (int i = 0; i < complaintobj.resourcesUrl.Count; i++)
+            for (int i = 0; i < complaintobj.resourcesUrls.Count; i++)
             {
-                complaintobj.resourcesUrl[i] = complaintobj.resourcesUrl[i] != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + complaintobj.resourcesUrl[i] : "";
+                complaintobj.resourcesUrls[i] = complaintobj.resourcesUrls[i] != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + complaintobj.resourcesUrls[i] : "";
             }
             return complaintobj;
         }
@@ -103,9 +103,9 @@ namespace Dianzhu.ApplicationService.Complaint
             IList<complaintObj> complaintobj = Mapper.Map<IList<Model.Complaint>, IList<complaintObj>>(listcomplaint);
             for (int i = 0; i < complaintobj.Count; i++)
             {
-                for (int j = 0; j < complaintobj[i].resourcesUrl.Count; j++)
+                for (int j = 0; j < complaintobj[i].resourcesUrls.Count; j++)
                 {
-                    complaintobj[i].resourcesUrl[j] = complaintobj[i].resourcesUrl[j] != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + complaintobj[i].resourcesUrl[j] : "";
+                    complaintobj[i].resourcesUrls[j] = complaintobj[i].resourcesUrls[j] != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + complaintobj[i].resourcesUrls[j] : "";
                 }
             }
             return complaintobj;
@@ -142,7 +142,7 @@ namespace Dianzhu.ApplicationService.Complaint
             complaintObj complaintobj = Mapper.Map<Model.Complaint, complaintObj>(complaint);
             for (int i = 0; i < complaint.ComplaitResourcesUrl.Count; i++)
             {
-                complaintobj.resourcesUrl[i] = complaintobj.resourcesUrl[i] != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + complaintobj.resourcesUrl[i] : "";
+                complaintobj.resourcesUrls[i] = complaintobj.resourcesUrls[i] != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + complaintobj.resourcesUrls[i] : "";
             }
             return complaintobj;
         }

@@ -86,7 +86,16 @@ namespace Swashbuckle.Application
             CustomAsset("lib/jsoneditor-min-js", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.lib.jsoneditor.min.js");
             CustomAsset("lib/lodash-min-js", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.lib.lodash.min.js");
             CustomAsset("lib/marked-js", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.lib.marked.js");
-            CustomAsset("lib/setHeaderParam-js", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.lib.setHeaderParam.js");
+//为了安全起见，正式机上不显示
+#if DEBUG
+            if (bool.Parse(System.Configuration.ConfigurationManager.AppSettings["UseSwagger"]))
+            {
+                CustomAsset("lib/setHeaderParam-js", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.lib.setHeaderParam.js");
+            }
+#else
+            string s = "0";
+#endif
+
             CustomAsset("lib/object-assign-pollyfill-js", thisAssembly, "Swashbuckle.SwaggerUi.CustomAssets.lib.object-assign-pollyfill.js");
         }
 

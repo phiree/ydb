@@ -306,6 +306,55 @@ namespace Dianzhu.ApplicationService.User
         }
 
         /// <summary>
+        /// 用户忘记密码，修改用户密码
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <returns></returns>
+        public object PatchPasswordForForget(string phone,string newPassword)
+        {
+            if (string.IsNullOrEmpty(newPassword))
+            {
+                throw new Exception("密码不能为空!");
+            }
+            Dianzhu.Model.DZMembership dzm = dzmsp.GetUserByName(phone);
+            if (dzm==null)
+            {
+                throw new Exception("该手机用户不存在!");
+            }
+            if (!dzm.ChangePassword(dzm.PlainPassword, newPassword))
+            {
+                throw new Exception("密码错误!");
+            }
+            System.Runtime.Caching.MemoryCache.Default.Remove(dzm.Id.ToString());
+            Model.UserToken usertoken = bllUserToken.GetToken(dzm.Id.ToString());
+            if (usertoken != null)
+            {
+                usertoken.Flag = 0;
+            }
+            return new string[] { "修改成功" };
+
+        }
+
+        /// <summary>
+        /// 修改用户城市信息
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="cityCode"></param>
+        /// <returns></returns>
+        public object PatchCurrentGeolocation(string userID, string cityCode, Customer customer)
+        {
+            Guid guidUser = utils.CheckGuidID(userID, "userID");
+            Dianzhu.Model.DZMembership dzm = dzmsp.GetUserById(guidUser);
+            if (dzm == null)
+            {
+                throw new Exception("该用户不存在!");
+            }
+            dzm.UserCity = cityCode;
+            return new string[] { "修改成功" };
+
+        }
+
+        /// <summary>
         ///  读取客服信息(申请客服资源)
         /// </summary>
         /// <param name="customer"></param>

@@ -194,12 +194,42 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
         /// <param name="code"></param>
         /// <returns></returns>
         [Route("api/v1/customers/{userID}/currentGeolocation")]
-        public IHttpActionResult PatchCurrentGeolocation(string userID,[FromBody]string code)
+        public IHttpActionResult PatchCurrentGeolocation(string userID,[FromBody]Common_Body common_Body)
         {
             try
             {
-                //return Json(iuserservice.PatchCurrentGeolocation(userFilter, "customer"));
-                return Json("没有用户定位信息记录！");
+                if (common_Body == null || string.IsNullOrEmpty(common_Body.code))
+                {
+                    throw new Exception("修改的城市不能为空！");
+                }
+                Customer customer = GetRequestHeader.GetTraitHeaders("patch/customers/{customerID}");
+                return Json(iuserservice.PatchCurrentGeolocation(userID, common_Body.code, customer));
+                //return Json("没有用户定位信息记录！");
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
+        /// 1、修改客户密码，没有验证，请谨慎调用
+        ///2、App 前端需通过短信验证后调用！
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        [Route("api/v1/customers/phones/{phone}")]
+        public IHttpActionResult PatchPasswordForForget(string phone, [FromBody]UserChangeBody userChangeBody)
+        {
+            try
+            {
+                if (userChangeBody == null)
+                {
+                    userChangeBody = new UserChangeBody();
+                }
+                return Json(iuserservice.PatchPasswordForForget(phone, userChangeBody.newPassWord));
+                //return Json("没有用户定位信息记录！");
             }
             catch (Exception ex)
             {
