@@ -153,12 +153,21 @@ namespace Ydb.InstantMessage.Application
             return rsDto;
         }
 
+        public void SendCSLoginMessageToDD()
+        {
+            string ddId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
+            im.SendCSLoginMessage( Guid.NewGuid(), "客服上线", ddId, "YDBan_DianDian", string.Empty);
+        }
+
+        public void SendCSLogoffMessageToDD()
+        {
+            string ddId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
+            im.SendCSLogoffMessage( Guid.NewGuid(), "客服下线", ddId, "YDBan_DianDian", string.Empty);
+        }
+
         [ UnitOfWork]
         public IList<ReceptionStatusDto> AssignCSLogin(string csId, int amount)
         {
-            string ddId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
-            im.SendCSLoginMessage(Guid.NewGuid(), "客服上线", ddId, "YDBan_DianDian", string.Empty);
-
             IList<ReceptionStatusDto> assignList = new List<ReceptionStatusDto>();
 
             IList<ReceptionStatus> existReceptions = receptionRepository.FindByDiandian(DianDianId, amount);
@@ -182,9 +191,6 @@ namespace Ydb.InstantMessage.Application
         [ UnitOfWork]
         public void AssignCSLogoff(string csId)
         {
-            string ddId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
-            im.SendCSLogoffMessage(Guid.NewGuid(), "客服下线", ddId, "YDBan_DianDian", string.Empty);
-
             IList<ReceptionStatus> existReceptions = receptionRepository.FindByCustomerServiceId(csId);
 
             if (existReceptions.Count > 0)
