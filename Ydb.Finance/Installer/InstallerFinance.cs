@@ -55,7 +55,6 @@ namespace Ydb.Finance.Infrastructure
             container.Register(Component.For<IOrderShareService>().ImplementedBy<OrderShareService>());
             container.Register(Component.For<IServiceTypePointService>().ImplementedBy<ServiceTypePointService>());
             container.Register(Component.For<IUserTypeSharePointService>().ImplementedBy<UserTypeSharePointService>());
-            container.Register(Component.For<IWithdrawCashService>().ImplementedBy<WithdrawCashService>());
             container.Register(Component.For<IBalanceAccountService>().ImplementedBy<BalanceAccountService>());
         }
         private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
