@@ -50,6 +50,15 @@ namespace Dianzhu.BLL
                 return;
             }
             chat.SetUnread();
+            Model.DeviceBind bind = dalDeviceBind.getDevBindByUserID(targetUserId);
+            log.Debug("141");
+            //用户已注销
+            if (bind == null)
+            {
+                log.Debug("没有找到设备对应的Token,可能是用户已注销登录");
+                return;
+            }
+           
             log.Debug("12");
             string pushMessage = string.Empty;
             PushType pushType;
@@ -107,8 +116,7 @@ namespace Dianzhu.BLL
                 log.Debug("未处理的消息类型:" + chat.GetType());
             }
             log.Debug("14");
-            Model.DeviceBind bind = dalDeviceBind.getDevBindByUserID(targetUserId);
-            log.Debug("141");
+            
             string deviceName = bind.AppName;
             log.Debug("142");
             if (deviceName.ToLower().Contains("ios")) { deviceName = "ios"; }

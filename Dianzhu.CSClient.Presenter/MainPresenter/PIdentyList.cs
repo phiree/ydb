@@ -366,13 +366,13 @@ namespace Dianzhu.CSClient.Presenter
                     iViewChatList.AddOneChat(vmChat);
                     break;
                 case IdentityTypeOfOrder.InList:
-                    iView.SetIdentityUnread(chat.SessionId, 1);
+                    iView.SetIdentityUnread(chat.FromId, 1);
                     break;
                 case IdentityTypeOfOrder.NewIdentity:
                     DZMembership customer = dalMembership.GetMemberById(new Guid(chat.FromId));
                     VMIdentity vmIdentity = new VMIdentity (chat.SessionId,chat.FromId,customer.DisplayName, localChatManager.LocalCustomerAvatarUrls[vmChat.FromId]);
                     AddIdentity(vmIdentity);
-                    iView.SetIdentityUnread(chat.SessionId, 1);
+                    iView.SetIdentityUnread(chat.FromId, 1);
                     break;
                 default:
                     throw new Exception("无法判断消息属性");
