@@ -388,7 +388,7 @@ namespace Dianzhu.CSClient.Presenter
             VMChatPushServie vmChatPushService = new VMChatPushServie(
                 serviceOrderPushedServices[0].ServiceName,
                 true,
-                serviceOrderPushedServices[0].OriginalService.Business.BusinessAvatar.ImageName,
+                Dianzhu.Config.Config.GetAppSetting("ImageHandler") + serviceOrderPushedServices[0].OriginalService.Business.BusinessAvatar.ImageName,
                 5,
                 serviceOrderPushedServices[0].UnitPrice,
                 serviceOrderPushedServices[0].DepositAmount,

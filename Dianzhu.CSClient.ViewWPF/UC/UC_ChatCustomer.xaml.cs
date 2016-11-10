@@ -212,7 +212,7 @@ namespace Dianzhu.CSClient.ViewWPF
             }
             catch (Exception e)
             {
-                log.Error(e.Message);
+                log.Error("用户头像读取失败.错误：" + e);
                 image = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCustomer.png"));
             }
 
