@@ -21,23 +21,17 @@ namespace Ydb.Finance.Infrastructure
 {
     public class InstallerFinanceDB : IWindsorInstaller
     {
-        IEncryptService encryptService;
-        public InstallerFinanceDB(IEncryptService encryptService)
+        FluentConfiguration dbConfigFinance;
+        public InstallerFinanceDB(FluentConfiguration dbConfigFinance)
         {
-            this.encryptService = encryptService;
+            this.dbConfigFinance = dbConfigFinance;
         }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            var _sessionFactory = Fluently.Configure()
-                        .Database(
-                             MySQLConfiguration
-                            .Standard
-                            .ConnectionString(
-                                 encryptService.Decrypt(
-                                 System.Configuration.ConfigurationManager
-                               .ConnectionStrings["ydb_finance"].ConnectionString, false)
-                                 )
-                      )
+            Configuration co;
+            
+            var _sessionFactory=
+                    dbConfigFinance
                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap>())
                     .ExposeConfiguration(BuildSchema)
                     .BuildSessionFactory();

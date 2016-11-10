@@ -9,9 +9,7 @@ using FluentNHibernate.Cfg.Db;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using Ydb.Common.Infrastructure;
-using System.Configuration;
-
-namespace Ydb.Finance.Tests
+namespace Ydb.BusinessResource.Application.Tests
 {
     public class Bootstrap
     {
@@ -28,19 +26,17 @@ namespace Ydb.Finance.Tests
                 new Ydb.Infrastructure.Installer()
                 );
 
-            FluentConfiguration dbConfig = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_finance.db3"))
-               .ExposeConfiguration((config)=> { new SchemaExport(config).Create(true, true); });
+            FluentConfiguration dbConfigInstantMessage = Fluently.Configure().
+                Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_businessresource.db3"))
+                .ExposeConfiguration((config)=> { new SchemaExport(config).Create(true, true); });
 
             container.Install(
- new Ydb.Finance.Infrastructure.InstallerFinance(),
-new Ydb.Finance.Infrastructure.InstallerFinanceDB(dbConfig)
- 
+ new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(),
+new Ydb.BusinessResource.Infrastructure.InstallerBusinessResourceDB(dbConfigInstantMessage)
 
                 );
-
-            
         }
         
-       
+
     }
 }

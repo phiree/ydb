@@ -1,4 +1,6 @@
 ﻿using Castle.Windsor;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
 using Ydb.Common.Infrastructure;
 /// <summary>
 /// Summary description for Installer
@@ -14,17 +16,31 @@ public class Bootstrap
     public static void Boot()
     {
         container = new WindsorContainer();
-         
-        container.Install(new Ydb.Infrastructure.Installer());
+       
         container.Install(
-                        new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
-                        new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(container.Resolve<IEncryptService>()),
-                        new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
-                        );
-        // Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
-      
+            new Ydb.Infrastructure.Installer()
+            );
+        container.Install(
+new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(BuildDBConfig("ydb_instantmessage")),
+new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
+            );
 
-
+       
     }
 
+    private static FluentConfiguration BuildDBConfig(string connectionStringName)
+    {
+        IEncryptService encryptService = container.Resolve<IEncryptService>();
+        FluentConfiguration dbConfig = Fluently.Configure()
+                                                       .Database(
+                                                            MySQLConfiguration
+                                                           .Standard
+                                                           .ConnectionString(
+                                                                encryptService.Decrypt(
+                                                                System.Configuration.ConfigurationManager
+                                                              .ConnectionStrings[connectionStringName].ConnectionString, false)
+                                                                )
+                                                     );
+        return dbConfig;
+    }
 }

@@ -144,7 +144,7 @@ namespace Ydb.Membership.DomainModel
         }
 
 
-        internal virtual ActionResult ChangePasswordByPhone(string newPlainPassword, string newEncryptedPassword)
+       protected internal virtual ActionResult ChangePasswordByPhone(string newPlainPassword, string newEncryptedPassword)
         {
             ActionResult result = new ActionResult();
             if (newPlainPassword.Length < 6)

@@ -115,7 +115,6 @@
     <Compile Include="DomainModel\Repository\IRepositoryUserToken.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryDZMembership.cs" />
     <Compile Include="DomainModel\UserToken.cs" />
-    <Compile Include="Installers\InstallerMembershipUnitOfWork.cs" />
     <Compile Include="Infrastructure\LoginNameDetermine.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipQQMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipSinaWeiboMap.cs" />

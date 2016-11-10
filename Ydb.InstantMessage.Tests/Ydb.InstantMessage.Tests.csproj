@@ -91,7 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\ChatServiceTests.cs" />
-    <Compile Include="InstallerInstantMessageTestDB.cs" />
     <Compile Include="Application\Reception\ReceptionServiceTests.cs" />
     <Compile Include="Bootstraper.cs" />
     <Compile Include="DomainModel\Chat\MessageAdapterTests.cs" />

@@ -1,4 +1,5 @@
 ﻿using Castle.Windsor;
+using Dianzhu.DependencyInstaller;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
@@ -19,37 +20,54 @@ public class Bootstrap
     {
         container = new WindsorContainer();
         container.Install(
-            new Dianzhu.DependencyInstaller.InstallerComponent(),
-            new Dianzhu.DependencyInstaller.InstallerInfrstructure(),
-            new Dianzhu.DependencyInstaller.InstallerRepository(),
-            new Dianzhu.DependencyInstaller.InstallerApplicationService(),
-            new InstallerAdminWeb()
+              new InstallerComponent(),
+           new InstallerInfrstructure(),
+           new InstallerRepository(),
+           new InstallerApplicationService(),
+          new InstallerAdminWeb()
             );
 
-        container.Install(new Ydb.Infrastructure.Installer());
+
+
         container.Install(
-                        new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
-                        new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(container.Resolve<IEncryptService>()),
-                        new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
-                        );
+            new Ydb.Infrastructure.Installer()
+            );
+
 
         container.Install(
 
-           new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
+new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(BuildDBConfig("ydb_instantmessage")),
+new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
+            );
+
+        container.Install(
+
+
            new Ydb.Membership.Infrastructure.InstallerMembership(),
-           new Ydb.Membership.Application.InstallerMembershipDB(container.Resolve<IEncryptService>())
+           new Ydb.Membership.Application.InstallerMembershipDB(BuildDBConfig("ydb_membership"))
             // new Application.InstallerMembershipTestDB()
-
-
 
             );
         // Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
         AutoMapper.Mapper.Initialize(x =>
         {
-
-            x.AddProfile<Ydb.Membership.Application.ModelToDtoMappingProfile>();
+            Ydb.Membership.Application.AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
         });
     }
 
-
+    private static FluentConfiguration BuildDBConfig(string connectionStringName)
+    {
+        IEncryptService encryptService = container.Resolve<IEncryptService>();
+        FluentConfiguration dbConfig = Fluently.Configure()
+                                                       .Database(
+                                                            MySQLConfiguration
+                                                           .Standard
+                                                           .ConnectionString(
+                                                                encryptService.Decrypt(
+                                                                System.Configuration.ConfigurationManager
+                                                              .ConnectionStrings[connectionStringName].ConnectionString, false)
+                                                                )
+                                                     );
+        return dbConfig;
+    }
 }

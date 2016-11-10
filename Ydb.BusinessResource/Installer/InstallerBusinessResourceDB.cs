@@ -22,25 +22,16 @@ using Ydb.BusinessResource.Application;
 using Ydb.Common.Infrastructure;
 namespace Ydb.BusinessResource.Infrastructure
 {
-    public class InstallerIntantMessageDB : IWindsorInstaller
+    public class InstallerBusinessResourceDB : IWindsorInstaller
     {
-        IEncryptService encryptService;
-        public InstallerIntantMessageDB(IEncryptService encryptService)
+        FluentConfiguration dbConfigBusinessResource;
+        public InstallerBusinessResourceDB(FluentConfiguration dbConfigBusinessResource)
         {
-            this.encryptService = encryptService;
+            this.dbConfigBusinessResource = dbConfigBusinessResource;
         }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            var _sessionFactory = Fluently.Configure()
-                        .Database(
-                             MySQLConfiguration
-                            .Standard
-                            .ConnectionString(
-                                 encryptService.Decrypt(
-                                ConfigurationManager
-                               .ConnectionStrings["ydb_businessresource"].ConnectionString, false)
-                                 )
-                      )
+            var _sessionFactory=dbConfigBusinessResource
                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping.AreaMap>())
                     .ExposeConfiguration(BuildSchema)
                     .BuildSessionFactory();

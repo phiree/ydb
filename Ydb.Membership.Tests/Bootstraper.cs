@@ -23,26 +23,25 @@ namespace Ydb.Membership.Tests
         }
         public static void Boot()
         {
-            
+
             container = new WindsorContainer();
 
 
+            FluentConfiguration dbConfig = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_membership.db3"));
             container.Install(
                 new Ydb.Infrastructure.Installer(),
-                new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
                 new Ydb.Membership.Infrastructure.InstallerMembership());
-            container.Install(
-               new Ydb.Membership.Application.InstallerMembershipDB(container.Resolve<IEncryptService>())
-               // new Application.InstallerMembershipTestDB()
-                
-                
-               
+            container.Install( new Ydb.Membership.Application.InstallerMembershipDB( dbConfig)
+           
+
+
+
                 );
-         
-            
-            
+
+
+
         }
-         
+
 
 
     }

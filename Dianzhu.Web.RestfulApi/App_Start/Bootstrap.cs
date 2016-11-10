@@ -18,6 +18,9 @@ using Castle.Windsor.Installer;
 using Dianzhu.ApplicationService;
 using Ydb.Common.Infrastructure;
 using AutoMapper;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+
 namespace Dianzhu.Web.RestfulApi
 {
     public class Bootstrap
@@ -43,17 +46,19 @@ namespace Dianzhu.Web.RestfulApi
             container.Install(
                 new Ydb.Infrastructure.Installer()
                 );
+        
+       
             container.Install(
-new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
-new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(container.Resolve<IEncryptService>()),
+ 
+new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(BuildDBConfig("ydb_instantmessage")),
 new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
                 );
 
             container.Install(
 
-               new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
+         
                new Ydb.Membership.Infrastructure.InstallerMembership(),
-               new Ydb.Membership.Application.InstallerMembershipDB(container.Resolve<IEncryptService>()),
+               new Ydb.Membership.Application.InstallerMembershipDB(BuildDBConfig("ydb_membership")),
             // new Application.InstallerMembershipTestDB()
             new InstallerRestfulApi()
                 );
@@ -64,6 +69,22 @@ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
                 x.AddProfile<ApplicationService.Mapping.DtoToModelMappingProfile>();
                 x.AddProfile<Ydb.Membership.Application.ModelToDtoMappingProfile>();
             });
+        }
+
+        private static FluentConfiguration BuildDBConfig(string connectionStringName)
+        {
+            IEncryptService encryptService = container.Resolve<IEncryptService>();
+            FluentConfiguration dbConfig = Fluently.Configure()
+                                                           .Database(
+                                                                MySQLConfiguration
+                                                               .Standard
+                                                               .ConnectionString(
+                                                                    encryptService.Decrypt(
+                                                                    System.Configuration.ConfigurationManager
+                                                                  .ConnectionStrings[connectionStringName].ConnectionString, false)
+                                                                    )
+                                                         );
+            return dbConfig;
         }
     }
 }

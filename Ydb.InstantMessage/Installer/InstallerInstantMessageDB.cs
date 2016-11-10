@@ -23,23 +23,25 @@ namespace Ydb.InstantMessage.Infrastructure
 {
     public class InstallerIntantMessageDB : IWindsorInstaller
     {
-        IEncryptService encryptService;
-        public InstallerIntantMessageDB(IEncryptService encryptService)
+        FluentConfiguration dbConfigInstantMessage;
+        public InstallerIntantMessageDB(FluentConfiguration dbConfigInstantMessage)
         {
-            this.encryptService = encryptService;
+            this.dbConfigInstantMessage = dbConfigInstantMessage;
         }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            var _sessionFactory = Fluently.Configure()
-                        .Database(
-                             MySQLConfiguration
-                            .Standard
-                            .ConnectionString(
-                                 encryptService.Decrypt(
-                                 System.Configuration.ConfigurationManager
-                               .ConnectionStrings["ydb_instantmessage"].ConnectionString, false)
-                                 )
-                      )
+            var _sessionFactory =
+                //Fluently.Configure()
+                //        .Database(
+                //             MySQLConfiguration
+                //            .Standard
+                //            .ConnectionString(
+                //                 encryptService.Decrypt(
+                //                 System.Configuration.ConfigurationManager
+                //               .ConnectionStrings["ydb_instantmessage"].ConnectionString, false)
+                //                 )
+                //      )
+                dbConfigInstantMessage
                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping.ReceptionStatusMap>())
                     .ExposeConfiguration(BuildSchema)
                     .BuildSessionFactory();
