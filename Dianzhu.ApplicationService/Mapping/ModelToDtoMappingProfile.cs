@@ -43,7 +43,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Complaint, complaintObj>()
-            .ForMember(x => x.resourcesUrl, opt => opt.MapFrom(source => source.ComplaitResourcesUrl))
+            .ForMember(x => x.resourcesUrls, opt => opt.MapFrom(source => source.ComplaitResourcesUrl))
             .ForMember(x => x.orderID, opt => opt.MapFrom(source => source.Order.Id))
             .ForMember(x => x.senderID, opt => opt.MapFrom(source => source.OperatorId))
             .ForAllMembers(opt => opt.NullSubstitute(""));
@@ -149,8 +149,8 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Payment, payObj>()
-            .ForMember(x => x.payStatus, opt => opt.MapFrom(source => source.Status.ToString()))
-            .ForMember(x => x.type, opt => opt.MapFrom(source => source.PayTarget.ToString()))
+            .ForMember(x => x.payStatus, opt => opt.MapFrom(source => source.Status== Model.Enums.enum_PaymentStatus.Wait_Buyer_Pay? "waitforpay": source.Status == Model.Enums.enum_PaymentStatus.Trade_Success ? "success": source.Status == Model.Enums.enum_PaymentStatus.Trade_Finished? "success": "failed"))
+            .ForMember(x => x.type, opt => opt.MapFrom(source => source.PayTarget== Model.Enums.enum_PayTarget.Deposit? "deposit": source.PayTarget == Model.Enums.enum_PayTarget.FinalPayment? "finalPayment": "compensation"))
             .ForMember(x => x.updateTime, opt => opt.MapFrom(source => source.LastUpdateTime == DateTime.MinValue ? "" : source.LastUpdateTime.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.bOnline, opt => opt.MapFrom(source =>  source.PayType== Model.Enums.enum_PayType.Online))
             .ForMember(x => x.payTarget, opt => opt.MapFrom(source => source.PayApi.ToString()))

@@ -75,17 +75,17 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
                     Guid serviceId;
                     if (!Guid.TryParse(chatPushService.ServiceInfos[0].ServiceId, out serviceId))
                     {
-                        throw new Exception("ServiceInfos有误,chatPushServiceId:" + chatPushService.Id);
+                        log.Error("ServiceInfos有误,chatPushServiceId:" + chatPushService.Id);
                     }
                     DZService service = dalDZService.FindById(serviceId);
                     if (service == null)
                     {
-                        throw new Exception("服务不存在,id:" + chatPushService.ServiceInfos[0].ServiceId);
+                        log.Error("服务不存在,id:" + chatPushService.ServiceInfos[0].ServiceId);
                     }
 
                     string servieName = service.Name ?? string.Empty;
                     bool isVerify = service.IsCertificated;
-                    string imageUrl = service.Business.BusinessAvatar.ImageName;
+                    string imageUrl = string.IsNullOrEmpty(service.Business.BusinessAvatar.ImageName) ? string.Empty : Dianzhu.Config.Config.GetAppSetting("ImageHandler") + service.Business.BusinessAvatar.ImageName;
                     int creditPoint = 5;//没有数据，暂时设置为5
                     decimal unitPrice = service.UnitPrice;
                     decimal depositAmount = service.DepositAmount;

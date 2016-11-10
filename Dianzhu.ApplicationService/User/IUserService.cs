@@ -72,6 +72,22 @@ namespace Dianzhu.ApplicationService.User
         /// <returns></returns>
         applyCustomerServicesObj GetCustomerServices(Customer customer);
 
+        /// <summary>
+        /// 用户忘记密码，修改用户密码
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <returns></returns>
+        object PatchPasswordForForget(string phone, string newPassword);
+
+
+        /// <summary>
+        /// 修改用户城市信息
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="cityCode"></param>
+        /// <returns></returns>
+        object PatchCurrentGeolocation(string userID, string cityCode, Customer customer);
+
 
     }
 }

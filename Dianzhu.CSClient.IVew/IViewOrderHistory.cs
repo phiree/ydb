@@ -28,7 +28,7 @@ namespace Dianzhu.CSClient.IView
 
         void ClearUCData();
 
-        event BtnMoreChat BtnMoreOrder;
+        event BtnMoreOrder BtnMoreOrder;
     }
 
     /// <summary>

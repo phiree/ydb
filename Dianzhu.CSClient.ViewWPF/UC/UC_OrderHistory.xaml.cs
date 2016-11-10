@@ -38,7 +38,7 @@ namespace Dianzhu.CSClient.ViewWPF
         }
         
         public event SearchOrderHistoryClick SearchOrderHistoryClick;
-        public event BtnMoreChat BtnMoreOrder;
+        public event BtnMoreOrder BtnMoreOrder;
 
         public string SearchStr
         {
@@ -189,24 +189,9 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void BtnMore_Click(object sender, RoutedEventArgs e)
         {
-            if (BtnMoreOrder == null)
+            if (BtnMoreOrder != null)
             {
-                return;
-            }
-
-            try
-            {
-                NHibernateUnitOfWork.UnitOfWork.Start();
                 BtnMoreOrder();
-            }
-            catch (Exception ee)
-            {
-                log.Error(ee);
-            }
-            finally
-            {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
         }
     }

@@ -22,11 +22,19 @@ namespace Dianzhu.Web.RestfulApi
         {
             HttpConfiguration config = new HttpConfiguration();
             //ConfigureOAuth(app);
+
+            WebApiConfig.Register(config);
+
+#if DEBUG
             if (bool.Parse(ConfigurationManager.AppSettings["UseSwagger"]))
             {
-                WebApiConfig.Register(config);
+                SwaggerConfig.RegisterWithConfig(config);
             }
-            SwaggerConfig.RegisterWithConfig(config);
+#else
+            string s = "0";
+#endif
+
+
             Bootstrap.Boot();
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);//to wire up ASP.NET Web API to our Owin server pipeline.

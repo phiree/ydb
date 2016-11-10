@@ -35,7 +35,7 @@ namespace Dianzhu.Web.RestfulApi
 
         void timerOrderShare_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            ReqResponse();
+            //ReqResponse();
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

@@ -340,8 +340,8 @@ namespace Dianzhu.CSClient.Presenter
             }
             catch (Exception ex)
             {
-                log.Error("IView_IdentityClick Error,skip");
-                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
+                log.Error("IView_IdentityClick Error,skip.");
+                log.Error(ex);
             }
 
 

@@ -23,7 +23,7 @@ namespace Dianzhu.CSClient.IView
         Guid CurrentCustomerServiceId { get; set; }
         event BtnMoreChat BtnMoreChat;
 
-        void ShowMoreLabel();
+        void ShowMoreLabel(string targetChatId);
         void ShowNoMoreLabel();
 
         void ShowLoadingMsg();
@@ -37,7 +37,7 @@ namespace Dianzhu.CSClient.IView
     }
     public delegate void AudioPlay(object audioTag, IntPtr handler);
 
-    public delegate void BtnMoreChat();
+    public delegate void BtnMoreChat(string targetChatId);
 
     public delegate void TimerTick();
 }
