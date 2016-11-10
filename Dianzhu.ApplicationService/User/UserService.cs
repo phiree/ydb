@@ -146,12 +146,12 @@ namespace Dianzhu.ApplicationService.User
 
             if (userType == "customer")
             {
-                customerObj customerobj = Mapper.Map<MemberDto, customerObj>(registerResult.o);
+                customerObj customerobj = Mapper.Map<MemberDto, customerObj>(registerResult.ResultObject);
                 return customerobj;
             }
             else
             {
-                merchantObj merchantobj = Mapper.Map<merchantObj>(registerResult.o);
+                merchantObj merchantobj = Mapper.Map<merchantObj>(registerResult.ResultObject);
                 return merchantobj;
             }
         }

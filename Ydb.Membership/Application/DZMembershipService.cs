@@ -78,7 +78,7 @@ namespace Ydb.Membership.Application
                 }
             }
             MemberDto registeredUser = Mapper.Map<MemberDto>(createdUser);
-            registerResult.o = registeredUser;
+            registerResult.ResultObject = registeredUser;
             return registerResult;
 
         }
@@ -89,6 +89,7 @@ namespace Ydb.Membership.Application
 
         }
 
+        
         [UnitOfWork]
         public Dto.RegisterResult RegisterBusinessUser(string registerName, string password, string confirmPassword, string hostInMail)
         {

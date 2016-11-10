@@ -57,7 +57,7 @@ namespace Ydb.Membership.DomainModel.Tests
         public void ValidateUserTestWithCorrectPair()
         {
             string username = "user", password = "password";
-            DZMembership membership = Builder<DZMembership>.CreateNew().Build();
+            DZMembership membership = Builder<DZMembership>.CreateNew().With(x=>x.UserName=username).With(x=>x.Password=password). Build();
             repositoryDZMembership.Stub(x => x.ValidateUser(username, "5f4dcc3b5aa765d61d8327deb882cf99")).Return(membership);
 
             IDZMembershipDomainService mds = new DZMembershipDomainService(repositoryDZMembership, null, null, null);

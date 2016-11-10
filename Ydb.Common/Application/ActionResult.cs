@@ -9,7 +9,7 @@ namespace Ydb.Common.Application
   public  class ActionResult<T>:ActionResult
     {
        
-        public T o { get; set; }
+        public T ResultObject { get; set; }
     }
     public class ActionResult
     {
