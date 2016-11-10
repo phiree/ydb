@@ -25,10 +25,13 @@ namespace Ydb.InstantMessage.Tests
             container.Install(
                 new Ydb.Infrastructure.Installer()
                 );
+
+            FluentConfiguration dbConfigInstantMessage = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_instantmessage.db3"));
+
             container.Install(
-new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
-new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(container.Resolve<IEncryptService>()),
-new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
+ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(),
+new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(dbConfigInstantMessage)
+
                 );
         }
         

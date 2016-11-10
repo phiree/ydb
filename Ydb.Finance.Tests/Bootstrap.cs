@@ -27,17 +27,18 @@ namespace Ydb.Finance.Tests
             container.Install(
                 new Ydb.Infrastructure.Installer()
                 );
+
+            FluentConfiguration dbConfig = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_finance.db3"))
+               .ExposeConfiguration((config)=> { new SchemaExport(config).Create(true, true); });
+
             container.Install(
-new Ydb.Finance.Infrastructure.InstallerUnitOfWorkFinance(),
-new Ydb.Finance.Infrastructure.InstallerFinanceDB(container.Resolve<IEncryptService>()),
-// new InstallerMembershipTestDB(),
-new Ydb.Finance.Infrastructure.InstallerFinance()
+ new Ydb.Finance.Infrastructure.InstallerFinance(),
+new Ydb.Finance.Infrastructure.InstallerFinanceDB(dbConfig)
+ 
+
                 );
 
-            AutoMapper.Mapper.Initialize(x =>
-            {
-                Ydb.Finance.Application.AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
-            });
+            
         }
         
        

@@ -134,7 +134,6 @@
     <Compile Include="Infrastructure\UnitOfWork\NhUnitOfWorkInterceptor.cs" />
     <Compile Include="Installer\InstallerFinance.cs" />
     <Compile Include="Installer\InstallerFinanceDB.cs" />
-    <Compile Include="Installer\InstallerFinanceUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

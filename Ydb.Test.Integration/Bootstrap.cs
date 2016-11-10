@@ -25,18 +25,23 @@ namespace Ydb.Test.Integration
             container.Install(
                 new Ydb.Infrastructure.Installer()
                 );
+
+
+            FluentConfiguration dbConfigInstantMessage = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_InstantMessage.db3"));
+
             container.Install(
-new Ydb.InstantMessage.Infrastructure.InstallerUnitOfWorkInstantMessage(),
-new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(container.Resolve<IEncryptService>()),
+ 
+new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(dbConfigInstantMessage),
 new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
                 );
 
+
+            FluentConfiguration dbConfigMembership = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_membership.db3"));
             container.Install(
-             
-               new Ydb.Membership.Infrastructure.InstallerUnitOfWorkMembership(),
+ 
                new Ydb.Membership.Infrastructure.InstallerMembership(),            
-               new Ydb.Membership.Application.InstallerMembershipDB(container.Resolve<IEncryptService>())
-                // new Application.InstallerMembershipTestDB()
+               new Ydb.Membership.Application.InstallerMembershipDB(dbConfigMembership)
+                
  
                 );
             AutoMapper.Mapper.Initialize(x => {

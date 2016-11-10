@@ -14,8 +14,5 @@ namespace Ydb.Infrastructure
             container.Register(Component.For<IHttpRequest>().ImplementedBy<HttpRequestImpl>());
             container.Register(Component.For<IDownloadAvatarToMediaServer>().ImplementedBy<DownloadAvatarToMediaServer>());
         }
-
-      
-
     }
 }

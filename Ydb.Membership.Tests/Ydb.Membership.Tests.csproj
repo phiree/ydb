@@ -106,7 +106,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\DZMembershipServiceTests.cs" />
-    <Compile Include="Application\InstallerMembershipTestDB.cs" />
     <Compile Include="Bootstraper.cs" />
     <Compile Include="DomainModel\Service\DZMembershipDomainServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
