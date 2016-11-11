@@ -48,5 +48,10 @@ namespace Ydb.Finance.Application
         /// </summary>
         public DateTime EndPayTime { get; set; }
 
+        /// <summary>
+        /// 支付批次号
+        /// </summary>
+        public string PaySerialNo { get; set; }
+
     }
 }

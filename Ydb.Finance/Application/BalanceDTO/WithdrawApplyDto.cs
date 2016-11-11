@@ -91,6 +91,16 @@ namespace Ydb.Finance.Application
         /// <summary>
         /// 申请单流水编号
         /// </summary>
-        public string SerialNo { get; set; }
+        public virtual string ApplySerialNo { get; set; }
+
+        /// <summary>
+        /// 支付批次编号
+        /// </summary>
+        public virtual string PaySerialNo { get; set; }
+
+        /// <summary>
+        /// 第三方账单号
+        /// </summary>
+        public virtual string D3SerialNo { get; set; }
     }
 }

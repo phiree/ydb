@@ -37,5 +37,15 @@ namespace Ydb.Finance.Application
         /// 申请说明
         /// </summary>
         public string Remark { get; set; }
+
+        /// <summary>
+        /// 支付批次编号
+        /// </summary>
+        public virtual string PaySerialNo { get; set; }
+
+        /// <summary>
+        /// 申请单流水编号
+        /// </summary>
+        public virtual string ApplySerialNo { get; set; }
     }
 }

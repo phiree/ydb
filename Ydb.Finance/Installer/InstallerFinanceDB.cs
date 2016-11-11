@@ -28,8 +28,6 @@ namespace Ydb.Finance.Infrastructure
         }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            Configuration co;
-            
             var _sessionFactory=
                     dbConfigFinance
                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap>())
