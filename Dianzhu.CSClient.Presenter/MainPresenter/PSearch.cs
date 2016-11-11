@@ -385,10 +385,11 @@ namespace Dianzhu.CSClient.Presenter
 
             //助理工具显示发送的消息
             //VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
+            string imageUrl = string.IsNullOrEmpty(serviceOrderPushedServices[0].OriginalService.Business.BusinessAvatar.ImageName) ? string.Empty : Dianzhu.Config.Config.GetAppSetting("ImageHandler") + serviceOrderPushedServices[0].OriginalService.Business.BusinessAvatar.ImageName;
             VMChatPushServie vmChatPushService = new VMChatPushServie(
                 serviceOrderPushedServices[0].ServiceName,
                 true,
-                Dianzhu.Config.Config.GetAppSetting("ImageHandler") + serviceOrderPushedServices[0].OriginalService.Business.BusinessAvatar.ImageName,
+                imageUrl,
                 5,
                 serviceOrderPushedServices[0].UnitPrice,
                 serviceOrderPushedServices[0].DepositAmount,
