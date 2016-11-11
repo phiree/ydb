@@ -9,10 +9,11 @@ using Newtonsoft.Json;
 using Dianzhu.BLL;
 using Dianzhu.RequestRestful;
 using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 
 public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
 {
-    DZMembershipProvider bllMembership = Bootstrap.Container.Resolve<DZMembershipProvider>();
+    IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
     protected void Page_Load(object sender, EventArgs e)
     {
         //PHSuit.Logging.GetLog(Dianzhu.Config.Config.GetAppSetting("LoggerName")).Debug("login page");
@@ -37,8 +38,8 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
 
 
         string errorMsg;
-        bool isValid = bllMembership.ValidateUser(tbxUserName.Text, tbxPassword.Text);
-        if (isValid)
+    ValidateResult validateResult    = memberService.Login(tbxUserName.Text, tbxPassword.Text);
+        if (validateResult.IsValidated)
         {
             bool rememberMe = savePass.Checked;
             RequestResponse res = ReqResponse(tbxUserName.Text, tbxPassword.Text);
@@ -77,6 +78,7 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
         }
         else
         {
+            if (CookieErrorTime == null) { CookieErrorTime = new HttpCookie("errorTime"); CookieErrorTime.Value = "0"; }
 
             CookieErrorTime.Value = (int.Parse( CookieErrorTime.Value ) + 1).ToString();
             Response.Cookies.Add(CookieErrorTime);
