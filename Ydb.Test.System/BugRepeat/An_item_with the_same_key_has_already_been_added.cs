@@ -9,6 +9,9 @@ using Dianzhu.DependencyInstaller;
 using Castle.Windsor;
 using Dianzhu.IDAL;
 using System.Threading;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using Ydb.Membership.Application;
 namespace Ydb.Test.System.BugRepeat
 {
     ///<summary>
@@ -80,6 +83,50 @@ namespace Ydb.Test.System.BugRepeat
                 NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
                
+            }
+            catch (Exception ex)
+            {
+                log.Debug(ex.ToString());
+                Console.WriteLine(ex.ToString());
+                throw ex;
+            }
+        }
+
+        [Test]
+        public void An_item_with_the_same_key_has_already_been_added_in_Domain()
+        {
+
+
+            for (int i = 0; i < 10; i++)
+            {
+                Thread t = new Thread(AccessDataDomain);
+                t.Start();
+                // AccessData();
+            }
+
+            Thread.Sleep(5000);
+
+        }
+       
+        private void AccessDataDomain()
+        {
+            try
+            {
+                FluentConfiguration dbConfigInstantMessage = Fluently.Configure().
+                    Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_InstantMessage.db3"));
+
+                IWindsorContainer container = new WindsorContainer();
+                container.Install(
+                    new Ydb.Infrastructure.Installer(),
+                 new  Ydb.Membership.Infrastructure.InstallerMembership(),
+                   new Ydb.Membership.Application.InstallerMembershipDB(dbConfigInstantMessage)
+                    );
+                
+                 IDZMembershipService memberService = container.Resolve<IDZMembershipService>();
+                Guid newId = Guid.NewGuid();
+                memberService.GetUserById(newId.ToString());
+     
+
             }
             catch (Exception ex)
             {
