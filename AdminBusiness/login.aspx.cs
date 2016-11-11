@@ -76,7 +76,7 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
         }
         else
         {
-
+            if (CookieErrorTime == null) { CookieErrorTime = new HttpCookie("errorTime"); CookieErrorTime.Value = "0"; }
             CookieErrorTime.Value = (int.Parse( CookieErrorTime.Value ) + 1).ToString();
             Response.Cookies.Add(CookieErrorTime);
 
