@@ -25,18 +25,26 @@ namespace Ydb.Finance.Tests.Application
         [Test()]
         public void BalanceAccountService_BindingAccount_ForAddOne()
         {
+            string userId = "09ccc183-ed87-462a-8d11-a66600fbbd24";
+            string accountCode = "333333333333333333";
+            AccountTypeEnums accountType = AccountTypeEnums.Alipay;
             BalanceAccountDto balanceAccountDto = new BalanceAccountDto
             {
-                UserId = "09ccc183-ed87-462a-8d11-a66600fbbd24",
+                UserId = userId,
                 Account = "jsyk_development@126.com",
                 AccountName = "海口集思优科网络科技有限公司",
-                AccountType = AccountTypeEnums.Alipay,
+                AccountType = accountType,
                 AccountPhone = "13666666666",
-                AccountCode = "333333333333333333",
+                AccountCode = accountCode,
                 flag = 1
             };
             balanceAccountService.BindingAccount(balanceAccountDto);
             Console.WriteLine("BalanceAccountService.BindingAccount:绑定成功！");
+
+            var result= balanceAccountService.GetAccount(userId);
+            Assert.AreEqual(userId, result.UserId);
+            Assert.AreEqual(accountCode, result.AccountCode);
+            Assert.AreEqual(accountType, result.AccountType);
         }
 
         /// <summary>
