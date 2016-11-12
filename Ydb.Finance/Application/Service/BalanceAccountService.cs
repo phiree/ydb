@@ -70,10 +70,6 @@ namespace Ydb.Finance.Application
         public BalanceAccountDto GetAccount(string userId)
         {
             BalanceAccount balanceAccountNow = repositoryBalanceAccount.GetOneByUserId(userId);
-            if (balanceAccountNow == null)
-            {
-                throw new Exception("该用户还没有绑定提现账号！");
-            }
             return Mapper.Map<BalanceAccount, BalanceAccountDto>(balanceAccountNow);
         }
     }

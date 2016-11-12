@@ -39,7 +39,7 @@ namespace Ydb.Finance.Application
         public string AccountPhone { get; set; }
 
         /// <summary>
-        /// 省份证号码，用于修改账户验证用，输错身份证就不能修改提现账户
+        /// 身份证号码，用于修改账户验证用，输错身份证就不能修改提现账户
         /// </summary>
         public string AccountCode { get; set; }
 

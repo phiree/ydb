@@ -57,5 +57,10 @@ namespace Ydb.Finance.Application
         /// true为收入，false为支出
         /// </summary>
         public string Rate { get; set; }
+
+        /// <summary>
+        /// 本次发生金额显示字符串
+        /// </summary>
+        public virtual string AmountView { get; set; }
     }
 }

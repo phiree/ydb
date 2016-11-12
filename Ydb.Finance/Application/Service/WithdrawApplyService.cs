@@ -36,8 +36,9 @@ namespace Ydb.Finance.Application
         /// <param name="accountType" type="Ydb.Finance.Application.AccountTypeEnums">收款账号类型</param>
         /// <param name="amount" type="decimal">提现金额</param>
         /// <param name="strSerialNo" type="string">提现申请的流水编号</param>
+        /// <returns type="Ydb.Finance.Application.WithdrawApplyDto">提现申请单信息</returns>
         [Ydb.Finance.Infrastructure.UnitOfWork]
-        public void SaveWithdrawApply(string userId, string account, AccountTypeEnums accountType, decimal amount,string strSerialNo)
+        public WithdrawApplyDto SaveWithdrawApply(string userId, string account, AccountTypeEnums accountType, decimal amount,string strSerialNo)
         {
             BalanceAccount balanceAccountNow = repositoryBalanceAccount.GetOneByUserId(userId);
             if (balanceAccountNow == null)
@@ -64,6 +65,7 @@ namespace Ydb.Finance.Application
             withdrawApply.ServiceFee = countServiceFee.CountServiceFee(amount, "0.5%");
             withdrawApply.TransferAmount = amount - withdrawApply.ServiceFee;
             repositoryWithdrawApply.Add(withdrawApply);
+            return Mapper.Map<WithdrawApply, WithdrawApplyDto>(withdrawApply);
         }
 
         /// <summary>

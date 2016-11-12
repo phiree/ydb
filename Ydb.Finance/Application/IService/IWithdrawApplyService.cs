@@ -17,7 +17,8 @@ namespace Ydb.Finance.Application
         /// <param name="accountType" type="Ydb.Finance.Application.AccountTypeEnums">收款账号类型</param>
         /// <param name="amount" type="decimal">提现金额</param>
         /// <param name="strSerialNo" type="string">提现申请的流水编号</param>
-        void SaveWithdrawApply(string userId, string account, AccountTypeEnums accountType, decimal amount, string strSerialNo);
+        /// <returns type="Ydb.Finance.Application.WithdrawApplyDto">提现申请单信息</returns>
+        WithdrawApplyDto SaveWithdrawApply(string userId, string account, AccountTypeEnums accountType, decimal amount, string strSerialNo);
 
         /// <summary>
         /// 取消申请提现

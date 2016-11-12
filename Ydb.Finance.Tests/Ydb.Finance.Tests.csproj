@@ -100,10 +100,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\BalanceAccountServiceTests.cs" />
     <Compile Include="Application\BalanceFlowServiceTests.cs" />
     <Compile Include="Application\OrderShareServiceTests.cs" />
     <Compile Include="Application\ServiceTypePointServiceTests.cs" />
     <Compile Include="Application\UserTypeSharePointServiceTests.cs" />
+    <Compile Include="Application\WithdrawApplyServiceTests.cs" />
     <Compile Include="Bootstrap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -63,7 +63,7 @@ namespace Ydb.Finance.Application
         {
             //由于重构数据库分隔，多表联查需要重新设计
             //return Mapper.Map<IList<BalanceFlow>, IList<BalanceFlowDto>>(repositoryBalanceFlow.GetBillSatistics(userID, startTime, endTime, serviceTypeLevel, dateType));
-            return null;
+            return new List<BalanceFlowDto>();
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Ydb.Finance.Application
             string status, string billType, string orderId, string billServiceType,string filter)
         {
             //由于重构数据库分隔，多表联查需要重新设计
-            return null;
+            return new ArrayList(); 
             //return repositoryBalanceFlow.GetBillList(userID, startTime, endTime, serviceTypeLevel, status, billType, orderId, billServiceType, filter);
         }
 

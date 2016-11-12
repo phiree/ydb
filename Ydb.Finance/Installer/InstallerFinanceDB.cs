@@ -24,7 +24,7 @@ namespace Ydb.Finance.Infrastructure
         FluentConfiguration dbConfigFinance;
         public InstallerFinanceDB(FluentConfiguration dbConfigFinance)
         {
-            this.dbConfigFinance = dbConfigFinance;
+            this.dbConfigFinance = dbConfigFinance;//Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap//Dianzhu.DAL.Mapping.AreaMap
         }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
@@ -38,11 +38,16 @@ namespace Ydb.Finance.Infrastructure
         }
         private void BuildSchema(Configuration config)
         {
-            SchemaUpdate update = new SchemaUpdate(config);
+            //SchemaUpdate update = new SchemaUpdate(config);
             if (System.Configuration.ConfigurationManager.AppSettings["UpdateSchema"] == "1")
             {
-                update.Execute(true, true);
+                new SchemaUpdate(config).Execute(true, true);
             }
+            else if (System.Configuration.ConfigurationManager.AppSettings["UpdateSchema"] == "2")
+            {
+                new SchemaExport(config).Create(true, true);
+            }
+
         }
 
 

@@ -23,18 +23,23 @@ namespace Ydb.Finance.Tests
         }
         public static void Boot()
         {
+            AutoMapper.Mapper.Initialize(x => {
+                Ydb.Finance.Application.AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
+            });
             container = new WindsorContainer();
             container.Install(
                 new Ydb.Infrastructure.Installer()
                 );
 
             FluentConfiguration dbConfig = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_finance.db3"))
-               .ExposeConfiguration((config)=> { new SchemaExport(config).Create(true, true); });
+               .ExposeConfiguration((config)=> { new SchemaExport(config).Create(true, true); });//test_ydb_finance.db3
 
             container.Install(
  new Ydb.Finance.Infrastructure.InstallerFinance(),
 new Ydb.Finance.Infrastructure.InstallerFinanceDB(dbConfig)
- 
+
+
+
 
                 );
 

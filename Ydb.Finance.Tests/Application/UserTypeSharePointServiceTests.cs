@@ -23,47 +23,70 @@ namespace Ydb.Finance.Tests.Application
         /// 添加一条用户类型分配比例
         /// </summary>
         [Test()]
-        public void UserTypeSharePointServiceTests_AddTest_AddOneUserTypeSharePoint()
+        public void UserTypeSharePointService_Add_AddOneUserTypeSharePoint()
         {
-            userTypeSharePointService.Add("customerservice", 0.35m);
+            UserTypeSharePointDto dPoint = userTypeSharePointService.GetSharePointInfo("customerservice");
+            if (dPoint == null)
+            {
+                userTypeSharePointService.Add("customerservice", 0.35m);
+            }
             userTypeSharePointService.Add("agent", 0.4m);
-            Console.WriteLine("UserTypeSharePointServiceTest.AddTest:添加成功！");
+            Console.WriteLine("UserTypeSharePointService.Add:添加成功！");
         }
 
         /// <summary>
         /// 修改一条用户类型分配比例
         /// </summary>
         [Test()]
-        public void UserTypeSharePointServiceTests_UpdateTest_UpdateOneUserTypeSharePoint()
+        public void UserTypeSharePointService_Update_UpdateOneUserTypeSharePoint()
         {
+            UserTypeSharePointDto dPoint = userTypeSharePointService.GetSharePointInfo("customerservice");
+            if (dPoint == null)
+            {
+                userTypeSharePointService.Add("customerservice", 0.35m);
+            }
             userTypeSharePointService.Update("customerservice", 0.36m);
-            userTypeSharePointService.Update("agent", 0.41m);
-            Console.WriteLine("UserTypeSharePointServiceTest.UpdateTest:修改成功！");
+            Console.WriteLine("UserTypeSharePointService.Update:修改成功！");
         }
 
         /// <summary>
         /// 根据用户类型获取该用户类型的分配比例
         /// </summary>
         [Test()]
-        public void UserTypeSharePointServiceTests_GetSharePointTest_ByUserType()
+        public void UserTypeSharePointService_GetSharePoint_ByUserType()
         {
+            UserTypeSharePointDto dPointDto = userTypeSharePointService.GetSharePointInfo("customerservice");
+            if (dPointDto == null)
+            {
+                userTypeSharePointService.Add("customerservice", 0.35m);
+            }
             string errMsg = "";
             decimal dPoint = userTypeSharePointService.GetSharePoint("customerservice", out errMsg);
-            Console.WriteLine("UserTypeSharePointServiceTest.GetSharePointTest:" + dPoint);
+            Console.WriteLine("UserTypeSharePointService.GetSharePoint:" + dPoint);
             if (errMsg != "")
             {
-                Console.WriteLine("UserTypeSharePointServiceTest.GetSharePointTest:" + errMsg);
+                Console.WriteLine("UserTypeSharePointService.GetSharePoint:" + errMsg);
             }
+        }
+
+        /// <summary>
+        /// 根据用户类型获取该用户类型的分配比例信息
+        /// </summary>
+        [Test()]
+        public void UserTypeSharePointService_GetSharePointInfo_ByUserType()
+        {
+            UserTypeSharePointDto dPoint = userTypeSharePointService.GetSharePointInfo("customerservice");
+            Console.WriteLine("UserTypeSharePointService.GetSharePointInfo:" + (dPoint==null).ToString());
         }
 
         /// <summary>
         /// 获取所有的用户类型分配比例
         /// </summary>
         [Test()]
-        public void UserTypeSharePointServiceTests_GetAllTest()
+        public void UserTypeSharePointService_GetAll()
         {
             var list = userTypeSharePointService.GetAll();
-            Console.WriteLine("UserTypeSharePointServiceTest.GetAllTest:" + list.Count);
+            Console.WriteLine("UserTypeSharePointService.GetAll:" + list.Count);
         }
     }
 }

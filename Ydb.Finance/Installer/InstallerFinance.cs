@@ -49,6 +49,7 @@ namespace Ydb.Finance.Infrastructure
             container.Register(Component.For<IRepositoryBalanceAccount>().ImplementedBy<RepositoryBalanceAccount>()
               //  .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("FinanceSessionFactory"))
                );
+            container.Register(Component.For<IRepositoryWithdrawApply>().ImplementedBy<RepositoryWithdrawApply>());
 
         }
         private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
@@ -58,10 +59,11 @@ namespace Ydb.Finance.Infrastructure
             container.Register(Component.For<IServiceTypePointService>().ImplementedBy<ServiceTypePointService>());
             container.Register(Component.For<IUserTypeSharePointService>().ImplementedBy<UserTypeSharePointService>());
             container.Register(Component.For<IBalanceAccountService>().ImplementedBy<BalanceAccountService>());
+            container.Register(Component.For<IWithdrawApplyService>().ImplementedBy<WithdrawApplyService>());
         }
         private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
         {
-          
+            container.Register(Component.For<ICountServiceFee>().ImplementedBy<CountServiceFee_Alipay>());
         }
         private void BuildSchema(Configuration config)
         {
