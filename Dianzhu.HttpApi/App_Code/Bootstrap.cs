@@ -2,11 +2,12 @@
 using Dianzhu.DependencyInstaller;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using Ydb.Common.Infrastructure;
+using NHibernate.Tool.hbm2ddl;
+using System.Configuration;
 /// <summary>
 /// Summary description for Installer
 /// </summary>
-
+using Ydb.Common.Infrastructure;
 public class Bootstrap
 {
     static IWindsorContainer container;
@@ -23,7 +24,6 @@ public class Bootstrap
            new InstallerInfrstructure(),
            new InstallerRepository(),
            new InstallerApplicationService()
-            
             );
 
 
@@ -35,15 +35,15 @@ public class Bootstrap
 
         container.Install(
 
-new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(BuildDBConfig("ydb_instantmessage")),
-new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
+ 
+new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb_instantmessage"))
             );
 
         container.Install(
 
 
-           new Ydb.Membership.Infrastructure.InstallerMembership(),
-           new Ydb.Membership.Application.InstallerMembershipDB(BuildDBConfig("ydb_membership"))
+           new Ydb.Membership.Infrastructure.InstallerMembership(BuildDBConfig("ydb_membership"))
+        
             // new Application.InstallerMembershipTestDB()
 
             );
