@@ -22,6 +22,8 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class UC_PushService : UserControl
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_PushService");
+
         public UC_PushService()
         {
             InitializeComponent();
@@ -32,16 +34,18 @@ namespace Dianzhu.CSClient.ViewWPF
         public void LoadData(VMChatPushServie pushService)
         {
             tbkServiceName.Text = pushService.ServiceName;
-            Uri uri;
-            if (string.IsNullOrEmpty(pushService.ImageUrl))
+            
+            BitmapImage img;
+            try
             {
-                uri = new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png");
+                img = new BitmapImage(new Uri(pushService.ImageUrl));
             }
-            else
+            catch (Exception ee)
             {
-                uri = new Uri(pushService.ImageUrl);
+                log.Error(ee);
+                img = new BitmapImage(new Uri("pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/logourl.png"));
             }
-            imgBusinessAvatar.Source = new BitmapImage(uri);
+            imgBusinessAvatar.Source = img;
             lblCreditPoint.Content = string.Empty;
             for (int i = 1; i <= pushService.CreditPoint; i++)
             {

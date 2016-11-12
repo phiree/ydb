@@ -106,7 +106,6 @@
     <Compile Include="Infrastructure\UnitOfWork\NhUnitOfWorkInterceptor.cs" />
     <Compile Include="Installer\InstallerBusinessResource.cs" />
     <Compile Include="Installer\InstallerBusinessResourceDB.cs" />
-    <Compile Include="Installer\InstallerBusinessResourceUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

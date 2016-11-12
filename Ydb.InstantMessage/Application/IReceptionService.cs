@@ -43,6 +43,16 @@ namespace Ydb.InstantMessage.Application
         IList<ReceptionStatusDto> AssignCSLogin(string csId, int amount);
 
         /// <summary>
+        /// 给点点发送客服上线通知
+        /// </summary>
+        void SendCSLoginMessageToDD();
+
+        /// <summary>
+        /// 给点点发送客服下线通知
+        /// </summary>
+        void SendCSLogoffMessageToDD();
+
+        /// <summary>
         /// 客服下线：给点点发通知；将分配给客服的用户重新分配给其他客服，如果没有客服，分配给点点
         /// </summary>
         /// <param name="csId"></param>

@@ -49,8 +49,7 @@ public class IMServerAPI : IHttpHandler
                     Guid CSUserLoginId;
                     if (Guid.TryParse(strCSUserLoginId, out CSUserLoginId))
                     {
-                        //imNotify.SendCSLoginMessageToDD(CSUserLoginId);
-                        receptionService.AssignCSLogin(strCSUserLoginId, 3);
+                        receptionService.SendCSLoginMessageToDD();
                     }
                     else
                     {
@@ -62,7 +61,7 @@ public class IMServerAPI : IHttpHandler
                     Guid userId;
                     if (Guid.TryParse(struserId, out userId))
                     {
-                        //imNotify.SendRessaginMessage(userId);
+                        receptionService.SendCSLogoffMessageToDD();
                         receptionService.AssignCSLogoff(struserId);
                     }
                     else

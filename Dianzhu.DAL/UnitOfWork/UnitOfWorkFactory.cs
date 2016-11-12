@@ -80,14 +80,17 @@ namespace NHibernateUnitOfWork
            
 
         }
-
+        object lockObject = new object();
         public ISessionFactory SessionFactory
         {
             get
             {
-                if (_sessionFactory == null)
+                lock (lockObject)
+                { 
+                    if (_sessionFactory == null)
                     _sessionFactory = Configuration.BuildSessionFactory();
                 return _sessionFactory;
+                }
             }
         }
 

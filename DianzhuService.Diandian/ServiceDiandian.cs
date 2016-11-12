@@ -122,7 +122,7 @@ namespace DianzhuService.Diandian
                         return;
                 }
 
-                if (csOnLine == 1)
+                if (csOnLine >= 1)
                 {
                     //发送客服离线消息给用户
                     string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
