@@ -44,7 +44,7 @@ namespace Dianzhu.BLL
            // return repo.GetADList(pageIndex, pageSize,out totalRecords);
         }
 
-        public IList<Advertisement> GetADListForUseful()
+        public IList<Advertisement> GetADListForUseful(string userType)
         {
            
           //ISpecification<Advertisement> advInPerildSpec = new Model.Resource.Specs.AdvertisementSpec.AdvertisementInPeriod(DateTime.Now);
@@ -53,7 +53,7 @@ namespace Dianzhu.BLL
 
             // Expression < Func < int, bool>> f = i => i % 2 != 0;
             // f = f.Not().And(i => i > 0);
-            Expression<Func<Advertisement, bool>> q = i => i.IsUseful&&i.EndTime>DateTime.Now&&i.StartTime<=DateTime.Now;
+            Expression<Func<Advertisement, bool>> q = i => i.IsUseful&&i.EndTime>DateTime.Now&&i.StartTime<=DateTime.Now && i.ViewType==userType;
             // q= q.And(i => i.EndTime > DateTime.Now);
             var list = repo.Find(q, "Num",true,0,null).ToList();
            return list;

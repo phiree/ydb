@@ -58,5 +58,10 @@ namespace Dianzhu.Model
         /// 操作员
         /// </summary>
         public virtual DZMembership UpdateController { get; set; }
+
+        /// <summary>
+        /// 显示平台
+        /// </summary>
+        public virtual string ViewType { get; set; }
     }
 }

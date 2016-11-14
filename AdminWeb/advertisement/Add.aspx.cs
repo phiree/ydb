@@ -55,6 +55,10 @@ public partial class advertisement_Add : BasePage
         {
             rdNo.Checked = true;
         }
+        if (adObj.ViewType == "customer")
+        { rdCustomer.Checked = true; }
+        else
+        { rdBusiness.Checked = true; }
         txtTarget.Text = adObj.PushTarget;
     }
     //通过控件的值更新对象
@@ -106,6 +110,8 @@ public partial class advertisement_Add : BasePage
         //adObj.SaveController=
         //adObj.UpdateController=
         adObj.LastUpdateTime = DateTime.Now;
+
+        adObj.ViewType = rdCustomer.Checked ? "customer" : "business";
     }
 
     protected void btnSave_Click(object sender, EventArgs e)
@@ -117,11 +123,13 @@ public partial class advertisement_Add : BasePage
         {
             bllAd.Update(adObj);
         }
-       
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
         if (IsNew)
         { lblSaveSuccess.Text = "创建成功"; }
         else
         { lblSaveSuccess.Text = "保存成功"; }
         lblSaveSuccess.Visible = true;
+        System.Threading.Thread.Sleep(1500);
+        Response.Redirect("default.aspx");
     }
 }

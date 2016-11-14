@@ -39,6 +39,7 @@ public partial class advertisement_Default :BasePage
         {
             
             Literal litType = e.Row.FindControl("litType") as Literal;
+            Literal litViewType = e.Row.FindControl("litViewType") as Literal;
             Advertisement adv = e.Row.DataItem as Advertisement;
             if (adv.IsUseful)
             {
@@ -47,6 +48,15 @@ public partial class advertisement_Default :BasePage
             else
             {
                 litType.Text = "否";
+            }
+
+            if (adv.ViewType== "customer")
+            {
+                litViewType.Text = "用户客户端";
+            }
+            else
+            {
+                litViewType.Text = "商户客户端";
             }
 
             var img = e.Row.FindControl("imgAdv") as System.Web.UI.HtmlControls.HtmlImage;

@@ -66,6 +66,16 @@
 
         <asp:TableRow>
             <asp:TableCell Width="100">
+                <asp:Label ID="Label8" runat="server" Text="显示平台"></asp:Label>
+            </asp:TableCell>
+            <asp:TableCell>
+                <asp:RadioButton ID="rdCustomer" runat="server" Text="用户客户端"  GroupName="radioViewType"/>
+                <asp:RadioButton ID="rdBusiness" runat="server" Text="商户客户端" GroupName="radioViewType"/>
+            </asp:TableCell>
+        </asp:TableRow>
+
+        <asp:TableRow>
+            <asp:TableCell Width="100">
                 <asp:Label ID="Label7" runat="server" Text="推送目标的标签"></asp:Label>                
             </asp:TableCell>
             <asp:TableCell>

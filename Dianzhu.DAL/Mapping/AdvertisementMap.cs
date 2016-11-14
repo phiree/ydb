@@ -21,6 +21,7 @@ namespace Dianzhu.DAL.Mapping
             References<DZMembership>(x => x.SaveController);
             Map(x => x.LastUpdateTime);
             References<DZMembership>(x => x.UpdateController);
+            Map(x => x.ViewType);
         }
     }
 }

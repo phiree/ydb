@@ -27,10 +27,7 @@ public class ResponseAD001006:BaseResponse
         try
         {
             RequestDataAD001006 requestData = this.request.ReqData.ToObject<RequestDataAD001006>();
-
- 
-           
-            IList<Advertisement> adList = bllAD.GetADListForUseful();
+            IList<Advertisement> adList = bllAD.GetADListForUseful(requestData.viewType);
             RespDataAD001006 respData = new RespDataAD001006();
 
             if (adList.Count > 0)
