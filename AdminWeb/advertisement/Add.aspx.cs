@@ -59,7 +59,7 @@ public partial class advertisement_Add : BasePage
         {
             rdCustomer.Checked = true;
         }
-        else if (adObj.PushType == "businerss")
+        else if (adObj.PushType == "business")
         {
             rdBusiness.Checked = true;
         }
