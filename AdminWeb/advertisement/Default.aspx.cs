@@ -39,7 +39,6 @@ public partial class advertisement_Default :BasePage
         {
             
             Literal litType = e.Row.FindControl("litType") as Literal;
-            Literal litViewType = e.Row.FindControl("litViewType") as Literal;
             Advertisement adv = e.Row.DataItem as Advertisement;
             if (adv.IsUseful)
             {
@@ -50,13 +49,17 @@ public partial class advertisement_Default :BasePage
                 litType.Text = "否";
             }
 
-            if (adv.ViewType== "customer")
+            Literal litPT = e.Row.FindControl("litPT") as Literal;
+            switch (adv.PushType)
             {
-                litViewType.Text = "用户客户端";
-            }
-            else
-            {
-                litViewType.Text = "商户客户端";
+                case "customer":
+                    litPT.Text = "用户";
+                    break;
+                case "business":
+                    litPT.Text = "商家";
+                    break;
+                default:
+                    break;
             }
 
             var img = e.Row.FindControl("imgAdv") as System.Web.UI.HtmlControls.HtmlImage;

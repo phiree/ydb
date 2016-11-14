@@ -38,7 +38,7 @@ namespace Dianzhu.BLL
            // iuow.BeginTransaction();
             var where = PredicateBuilder.True<Advertisement>();
           
-               var list = repo.Find(where, pageIndex,pageSize ,out totalRecords).ToList();
+               var list = repo.Find(where, pageIndex,pageSize ,out totalRecords).OrderByDescending(x=>x.IsUseful).ToList();
            // iuow.Commit();
             return list;
            // return repo.GetADList(pageIndex, pageSize,out totalRecords);
@@ -53,7 +53,7 @@ namespace Dianzhu.BLL
 
             // Expression < Func < int, bool>> f = i => i % 2 != 0;
             // f = f.Not().And(i => i > 0);
-            Expression<Func<Advertisement, bool>> q = i => i.IsUseful&&i.EndTime>DateTime.Now&&i.StartTime<=DateTime.Now && i.ViewType==userType;
+            Expression<Func<Advertisement, bool>> q = i => i.IsUseful&&i.EndTime>DateTime.Now&&i.StartTime<=DateTime.Now && i.PushType==userType;
             // q= q.And(i => i.EndTime > DateTime.Now);
             var list = repo.Find(q, "Num",true,0,null).ToList();
            return list;

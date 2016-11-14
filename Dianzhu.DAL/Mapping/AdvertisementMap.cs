@@ -18,10 +18,10 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.StartTime);
             Map(x => x.EndTime);
             Map(x => x.IsUseful);
-            References<DZMembership>(x => x.SaveController);
+            Map(x => x.SaveControllerId);
             Map(x => x.LastUpdateTime);
-            References<DZMembership>(x => x.UpdateController);
-            Map(x => x.ViewType);
+            Map(x => x.UpdateControllerId);
+            Map(x => x.PushType);
         }
     }
 }

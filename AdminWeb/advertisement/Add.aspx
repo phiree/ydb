@@ -66,11 +66,11 @@
 
         <asp:TableRow>
             <asp:TableCell Width="100">
-                <asp:Label ID="Label8" runat="server" Text="显示平台"></asp:Label>
+                <asp:Label ID="Label8" runat="server" Text="推送目标"></asp:Label>
             </asp:TableCell>
             <asp:TableCell>
-                <asp:RadioButton ID="rdCustomer" runat="server" Text="用户客户端"  GroupName="radioViewType"/>
-                <asp:RadioButton ID="rdBusiness" runat="server" Text="商户客户端" GroupName="radioViewType"/>
+                <asp:RadioButton ID="rdCustomer" runat="server" Text="用户" GroupName="radioPushType"/>
+                <asp:RadioButton ID="rdBusiness" runat="server" Text="商户" GroupName="radioPushType"/>
             </asp:TableCell>
         </asp:TableRow>
 

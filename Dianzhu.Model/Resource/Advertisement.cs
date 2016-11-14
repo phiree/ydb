@@ -49,7 +49,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 保存人员
         /// </summary>
-        public virtual DZMembership SaveController { get; set; }
+        public virtual string SaveControllerId { get; set; }
         /// <summary>
         /// 最后更新时间
         /// </summary>
@@ -57,11 +57,10 @@ namespace Dianzhu.Model
         /// <summary>
         /// 操作员
         /// </summary>
-        public virtual DZMembership UpdateController { get; set; }
-
+        public virtual string UpdateControllerId { get; set; }
         /// <summary>
-        /// 显示平台
+        /// 广告推送的用户类型:customer(用户),business(商家)...
         /// </summary>
-        public virtual string ViewType { get; set; }
+        public virtual string PushType { get; set; }
     }
 }
