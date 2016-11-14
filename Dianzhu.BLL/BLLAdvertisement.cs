@@ -38,7 +38,7 @@ namespace Dianzhu.BLL
            // iuow.BeginTransaction();
             var where = PredicateBuilder.True<Advertisement>();
           
-               var list = repo.Find(where, pageIndex,pageSize ,out totalRecords).ToList();
+               var list = repo.Find(where, pageIndex,pageSize ,out totalRecords).OrderByDescending(x=>x.IsUseful).ToList();
            // iuow.Commit();
             return list;
            // return repo.GetADList(pageIndex, pageSize,out totalRecords);

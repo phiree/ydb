@@ -55,6 +55,14 @@ public partial class advertisement_Add : BasePage
         {
             rdNo.Checked = true;
         }
+        if (adObj.PushType == "customer")
+        {
+            rdCustomer.Checked = true;
+        }
+        else if (adObj.PushType == "businerss")
+        {
+            rdBusiness.Checked = true;
+        }
         txtTarget.Text = adObj.PushTarget;
     }
     //通过控件的值更新对象
@@ -92,6 +100,15 @@ public partial class advertisement_Add : BasePage
         {
             isUseful = true;
         }
+        string pushType = string.Empty;
+        if (rdCustomer.Checked)
+        {
+            pushType = "customer";
+        }
+        else if (rdBusiness.Checked)
+        {
+            pushType = "business";
+        }
         string targetStr = txtTarget.Text.Trim();
 
         adObj.ImgUrl = imgUrl;
@@ -101,7 +118,7 @@ public partial class advertisement_Add : BasePage
         adObj.EndTime = endTime;
         adObj.PushTarget = targetStr;
         adObj.IsUseful = isUseful;
-
+        adObj.PushType = pushType;
         adObj.SaveTime = DateTime.Now;
         //adObj.SaveController=
         //adObj.UpdateController=

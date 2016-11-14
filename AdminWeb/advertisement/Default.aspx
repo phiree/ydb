@@ -22,6 +22,11 @@
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:BoundField HeaderText="连接地址" DataField="Url" />
+            <asp:TemplateField HeaderText="推送目标">
+                <ItemTemplate>
+                    <asp:Literal runat="server" ID="litPT"></asp:Literal>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:BoundField HeaderText="推送目标的标签" DataField="PushTarget" />
             <asp:BoundField HeaderText="开始时间" DataField="StartTime" />
             <asp:BoundField HeaderText="结束时间" DataField="EndTime" />            
