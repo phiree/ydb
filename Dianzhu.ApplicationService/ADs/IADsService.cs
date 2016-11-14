@@ -12,7 +12,8 @@ namespace Dianzhu.ApplicationService.ADs
         /// 条件读取广告
         /// </summary>
         /// <param name="adf"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        IList<adObj> GetADs(common_Trait_AdFiltering adf);
+        IList<adObj> GetADs(common_Trait_AdFiltering adf,Customer customer);
     }
 }

@@ -83,7 +83,7 @@ namespace Dianzhu.ApplicationService.Order
                 }
 
                 decimal d = 0;
-                if ( !decimal.TryParse(orderobj.negotiateAmount,out d) || d <= 0)
+                if ( !decimal.TryParse(orderobj.negotiateAmount,out d) || d < 0)
                 {
                     orderobj.orderAmount = orderobj.negotiateAmount = (serviceorder.Details[0].UnitAmount * serviceorder.Details[0].OriginalService.UnitPrice).ToString("0.00");
                 }
@@ -104,7 +104,7 @@ namespace Dianzhu.ApplicationService.Order
                 if (dzs.Count > 0)
                 {
                     decimal d = 0;
-                    if (!decimal.TryParse(orderobj.negotiateAmount, out d) || d <= 0)
+                    if (!decimal.TryParse(orderobj.negotiateAmount, out d) || d < 0)
                     {
                         orderobj.orderAmount = orderobj.negotiateAmount = (dzs[0].UnitAmount * dzs[0].OriginalService.UnitPrice).ToString("0.00");
                     }
@@ -586,6 +586,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new FormatException("评分值格式不正确,只能取（0 ~ 5的整数）！");
             }
+            appValue = Math.Floor(appValue);//取整
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
             Model.ServiceOrder order = ibllserviceorder.GetOne(guidOrder);
             if (order == null)
@@ -599,7 +600,34 @@ namespace Dianzhu.ApplicationService.Order
             ServiceOrderAppraise appraise = new ServiceOrderAppraise(order, target, appValue, appraiseobj.content); 
             bllServiceOrderAppraise.Save(appraise);
 
-            ibllserviceorder.OrderFlow_CustomerAppraise(order);
+            //连续请求两次，可能同时修改一个订单的状态，会造成同一个表的死锁报错
+            int c = 1;
+            for (int i = 0; i < 10; i++)
+            {
+                if (c == 0)
+                {
+                    break;
+                }
+                try
+                {
+                    ServiceOrder so = ibllserviceorder.GetOne(order.Id);
+                    if (so.OrderStatus != Model.Enums.enum_OrderStatus.Appraised)
+                    {
+                        ibllserviceorder.OrderFlow_CustomerAppraise(order);
+                    }
+                    c = 0;
+                }
+                catch(Exception ex)
+                {
+                    if (i == 9)
+                    {
+                        throw ex;
+                    }
+                    System.Threading.Thread.Sleep(1000);
+                    c = 1;
+                }
+            }
+            
 
             orderObj orderobj = Mapper.Map<Model.ServiceOrder, orderObj>(order);
             changeObj(orderobj, order);

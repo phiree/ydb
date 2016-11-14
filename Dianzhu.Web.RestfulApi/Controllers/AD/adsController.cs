@@ -27,7 +27,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.AD
         {
             try
             {
-                return Json(iads.GetADs(adf));
+                return Json(iads.GetADs(adf, GetRequestHeader.GetTraitHeaders("get/ads")));
             }
             catch (Exception ex)
             {
