@@ -10,7 +10,7 @@ namespace Dianzhu.Model
     {
         public DZMapper()
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<ServiceOpenTimeForDay, ServiceOpenTimeForDaySnapShotForOrder>());
+        //    Mapper.Initialize(cfg => cfg.CreateMap<ServiceOpenTimeForDay, ServiceOpenTimeForDaySnapShotForOrder>());
         }
     }
 }

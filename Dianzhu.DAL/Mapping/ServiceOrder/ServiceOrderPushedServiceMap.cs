@@ -11,7 +11,7 @@ namespace Dianzhu.DAL.Mapping
         public ServiceOrderPushedServiceMap()
         {
             Id(x => x.Id);
-            References<DZService>(x => x.OriginalService);
+            Map(x => x.OriginalServiceId);
             //screenshot of the service
             Map(x => x.ServiceName);
             Map(x => x.Description);

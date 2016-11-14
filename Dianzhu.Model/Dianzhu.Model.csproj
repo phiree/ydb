@@ -64,6 +64,8 @@
     <Compile Include="Client\RefreshToken.cs" />
     <Compile Include="Client\UserToken.cs" />
     <Compile Include="SerialNo.cs" />
+    <Compile Include="ServiceOrder\ServiceOpenTimeForDaySnapShotForOrder.cs" />
+    <Compile Include="ServiceOrder\ServiceOpenTimeSnapshot.cs" />
     <Compile Include="StorageManager\StorageFileInfo.cs" />
     <Compile Include="Trait_Filtering.cs" />
     <Compile Include="Finance\BalanceFlow.cs" />
@@ -76,36 +78,26 @@
     <Compile Include="Claims.cs" />
     <Compile Include="Payment\RefundLog.cs" />
     <Compile Include="Payment\Refund.cs" />
-    <Compile Include="Resource\ServiceOpenTimeSnapshot.cs" />
     <Compile Include="ServiceOrderRemind.cs" />
     <Compile Include="Complaint.cs" />
     <Compile Include="Resource\Advertisement.cs" />
     <Compile Include="Reception\IMUserStatus.cs" />
     <Compile Include="City.cs" />
-    <Compile Include="Resource\ServiceOpenTimeForDay.cs" />
-    <Compile Include="Resource\ServiceOpenTimeForDaySnapShotForOrder.cs" />
     <Compile Include="ServiceOrder\ServiceOrderAppraise.cs" />
     <Compile Include="ServiceOrder\ServiceOrderDetail.cs" />
     <Compile Include="ServiceOrder\ServiceOrderFactory.cs" />
     <Compile Include="ServiceOrder\ServiceOrderPushedService.cs" />
     <Compile Include="ServiceOrder\ServiceSnapShotForOrder.cs" />
-    <Compile Include="StaffServiceType.cs" />
     <Compile Include="OrderAssignment.cs" />
     <Compile Include="Payment\PaymentLog.cs" />
     <Compile Include="Area.cs" />
     <Compile Include="DeviceBind.cs" />
     <Compile Include="IdentityAccess\DZRole.cs" />
-    <Compile Include="Resource\DZService.cs" />
-    <Compile Include="DZTag.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="Business.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resource\ServiceOpenTime.cs" />
     <Compile Include="Payment\Payment.cs" />
     <Compile Include="ServiceOrderStateChangeHis.cs" />
     <Compile Include="ServiceOrder\ServiceOrder.cs" />
-    <Compile Include="ServiceType.cs" />
-    <Compile Include="Staff.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />

@@ -12,7 +12,7 @@ namespace Dianzhu.DAL.Mapping
         public OrderAssignmentMap()
         {
             Id(x => x.Id);
-            References<Staff>(x => x.AssignedStaff);
+            Map(x => x.AssignedStaffId);
             References<ServiceOrder>(x => x.Order);
             Map(x => x.AssignedTime);
             Map(x => x.DeAssignedTime);

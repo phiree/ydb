@@ -9,7 +9,7 @@ namespace Dianzhu.IDAL.Finance
     public interface IDALServiceTypePoint:IRepository<Dianzhu.Model.Finance.ServiceTypePoint,Guid>
     {
 
-          ServiceTypePoint GetOneByServiceType(ServiceType serviceType);
+          ServiceTypePoint GetOneByServiceType(string serviceTypeId);
 
 
           IList<Dianzhu.Model.Finance.ServiceTypePoint> GetAll();

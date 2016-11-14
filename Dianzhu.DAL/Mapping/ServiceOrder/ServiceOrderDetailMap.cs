@@ -11,7 +11,7 @@ namespace Dianzhu.DAL.Mapping
         public ServiceOrderDetailMap()
         {
             Id(x => x.Id);
-            References<DZService>(x => x.OriginalService);
+            Map(x => x.OriginalServiceId);
             //screenshot of the service
             Component<ServiceSnapShotForOrder>(x => x.ServieSnapShot,m=> {
                m. Map(x => x.ChargeUnit);

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Ydb.Common.Domain;
 using Ydb.BusinessResource.DomainModel;
-namespace Ydb.BusinessResource.DomainModel.Staff
+namespace Ydb.BusinessResource.DomainModel
 {
     /// <summary>
     /// 商家职员信息

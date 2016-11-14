@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Linq;
 using System.Text;
-using Dianzhu.DAL;
-using Dianzhu.IDAL;
+using Ydb.BusinessResource.DomainModel;
 namespace Ydb.BusinessResource.Application
 {
-    public class AreaService
+    public class BLLArea
     {
 
 
         //暴露 数据库实现,用于单元测试mock
-        public IDALArea  repoArea;
+        public IRepositoryArea  repoArea;
         
       
-        public BLLArea(IDALArea repoArea )  {
+        public BLLArea(IRepositoryArea repoArea )  {
             this.repoArea = repoArea;
            
         }
@@ -26,11 +25,11 @@ namespace Ydb.BusinessResource.Application
         /// <param name="areaid">6位数中的前两位,如浙江的33</param>
         /// <returns>330000,330100,330200------331100</returns>
        
-        public IList<Model.Area> GetArea(int areaid) 
+        public IList< Area> GetArea(int areaid) 
         {
             
          // iuw.BeginTransaction();
-            Expression<Func<Model.Area, bool>> where = i => i.Id == areaid;
+            Expression<Func<Area, bool>> where = i => i.Id == areaid;
         //    iuw.Commit();
             return repoArea.Find(where).ToList();
         }
@@ -40,7 +39,7 @@ namespace Ydb.BusinessResource.Application
         /// </summary>
         /// <param name="areacode"></param>
         /// <returns></returns>
-        public IList<Model.Area> GetSubArea(string areacode)
+        public IList<Area> GetSubArea(string areacode)
         {
             string sql = "";
             //开始2位编号
@@ -51,7 +50,7 @@ namespace Ydb.BusinessResource.Application
             string lCode = areacode.Substring(4, 2);
  
             //城市
-            Expression<Func<Model.Area, bool>> where = i=>true ;
+            Expression<Func<Area, bool>> where = i=>true ;
             if (mCode == "00")
             {
                 //查找市级区域单位
@@ -67,7 +66,7 @@ namespace Ydb.BusinessResource.Application
             }
             else
             {
-                Func<Model.Area, bool> where2 = i => i.Code == "" && i.Code == "dd";
+                Func<Area, bool> where2 = i => i.Code == "" && i.Code == "dd";
             }
          //  iuw.BeginTransaction();
             var result= repoArea.Find(where).ToList();
@@ -81,7 +80,7 @@ namespace Ydb.BusinessResource.Application
         /// </summary>
         /// <param name="areaname">area名称</param>
         /// <returns>area实体</returns>
-        public Model.Area GetAreaByAreaname(string areaname)
+        public Area GetAreaByAreaname(string areaname)
         {
             if (string.IsNullOrEmpty(areaname))
             {
@@ -90,7 +89,7 @@ namespace Ydb.BusinessResource.Application
             //byte[] srcarr = Encoding.Default.GetBytes(areaname);
             //byte[] desarr = Encoding.Convert(Encoding.Default, Encoding.UTF8, srcarr);
             //string s = Encoding.UTF8.GetString(desarr, 0, desarr.Length);
-            Expression<Func<Model.Area, bool>> where = i => i.Name == areaname;
+            Expression<Func<Area, bool>> where = i => i.Name == areaname;
          //   iuw.BeginTransaction();
            
             var list= repoArea.FindOne(where);
@@ -105,13 +104,13 @@ namespace Ydb.BusinessResource.Application
         /// </summary>
         /// <param name="areacode">code代码</param>
         /// <returns>area实体</returns>
-        public Model.Area GetCityByAreaCode(string areacode)
+        public Area GetCityByAreaCode(string areacode)
         {
             if (string.IsNullOrEmpty(areacode))
             {
                 return null;
             }
-            Expression<Func<Model.Area, bool>> where = i => i.Code == areacode && !i.Code.EndsWith("0000") && i.Code.EndsWith("00");
+            Expression<Func<Area, bool>> where = i => i.Code == areacode && !i.Code.EndsWith("0000") && i.Code.EndsWith("00");
             var list = repoArea.FindOne(where);
             return list;
 
@@ -122,11 +121,11 @@ namespace Ydb.BusinessResource.Application
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public IList<Model.Area> GetAllCity(Model.Trait_Filtering filter)
+        public IList<Area> GetAllCity(Ydb.Common.Specification.TraitFilter filter)
         {
-            Expression<Func<Model.Area, bool>> where = i =>  !i.Code.EndsWith("0000") && i.Code.EndsWith("00");
+            Expression<Func<Area, bool>> where = i =>  !i.Code.EndsWith("0000") && i.Code.EndsWith("00");
 
-            Model.Area baseone = null;
+            Area baseone = null;
             if (!string.IsNullOrEmpty(filter.baseID))
             {
                 try
@@ -148,16 +147,16 @@ namespace Ydb.BusinessResource.Application
         /// 获取所有的省份
         /// </summary>
         /// <returns></returns>
-        public IList<Model.Area> GetAreaProvince()
+        public IList<Area> GetAreaProvince()
         {
          //  iuw.BeginTransaction();
-            Expression<Func<Model.Area, bool>> where = i => i.Code.EndsWith("0000");
+            Expression<Func<Area, bool>> where = i => i.Code.EndsWith("0000");
             var result= repoArea.Find(where).ToList();
          //   iuw.Commit();
             return result;
         }
 
-        public Model.Area GetOne(int areaId)
+        public Area GetOne(int areaId)
         {
            //  iuw.BeginTransaction();
             var area = repoArea.FindById(areaId);

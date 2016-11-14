@@ -111,7 +111,7 @@ namespace Dianzhu.DAL
            
         }
 
-        public IList<ServiceOrder> GetOrderListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount)
+        public IList<ServiceOrder> GetOrderListForBusiness(string businessId, int pageNum, int pageSize, out int totalAmount)
         {
             //var iquery = Session.QueryOver<ServiceOrder>()
             // //   .Where(a => a.Details.Select(x => x.OriginalService).Select(y => y.Business).Contains(business));
@@ -122,7 +122,7 @@ namespace Dianzhu.DAL
             
                 totalAmount = (int)GetRowCount(x => true);
 
-                IList<ServiceOrder> list = GetAllOrdersForBusiness(business.Id).OrderByDescending(x => x.LatestOrderUpdated).Skip((pageNum - 1) * pageSize).Take(pageSize).ToList();
+                IList<ServiceOrder> list = GetAllOrdersForBusiness(new Guid( businessId)).OrderByDescending(x => x.LatestOrderUpdated).Skip((pageNum - 1) * pageSize).Take(pageSize).ToList();
 
              
                 return list;
@@ -154,9 +154,9 @@ namespace Dianzhu.DAL
             return FindOne(x => x.CustomerId == cId && x.CustomerServiceId == csId && x.OrderStatus == enum_OrderStatus.Draft);
         }
 
-        public IList<ServiceOrder> GetOrderListByDate(DZService service, DateTime dateTime)
+        public IList<ServiceOrder> GetOrderListByDate(string serviceId, DateTime dateTime)
         {
-            return Find(x => x.Service.Id == service.Id && x.OrderCreated.Date == dateTime.Date);
+            return Find(x => x.ServiceId == serviceId && x.OrderCreated.Date == dateTime.Date);
         }
 
         public ServiceOrder GetOrderByIdAndCustomer(Guid Id, string customerId)

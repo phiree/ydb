@@ -271,24 +271,7 @@ namespace Ydb.BusinessResource.DomainModel
             newService.CancelCompensation = CancelCompensation;
         }
 
-        public virtual ServiceSnapShotForOrder GetServiceSnapShot()
-        {
-            ServiceSnapShotForOrder snap = new ServiceSnapShotForOrder
-            {
-                UnitPrice = this.UnitPrice,
-                CancelCompensation = this.CancelCompensation,
-                ChargeUnit = this.ChargeUnit,
-                DepositAmount = this.DepositAmount,
-                Description = this.Description,
-                IsCompensationAdvance = this.IsCompensationAdvance,
-                MinPrice = this.MinPrice,
-                OverTimeForCancel = this.OverTimeForCancel,
-                ServiceMode = this.ServiceMode,
-                ServiceName = this.Name
-            };
-            return snap;
-        }
-        string errMsg;
+         string errMsg;
         /// <summary>
         /// 获取给定时间(预约时间)的时间项快照
         /// </summary>

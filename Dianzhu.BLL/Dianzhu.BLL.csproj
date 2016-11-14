@@ -79,11 +79,8 @@
     <Compile Include="BLLClaims.cs" />
     <Compile Include="BLLClaimsDetails.cs" />
     <Compile Include="BLLComplaint.cs" />
-    <Compile Include="BLLArea.cs" />
-    <Compile Include="BLLBusiness.cs" />
     <Compile Include="BLLAdvertisement.cs" />
     <Compile Include="BLLDeviceBind.cs" />
-    <Compile Include="BLLDZServiceStock.cs" />
     <Compile Include="BLLPaymentLog.cs" />
     <Compile Include="BLLMembershipLoginLog.cs" />
     <Compile Include="Push\BLLPush.cs" />
@@ -94,7 +91,6 @@
     <Compile Include="BLLIMUserStatusArchieve.cs" />
     <Compile Include="BLLIMUserStatus.cs" />
     <Compile Include="BLLPay.cs" />
-    <Compile Include="BLLBusinessImage.cs" />
     <Compile Include="Client\BLLClient.cs" />
     <Compile Include="Client\BLLRefreshToken.cs" />
     <Compile Include="Client\BLLUserToken.cs" />
@@ -115,12 +111,9 @@
     <Compile Include="ServiceBase.cs" />
     <Compile Include="ServiceOrder\IBLLServiceOrder.cs" />
     <Compile Include="ServiceOrder\BLLServiceOrder.cs" />
-    <Compile Include="BLLServiceType.cs" />
     <Compile Include="DZRoleProvidercs.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BLLDZService.cs" />
-    <Compile Include="BLLStaff.cs" />
     <Compile Include="ServiceOrder\BLLServiceOrderAppraise.cs" />
     <Compile Include="ServiceOrder\BLLServiceOrderStateChangeHis.cs" />
     <Compile Include="ServiceOrder\BLLServiceOrderRemind.cs" />
@@ -128,12 +121,7 @@
     <Compile Include="ServiceOrder\PushService.cs" />
     <Compile Include="SiteConfig.cs" />
     <Compile Include="StorageManager\BLLStorageFileInfo.cs" />
-    <Compile Include="Validator\ValidatorServiceOpenTimeForDay.cs" />
-    <Compile Include="Validator\ValidatorBusiness.cs" />
-    <Compile Include="Validator\ValidatorStaff.cs" />
-    <Compile Include="Validator\ValidatorDZService.cs" />
     <Compile Include="BLLOrderAssignment.cs" />
-    <Compile Include="BLLDZTag.cs" />
     <Compile Include="Validator\ValidatorDZMemership.cs" />
     <Compile Include="ReceptionAssigner.cs" />
   </ItemGroup>
@@ -173,6 +161,10 @@
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
       <Name>PHSuit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.BusinessResource\Ydb.BusinessResource.csproj">
+      <Project>{0c2206a1-308f-4090-a4a9-4e7cefd2fd9f}</Project>
+      <Name>Ydb.BusinessResource</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
       <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>

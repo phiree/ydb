@@ -12,9 +12,9 @@ namespace Dianzhu.DAL
     public class DALOrderAssignment : NHRepositoryBase<OrderAssignment,Guid>,IDAL.IDALOrderAssignment
     {
  
-        public OrderAssignment FindByOrderAndStaff(ServiceOrder order, Staff staff)
+        public OrderAssignment FindByOrderAndStaff(ServiceOrder order, string staffId)
         {
-            return FindOne(x => x.Order.Id == order.Id && x.AssignedStaff == staff && x.Enabled == true);
+            return FindOne(x => x.Order.Id == order.Id && x.AssignedStaffId == staffId && x.Enabled == true);
         }
 
         public IList<OrderAssignment> GetOAListByOrder(ServiceOrder order)
@@ -22,14 +22,16 @@ namespace Dianzhu.DAL
             return Find(x => x.Order.Id == order.Id && x.Enabled == true);
         }
 
-        public IList<OrderAssignment> GetOAListByStaff(Staff staff)
+        public IList<OrderAssignment> GetOAListByStaff(string staffId)
         {
-            return Find(x => x.AssignedStaff.Id == staff.Id && x.Enabled == true);
+            return Find(x => x.AssignedStaffId == staffId && x.Enabled == true);
         }
 
         public IList<OrderAssignment> GetAllListForAssign(Guid businessId)
         {
-            return Find(x => x.AssignedStaff.Belongto.Id == businessId && x.Enabled == true);
+            return Find(x => x.Order.BusinessId == businessId.ToString() && x.Enabled == true);
+
+         //   return Find(x => x.AssignedStaff.Belongto.Id == businessId && x.Enabled == true);
 
             //string sql = "select oa from OrderAssignment oa " +
             //    " inner join oa.AssignedStaff s " +

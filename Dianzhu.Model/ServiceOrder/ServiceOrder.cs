@@ -11,19 +11,19 @@ namespace Dianzhu.Model
     /// 订单
     /// </summary>
 
-    public class ServiceOrder:DDDCommon.Domain.Entity<Guid>
+    public class ServiceOrder : DDDCommon.Domain.Entity<Guid>
     {
 
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model");
 
-        
-       public ServiceOrder()
+
+        public ServiceOrder()
         {
             OrderStatus = enum_OrderStatus.Draft;
             OrderCreated = DateTime.Now;
             LatestOrderUpdated = DateTime.Now;
             IsShared = false;
-            
+
             Details = new List<ServiceOrderDetail>();
 
         }
@@ -41,15 +41,18 @@ namespace Dianzhu.Model
         /// <param name="targetAddress"></param>
         /// <param name="targetTime"></param>
         /// <param name="memo"></param>
-        public virtual void AddDetailFromIntelService(DZService service,int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress,DateTime targetTime,string memo)
+        public virtual void AddDetailFromIntelService(string serviceId, ServiceSnapShotForOrder serviceSnapShot, ServiceOpenTimeSnapshot OpenTimeSnapShot,
+            ServiceOpenTimeForDaySnapShotForOrder OpenTimeForDaySnapShot,
+            int unitAmount, string targetCustomerName, string targetCustomerPhone, string targetAddress, DateTime targetTime, string memo)
         {
-            
-            var existedService = Details.Where(x => x.OriginalService == service);
+
+            var existedService = Details.Where(x => x.OriginalServiceId == serviceId);
             if (existedService.Count() == 0)
             {
-                ServiceOrderDetail detail = new ServiceOrderDetail(service, unitAmount, targetCustomerName, targetCustomerPhone, targetAddress, targetTime,memo);
+
+                ServiceOrderDetail detail = new ServiceOrderDetail(serviceId, serviceSnapShot, OpenTimeSnapShot, OpenTimeForDaySnapShot, unitAmount, targetCustomerName, targetCustomerPhone, targetAddress, targetTime, memo);
                 Details.Add(detail);
-                Business = service.Business;
+                BusinessId = serviceSnapShot.ServiceBusinessId;
             }
             else if (existedService.Count() == 1)
             {
@@ -60,7 +63,7 @@ namespace Dianzhu.Model
                 detail.TargetAddress = targetAddress;
                 detail.TargetTime = targetTime;
                 detail.Memo = memo;
-                Business = service.Business;
+                BusinessId = serviceSnapShot.ServiceBusinessId;
 
             }
             else if (existedService.Count() > 1)
@@ -68,12 +71,9 @@ namespace Dianzhu.Model
 
             }
 
-           
-        }
-        public virtual void RemoveDetail(DZService service)
-        {
 
         }
+
 
         /// <summary>
         /// 订单状态的标题
@@ -187,7 +187,7 @@ namespace Dianzhu.Model
             }
             return str;
         }
-        
+
         #endregion
 
 
@@ -199,13 +199,15 @@ namespace Dianzhu.Model
         {
             get; protected set;
         }
-        private Business business;
+        private string businessId;
         /// <summary>
         /// 店铺
         /// </summary>
-        public virtual Business Business {
-            get {
-                return business;
+        public virtual string BusinessId
+        {
+            get
+            {
+                return businessId;
                 //if (Details.Count == 0)
                 //{ return null; }
                 // ;
@@ -229,30 +231,38 @@ namespace Dianzhu.Model
                 //        throw new Exception(errMsg);
                 //    }
                 //}
-                 
+
             }
-           protected set { business = value; }
+            protected set { businessId = value; }
         }
         /// <summary>
         /// 订单的标题
         /// </summary>
-        public virtual string Title { get {
+        public virtual string Title
+        {
+            get
+            {
                 string name = string.Empty;
                 foreach (ServiceOrderDetail detail in Details)
                 {
-                    name += detail.ServieSnapShot. ServiceName + ";";
+                    name += detail.ServieSnapShot.ServiceName + ";";
                 }
                 return name.TrimEnd(';');
-            } }
+            }
+        }
+
+
         /// <summary>
         /// 服务店铺名称
         /// </summary>
-        public virtual string ServiceBusinessName {
-            get {
+        public virtual string ServiceBusinessName
+        {
+            get
+            {
                 string name = string.Empty;
                 foreach (ServiceOrderDetail detail in Details)
                 {
-                    name += detail.OriginalService.Business.Name + ";";
+                    name += detail.ServieSnapShot.ServiceBusinessName + ";";
                 }
                 return name.TrimEnd(';');
             }
@@ -267,7 +277,7 @@ namespace Dianzhu.Model
                 string name = string.Empty;
                 foreach (ServiceOrderDetail detail in Details)
                 {
-                    name += detail.OriginalService.Business.Phone + ";";
+                    name += detail.ServieSnapShot.ServiceBusinessPhone + ";";
                 }
                 return name.TrimEnd(';');
             }
@@ -275,12 +285,14 @@ namespace Dianzhu.Model
         /// <summary>
         /// 服务描述
         /// </summary>
-        public virtual string Description {
-            get {
+        public virtual string Description
+        {
+            get
+            {
                 string description = string.Empty;
                 foreach (ServiceOrderDetail detain in Details)
                 {
-                    description += detain.ServieSnapShot. Description + ";";
+                    description += detain.ServieSnapShot.Description + ";";
                 }
                 return description.TrimEnd(';');
             }
@@ -288,22 +300,27 @@ namespace Dianzhu.Model
         /// <summary>
         /// 订单关联的服务,可以为空.
         /// </summary>
-        public virtual DZService Service { get {
+        public virtual string ServiceId
+        {
+            get
+            {
                 int i = Details.Count;
                 if (i == 1)
                 {
-                    return Details[0].OriginalService;
+                    return Details[0].OriginalServiceId;
                 }
                 else if (i > 1)
                 {
                     log.Warn("该订单包含多个服务.返回第一个");
-                    return Details[0].OriginalService;
+                    return Details[0].OriginalServiceId;
                 }
-                else {
+                else
+                {
                     return null;
                     throw new Exception("该订单内没有服务项");
                 }
-            } }
+            }
+        }
 
         /// <summary>
         /// 客户 
@@ -400,7 +417,8 @@ namespace Dianzhu.Model
         /// <summary>
         /// 分配的职员
         /// </summary>
-        public virtual Staff Staff {
+        public virtual string StaffId
+        {
             //get {
 
             //    //var l = from detail in Details
@@ -418,38 +436,49 @@ namespace Dianzhu.Model
         {
             get
             {
-                return Staff==null?business.OwnerId.ToString():Staff.UserID;
+                ///todo: refactor
+                throw new NotImplementedException();
+                //   return StaffId==null?businessId.OwnerId.ToString():Staff.UserID;
             }
         }
         /// <summary>
         /// 服务总数, 用来计算总价 service.unitprice*unitamount
         /// </summary>
-        public virtual int UnitAmount { get {
+        public virtual int UnitAmount
+        {
+            get
+            {
                 int unitAmount = 0;
                 foreach (ServiceOrderDetail detail in Details)
                 {
                     unitAmount += detail.UnitAmount;
                 }
                 return unitAmount;
-            } }
+            }
+        }
         /// <summary>
         ///根据订单价格和订购数量计算的预期总价. 可能会被修改
         /// </summary>
-        public virtual decimal OrderAmount { get {
+        public virtual decimal OrderAmount
+        {
+            get
+            {
                 decimal amount = 0;
                 foreach (ServiceOrderDetail detail in Details)
                 {
                     amount += detail.ServiceAmount;
                 }
                 return amount;
-            } }
+            }
+        }
 
         /// <summary>
         /// 订金
         /// </summary>
-        public virtual decimal DepositAmount {
+        public virtual decimal DepositAmount
+        {
             get;
-             
+
             set;
         }
         /// <summary>
@@ -479,14 +508,14 @@ namespace Dianzhu.Model
                 return Details.Min(x => x.ServieSnapShot.OverTimeForCancel);
             }
         }
-        
+
         /// <summary>
         /// 订单是否分账,true表示已分账，false表示未分账
         /// </summary>
         public virtual bool IsShared { get; set; }
 
         #endregion
-        
+
         /// <summary>
         /// 订单转为正式.
         /// </summary>
@@ -495,7 +524,7 @@ namespace Dianzhu.Model
 
             //判断信息完整性,确定订单的Scope类型.
             //没有任何服务项.
-             
+
             Debug.Assert(Details.Count > 0, "错误:订单明细为空");
             if (Details.Count == 0)
             {
@@ -517,11 +546,23 @@ namespace Dianzhu.Model
         /// <summary>
         /// 订单状态中文名
         /// </summary>
-        public virtual string OrderStatusStr{ get; set; }
+        public virtual string OrderStatusStr { get; set; }
         #endregion
 
+        public virtual string ServiceTypeName
+        {
+
+            get
+            {
+                string name = string.Empty;
+                foreach (ServiceOrderDetail detail in Details)
+                {
+                    name += detail.ServieSnapShot.ServiceTypeName + ";";
+                }
+                return name.TrimEnd(';');
+            }
+        }
+
+
     }
-
-
-
 }

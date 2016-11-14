@@ -39,7 +39,7 @@ namespace Dianzhu.BLL
 
         //20160616_longphui_add
         BLLOrderAssignment bllOrderAssignment = null;
-
+        
 
         public BLLServiceOrder(IDAL.IDALServiceOrder repoServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis,
 
@@ -217,20 +217,20 @@ namespace Dianzhu.BLL
             {
                 if (strAssign == "false")
                 {
-                    where = where.And(x => x.Staff == null);
+                    where = where.And(x => string.IsNullOrEmpty( x.StaffId ));
                 }
                 else
                 {
-                    where = where.And(x => x.Staff != null);
+                    where = where.And(x => !string.IsNullOrEmpty(x.StaffId));
                 }
             }
             if (storeID != Guid.Empty)
             {
-                where = where.And(x => x.Business.Id == storeID);
+                where = where.And(x => x.BusinessId == storeID.ToString());
             }
             if (formanID != null)
             {
-                where = where.And(x => x.Staff.Id == new Guid(formanID));
+                where = where.And(x => x.StaffId == formanID);
             }
             if (afterThisTime != DateTime.MinValue)
             {
@@ -289,7 +289,8 @@ namespace Dianzhu.BLL
                 }
                 else
                 {
-                    where = where.And(x => x.Business.OwnerId == UserID);
+                    //todo:refactpr
+                  //  where = where.And(x => x.Business.OwnerId == UserID);
                 }
             }
             if (!string.IsNullOrEmpty(status))
@@ -336,20 +337,20 @@ namespace Dianzhu.BLL
             {
                 if (strAssign == "false")
                 {
-                    where = where.And(x => x.Staff == null);
+                    where = where.And(x =>string.IsNullOrEmpty(x.StaffId));
                 }
                 else
                 {
-                    where = where.And(x => x.Staff != null);
+                    where = where.And(x =>! string.IsNullOrEmpty(x.StaffId));
                 }
             }
             if (storeID != Guid.Empty)
             {
-                where = where.And(x => x.Business.Id == storeID);
+                where = where.And(x => x.BusinessId == storeID.ToString());
             }
             if (formanID != null)
             {
-                where = where.And(x => x.Staff.Id == new Guid(formanID));
+                where = where.And(x => x.StaffId ==  formanID);
             }
             if (afterThisTime != DateTime.MinValue)
             {
@@ -374,7 +375,8 @@ namespace Dianzhu.BLL
             var where = PredicateBuilder.True<ServiceOrder>();
             if (UserID != Guid.Empty)
             {
-                where = where.And(x => x.Business.OwnerId == UserID);
+                throw new NotImplementedException("为何传入UserId");
+               // where = where.And(x => x.Business.OwnerId == UserID);
             }
             where = where.And(x => x.Id == guid);
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
@@ -432,10 +434,10 @@ namespace Dianzhu.BLL
             //   .ToList();
         }
 
-        public IList<ServiceOrder> GetListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount)
+        public IList<ServiceOrder> GetListForBusiness(string businessId, int pageNum, int pageSize, out int totalAmount)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Business.Id == business.Id);
+            where = where.And(x => x.BusinessId == businessId);
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
 
             long long_totalAmount;
@@ -495,10 +497,10 @@ namespace Dianzhu.BLL
 
             // return DALServiceOrder.GetDraftOrder(c, cs);
         }
-        public IList<ServiceOrder> GetOrderListByDate(DZService service, DateTime date)
+        public IList<ServiceOrder> GetOrderListByDate(string serviceId, DateTime date)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Service == service && x.OrderCreated.Date == date.Date);
+            where = where.And(x => x.ServiceId == serviceId && x.OrderCreated.Date == date.Date);
 
             return repoServiceOrder.Find(where).ToList();
 
@@ -960,7 +962,7 @@ namespace Dianzhu.BLL
             string uriParameter = "&orderid=" + order.Id
                                 + "&ordertitle=" + order.Title
                                 + "&orderstatus=" + order.OrderStatus.ToString()
-                                + "&ordertype=" + order.Service.ServiceType.Name
+                                + "&ordertype=" + order.ServiceTypeName
                                 + "&orderstatusfriendly=" + order.GetStatusTitleFriendly(order.OrderStatus);
             //发送给用户
             string uriParameterByCustomer = uriParameter + "&userid=" + order.CustomerId
@@ -968,7 +970,7 @@ namespace Dianzhu.BLL
             RequestUri(uriParameterByCustomer);
 
             //发送给商户
-            if (order.Business == null)
+            if (order.BusinessId == null)
             {
                 return;
             }
@@ -981,7 +983,7 @@ namespace Dianzhu.BLL
             RequestUri(uriParameterByStore);
 
             //发送给指派的员工
-            if (order.Staff == null)
+            if (string.IsNullOrEmpty( order.StaffId))
             {
                 return;
             }
@@ -1321,18 +1323,18 @@ namespace Dianzhu.BLL
         #endregion
 
         #region 分配工作人员
-        public void AssignStaff(ServiceOrder order, Staff staff)
+        public void AssignStaff(ServiceOrder order, string staffId)
         {
  
             OrderAssignment oa = new OrderAssignment();
             oa.Order = order;
-            oa.AssignedStaff = staff;
+            oa.AssignedStaffId = staffId;
             repoOrderAssignment.Add(oa);
         }
-        public void DeassignStaff(ServiceOrder order, Staff staff)
+        public void DeassignStaff(ServiceOrder order, string staffId)
         {
  
-            OrderAssignment oa = repoOrderAssignment.FindByOrderAndStaff(order, staff);
+            OrderAssignment oa = repoOrderAssignment.FindByOrderAndStaff(order, staffId);
  
             oa.DeAssignedTime = DateTime.Now;
             oa.Enabled = false;
@@ -1394,7 +1396,7 @@ namespace Dianzhu.BLL
         {
 
             var where = PredicateBuilder.True<ServiceOrder>()
-                .And(x => x.Business.Id == businessId);
+                .And(x => x.BusinessId == businessId.ToString());
             // .And(x=>x.Details.);
             return repoServiceOrder.Find(where).ToList();
             //   return DALServiceOrder.GetAllOrdersForBusiness(businessId);
@@ -1403,7 +1405,7 @@ namespace Dianzhu.BLL
         public IList<ServiceOrder> GetAllCompleteOrdersForBusiness(Guid businessId)
         {
             var where = PredicateBuilder.True<ServiceOrder>()
-                .And(x => x.Business.Id == businessId)
+                .And(x => x.BusinessId == businessId.ToString())
                 .And(x => x.OrderStatus == enum_OrderStatus.Finished || x.OrderStatus == enum_OrderStatus.Appraised)
                 ;
 

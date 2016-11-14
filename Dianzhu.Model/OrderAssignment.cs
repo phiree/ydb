@@ -30,7 +30,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 该订单分配的员工. 如果是多个员工,则创建多个对象.
         /// </summary>
-        public virtual Staff AssignedStaff { get; set; }
+        public virtual string AssignedStaffId { get; set; }
 
         /// <summary>
         /// 分配的时间

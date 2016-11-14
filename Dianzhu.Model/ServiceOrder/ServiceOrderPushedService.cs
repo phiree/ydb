@@ -19,20 +19,26 @@ namespace Dianzhu.Model
         {
 
         }
-        public ServiceOrderPushedService(ServiceOrder order, DZService service, int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress, DateTime targetTime,string memo)
+        public ServiceOrderPushedService(ServiceOrder order,
+            //todo: 应该去除不需要的属性.  
+            string serviceId,string serviceName,string serviceDescription,bool serviceIsCompensationAdvance,decimal serviceMinPrice,decimal serviceUnitPrice,
+            string serviceChargeUnitType,decimal serviceDepositAmount,decimal serviceCancelCompensation,int serviceOverTimeForCancel,string serviceModeType,
+
+
+            int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress, DateTime targetTime,string memo)
         {
             ServiceOrder = order;
-            OriginalService = service;
-            ServiceName = service.Name;
-            Description = service.Description;
-            IsCompensationAdvance = service.IsCompensationAdvance;
-            MinPrice = service.MinPrice;
-            UnitPrice = service.UnitPrice;
-            ChargeUnit = service.ChargeUnit;
-            DepositAmount = service.DepositAmount;
-            CancelCompensation = service.CancelCompensation;
-            OverTimeForCancel = service.OverTimeForCancel;
-            ServiceMode = service.ServiceMode;
+            OriginalServiceId = serviceId;
+            ServiceName = serviceName;
+            Description = serviceDescription;
+            IsCompensationAdvance = serviceIsCompensationAdvance;
+            MinPrice = serviceMinPrice;
+            UnitPrice = serviceUnitPrice;
+            ChargeUnit =(enum_ChargeUnit)Enum.Parse(typeof(enum_ChargeUnit),serviceChargeUnitType);
+            DepositAmount = serviceDepositAmount;
+            CancelCompensation = serviceCancelCompensation;
+            OverTimeForCancel = serviceOverTimeForCancel;
+            ServiceMode = (enum_ServiceMode)Enum.Parse(typeof(enum_ServiceMode), serviceModeType);
 
             this.UnitAmount = unitAmount;
             this.TargetCustomerName = targetCustomerName;
@@ -53,7 +59,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 服务项
         /// </summary>
-        public virtual DZService OriginalService { get; set; }
+        public virtual string OriginalServiceId { get; set; }
         //screenshot of the service
         public virtual string ServiceName { get; set; }
         public virtual string Description { get; set; }

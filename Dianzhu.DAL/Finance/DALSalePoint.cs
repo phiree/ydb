@@ -10,9 +10,9 @@ namespace Dianzhu.DAL.Finance
 {
     public class DALServiceTypePoint : NHRepositoryBase<ServiceTypePoint, Guid>, IDALServiceTypePoint// DALBase<Model.Finance.ServiceTypePoint>
     {
-        public ServiceTypePoint GetOneByServiceType(ServiceType serviceType)
+        public ServiceTypePoint GetOneByServiceType(string serviceTypeId)
         {
-            var result = FindOne(x => x.ServiceType.Id == serviceType.Id);
+            var result = FindOne(x => x.ServiceTypeId == serviceTypeId);
             return result;
         }
 

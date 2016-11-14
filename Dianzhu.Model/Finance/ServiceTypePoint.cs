@@ -11,7 +11,7 @@ namespace Dianzhu.Model.Finance
     public class ServiceTypePoint:DDDCommon.Domain.Entity<Guid>
     {
         public virtual Guid Id { get; set; }
-        public virtual ServiceType ServiceType { get; set; }
+        public virtual string ServiceTypeId { get; set; }
         public virtual decimal Point { get; set; }
         
     }

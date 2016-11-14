@@ -23,13 +23,13 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.OrderStatus).CustomType<Model.Enums.enum_OrderStatus>();
             Map (x => x.CustomerServiceId);
             HasMany<ServiceOrderDetail>(x => x.Details).Cascade.All();
-            References<Business>(x => x.Business);
+            Map(x => x.BusinessId);
             Map(x => x.NegotiateAmount);
             Map(x => x.NegotiateAmount_Modified);
             Map(x => x.DepositAmount);
 
             //指派的负责人
-            References<Staff>(x => x.Staff);
+            Map(x => x.StaffId);
             Map(x => x.IsShared);
         }
     }

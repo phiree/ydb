@@ -11,11 +11,11 @@ namespace Dianzhu.IDAL
     {
 
 
-          OrderAssignment FindByOrderAndStaff(ServiceOrder order, Staff staff);
+          OrderAssignment FindByOrderAndStaff(ServiceOrder order, string staffId);
 
           IList<OrderAssignment> GetOAListByOrder(ServiceOrder order);
 
-          IList<OrderAssignment> GetOAListByStaff(Staff staff);
+          IList<OrderAssignment> GetOAListByStaff(string staffId);
 
           IList<OrderAssignment> GetAllListForAssign(Guid businessId);
     }

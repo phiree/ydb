@@ -19,13 +19,15 @@ namespace Dianzhu.Model
         {
             
         }
-        public ServiceOrderDetail(DZService service,int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress,DateTime targetTime,string memo)
+        public ServiceOrderDetail(string serviceId,ServiceSnapShotForOrder serviceSnapShot, ServiceOpenTimeSnapshot OpenTimeSnapShot,
+            ServiceOpenTimeForDaySnapShotForOrder OpenTimeForDaySnapShot,
+            int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress,DateTime targetTime,string memo)
         {
-            OriginalService = service;
-            this.ServieSnapShot = service.GetServiceSnapShot();
+            OriginalServiceId= serviceId;
+            this.ServieSnapShot = serviceSnapShot;// service.GetServiceSnapShot();
 
-            this.OpenTimeSnapShot = service.GetOpenTimeSnapShot(targetTime);
-            this.ServiceOpentimeSnapshot = service.GetServiceOpenTimeSnapshot(targetTime);
+            this.OpenTimeSnapShot = OpenTimeForDaySnapShot ;//service.GetOpenTimeSnapShot(targetTime);
+            this.ServiceOpentimeSnapshot = OpenTimeSnapShot;// service.GetServiceOpenTimeSnapshot(targetTime);
 
             this.UnitAmount = unitAmount ;
             this.TargetCustomerName = targetCustomerName;
@@ -42,7 +44,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 服务项
         /// </summary>
-        public virtual DZService OriginalService { get; set; }
+        public virtual string OriginalServiceId { get; set; }
         //screenshot of the service
         public virtual ServiceSnapShotForOrder ServieSnapShot { get; protected set; }
 
@@ -84,7 +86,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 该服务分配的员工.
         /// </summary>
-        public virtual IList<Staff> Staff { get; set; }
+        public virtual IList<string> StaffIds { get; set; }
         /// <summary>
         /// 是否选择
         /// </summary>

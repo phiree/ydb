@@ -80,13 +80,13 @@ namespace Dianzhu.BLL
 
 
 
-        IList<ServiceOrder> GetListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount);
+        IList<ServiceOrder> GetListForBusiness(string businessId, int pageNum, int pageSize, out int totalAmount);
 
         IList<ServiceOrder> GetListForCustomer(Guid customerId, int pageNum, int pageSize, out int totalAmount);
 
         void Delete(ServiceOrder order);
         ServiceOrder GetDraftOrder(string cId, string  csId);
-        IList<ServiceOrder> GetOrderListByDate(DZService service, DateTime date);
+        IList<ServiceOrder> GetOrderListByDate(string serviceId, DateTime date);
         ServiceOrder GetOrderByIdAndCustomer(Guid Id, string customerId);
         #endregion
 
@@ -262,8 +262,8 @@ namespace Dianzhu.BLL
         #endregion
 
         #region 分配工作人员
-        void AssignStaff(ServiceOrder order, Staff staff);
-        void DeassignStaff(ServiceOrder order, Staff staff);
+        void AssignStaff(ServiceOrder order, string staffId);
+        void DeassignStaff(ServiceOrder order, string staffId);
         #endregion
 
         #region 申请退款

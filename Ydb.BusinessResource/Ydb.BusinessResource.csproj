@@ -46,6 +46,9 @@
       <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\AdminWeb\Bin\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="HibernatingRhinos.Profiler.Appender, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernateProfiler.Appender.3.0.3103.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
       <Private>True</Private>
@@ -73,6 +76,8 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Device" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -81,24 +86,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\AreaService.cs" />
+    <Compile Include="Application\IServiceTypeService.cs" />
+    <Compile Include="Application\ServiceTypeService.cs" />
+    <Compile Include="Application\IStaffService.cs" />
+    <Compile Include="Application\StaffService.cs" />
+    <Compile Include="Application\DZTagService.cs" />
+    <Compile Include="Application\BusinessImageService.cs" />
+    <Compile Include="Application\DZServiceService.cs" />
     <Compile Include="Application\BusinessService.cs" />
+    <Compile Include="Application\Dto\AutoMapperConfiguration.cs" />
+    <Compile Include="Application\Dto\ModelToDtoMappingProfile.cs" />
+    <Compile Include="Application\Dto\ServiceDto.cs" />
+    <Compile Include="Application\IBusinessImageService.cs" />
     <Compile Include="Application\IBusinessService.cs" />
+    <Compile Include="Application\IDZServiceService.cs" />
+    <Compile Include="Application\IDZTagService.cs" />
     <Compile Include="DomainModel\Area.cs" />
     <Compile Include="DomainModel\Business\Business.cs" />
     <Compile Include="DomainModel\Business\IRepositoryBusiness.cs" />
+    <Compile Include="DomainModel\Business\IRepositoryBusinessImage.cs" />
+    <Compile Include="DomainModel\DZTag.cs" />
     <Compile Include="DomainModel\Enums.cs" />
+    <Compile Include="DomainModel\IRepositoryArea.cs" />
+    <Compile Include="DomainModel\PhoneValidator.cs" />
     <Compile Include="DomainModel\Service\DZService.cs" />
+    <Compile Include="DomainModel\IRepositoryDZTag.cs" />
+    <Compile Include="DomainModel\Service\IRepositoryDZService.cs" />
     <Compile Include="DomainModel\Service\ServiceOpenTime.cs" />
     <Compile Include="DomainModel\Service\ServiceOpenTimeForDay.cs" />
     <Compile Include="DomainModel\Service\ServiceOpenTimeForDaySnapShotForOrder.cs" />
     <Compile Include="DomainModel\Service\ServiceOpenTimeSnapshot.cs" />
-    <Compile Include="DomainModel\Service\ServiceSnapShotForOrder.cs" />
     <Compile Include="DomainModel\Service\ServiceType.cs" />
+    <Compile Include="DomainModel\Service\StaffServiceType.cs" />
+    <Compile Include="DomainModel\Service\ValidatorBusiness.cs" />
+    <Compile Include="DomainModel\Service\ValidatorDZService.cs" />
+    <Compile Include="DomainModel\Service\ValidatorServiceOpenTimeForDay.cs" />
+    <Compile Include="DomainModel\Staff\ValidatorStaff.cs" />
     <Compile Include="DomainModel\Staff\Staff.cs" />
-    <Compile Include="Infrastructure\Repository\BusinessRepository.cs" />
+    <Compile Include="DomainModel\Staff\IRepositoryStaff.cs" />
+    <Compile Include="DomainModel\Service\IRepositoryServiceType.cs" />
+    <Compile Include="Infrastructure\Repository\RepositoryServiceType.cs" />
+    <Compile Include="Infrastructure\Repository\RepositoryBusiness.cs" />
+    <Compile Include="Infrastructure\Repository\RepositoryStaff.cs" />
+    <Compile Include="Infrastructure\Repository\RepositoryBusinessImage.cs" />
+    <Compile Include="Infrastructure\Repository\RepositoryDZService.cs" />
+    <Compile Include="Infrastructure\Repository\RepositoryArea.cs" />
+    <Compile Include="Infrastructure\Repository\RepositoryDZTag.cs" />
     <Compile Include="Infrastructure\Repository\Nhibernate\Mapping\AreaMap.cs" />
     <Compile Include="Infrastructure\Repository\Nhibernate\Mapping\BusinessMap.cs" />
     <Compile Include="Infrastructure\Repository\Nhibernate\Mapping\DZServiceMap.cs" />
+    <Compile Include="Infrastructure\Repository\Nhibernate\Mapping\DZTagMap.cs" />
     <Compile Include="Infrastructure\Repository\Nhibernate\Mapping\ServiceOpenTimeMap.cs" />
     <Compile Include="Infrastructure\Repository\Nhibernate\Mapping\ServiceTypeMap.cs" />
     <Compile Include="Infrastructure\UnitOfWork\NHibernateUnitOfWork.cs" />
