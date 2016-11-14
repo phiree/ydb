@@ -30,12 +30,7 @@ namespace Ydb.Membership.Tests
             FluentConfiguration dbConfig = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_membership.db3"));
             container.Install(
                 new Ydb.Infrastructure.Installer(),
-                new Ydb.Membership.Infrastructure.InstallerMembership());
-            container.Install( new Ydb.Membership.Application.InstallerMembershipDB( dbConfig)
-           
-
-
-
+                new Ydb.Membership.Infrastructure.InstallerMembership(dbConfig)
                 );
 
 

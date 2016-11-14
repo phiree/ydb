@@ -30,6 +30,13 @@ namespace Ydb.Finance.Application
         decimal GetPoint(string serviceTypeId);
 
         /// <summary>
+        /// 根据服务类型ID获取扣点比例信息
+        /// </summary>
+        /// <param name="serviceTypeId" type="string">服务类型ID</param>
+        /// <returns type="ServiceTypePointDto">扣点比例信息</returns>
+        ServiceTypePointDto GetPointInfo(string serviceTypeId);
+
+        /// <summary>
         /// 获取所有的服务类型扣点比例
         /// </summary>
         /// <returns type="IList<ServiceTypePointDto>">服务类型扣点比例信息列表</returns>

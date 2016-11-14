@@ -61,7 +61,9 @@ namespace Ydb.Finance.Application
         [Ydb.Finance.Infrastructure.UnitOfWork]
         public IList<BalanceFlowDto> GetBillSatistics(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string dateType)
         {
-            return Mapper.Map<IList<BalanceFlow>, IList<BalanceFlowDto>>(repositoryBalanceFlow.GetBillSatistics(userID, startTime, endTime, serviceTypeLevel, dateType));
+            //由于重构数据库分隔，多表联查需要重新设计
+            //return Mapper.Map<IList<BalanceFlow>, IList<BalanceFlowDto>>(repositoryBalanceFlow.GetBillSatistics(userID, startTime, endTime, serviceTypeLevel, dateType));
+            return new List<BalanceFlowDto>();
         }
 
         /// <summary>
@@ -81,7 +83,9 @@ namespace Ydb.Finance.Application
         public IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, 
             string status, string billType, string orderId, string billServiceType,string filter)
         {
-            return repositoryBalanceFlow.GetBillList(userID, startTime, endTime, serviceTypeLevel, status, billType, orderId, billServiceType, filter);
+            //由于重构数据库分隔，多表联查需要重新设计
+            return new ArrayList(); 
+            //return repositoryBalanceFlow.GetBillList(userID, startTime, endTime, serviceTypeLevel, status, billType, orderId, billServiceType, filter);
         }
 
 

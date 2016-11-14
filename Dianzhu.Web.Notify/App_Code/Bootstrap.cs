@@ -1,10 +1,13 @@
 ﻿using Castle.Windsor;
+using Dianzhu.DependencyInstaller;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using Ydb.Common.Infrastructure;
+using NHibernate.Tool.hbm2ddl;
+using System.Configuration;
 /// <summary>
 /// Summary description for Installer
 /// </summary>
+using Ydb.Common.Infrastructure;
 public class Bootstrap
 {
     static IWindsorContainer container;
@@ -17,15 +20,19 @@ public class Bootstrap
     {
         container = new WindsorContainer();
        
+
         container.Install(
             new Ydb.Infrastructure.Installer()
             );
+
+
         container.Install(
-new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(BuildDBConfig("ydb_instantmessage")),
-new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
+
+ 
+new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb_instantmessage"))
             );
 
-       
+         
     }
 
     private static FluentConfiguration BuildDBConfig(string connectionStringName)

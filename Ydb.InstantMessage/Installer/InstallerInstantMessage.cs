@@ -25,8 +25,14 @@ namespace Ydb.InstantMessage.Infrastructure
 {
     public class InstallerInstantMessage : IWindsorInstaller
     {
+        FluentConfiguration dbConfigInstantMessage;
+        public InstallerInstantMessage(FluentConfiguration dbConfigInstantMessage)
+        {
+            this.dbConfigInstantMessage = dbConfigInstantMessage;
+        }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            InstallDb(container, store);
             //   new Ydb.Common.Depentcy.InstallerCommon().Install(container, store);
             InstallUnifOfWork(container, store);
             InstallInfrastructure(container, store);
@@ -112,6 +118,34 @@ namespace Ydb.InstantMessage.Infrastructure
                     handler.ComponentModel.Interceptors.Add(new InterceptorReference(typeof(NhUnitOfWorkInterceptor)));
                     return;
                 }
+            }
+        }
+        private void InstallDb(IWindsorContainer container, IConfigurationStore store)
+        {
+            var _sessionFactory =
+                //Fluently.Configure()
+                //        .Database(
+                //             MySQLConfiguration
+                //            .Standard
+                //            .ConnectionString(
+                //                 encryptService.Decrypt(
+                //                 System.Configuration.ConfigurationManager
+                //               .ConnectionStrings["ydb_instantmessage"].ConnectionString, false)
+                //                 )
+                //      )
+                dbConfigInstantMessage
+                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping.ReceptionStatusMap>())
+                    .ExposeConfiguration(BuildSchema)
+                    .BuildSessionFactory();
+            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory).Named("InstantMessageSessionFactory"));
+        }
+        private void BuildSchema(Configuration config)
+        {
+            SchemaUpdate update = new SchemaUpdate(config);
+            if (System.Configuration.ConfigurationManager.AppSettings["UpdateSchema"] == "1")
+            {
+                update.Execute(true, true);
             }
         }
 

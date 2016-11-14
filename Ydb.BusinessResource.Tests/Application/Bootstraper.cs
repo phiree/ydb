@@ -31,8 +31,7 @@ namespace Ydb.BusinessResource.Application.Tests
                 .ExposeConfiguration((config)=> { new SchemaExport(config).Create(true, true); });
 
             container.Install(
- new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(),
-new Ydb.BusinessResource.Infrastructure.InstallerBusinessResourceDB(dbConfigInstantMessage)
+ new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(dbConfigInstantMessage)
 
                 );
         }

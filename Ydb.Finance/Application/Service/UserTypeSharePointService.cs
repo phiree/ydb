@@ -60,12 +60,13 @@ namespace Ydb.Finance.Application
             userTypePoint.Point = point;
             repositoryUserTypeSharePoint.Update(userTypePoint);
         }
+        
 
         /// <summary>
-        /// 根据用户类型获取用户类型分配比例信息
+        /// 根据用户类型获取用户类型分配比例
         /// </summary>
         /// <param name="userType" type="string">用户类型</param>
-        /// <returns type="UserTypeSharePoint">用户类型分配比例信息</returns>
+        /// <returns type="decimal">用户类型分配比例</returns>
         [Ydb.Finance.Infrastructure.UnitOfWork]
         public decimal GetSharePoint(string userType,out string errMsg) {
 
@@ -82,22 +83,48 @@ namespace Ydb.Finance.Application
                 if (point == null)
                 {
                     errMsg = "该用户类型尚未设置分成比:" + userType;
-                    throw new ArgumentException(errMsg);
+                    throw new ArgumentNullException(errMsg);
                 }
                 return point.Point;
             }
             catch (ArgumentNullException)
             {
-                errMsg = "该用户类型尚未设置分成比:" + userType;
                 throw;
-
             }
             catch (InvalidOperationException)
             {
-                errMsg = "该用户类型设置了多个分成比:" + userType;
                 throw;
             }
+        }
 
+
+        /// <summary>
+        /// 根据用户类型获取用户类型分配比例信息
+        /// </summary>
+        /// <param name="userType" type="string">用户类型</param>
+        /// <returns type="UserTypeSharePoint">用户类型分配比例信息</returns>
+        [Ydb.Finance.Infrastructure.UnitOfWork]
+        public UserTypeSharePointDto GetSharePointInfo(string userType)
+        {
+            UserType enumUserType;
+            bool isUserType = Enum.TryParse<UserType>(userType, out enumUserType);
+            if (!isUserType)
+            {
+                throw new ArgumentException("传入的UserType不是有效值");
+            }
+            try
+            {
+                UserTypeSharePoint point = repositoryUserTypeSharePoint.GetSharePoint(enumUserType);
+                return Mapper.Map<UserTypeSharePoint, UserTypeSharePointDto>(point);
+            }
+            catch (ArgumentNullException)
+            {
+                throw;
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
         }
 
         /// <summary>

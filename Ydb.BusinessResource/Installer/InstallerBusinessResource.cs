@@ -25,8 +25,14 @@ namespace Ydb.BusinessResource.Infrastructure
 {
     public class InstallerBusinessResource : IWindsorInstaller
     {
+        FluentConfiguration dbConfigBusinessResource;
+        public InstallerBusinessResource(FluentConfiguration dbConfigBusinessResource)
+        {
+            this.dbConfigBusinessResource = dbConfigBusinessResource;
+        }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            InstallDb(container, store);
             InstallUnifOfWork(container, store);
            
             InstallDomainService(container, store);
@@ -90,6 +96,24 @@ namespace Ydb.BusinessResource.Infrastructure
                     handler.ComponentModel.Interceptors.Add(new InterceptorReference(typeof(NhUnitOfWorkInterceptor)));
                     return;
                 }
+            }
+        }
+
+        private void InstallDb(IWindsorContainer container, IConfigurationStore store)
+        {
+            var _sessionFactory = dbConfigBusinessResource
+                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping.AreaMap>())
+                    .ExposeConfiguration(BuildSchema)
+                    .BuildSessionFactory();
+            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory).Named("BusinessResourceSessionFactory"));
+        }
+        private void BuildSchema(NHibernate.Cfg.Configuration config)
+        {
+            SchemaUpdate update = new SchemaUpdate(config);
+            if (System.Configuration.ConfigurationManager.AppSettings["UpdateSchema"] == "1")
+            {
+                update.Execute(true, true);
             }
         }
 

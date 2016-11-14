@@ -36,8 +36,9 @@ namespace Ydb.Finance.Application
         /// <param name="accountType" type="Ydb.Finance.Application.AccountTypeEnums">收款账号类型</param>
         /// <param name="amount" type="decimal">提现金额</param>
         /// <param name="strSerialNo" type="string">提现申请的流水编号</param>
+        /// <returns type="Ydb.Finance.Application.WithdrawApplyDto">提现申请单信息</returns>
         [Ydb.Finance.Infrastructure.UnitOfWork]
-        public void SaveWithdrawApply(string userId, string account, AccountTypeEnums accountType, decimal amount,string strSerialNo)
+        public WithdrawApplyDto SaveWithdrawApply(string userId, string account, AccountTypeEnums accountType, decimal amount,string strSerialNo)
         {
             BalanceAccount balanceAccountNow = repositoryBalanceAccount.GetOneByUserId(userId);
             if (balanceAccountNow == null)
@@ -54,7 +55,7 @@ namespace Ydb.Finance.Application
             }
             repositoryBalanceTotal.FrozenBalance(userId, amount);
             WithdrawApply withdrawApply = new WithdrawApply();
-            withdrawApply.SerialNo = strSerialNo;
+            withdrawApply.ApplySerialNo = strSerialNo;
             withdrawApply.ApplyUserId = userId;
             withdrawApply.ApplyTime = DateTime.Now;
             withdrawApply.ApplyStatus = "ApplyWithdraw";
@@ -64,6 +65,7 @@ namespace Ydb.Finance.Application
             withdrawApply.ServiceFee = countServiceFee.CountServiceFee(amount, "0.5%");
             withdrawApply.TransferAmount = amount - withdrawApply.ServiceFee;
             repositoryWithdrawApply.Add(withdrawApply);
+            return Mapper.Map<WithdrawApply, WithdrawApplyDto>(withdrawApply);
         }
 
         /// <summary>
@@ -71,7 +73,7 @@ namespace Ydb.Finance.Application
         /// </summary>
         /// <param name="applyId" type="System.Guid">提现申请Id</param>
         [Ydb.Finance.Infrastructure.UnitOfWork]
-        public void SaveWithdrawApply(Guid applyId)
+        public void ConcelWithdrawApply(Guid applyId)
         {
             WithdrawApply withdrawApply = repositoryWithdrawApply.FindById(applyId);
             if (withdrawApply == null)
@@ -101,6 +103,10 @@ namespace Ydb.Finance.Application
             if (!string.IsNullOrEmpty(withdrawApplyFilter.ApplyUserId))
             {
                 where = where.And(x => x.ApplyUserId == withdrawApplyFilter.ApplyUserId);
+            }
+            if (!string.IsNullOrEmpty(withdrawApplyFilter.PaySerialNo))
+            {
+                where = where.And(x => x.PaySerialNo == withdrawApplyFilter.PaySerialNo);
             }
             if (withdrawApplyFilter.ApplyStatus!=ApplyStatusEnums.None)
             {
@@ -156,33 +162,45 @@ namespace Ydb.Finance.Application
         /// <param name="errStr" type="string">返回的错误信息</param>
         /// <returns type="IList<Ydb.Finance.Application.WithdrawCashDto>"></returns>
         [Ydb.Finance.Infrastructure.UnitOfWork]
-        public IList<WithdrawCashDto> PayByWithdrawApply(IList<Guid> withdrawApplyIds, string payUserId ,out string errStr)
+        public IList<WithdrawCashDto> PayByWithdrawApply(IList<Guid> withdrawApplyIds, string payUserId,string paySerialNo,out string errStr)
         {
             errStr = "[";
             IList<WithdrawCashDto> withdrawCashDtoList = new List<WithdrawCashDto>();
             for (int i = 0; i < withdrawApplyIds.Count; i++)
             {
+                string strErr = "";
                 WithdrawApply withdrawApply = repositoryWithdrawApply.FindById(withdrawApplyIds[i]);
                 if (withdrawApply == null)
                 {
-                    errStr = errStr + "{\"errCode\":\"NoApply\",\"errMsg\":\"提现申请" + withdrawApplyIds[i].ToString()+ "不存在!\"";
+                    strErr = "提现申请" + withdrawApplyIds[i].ToString() + "不存在!";
+                    errStr = errStr + "{\"errCode\":\"NoApply\",\"errMsg\":\"" + strErr + "\"";
                 }
                 if (withdrawApply.ApplyStatus != "ApplyWithdraw")
                 {
-                    errStr = errStr + "{\"errCode\":\"errStatus\",\"errMsg\":\"该申请单" + withdrawApplyIds[i].ToString() + "已是"+ withdrawApply.ApplyStatus + "状态!\"";
+                    strErr = "该申请单" + withdrawApplyIds[i].ToString() + "已是" + withdrawApply.ApplyStatus + "状态!";
+                    errStr = errStr + "{\"errCode\":\"errStatus\",\"errMsg\":\"" + strErr + "\"";
+                }
+                withdrawApply.PaySerialNo = paySerialNo;
+                if (errStr != "")
+                {
+                    withdrawApply.ApplyStatus = "Payfail";
+                    withdrawApply.PayRemark = errStr;
+                    repositoryBalanceTotal.ReleaseBalance(withdrawApply.ApplyUserId, withdrawApply.ApplyAmount);
+                    continue;
                 }
                 repositoryBalanceTotal.OutFrozenBalance(withdrawApply.ApplyUserId, withdrawApply.ApplyAmount);
-                BalanceFlow flow = new BalanceFlow
-                {
-                    AccountId = withdrawApply.ApplyUserId,
-                    Amount = withdrawApply.ApplyAmount,
-                    RelatedObjectId = withdrawApply.Id.ToString(),
-                    SerialNo = withdrawApply.SerialNo,
-                    OccurTime = DateTime.Now,
-                    FlowType = FlowType.Withdrawals,
-                    Income = false
-                };
-                repositoryBalanceFlow.Add(flow);
+                //回调的时候再插入流水
+                //BalanceFlow flow = new BalanceFlow
+                //{
+                //    AccountId = withdrawApply.ApplyUserId,
+                //    Amount = withdrawApply.ApplyAmount,
+                //    RelatedObjectId = withdrawApply.Id.ToString(),
+                //    SerialNo = withdrawApply.SerialNo,
+                //    OccurTime = DateTime.Now,
+                //    FlowType = FlowType.Withdrawals,
+                //    Income = false
+                //};
+                //repositoryBalanceFlow.Add(flow);
                 WithdrawCashDto withdrawCashDto = new WithdrawCashDto
                 {
                     UserId = withdrawApply.ApplyUserId,
@@ -190,7 +208,9 @@ namespace Ydb.Finance.Application
                     Account = withdrawApply.ReceiveAccount.Account,
                     AccountName = withdrawApply.ReceiveAccount.AccountName,
                     AccountType = (AccountTypeEnums)Enum.Parse(typeof(AccountTypeEnums), withdrawApply.ReceiveAccount.AccountType),
-                    Remark = withdrawApply.ApplyRemark
+                    Remark = withdrawApply.ApplyRemark,
+                    PaySerialNo = paySerialNo,
+                    ApplySerialNo = withdrawApply.ApplySerialNo
                 };
                 withdrawCashDtoList.Add(withdrawCashDto);
             }
