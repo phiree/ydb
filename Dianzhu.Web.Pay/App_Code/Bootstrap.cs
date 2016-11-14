@@ -36,8 +36,39 @@ public class Bootstrap
             new Dianzhu.DependencyInstaller.InstallerRepository(),
             new Dianzhu.DependencyInstaller.InstallerApplicationService()
             );
+
+
+        container.Install(
+            new Ydb.Infrastructure.Installer()
+            );
         
 
+        container.Install(
+           new Ydb.Membership.Infrastructure.InstallerMembership(BuildDBConfig("ydb_membership"))
+            );
+
+        AutoMapper.Mapper.Initialize(x =>
+        {
+            Ydb.Membership.Application.AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
+        });
+
+    }
+
+
+    private static nhf.FluentConfiguration BuildDBConfig(string connectionStringName)
+    {
+        Ydb.Common.Infrastructure.IEncryptService encryptService = container.Resolve<Ydb.Common.Infrastructure.IEncryptService>();
+        nhf.FluentConfiguration dbConfig = nhf.Fluently.Configure()
+                                                       .Database(
+                                                            MySQLConfiguration
+                                                           .Standard
+                                                           .ConnectionString(
+                                                                encryptService.Decrypt(
+                                                                System.Configuration.ConfigurationManager
+                                                              .ConnectionStrings[connectionStringName].ConnectionString, false)
+                                                                )
+                                                     );
+        return dbConfig;
     }
 
 }
