@@ -8,10 +8,12 @@ using System.Web.Security;
 using Newtonsoft.Json;
 using Dianzhu.BLL;
 using Dianzhu.RequestRestful;
+using Ydb.Membership.Application;
 
 public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
 {
     DZMembershipProvider bllMembership = Bootstrap.Container.Resolve<DZMembershipProvider>();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         //PHSuit.Logging.GetLog(Dianzhu.Config.Config.GetAppSetting("LoggerName")).Debug("login page");
@@ -36,7 +38,7 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
 
 
         string errorMsg;
-        bool isValid = bllMembership.ValidateUser(tbxUserName.Text, tbxPassword.Text,out errorMsg);
+        bool isValid = bllMembership.ValidateUser(tbxUserName.Text, tbxPassword.Text);
         if (isValid)
         {
             bool rememberMe = savePass.Checked;
@@ -80,7 +82,7 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
             CookieErrorTime.Value = (int.Parse( CookieErrorTime.Value ) + 1).ToString();
             Response.Cookies.Add(CookieErrorTime);
 
-            lblMsg.Text = errorMsg;
+            lblMsg.Text = "用户名或密码错误";
             lblMsg.CssClass = "lblMsg lblMsgShow";
 
             // PHSuit.Notification.Show(Page,"","登录失败",Request.RawUrl);
