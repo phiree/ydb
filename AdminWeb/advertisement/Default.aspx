@@ -21,7 +21,7 @@
                     <img runat="server" id="imgAdv" width="100"/>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:BoundField HeaderText="连接地址" DataField="Url" />
+            <%--<asp:BoundField HeaderText="连接地址" DataField="Url" />--%>
             <asp:TemplateField HeaderText="推送目标">
                 <ItemTemplate>
                     <asp:Literal runat="server" ID="litPT"></asp:Literal>
