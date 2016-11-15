@@ -11,6 +11,7 @@ namespace Ydb.Membership.Application.Dto
          
         public Guid Id { get; internal set; }
         public string UserName{ get; internal set; }
+        public string PlainPassword { get; internal set; }
         public virtual DateTime TimeCreated { get; set; }
         public virtual DateTime LastLoginTime { get; set; }
         public virtual string Email { get; set; }
