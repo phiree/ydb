@@ -292,6 +292,7 @@ namespace Dianzhu.ApplicationService.User
                 throw new Exception("修改失败!");
             }
             */
+            validatedUser = memberService.GetUserById(userID);
             if (userType == "customer")
             {
                 customerObj customerobj = Mapper.Map<customerObj>(validatedUser);
