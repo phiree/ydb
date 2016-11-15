@@ -42,5 +42,17 @@ namespace Ydb.Finance.Application
         /// <param name="errStr" type="string">返回的错误信息</param>
         /// <returns type="IList<Ydb.Finance.Application.WithdrawCashDto>"></returns>
         IList<WithdrawCashDto> PayByWithdrawApply(IList<Guid> withdrawApplyIds, string payUserId, string paySerialNo, out string errStr);
+
+        /// <summary>
+        /// 支付成功回调处理
+        /// </summary>
+        /// <param name="success_details" type="string">转账成功的详细信息</param>
+        void PayWithdrawSuccess(string success_details);
+
+        /// <summary>
+        /// 支付失败回调处理
+        /// </summary>
+        /// <param name="fail_details" type="string">转账失败的详细信息</param>
+        void PayWithdrawFail(string fail_details);
     }
 }

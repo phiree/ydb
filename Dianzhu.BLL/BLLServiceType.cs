@@ -81,9 +81,9 @@ namespace Dianzhu.BLL
         /// <returns></returns>
         
 
-        DAL.Finance.DALServiceTypePoint dalPoint = new DAL.Finance.DALServiceTypePoint();
+        //DAL.Finance.DALServiceTypePoint dalPoint = new DAL.Finance.DALServiceTypePoint();
         
-        public void Import(System.IO.Stream excelFileStream)
+        public IList<ServiceTypePoint> Import(System.IO.Stream excelFileStream)
         {
             PHSuit.ReadExcelToDataTable rtdt = new ReadExcelToDataTable(excelFileStream, false, false, 0);
             string msg;
@@ -91,8 +91,8 @@ namespace Dianzhu.BLL
             IList<ServiceType> topServiceTypes = ServiceTypePointAdapter(rtdt.Read(out msg),out pointList);
             
             dalServiceType.SaveList(topServiceTypes);
-            
-             dalPoint.SaveList(pointList);
+            return pointList;
+             //dalPoint.SaveList(pointList);
 
         }
         public IList<ServiceType> ObjectAdapter(DataTable dtFromExcel)

@@ -7,12 +7,13 @@ using Dianzhu.Model;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 namespace Dianzhu.BLL.Finance
-{
+{/*
     /// <summary>
     /// 分账服务.
     /// </summary>
     public class OrderShare : IOrderShare
     {
+        
 
         IBLLServiceTypePoint bllServiceTypePoint;
         IBalanceFlowService balanceService;
@@ -123,5 +124,5 @@ namespace Dianzhu.BLL.Finance
             }
         }
         
-    }
+}*/
 }

@@ -181,6 +181,9 @@ namespace Ydb.Finance.Application
                     errStr = errStr + "{\"errCode\":\"errStatus\",\"errMsg\":\"" + strErr + "\"";
                 }
                 withdrawApply.PaySerialNo = paySerialNo;
+                withdrawApply.PayUserId = payUserId;
+                withdrawApply.PayTime = DateTime.Now;
+                withdrawApply.UpdateTime = DateTime.Now;
                 if (errStr != "")
                 {
                     withdrawApply.ApplyStatus = "Payfail";
@@ -216,6 +219,92 @@ namespace Ydb.Finance.Application
             }
             errStr = "]";
             return withdrawCashDtoList;
+        }
+
+        /// <summary>
+        /// 支付成功回调处理
+        /// </summary>
+        /// <param name="success_details" type="string">转账成功的详细信息</param>
+        [Ydb.Finance.Infrastructure.UnitOfWork]
+        public void PayWithdrawSuccess(string success_details)
+        {
+            IList<List<string>> DetailItems = AnalysisDetails(success_details);
+            for (int i = 0; i < DetailItems.Count; i++)
+            {
+                WithdrawApply withdrawApply = repositoryWithdrawApply.FindOne(x=>x.ApplySerialNo== DetailItems[i][0]);
+                if (withdrawApply != null)
+                {
+                    withdrawApply.ApplyStatus = "PaySeccuss";
+                    withdrawApply.PayStatus = "BATCH_TRANS_NOTIFY";
+                    withdrawApply.PayRemark = "转账成功";
+                    withdrawApply.D3SerialNo = DetailItems[i][6];
+                    withdrawApply.D3Time = DetailItems[i][7];
+                    withdrawApply.UpdateTime = DateTime.Now;
+                    repositoryWithdrawApply.Update(withdrawApply);
+                    SaveBalanceFlow(withdrawApply);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 支付失败回调处理
+        /// </summary>
+        /// <param name="fail_details" type="string">转账失败的详细信息</param>
+        [Ydb.Finance.Infrastructure.UnitOfWork]
+        public void PayWithdrawFail(string fail_details)
+        {
+            IList<List<string>> DetailItems = AnalysisDetails(fail_details);
+            for (int i = 0; i < DetailItems.Count; i++)
+            {
+                WithdrawApply withdrawApply = repositoryWithdrawApply.FindOne(x => x.ApplySerialNo == DetailItems[i][0]);
+                if (withdrawApply != null)
+                {
+                    withdrawApply.ApplyStatus = "Payfail";
+                    withdrawApply.PayStatus = DetailItems[i][5];
+                    withdrawApply.PayRemark = Dianzhu.Pay.PayCallBackAliBatch.TradeStatus[DetailItems[i][5]];
+                    withdrawApply.D3SerialNo = DetailItems[i][6];
+                    withdrawApply.D3Time = DetailItems[i][7];
+                    withdrawApply.UpdateTime = DateTime.Now;
+                    repositoryWithdrawApply.Update(withdrawApply);
+                    repositoryBalanceTotal.InBalance(withdrawApply.ApplyUserId, withdrawApply.ApplyAmount);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 保存提现流水
+        /// </summary>
+        /// <param name="withdrawApply" type="Ydb.Finance.DomainModel.WithdrawApply">提现申请信息</param>
+        void SaveBalanceFlow(WithdrawApply withdrawApply)
+        {
+            BalanceFlow flow = new BalanceFlow
+            {
+                AccountId = withdrawApply.ApplyUserId,
+                Amount = withdrawApply.ApplyAmount,
+                RelatedObjectId = withdrawApply.Id.ToString(),
+                SerialNo = withdrawApply.ApplySerialNo,
+                OccurTime = DateTime.Now,
+                FlowType = FlowType.Withdrawals,
+                Income = false
+            };
+            repositoryBalanceFlow.Add(flow);
+        }
+
+        /// <summary>
+        /// 解析转账的详细信息
+        /// </summary>
+        /// <param name="details" type="string">转账成功的详细信息</param>
+        /// <returns type="IList<List<string>>">解析后的数组数据</returns>
+        IList<List<string>> AnalysisDetails(string details)
+        {
+            IList<List<string>> DetailItems = new List<List<string>>();
+            string[] arrDetail = details.Split('|');
+            for (int i = 0; i < arrDetail.Length; i++)
+            {
+                List<string> Items = arrDetail[i].Split('^').ToList();
+                DetailItems.Add(Items);
+            }
+            return DetailItems;
         }
     }
 }

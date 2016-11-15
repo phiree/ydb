@@ -79,9 +79,9 @@ namespace Ydb.Finance.Infrastructure.Repository
         /// <param name="billType" type="string">流水记录类型</param>
         /// <param name="orderId" type="string">订单ID</param>
         /// <param name="billServiceType" type="string">服务类型</param>
-        /// <param name="filter" type="string">筛选器</param>
+        /// <param name="filter" type="Ydb.Common.Specification.TraitFilter">筛选器</param>
         /// <returns type="IList">统计结果列表</returns>
-        public IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string status, string billType, string orderId, string billServiceType,string filter)
+        public IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string status, string billType, string orderId, string billServiceType, Ydb.Common.Specification.TraitFilter filter)
         {
             //'%Y-%m-%d'
             string sql = @"SELECT b.id,b.amount,b.occurtime as createTime,'' as serialNo,b.FlowType as type,'' as discount,o.id as orderId,o.NegotiateAmount as orderAmount,
@@ -120,18 +120,18 @@ namespace Ydb.Finance.Infrastructure.Repository
                 sql += " and o.id='" + orderId + "'";
             }
             //filter
-            //if (!string.IsNullOrEmpty(filter.sortby))
-            //{
-            //    sql += "  order by " + filter.sortby;
-            //    if (!filter.ascending)
-            //    {
-            //        sql += " DESC ";
-            //    }
-            //}
-            //if (filter.pageNum != 0)
-            //{
-            //    sql += " limit " + ((filter.pageNum - 1) * filter.pageSize).ToString() + "," + (filter.pageNum * filter.pageSize - 1).ToString();
-            //}
+            if (!string.IsNullOrEmpty(filter.sortby))
+            {
+                sql += "  order by " + filter.sortby;
+                if (!filter.ascending)
+                {
+                    sql += " DESC ";
+                }
+            }
+            if (filter.pageNum != 0)
+            {
+                sql += " limit " + ((filter.pageNum - 1) * filter.pageSize).ToString() + "," + (filter.pageNum * filter.pageSize - 1).ToString();
+            }
             //limit 0, 999
             IList list = session.CreateSQLQuery(sql).SetResultTransformer(Transformers.AliasToEntityMap).List();
             if (list.Count > 0)

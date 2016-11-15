@@ -93,7 +93,11 @@ public partial class CallBackHandler :BasePage
                 log.Error("请求参数有误：" + Request.HttpMethod);
                 throw new Exception("请求参数有误：" + Request.HttpMethod);
             }
-
+            if (payCallBack.GetType() == typeof(PayCallBackAliBatch))
+            {
+                CallBackAliBatch callBackAliBatch = new CallBackAliBatch();
+                callBackAliBatch.PayCallBack(parameters);
+            }
             bllPay.ReceiveAPICallBack(payLogType, payCallBack, Request.RawUrl, parameters);
             if (rawUrl.Contains("return_url"))
             {

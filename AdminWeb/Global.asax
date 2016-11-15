@@ -3,6 +3,7 @@
 <%@ Import Namespace="Castle.Windsor.Installer" %>
 <%@ Import Namespace="Dianzhu.Model" %>
 <%@ Import Namespace="Dianzhu.BLL" %>
+<%@ Import Namespace="Ydb.Finance.Application" %>
 <script runat="server">
     public static IWindsorContainer container;
     //  Dianzhu.IDAL.IUnitOfWork uow = Bootstrap.Container.Resolve<Dianzhu.IDAL.IUnitOfWork>();
@@ -25,16 +26,16 @@
     {
 
         Dianzhu.BLL.IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
-        Dianzhu.BLL.Finance.IOrderShare orderShare = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IOrderShare>();
-      //  NHibernateUnitOfWork.UnitOfWork.Start();
-       
-       
+        IOrderShareService orderShare = Bootstrap.Container.Resolve<IOrderShareService>();
+        //  NHibernateUnitOfWork.UnitOfWork.Start();
+
+
         Action a = () => {
-             IList<Dianzhu.Model.ServiceOrder> ordersForShare= bllOrder.GetOrdersForShare();
-             log.Debug("批量分账开始,需要分账的订单数量:" + ordersForShare.Count);
+            IList<Dianzhu.Model.ServiceOrder> ordersForShare= bllOrder.GetOrdersForShare();
+            log.Debug("批量分账开始,需要分账的订单数量:" + ordersForShare.Count);
             foreach (ServiceOrder order in ordersForShare)
             {
-                orderShare.ShareOrder(order);
+                orderShare.ShareOrder(setOrderShareParam(order));
                 bllOrder.OrderShared(order);
             }
         };
@@ -44,5 +45,36 @@
         //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
 
     }
+
+    /// <summary>
+    /// 根据订单信息生成该订单的分账参数
+    /// </summary>
+    /// <param name="order" type="Dianzhu.Model.ServiceOrder">订单信息</param>
+    /// <returns type="Ydb.Finance.Application.OrderShareParam">该订单的分账参数</returns>
+    OrderShareParam setOrderShareParam(ServiceOrder order)
+    {
+        OrderShareParam orderShareParam = new OrderShareParam();
+        orderShareParam.ServiceTypeID = order.Details[0].OriginalService.ServiceType.Id.ToString();
+        orderShareParam.BusinessUserId = order.Business.OwnerId.ToString();
+        orderShareParam.RelatedObjectId = order.Id.ToString();
+        orderShareParam.SerialNo = order.SerialNo;
+        orderShareParam.Amount = order.NegotiateAmount;
+
+        BalanceUserParam balanceAgent = new BalanceUserParam();
+        Dianzhu.BLL.Agent.IAgentService agentService = Bootstrap.Container.Resolve<Dianzhu.BLL.Agent.IAgentService>();
+        var area = order.Details[0].OriginalService.Business.AreaBelongTo;
+        var agent = agentService.GetAreaAgent(area);
+        if (agent != null)
+        {
+            balanceAgent.AccountId = agent.Id.ToString();
+            balanceAgent.UserType = "agent";
+            orderShareParam.BalanceUser.Add(balanceAgent);
+        }
+
+        orderShareParam.BalanceUser.Add(new BalanceUserParam { AccountId=order.CustomerServiceId.ToString(),UserType = "customerservice"});
+
+        return orderShareParam;
+    }
+
 
 </script>

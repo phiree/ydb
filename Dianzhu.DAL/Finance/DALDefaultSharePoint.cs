@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model.Finance;
 namespace Dianzhu.DAL.Finance
-{
+{/*
    public  class DALDefaultSharePoint:NHRepositoryBase<DefaultSharePoint,Guid>,IDAL.Finance.IDALDefaultSharePoint
     {
         
         
-
+        
         public DefaultSharePoint GetDefaultSharePoint(string userType)
         {
             
@@ -18,5 +18,6 @@ namespace Dianzhu.DAL.Finance
 
             
         }
-    }
+        
+}*/
 }

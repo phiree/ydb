@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 using System.Collections;
 
 namespace Dianzhu.BLL.Finance
-{
+{/*
     public interface IBalanceFlowService
     {
+        
         void Save(Dianzhu.Model.Finance.BalanceFlow flow);
         IList<Dianzhu.Model.Finance.BalanceFlow> GetList();
 
@@ -38,7 +39,7 @@ namespace Dianzhu.BLL.Finance
         /// <param name=""></param>
         /// <returns></returns>
         IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string status, string billType, string orderId, string billServiceType, Model.Trait_Filtering filter);
+        
 
-
-    }
+}*/
 }

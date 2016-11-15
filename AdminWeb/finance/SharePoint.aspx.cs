@@ -4,8 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.BLL.Finance;
-using Dianzhu.Model.Finance;
+using Ydb.Finance.Application;
 public partial class finance_SharePoint : BasePage
 {
     
@@ -23,29 +22,30 @@ public partial class finance_SharePoint : BasePage
         }
 
     }
-    IBLLSharePoint bllSharePoint = Bootstrap.Container.Resolve<IBLLSharePoint>();
+    //SharePoint功能暂时不需要
+    //IBLLSharePoint bllSharePoint = Bootstrap.Container.Resolve<IBLLSharePoint>();
     private void BindSharePoint()
     {
-        var list = bllSharePoint.GetAll();
-        rptPoints.DataSource = list;
-        rptPoints.DataBind();
+        //var list = bllSharePoint.GetAll();
+        //rptPoints.DataSource = list;
+        //rptPoints.DataBind();
     }
 
     private void LoadData()
     {
-        var sharePoint = bllSharePoint.GetOne(new Guid(strItemId));
-        tbxSharePoint.Text = sharePoint.Point.ToString("0.00");
-        ddlUserType.SelectedValue = sharePoint.UserType;
+        //var sharePoint = bllSharePoint.GetOne(new Guid(strItemId));
+        //tbxSharePoint.Text = sharePoint.Point.ToString("0.00");
+        //ddlUserType.SelectedValue = sharePoint.UserType;
     }
  
 
     
     protected void btnSaveSharePoint_Click(object sender, EventArgs e)
     {
-        var point = Convert.ToDecimal(tbxSharePoint.Text);
-        DefaultSharePoint defaultSharePoint = new DefaultSharePoint(point, ddlUserType.SelectedValue);
-        bllSharePoint.Save(defaultSharePoint);
-        lblMsg.Text = "保存成功";
-        BindSharePoint();
+        //var point = Convert.ToDecimal(tbxSharePoint.Text);
+        //DefaultSharePoint defaultSharePoint = new DefaultSharePoint(point, ddlUserType.SelectedValue);
+        //bllSharePoint.Save(defaultSharePoint);
+        //lblMsg.Text = "保存成功";
+        //BindSharePoint();
     }
 }
