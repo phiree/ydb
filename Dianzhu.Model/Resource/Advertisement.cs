@@ -58,5 +58,9 @@ namespace Dianzhu.Model
         /// 操作员
         /// </summary>
         public virtual string UpdateControllerId { get; set; }
+        /// <summary>
+        /// 广告推送的用户类型:customer(用户),business(商家)...
+        /// </summary>
+        public virtual string PushType { get; set; }
     }
 }

@@ -49,6 +49,19 @@ public partial class advertisement_Default :BasePage
                 litType.Text = "否";
             }
 
+            Literal litPT = e.Row.FindControl("litPT") as Literal;
+            switch (adv.PushType)
+            {
+                case "customer":
+                    litPT.Text = "用户";
+                    break;
+                case "business":
+                    litPT.Text = "商家";
+                    break;
+                default:
+                    break;
+            }
+
             var img = e.Row.FindControl("imgAdv") as System.Web.UI.HtmlControls.HtmlImage;
             img.Src = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")  +adv.ImgUrl;
 

@@ -10,6 +10,7 @@ namespace Dianzhu.Api.Model
     public class RequestDataAD001006
     {
         public string md5 { get; set; }
+        public string viewType { get; set; }
     }
 
     public class RespDataADObj

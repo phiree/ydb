@@ -20,11 +20,12 @@ namespace Dianzhu.ApplicationService.ADs
         /// 条件读取广告
         /// </summary>
         /// <param name="adf"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public IList<adObj> GetADs(common_Trait_AdFiltering adf)
+        public IList<adObj> GetADs(common_Trait_AdFiltering adf,Customer customer)
         {
             IList<Model.Advertisement> listad = null;
-            listad = bllad.GetADListForUseful();
+            listad = bllad.GetADListForUseful(customer.UserType);
             //if (listad == null)
             //{
             //    throw new Exception(Dicts.StateCode[4]);

@@ -118,8 +118,8 @@ namespace Ydb.Test.System.BugRepeat
                 IWindsorContainer container = new WindsorContainer();
                 container.Install(
                     new Ydb.Infrastructure.Installer(),
-                 new  Ydb.Membership.Infrastructure.InstallerMembership(),
-                   new Ydb.Membership.Application.InstallerMembershipDB(dbConfigInstantMessage)
+                 new  Ydb.Membership.Infrastructure.InstallerMembership(dbConfigInstantMessage)
+                 
                     );
                 
                  IDZMembershipService memberService = container.Resolve<IDZMembershipService>();

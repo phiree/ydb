@@ -330,11 +330,19 @@ namespace Dianzhu.CSClient.Presenter
 
             //禁用推送按钮
             //viewSearchResult.BtnPush = false;
+            
 
-            //NHibernateUnitOfWork.UnitOfWork.Start();
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
             DZService service;
             ServiceOrder oldOrder = bllServiceOrder.GetOne(new Guid(IdentityManager.CurrentOrderId));
+
+            //订单不是草稿单的话，需生成新的草稿单后进行推送
+            if (oldOrder.OrderStatus != Model.Enums.enum_OrderStatus.Draft)
+            {
+                oldOrder = CreateDraftOrder(GlobalViables.CurrentCustomerService.Id.ToString(), IdentityManager.CurrentCustomerId);
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            }
+
             foreach (var serviceId in pushedServices)
             {
                 service = dalDzService.FindById(serviceId);
@@ -376,11 +384,11 @@ namespace Dianzhu.CSClient.Presenter
             }
             //ReceptionChat chat = chatFactory.CreateChatPushService(pushedServiceInfos);
 
-            log.Debug("推送的订单：" + IdentityManager.CurrentOrderId);
+            log.Debug("推送的订单：" + oldOrder.Id);
 
             //iim发送消息
             Guid messageId = Guid.NewGuid();
-            iIM.SendMessagePushService(messageId, pushedServiceInfos, "推送的服务", IdentityManager.CurrentCustomerId, "YDBan_User", IdentityManager.CurrentOrderId);
+            iIM.SendMessagePushService(messageId, pushedServiceInfos, "推送的服务", IdentityManager.CurrentCustomerId, "YDBan_User", oldOrder.Id.ToString());
 
 
             //助理工具显示发送的消息
@@ -408,10 +416,9 @@ namespace Dianzhu.CSClient.Presenter
             //存储消息到内存中
             localChatManager.Add(vmChatPushService.ToId, vmChatPushService);
 
-            //生成新的草稿单并发送给客户端
-            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService.Id.ToString(), IdentityManager.CurrentCustomerId);
-            bllServiceOrder.Save(newOrder);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();           
+            //生成新的草稿单
+            ServiceOrder newOrder = CreateDraftOrder(GlobalViables.CurrentCustomerService.Id.ToString(), IdentityManager.CurrentCustomerId);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //更新当前订单
             //IdentityTypeOfOrder type;
@@ -439,8 +446,16 @@ namespace Dianzhu.CSClient.Presenter
             //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             //NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
         }
+
+        private ServiceOrder CreateDraftOrder(string csId, string customerId)
+        {
+            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService.Id.ToString(), IdentityManager.CurrentCustomerId);
+            bllServiceOrder.Save(newOrder);
+
+            return newOrder;
+        }
         #endregion
-        
+
         private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId,string name,string lng,string lat)
         {
             SearchObj searchObj = new SearchObj(name, minPrice, maxPrice, servieTypeId, targetTime, double.Parse(lng), double.Parse(lat), viewSearch.ServiceTargetAddress);

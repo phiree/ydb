@@ -94,12 +94,12 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">客户姓名</span><%= CurrentOrder.CustomerId %>
+                                                <span class="model-pra-t">客户姓名</span><asp:Literal runat="server" ID="liCustomerName"></asp:Literal> 
                                             </p>
                                         </div>
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">联系方式</span> 
+                                                <span class="model-pra-t">联系方式</span> <asp:Literal runat="server" ID="liCustomerPhone"></asp:Literal> 
                                             </p>
                                         </div>
                                     </div>

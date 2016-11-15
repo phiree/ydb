@@ -31,16 +31,16 @@ namespace Ydb.Test.Integration
 
             container.Install(
  
-new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(dbConfigInstantMessage),
-new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
+ 
+new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(dbConfigInstantMessage)
                 );
 
 
             FluentConfiguration dbConfigMembership = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_membership.db3"));
             container.Install(
  
-               new Ydb.Membership.Infrastructure.InstallerMembership(),            
-               new Ydb.Membership.Application.InstallerMembershipDB(dbConfigMembership)
+               new Ydb.Membership.Infrastructure.InstallerMembership(dbConfigMembership)           
+           
                 
  
                 );

@@ -35,8 +35,7 @@ namespace Ydb.Finance.Tests
                .ExposeConfiguration((config)=> { new SchemaExport(config).Create(true, true); });//test_ydb_finance.db3
 
             container.Install(
- new Ydb.Finance.Infrastructure.InstallerFinance(),
-new Ydb.Finance.Infrastructure.InstallerFinanceDB(dbConfig)
+ new Ydb.Finance.Infrastructure.InstallerFinance(dbConfig)
 
 
 

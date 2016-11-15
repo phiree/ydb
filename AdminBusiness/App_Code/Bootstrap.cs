@@ -40,15 +40,15 @@ new Ydb.Finance.Infrastructure.InstallerFinance()
 
         container.Install(
 
-new Ydb.InstantMessage.Infrastructure.InstallerIntantMessageDB(BuildDBConfig("ydb_instantmessage")),
-new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage()
+ 
+new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb_instantmessage"))
             );
 
         container.Install(
 
 
-           new Ydb.Membership.Infrastructure.InstallerMembership(),
-           new Ydb.Membership.Application.InstallerMembershipDB(BuildDBConfig("ydb_membership"))
+           new Ydb.Membership.Infrastructure.InstallerMembership(BuildDBConfig("ydb_membership"))
+        
             // new Application.InstallerMembershipTestDB()
 
             );

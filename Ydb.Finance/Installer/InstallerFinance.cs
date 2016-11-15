@@ -23,8 +23,14 @@ namespace Ydb.Finance.Infrastructure
 {
     public class InstallerFinance : IWindsorInstaller
     {
+        FluentConfiguration dbConfigFinance;
+        public InstallerFinance(FluentConfiguration dbConfigFinance)
+        {
+            this.dbConfigFinance = dbConfigFinance;//Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap//Dianzhu.DAL.Mapping.AreaMap
+        }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            InstallDb(container, store);
             InstallUnifOfWork(container, store);
             InstallInfrastructure(container, store);
             InstallDomainService(container, store);
@@ -66,11 +72,7 @@ namespace Ydb.Finance.Infrastructure
         {
             container.Register(Component.For<ICountServiceFee>().ImplementedBy<CountServiceFee_Alipay>());
         }
-        private void BuildSchema(Configuration config)
-        {
-            SchemaUpdate update = new SchemaUpdate(config);
-            update.Execute(true, true);
-        }
+       
         private void InstallDomainService(IWindsorContainer container, IConfigurationStore store)
         {
            
@@ -112,6 +114,29 @@ namespace Ydb.Finance.Infrastructure
                     return;
                 }
             }
+        }
+        private void InstallDb(IWindsorContainer container, IConfigurationStore store)
+        {
+            var _sessionFactory =
+                    dbConfigFinance
+                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap>())
+                    .ExposeConfiguration(BuildSchema)
+                    .BuildSessionFactory();
+            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory).Named("FinanceSessionFactory"));
+        }
+        private void BuildSchema(Configuration config)
+        {
+            //SchemaUpdate update = new SchemaUpdate(config);
+            if (System.Configuration.ConfigurationManager.AppSettings["UpdateSchema"] == "1")
+            {
+                new SchemaUpdate(config).Execute(true, true);
+            }
+            else if (System.Configuration.ConfigurationManager.AppSettings["UpdateSchema"] == "2")
+            {
+                new SchemaExport(config).Create(true, true);
+            }
+
         }
 
 

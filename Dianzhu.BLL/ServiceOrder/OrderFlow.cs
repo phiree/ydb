@@ -58,7 +58,7 @@ namespace Dianzhu.BLL
                 { enum_OrderStatus.Finished,new List<enum_OrderStatus>() {enum_OrderStatus.isEnd,
                                                                           enum_OrderStatus.Ended,
                                                                            enum_OrderStatus.checkPayWithNegotiate }},
-                { enum_OrderStatus.Appraised,new List<enum_OrderStatus>() {enum_OrderStatus.Finished }},
+                { enum_OrderStatus.Appraised,new List<enum_OrderStatus>() {enum_OrderStatus.Finished,enum_OrderStatus.Appraised }},
                 { enum_OrderStatus.EndWarranty,new List<enum_OrderStatus>() {enum_OrderStatus.Appraised }},
 
                 //订单取消状态可从哪些状态变更而来

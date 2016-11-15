@@ -25,8 +25,14 @@ namespace Ydb.Membership.Infrastructure
 {
     public class InstallerMembership : IWindsorInstaller
     {
+        FluentConfiguration dbConfig;
+        public InstallerMembership(FluentConfiguration dbConfig)
+        {
+            this.dbConfig = dbConfig;
+        }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            InstallDB(container, store);
             InstallUnifOfWork(container, store);
             InstallDomainService(container, store);
             InstallRepository(container, store);
@@ -94,7 +100,22 @@ namespace Ydb.Membership.Infrastructure
             }
         }
 
+        private void InstallDB(IWindsorContainer container, IConfigurationStore store)
+        {
+            var _sessionFactory = dbConfig
+                                  .Mappings(m => m.FluentMappings.AddFromAssemblyOf<DZMembershipMap>())
+                                  .ExposeConfiguration(BuildSchema)
+                                  .BuildSessionFactory();
+            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory).Named("MembershipSessionFactory"));
 
+
+        }
+        private void BuildSchema(Configuration config)
+        {
+            SchemaUpdate update = new SchemaUpdate(config);
+            update.Execute(true, true);
+        }
 
     }
 
