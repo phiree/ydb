@@ -43,6 +43,13 @@ namespace Ydb.Finance.Application
         /// <returns type="IList<UserTypeSharePointDto>">用户类型分配比例信息列表</returns>
         IList<UserTypeSharePointDto> GetAll();
 
+        /// <summary>
+        /// 根据Id获取一条用户类型分配比例信息
+        /// </summary>
+        /// <param name="Id" type="Guid">分配比例Id</param>
+        /// <returns type="UserTypeSharePointDto">用户类型分配比例信息</returns>
+        UserTypeSharePointDto GetOne(Guid Id);
+
 
     }
 }

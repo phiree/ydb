@@ -23,29 +23,31 @@ public partial class finance_SharePoint : BasePage
 
     }
     //SharePoint功能暂时不需要
-    //IBLLSharePoint bllSharePoint = Bootstrap.Container.Resolve<IBLLSharePoint>();
+    IUserTypeSharePointService bllSharePoint = Bootstrap.Container.Resolve<IUserTypeSharePointService>();
     private void BindSharePoint()
     {
-        //var list = bllSharePoint.GetAll();
-        //rptPoints.DataSource = list;
-        //rptPoints.DataBind();
+        var list = bllSharePoint.GetAll();
+        rptPoints.DataSource = list;
+        rptPoints.DataBind();
     }
 
     private void LoadData()
     {
-        //var sharePoint = bllSharePoint.GetOne(new Guid(strItemId));
-        //tbxSharePoint.Text = sharePoint.Point.ToString("0.00");
-        //ddlUserType.SelectedValue = sharePoint.UserType;
+        var sharePoint = bllSharePoint.GetOne(new Guid(strItemId));
+        tbxSharePoint.Text = sharePoint.Point.ToString("0.00");
+        ddlUserType.SelectedValue = sharePoint.UserType;
     }
  
 
     
     protected void btnSaveSharePoint_Click(object sender, EventArgs e)
     {
-        //var point = Convert.ToDecimal(tbxSharePoint.Text);
-        //DefaultSharePoint defaultSharePoint = new DefaultSharePoint(point, ddlUserType.SelectedValue);
-        //bllSharePoint.Save(defaultSharePoint);
-        //lblMsg.Text = "保存成功";
-        //BindSharePoint();
+        var point = Convert.ToDecimal(tbxSharePoint.Text);
+        //UserTypeSharePointDto defaultSharePoint = new UserTypeSharePointDto();// (point, ddlUserType.SelectedValue);
+        //defaultSharePoint.Point = point;
+        //defaultSharePoint.UserType = ddlUserType.SelectedValue;
+        bllSharePoint.Add(ddlUserType.SelectedValue, point);
+        lblMsg.Text = "保存成功";
+        BindSharePoint();
     }
 }

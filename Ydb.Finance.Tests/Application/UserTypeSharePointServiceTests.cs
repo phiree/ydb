@@ -88,5 +88,15 @@ namespace Ydb.Finance.Tests.Application
             var list = userTypeSharePointService.GetAll();
             Console.WriteLine("UserTypeSharePointService.GetAll:" + list.Count);
         }
+
+        /// <summary>
+        /// 根据Id获取一条用户类型分配比例信息
+        /// </summary>
+        [Test()]
+        public void UserTypeSharePointService_GetOne()
+        {
+            UserTypeSharePointDto dPoint = userTypeSharePointService.GetOne(new Guid("d3182919-2129-4e38-87b8-a66e00c08001"));
+            Console.WriteLine("UserTypeSharePointService.GetOne:" + (dPoint == null).ToString());
+        }
     }
 }
