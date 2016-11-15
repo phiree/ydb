@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Specification;
-
+using Ydb.BusinessResource.Infrastructure;
 namespace Ydb.BusinessResource.Application
 {
     public class DZServiceService : IDZServiceService
@@ -21,19 +21,42 @@ namespace Ydb.BusinessResource.Application
         }
 
 
-
+        [UnitOfWork]
         public IList<DZService> GetServiceByBusiness(Guid businessId, int pageindex, int pagesize, out int totalRecords)
         {
             return repositoryDZService.GetList(businessId , pageindex, pagesize, out totalRecords);
         }
+        [UnitOfWork]
         public IList<DZService> GetOtherServiceByBusiness(Guid businessId, Guid serviceId, int pageindex, int pagesize, out int totalRecords)
         {
             return repositoryDZService.GetOtherList(businessId, serviceId, pageindex, pagesize, out totalRecords);
         }
 
-        public virtual   DZService GetOne(Guid serviceId)
+        [UnitOfWork]
+        public virtual   ServiceDto  GetOne(Guid serviceId)
         {
-            return repositoryDZService.FindById(serviceId);
+            DZService service= repositoryDZService.FindById(serviceId);
+           ServiceDto serviceDto = AutoMapper.Mapper.Map<ServiceDto>(service);
+            return serviceDto;
+
+        }
+        public virtual ServiceOpenTimeDto GetTimeDto(Guid serviceId, DateTime targetTime)
+        {
+            DZService service = repositoryDZService.FindById(serviceId);
+           ServiceOpenTime openTime=  service.GetServiceOpenTime(targetTime);
+            ServiceOpenTimeForDay openTimeForDay = openTime.GetItem(targetTime);
+
+            return new ServiceOpenTimeDto
+            {
+                Date = targetTime.Date,
+                MaxOrderForDay = openTime.MaxOrderForDay,
+                MaxOrderForPeriod = openTimeForDay.MaxOrderForOpenTime
+            ,
+                PeriodBegin = openTimeForDay.PeriodStart,
+                PeriodEnd = openTimeForDay.PeriodEnd
+            };
+
+
         }
         public DZService GetOneByBusAndId(Business business, Guid svcId)
         {

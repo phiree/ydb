@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ydb.BusinessResource.Application.Dto
+namespace Ydb.BusinessResource.Application
 {
     public class ServiceDto
     {
@@ -20,8 +20,14 @@ namespace Ydb.BusinessResource.Application.Dto
         public virtual int OverTimeForCancel { get; set; }
         public virtual string ServiceModeType { get; set; }
 
+        public virtual string ServiceTypeName { get; set; }
+
         public virtual string ServiceBusinessId { get; set; }
+
+        public virtual string ServiceBusinessOwnerId { get; set;}
+
         public virtual string ServiceBusinessName { get; set; }
         public virtual string ServiceBusinessPhone { get; set; }
+       
     }
 }

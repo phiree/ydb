@@ -16,8 +16,6 @@ namespace Ydb.BusinessResource.DomainModel
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model.ServiceOpenTimeSnapshot");
         public ServiceOpenTimeSnapshot()
         {
-            
-            
         }
         
         /// <summary>

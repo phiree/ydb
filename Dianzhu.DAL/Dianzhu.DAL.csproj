@@ -95,7 +95,6 @@
     <Compile Include="DALIMUserStatusArchieve.cs" />
     <Compile Include="DALIMUserStatus.cs" />
     <Compile Include="DALPaymentLog.cs" />
-    <Compile Include="DALDZTag.cs" />
     <Compile Include="Finance\DALDefaultSharePoint.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Mapping\SerialNoMap.cs" />

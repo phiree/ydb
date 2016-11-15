@@ -56,7 +56,7 @@ namespace Dianzhu.BLL
             }
             if (storeID != Guid.Empty)
             {
-                where = where.And(x => x.Order.Business.Id== storeID);
+                where = where.And(x => x.Order.BusinessId== storeID.ToString());
             }
             if (customerServiceID != Guid.Empty)
             {
@@ -93,7 +93,7 @@ namespace Dianzhu.BLL
             }
             if (storeID != Guid.Empty)
             {
-                where = where.And(x => x.Order.Business.Id == storeID);
+                where = where.And(x => x.Order.BusinessId == storeID.ToString());
             }
             if (customerServiceID != Guid.Empty)
             {

@@ -5,18 +5,21 @@ using System.Text;
 using Dianzhu.DAL;
 using Dianzhu.Model;
 using Newtonsoft.Json;
+using Ydb.BusinessResource.Application;
+using BD=Ydb.BusinessResource.DomainModel;
 namespace Dianzhu.BLL
 {
     public class AddressParser
     {
         public string rawAddressFromMapApi;
-        BLLArea bllArea;
-        public AddressParser(string rawAddressFromMapApi,BLLArea bllArea)
+        IAreaService areaService;
+        public AddressParser(string rawAddressFromMapApi,AreaService areaService)
         {
             this.rawAddressFromMapApi = rawAddressFromMapApi;
-            this.bllArea = bllArea;
+            this.areaService = areaService;
         }
-        public void ParseAddress(out Area area, out double latitude, out double longtitude)
+        //todo:refactor: 需要添加AreaDto.
+        public void ParseAddress(out BD.Area area, out double latitude, out double longtitude)
         {
 
             //{"province":"海南省","city":"海口市","district":"秀英区","lat":110.190582,"lng":20.025103}
@@ -27,7 +30,7 @@ namespace Dianzhu.BLL
                 throw new Exception("地址格式有误.");
             }
             //利用字符串匹配 寻找店铺所在的行政区域
-         area= bllArea.GetAreaByAreaname(address_from_api.BuildWholeArea());
+         area= areaService.GetAreaByAreaname(address_from_api.BuildWholeArea());
          latitude = address_from_api.lat;
          longtitude = address_from_api.lng;
         }

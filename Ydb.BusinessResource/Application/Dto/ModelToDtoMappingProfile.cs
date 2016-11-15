@@ -21,7 +21,7 @@ namespace Ydb.BusinessResource.Application
         //[System.Obsolete("No Use")]
         protected override void Configure()
         {
-            Mapper.CreateMap<DZService,Dto.ServiceDto>()
+            Mapper.CreateMap<DZService,ServiceDto>()
                  
             .ForAllMembers(opt => opt.NullSubstitute(""));
         }

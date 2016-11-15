@@ -13,12 +13,6 @@ namespace Dianzhu.Model
     public class ServiceOpenTimeSnapshot
  
     {
-        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model.ServiceOpenTimeSnapshot");
-        public ServiceOpenTimeSnapshot()
-        {
-            
-            
-        }
         
         /// <summary>
         /// 该日最大接大量
@@ -27,9 +21,14 @@ namespace Dianzhu.Model
         /// <summary>
         /// 1:星期一,2:星期二.........
         /// </summary>
- 
-        
-        
+
+        public DateTime SnapshotDate { get;   set; }
+        public int MaxOrderForPeriod { get;   set; }
+        public DateTime Date { get;   set; }
+        public int PeriodBegin { get;   set; }
+        public int PeriodEnd { get;   set; }
+       
+
     }
    
 

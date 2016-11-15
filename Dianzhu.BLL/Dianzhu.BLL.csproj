@@ -87,7 +87,6 @@
     <Compile Include="BLLRefundLog.cs" />
     <Compile Include="BLLRefund.cs" />
     <Compile Include="BLLPayment.cs" />
-    <Compile Include="BLLServiceOpenTime.cs" />
     <Compile Include="BLLIMUserStatusArchieve.cs" />
     <Compile Include="BLLIMUserStatus.cs" />
     <Compile Include="BLLPay.cs" />
@@ -97,14 +96,6 @@
     <Compile Include="Client\IBLLClient.cs" />
     <Compile Include="Client\IBLLRefreshToken.cs" />
     <Compile Include="Common\SerialNo\ISerialNoBuilder.cs" />
-    <Compile Include="Finance\BanlanceFlow.cs" />
-    <Compile Include="Finance\IBalanceFlowService.cs" />
-    <Compile Include="Finance\IBLLServiceTypePoint.cs" />
-    <Compile Include="Finance\BLLServiceTypePoint.cs" />
-    <Compile Include="Finance\IBLLSharePoint.cs" />
-    <Compile Include="Finance\BLLSharePoint.cs" />
-    <Compile Include="Finance\IOrderShare.cs" />
-    <Compile Include="Finance\OrderShare.cs" />
     <Compile Include="IEmailService.cs" />
     <Compile Include="IEncryptService.cs" />
     <Compile Include="Push\PushMessageBuilder.cs" />
@@ -187,6 +178,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Finance\" />
     <Folder Include="FormModel\" />
     <Folder Include="IdentityAccess\" />
   </ItemGroup>

@@ -20,14 +20,14 @@ namespace Dianzhu.Model
             
         }
         public ServiceOrderDetail(string serviceId,ServiceSnapShotForOrder serviceSnapShot, ServiceOpenTimeSnapshot OpenTimeSnapShot,
-            ServiceOpenTimeForDaySnapShotForOrder OpenTimeForDaySnapShot,
+         //   ServiceOpenTimeForDaySnapShotForOrder OpenTimeForDaySnapShot,
             int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress,DateTime targetTime,string memo)
         {
             OriginalServiceId= serviceId;
             this.ServieSnapShot = serviceSnapShot;// service.GetServiceSnapShot();
 
-            this.OpenTimeSnapShot = OpenTimeForDaySnapShot ;//service.GetOpenTimeSnapShot(targetTime);
-            this.ServiceOpentimeSnapshot = OpenTimeSnapShot;// service.GetServiceOpenTimeSnapshot(targetTime);
+           // this.OpenTimeSnapShot = OpenTimeForDaySnapShot ;//service.GetOpenTimeSnapShot(targetTime);
+          this.ServiceOpentimeSnapshot = OpenTimeSnapShot;// service.GetServiceOpenTimeSnapshot(targetTime);
 
             this.UnitAmount = unitAmount ;
             this.TargetCustomerName = targetCustomerName;

@@ -277,7 +277,8 @@ namespace Ydb.BusinessResource.DomainModel
         /// </summary>
         /// <param name="targetTime"></param>
         /// <returns></returns>
-        public virtual ServiceOpenTimeForDaySnapShotForOrder GetOpenTimeSnapShot(DateTime targetTime)
+
+        /*public virtual ServiceOpenTimeForDay  GetOpenTimeSnapShot(DateTime targetTime)
         {
             var targetOpenTime = OpenTimes.Where(x => x.DayOfWeek == targetTime.DayOfWeek);
             int count = targetOpenTime.Count();
@@ -290,12 +291,12 @@ namespace Ydb.BusinessResource.DomainModel
             }
 
             return targetOpenTime.ToList()[0]
-                .GetItem(targetTime).GetSnapShop(targetTime);
+                .GetItem(targetTime);//.GetSnapShop(targetTime);
               
             
             
-        }
-        public virtual ServiceOpenTimeSnapshot GetServiceOpenTimeSnapshot(DateTime targetTime)
+        }*/
+        public virtual ServiceOpenTime  GetServiceOpenTime (DateTime targetTime)
         {
             var targetOpenTime = OpenTimes.Where(x => x.DayOfWeek == targetTime.DayOfWeek);
             int count = targetOpenTime.Count();
@@ -306,8 +307,8 @@ namespace Ydb.BusinessResource.DomainModel
                 log.Error(errMsg);
                 throw new Exception(errMsg);
             }
-
-            return new ServiceOpenTimeSnapshot { MaxOrderForDay=targetOpenTime.ToList()[0].MaxOrderForDay };
+            return targetOpenTime.ToList()[0];
+         //   return new ServiceOpenTimeSnapshot { MaxOrderForDay=targetOpenTime.ToList()[0].MaxOrderForDay };
 
         }
 

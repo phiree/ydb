@@ -20,6 +20,7 @@ namespace Dianzhu.Model
         public virtual enum_ServiceMode ServiceMode { get; set; }
 
         public virtual string ServiceBusinessId { get; set; }
+        public virtual string ServiceBusinessOwnerId { get; set; }
         public virtual string ServiceBusinessName { get; set; }
         public virtual string ServiceBusinessPhone { get; set; }
 

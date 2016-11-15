@@ -170,7 +170,7 @@ namespace Dianzhu.BLL
                 }
                 else
                 {
-                    where = where.And(x => x.Business.OwnerId == UserID);
+                    where = where.And(x => x.ServiceBusinessOwnerId == UserID.ToString());
                 }
             }
             if(!string.IsNullOrEmpty(status))
@@ -974,11 +974,11 @@ namespace Dianzhu.BLL
             {
                 return;
             }
-            if ( order.Business.OwnerId ==null)
+            if (string.IsNullOrEmpty( order.ServiceBusinessOwnerId))
             {
                 return;
             }
-            string uriParameterByStore = uriParameter + "&userid=" + order.Business.OwnerId
+            string uriParameterByStore = uriParameter + "&userid=" + order.ServiceBusinessOwnerId
                                                       + "&toresource=" + enum_XmppResource.YDBan_Store;
             RequestUri(uriParameterByStore);
 
@@ -987,7 +987,7 @@ namespace Dianzhu.BLL
             {
                 return;
             }
-            string uriParameterByStaff = uriParameter + "&userid=" + order.Staff.Id
+            string uriParameterByStaff = uriParameter + "&userid=" + order.StaffId
                                                       + "&toresource=" + enum_XmppResource.YDBan_Staff;
             RequestUri(uriParameterByStaff);
         }

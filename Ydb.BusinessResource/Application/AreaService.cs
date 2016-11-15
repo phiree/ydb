@@ -6,7 +6,7 @@ using System.Text;
 using Ydb.BusinessResource.DomainModel;
 namespace Ydb.BusinessResource.Application
 {
-    public class BLLArea
+    public class AreaService : IAreaService
     {
 
 
@@ -14,7 +14,7 @@ namespace Ydb.BusinessResource.Application
         public IRepositoryArea  repoArea;
         
       
-        public BLLArea(IRepositoryArea repoArea )  {
+        public AreaService(IRepositoryArea repoArea )  {
             this.repoArea = repoArea;
            
         }

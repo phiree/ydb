@@ -42,7 +42,7 @@ namespace Dianzhu.Model
         /// <param name="targetTime"></param>
         /// <param name="memo"></param>
         public virtual void AddDetailFromIntelService(string serviceId, ServiceSnapShotForOrder serviceSnapShot, ServiceOpenTimeSnapshot OpenTimeSnapShot,
-            ServiceOpenTimeForDaySnapShotForOrder OpenTimeForDaySnapShot,
+           // ServiceOpenTimeForDaySnapShotForOrder OpenTimeForDaySnapShot,
             int unitAmount, string targetCustomerName, string targetCustomerPhone, string targetAddress, DateTime targetTime, string memo)
         {
 
@@ -50,7 +50,9 @@ namespace Dianzhu.Model
             if (existedService.Count() == 0)
             {
 
-                ServiceOrderDetail detail = new ServiceOrderDetail(serviceId, serviceSnapShot, OpenTimeSnapShot, OpenTimeForDaySnapShot, unitAmount, targetCustomerName, targetCustomerPhone, targetAddress, targetTime, memo);
+                ServiceOrderDetail detail = new ServiceOrderDetail(serviceId, serviceSnapShot, OpenTimeSnapShot,
+                //    OpenTimeForDaySnapShot,
+                    unitAmount, targetCustomerName, targetCustomerPhone, targetAddress, targetTime, memo);
                 Details.Add(detail);
                 BusinessId = serviceSnapShot.ServiceBusinessId;
             }
@@ -562,7 +564,22 @@ namespace Dianzhu.Model
                 return name.TrimEnd(';');
             }
         }
+        public virtual string ServiceBusinessOwnerId
+        {
+            get
+            {
+                string name = string.Empty;
+                //todo:refactor 需要进一步处理
+                if (Details.Count > 1) { log.Error("订单服务数量大于1"); throw new Exception("订单服务数量大于1");  }
+                foreach (ServiceOrderDetail detail in Details)
+                {
+                    name += detail.ServieSnapShot.ServiceBusinessOwnerId + ";";
+                }
+                return name.TrimEnd(';');
+            }
+        }
 
+         
 
     }
 }

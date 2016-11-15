@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
-
+using Ydb.BusinessResource.Application;
+ 
 namespace Dianzhu.BLL
 {
    public  class PushService
@@ -12,11 +13,13 @@ namespace Dianzhu.BLL
         IDAL.IDALServiceOrderPushedService dalSOP;
         BLLPayment bllPayment;
         IBLLServiceOrder bllServiceOrder;
+        IDZServiceService dzServiceService;
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis;
-        public PushService(IDAL.IDALServiceOrderPushedService dalSOP,IBLLServiceOrder bllServiceOrder, BLLPayment bllPayment,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis)
+        public PushService(IDAL.IDALServiceOrderPushedService dalSOP,IBLLServiceOrder bllServiceOrder, IDZServiceService dzServiceService, BLLPayment bllPayment,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis)
         {
             this.dalSOP = dalSOP;
             this.bllServiceOrder = bllServiceOrder;
+            this.dzServiceService = dzServiceService;
             this.bllPayment = bllPayment;
 
             this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
@@ -54,8 +57,10 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <param name="order"></param>
         /// <param name="selectedService"></param>
-        public void SelectServiceAndCreate(ServiceOrder order, DZService selectedService)
+        public void SelectServiceAndCreate(ServiceOrder order, string selectedServiceId)
         {
+
+
             IList<ServiceOrderPushedService> l = GetPushedServicesForOrder(order);
             if (l.Count > 1)
             {
@@ -63,12 +68,43 @@ namespace Dianzhu.BLL
             }
             else if (l.Count == 1)
             {
-                ServiceOrderPushedService s = l.Single(x => x.OriginalService.Id == selectedService.Id);
+                ServiceOrderPushedService s = l.Single(x => x.OriginalServiceId == selectedServiceId);
                 if (s == null)
                 {
                     throw new Exception("该服务不是该订单的推送服务！");
                 }
-                order.AddDetailFromIntelService(s.OriginalService, s.UnitAmount,s.TargetCustomerName,s.TargetCustomerPhone, s.TargetAddress, s.TargetTime,s.Memo);
+
+                //todo:  需要用Automapper
+             ServiceDto serviceDto=  dzServiceService.GetOne(new Guid(selectedServiceId));
+                ServiceSnapShotForOrder serviceSnapShot = new ServiceSnapShotForOrder {
+                    CancelCompensation = serviceDto.CancelCompensation,
+                    ChargeUnit = (enum_ChargeUnit)Enum.Parse(typeof(enum_ChargeUnit), serviceDto.ChargeUnitType),
+                    DepositAmount = serviceDto.DepositAmount,
+                    Description = serviceDto.Description,
+                     IsCompensationAdvance= serviceDto.IsCompensationAdvance,
+                      MinPrice=serviceDto.MinPrice,
+                       OverTimeForCancel=serviceDto.OverTimeForCancel,
+                        ServiceBusinessId=serviceDto.ServiceBusinessId,
+                        ServiceBusinessName=serviceDto.ServiceBusinessName,
+                        ServiceBusinessPhone=serviceDto.ServiceBusinessPhone,
+                        ServiceMode = (enum_ServiceMode)Enum.Parse(typeof(enum_ServiceMode), serviceDto.ServiceModeType),
+                         ServiceName=serviceDto.ServiceName,
+                          ServiceTypeName= serviceDto.ServiceTypeName,
+                           UnitPrice=serviceDto.UnitPrice,
+                           ServiceBusinessOwnerId=serviceDto.ServiceBusinessOwnerId
+                     
+                };
+                ServiceOpenTimeDto openTimeDto = dzServiceService.GetTimeDto(new Guid(selectedServiceId), s.TargetTime);
+                ServiceOpenTimeSnapshot serviceTimeSnapShot = new ServiceOpenTimeSnapshot {
+                     Date=openTimeDto.Date,
+                      MaxOrderForDay=openTimeDto.MaxOrderForDay,
+                    MaxOrderForPeriod = openTimeDto.MaxOrderForPeriod,
+                     PeriodBegin=openTimeDto.PeriodBegin,
+                      PeriodEnd=openTimeDto.PeriodEnd
+                };
+                order.AddDetailFromIntelService(s.OriginalServiceId, serviceSnapShot,
+                    serviceTimeSnapShot,
+                    s.UnitAmount,s.TargetCustomerName,s.TargetCustomerPhone, s.TargetAddress, s.TargetTime,s.Memo);
 
                 order.CreatedFromDraft();
                 bllServiceOrder.OrderFlow_ConfirmOrder(order);
