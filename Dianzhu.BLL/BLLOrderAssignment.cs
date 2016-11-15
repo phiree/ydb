@@ -31,9 +31,9 @@ namespace Dianzhu.BLL
  
         }
 
-        public OrderAssignment FindByOrderAndStaff(ServiceOrder order,Staff staff)
+        public OrderAssignment FindByOrderAndStaff(ServiceOrder order,string staffId)
         {
-            return DALOrderAssignment.FindByOrderAndStaff(order, staff);
+            return DALOrderAssignment.FindByOrderAndStaff(order, staffId);
         }
 
         public IList<OrderAssignment> GetOAListByOrder(ServiceOrder order)
@@ -41,9 +41,9 @@ namespace Dianzhu.BLL
             return DALOrderAssignment.GetOAListByOrder(order);
         }
 
-        public IList<OrderAssignment> GetOAListByStaff(Staff staff)
+        public IList<OrderAssignment> GetOAListByStaff(string staffId)
         {
-            return DALOrderAssignment.GetOAListByStaff(staff);
+            return DALOrderAssignment.GetOAListByStaff(staffId);
         }
 
         public IList<OrderAssignment> GetAllListForAssign(Guid bid)
@@ -71,11 +71,12 @@ namespace Dianzhu.BLL
             where = where.And(x => x.Enabled);
             if (userID != Guid.Empty)
             {
-                where = where.And(x => x.Order.Business.OwnerId == userID);
+                //todo: 这个判断有何用?
+                //where = where.And(x => x.Order.Business.OwnerId == userID);
             }
             if (staffID != Guid.Empty)
             {
-                where = where.And(x => x.AssignedStaff.Id == staffID);
+                where = where.And(x => x.AssignedStaffId == staffID.ToString());
             }
             if (orderID != Guid.Empty)
             {
@@ -83,7 +84,7 @@ namespace Dianzhu.BLL
             }
             if (storeID != Guid.Empty)
             {
-                where = where.And(x => x.Order.Business.Id == storeID);
+                where = where.And(x => x.Order.BusinessId == storeID.ToString());
             }
 
             OrderAssignment baseone = null;
@@ -119,11 +120,11 @@ namespace Dianzhu.BLL
             where = where.And(x => x.Enabled);
             if (userID != Guid.Empty)
             {
-                where = where.And(x => x.Order.Business.OwnerId == userID);
+               // where = where.And(x => x.Order.Business.OwnerId == userID);
             }
             if (staffID != Guid.Empty)
             {
-                where = where.And(x => x.AssignedStaff.Id == staffID);
+                where = where.And(x => x.AssignedStaffId == staffID.ToString());
             }
             if (orderID != Guid.Empty)
             {
@@ -131,7 +132,7 @@ namespace Dianzhu.BLL
             }
             if (storeID != Guid.Empty)
             {
-                where = where.And(x => x.Order.Business.Id == storeID);
+                where = where.And(x => x.Order.BusinessId == storeID.ToString());
             }
             long count = DALOrderAssignment.GetRowCount(where);
             return count;
