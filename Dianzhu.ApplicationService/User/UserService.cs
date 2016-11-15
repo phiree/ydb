@@ -175,7 +175,7 @@ namespace Dianzhu.ApplicationService.User
             {
                 customerObj customerobj = Mapper.Map<customerObj>(newMember);
                 //客户端返回密码是不安全的行为,需要重新整理需求
-                //customerobj.pWord = dzm.PlainPassword;
+                customerobj.pWord = newMember.PlainPassword;
 
                 return customerobj;
             }
