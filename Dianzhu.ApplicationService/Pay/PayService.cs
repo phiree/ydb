@@ -153,6 +153,17 @@ namespace Dianzhu.ApplicationService.Pay
             //}
             //payment.PayType = payobj.bOnline ? Model.Enums.enum_PayType.Online : Model.Enums.enum_PayType.Offline;
             //保存记录
+
+            bllOrder.OrderFlow_OrderFinished(order);
+
+            //Model.Payment payment = bllPayment.ApplyPay(order, Model.Enums.enum_PayTarget.FinalPayment);
+
+            //if (payment == null)
+            //{
+            //    throw new Exception("该笔支付不存在！");
+            //}
+
+
             Dianzhu.Model.PaymentLog paymentLog = new Dianzhu.Model.PaymentLog();
             paymentLog.PaylogType = Dianzhu.Model.Enums.enum_PaylogType.None;
             paymentLog.PayType = Dianzhu.Model.Enums.enum_PayType.Offline;
