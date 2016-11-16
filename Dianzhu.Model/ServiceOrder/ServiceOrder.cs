@@ -9,6 +9,7 @@ namespace Dianzhu.Model
 {
     /// <summary>
     /// 订单
+    /// todo:refactor:和服务相关的信息不需要浮现到订单对象中,直接引用 detaiis[0].servicesnapshot.相关属性即可.
     /// </summary>
 
     public class ServiceOrder : DDDCommon.Domain.Entity<Guid>
