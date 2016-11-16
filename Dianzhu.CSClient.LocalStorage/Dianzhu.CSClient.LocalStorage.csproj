@@ -66,6 +66,10 @@
       <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ydb.BusinessResource\Ydb.BusinessResource.csproj">
+      <Project>{0c2206a1-308f-4090-a4a9-4e7cefd2fd9f}</Project>
+      <Name>Ydb.BusinessResource</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

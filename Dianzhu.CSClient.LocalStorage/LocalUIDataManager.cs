@@ -7,6 +7,7 @@ using Dianzhu.IDAL;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
+using Ydb.BusinessResource.DomainModel;
 
 namespace Dianzhu.CSClient.LocalStorage
 {
@@ -150,6 +151,7 @@ namespace Dianzhu.CSClient.LocalStorage
     {
         public string Name { get; set; }
         public DateTime Date { get; set; }
+      //todo:refactor 直接使用领域对象? 
         public ServiceType ServiceType { get; set; }
         public string ServiceName { get; set; }
         public decimal PriceMin { get; set; }
