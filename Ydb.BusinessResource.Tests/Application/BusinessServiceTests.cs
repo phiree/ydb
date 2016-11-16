@@ -22,7 +22,8 @@ namespace Ydb.BusinessResource.Application.Tests
             IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
             string businessEmail = "test_businessemail_1";
             string businessName = "test_businessname_1";
-            businessService.Add(Builder<DomainModel.Business>.CreateNew().With(x=>x.Email= businessEmail).With(x=>x.Name=businessName) .Build());
+            businessService.Add("test_name","test_phone",Guid.NewGuid(),"test_latitude","test_longtitude","test_rawAddressFromMapApi","test_contact"
+                ,23,23);
 
            var b= businessService.GetBusinessByEmail(businessEmail);
 

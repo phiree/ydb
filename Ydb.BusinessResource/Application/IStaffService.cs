@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Specification;
-
+using Ydb.Common.Application;
 namespace Ydb.BusinessResource.Application
 {
     public interface IStaffService
@@ -20,5 +20,11 @@ namespace Ydb.BusinessResource.Application
         void Save(Staff staff);
         string Save(Guid StaffId, HttpPostedFile imageFile, enum_ImageType imageType);
         void Update(Staff staff);
+        /// <summary>
+        /// 取消安排
+        /// </summary>
+        /// <returns></returns>
+        ActionResult CanelAssign(string staffId);
+        
     }
 }

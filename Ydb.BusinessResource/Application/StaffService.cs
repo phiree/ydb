@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
- 
+
 using System.Web;
 using System.IO;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Specification;
+using Ydb.Common.Application;
+using Ydb.BusinessResource.Infrastructure;
+
 namespace Ydb.BusinessResource.Application
 {
     public class StaffService : IStaffService
@@ -226,6 +229,12 @@ namespace Ydb.BusinessResource.Application
                 where = where.And(x => x.Belongto.Id == storeID);
             }
             return repositoryStaff.FindOne(where);
+        }
+        [UnitOfWork]
+        public void CanelAssign(string staffId)
+        {
+            Staff assigningStaff = repositoryStaff.FindById(new Guid(staffId));
+            assigningStaff.IsAssigned = false;
         }
     }
 }
