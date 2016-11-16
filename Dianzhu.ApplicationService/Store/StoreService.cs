@@ -6,37 +6,46 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
+using Ydb.Common.Specification;
+using Ydb.Common.Application;
 namespace Dianzhu.ApplicationService.Store
 {
     public class StoreService: IStoreService
     {
         IDZMembershipService memberService;
-        BLL.BLLBusiness bllBusiness;
-       public static BLL.BLLStaff bllStaff;
-        public StoreService(BLL.BLLBusiness bllBusiness, IDZMembershipService memberService, BLL.BLLStaff bllStaff)
+     IBusinessService businessService;
+        IStaffService staffService;
+        public StoreService(IBusinessService businessService, IDZMembershipService memberService, IStaffService staffService)
         {
-            this.bllBusiness = bllBusiness;
+            this.businessService = businessService;
             this.memberService = memberService;
-            StoreService.bllStaff = bllStaff;
+            this.staffService = staffService;
         }
-
-         public static void changeObj(storeObj storeobj, Model.Business business)
+        //todo: refactor: 需要提取到领域内的逻辑
+        /// <summary>
+        /// change business to storeObj
+        /// </summary>
+        /// <param name="storeobj"></param>
+        /// <param name="business"></param>
+         public   void changeObj(storeObj storeobj,  Business business)
         {
-            foreach (Model.BusinessImage bimg in business.ChargePersonIdCards)
+            foreach ( BusinessImage bimg in business.ChargePersonIdCards)
             {
                 if (bimg.ImageName != null)
                 {
                     storeobj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);//MediaGetUrl
                 }
             }
-            foreach (Model.BusinessImage bimg in business.BusinessLicenses)
+            foreach (BusinessImage bimg in business.BusinessLicenses)
             {
                 if (bimg.ImageName != null)
                 {
                     storeobj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);
                 }
             }
-            foreach (Model.BusinessImage bimg in business.BusinessShows)
+            foreach (BusinessImage bimg in business.BusinessShows)
             {
                 if (bimg.ImageName != null)
                 {
@@ -51,7 +60,7 @@ namespace Dianzhu.ApplicationService.Store
             storeobj.location.longitude = business.Longitude.ToString();
             storeobj.location.address = business.RawAddressFromMapAPI==null?"":business.RawAddressFromMapAPI;
 
-            storeobj.headCount = int.Parse(bllStaff.GetStaffsCount("", "", "", "", "", "", business.Id).ToString());
+            storeobj.headCount = int.Parse(staffService.GetStaffsCount("", "", "", "", "", "", business.Id).ToString());
 
 
         }
@@ -64,49 +73,27 @@ namespace Dianzhu.ApplicationService.Store
         /// <returns></returns>
         public storeObj PostStore(storeObj storeobj,Customer customer)
         {
-            if (string.IsNullOrEmpty(storeobj.name))
-            {
-                throw new FormatException("店铺名称不能为空！");
-            }
-            //if (string.IsNullOrEmpty(storeobj.introduction))
-            //{
-            //    throw new FormatException("店铺简介不能为空！");
-            //}
-            if (string.IsNullOrEmpty(storeobj.name))
-            {
-                throw new FormatException("店铺电话不能为空！");
-            }
+ 
             Guid guidUser = utils.CheckGuidID(customer.UserID, "customer.UserID");
           MemberDto member= memberService.GetUserById(guidUser.ToString());
-            if (member == null || member.UserType  != "business")
+            if (member == null )
             {
                 throw new Exception("该商户账号不存在！");
             }
-            Model.Business business = Mapper.Map<storeObj, Model.Business>(storeobj);
-            business.OwnerId= member.Id;
-            DateTime dt = DateTime.Now;
-            business.CreatedTime = dt;
-            double dd = 0;
-            if (double.TryParse(storeobj.location.latitude, out dd))
+            if (member.UserType != "business")
             {
-                business.Latitude = dd;
+                throw new Exception("您不是商户用户！");
             }
-            if (double.TryParse(storeobj.location.longitude, out dd))
+
+         ActionResult<Business> result=   businessService.Add(storeobj.name, storeobj.storePhone, guidUser, storeobj.location.latitude,
+                storeobj.location.longitude, storeobj.location.address,storeobj.linkMan,storeobj.vintage,storeobj.headCount);
+
+            if (!result.IsSuccess)
             {
-                business.Longitude = dd;
+                throw new Exception(result.ErrMsg);
             }
-            business.RawAddressFromMapAPI = storeobj.location.address;
-            bllBusiness.Add(business);
-            //business = bllBusiness.GetOne(business.Id);
-            //if (business != null && business.CreatedTime==dt)
-            //{
-            storeobj = Mapper.Map<Model.Business, storeObj>(business);
-            changeObj(storeobj, business);
-            //}
-            //else
-            //{
-            //    throw new Exception("新建失败");
-            //}
+            changeObj(storeobj,result.ResultObject);
+           
             return storeobj;
         }
 
@@ -119,15 +106,15 @@ namespace Dianzhu.ApplicationService.Store
         /// <returns></returns>
         public IList<storeObj> GetStores(common_Trait_Filtering filter, common_Trait_StoreFiltering storefilter,Customer customer)
         {
-            IList<Model.Business> business = null;
-            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Business");
-            business = bllBusiness.GetStores(filter1, storefilter.name, customer.UserID);
+            IList<Business> business = null;
+            TraitFilter filter1 = utils.CheckFilter(filter, "Business");
+            business = businessService.GetStores(filter1, storefilter.name, customer.UserID);
             if (business == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<storeObj>();
             }
-            IList<storeObj> storeobj = Mapper.Map<IList<Model.Business>, IList<storeObj>>(business);
+            IList<storeObj> storeobj = Mapper.Map<IList<Business>, IList<storeObj>>(business);
             for (int i = 0; i < storeobj.Count; i++)
             {
                 changeObj(storeobj[i], business[i]);
@@ -144,7 +131,7 @@ namespace Dianzhu.ApplicationService.Store
         public countObj GetStoresCount(common_Trait_StoreFiltering storefilter, Customer customer)
         {
             countObj c = new countObj();
-            c.count = bllBusiness.GetStoresCount(storefilter.name, utils.CheckGuidID(customer.UserID, "customer.UserID")).ToString();
+            c.count = businessService.GetStoresCount(storefilter.name, utils.CheckGuidID(customer.UserID, "customer.UserID")).ToString();
             return c;
         }
 
@@ -156,15 +143,15 @@ namespace Dianzhu.ApplicationService.Store
         /// <returns></returns>
         public IList<storeObj> GetAllStores(common_Trait_Filtering filter, common_Trait_StoreFiltering storefilter)
         {
-            IList<Model.Business> business = null;
-            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Business");
-            business = bllBusiness.GetStores(filter1, storefilter.name, storefilter.merchantID);
+            IList<Business> business = null;
+            TraitFilter filter1 = utils.CheckFilter(filter, "Business");
+            business = businessService.GetStores(filter1, storefilter.name, storefilter.merchantID);
             if (business == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<storeObj>();
             }
-            IList<storeObj> storeobj = Mapper.Map<IList<Model.Business>, IList<storeObj>>(business);
+            IList<storeObj> storeobj = Mapper.Map<IList<Business>, IList<storeObj>>(business);
             for (int i = 0; i < storeobj.Count; i++)
             {
                 changeObj(storeobj[i], business[i]);
@@ -180,7 +167,7 @@ namespace Dianzhu.ApplicationService.Store
         public countObj GetAllStoresCount(common_Trait_StoreFiltering storefilter)
         {
             countObj c = new countObj();
-            c.count = bllBusiness.GetStoresCount(storefilter.name, utils.CheckGuidID(storefilter.merchantID, "merchantID")).ToString();
+            c.count = businessService.GetStoresCount(storefilter.name, utils.CheckGuidID(storefilter.merchantID, "merchantID")).ToString();
             return c;
         }
 
@@ -191,14 +178,14 @@ namespace Dianzhu.ApplicationService.Store
         /// <returns></returns>
         public storeObj GetStore(string storeID)
         {
-            Model.Business business =  bllBusiness.GetOne(utils.CheckGuidID(storeID, "storeID"));
+            Business business =  businessService.GetOne(utils.CheckGuidID(storeID, "storeID"));
             if (business == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 //return null;
                 throw new Exception("没有找到资源！");
             }
-            storeObj storeobj = Mapper.Map<Model.Business, storeObj>(business);
+            storeObj storeobj = Mapper.Map<Business, storeObj>(business);
             changeObj(storeobj, business);
             return storeobj;
         }
@@ -215,56 +202,18 @@ namespace Dianzhu.ApplicationService.Store
             Guid guidUser = utils.CheckGuidID(customer.UserID, "customer.UserID");
             //Guid guidUser = new Guid();
             Guid guidStore = utils.CheckGuidID(storeID, "storeID");
-            Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, guidUser);
-            Model.Business business1 = new Model.Business();
-            if (business == null)
-            {
-                throw new Exception("该商户不存在该店铺！");
-            }
-            //Model.Business business1 = new Model.Business();
-            //business.CopyTo(business1);
-            //Model.Business business2 = Mapper.Map<storeObj, Model.Business>(storeobj);
-            if (string.IsNullOrEmpty(storeobj.name)== false && storeobj.name != business.Name)
-            {
-                business.Name = storeobj.name;
-            }
-            if (string.IsNullOrEmpty(storeobj.introduction) == false && storeobj.introduction != business.Description)
-            {
-                business.Description = storeobj.introduction;
-            }
-            if (string.IsNullOrEmpty(storeobj.storePhone) == false && storeobj.storePhone != business.Phone)
-            {
-                business.Phone = storeobj.storePhone;
-            }
-            if (string.IsNullOrEmpty(storeobj.address) == false && storeobj.address != business.Address)
-            {
-                business.Address = storeobj.address;
-            }
-            if (!string.IsNullOrEmpty(storeobj.imgUrl))
-            {
-                //string savedFileName = MediaServer.HttpUploader.Upload(Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl"),
-                //   requestData.imgData, "BusinessAvatar", "image");
-                //utils.DownloadToMediaserver(storeobj.imgUrl, string.Empty, "BusinessAvatar", "image");
-                Model.BusinessImage bi = new Model.BusinessImage();
-                bi.ImageName = utils.GetFileName(storeobj.imgUrl);
-                bi.ImageType = Model.Enums.enum_ImageType.Business_Avatar;
-                bi.IsCurrent = true;
-                business.BusinessAvatar = bi;
-            }
+            
+         ActionResult<Business> result=businessService.ChangeInfo(guidStore.ToString(),guidUser.ToString(),
+             storeobj.name,
+             storeobj.introduction, storeobj.storePhone, storeobj.address
+               , utils.GetFileName(storeobj.imgUrl));
 
-            //bllBusiness.Update(business2);
-            //business2 = bllBusiness.GetOne(business2.Id);
-
-
-            //if (business2 != null)
-            //{
-            storeobj = Mapper.Map<Model.Business, storeObj>(business);
-            changeObj(storeobj, business);
-            //}
-            //else
-            //{
-            //    throw new Exception("更新失败");
-            //}
+            if (!result.IsSuccess)
+            {
+                throw new Exception(result.ErrMsg);
+            }
+            storeobj = Mapper.Map<Business, storeObj>(result.ResultObject);
+            changeObj(storeobj, result.ResultObject);
             return storeobj;
         }
 
@@ -279,13 +228,13 @@ namespace Dianzhu.ApplicationService.Store
             Guid guidUser = utils.CheckGuidID(customer.UserID, "customer.UserID");
             //Guid guidUser = new Guid();
             Guid guidStore = utils.CheckGuidID(storeID, "storeID");
-            Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, guidUser);
+            Business business = businessService.GetBusinessByIdAndOwner(guidStore, guidUser);
             if (business == null)
             {
                 throw new Exception("该商户不存在该店铺！");
             }
-            bllBusiness.Delete(business);
-            //business = bllBusiness.GetOne(guidStore);
+            businessService.Delete(business);
+            //business = businessService.GetOne(guidStore);
             //if (business == null)
             //{
             try

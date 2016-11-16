@@ -77,6 +77,7 @@
     <Compile Include="Application\BalanceDTO\WithdrawApplyDto.cs" />
     <Compile Include="Application\BalanceDTO\WithdrawApplyFilter.cs" />
     <Compile Include="Application\BalanceDTO\WithdrawCashDto.cs" />
+    <Compile Include="Application\Infrastructure\MapperBase.cs" />
     <Compile Include="Application\IService\IWithdrawApplyService.cs" />
     <Compile Include="Application\Service\BalanceAccountService.cs" />
     <Compile Include="Application\IService\IBalanceAccountService.cs" />

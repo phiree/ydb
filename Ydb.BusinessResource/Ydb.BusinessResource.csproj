@@ -86,13 +86,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\AreaDTO.cs" />
     <Compile Include="Application\AreaService.cs" />
-    <Compile Include="Application\Dto\ServiceOpenTimeForDayDto.cs" />
     <Compile Include="Application\Dto\ServiceOpenTimeDto.cs" />
     <Compile Include="Application\IAreaService.cs" />
     <Compile Include="Application\IDZServiceService.cs" />
+    <Compile Include="Application\Infrastructure\MapperBase.cs" />
     <Compile Include="Application\ServiceOpenTimeService.cs" />
     <Compile Include="Application\IServiceTypeService.cs" />
+    <Compile Include="Application\ServiceTypeDTO.cs" />
     <Compile Include="Application\ServiceTypeService.cs" />
     <Compile Include="Application\IStaffService.cs" />
     <Compile Include="Application\StaffService.cs" />
