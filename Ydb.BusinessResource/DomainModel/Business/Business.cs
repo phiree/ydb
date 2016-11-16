@@ -70,8 +70,42 @@ namespace Ydb.BusinessResource.DomainModel
 
             BusinessImages = new List<BusinessImage>();
             ServiceType = new List<ServiceType>();
+            CreatedTime = DateTime.Now;
+        }
+        public Business(string name,string phone,Guid ownerId,string latitude,string longtitude
+            ,string rawAddressFromMapApi, string contact, int workingYears, int staffAmount) :this()
+        {
+            if (string.IsNullOrEmpty( name))
+            {
+                throw new FormatException("店铺名称不能为空！");
+            }
+            //if (string.IsNullOrEmpty(storeobj.introduction))
+            //{
+            //    throw new FormatException("店铺简介不能为空！");
+            //}
+            if (string.IsNullOrEmpty( phone))
+            {
+                throw new FormatException("店铺电话不能为空！");
+            }
 
 
+
+            OwnerId = ownerId;
+
+            double dd = 0;
+            if (double.TryParse(latitude, out dd))
+            {
+                 Latitude = dd;
+            }
+            if (double.TryParse(longtitude, out dd))
+            {
+               Longitude = dd;
+            }
+             RawAddressFromMapAPI = rawAddressFromMapApi;
+            Contact = contact;
+            WorkingYears = workingYears;
+            StaffAmount = staffAmount;
+            
         }
         /// <summary>
         ///  所在辖区
@@ -341,6 +375,37 @@ namespace Ydb.BusinessResource.DomainModel
             newBusiness.Phone = Phone;
             newBusiness.Address = Address;
             newBusiness.BusinessImages = BusinessImages;
+        }
+        public virtual void ChangeInfo(string name,string description,string phone,
+            string address,string avatarImageName)
+        {
+            if (!string.IsNullOrEmpty(name))
+            {
+                Name = name;
+            }
+            if (!string.IsNullOrEmpty(description) )
+            {
+                Description = description;
+            }
+            if (string.IsNullOrEmpty(phone) == false && phone != Phone)
+            {
+                Phone = phone;
+            }
+            if (string.IsNullOrEmpty(address) == false && address != Address)
+            {
+                Address = address;
+            }
+            if (!string.IsNullOrEmpty(avatarImageName))
+            {
+                //string savedFileName = MediaServer.HttpUploader.Upload(Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl"),
+                //   requestData.imgData, "BusinessAvatar", "image");
+                //utils.DownloadToMediaserver(imgUrl, string.Empty, "BusinessAvatar", "image");
+                BusinessImage bi = new BusinessImage();
+                bi.ImageName = avatarImageName;
+                bi.ImageType = enum_ImageType.Business_Avatar;
+                bi.IsCurrent = true;
+                BusinessAvatar = bi;
+            }
         }
 
     }

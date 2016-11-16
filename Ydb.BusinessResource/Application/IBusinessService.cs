@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Specification;
-
+using Ydb.Common.Application;
 namespace Ydb.BusinessResource.Application
 {
    public interface  IBusinessService
@@ -15,8 +15,10 @@ namespace Ydb.BusinessResource.Application
          Business GetOne(Guid id);
          void Update(Business business);
          void Delete(Business business);
-         void Add(Business business);
-
+        ActionResult<Business> Add(string name, string phone, Guid ownerId, string latitude, string longtitude
+           , string rawAddressFromMapApi,string contact,int workingYears,int StaffAmount);
+        ActionResult<Business> ChangeInfo(string businessId, string ownerId, string name, string description, string phone,
+        string address, string avatarImageName);
 
          IList<Area> GetAreasOfBusiness();
          IList<Business> GetBusinessInSameCity(Area area);

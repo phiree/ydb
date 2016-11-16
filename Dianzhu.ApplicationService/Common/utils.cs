@@ -16,6 +16,7 @@ using PHSuit;
 using System.Reflection;
 using System.Drawing;
 using System.Security.Cryptography;
+using Ydb.Common.Specification;
 
 namespace Dianzhu.ApplicationService
 {
@@ -173,9 +174,9 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <param name="filtert">通用筛选器</param>
         /// <returns></returns>
-        public static Model.Trait_Filtering CheckFilter(common_Trait_Filtering filter,string TName)
+        public static TraitFilter CheckFilter(common_Trait_Filtering filter,string TName)
         {
-            Model.Trait_Filtering filter1 = new Model.Trait_Filtering();
+            TraitFilter filter1 = new TraitFilter();
             filter1.baseID = filter.baseID;
             filter1.ascending = filter.ascending;
             filter1.ids = filter.ids;

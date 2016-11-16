@@ -6,7 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Specification;
-
+using Ydb.BusinessResource.Infrastructure;
+using Ydb.Common.Application;
 namespace Ydb.BusinessResource.Application
 {
    public class BusinessService:IBusinessService
@@ -32,9 +33,45 @@ namespace Ydb.BusinessResource.Application
         {
             repositoryBusiness.Delete(business);
         }
-        public void Add(Business business)
+        [UnitOfWork]
+       public  ActionResult<Business> Add(string name, string phone, Guid ownerId, string latitude, string longtitude
+           , string rawAddressFromMapApi, string contact, int workingYears, int staffAmount)
+
         {
-            repositoryBusiness.Add(business);
+            ActionResult<Business> result = new ActionResult<Business>();
+            try
+            {
+                Business business = new Business(name, phone, ownerId, latitude, longtitude
+                , rawAddressFromMapApi,contact,workingYears,staffAmount);
+                repositoryBusiness.Add(business);
+                result.ResultObject = business;
+                
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = ex.Message;
+
+            }
+            return result;
+
+        }
+        [UnitOfWork]
+        public  ActionResult<Business> ChangeInfo(string businessId,string ownerId, string name, string description, string phone,
+            string address, string avatarImageName)
+        {
+            ActionResult<Business> result = new ActionResult<Business>();
+            Business business = repositoryBusiness.GetBusinessByIdAndOwner(new Guid(businessId),new Guid(ownerId));
+            if (business == null)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "不存在此店铺,或者您不是该店铺的所有者";
+                return result;
+            }
+            
+            business.ChangeInfo(name, description, phone, address, avatarImageName);
+
+            return result;
         }
 
 
