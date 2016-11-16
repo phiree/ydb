@@ -6,58 +6,58 @@ using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Domain;
 namespace Ydb.BusinessResource.DomainModel
 {
-    
+
     /// <summary>
     /// 店铺基类.泛指可以提供服务的单位,可以是公司 也可以是个人
     /// </summary>
-    public class Business_Abs:Ydb.Common.Domain.Entity<Guid>
+    public class Business_Abs : Ydb.Common.Domain.Entity<Guid>
     {
         public Business_Abs()
         {
             Enabled = true;
             CreatedTime = DateTime.Now;
         }
-      
+
         /// <summary>
         /// 店铺名称
         /// </summary>
-        public virtual string Name { get; set; }
+        public virtual string Name { get; internal set; }
         /// <summary>
         /// 联系人姓名
         /// </summary>
-        public virtual string Contact { get; set; }
+        public virtual string Contact { get;internal set; }
         /// <summary>
         /// 公司电话
         /// </summary>
-        public virtual string Phone { get; set; }
+        public virtual string Phone { get;internal set; }
         /// <summary>
         /// 公司邮箱
         /// </summary>
-        public virtual string Email { get; set; }
+        public virtual string Email { get;internal set; }
         /// <summary>
         /// 简介
         /// </summary>
-        public virtual string Description { get; set; }
+        public virtual string Description { get;internal set; }
 
         /// <summary>
         /// 公司网址
         /// </summary>
-        public virtual string WebSite { get; set; }
+        public virtual string WebSite { get;internal set; }
 
         /// <summary>
         /// 商户所有者.
         /// </summary>
-        public virtual Guid OwnerId { get; set; }
+        public virtual Guid OwnerId { get;internal set; }
 
         /// <summary>
         /// 店铺是否可用
         /// </summary>
-        public virtual bool Enabled { get; set; }
+        public virtual bool Enabled { get;internal set; }
 
         /// <summary>
         /// 创建时间
         /// </summary>
-        public virtual DateTime CreatedTime { get; set; }
+        public virtual DateTime CreatedTime { get;internal set; }
     }
 
     /// <summary>
@@ -67,71 +67,71 @@ namespace Ydb.BusinessResource.DomainModel
     {
         public Business()
         {
-            
+
             BusinessImages = new List<BusinessImage>();
             ServiceType = new List<ServiceType>();
-           
-            
+
+
         }
         /// <summary>
         ///  所在辖区
         /// </summary>
-        public virtual Area AreaBelongTo { get; set; }
-        
-       
+        public virtual Area AreaBelongTo { get;internal set; }
+
+
         /// <summary>
         ///  地址
         /// </summary>
-        public virtual string Address { get; set; }
+        public virtual string Address { get;internal set; }
         /// <summary>
         /// 员工总人数
         /// </summary>
-        public virtual int StaffAmount { get; set; }
+        public virtual int StaffAmount { get;internal set; }
         /// <summary>
         /// 从业时长, 比如 1915年进入该行业的, 则是 百  --年老 --店,该值为100.
         /// </summary>
-        public virtual int WorkingYears { get; set; }
+        public virtual int WorkingYears { get;internal set; }
         /// <summary>
         /// 商家相关的图片
         /// </summary>
-        public virtual IList<BusinessImage> BusinessImages { get; set; }
+        public virtual IList<BusinessImage> BusinessImages { get;internal set; }
         /// <summary>
         /// 服务类型.
         /// </summary>
-        public virtual IList<ServiceType> ServiceType { get; set; }
+        public virtual IList<ServiceType> ServiceType { get;internal set; }
 
-       
+
         /// <summary>
         /// 店铺地理坐标,精度，维度。
         /// </summary>
-        public virtual double Longitude { get; set; }
-        public virtual double Latitude { get; set; }
+        public virtual double Longitude { get;internal set; }
+        public virtual double Latitude { get;internal set; }
 
         /// <summary>
         /// MapAPI返回地址信息
         /// </summary>
-        public virtual string RawAddressFromMapAPI { get; set; }
+        public virtual string RawAddressFromMapAPI { get;internal set; }
         /// <summary>
         /// 优惠推广的范围.所有的优惠券都是一样的.
         /// </summary>
-        public virtual double PromoteScope { get; set; }
+        public virtual double PromoteScope { get;internal set; }
         /// <summary>
         /// 是否通过了审核.
         /// </summary>
-        public virtual bool IsApplyApproved { get; set; }
+        public virtual bool IsApplyApproved { get;internal set; }
         /// <summary>
         /// 审核拒绝信息.
         /// </summary>
-        public virtual string ApplyRejectMessage { get; set; }
+        public virtual string ApplyRejectMessage { get;internal set; }
         /// <summary>
         /// 申请日期
         /// </summary>
-        public virtual DateTime? DateApply { get; set; }
-       
+        public virtual DateTime? DateApply { get;internal set; }
+
         /// <summary>
         /// 审核通过日期
         /// </summary>
-        public virtual DateTime? DateApproved { get; set; }
+        public virtual DateTime? DateApproved { get;internal set; }
         /// <summary>
         /// 单张营业执照
         /// </summary>
@@ -139,7 +139,7 @@ namespace Ydb.BusinessResource.DomainModel
         {
             get
             {
-                BusinessImage[] bi = BusinessImages.Where(x => x.ImageType ==  enum_ImageType.Business_License).ToArray();
+                BusinessImage[] bi = BusinessImages.Where(x => x.ImageType == enum_ImageType.Business_License).ToArray();
                 if (bi.Count() >= 1)
                     return bi[0];
                 return new BusinessImage();
@@ -147,7 +147,7 @@ namespace Ydb.BusinessResource.DomainModel
             set
             {
 
-                IList<BusinessImage> images = BusinessImages.Where(x => x.ImageType ==  enum_ImageType.Business_License).ToList();
+                IList<BusinessImage> images = BusinessImages.Where(x => x.ImageType == enum_ImageType.Business_License).ToList();
                 foreach (BusinessImage i in images)
                 {
                     BusinessImages.Remove(i);
@@ -162,7 +162,7 @@ namespace Ydb.BusinessResource.DomainModel
         {
             get
             {
-                BusinessImage[] bi = BusinessImages.Where(x => x.ImageType == enum_ImageType.Business_Avatar).OrderByDescending(x=>x.UploadTime).ToArray();
+                BusinessImage[] bi = BusinessImages.Where(x => x.ImageType == enum_ImageType.Business_Avatar).OrderByDescending(x => x.UploadTime).ToArray();
                 if (bi.Count() >= 1)
                     return bi[0];
                 return new BusinessImage();
@@ -212,9 +212,9 @@ namespace Ydb.BusinessResource.DomainModel
                 {
                     BusinessImages.Remove(i);
                 }
-                foreach(BusinessImage i in value)
+                foreach (BusinessImage i in value)
                 {
-                BusinessImages.Add(i);
+                    BusinessImages.Add(i);
                 }
             }
 
@@ -257,31 +257,32 @@ namespace Ydb.BusinessResource.DomainModel
         /// </summary>
         public virtual int CompetePercent
         {
-            get {
+            get
+            {
                 int percent = 0;
                 if (!string.IsNullOrEmpty(this.Address))
                 {
                     percent += 7;
                 }
-                if ( this.AreaBelongTo!=null)
+                if (this.AreaBelongTo != null)
                 {
                     percent += 14;
                 }
-                
-                if (this.BusinessImages.Count>0)
+
+                if (this.BusinessImages.Count > 0)
                 {
                     percent += 7;
                 }
-                if (this.BusinessLicence!=null)//5
-                {
-                    percent +=7;
-                }
-                if (this.BusinessShows.Count>0)
+                if (this.BusinessLicence != null)//5
                 {
                     percent += 7;
                 }
-                
-                if (this.ChargePersonIdCards.Count>0)
+                if (this.BusinessShows.Count > 0)
+                {
+                    percent += 7;
+                }
+
+                if (this.ChargePersonIdCards.Count > 0)
                 {
                     percent += 7;
                 }
@@ -311,8 +312,8 @@ namespace Ydb.BusinessResource.DomainModel
                 {
                     percent += 10;
                 }
-                 
-                if (this.WorkingYears>0)
+
+                if (this.WorkingYears > 0)
                 {
                     percent += 10;
                 }
@@ -321,10 +322,10 @@ namespace Ydb.BusinessResource.DomainModel
                 return percent;
             }
         }
-        
-        
-      
-         /// <summary>
+
+
+
+        /// <summary>
         /// 拷贝
         /// </summary>
         /// <param name="newBusiness"></param>
@@ -347,41 +348,41 @@ namespace Ydb.BusinessResource.DomainModel
     /// <summary>
     /// 店铺的一些图片
     /// </summary>
-    public class BusinessImage: Entity<Guid>
+    public class BusinessImage : Entity<Guid>
     {
         public BusinessImage()
         {
             IsCurrent = false;
         }
-     
+
         /// <summary>
         /// 图片名称,图片存储路径由配置确定.
         /// </summary>
-        public virtual string ImageName { get; set; }
+        public virtual string ImageName { get;internal set; }
         /// <summary>
         /// 图片描述
         /// </summary>
-        public virtual string Description { get; set; }
+        public virtual string Description { get;internal set; }
         /// <summary>
         /// 上传时间
         /// </summary>
-        public virtual DateTime UploadTime { get; set; }
+        public virtual DateTime UploadTime { get;internal set; }
         /// <summary>
         /// 序号,用于手动排序
         /// </summary>
-        public virtual int OrderNumber { get; set; }
+        public virtual int OrderNumber { get;internal set; }
         /// <summary>
         /// 图片大小, 单位 KB
         /// </summary>
-        public virtual int Size { get; set; }
+        public virtual int Size { get;internal set; }
         /// <summary>
         /// 图片的类型,
         /// </summary>
-        public virtual enum_ImageType ImageType { get; set; }
+        public virtual enum_ImageType ImageType { get;internal set; }
         /// <summary>
         /// 是否是当前使用的图片
         /// </summary>
-        public virtual bool IsCurrent { get; set; }
+        public virtual bool IsCurrent { get;internal set; }
 
         /// <summary>
         /// 获取文件路径
