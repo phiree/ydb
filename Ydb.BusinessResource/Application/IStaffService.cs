@@ -24,7 +24,7 @@ namespace Ydb.BusinessResource.Application
         /// 取消安排
         /// </summary>
         /// <returns></returns>
-        ActionResult CanelAssign(string staffId);
+        void CanelAssign(string staffId);
         
     }
 }

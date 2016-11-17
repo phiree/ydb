@@ -4,20 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using BMA=Ydb.BusinessResource.Application;
+using BRM = Ydb.BusinessResource.DomainModel;
+using Ydb.Common.Specification;
+using Dianzhu.Model;
+
 namespace Dianzhu.ApplicationService.Staff
 {
     public class StaffService : IStaffService
     {
-        BLL.BLLBusiness bllBusiness;
-        BLL.BLLStaff bllStaff;
+        BMA.IBusinessService businessService;
+        BMA. IStaffService staffService;
         IDZMembershipService memberService;
         public static BLL.BLLOrderAssignment bllAssignment;
-        public StaffService(BLL.BLLBusiness bllBusiness, BLL.BLLStaff bllStaff, IDZMembershipService memberService, BLL.BLLOrderAssignment bllAssignment)
+        public StaffService(BMA.IBusinessService businessService, BMA.IStaffService staffService, IDZMembershipService memberService, BLL.BLLOrderAssignment bllAssignment)
         {
-            this.bllBusiness = bllBusiness;
-            this.bllStaff = bllStaff;
+            this.businessService = businessService;
+            this.staffService = staffService;
             this.memberService = memberService;
             StaffService.bllAssignment = bllAssignment;
         }
@@ -27,10 +33,10 @@ namespace Dianzhu.ApplicationService.Staff
         /// </summary>
         /// <param name="servicesobj"></param>
         /// <param name="dzservice"></param>
-        public static void changeObj(staffObj staffobj, Model.Staff staff)
+        public static void changeObj(staffObj staffobj, BRM.Staff staff)
         {
             staffobj.storeData.storeID = staff.Belongto.Id.ToString();
-            IList<Model.OrderAssignment> listAssignment = bllAssignment.GetOAListByStaff(staff);
+            IList<OrderAssignment> listAssignment = bllAssignment.GetOAListByStaff(staff.Id.ToString());
             staffobj.storeData.allCount = listAssignment.Count;
             for (int i = 0; i < listAssignment.Count; i++)
             {
@@ -51,7 +57,7 @@ namespace Dianzhu.ApplicationService.Staff
         /// </summary>
         /// <param name="storeID"></param>
         /// <param name="customer"></param>
-        Model.Business checkRute(string storeID, Customer customer)
+        BRM.Business checkRute(string storeID, Customer customer)
         {
             if (string.IsNullOrEmpty(storeID))
             {
@@ -61,7 +67,7 @@ namespace Dianzhu.ApplicationService.Staff
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
             if (customer.UserType == "business")
             {
-                Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, guidCustomer);
+                BRM.Business business = businessService.GetBusinessByIdAndOwner(guidStore, guidCustomer);
                 if (business == null)
                 {
                     throw new Exception("该店铺不存在！");
@@ -70,7 +76,7 @@ namespace Dianzhu.ApplicationService.Staff
             }
             else
             {
-                Model.Staff staff = bllStaff.GetOneByUserID(guidStore, customer.UserID);
+               BRM. Staff staff = staffService.GetStaff(guidStore,new Guid( customer.UserID));
                 if (staff == null)
                 {
                     throw new Exception("你不是该店铺的员工！");
@@ -88,18 +94,17 @@ namespace Dianzhu.ApplicationService.Staff
         /// <returns></returns>
         public staffObj PostStaff(string storeID, staffObj staffobj, Customer customer)
         {
+            /*   客户端还没有调用此方法,先注释.
             if (string.IsNullOrEmpty(staffobj.loginName))
             {
                 staffobj.loginName = staffobj.phone;
-                //throw new Exception("登录的用户名或密码不能为空！");
-            }
+               }
             if (string.IsNullOrEmpty(staffobj.pWord))
             {
                 staffobj.pWord = "123456";
-                //throw new Exception("登录的用户名或密码不能为空！");
-            }
-            Model.Business business = checkRute(storeID, customer);
-            Model.Staff staff = Mapper.Map<staffObj, Model.Staff>(staffobj);
+              }
+          BRM.  Business business = checkRute(storeID, customer);
+            BRM.Staff staff = Mapper.Map<staffObj, BRM.Staff>(staffobj);
           MemberDto dzms = memberService.GetUserByName(staffobj.loginName);
             if (dzms == null)
             {
@@ -114,40 +119,33 @@ namespace Dianzhu.ApplicationService.Staff
                     throw new Exception("该用户名已经存在其他类型的用户！");
                 }
             }
-            Model.Staff staff1 = bllStaff.GetOneByUserID(business.Id, dzms.Id.ToString());
+            BRM.Staff staff1 = staffService.GetOneByUserID(business.Id, dzms.Id.ToString());
             if (staff1 != null)
             {
                 throw new Exception("该员工在该店铺中已经存在！");
             }
-            //staffobj.phone == "" ? null : staffobj.phone, staffobj.email == "" ? null : staffobj.email--防止出现重复异常
-            staff.Enable = true;
+               staff.Enable = true;
             staff.UserID = dzms.Id.ToString();
             staff.Belongto = business;
             staff.IsAssigned = false;
-            //staff.Photo = utils.DownloadToMediaserver(staff.Photo, string.Empty, "StaffAvatar", "image");
             //上传图片都是先调用上传接口，然后将其结果传给该接口就好了，该接口不用上传。
-            bllStaff.Save(staff);
+            staffService.Save(staff);
             var avatarList = staff.StaffAvatar.Where(x => x.IsCurrent == true).ToList();
             avatarList.ForEach(x => x.IsCurrent = false);
-            Model.BusinessImage biImage = new Model.BusinessImage
+            BRM.BusinessImage biImage = new BRM.BusinessImage
             {
-                ImageType = Model.Enums.enum_ImageType.Staff_Avatar,
+                ImageType = Enums.enum_ImageType.Staff_Avatar,
                 UploadTime = DateTime.Now,
                 ImageName = staff.Phone,
                 Size = 0,
                 IsCurrent = true
             };
             staff.StaffAvatar.Add(biImage);
-            //staff = bllStaff.GetOne(staff.Id);
-            //if (staff != null)
-            //{
-            staffobj = Mapper.Map<Model.Staff, staffObj>(staff);
+            
+            staffobj = Mapper.Map<BRM.Staff, staffObj>(staff);
             changeObj(staffobj, staff);
-            //}
-            //else
-            //{
-            //    throw new Exception("新建失败");
-            //}
+           */
+            throw new NotImplementedException();
             return staffobj;
         }
 
@@ -161,16 +159,16 @@ namespace Dianzhu.ApplicationService.Staff
         /// <returns></returns>
         public IList<staffObj> GetStaffs(string storeID, common_Trait_Filtering filter, common_Trait_StaffFiltering stafffilter, Customer customer)
         {
-            Model.Business business = checkRute(storeID, customer);
-            IList<Model.Staff> staff = null;
-            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Staff");
-            staff = bllStaff.GetStaffs(filter1, stafffilter.alias, stafffilter.email, stafffilter.phone, stafffilter.sex, stafffilter.specialty, stafffilter.realName, business.Id);
+            BRM.Business business = checkRute(storeID, customer);
+            IList<BRM.Staff> staff = null;
+            TraitFilter filter1 = utils.CheckFilter(filter, "Staff");
+            staff = staffService.GetStaffs(filter1, stafffilter.alias, stafffilter.email, stafffilter.phone, stafffilter.sex, stafffilter.specialty, stafffilter.realName, business.Id);
             if (staff == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<staffObj>();
             }
-            IList<staffObj> staffobj = Mapper.Map<IList<Model.Staff>, IList<staffObj>>(staff);
+            IList<staffObj> staffobj = Mapper.Map<IList<BRM.Staff>, IList<staffObj>>(staff);
             for (int i = 0; i < staffobj.Count; i++)
             {
                 changeObj(staffobj[i], staff[i]);
@@ -187,9 +185,9 @@ namespace Dianzhu.ApplicationService.Staff
         /// <returns></returns>
         public countObj GetStaffsCount(string storeID, common_Trait_StaffFiltering stafffilter, Customer customer)
         {
-            Model.Business business = checkRute(storeID, customer);
+            BRM.Business business = checkRute(storeID, customer);
             countObj c = new countObj();
-            c.count = bllStaff.GetStaffsCount(stafffilter.alias, stafffilter.email, stafffilter.phone, stafffilter.sex, stafffilter.specialty, stafffilter.realName, utils.CheckGuidID(storeID, "storeID")).ToString();
+            c.count = staffService.GetStaffsCount(stafffilter.alias, stafffilter.email, stafffilter.phone, stafffilter.sex, stafffilter.specialty, stafffilter.realName, utils.CheckGuidID(storeID, "storeID")).ToString();
             return c;
         }
 
@@ -201,13 +199,13 @@ namespace Dianzhu.ApplicationService.Staff
         /// <returns></returns>
         public staffObj GetStaff(string storeID, string staffID)
         {
-            Model.Staff staff = bllStaff.GetStaff(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(staffID, "staffID"));
+            BRM.Staff staff = staffService.GetStaff(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(staffID, "staffID"));
             if (staff == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 return null;
             }
-            staffObj staffobj = Mapper.Map<Model.Staff, staffObj>(staff);
+            staffObj staffobj = Mapper.Map<BRM. Staff, staffObj>(staff);
             changeObj(staffobj, staff);
             return staffobj;
         }
@@ -222,6 +220,9 @@ namespace Dianzhu.ApplicationService.Staff
         /// <returns></returns>
         public staffObj PatchStaff(string storeID, string staffID, staffObj staffobj, Customer customer)
         {
+            throw new NotImplementedException();
+            /*接口尚未用到,暂不修改.*/
+            /*
             if (string.IsNullOrEmpty(storeID))
             {
                 throw new FormatException("storeID不能为空！");
@@ -232,16 +233,16 @@ namespace Dianzhu.ApplicationService.Staff
             }
             Guid guidStore = utils.CheckGuidID(storeID, "storeID");
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
-            Model.Staff staff = null;
+            BRM.Staff staff = null;
 
-            staff = bllStaff.GetStaff(guidStore, utils.CheckGuidID(staffID, "staffID"));
+            staff = staffService.GetStaff(guidStore, utils.CheckGuidID(staffID, "staffID"));
             if (staff == null)
             {
                 throw new Exception("该店铺不存在该员工！");
             }
             if (customer.UserType == "business")
             {
-                Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, guidCustomer);
+                BRM.Business business = businessService.GetBusinessByIdAndOwner(guidStore, guidCustomer);
                 if (business == null)
                 {
                     throw new Exception("该店铺不存在！");
@@ -271,9 +272,9 @@ namespace Dianzhu.ApplicationService.Staff
                 staff.Photo = utils.GetFileName(staffobj.imgUrl);
                 var avatarList = staff.StaffAvatar.Where(x => x.IsCurrent == true).ToList();
                 avatarList.ForEach(x => x.IsCurrent = false);
-                Model.BusinessImage biImage = new Model.BusinessImage
+                BRM.BusinessImage biImage = new BusinessImage
                 {
-                    ImageType = Model.Enums.enum_ImageType.Staff_Avatar,
+                    ImageType = Enums.enum_ImageType.Staff_Avatar,
                     UploadTime = DateTime.Now,
                     ImageName = staff.Phone,
                     Size = 0,
@@ -290,20 +291,20 @@ namespace Dianzhu.ApplicationService.Staff
             {
                 staff.Code = staffobj.number;
             }
-            //bllStaff.Update(staff1);
-            //staff2 = bllStaff.GetOne(staff1.Id);
+            //staffService.Update(staff1);
+            //staff2 = staffService.GetOne(staff1.Id);
 
 
             //if (staff2 != null )
             //{
-            staffobj = Mapper.Map<Model.Staff, staffObj>(staff);
+            staffobj = Mapper.Map<Staff, staffObj>(staff);
             changeObj(staffobj, staff);
             //}
             //else
             //{
             //    throw new Exception("更新失败");
             //}
-            return staffobj;
+            return staffobj;*/
         }
 
         /// <summary>
@@ -319,17 +320,17 @@ namespace Dianzhu.ApplicationService.Staff
             {
                 throw new FormatException("staffID不能为空！");
             }
-            Model.Business business = checkRute(storeID, customer);
-            Model.Staff staff = null;
+            BRM.Business business = checkRute(storeID, customer);
+            BRM.Staff staff = null;
             Guid guidStaff = utils.CheckGuidID(staffID, "staffID");
-            staff = bllStaff.GetStaff(business.Id, guidStaff);
+            staff = staffService.GetStaff(business.Id, guidStaff);
             if (staff == null)
             {
                 throw new Exception("该员工不在职！");
             }
             //staff.Enable = false;
-            bllStaff.Delete(staff);
-            //staff = bllStaff.GetStaff(guidStore, guidStaff);
+            staffService.Delete(staff);
+            //staff = staffService.GetStaff(guidStore, guidStaff);
             //if (staff == null)
             //{
             try

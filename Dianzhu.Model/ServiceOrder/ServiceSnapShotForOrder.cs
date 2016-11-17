@@ -12,18 +12,26 @@ namespace Dianzhu.Model
         public virtual bool IsCompensationAdvance { get; set; }
         public virtual decimal MinPrice { get; set; }
         public virtual decimal UnitPrice { get; set; }
-        public virtual enum_ChargeUnit ChargeUnit { get; set; }
+        public virtual string ChargeUnitType { get; set; }
 
         public virtual decimal DepositAmount { get; set; }
         public virtual decimal CancelCompensation { get; set; }
         public virtual int OverTimeForCancel { get; set; }
-        public virtual enum_ServiceMode ServiceMode { get; set; }
-
-        public virtual string ServiceBusinessId { get; set; }
-        public virtual string ServiceBusinessOwnerId { get; set; }
-        public virtual string ServiceBusinessName { get; set; }
-        public virtual string ServiceBusinessPhone { get; set; }
+        public virtual string ServiceModeType { get; set; }
 
         public virtual string ServiceTypeName { get; set; }
+
+        public virtual string ServiceBusinessId { get; set; }
+
+        public virtual string ServiceBusinessOwnerId { get; set; }
+
+        public virtual string ServiceBusinessName { get; set; }
+        public virtual string ServiceBusinessPhone { get; set; }
+        public virtual bool IsForBusiness { get; set; }
+
+        public virtual bool Enabled { get; set; }
+        public virtual string AllowedPayType { get; set; }
+        public virtual int OrderDelay { get; set; }
+
     }
 }

@@ -108,8 +108,6 @@
     <Compile Include="App\IAppService.cs" />
     <Compile Include="Assign\AssignService.cs" />
     <Compile Include="Assign\IAssignService.cs" />
-    <Compile Include="BillSatistic\BillSatisticService.cs" />
-    <Compile Include="BillSatistic\IBillSatisticService.cs" />
     <Compile Include="Chat\ChatService.cs" />
     <Compile Include="Chat\IChatService.cs" />
     <Compile Include="City\CityService.cs" />
@@ -282,6 +280,9 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BillSatistic\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

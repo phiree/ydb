@@ -5,7 +5,8 @@ using System.Text;
 using Dianzhu.IDAL;
 using Dianzhu.DAL;
 using Dianzhu.Model;
-using DDDCommon;
+ 
+using Ydb.Common.Specification;
 namespace Dianzhu.BLL
 {
     public class BLLOrderAssignment
@@ -65,7 +66,7 @@ namespace Dianzhu.BLL
         /// <param name="storeID"></param>
         /// <param name="userID"></param>
         /// <returns></returns>
-        public IList<Model.OrderAssignment> GetAssigns(Trait_Filtering filter,  Guid staffID, Guid orderID, Guid storeID,Guid userID)
+        public IList<Model.OrderAssignment> GetAssigns(TraitFilter filter,  Guid staffID, Guid orderID, Guid storeID,Guid userID)
         {
             var where = PredicateBuilder.True<OrderAssignment>();
             where = where.And(x => x.Enabled);

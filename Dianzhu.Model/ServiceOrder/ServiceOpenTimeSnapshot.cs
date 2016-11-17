@@ -27,6 +27,7 @@ namespace Dianzhu.Model
         public DateTime Date { get;   set; }
         public int PeriodBegin { get;   set; }
         public int PeriodEnd { get;   set; }
+        public bool Enabled { get; set; }
        
 
     }

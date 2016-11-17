@@ -49,7 +49,13 @@ namespace Dianzhu.Model
             this.Selected = false;
         }
 
+
+
         #endregion
+
+       public virtual ServiceSnapShotForOrder ServiceSnapShot { get; set; }
+        public virtual ServiceOpenTimeSnapshot ServiceOpenTimeSnapShot { get; set; }
+
         /// <summary>
         /// 对应的订单
         /// </summary>
@@ -61,17 +67,8 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string OriginalServiceId { get; set; }
         //screenshot of the service
-        public virtual string ServiceName { get; set; }
-        public virtual string Description { get; set; }
-        public virtual bool IsCompensationAdvance { get; set; }
-        public virtual decimal MinPrice { get; set; }
-        public virtual decimal UnitPrice { get; set; }
-        public virtual enum_ChargeUnit ChargeUnit { get; set; }
-
-        public virtual decimal DepositAmount { get; set; }
-        public virtual decimal CancelCompensation { get; set; }
-        public virtual int OverTimeForCancel { get; set; }
-        public virtual enum_ServiceMode ServiceMode { get; set; }
+        
+       
         #endregion
 
        
@@ -110,10 +107,13 @@ namespace Dianzhu.Model
         {
             get
             {
-                return UnitPrice * UnitAmount;
+                return ServiceSnapShot. UnitPrice * UnitAmount;
             }
         }
-        //分配的职员
+        //todo:refactor. 为了编译通过. 需要继续重构
+        public virtual string ServiceTypeName { get; set; }
+        public virtual string ServiceTypeId { get; set; }
+        public virtual string ServiceTypeParentId { get; set; }
 
     }
 

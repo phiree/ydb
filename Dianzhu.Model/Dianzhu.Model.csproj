@@ -66,6 +66,7 @@
     <Compile Include="SerialNo.cs" />
     <Compile Include="ServiceOrder\ServiceOpenTimeForDaySnapShotForOrder.cs" />
     <Compile Include="ServiceOrder\ServiceOpenTimeSnapshot.cs" />
+    <Compile Include="ServiceOrder\ServiceSnapShotForOrder.cs" />
     <Compile Include="StorageManager\StorageFileInfo.cs" />
     <Compile Include="Trait_Filtering.cs" />
     <Compile Include="Finance\BalanceFlow.cs" />
@@ -87,7 +88,6 @@
     <Compile Include="ServiceOrder\ServiceOrderDetail.cs" />
     <Compile Include="ServiceOrder\ServiceOrderFactory.cs" />
     <Compile Include="ServiceOrder\ServiceOrderPushedService.cs" />
-    <Compile Include="ServiceOrder\ServiceSnapShotForOrder.cs" />
     <Compile Include="OrderAssignment.cs" />
     <Compile Include="Payment\PaymentLog.cs" />
     <Compile Include="Area.cs" />

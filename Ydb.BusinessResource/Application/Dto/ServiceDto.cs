@@ -28,6 +28,7 @@ namespace Ydb.BusinessResource.Application
 
         public virtual string ServiceBusinessName { get; set; }
         public virtual string ServiceBusinessPhone { get; set; }
-       
+        public virtual bool IsForBusiness { get; set; }
+
     }
 }

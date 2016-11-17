@@ -8,6 +8,7 @@ using Dianzhu.Model;
 using Dianzhu.DAL;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.Membership.Application.Dto;
+using Ydb.BusinessResource.DomainModel;
 namespace Dianzhu.ApplicationService.Mapping
 {
 
@@ -59,11 +60,11 @@ namespace Dianzhu.ApplicationService.Mapping
 
             Mapper.CreateMap<assignObj, Model.OrderAssignment>()
             .ForMember(x => x.Order, opt => opt.MapFrom(source => new DAL.DALServiceOrder().FindById(utils.CheckGuidID(source.orderID, "orderID"))))
-            .ForMember(x => x.AssignedStaff, opt => opt.MapFrom(source => new DAL.DALOrderAssignment().FindById(utils.CheckGuidID(source.staffID, "staffID"))))
+            .ForMember(x => x.AssignedStaffId, opt => opt.MapFrom(source =>  source.staffID))
             .ForMember(x => x.CreateTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.createTime, "yyyyMMddHHmmss", "remindObj.time")))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<workTimeObj, Model.ServiceOpenTimeForDay>()
+            Mapper.CreateMap<workTimeObj,  ServiceOpenTimeForDay>()
             //.ForMember(x => x.Id, opt => opt.MapFrom(source => source.id==""?Guid.Empty:utils.CheckGuidID(source.id, "workTimeObj.id")))
             .ForMember(x => x.MaxOrderForOpenTime, opt => opt.MapFrom(source => source.maxCountOrder))
             .ForMember(x => x.Enabled, opt => opt.MapFrom(source => source.bOpen))
@@ -71,7 +72,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.TimeEnd, opt => opt.MapFrom(source => source.endTime))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<servicesObj, Model.DZService>()
+            Mapper.CreateMap<servicesObj,  DZService>()
             .ForMember(x => x.Description, opt => opt.MapFrom(source => source.introduce))
             .ForMember(x => x.MinPrice, opt => opt.MapFrom(source => decimal.Parse(source.startAt)))
             .ForMember(x => x.DepositAmount, opt => opt.MapFrom(source => decimal.Parse(source.deposit)))
@@ -84,13 +85,13 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.MaxOrdersPerDay, opt => opt.MapFrom(source => Int32.Parse(source.maxCount)))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<serviceTypeObj, Model.ServiceType>()
+            Mapper.CreateMap<serviceTypeObj,  ServiceType>()
             .ForMember(x => x.Id, opt => opt.MapFrom(source => source.id))
             .ForMember(x => x.ParentId, opt => opt.MapFrom(source => source.superID))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
 
-            Mapper.CreateMap<staffObj, Model.Staff>()
+            Mapper.CreateMap<staffObj,  Ydb.BusinessResource.DomainModel.Staff>()
             .ForMember(x => x.NickName, opt => opt.MapFrom(source => source.alias))
             .ForMember(x => x.Code, opt => opt.MapFrom(source => source.number))
             .ForMember(x => x.Photo, opt => opt.MapFrom(source =>utils.GetFileName(source.imgUrl)))
@@ -98,7 +99,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.Name, opt => opt.MapFrom(source => source.realName))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<storeObj, Model.Business>()
+            Mapper.CreateMap<storeObj,  Business>()
             .ForMember(x => x.Description, opt => opt.MapFrom(source => source.introduction))
             .ForMember(x => x.Phone, opt => opt.MapFrom(source => source.storePhone))
             .ForMember(x => x.Contact, opt => opt.MapFrom(source => source.linkMan))
