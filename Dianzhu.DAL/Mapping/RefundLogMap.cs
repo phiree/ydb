@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using FluentNHibernate.Mapping;
 using Dianzhu.Model;
+using Ydb.Common;
+
 namespace Dianzhu.DAL.Mapping
 {
     public class RefundLogMap : ClassMap<RefundLog>
@@ -13,9 +15,9 @@ namespace Dianzhu.DAL.Mapping
             Map(x=>x.ApiString).Length(1000);
             Map(x => x.RefundId);
             Map(x => x.RefundAmount);
-            Map(x => x.PaylogType).CustomType<Model.Enums.enum_PaylogType>();
+            Map(x => x.PaylogType).CustomType<enum_PaylogType>();
             Map(x => x.LogTime);
-            Map(x => x.PayType).CustomType<Model.Enums.enum_PayType>();
+            Map(x => x.PayType).CustomType<enum_PayType>();
         }
     }
 }

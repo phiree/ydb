@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.Config;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 
 namespace Dianzhu.Api.Model
 {

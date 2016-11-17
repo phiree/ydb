@@ -74,7 +74,7 @@ namespace Dianzhu.ApplicationService.User
         /// <returns></returns>
         public IList<customerObj> GetUsers(common_Trait_Filtering filter,common_Trait_UserFiltering userFilter, string userType)
         {
-            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "DZMembership");
+            Model.TraitFilter filter1 = utils.CheckFilter(filter, "DZMembership");
             IList<MemberDto> dzm = memberService.GetUsers(filter1.filter2, userFilter.alias, userFilter.email, userFilter.phone, userFilter.platform, userType);
             if (dzm == null)
             {
@@ -124,7 +124,7 @@ namespace Dianzhu.ApplicationService.User
                 }
             }
             System.Web.Security.MembershipCreateStatus createStatus;
-            Dianzhu.Model.Enums.enum_UserType usertype = (Model.Enums.enum_UserType)Enum.Parse(typeof(Model.Enums.enum_UserType), userType);
+            Dianzhu.enum_UserType usertype = (enum_UserType)Enum.Parse(typeof(enum_UserType), userType);
 
           RegisterResult registerResult=    memberService.RegisterMember(userBody.phone, userBody.pWord, userBody.pWord, userType,
                 System.Web.HttpContext.Current.Request.Url.Scheme + "://" + System.Web.HttpContext.Current.Request.Url.Authority);

@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using PHSuit;
 using FluentValidation.Results;
 using System.Web.UI.HtmlControls;

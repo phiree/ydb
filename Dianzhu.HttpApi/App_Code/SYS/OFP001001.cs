@@ -1,7 +1,7 @@
 ﻿using System;
 using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.BLL;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using System.Collections.Generic;
 using System.Configuration;
 using Dianzhu.Api.Model;

@@ -5,7 +5,7 @@ using System.Web;
 using System.Collections.Generic;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 
 public class ImageLoader : IHttpHandler {
 

@@ -43,7 +43,7 @@ namespace Dianzhu.ApplicationService.Pay
                 throw new Exception("该订单不存在！");
             }
             IList<Model.Payment> payment = null;
-            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Payment");
+            Model.TraitFilter filter1 = utils.CheckFilter(filter, "Payment");
             payment = bllPayment.GetPays(filter1, payfilter.payStatus, payfilter.payType, guidOrder, utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (payment == null)
             {
@@ -132,7 +132,7 @@ namespace Dianzhu.ApplicationService.Pay
             {
                 throw new Exception("该订单不存在！");
             }
-            if (order.OrderStatus != Dianzhu.Model.Enums.enum_OrderStatus.Ended)
+            if (order.OrderStatus != Dianzhu.enum_OrderStatus.Ended)
             {
                 throw new Exception("该订单不是支付尾款的状态！");
             }
@@ -145,25 +145,25 @@ namespace Dianzhu.ApplicationService.Pay
             //中能从线上改为到线下支付，无法改回
             //if (!string.IsNullOrEmpty(payobj.payStatus))
             //{
-            //    payment.Status = (Model.Enums.enum_PaymentStatus)Enum.Parse(typeof(Model.Enums.enum_PaymentStatus), payobj.payStatus);
+            //    payment.Status = (enum_PaymentStatus)Enum.Parse(typeof(enum_PaymentStatus), payobj.payStatus);
             //}
             //if (!string.IsNullOrEmpty(payobj.type))
             //{
-            //    payment.PayTarget = (Model.Enums.enum_PayTarget)Enum.Parse(typeof(Model.Enums.enum_PayTarget), payobj.type);
+            //    payment.PayTarget = (enum_PayTarget)Enum.Parse(typeof(enum_PayTarget), payobj.type);
             //}
-            //payment.PayType = payobj.bOnline ? Model.Enums.enum_PayType.Online : Model.Enums.enum_PayType.Offline;
+            //payment.PayType = payobj.bOnline ?enum_PayType.Online :enum_PayType.Offline;
             //保存记录
             Dianzhu.Model.PaymentLog paymentLog = new Dianzhu.Model.PaymentLog();
-            paymentLog.PaylogType = Dianzhu.Model.Enums.enum_PaylogType.None;
-            paymentLog.PayType = Dianzhu.Model.Enums.enum_PayType.Offline;
+            paymentLog.PaylogType = Dianzhu.enum_PaylogType.None;
+            paymentLog.PayType = Dianzhu.enum_PayType.Offline;
             paymentLog.PayAmount = payment.Amount;
             paymentLog.PaymentId = payment.Id;
             bllPaymentLog.Save(paymentLog);
 
             //更新支付项              
-            payment.Status = Dianzhu.Model.Enums.enum_PaymentStatus.Trade_Success;
-            payment.PayType = Dianzhu.Model.Enums.enum_PayType.Offline;
-            payment.PayApi = Dianzhu.Model.Enums.enum_PayAPI.None;
+            payment.Status = Dianzhu.enum_PaymentStatus.Trade_Success;
+            payment.PayType = Dianzhu.enum_PayType.Offline;
+            payment.PayApi = Dianzhu.enum_PayAPI.None;
             payment.Memo = "线下支付";
 
             DateTime dt = DateTime.Now;

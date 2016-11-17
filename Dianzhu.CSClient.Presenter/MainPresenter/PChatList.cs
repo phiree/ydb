@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using System.ComponentModel;
 using Dianzhu.CSClient.ViewModel;
 using Ydb.InstantMessage.Application;

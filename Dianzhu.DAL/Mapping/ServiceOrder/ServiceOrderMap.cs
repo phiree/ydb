@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model;
 using FluentNHibernate.Mapping;
+using Ydb.Common;
+
 namespace Dianzhu.DAL.Mapping
 {
     public class ServiceOrderMap : ClassMap<ServiceOrder>
@@ -20,7 +22,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.OrderServerStartTime);
             Map(x => x.OrderServerFinishedTime);
             Map(x => x.Memo);
-            Map(x => x.OrderStatus).CustomType<Model.Enums.enum_OrderStatus>();
+            Map(x => x.OrderStatus).CustomType<enum_OrderStatus>();
             Map (x => x.CustomerServiceId);
             HasMany<ServiceOrderDetail>(x => x.Details).Cascade.All();
             Map(x => x.BusinessId);

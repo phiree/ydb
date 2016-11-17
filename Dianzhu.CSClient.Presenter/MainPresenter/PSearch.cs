@@ -348,14 +348,14 @@ namespace Dianzhu.CSClient.Presenter
             //获取之前orderid
             string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"),2);
             oldOrder.SerialNo = serialNoForOrder;
-            oldOrder.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
+            oldOrder.OrderStatus = enum_OrderStatus.DraftPushed;
             oldOrder.CustomerServiceId = GlobalViables.CurrentCustomerService.Id.ToString();
             bllServiceOrder.Update(oldOrder);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             
             //ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(),
-            //    IdentityManager.CurrentIdentity.Customer.Id.ToString(),"推送的服务",IdentityManager.CurrentIdentity.Id.ToString(), Model.Enums.enum_XmppResource.YDBan_CustomerService, Model.Enums.enum_XmppResource.YDBan_User);
+            //    IdentityManager.CurrentIdentity.Customer.Id.ToString(),"推送的服务",IdentityManager.CurrentIdentity.Id.ToString(), enum_XmppResource.YDBan_CustomerService, enum_XmppResource.YDBan_User);
             
             IList<Ydb.InstantMessage.DomainModel.Chat.PushedServiceInfo> pushedServiceInfos = new List<Ydb.InstantMessage.DomainModel.Chat.PushedServiceInfo>();
             foreach (var pushedService in serviceOrderPushedServices)

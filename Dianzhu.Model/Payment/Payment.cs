@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Dianzhu.Model.Enums;
-using System.Diagnostics;
+using Ydb.Common;
 namespace Dianzhu.Model
 {
     /// <summary>
@@ -59,7 +55,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 支付接口类型:支付宝,微信...
         /// </summary>
-        public virtual Enums.enum_PayAPI PayApi { get; set; }
+        public virtual enum_PayAPI PayApi { get; set; }
 
         /// <summary>
         /// 平台交易号,如果是在线支付，则由支付平台返回
@@ -84,7 +80,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 支付方式:是否在线支付
         /// </summary>
-        public virtual Enums.enum_PayType PayType { get; set; }
+        public virtual enum_PayType PayType { get; set; }
 
 
 

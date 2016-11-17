@@ -26,7 +26,7 @@ public partial class customer_ToExcel : BasePage
     private void BindSummary()
     {
         BLLIMUserStatus bllIMUS = Bootstrap.Container.Resolve<BLLIMUserStatus>();
-        var onlineUser = bllIMUS.GetOnlineListByClientName(Dianzhu.Model.Enums.enum_XmppResource.YDBan_User.ToString());
+        var onlineUser = bllIMUS.GetOnlineListByClientName(Dianzhu.enum_XmppResource.YDBan_User.ToString());
         lblTotalOnline.Text = onlineUser.Count.ToString();
     }
 

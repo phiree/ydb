@@ -122,9 +122,9 @@ namespace Ydb.BusinessResource.Application
         /// </summary>
         /// <param name="service"></param>
         /// <returns></returns>
-        public IList<DZTag> GetServiceTags(DZService service)
+        public IList<DZTag> GetServiceTags(Guid serviceId)
         {
-            return repositoryDZTag.GetTagsForService(service.Id);
+            return repositoryDZTag.GetTagsForService(serviceId);
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace Ydb.BusinessResource.Application
         /// <param name="startAt"></param>
         /// <param name="storeID"></param>
         /// <returns></returns>
-        public IList<DZService> GetServices(TraitFilter filter, Guid typeId, string strName, string introduce, decimal startAt, Guid storeID)
+        public IList<ServiceDto> GetServices(TraitFilter filter, Guid typeId, string strName, string introduce, decimal startAt, Guid storeID)
         {
             var where = PredicateBuilder.True<DZService>();
             where = where.And(x => x.IsDeleted == false);
@@ -177,7 +177,9 @@ namespace Ydb.BusinessResource.Application
             long t = 0;
             var list = filter.pageSize == 0 ? repositoryDZService.Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList()
                 : repositoryDZService.Find(where, filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
-            return list;
+
+
+            return AutoMapper.Mapper.Map<IList<ServiceDto>>(list);
         }
 
         /// <summary>
@@ -223,7 +225,7 @@ namespace Ydb.BusinessResource.Application
         /// <param name="storeID"></param>
         /// <param name="serviceID"></param>
         /// <returns></returns>
-        public DZService GetService(Guid storeID, Guid serviceID)
+        public ServiceDto GetService(Guid storeID, Guid serviceID)
         {
             var where = PredicateBuilder.True<DZService>();
             where = where.And(x => x.IsDeleted == false);
@@ -236,7 +238,7 @@ namespace Ydb.BusinessResource.Application
                 where = where.And(x => x.Business.Id == storeID);
             }
             DZService dzservie = repositoryDZService.FindOne(where);
-            return dzservie;
+            return AutoMapper.Mapper.Map<ServiceDto>( dzservie);
         }
     }
 }

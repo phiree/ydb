@@ -4,7 +4,8 @@ using System.Linq.Expressions;
 using System.Collections.Generic;
 namespace DDDCommon
 {
-    public static class PredicateBuilder
+    /*
+    public static class PredicateBuilder_ToBeDeleted
     {
         public static Expression<Func<T, bool>> True<T>() { return f => true; }
         public static Expression<Func<T, bool>> False<T>() { return f => false; }
@@ -46,4 +47,5 @@ namespace DDDCommon
         }
 
     }
+    */
 }

@@ -7,6 +7,8 @@ using Dianzhu.IDAL;
 using Dianzhu.DAL;
 using Dianzhu.Model;
 using DDDCommon;
+using Ydb.Common.Specification;
+
 namespace Dianzhu.BLL
 {
     public class BLLComplaint
@@ -47,7 +49,7 @@ namespace Dianzhu.BLL
         /// <param name="storeID"></param>
         /// <param name="customerServiceID"></param>
         /// <returns></returns>
-        public IList<Model.Complaint> GetComplaints(Model.Trait_Filtering filter, Guid orderID, Guid storeID, Guid customerServiceID)
+        public IList<Model.Complaint> GetComplaints( TraitFilter filter, Guid orderID, Guid storeID, Guid customerServiceID)
         {
             var where = PredicateBuilder.True<Complaint>();
             if(orderID != Guid.Empty)

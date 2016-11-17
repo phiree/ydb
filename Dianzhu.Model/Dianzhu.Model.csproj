@@ -93,7 +93,6 @@
     <Compile Include="Area.cs" />
     <Compile Include="DeviceBind.cs" />
     <Compile Include="IdentityAccess\DZRole.cs" />
-    <Compile Include="Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Payment\Payment.cs" />
     <Compile Include="ServiceOrderStateChangeHis.cs" />

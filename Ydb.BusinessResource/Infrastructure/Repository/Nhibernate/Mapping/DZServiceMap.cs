@@ -22,7 +22,7 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping
             References<ServiceType>(x => x.ServiceType).Not.LazyLoad();
             //References<ServiceType>(x => x.ServiceType);
            
-            Map(x => x.BusinessAreaCode).Length(2000);
+            Map(x => x.Scope).Length(2000);
             Map(x => x.ChargeUnit).CustomType<int>();
             Map(x => x.FixedPrice);
             Map(x => x.IsCertificated);

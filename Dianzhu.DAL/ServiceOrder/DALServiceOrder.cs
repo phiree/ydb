@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.Model;
-using Dianzhu.Model.Enums;
+ 
 using NHibernate;
 using NHibernate.Criterion;
 using Dianzhu.IDAL;
+using Ydb.Common;
+
 namespace Dianzhu.DAL
 {
     public class DALServiceOrder :NHRepositoryBase<ServiceOrder,Guid>, IDALServiceOrder

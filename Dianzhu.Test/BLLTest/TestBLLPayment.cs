@@ -33,13 +33,13 @@ namespace Dianzhu.Test.BLLTest
             ServiceOrder order =  Builder<ServiceOrder>.CreateNew()
                 
                 .With(x => x.NegotiateAmount = 12)
-                .With(x => x.OrderStatus = Model.Enums.enum_OrderStatus.Created)
+                .With(x => x.OrderStatus = enum_OrderStatus.Created)
                 .Build();
             order.AddDetailFromIntelService(service, 12,"targetCustomerName","13000000000", "targetAddress", DateTime.Now,string.Empty);
             Guid payId = Guid.NewGuid();
             dal.Stub(x => x.GetPaymentsForOrder(order)).Return(new List<Payment>());
             BLLPayment bll = new BLLPayment(dal,bllClaims);
-             Payment payment= bll.ApplyPay(order, Model.Enums.enum_PayTarget.Deposit);
+             Payment payment= bll.ApplyPay(order, enum_PayTarget.Deposit);
             string payLink = bll.BuildPayLink(payment.Id);
             Console.WriteLine(payLink);
           Assert.True(payLink.StartsWith( Config.Config.GetAppSetting("PayServerUrl")));

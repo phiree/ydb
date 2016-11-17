@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 //编辑 和 新增,合二为一.
 public partial class Staff_Edit : BasePage
 {

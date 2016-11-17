@@ -7,6 +7,7 @@ using AutoMapper;
 using Ydb.Common.Specification;
 using Ydb.BusinessResource.Application;
 using BRM= Ydb.BusinessResource.DomainModel;
+using Ydb.Common;
 namespace Dianzhu.ApplicationService.Assign
 {
     public class AssignService:IAssignService
@@ -136,7 +137,7 @@ namespace Dianzhu.ApplicationService.Assign
             {
                 throw new Exception("该订单还没有被指派过！");
             }
-            if (order.OrderStatus == Model.Enums.enum_OrderStatus.Finished || order.OrderStatus == Model.Enums.enum_OrderStatus.Appraised)
+            if (order.OrderStatus ==enum_OrderStatus.Finished || order.OrderStatus ==enum_OrderStatus.Appraised)
             {
                 throw new Exception("该订单的服务已经完成，无法再取消指派！");
             }

@@ -75,7 +75,7 @@ namespace Dianzhu.ApplicationService.City
                 }
                 else
                 {
-                    Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Area");
+                    Model.TraitFilter filter1 = utils.CheckFilter(filter, "Area");
                     listarea = bllarea.GetAllCity(filter1);
                 }
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Ydb.Common;
 
 namespace Dianzhu.Model.Finance
 {
@@ -38,7 +39,7 @@ namespace Dianzhu.Model.Finance
             this.UserType = UserType;
         }
         public static DefaultSharePoint None {
-            get { return new DefaultSharePoint(0.0m, Enums.enum_UserType.admin.ToString()); }
+            get { return new DefaultSharePoint(0.0m,  enum_UserType.admin.ToString()); }
         }
         
         public virtual string UserType { get; set; }

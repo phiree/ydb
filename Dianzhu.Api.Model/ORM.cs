@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.Config;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using Ydb.Membership.Application.Dto;
 using Ydb.Membership.Application;
 namespace Dianzhu.Api.Model
@@ -199,7 +199,7 @@ namespace Dianzhu.Api.Model
                     this.chargeUnit = string.Empty;
                 }
                 
-                this.name = orderDetail.ServieSnapShot.ServiceName ?? string.Empty;
+                this.name = orderDetail.ServiceSnapShot.ServiceName ?? string.Empty;
                 if (orderDetail.TargetTime > DateTime.MinValue)
                 {
                     this.startTime = string.Format("{0:yyyyMMddHHmmss}", orderDetail.TargetTime);
@@ -209,8 +209,8 @@ namespace Dianzhu.Api.Model
                     this.startTime = string.Empty;
                 }
                 this.endTime = string.Empty;
-                this.deposit = orderDetail.ServieSnapShot.DepositAmount.ToString("0.00");
-                this.unitPrice = orderDetail.ServieSnapShot != null ? orderDetail.ServieSnapShot.UnitPrice.ToString("0.00") : string.Empty;
+                this.deposit = orderDetail.ServiceSnapShot.DepositAmount.ToString("0.00");
+                this.unitPrice = orderDetail.ServiceSnapShot != null ? orderDetail.ServiceSnapShot.UnitPrice.ToString("0.00") : string.Empty;
             }
             else if(orderDetail == null && pushService != null)
             {

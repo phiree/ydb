@@ -127,7 +127,7 @@ namespace Dianzhu.Api.Model
         {
            
             this.svcID = orderDetail.OriginalService.Id.ToString();
-            this.name = orderDetail.ServieSnapShot.ServiceName;
+            this.name = orderDetail.ServiceSnapShot.ServiceName;
             this.type = orderDetail.OriginalService.ServiceType.ToString();
             
             this.startTime = orderDetail.TargetTime.ToString("yyyyMMddHHmmss");

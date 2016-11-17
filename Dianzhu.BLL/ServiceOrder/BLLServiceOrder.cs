@@ -5,7 +5,7 @@ using System.Text;
 using Dianzhu.Model;
 
 using Dianzhu.DAL;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using Dianzhu.Pay;
 using Dianzhu.Pay.RefundRequest;
 using PHSuit;
@@ -17,6 +17,8 @@ using Dianzhu.IDAL;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 using DDDCommon;
+using Ydb.Common.Specification;
+
 namespace Dianzhu.BLL
 {
 
@@ -61,7 +63,7 @@ namespace Dianzhu.BLL
  
         }
 
-        public int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType)
+        public int GetServiceOrderCount(Guid userId, enum_OrderSearchType searchType)
         {
 
             var where = PredicateBuilder.True<ServiceOrder>();
@@ -107,7 +109,7 @@ namespace Dianzhu.BLL
             return rowCount;
             // return DALServiceOrder.GetServiceOrderCount(userId, searchType);
         }
-        public IList<ServiceOrder> GetServiceOrderList(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType, int pageNum, int pageSize)
+        public IList<ServiceOrder> GetServiceOrderList(Guid userId,  enum_OrderSearchType searchType, int pageNum, int pageSize)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
             where = where.And(x => x.CustomerId == userId.ToString());
@@ -158,7 +160,7 @@ namespace Dianzhu.BLL
         /// <param name="userType"></param>
         /// <param name="strAssign"></param>
         /// <returns></returns>
-        public IList<ServiceOrder> GetOrders(Trait_Filtering filter, string statusSort, string status,Guid storeID,string formanID,DateTime afterThisTime, DateTime beforeThisTime, Guid UserID,string userType,string strAssign)
+        public IList<ServiceOrder> GetOrders(TraitFilter filter, string statusSort, string status,Guid storeID,string formanID,DateTime afterThisTime, DateTime beforeThisTime, Guid UserID,string userType,string strAssign)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
 
@@ -177,7 +179,7 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.OrderStatus == (enum_OrderStatus)Enum.Parse(typeof(enum_OrderStatus), status) );
             }
-            //Dianzhu.Model.Enums.enum_OrderSearchType searchType
+            //Dianzhu.enum_OrderSearchType searchType
             switch (statusSort)//switch (searchType)
             {
                 //case enum_OrderSearchType.De:
@@ -297,7 +299,7 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.OrderStatus == (enum_OrderStatus)Enum.Parse(typeof(enum_OrderStatus), status));
             }
-            //Dianzhu.Model.Enums.enum_OrderSearchType searchType
+            //Dianzhu.enum_OrderSearchType searchType
             switch (statusSort)//switch (searchType)
             {
                 //case enum_OrderSearchType.De:
@@ -413,7 +415,7 @@ namespace Dianzhu.BLL
             ///return DALServiceOrder.GetAll<ServiceOrder>();
         }
 
-        public IList<ServiceOrder> GetAllByOrderStatus(Dianzhu.Model.Enums.enum_OrderStatus status, int pageIndex, int pageSize, out long totalRecords)
+        public IList<ServiceOrder> GetAllByOrderStatus( enum_OrderStatus status, int pageIndex, int pageSize, out long totalRecords)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
             where = where.And(x => x.OrderStatus == status);

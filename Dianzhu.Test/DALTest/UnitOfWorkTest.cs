@@ -72,7 +72,7 @@ namespace Dianzhu.Test.DALTest
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             //     NHibernateUnitOfWork.UnitOfWork.CurrentSession.Update(order);
             //     NHibernateUnitOfWork.UnitOfWork.CurrentSession.Refresh(order);
-            order.OrderStatus = Model.Enums.enum_OrderStatus.Created;
+            order.OrderStatus = enum_OrderStatus.Created;
             order.LatestOrderUpdated = DateTime.Now;
             NHibernateUnitOfWork.UnitOfWork.CurrentSession.Update(order);
             NHibernateUnitOfWork.UnitOfWork.CurrentSession.Flush();

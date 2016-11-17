@@ -5,6 +5,8 @@ using System.Text;
 using Dianzhu.Model.Finance;
 using System.Collections;
 using NHibernate.Transform;
+using Ydb.Common.Specification;
+
 namespace Dianzhu.DAL.Finance
 {
    public  class DALBalanceFlow:NHRepositoryBase<Model.Finance.BalanceFlow,Guid>, IDAL.Finance.IDALBalanceFlow
@@ -84,7 +86,7 @@ namespace Dianzhu.DAL.Finance
         /// <param name="filter"></param>
         /// <param name=""></param>
         /// <returns></returns>
-        public IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel,string status,string billType,string orderId,string billServiceType, Model.Trait_Filtering filter)
+        public IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel,string status,string billType,string orderId,string billServiceType,  TraitFilter filter)
         {
             //'%Y-%m-%d'
             string sql = @"SELECT b.id,b.amount,b.occurtime as createTime,'' as serialNo,b.FlowType as type,'' as discount,o.id as orderId,o.NegotiateAmount as orderAmount,

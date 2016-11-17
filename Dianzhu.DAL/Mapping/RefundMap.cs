@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using FluentNHibernate.Mapping;
 using Dianzhu.Model;
- 
+using Ydb.Common;
+
 namespace Dianzhu.DAL.Mapping
 {
     public class RefundMap : ClassMap<Refund>
@@ -23,7 +24,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.CreatedTime);
             Map(x => x.LastUpdateTime);
 
-            Map(x => x.RefundStatus).CustomType<Model.Enums.enum_RefundStatus>();
+            Map(x => x.RefundStatus).CustomType<enum_RefundStatus>();
             Map(x => x.Memo);
         }
     }

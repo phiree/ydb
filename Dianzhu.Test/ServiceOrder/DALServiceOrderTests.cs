@@ -66,19 +66,19 @@ namespace Dianzhu.DAL.Tests
             //IList<DZMembership> members = Builder<DZMembership>.CreateListOfSize(3)
             //     .TheFirst(1).With(x => x.Id = new Guid("f197a81d-c984-4894-b21c-a5f00106e08b"))
             //                 .With(x => x.UserName = "user1")
-            //                 .With(x => x.UserType = Model.Enums.enum_UserType.customer)
+            //                 .With(x => x.UserType = enum_UserType.customer)
             //      .TheNext(1).With(x => x.Id = new Guid("a8a2fe97-33cc-4602-85ed-a5f001197c72"))
             //                 .With(x => x.UserName = "user2")
-            //                 .With(x => x.UserType = Model.Enums.enum_UserType.customer)
+            //                 .With(x => x.UserType = enum_UserType.customer)
             //     .TheLast(1).With(x => x.Id = new Guid("6ba73c46-83ea-450d-90b2-a5f00101da01"))
             //                 .With(x => x.UserName = "cs001")
-            //                 .With(x => x.UserType = Model.Enums.enum_UserType.customerservice)
+            //                 .With(x => x.UserType = enum_UserType.customerservice)
             //     .Build();
 
             //ServiceOrder order= Builder<ServiceOrder>.CreateNew()
             //    .With(x => x.Customer = members[0])
             //    .With(x => x.CustomerService = members[2])
-            //    .With(x => x.OrderStatus =  Model.Enums.enum_OrderStatus.Created)
+            //    .With(x => x.OrderStatus =  enum_OrderStatus.Created)
             //    .With(x => x.Id = new Guid("d9f216b5-92e4-4f7a-87a0-a5f00107b6bc"))
             //    .Build();
 
@@ -87,14 +87,14 @@ namespace Dianzhu.DAL.Tests
             Thread thread1 = new Thread(threadStart1);
             thread1.Start();
             //Console.WriteLine("OrderFlow_PayDepositAndWaiting:" + order.OrderStatus);
-            //Assert.AreEqual(order.OrderStatus, Model.Enums.enum_OrderStatus.checkPayWithDeposit);
+            //Assert.AreEqual(order.OrderStatus, enum_OrderStatus.checkPayWithDeposit);
 
 
             ThreadStart threadStart2 = new ThreadStart(Calculate1);
             Thread thread2 = new Thread(threadStart2);
             thread2.Start();
             //Console.WriteLine("OrderFlow_ConfirmDeposit:" + order.OrderStatus);
-            //Assert.AreEqual(order.OrderStatus, Model.Enums.enum_OrderStatus.Payed);
+            //Assert.AreEqual(order.OrderStatus, enum_OrderStatus.Payed);
 
 
             //bllServiceOrder.OrderFlow_PayDepositAndWaiting(order);

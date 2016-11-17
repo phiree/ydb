@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.DAL;
 using Dianzhu.Model;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 namespace Dianzhu.BLL
 {
     /// <summary>
@@ -19,7 +19,7 @@ namespace Dianzhu.BLL
         /// 确保目标状态是可以执行的.
         /// </summary>
 
-        public void ChangeStatus(ServiceOrder order, Model.Enums.enum_OrderStatus targetStatus)
+        public void ChangeStatus(ServiceOrder order, enum_OrderStatus targetStatus)
         {
 
             bool validated = dictAvailabelStatus[targetStatus].Contains(order.OrderStatus);

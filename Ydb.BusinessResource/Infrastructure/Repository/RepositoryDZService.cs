@@ -82,7 +82,7 @@ namespace Ydb.BusinessResource.Infrastructure.Repository
             {
                 GeoCoordinate c1 = new GeoCoordinate(lat, lng);
 
-                BusinessArea area = JsonConvert.DeserializeObject<BusinessArea>(item.BusinessAreaCode);
+                BusinessArea area = JsonConvert.DeserializeObject<BusinessArea>(item.Scope);
                 GeoCoordinate c2 = new GeoCoordinate(area.serPointCirle.lat, area.serPointCirle.lng);
 
                 double distanceInMeter = c1.GetDistanceTo(c2);

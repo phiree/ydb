@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.Model;
-
+using Ydb.Common;
 
 namespace Dianzhu.IDAL
 {
@@ -18,6 +18,6 @@ namespace Dianzhu.IDAL
         /// </summary>
         /// <param name="order"></param>
         /// <returns></returns>
-        Payment GetPayedByTarget(ServiceOrder order, Model.Enums.enum_PayTarget payTarget);
+        Payment GetPayedByTarget(ServiceOrder order,  enum_PayTarget payTarget);
     }
 }

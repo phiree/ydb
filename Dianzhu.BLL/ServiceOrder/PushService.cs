@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.Model;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using Ydb.BusinessResource.Application;
  
 namespace Dianzhu.BLL
@@ -40,7 +40,7 @@ namespace Dianzhu.BLL
         /// <param name="targetTime"></param>
         public void Push(ServiceOrder order, IList<ServiceOrderPushedService> services, string targetAddress, DateTime targetTime)
         {
-            //order.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
+            //order.OrderStatus = enum_OrderStatus.DraftPushed;
            
 
             foreach (ServiceOrderPushedService service in services)
@@ -78,7 +78,7 @@ namespace Dianzhu.BLL
              ServiceDto serviceDto=  dzServiceService.GetOne(new Guid(selectedServiceId));
                 ServiceSnapShotForOrder serviceSnapShot = new ServiceSnapShotForOrder {
                     CancelCompensation = serviceDto.CancelCompensation,
-                    ChargeUnit = (enum_ChargeUnit)Enum.Parse(typeof(enum_ChargeUnit), serviceDto.ChargeUnitType),
+                    ChargeUnitType =   serviceDto.ChargeUnitType,
                     DepositAmount = serviceDto.DepositAmount,
                     Description = serviceDto.Description,
                      IsCompensationAdvance= serviceDto.IsCompensationAdvance,
@@ -87,7 +87,7 @@ namespace Dianzhu.BLL
                         ServiceBusinessId=serviceDto.ServiceBusinessId,
                         ServiceBusinessName=serviceDto.ServiceBusinessName,
                         ServiceBusinessPhone=serviceDto.ServiceBusinessPhone,
-                        ServiceMode = (enum_ServiceMode)Enum.Parse(typeof(enum_ServiceMode), serviceDto.ServiceModeType),
+                        ServiceModeType =   serviceDto.ServiceModeType,
                          ServiceName=serviceDto.ServiceName,
                           ServiceTypeName= serviceDto.ServiceTypeName,
                            UnitPrice=serviceDto.UnitPrice,

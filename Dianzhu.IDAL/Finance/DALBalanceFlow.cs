@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections;
+using Ydb.Common.Specification;
 
 namespace Dianzhu.IDAL.Finance
 {
@@ -33,7 +34,7 @@ namespace Dianzhu.IDAL.Finance
         /// <param name="filter"></param>
         /// <param name=""></param>
         /// <returns></returns>
-        IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string status, string billType, string orderId, string billServiceType, Model.Trait_Filtering filter);
+        IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string status, string billType, string orderId, string billServiceType,  TraitFilter filter);
 
 
 

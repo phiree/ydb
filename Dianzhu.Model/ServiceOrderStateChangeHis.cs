@@ -1,4 +1,4 @@
-﻿using Dianzhu.Model.Enums;
+﻿using Ydb.Common;
 using System;
 
 namespace Dianzhu.Model

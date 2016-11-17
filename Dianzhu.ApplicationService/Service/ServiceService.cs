@@ -5,22 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.Results;
-
+using Dianzhu.Model;
+using Ydb.Common;
+using Dianzhu.BLL;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
+ using Ydb.Common.Specification;
 
 namespace Dianzhu.ApplicationService.Service
 {
     public class ServiceService: IServiceService
     {
-        BLL.BLLBusiness bllBusiness ;
-        BLL.BLLDZService bllDZService ;
-        BLL.BLLServiceType bllServiceType ;
-        BLL.BLLDZTag bllDZTag;
-        public ServiceService(BLL.BLLBusiness bllBusiness, BLL.BLLDZService bllDZService, BLL.BLLServiceType bllServiceType, BLL.BLLDZTag bllDZTag)
+        IBusinessService businessService;
+       IDZServiceService serviceService;
+        IServiceTypeService serviceTypeService;
+        IDZTagService tagService;
+        
+        public ServiceService(IBusinessService businessService, IDZServiceService serviceService,
+             IServiceTypeService serviceTypeService, IDZTagService tagService)
         {
-            this.bllBusiness = bllBusiness;
-            this.bllDZService = bllDZService;
-            this.bllServiceType = bllServiceType;
-            this.bllDZTag = bllDZTag;
+            this.businessService = businessService;
+            this.serviceService = serviceService;
+            this.serviceTypeService = serviceTypeService;
+            this.tagService = tagService;
         }
 
         /// <summary>
@@ -28,21 +35,22 @@ namespace Dianzhu.ApplicationService.Service
         /// </summary>
         /// <param name="servicesobj"></param>
         /// <param name="dzservice"></param>
-        void changeObj(servicesObj servicesobj, Model.DZService dzservice)
+        void changeObj(servicesObj servicesobj,ServiceSnapShotForOrder dzservice)
         {
-            servicesobj.location.longitude = dzservice.Business.Longitude.ToString();
-            servicesobj.location.latitude = dzservice.Business.Latitude.ToString();
-            servicesobj.location.address = dzservice.Business.RawAddressFromMapAPI == null ? "" : dzservice.Business.RawAddressFromMapAPI;
+            //todo:refactor. 这里返回的是服务坐标 不是商家的 暂时注销
+           // servicesobj.location.longitude = dzservice.Business.Longitude.ToString();
+          //  servicesobj.location.latitude = dzservice.Business.Latitude.ToString();
+       //     servicesobj.location.address = dzservice.Scope == null ? "" : dzservice.Business.RawAddressFromMapAPI;
             int c = 0;
-            foreach (Model.Enums.enum_PayType item in Enum.GetValues(typeof(Model.Enums.enum_PayType)))
+            foreach (enum_PayType item in Enum.GetValues(typeof(enum_PayType)))
             {
-                if ((dzservice.AllowedPayType & item) == item && item != Model.Enums.enum_PayType.None)
+                if ( ((enum_PayType)(Enum.Parse(typeof(enum_PayType),dzservice.AllowedPayType)) & item) == item && item != enum_PayType.None)
                 {
                     servicesobj.eSupportPayWay = item.ToString();
                     c++;
                 }
             }
-            if (c == Enum.GetValues(typeof(Model.Enums.enum_PayType)).Length-1)
+            if (c == Enum.GetValues(typeof(enum_PayType)).Length-1)
             {
                 servicesobj.eSupportPayWay = "all";
             }
@@ -54,6 +62,7 @@ namespace Dianzhu.ApplicationService.Service
             //}
         }
 
+   
         /// <summary>
         /// 新建服务
         /// </summary>
@@ -62,12 +71,16 @@ namespace Dianzhu.ApplicationService.Service
         /// <param name="customer"></param>
         /// <returns></returns>
         public servicesObj PostService(string storeID, servicesObj servicesobj,Customer customer)
-        {
+        { 
+            //todo:refactor: 客户端尚未调用.暂且注释.
+            throw new NotImplementedException();
+            /*
+           
             if (string.IsNullOrEmpty(storeID))
             {
                 throw new FormatException("storeID不能为空！");
             }
-            Model.Business business = bllBusiness.GetBusinessByIdAndOwner(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            Business business = businessService.GetBusinessByIdAndOwner(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (business == null)
             {
                 throw new Exception("该店铺不存在！");
@@ -75,9 +88,9 @@ namespace Dianzhu.ApplicationService.Service
             //待定是否只传ID过来
             //string[] typeList = servicesobj.type.Split('>');
             //int typeLevel = typeList.Count() > 0 ? typeList.Count() - 1 : 0;
-            //Model.ServiceType sType = bllServiceType.GetOneByName(typeList[typeLevel], typeLevel);
+            //ServiceType sType = serviceTypeService.GetOneByName(typeList[typeLevel], typeLevel);
             Guid guidServiceType = utils.CheckGuidID(servicesobj.serviceType.id, "type的ID");
-            Model.ServiceType sType = bllServiceType.GetOne(guidServiceType);
+            ServiceType sType = serviceTypeService.GetOne(guidServiceType);
             if (sType == null)
             {
                 throw new Exception("该服务类型有误！");
@@ -116,7 +129,7 @@ namespace Dianzhu.ApplicationService.Service
                 }
             }
 
-            Model.DZService dzservice = new Model.DZService();
+            DZService dzservice = new DZService();
             //从字符串转枚举：AEnumType a = (AEnumType)Enum.Parse(typeof(AEnumType), “flag”); 可能失败，代码应包含异常处理机制。
             //可用Enum.IsDefined()检查一个值是否包含在一个枚举中。
             if (!string.IsNullOrEmpty(servicesobj.eSupportPayWay))
@@ -135,7 +148,7 @@ namespace Dianzhu.ApplicationService.Service
                         }
                         else
                         {
-                            ee = (int)(Model.Enums.enum_PayType)Enum.Parse(typeof(Model.Enums.enum_PayType), servicesobj.eSupportPayWay);
+                            ee = (int)(enum_PayType)Enum.Parse(typeof(enum_PayType), servicesobj.eSupportPayWay);
                         }
                     }
                     if (ee > allNum || ee==4)
@@ -158,7 +171,7 @@ namespace Dianzhu.ApplicationService.Service
             
 
 
-            dzservice = Mapper.Map<servicesObj, Model.DZService>(servicesobj);
+            dzservice = Mapper.Map<servicesObj, DZService>(servicesobj);
             if (!string.IsNullOrEmpty(servicesobj.chargeUnit))
             {
                 dzservice.ChargeUnitFriendlyName = servicesobj.chargeUnit;
@@ -168,9 +181,9 @@ namespace Dianzhu.ApplicationService.Service
             dzservice.LastModifiedTime = dt;
             dzservice.Business = business;
             dzservice.ServiceType = sType;
-            dzservice.BusinessAreaCode = "{\"serPointCirle\":{\"lng\":110.31047,\"lat\":20.017031,\"radius\":\"1000\"},\"serPointComp\":{\"streetNumber\":\"\",\"street\":\"海濂路\",\"district\":\"龙华区\",\"city\":\"海口市\",\"province\":\"海南省\"},\"serPointAddress\":\"海南省海口市龙华区海濂路\"}";
+            dzservice.Scope = "{\"serPointCirle\":{\"lng\":110.31047,\"lat\":20.017031,\"radius\":\"1000\"},\"serPointComp\":{\"streetNumber\":\"\",\"street\":\"海濂路\",\"district\":\"龙华区\",\"city\":\"海口市\",\"province\":\"海南省\"},\"serPointAddress\":\"海南省海口市龙华区海濂路\"}";
             ValidationResult validationResult = new ValidationResult();
-            bllDZService.SaveOrUpdate(dzservice, out validationResult);
+            serviceService.SaveOrUpdate(dzservice, out validationResult);
             if (!validationResult.IsValid)
             {
                 string strErrors = "[";
@@ -186,10 +199,10 @@ namespace Dianzhu.ApplicationService.Service
                 throw new Exception(strErrors);
             }
             string[] tagList = servicesobj.tag.Split('|');
-            //dzservice = bllDZService.GetOne(dzservice.Id);
+            //dzservice = serviceService.GetOne(dzservice.Id);
             //if (dzservice != null && dzservice.CreatedTime == dt)
             //{
-            servicesobj = Mapper.Map<Model.DZService, servicesObj>(dzservice);
+            servicesobj = Mapper.Map<DZService, servicesObj>(dzservice);
             changeObj(servicesobj, dzservice);
             //}
             //else
@@ -198,9 +211,10 @@ namespace Dianzhu.ApplicationService.Service
             //}
             for (int i = 0; i < tagList.Count(); i++)
             {
-                bllDZTag.AddTag(tagList[i], dzservice.Id.ToString(), dzservice.Business.Id.ToString(), dzservice.ServiceType.Id.ToString());
+                tagService.AddTag(tagList[i], dzservice.Id.ToString(), dzservice.Business.Id.ToString(), dzservice.ServiceType.Id.ToString());
             }
             return servicesobj;
+            */
         }
 
         /// <summary>
@@ -217,13 +231,13 @@ namespace Dianzhu.ApplicationService.Service
                 throw new FormatException("storeID不能为空！");
             }
             Guid guidStore = utils.CheckGuidID(storeID, "storeID");
-            Model.Business business = bllBusiness.GetOne(guidStore);
+            Business business = businessService.GetOne(guidStore);
             if (business == null)
             {
                 throw new Exception("该店铺不存在！");
             }
-            IList<Model.DZService> dzservice = null;
-            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "DZService");
+            IList<ServiceDto> dzservice = null;
+            TraitFilter filter1 = utils.CheckFilter(filter, "DZService");
             decimal dcStartAt = -1;
             if (servicefilter.startAt != null && servicefilter.startAt != "")
             {
@@ -232,16 +246,17 @@ namespace Dianzhu.ApplicationService.Service
                     throw new FormatException("起步价必须为大于零的数值！");
                 }
             }
-            dzservice = bllDZService.GetServices(filter1, utils.CheckGuidID(servicefilter.serviceTypeID, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, guidStore);
+            dzservice = serviceService.GetServices(filter1, utils.CheckGuidID(servicefilter.serviceTypeID, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, guidStore);
             if (dzservice == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<servicesObj>();
             }
-            IList<servicesObj> serviceobj = Mapper.Map<IList<Model.DZService>, IList<servicesObj>>(dzservice);
+            IList<ServiceSnapShotForOrder> serviceSnapShots = Mapper.Map<IList<ServiceSnapShotForOrder>>(dzservice);
+            IList<servicesObj> serviceobj = Mapper.Map<IList<servicesObj>>(serviceSnapShots);
             for (int i = 0; i < serviceobj.Count; i++)
             {
-                changeObj(serviceobj[i], dzservice[i]);
+                changeObj(serviceobj[i], serviceSnapShots[i]);
             }
             return serviceobj;
         }
@@ -259,7 +274,7 @@ namespace Dianzhu.ApplicationService.Service
                 throw new FormatException("storeID不能为空！");
             }
             Guid guidStore = utils.CheckGuidID(storeID, "storeID");
-            Model.Business business = bllBusiness.GetOne(guidStore);
+            Business business = businessService.GetOne(guidStore);
             if (business == null)
             {
                 throw new Exception("该店铺不存在！");
@@ -273,7 +288,7 @@ namespace Dianzhu.ApplicationService.Service
                 }
             }
             countObj c = new countObj();
-            c.count = bllDZService.GetServicesCount(utils.CheckGuidID(servicefilter.serviceTypeID, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, guidStore).ToString();
+            c.count = serviceService.GetServicesCount(utils.CheckGuidID(servicefilter.serviceTypeID, "type的ID"), servicefilter.name, servicefilter.introduce, dcStartAt, guidStore).ToString();
             return c;
         }
 
@@ -294,20 +309,22 @@ namespace Dianzhu.ApplicationService.Service
                 throw new FormatException("serviceID不能为空！");
             }
             Guid guidStore = utils.CheckGuidID(storeID, "storeID");
-            Model.Business business = bllBusiness.GetOne(guidStore);
+            Business business = businessService.GetOne(guidStore);
             if (business == null)
             {
                 throw new Exception("该店铺不存在！");
             }
-            Model.DZService dzservice = bllDZService.GetService(guidStore, utils.CheckGuidID(serviceID, "serviceID"));
+            ServiceDto dzservice = serviceService.GetService(guidStore, utils.CheckGuidID(serviceID, "serviceID"));
             if (dzservice == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 //return null;
                 throw new Exception("没有找到资源！");
             }
-            servicesObj servicesobj = Mapper.Map<Model.DZService, servicesObj>(dzservice);
-            changeObj(servicesobj, dzservice);
+            ServiceSnapShotForOrder serviceSnapshot = Mapper.Map<ServiceSnapShotForOrder>(dzservice);
+
+            servicesObj servicesobj = Mapper.Map<servicesObj>(serviceSnapshot);
+            changeObj(servicesobj, serviceSnapshot);
             return servicesobj;
         }
 
@@ -321,6 +338,9 @@ namespace Dianzhu.ApplicationService.Service
         /// <returns></returns>
         public servicesObj PatchService(string storeID, string serviceID, servicesObj servicesobj,Customer customer)
         {
+            //todo:refactor: 客户端尚未调用,暂时注释
+            throw new NotImplementedException();
+            /*
             if (string.IsNullOrEmpty(storeID))
             {
                 throw new FormatException("storeID不能为空！");
@@ -331,32 +351,32 @@ namespace Dianzhu.ApplicationService.Service
             }
             Guid guidStore = utils.CheckGuidID(storeID, "storeID");
             Guid guidService = utils.CheckGuidID(serviceID, "serviceID");
-            Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            Business business = businessService.GetBusinessByIdAndOwner(guidStore, utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (business == null)
             {
                 throw new Exception("该店铺不存在！");
             }
-            Model.DZService dzserviceobj = bllDZService.GetService(guidStore, guidService);
+            ServiceDto dzserviceobj = serviceService.GetService(guidStore, guidService);
             if (dzserviceobj == null)
             {
                 throw new Exception("该服务不存在！");
             }
 
-            //Model.DZService dzservice1 = new Model.DZService();
+            //DZService dzservice1 = new DZService();
             //dzserviceobj.CopyTo(dzservice1);
-            //Model.DZService dzservice = Mapper.Map<servicesObj, Model.DZService>(servicesobj);
+            //DZService dzservice = Mapper.Map<servicesObj, DZService>(servicesobj);
             if (string.IsNullOrEmpty(servicesobj.name) == false && servicesobj.name != dzserviceobj.Name)
             {
-                dzserviceobj.Name = servicesobj.name;
+                dzserviceobj.servicename = servicesobj.name;
             }
             if (!string.IsNullOrEmpty(servicesobj.serviceType.id))
             {
                 //待定是否只传ID过来
                 //string[] typeList = servicesobj.type.Split('>');
                 //int typeLevel = typeList.Count() > 0 ? typeList.Count() - 1 : 0;
-                //Model.ServiceType sType = bllServiceType.GetOneByName(typeList[typeLevel], typeLevel);
+                //ServiceType sType = serviceTypeService.GetOneByName(typeList[typeLevel], typeLevel);
                 Guid guidServiceType = utils.CheckGuidID(servicesobj.serviceType.id, "type的ID");
-                Model.ServiceType sType = bllServiceType.GetOne(guidServiceType);
+                ServiceType sType = serviceTypeService.GetOne(guidServiceType);
                 if (sType == null)
                 {
                     throw new Exception("该服务类型有误！");
@@ -403,11 +423,11 @@ namespace Dianzhu.ApplicationService.Service
             }
             if (servicesobj.bDoorService)
             {
-                dzserviceobj.ServiceMode = Model.Enums.enum_ServiceMode.ToHouse;
+                dzserviceobj.ServiceMode = enum_ServiceMode.ToHouse;
             }
             else
             {
-                dzserviceobj.ServiceMode = Model.Enums.enum_ServiceMode.NotToHouse;
+                dzserviceobj.ServiceMode = enum_ServiceMode.NotToHouse;
             }
             if (!string.IsNullOrEmpty(servicesobj.eServiceTarget))
             {
@@ -431,7 +451,7 @@ namespace Dianzhu.ApplicationService.Service
                         }
                         else
                         {
-                            ee = (int)(Model.Enums.enum_PayType)Enum.Parse(typeof(Model.Enums.enum_PayType), servicesobj.eSupportPayWay);
+                            ee = (int)(enum_PayType)Enum.Parse(typeof(enum_PayType), servicesobj.eSupportPayWay);
                         }
                     }
                     if (ee > allNum || ee == 4)
@@ -443,7 +463,7 @@ namespace Dianzhu.ApplicationService.Service
                 {
                     throw ex;
                 }
-                dzserviceobj.AllowedPayType = (Model.Enums.enum_PayType)ee;
+                dzserviceobj.AllowedPayType = (enum_PayType)ee;
             }
             dzserviceobj.Enabled = servicesobj.bOpen;
             if (!string.IsNullOrEmpty(servicesobj.maxCount))
@@ -462,7 +482,7 @@ namespace Dianzhu.ApplicationService.Service
             dzserviceobj.LastModifiedTime = dt;
             dzserviceobj.Business = business;
             //ValidationResult validationResult = new ValidationResult();
-            //bllDZService.SaveOrUpdate(dzservice1, out validationResult);
+            //serviceService.SaveOrUpdate(dzservice1, out validationResult);
 
 
             List<string> tagList=new List<string>();
@@ -472,14 +492,14 @@ namespace Dianzhu.ApplicationService.Service
             }
             for (int i = 0; i < tagList.Count(); i++)
             {
-                bllDZTag.AddTag(tagList[i], dzserviceobj.Id.ToString(), dzserviceobj.Business.Id.ToString(), dzserviceobj.ServiceType.Id.ToString());
+                tagService.AddTag(tagList[i], dzserviceobj.Id.ToString(), dzserviceobj.Business.Id.ToString(), dzserviceobj.ServiceType.Id.ToString());
             }
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
-            //dzservice = bllDZService.GetOne(dzservice.Id);
+            //dzservice = serviceService.GetOne(dzservice.Id);
             //if (dzservice != null && dzservice.LastModifiedTime == dt)
             //{
-            servicesobj = Mapper.Map<Model.DZService, servicesObj>(dzserviceobj);
+            servicesobj = Mapper.Map<DZService, servicesObj>(dzserviceobj);
             changeObj(servicesobj, dzserviceobj);
             //}
             //else
@@ -487,6 +507,7 @@ namespace Dianzhu.ApplicationService.Service
             //    throw new Exception("更新失败");
             //}
             return servicesobj;
+            */
         }
 
         /// <summary>
@@ -498,6 +519,9 @@ namespace Dianzhu.ApplicationService.Service
         /// <returns></returns>
         public object DeleteService(string storeID, string serviceID,Customer customer)
         {
+            //todo:refactor: 客户端尚未调用,暂时注释
+            throw new NotImplementedException();
+            /*
             if (string.IsNullOrEmpty(storeID))
             {
                 throw new FormatException("storeID不能为空！");
@@ -508,20 +532,20 @@ namespace Dianzhu.ApplicationService.Service
             }
             Guid guidStore = utils.CheckGuidID(storeID, "storeID");
             Guid guidService = utils.CheckGuidID(serviceID, "serviceID");
-            Model.Business business = bllBusiness.GetBusinessByIdAndOwner(guidStore, utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            Business business = businessService.GetBusinessByIdAndOwner(guidStore, utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (business == null)
             {
                 throw new Exception("该店铺不存在！");
             }
-            Model.DZService dzservice = bllDZService.GetService(guidStore, guidService);
+            DZService dzservice = serviceService.GetService(guidStore, guidService);
             if (dzservice == null)
             {
                 throw new Exception("该服务不存在！");
             }
             dzservice.IsDeleted = true;
             dzservice.LastModifiedTime = DateTime.Now;
-            //bllDZService.Delete(dzservice);
-            //dzservice = bllDZService.GetService(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(serviceID, "serviceID"));
+            //serviceService.Delete(dzservice);
+            //dzservice = serviceService.GetService(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(serviceID, "serviceID"));
             //if (dzservice == null)
             //{
             return new string[] { "删除成功！" };
@@ -530,6 +554,7 @@ namespace Dianzhu.ApplicationService.Service
             //{
             //    throw new Exception("删除失败！");
             //}
+            */
         }
 
         /// <summary>
@@ -539,13 +564,13 @@ namespace Dianzhu.ApplicationService.Service
         /// <returns></returns>
         public IList<serviceTypeObj> GetAllServiceTypes(string superID)
         {
-            IList < Model.ServiceType> servicetype = bllServiceType.GetAllServiceTypes(utils.CheckGuidID(superID, "superID"));
+            IList < ServiceType> servicetype = serviceTypeService.GetAllServiceTypes(utils.CheckGuidID(superID, "superID"));
             if (servicetype == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<serviceTypeObj>();
             }
-            IList<serviceTypeObj> servicetypeobj = Mapper.Map<IList<Model.ServiceType>, IList<serviceTypeObj>>(servicetype);
+            IList<serviceTypeObj> servicetypeobj = Mapper.Map<IList<ServiceType>, IList<serviceTypeObj>>(servicetype);
             return servicetypeobj;
         }
     }

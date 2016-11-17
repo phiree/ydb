@@ -111,12 +111,12 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        Model.Enums.enum_ComplaintStatus _status = 0;
+       enum_ComplaintStatus _status = 0;
         /// <summary>
         /// 该投诉的状态
         /// </summary>
         /// <type>string</type>
-        public Model.Enums.enum_ComplaintStatus status
+        publicenum_ComplaintStatus status
         {
             get
             {

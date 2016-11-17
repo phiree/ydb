@@ -13,15 +13,15 @@ namespace Dianzhu.DAL.Mapping
             Id(x => x.Id);
             Map(x => x.OriginalServiceId);
             //screenshot of the service
-            Component<ServiceSnapShotForOrder>(x => x.ServieSnapShot,m=> {
-               m. Map(x => x.ChargeUnit);
+            Component<ServiceSnapShotForOrder>(x => x.ServiceSnapShot,m=> {
+               m. Map(x => x.ChargeUnitType);
                 m.Map(x => x.DepositAmount);
                 m.Map(x => x.CancelCompensation);
                 m.Map(x => x.Description);
                 m.Map(x => x.IsCompensationAdvance);
                 m.Map(x => x.MinPrice);
                 m.Map(x => x.OverTimeForCancel);
-                m.Map(x => x.ServiceMode);
+                m.Map(x => x.ServiceModeType);
                 m.Map(x => x.ServiceName);
                 m.Map(x => x.UnitPrice);
             });

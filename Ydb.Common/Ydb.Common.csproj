@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Application\ActionResult.cs" />
     <Compile Include="Domain\IDomainEntity.cs" />
+    <Compile Include="Enums\Enums.cs" />
     <Compile Include="Infrastructure\IDownloadAvatarToMediaServer.cs" />
     <Compile Include="Infrastructure\IEncryptService.cs" />
     <Compile Include="ExceptionHandler.cs" />

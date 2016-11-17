@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using System.Diagnostics;
 
 namespace Dianzhu.Model
@@ -21,25 +21,15 @@ namespace Dianzhu.Model
         }
         public ServiceOrderPushedService(ServiceOrder order,
             //todo: 应该去除不需要的属性.  
-            string serviceId,string serviceName,string serviceDescription,bool serviceIsCompensationAdvance,decimal serviceMinPrice,decimal serviceUnitPrice,
-            string serviceChargeUnitType,decimal serviceDepositAmount,decimal serviceCancelCompensation,int serviceOverTimeForCancel,string serviceModeType,
+            string serviceId, 
+            ServiceSnapShotForOrder serviceSnapshot,
 
 
             int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress, DateTime targetTime,string memo)
         {
             ServiceOrder = order;
             OriginalServiceId = serviceId;
-            ServiceName = serviceName;
-            Description = serviceDescription;
-            IsCompensationAdvance = serviceIsCompensationAdvance;
-            MinPrice = serviceMinPrice;
-            UnitPrice = serviceUnitPrice;
-            ChargeUnit =(enum_ChargeUnit)Enum.Parse(typeof(enum_ChargeUnit),serviceChargeUnitType);
-            DepositAmount = serviceDepositAmount;
-            CancelCompensation = serviceCancelCompensation;
-            OverTimeForCancel = serviceOverTimeForCancel;
-            ServiceMode = (enum_ServiceMode)Enum.Parse(typeof(enum_ServiceMode), serviceModeType);
-
+            this.ServiceSnapShot = serviceSnapshot;
             this.UnitAmount = unitAmount;
             this.TargetCustomerName = targetCustomerName;
             this.TargetCustomerPhone = targetCustomerPhone;

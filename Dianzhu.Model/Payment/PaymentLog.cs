@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Ydb.Common;
 
 namespace Dianzhu.Model
 {
@@ -33,12 +34,12 @@ namespace Dianzhu.Model
         /// <summary>
         /// 支付记录的类型：发起支付,支付接口回调
         /// </summary>
-        public virtual Enums.enum_PaylogType PaylogType { get; set; }
+        public virtual  enum_PaylogType PaylogType { get; set; }
         
         /// <summary>
         /// 离线,在线支付.
         /// </summary>
-        public virtual Enums.enum_PayType PayType { get; set; }
+        public virtual  enum_PayType PayType { get; set; }
         /// <summary>
         /// 时间戳
         /// </summary>

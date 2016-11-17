@@ -4,6 +4,7 @@ using System.Web;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Specification;
 using Ydb.Common.Application;
+using Ydb.Common;
 namespace Ydb.BusinessResource.Application
 {
     public interface IStaffService

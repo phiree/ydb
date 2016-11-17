@@ -196,16 +196,16 @@ namespace Dianzhu.CSClient.ViewWPF
         
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            Model.Enums.enum_FilterType filterType;
-            filterType = (Model.Enums.enum_FilterType)Enum.Parse(typeof(Model.Enums.enum_FilterType), ((RadioButton)sender).Tag.ToString());
+            enum_FilterType filterType;
+            filterType = (enum_FilterType)Enum.Parse(typeof(enum_FilterType), ((RadioButton)sender).Tag.ToString());
             switch (filterType)
             {
-                case Model.Enums.enum_FilterType.ByApprise:
+                case enum_FilterType.ByApprise:
                     break;
-                case Model.Enums.enum_FilterType.ByDistance:
+                case enum_FilterType.ByDistance:
                     SearchedService = searchedService.OrderBy(x => x.Number).ToList();
                     break;
-                case Model.Enums.enum_FilterType.ByPrice:
+                case enum_FilterType.ByPrice:
                     SearchedService = searchedService.OrderBy(x => x.UnitPrice).ToList();
                     break;
                 default:

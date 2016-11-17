@@ -6,7 +6,7 @@ using System.Text;
 using Dianzhu.Model;
 
 using Dianzhu.DAL;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using Dianzhu.Pay;
 using Dianzhu.Pay.RefundRequest;
 using PHSuit;
@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System.Web;
 using System.Text.RegularExpressions;
 using System.Net;
+using Ydb.Common.Specification;
 
 namespace Dianzhu.BLL
 {
@@ -28,8 +29,8 @@ namespace Dianzhu.BLL
         #region 基本操作
 
 
-        int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType);
-        IList<ServiceOrder> GetServiceOrderList(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType, int pageNum, int pageSize);
+        int GetServiceOrderCount(Guid userId,  enum_OrderSearchType searchType);
+        IList<ServiceOrder> GetServiceOrderList(Guid userId,  enum_OrderSearchType searchType, int pageNum, int pageSize);
 
         /// <summary>
         /// 查询订单合集
@@ -45,7 +46,7 @@ namespace Dianzhu.BLL
         /// <param name="userType"></param>
         /// <param name="strAssign"></param>
         /// <returns></returns>
-        IList<ServiceOrder> GetOrders(Trait_Filtering filter, string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID, string userType, string strAssign);
+        IList<ServiceOrder> GetOrders(TraitFilter filter, string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID, string userType, string strAssign);
 
         /// <summary>
         /// 查询订单数量
@@ -74,7 +75,7 @@ namespace Dianzhu.BLL
         void Update(ServiceOrder order);
         IList<ServiceOrder> GetAll(int pageIndex, int pageSize, out long totalRecords);
 
-        IList<ServiceOrder> GetAllByOrderStatus(Dianzhu.Model.Enums.enum_OrderStatus status, int pageIndex, int pageSize, out long totalRecords);
+        IList<ServiceOrder> GetAllByOrderStatus(enum_OrderStatus status, int pageIndex, int pageSize, out long totalRecords);
 
 
 

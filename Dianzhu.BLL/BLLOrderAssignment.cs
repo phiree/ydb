@@ -66,7 +66,7 @@ namespace Dianzhu.BLL
         /// <param name="storeID"></param>
         /// <param name="userID"></param>
         /// <returns></returns>
-        public IList<Model.OrderAssignment> GetAssigns(TraitFilter filter,  Guid staffID, Guid orderID, Guid storeID,Guid userID)
+        public IList<Model.OrderAssignment> GetAssigns(Ydb.Common.Specification.TraitFilter filter,  Guid staffID, Guid orderID, Guid storeID,Guid userID)
         {
             var where = PredicateBuilder.True<OrderAssignment>();
             where = where.And(x => x.Enabled);

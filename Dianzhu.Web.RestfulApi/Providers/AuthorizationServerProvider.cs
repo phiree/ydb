@@ -63,7 +63,7 @@ namespace Dianzhu.Web.RestfulApi
                 return Task.FromResult<object>(null);
             }
 
-            if (clientdto.ApplicationType == Model.Enums.ApplicationTypes.NativeConfidential)
+            if (clientdto.ApplicationType == ApplicationTypes.NativeConfidential)
             {
                 if (string.IsNullOrWhiteSpace(clientSecret))
                 {

@@ -7,10 +7,11 @@ using AutoMapper;
 
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
-using BMA=Ydb.BusinessResource.Application;
+using BMA = Ydb.BusinessResource.Application;
 using BRM = Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Specification;
 using Dianzhu.Model;
+using Ydb.Common;
 
 namespace Dianzhu.ApplicationService.Staff
 {
@@ -41,7 +42,7 @@ namespace Dianzhu.ApplicationService.Staff
             for (int i = 0; i < listAssignment.Count; i++)
             {
                 staffobj.storeData.assignOrderIDs.Add(listAssignment[i].Order.Id.ToString());
-                if (listAssignment[i].Order.OrderStatus != Model.Enums.enum_OrderStatus.Finished && listAssignment[i].Order.OrderStatus != Model.Enums.enum_OrderStatus.Appraised)
+                if (listAssignment[i].Order.OrderStatus !=  enum_OrderStatus.Finished && listAssignment[i].Order.OrderStatus !=enum_OrderStatus.Appraised)
                 {
                     staffobj.storeData.handleCount++;
                 }
@@ -114,7 +115,7 @@ namespace Dianzhu.ApplicationService.Staff
             }
             else
             {
-                if (dzms. UserType != Model.Enums.enum_UserType.staff.ToString())
+                if (dzms. UserType !=enum_UserType.staff.ToString())
                 {
                     throw new Exception("该用户名已经存在其他类型的用户！");
                 }
@@ -161,7 +162,7 @@ namespace Dianzhu.ApplicationService.Staff
         {
             BRM.Business business = checkRute(storeID, customer);
             IList<BRM.Staff> staff = null;
-            TraitFilter filter1 = utils.CheckFilter(filter, "Staff");
+            Ydb.Common.Specification.TraitFilter filter1 = utils.CheckFilter(filter, "Staff");
             staff = staffService.GetStaffs(filter1, stafffilter.alias, stafffilter.email, stafffilter.phone, stafffilter.sex, stafffilter.specialty, stafffilter.realName, business.Id);
             if (staff == null)
             {

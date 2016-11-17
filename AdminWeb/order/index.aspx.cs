@@ -63,7 +63,7 @@ public partial class order_index : BasePage
         {
 
             StatusSelect.Value = "index.aspx?status=" + Request.QueryString["status"].ToString();
-            Dianzhu.Model.Enums.enum_OrderStatus status = (Dianzhu.Model.Enums.enum_OrderStatus)Enum.Parse(typeof(Dianzhu.Model.Enums.enum_OrderStatus), Request.QueryString["status"].ToString());
+            Dianzhu.enum_OrderStatus status = (Dianzhu.enum_OrderStatus)Enum.Parse(typeof(Dianzhu.enum_OrderStatus), Request.QueryString["status"].ToString());
             allServiceOrder = bllServiceOrder.GetAllByOrderStatus(status,page,pager.PageSize,out totalRecords).OrderByDescending(x => x.LatestOrderUpdated).ToList();
 
         }

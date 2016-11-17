@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DDDCommon;
-
+using Ydb.Common.Specification;
+using Ydb.Common;
+using Dianzhu.Model;
 
 namespace Dianzhu.BLL
 {
@@ -24,38 +26,38 @@ namespace Dianzhu.BLL
         /// <param name="filter"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        public IList<Model.ClaimsDetails> GetRefundStatus(Guid orderID,Model.Trait_Filtering filter, Model.Enums.enum_RefundAction action)
+        public IList<ClaimsDetails> GetRefundStatus(Guid orderID, TraitFilter filter, enum_RefundAction action)
         {
-            var where = PredicateBuilder.True<Model.ClaimsDetails>();
+            var where = PredicateBuilder.True<ClaimsDetails>();
             if (orderID != Guid.Empty)
             {
                 where = where.And(x => x.Claims.Order.Id == orderID);
             }
             switch (action)
             {
-                case Model.Enums.enum_RefundAction.submit:
-                    where = where.And(x => x.Claims.Order.OrderStatus == Model.Enums.enum_OrderStatus.Refund );
+                case enum_RefundAction.submit:
+                    where = where.And(x => x.Claims.Order.OrderStatus == enum_OrderStatus.Refund );
                     break;
-                case Model.Enums.enum_RefundAction.agree:
-                    where = where.And(x => x.Claims.Order.OrderStatus == Model.Enums.enum_OrderStatus.WaitingPayWithRefund);
+                case enum_RefundAction.agree:
+                    where = where.And(x => x.Claims.Order.OrderStatus == enum_OrderStatus.WaitingPayWithRefund);
                     break;
-                case Model.Enums.enum_RefundAction.intervention:
-                    where = where.And(x => x.Claims.Order.OrderStatus == Model.Enums.enum_OrderStatus.InsertIntervention);
+                case enum_RefundAction.intervention:
+                    where = where.And(x => x.Claims.Order.OrderStatus == enum_OrderStatus.InsertIntervention);
                     break;
-                case Model.Enums.enum_RefundAction.cancel:
-                    where = where.And(x => x.Claims.Order.OrderStatus == Model.Enums.enum_OrderStatus.EndRefund);
+                case enum_RefundAction.cancel:
+                    where = where.And(x => x.Claims.Order.OrderStatus == enum_OrderStatus.EndRefund);
                     break;
-                case Model.Enums.enum_RefundAction.refund:
-                    where = where.And(x => x.Claims.Order.OrderStatus == Model.Enums.enum_OrderStatus.isRefund);
+                case enum_RefundAction.refund:
+                    where = where.And(x => x.Claims.Order.OrderStatus == enum_OrderStatus.isRefund);
                     break;
-                case Model.Enums.enum_RefundAction.reject:
-                    where = where.And(x => x.Claims.Order.OrderStatus == Model.Enums.enum_OrderStatus.RejectRefund);
+                case enum_RefundAction.reject:
+                    where = where.And(x => x.Claims.Order.OrderStatus == enum_OrderStatus.RejectRefund);
                     break;
-                case Model.Enums.enum_RefundAction.askPay:
-                    where = where.And(x => x.Claims.Order.OrderStatus == Model.Enums.enum_OrderStatus.AskPayWithRefund);
+                case enum_RefundAction.askPay:
+                    where = where.And(x => x.Claims.Order.OrderStatus == enum_OrderStatus.AskPayWithRefund);
                     break;
             }
-            Model.ClaimsDetails baseone = null;
+            ClaimsDetails baseone = null;
             if (!string.IsNullOrEmpty(filter.baseID))
             {
                 try

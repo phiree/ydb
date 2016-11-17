@@ -5,7 +5,7 @@ using System.Web;
 using Dianzhu.BLL;
 using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using System.Net;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using Dianzhu.Api.Model;
 /// <summary>
 /// Summary description for CHAT001001

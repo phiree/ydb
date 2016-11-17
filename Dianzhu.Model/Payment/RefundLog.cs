@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Ydb.Common;
 
 namespace Dianzhu.Model
 {
@@ -23,7 +24,7 @@ namespace Dianzhu.Model
         /// <param name="refundAmount">退款金额</param>
         /// <param name="payLogType">支付记录的类型</param>
         /// <param name="payType">支付方式</param>
-        public RefundLog(string apiStrind,Guid refundId,decimal refundAmount,Enums.enum_PaylogType payLogType,Enums.enum_PayType payType)
+        public RefundLog(string apiStrind,Guid refundId,decimal refundAmount, enum_PaylogType payLogType, enum_PayType payType)
         {
             this.LogTime = DateTime.Now;
 
@@ -57,12 +58,12 @@ namespace Dianzhu.Model
         /// <summary>
         /// 支付记录的类型：发起支付,支付接口回调
         /// </summary>
-        public virtual Enums.enum_PaylogType PaylogType { get; set; }
+        public virtual  enum_PaylogType PaylogType { get; set; }
 
         /// <summary>
         /// 离线,在线支付.
         /// </summary>
-        public virtual Enums.enum_PayType PayType { get; set; }
+        public virtual  enum_PayType PayType { get; set; }
         /// <summary>
         /// 时间戳
         /// </summary>

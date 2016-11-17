@@ -66,7 +66,7 @@ namespace Dianzhu.ApplicationService
             DZMembershipWeChat member = (DZMembershipWeChat)bllMember.GetUserByWechatOpenId(tokenObj.openid);
             if (member == null)
             {
-                member = (DZMembershipWeChat)DZMembership.Create(Model.Enums.enum_LoginType.WeChat);
+                member = (DZMembershipWeChat)DZMembership.Create(enum_LoginType.WeChat);
                 isAdd = true;
             }
             else
@@ -101,7 +101,7 @@ namespace Dianzhu.ApplicationService
             member.Address = userObj.province + " " + userObj.city;
             member.PlainPassword = userObj.openid;
             member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(userObj.openid, "MD5");
-            member.UserType = (Model.Enums.enum_UserType)Enum.Parse(typeof(Model.Enums.enum_UserType), userType); 
+            member.UserType = (enum_UserType)Enum.Parse(typeof(enum_UserType), userType); 
 
             return member;
             

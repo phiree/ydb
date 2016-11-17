@@ -54,7 +54,7 @@ namespace Dianzhu.BLL.Tests
         {
 
            // ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(),fromMemberId.ToString(),toMemberId.ToString(),
-           //     "这是文本消息", "sessionId", Model.Enums.enum_XmppResource.YDBan_CustomerService, Model.Enums.enum_XmppResource.YDBan_User);
+           //     "这是文本消息", "sessionId", enum_XmppResource.YDBan_CustomerService, enum_XmppResource.YDBan_User);
 
            // ReceptionChat chat = chatFactory.CreateChatText();
            // bool needPush;
@@ -68,9 +68,9 @@ namespace Dianzhu.BLL.Tests
         {
 
             //ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), fromMemberId.ToString(), toMemberId.ToString(),
-            //    "这是文本消息", orderId.ToString(), Model.Enums.enum_XmppResource.YDBan_CustomerService, Model.Enums.enum_XmppResource.YDBan_User);
+            //    "这是文本消息", orderId.ToString(), enum_XmppResource.YDBan_CustomerService, enum_XmppResource.YDBan_User);
 
-            //ReceptionChat chat = chatFactory.CreateNoticeOrder("ordertitle", Model.Enums.enum_OrderStatus.Payed,"ordertype");
+            //ReceptionChat chat = chatFactory.CreateNoticeOrder("ordertitle", enum_OrderStatus.Payed,"ordertype");
             //bool needPush;
             //string pushMessage = pushMessageBuilder.BuildPushMessage(chat, out needPush);
 

@@ -7,7 +7,7 @@ using NUnit.Framework;
 using FizzWare.NBuilder;
 using Dianzhu.Model;
 using Dianzhu.BLL;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 namespace Dianzhu.Test.BLLTest
 {
 
@@ -18,7 +18,7 @@ namespace Dianzhu.Test.BLLTest
         [SetUp]
         public void SetUp()
         {
-             order = Builder<ServiceOrder>.CreateNew().With(x => x.OrderStatus = Model.Enums.enum_OrderStatus.Created)
+             order = Builder<ServiceOrder>.CreateNew().With(x => x.OrderStatus = enum_OrderStatus.Created)
                           .Build();
         }
         
@@ -29,35 +29,35 @@ namespace Dianzhu.Test.BLLTest
            
             try
             {
-                new OrderServiceFlow().ChangeStatus(order, Model.Enums.enum_OrderStatus.Begin);
+                new OrderServiceFlow().ChangeStatus(order, enum_OrderStatus.Begin);
             }
             catch (Exception exe)
             {
                 Assert.AreEqual(exe.GetType(), typeof(Exception));
             }
 
-            new OrderServiceFlow().ChangeStatus(order, Model.Enums.enum_OrderStatus.Payed);
+            new OrderServiceFlow().ChangeStatus(order, enum_OrderStatus.Payed);
             Assert.AreEqual(enum_OrderStatus.Payed, order.OrderStatus);
 
-            new OrderServiceFlow().ChangeStatus(order, Model.Enums.enum_OrderStatus.Negotiate);
+            new OrderServiceFlow().ChangeStatus(order, enum_OrderStatus.Negotiate);
             Assert.AreEqual(enum_OrderStatus.Negotiate, order.OrderStatus);
 
-            new OrderServiceFlow().ChangeStatus(order, Model.Enums.enum_OrderStatus.Assigned);
+            new OrderServiceFlow().ChangeStatus(order, enum_OrderStatus.Assigned);
             Assert.AreEqual(enum_OrderStatus.Assigned, order.OrderStatus);
 
-            new OrderServiceFlow().ChangeStatus(order, Model.Enums.enum_OrderStatus.Begin);
+            new OrderServiceFlow().ChangeStatus(order, enum_OrderStatus.Begin);
             Assert.AreEqual(enum_OrderStatus.Begin, order.OrderStatus);
 
-            new OrderServiceFlow().ChangeStatus(order, Model.Enums.enum_OrderStatus.isEnd);
+            new OrderServiceFlow().ChangeStatus(order, enum_OrderStatus.isEnd);
             Assert.AreEqual(enum_OrderStatus.isEnd, order.OrderStatus);
 
-            new OrderServiceFlow().ChangeStatus(order, Model.Enums.enum_OrderStatus.Ended);
+            new OrderServiceFlow().ChangeStatus(order, enum_OrderStatus.Ended);
             Assert.AreEqual(enum_OrderStatus.Ended, order.OrderStatus);
 
-            new OrderServiceFlow().ChangeStatus(order, Model.Enums.enum_OrderStatus.Finished);
+            new OrderServiceFlow().ChangeStatus(order, enum_OrderStatus.Finished);
             Assert.AreEqual(enum_OrderStatus.Finished, order.OrderStatus);
 
-            new OrderServiceFlow().ChangeStatus(order, Model.Enums.enum_OrderStatus.Appraised);
+            new OrderServiceFlow().ChangeStatus(order, enum_OrderStatus.Appraised);
             Assert.AreEqual(enum_OrderStatus.Appraised, order.OrderStatus);
  
 

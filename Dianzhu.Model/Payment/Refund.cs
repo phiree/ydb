@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dianzhu.Model.Enums;
+ 
 using System.Diagnostics;
+using Ydb.Common;
+
 namespace Dianzhu.Model
 {
     /// <summary>

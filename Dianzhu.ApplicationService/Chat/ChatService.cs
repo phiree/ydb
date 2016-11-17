@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Ydb.InstantMessage.DomainModel.Chat;
+using Ydb.BusinessResource.Application;
 using Ydb.Common.Specification;
 
 namespace Dianzhu.ApplicationService.Chat
@@ -12,14 +13,15 @@ namespace Dianzhu.ApplicationService.Chat
     public class ChatService: IChatService
     {
         Ydb.InstantMessage.Application.IChatService bllChat;
-        BLL.BLLStaff bllStaff;
+        IStaffService staffService;
+     
         BLL.IBLLServiceOrder bllOrder;
         // BLL.DZMembershipProvider bllDZM;
-        public ChatService(Ydb.InstantMessage.Application.IChatService bllChat, BLL.IBLLServiceOrder bllOrder, BLL.BLLStaff bllStaff)
+        public ChatService(Ydb.InstantMessage.Application.IChatService bllChat, BLL.IBLLServiceOrder bllOrder, IStaffService staffService)
         {
             this.bllChat = bllChat;
             this.bllOrder = bllOrder;
-            this.bllStaff = bllStaff;
+            this.staffService = staffService;
             //this.bllDZM = bllDZM;
         }
 
@@ -42,15 +44,15 @@ namespace Dianzhu.ApplicationService.Chat
             }
             if (customer.UserType == "business")
             {
-                if (order.Business == null || order.Business.OwnerId.ToString() != customer.UserID)
+                if (  order.ServiceBusinessOwnerId!= customer.UserID)
                 {
                     throw new Exception("这不是你的订单！");
                 }
             }
             if (customer.UserType == "staff")
             {
-                Model.Staff staff = bllStaff.GetOneByUserID(Guid.Empty, customer.UserID);
-                if (staff == null || order.Business.Id != staff.Id)
+                Ydb.BusinessResource.DomainModel.Staff staff = staffService.GetOneByUserID(Guid.Empty, customer.UserID);
+                if (staff == null || order.BusinessId != staff.Id.ToString())
                 {
                     throw new Exception("这不是你的订单！");
                 }
@@ -71,8 +73,8 @@ namespace Dianzhu.ApplicationService.Chat
             Guid guidOrder = checkRute(orderID, customer);
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
             IList<ReceptionChatDto> chat = null;
-            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ReceptionChat");
-            chat = bllChat.GetChats(filter1.filter2, chatfilter.type, chatfilter.fromTarget, orderID, guidCustomer.ToString(),customer.UserType);
+            TraitFilter filter1 = utils.CheckFilter(filter, "ReceptionChat");
+            chat = bllChat.GetChats(filter1, chatfilter.type, chatfilter.fromTarget, orderID, guidCustomer.ToString(),customer.UserType);
             if (chat == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
@@ -115,8 +117,8 @@ namespace Dianzhu.ApplicationService.Chat
             //}
             Guid guidCustomer = utils.CheckGuidID(customer.UserID, "customer.UserID");
             IList<ReceptionChatDto> chat = null;
-            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "ReceptionChat");
-            chat = bllChat.GetChats(filter1.filter2, chatfilter.type, chatfilter.fromTarget, chatfilter.orderID, guidCustomer.ToString(), customer.UserType);
+             TraitFilter filter1 = utils.CheckFilter(filter, "ReceptionChat");
+            chat = bllChat.GetChats(filter1, chatfilter.type, chatfilter.fromTarget, chatfilter.orderID, guidCustomer.ToString(), customer.UserType);
             if (chat == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);

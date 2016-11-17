@@ -21,7 +21,7 @@ namespace DianzhuService.Diandian
             XMPPConnection.ConnectServer = ServerName;
             XMPPConnection.AutoResolveConnectServer = false;
             
-            XMPPConnection.Resource = Dianzhu.Model.Enums.enum_XmppResource.YDBan_DianDian.ToString();
+            XMPPConnection.Resource = Dianzhu.enum_XmppResource.YDBan_DianDian.ToString();
            
         }
        

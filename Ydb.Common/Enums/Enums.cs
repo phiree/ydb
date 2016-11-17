@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
-namespace Dianzhu.Model.Enums
+namespace Ydb.Common
 {
     public enum enum_ImageType
     {
@@ -27,10 +27,10 @@ namespace Dianzhu.Model.Enums
     /// </summary>
     public enum enum_PayTarget
     {
-        Deposit=1,//订金
-        FinalPayment=2,//尾款
-        Compensation=3,//赔偿金
-        None=99,
+        Deposit = 1,//订金
+        FinalPayment = 2,//尾款
+        Compensation = 3,//赔偿金
+        None = 99,
 
     }
     /// <summary>
@@ -47,22 +47,22 @@ namespace Dianzhu.Model.Enums
     /// </summary>
     public enum enum_PaylogType
     {
-        None=0,
-        ApplyFromUser=1,//用户发起支付请求
-        ResultReturnFromAli=2,//支付宝 return回调
-        ResultNotifyFromAli=3,//支付宝 notify回调
-        ReturnNotifyFromWePay=4,//微支付notify回调
-        
+        None = 0,
+        ApplyFromUser = 1,//用户发起支付请求
+        ResultReturnFromAli = 2,//支付宝 return回调
+        ResultNotifyFromAli = 3,//支付宝 notify回调
+        ReturnNotifyFromWePay = 4,//微支付notify回调
+
     }
     /// <summary>
     /// 支付接口
     /// </summary>
     public enum enum_PayAPI
     {
-        None=0,
-        Alipay =1,
-        Wechat=2,
-        AliBatch=3
+        None = 0,
+        Alipay = 1,
+        Wechat = 2,
+        AliBatch = 3
     }
     /// <summary>
     /// 计费单位
@@ -256,7 +256,7 @@ namespace Dianzhu.Model.Enums
         /// 固定时间内未支付赔偿金，强制终止
         /// </summary>
         ForceStop = 70,
-        
+
         /// <summary>
         /// 未知订单类型
         /// </summary>
@@ -292,7 +292,7 @@ namespace Dianzhu.Model.Enums
     /// </summary>
     public enum enum_ChatType
     {
-       
+
         Chat,//聊天信息,需要持久化
         Notice,//推送信息,不需要持久化
     }
@@ -304,19 +304,19 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 系统内服务,系统内用户,默认值.
         /// </summary>
-        ISIM, 
+        ISIM,
         /// <summary>
         /// 系统内服务,系统外用户
         /// </summary>
-        ISOM, 
+        ISOM,
         /// <summary>
         /// 系统外服务,系统内用户
         /// </summary>
-        OSIM, 
+        OSIM,
         /// <summary>
         /// 系统外服务,系统外用户
         /// </summary>
-        OSOM, 
+        OSOM,
     }
 
     /// <summary>
@@ -327,19 +327,19 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 普通用户
         /// </summary>
-        customer=1,
+        customer = 1,
         /// <summary>
         /// 商户
         /// </summary>
-        business=2,
+        business = 2,
         /// <summary>
         /// 客服
         /// </summary>
-        customerservice=4,
+        customerservice = 4,
         /// <summary>
         /// 管理员
         /// </summary>
-        admin=8,
+        admin = 8,
         /// <summary>
         /// 员工
         /// </summary>
@@ -370,23 +370,23 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 与平台客服聊天类型
         /// </summary>
-        cer=1,
+        cer = 1,
         /// <summary>
         /// 与商家客服聊天类型
         /// </summary>
-        store=2,
+        store = 2,
         /// <summary>
         /// 查询所有的类型
         /// </summary>
-        all=4,
+        all = 4,
         /// <summary>
         /// 用户
         /// </summary>
-        user=8,
+        user = 8,
         /// <summary>
         /// 系统
         /// </summary>
-        system=16,
+        system = 16,
     }
     /// <summary>
     /// 用户的在线状态
@@ -411,23 +411,23 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 用户版
         /// </summary>
-        YDBan_User=50,
+        YDBan_User = 50,
         /// <summary>
         /// 商户版
         /// </summary>
-        YDBan_Store=52,
+        YDBan_Store = 52,
         /// <summary>
         /// 客服工具
         /// </summary>
-        YDBan_CustomerService=54,
+        YDBan_CustomerService = 54,
         /// <summary>
         /// IM服务
         /// </summary>
-        YDBan_IMServer=56,
+        YDBan_IMServer = 56,
         /// <summary>
         /// 点点
         /// </summary>
-        YDBan_DianDian=58,
+        YDBan_DianDian = 58,
         /// <summary>
         /// 员工
         /// </summary>
@@ -447,12 +447,12 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 原生登录用户
         /// </summary>
-        original=0,
+        original = 0,
 
         //第三方登录用户
-        WeChat=1,
-        SinaWeiBo=2,
-        TencentQQ=3,
+        WeChat = 1,
+        SinaWeiBo = 2,
+        TencentQQ = 3,
     }
 
     /// <summary>
@@ -480,8 +480,8 @@ namespace Dianzhu.Model.Enums
         Trade_Success = 1,//支付成功，且可对该交易做操作，如：多级分润、退款等。
         Trade_Closed = 2,//在指定时间内未支付时关闭的交易；在交易完成全额退款成功时关闭的交易。
         Trade_Finished = 3,//交易成功且结束，即不可再做任何操作。
-        Fail=4,//交易失败
-        None=-1
+        Fail = 4,//交易失败
+        None = 5,
     }
 
     /// <summary>
@@ -489,8 +489,8 @@ namespace Dianzhu.Model.Enums
     /// </summary>
     public enum enum_RefundStatus
     {
-        Success=1,
-        Fail=2,
+        Success = 1,
+        Fail = 2,
     }
 
     /// <summary>
@@ -605,31 +605,31 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 提交理赔请求
         /// </summary>
-        submit=0,
+        submit = 0,
         /// <summary>
         /// 店铺同意理赔要求
         /// </summary>
-        refund=4,
+        refund = 4,
         /// <summary>
         /// 店铺拒绝理赔
         /// </summary>
-        reject=1,
+        reject = 1,
         /// <summary>
         /// 店铺要求支付赔偿金
         /// </summary>
-        askPay=2,
+        askPay = 2,
         /// <summary>
         /// 用户同意商户处理
         /// </summary>
-        agree=8,
+        agree = 8,
         /// <summary>
         /// 用户放弃理赔
         /// </summary>
-        cancel=16,
+        cancel = 16,
         /// <summary>
         /// 用户要求官方介入
         /// </summary>
-        intervention=32,
+        intervention = 32,
     }
 
     /// <summary>

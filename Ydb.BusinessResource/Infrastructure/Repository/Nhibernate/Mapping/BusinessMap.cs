@@ -8,6 +8,8 @@ using Ydb.BusinessResource.DomainModel;
 
 using Ydb.BusinessResource.DomainModel;
 using Ydb.BusinessResource.DomainModel;
+using Ydb.Common;
+
 namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping
 {
     public class Business_AbsMap : ClassMap<Business_Abs>

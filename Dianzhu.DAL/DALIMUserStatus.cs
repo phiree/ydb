@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model;
 using NHibernate;
+using Ydb.Common;
 
 namespace Dianzhu.DAL
 {
@@ -17,7 +18,7 @@ namespace Dianzhu.DAL
 
         public IList<IMUserStatus> GetOnlineListByClientName(string name)
         {
-            return Find(x => x.ClientName == name && x.Status == Model.Enums.enum_UserStatus.available);
+            return Find(x => x.ClientName == name && x.Status == enum_UserStatus.available);
         }
 
     }

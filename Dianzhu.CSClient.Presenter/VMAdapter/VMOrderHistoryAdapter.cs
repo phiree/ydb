@@ -13,7 +13,7 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
         public VMOrderHistory OrderToVMOrderHistory(ServiceOrder order)
         {
             string status = order.GetStatusTitleFriendly(order.OrderStatus);
-            string serviceName = order.Details.Count > 0 ? order.Details[0].ServieSnapShot.ServiceName : string.Empty;
+            string serviceName = order.Details.Count > 0 ? order.Details[0].ServiceSnapShot.ServiceName : string.Empty;
 
             return new VMOrderHistory(order.Id, order.OrderAmount, order.Business.Name, serviceName, order.TargetAddress, status, order.OrderServerStartTime, order.OrderServerFinishedTime);
         }

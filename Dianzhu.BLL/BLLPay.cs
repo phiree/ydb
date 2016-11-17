@@ -5,7 +5,7 @@ using System.Text;
 
 using Dianzhu.DAL;
 using Dianzhu.Model;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using System.Web;
 using System.IO;
 using Dianzhu.Pay;

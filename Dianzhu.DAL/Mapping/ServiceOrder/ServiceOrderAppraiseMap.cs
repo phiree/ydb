@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model;
 using FluentNHibernate.Mapping;
+using Ydb.Common;
+
 namespace Dianzhu.DAL.Mapping
 {
     public class ServiceOrderAppraiseMap: ClassMap<ServiceOrderAppraise>
@@ -13,7 +15,7 @@ namespace Dianzhu.DAL.Mapping
             Id(x => x.Id);
             Map(x => x.CreateTime);
             References<ServiceOrder>(x => x.Order);
-            Map(x => x.Tatget).CustomType<Dianzhu.Model.Enums.enum_ChatTarget>();
+            Map(x => x.Tatget).CustomType< enum_ChatTarget>();
             Map(x => x.Value);
             Map(x => x.Content);
         }

@@ -8,6 +8,7 @@ using NHibernate;
 using NHibernate.Linq;
 using Dianzhu.IDAL;
 using DDDCommon.Domain;
+using Ydb.Common.Specification;
 namespace Dianzhu.DAL
 {
     public abstract class NHRepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>

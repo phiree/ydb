@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using System.Diagnostics;
  
 namespace Dianzhu.Model
@@ -248,7 +248,7 @@ namespace Dianzhu.Model
                 string name = string.Empty;
                 foreach (ServiceOrderDetail detail in Details)
                 {
-                    name += detail.ServieSnapShot.ServiceName + ";";
+                    name += detail.ServiceSnapShot.ServiceName + ";";
                 }
                 return name.TrimEnd(';');
             }
@@ -265,7 +265,7 @@ namespace Dianzhu.Model
                 string name = string.Empty;
                 foreach (ServiceOrderDetail detail in Details)
                 {
-                    name += detail.ServieSnapShot.ServiceBusinessName + ";";
+                    name += detail.ServiceSnapShot.ServiceBusinessName + ";";
                 }
                 return name.TrimEnd(';');
             }
@@ -280,7 +280,7 @@ namespace Dianzhu.Model
                 string name = string.Empty;
                 foreach (ServiceOrderDetail detail in Details)
                 {
-                    name += detail.ServieSnapShot.ServiceBusinessPhone + ";";
+                    name += detail.ServiceSnapShot.ServiceBusinessPhone + ";";
                 }
                 return name.TrimEnd(';');
             }
@@ -295,7 +295,7 @@ namespace Dianzhu.Model
                 string description = string.Empty;
                 foreach (ServiceOrderDetail detain in Details)
                 {
-                    description += detain.ServieSnapShot.Description + ";";
+                    description += detain.ServiceSnapShot.Description + ";";
                 }
                 return description.TrimEnd(';');
             }
@@ -508,7 +508,7 @@ namespace Dianzhu.Model
             get
             {
                 if (Details.Count == 0) return 0;
-                return Details.Min(x => x.ServieSnapShot.OverTimeForCancel);
+                return Details.Min(x => x.ServiceSnapShot.OverTimeForCancel);
             }
         }
 
@@ -539,7 +539,7 @@ namespace Dianzhu.Model
             foreach (ServiceOrderDetail detail in Details)
             {
                 this.NegotiateAmount += detail.ServiceAmount;
-                this.DepositAmount += detail.ServieSnapShot.DepositAmount;
+                this.DepositAmount += detail.ServiceSnapShot.DepositAmount;
             }
             //this.OrderStatus = enum_OrderStatus.Created;
             this.OrderConfirmTime = DateTime.Now;
@@ -560,7 +560,7 @@ namespace Dianzhu.Model
                 string name = string.Empty;
                 foreach (ServiceOrderDetail detail in Details)
                 {
-                    name += detail.ServieSnapShot.ServiceTypeName + ";";
+                    name += detail.ServiceSnapShot.ServiceTypeName + ";";
                 }
                 return name.TrimEnd(';');
             }
@@ -574,7 +574,7 @@ namespace Dianzhu.Model
                 if (Details.Count > 1) { log.Error("订单服务数量大于1"); throw new Exception("订单服务数量大于1");  }
                 foreach (ServiceOrderDetail detail in Details)
                 {
-                    name += detail.ServieSnapShot.ServiceBusinessOwnerId + ";";
+                    name += detail.ServiceSnapShot.ServiceBusinessOwnerId + ";";
                 }
                 return name.TrimEnd(';');
             }

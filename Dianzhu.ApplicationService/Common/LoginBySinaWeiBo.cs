@@ -75,7 +75,7 @@ namespace Dianzhu.ApplicationService
             DZMembershipSinaWeibo member = (DZMembershipSinaWeibo)bllMember.GetUserBySinaWeiboUId(long.Parse(tokenInfo.uid));
             if (member == null)
             {
-                member = (DZMembershipSinaWeibo)DZMembership.Create(Model.Enums.enum_LoginType.SinaWeiBo);
+                member = (DZMembershipSinaWeibo)DZMembership.Create(enum_LoginType.SinaWeiBo);
                 isAdd = true;
             }
             else
@@ -135,7 +135,7 @@ namespace Dianzhu.ApplicationService
             member.Address = userObj.location;
             member.PlainPassword = tokenInfo.uid;
             member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(tokenInfo.uid, "MD5");
-            member.UserType = (Model.Enums.enum_UserType)Enum.Parse(typeof(Model.Enums.enum_UserType), userType);
+            member.UserType = (enum_UserType)Enum.Parse(typeof(enum_UserType), userType);
 
             return member;
         }

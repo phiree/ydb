@@ -14,7 +14,7 @@ using Com.Alipay;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using Dianzhu.Pay;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using System.Web.Script.Serialization;
 public partial class RefundCallBackHandler :BasePage
 {

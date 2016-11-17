@@ -472,8 +472,8 @@ namespace Dianzhu.DemoClient
         {
             Presence p = new Presence(ShowType.chat, "Offline");
             p.Type = PresenceType.unavailable;
-            p.To = new Jid(csId + "@" + GlobalViables.ServerName + "/" + Model.Enums.enum_XmppResource.YDBan_CustomerService);
-            p.From = new Jid(StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName + "/" + Model.Enums.enum_XmppResource.YDBan_User);
+            p.To = new Jid(csId + "@" + GlobalViables.ServerName + "/" + enum_XmppResource.YDBan_CustomerService);
+            p.From = new Jid(StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName + "/" + enum_XmppResource.YDBan_User);
             GlobalViables.XMPPConnection.Send(p);
         }
 

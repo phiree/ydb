@@ -7,6 +7,8 @@ using Dianzhu.Model;
 using System.Linq.Expressions;
 using DDDCommon;
 using Dianzhu.IDAL;
+using Ydb.Common.Specification;
+
 namespace Dianzhu.BLL
 {
     public class BLLAdvertisement

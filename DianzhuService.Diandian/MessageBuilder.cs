@@ -11,8 +11,8 @@ namespace DianzhuService.Diandian
         Message msg;
         public MessageBuilder Create(string from, string to, string body, string orderId)
         {
-            msg = new Message(new Jid(to + "@" + GlobalViables.DomainName + "/" + Dianzhu.Model.Enums.enum_XmppResource.YDBan_DianDian)
-              , new Jid(from + "@" + GlobalViables.DomainName + "/" + Dianzhu.Model.Enums.enum_XmppResource.YDBan_DianDian), body);
+            msg = new Message(new Jid(to + "@" + GlobalViables.DomainName + "/" + Dianzhu.enum_XmppResource.YDBan_DianDian)
+              , new Jid(from + "@" + GlobalViables.DomainName + "/" + Dianzhu.enum_XmppResource.YDBan_DianDian), body);
             msg.SetAttribute("type", "chat");
             var nodeExt = new agsXMPP.Xml.Dom.Element("ext");
             var nodeOrder = new agsXMPP.Xml.Dom.Element("orderID",orderId);

@@ -17,6 +17,7 @@ using System.Reflection;
 using System.Drawing;
 using System.Security.Cryptography;
 using Ydb.Common.Specification;
+using Ydb.BusinessResource.DomainModel;
 
 namespace Dianzhu.ApplicationService
 {
@@ -634,7 +635,7 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <param name="st"></param>
         /// <returns></returns>
-        public static string getServiceType(Model.ServiceType st)
+        public static string getServiceType( ServiceType st)
         {
             string str = st.ToString();//Model.ServiceType里面重写了ToString
             string strType = "";

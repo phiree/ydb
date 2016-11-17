@@ -371,133 +371,133 @@
       <FileName>Area.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_ImageType" Collapsed="true">
+  <Enum Name="Dianzhu.enum_ImageType" Collapsed="true">
     <Position X="14.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAAAAAgUAACAAAAAAEAABAAEAEAIAAAAEAAAAAAAwAA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_PayTarget" Collapsed="true">
+  <Enum Name="Dianzhu.enum_PayTarget" Collapsed="true">
     <Position X="16.5" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAgCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_PayType" Collapsed="true">
+  <Enum Name="Dianzhu.enum_PayType" Collapsed="true">
     <Position X="18.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAgAEAAAAAAAAAEAAAAAEAEAAAA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_PaylogType" Collapsed="true">
+  <Enum Name="Dianzhu.enum_PaylogType" Collapsed="true">
     <Position X="23.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAgAAAAAAAAAAAAAAAAAAIAAAAAAAAAEAAAA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_PayAPI" Collapsed="true">
+  <Enum Name="Dianzhu.enum_PayAPI" Collapsed="true">
     <Position X="21.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAEAAAA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_ChargeUnit" Collapsed="true">
+  <Enum Name="Dianzhu.enum_ChargeUnit" Collapsed="true">
     <Position X="18.25" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAIEAAAAAAAAAAA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_ServiceMode" Collapsed="true">
+  <Enum Name="Dianzhu.enum_ServiceMode" Collapsed="true">
     <Position X="20" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_IDCardType" Collapsed="true">
+  <Enum Name="Dianzhu.enum_IDCardType" Collapsed="true">
     <Position X="23.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_OrderStatus" Collapsed="true">
+  <Enum Name="Dianzhu.enum_OrderStatus" Collapsed="true">
     <Position X="20" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAAAEGAgAQAEAAAARAAEAQEAAAAAAQgBgg=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_OrderSearchType" Collapsed="true">
+  <Enum Name="Dianzhu.enum_OrderSearchType" Collapsed="true">
     <Position X="18.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAAAACAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_CashTicketSearchType" Collapsed="true">
+  <Enum Name="Dianzhu.enum_CashTicketSearchType" Collapsed="true">
     <Position X="16.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAFAAAAAIAAAAAAAAA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_ChatType" Collapsed="true">
+  <Enum Name="Dianzhu.enum_ChatType" Collapsed="true">
     <Position X="21.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAAAQAAABAAAAAABAAAACAAAAAAACAAAAACAAAAAQ=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_ServiceScopeType" Collapsed="true">
+  <Enum Name="Dianzhu.enum_ServiceScopeType" Collapsed="true">
     <Position X="21.75" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_UserType" Collapsed="true">
+  <Enum Name="Dianzhu.enum_UserType" Collapsed="true">
     <Position X="14.75" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAQIABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_ChatTarget" Collapsed="true">
+  <Enum Name="Dianzhu.enum_ChatTarget" Collapsed="true">
     <Position X="20" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAABAAAAAACAAAA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_UserStatus" Collapsed="true">
+  <Enum Name="Dianzhu.enum_UserStatus" Collapsed="true">
     <Position X="23.5" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAEAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_XmppResource" Collapsed="true">
+  <Enum Name="Dianzhu.enum_XmppResource" Collapsed="true">
     <Position X="16.5" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAQAAACAACAAALAUAQBCAAAAACAAAAIAAIAAAAgA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_LoginType" Collapsed="true">
+  <Enum Name="Dianzhu.enum_LoginType" Collapsed="true">
     <Position X="16.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAABAIAAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Dianzhu.Model.Enums.enum_PaymentStatus" Collapsed="true">
+  <Enum Name="Dianzhu.enum_PaymentStatus" Collapsed="true">
     <Position X="14.75" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAgAAAAAAABAAAAAAAAA=</HashCode>

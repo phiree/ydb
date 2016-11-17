@@ -25,12 +25,12 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        Model.Enums.enum_appName _appName = 0;
+       enum_appName _appName = 0;
         /// <summary>
         /// 平台标识（"IOS_User":[IOS用户版]，"IOS_Merchant":[IOS商户版]，"IOS_CustomerService":[IOS客服版]，"Andriod_User":[Android用户版]，"Android_Merchant":[Android商户版]，"Android_CustomerService":[Android客户版]）
         /// </summary>
         /// <type>string</type>
-        public Model.Enums.enum_appName appName
+        publicenum_appName appName
         {
             get
             {

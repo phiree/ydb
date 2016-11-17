@@ -60,7 +60,7 @@ namespace Dianzhu.ApplicationService.Complaint
                 throw new Exception("不能投诉别人的订单！");
             }
             Model.Complaint complaint = Mapper.Map<complaintObj, Model.Complaint>(complaintobj);
-            //complaint.Target= (Model.Enums.enum_ComplaintTarget)Enum.Parse(typeof(Model.Enums.enum_ComplaintTarget), complaintobj.target); 
+            //complaint.Target= (enum_ComplaintTarget)Enum.Parse(typeof(enum_ComplaintTarget), complaintobj.target); 
             for (int i = 0; i < complaintobj.resourcesUrls.Count; i++)
             {
                 complaint.ComplaitResourcesUrl.Add(utils.GetFileName(complaintobj.resourcesUrls[i]));
@@ -93,7 +93,7 @@ namespace Dianzhu.ApplicationService.Complaint
         public IList<complaintObj> GetComplaints(common_Trait_Filtering filter, common_Trait_ComplainFiltering complaint)
         {
             IList<Model.Complaint> listcomplaint = null;
-            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Complaint");
+            Model.TraitFilter filter1 = utils.CheckFilter(filter, "Complaint");
             listcomplaint = bllcomplaint.GetComplaints(filter1, utils.CheckGuidID(complaint.orderID, "orderID"), utils.CheckGuidID(complaint.storeID, "storeID"), utils.CheckGuidID(complaint.customerServiceID, "customerServiceID"));
             if (listcomplaint == null)
             {

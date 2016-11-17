@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using FluentNHibernate.Mapping;
 using Dianzhu.Model;
+using Ydb.Common;
+
 namespace Dianzhu.DAL.Mapping
 {
     public class ClaimsDetailsMap : ClassMap<ClaimsDetails>
@@ -11,7 +13,7 @@ namespace Dianzhu.DAL.Mapping
         public ClaimsDetailsMap() {
             Id(x => x.Id);
             References(x => x.Claims);
-            Map(x => x.Target).CustomType<Model.Enums.enum_ChatTarget>();
+            Map(x => x.Target).CustomType<enum_ChatTarget>();
             Map(x => x.Context);
             Map(x => x.Amount);
 

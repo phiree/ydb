@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Push;
 using Dianzhu.IDAL;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using log4net;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.DomainModel.Enums;

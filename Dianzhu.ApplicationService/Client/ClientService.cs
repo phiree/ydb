@@ -8,6 +8,8 @@ using AutoMapper;
 
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.BusinessResource.Application;
+
 namespace Dianzhu.ApplicationService.Client
 {
     public class ClientService:IClientService
@@ -17,16 +19,16 @@ namespace Dianzhu.ApplicationService.Client
         BLL.Client.BLLUserToken bllusertoken = null;
         
         IDZMembershipService memberService;
-        BLL.BLLStaff bllstaff = null;
-      
-        public ClientService(BLL.Client.BLLUserToken bllusertoken, BLL.BLLStaff bllstaff
+        IStaffService staffService;
+
+        public ClientService(BLL.Client.BLLUserToken bllusertoken, IStaffService staffService
             ,IDZMembershipService memberService)
         {
             //this.ibllclient = ibllclient;
             //this.ibllrefreshtoken = ibllrefreshtoken;
             this.bllusertoken = bllusertoken;
         
-            this.bllstaff = bllstaff;
+            this.staffService = staffService;
             this.memberService = memberService;
         }
 
@@ -91,7 +93,7 @@ namespace Dianzhu.ApplicationService.Client
                     {
                         throw new Exception("用户类型不正确，不能登录该App！");
                     }
-                    Model.Staff staff = bllstaff.GetOneByUserID(Guid.Empty, dzm.Id.ToString()) ;
+             Ydb.BusinessResource.DomainModel. Staff staff = staffService.GetOneByUserID(Guid.Empty, dzm.Id.ToString()) ;
                     userUri = strPath + "/api/v1/stores/" + staff.Belongto.Id + "/staffs/" + staff.Id;
                     break;
                 default:

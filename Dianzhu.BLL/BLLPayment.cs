@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.Model;
-using Dianzhu.Model.Enums;
+ 
 using DDDCommon;
+using Ydb.Common.Specification;
+using Ydb.Common;
+
 namespace Dianzhu.BLL
 {
     /// <summary>
@@ -193,7 +196,7 @@ namespace Dianzhu.BLL
         /// <param name="orderID"></param>
         /// <param name="userID"></param>
         /// <returns></returns>
-        public IList<Payment> GetPays(Model.Trait_Filtering filter, string payStatus, string payType, Guid orderID, Guid userID)
+        public IList<Payment> GetPays( TraitFilter filter, string payStatus, string payType, Guid orderID, Guid userID)
         {
             var where = PredicateBuilder.True<Payment>();
             if (orderID != Guid.Empty)
@@ -206,42 +209,42 @@ namespace Dianzhu.BLL
             }
             if (!string.IsNullOrEmpty(payStatus))
             {
-                Model.Enums.enum_PaymentStatus ps;
+                enum_PaymentStatus ps;
                 switch (payStatus.ToLower())
                 {
                     case "waitforpay":
-                        ps = Model.Enums.enum_PaymentStatus.Wait_Buyer_Pay;
+                        ps = enum_PaymentStatus.Wait_Buyer_Pay;
                         break;
                     case "success":
-                        ps = Model.Enums.enum_PaymentStatus.Trade_Success;
+                        ps = enum_PaymentStatus.Trade_Success;
                         break;
                     case "failed":
-                        ps = Model.Enums.enum_PaymentStatus.Fail;
+                        ps = enum_PaymentStatus.Fail;
                         break;
                     case "waitforverify":
                         ///没有对应状态
                     default:
-                        ps = Model.Enums.enum_PaymentStatus.None;
+                        ps = enum_PaymentStatus.None;
                             break;
                 }
                 where = where.And(x => x.Status == ps);
             }
             if (!string.IsNullOrEmpty(payType))
             {
-                Model.Enums.enum_PayTarget ps;
+                enum_PayTarget ps;
                 switch (payType.ToLower())
                 {
                     case "deposit":
-                        ps = Model.Enums.enum_PayTarget.Deposit;
+                        ps = enum_PayTarget.Deposit;
                         break;
                     case "finalpayment":
-                        ps = Model.Enums.enum_PayTarget.FinalPayment;
+                        ps = enum_PayTarget.FinalPayment;
                         break;
                     case "compensation":
-                        ps = Model.Enums.enum_PayTarget.Compensation;
+                        ps = enum_PayTarget.Compensation;
                         break;
                     default:
-                        ps = Model.Enums.enum_PayTarget.None;
+                        ps = enum_PayTarget.None;
                         break;
                 }
                 where = where.And(x => x.PayTarget == ps);
@@ -285,11 +288,11 @@ namespace Dianzhu.BLL
             }
             if (payStatus != null && payStatus != "")
             {
-                where = where.And(x => x.Status == (Model.Enums.enum_PaymentStatus)Enum.Parse(typeof(Model.Enums.enum_PaymentStatus), payStatus));
+                where = where.And(x => x.Status == (enum_PaymentStatus)Enum.Parse(typeof(enum_PaymentStatus), payStatus));
             }
             if (payType != null && payType != "")
             {
-                where = where.And(x => x.PayTarget == (Model.Enums.enum_PayTarget)Enum.Parse(typeof(Model.Enums.enum_PayTarget), payType));
+                where = where.And(x => x.PayTarget == (enum_PayTarget)Enum.Parse(typeof(enum_PayTarget), payType));
             }
             long count = dal.GetRowCount(where);
             return count;

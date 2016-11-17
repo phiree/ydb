@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Ydb.Common.Domain;
+using Ydb.Common;
 using Ydb.BusinessResource.DomainModel;
 namespace Ydb.BusinessResource.DomainModel
 {
@@ -68,9 +69,9 @@ namespace Ydb.BusinessResource.DomainModel
         /// </summary>
         public virtual  Business Business { get; set; }
         /// <summary>
-        /// 商圈代码.
+        /// 服务范围 
         /// </summary>
-        public virtual string BusinessAreaCode { get; set; }
+        public virtual string Scope { get; set; }
         /// <summary>
         /// 详细描述
         /// </summary>
@@ -237,7 +238,7 @@ namespace Ydb.BusinessResource.DomainModel
         public virtual string GetServiceArea()
         {
             System.Text.RegularExpressions.Regex RegExp = new System.Text.RegularExpressions.Regex(@"(?<=""serPointAddress"":"").*?(?=""})");
-            System.Text.RegularExpressions.Match mach = RegExp.Match(this.BusinessAreaCode);
+            System.Text.RegularExpressions.Match mach = RegExp.Match(this.Scope);
             return mach.Value;
         }
 
@@ -253,7 +254,7 @@ namespace Ydb.BusinessResource.DomainModel
             newService.ServiceType = ServiceType;
             newService.Description = Description;
             
-            newService.BusinessAreaCode = BusinessAreaCode;
+            newService.Scope = Scope;
             newService.MinPrice = MinPrice;
             newService.UnitPrice = UnitPrice;
             newService.DepositAmount = DepositAmount;

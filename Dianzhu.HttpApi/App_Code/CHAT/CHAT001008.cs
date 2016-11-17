@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Dianzhu.BLL;
 using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using Dianzhu.Api.Model;
 using agsXMPP.protocol.client;
 using Ydb.InstantMessage.DomainModel.Chat;

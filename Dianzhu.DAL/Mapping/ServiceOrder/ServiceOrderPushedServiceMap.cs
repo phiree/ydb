@@ -12,18 +12,20 @@ namespace Dianzhu.DAL.Mapping
         {
             Id(x => x.Id);
             Map(x => x.OriginalServiceId);
+            Component<ServiceSnapShotForOrder>(x => x.ServiceSnapShot, m => {
+                m.Map(x => x.ChargeUnitType);
+                m.Map(x => x.DepositAmount);
+                m.Map(x => x.CancelCompensation);
+                m.Map(x => x.Description);
+                m.Map(x => x.IsCompensationAdvance);
+                m.Map(x => x.MinPrice);
+                m.Map(x => x.OverTimeForCancel);
+                m.Map(x => x.ServiceModeType);
+                m.Map(x => x.ServiceName);
+                m.Map(x => x.UnitPrice);
+            });
             //screenshot of the service
-            Map(x => x.ServiceName);
-            Map(x => x.Description);
-            Map(x => x.IsCompensationAdvance);
-            Map(x => x.MinPrice);
-            Map(x => x.UnitPrice);
-            Map(x => x.ChargeUnit);
-
-            Map(x => x.DepositAmount);
-            Map(x => x.CancelCompensation);
-            Map(x => x.OverTimeForCancel);
-            Map(x => x.ServiceMode);
+           
             References<ServiceOrder>(x => x.ServiceOrder);
 
             #region 服务项需求

@@ -96,9 +96,9 @@ namespace Dianzhu.CSClient.Presenter
 
                 var member = memberServcie.ValidateUser(username, plainPassword, true).ValidatedMember;
 
-                if (member != null && member.UserType == Model.Enums.enum_UserType.customerservice.ToString())
+                if (member != null && member.UserType == enum_UserType.customerservice.ToString())
                 {
-                    instantMessage.OpenConnection(member.Id.ToString(), loginView.Password, Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString());
+                    instantMessage.OpenConnection(member.Id.ToString(), loginView.Password, enum_XmppResource.YDBan_CustomerService.ToString());
                 }
                 else
                 {

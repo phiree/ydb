@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using FluentNHibernate.Mapping;
 using Dianzhu.Model;
+using Ydb.Common;
+
 namespace Dianzhu.DAL.Mapping
 {
     public class ClaimsMap : ClassMap<Claims>
@@ -11,7 +13,7 @@ namespace Dianzhu.DAL.Mapping
         public ClaimsMap() {
             Id(x => x.Id);
             References(x => x.Order);
-            Map(x => x.Status).CustomType<Model.Enums.enum_OrderStatus>();
+            Map(x => x.Status).CustomType<enum_OrderStatus>();
             Map(x => x.CreatTime);
             Map(x => x.ApplicantId);
             Map(x => x.LastUpdateTime);

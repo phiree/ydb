@@ -46,7 +46,7 @@ namespace Dianzhu.ApplicationService.Snapshot
             //    throw new Exception("没有访问权限！");
             //}
             Guid guidService = utils.CheckGuidID(ServiceID, "ServiceID");
-            Model.Trait_Filtering filter1 = utils.CheckFilter(filter, "Snapshots");
+            Model.TraitFilter filter1 = utils.CheckFilter(filter, "Snapshots");
             DZService dzService = blldzservice.GetOne(guidService);
             if (dzService.Business.OwnerId.ToString() != customer.UserID)
             {

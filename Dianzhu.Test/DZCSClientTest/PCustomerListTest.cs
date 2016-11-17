@@ -179,14 +179,14 @@ namespace Dianzhu.Test.DZCSClientTest
             //DAL.DALReception dalReception = MockRepository.GenerateStub<DAL.DALReception>(string.Empty);
             //int rowCount;
             //IList<ReceptionChat> chatList = Builder<ReceptionChat>.CreateListOfSize(10).Build();
-            ////dalReception.Stub(x => x.GetReceptionChatList(new DZMembership(), new DZMembership(), Guid.Empty, DateTime.MaxValue, DateTime.MaxValue, 0, 0, Model.Enums.enum_ChatTarget.all, out rowCount))
+            ////dalReception.Stub(x => x.GetReceptionChatList(new DZMembership(), new DZMembership(), Guid.Empty, DateTime.MaxValue, DateTime.MaxValue, 0, 0, enum_ChatTarget.all, out rowCount))
             ////    .Return(chatList).WhenCalled;
-            ////Rhino.Mocks.Expect.Call(dalReception.GetReceptionChatList(new DZMembership(), new DZMembership(), Guid.Empty, DateTime.MaxValue, DateTime.MaxValue, 0, 0, Model.Enums.enum_ChatTarget.all, out rowCount))
+            ////Rhino.Mocks.Expect.Call(dalReception.GetReceptionChatList(new DZMembership(), new DZMembership(), Guid.Empty, DateTime.MaxValue, DateTime.MaxValue, 0, 0, enum_ChatTarget.all, out rowCount))
             ////    .Return(chatList);
             //DZMembership m = Builder<DZMembership>.CreateNew().Build();
             //dalReception.Stub(x =>
             //                     x.GetReceptionChatList(
-            //                                       m, null, new Guid(), DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20,Dianzhu.Model.Enums. enum_ChatTarget.all, out rowCount
+            //                                       m, null, new Guid(), DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20,Dianzhu. enum_ChatTarget.all, out rowCount
             //                                    )
             //             ).IgnoreArguments().Return(chatList);
             //PIdentityList pCustomerList = new PIdentityList(viewCustomerList, iIM, viewChatList,dalReception);

@@ -32,7 +32,7 @@ public partial class order_detail : BasePage
         }
         Guid id = Guid.Parse(strID);
         serviceorder = bllServiceOrder.GetOne(id);
-        //Dianzhu.Model.Enums.enum_OrderStatus status = (Dianzhu.Model.Enums.enum_OrderStatus)Enum.Parse(typeof(Dianzhu.Model.Enums.enum_OrderStatus), Request.QueryString["status"].ToString());
+        //Dianzhu.enum_OrderStatus status = (Dianzhu.enum_OrderStatus)Enum.Parse(typeof(Dianzhu.enum_OrderStatus), Request.QueryString["status"].ToString());
         //serviceorder = bllServiceOrder.GetOrderStatusPrevious(status).OrderByDescending(x => x.OrderCreated);
 
         lblTitle.Text = serviceorder.Title;

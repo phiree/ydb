@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.IDAL;
 using Dianzhu.DAL;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using Dianzhu.Pay;
 using DDDCommon;
+using Ydb.Common.Specification;
 
 namespace Dianzhu.BLL
 {
@@ -65,7 +66,7 @@ namespace Dianzhu.BLL
         /// <param name="startTime"></param>
         /// <param name="endTime"></param>
         /// <returns></returns>
-        public IList<Model.ServiceOrderRemind> GetReminds(Model.Trait_Filtering filter, Guid orderID, Guid userId, DateTime startTime, DateTime endTime)
+        public IList<Model.ServiceOrderRemind> GetReminds( TraitFilter filter, Guid orderID, Guid userId, DateTime startTime, DateTime endTime)
         {
             var where = PredicateBuilder.True<ServiceOrderRemind>();
             if (orderID != Guid.Empty)

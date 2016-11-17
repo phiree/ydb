@@ -23,7 +23,7 @@ public class VMCustomerAdapter
     string errMsg;
     public VMCustomer  Adapt(MemberDto member)
     {
-        if (member.UserType != Dianzhu.Model.Enums.enum_UserType.customer.ToString())
+        if (member.UserType != Dianzhu.enum_UserType.customer.ToString())
         {
             errMsg = "错误,该用户类型不是'客户'";
             log.Error(errMsg);

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using FluentNHibernate.Mapping;
 using Dianzhu.Model;
+using Ydb.Common;
+
 namespace Dianzhu.DAL.Mapping
 {
     public class ComplaintMap : ClassMap<Complaint>
@@ -11,7 +13,7 @@ namespace Dianzhu.DAL.Mapping
         public ComplaintMap() {
             Id(x => x.Id);
             References<ServiceOrder>(x => x.Order);
-            Map(x => x.Target).CustomType<Model.Enums.enum_ChatTarget>();
+            Map(x => x.Target).CustomType<enum_ChatTarget>();
             Map(x => x.Content);
 
             //20160614_longphui_modify
@@ -19,7 +21,7 @@ namespace Dianzhu.DAL.Mapping
             HasMany(x => x.ComplaitResourcesUrl)
             .Cascade.AllDeleteOrphan().KeyColumn("ResourcesUrlId").EntityName("ComplaitResourcesUrl").Elemen‌​t("ResourcesUrl");
             //HasMany<string>(x => x.ResourcesUrl).Cascade.AllDeleteOrphan();
-            Map(x => x.Status).CustomType<Model.Enums.enum_ComplaintStatus>();
+            Map(x => x.Status).CustomType<enum_ComplaintStatus>();
 
             Map(x => x.CreatTime);
             Map(x => x.Result);

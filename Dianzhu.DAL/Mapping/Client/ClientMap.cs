@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using FluentNHibernate.Mapping;
 using Dianzhu.Model;
+using Ydb.Common;
 
 namespace Dianzhu.DAL.Mapping
 {
@@ -14,7 +15,7 @@ namespace Dianzhu.DAL.Mapping
             Id(x => x.Id);
             Map(x => x.Secret);
             Map(x => x.Name);
-            Map(x => x.ApplicationType).CustomType<Dianzhu.Model.Enums.ApplicationTypes>();
+            Map(x => x.ApplicationType).CustomType< ApplicationTypes>();
             Map(x => x.Active);
             Map(x => x.RefreshTokenLifeTime);
             Map(x => x.AllowedOrigin);

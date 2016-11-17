@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dianzhu.IDAL;
 using Dianzhu.Model;
 using DDDCommon;
+using Ydb.Common.Specification;
 
 namespace Dianzhu.BLL.Client
 {

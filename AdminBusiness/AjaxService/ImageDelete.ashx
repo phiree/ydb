@@ -4,7 +4,7 @@ using System;
 using System.Web;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 
 public class ImageDelete : IHttpHandler{
 

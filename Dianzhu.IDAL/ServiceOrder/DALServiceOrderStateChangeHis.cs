@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.Model;
-using Dianzhu.Model.Enums;
+ 
+using Ydb.Common;
 
 namespace Dianzhu.IDAL
 {

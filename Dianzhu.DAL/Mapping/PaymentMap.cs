@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using FluentNHibernate.Mapping;
 using Dianzhu.Model;
- 
+using Ydb.Common;
+
 namespace Dianzhu.DAL.Mapping
 {
     public class PaymentMap : ClassMap<Payment>
@@ -16,12 +17,12 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.CreatedTime);
             Map(x => x.LastUpdateTime);
             References<ServiceOrder>(x => x.Order);
-            Map(x => x.PayTarget).CustomType<Model.Enums.enum_PayTarget>();
-            Map(x => x.Status).CustomType<Model.Enums.enum_PaymentStatus>();
-            Map(x => x.PayApi).CustomType<Model.Enums.enum_PayAPI>();
+            Map(x => x.PayTarget).CustomType<enum_PayTarget>();
+            Map(x => x.Status).CustomType<enum_PaymentStatus>();
+            Map(x => x.PayApi).CustomType<enum_PayAPI>();
             Map(x => x.PlatformTradeNo);
             Map(x => x.Memo);
-            Map(x => x.PayType).CustomType<Model.Enums.enum_PayType>();
+            Map(x => x.PayType).CustomType<enum_PayType>();
         }
     }
   

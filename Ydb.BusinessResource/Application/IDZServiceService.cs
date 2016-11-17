@@ -14,11 +14,11 @@ namespace Ydb.BusinessResource.Application
         ServiceDto GetOne(Guid serviceId);
         DZService GetOneByBusAndId(Business business, Guid svcId);
         IList<DZService> GetOtherServiceByBusiness(Guid businessId, Guid serviceId, int pageindex, int pagesize, out int totalRecords);
-        DZService GetService(Guid storeID, Guid serviceID);
+        ServiceDto GetService(Guid storeID, Guid serviceID);
         IList<DZService> GetServiceByBusiness(Guid businessId, int pageindex, int pagesize, out int totalRecords);
-        IList<DZService> GetServices(TraitFilter filter, Guid typeId, string strName, string introduce, decimal startAt, Guid storeID);
+        IList<ServiceDto> GetServices(TraitFilter filter, Guid typeId, string strName, string introduce, decimal startAt, Guid storeID);
         long GetServicesCount(Guid typeId, string strName, string introduce, decimal startAt, Guid storeID);
-        IList<DZTag> GetServiceTags(DZService service);
+        IList<DZTag> GetServiceTags(Guid serviceId);
         IList<ServiceType> GetServiceTypeListByBusiness(Guid businessId);
         int GetSumByBusiness(Business business);
         ServiceOpenTimeDto GetTimeDto(Guid serviceId, DateTime targetTime);

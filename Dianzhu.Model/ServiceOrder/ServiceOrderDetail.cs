@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using System.Diagnostics;
  
 namespace Dianzhu.Model
@@ -24,7 +24,7 @@ namespace Dianzhu.Model
             int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress,DateTime targetTime,string memo)
         {
             OriginalServiceId= serviceId;
-            this.ServieSnapShot = serviceSnapShot;// service.GetServiceSnapShot();
+            this.ServiceSnapShot = serviceSnapShot;// service.GetServiceSnapShot();
 
            // this.OpenTimeSnapShot = OpenTimeForDaySnapShot ;//service.GetOpenTimeSnapShot(targetTime);
           this.ServiceOpentimeSnapshot = OpenTimeSnapShot;// service.GetServiceOpenTimeSnapshot(targetTime);
@@ -46,7 +46,7 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string OriginalServiceId { get; set; }
         //screenshot of the service
-        public virtual ServiceSnapShotForOrder ServieSnapShot { get; protected set; }
+        public virtual ServiceSnapShotForOrder ServiceSnapShot { get; protected set; }
 
         public virtual ServiceOpenTimeSnapshot ServiceOpentimeSnapshot { get; protected set; }
         #endregion
@@ -95,7 +95,7 @@ namespace Dianzhu.Model
         public virtual decimal ServiceAmount
         {
             get {
-                return ServieSnapShot.UnitPrice * UnitAmount;
+                return ServiceSnapShot.UnitPrice * UnitAmount;
             }
         }
         //分配的职员

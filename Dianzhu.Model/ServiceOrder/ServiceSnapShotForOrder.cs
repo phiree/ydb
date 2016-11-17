@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dianzhu.Model.Enums;
+ 
 namespace Dianzhu.Model
 {
     public class ServiceSnapShotForOrder
@@ -32,6 +32,6 @@ namespace Dianzhu.Model
         public virtual bool Enabled { get; set; }
         public virtual string AllowedPayType { get; set; }
         public virtual int OrderDelay { get; set; }
-
+        public virtual string Scope { get; set; }
     }
 }

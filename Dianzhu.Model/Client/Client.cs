@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Ydb.Common;
 
 namespace Dianzhu.Model
 {
@@ -22,7 +23,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 访问接口的客户端类型，主要区分js客户端和非js客户端
         /// </summary>
-        public virtual Enums.ApplicationTypes ApplicationType { get; set; }
+        public virtual ApplicationTypes ApplicationType { get; set; }
         /// <summary>
         /// 客户端是否还有效
         /// </summary>

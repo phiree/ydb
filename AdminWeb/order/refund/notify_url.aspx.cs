@@ -72,7 +72,7 @@ public partial class notify_url : BasePage
                 {
                     Response.Write("fail");
                 }
-                order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.EndCancel;
+                order.OrderStatus = Dianzhu.enum_OrderStatus.EndCancel;
                 order.OrderCreated = DateTime.Now;
                 order.OrderFinished = DateTime.Now;
                 bllOrder.Update(order);
@@ -81,7 +81,7 @@ public partial class notify_url : BasePage
                 BLLPaymentLog bllPaymentLog = Bootstrap.Container.Resolve<BLLPaymentLog>();
                 PaymentLog paymentLog = new PaymentLog();
                 paymentLog.ApiString = Request.Url + "|" + Request.QueryString.ToString() + "|" + Request.Form.ToString();
-                paymentLog.PaylogType = Dianzhu.Model.Enums.enum_PaylogType.ResultNotifyFromAli;
+                paymentLog.PaylogType = Dianzhu.enum_PaylogType.ResultNotifyFromAli;
                 paymentLog.LogTime = DateTime.Now;
                 //paymentLog.ServiceOrder = order;
                 bllPaymentLog.Save(paymentLog);

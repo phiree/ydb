@@ -110,7 +110,6 @@
     <Compile Include="DomainModel\Business\IRepositoryBusiness.cs" />
     <Compile Include="DomainModel\Business\IRepositoryBusinessImage.cs" />
     <Compile Include="DomainModel\DZTag.cs" />
-    <Compile Include="DomainModel\Enums.cs" />
     <Compile Include="DomainModel\IRepositoryArea.cs" />
     <Compile Include="DomainModel\PhoneValidator.cs" />
     <Compile Include="DomainModel\Service\DZService.cs" />

@@ -73,7 +73,7 @@ namespace Dianzhu.ApplicationService
             DZMembershipQQ member = (DZMembershipQQ)bllMember.GetUserByQQOpenId(openidObj.openid);
             if (member == null)
             {
-                member = (DZMembershipQQ)DZMembership.Create(Model.Enums.enum_LoginType.TencentQQ);
+                member = (DZMembershipQQ)DZMembership.Create(enum_LoginType.TencentQQ);
                 isAdd = true;
             }
             else
@@ -116,7 +116,7 @@ namespace Dianzhu.ApplicationService
             member.Address = userObj.province + " " + userObj.city;
             member.PlainPassword = openidObj.openid;
             member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(openidObj.openid, "MD5");
-            member.UserType = (Model.Enums.enum_UserType)Enum.Parse(typeof(Model.Enums.enum_UserType), userType);
+            member.UserType = (enum_UserType)Enum.Parse(typeof(enum_UserType), userType);
 
             return member;
         }

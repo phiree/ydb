@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
 using System.Web.UI.HtmlControls;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
 using System.IO;
 using Dianzhu.IDAL;
 public partial class Business_Edit : BasePage

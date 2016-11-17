@@ -8,7 +8,8 @@ using Ydb.Common.Specification;
 
 namespace Dianzhu.Model
 {
-    public class Trait_Filtering
+    /*
+    public class TraitFilter
     {
         /// <summary>
         /// 每页的长度（>0）ygggghhg
@@ -62,7 +63,7 @@ namespace Dianzhu.Model
         {
             get
             {
-                return new TraitFilter()
+                return new Ydb.Common.Specification.TraitFilter()
                 {
                     pageSize = this.pageSize,
                     pageNum = this.pageNum,
@@ -76,4 +77,5 @@ namespace Dianzhu.Model
             }
         }
     }
+    */
 }

@@ -7,7 +7,9 @@ using AutoMapper;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.Membership.Application.Dto;
 using Ydb.BusinessResource.DomainModel;
+using Ydb.BusinessResource.Application;
 using Dianzhu.Model;
+using Ydb.Common;
 
 namespace Dianzhu.ApplicationService.Mapping
 {
@@ -114,17 +116,17 @@ namespace Dianzhu.ApplicationService.Mapping
            .ForMember(x => x.originalServiceID, opt => opt.MapFrom(source => source.OriginalServiceId.ToString()))
            .ForMember(x => x.chargeUnit, opt => opt.MapFrom(source => source.ServiceSnapShot.ChargeUnitType))
             .ForAllMembers(opt => opt.NullSubstitute(""));
-
+            Mapper.CreateMap<ServiceDto, ServiceSnapShotForOrder>();
             Mapper.CreateMap<Model.ServiceOrderDetail, serviceSnapshotObj>()
-           .ForMember(x => x.name, opt => opt.MapFrom(source => source.ServieSnapShot.ServiceName))
-           .ForMember(x => x.serviceType, opt => opt.MapFrom(source => source.ServieSnapShot.ServiceTypeName ))
-           .ForMember(x => x.introduce, opt => opt.MapFrom(source => source.ServieSnapShot.Description))
-           .ForMember(x => x.startAt, opt => opt.MapFrom(source => source.ServieSnapShot.MinPrice))
-           .ForMember(x => x.unitPrice, opt => opt.MapFrom(source => source.ServieSnapShot.UnitPrice))
-           .ForMember(x => x.deposit, opt => opt.MapFrom(source => source.ServieSnapShot.DepositAmount))
+           .ForMember(x => x.name, opt => opt.MapFrom(source => source.ServiceSnapShot.ServiceName))
+           .ForMember(x => x.serviceType, opt => opt.MapFrom(source => source.ServiceSnapShot.ServiceTypeName ))
+           .ForMember(x => x.introduce, opt => opt.MapFrom(source => source.ServiceSnapShot.Description))
+           .ForMember(x => x.startAt, opt => opt.MapFrom(source => source.ServiceSnapShot.MinPrice))
+           .ForMember(x => x.unitPrice, opt => opt.MapFrom(source => source.ServiceSnapShot.UnitPrice))
+           .ForMember(x => x.deposit, opt => opt.MapFrom(source => source.ServiceSnapShot.DepositAmount))
            .ForMember(x => x.appointmentTime, opt => opt.MapFrom(source => source.TargetTime == DateTime.MinValue ? "" : source.TargetTime.ToString("yyyyMMddHHmmss")))
-           .ForMember(x => x.bDoorService, opt => opt.MapFrom(source => source.ServieSnapShot.ServiceModeType  == "ToHouse" ? true : false))
-           .ForMember(x => x.eServiceTarget, opt => opt.MapFrom(source => source.ServieSnapShot.IsForBusiness ? "all" : "company"))
+           .ForMember(x => x.bDoorService, opt => opt.MapFrom(source => source.ServiceSnapShot.ServiceModeType  == "ToHouse" ? true : false))
+           .ForMember(x => x.eServiceTarget, opt => opt.MapFrom(source => source.ServiceSnapShot.IsForBusiness ? "all" : "company"))
          //  .ForMember(x => x.eSupportPayWay, opt => opt.MapFrom(source => source.OriginalService.AllowedPayType.ToString()))
           // .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.OriginalService.Enabled))
            .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.ServiceOpentimeSnapshot.MaxOrderForDay))
@@ -155,14 +157,14 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Payment, payObj>()
-            .ForMember(x => x.payStatus, opt => opt.MapFrom(source => source.Status== Model.Enums.enum_PaymentStatus.Wait_Buyer_Pay? "waitforpay": source.Status == Model.Enums.enum_PaymentStatus.Trade_Success ? "success": source.Status == Model.Enums.enum_PaymentStatus.Trade_Finished? "success": "failed"))
-            .ForMember(x => x.type, opt => opt.MapFrom(source => source.PayTarget== Model.Enums.enum_PayTarget.Deposit? "deposit": source.PayTarget == Model.Enums.enum_PayTarget.FinalPayment? "finalPayment": "compensation"))
+            .ForMember(x => x.payStatus, opt => opt.MapFrom(source => source.Status== enum_PaymentStatus.Wait_Buyer_Pay? "waitforpay": source.Status == enum_PaymentStatus.Trade_Success ? "success": source.Status == enum_PaymentStatus.Trade_Finished? "success": "failed"))
+            .ForMember(x => x.type, opt => opt.MapFrom(source => source.PayTarget==  enum_PayTarget.Deposit? "deposit": source.PayTarget == enum_PayTarget.FinalPayment? "finalPayment": "compensation"))
             .ForMember(x => x.updateTime, opt => opt.MapFrom(source => source.LastUpdateTime == DateTime.MinValue ? "" : source.LastUpdateTime.ToString("yyyyMMddHHmmss")))
-            .ForMember(x => x.bOnline, opt => opt.MapFrom(source =>  source.PayType== Model.Enums.enum_PayType.Online))
+            .ForMember(x => x.bOnline, opt => opt.MapFrom(source =>  source.PayType==  enum_PayType.Online))
             .ForMember(x => x.payTarget, opt => opt.MapFrom(source => source.PayApi.ToString()))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
-            //order.OpenFireLinkMan + "@" + strIp + "/" + Model.Enums.enum_XmppResource.YDBan_Store;            source.ChatType == Model.Enums.enum_ChatType.PushedService ? source.ServiceOrder.Id.ToString() :
+            //order.OpenFireLinkMan + "@" + strIp + "/" + enum_XmppResource.YDBan_Store;            source.ChatType == enum_ChatType.PushedService ? source.ServiceOrder.Id.ToString() :
             Mapper.CreateMap<ReceptionChatDto, chatObj>()
             .ForMember(x => x.to, opt => opt.MapFrom(source => source.ToId + "@"+ System.Web.HttpContext.Current.Request.Url.Host+ "/" + source.ToResource.ToString()))
             .ForMember(x => x.from, opt => opt.MapFrom(source => source.FromId+ "@" + System.Web.HttpContext.Current.Request.Url.Host + "/" + source.FromResource.ToString()))
