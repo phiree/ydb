@@ -25,6 +25,7 @@ namespace Dianzhu.DemoClient
                 Newtonsoft.Json.Linq.JObject resObject = Newtonsoft.Json.JsonConvert.DeserializeObject(res.data) as Newtonsoft.Json.Linq.JObject;
                 RequestParams rpCS = new RequestParams();
                 rpCS.method = "0";
+                //rpCS.url = "http://business.dev.ydban.cn:8041/api/v1/customerServices";
                 rpCS.url = "http://localhost:8041/api/v1/customerServices";
                 //rp.url = "http://192.168.1.177:52554/api/v1/authorization";/api/v1/customerServices
                 rpCS.content = string.Empty; // "{\n\"loginName\":\"" + username + "\",\n\"password\":\"" + password + "\"\n}";
