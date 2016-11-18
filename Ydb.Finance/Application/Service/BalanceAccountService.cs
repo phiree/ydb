@@ -90,17 +90,27 @@ namespace Ydb.Finance.Application
             {
                 throw new Exception("该用户还没有绑定提现账号！");
             }
-            if (balanceAccountNow.AccountPhone != balanceAccountDto.AccountPhone)
+            if (balanceAccountNow.AccountCode != balanceAccountDto.AccountCode)
             {
                 throw new Exception("输入的身份证和绑定的身份证不一致！");
             }
-            BalanceAccount balanceAccountOld = repositoryBalanceAccount.GetOneByAccount(balanceAccountDto.Account,balanceAccountDto.AccountType.ToString());
+            
+            BalanceAccount balanceAccountOld = repositoryBalanceAccount.GetOneByAccount(balanceAccountDto.Account,balanceAccountDto.AccountType.ToString(), balanceAccountDto.UserId);
+            if (balanceAccountNow != balanceAccountOld)
+            {
+                balanceAccountNow.flag = 0;
+            }
+
             if (balanceAccountOld != null)
             {
-                balanceAccountDto.Id = balanceAccountOld.Id;
+                balanceAccountOld.AccountPhone = balanceAccountDto.AccountPhone;
+                balanceAccountOld.AccountName = balanceAccountDto.AccountName;
+                balanceAccountOld.flag = 1;
             }
-            balanceAccountOld = Mapper.Map<BalanceAccountDto, BalanceAccount>(balanceAccountDto);
-            repositoryBalanceAccount.SaveOrUpdate(balanceAccountNow);
+            else
+            {
+                repositoryBalanceAccount.Add(Mapper.Map<BalanceAccountDto, BalanceAccount>(balanceAccountDto));
+            }
         }
 
         /// <summary>

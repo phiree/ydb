@@ -75,6 +75,6 @@ public partial class servicetype_Edit : BasePage
         { 
         bllServiceType.Update(CurrentServiceType);
         }
-        PHSuit.Notification.Show(Page, "", "保存成功", Request.Url.AbsolutePath);
+        PHSuit.Notification.Show(Page, "", "保存成功", "default.aspx");//Request.Url.AbsolutePath
     }
 }

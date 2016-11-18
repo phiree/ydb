@@ -41,5 +41,11 @@ namespace Ydb.Finance.Application
         /// </summary>
         /// <returns type="IList<ServiceTypePointDto>">服务类型扣点比例信息列表</returns>
         IList<ServiceTypePointDto> GetAll();
+
+        /// <summary>
+        /// 批量保存服务类型扣点比例
+        /// </summary>
+        /// <param name="serviceTypePointDtoList" type="IList<ServiceTypePointDto>">服务类型扣点比例列表</param>
+        void SaveList(IList<ServiceTypePointDto> serviceTypePointDtoList);
     }
 }

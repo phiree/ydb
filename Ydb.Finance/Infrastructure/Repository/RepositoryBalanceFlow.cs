@@ -145,7 +145,7 @@ namespace Ydb.Finance.Infrastructure.Repository
 
         }
 
-      
-     
+
+
     }
 }

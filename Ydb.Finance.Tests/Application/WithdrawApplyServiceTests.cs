@@ -76,7 +76,7 @@ namespace Ydb.Finance.Tests.Application
                 }
             };
             orderShareService.ShareOrder(order);
-            WithdrawApplyDto withdrawApplyDto = withdrawApplyService.SaveWithdrawApply("09ccc183-ed87-462a-8d11-a66600fbbd24", "jsyk_development@126.com", AccountTypeEnums.Alipay, 1.1m, "WA2016092117251802701");
+            WithdrawApplyDto withdrawApplyDto = withdrawApplyService.SaveWithdrawApply("09ccc183-ed87-462a-8d11-a66600fbbd24", "jsyk_development@126.com", AccountTypeEnums.Alipay, 1.1m);
             //Console.WriteLine("WithdrawApplyService.BindingAccount:申请成功！");
             return withdrawApplyDto;
         }

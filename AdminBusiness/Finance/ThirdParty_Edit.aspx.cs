@@ -23,7 +23,7 @@ public partial class Finance_ThirdParty : BasePage
                     return;
                 }
                 lblUserId.Text = b.OwnerId.ToString();
-                BalanceAccountDto balanceAccountDto = balanceAccountService.GetAccount(lblUserId.Text);
+                BalanceAccountDto balanceAccountDto = balanceAccountService.GetAccount(lblBusinessId.Text);
                 if (balanceAccountDto != null)
                 {
                     lblAccount.Text = balanceAccountDto.Account;
@@ -35,9 +35,10 @@ public partial class Finance_ThirdParty : BasePage
                     lblAccountType.Text = "";
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                PHSuit.Notification.Alert(Page, "没有businessid参数！");
+                //PHSuit.Notification.Alert(Page, "没有businessid参数！");
+                PHSuit.Notification.Show(Page, "", ex.Message, "default.aspx");
             }
         }
     }
@@ -47,7 +48,7 @@ public partial class Finance_ThirdParty : BasePage
         try
         {
             BalanceAccountDto balanceAccountDto = new BalanceAccountDto();
-            balanceAccountDto.UserId =lblUserId.Text;
+            balanceAccountDto.UserId = lblBusinessId.Text;
             balanceAccountDto.Account = txtAccount.Text.Trim();
             balanceAccountDto.AccountName = txtAccountName.Text.Trim();
             balanceAccountDto.AccountType = AccountTypeEnums.Alipay;
@@ -62,7 +63,7 @@ public partial class Finance_ThirdParty : BasePage
             {
                 balanceAccountService.UpdateAccount(balanceAccountDto);
             }
-            Response.Redirect("default.aspx ? businessid =" + lblBusinessId.Text);
+            Response.Redirect("default.aspx?businessid=" + lblBusinessId.Text);
         }
         catch (Exception ex)
         {
@@ -72,6 +73,6 @@ public partial class Finance_ThirdParty : BasePage
 
     protected void btnConcel_Click(object sender, EventArgs e)
     {
-        Response.Redirect("default.aspx ? businessid =" + lblBusinessId.Text);
+        Response.Redirect("default.aspx?businessid=" + lblBusinessId.Text);
     }
 }

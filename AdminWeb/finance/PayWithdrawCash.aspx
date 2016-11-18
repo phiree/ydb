@@ -22,8 +22,8 @@
                     <asp:Label ID="lblUserId" runat="server" Text='<%#Eval("ApplyUserId") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:BoundField HeaderText="收款账户" DataField="Account" />
-            <asp:BoundField HeaderText="账户姓名" DataField="AccountName" />
+            <asp:BoundField HeaderText="收款账户" DataField="ReceiveAccount.Account" />
+            <asp:BoundField HeaderText="账户姓名" DataField="ReceiveAccount.AccountName" />
             <asp:BoundField HeaderText="提现金额" DataField="ApplyAmount" />
             <asp:BoundField HeaderText="手续费" DataField="ServiceFee" />
             <asp:BoundField HeaderText="转账金额" DataField="TransferAmount" />  

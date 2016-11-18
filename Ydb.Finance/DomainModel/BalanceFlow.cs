@@ -58,6 +58,11 @@ namespace Ydb.Finance.DomainModel
         /// 本次发生金额显示字符串
         /// </summary>
         public virtual string AmountView { get; set; }
+
+        /// <summary>
+        /// 用户类型
+        /// </summary>
+        public virtual string UserType { get; set; }
     }
   
 }

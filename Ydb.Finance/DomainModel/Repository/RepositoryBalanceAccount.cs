@@ -16,8 +16,9 @@ namespace Ydb.Finance.DomainModel
         /// </summary>
         /// <param name="account" type="string">提现账号</param>
         /// <param name="accountType" type="string">提现账号类型</param>
+        /// <param name="userId" type="string">用户账号ID</param>
         /// <returns type="BalanceAccount">提现账号信息</returns>
-        BalanceAccount GetOneByAccount(string account, string accountType);
+        BalanceAccount GetOneByAccount(string account, string accountType, string userId);
 
         /// <summary>
         /// 根据用户账号ID获取该账户的有效提现账户

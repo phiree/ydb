@@ -132,10 +132,10 @@ namespace Ydb.Finance.Infrastructure
             {
                 new SchemaUpdate(config).Execute(true, true);
             }
-            else if (System.Configuration.ConfigurationManager.AppSettings["UpdateSchema"] == "2")
-            {
-                new SchemaExport(config).Create(true, true);
-            }
+            //else if (System.Configuration.ConfigurationManager.AppSettings["UpdateSchema"] == "2")
+            //{
+            //    new SchemaExport(config).Create(true, true);
+            //}
 
         }
 

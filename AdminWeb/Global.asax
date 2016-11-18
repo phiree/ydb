@@ -55,11 +55,11 @@
     {
         OrderShareParam orderShareParam = new OrderShareParam();
         orderShareParam.ServiceTypeID = order.Details[0].OriginalService.ServiceType.Id.ToString();
-        orderShareParam.BusinessUserId = order.Business.OwnerId.ToString();
+        orderShareParam.BusinessUserId = order.Business.Id.ToString();
         orderShareParam.RelatedObjectId = order.Id.ToString();
         orderShareParam.SerialNo = order.SerialNo;
         orderShareParam.Amount = order.NegotiateAmount;
-
+        orderShareParam.BalanceUser = new List<BalanceUserParam>();
         BalanceUserParam balanceAgent = new BalanceUserParam();
         Dianzhu.BLL.Agent.IAgentService agentService = Bootstrap.Container.Resolve<Dianzhu.BLL.Agent.IAgentService>();
         var area = order.Details[0].OriginalService.Business.AreaBelongTo;

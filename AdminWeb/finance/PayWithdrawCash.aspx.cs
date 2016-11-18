@@ -8,10 +8,10 @@ using Ydb.Finance.Application;
 using Dianzhu.Pay;
 using Dianzhu.BLL;
 
-public partial class finance_PayWithdrawCash : System.Web.UI.Page
+public partial class finance_PayWithdrawCash : BasePage
 {
     IWithdrawApplyService withdrawApplyService = Bootstrap.Container.Resolve<IWithdrawApplyService>();
-    Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder iserialno = Bootstrap.Container.Resolve<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>();
+    Ydb.Common.Infrastructure.ISerialNoBuilder iserialno = Bootstrap.Container.Resolve<Ydb.Common.Infrastructure.ISerialNoBuilder>();
     BLLPay bllPay = Bootstrap.Container.Resolve<BLLPay>();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -66,17 +66,23 @@ public partial class finance_PayWithdrawCash : System.Web.UI.Page
             return;
         }
         string errMsg = "";
-        string strSerialNo = "";
+        string strSerialNo = iserialno.GetSerialNo("PW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"), 2);
         IList <WithdrawCashDto> withdrawCashDtoList= withdrawApplyService.PayByWithdrawApply(guidId,"admin", strSerialNo, out errMsg);
-
-        string strSubject = iserialno.GetSerialNo("PW" + DateTime.Now.ToString("yyyyMMddHHmm"), 2); ;
-        for (i = 0; i < withdrawCashDtoList.Count; i++)
+        if (withdrawCashDtoList.Count > 0)
         {
-            strSubject = strSubject + withdrawCashDtoList[i].ApplySerialNo + "^"+ withdrawCashDtoList[i].Account + "^"+ withdrawCashDtoList[i].AccountName+ "^"+ withdrawCashDtoList[i].Amount.ToString() + "^"+ withdrawCashDtoList[i].Remark + "|";
+            string strSubject = "";
+            for (i = 0; i < withdrawCashDtoList.Count; i++)
+            {
+                strSubject = strSubject + withdrawCashDtoList[i].ApplySerialNo + "^" + withdrawCashDtoList[i].Account + "^" + withdrawCashDtoList[i].AccountName + "^" + String.Format("{0:F}", withdrawCashDtoList[i].Amount) + "^" +(string.IsNullOrEmpty(withdrawCashDtoList[i].Remark)?"提现": withdrawCashDtoList[i].Remark) + "|";
+            }
+            strSubject.TrimEnd('|');
+            IPayRequest pay = bllPay.CreatePayBatch(withdrawCashDtoList.Count, strSerialNo, strSubject);
+            string requestString = pay.CreatePayRequest();
+            Response.Write(requestString);
         }
-        strSubject.TrimEnd('|');
-        IPayRequest pay = bllPay.CreatePayBatch(withdrawCashDtoList.Count, strSerialNo, strSubject);
-        string requestString = pay.CreatePayRequest();
-        Response.Write(requestString);
+        else
+        {
+            PHSuit.Notification.Alert(Page, "要支付的提现单出错！");
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Ydb.Finance.Application;
 
-public partial class Finance_withdraw : System.Web.UI.Page
+public partial class Finance_withdraw : BasePage
 {
     IBalanceAccountService balanceAccountService = Bootstrap.Container.Resolve<IBalanceAccountService>();
     IBalanceTotalService balanceTotalService = Bootstrap.Container.Resolve<IBalanceTotalService>();
@@ -26,7 +26,7 @@ public partial class Finance_withdraw : System.Web.UI.Page
                     return;
                 }
                 lblUserId.Text = b.OwnerId.ToString();
-                BalanceAccountDto balanceAccountDto = balanceAccountService.GetAccount(lblUserId.Text);
+                BalanceAccountDto balanceAccountDto = balanceAccountService.GetAccount(lblBusinessId.Text);
                 if (balanceAccountDto != null)
                 {
                     lblAccount.Text = balanceAccountDto.Account;
@@ -37,7 +37,7 @@ public partial class Finance_withdraw : System.Web.UI.Page
                     PHSuit.Notification.Alert(Page, "该商户还没有绑定提现收款账户！");
                     return;
                 }
-                BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(lblUserId.Text);
+                BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(lblBusinessId.Text);
                 if (balanceTotalDto != null)
                 {
                     lblTotalAmount.Text = balanceTotalDto.Total.ToString();
@@ -47,9 +47,10 @@ public partial class Finance_withdraw : System.Web.UI.Page
                     lblTotalAmount.Text = "0";
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                PHSuit.Notification.Alert(Page, "没有businessid参数！");
+                //PHSuit.Notification.Alert(Page, "没有businessid参数！");
+                PHSuit.Notification.Show(Page, "", ex.Message, "default.aspx");
             }
         }
     }
@@ -58,8 +59,8 @@ public partial class Finance_withdraw : System.Web.UI.Page
     {
         try
         {
-            withdrawApplyService.SaveWithdrawApply(lblUserId.Text, lblAccount.Text, (AccountTypeEnums)Enum.Parse(typeof(AccountTypeEnums), lblAccountType.Text), decimal.Parse(txtAmount.Text.Trim()), "");
-            Response.Redirect("default.aspx ? businessid =" + lblBusinessId.Text);
+            withdrawApplyService.SaveWithdrawApply(lblBusinessId.Text, lblAccount.Text, (AccountTypeEnums)Enum.Parse(typeof(AccountTypeEnums), lblAccountType.Text), decimal.Parse(txtAmount.Text.Trim()));
+            Response.Redirect("default.aspx?businessid=" + lblBusinessId.Text);
         }
         catch (Exception ex)
         {
@@ -69,6 +70,6 @@ public partial class Finance_withdraw : System.Web.UI.Page
 
     protected void btnConcel_Click(object sender, EventArgs e)
     {
-        Response.Redirect("default.aspx ? businessid =" + lblBusinessId.Text);
+        Response.Redirect("default.aspx?businessid=" + lblBusinessId.Text);
     }
 }

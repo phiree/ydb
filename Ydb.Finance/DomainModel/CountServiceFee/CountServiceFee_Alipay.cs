@@ -15,7 +15,7 @@ namespace Ydb.Finance.DomainModel
         /// <param name="rate" type="string">提现费率</param
         public decimal CountServiceFee(decimal amount,string rate)
         {
-            //该手续费计算规则：每笔费率0.5%，最低1元，最高25元
+            //该手续费计算规则：每笔费率0.005，最低1元，最高25元
             decimal fee = amount * 0.005m;
             if (fee < 1)
             {

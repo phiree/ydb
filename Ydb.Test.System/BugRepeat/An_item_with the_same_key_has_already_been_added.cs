@@ -114,10 +114,17 @@ namespace Ydb.Test.System.BugRepeat
             {
                 FluentConfiguration dbConfigInstantMessage = Fluently.Configure().
                     Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_InstantMessage.db3"));
-
+                FluentConfiguration dbConfigCommon = Fluently.Configure().
+                    Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_Common.db3"));
                 IWindsorContainer container = new WindsorContainer();
+
+
                 container.Install(
-                    new Ydb.Infrastructure.Installer(),
+                    new Ydb.Infrastructure.Installer()
+                    );
+                
+                container.Install(
+                    new Ydb.Infrastructure.InstallerCommon(dbConfigCommon),
                  new  Ydb.Membership.Infrastructure.InstallerMembership(dbConfigInstantMessage)
                  
                     );

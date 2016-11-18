@@ -23,7 +23,8 @@
                                         <div class="fl-remain-module">
                                             <div class="_remain-col">
                                                 <div class="_remain-title">账户余额</div>
-                                                <div class="_remain-count"><span class="_remain-count-s"><strong class="_s-red">56,00.00</strong>元</span></div>
+                                                <div class="_remain-count"><span class="_remain-count-s"><strong class="_s-red">
+                                                    <asp:Label ID="lblBalanceTotal" runat="server" Text="56,00.00"></asp:Label></strong>元</span></div>
                                                 <a href='/Finance/withDraw.aspx?businessid=<%=Request["businessid"]%>' class="btn _remain-btn _btn-fin-green">提现</a>
                                             </div>
                                             <div class="_remain-col">
@@ -33,7 +34,8 @@
                                             </div>
                                             <div class="_remain-col">
                                                 <div class="_remain-title">绑定账户</div>
-                                                <div class="_remain-count"><span class="_remain-count-s"><strong class="_s">licdream@126.com</strong>元</span></div>
+                                                <div class="_remain-count"><span class="_remain-count-s"><strong class="_s">
+                                                    <asp:Label ID="lblBalanceAccount" runat="server" Text="licdream@126.com"></asp:Label></strong></span></div>
                                                 <a href='/Finance/thirdParty_Edit.aspx?businessid=<%=Request["businessid"]%>' class="btn _remain-btn _btn-fin-yellow">变更/绑定</a>
                                             </div>
                                         </div>
@@ -85,7 +87,7 @@
 
                                             <div class="custom-col col-10-2">
                                                 <div class="l-b">
-                                                    流水号
+                                                    序号
                                                 </div>
                                             </div>
                                             <div class="custom-col col-10-2">
@@ -118,22 +120,23 @@
 
                                                         <div class="custom-col col-10-2">
                                                             <div class="order-li">
-                                                                <%#Eval("id") %>
+                                                                <asp:Literal runat="server" ID="liNo"> </asp:Literal>
                                                             </div>
                                                         </div>
                                                         <div class="custom-col col-10-2">
                                                             <div class="order-li">
-                                                                <%# ( Eval("FlowType").ToString() == "OrderShare") ? "订单账单":"其他" %>
+                                                                <%# ( Eval("FlowType").ToString() == "OrderShare") ? "订单账单":( Eval("FlowType").ToString() == "Withdrawals")?"提现申请单":"其他" %>
                                                             </div>
                                                         </div>
                                                         <div class="custom-col col-10-2">
                                                             <div class="order-li">
-                                                                <a class="order-href" href='/DZOrder/Detail.aspx?businessId=<%= Request["businessid"] %>&orderId=<%#Eval("RelatedObjectId").ToString()%>'><asp:Literal runat="server" ID="liSerialNo"></asp:Literal></a>
+                                                                <a class="order-href" href='/DZOrder/Detail.aspx?businessId=<%= Request["businessid"] %>&orderId=<%#Eval("RelatedObjectId").ToString()%>'><asp:Literal runat="server" ID="liSerialNo" Text='<%#Eval("SerialNo") %>'> </asp:Literal></a>
                                                             </div>
                                                         </div>
                                                         <div class="custom-col col-10-2">
                                                             <div class="order-li finance-amount">
-                                                                <%# String.Format( "{0:F}", Eval("Amount")) %>
+                                                               <%-- <%# String.Format( "{0:F}", Eval("Amount")) %>--%>
+                                                               <%#Eval("AmountView") %>
                                                             </div>
                                                         </div>
                                                         <div class="custom-col col-10-2">

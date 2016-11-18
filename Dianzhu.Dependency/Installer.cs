@@ -218,7 +218,7 @@ namespace Dianzhu.DependencyInstaller
             
             container.Register(Component.For<Dianzhu.BLL.IEmailService>().ImplementedBy<JSYK.Infrastructure.EmailService>());
             container.Register(Component.For<Dianzhu.BLL.IEncryptService>().ImplementedBy<JSYK.Infrastructure.EncryptService>());
-            container.Register(Component.For<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>().ImplementedBy<JSYK.Infrastructure.SerialNo.SerialNoDb>());
+            //container.Register(Component.For<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>().ImplementedBy<JSYK.Infrastructure.SerialNo.SerialNoDb>());
 
         }
     }

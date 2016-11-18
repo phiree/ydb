@@ -9,6 +9,7 @@ using Ydb.Finance.DomainModel.Enums;
 using Ydb.Finance.DomainModel;
 using AutoMapper;
 using Ydb.Common.Specification;
+using Ydb.Common.Infrastructure;
 
 namespace Ydb.Finance.Application
 {
@@ -19,13 +20,16 @@ namespace Ydb.Finance.Application
         IRepositoryBalanceTotal repositoryBalanceTotal;
         IRepositoryBalanceFlow repositoryBalanceFlow;
         ICountServiceFee countServiceFee;
-        public WithdrawApplyService(IRepositoryWithdrawApply repositoryWithdrawApply, IRepositoryBalanceAccount repositoryBalanceAccount, IRepositoryBalanceTotal repositoryBalanceTotal, IRepositoryBalanceFlow repositoryBalanceFlow, ICountServiceFee countServiceFee)
+        ISerialNoBuilder serialNoBuilder;
+        public WithdrawApplyService(IRepositoryWithdrawApply repositoryWithdrawApply, IRepositoryBalanceAccount repositoryBalanceAccount, IRepositoryBalanceTotal repositoryBalanceTotal, IRepositoryBalanceFlow repositoryBalanceFlow, ICountServiceFee countServiceFee, ISerialNoBuilder serialNoBuilder)
         {
             this.repositoryWithdrawApply = repositoryWithdrawApply;
             this.repositoryBalanceAccount = repositoryBalanceAccount;
             this.repositoryBalanceTotal = repositoryBalanceTotal;
             this.repositoryBalanceFlow = repositoryBalanceFlow;
             this.countServiceFee = countServiceFee;
+            this.serialNoBuilder = serialNoBuilder;
+            
         }
 
         /// <summary>
@@ -35,10 +39,9 @@ namespace Ydb.Finance.Application
         /// <param name="account" type="string">收款账号</param
         /// <param name="accountType" type="Ydb.Finance.Application.AccountTypeEnums">收款账号类型</param>
         /// <param name="amount" type="decimal">提现金额</param>
-        /// <param name="strSerialNo" type="string">提现申请的流水编号</param>
         /// <returns type="Ydb.Finance.Application.WithdrawApplyDto">提现申请单信息</returns>
         [Ydb.Finance.Infrastructure.UnitOfWork]
-        public WithdrawApplyDto SaveWithdrawApply(string userId, string account, AccountTypeEnums accountType, decimal amount,string strSerialNo)
+        public WithdrawApplyDto SaveWithdrawApply(string userId, string account, AccountTypeEnums accountType, decimal amount)
         {
             BalanceAccount balanceAccountNow = repositoryBalanceAccount.GetOneByUserId(userId);
             if (balanceAccountNow == null)
@@ -53,6 +56,7 @@ namespace Ydb.Finance.Application
             {
                 throw new Exception("最低提现金额至少要超过1元");
             }
+            string strSerialNo = serialNoBuilder.GetSerialNo("AW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"), 2);
             repositoryBalanceTotal.FrozenBalance(userId, amount);
             WithdrawApply withdrawApply = new WithdrawApply();
             withdrawApply.ApplySerialNo = strSerialNo;
@@ -61,7 +65,7 @@ namespace Ydb.Finance.Application
             withdrawApply.ApplyStatus = "ApplyWithdraw";
             withdrawApply.ApplyAmount = amount;
             withdrawApply.ReceiveAccount = balanceAccountNow;
-            withdrawApply.Rate = "0.5%";
+            withdrawApply.Rate = "0.005";
             withdrawApply.ServiceFee = countServiceFee.CountServiceFee(amount, "0.5%");
             withdrawApply.TransferAmount = amount - withdrawApply.ServiceFee;
             repositoryWithdrawApply.Add(withdrawApply);
@@ -184,7 +188,7 @@ namespace Ydb.Finance.Application
                 withdrawApply.PayUserId = payUserId;
                 withdrawApply.PayTime = DateTime.Now;
                 withdrawApply.UpdateTime = DateTime.Now;
-                if (errStr != "")
+                if (strErr != "")
                 {
                     withdrawApply.ApplyStatus = "Payfail";
                     withdrawApply.PayRemark = errStr;
@@ -217,7 +221,7 @@ namespace Ydb.Finance.Application
                 };
                 withdrawCashDtoList.Add(withdrawCashDto);
             }
-            errStr = "]";
+            errStr = errStr+"]";
             return withdrawCashDtoList;
         }
 
@@ -266,7 +270,7 @@ namespace Ydb.Finance.Application
                     withdrawApply.D3Time = DetailItems[i][7];
                     withdrawApply.UpdateTime = DateTime.Now;
                     repositoryWithdrawApply.Update(withdrawApply);
-                    repositoryBalanceTotal.InBalance(withdrawApply.ApplyUserId, withdrawApply.ApplyAmount);
+                    repositoryBalanceTotal.InBalance(withdrawApply.ApplyUserId, withdrawApply.ApplyAmount,"");
                 }
             }
         }
@@ -285,7 +289,11 @@ namespace Ydb.Finance.Application
                 SerialNo = withdrawApply.ApplySerialNo,
                 OccurTime = DateTime.Now,
                 FlowType = FlowType.Withdrawals,
-                Income = false
+                Income = false,
+                AmountTotal = withdrawApply.ApplyAmount.ToString(),
+                Rate = "0.005",
+                AmountView = "-("+ String.Format("{0:F}", withdrawApply.TransferAmount)+"+"+ String.Format("{0:F}", withdrawApply.ServiceFee) + ")",
+                
             };
             repositoryBalanceFlow.Add(flow);
         }

@@ -19,7 +19,7 @@
                                 <div class="withDraw-ctnr">
                                     <div class="_w-heading">可提现金额</div>
                                     <div class="_w-count">
-                                        <asp:Label  class="_money" ID="lblTotalAmount" runat="server" Text="555555"></asp:Label>元。注：每次提现至少提1.1元；体现手续费为0.5%，至少1元，最多25元</div>
+                                        <asp:Label  class="_money" ID="lblTotalAmount" runat="server" Text="555555"></asp:Label>元。注：每次提现至少提1.1元；体现手续费率为0.005，至少1元，最多25元</div>
                                 </div>
                                 <div class="d-hr in"></div>
                                 <div class="model-form model-form-noTop">

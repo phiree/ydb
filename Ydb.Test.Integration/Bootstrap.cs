@@ -21,11 +21,16 @@ namespace Ydb.Test.Integration
         public static void Boot()
         {
             container = new WindsorContainer();
-           
-            container.Install(
-                new Ydb.Infrastructure.Installer()
-                );
 
+            FluentConfiguration dbConfigCommon = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_Common.db3"));
+
+            container.Install(
+                    new Ydb.Infrastructure.Installer()
+                    );
+
+            container.Install(
+                new Ydb.Infrastructure.InstallerCommon(dbConfigCommon)
+                );
 
             FluentConfiguration dbConfigInstantMessage = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_InstantMessage.db3"));
 

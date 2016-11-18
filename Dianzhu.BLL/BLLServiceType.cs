@@ -148,11 +148,22 @@ namespace Dianzhu.BLL
              pointList = new List<ServiceTypePoint>();
             List<ServiceTypeFromExcel> tfeList = new List<ServiceTypeFromExcel>();
             //先构建每行的服务类别 和 该类别的层级(列索引)
+           
+
+            DataRow row1 = dtFromExcel.NewRow() ;
+            for (int i = 0; i < 6; i++)
+            {
+                row1[i] = dtFromExcel.Columns[i].ColumnName;
+            }
+            row1[3] = "";
+            row1[4] = "";
+            dtFromExcel.Rows.InsertAt(row1, 0);
+            
+            string[] pointLast = { "0", "0" };
             foreach (DataRow row in dtFromExcel.Rows)
             {
                 Guid gid = new Guid(row[0].ToString());
                 string code = row[1].ToString();
-                 
                 ServiceType s=null;
                 for (int i = 2; i < 5; i++)
                 {
@@ -170,7 +181,30 @@ namespace Dianzhu.BLL
                 if (s != null)
                 {
                     string pointValue = row[5].ToString();
-                    if(!string.IsNullOrEmpty(pointValue))
+                    if (!string.IsNullOrEmpty(pointValue))
+                    {
+                        for (int i = s.DeepLevel; i < 2; i++)
+                        {
+                            pointLast[i] = pointValue;
+                        }
+                    }
+                    else
+                    {
+                        if (s.DeepLevel == 0)
+                        {
+                            pointLast[0] = "0";
+                            pointValue = "0";
+                        }
+                        else
+                        {
+                            if (s.DeepLevel == 1)
+                            {
+                                pointLast[1] = pointLast[0];
+                            }
+                            pointValue = pointLast[s.DeepLevel - 1];
+                        }
+                    }
+                    if (!string.IsNullOrEmpty(pointValue))
                     {
                         decimal point = Convert.ToDecimal(pointValue);
                         ServiceTypePoint typePoint = new ServiceTypePoint { Id = s.Id, Point = point, ServiceType = s };

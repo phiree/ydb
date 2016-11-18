@@ -52,13 +52,14 @@ namespace Ydb.Finance.Infrastructure.Repository
         /// 账户入账
         /// </summary>
         /// <param name="userId" type="string">账户用户ID</param>
+        /// <param name="userType" type="string">用户类型</param>
         /// <param name="amount" type="decimal">入账金额</param>
-        public void InBalance(string userId,decimal amount )
+        public void InBalance(string userId,decimal amount,string userType )
         {
             BalanceTotal bt = GetOneByUserId(userId);
             if (bt == null)
             {
-                bt = new BalanceTotal { UserId = userId, Total = amount };
+                bt = new BalanceTotal { UserId = userId, Total = amount,UserType= userType };
                 Add(bt);
             }
             else

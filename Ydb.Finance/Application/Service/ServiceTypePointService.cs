@@ -108,7 +108,7 @@ namespace Ydb.Finance.Application
         /// </summary>
         /// <param name="serviceTypePointDtoList" type="IList<ServiceTypePointDto>">服务类型扣点比例列表</param>
         [Ydb.Finance.Infrastructure.UnitOfWork]
-        public void Add(IList<ServiceTypePointDto> serviceTypePointDtoList)
+        public void SaveList(IList<ServiceTypePointDto> serviceTypePointDtoList)
         {
             repositoryServiceTypePoint.SaveList(Mapper.Map<IList<ServiceTypePoint>>(serviceTypePointDtoList));
         }
