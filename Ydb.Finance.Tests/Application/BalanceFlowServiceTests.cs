@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ydb.Common.Specification;
 namespace Ydb.Finance.Tests.Application
 {
     [TestFixture()]
@@ -26,6 +27,18 @@ namespace Ydb.Finance.Tests.Application
         {
             var list = balanceFlowService.GetAll();
             Console.WriteLine("BalanceFlowService.GetAll:"+list.Count);
+        }
+
+        /// <summary>
+        /// 根据条件获取流水列表
+        /// </summary>
+        [Test()]
+        public void BalanceFlowService_GetBalanceFlowList()
+        {
+            TraitFilter traitFilter = new TraitFilter();
+            BalanceFlowFilter balanceFlowFilter = new BalanceFlowFilter();
+            IList<BalanceFlowDto> balanceFlowDtoList = balanceFlowService.GetBalanceFlowList(traitFilter, balanceFlowFilter);
+            Console.WriteLine("BalanceFlowService.GetBalanceFlowList:" + balanceFlowDtoList.Count);
         }
 
         /// <summary>
@@ -63,7 +76,7 @@ namespace Ydb.Finance.Tests.Application
         [Test()]
         public void BalanceFlowService_GetBillList_GetOneUser_SelectByTimeOrServiceType()
         {
-            var list = balanceFlowService.GetBillList("09ccc183-ed87-462a-8d11-a66600fbbd24", DateTime.MinValue, DateTime.MaxValue, "0", "","OrderShare","",""," %Y-%m-%d");
+            var list = balanceFlowService.GetBillList("09ccc183-ed87-462a-8d11-a66600fbbd24", DateTime.MinValue, DateTime.MaxValue, "0", "","OrderShare","","",new Common.Specification.TraitFilter());
             Console.WriteLine("BalanceFlowService.GetBillList:" + list.Count);
         }
     }

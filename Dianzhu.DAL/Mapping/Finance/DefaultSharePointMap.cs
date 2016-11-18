@@ -5,7 +5,7 @@ using System.Text;
 using FluentNHibernate.Mapping;
 using Dianzhu.Model.Enums;
 namespace Dianzhu.DAL.Mapping.Finance
-{
+{/*
     public class DefaultSharePointMapping:ClassMap<Model.Finance.DefaultSharePoint>
     {
         public DefaultSharePointMapping()
@@ -14,6 +14,7 @@ namespace Dianzhu.DAL.Mapping.Finance
             
             Map(x => x.Point);
             Map(x => x.UserType);
-        }
-    }
+            
+}
+    }*/
 }

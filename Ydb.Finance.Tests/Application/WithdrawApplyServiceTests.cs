@@ -35,7 +35,7 @@ namespace Ydb.Finance.Tests.Application
         public void WithdrawApplyService_SaveWithdrawApply_ForAddOne()
         {
             WithdrawApplyDto withdrawApplyDto = SaveWithdrawApply();
-            Console.WriteLine("BalanceAccountService.BindingAccount:"+ withdrawApplyDto.Id.ToString());
+            Console.WriteLine("WithdrawApplyService.SaveWithdrawApply:" + withdrawApplyDto.Id.ToString());
         }
         private WithdrawApplyDto SaveWithdrawApply()
         {
@@ -76,8 +76,8 @@ namespace Ydb.Finance.Tests.Application
                 }
             };
             orderShareService.ShareOrder(order);
-            WithdrawApplyDto withdrawApplyDto = withdrawApplyService.SaveWithdrawApply("09ccc183-ed87-462a-8d11-a66600fbbd24", "jsyk_development@126.com", AccountTypeEnums.Alipay, 1.1m, "WA2016092117251802701");
-            Console.WriteLine("BalanceAccountService.BindingAccount:申请成功！");
+            WithdrawApplyDto withdrawApplyDto = withdrawApplyService.SaveWithdrawApply("09ccc183-ed87-462a-8d11-a66600fbbd24", "jsyk_development@126.com", AccountTypeEnums.Alipay, 1.1m);
+            //Console.WriteLine("WithdrawApplyService.BindingAccount:申请成功！");
             return withdrawApplyDto;
         }
 
@@ -89,7 +89,7 @@ namespace Ydb.Finance.Tests.Application
         {
             WithdrawApplyDto withdrawApplyDto = SaveWithdrawApply();
             withdrawApplyService.ConcelWithdrawApply(withdrawApplyDto.Id);
-            Console.WriteLine("BalanceAccountService.BindingAccount:取消成功！");
+            Console.WriteLine("WithdrawApplyService.ConcelWithdrawApply:取消成功！");
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Ydb.Finance.Tests.Application
             TraitFilter traitFilter = new TraitFilter();
             WithdrawApplyFilter withdrawApplyFilter = new WithdrawApplyFilter();
             IList<WithdrawApplyDto> withdrawApplyDtoList = withdrawApplyService.GetWithdrawApplyList(traitFilter, withdrawApplyFilter);
-            Console.WriteLine("BalanceAccountService.GetWithdrawApplyList:" + withdrawApplyDtoList.Count );
+            Console.WriteLine("WithdrawApplyService.GetWithdrawApplyList:" + withdrawApplyDtoList.Count );
         }
 
         /// <summary>
@@ -121,7 +121,27 @@ namespace Ydb.Finance.Tests.Application
                 guidApplyId.Add(withdrawApplyDtoList[i].Id);
             }
             IList<WithdrawCashDto> withdrawCashDtoList = withdrawApplyService.PayByWithdrawApply(guidApplyId, "", "PA2016092117251802701",out errStr);
-            Console.WriteLine("BalanceAccountService.PayByWithdrawApply:" + withdrawCashDtoList.Count);
+            Console.WriteLine("WithdrawApplyService.PayByWithdrawApply:" + withdrawCashDtoList.Count);
+        }
+
+        /// <summary>
+        /// 支付成功回调处理
+        /// </summary>
+        [Test()]
+        public void WithdrawApplyService_PayWithdrawSuccess()
+        {
+            string success_details = "流水号^收款方账号^收款账号姓名^付款金额^成功标识(S)^成功原因(null)^支付宝内部流水号^完成时间";
+            withdrawApplyService.PayWithdrawSuccess(success_details);
+        }
+
+        /// <summary>
+        /// 支付成功回调处理
+        /// </summary>
+        [Test()]
+        public void WithdrawApplyService_PayWithdrawFail()
+        {
+            string fail_details = "流水号^收款方账号^收款账号姓名^付款金额^失败标识(F)^失败原因^支付宝内部流水号^完成时间";
+            withdrawApplyService.PayWithdrawFail(fail_details);
         }
     }
 }

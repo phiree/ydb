@@ -42,6 +42,7 @@ namespace PHSuit
             Console.WriteLine("localhost_ydb_membership" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=ydb_membership", false));
             Console.WriteLine("localhost_ydb_instantmessage" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=ydb_instantmessage", false));
             Console.WriteLine("localhost_ydb_finance" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=ydb_finance", false));
+            Console.WriteLine("localhost_ydb_common" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=ydb_common", false));
 
             Console.WriteLine("localhost_yuanfei" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=dianzhu", false));
 

@@ -71,11 +71,13 @@
   <ItemGroup>
     <Compile Include="Application\ActionResult.cs" />
     <Compile Include="Domain\IDomainEntity.cs" />
+    <Compile Include="Domain\SerialNo.cs" />
     <Compile Include="Infrastructure\IDownloadAvatarToMediaServer.cs" />
     <Compile Include="Infrastructure\IEncryptService.cs" />
     <Compile Include="ExceptionHandler.cs" />
     <Compile Include="Infrastructure\IEmailService.cs" />
     <Compile Include="Infrastructure\IHttpRequest.cs" />
+    <Compile Include="Infrastructure\ISerialNoBuilder.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IRepository.cs" />

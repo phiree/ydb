@@ -4,8 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.BLL.Finance;
-using Dianzhu.Model.Finance;
+using Ydb.Finance.Application;
 public partial class finance_SharePoint : BasePage
 {
     
@@ -23,7 +22,8 @@ public partial class finance_SharePoint : BasePage
         }
 
     }
-    IBLLSharePoint bllSharePoint = Bootstrap.Container.Resolve<IBLLSharePoint>();
+    //SharePoint功能暂时不需要
+    IUserTypeSharePointService bllSharePoint = Bootstrap.Container.Resolve<IUserTypeSharePointService>();
     private void BindSharePoint()
     {
         var list = bllSharePoint.GetAll();
@@ -43,8 +43,10 @@ public partial class finance_SharePoint : BasePage
     protected void btnSaveSharePoint_Click(object sender, EventArgs e)
     {
         var point = Convert.ToDecimal(tbxSharePoint.Text);
-        DefaultSharePoint defaultSharePoint = new DefaultSharePoint(point, ddlUserType.SelectedValue);
-        bllSharePoint.Save(defaultSharePoint);
+        //UserTypeSharePointDto defaultSharePoint = new UserTypeSharePointDto();// (point, ddlUserType.SelectedValue);
+        //defaultSharePoint.Point = point;
+        //defaultSharePoint.UserType = ddlUserType.SelectedValue;
+        bllSharePoint.Add(ddlUserType.SelectedValue, point);
         lblMsg.Text = "保存成功";
         BindSharePoint();
     }

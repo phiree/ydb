@@ -32,6 +32,14 @@ public class Bootstrap
             new Ydb.Infrastructure.Installer()
             );
 
+        container.Install(
+            new Ydb.Infrastructure.InstallerCommon(BuildDBConfig("ydb_common"))
+            );
+
+
+        container.Install(
+new Ydb.Finance.Infrastructure.InstallerFinance(BuildDBConfig("ydb_finance"))
+            );
 
         container.Install(
 
@@ -51,6 +59,7 @@ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb
         AutoMapper.Mapper.Initialize(x =>
         {
             Ydb.Membership.Application.AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
+            Ydb.Finance.Application.AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
         });
     }
 

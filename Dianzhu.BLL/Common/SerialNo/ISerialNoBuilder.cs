@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Dianzhu.BLL.Common.SerialNo
-{
+{/*
     public interface ISerialNoBuilder
     {
           string GetSerialNo(string key,int serialNoLength);
-    }
+    }*/
 }

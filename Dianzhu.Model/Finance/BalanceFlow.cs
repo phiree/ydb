@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Dianzhu.Model.Finance
-{
+{/*
     /// <summary>
     /// 资金流水线
     /// </summary>
    public  class BalanceFlow:DDDCommon.Domain.Entity<Guid>
     {
+        
         
         public virtual Guid MemberId { get; set; }
        
@@ -24,10 +25,12 @@ namespace Dianzhu.Model.Finance
         /// </summary>
         public virtual string RelatedObjectId { get; set; }
         public virtual enumFlowType FlowType { get; set; }
+       
 
-    }
+}
     public enum enumFlowType
     {
         OrderShare,//订单分账
     }
+     */
 }

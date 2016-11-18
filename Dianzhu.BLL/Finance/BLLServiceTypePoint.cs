@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.IDAL.Finance;
+//using Dianzhu.IDAL.Finance;
 namespace Dianzhu.BLL.Finance
-{
+{/*
     /// <summary>
     /// 服务类型分成比
     /// </summary>
    public  class BLLServiceTypePoint:IBLLServiceTypePoint
     {
+        
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BllServiceTypePoint");
         /// <summary>
         /// 服务类别的提成比例
@@ -52,5 +53,6 @@ namespace Dianzhu.BLL.Finance
         {
             return dalServiceTypePoint.GetAll ();
         }
-    }
+        
+}*/
 }

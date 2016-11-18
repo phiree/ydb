@@ -19,6 +19,38 @@ namespace Ydb.Finance.Application
             this.repositoryBalanceAccount = repositoryBalanceAccount;
         }
 
+        bool CheckBalanceAccountDto(BalanceAccountDto balanceAccountDto ,out string errMsg)
+        {
+            errMsg = "";
+            bool b = false;
+            if (string.IsNullOrEmpty(balanceAccountDto.UserId))
+            {
+                b = true;
+                errMsg = "要绑定的用户Id不能为空！";
+            }
+            if (string.IsNullOrEmpty(balanceAccountDto.Account))
+            {
+                b = true;
+                errMsg = "要绑定的提现账号不能为空！";
+            }
+            if (string.IsNullOrEmpty(balanceAccountDto.AccountName))
+            {
+                b = true;
+                errMsg = "要绑定的提现账号真实姓名不能为空！";
+            }
+            if (balanceAccountDto.AccountType== AccountTypeEnums.None)
+            {
+                b = true;
+                errMsg = "要绑定的提现账号类型未指定！";
+            }
+            if (string.IsNullOrEmpty(balanceAccountDto.AccountCode))
+            {
+                b = true;
+                errMsg = "要绑定的用户身份证不能为空！";
+            }
+            return b;
+        }
+
         /// <summary>
         /// 绑定提现账号
         /// </summary>
@@ -26,6 +58,11 @@ namespace Ydb.Finance.Application
         [Ydb.Finance.Infrastructure.UnitOfWork]
         public void BindingAccount(BalanceAccountDto balanceAccountDto)
         {
+            string errMsg = "";
+            if (CheckBalanceAccountDto(balanceAccountDto, out errMsg))
+            {
+                throw new Exception(errMsg);
+            }
             BalanceAccount balanceAccountNow = repositoryBalanceAccount.GetOneByUserId(balanceAccountDto.UserId);
             if (balanceAccountNow != null)
             {
@@ -43,22 +80,37 @@ namespace Ydb.Finance.Application
         [Ydb.Finance.Infrastructure.UnitOfWork]
         public void UpdateAccount(BalanceAccountDto balanceAccountDto)
         {
+            string errMsg = "";
+            if (CheckBalanceAccountDto(balanceAccountDto, out errMsg))
+            {
+                throw new Exception(errMsg);
+            }
             BalanceAccount balanceAccountNow = repositoryBalanceAccount.GetOneByUserId(balanceAccountDto.UserId);
             if (balanceAccountNow == null)
             {
                 throw new Exception("该用户还没有绑定提现账号！");
             }
-            if (balanceAccountNow.AccountPhone != balanceAccountDto.AccountPhone)
+            if (balanceAccountNow.AccountCode != balanceAccountDto.AccountCode)
             {
                 throw new Exception("输入的身份证和绑定的身份证不一致！");
             }
-            BalanceAccount balanceAccountOld = repositoryBalanceAccount.GetOneByAccount(balanceAccountDto.Account,balanceAccountDto.AccountType.ToString());
+            
+            BalanceAccount balanceAccountOld = repositoryBalanceAccount.GetOneByAccount(balanceAccountDto.Account,balanceAccountDto.AccountType.ToString(), balanceAccountDto.UserId);
+            if (balanceAccountNow != balanceAccountOld)
+            {
+                balanceAccountNow.flag = 0;
+            }
+
             if (balanceAccountOld != null)
             {
-                balanceAccountDto.Id = balanceAccountOld.Id;
+                balanceAccountOld.AccountPhone = balanceAccountDto.AccountPhone;
+                balanceAccountOld.AccountName = balanceAccountDto.AccountName;
+                balanceAccountOld.flag = 1;
             }
-            balanceAccountOld = Mapper.Map<BalanceAccountDto, BalanceAccount>(balanceAccountDto);
-            repositoryBalanceAccount.SaveOrUpdate(balanceAccountNow);
+            else
+            {
+                repositoryBalanceAccount.Add(Mapper.Map<BalanceAccountDto, BalanceAccount>(balanceAccountDto));
+            }
         }
 
         /// <summary>

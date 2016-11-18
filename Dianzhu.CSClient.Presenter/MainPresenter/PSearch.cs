@@ -29,7 +29,8 @@ namespace Dianzhu.CSClient.Presenter
         IInstantMessage iIM;
         IDAL.IDALServiceType dalServiceType;
         IList<VMShelfService> SelectedServiceList;
-        BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder;
+        //BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder;
+        Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder;
         LocalStorage.LocalChatManager localChatManager;
         LocalStorage.LocalUIDataManager localUIDataManager;
         IVMChatAdapter vmChatAdapter;
@@ -51,7 +52,7 @@ namespace Dianzhu.CSClient.Presenter
         public PSearch(IInstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
             IViewChatList viewChatList,IViewIdentityList viewIdentityList,
             IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder, IDAL.IDALServiceType dalServiceType,                     
-                    PushService bllPushService, BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder, LocalStorage.LocalChatManager localChatManager, LocalStorage.LocalUIDataManager localUIDataManager, 
+                    PushService bllPushService, Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder, LocalStorage.LocalChatManager localChatManager, LocalStorage.LocalUIDataManager localUIDataManager, 
                     IVMChatAdapter vmChatAdapter,IVMIdentityAdapter vmIdentityAdapter, IDZMembershipService memberService, IReceptionService receptionService)
         {
             this.serialNoBuilder = serialNoBuilder;

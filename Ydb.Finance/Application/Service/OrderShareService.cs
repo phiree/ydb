@@ -37,7 +37,7 @@ namespace Ydb.Finance.Application
             log.Debug("开始分账:" + order.RelatedObjectId);
             
             var typePoint = serviceTypePointService.GetPoint(order.ServiceTypeID);
-            var sharedAmount = order.Amount * typePoint;
+            var sharedAmount = order.Amount * (typePoint-0.01m);
 
             var share= 0m;
             decimal sharePoint = 0;
@@ -69,6 +69,7 @@ namespace Ydb.Finance.Application
             strUserTypes.Add("diandian");
             strUserId.Add("dc73ba0f-91a4-4e14-b17a-a567009dfd6a");
             decimal shareDiandian = order.Amount;
+            decimal shareDiandianPoint = 1;
             for (int i = 0; i < strUserTypes.Count; i++)
             {
                 switch (strUserTypes[i])
@@ -77,36 +78,45 @@ namespace Ydb.Finance.Application
                         sharePoint = userTypeSharePointService.GetSharePoint(strUserTypes[i], out errMsg);
                         share = Math.Truncate(sharedAmount * sharePoint * 100) / 100m;
                         shareDiandian = shareDiandian - share;
+                        shareDiandianPoint = shareDiandianPoint - sharePoint;
                         break;
                     case "customerservice":
                         sharePoint = userTypeSharePointService.GetSharePoint(strUserTypes[i], out errMsg);
                         share = Math.Truncate(sharedAmount * sharePoint * 100) / 100m;
                         shareDiandian = shareDiandian - share;
+                        shareDiandianPoint = shareDiandianPoint - sharePoint;
                         break;
                     case "business":
                         share = Math.Truncate(order.Amount * (1 - typePoint) * 100) / 100m;
+                        sharePoint = 1-typePoint;
                         shareDiandian = shareDiandian - share;
                         break;
                     case "diandian":
                         share = shareDiandian;
+                        sharePoint = shareDiandianPoint;
                         break;
                     default:
                         throw new Exception("分账用户类型不正确!");
                 }
-
-                BalanceFlow flow = new BalanceFlow
+                if (share != 0)
                 {
-                    AccountId = strUserId[i],
-                    Amount=share,
-                    RelatedObjectId = order.RelatedObjectId,
-                    SerialNo = order.SerialNo,
-                    OccurTime = DateTime.Now,
-                    FlowType = FlowType.OrderShare,
-                    Income = true
-                };
-                balanceFlows.Add(flow);
+                    BalanceFlow flow = new BalanceFlow
+                    {
+                        AccountId = strUserId[i],
+                        Amount = share,
+                        RelatedObjectId = order.RelatedObjectId,
+                        SerialNo = order.SerialNo,
+                        OccurTime = DateTime.Now,
+                        FlowType = FlowType.OrderShare,
+                        Income = true,
+                        AmountTotal = order.Amount.ToString(),
+                        Rate = sharePoint.ToString(),
+                        AmountView = String.Format("{0:F}", share),
+                        UserType = strUserTypes[i]
+                    };
+                    balanceFlows.Add(flow);
+                }
             }
-
             log.Debug("结束分账:" + order.RelatedObjectId);
             return balanceFlows;
         }
@@ -122,7 +132,7 @@ namespace Ydb.Finance.Application
             foreach (BalanceFlow bf in balanceFlow)
             {
                 repositoryBalanceFlow.Add(bf);
-                repositoryBalanceTotal.InBalance(bf.AccountId, bf.Amount);
+                repositoryBalanceTotal.InBalance(bf.AccountId, bf.Amount,bf.UserType);
             }
         }
     }

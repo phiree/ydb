@@ -6,12 +6,12 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
-using Dianzhu.BLL.Finance;
+using Ydb.Finance.Application;
 public partial class servicetype_Edit : BasePage
 {
     private Guid TypeId=Guid.Empty;
     BLLServiceType bllServiceType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
-    Dianzhu.BLL.Finance.IBLLServiceTypePoint bllPoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBLLServiceTypePoint>();
+    IServiceTypePointService bllPoint = Bootstrap.Container.Resolve<IServiceTypePointService>();
     private bool IsNew {
         get {
             return TypeId == Guid.Empty;
@@ -45,7 +45,7 @@ public partial class servicetype_Edit : BasePage
     {
         tbxName.Text = CurrentServiceType.Name;
         lblParentName.Text = CurrentServiceType.Parent==null?"无":CurrentServiceType.Parent.Name;
-        lblPoint.Text = bllPoint.GetPoint(CurrentServiceType).ToString("0.00");
+        lblPoint.Text = bllPoint.GetPoint(CurrentServiceType.Id.ToString()).ToString("0.00");
     }
     private void UpdateForm()
     {
@@ -75,6 +75,6 @@ public partial class servicetype_Edit : BasePage
         { 
         bllServiceType.Update(CurrentServiceType);
         }
-        PHSuit.Notification.Show(Page, "", "保存成功", Request.Url.AbsolutePath);
+        PHSuit.Notification.Show(Page, "", "保存成功", "default.aspx");//Request.Url.AbsolutePath
     }
 }

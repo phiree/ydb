@@ -111,6 +111,7 @@
   <ItemGroup>
     <Compile Include="Application\BalanceAccountServiceTests.cs" />
     <Compile Include="Application\BalanceFlowServiceTests.cs" />
+    <Compile Include="Application\BalanceTotalServiceTests.cs" />
     <Compile Include="Application\OrderShareServiceTests.cs" />
     <Compile Include="Application\ServiceTypePointServiceTests.cs" />
     <Compile Include="Application\UserTypeSharePointServiceTests.cs" />

@@ -27,7 +27,7 @@ public class ResponseORM002001 : BaseResponse
         IReceptionService receptionService = Bootstrap.Container.Resolve<IReceptionService>();
 
         IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
-        Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder  serialNoBuilder = Bootstrap.Container.Resolve<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>();
+        Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder = Bootstrap.Container.Resolve<Ydb.Common.Infrastructure.ISerialNoBuilder>();
         IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
 
         string user_id = requestData.userID;

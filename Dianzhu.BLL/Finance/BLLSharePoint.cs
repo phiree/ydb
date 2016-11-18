@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
  
 using Dianzhu.Model.Finance;
-using Dianzhu.DAL.Finance;
+//using Dianzhu.DAL.Finance;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 namespace Dianzhu.BLL.Finance
-{
+{/*
     
     public class BLLSharePoint:IBLLSharePoint
  
     {
+        
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Bll.Finance.BllSharePoint");
         IDAL.Finance.IDALSharePoint dalSharePoint;
         IDAL.Finance.IDALDefaultSharePoint dalDefaultSharePoint;
@@ -69,5 +70,5 @@ namespace Dianzhu.BLL.Finance
             return dalDefaultSharePoint.FindById(id);
         }
  
-    }
+}*/
 }

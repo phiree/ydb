@@ -8,7 +8,7 @@ using Rhino.Mocks;
 using Dianzhu.Model;
 using FizzWare.NBuilder;
 namespace Dianzhu.Test.BLLTest.Finance
-{
+{/*
     public class BLLServiceTypePointTest
     {
         [Test]
@@ -69,5 +69,5 @@ namespace Dianzhu.Test.BLLTest.Finance
             decimal point = bllPoint.GetPoint(type);
             return point;
         }
-    }
+    }*/
 }

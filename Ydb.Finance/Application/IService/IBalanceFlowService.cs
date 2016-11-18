@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 using Ydb.Finance.DomainModel;
+using Ydb.Common.Specification;
 namespace Ydb.Finance.Application
 {
     public interface IBalanceFlowService
@@ -20,6 +21,15 @@ namespace Ydb.Finance.Application
         /// </summary>
         /// <returns type="IList<BalanceFlowDto>">账户流水信息列表</returns>
         IList< BalanceFlowDto> GetAll();
+
+        /// <summary>
+        /// 根据条件获取账户流水信息
+        /// </summary>
+        /// <param name="traitFilter" type="Ydb.Common.Specification.TraitFilter">通用筛选器分页、排序等</param>
+        /// <param name="withdrawApplyFilter" type="Ydb.Finance.Application.BalanceFlowFilter">账户流水的查询筛选条件</param>
+        /// <returns type="IList<Ydb.Finance.Application.BalanceFlowDto>">账户流水信息列表</returns>
+        IList<BalanceFlowDto> GetBalanceFlowList(TraitFilter traitFilter, BalanceFlowFilter balanceFlowFilter);
+
 
         /// <summary>
         /// 统计账单结果
@@ -44,10 +54,10 @@ namespace Ydb.Finance.Application
         /// <param name="billType" type="string">流水记录类型</param>
         /// <param name="orderId" type="string">订单ID</param>
         /// <param name="billServiceType" type="string">服务类型</param>
-        /// <param name="filter" type="string">筛选器</param>
+        /// <param name="filter" type="Ydb.Common.Specification.TraitFilter">筛选器</param>
         /// <returns type="IList">统计结果列表</returns>
         IList GetBillList(string userID, DateTime startTime, DateTime endTime,
-            string serviceTypeLevel, string status, string billType, string orderId, string billServiceType,string filter);
+            string serviceTypeLevel, string status, string billType, string orderId, string billServiceType, Ydb.Common.Specification.TraitFilter filter);
 
 
     }

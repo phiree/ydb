@@ -66,6 +66,7 @@ namespace Ydb.Finance.Infrastructure
             container.Register(Component.For<IUserTypeSharePointService>().ImplementedBy<UserTypeSharePointService>());
             container.Register(Component.For<IBalanceAccountService>().ImplementedBy<BalanceAccountService>());
             container.Register(Component.For<IWithdrawApplyService>().ImplementedBy<WithdrawApplyService>());
+            container.Register(Component.For<IBalanceTotalService>().ImplementedBy<BalanceTotalService>());
         }
         private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
         {
@@ -131,10 +132,10 @@ namespace Ydb.Finance.Infrastructure
             {
                 new SchemaUpdate(config).Execute(true, true);
             }
-            else if (System.Configuration.ConfigurationManager.AppSettings["UpdateSchema"] == "2")
-            {
-                new SchemaExport(config).Create(true, true);
-            }
+            //else if (System.Configuration.ConfigurationManager.AppSettings["UpdateSchema"] == "2")
+            //{
+            //    new SchemaExport(config).Create(true, true);
+            //}
 
         }
 

@@ -8,6 +8,7 @@ using System.Collections;
 using Ydb.Finance.DomainModel.Enums;
 using Ydb.Finance.DomainModel;
 using AutoMapper;
+using Ydb.Common.Specification;
 
 namespace Ydb.Finance.Application
 {
@@ -27,6 +28,65 @@ namespace Ydb.Finance.Application
         public IList<BalanceFlowDto> GetAll()
         {
             return Mapper.Map<IList<BalanceFlow>, IList<BalanceFlowDto>>(repositoryBalanceFlow.Find(x => true)); 
+        }
+
+        /// <summary>
+        /// 根据条件获取账户流水信息
+        /// </summary>
+        /// <param name="traitFilter" type="Ydb.Common.Specification.TraitFilter">通用筛选器分页、排序等</param>
+        /// <param name="withdrawApplyFilter" type="Ydb.Finance.Application.BalanceFlowFilter">账户流水的查询筛选条件</param>
+        /// <returns type="IList<Ydb.Finance.Application.BalanceFlowDto>">账户流水信息列表</returns>
+        [Ydb.Finance.Infrastructure.UnitOfWork]
+        public IList<BalanceFlowDto> GetBalanceFlowList(TraitFilter traitFilter, BalanceFlowFilter balanceFlowFilter)
+        {
+            var where = PredicateBuilder.True<BalanceFlow>();
+            if (!string.IsNullOrEmpty(balanceFlowFilter.AccountId))
+            {
+                where = where.And(x => x.AccountId == balanceFlowFilter.AccountId);
+            }
+            if (!string.IsNullOrEmpty(balanceFlowFilter.RelatedObjectId))
+            {
+                where = where.And(x => x.RelatedObjectId == balanceFlowFilter.RelatedObjectId);
+            }
+            if (!string.IsNullOrEmpty(balanceFlowFilter.SerialNo))
+            {
+                where = where.And(x => x.SerialNo == balanceFlowFilter.SerialNo);
+            }
+            if (!string.IsNullOrEmpty(balanceFlowFilter.Income))
+            {
+                where = where.And(x => x.Income == bool.Parse(balanceFlowFilter.Income));
+            }
+            if (!string.IsNullOrEmpty(balanceFlowFilter.FlowType))
+            {
+                FlowType enumFlowType;
+                bool isFlowType = Enum.TryParse<FlowType>(balanceFlowFilter.FlowType, out enumFlowType);
+                if (isFlowType)
+                    where = where.And(x => x.FlowType == enumFlowType);
+            }
+            if (balanceFlowFilter.BeginTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.OccurTime >= balanceFlowFilter.BeginTime);
+            }
+            if (balanceFlowFilter.EndTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.OccurTime <= balanceFlowFilter.EndTime);
+            }
+            BalanceFlow baseone = null;
+            if (!string.IsNullOrEmpty(traitFilter.baseID))
+            {
+                try
+                {
+                    baseone = repositoryBalanceFlow.FindByBaseId(new Guid(traitFilter.baseID));
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("filter.baseID错误，" + ex.Message);
+                }
+            }
+            long totalRecord;
+            var list = traitFilter.pageSize == 0 ? repositoryBalanceFlow.Find(where, traitFilter.sortby, traitFilter.ascending, traitFilter.offset, baseone).ToList() : repositoryBalanceFlow.Find(where, traitFilter.pageNum, traitFilter.pageSize, out totalRecord, traitFilter.sortby, traitFilter.ascending, traitFilter.offset, baseone).ToList();
+
+            return Mapper.Map<IList<BalanceFlow>, IList<BalanceFlowDto>>(list);
         }
 
         /// <summary>
@@ -77,11 +137,11 @@ namespace Ydb.Finance.Application
         /// <param name="billType" type="string">流水记录类型</param>
         /// <param name="orderId" type="string">订单ID</param>
         /// <param name="billServiceType" type="string">服务类型</param>
-        /// <param name="filter" type="string">筛选器</param>
+        /// <param name="filter" type="Ydb.Common.Specification.TraitFilter">筛选器</param>
         /// <returns type="IList">统计结果列表</returns>
         [Ydb.Finance.Infrastructure.UnitOfWork]
         public IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, 
-            string status, string billType, string orderId, string billServiceType,string filter)
+            string status, string billType, string orderId, string billServiceType, Ydb.Common.Specification.TraitFilter filter)
         {
             //由于重构数据库分隔，多表联查需要重新设计
             return new ArrayList(); 

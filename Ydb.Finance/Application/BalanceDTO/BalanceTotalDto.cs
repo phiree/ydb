@@ -19,6 +19,11 @@ namespace Ydb.Finance.Application
         public string UserId { get; set; }
 
         /// <summary>
+        /// 用户类型
+        /// </summary>
+        public string UserType { get; set; }
+
+        /// <summary>
         /// 用户账户余额
         /// </summary>
         public decimal Total { get; set; }
