@@ -205,7 +205,7 @@
 
                                 </WrapPanel>
 
-                                <Label x:Name="lblLoadingText"></Label>
+                                <Label x:Name="lblLoadingText" Visibility="Collapsed">推送中...</Label>
 
                                 <!--<WrapPanel>
                                 <Button x:Name="btnPush" Click="btnPush_Click" IsEnabled="False">推送</Button>
