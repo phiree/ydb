@@ -41,20 +41,37 @@ namespace Dianzhu.Web.RestfulApi
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.Result");
+           
+           
+
             NHibernateUnitOfWork.UnitOfWork.Start();
-            log.Info("Info(begin):*******************************************************");
+
+            System.Web.HttpApplication hc = (System.Web.HttpApplication)sender;
+            string strT = hc.Request.Headers.Get("stamp_TIMES");
+            if (!string.IsNullOrEmpty(strT))
+            {
+                log.Info("Info(begin)"+strT+":*******************************************************");
+            }
         }
 
         protected void Application_EndRequest(object sender, EventArgs e)
         {
             log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.Result");
-            log.Info("Info(request.Url):" + Context.Request.Url);
-            log.Info("Info(request.Method):" + Context.Request.HttpMethod);
-            log.Info("Info(response.StatusCode):" + Context.Response.StatusCode);
-            log.Info("Info(response.StatusCode):" + Context.Response.StatusDescription);
+            System.Web.HttpApplication hc = (System.Web.HttpApplication)sender;
+            string strT = hc.Request.Headers.Get("stamp_TIMES");
+            if (!string.IsNullOrEmpty(strT))
+            {
+                log.Info("Info(request.Url)" + strT + ":" + Context.Request.Url);
+                log.Info("Info(request.Method)" + strT + ":" + Context.Request.HttpMethod);
+                log.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusCode);
+                log.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusDescription);
+            }
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            if (!string.IsNullOrEmpty(strT))
+            {
+                log.Info("Info(end)" + strT + ":*******************************************************");
+            }
 
-            log.Info("Info(end):*******************************************************");
         }
         protected void Application_Error(object sender, EventArgs e)
         {

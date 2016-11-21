@@ -22,7 +22,6 @@ public partial class finance_PayWithdrawCash : BasePage
     }
     private void BindList()
     {
-        long totalRecord;
         int currentPageIndex = 1;
         string paramPage = Request.Params["page"];
         if (!string.IsNullOrEmpty(paramPage))
