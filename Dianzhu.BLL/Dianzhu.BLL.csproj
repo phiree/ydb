@@ -118,8 +118,6 @@
     <Compile Include="Finance\BLLSharePoint.cs" />
     <Compile Include="Finance\IOrderShare.cs" />
     <Compile Include="Finance\OrderShare.cs" />
-    <Compile Include="IEmailService.cs" />
-    <Compile Include="IEncryptService.cs" />
     <Compile Include="Push\PushMessageBuilder.cs" />
     <Compile Include="ServiceBase.cs" />
     <Compile Include="ServiceOrder\IBLLServiceOrder.cs" />
