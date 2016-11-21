@@ -27,6 +27,14 @@ namespace Ydb.BusinessResource.DomainModel
         {
             return string.Format("{0}-{1}", StartTime, EndTime);
         }
+        public static bool operator ==(TimePeriod period, TimePeriod otherPeriod)
+        {
+            return period.StartTime == otherPeriod.StartTime && period.EndTime == otherPeriod.EndTime;
+        }
+        public static bool operator !=(TimePeriod period, TimePeriod otherPeriod)
+        {
+            return period.StartTime != otherPeriod.StartTime || period.EndTime != otherPeriod.EndTime;
+        }
 
     }
 }

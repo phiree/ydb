@@ -293,6 +293,26 @@ namespace Ydb.BusinessResource.DomainModel
             }
             return true;
         }
+
+        /// <summary>
+        /// 修改一个工作时间.
+        /// </summary>
+        public virtual void ModifyWorkTime(DayOfWeek dayOfWeek,int maxOrderForPeriod,string timeBegin,string timeEnd,string newTimeBegin,string newTimeEnd, out string errMsg)
+        {
+            errMsg = string.Empty;
+            //获取要修改的时间段
+            ServiceOpenTime serviceOpenTime = GetServiceOpenTime(dayOfWeek, out errMsg);
+            if (!string.IsNullOrEmpty(errMsg))
+            {
+                throw new Exception(errMsg);
+            }
+            TimePeriod period = new TimePeriod(new Time(timeBegin), new Time(timeEnd));
+            TimePeriod periodNew= new TimePeriod(new Time(newTimeBegin), new Time(newTimeEnd));
+            ServiceOpenTimeForDay existedPeriod = serviceOpenTime.GetItem(period);
+            TimePeriodList periodList = new TimePeriodList(serviceOpenTime.OpenTimeForDay.Select(x=>x.TimePeriod).ToList());
+            periodList.Modify(period, periodNew);
+            
+        }
         
 
     }

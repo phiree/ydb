@@ -87,6 +87,16 @@ namespace Ydb.BusinessResource.DomainModel
         {
 
         }
-        
+
+        /// <summary>
+        /// 修改工作时间
+        /// </summary>
+        /// <param name="oldPeriod">需要修改的工作时间</param>
+        /// <param name="newPeriod">目标工作时间</param>
+        /// <returns></returns>
+        public bool Modify(TimePeriod oldPeriod,TimePeriod newPeriod)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

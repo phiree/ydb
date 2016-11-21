@@ -77,7 +77,28 @@ namespace Ydb.BusinessResource.DomainModel
             return timeItems.ToList()[0];
 
         }
-         
+
+        /// <summary>
+        /// 获取指定起止时间的工作时间段
+        /// </summary>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
+        /// <returns></returns>
+        public virtual ServiceOpenTimeForDay GetItem(TimePeriod period)
+        {
+          var list=  OpenTimeForDay.Where(x => x.TimePeriod == period);
+
+               if (list.Count() == 1)
+            {
+                return list.ElementAt(0);
+            }
+           else  
+            {
+                throw new Exception("给定时间段的工作时间不等于1");
+            }
+               
+           
+        }
         
     }
    

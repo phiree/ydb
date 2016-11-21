@@ -14,6 +14,7 @@ namespace Ydb.BusinessResource.Application
     /// <summary>
     /// 服务时间段业务逻辑
     /// </summary>
+    [Obsolete("valueobject不应该公布服务")]
     public class ServiceOpenTimeService
     {
         //20160617_longphui_modify
@@ -40,6 +41,7 @@ namespace Ydb.BusinessResource.Application
     /// <summary>
     /// 服务时间段业务逻辑
     /// </summary>
+    [Obsolete("valueobject不应该公布服务")]
     public class  ServiceOpenTimeForDayService
     {
         IRepositoryServiceOpenTimeForDay repositoryServiceOpenTimeForDay;
