@@ -85,7 +85,7 @@ namespace Dianzhu.ApplicationService.Store
                 throw new Exception("您不是商户用户！");
             }
 
-         ActionResult<Business> result=   businessService.Add(storeobj.name, storeobj.storePhone, guidUser, storeobj.location.latitude,
+         ActionResult<Business> result=   businessService.Add(storeobj.name, storeobj.storePhone,string.Empty, guidUser, storeobj.location.latitude,
                 storeobj.location.longitude, storeobj.location.address,storeobj.linkMan,storeobj.vintage,storeobj.headCount);
 
             if (!result.IsSuccess)

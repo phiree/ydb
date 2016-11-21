@@ -116,7 +116,7 @@
     <Compile Include="DomainModel\IRepositoryDZTag.cs" />
     <Compile Include="DomainModel\Service\IRepositoryDZService.cs" />
     <Compile Include="DomainModel\Service\IRepositoryServiceOpenTime.cs" />
-    <Compile Include="DomainModel\Service\TimePeriodLink.cs" />
+    <Compile Include="DomainModel\Service\TimePeriodList.cs" />
     <Compile Include="DomainModel\Service\ServiceOpenTime.cs" />
     <Compile Include="DomainModel\Service\ServiceOpenTimeForDay.cs" />
     <Compile Include="DomainModel\Service\ServiceOpenTimeForDaySnapShotForOrder.cs" />

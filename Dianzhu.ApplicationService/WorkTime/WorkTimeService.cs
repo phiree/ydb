@@ -167,7 +167,7 @@ namespace Dianzhu.ApplicationService.WorkTime
                 }
             }
             //DayOfWeek week1 = utils.CheckWeek(worktimeobj.week.ToString());
-            Model.DZService service = dzServiceService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
+           ServiceDto service = dzServiceService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
             if (service == null)
             {
                 throw new Exception("不存在该服务！");

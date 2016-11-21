@@ -7,15 +7,19 @@ using Dianzhu.BLL;
 using AutoMapper;
 using Dianzhu.Model;
 using Dianzhu.ApplicationService.Order;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
+using Ydb.Common.Specification;
+
 namespace Dianzhu.ApplicationService.Snapshot
 {
     public class SnapshotService: ISnapshotService
     {
         BLL.IBLLServiceOrder ibllserviceorder;
-        BLL.dzServiceService dzServiceService;
+         IDZServiceService dzServiceService;
         BLL.BLLServiceOrderStateChangeHis bllstatehis;
         Order.IOrderService orderService;
-        public SnapshotService(BLL.IBLLServiceOrder ibllserviceorder, BLL.dzServiceService dzServiceService, BLL.BLLServiceOrderStateChangeHis bllstatehis,IOrderService orderService)
+        public SnapshotService(BLL.IBLLServiceOrder ibllserviceorder, IDZServiceService dzServiceService, BLL.BLLServiceOrderStateChangeHis bllstatehis,IOrderService orderService)
         {
             this.ibllserviceorder = ibllserviceorder;
             this.dzServiceService = dzServiceService;
@@ -46,9 +50,9 @@ namespace Dianzhu.ApplicationService.Snapshot
             //    throw new Exception("没有访问权限！");
             //}
             Guid guidService = utils.CheckGuidID(ServiceID, "ServiceID");
-            Model.TraitFilter filter1 = utils.CheckFilter(filter, "Snapshots");
-            DZService dzService = dzServiceService.GetOne(guidService);
-            if (dzService.Business.OwnerId.ToString() != customer.UserID)
+            TraitFilter filter1 = utils.CheckFilter(filter, "Snapshots");
+            ServiceDto dzService = dzServiceService.GetOne(guidService);
+            if (dzService.ServiceBusinessOwnerId!= customer.UserID)
             {
                 throw new Exception("你的店铺没有该项服务！");
             }

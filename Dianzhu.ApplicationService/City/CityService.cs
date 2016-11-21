@@ -4,15 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
+using Ydb.Common.Specification;
 
 namespace Dianzhu.ApplicationService.City
 {
     public class CityService: ICityService
     {
-        BLL.BLLArea bllarea;
-        public CityService(BLL.BLLArea bllarea)
+        IAreaService areaService;
+
+        public CityService(IAreaService areaService)
         {
-            this.bllarea = bllarea;
+            this.areaService = areaService;
         }
 
         /// <summary>
@@ -22,12 +26,12 @@ namespace Dianzhu.ApplicationService.City
         /// <returns></returns>
         public cityObj GetCityByAreaCode(string areacode)
         {
-            Model.Area area = bllarea.GetCityByAreaCode(areacode);
+            Area area = areaService.GetCityByAreaCode(areacode);
             if (area == null)
             {
                 throw new Exception("没有找到资源！");
             }
-            cityObj cityobj = Mapper.Map<Model.Area, cityObj>(area);
+            cityObj cityobj = Mapper.Map< Area, cityObj>(area);
             return cityobj;
         }
 
@@ -39,12 +43,12 @@ namespace Dianzhu.ApplicationService.City
         /// <returns></returns>
         public IList<cityObj> GetAllCity(common_Trait_Filtering filter,common_Trait_LocationFiltering location)
         {
-            IList<Model.Area> listarea=null;
-            Model.Area area;
+            IList<Area> listarea=null;
+             Area area;
             if (!string.IsNullOrEmpty(location.longitude) && !string.IsNullOrEmpty(location.latitude))
             {
                 RespGeo geoObj = utils.Deserialize<RespGeo>(utils.GetCity(location.longitude, location.latitude));
-                area = bllarea.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city);
+                area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city);
                 //if (location.code != null && location.code != "" && area != null)
                 //{
                 //    if (location.code != area.Code)
@@ -54,11 +58,11 @@ namespace Dianzhu.ApplicationService.City
                 //}
                 if (area == null)
                 {
-                    area = new Model.Area();
+                    area = new  Area();
                     area.Name = geoObj.result.addressComponent.city;
                     area.Code = geoObj.result.cityCode;
                 }
-                listarea = new List<Model.Area>();
+                listarea = new List<Area>();
                 listarea.Add(area);
 
             }
@@ -66,17 +70,17 @@ namespace Dianzhu.ApplicationService.City
             {
                 if (!string.IsNullOrEmpty(location.code))
                 {
-                    area = bllarea.GetCityByAreaCode(location.code);
+                    area = areaService.GetCityByAreaCode(location.code);
                     if (area != null)
                     {
-                        listarea = new List<Model.Area>();
+                        listarea = new List<Area>();
                         listarea.Add(area);
                     }
                 }
                 else
                 {
-                    Model.TraitFilter filter1 = utils.CheckFilter(filter, "Area");
-                    listarea = bllarea.GetAllCity(filter1);
+                    TraitFilter filter1 = utils.CheckFilter(filter, "Area");
+                    listarea = areaService.GetAllCity(filter1);
                 }
             }
             if (listarea == null)
@@ -84,7 +88,7 @@ namespace Dianzhu.ApplicationService.City
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<cityObj>();
             }
-            IList<cityObj> listcity = Mapper.Map<IList<Model.Area>, IList<cityObj>>(listarea);
+            IList<cityObj> listcity = Mapper.Map<IList<Area>, IList<cityObj>>(listarea);
             return listcity;
 
         }

@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-
+using Ydb.Common.Specification;
+using Dianzhu.Model;
 namespace Dianzhu.ApplicationService.Complaint
 {
     public class ComplaintService: IComplaintService
@@ -50,7 +51,7 @@ namespace Dianzhu.ApplicationService.Complaint
             {
                 throw new Exception("不能帮别人投诉！");
             }
-            Model.ServiceOrder order = ibllServiceOrder.GetOne(utils.CheckGuidID(complaintobj.orderID, "complaintobj.orderID"));
+            ServiceOrder order = ibllServiceOrder.GetOne(utils.CheckGuidID(complaintobj.orderID, "complaintobj.orderID"));
             if (order == null)
             {
                 throw new Exception("投诉的订单不存在！");
@@ -93,7 +94,7 @@ namespace Dianzhu.ApplicationService.Complaint
         public IList<complaintObj> GetComplaints(common_Trait_Filtering filter, common_Trait_ComplainFiltering complaint)
         {
             IList<Model.Complaint> listcomplaint = null;
-            Model.TraitFilter filter1 = utils.CheckFilter(filter, "Complaint");
+            TraitFilter filter1 = utils.CheckFilter(filter, "Complaint");
             listcomplaint = bllcomplaint.GetComplaints(filter1, utils.CheckGuidID(complaint.orderID, "orderID"), utils.CheckGuidID(complaint.storeID, "storeID"), utils.CheckGuidID(complaint.customerServiceID, "customerServiceID"));
             if (listcomplaint == null)
             {

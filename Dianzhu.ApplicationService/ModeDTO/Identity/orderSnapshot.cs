@@ -53,6 +53,8 @@ namespace Dianzhu.ApplicationService
                 orderObj orderobj = Mapper.Map<Model.ServiceOrder, orderObj>(order);
                 Order.OrderService.bllstatehis = bllstatehis;
                 orderService.changeObj(orderobj, order);
+                //todo:refactor: Automapping refactor.
+                
                 ServiceOpenTimeForDaySnapShotForOrder forday = order.Service.GetOpenTimeSnapShot(order.Details[0].TargetTime);
                 workTimeObj worktimeobj = new workTimeObj();
                 worktimeobj.id = forday.Id.ToString();

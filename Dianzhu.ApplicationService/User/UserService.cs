@@ -16,6 +16,8 @@ using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.Common.Application;
+using Ydb.Common;
+
 namespace Dianzhu.ApplicationService.User
 {
     public class UserService:IUserService
@@ -74,8 +76,8 @@ namespace Dianzhu.ApplicationService.User
         /// <returns></returns>
         public IList<customerObj> GetUsers(common_Trait_Filtering filter,common_Trait_UserFiltering userFilter, string userType)
         {
-            Model.TraitFilter filter1 = utils.CheckFilter(filter, "DZMembership");
-            IList<MemberDto> dzm = memberService.GetUsers(filter1.filter2, userFilter.alias, userFilter.email, userFilter.phone, userFilter.platform, userType);
+            TraitFilter filter1 = utils.CheckFilter(filter, "DZMembership");
+            IList<MemberDto> dzm = memberService.GetUsers(filter1, userFilter.alias, userFilter.email, userFilter.phone, userFilter.platform, userType);
             if (dzm == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
@@ -124,7 +126,7 @@ namespace Dianzhu.ApplicationService.User
                 }
             }
             System.Web.Security.MembershipCreateStatus createStatus;
-            Dianzhu.enum_UserType usertype = (enum_UserType)Enum.Parse(typeof(enum_UserType), userType);
+            enum_UserType usertype = (enum_UserType)Enum.Parse(typeof(enum_UserType), userType);
 
           RegisterResult registerResult=    memberService.RegisterMember(userBody.phone, userBody.pWord, userBody.pWord, userType,
                 System.Web.HttpContext.Current.Request.Url.Scheme + "://" + System.Web.HttpContext.Current.Request.Url.Authority);

@@ -7,6 +7,8 @@ using AutoMapper;
 using Dianzhu.Pay;
 using PHSuit;
 using Newtonsoft.Json;
+using Ydb.Common.Specification;
+using Ydb.Common;
 
 namespace Dianzhu.ApplicationService.Pay
 {
@@ -43,7 +45,7 @@ namespace Dianzhu.ApplicationService.Pay
                 throw new Exception("该订单不存在！");
             }
             IList<Model.Payment> payment = null;
-            Model.TraitFilter filter1 = utils.CheckFilter(filter, "Payment");
+            TraitFilter filter1 = utils.CheckFilter(filter, "Payment");
             payment = bllPayment.GetPays(filter1, payfilter.payStatus, payfilter.payType, guidOrder, utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (payment == null)
             {
@@ -132,7 +134,7 @@ namespace Dianzhu.ApplicationService.Pay
             {
                 throw new Exception("该订单不存在！");
             }
-            if (order.OrderStatus != Dianzhu.enum_OrderStatus.Ended)
+            if (order.OrderStatus !=  enum_OrderStatus.Ended)
             {
                 throw new Exception("该订单不是支付尾款的状态！");
             }
@@ -154,16 +156,16 @@ namespace Dianzhu.ApplicationService.Pay
             //payment.PayType = payobj.bOnline ?enum_PayType.Online :enum_PayType.Offline;
             //保存记录
             Dianzhu.Model.PaymentLog paymentLog = new Dianzhu.Model.PaymentLog();
-            paymentLog.PaylogType = Dianzhu.enum_PaylogType.None;
-            paymentLog.PayType = Dianzhu.enum_PayType.Offline;
+            paymentLog.PaylogType =  enum_PaylogType.None;
+            paymentLog.PayType =  enum_PayType.Offline;
             paymentLog.PayAmount = payment.Amount;
             paymentLog.PaymentId = payment.Id;
             bllPaymentLog.Save(paymentLog);
 
             //更新支付项              
-            payment.Status = Dianzhu.enum_PaymentStatus.Trade_Success;
-            payment.PayType = Dianzhu.enum_PayType.Offline;
-            payment.PayApi = Dianzhu.enum_PayAPI.None;
+            payment.Status = enum_PaymentStatus.Trade_Success;
+            payment.PayType = enum_PayType.Offline;
+            payment.PayApi =  enum_PayAPI.None;
             payment.Memo = "线下支付";
 
             DateTime dt = DateTime.Now;
