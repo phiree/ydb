@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 public partial class DZService_ServiceOverview :BasePage
 {
-    BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
+    dzServiceService bllService = Bootstrap.Container.Resolve<dzServiceService>();
 
     protected void Page_Load(object sender, EventArgs e)
     {

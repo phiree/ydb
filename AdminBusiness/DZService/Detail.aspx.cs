@@ -9,7 +9,7 @@ using Dianzhu.BLL;
 public partial class DZService_Detail : BasePage
 {
     public DZService CurrentService = new DZService();
-    BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
+    dzServiceService bllService = Bootstrap.Container.Resolve<dzServiceService>();
     protected void Page_Load(object sender, EventArgs e)
     {
         string strId = Request["serviceId"];

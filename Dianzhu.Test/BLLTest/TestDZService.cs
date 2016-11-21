@@ -23,7 +23,7 @@ namespace Dianzhu.Test.BLLTest
                 new DZService { Name="service1"}
                 );
             
-            BLLDZService service = new BLLDZService(dal,dalTag);
+            dzServiceService service = new dzServiceService(dal,dalTag);
        
            DZService result= service.GetOne(Guid.Empty);
            Assert.AreEqual("service1", result.Name);

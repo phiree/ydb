@@ -27,7 +27,7 @@ public class ResponseSVC001001 : BaseResponse
        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
  
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
+        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
       
         BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
  
@@ -115,7 +115,7 @@ public class ResponseSVC001001 : BaseResponse
                 };
 
                 ValidationResult validationResult = new ValidationResult();
-                bllDZService.SaveOrUpdate(service, out validationResult);
+                dzServiceService.SaveOrUpdate(service, out validationResult);
 
                 string[] tagList = service_Req.tag.Split(',');
                 for (int i = 0; i < tagList.Count(); i++)

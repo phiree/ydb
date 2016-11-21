@@ -12,8 +12,8 @@ namespace Ydb.BusinessResource.DomainModel
     {
         public ValidatorServiceOpenTimeForDay()
         {
-            RuleFor(x => x.TimeStart).NotEmpty().WithMessage("开始时间不能为空");
-            RuleFor(x => x.TimeEnd).NotEmpty().WithMessage("结束时间不能为空");
+            RuleFor(x => x.TimePeriod).NotNull().WithMessage("开始时间不能为空");
+          
             RuleFor(x => x.MaxOrderForOpenTime).NotEmpty().WithMessage("最大接单量不能为空");
         }
     }

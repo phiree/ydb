@@ -34,14 +34,14 @@ namespace Ydb.BusinessResource.Application
             repositoryBusiness.Delete(business);
         }
         [UnitOfWork]
-       public  ActionResult<Business> Add(string name, string phone, Guid ownerId, string latitude, string longtitude
+       public  ActionResult<Business> Add(string name, string phone,string email, Guid ownerId, string latitude, string longtitude
            , string rawAddressFromMapApi, string contact, int workingYears, int staffAmount)
 
         {
             ActionResult<Business> result = new ActionResult<Business>();
             try
             {
-                Business business = new Business(name, phone, ownerId, latitude, longtitude
+                Business business = new Business(name, phone,email, ownerId, latitude, longtitude
                 , rawAddressFromMapApi,contact,workingYears,staffAmount);
                 repositoryBusiness.Add(business);
                 result.ResultObject = business;

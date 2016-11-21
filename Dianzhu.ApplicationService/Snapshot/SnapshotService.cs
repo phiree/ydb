@@ -12,13 +12,13 @@ namespace Dianzhu.ApplicationService.Snapshot
     public class SnapshotService: ISnapshotService
     {
         BLL.IBLLServiceOrder ibllserviceorder;
-        BLL.BLLDZService blldzservice;
+        BLL.dzServiceService dzServiceService;
         BLL.BLLServiceOrderStateChangeHis bllstatehis;
         Order.IOrderService orderService;
-        public SnapshotService(BLL.IBLLServiceOrder ibllserviceorder, BLL.BLLDZService blldzservice, BLL.BLLServiceOrderStateChangeHis bllstatehis,IOrderService orderService)
+        public SnapshotService(BLL.IBLLServiceOrder ibllserviceorder, BLL.dzServiceService dzServiceService, BLL.BLLServiceOrderStateChangeHis bllstatehis,IOrderService orderService)
         {
             this.ibllserviceorder = ibllserviceorder;
-            this.blldzservice = blldzservice;
+            this.dzServiceService = dzServiceService;
             this.bllstatehis = bllstatehis;
             this.orderService = orderService;
         }
@@ -47,7 +47,7 @@ namespace Dianzhu.ApplicationService.Snapshot
             //}
             Guid guidService = utils.CheckGuidID(ServiceID, "ServiceID");
             Model.TraitFilter filter1 = utils.CheckFilter(filter, "Snapshots");
-            DZService dzService = blldzservice.GetOne(guidService);
+            DZService dzService = dzServiceService.GetOne(guidService);
             if (dzService.Business.OwnerId.ToString() != customer.UserID)
             {
                 throw new Exception("你的店铺没有该项服务！");

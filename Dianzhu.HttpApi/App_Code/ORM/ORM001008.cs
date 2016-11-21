@@ -27,7 +27,7 @@ public class ResponseORM001008 : BaseResponse
         //todo:用户验证的复用.
        
       
-        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
+        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
         PushService bllPushService = Bootstrap.Container.Resolve<PushService>();
 
         BLLServiceOrderRemind bllServiceOrderRemind = Bootstrap.Container.Resolve<BLLServiceOrderRemind>();
@@ -98,7 +98,7 @@ public class ResponseORM001008 : BaseResponse
                     return;
                 }
 
-                DZService service = bllDZService.GetOne(svcID);
+                DZService service = dzServiceService.GetOne(svcID);
                 if (service == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -131,11 +131,11 @@ public class ResponseORM001008 : BaseResponse
 
                     if (order.Details.Count > 0)
                     {
-                        tagsList = bllDZService.GetServiceTags(order.Details[0].OriginalService);
+                        tagsList = dzServiceService.GetServiceTags(order.Details[0].OriginalService);
                     }
                     else
                     {
-                        tagsList = bllDZService.GetServiceTags(pushServiceList[0].OriginalService);
+                        tagsList = dzServiceService.GetServiceTags(pushServiceList[0].OriginalService);
                     }
                 }
                 else
@@ -144,7 +144,7 @@ public class ResponseORM001008 : BaseResponse
 
                     if (order.Details.Count > 0)
                     {
-                        tagsList = bllDZService.GetServiceTags(order.Details[0].OriginalService);
+                        tagsList = dzServiceService.GetServiceTags(order.Details[0].OriginalService);
                     }
                 }
 

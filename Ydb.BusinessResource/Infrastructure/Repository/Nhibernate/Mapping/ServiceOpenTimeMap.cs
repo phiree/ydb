@@ -33,10 +33,11 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping
             //20160617_longphui_add
             Map(x => x.Tag);
 
-            Map(x => x.TimeEnd);
-            Map(x => x.TimeStart);
-            Map(x => x.PeriodEnd);
-            Map(x => x.PeriodStart);
+            Component(c => c.TimePeriod, m => {
+                m.Component(t => t.StartTime, ms => { ms.Map(x => x.Hour);ms.Map(x => x.Minute); });
+                m.Component(t => t.EndTime, ms => { ms.Map(x => x.Hour); ms.Map(x => x.Minute); });
+            });
+
             Map(x => x.MaxOrderForOpenTime);
             Map(x => x.Enabled);
             References<ServiceOpenTime>(x => x.ServiceOpenTime).Column("ServiceOpenTime_id");

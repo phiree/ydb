@@ -15,7 +15,7 @@ namespace Ydb.BusinessResource.Application
          Business GetOne(Guid id);
          void Update(Business business);
          void Delete(Business business);
-        ActionResult<Business> Add(string name, string phone, Guid ownerId, string latitude, string longtitude
+        ActionResult<Business> Add(string name, string phone,string email, Guid ownerId, string latitude, string longtitude
            , string rawAddressFromMapApi,string contact,int workingYears,int StaffAmount);
         ActionResult<Business> ChangeInfo(string businessId, string ownerId, string name, string description, string phone,
         string address, string avatarImageName);

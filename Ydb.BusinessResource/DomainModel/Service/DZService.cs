@@ -28,13 +28,13 @@ namespace Ydb.BusinessResource.DomainModel
             {
                 ServiceOpenTimeForDay sotd = new ServiceOpenTimeForDay
                 {
-                    TimeStart = "08:00",
-                    TimeEnd = "12:00"
+                    TimePeriod = new TimePeriod(new Time("08:00"), new Time("12:00"))
+                    
                 };
                 ServiceOpenTimeForDay sotd2 = new ServiceOpenTimeForDay
                 {
-                    TimeStart = "14:00",
-                    TimeEnd = "18:00"
+                    TimePeriod = new TimePeriod(new Time("14:00"), new Time("18:00"))
+                   
                 };
                 var sotdlist = new List<ServiceOpenTimeForDay>();
                 sotdlist.Add(sotd);
@@ -52,9 +52,7 @@ namespace Ydb.BusinessResource.DomainModel
             }
 
         }
-
-       
-
+ 
         #region  属性
         /// <summary>
         /// 服务项目所属类别
@@ -88,18 +86,6 @@ namespace Ydb.BusinessResource.DomainModel
         /// </summary>
         public virtual enum_PayType AllowedPayType { get; set; }
 
-        public virtual int GetAllPayTypeNum
-        {
-            get
-            {
-                enum_PayType pt = enum_PayType.None;
-                foreach (enum_PayType item in Enum.GetValues(typeof(enum_PayType)))
-                {
-                    pt |= item;
-                }
-                return (int)pt;
-            }
-        }
        
 
         /// <summary>
@@ -132,7 +118,7 @@ namespace Ydb.BusinessResource.DomainModel
         /// </summary>
         public virtual enum_ChargeUnit ChargeUnit { get; set; }
         /// <summary>
-        /// 计费单位英文转化为中文
+        /// 计费单位英文转化为中文 refactor: 应用层的职责.
         /// </summary>
         public virtual string ChargeUnitFriendlyName
         {
@@ -194,22 +180,6 @@ namespace Ydb.BusinessResource.DomainModel
         /// </summary>
         public virtual bool Enabled { get; set; }
         public virtual IList<ServiceOpenTime> OpenTimes { get; set; }
-        public virtual bool AddOpenTime(ServiceOpenTime openTime, out string errMsg)
-        {
-            errMsg = string.Empty;
-            if ((int)openTime.DayOfWeek < 1 || (int)openTime.DayOfWeek > 7)
-            {
-                errMsg = "星期数有误,只能是1到7";
-                return false;
-
-            }
-            if (OpenTimes.Any(x => x.DayOfWeek == openTime.DayOfWeek))
-            {
-                errMsg = "已经定义了星期" + openTime.DayOfWeek + "的时间";
-                return false;
-            }
-            return true;
-        }
         /// <summary>
         /// 是否为先付
         /// </summary>
@@ -242,35 +212,7 @@ namespace Ydb.BusinessResource.DomainModel
             return mach.Value;
         }
 
-        /// <summary>
-        /// 拷贝
-        /// </summary>
-        /// <param name="newService"></param>
-        public virtual void CopyTo(DZService newService)
-        {
-            newService.Id = Id;
-            newService.Name = Name;
-            newService.Business = Business;
-            newService.ServiceType = ServiceType;
-            newService.Description = Description;
-            
-            newService.Scope = Scope;
-            newService.MinPrice = MinPrice;
-            newService.UnitPrice = UnitPrice;
-            newService.DepositAmount = DepositAmount;
-            newService.OrderDelay = OrderDelay;
-            newService.OpenTimes = OpenTimes;
-            newService.ServiceMode = ServiceMode;
-            newService.IsForBusiness = IsForBusiness;
-            newService.AllowedPayType = AllowedPayType;
-            newService.IsCompensationAdvance = IsCompensationAdvance;
-            newService.IsCertificated = IsCertificated;
-            newService.ChargeUnit = ChargeUnit;
-            newService.FixedPrice = FixedPrice;
-            newService.Enabled = Enabled;
-            newService.OverTimeForCancel = OverTimeForCancel;
-            newService.CancelCompensation = CancelCompensation;
-        }
+         
 
          string errMsg;
         /// <summary>
@@ -297,21 +239,61 @@ namespace Ydb.BusinessResource.DomainModel
             
             
         }*/
-        public virtual ServiceOpenTime  GetServiceOpenTime (DateTime targetTime)
+        public virtual ServiceOpenTime  GetServiceOpenTime (DayOfWeek dayOfWeek,out string errMsg)
         {
-            var targetOpenTime = OpenTimes.Where(x => x.DayOfWeek == targetTime.DayOfWeek);
+            errMsg = string.Empty;
+            var targetOpenTime = OpenTimes.Where(x => x.DayOfWeek == dayOfWeek);
             int count = targetOpenTime.Count();
-            errMsg = "时间项应该有且只有一项";
-            System.Diagnostics.Debug.Assert(count == 1, errMsg);
             if (count != 1)
             {
-                log.Error(errMsg);
-                throw new Exception(errMsg);
+                if (count > 1)
+                {
+                    errMsg = "时间项应该有且只有一项";
+                    log.Error(errMsg);
+                }
+                return null;
+            }
+            else if (count == 0)
+            {
+                throw new Exception("没有对应的工作日");
             }
             return targetOpenTime.ToList()[0];
          //   return new ServiceOpenTimeSnapshot { MaxOrderForDay=targetOpenTime.ToList()[0].MaxOrderForDay };
 
         }
+        //添加一天的定义服务时间
+        public virtual bool AddOpenTime(DayOfWeek dayOfWeek,int maxOrder, out string errMsg)
+        {
+            errMsg = string.Empty;
+            var existed = GetServiceOpenTime(dayOfWeek,out errMsg);
+            if (!string.IsNullOrEmpty(errMsg))
+            {
+                return false;
+            }
+            if (existed == null)
+            {
+                ServiceOpenTime openTime = new ServiceOpenTime();
+                openTime.MaxOrderForDay = maxOrder;
+                openTime.DayOfWeek = dayOfWeek;
+                this.OpenTimes.Add(openTime);
+                return true;
+
+            }
+
+            if ((int)existed.DayOfWeek < 1 || (int)existed.DayOfWeek > 7)
+            {
+                errMsg = "星期数有误,只能是1到7";
+                return false;
+
+            }
+            if (OpenTimes.Any(x => x.DayOfWeek == existed.DayOfWeek))
+            {
+                errMsg = "已经定义了星期" + existed.DayOfWeek + "的时间";
+                return false;
+            }
+            return true;
+        }
+        
 
     }
 }

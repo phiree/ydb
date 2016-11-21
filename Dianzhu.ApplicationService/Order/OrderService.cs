@@ -68,6 +68,7 @@ namespace Dianzhu.ApplicationService.Order
        public   void changeObj(orderObj orderobj, Model.ServiceOrder serviceorder)
         {
             Model.ServiceOrderStateChangeHis statehis = bllstatehis.GetMaxNumberOrderHis(serviceorder);
+            Business business = businessService.GetOne(new Guid(serviceorder.BusinessId));
             orderobj.currentStatusObj = Mapper.Map<Model.ServiceOrderStateChangeHis, orderStatusObj>(statehis);
             if (statehis == null)
             {
@@ -81,7 +82,7 @@ namespace Dianzhu.ApplicationService.Order
             if (serviceorder.Details != null && serviceorder.Details.Count > 0)
             {
                 orderobj.serviceSnapshotObj = Mapper.Map<Model.ServiceOrderDetail, serviceSnapshotObj>(serviceorder.Details[0]);
-                Business business = businessService.GetOne(new Guid( serviceorder.BusinessId));
+                
                 orderobj.storeObj = Mapper.Map<Business, storeObj>(business);
                 // todo: refactor 待解决
                 //Store.StoreService.changeObj(orderobj.storeObj, business);
@@ -129,10 +130,11 @@ namespace Dianzhu.ApplicationService.Order
                     orderobj.notes = dzs[0].Memo ?? "";
                     orderobj.serviceTime = dzs[0].TargetTime.ToString("yyyyMMddHHmmss");
                     orderobj.serviceSnapshotObj = Mapper.Map<Model.ServiceOrderPushedService, serviceSnapshotObj>(dzs[0]);
-                    if (!string.IsNullOrEmpty(dzs[0].OriginalServiceId )!= null &&!string.IsNullOrEmpty( dzs[0].ServiceSnapShot.ServiceBusinessId ))
+                    if (!string.IsNullOrEmpty(dzs[0].OriginalServiceId )  &&!string.IsNullOrEmpty( dzs[0].ServiceSnapShot.ServiceBusinessId ))
                     {
-                        orderobj.storeObj = Mapper.Map< Business, storeObj>(dzs[0].OriginalService.Business);
-                        Store.StoreService.changeObj(orderobj.storeObj, dzs[0].OriginalService.Business);
+                     
+                        orderobj.storeObj = Mapper.Map< Business, storeObj>(business);
+                        changeObj(orderobj.storeObj, business);
                     }
                     if (string.IsNullOrEmpty(orderobj.serviceAddress))
                     {
@@ -147,43 +149,44 @@ namespace Dianzhu.ApplicationService.Order
             //}
             
             orderobj.customerObj = Mapper.Map<MemberDto, customerObj>(memberService.GetUserById( serviceorder.CustomerId));
-            
-            orderobj.formanObj = Mapper.Map<Model.Staff, staffObj>(serviceorder.Staff);
+            Ydb.BusinessResource.DomainModel.Staff staff = staffService.GetOne(new Guid(serviceorder.StaffId));
+            orderobj.formanObj = Mapper.Map<Ydb.BusinessResource.DomainModel. Staff, staffObj>(staff);
             if (orderobj.formanObj != null)
             {
                 Staff.StaffService.bllAssignment = bllOrderAssignment;
-                Staff.StaffService.changeObj(orderobj.formanObj, serviceorder.Staff);
+                Staff.StaffService.changeObj(orderobj.formanObj, staff);
             }
-            if (serviceorder.Business != null)
+            if (!string.IsNullOrEmpty(serviceorder.BusinessId))
             {
-                foreach (Model.BusinessImage bimg in serviceorder.Business.ChargePersonIdCards)
+              
+                foreach (BusinessImage bimg in business.ChargePersonIdCards)
                 {
                     if (bimg.ImageName != null)
                     {
                         orderobj.storeObj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);//MediaGetUrl
                     }
                 }
-                foreach (Model.BusinessImage bimg in serviceorder.Business.BusinessLicenses)
+                foreach ( BusinessImage bimg in business.BusinessLicenses)
                 {
                     if (bimg.ImageName != null)
                     {
                         orderobj.storeObj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);
                     }
                 }
-                foreach (Model.BusinessImage bimg in serviceorder.Business.BusinessShows)
+                foreach ( BusinessImage bimg in business.BusinessShows)
                 {
                     if (bimg.ImageName != null)
                     {
                         orderobj.storeObj.showImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);
                     }
                 }
-                orderobj.serviceSnapshotObj.location.longitude = serviceorder.Business.Longitude.ToString();
-                orderobj.serviceSnapshotObj.location.latitude = serviceorder.Business.Latitude.ToString();
-                orderobj.serviceSnapshotObj.location.address = serviceorder.Business.RawAddressFromMapAPI == null ? "" : serviceorder.Business.RawAddressFromMapAPI;
+                orderobj.serviceSnapshotObj.location.longitude = business.Longitude.ToString();
+                orderobj.serviceSnapshotObj.location.latitude = business.Latitude.ToString();
+                orderobj.serviceSnapshotObj.location.address = business.RawAddressFromMapAPI == null ? "" : business.RawAddressFromMapAPI;
 
-                orderobj.storeObj.location.latitude = serviceorder.Business.Latitude.ToString();
-                orderobj.storeObj.location.longitude = serviceorder.Business.Longitude.ToString();
-                orderobj.storeObj.location.address = serviceorder.Business.RawAddressFromMapAPI==null?"":serviceorder.Business.RawAddressFromMapAPI;
+                orderobj.storeObj.location.latitude = business.Latitude.ToString();
+                orderobj.storeObj.location.longitude = business.Longitude.ToString();
+                orderobj.storeObj.location.address = business.RawAddressFromMapAPI==null?"": business.RawAddressFromMapAPI;
             }
             if (serviceorder.CustomerServiceId != null)
             {
@@ -194,6 +197,43 @@ namespace Dianzhu.ApplicationService.Order
             }
             
         }
+        public void changeObj(storeObj storeobj, Business business)
+        {
+            foreach (BusinessImage bimg in business.ChargePersonIdCards)
+            {
+                if (bimg.ImageName != null)
+                {
+                    storeobj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);//MediaGetUrl
+                }
+            }
+            foreach (BusinessImage bimg in business.BusinessLicenses)
+            {
+                if (bimg.ImageName != null)
+                {
+                    storeobj.certificateImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);
+                }
+            }
+            foreach (BusinessImage bimg in business.BusinessShows)
+            {
+                if (bimg.ImageName != null)
+                {
+                    storeobj.showImgUrls.Add(Dianzhu.Config.Config.GetAppSetting("ImageHandler") + bimg.ImageName);
+                }
+            }
+            if (storeobj.location == null)
+            {
+                storeobj.location = new locationObj();
+            }
+            storeobj.location.latitude = business.Latitude.ToString();
+            storeobj.location.longitude = business.Longitude.ToString();
+            storeobj.location.address = business.RawAddressFromMapAPI == null ? "" : business.RawAddressFromMapAPI;
+
+            storeobj.headCount = int.Parse(staffService.GetStaffsCount("", "", "", "", "", "", business.Id).ToString());
+
+
+        }
+
+
         /// <summary>
         /// 根据条件从数据库中获取订单列表
         /// </summary>
@@ -208,7 +248,7 @@ namespace Dianzhu.ApplicationService.Order
             DateTime dtAfter = utils.CheckDateTime(orderfilter.afterThisTime, "yyyyMMddHHmmss", "orderfilter.afterThisTime");
             DateTime dtBefore = utils.CheckDateTime(orderfilter.beforeThisTime, "yyyyMMddHHmmss", "orderfilter.beforeThisTime");
             IList<Model.ServiceOrder> order = null;
-            Model.TraitFilter filter1 = utils.CheckFilter(filter, "ServiceOrder");
+            TraitFilter filter1 = utils.CheckFilter(filter, "ServiceOrder");
             Guid guidUser = utils.CheckGuidID(customer.UserID, "token.UserID");
             order = ibllserviceorder.GetOrders(filter1, orderfilter.statusSort, orderfilter.status, guidStore, strStaffID, dtAfter, dtBefore, guidUser, customer.UserType, orderfilter.assign);
             return order;
@@ -372,15 +412,15 @@ namespace Dianzhu.ApplicationService.Order
             }
             if (customer.UserType == "business")
             {
-                if (order.Business == null || order.Business.OwnerId.ToString() != customer.UserID)
+                if (string.IsNullOrEmpty(order.BusinessId) || order.ServiceBusinessOwnerId!= customer.UserID)
                 {
                     throw new Exception("这不是你的订单！");
                 }
             }
             if (customer.UserType == "staff")
             {
-                Model.Staff staff = staffService.GetOneByUserID(Guid.Empty, customer.UserID);
-                if (staff == null || order.Business == null || staff.Belongto.Id != order.Business.Id)
+             Ydb.BusinessResource.DomainModel. Staff staff = staffService.GetOneByUserID(Guid.Empty, customer.UserID);
+                if (staff == null || string.IsNullOrEmpty(order.BusinessId )|| staff.Belongto.Id.ToString() != order.BusinessId)
                 {
                     throw new Exception("这不是你店铺的订单！");
                 }
@@ -433,22 +473,24 @@ namespace Dianzhu.ApplicationService.Order
         public orderObj PatchOrderPrice(string orderID, orderObj orderobj, Customer customer)
         {
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
+          
             Model.ServiceOrder order = ibllserviceorder.GetOne(guidOrder);
+            Business business = businessService.GetOne(new Guid(order.BusinessId));
             if (order == null)
             {
                 throw new Exception("该订单不存在！");
             }
             if (customer.UserType == "business")
             {
-                if (order.Business == null || order.Business.OwnerId.ToString() != customer.UserID)
+                if (business == null || business.OwnerId.ToString() != customer.UserID)
                 {
                     throw new Exception("这不是你的订单！");
                 }
             }
             if (customer.UserType == "staff")
             {
-                Model.Staff staff = staffService.GetOneByUserID(Guid.Empty, customer.UserID);
-                if (staff == null || order.Business == null || staff.Belongto.Id != order.Business.Id)
+                Ydb.BusinessResource.DomainModel.Staff staff = staffService.GetOneByUserID(Guid.Empty, customer.UserID);
+                if (staff == null || business == null || staff.Belongto.Id != business.Id)
                 {
                     throw new Exception("这不是你店铺的订单！");
                 }
@@ -552,7 +594,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单不是已推送服务的状态！");
             }
-            bllpushservice.SelectServiceAndCreate(order, service);
+            bllpushservice.SelectServiceAndCreate(order, serviceID);
             ibllserviceorder.Update(order);
             //IList<ServiceOrderPushedService> pushServiceList = bllpushservice.GetPushedServicesForOrder(order);
             //orderObj.svcObj.SetTag(orderObj.svcObj, tagsList);
@@ -971,11 +1013,11 @@ namespace Dianzhu.ApplicationService.Order
                 target =enum_ChatTarget.store;
                 ServiceOrder order = ibllserviceorder.GetOne(guidOrder);
                enum_OrderStatus oldStatus = order.OrderStatus;
-                if (order.Details[0].OriginalService.Business.OwnerId != userId)
+                if (order.ServiceBusinessOwnerId!= userId.ToString())
                 {
                     throw new Exception("没有对应的订单！");
                 }
-                if (order.Details[0].OriginalService.Business.OwnerId != member.Id)
+                if (order.ServiceBusinessOwnerId != member.Id.ToString())
                 {
                     throw new Exception("该订单不属于该用商户！");
                 }
@@ -1039,7 +1081,8 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单不存在!");
             }
-            staffObj staffobj = Mapper.Map<Model.Staff, staffObj>(order.Staff);
+            Ydb.BusinessResource.DomainModel.Staff staff = staffService.GetOne(new Guid(order.StaffId));
+            staffObj staffobj = Mapper.Map<Ydb.BusinessResource.DomainModel.Staff, staffObj>(staff);
             return staffobj;
         }
 
@@ -1102,20 +1145,20 @@ namespace Dianzhu.ApplicationService.Order
                 throw new Exception("该商户不存在该订单！");
             }
             string strState = "";
-            if (order.Staff == null && staffID != "")
+            if (order.StaffId == null && staffID != "")
             {
                 strState = "指派";
                 //throw new Exception("该订单还没有被指派过！");
             }
-            if (order.Staff != null && staffID != "")
+            if (order.StaffId != null && staffID != "")
             {
                 strState = "更改指派";
             }
-            if (order.Staff != null && staffID == "")
+            if (order.StaffId != null && staffID == "")
             {
                 strState = "取消指派";
             }
-            if (order.Staff == null && staffID == "")
+            if (order.StaffId == null && staffID == "")
             {
                 throw new Exception("该订单还没有被指派过，请指定指派员工！");
             }
@@ -1123,12 +1166,12 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单的服务已经完成，无法再改派！");
             }
-            if (strState == "更改指派" && order.Staff.Id.ToString() == staffID)
+            if (strState == "更改指派" && order.StaffId == staffID)
             {
                 throw new Exception("改派给同一个人了！");
             }
 
-            Model.Staff staff = staffService.GetStaff(order.Business.Id, utils.CheckGuidID(staffID, "staffID"));
+            Ydb.BusinessResource.DomainModel.Staff staff = staffService.GetStaff(new Guid(order.BusinessId), utils.CheckGuidID(staffID, "staffID"));
             if (strState != "取消指派")
             {
                 if (staff == null)
@@ -1155,36 +1198,36 @@ namespace Dianzhu.ApplicationService.Order
                     oa.CreateTime = dt;
                     oa.AssignedTime = dt;
                     oa.Order = order;
-                    oa.AssignedStaff = staff;
-                    order.Staff = staff;
+                    oa.AssignedStaffId = staffID;
+                    order.StaffId = staffID;
                     //oa.Order.Details[0].Staff.Clear();
                     //oa.Order.Details[0].Staff.Add(staff);
                     bllOrderAssignment.Save(oa);
                     strState = "指派成功";
                     break;
                 case "更改指派":
-                    oa = bllOrderAssignment.FindByOrderAndStaff(order, order.Staff);
+                    oa = bllOrderAssignment.FindByOrderAndStaff(order, order.StaffId);
                     if (oa == null || oa.Enabled == false)
                     {
                         throw new Exception("原指派不存在或已取消！");
                     }
-                    order.Staff.IsAssigned = false;
+                    staff.IsAssigned = false;
                     staff.IsAssigned = true;
-                    oa.AssignedStaff = staff;
+                    oa.AssignedStaffId = staffID;
                     oa.AssignedTime = dt;
-                    order.Staff = staff;
+                    order.StaffId = staffID;
                     strState = "改派成功";
                     break;
                 case "取消指派":
-                    oa = bllOrderAssignment.FindByOrderAndStaff(order, order.Staff);
+                    oa = bllOrderAssignment.FindByOrderAndStaff(order, order.StaffId);
                     if (oa == null || oa.Enabled == false)
                     {
                         throw new Exception("该指派不存在或已取消！");
                     }
-                    order.Staff.IsAssigned = false;
+                  staff.IsAssigned = false;
                     oa.Enabled = false;
                     oa.DeAssignedTime = dt;
-                    order.Staff = null;
+                    order.StaffId = null;
                     strState = "取消成功";
                     break;
             }
@@ -1215,11 +1258,11 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该商户指派的订单不存在！");
             }
-            if (order.Staff != null)
+            if (order.StaffId != null)
             {
                 throw new Exception("该订单已经指派！");
             }
-            Model.Staff staff = staffService.GetStaff(order.Business.Id, utils.CheckGuidID(staffID, "staffID"));
+            Ydb.BusinessResource.DomainModel.Staff staff = staffService.GetStaff(new Guid( order.BusinessId), utils.CheckGuidID(staffID, "staffID"));
             if (staff == null)
             {
                 throw new Exception("在指派订单所属的店铺中不存在该指派的员工！");
@@ -1238,8 +1281,8 @@ namespace Dianzhu.ApplicationService.Order
             oa.CreateTime = dt;
             oa.AssignedTime = dt;
             oa.Order = order;
-            oa.AssignedStaff = staff;
-            order.Staff = staff;
+            oa.AssignedStaffId = staffID;
+            order.StaffId = staffID;
             //oa.Order.Details[0].Staff.Clear();
             //oa.Order.Details[0].Staff.Add(staff);
             bllOrderAssignment.Save(oa);
@@ -1279,7 +1322,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该商户不存在该订单！");
             }
-            if (order.Staff == null)
+            if (order.StaffId == null)
             {
                 throw new Exception("该订单还没有被指派过！");
             }
@@ -1287,20 +1330,20 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单的服务已经完成，无法再取消指派！");
             }
-            if (order.Staff.Id.ToString() != staffID)
+            if (order.StaffId  != staffID)
             {
                 throw new Exception("该订单指派的不是该员工！");
             }
-            Model.OrderAssignment oa =bllOrderAssignment.FindByOrderAndStaff(order, order.Staff);
+            Model.OrderAssignment oa =bllOrderAssignment.FindByOrderAndStaff(order, order.StaffId);
             if (oa == null || oa.Enabled == false)
             {
                 throw new Exception("该指派不存在或已取消！");
             }
-            order.Staff.IsAssigned = false;
+           // staff.IsAssigned = false;
             oa.Enabled = false;
             DateTime dt = DateTime.Now;
             oa.DeAssignedTime = dt;
-            order.Staff = null;
+          //  order.Staff = null;
             return new string[] { "取消成功！" };
         }
     }

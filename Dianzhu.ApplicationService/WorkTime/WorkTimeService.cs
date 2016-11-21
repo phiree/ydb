@@ -5,17 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.Results;
-
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
+using Ydb.Common.Application;
 namespace Dianzhu.ApplicationService.WorkTime
 {
-    public class WorkTimeService: IWorkTimeService
+    public class WorkTimeService : IWorkTimeService
     {
-        BLL.BLLDZService bllDZService;
-        BLL.BLLServiceOpenTimeForDay blltimeforday;
-        public WorkTimeService(BLL.BLLDZService bllDZService, BLL.BLLServiceOpenTimeForDay blltimeforday)
+        IDZServiceService dzServiceService;
+
+
+
+        public WorkTimeService(IDZServiceService dzServiceService)
         {
-            this.bllDZService = bllDZService;
-            this.blltimeforday = blltimeforday;
+            this.dzServiceService = dzServiceService;
+
         }
 
         /// <summary>
@@ -26,114 +30,18 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <param name="worktimeobj"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public workTimeObj PostWorkTime(string storeID, string serviceID, workTimeObj worktimeobj,Customer customer)
+        public workTimeObj PostWorkTime(string storeID, string serviceID, workTimeObj worktimeobj, Customer customer)
         {
-            if (string.IsNullOrEmpty(storeID))
-            {
-                throw new FormatException("所属店铺不能为空！");
-            }
-            if (string.IsNullOrEmpty(serviceID))
-            {
-                throw new FormatException("所属服务不能为空！");
-            }
-            worktimeobj.bOpen = true;
-            if (string.IsNullOrEmpty(worktimeobj.startTime) || string.IsNullOrEmpty(worktimeobj.endTime))
-            {
-                throw new FormatException("服务时间不能为空！");
-            }
-            else
-            {
-                try
-                {
-                    DateTime dtStart = Convert.ToDateTime("2016-06-20 " + worktimeobj.startTime.Trim());
-                    DateTime dtEnd = Convert.ToDateTime("2016-06-20 " + worktimeobj.endTime.Trim());
-                    if (dtStart >= dtEnd)
-                    {
-                        throw new FormatException("服务开始时间不能大于等于结束时间！");
-                    }
-                    worktimeobj.startTime = dtStart.ToString("HH:mm");
-                    worktimeobj.endTime = dtEnd.ToString("HH:mm");
-                }
-                catch
-                {
-                    throw new FormatException("服务时间格式不正确！");
-                }
-            }
-            if (string.IsNullOrEmpty(worktimeobj.maxCountOrder))
-            {
-                throw new FormatException("该时间段的最大接单量不能为空！");
-            }
-            else
-            {
-                int intCount = 0;
-                if (!int.TryParse(worktimeobj.maxCountOrder, out intCount))
-                {
-                    throw new FormatException("该时间段的最大接单量必须为整数！");
-                }
-            }
-            DayOfWeek week1 = utils.CheckWeek(worktimeobj.week.ToString());
 
-            Model.DZService service = bllDZService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
-            if (service == null)
+
+            DayOfWeek dayOfWeek = utils.CheckWeek(worktimeobj.week.ToString());
+            ActionResult<ServiceOpenTimeForDay> result = dzServiceService.AddWorkTimeDay(storeID, serviceID, dayOfWeek, worktimeobj.startTime, worktimeobj.endTime, Convert.ToInt32(worktimeobj.maxCountOrder), worktimeobj.tag);
+
+            if (!result.IsSuccess)
             {
-                throw new Exception("不存在该服务！");
+                throw new Exception(result.ErrMsg);
             }
-            if (service.Business.Id != utils.CheckGuidID(storeID, "storeID"))
-            {
-                throw new Exception("该服务不属于该店铺！");
-            }
-            if (service.Business.OwnerId.ToString() != customer.UserID)
-            {
-                throw new Exception("这不是你店铺的服务！");
-            }
-            foreach (Model.ServiceOpenTime sotObj in service.OpenTimes)
-            {
-                if (sotObj.DayOfWeek == week1)
-                {
-                    Model.ServiceOpenTimeForDay sotDay = Mapper.Map<workTimeObj, Model.ServiceOpenTimeForDay>(worktimeobj);
-                    sotDay.ServiceOpenTime = sotObj;
-                    sotObj.AddServicePeriod(sotDay);
-                    break;
-                }
-            }
-            //ValidationResult vResult = new ValidationResult();
-            //bllDZService.SaveOrUpdate(service, out vResult);
-            //if (!vResult.IsValid)
-            //{
-            //    string strerr_Msg = "";
-            //    foreach (ValidationFailure vr in vResult.Errors)
-            //    {
-            //        strerr_Msg += vr.ErrorCode + ":" + vr.ErrorMessage + "\n";
-            //    }
-            //    throw new Exception(strerr_Msg);
-            //}
-            //UnitOfWork模式下，直接修改session中的对象，commit后会自动更改数据库中的数据。所以上面的代码就没有必要了。
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            service = bllDZService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
-            int cState = 0;
-            foreach (Model.ServiceOpenTime sotObj in service.OpenTimes)
-            {
-                if (sotObj.DayOfWeek==week1)
-                {
-                    foreach (Model.ServiceOpenTimeForDay sotDayObj in sotObj.OpenTimeForDay)
-                    {
-                        if (sotDayObj.TimeStart ==worktimeobj.startTime && sotDayObj.TimeEnd == worktimeobj.endTime)
-                        {
-                            cState = 1;
-                            worktimeobj  = Mapper.Map< Model.ServiceOpenTimeForDay, workTimeObj>(sotDayObj);
-                            worktimeobj.week = sotObj.DayOfWeek.ToString();
-                        }
-                    }
-                }
-            }
-            if (cState == 1)
-            {
-                return worktimeobj;
-            }
-            else
-            {
-                throw new Exception("新建失败！");
-            }
+            return Mapper.Map<workTimeObj>(result.ResultObject);
         }
 
         /// <summary>
@@ -143,7 +51,7 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <param name="serviceID"></param>
         /// <param name="worktime"></param>
         /// <returns></returns>
-        public IList<workTimeObj> GetWorkTimes(string storeID, string serviceID,common_Trait_WorkTimeFiltering worktime)
+        public IList<workTimeObj> GetWorkTimes(string storeID, string serviceID, common_Trait_WorkTimeFiltering worktime)
         {
             if (string.IsNullOrEmpty(storeID))
             {
@@ -153,38 +61,20 @@ namespace Dianzhu.ApplicationService.WorkTime
             {
                 throw new FormatException("所属服务不能为空！");
             }
-            List<workTimeObj> worktimeobjs = new List<workTimeObj>() ;
+            List<workTimeObj> worktimeobjs = new List<workTimeObj>();
+            DayOfWeek? dayOfWeek;
+            if (string.IsNullOrEmpty(worktime.week))
+            { dayOfWeek = null; }
+            else
+            {
+                dayOfWeek = utils.CheckWeek(worktime.week);
+            }
 
-            Model.DZService service = bllDZService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
-            if (service == null)
-            {
-                throw new Exception("不存在该服务！");
-            }
-            if (service.Business.Id != utils.CheckGuidID(storeID, "storeID"))
-            {
-                throw new Exception("该服务不属于该店铺！");
-            }
-            foreach (Model.ServiceOpenTime sotObj in service.OpenTimes)
-            {
-                if (worktime.week==null || sotObj.DayOfWeek == utils.CheckWeek(worktime.week))
-                {
-                    foreach (Model.ServiceOpenTimeForDay sotdayObj in sotObj.OpenTimeForDay)
-                    {
-                        if (worktime.startTime != null && worktime.startTime != sotdayObj.TimeStart)
-                        {
-                            continue;
-                        }
-                        if (worktime.endTime != null && worktime.endTime != sotdayObj.TimeEnd)
-                        {
-                            continue;
-                        }
-                        workTimeObj worktimeobj = Mapper.Map<Model.ServiceOpenTimeForDay, workTimeObj>(sotdayObj);
-                        worktimeobj.week = sotObj.DayOfWeek.ToString();
-                        worktimeobjs.Add(worktimeobj);
-                    }
-                }
-            }
-            return worktimeobjs;
+            IList<ServiceOpenTimeForDay> list = dzServiceService.GetWorkTimes(storeID, serviceID, dayOfWeek, worktime.startTime, worktime.endTime);
+
+
+
+            return Mapper.Map<IList<workTimeObj>>(list);// worktimeobjs;
         }
 
 
@@ -197,45 +87,10 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <returns></returns>
         public countObj GetWorkTimesCount(string storeID, string serviceID, common_Trait_WorkTimeFiltering worktime)
         {
-            if (string.IsNullOrEmpty(storeID))
-            {
-                throw new FormatException("所属店铺不能为空！");
-            }
-            if (string.IsNullOrEmpty(serviceID))
-            {
-                throw new FormatException("所属服务不能为空！");
-            }
-            int intcount = 0;
-            Model.DZService service = bllDZService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
-            if (service == null)
-            {
-                throw new Exception("不存在该服务！");
-            }
-            if (service.Business.Id != utils.CheckGuidID(storeID, "storeID"))
-            {
-                throw new Exception("该服务不属于该店铺！");
-            }
-            foreach (Model.ServiceOpenTime sotObj in service.OpenTimes)
-            {
-                if (worktime.week == null || sotObj.DayOfWeek == utils.CheckWeek(worktime.week))
-                {
-                    foreach (Model.ServiceOpenTimeForDay sotdayObj in sotObj.OpenTimeForDay)
-                    {
-                        if (worktime.startTime != null && worktime.startTime != sotdayObj.TimeStart)
-                        {
-                            continue;
-                        }
-                        if (worktime.endTime != null && worktime.endTime != sotdayObj.TimeEnd)
-                        {
-                            continue;
-                        }
-                        intcount++;
-                    }
-                }
-            }
-            countObj cc = new countObj();
-            cc.count = intcount.ToString();
-            return cc;
+            int count = GetWorkTimes(storeID, serviceID, worktime).Count;
+            countObj countObj = new countObj { count = count.ToString() };
+
+            return countObj;
         }
 
         /// <summary>
@@ -246,52 +101,13 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <param name="workTimeID"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public workTimeObj GetWorkTime(string storeID, string serviceID, string workTimeID,Customer customer)
+        public workTimeObj GetWorkTime(string storeID, string serviceID, string workTimeID, Customer customer)
         {
-            if (string.IsNullOrEmpty(storeID))
-            {
-                throw new FormatException("所属店铺不能为空！");
-            }
-            if (string.IsNullOrEmpty(serviceID))
-            {
-                throw new FormatException("所属服务不能为空！");
-            }
-            if (string.IsNullOrEmpty(workTimeID))
-            {
-                throw new FormatException("查询的工作时间ID不能为空！");
-            }
-            workTimeObj worktimeobj = null ;
-            Model.DZService service = bllDZService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
-            if (service == null)
-            {
-                throw new Exception("不存在该服务！");
-            }
-            if (service.Business.Id != utils.CheckGuidID(storeID, "storeID"))
-            {
-                throw new Exception("该服务不属于该店铺！");
-            }
-            if (service.Business.OwnerId.ToString() != customer.UserID)
-            {
-                throw new Exception("这不是你店铺的服务！");
-            }
-            Guid guidId = utils.CheckGuidID(workTimeID, "workTimeID");
-            foreach (Model.ServiceOpenTime sotObj in service.OpenTimes)
-            {
-                foreach (Model.ServiceOpenTimeForDay sotdayObj in sotObj.OpenTimeForDay)
-                {
-                    if (guidId != sotdayObj.Id)
-                    {
-                        continue;
-                    }
-                    worktimeobj = Mapper.Map<Model.ServiceOpenTimeForDay, workTimeObj>(sotdayObj);
-                    worktimeobj.week = sotObj.DayOfWeek.ToString();
-                }
-            }
-            if (worktimeobj == null)
-            {
-                //throw new Exception(Dicts.StateCode[4]);
-                throw new Exception("没有找到资源！");
-            }
+
+            var serviceOpenTimeForDay = dzServiceService.GetWorkitem(storeID, serviceID, workTimeID);
+
+            var worktimeobj = Mapper.Map<workTimeObj>(serviceOpenTimeForDay);
+
             return worktimeobj;
         }
 
@@ -304,7 +120,7 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <param name="worktimeobj"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public workTimeObj PatchWorkTime(string storeID, string serviceID, string workTimeID, workTimeObj worktimeobj,Customer customer)
+        public workTimeObj PatchWorkTime(string storeID, string serviceID, string workTimeID, workTimeObj worktimeobj, Customer customer)
         {
             if (string.IsNullOrEmpty(storeID))
             {
@@ -351,7 +167,7 @@ namespace Dianzhu.ApplicationService.WorkTime
                 }
             }
             //DayOfWeek week1 = utils.CheckWeek(worktimeobj.week.ToString());
-            Model.DZService service = bllDZService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
+            Model.DZService service = dzServiceService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
             if (service == null)
             {
                 throw new Exception("不存在该服务！");
@@ -453,7 +269,7 @@ namespace Dianzhu.ApplicationService.WorkTime
                     }
                     break;
                 }
-                
+
                 //}
             }
             if (c == 0)
@@ -464,7 +280,7 @@ namespace Dianzhu.ApplicationService.WorkTime
             {
                 //blltimeforday.Update(sotDay1);
             }
-            worktimeobj= Mapper.Map< Model.ServiceOpenTimeForDay,workTimeObj>(sotDay1);
+            worktimeobj = Mapper.Map<Model.ServiceOpenTimeForDay, workTimeObj>(sotDay1);
             worktimeobj.week = week1;
             return worktimeobj;
         }
@@ -477,7 +293,7 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <param name="workTimeID"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public object DeleteWorkTime(string storeID, string serviceID, string workTimeID,Customer customer)
+        public object DeleteWorkTime(string storeID, string serviceID, string workTimeID, Customer customer)
         {
             if (string.IsNullOrEmpty(storeID))
             {
@@ -492,7 +308,7 @@ namespace Dianzhu.ApplicationService.WorkTime
                 throw new FormatException("删除的工作时间ID不能为空！");
             }
             workTimeObj worktimeobj = new workTimeObj();
-            Model.DZService service = bllDZService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
+            Model.DZService service = dzServiceService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
             if (service == null)
             {
                 throw new Exception("不存在该服务！");
@@ -514,7 +330,7 @@ namespace Dianzhu.ApplicationService.WorkTime
                     if (guidId == sotdayObj.Id)
                     {
                         sotObj.OpenTimeForDay.Remove(sotdayObj);
-                     //   blltimeforday.Delete(sotdayObj);
+                        //   blltimeforday.Delete(sotdayObj);
                         c++;
                         return "删除成功！";
                     }

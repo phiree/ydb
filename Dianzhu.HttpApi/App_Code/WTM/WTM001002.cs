@@ -31,7 +31,7 @@ public class ResponseWTM001002 : BaseResponse
         //BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = new BLLServiceOpenTimeForDay();
         BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = Bootstrap.Container.Resolve<BLLServiceOpenTimeForDay>();
 
-        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
+        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
         try
         {
             string raw_id = requestData.merchantID;

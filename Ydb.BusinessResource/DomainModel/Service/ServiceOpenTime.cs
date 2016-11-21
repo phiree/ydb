@@ -33,37 +33,39 @@ namespace Ydb.BusinessResource.DomainModel
         /// </summary>
         public virtual bool Enabled { get; set; }
         public virtual IList<ServiceOpenTimeForDay> OpenTimeForDay { get; set; }
+         
         /// <summary>
         /// 增加服务时间段. 判断增加的时间段是否重合.
         /// </summary>
         /// <param name="period"></param>
         public virtual void AddServicePeriod(ServiceOpenTimeForDay period)
         {
-            if (period.PeriodStart > period.PeriodEnd)
-            {
-                throw new Exception("timeError:服务开始时间不能大于结束时间.时间：" + period.TimeStart + "-" + period.TimeEnd);
-            }
-            bool isConflict = false;
-            foreach (ServiceOpenTimeForDay d in this.OpenTimeForDay)
-            {
-                if (!( period.PeriodStart >= d.PeriodEnd || period.PeriodEnd < d.PeriodStart))
-                {
-                    isConflict = true;
-                }
-            }
-            if (isConflict)
-            {
-                throw new Exception("timeRepeat:服务时间段不能重合.ID=" + this.Id + ";重合时间：" + period.TimeStart + "-" + period.TimeEnd);
-            }
-            else
-            {
-                this.OpenTimeForDay.Add(period);
-            }
-        }
 
-        public virtual ServiceOpenTimeForDay GetItem(DateTime datetime)
+           
+            TimePeriodList periodList = new TimePeriodList(OpenTimeForDay.Select(x => x.TimePeriod).ToList());
+
+
+            if (periodList.IsConflict(period.TimePeriod))
+            {
+
+                OpenTimeForDay.Add(period);
+            }
+            else {
+                throw new Exception("时间段冲突");
+            }
+
+
+        }
+       
+        /// <summary>
+        /// 包含给定时间的工作时间段.
+        /// </summary>
+        /// <param name="datetime">HH:mm</param>
+        /// <returns></returns>
+        public virtual ServiceOpenTimeForDay GetItem(string  datetime)
         {
-            var timeItems = OpenTimeForDay.Where(x => x.IsIn(datetime));
+            Time time = new Time(datetime);
+            var timeItems = OpenTimeForDay.Where(x => x.IsIn(time));
             int c = timeItems.Count();
             string errMsg = "给定时间没有对应的时间项,传入时间为:"+datetime;
             System.Diagnostics.Debug.Assert(c == 1, errMsg);
@@ -75,6 +77,7 @@ namespace Ydb.BusinessResource.DomainModel
             return timeItems.ToList()[0];
 
         }
+         
         
     }
    

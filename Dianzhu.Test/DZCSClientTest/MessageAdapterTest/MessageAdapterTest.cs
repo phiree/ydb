@@ -13,7 +13,7 @@ namespace Dianzhu.Test.DZCSClientTest.MessageAdapterTest
     public class MessageAdapterTest
     {
         //DZMembershipProvider bllMember;
-        BLLDZService bllService;
+        dzServiceService bllService;
         BLLServiceOrder bllOrder;
         IMessageAdapter adapter;
         Message message;
@@ -37,7 +37,7 @@ namespace Dianzhu.Test.DZCSClientTest.MessageAdapterTest
             //      Builder<Model.DZMembership>.CreateNew().With(x => x.Id = csid).Build()
             //      );
 
-              bllService = MockRepository.GenerateStub<BLLDZService>(dalService);
+              bllService = MockRepository.GenerateStub<dzServiceService>(dalService);
               bllService.Stub(x => x.GetOne(serviceId)).Return(
                   Builder<Model.DZService>.CreateNew().With(x=>x.Id=serviceId).Build()
                   );

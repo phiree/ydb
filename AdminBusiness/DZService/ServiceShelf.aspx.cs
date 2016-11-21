@@ -11,7 +11,7 @@ public partial class DZService_ServiceShelf : BasePage
 {
 
     public DZService CurrentService = new DZService();
-    BLLDZService bllServcie = Bootstrap.Container.Resolve<BLLDZService>();
+    dzServiceService bllServcie = Bootstrap.Container.Resolve<dzServiceService>();
 
     public string merchantID {
         get {

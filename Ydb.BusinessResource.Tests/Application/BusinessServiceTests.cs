@@ -17,12 +17,12 @@ namespace Ydb.BusinessResource.Application.Tests
             Bootstrap.Boot();
         }
         [Test()]
-        public void AddTest()
+        public void Business_AddTest()
         {
             IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
             string businessEmail = "test_businessemail_1";
             string businessName = "test_businessname_1";
-            businessService.Add("test_name","test_phone",Guid.NewGuid(),"test_latitude","test_longtitude","test_rawAddressFromMapApi","test_contact"
+            businessService.Add(businessName, "test_phone", businessEmail, Guid.NewGuid(),"test_latitude","test_longtitude","test_rawAddressFromMapApi","test_contact"
                 ,23,23);
 
            var b= businessService.GetBusinessByEmail(businessEmail);

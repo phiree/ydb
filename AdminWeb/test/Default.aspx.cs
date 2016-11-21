@@ -20,7 +20,7 @@ public partial class test_Default : BasePage
     protected void btnCreateOrder_Click(object sender,EventArgs e)
     {
       
-        BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
+        dzServiceService bllService = Bootstrap.Container.Resolve<dzServiceService>();
         BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
 
         MemberDto customer = memberService.GetUserByName(tbxCustomerName.Text);

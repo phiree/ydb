@@ -26,7 +26,7 @@ public class ResponseWTM001004 : BaseResponse
         //todo:用户验证的复用.
        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
+        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
 
         try
         {
@@ -72,7 +72,7 @@ public class ResponseWTM001004 : BaseResponse
             }
             try
             {
-                DZService service = bllDZService.GetOne(svcID);
+                DZService service = dzServiceService.GetOne(svcID);
                 if (service == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];

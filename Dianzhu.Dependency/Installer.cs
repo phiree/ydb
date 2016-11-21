@@ -25,7 +25,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<BLLComplaint>());
 
             container.Register(Component.For<BLLDeviceBind>());
-         //   container.Register(Component.For<BLLDZService>());
+         //   container.Register(Component.For<dzServiceService>());
           //  container.Register(Component.For<BLLDZTag>());
           
 

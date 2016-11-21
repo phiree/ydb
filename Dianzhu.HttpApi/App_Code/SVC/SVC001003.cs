@@ -28,7 +28,7 @@ public class ResponseSVC001003 : BaseResponse
        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
  
-        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
+        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
  
         BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
  
@@ -86,7 +86,7 @@ public class ResponseSVC001003 : BaseResponse
             }
             try
             {
-                DZService service = bllDZService.GetOne(svcID);
+                DZService service = dzServiceService.GetOne(svcID);
                 if (service == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -236,7 +236,7 @@ public class ResponseSVC001003 : BaseResponse
                 }
                 
 
-                bllDZService.Update(service);
+                dzServiceService.Update(service);
 
                 RespDataSVC001003 respData = new RespDataSVC001003(svcID.ToString());
                 this.state_CODE = Dicts.StateCode[0];

@@ -26,7 +26,7 @@ public class ResponseSVC001006 : BaseResponse
         //todo:用户验证的复用.
        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
+        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
         BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
 
         try
@@ -81,7 +81,7 @@ public class ResponseSVC001006 : BaseResponse
                 }
 
                 int total;
-                IList<DZService> svcList = bllDZService.GetServiceByBusiness(business.Id, 0, 9999, out total);
+                IList<DZService> svcList = dzServiceService.GetServiceByBusiness(business.Id, 0, 9999, out total);
 
                 IList<RespDataSVC_svcObj> svcObjList = new List<RespDataSVC_svcObj>();
                 IList< DZTag> tagList = new List< DZTag>();

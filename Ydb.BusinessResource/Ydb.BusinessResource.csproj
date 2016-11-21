@@ -116,12 +116,15 @@
     <Compile Include="DomainModel\IRepositoryDZTag.cs" />
     <Compile Include="DomainModel\Service\IRepositoryDZService.cs" />
     <Compile Include="DomainModel\Service\IRepositoryServiceOpenTime.cs" />
+    <Compile Include="DomainModel\Service\TimePeriodLink.cs" />
     <Compile Include="DomainModel\Service\ServiceOpenTime.cs" />
     <Compile Include="DomainModel\Service\ServiceOpenTimeForDay.cs" />
     <Compile Include="DomainModel\Service\ServiceOpenTimeForDaySnapShotForOrder.cs" />
     <Compile Include="DomainModel\Service\ServiceOpenTimeSnapshot.cs" />
     <Compile Include="DomainModel\Service\ServiceType.cs" />
     <Compile Include="DomainModel\Service\StaffServiceType.cs" />
+    <Compile Include="DomainModel\Service\TimePeriod.cs" />
+    <Compile Include="DomainModel\Service\Time.cs" />
     <Compile Include="DomainModel\Service\ValidatorBusiness.cs" />
     <Compile Include="DomainModel\Service\ValidatorDZService.cs" />
     <Compile Include="DomainModel\Service\ValidatorServiceOpenTimeForDay.cs" />

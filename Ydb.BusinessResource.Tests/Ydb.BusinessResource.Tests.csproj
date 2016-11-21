@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="Application\Bootstraper.cs" />
     <Compile Include="Application\BusinessServiceTests.cs" />
+    <Compile Include="DomainModel\Service\TimePeriodListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

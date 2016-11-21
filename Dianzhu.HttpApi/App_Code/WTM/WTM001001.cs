@@ -30,7 +30,7 @@ public class ResponseWTM001001 : BaseResponse
 
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
 
-        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
+        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
 
         try
         {
@@ -84,7 +84,7 @@ public class ResponseWTM001001 : BaseResponse
             }
             try
             {
-                DZService service = bllDZService.GetOne(svcID);
+                DZService service = dzServiceService.GetOne(svcID);
                 if (service == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -158,7 +158,7 @@ public class ResponseWTM001001 : BaseResponse
                 }
 
                 ValidationResult vResult = new ValidationResult();
-                bllDZService.SaveOrUpdate(service, out vResult);
+                dzServiceService.SaveOrUpdate(service, out vResult);
                 NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
                 if (!vResult.IsValid)

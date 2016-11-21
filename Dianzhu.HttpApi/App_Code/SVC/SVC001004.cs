@@ -26,7 +26,7 @@ public class ResponseSVC001004 : BaseResponse
         //todo:用户验证的复用.
        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
+        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
 
         try
         {
@@ -79,7 +79,7 @@ public class ResponseSVC001004 : BaseResponse
                     return;
                 }
 
-                int sum = bllDZService.GetSumByBusiness(business);
+                int sum = dzServiceService.GetSumByBusiness(business);
 
                 RespDataSVC001004 respData = new RespDataSVC001004();
                 respData.sum = sum.ToString();

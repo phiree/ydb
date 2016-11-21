@@ -22,43 +22,43 @@ namespace Ydb.BusinessResource.DomainModel
         /// <summary>
         /// 店铺名称
         /// </summary>
-        public virtual string Name { get; internal set; }
+        public virtual string Name { get;protected internal set; }
         /// <summary>
         /// 联系人姓名
         /// </summary>
-        public virtual string Contact { get;internal set; }
+        public virtual string Contact { get;protected internal set; }
         /// <summary>
         /// 公司电话
         /// </summary>
-        public virtual string Phone { get;internal set; }
+        public virtual string Phone { get;protected internal set; }
         /// <summary>
         /// 公司邮箱
         /// </summary>
-        public virtual string Email { get;internal set; }
+        public virtual string Email { get;protected internal set; }
         /// <summary>
         /// 简介
         /// </summary>
-        public virtual string Description { get;internal set; }
+        public virtual string Description { get;protected internal set; }
 
         /// <summary>
         /// 公司网址
         /// </summary>
-        public virtual string WebSite { get;internal set; }
+        public virtual string WebSite { get;protected internal set; }
 
         /// <summary>
         /// 商户所有者.
         /// </summary>
-        public virtual Guid OwnerId { get;internal set; }
+        public virtual Guid OwnerId { get;protected internal set; }
 
         /// <summary>
         /// 店铺是否可用
         /// </summary>
-        public virtual bool Enabled { get;internal set; }
+        public virtual bool Enabled { get;protected internal set; }
 
         /// <summary>
         /// 创建时间
         /// </summary>
-        public virtual DateTime CreatedTime { get;internal set; }
+        public virtual DateTime CreatedTime { get;protected internal set; }
     }
 
     /// <summary>
@@ -73,7 +73,7 @@ namespace Ydb.BusinessResource.DomainModel
             ServiceType = new List<ServiceType>();
             CreatedTime = DateTime.Now;
         }
-        public Business(string name,string phone,Guid ownerId,string latitude,string longtitude
+        public Business(string name,string phone,string email,Guid ownerId,string latitude,string longtitude
             ,string rawAddressFromMapApi, string contact, int workingYears, int staffAmount) :this()
         {
             if (string.IsNullOrEmpty( name))
@@ -89,9 +89,10 @@ namespace Ydb.BusinessResource.DomainModel
                 throw new FormatException("店铺电话不能为空！");
             }
 
-
-
+            Email = email;
+            Name = name;
             OwnerId = ownerId;
+            Phone = phone;
 
             double dd = 0;
             if (double.TryParse(latitude, out dd))
@@ -111,62 +112,62 @@ namespace Ydb.BusinessResource.DomainModel
         /// <summary>
         ///  所在辖区
         /// </summary>
-        public virtual Area AreaBelongTo { get;internal set; }
+        public virtual Area AreaBelongTo { get;protected internal set; }
 
 
         /// <summary>
         ///  地址
         /// </summary>
-        public virtual string Address { get;internal set; }
+        public virtual string Address { get;protected internal set; }
         /// <summary>
         /// 员工总人数
         /// </summary>
-        public virtual int StaffAmount { get;internal set; }
+        public virtual int StaffAmount { get;protected internal set; }
         /// <summary>
         /// 从业时长, 比如 1915年进入该行业的, 则是 百  --年老 --店,该值为100.
         /// </summary>
-        public virtual int WorkingYears { get;internal set; }
+        public virtual int WorkingYears { get;protected internal set; }
         /// <summary>
         /// 商家相关的图片
         /// </summary>
-        public virtual IList<BusinessImage> BusinessImages { get;internal set; }
+        public virtual IList<BusinessImage> BusinessImages { get;protected internal set; }
         /// <summary>
         /// 服务类型.
         /// </summary>
-        public virtual IList<ServiceType> ServiceType { get;internal set; }
+        public virtual IList<ServiceType> ServiceType { get;protected internal set; }
 
 
         /// <summary>
         /// 店铺地理坐标,精度，维度。
         /// </summary>
-        public virtual double Longitude { get;internal set; }
-        public virtual double Latitude { get;internal set; }
+        public virtual double Longitude { get;protected internal set; }
+        public virtual double Latitude { get;protected internal set; }
 
         /// <summary>
         /// MapAPI返回地址信息
         /// </summary>
-        public virtual string RawAddressFromMapAPI { get;internal set; }
+        public virtual string RawAddressFromMapAPI { get;protected internal set; }
         /// <summary>
         /// 优惠推广的范围.所有的优惠券都是一样的.
         /// </summary>
-        public virtual double PromoteScope { get;internal set; }
+        public virtual double PromoteScope { get;protected internal set; }
         /// <summary>
         /// 是否通过了审核.
         /// </summary>
-        public virtual bool IsApplyApproved { get;internal set; }
+        public virtual bool IsApplyApproved { get;protected internal set; }
         /// <summary>
         /// 审核拒绝信息.
         /// </summary>
-        public virtual string ApplyRejectMessage { get;internal set; }
+        public virtual string ApplyRejectMessage { get;protected internal set; }
         /// <summary>
         /// 申请日期
         /// </summary>
-        public virtual DateTime? DateApply { get;internal set; }
+        public virtual DateTime? DateApply { get;protected internal set; }
 
         /// <summary>
         /// 审核通过日期
         /// </summary>
-        public virtual DateTime? DateApproved { get;internal set; }
+        public virtual DateTime? DateApproved { get;protected internal set; }
         /// <summary>
         /// 单张营业执照
         /// </summary>
@@ -424,31 +425,31 @@ namespace Ydb.BusinessResource.DomainModel
         /// <summary>
         /// 图片名称,图片存储路径由配置确定.
         /// </summary>
-        public virtual string ImageName { get;internal set; }
+        public virtual string ImageName { get;protected internal set; }
         /// <summary>
         /// 图片描述
         /// </summary>
-        public virtual string Description { get;internal set; }
+        public virtual string Description { get;protected internal set; }
         /// <summary>
         /// 上传时间
         /// </summary>
-        public virtual DateTime UploadTime { get;internal set; }
+        public virtual DateTime UploadTime { get;protected internal set; }
         /// <summary>
         /// 序号,用于手动排序
         /// </summary>
-        public virtual int OrderNumber { get;internal set; }
+        public virtual int OrderNumber { get;protected internal set; }
         /// <summary>
         /// 图片大小, 单位 KB
         /// </summary>
-        public virtual int Size { get;internal set; }
+        public virtual int Size { get;protected internal set; }
         /// <summary>
         /// 图片的类型,
         /// </summary>
-        public virtual enum_ImageType ImageType { get;internal set; }
+        public virtual enum_ImageType ImageType { get;protected internal set; }
         /// <summary>
         /// 是否是当前使用的图片
         /// </summary>
-        public virtual bool IsCurrent { get;internal set; }
+        public virtual bool IsCurrent { get;protected internal set; }
 
         /// <summary>
         /// 获取文件路径

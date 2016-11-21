@@ -24,7 +24,7 @@ public partial class Business_Detail :BasePage
          BindShow();
          BindCharge();
             //   Dianzhu.BLL.BLLServiceOrder bllOrder= new Dianzhu.BLL.BLLServiceOrder();
-            Dianzhu.BLL.BLLDZService bllService = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLDZService>();
+            Dianzhu.BLL.dzServiceService bllService = Bootstrap.Container.Resolve<Dianzhu.BLL.dzServiceService>();
          AllOrderCount =  bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id).Count.ToString();
          DoneOrderCount = bllOrder.GetAllCompleteOrdersForBusiness(CurrentBusiness.Id).Count.ToString();
          ServiceCount = bllService.GetServiceByBusiness(CurrentBusiness.Id, 1, 999, out totalRecords).Count.ToString();

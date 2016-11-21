@@ -28,7 +28,7 @@ public class ResponseSVC001002 : BaseResponse
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
 
  
-        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
+        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
        
         BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
  
@@ -80,7 +80,7 @@ public class ResponseSVC001002 : BaseResponse
             }
             try
             {
-                DZService service = bllDZService.GetOne(svcID);
+                DZService service = dzServiceService.GetOne(svcID);
                 if (service.Business.OwnerId != member.Id)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -97,7 +97,7 @@ public class ResponseSVC001002 : BaseResponse
 
                 ValidationResult vResult = new ValidationResult();
                 service.IsDeleted = false;
-                bllDZService.SaveOrUpdate(service, out vResult);
+                dzServiceService.SaveOrUpdate(service, out vResult);
                 if (!vResult.IsValid)
                 {
                     this.state_CODE = Dicts.StateCode[1];

@@ -28,7 +28,7 @@ public class ResponseWTM001003 : BaseResponse
        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
  
-        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
+        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
  
         BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
     

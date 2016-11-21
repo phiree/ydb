@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ydb.Common;
 
 namespace Dianzhu.ApplicationService
 {
@@ -30,7 +31,7 @@ namespace Dianzhu.ApplicationService
         /// 平台标识（"IOS_User":[IOS用户版]，"IOS_Merchant":[IOS商户版]，"IOS_CustomerService":[IOS客服版]，"Andriod_User":[Android用户版]，"Android_Merchant":[Android商户版]，"Android_CustomerService":[Android客户版]）
         /// </summary>
         /// <type>string</type>
-        publicenum_appName appName
+        public enum_appName appName
         {
             get
             {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
+using Ydb.Common;
 
 namespace Dianzhu.ApplicationService
 {
@@ -116,7 +117,7 @@ namespace Dianzhu.ApplicationService
         /// 该投诉的状态
         /// </summary>
         /// <type>string</type>
-        publicenum_ComplaintStatus status
+        public enum_ComplaintStatus status
         {
             get
             {

@@ -8,7 +8,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 public partial class DZService_Default : BasePage
 {
-    BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
+    dzServiceService bllService = Bootstrap.Container.Resolve<dzServiceService>();
 
     protected void Page_Load(object sender, EventArgs e)
     {

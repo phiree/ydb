@@ -16,16 +16,15 @@ namespace Ydb.BusinessResource.DomainModel
         public DateTime SnapshotDate { get; protected set; }
         public int MaxOrder { get; protected set; }
         public DateTime Date { get; protected set; }
-        public int PeriodBegin { get; protected set; }
-        public int PeriodEnd { get; protected set; }
+        public TimePeriod TimePeriod { get; protected set; }
+      
         public ServiceOpenTimeForDaySnapShotForOrder() { }
-        public ServiceOpenTimeForDaySnapShotForOrder(int maxOrder,DateTime date,int periodBegin,int periodEnd,Guid id)
+        public ServiceOpenTimeForDaySnapShotForOrder(Guid id, int maxOrder,DateTime date, TimePeriod timePeriod)
         {
             MaxOrder = maxOrder;
             Date = date;
-            PeriodBegin = periodBegin;
-            PeriodEnd = periodEnd;
-            Id = id;
+            TimePeriod = timePeriod;
+            this.Id = id;
         }
         
     }

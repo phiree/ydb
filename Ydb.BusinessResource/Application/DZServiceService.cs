@@ -6,13 +6,18 @@ using System.Text;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Specification;
 using Ydb.BusinessResource.Infrastructure;
+using Ydb.Common.Application;
 namespace Ydb.BusinessResource.Application
 {
     public class DZServiceService : IDZServiceService
     {
         IRepositoryDZService repositoryDZService;
         IRepositoryDZTag repositoryDZTag;
-        
+
+        //todo:refactor: 应该是valueobject 不需要对应的repo
+        IRepositoryServiceOpenTimeForDay repositoryOpenTimeForDay;
+
+
         public DZServiceService(IRepositoryDZService repositoryDZService,
         IRepositoryDZTag repositoryDZTag)
         {
@@ -24,7 +29,7 @@ namespace Ydb.BusinessResource.Application
         [UnitOfWork]
         public IList<DZService> GetServiceByBusiness(Guid businessId, int pageindex, int pagesize, out int totalRecords)
         {
-            return repositoryDZService.GetList(businessId , pageindex, pagesize, out totalRecords);
+            return repositoryDZService.GetList(businessId, pageindex, pagesize, out totalRecords);
         }
         [UnitOfWork]
         public IList<DZService> GetOtherServiceByBusiness(Guid businessId, Guid serviceId, int pageindex, int pagesize, out int totalRecords)
@@ -33,18 +38,18 @@ namespace Ydb.BusinessResource.Application
         }
 
         [UnitOfWork]
-        public virtual   ServiceDto  GetOne(Guid serviceId)
+        public virtual ServiceDto GetOne(Guid serviceId)
         {
-            DZService service= repositoryDZService.FindById(serviceId);
-           ServiceDto serviceDto = AutoMapper.Mapper.Map<ServiceDto>(service);
+            DZService service = repositoryDZService.FindById(serviceId);
+            ServiceDto serviceDto = AutoMapper.Mapper.Map<ServiceDto>(service);
             return serviceDto;
-
         }
         public virtual ServiceOpenTimeDto GetTimeDto(Guid serviceId, DateTime targetTime)
         {
             DZService service = repositoryDZService.FindById(serviceId);
-           ServiceOpenTime openTime=  service.GetServiceOpenTime(targetTime);
-            ServiceOpenTimeForDay openTimeForDay = openTime.GetItem(targetTime);
+            string getOpenTimeErrMsg;
+            ServiceOpenTime openTime = service.GetServiceOpenTime(targetTime.DayOfWeek, out getOpenTimeErrMsg);
+            ServiceOpenTimeForDay openTimeForDay = openTime.GetItem(targetTime.ToString("HH:mm"));
 
             return new ServiceOpenTimeDto
             {
@@ -52,8 +57,8 @@ namespace Ydb.BusinessResource.Application
                 MaxOrderForDay = openTime.MaxOrderForDay,
                 MaxOrderForPeriod = openTimeForDay.MaxOrderForOpenTime
             ,
-                PeriodBegin = openTimeForDay.PeriodStart,
-                PeriodEnd = openTimeForDay.PeriodEnd
+                PeriodBegin = openTimeForDay.TimePeriod.StartTime.TimeValue,
+                PeriodEnd = openTimeForDay.TimePeriod.EndTime.TimeValue
             };
 
 
@@ -81,13 +86,13 @@ namespace Ydb.BusinessResource.Application
         {
             repositoryDZService.Update(service);
         }
-        public void SaveOrUpdate(DZService service,out ValidationResult validationResult)
+        public void SaveOrUpdate(DZService service, out ValidationResult validationResult)
         {
-         ValidatorDZService v = new ValidatorDZService();
-         validationResult = v.Validate(service);
-         bool isValid = validationResult.IsValid;
+            ValidatorDZService v = new ValidatorDZService();
+            validationResult = v.Validate(service);
+            bool isValid = validationResult.IsValid;
 
-         if (!isValid) return;
+            if (!isValid) return;
 
             if (service.Id == Guid.Empty)
             {
@@ -101,20 +106,20 @@ namespace Ydb.BusinessResource.Application
                 repositoryDZService.Update(service);
             }
 
-           
+
         }
 
         public IList<DZService> GetAll()
         {
-            return repositoryDZService.Find(x => true) ;
+            return repositoryDZService.Find(x => true);
         }
         public void Delete(DZService dz)
         {
             repositoryDZService.Delete(dz);
         }
-        public IList<DZService> SearchService(string name, decimal priceMin, decimal priceMax, Guid typeId, DateTime datetime,double lng,double lat, int pageIndex, int pagesize, out int total)
+        public IList<DZService> SearchService(string name, decimal priceMin, decimal priceMax, Guid typeId, DateTime datetime, double lng, double lat, int pageIndex, int pagesize, out int total)
         {
-            return repositoryDZService.SearchService(name, priceMin, priceMax, typeId, datetime,lng,lat, pageIndex, pagesize, out total);
+            return repositoryDZService.SearchService(name, priceMin, priceMax, typeId, datetime, lng, lat, pageIndex, pagesize, out total);
         }
 
         /// <summary>
@@ -159,7 +164,7 @@ namespace Ydb.BusinessResource.Application
             }
             if (startAt != -1)
             {
-                where = where.And(x => x.MinPrice==startAt);
+                where = where.And(x => x.MinPrice == startAt);
             }
 
             DZService baseone = null;
@@ -238,7 +243,104 @@ namespace Ydb.BusinessResource.Application
                 where = where.And(x => x.Business.Id == storeID);
             }
             DZService dzservie = repositoryDZService.FindOne(where);
-            return AutoMapper.Mapper.Map<ServiceDto>( dzservie);
+            return AutoMapper.Mapper.Map<ServiceDto>(dzservie);
         }
+
+        /// <summary>
+        /// 添加一个工作时间段
+        /// </summary>
+        /// <param name="serviceId"></param>
+        /// <param name="weekday"></param>
+        /// <param name="timeBegin"></param>
+        /// <param name="timeEnd"></param>
+        /// <param name="maxOrder"></param>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        public ActionResult<ServiceOpenTimeForDay> AddWorkTimeDay(string storeId, string serviceId, DayOfWeek weekday, string timeBegin, string timeEnd, int maxOrder, string tag)
+        {
+
+            if (string.IsNullOrEmpty(storeId))
+            {
+                throw new FormatException("所属店铺不能为空！");
+            }
+
+            if (string.IsNullOrEmpty(timeBegin) || string.IsNullOrEmpty(timeEnd))
+            {
+                throw new FormatException("服务时间不能为空！");
+            }
+
+            var result = new ActionResult<ServiceOpenTimeForDay>();
+            DZService service = repositoryDZService.FindById(new Guid(serviceId));
+            if (service.Business.Id.ToString() != storeId)
+            {
+                result.ErrMsg = "没有修改这个服务的权限";
+                result.IsSuccess = false;
+                return result;
+            }
+            string errmsg;
+            var existedOpenTime = service.GetServiceOpenTime(weekday, out errmsg);
+            TimePeriod workTime = new TimePeriod(new Time(timeBegin),new Time(timeEnd) );
+            ServiceOpenTimeForDay openTimeForDay = new ServiceOpenTimeForDay(tag, maxOrder, existedOpenTime, workTime);
+            try
+            {
+                
+                existedOpenTime.AddServicePeriod(openTimeForDay);
+                result.ResultObject = openTimeForDay;
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = ex.Message;
+            }
+            return result;
+        }
+
+        public ActionResult<ServiceOpenTimeForDay> ModifyWorkTimeDay(string serviceId, string workTimeId,string timeBegin,string endtime)
+        {
+            throw new NotImplementedException();
+        }
+       
+        /// <summary>
+        /// 查询工作时间项
+        /// </summary>
+        /// <param name="storeID"></param>
+        /// <param name="serviceID"></param>
+        /// <param name="dayOfWeek"></param>
+        /// <param name="timeBegin"></param>
+        /// <param name="timeEnd"></param>
+        /// <returns></returns>
+        public IList<ServiceOpenTimeForDay> GetWorkTimes(string storeID, string serviceID, DayOfWeek? dayOfWeek, string timeBegin, string timeEnd)
+        {
+            IList<ServiceOpenTimeForDay> list = new List<ServiceOpenTimeForDay>();
+            DZService service = repositoryDZService.FindById(new Guid(serviceID));
+            foreach (var openTime in service.OpenTimes)
+            {
+                if (dayOfWeek == null || openTime.DayOfWeek == dayOfWeek)
+                {
+                    foreach (var openTimeForDay in openTime.OpenTimeForDay)
+                    {
+                        if (!string.IsNullOrEmpty(timeBegin) && timeBegin != openTimeForDay.TimePeriod.StartTime.ToString())
+                        {
+                            continue;
+                        }
+                        if (!string.IsNullOrEmpty(timeEnd) && timeEnd != openTimeForDay.TimePeriod.EndTime.ToString())
+                        {
+                            continue;
+                        }
+                        list.Add(openTimeForDay);
+                    }
+                }
+            }
+            return list;
+        }
+
+        public ServiceOpenTimeForDay GetWorkitem(string storeID, string serviceID, string workTimeID)
+        {
+            ServiceOpenTimeForDay openTimeForDay=  repositoryOpenTimeForDay.FindById(new Guid(workTimeID));
+
+            return openTimeForDay;
+        }
+
+
     }
 }
