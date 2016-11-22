@@ -264,7 +264,7 @@ namespace Ydb.Membership.Application
 
 
         [UnitOfWork]
-        public ActionResult ChangeUserCity(Guid memberId, string cityCode)
+        public ActionResult ChangeUserCity(Guid memberId, string cityCode,string longitude, string latitude)
         {
             ActionResult result = new ActionResult();
             DZMembership member = repositoryMembership.GetMemberById(memberId);
@@ -273,7 +273,23 @@ namespace Ydb.Membership.Application
                 result.IsSuccess = false;
                 result.ErrMsg = "该用户不存在!";
             }
-            member.UserCity = cityCode;
+            if (!string.IsNullOrEmpty(cityCode))
+            {
+                member.UserCity = cityCode;
+            }
+            if (string.IsNullOrEmpty(longitude)^string.IsNullOrEmpty(latitude))
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "经纬度不能只传一个!";
+            }
+            if (!string.IsNullOrEmpty(longitude))
+            {
+                member.Longitude = longitude;
+            }
+            if (!string.IsNullOrEmpty(latitude))
+            {
+                member.Latitude = latitude;
+            }
             repositoryMembership.Update(member);
             return result;
         }
