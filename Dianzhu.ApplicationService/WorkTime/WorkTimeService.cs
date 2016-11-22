@@ -35,7 +35,7 @@ namespace Dianzhu.ApplicationService.WorkTime
 
 
             DayOfWeek dayOfWeek = utils.CheckWeek(worktimeobj.week.ToString());
-            ActionResult<ServiceOpenTimeForDay> result = dzServiceService.AddWorkTimeDay(storeID, serviceID, dayOfWeek, worktimeobj.startTime, worktimeobj.endTime, Convert.ToInt32(worktimeobj.maxCountOrder), worktimeobj.tag);
+            ActionResult<ServiceOpenTimeForDay> result = dzServiceService.AddWorkTime(storeID, serviceID, dayOfWeek, worktimeobj.startTime, worktimeobj.endTime, Convert.ToInt32(worktimeobj.maxCountOrder), worktimeobj.tag);
 
             if (!result.IsSuccess)
             {

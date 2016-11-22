@@ -6,22 +6,25 @@ using System.Threading.Tasks;
 
 namespace Ydb.BusinessResource.DomainModel
 {
-   public class TimePeriodList 
+   public class PeriodValidator : IPeriodValidator
     {
         public SortedList<int, TimePeriod> list = new SortedList<int,TimePeriod>();
 
-        public TimePeriodList(IList<TimePeriod> periods)
+        public PeriodValidator(IList<TimePeriod> periods)
         {
-            foreach (TimePeriod p in periods)
-            {
-                Add(p);
-            }
+           
         }
+        public IList<TimePeriod> Periods { set {
+                foreach (TimePeriod p in value)
+                {
+                    Add(p);
+                }
+            } }
         /// <summary>
         /// 添加一个时间段
         /// </summary>
         /// <param name="timePeriod"></param>
-        public void  Add(TimePeriod timePeriod)
+        internal void  Add(TimePeriod timePeriod)
         {
             if (!IsConflict(timePeriod))
             {
@@ -94,9 +97,20 @@ namespace Ydb.BusinessResource.DomainModel
         /// <param name="oldPeriod">需要修改的工作时间</param>
         /// <param name="newPeriod">目标工作时间</param>
         /// <returns></returns>
-        public bool Modify(TimePeriod oldPeriod,TimePeriod newPeriod)
+        public bool CanModify(TimePeriod oldPeriod,TimePeriod newPeriod,out string errMsg)
         {
-            throw new NotImplementedException();
+            errMsg = string.Empty;
+            bool oldPeriodExist = list.ContainsValue(oldPeriod);
+            if (!oldPeriodExist)
+            {
+               errMsg="该时间段不存在" + oldPeriod;
+                return false;
+            }
+            list.RemoveAt(list.IndexOfValue(oldPeriod));
+
+            return !IsConflict(newPeriod);
+ 
+
         }
     }
 }

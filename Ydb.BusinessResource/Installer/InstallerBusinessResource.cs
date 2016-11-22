@@ -43,19 +43,20 @@ namespace Ydb.BusinessResource.Infrastructure
 
         private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IRepositoryBusiness>().ImplementedBy<RepositoryBusiness>()
-                 .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("BusinessResourceSessionFactory"))
-                );
-           
+            container.Register(Component.For<IRepositoryBusiness>().ImplementedBy<RepositoryBusiness>()  );
+            container.Register(Component.For<IRepositoryDZService>().ImplementedBy<RepositoryDZService>() );
+            container.Register(Component.For<IRepositoryServiceOpenTimeForDay>().ImplementedBy<RepositoryServiceOpenTimeForDay>());
+            container.Register(Component.For<IRepositoryDZTag>().ImplementedBy<RepositoryDZTag>());
 
         }
         private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IBusinessService>().ImplementedBy< BusinessService>());
-          
+            container.Register(Component.For<IDZServiceService>().ImplementedBy<DZServiceService>());
+
         }
-        
-    
+
+
         private void InstallDomainService(IWindsorContainer container, IConfigurationStore store)
         {
              

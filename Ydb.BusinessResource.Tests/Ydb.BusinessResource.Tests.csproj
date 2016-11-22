@@ -84,7 +84,11 @@
   <ItemGroup>
     <Compile Include="Application\Bootstraper.cs" />
     <Compile Include="Application\BusinessServiceTests.cs" />
+    <Compile Include="Application\DZServiceServiceTests.cs" />
+    <Compile Include="DomainModel\Service\DZServiceTests.cs" />
     <Compile Include="DomainModel\Service\TimePeriodListTests.cs" />
+    <Compile Include="Infrastructure\Repository\Nhibernate\Mapping\DZServiceMapTests.cs" />
+    <Compile Include="Infrastructure\Repository\Nhibernate\Mapping\ServiceOpenTimeForDayMapTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

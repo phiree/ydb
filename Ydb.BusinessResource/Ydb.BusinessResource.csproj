@@ -114,6 +114,7 @@
     <Compile Include="DomainModel\PhoneValidator.cs" />
     <Compile Include="DomainModel\Service\DZService.cs" />
     <Compile Include="DomainModel\IRepositoryDZTag.cs" />
+    <Compile Include="DomainModel\Service\IPeriodValidator.cs" />
     <Compile Include="DomainModel\Service\IRepositoryDZService.cs" />
     <Compile Include="DomainModel\Service\IRepositoryServiceOpenTime.cs" />
     <Compile Include="DomainModel\Service\TimePeriodList.cs" />

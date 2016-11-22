@@ -35,6 +35,10 @@ namespace Ydb.BusinessResource.DomainModel
         {
             return period.StartTime != otherPeriod.StartTime || period.EndTime != otherPeriod.EndTime;
         }
-
+        public override bool Equals(object obj)
+        {
+            TimePeriod otherPeriod = obj as TimePeriod;
+            return  StartTime == otherPeriod.StartTime && EndTime == otherPeriod.EndTime;
+        }
     }
 }

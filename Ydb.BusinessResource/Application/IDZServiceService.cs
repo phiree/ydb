@@ -9,7 +9,7 @@ namespace Ydb.BusinessResource.Application
 {
     public interface IDZServiceService
     {
-        ActionResult<ServiceOpenTimeForDay> AddWorkTimeDay(string storeId, string serviceId, DayOfWeek weekday, string periodStart, string periodEnd, int maxOrder, string tag);
+        ActionResult<ServiceOpenTimeForDay> AddWorkTime(string storeId, string serviceId, DayOfWeek weekday, string periodStart, string periodEnd, int maxOrder, string tag);
          void Delete(DZService dz);
         IList<DZService> GetAll();
         ServiceDto GetOne(Guid serviceId);

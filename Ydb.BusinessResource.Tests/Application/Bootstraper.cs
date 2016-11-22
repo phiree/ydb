@@ -19,23 +19,29 @@ namespace Ydb.BusinessResource.Application.Tests
             get { return container; }
             private set { container = value; }
         }
+
+        public static FluentConfiguration dbConfigInstantMessage
+        {
+            get
+            {
+                FluentConfiguration dbConfigInstantMessage = Fluently.Configure()
+                 .Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_businessresource.db3"))
+                 .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });
+                return dbConfigInstantMessage;
+            }
+        }
         public static void Boot()
         {
             container = new WindsorContainer();
-            container.Install(
-                new Ydb.Infrastructure.Installer()
-                );
-
-            FluentConfiguration dbConfigInstantMessage = Fluently.Configure().
-                Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_businessresource.db3"))
-                .ExposeConfiguration((config)=> { new SchemaExport(config).Create(true, true); });
-
-            container.Install(
- new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(dbConfigInstantMessage)
-
-                );
+            container.Install(new Ydb.Infrastructure.Installer());
+            container.Install(new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(dbConfigInstantMessage));
+            AutoMapper.Mapper.Initialize(cfg=>
+            {
+                AutoMapperConfiguration.AutoMapperBusinessResource.Invoke(cfg);
+            }
+            );
         }
-        
+
 
     }
 }

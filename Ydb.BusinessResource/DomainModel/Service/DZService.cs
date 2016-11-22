@@ -293,11 +293,20 @@ namespace Ydb.BusinessResource.DomainModel
             }
             return true;
         }
+        public virtual ServiceOpenTimeForDay AddWorkTime(DayOfWeek dayOfWeek,string startTime, string endTime, int maxOrder,string tag)
+        {
+            string errMsg;
+            ServiceOpenTime openTime = GetServiceOpenTime(dayOfWeek,out errMsg);
+            TimePeriod workTime = new TimePeriod(new Time(startTime), new Time(endTime));
 
+            ServiceOpenTimeForDay openTimeForDay = new ServiceOpenTimeForDay(tag, maxOrder, openTime, workTime);
+            openTime.AddServicePeriod(openTimeForDay);
+            return openTimeForDay;
+        }   
         /// <summary>
         /// 修改一个工作时间.
         /// </summary>
-        public virtual void ModifyWorkTime(DayOfWeek dayOfWeek,int maxOrderForPeriod,string timeBegin,string timeEnd,string newTimeBegin,string newTimeEnd, out string errMsg)
+        public virtual void ModifyWorkTime(DayOfWeek dayOfWeek,int maxOrderForPeriod,TimePeriod oldPeriod,TimePeriod newPeriod, out string errMsg)
         {
             errMsg = string.Empty;
             //获取要修改的时间段
@@ -306,11 +315,11 @@ namespace Ydb.BusinessResource.DomainModel
             {
                 throw new Exception(errMsg);
             }
-            TimePeriod period = new TimePeriod(new Time(timeBegin), new Time(timeEnd));
-            TimePeriod periodNew= new TimePeriod(new Time(newTimeBegin), new Time(newTimeEnd));
-            ServiceOpenTimeForDay existedPeriod = serviceOpenTime.GetItem(period);
-            TimePeriodList periodList = new TimePeriodList(serviceOpenTime.OpenTimeForDay.Select(x=>x.TimePeriod).ToList());
-            periodList.Modify(period, periodNew);
+          
+            ServiceOpenTimeForDay existedPeriod = serviceOpenTime.GetItem(oldPeriod);
+            PeriodValidator periodList = new PeriodValidator(serviceOpenTime.OpenTimeForDay.Select(x=>x.TimePeriod).ToList());
+           bool canModify= periodList.CanModify(oldPeriod, newPeriod, out errMsg);
+
             
         }
         

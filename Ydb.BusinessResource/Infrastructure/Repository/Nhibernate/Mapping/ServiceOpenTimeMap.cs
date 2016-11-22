@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentNHibernate.Mapping;
-using Ydb.BusinessResource.DomainModel;
-using Ydb.BusinessResource.DomainModel;
-
-using Ydb.BusinessResource.DomainModel;
+﻿using FluentNHibernate.Mapping;
 using Ydb.BusinessResource.DomainModel;
 namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping
 {
@@ -34,8 +26,9 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.Tag);
 
             Component(c => c.TimePeriod, m => {
-                m.Component(t => t.StartTime, ms => { ms.Map(x => x.Hour);ms.Map(x => x.Minute); });
-                m.Component(t => t.EndTime, ms => { ms.Map(x => x.Hour); ms.Map(x => x.Minute); });
+                
+               m.Component(t => t.StartTime, ms => { ms.Map(x => x.Hour).Column("StartTimeHour"); ms.Map(x => x.Minute).Column("StartTimeMinute"); });
+                m.Component(t => t.EndTime, ms => { ms.Map(x => x.Hour).Column("EndTimeHour"); ms.Map(x => x.Minute).Column("EndTimeMinute"); });
             });
 
             Map(x => x.MaxOrderForOpenTime);

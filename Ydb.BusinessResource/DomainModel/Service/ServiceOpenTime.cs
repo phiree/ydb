@@ -38,14 +38,14 @@ namespace Ydb.BusinessResource.DomainModel
         /// 增加服务时间段. 判断增加的时间段是否重合.
         /// </summary>
         /// <param name="period"></param>
-        public virtual void AddServicePeriod(ServiceOpenTimeForDay period)
+        public virtual void AddServicePeriod(ServiceOpenTimeForDay period  )
         {
 
-           
-            TimePeriodList periodList = new TimePeriodList(OpenTimeForDay.Select(x => x.TimePeriod).ToList());
+
+            PeriodValidator periodList = new PeriodValidator(OpenTimeForDay.Select(x => x.TimePeriod).ToList());
 
 
-            if (periodList.IsConflict(period.TimePeriod))
+            if (!periodList.IsConflict(period.TimePeriod))
             {
 
                 OpenTimeForDay.Add(period);

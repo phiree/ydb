@@ -19,10 +19,11 @@ namespace Ydb.BusinessResource.Application
 
 
         public DZServiceService(IRepositoryDZService repositoryDZService,
-        IRepositoryDZTag repositoryDZTag)
+        IRepositoryDZTag repositoryDZTag, IRepositoryServiceOpenTimeForDay repositoryOpenTimeForDay)
         {
             this.repositoryDZService = repositoryDZService;
             this.repositoryDZTag = repositoryDZTag;
+            this.repositoryOpenTimeForDay = repositoryOpenTimeForDay;
         }
 
 
@@ -78,6 +79,8 @@ namespace Ydb.BusinessResource.Application
             IList<ServiceType> serviceTypeList = businessServices.Select(x => x.ServiceType.TopType).Distinct().ToList();
             return serviceTypeList;
         }
+        [Obsolete("需要重构")]
+        [UnitOfWork]
         public void Save(DZService service)
         {
             repositoryDZService.Add(service);
@@ -256,35 +259,19 @@ namespace Ydb.BusinessResource.Application
         /// <param name="maxOrder"></param>
         /// <param name="tag"></param>
         /// <returns></returns>
-        public ActionResult<ServiceOpenTimeForDay> AddWorkTimeDay(string storeId, string serviceId, DayOfWeek weekday, string timeBegin, string timeEnd, int maxOrder, string tag)
+        [UnitOfWork]
+        public ActionResult<ServiceOpenTimeForDay> AddWorkTime(string storeId, string serviceId, DayOfWeek weekday, string timeBegin, string timeEnd, int maxOrder, string tag)
         {
 
-            if (string.IsNullOrEmpty(storeId))
-            {
-                throw new FormatException("所属店铺不能为空！");
-            }
-
-            if (string.IsNullOrEmpty(timeBegin) || string.IsNullOrEmpty(timeEnd))
-            {
-                throw new FormatException("服务时间不能为空！");
-            }
+            
 
             var result = new ActionResult<ServiceOpenTimeForDay>();
             DZService service = repositoryDZService.FindById(new Guid(serviceId));
-            if (service.Business.Id.ToString() != storeId)
-            {
-                result.ErrMsg = "没有修改这个服务的权限";
-                result.IsSuccess = false;
-                return result;
-            }
-            string errmsg;
-            var existedOpenTime = service.GetServiceOpenTime(weekday, out errmsg);
-            TimePeriod workTime = new TimePeriod(new Time(timeBegin),new Time(timeEnd) );
-            ServiceOpenTimeForDay openTimeForDay = new ServiceOpenTimeForDay(tag, maxOrder, existedOpenTime, workTime);
+            
             try
             {
-                
-                existedOpenTime.AddServicePeriod(openTimeForDay);
+
+              ServiceOpenTimeForDay openTimeForDay=  service.AddWorkTime(weekday, timeBegin, timeEnd, maxOrder, tag);
                 result.ResultObject = openTimeForDay;
             }
             catch (Exception ex)
@@ -294,10 +281,29 @@ namespace Ydb.BusinessResource.Application
             }
             return result;
         }
-
-        public ActionResult<ServiceOpenTimeForDay> ModifyWorkTimeDay(string serviceId, string workTimeId,string timeBegin,string endtime)
+        /// <summary>
+        /// 修改一个工作时间段
+        /// </summary>
+        /// <param name="serviceId"></param>
+        /// <param name="dayOfWeek"></param>
+        /// <param name="workTimeId"></param>
+        /// <param name="timeBegin"></param>
+        /// <param name="endtime"></param>
+        /// <param name="maxOrder"></param>
+        /// <returns></returns>
+        [Obsolete("WorkTimeId参数应该取消,因为工作时间是vo")]
+        [UnitOfWork]
+        public ActionResult<ServiceOpenTimeForDay> ModifyWorkTimeDay(string serviceId,DayOfWeek dayOfWeek, string workTimeId,string timeBegin,string endtime,int maxOrder)
         {
-            throw new NotImplementedException();
+            ActionResult<ServiceOpenTimeForDay> result = new ActionResult<ServiceOpenTimeForDay>();
+            string errMsg;
+            DZService service = repositoryDZService.FindById(new Guid(serviceId));
+            var existedOpenTime = service.GetServiceOpenTime(dayOfWeek, out errMsg);
+            var workTime = repositoryOpenTimeForDay.FindById(new Guid(workTimeId));
+
+            service.ModifyWorkTime(dayOfWeek, maxOrder, workTime.TimePeriod, new TimePeriod(new Time(timeBegin), new Time(endtime)),out errMsg);
+
+            return result;
         }
        
         /// <summary>
