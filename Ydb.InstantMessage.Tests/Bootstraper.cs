@@ -23,8 +23,14 @@ namespace Ydb.InstantMessage.Tests
         {
             container = new WindsorContainer();
 
-            FluentConfiguration dbConfigCommon = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_common.db3"))
-              .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });
+            //FluentConfiguration dbConfigCommon = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_common.db3"))
+            //  .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });
+            FluentConfiguration dbConfigInstantMessage = Fluently.Configure()
+                .Database(SQLiteConfiguration.
+                Standard
+                .ConnectionString("Data Source=test_ydb_common.db3; Version=3;BinaryGuid=False")
+                )
+                .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });
 
 
             container.Install(
@@ -35,7 +41,14 @@ namespace Ydb.InstantMessage.Tests
                 new Ydb.Infrastructure.InstallerCommon(dbConfigCommon)
                 );
 
-            FluentConfiguration dbConfigInstantMessage = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_instantmessage.db3"));
+            //FluentConfiguration dbConfigInstantMessage = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_instantmessage.db3"));
+
+            FluentConfiguration dbConfigInstantMessage = Fluently.Configure()
+                 .Database(SQLiteConfiguration.
+                 Standard
+                 .ConnectionString("Data Source=test_ydb_instantmessage.db3; Version=3;BinaryGuid=False")
+                 )
+                 .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });
 
             container.Install(
  new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(dbConfigInstantMessage)

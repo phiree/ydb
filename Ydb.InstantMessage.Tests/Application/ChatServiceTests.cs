@@ -50,12 +50,18 @@ namespace Ydb.InstantMessage.Application.Tests
                 );
 
             Console.WriteLine("list.Count: " + list.Count);
-            for(int i=0; i < list.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 Console.WriteLine(list[i].MessageBody);
             }
         }
 
-        
+        [Test()]
+        public void GetChatByIdTest()
+        {
+            var chat = chatService.GetChatById("54f24bed-0aa5-4406-aa57-838bff39f3ce");
+
+            Console.WriteLine(chat.Id);
+        }
     }
 }

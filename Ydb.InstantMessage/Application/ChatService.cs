@@ -31,9 +31,32 @@ namespace Ydb.InstantMessage.Application
             repositoryChat.Add(chat);
         }
 
- 
-        [ UnitOfWork]
- 
+        [UnitOfWork]
+        public ReceptionChatDto GetChatById(string Id)
+        {
+            var item = repositoryChat.FindById(new Guid(Id));
+            ReceptionChatDto itemDto = null;
+            switch (item.GetType().Name)
+            {
+                case "ReceptionChat":
+                    itemDto = item.ToDto();
+                    break;
+                case "ReceptionChatMedia":
+                    itemDto = ((ReceptionChatMedia)item).ToDto();
+                    break;
+                case "ReceptionChatPushService":
+                    itemDto = ((ReceptionChatPushService)item).ToDto();
+                    break;
+                case "ReceptionChatDidichuxing":
+                    itemDto = ((ReceptionChatDidichuxing)item).ToDto();
+                    break;
+                default:
+                    throw new Exception("未知chat类型");
+            }
+            return itemDto;
+        }
+
+        [ UnitOfWork] 
         public IList<ReceptionChatDto> GetChatByOrder(string orderId)
         {
             var list = repositoryChat.GetChatByOrder(orderId);
