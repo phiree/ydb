@@ -101,6 +101,45 @@ namespace Dianzhu.BLL
         }
 
         /// <summary>
+        /// 根据areaname获得area
+        /// </summary>
+        /// <param name="areaname">area名称</param>
+        /// <returns>area实体</returns>
+        public Model.Area GetAreaByBaiduName(string areaname)
+        {
+            if (string.IsNullOrEmpty(areaname))
+            {
+                return null;
+            }
+            //byte[] srcarr = Encoding.Default.GetBytes(areaname);
+            //byte[] desarr = Encoding.Convert(Encoding.Default, Encoding.UTF8, srcarr);
+            //string s = Encoding.UTF8.GetString(desarr, 0, desarr.Length);
+            Expression<Func<Model.Area, bool>> where = i => i.Name.EndsWith(areaname+"市");
+            //   iuw.BeginTransaction();
+
+            var list = repoArea.FindOne(where);
+
+            if (list == null)
+            {
+                where = i => i.Name.EndsWith(areaname + "藏族羌族自治州") || i.Name.EndsWith(areaname + "盟") || i.Name.EndsWith(areaname + "地区")
+                            || i.Name.EndsWith(areaname + "傣族景颇族自治州") || i.Name.EndsWith(areaname + "藏族自治州")
+                            || i.Name.EndsWith(areaname + "蒙古自治州") || i.Name.EndsWith(areaname + "蒙古族藏族自治州")
+                            || i.Name.EndsWith(areaname + "哈尼族彝族自治州") || i.Name.EndsWith(areaname + "自治州")
+                            || i.Name.EndsWith(areaname + "彝族自治州") || i.Name.EndsWith(areaname + "傈僳族自治州")
+                            || i.Name.EndsWith(areaname + "苗族侗族自治州") || i.Name.EndsWith(areaname + "布依族苗族自治州")
+                            || i.Name.EndsWith(areaname + "壮族苗族自治州") || i.Name.EndsWith(areaname + "土家族苗族自治州")
+                            || i.Name.EndsWith(areaname + "傣族自治州") || i.Name.EndsWith(areaname + "维吾尔自治区")
+                            || i.Name.EndsWith(areaname + "朝鲜族自治州") || i.Name.EndsWith(areaname + "特别行政区");
+                list = repoArea.FindOne(where);
+            }
+
+            //     iuw.Commit();
+            //return null;
+            return list;
+
+        }
+
+        /// <summary>
         /// 根据areacode获得city
         /// </summary>
         /// <param name="areacode">code代码</param>
