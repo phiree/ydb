@@ -15,31 +15,33 @@ namespace Ydb.Common
     public class LogMongo
     {
 
-        private IMongoCollection<BsonDocument> _collection;
-        private IMongoDatabase _db;
-        private const string LogsCollectionName = "logs";
+        //private IMongoCollection<BsonDocument> _collection;
+        //private IMongoDatabase _db;
+        //private const string LogsCollectionName = "logs";
 
-        private LogMongo()
-        {
-            XmlConfigurator.Configure();
-            //Log4Mongo.InternalDebugging = true;
+        //private LogMongo()
+        //{
+        //    XmlConfigurator.Configure();
+        //    //Log4Mongo.InternalDebugging = true;
 
-            MongoUrl url = new MongoUrl("mongodb://localhost/log4net");
-            MongoClient client = new MongoClient(url);
-            _db = client.GetDatabase(url.DatabaseName);
-            _db.DropCollectionAsync(LogsCollectionName);
-            _collection = _db.GetCollection<BsonDocument>(LogsCollectionName);
-        }
+        //    MongoUrl url = new MongoUrl("mongodb://localhost/log4net");
+        //    MongoClient client = new MongoClient(url);
+        //    _db = client.GetDatabase(url.DatabaseName);
+        //    _db.DropCollectionAsync(LogsCollectionName);
+        //    _collection = _db.GetCollection<BsonDocument>(LogsCollectionName);
+        //}
 
-        private ILog GetConfiguredLog()
+
+        //"%date [%thread] %-5level %logger- %message%newline");
+        public static void GetConfiguredLog()
         {
             XmlConfigurator.Configure(new System.IO.MemoryStream(Encoding.UTF8.GetBytes(@"
 <log4net>
 	<appender name='MongoDBAppender' type='Log4Mongo.MongoDBAppender, Log4Mongo'>
 		<connectionString value='mongodb://localhost' />
 		<field>
-			<name value='timestamp' />
-			<layout type='log4net.Layout.RawTimeStampLayout' />
+			<name value='date' />
+			<layout type='log4net.Layout.PatternLayout'  value='%date'/>
 		</field>
 		<field>
 			<name value='level' />
@@ -48,6 +50,14 @@ namespace Ydb.Common
 		<field>
 			<name value='thread' />
 			<layout type='log4net.Layout.PatternLayout' value='%thread' />
+		</field>
+        <field>
+			<name value='logger' />
+			<layout type='log4net.Layout.PatternLayout' value='%logger' />
+		</field>
+        <field>
+			<name value='message' />
+			<layout type='log4net.Layout.PatternLayout' value='%message' />
 		</field>
 		<field>
 			<name value='threadContextProperty' />
@@ -90,7 +100,7 @@ namespace Ydb.Common
 	</root>
 </log4net>
 ")));
-            return LogManager.GetLogger("Test");
+            //return LogManager.GetLogger("Test");
         }
 
 

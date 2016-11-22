@@ -19,6 +19,7 @@ namespace Dianzhu.Web.RestfulApi
         {
             // 在应用程序启动时运行的代码
             PHSuit.Logging.Config("Dianzhu.Web.RestfulApi");
+            Ydb.Common.LogMongo.GetConfiguredLog();
 
             AreaRegistration.RegisterAllAreas();
             //GlobalConfiguration.Configure(WebApiConfig.Register);
@@ -41,9 +42,6 @@ namespace Dianzhu.Web.RestfulApi
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.Result");
-           
-           
-
             NHibernateUnitOfWork.UnitOfWork.Start();
 
             System.Web.HttpApplication hc = (System.Web.HttpApplication)sender;
@@ -57,6 +55,7 @@ namespace Dianzhu.Web.RestfulApi
         protected void Application_EndRequest(object sender, EventArgs e)
         {
             log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.Result");
+
             System.Web.HttpApplication hc = (System.Web.HttpApplication)sender;
             string strT = hc.Request.Headers.Get("stamp_TIMES");
             if (!string.IsNullOrEmpty(strT))
@@ -65,6 +64,11 @@ namespace Dianzhu.Web.RestfulApi
                 log.Info("Info(request.Method)" + strT + ":" + Context.Request.HttpMethod);
                 log.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusCode);
                 log.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusDescription);
+
+                //log1.Info("Info(request.Url)" + strT + ":" + Context.Request.Url);
+                //log1.Info("Info(request.Method)" + strT + ":" + Context.Request.HttpMethod);
+                //log1.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusCode);
+                //log1.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusDescription);
             }
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             if (!string.IsNullOrEmpty(strT))
