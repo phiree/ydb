@@ -194,16 +194,16 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
         /// <param name="code"></param>
         /// <returns></returns>
         [Route("api/v1/customers/{userID}/currentGeolocation")]
-        public IHttpActionResult PatchCurrentGeolocation(string userID,[FromBody]Common_Body common_Body)
+        public IHttpActionResult PatchCurrentGeolocation(string userID,[FromBody]common_Trait_LocationFiltering common_Body)
         {
             try
             {
-                if (common_Body == null || string.IsNullOrEmpty(common_Body.code))
+                if (common_Body == null)
                 {
-                    throw new Exception("修改的城市不能为空！");
+                    common_Body = new common_Trait_LocationFiltering();
                 }
                 Customer customer = GetRequestHeader.GetTraitHeaders("patch/customers/{customerID}");
-                return Json(iuserservice.PatchCurrentGeolocation(userID, common_Body.code, customer));
+                return Json(iuserservice.PatchCurrentGeolocation(userID, common_Body, customer));
                 //return Json("没有用户定位信息记录！");
             }
             catch (Exception ex)
