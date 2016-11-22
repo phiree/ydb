@@ -239,7 +239,7 @@ namespace Ydb.BusinessResource.DomainModel
             
             
         }*/
-        public virtual ServiceOpenTime  GetServiceOpenTime (DayOfWeek dayOfWeek,out string errMsg)
+        public virtual ServiceOpenTime  GetWorkDay (DayOfWeek dayOfWeek,out string errMsg)
         {
             errMsg = string.Empty;
             var targetOpenTime = OpenTimes.Where(x => x.DayOfWeek == dayOfWeek);
@@ -261,11 +261,16 @@ namespace Ydb.BusinessResource.DomainModel
          //   return new ServiceOpenTimeSnapshot { MaxOrderForDay=targetOpenTime.ToList()[0].MaxOrderForDay };
 
         }
+        public virtual ServiceOpenTimeForDay GetWorkTime(DateTime dateTime)
+        { string errMsg;
+            ServiceOpenTime workDay = GetWorkDay(dateTime.DayOfWeek, out errMsg);
+           return workDay.GetItem(dateTime.ToString("HH:mm"));
+        }
         //添加一天的定义服务时间
         public virtual bool AddOpenTime(DayOfWeek dayOfWeek,int maxOrder, out string errMsg)
         {
             errMsg = string.Empty;
-            var existed = GetServiceOpenTime(dayOfWeek,out errMsg);
+            var existed = GetWorkDay(dayOfWeek,out errMsg);
             if (!string.IsNullOrEmpty(errMsg))
             {
                 return false;
@@ -296,7 +301,7 @@ namespace Ydb.BusinessResource.DomainModel
         public virtual ServiceOpenTimeForDay AddWorkTime(DayOfWeek dayOfWeek,string startTime, string endTime, int maxOrder,string tag)
         {
             string errMsg;
-            ServiceOpenTime openTime = GetServiceOpenTime(dayOfWeek,out errMsg);
+            ServiceOpenTime openTime = GetWorkDay(dayOfWeek,out errMsg);
             TimePeriod workTime = new TimePeriod(new Time(startTime), new Time(endTime));
 
             ServiceOpenTimeForDay openTimeForDay = new ServiceOpenTimeForDay(tag, maxOrder, openTime, workTime);
@@ -310,7 +315,7 @@ namespace Ydb.BusinessResource.DomainModel
         {
             errMsg = string.Empty;
             //获取要修改的时间段
-            ServiceOpenTime serviceOpenTime = GetServiceOpenTime(dayOfWeek, out errMsg);
+            ServiceOpenTime serviceOpenTime = GetWorkDay(dayOfWeek, out errMsg);
             if (!string.IsNullOrEmpty(errMsg))
             {
                 throw new Exception(errMsg);

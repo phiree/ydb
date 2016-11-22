@@ -58,7 +58,7 @@ namespace Dianzhu.ApplicationService.Snapshot
             }
             IList<snapshortsObj> snapshortsobj = new List<snapshortsObj>();
             IList<ServiceOrder> orderList = ibllserviceorder.GetOrderListOfServiceByDateRange(guidService, StartTime, EndTime);
-            snapshortsobj = new snapshortsObj().Adap(orderList, bllstatehis,orderService);
+            snapshortsobj = new snapshortsObj().Adap(orderList, bllstatehis,orderService,dzServiceService);
             return snapshortsobj;
         }
 

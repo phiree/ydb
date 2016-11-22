@@ -7,6 +7,9 @@ using Dianzhu.Model;
 using AutoMapper;
 using Ydb.Membership.Application;
 using Dianzhu.ApplicationService.Order;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
+
 namespace Dianzhu.ApplicationService
 {
     public class orderSnapshot
@@ -44,7 +47,7 @@ namespace Dianzhu.ApplicationService
         }
 
 
-        public IList<orderSnapshot> Adap(DateTime date,IList<ServiceOrder> orderList, BLL.BLLServiceOrderStateChangeHis bllstatehis,IOrderService orderService)
+        public IList<orderSnapshot> Adap(DateTime date,IList<ServiceOrder> orderList, BLL.BLLServiceOrderStateChangeHis bllstatehis,IOrderService orderService,IDZServiceService dzServiceService)
         {
             IList<orderSnapshot> ordersnapshots = new List<orderSnapshot>();
             foreach (ServiceOrder order in orderList)
@@ -54,15 +57,17 @@ namespace Dianzhu.ApplicationService
                 Order.OrderService.bllstatehis = bllstatehis;
                 orderService.changeObj(orderobj, order);
                 //todo:refactor: Automapping refactor.
-                
-                ServiceOpenTimeForDaySnapShotForOrder forday = order.Service.GetOpenTimeSnapShot(order.Details[0].TargetTime);
+                DZService service = dzServiceService.GetOne2(new Guid( order.ServiceId));
+                string errMsg;
+                DateTime targetTime = order.Details[0].TargetTime;
+              ServiceOpenTimeForDay forday = service.GetWorkTime(targetTime);
                 workTimeObj worktimeobj = new workTimeObj();
                 worktimeobj.id = forday.Id.ToString();
-                worktimeobj.startTime = PHSuit.StringHelper.ConvertPeriodToTimeString(forday.PeriodBegin);//.ToString();
-                worktimeobj.endTime = PHSuit.StringHelper.ConvertPeriodToTimeString(forday.PeriodEnd);//.ToString();
-                worktimeobj.week = ((int)forday.Date.DayOfWeek).ToString();
+                worktimeobj.startTime =forday.TimePeriod.StartTime.ToString();//.ToString();
+                worktimeobj.endTime = forday.TimePeriod.EndTime.ToString();//.ToString();
+                worktimeobj.week = ((int)targetTime.DayOfWeek).ToString();
                 worktimeobj.bOpen = true;
-                worktimeobj.maxCountOrder = forday.MaxOrder.ToString();
+                worktimeobj.maxCountOrder = forday.MaxOrderForOpenTime.ToString();
                 ordersnapshot.orderobj = orderobj;
                 ordersnapshot.worktimeobj = worktimeobj;
                 ordersnapshots.Add(ordersnapshot);

@@ -49,7 +49,7 @@ namespace Ydb.BusinessResource.Application
         {
             DZService service = repositoryDZService.FindById(serviceId);
             string getOpenTimeErrMsg;
-            ServiceOpenTime openTime = service.GetServiceOpenTime(targetTime.DayOfWeek, out getOpenTimeErrMsg);
+            ServiceOpenTime openTime = service.GetWorkDay(targetTime.DayOfWeek, out getOpenTimeErrMsg);
             ServiceOpenTimeForDay openTimeForDay = openTime.GetItem(targetTime.ToString("HH:mm"));
 
             return new ServiceOpenTimeDto
@@ -298,7 +298,7 @@ namespace Ydb.BusinessResource.Application
             ActionResult<ServiceOpenTimeForDay> result = new ActionResult<ServiceOpenTimeForDay>();
             string errMsg;
             DZService service = repositoryDZService.FindById(new Guid(serviceId));
-            var existedOpenTime = service.GetServiceOpenTime(dayOfWeek, out errMsg);
+            var existedOpenTime = service.GetWorkDay(dayOfWeek, out errMsg);
             var workTime = repositoryOpenTimeForDay.FindById(new Guid(workTimeId));
 
             service.ModifyWorkTime(dayOfWeek, maxOrder, workTime.TimePeriod, new TimePeriod(new Time(timeBegin), new Time(endtime)),out errMsg);
@@ -347,6 +347,9 @@ namespace Ydb.BusinessResource.Application
             return openTimeForDay;
         }
 
-
+        public DZService GetOne2(Guid serviceId)
+        {
+          return  repositoryDZService.FindById(serviceId);
+        }
     }
 }

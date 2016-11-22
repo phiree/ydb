@@ -65,12 +65,13 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.CreateTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.createTime, "yyyyMMddHHmmss", "remindObj.time")))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
+            //todo:refactor: 客户端对象 不会 直接转换成领域对象.
             Mapper.CreateMap<workTimeObj,  ServiceOpenTimeForDay>()
             //.ForMember(x => x.Id, opt => opt.MapFrom(source => source.id==""?Guid.Empty:utils.CheckGuidID(source.id, "workTimeObj.id")))
             .ForMember(x => x.MaxOrderForOpenTime, opt => opt.MapFrom(source => source.maxCountOrder))
             .ForMember(x => x.Enabled, opt => opt.MapFrom(source => source.bOpen))
-            .ForMember(x => x.TimeStart, opt => opt.MapFrom(source => source.startTime))
-            .ForMember(x => x.TimeEnd, opt => opt.MapFrom(source => source.endTime))
+          //  .ForMember(x => x.TimeStart, opt => opt.MapFrom(source => source.startTime))
+          //  .ForMember(x => x.TimeEnd, opt => opt.MapFrom(source => source.endTime))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<servicesObj,  DZService>()
