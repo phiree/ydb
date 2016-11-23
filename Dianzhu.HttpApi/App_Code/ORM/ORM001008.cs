@@ -13,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using Dianzhu.Api.Model;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.BusinessResource.DomainModel;
 using Ydb.BusinessResource.Application;
 /// <summary>
 /// 获取用户的服务订单列表
@@ -36,7 +37,7 @@ public class ResponseORM001008 : BaseResponse
         BLLServiceOrderRemind bllServiceOrderRemind = Bootstrap.Container.Resolve<BLLServiceOrderRemind>();
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<BLLServiceOrderStateChangeHis>();
 
-
+        IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
         IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         IDZMembershipService memberServcie = Bootstrap.Container.Resolve<IDZMembershipService>();
 
@@ -101,7 +102,7 @@ public class ResponseORM001008 : BaseResponse
                     return;
                 }
 
-                DZService service = dzServiceService.GetOne(svcID);
+                DZService service = dzServiceService.GetOne2(svcID);
                 if (service == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -117,7 +118,7 @@ public class ResponseORM001008 : BaseResponse
                     return;
                 }
 
-                bllPushService.SelectServiceAndCreate(order, service);
+                bllPushService.SelectServiceAndCreate(order, service.Id.ToString());
                 //foreach (ServiceOrderDetail detail in order.Details)
                 //{
                 //    detail.Selected = detail.OriginalService == service;
@@ -130,24 +131,24 @@ public class ResponseORM001008 : BaseResponse
                 if (pushServiceList.Count > 0)
                 {
 
-                    orderObj.Adap(order, memberServcie, pushServiceList[0]);
+                    orderObj.Adap(order, memberServcie, pushServiceList[0],businessService,dzServiceService);
 
                     if (order.Details.Count > 0)
                     {
-                        tagsList = dzServiceService.GetServiceTags(order.Details[0].OriginalService);
+                        tagsList = dzServiceService.GetServiceTags(new Guid( order.Details[0].OriginalServiceId));
                     }
                     else
                     {
-                        tagsList = dzServiceService.GetServiceTags(pushServiceList[0].OriginalService);
+                        tagsList = dzServiceService.GetServiceTags( new Guid( pushServiceList[0].OriginalServiceId));
                     }
                 }
                 else
                 {
-                    orderObj.Adap(order,memberServcie, null);
+                    orderObj.Adap(order,memberServcie, null,businessService,dzServiceService);
 
                     if (order.Details.Count > 0)
                     {
-                        tagsList = dzServiceService.GetServiceTags(order.Details[0].OriginalService);
+                        tagsList = dzServiceService.GetServiceTags(new Guid(order.Details[0].OriginalServiceId));
                     }
                 }
 

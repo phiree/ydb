@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+using Dianzhu.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 using Ydb.Common;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
@@ -11,6 +13,8 @@ using System.Collections.Specialized;
 using PHSuit;
 using Dianzhu.BLL.Validator;
 using Newtonsoft.Json;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
 
 /// <summary>
 /// 修改员工信息
@@ -26,20 +30,14 @@ public class ResponseWTM001003 : BaseResponse
 
         //todo:用户验证的复用.
        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
-        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
- 
-        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
- 
-        BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
-    
- 
-        BLLServiceType bllServiceType = Bootstrap.Container.Resolve < BLLServiceType>();
-   
-        BLLServiceOpenTime bllServiceOpenTime = Bootstrap.Container.Resolve < BLLServiceOpenTime>();
-
- 
-        BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = Bootstrap.Container.Resolve<BLLServiceOpenTimeForDay>();
-
+        IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
+        IDZServiceService dzServiceService = Bootstrap.Container.Resolve<IDZServiceService>();
+      
+        IDZTagService tagService= Bootstrap.Container.Resolve<IDZTagService>();
+        IServiceTypeService typeService= Bootstrap.Container.Resolve<IServiceTypeService>();
+     
+       
+        
         try
         {
             string raw_id = requestData.merchantID;
@@ -51,7 +49,8 @@ public class ResponseWTM001003 : BaseResponse
             string week = requestData.workTimeObj.week;
             string open = requestData.workTimeObj.open;
             string maxOrder = requestData.workTimeObj.maxOrder;
-
+            string serviceId = requestData.serviceId;
+            dzServiceService.ModifyWorkTimeDay(serviceId,(DayOfWeek)Convert.ToInt32(week),    c )
             Guid merchantID, workTimeID;
             bool isStoreId = Guid.TryParse(raw_id, out merchantID);
             if (!isStoreId)
@@ -80,7 +79,7 @@ public class ResponseWTM001003 : BaseResponse
             }
             try
             {
-                ServiceOpenTimeForDay sotForDay = bllServiceOpenTimeForDay.GetOne(workTimeID);
+                ServiceOpenTimeForDay sotForDay =dzServiceService.GetWorkitem(  workTimeID.ToString());
                 if (sotForDay == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -101,7 +100,7 @@ public class ResponseWTM001003 : BaseResponse
                 RespDataWTM_workTimeObj workTimeObj = new RespDataWTM_workTimeObj();
 
                 //if (tag != null) { sotForDay.tag = tag; workTimeObj.name = "Y"; }
-                if (startTime != null) { sotForDay.TimeStart = startTime; workTimeObj.startTime = "Y"; }
+                if (startTime != null) { sotForDay.TimePeriod.StartTime = startTime; workTimeObj.startTime = "Y"; }
                 if (endTime != null) { sotForDay.TimeEnd = endTime; workTimeObj.endTime = "Y"; }
                 if (week != null) { sotForDay.ServiceOpenTime.DayOfWeek = StrToWeek(week); workTimeObj.week = "Y"; }
                 if (open != null) { sotForDay.Enabled = open == "Y" ? true : false; workTimeObj.open = "Y "; }

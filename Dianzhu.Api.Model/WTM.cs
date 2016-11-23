@@ -84,6 +84,8 @@ namespace Dianzhu.Api.Model
     {
         public string merchantID { get; set; }
         public string pWord { get; set; }
+
+        public string serviceId { get; set; }
         public RespDataWTM_workTimeObj workTimeObj { get; set; }
     }
 

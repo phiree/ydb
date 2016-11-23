@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+using Dianzhu.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 using Ydb.Common;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
@@ -12,9 +14,12 @@ using PHSuit;
 using FluentValidation.Results;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
-
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
+using Ydb.Common.Application;
 /// <summary>
-/// 新增店铺
+/// 增加一個工作時間, 如果已經存在則返回該工作時間的Id
+/// todo:refactor: 功能可能缺失.
 /// </summary>
 public class ResponseWTM001001 : BaseResponse
 {
@@ -28,17 +33,26 @@ public class ResponseWTM001001 : BaseResponse
         //todo:用户验证的复用.
         IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
 
-        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-
-        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
-
+        IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
+        IDZServiceService dzServiceService = Bootstrap.Container.Resolve<IDZServiceService>();
         try
         {
             string raw_id = requestData.merchantID;
             string svc_id = requestData.svcID;
             string repeat = requestData.repeat;
             RespDataWTM_workTimeObj workTimeObj = requestData.workTimeObj;
+            
 
+         ActionResult<ServiceOpenTimeForDay> workTime=  dzServiceService.AddWorkTime(raw_id, svc_id, (DayOfWeek)Enum.Parse(typeof(DayOfWeek), workTimeObj.week), workTimeObj.startTime
+                , workTimeObj.endTime,
+               Convert.ToInt32(workTimeObj.maxOrder), workTimeObj.tag);
+            RespDataWTM001001 respData = new RespDataWTM001001();
+            respData.arrayData = new List<string>();
+            respData.arrayData.Add(workTime.ResultObject.Id.ToString());
+            this.state_CODE = Dicts.StateCode[0];
+            this.RespData = respData;
+          ;
+            /*
             if (workTimeObj.startTime == workTimeObj.endTime)
             {
                 this.state_CODE = Dicts.StateCode[1];
@@ -84,7 +98,7 @@ public class ResponseWTM001001 : BaseResponse
             }
             try
             {
-                DZService service = dzServiceService.GetOne(svcID);
+                DZService service = dzServiceService.GetOne2(svcID);
                 if (service == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -186,15 +200,15 @@ public class ResponseWTM001001 : BaseResponse
                 }
                 this.state_CODE = Dicts.StateCode[0];
                 this.RespData = respData;
-            }
-            catch (Exception ex)
+        }
+        catch (Exception ex)
             {
                 ilog.Error(ex.Message);
                 this.state_CODE = Dicts.StateCode[2];
                 this.err_Msg = ex.Message;
                 return;
             }
-
+            */
         }
         catch (Exception e)
         {

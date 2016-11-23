@@ -349,6 +349,12 @@ namespace Ydb.BusinessResource.Application
             return openTimeForDay;
         }
 
+        public ServiceOpenTimeForDay GetWorkitem(  string workTimeID)
+        {
+            ServiceOpenTimeForDay openTimeForDay = repositoryOpenTimeForDay.FindById(new Guid(workTimeID));
+
+            return openTimeForDay;
+        }
         public DZService GetOne2(Guid serviceId)
         {
           return  repositoryDZService.FindById(serviceId);
