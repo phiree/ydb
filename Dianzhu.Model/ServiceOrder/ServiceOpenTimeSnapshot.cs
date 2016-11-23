@@ -7,7 +7,7 @@ using System.Text;
 namespace Dianzhu.Model
 {
     /// <summary>
-    /// 服务每天参数设定
+    /// 下单时 服务的工作时间快照 包括:当天最大接单量,当时所属时间段的 最大接单量, 开始/结束时间/
     /// </summary>
  
     public class ServiceOpenTimeSnapshot

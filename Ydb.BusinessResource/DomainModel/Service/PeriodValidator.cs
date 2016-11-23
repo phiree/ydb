@@ -3,23 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Ydb.Common.Domain;
 namespace Ydb.BusinessResource.DomainModel
 {
-   public class PeriodValidator : IPeriodValidator
+   public class PeriodValidator 
     {
         public SortedList<int, TimePeriod> list = new SortedList<int,TimePeriod>();
 
         public PeriodValidator(IList<TimePeriod> periods)
         {
-           
+            foreach (TimePeriod p in periods)
+            {
+                Add(p);
+            }
         }
-        public IList<TimePeriod> Periods { set {
-                foreach (TimePeriod p in value)
-                {
-                    Add(p);
-                }
-            } }
+        
         /// <summary>
         /// 添加一个时间段
         /// </summary>

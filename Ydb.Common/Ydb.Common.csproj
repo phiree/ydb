@@ -62,6 +62,8 @@
   <ItemGroup>
     <Compile Include="Application\ActionResult.cs" />
     <Compile Include="Domain\IDomainEntity.cs" />
+    <Compile Include="Domain\Time.cs" />
+    <Compile Include="Domain\TimePeriod.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Infrastructure\IDownloadAvatarToMediaServer.cs" />
     <Compile Include="Infrastructure\IEncryptService.cs" />

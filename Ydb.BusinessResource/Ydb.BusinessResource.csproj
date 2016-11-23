@@ -124,8 +124,6 @@
     <Compile Include="DomainModel\Service\ServiceOpenTimeForDay.cs" />
     <Compile Include="DomainModel\Service\ServiceType.cs" />
     <Compile Include="DomainModel\Service\StaffServiceType.cs" />
-    <Compile Include="DomainModel\Service\TimePeriod.cs" />
-    <Compile Include="DomainModel\Service\Time.cs" />
     <Compile Include="DomainModel\Service\ValidatorBusiness.cs" />
     <Compile Include="DomainModel\Service\ValidatorDZService.cs" />
     <Compile Include="DomainModel\Service\ValidatorServiceOpenTimeForDay.cs" />

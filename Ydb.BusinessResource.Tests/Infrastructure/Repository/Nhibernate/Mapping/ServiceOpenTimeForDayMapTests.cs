@@ -10,6 +10,7 @@ using Ydb.BusinessResource.Application.Tests;
 using FluentNHibernate.Testing;
 using Ydb.Common;
 using Ydb.BusinessResource.DomainModel;
+using Ydb.Common.Domain;
 
 namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping.Tests
 {
