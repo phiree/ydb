@@ -28,6 +28,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.APP
         {
             try
             {
+                GetRequestHeader.GetTraitHeaders("post/apps/{appUUID}");
                 return Json(iapps.PostDeviceBind(id, appobj));
             }
             catch (Exception ex)
@@ -45,6 +46,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.APP
         {
             try
             {
+                GetRequestHeader.GetTraitHeaders("delete/apps/{appUUID}");
                 return Json(iapps.DeleteDeviceBind(id));
             }
             catch (Exception ex)
@@ -63,6 +65,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.APP
         {
             try
             {
+                GetRequestHeader.GetTraitHeaders("patch/apps/{appUUID}");
                 return Json(iapps.PatchDeviceBind(id, pushCount.pushCount));
             }
             catch (Exception ex)

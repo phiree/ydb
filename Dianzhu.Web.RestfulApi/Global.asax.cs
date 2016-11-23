@@ -62,8 +62,8 @@ namespace Dianzhu.Web.RestfulApi
             {
                 log.Info("Info(request.Url)" + strT + ":" + Context.Request.Url);
                 log.Info("Info(request.Method)" + strT + ":" + Context.Request.HttpMethod);
-                log.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusCode);
-                log.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusDescription);
+                log.Info("Info(response.StatusCodeNo)" + strT + ":" + Context.Response.StatusCode);
+                log.Info("Info(response.StatusCodeString)" + strT + ":" + Context.Response.StatusDescription);
 
                 //log1.Info("Info(request.Url)" + strT + ":" + Context.Request.Url);
                 //log1.Info("Info(request.Method)" + strT + ":" + Context.Request.HttpMethod);

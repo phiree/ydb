@@ -15,6 +15,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
     //[Authorize]
     public class CustomersController : ApiController
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.Rule");
         private ApplicationService.User.IUserService iuserservice = null;
         public CustomersController()
         {
@@ -41,6 +42,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 //    return Ok(userobj);
                 //}
                 //return Ok(iuserservice.GetUserById(id));
+                GetRequestHeader.GetTraitHeaders("get/customers/{customerID}");
                 return Json(iuserservice.GetUserById(id, "customer")?? new object());
             }
             catch(Exception ex)
@@ -78,6 +80,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     userBody = new Common_Body();
                 }
+                string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
+                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=post/customers,UserName=" + userBody.phone + ",UserId=,UserType=customer");
                 return Json(iuserservice.PostUser(userBody,"customer"));
             }
             catch (Exception ex)
@@ -103,6 +107,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     userFilter = new common_Trait_UserFiltering();
                 }
+                GetRequestHeader.GetTraitHeaders("get/customers");
                 return Json(iuserservice.GetUsers(filter,userFilter, "customer"));
             }
             catch (Exception ex)
@@ -130,6 +135,10 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 string apiName = Request.Headers.GetValues("appName").FirstOrDefault();
                 string apiKey = mysection.KeyValues[apiName].Value;
                 u3rd_Model.appName = apiKey;
+
+
+                string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
+                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=post/customer3rds,UserName=" + u3rd_Model.platform + ",UserId=,UserType=customer");
                 return Json(iuserservice.PostUser3rds(u3rd_Model, "customer"));
             }
             catch (Exception ex)
@@ -152,6 +161,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     userFilter = new common_Trait_UserFiltering();
                 }
+                string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
+                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=get/customers/count,UserName=,UserId=,UserType=customer");
                 return Json(iuserservice.GetUsersCount(userFilter, "customer"));
             }
             catch (Exception ex)
@@ -202,7 +213,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     throw new Exception("修改的城市不能为空！");
                 }
-                Customer customer = GetRequestHeader.GetTraitHeaders("patch/customers/{customerID}");
+                Customer customer = GetRequestHeader.GetTraitHeaders("patch/customers/{customerID}/currentGeolocation");
                 return Json(iuserservice.PatchCurrentGeolocation(userID, common_Body.code, customer));
                 //return Json("没有用户定位信息记录！");
             }
@@ -228,6 +239,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     userChangeBody = new UserChangeBody();
                 }
+                string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
+                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=patch/customers/phones/{phone},UserName=" + userChangeBody.phone + ",UserId=,UserType=customer");
                 return Json(iuserservice.PatchPasswordForForget(phone, userChangeBody.newPassWord));
                 //return Json("没有用户定位信息记录！");
             }
