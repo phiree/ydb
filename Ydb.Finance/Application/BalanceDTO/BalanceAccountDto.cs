@@ -47,5 +47,22 @@ namespace Ydb.Finance.Application
         /// 有效状态,1为有效，0为无效
         /// </summary>
         public int flag { get; set; }
+
+        public string AccountTypeName
+        {
+            get {
+                string strName = "";
+                switch (this.AccountType)
+                {
+                    case AccountTypeEnums.None:
+                        strName = "";
+                        break;
+                    case AccountTypeEnums.Alipay:
+                        strName = "支付宝";
+                        break;
+                }
+                return strName;
+            }
+        }
     }
 }

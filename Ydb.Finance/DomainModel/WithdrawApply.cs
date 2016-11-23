@@ -105,5 +105,10 @@ namespace Ydb.Finance.DomainModel
         /// </summary>
         public virtual string D3SerialNo { get; set; }
 
+        /// <summary>
+        /// 第三方完成时间
+        /// </summary>
+        public virtual string D3Time { get; set; }
+
     }
 }

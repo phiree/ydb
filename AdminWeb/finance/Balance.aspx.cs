@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.BLL.Finance;
+using Ydb.Finance.Application;
 /// <summary>
 /// 流水帐列表
 /// </summary>
@@ -20,7 +20,7 @@ public partial class finance_Balance :BasePage
     }
     private void BindBalance()
     {
-        var list = balanceFlowService.GetList();
+        var list = balanceFlowService.GetAll();
         gvBalance.DataSource = list;
         gvBalance.DataBind();
     }

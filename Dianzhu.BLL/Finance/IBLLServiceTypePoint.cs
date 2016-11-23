@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Dianzhu.BLL.Finance
-{
+{/*
    public  interface IBLLServiceTypePoint
     {
+        
         /// <summary>
         /// 服务类别的提成比例
         /// </summary>
@@ -15,5 +16,6 @@ namespace Dianzhu.BLL.Finance
           void Add(Model.Finance.ServiceTypePoint serviceTypePoint);
           decimal GetPoint(Model.ServiceType serviceType);
           IList<Dianzhu.Model.Finance.ServiceTypePoint> GetAll();
-    }
+          
+}*/
 }

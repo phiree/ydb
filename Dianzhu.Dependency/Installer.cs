@@ -112,14 +112,14 @@ namespace Dianzhu.DependencyInstaller
             //container.Register(Component.For<IRepository<DZTag, Guid>, IDALDZTag>().ImplementedBy<DALDZTag>());
           
             //fffffffff
-            container.Register(Component.For<IRepository<Model.Finance.BalanceFlow, Guid>, IDAL.Finance.IDALBalanceFlow>().ImplementedBy<DAL.Finance.DALBalanceFlow>());
-            container.Register(Component.For<IRepository<Model.Finance.DefaultSharePoint, Guid>, IDAL.Finance.IDALDefaultSharePoint>().ImplementedBy<DAL.Finance.DALDefaultSharePoint>());
+            //container.Register(Component.For<IRepository<Model.Finance.BalanceFlow, Guid>, IDAL.Finance.IDALBalanceFlow>().ImplementedBy<DAL.Finance.DALBalanceFlow>());
+            //container.Register(Component.For<IRepository<Model.Finance.DefaultSharePoint, Guid>, IDAL.Finance.IDALDefaultSharePoint>().ImplementedBy<DAL.Finance.DALDefaultSharePoint>());
 
 
-            container.Register(Component.For<IRepository<Model.Finance.ServiceTypePoint, Guid>, IDAL.Finance.IDALServiceTypePoint>().ImplementedBy<DAL.Finance.DALServiceTypePoint>());
+            //container.Register(Component.For<IRepository<Model.Finance.ServiceTypePoint, Guid>, IDAL.Finance.IDALServiceTypePoint>().ImplementedBy<DAL.Finance.DALServiceTypePoint>());
 
 
-            container.Register(Component.For<IRepository<Model.Finance.SharePoint, Guid>, IDAL.Finance.IDALSharePoint>().ImplementedBy<DAL.Finance.DALSharePoint>());
+            //container.Register(Component.For<IRepository<Model.Finance.SharePoint, Guid>, IDAL.Finance.IDALSharePoint>().ImplementedBy<DAL.Finance.DALSharePoint>());
             //mmmmmmmmmm
             container.Register(Component.For<IRepository<MembershipLoginLog, Guid>, IDALMembershipLoginLog>().ImplementedBy<DALMembershipLoginLog>());
             //iiiiiiiiii
@@ -174,10 +174,7 @@ namespace Dianzhu.DependencyInstaller
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             //finance
-           // container.Register(Component.For<IBLLSharePoint>().ImplementedBy<BLLSharePoint>());
-          //  container.Register(Component.For<IBLLServiceTypePoint>().ImplementedBy<BLLServiceTypePoint>());
-         //   container.Register(Component.For<IOrderShare>().ImplementedBy<OrderShare>());
-          //  container.Register(Component.For<IBalanceFlowService>().ImplementedBy<BalanceFlowService>());
+ 
             //agent
             container.Register(Component.For<Dianzhu.BLL.Agent.IAgentService>().ImplementedBy<Dianzhu.BLL.Agent.AgentService>());
 
@@ -216,9 +213,8 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<CSClient.LocalStorage.LocalUIDataManager>().ImplementedBy<CSClient.LocalStorage.UIDataManagerInMemory>());
 
             
-            container.Register(Component.For<Dianzhu.BLL.IEmailService>().ImplementedBy<JSYK.Infrastructure.EmailService>());
-            container.Register(Component.For<Dianzhu.BLL.IEncryptService>().ImplementedBy<JSYK.Infrastructure.EncryptService>());
-            container.Register(Component.For<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>().ImplementedBy<JSYK.Infrastructure.SerialNo.SerialNoDb>());
+         
+            //container.Register(Component.For<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>().ImplementedBy<JSYK.Infrastructure.SerialNo.SerialNoDb>());
 
         }
     }

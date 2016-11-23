@@ -33,6 +33,7 @@ namespace Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.ApplySerialNo);
             Map(x => x.PaySerialNo);
             Map(x => x.D3SerialNo);
+            Map(x => x.D3Time);
         }
     }
 

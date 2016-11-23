@@ -7,7 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using Ydb.Membership.Application.Dto;
 public partial class DZOrder_Default : BasePage
 {
     Dianzhu.BLL.IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
@@ -65,11 +65,12 @@ public partial class DZOrder_Default : BasePage
         liFinishOrderCount.Text = bllOrder.GetAllCompleteOrdersForBusiness(CurrentBusiness.Id)
             .Where(x => x.OrderStatus >= .enum_OrderStatus.Finished).Count().ToString();
     }
+    BLLOrderAssignment bllOrderAssignment = Bootstrap.Container.Resolve<BLLOrderAssignment>();
+    Ydb.Membership.Application.IDZMembershipService memberService = Bootstrap.Container.Resolve<Ydb.Membership.Application.IDZMembershipService>();
 
     protected void rpt_ItemDataBound(object sender, RepeaterItemEventArgs e) {
         ServiceOrder order = (ServiceOrder)e.Item.DataItem;
         Label txtStaffs = e.Item.FindControl("assignStaffs") as Label;
-        BLLOrderAssignment bllOrderAssignment = Bootstrap.Container.Resolve<BLLOrderAssignment>();
         IList<OrderAssignment> list = bllOrderAssignment.GetOAListByOrder(order);
 
         if (list.LongCount() == 0) {
@@ -80,6 +81,9 @@ public partial class DZOrder_Default : BasePage
         {
             txtStaffs.Text += ass.AssignedStaff.Name.ToString();
         }
+        //CustomerName
+        Label lblCustomerName = e.Item.FindControl("lblCustomerName") as Label;
+        lblCustomerName.Text = memberService.GetUserById( order.CustomerId).DisplayName;
 
     }
 

@@ -86,7 +86,7 @@ namespace Dianzhu.ApplicationService.User
         /// <param name="userID"></param>
         /// <param name="cityCode"></param>
         /// <returns></returns>
-        object PatchCurrentGeolocation(string userID, string cityCode, Customer customer);
+        object PatchCurrentGeolocation(string userID, common_Trait_LocationFiltering cityCode, Customer customer);
 
 
     }

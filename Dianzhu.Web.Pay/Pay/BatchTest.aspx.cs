@@ -17,7 +17,8 @@ using System.Text;
 public partial class Pay_BatchTest : Dianzhu.Web.Common.BasePage
 {
     BLLPay bllPay = Bootstrap.Container.Resolve<BLLPay>();
-    Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder iserialno = Bootstrap.Container.Resolve<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>();
+    //Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder iserialno = Bootstrap.Container.Resolve<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>();
+    Ydb.Common.Infrastructure.ISerialNoBuilder iserialno = Bootstrap.Container.Resolve<Ydb.Common.Infrastructure.ISerialNoBuilder>();
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
     /// <summary>
     /// 企业付款给个人，直接入帐到微信钱包中

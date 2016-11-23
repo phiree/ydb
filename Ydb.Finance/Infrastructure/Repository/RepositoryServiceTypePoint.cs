@@ -39,7 +39,15 @@ namespace Ydb.Finance.Infrastructure.Repository
         {
             foreach (ServiceTypePoint item in list)
             {
-                SaveOrUpdate(item);
+                ServiceTypePoint serviceTypePoint = FindOne(x => x.ServiceTypeId == item.ServiceTypeId);
+                if (serviceTypePoint == null)
+                {
+                    Add(item);
+                }
+                else
+                {
+                    serviceTypePoint.Point = item.Point;
+                }
             }
         }
     }

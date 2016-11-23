@@ -102,5 +102,11 @@ namespace Ydb.Finance.Application
         /// 第三方账单号
         /// </summary>
         public virtual string D3SerialNo { get; set; }
+
+
+        /// <summary>
+        /// 第三方完成时间
+        /// </summary>
+        public virtual string D3Time { get; set; }
     }
 }

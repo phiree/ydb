@@ -31,6 +31,8 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.UserType).CustomType<UserType>();
             Map(x => x.LoginType).CustomType<LoginType>();
             Map(x => x.UserCity);
+            Map(x => x.Longitude);
+            Map(x => x.Latitude);
 
 
         }

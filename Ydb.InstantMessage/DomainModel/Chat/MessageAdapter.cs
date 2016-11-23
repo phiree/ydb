@@ -17,7 +17,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
     public class MessageAdapter : IMessageAdapter
     {
  
-        log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.InstantMessage.DomainModel.Chat.MessageAdapter");
+        log4net.ILog log = log4net.LogManager.GetLogger("Ydb.InstantMessage.DomainModel.Chat.MessageAdapter");
          
         /// <summary>
         /// 将im的 message为 系统设计的格式(chat)
@@ -224,6 +224,16 @@ namespace Ydb.InstantMessage.DomainModel.Chat
                          extNode.AddChild(storeObj);
                     }
                     break;
+                case "ReceptionChatDidichuxing":
+                    extNode.Namespace = "ihelper:hyper:didichuxing";
+
+                    ReceptionChatDidichuxing chatDidichuxing = (ReceptionChatDidichuxing)chat;
+                    var extHrefDidichuxing = new agsXMPP.Xml.Dom.Element("href", "/hypersmdias/"+ chatDidichuxing.Id);
+                    extNode.AddChild(extHrefDidichuxing);
+                    break;
+                default:
+                    log.Error("不需要处理的命名空间:" + chat.GetType().Name);
+                    break;
             }
             return msg;
         }
@@ -303,7 +313,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
                     builder = builder.BuildPushedService(svcID, svcName, svcType, startTime, endTime,userId, alias, imgUrl);
                     break;
                 default:
-                    ilog.Error("不需要处理的命名空间:" + extNameSpace); break;
+                    log.Error("不需要处理的命名空间:" + extNameSpace); break;
             }
 
             return builder.Message;

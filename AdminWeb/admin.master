@@ -74,7 +74,7 @@
 
                          <li><span>财务设置</span></li>
                         <li><a href="/finance/sharepoint.aspx">用户分成比例</a></li>
-                         
+                         <li><a href="/finance/PayWithdrawCash.aspx">提现支付</a></li>
                          <li><a href="/finance/Balance.aspx">流水</a></li>
  
                         <li><span>系统管理</span></li>

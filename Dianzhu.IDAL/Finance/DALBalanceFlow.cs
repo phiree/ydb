@@ -6,9 +6,10 @@ using System.Collections;
 using Ydb.Common.Specification;
 
 namespace Dianzhu.IDAL.Finance
-{
+{/*
     public interface IDALBalanceFlow:IRepository<Dianzhu.Model.Finance.BalanceFlow,Guid>
     {
+        
         /// <summary>
         /// 统计账单结果
         /// </summary>
@@ -37,7 +38,7 @@ namespace Dianzhu.IDAL.Finance
         IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string status, string billType, string orderId, string billServiceType,  TraitFilter filter);
 
 
+    
 
-
-    }
+}*/
 }

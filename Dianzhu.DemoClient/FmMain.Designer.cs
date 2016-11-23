@@ -177,7 +177,7 @@
             // 
             // btnLogout
             // 
-            this.btnLogout.Location = new System.Drawing.Point(795, 9);
+            this.btnLogout.Location = new System.Drawing.Point(795, 45);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(75, 23);
             this.btnLogout.TabIndex = 8;
@@ -187,7 +187,7 @@
             // 
             // btnOnlineUsers
             // 
-            this.btnOnlineUsers.Location = new System.Drawing.Point(714, 9);
+            this.btnOnlineUsers.Location = new System.Drawing.Point(714, 45);
             this.btnOnlineUsers.Name = "btnOnlineUsers";
             this.btnOnlineUsers.Size = new System.Drawing.Size(75, 23);
             this.btnOnlineUsers.TabIndex = 8;
@@ -198,7 +198,7 @@
             // lblAssignedCS
             // 
             this.lblAssignedCS.AutoSize = true;
-            this.lblAssignedCS.Location = new System.Drawing.Point(687, 15);
+            this.lblAssignedCS.Location = new System.Drawing.Point(690, 14);
             this.lblAssignedCS.Name = "lblAssignedCS";
             this.lblAssignedCS.Size = new System.Drawing.Size(17, 12);
             this.lblAssignedCS.TabIndex = 7;
@@ -224,7 +224,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(618, 14);
+            this.label3.Location = new System.Drawing.Point(631, 14);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 12);
             this.label3.TabIndex = 2;

@@ -7,14 +7,15 @@ using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using System.Data;
+using Ydb.Finance.Application;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 public partial class order_detail : BasePage
 {
     IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
-    Dianzhu.BLL.Finance.IBLLServiceTypePoint bllServiceTypePoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBLLServiceTypePoint>();
-    Dianzhu.BLL.Finance.IBalanceFlowService balanceService = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBalanceFlowService>();
-    Dianzhu.BLL.Finance.IBLLSharePoint bllSharePoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBLLSharePoint>();
+    IServiceTypePointService bllServiceTypePoint = Bootstrap.Container.Resolve<IServiceTypePointService>();
+    IBalanceFlowService balanceService = Bootstrap.Container.Resolve<IBalanceFlowService>();
+    //Dianzhu.BLL.Finance.IBLLSharePoint bllSharePoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBLLSharePoint>();
     IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
     Dianzhu.BLL.Agent.AgentService agentService = new Dianzhu.BLL.Agent.AgentService();
     ServiceOrder serviceorder;
@@ -87,21 +88,21 @@ public partial class order_detail : BasePage
         lblTitle.Text = serviceorder.Title;
         if (lblOrderStatus.Text == "Finished")
         {
-        
-            Dianzhu.BLL.Finance.OrderShare os = new Dianzhu.BLL.Finance.OrderShare(bllServiceTypePoint, bllSharePoint, agentService, balanceService,memberService);
-            IList < Dianzhu.Model.Finance.BalanceFlow > shareFlow= os.Share(serviceorder);
 
-            var typePoint = bllServiceTypePoint.GetPoint(serviceorder.Details[0].OriginalService.ServiceType);
-            var sharedAmount = serviceorder.NegotiateAmount * typePoint;
-            lblShareAmount.Text = sharedAmount.ToString();
+            //Dianzhu.BLL.Finance.OrderShare os = new Dianzhu.BLL.Finance.OrderShare(bllServiceTypePoint, bllSharePoint, agentService, balanceService,memberService);
+            IList<BalanceFlowDto> shareFlow = balanceService.GetBalanceFlowList(new Ydb.Common.Specification.TraitFilter(), new BalanceFlowFilter { RelatedObjectId = serviceorder.Id.ToString() });
 
-            foreach (Dianzhu.Model.Finance.BalanceFlow bf in shareFlow)
+            //var typePoint = bllServiceTypePoint.GetPoint(serviceorder.Details[0].OriginalService.ServiceType);
+            //var sharedAmount = serviceorder.NegotiateAmount * typePoint;
+            //lblShareAmount.Text = sharedAmount.ToString();
+
+            foreach (BalanceFlowDto bf in shareFlow)
             {
-                if (bf.MemberId.ToString() == serviceorder.CustomerServiceId)
+                if (bf.AccountId == serviceorder.CustomerServiceId)
                 {
                     lblCustomerServiceShare.Text = bf.Amount.ToString();
                 }
-                else
+                if (bf.AccountId != serviceorder.CustomerServiceId && bf.AccountId != serviceorder.Business .OwnerId.ToString() && bf.AccountId != "dc73ba0f-91a4-4e14-b17a-a567009dfd6a")
                 {
                     lblAgentShare.Text = bf.Amount.ToString();
                 }

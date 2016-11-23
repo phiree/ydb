@@ -83,5 +83,17 @@ namespace Ydb.Finance.Tests.Application
             var list = serviceTypePointService.GetAll();
             Console.WriteLine("ServiceTypePointService.GetAll:" + list.Count);
         }
+
+        /// <summary>
+        /// 获取所有服务类型的扣点比例信息
+        /// </summary>
+        [Test()]
+        public void ServiceTypePointService_SaveList()
+        {
+            serviceTypePointService.SaveList(new List<ServiceTypePointDto> { new ServiceTypePointDto { ServiceTypeId = "004fa8eb-3649-4ddd-8c7d-9028c0f6a94f", Point = 0.08m },
+                 new ServiceTypePointDto { ServiceTypeId = "003fa8eb-3649-4ddd-8c7d-9028c0f6a94f", Point = 0.09m }
+            });
+            Console.WriteLine("ServiceTypePointService.SaveList:添加成功！");
+        }
     }
 }

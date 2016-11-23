@@ -28,8 +28,9 @@ namespace Ydb.Finance.DomainModel
         /// 账户入账
         /// </summary>
         /// <param name="userId" type="string">账户用户ID</param>
+        /// <param name="userType" type="string">用户类型</param>
         /// <param name="amount" type="decimal">入账金额</param>
-        void InBalance(string userId, decimal amount);
+        void InBalance(string userId, decimal amount, string userType);
 
         /// <summary>
         /// 账户出账

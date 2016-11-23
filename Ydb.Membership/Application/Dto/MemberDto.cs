@@ -11,6 +11,7 @@ namespace Ydb.Membership.Application.Dto
          
         public Guid Id { get; internal set; }
         public string UserName{ get; internal set; }
+        public string PlainPassword { get; internal set; }
         public virtual DateTime TimeCreated { get; set; }
         public virtual DateTime LastLoginTime { get; set; }
         public virtual string Email { get; set; }
@@ -25,6 +26,16 @@ namespace Ydb.Membership.Application.Dto
         public virtual string FriendlyUserType { get; set; }
         public virtual int LoginTimes { get; set; }
         public virtual string UserCity { get; set; }
+
+        /// <summary>
+        /// 用户所在位置经度
+        /// </summary>
+        public virtual string Longitude { get; set; }
+        /// <summary>
+        /// 用户所在位置纬度
+        /// </summary>
+        public virtual string Latitude { get; set; }
+
         public virtual string DisplayName { get; set; }
 
         public virtual void CopyTo(MemberDto newMember)

@@ -14,6 +14,8 @@ using System.IO;
 using System.Net;
 using Newtonsoft.Json.Converters;
 using System.Diagnostics;
+using Dianzhu.RequestRestful;
+
 namespace Dianzhu.DemoClient
 {
     public partial class FmMain : Form
@@ -96,40 +98,74 @@ namespace Dianzhu.DemoClient
             this.Text = result["RespData"]["userObj"]["name"].ToString();
 
         }
+
+        public static RequestResponse ReqResponse(string username, string password)
+        {
+            RequestParams rp = new RequestParams();
+            rp.method = "1";
+            rp.url = Dianzhu.Config.Config.GetAppSetting("RestApiAuthUrl");
+            //rp.url = "http://192.168.1.177:52554/api/v1/authorization";
+            rp.content = "{\n\"loginName\":\"" + username + "\",\n\"password\":\"" + password + "\"\n}";
+            rp = SetCommon.SetParams("UA811Cd5343a1a41e4beB35227868541f8", "WDcajjuVXA6TToFfm1MWhFFgn6bsXTt8VNsGLjcqGMg=", rp);
+            IRequestRestful req = new Dianzhu.RequestRestful.RequestRestful();
+            RequestResponse res = req.RequestRestfulApi(rp);
+
+
+            return res;
+
+
+        }
+
         public void GetCustomerService(string username, string password, string manualAssignedCS)
         {
-            string apiRequest = string.Format(@"{{ // 
-                     ""protocol_CODE"": ""ORM002001"", 
-                    ""ReqData"": {{ 
-                    ""userID"": ""{0}"", 
-                    ""pWord"": ""{1}"", 
-                    ""orderID"": ""{2}"",
-""manualAssignedCsId"":""{4}""   
-                    }}, 
-                    ""stamp_TIMES"": ""{3}"", 
-                    ""serial_NUMBER"": ""00147001015869149751"" 
-                }}", customerId,
-                password,
-                orderID,
-                (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString(),
-                tbxManualAssignedCS.Text
-                );
-            GlobalViables.log.Debug("请求参数：" + apiRequest);
-            Newtonsoft.Json.Linq.JObject result = API.GetApiResult(apiRequest);
-            GlobalViables.log.Debug("请求结果：" + result.ToString());
-            string state_Code = result["state_CODE"].ToString();
-            if (state_Code != "009000")
-            {
-                string errMsg = result["err_Msg"].ToString();
-                MessageBox.Show(errMsg);
-                lblAssignedCS.Text = "客服离线";
-                throw new Exception(state_Code + "_" + errMsg);
-            }
-            lblAssignedCS.Text = csDisplayName = result["RespData"]["cerObj"]["alias"].ToString();// result["RespData"]["cerObj"]["alias"].ToString();
+            //string apiRequest = string.Format(@"{{ // 
+            //                     ""protocol_CODE"": ""ORM002001"", 
+            //                    ""ReqData"": {{ 
+            //                    ""userID"": ""{0}"", 
+            //                    ""pWord"": ""{1}"", 
+            //                    ""orderID"": ""{2}"",
+            //""manualAssignedCsId"":""{4}""   
+            //                    }}, 
+            //                    ""stamp_TIMES"": ""{3}"", 
+            //                    ""serial_NUMBER"": ""00147001015869149751"" 
+            //                }}", customerId,
+            //    password,
+            //    orderID,
+            //    (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString(),
+            //    tbxManualAssignedCS.Text
+            //    );
+            //GlobalViables.log.Debug("请求参数：" + apiRequest);
+            //Newtonsoft.Json.Linq.JObject result = API.GetApiResult(apiRequest);
+            //GlobalViables.log.Debug("请求结果：" + result.ToString());
+            //string state_Code = result["state_CODE"].ToString();
+            //if (state_Code != "009000")
+            //{
+            //    string errMsg = result["err_Msg"].ToString();
+            //    MessageBox.Show(errMsg);
+            //    lblAssignedCS.Text = "客服离线";
+            //    throw new Exception(state_Code + "_" + errMsg);
+            //}
 
-            csId = result["RespData"]["cerObj"]["userID"].ToString();// result["RespData"]["cerObj"]["userID"].ToString();
-                                                                     //customerId = result["RespData"]["cerObj"]["userID"].ToString();
-            orderID = result["RespData"]["orderID"].ToString();
+            RequestResponse resp = RestfulApi.GetAssignCS(username, password, rbAndroid.Checked ? "android" : "IOS");
+            log.Debug(resp.data);
+            //Newtonsoft.Json.Linq.JObject cObject = (Newtonsoft.Json.Linq.JObject)c;
+            if (!resp.code)
+            {
+                log.Error(resp.msg);
+                return;
+            }
+
+            Newtonsoft.Json.Linq.JObject resObject = Newtonsoft.Json.JsonConvert.DeserializeObject(resp.data) as Newtonsoft.Json.Linq.JObject;
+
+            lblAssignedCS.Text = csDisplayName = resObject["customerServicesObj"]["alias"].ToString();
+            csId = resObject["customerServicesObj"]["id"].ToString();
+            orderID = resObject["draftOrderID"].ToString();
+
+            //lblAssignedCS.Text = csDisplayName = result["RespData"]["cerObj"]["alias"].ToString();// result["RespData"]["cerObj"]["alias"].ToString();
+
+            //csId = result["RespData"]["cerObj"]["userID"].ToString();// result["RespData"]["cerObj"]["userID"].ToString();
+            //                                                         //customerId = result["RespData"]["cerObj"]["userID"].ToString();
+            //orderID = result["RespData"]["orderID"].ToString();
 
         }
         public void GetCustomerService(string username, string password)

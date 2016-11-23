@@ -90,7 +90,11 @@ namespace Ydb.InstantMessage.DomainModel.Chat
 
         }
         
-
+        public ReceptionChat CreateDidichuxing(string fromlat, string fromlng, string fromaddr, string fromname, string tolat, string tolng, string toaddr, string toname, string phone)
+        {
+            return new ReceptionChatDidichuxing(fromlat, fromlng, fromaddr, fromname, tolat, tolng, toaddr, toname, phone,
+                id, fromId, toId, messageBody, sessionId, fromResource, toResource);
+        }
     }
      
 }

@@ -37,7 +37,7 @@ public class IMServerAPI : IHttpHandler
                     {
                         //发送给客户
                         im.SendNoticeOrderChangeStatus(strOrderTitle, strOrderStatus, strOrderType,
-                            Guid.NewGuid(), "订单状态已变为:" + strOrderStatusFriendly, strUserId, strToResource, strOrderId);
+                            Guid.NewGuid(), "<订单更新>订单状态已变为:" + strOrderStatusFriendly, strUserId, strToResource, strOrderId);
                     }
                     else
                     {

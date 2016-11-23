@@ -11,7 +11,7 @@ using Ydb.Membership.Application.Dto;
 public partial class test_Default : BasePage
 {
     public IBLLServiceOrder bllOrder =Bootstrap.Container.Resolve<IBLLServiceOrder>();
-    Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder = Bootstrap.Container.Resolve<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>();
+    Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder = Bootstrap.Container.Resolve<Ydb.Common.Infrastructure.ISerialNoBuilder>();
     IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
     protected void Page_Load(object sender, EventArgs e)
     {

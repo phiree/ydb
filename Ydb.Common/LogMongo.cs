@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dianzhu.BLL
+namespace Ydb.Common
 {
-   public interface IEmailService
+    public class LogMongo
     {
-        void SendEmail(string to, string subject, string body);
+
     }
 }

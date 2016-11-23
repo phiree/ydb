@@ -177,7 +177,7 @@ namespace Dianzhu.ApplicationService.User
             {
                 customerObj customerobj = Mapper.Map<customerObj>(newMember);
                 //客户端返回密码是不安全的行为,需要重新整理需求
-                //customerobj.pWord = dzm.PlainPassword;
+                customerobj.pWord = newMember.PlainPassword;
 
                 return customerobj;
             }
@@ -294,6 +294,7 @@ namespace Dianzhu.ApplicationService.User
                 throw new Exception("修改失败!");
             }
             */
+            validatedUser = memberService.GetUserById(userID);
             if (userType == "customer")
             {
                 customerObj customerobj = Mapper.Map<customerObj>(validatedUser);
@@ -340,10 +341,10 @@ namespace Dianzhu.ApplicationService.User
         /// <param name="userID"></param>
         /// <param name="cityCode"></param>
         /// <returns></returns>
-        public object PatchCurrentGeolocation(string userID, string cityCode, Customer customer)
+        public object PatchCurrentGeolocation(string userID, common_Trait_LocationFiltering cityCode, Customer customer)
         {
             Guid guidUser = utils.CheckGuidID(userID, "userID");
-            ActionResult actionResult = memberService.ChangeUserCity(guidUser, cityCode);
+            ActionResult actionResult = memberService.ChangeUserCity(guidUser, cityCode.code, cityCode.longitude, cityCode.latitude);
             if (!actionResult.IsSuccess)
             {
                 throw new Exception(actionResult.ErrMsg);

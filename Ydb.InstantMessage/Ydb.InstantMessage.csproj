@@ -29,6 +29,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '测试环境|AnyCPU'">
+    <OutputPath>bin\测试环境\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="agsXMPP, Version=1.3.1.0, Culture=neutral, PublicKeyToken=ff839b81f1debe86, processorArchitecture=MSIL">
       <HintPath>..\packages\Loamen.agsXMPP.1.3.1\lib\net45\agsXMPP.dll</HintPath>
@@ -107,6 +116,8 @@
     <Compile Include="Application\ChatService.cs" />
     <Compile Include="Application\Dto\ReceptionStatusDto.cs" />
     <Compile Include="Application\IChatService.cs" />
+    <Compile Include="DomainModel\Chat\Dto\ReceptionChatDidichuxingDto.cs" />
+    <Compile Include="DomainModel\Chat\Model\ReceptionChatDidichuxing.cs" />
     <Compile Include="Installer\InstallerInstantMessage.cs" />
     <Compile Include="Application\ReceptionService.cs" />
     <Compile Include="Application\IReceptionService.cs" />

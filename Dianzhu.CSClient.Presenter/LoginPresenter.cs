@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model;
 using Dianzhu.BLL;
- 
+
 using System.Threading;
 using Ydb.InstantMessage.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.Membership.Application;
 using System.Threading.Tasks;
+using Ydb.Common.Infrastructure;
 
 namespace Dianzhu.CSClient.Presenter
 {

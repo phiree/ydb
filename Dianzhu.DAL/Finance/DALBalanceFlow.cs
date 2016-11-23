@@ -8,7 +8,7 @@ using NHibernate.Transform;
 using Ydb.Common.Specification;
 
 namespace Dianzhu.DAL.Finance
-{
+{/*
    public  class DALBalanceFlow:NHRepositoryBase<Model.Finance.BalanceFlow,Guid>, IDAL.Finance.IDALBalanceFlow
     {
         
@@ -148,5 +148,6 @@ namespace Dianzhu.DAL.Finance
             }
 
         }
-    }
+        
+}*/
 }

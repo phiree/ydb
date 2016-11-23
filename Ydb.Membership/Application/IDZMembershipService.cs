@@ -80,7 +80,7 @@ namespace Ydb.Membership.Application
 
         ActionResult RecoveryPasswordByPhone(string phone, string newPassword);
 
-         ActionResult ChangeUserCity(Guid memberId, string cityCode);
+         ActionResult ChangeUserCity(Guid memberId, string cityCode, string longitude, string latitude);
 
 
         ActionResult RecoveryPassword( string recoveryString, string newPassword);

@@ -31,9 +31,9 @@ namespace Ydb.Finance.DomainModel
         /// <param name="billType" type="string">流水记录类型</param>
         /// <param name="orderId" type="string">订单ID</param>
         /// <param name="billServiceType" type="string">服务类型</param>
-        /// <param name="filter" type="string">筛选器</param>
+        /// <param name="filter" type="Ydb.Common.Specification.TraitFilter">筛选器</param>
         /// <returns type="IList">统计结果列表</returns>
-        IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string status, string billType, string orderId, string billServiceType,string filter);
+        IList GetBillList(string userID, DateTime startTime, DateTime endTime, string serviceTypeLevel, string status, string billType, string orderId, string billServiceType, Ydb.Common.Specification.TraitFilter filter);
 
 
 

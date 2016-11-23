@@ -15,6 +15,11 @@ namespace Ydb.Finance.DomainModel
         public virtual string UserId { get; set; }
 
         /// <summary>
+        /// 用户类型
+        /// </summary>
+        public virtual string UserType { get; set; }
+
+        /// <summary>
         /// 用户账户余额
         /// </summary>
         public virtual decimal Total { get; set; }

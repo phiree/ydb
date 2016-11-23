@@ -135,6 +135,17 @@ namespace Ydb.Finance.Application
         public IList<UserTypeSharePointDto> GetAll() {
             return Mapper.Map<IList<UserTypeSharePoint>, IList<UserTypeSharePointDto>>(repositoryUserTypeSharePoint.Find(x => true));
         }
-         
+
+        /// <summary>
+        /// 根据Id获取一条用户类型分配比例信息
+        /// </summary>
+        /// <param name="Id" type="Guid">分配比例Id</param>
+        /// <returns type="UserTypeSharePointDto">用户类型分配比例信息</returns>
+        [Ydb.Finance.Infrastructure.UnitOfWork]
+        public UserTypeSharePointDto GetOne(Guid Id)
+        {
+            return Mapper.Map<UserTypeSharePoint, UserTypeSharePointDto>(repositoryUserTypeSharePoint.FindById(Id));
+        }
+
     }
 }

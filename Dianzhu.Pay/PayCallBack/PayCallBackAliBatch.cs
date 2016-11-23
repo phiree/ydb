@@ -15,7 +15,7 @@ namespace Dianzhu.Pay
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Pay.PayCallBackAliBatch");
 
-        static Dictionary<string, string> TradeStatus = new Dictionary<string, string>()
+        public static Dictionary<string, string> TradeStatus = new Dictionary<string, string>()
         {
             { "BATCH_TRANS_NOTIFY","转账成功" },
             { "UPLOAD_FILE_NOT_FOUND","非常抱歉，找不到上传的文件!" },

@@ -21,9 +21,15 @@ namespace Dianzhu.CSClient
         {
             container = new WindsorContainer();
 
+
             container.Install(
                 new Ydb.Infrastructure.Installer()
                 );
+
+            container.Install(
+                new Ydb.Infrastructure.InstallerCommon(BuildDBConfig("ydb_common"))
+                );
+
 
 
             container.Install(

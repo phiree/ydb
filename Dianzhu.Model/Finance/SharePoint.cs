@@ -5,13 +5,14 @@ using System.Text;
 using Ydb.Common;
 
 namespace Dianzhu.Model.Finance
-{
+{/*
     /// <summary>
     /// 分成比例
     /// </summary>
     public class SharePoint:DDDCommon.Domain.Entity<Guid>
     {
  
+        
         public static SharePoint None {
             get { return new SharePoint(); }
         }
@@ -25,8 +26,9 @@ namespace Dianzhu.Model.Finance
         /// </summary>
         /// <param name="defaultSharePoint"></param>
         /// <returns></returns>
-         
-    }
+        
+
+}
     public class DefaultSharePoint:DDDCommon.Domain.Entity<Guid>
     {
  
@@ -44,6 +46,8 @@ namespace Dianzhu.Model.Finance
         
         public virtual string UserType { get; set; }
         public virtual decimal Point { get; set; }
+        
     
     }
+    */
 }

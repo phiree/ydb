@@ -119,7 +119,8 @@
 
                                                         <div class="custom-col col-10-1">
                                                             <div class="order-li">
-                                                                <%#Eval("Customer.DisplayName") %>
+                                                                
+                                                                 <asp:Label runat="server" ID="lblCustomerName"></asp:Label>
                                                             </div>
                                                         </div>
                                                         <div class="custom-col col-10-2">

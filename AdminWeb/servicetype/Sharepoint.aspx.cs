@@ -5,15 +5,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
-using Dianzhu.BLL.Finance;
-using Dianzhu.Model.Finance;
+using Ydb.Finance.Application;
 public partial class servicetype_Sharepoint : BasePage
 {
 
     /// <summary>
     /// 服务类别的分成列表
     /// </summary>
-    Dianzhu.BLL.Finance.IBLLServiceTypePoint bLLServiceTypePoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBLLServiceTypePoint>();
+    IServiceTypePointService bLLServiceTypePoint = Bootstrap.Container.Resolve<IServiceTypePointService>();
     BLLServiceType bllType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -27,10 +26,10 @@ public partial class servicetype_Sharepoint : BasePage
     {
         if (e.Item.ItemType == ListItemType.Item)
         {
-            ServiceTypePoint point = (ServiceTypePoint)e.Item.DataItem;
+            ServiceTypePointDto point = (ServiceTypePointDto)e.Item.DataItem;
             Literal liTypeName = e.Item.FindControl("liTypeName") as Literal;
             Literal liPoint = e.Item.FindControl("liPoint") as Literal;
-            liTypeName.Text = point.ServiceType.Name;
+            liTypeName.Text = point.ServiceTypeId;
             liPoint.Text = point.Point.ToString("0.00");
         }
     }

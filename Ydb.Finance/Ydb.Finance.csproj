@@ -29,6 +29,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '测试环境|AnyCPU'">
+    <OutputPath>bin\测试环境\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
@@ -73,11 +82,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\BalanceDTO\BalanceFlowFilter.cs" />
     <Compile Include="Application\BalanceDTO\Enums\ApplyStatusEnums.cs" />
     <Compile Include="Application\BalanceDTO\WithdrawApplyDto.cs" />
     <Compile Include="Application\BalanceDTO\WithdrawApplyFilter.cs" />
     <Compile Include="Application\BalanceDTO\WithdrawCashDto.cs" />
-    <Compile Include="Application\Infrastructure\MapperBase.cs" />
+    <Compile Include="Application\IService\IBalanceTotalService.cs" />
     <Compile Include="Application\IService\IWithdrawApplyService.cs" />
     <Compile Include="Application\Service\BalanceAccountService.cs" />
     <Compile Include="Application\IService\IBalanceAccountService.cs" />
@@ -92,6 +102,7 @@
     <Compile Include="Application\BalanceDTO\Mapping\ModelToDtoMappingProfile.cs" />
     <Compile Include="Application\BalanceDTO\ServiceTypePointDto.cs" />
     <Compile Include="Application\BalanceDTO\UserTypeSharePointDto.cs" />
+    <Compile Include="Application\Service\BalanceTotalService.cs" />
     <Compile Include="Application\Service\BanlanceFlow.cs" />
     <Compile Include="Application\IService\IBalanceFlowService.cs" />
     <Compile Include="Application\IService\IOrderShareService.cs" />
@@ -144,6 +155,10 @@
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
       <Project>{2e67aa78-6780-42bd-a3ab-ad953781e511}</Project>
       <Name>Dianzhu.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Pay\Dianzhu.Pay.csproj">
+      <Project>{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}</Project>
+      <Name>Dianzhu.Pay</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
       <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>

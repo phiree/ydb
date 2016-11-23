@@ -87,12 +87,17 @@ namespace Dianzhu.BLL
             log.Debug("保存支付记录");
             bllPaymentLog.Add(paymentLog);
 
+            if (ipayCallback.GetType() == typeof(PayCallBackAliBatch))
+            {
+                return;
+            }
             //处理订单流程
             string platformOrderId, businessOrderId, errMsg;
             decimal amount;
             log.Debug("开始API回调");
             string returnstr= ipayCallback.PayCallBack(callbackParameters, out businessOrderId,out platformOrderId,out amount,out errMsg);
             log.Debug("回调结果:" + returnstr);
+           
             if (returnstr == "ERROR")
             {
                 log.Error(errMsg);

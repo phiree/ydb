@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 
 public partial class DZOrder_Detail : BasePage
 {
@@ -14,6 +16,7 @@ public partial class DZOrder_Detail : BasePage
     BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
     // BLLServiceOrder bllServeiceOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
     BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<BLLServiceOrderStateChangeHis>();
+    IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
     BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
     public ServiceOrder CurrentOrder;
     public Business CurrentBusiness;
@@ -32,8 +35,14 @@ public partial class DZOrder_Detail : BasePage
         CurrentOrder = bllServeiceOrder.GetOne(new Guid(Request["orderId"]));
         BingData();
         BindDoneStatusData();
+        BindCustomerInfo();
     }
-
+    private void BindCustomerInfo()
+    {
+        var memberDto = memberService.GetUserById(CurrentOrder.CustomerId);
+        liCustomerName.Text = memberDto.DisplayName+memberDto.UserName;
+        liCustomerPhone.Text = memberDto.Phone;
+    }
     protected void BindDoneStatusData()
     {
         IOrderedEnumerable<ServiceOrderStateChangeHis> statusList = bllServiceOrderStateChangeHis.GetOrderHisList(CurrentOrder).OrderByDescending(x => x.CreatTime);

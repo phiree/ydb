@@ -7,9 +7,10 @@ using Dianzhu.Model.Finance;
 using System.Collections;
 
 namespace Dianzhu.BLL.Finance
-{
+{/*
     public class BalanceFlowService : IBalanceFlowService
     {
+        
         IDAL.Finance.IDALBalanceFlow dalBalanceFlow;
 
         public BalanceFlowService(IDAL.Finance.IDALBalanceFlow dalBalanceFlow)
@@ -59,7 +60,7 @@ namespace Dianzhu.BLL.Finance
         {
             return dalBalanceFlow.GetBillList(userID, startTime, endTime, serviceTypeLevel, status, billType, orderId, billServiceType, filter);
         }
+       
 
-
-    }
+} */
 }

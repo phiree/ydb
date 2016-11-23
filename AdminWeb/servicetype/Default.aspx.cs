@@ -11,7 +11,7 @@ using PHSuit;
 public partial class servicetype_Default : BasePage
 {
     BLLServiceType bllServiceType =  Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
-    Dianzhu.BLL.Finance.IBLLServiceTypePoint bllPoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBLLServiceTypePoint>();
+    Ydb.Finance.Application.IServiceTypePointService bllPoint = Bootstrap.Container.Resolve<Ydb.Finance.Application.IServiceTypePointService>();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

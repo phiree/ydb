@@ -119,6 +119,9 @@ namespace   Ydb.InstantMessage.Application
         void SendReAssignToCustomer(string reAssignedCustomerServiceId, string csAlias, string csAvatar,
             Guid messageId, string to, string toResource, string sessionId);
 
+        void SendDidichuxing(string fromlat, string fromlng, string fromaddr, string fromname, string tolat, string tolng, string toaddr, string toname, string phone,
+            Guid messageId, string to, string toResource, string sessionId);
+
         void SendMessage(string xml);
         event IMReceivedMessage IMReceivedMessage;
         event IMIQ IMIQ;

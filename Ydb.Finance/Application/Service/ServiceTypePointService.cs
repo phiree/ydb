@@ -102,5 +102,15 @@ namespace Ydb.Finance.Application
         {
             return Mapper.Map<IList<ServiceTypePoint>, IList<ServiceTypePointDto>>(repositoryServiceTypePoint.GetAll());
         }
+
+        /// <summary>
+        /// 批量保存服务类型扣点比例
+        /// </summary>
+        /// <param name="serviceTypePointDtoList" type="IList<ServiceTypePointDto>">服务类型扣点比例列表</param>
+        [Ydb.Finance.Infrastructure.UnitOfWork]
+        public void SaveList(IList<ServiceTypePointDto> serviceTypePointDtoList)
+        {
+            repositoryServiceTypePoint.SaveList(Mapper.Map<IList<ServiceTypePoint>>(serviceTypePointDtoList));
+        }
     }
 }

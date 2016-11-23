@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 
 namespace Dianzhu.IDAL.Finance
-{
+{/*
     public interface IDALDefaultSharePoint:IRepository<Dianzhu.Model.Finance.DefaultSharePoint,Guid>
     {
-
+        
         Dianzhu.Model.Finance.DefaultSharePoint GetDefaultSharePoint(string userType);
-    }
+       
+} */
 }

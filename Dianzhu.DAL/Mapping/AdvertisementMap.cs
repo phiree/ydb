@@ -21,6 +21,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.SaveControllerId);
             Map(x => x.LastUpdateTime);
             Map(x => x.UpdateControllerId);
+            Map(x => x.PushType);
         }
     }
 }

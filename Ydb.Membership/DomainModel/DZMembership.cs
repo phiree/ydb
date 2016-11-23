@@ -176,8 +176,16 @@ namespace Ydb.Membership.DomainModel
         /// 用户所属城市
         /// </summary>
         public virtual string UserCity { get; set; }
+        /// <summary>
+        /// 用户所在位置经度
+        /// </summary>
+        public virtual string Longitude { get; set; }
+        /// <summary>
+        /// 用户所在位置纬度
+        /// </summary>
+        public virtual string Latitude { get; set; }
 
-        
+
         public virtual string BuildRegisterValidationContent(string host)
         {
 
