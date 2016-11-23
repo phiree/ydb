@@ -28,18 +28,14 @@ namespace Ydb.Membership.Application
     public class DZMembershipProvider : MembershipProvider
     {
         IDZMembershipDomainService dzmembershipDomainService;
+        IDZMembershipService memberService;
         public DZMembershipProvider() {
            
             var containerAccessor = System.Web.HttpContext.Current.ApplicationInstance as IContainerAccessor;
             var container = containerAccessor.Container;
             this.dzmembershipDomainService = container.Resolve<IDZMembershipDomainService>();
-        }
-        public DZMembershipProvider(IDZMembershipDomainService dzmembershipDomainServic)
-        {
-            this.dzmembershipDomainService = dzmembershipDomainServic;
-        }
-        
-        
+            this.memberService = container.Resolve<IDZMembershipService>();
+        } 
 
         public override string ApplicationName
         {
@@ -56,8 +52,9 @@ namespace Ydb.Membership.Application
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
             string errmsg;
-          return  dzmembershipDomainService.ChangePassword(username, oldPassword, newPassword,out errmsg);
- 
+            var result = memberService.ChangePassword(username, oldPassword, newPassword);
+            return result.IsSuccess;
+
         }
 
         public override bool ChangePasswordQuestionAndAnswer(string username, string password, string newPasswordQuestion, string newPasswordAnswer)

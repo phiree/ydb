@@ -57,8 +57,11 @@ namespace Ydb.Membership.DomainModel
 
             System.Runtime.Caching.MemoryCache.Default.Remove(member.Id.ToString());
             UserToken ut = repositoryUserToken.GetToken(member.Id.ToString());
-            ut.Flag = 0;
-            repositoryUserToken.Update(ut);
+            if (ut != null)
+            {
+                ut.Flag = 0;
+                repositoryUserToken.Update(ut);
+            }
 
             return true;
         }
