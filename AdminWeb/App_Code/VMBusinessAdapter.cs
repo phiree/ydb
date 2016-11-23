@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Dianzhu.BLL;
 using Dianzhu.Model;
+using Ydb.BusinessResource.DomainModel;
 /// <summary>
 /// VMBusinessAdapter 的摘要说明
 /// </summary>
@@ -16,7 +17,7 @@ public class VMBusinessAdapter
         this.bllOrder = bllOrder;
     }
     string errMsg;
-    public VMShop Adapt(Dianzhu.Model.Business business)
+    public VMShop Adapt( Business business)
     {
         
         VMShop vmShop = new VMShop();

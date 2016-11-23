@@ -5,6 +5,7 @@ using System.Web;
 using log4net;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.Common;
 /// <summary>
 /// VMAgentAdapter 的摘要说明
 /// </summary>
@@ -22,7 +23,7 @@ public class VMCustomerServiceAdapter
     string errMsg;
     public VMCustomerService Adapt(MemberDto agentUser)
     {
-        if (agentUser.UserType != .enum_UserType.customerservice.ToString())
+        if (agentUser.UserType !=  enum_UserType.customerservice.ToString())
         {
             errMsg = "该用户不是助理";
             log.Error(errMsg);
