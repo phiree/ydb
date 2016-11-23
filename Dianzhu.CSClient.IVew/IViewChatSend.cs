@@ -15,11 +15,11 @@ namespace Dianzhu.CSClient.IView
         event SendMediaClick SendMediaClick;
         event FinalChatTimerSend FinalChatTimerSend;
         event SaveMessageText SaveMessageText;
+        event SendDidichuxing SendDidichuxing;
 
         string MessageText { get; set; }
-
-        string MessageTimer { get; set; }
     }
+    public delegate void SendDidichuxing();
     public delegate void SendTextClick();
     public delegate void SendMediaClick(byte[] fileData, string domainType, string mediaType);
     public delegate void FinalChatTimerSend();

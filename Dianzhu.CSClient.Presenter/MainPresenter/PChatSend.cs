@@ -47,6 +47,7 @@ namespace Dianzhu.CSClient.Presenter
             this.viewOrderHistory = viewOrderHistory;
 
             this.viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
+            this.viewChatSend.SendDidichuxing += ViewChatSend_SendDidichuxing;
             this.viewChatSend.SendTextClick += ViewChatSend_SendTextClick;
             this.viewChatSend.SendMediaClick += ViewChatSend_SendMediaClick;
             this.viewChatSend.SaveMessageText += ViewChatSend_SaveMessageText;
@@ -54,6 +55,12 @@ namespace Dianzhu.CSClient.Presenter
             this.localChatManager = localChatManager;
             this.vmChatAdapter = vmChatAdapter;
             this.localUIDataManager = localUIDataManager;
+        }
+
+        private void ViewChatSend_SendDidichuxing()
+        {
+            iIM.SendDidichuxing("1", "1", "海口", "国贸路", "2", "2", "海口", "龙昆南路", "13012345678",
+                Guid.NewGuid(), IdentityManager.CurrentCustomerId, "YDBan_User", IdentityManager.CurrentOrderId);
         }
 
         private void ViewChatSend_SaveMessageText(string key, object value)
