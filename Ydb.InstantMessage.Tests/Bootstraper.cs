@@ -25,7 +25,7 @@ namespace Ydb.InstantMessage.Tests
 
             //FluentConfiguration dbConfigCommon = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_common.db3"))
             //  .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });
-            FluentConfiguration dbConfigInstantMessage = Fluently.Configure()
+            FluentConfiguration dbConfigCommon = Fluently.Configure()
                 .Database(SQLiteConfiguration.
                 Standard
                 .ConnectionString("Data Source=test_ydb_common.db3; Version=3;BinaryGuid=False")
