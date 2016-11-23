@@ -5,7 +5,7 @@ using System.Text;
  
 namespace Dianzhu.Model
 {
-    public class ServiceSnapShotForOrder
+    public class ServiceSnapShot
     {
         public virtual string ServiceName { get; set; }
         public virtual string Description { get; set; }

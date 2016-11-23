@@ -16,10 +16,12 @@ namespace Dianzhu.Api.Model
     {
 
         IDZMembershipService memberService;
-        public RespDataSHM_snapshots(IDZMembershipService memberService)
+        IDZServiceService dzService;
+        public RespDataSHM_snapshots(IDZMembershipService memberService, IDZServiceService dzService)
         {
             snapshots = new List<RespDataSHM_snapshots_item>();
             this.memberService = memberService;
+            this.dzService = dzService;
 
         }
         public IList<RespDataSHM_snapshots_item> snapshots;
@@ -34,7 +36,7 @@ namespace Dianzhu.Api.Model
                 //接单量平均值
              
                 snapshots.Add(
-                    new RespDataSHM_snapshots_item().Adap(date, orderInDateList, memberService)
+                    new RespDataSHM_snapshots_item().Adap(date, orderInDateList, memberService, dzService)
                     );
             }
             return this;
@@ -51,12 +53,12 @@ namespace Dianzhu.Api.Model
         }
         public string date { get; set; }
         public IList<RespDataSHM_snapshots_item_orderSnapshots_item> orderSnapshots;
-        public RespDataSHM_snapshots_item Adap(DateTime date , IList<ServiceOrder> orderList, IDZMembershipService memberService)
+        public RespDataSHM_snapshots_item Adap(DateTime date , IList<ServiceOrder> orderList, IDZMembershipService memberService,IDZServiceService dzService)
         {
             this.date = date.ToString("yyyyMMddHHmmss");
             foreach (ServiceOrder order in orderList)
             {
-                orderSnapshots.Add(new RespDataSHM_snapshots_item_orderSnapshots_item().Adap(order,memberService));
+                orderSnapshots.Add(new RespDataSHM_snapshots_item_orderSnapshots_item().Adap(order,memberService,dzService));
             }
             return this;
         }
@@ -72,7 +74,7 @@ namespace Dianzhu.Api.Model
             var service = dzServiceService.GetOne2(new Guid(order.ServiceId));
            
             this.worktimeObj = new RespDataSHM_snapshots_item_orderSnapshots_item_worktimeObj()
-                            .Adap(order.Details[0].ServiceOpentimeSnapshot);
+                            .Adap(order,order.Details[0].ServiceOpentimeSnapshot);
             return this;
         }
 
@@ -111,7 +113,7 @@ namespace Dianzhu.Api.Model
             MemberDto member = memberService.GetUserById(order.CustomerId);
             this.svcObj = new RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_svcObj().Adap(order.Details[0]);
             this.userObj = new RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_userObj().Adap(member);
-            this.storeObj = new RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_storeObj().Adap(order.Business,memberService);
+            this.storeObj = new RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_storeObj().Adap(order,memberService);
             return this;
         }
 
@@ -132,9 +134,9 @@ namespace Dianzhu.Api.Model
         public RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_svcObj Adap(ServiceOrderDetail orderDetail)
         {
            
-            this.svcID = orderDetail.OriginalService.Id.ToString();
+            this.svcID = orderDetail.OriginalServiceId;
             this.name = orderDetail.ServiceSnapShot.ServiceName;
-            this.type = orderDetail.OriginalService.ServiceType.ToString();
+            this.type = orderDetail.ServiceSnapShot.ServiceTypeName;
             
             this.startTime = orderDetail.TargetTime.ToString("yyyyMMddHHmmss");
             this.endTime = string.Empty;
@@ -159,11 +161,11 @@ namespace Dianzhu.Api.Model
         public string userID{ get; set; }
         public string alias{ get; set; }
         public string imgUrl{ get; set; }
-        public RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_storeObj Adap(Business b,IDZMembershipService memberService)
+        public RespDataSHM_snapshots_item_orderSnapshots_item_orderObj_storeObj Adap(ServiceOrder order,IDZMembershipService memberService)
         {
-            this.userID = b.OwnerId.ToString();
+            this.userID =order.ServiceBusinessOwnerId;
 
-            MemberDto member = memberService.GetUserById(b.OwnerId.ToString());
+            MemberDto member = memberService.GetUserById(order.ServiceBusinessOwnerId);
 
             this.alias = member.NickName;
             this.imgUrl = member.AvatarUrl;
@@ -180,13 +182,13 @@ namespace Dianzhu.Api.Model
         public string week{ get; set; }
         public string open{ get; set; }
         public string maxOrder{ get; set; }
-        public RespDataSHM_snapshots_item_orderSnapshots_item_worktimeObj Adap(ServiceOpenTimeSnapshot snap)// ServiceOpenTimeForDaySnapShotForOrder snap)
+        public RespDataSHM_snapshots_item_orderSnapshots_item_worktimeObj Adap(ServiceOrder order, WorkTimeSnapshot snap)// ServiceOpenTimeForDaySnapShotForOrder snap)
         {
-            this.startTime = PHSuit.StringHelper.ConvertPeriodToTimeString(snap.PeriodBegin);//.ToString();
-            this.endTime = PHSuit.StringHelper.ConvertPeriodToTimeString(snap.PeriodEnd);//.ToString();
-            this.week = ((int) snap.Date.DayOfWeek).ToString();
+            this.startTime =snap.TimePeriod.StartTime.ToString();//.ToString();
+            this.endTime = snap.TimePeriod.EndTime.ToString();//.ToString();
+            this.week =((int)  Convert.ToDateTime(order.TargetTime).DayOfWeek) .ToString();
             this.open = "Y";
-            this.maxOrder = snap.MaxOrder.ToString();
+            this.maxOrder = snap.MaxOrderForWorkDay.ToString();
             return this;
         }
             }

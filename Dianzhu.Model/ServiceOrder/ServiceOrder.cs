@@ -42,38 +42,17 @@ namespace Dianzhu.Model
         /// <param name="targetAddress"></param>
         /// <param name="targetTime"></param>
         /// <param name="memo"></param>
-        public virtual void AddDetailFromIntelService(string serviceId, ServiceSnapShotForOrder serviceSnapShot, ServiceOpenTimeSnapshot OpenTimeSnapShot,
+        public virtual void AddDetailFromIntelService(string serviceId, ServiceSnapShot serviceSnapShot, WorkTimeSnapshot OpenTimeSnapShot,
            // ServiceOpenTimeForDaySnapShotForOrder OpenTimeForDaySnapShot,
             int unitAmount, string targetCustomerName, string targetCustomerPhone, string targetAddress, DateTime targetTime, string memo)
         {
-
-            var existedService = Details.Where(x => x.OriginalServiceId == serviceId);
-            if (existedService.Count() == 0)
-            {
-
-                ServiceOrderDetail detail = new ServiceOrderDetail(serviceId, serviceSnapShot, OpenTimeSnapShot,
-                //    OpenTimeForDaySnapShot,
-                    unitAmount, targetCustomerName, targetCustomerPhone, targetAddress, targetTime, memo);
-                Details.Add(detail);
-                BusinessId = serviceSnapShot.ServiceBusinessId;
-            }
-            else if (existedService.Count() == 1)
-            {
-                ServiceOrderDetail detail = Details[0];
-                detail.UnitAmount += unitAmount;// new ServiceOrderDetail(service, unitAmount, targetAddress, targetTime);
-                detail.TargetCustomerName = targetCustomerName;
-                detail.TargetCustomerPhone = targetCustomerPhone;
-                detail.TargetAddress = targetAddress;
-                detail.TargetTime = targetTime;
-                detail.Memo = memo;
-                BusinessId = serviceSnapShot.ServiceBusinessId;
-
-            }
-            else if (existedService.Count() > 1)
-            {
-
-            }
-
+            Details.Clear();
+            ServiceOrderDetail detail = new ServiceOrderDetail(serviceId, serviceSnapShot, OpenTimeSnapShot,
+                   //    OpenTimeForDaySnapShot,
+                   unitAmount, targetCustomerName, targetCustomerPhone, targetAddress, targetTime, memo);
+            Details.Add(detail);
+            BusinessId = serviceSnapShot.ServiceBusinessId;
+ 
 
         }
 

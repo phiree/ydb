@@ -22,8 +22,8 @@ namespace Dianzhu.Api.Model
         {
             this.workTimeID = sotDay.Id.ToString();
             this.tag = string.Empty;
-            this.startTime = sotDay.TimeStart ?? string.Empty;
-            this.endTime = sotDay.TimeEnd ?? string.Empty;
+            this.startTime = sotDay.TimePeriod.StartTime.ToString() ?? string.Empty;
+            this.endTime = sotDay.TimePeriod.EndTime.ToString() ?? string.Empty;
             this.week = WeekToString(sotDay.ServiceOpenTime.DayOfWeek);
             this.open = sotDay.Enabled ? "Y" : "N";
             this.maxOrder = sotDay.MaxOrderForOpenTime.ToString();

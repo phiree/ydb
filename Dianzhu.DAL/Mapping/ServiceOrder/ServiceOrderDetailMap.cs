@@ -13,7 +13,7 @@ namespace Dianzhu.DAL.Mapping
             Id(x => x.Id);
             Map(x => x.OriginalServiceId);
             //screenshot of the service
-            Component<ServiceSnapShotForOrder>(x => x.ServiceSnapShot,m=> {
+            Component<ServiceSnapShot>(x => x.ServiceSnapShot,m=> {
                m. Map(x => x.ChargeUnitType);
                 m.Map(x => x.DepositAmount);
                 m.Map(x => x.CancelCompensation);
@@ -25,18 +25,22 @@ namespace Dianzhu.DAL.Mapping
                 m.Map(x => x.ServiceName);
                 m.Map(x => x.UnitPrice);
             });
-            Component<ServiceOpenTimeForDaySnapShotForOrder>(x => x.OpenTimeSnapShot
-            ,m=>
-            {
-               m. Map(x => x.Date);
-                m.Map(x => x.MaxOrder);
-                m.Map(x => x.PeriodBegin);
-                m.Map(x => x.PeriodEnd);
-            }
-            );
-            Component<ServiceOpenTimeSnapshot>(x => x.ServiceOpentimeSnapshot, 
+
+            Component<WorkTimeSnapshot>(x => x.ServiceOpentimeSnapshot,
                 m => {
-                    m.Map(x => x.MaxOrderForDay);
+                    m.Map(x => x.MaxOrderForWorkDay);
+                    m.Map(x => x.MaxOrderForWorkTime);
+                    m.Map(x => x.Enabled);
+                    m.Component(x => x.TimePeriod, ms => {
+                        ms.Component(x => x.StartTime, mss => {
+                            mss.Map(x => x.Hour).Column("StartHour");
+                            mss.Map(x => x.Hour).Column("StartMinute");
+                        });
+                        ms.Component(x => x.EndTime, mss => {
+                            mss.Map(x => x.Hour).Column("EndHour");
+                            mss.Map(x => x.Hour).Column("EndMinute");
+                        });
+                    });
             }
                 );
 

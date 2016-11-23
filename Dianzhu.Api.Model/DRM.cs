@@ -38,7 +38,7 @@ namespace Dianzhu.Api.Model
         public string tag { get; set; }
         public string open { get; set; }
         public string maxOrderString { get; set; }
-        public RespDataDRM_svcOBj Adapt(ServiceSnapShotForOrder sssfOrder, DZService service, IList<DZTag> tags)
+        public RespDataDRM_svcOBj Adapt(ServiceSnapShot sssfOrder, DZService service, IList<DZTag> tags)
         {
             this.svcID = service.Id.ToString();
             this.name = sssfOrder.ServiceName ?? service.Name ?? string.Empty;

@@ -25,7 +25,7 @@ namespace Ydb.BusinessResource.Application
         IList<DZTag> GetServiceTags(Guid serviceId);
         IList<ServiceType> GetServiceTypeListByBusiness(Guid businessId);
         int GetSumByBusiness(Business business);
-        ServiceOpenTimeDto GetTimeDto(Guid serviceId, DateTime targetTime);
+            ServiceOpenTimeForDay GetWorkTime(Guid serviceId, DateTime targetTime);
         ServiceOpenTimeForDay GetWorkitem(string storeID, string serviceID, string workTimeID);
         IList<ServiceOpenTimeForDay> GetWorkTimes(string storeID, string serviceID, DayOfWeek? dayOfWeek, string timeBegin, string timeEnd);
         ActionResult<ServiceOpenTimeForDay> ModifyWorkTimeDay(string serviceId, DayOfWeek dayOfWeek, string workTimeId, string timeBegin, string endtime, int maxOrder);

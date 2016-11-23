@@ -5,7 +5,7 @@ using System.Text;
 using Dianzhu.Model;
 using Ydb.Common;
 using Ydb.BusinessResource.Application;
- 
+using Ydb.BusinessResource.DomainModel;
 namespace Dianzhu.BLL
 {
    public  class PushService
@@ -76,7 +76,7 @@ namespace Dianzhu.BLL
 
                 //todo:  需要用Automapper
              ServiceDto serviceDto=  dzServiceService.GetOne(new Guid(selectedServiceId));
-                ServiceSnapShotForOrder serviceSnapShot = new ServiceSnapShotForOrder {
+                ServiceSnapShot serviceSnapShot = new ServiceSnapShot {
                     CancelCompensation = serviceDto.CancelCompensation,
                     ChargeUnitType =   serviceDto.ChargeUnitType,
                     DepositAmount = serviceDto.DepositAmount,
@@ -94,13 +94,12 @@ namespace Dianzhu.BLL
                            ServiceBusinessOwnerId=serviceDto.ServiceBusinessOwnerId
                      
                 };
-                ServiceOpenTimeDto openTimeDto = dzServiceService.GetTimeDto(new Guid(selectedServiceId), s.TargetTime);
-                ServiceOpenTimeSnapshot serviceTimeSnapShot = new ServiceOpenTimeSnapshot {
-                     Date=openTimeDto.Date,
-                      MaxOrderForDay=openTimeDto.MaxOrderForDay,
-                    MaxOrderForPeriod = openTimeDto.MaxOrderForPeriod,
-                     PeriodBegin=openTimeDto.PeriodBegin,
-                      PeriodEnd=openTimeDto.PeriodEnd
+                ServiceOpenTimeForDay workTime = dzServiceService.GetWorkTime(new Guid(selectedServiceId), s.TargetTime);
+                WorkTimeSnapshot serviceTimeSnapShot = new WorkTimeSnapshot {
+
+                    MaxOrderForWorkDay = workTime.ServiceOpenTime.MaxOrderForDay,
+                    MaxOrderForWorkTime = workTime.MaxOrderForOpenTime,
+                    TimePeriod = workTime.TimePeriod
                 };
                 order.AddDetailFromIntelService(s.OriginalServiceId, serviceSnapShot,
                     serviceTimeSnapShot,

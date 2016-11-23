@@ -17,7 +17,7 @@ namespace Dianzhu.Test.ModelTest
             DZService s = Builder<DZService>.CreateNew().
                 With(x=>x.Name="s1").
                 Build();
-            ServiceSnapShotForOrder snapShot = s.GetServiceSnapShot();
+            ServiceSnapShot snapShot = s.GetServiceSnapShot();
             
             Assert.AreEqual(s.CancelCompensation, snapShot.CancelCompensation);
             Assert.AreEqual(s.MinPrice, snapShot.MinPrice);

@@ -35,7 +35,7 @@ namespace Dianzhu.ApplicationService.Service
         /// </summary>
         /// <param name="servicesobj"></param>
         /// <param name="dzservice"></param>
-        void changeObj(servicesObj servicesobj,ServiceSnapShotForOrder dzservice)
+        void changeObj(servicesObj servicesobj,ServiceSnapShot dzservice)
         {
             //todo:refactor. 这里返回的是服务坐标 不是商家的 暂时注销
            // servicesobj.location.longitude = dzservice.Business.Longitude.ToString();
@@ -252,7 +252,7 @@ namespace Dianzhu.ApplicationService.Service
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<servicesObj>();
             }
-            IList<ServiceSnapShotForOrder> serviceSnapShots = Mapper.Map<IList<ServiceSnapShotForOrder>>(dzservice);
+            IList<ServiceSnapShot> serviceSnapShots = Mapper.Map<IList<ServiceSnapShot>>(dzservice);
             IList<servicesObj> serviceobj = Mapper.Map<IList<servicesObj>>(serviceSnapShots);
             for (int i = 0; i < serviceobj.Count; i++)
             {
@@ -321,7 +321,7 @@ namespace Dianzhu.ApplicationService.Service
                 //return null;
                 throw new Exception("没有找到资源！");
             }
-            ServiceSnapShotForOrder serviceSnapshot = Mapper.Map<ServiceSnapShotForOrder>(dzservice);
+            ServiceSnapShot serviceSnapshot = Mapper.Map<ServiceSnapShot>(dzservice);
 
             servicesObj servicesobj = Mapper.Map<servicesObj>(serviceSnapshot);
             changeObj(servicesobj, serviceSnapshot);

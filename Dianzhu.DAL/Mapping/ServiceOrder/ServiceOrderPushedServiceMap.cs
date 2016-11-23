@@ -12,7 +12,7 @@ namespace Dianzhu.DAL.Mapping
         {
             Id(x => x.Id);
             Map(x => x.OriginalServiceId);
-            Component<ServiceSnapShotForOrder>(x => x.ServiceSnapShot, m => {
+            Component<ServiceSnapShot>(x => x.ServiceSnapShot, m => {
                 m.Map(x => x.ChargeUnitType);
                 m.Map(x => x.DepositAmount);
                 m.Map(x => x.CancelCompensation);

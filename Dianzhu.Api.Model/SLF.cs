@@ -83,8 +83,8 @@ namespace Dianzhu.Api.Model
         {
             this.Id = openTime.Id;
             this.date = date.ToShortDateString();
-            this.timeEnd = date.AddMinutes(openTime.PeriodEnd).ToString("yyyy-MM-dd hh:mm:ss");
-            this.timeStart = date.AddMinutes(openTime.PeriodStart).ToString("yyyy-MM-dd hh:mm:ss");
+            this.timeEnd = date.AddMinutes(openTime.TimePeriod.EndTime.TimeValue).ToString("yyyy-MM-dd hh:mm:ss");
+            this.timeStart = date.AddMinutes(openTime.TimePeriod.StartTime.TimeValue).ToString("yyyy-MM-dd hh:mm:ss");
             this.maxNum = openTime.MaxOrderForOpenTime;
             this.timeEnable = openTime.Enabled;
 

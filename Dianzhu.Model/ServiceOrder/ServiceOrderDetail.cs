@@ -20,7 +20,7 @@ namespace Dianzhu.Model
         {
             
         }
-        public ServiceOrderDetail(string serviceId,ServiceSnapShotForOrder serviceSnapShot, ServiceOpenTimeSnapshot OpenTimeSnapShot,
+        public ServiceOrderDetail(string serviceId,ServiceSnapShot serviceSnapShot, WorkTimeSnapshot OpenTimeSnapShot,
          //   ServiceOpenTimeForDaySnapShotForOrder OpenTimeForDaySnapShot,
             int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress,DateTime targetTime,string memo)
         {
@@ -47,9 +47,9 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string OriginalServiceId { get; set; }
         //screenshot of the service
-        public virtual ServiceSnapShotForOrder ServiceSnapShot { get; protected set; }
+        public virtual ServiceSnapShot ServiceSnapShot { get; protected set; }
 
-        public virtual ServiceOpenTimeSnapshot ServiceOpentimeSnapshot { get; protected set; }
+        public virtual WorkTimeSnapshot ServiceOpentimeSnapshot { get; protected set; }
         #endregion
 
         
@@ -80,9 +80,7 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string Memo { get; set; }
 
-        //服务项时间设定的快照
-        public virtual ServiceOpenTimeForDaySnapShotForOrder OpenTimeSnapShot { get; protected set; }
-
+     
         #endregion
         /// <summary>
         /// 该服务分配的员工.

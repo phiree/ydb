@@ -72,12 +72,12 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.createTime, opt => opt.MapFrom(source => source.CreateTime == DateTime.MinValue ? "" : source.CreateTime.ToString("yyyyMMddHHmmss")))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
-            Mapper.CreateMap<Model.ServiceOpenTimeSnapshot, workTimeObj>()
-            .ForMember(x => x.maxCountOrder, opt => opt.MapFrom(source => source.MaxOrderForDay))
+            Mapper.CreateMap<Model.WorkTimeSnapshot, workTimeObj>()
+            .ForMember(x => x.maxCountOrder, opt => opt.MapFrom(source => source.MaxOrderForWorkDay))
             .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.Enabled))
             //todo:refactor: 需要转换成字符串.
-            .ForMember(x => x.startTime, opt => opt.MapFrom(source => source.PeriodBegin))
-            .ForMember(x => x.endTime, opt => opt.MapFrom(source => source.PeriodEnd))
+            .ForMember(x => x.startTime, opt => opt.MapFrom(source => source.TimePeriod.StartTime.ToString()))
+            .ForMember(x => x.endTime, opt => opt.MapFrom(source => source.TimePeriod.EndTime.ToString()))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<ServiceType, serviceTypeObj>()
@@ -86,7 +86,7 @@ namespace Dianzhu.ApplicationService.Mapping
            .ForMember(x => x.fullDescription, opt => opt.MapFrom(source => source.ToString()))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
-            Mapper.CreateMap<ServiceSnapShotForOrder, servicesObj>()
+            Mapper.CreateMap<ServiceSnapShot, servicesObj>()
            .ForMember(x => x.introduce, opt => opt.MapFrom(source => source.Description))
            .ForMember(x => x.startAt, opt => opt.MapFrom(source => source.MinPrice))
            .ForMember(x => x.deposit, opt => opt.MapFrom(source => source.DepositAmount))
@@ -112,11 +112,11 @@ namespace Dianzhu.ApplicationService.Mapping
            .ForMember(x => x.eServiceTarget, opt => opt.MapFrom(source => source.ServiceSnapShot.IsForBusiness ? "all" : "company"))
            .ForMember(x => x.eSupportPayWay, opt => opt.MapFrom(source => source.ServiceSnapShot.AllowedPayType.ToString()))
            .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.ServiceSnapShot.Enabled))
-           .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.ServiceOpenTimeSnapShot.MaxOrderForDay))
+           .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.ServiceOpenTimeSnapShot.MaxOrderForWorkDay))
            .ForMember(x => x.originalServiceID, opt => opt.MapFrom(source => source.OriginalServiceId.ToString()))
            .ForMember(x => x.chargeUnit, opt => opt.MapFrom(source => source.ServiceSnapShot.ChargeUnitType))
             .ForAllMembers(opt => opt.NullSubstitute(""));
-            Mapper.CreateMap<ServiceDto, ServiceSnapShotForOrder>();
+            Mapper.CreateMap<ServiceDto, ServiceSnapShot>();
             Mapper.CreateMap<Model.ServiceOrderDetail, serviceSnapshotObj>()
            .ForMember(x => x.name, opt => opt.MapFrom(source => source.ServiceSnapShot.ServiceName))
            .ForMember(x => x.serviceType, opt => opt.MapFrom(source => source.ServiceSnapShot.ServiceTypeName ))
@@ -129,7 +129,7 @@ namespace Dianzhu.ApplicationService.Mapping
            .ForMember(x => x.eServiceTarget, opt => opt.MapFrom(source => source.ServiceSnapShot.IsForBusiness ? "all" : "company"))
          //  .ForMember(x => x.eSupportPayWay, opt => opt.MapFrom(source => source.OriginalService.AllowedPayType.ToString()))
           // .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.OriginalService.Enabled))
-           .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.ServiceOpentimeSnapshot.MaxOrderForDay))
+           .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.ServiceOpentimeSnapshot.MaxOrderForWorkDay))
            .ForMember(x => x.originalServiceID, opt => opt.MapFrom(source => source.OriginalServiceId))
           // .ForMember(x => x.chargeUnit, opt => opt.MapFrom(source => source.OriginalService.ChargeUnitFriendlyName))
             .ForAllMembers(opt => opt.NullSubstitute(""));

@@ -22,7 +22,7 @@ namespace Dianzhu.Model
         public ServiceOrderPushedService(ServiceOrder order,
             //todo: 应该去除不需要的属性.  
             string serviceId, 
-            ServiceSnapShotForOrder serviceSnapshot,
+            ServiceSnapShot serviceSnapshot,
 
 
             int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress, DateTime targetTime,string memo)
@@ -43,8 +43,8 @@ namespace Dianzhu.Model
 
         #endregion
 
-       public virtual ServiceSnapShotForOrder ServiceSnapShot { get; set; }
-        public virtual ServiceOpenTimeSnapshot ServiceOpenTimeSnapShot { get; set; }
+       public virtual ServiceSnapShot ServiceSnapShot { get; set; }
+        public virtual WorkTimeSnapshot ServiceOpenTimeSnapShot { get; set; }
 
         /// <summary>
         /// 对应的订单

@@ -46,22 +46,23 @@ namespace Ydb.BusinessResource.Application
             ServiceDto serviceDto = AutoMapper.Mapper.Map<ServiceDto>(service);
             return serviceDto;
         }
-        public virtual ServiceOpenTimeDto GetTimeDto(Guid serviceId, DateTime targetTime)
+        public virtual ServiceOpenTimeForDay GetWorkTime(Guid serviceId, DateTime targetTime)
         {
             DZService service = repositoryDZService.FindById(serviceId);
             string getOpenTimeErrMsg;
             ServiceOpenTime openTime = service.GetWorkDay(targetTime.DayOfWeek, out getOpenTimeErrMsg);
             ServiceOpenTimeForDay openTimeForDay = openTime.GetItem(targetTime.ToString("HH:mm"));
 
-            return new ServiceOpenTimeDto
-            {
-                Date = targetTime.Date,
-                MaxOrderForDay = openTime.MaxOrderForDay,
-                MaxOrderForPeriod = openTimeForDay.MaxOrderForOpenTime
-            ,
-                PeriodBegin = openTimeForDay.TimePeriod.StartTime.TimeValue,
-                PeriodEnd = openTimeForDay.TimePeriod.EndTime.TimeValue
-            };
+            return openTimeForDay;
+            //return new ServiceOpenTimeDto
+            //{
+            //    Date = targetTime.Date,
+            //    MaxOrderForDay = openTime.MaxOrderForDay,
+            //    MaxOrderForPeriod = openTimeForDay.MaxOrderForOpenTime
+            //,
+            //    PeriodBegin = openTimeForDay.TimePeriod.StartTime.TimeValue,
+            //    PeriodEnd = openTimeForDay.TimePeriod.EndTime.TimeValue
+            //};
 
 
         }
