@@ -339,10 +339,10 @@ namespace Dianzhu.ApplicationService.User
         /// <param name="userID"></param>
         /// <param name="cityCode"></param>
         /// <returns></returns>
-        public object PatchCurrentGeolocation(string userID, string cityCode, Customer customer)
+        public object PatchCurrentGeolocation(string userID, common_Trait_LocationFiltering cityCode, Customer customer)
         {
             Guid guidUser = utils.CheckGuidID(userID, "userID");
-            ActionResult actionResult = memberService.ChangeUserCity(guidUser, cityCode);
+            ActionResult actionResult = memberService.ChangeUserCity(guidUser, cityCode.code, cityCode.longitude, cityCode.latitude);
             if (!actionResult.IsSuccess)
             {
                 throw new Exception(actionResult.ErrMsg);
