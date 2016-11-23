@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.Config;
 using Ydb.Common;
+using Ydb.BusinessResource.DomainModel;
 
 namespace Dianzhu.Api.Model
 {

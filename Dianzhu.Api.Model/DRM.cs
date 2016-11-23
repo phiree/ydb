@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.Config;
 using Ydb.Common;
+using Ydb.BusinessResource.DomainModel;
 
 namespace Dianzhu.Api.Model
 {
@@ -50,7 +51,7 @@ namespace Dianzhu.Api.Model
             this.appointmentTime = service.OrderDelay.ToString();
             service.OpenTimes.ToList().ForEach(x => this.serviceTimes += x.Id + ",");
             this.serviceTimes = this.serviceTimes != null ? this.serviceTimes.TrimEnd(',') : "";
-            this.doorService = sssfOrder.ServiceMode == enum_ServiceMode.ToHouse ? "Y" : "N";
+            this.doorService = sssfOrder.ServiceModeType == enum_ServiceMode.ToHouse.ToString() ? "Y" : "N";
             this.serviceObject = service.IsForBusiness ? "company" : "all";
             this.payWay = service.AllowedPayType != 0 ? service.AllowedPayType.ToString() : enum_PayType.None.ToString();
             tags.ToList().ForEach(x => this.tag += x.Text + ",");
@@ -89,7 +90,7 @@ namespace Dianzhu.Api.Model
         {
             //this.workTimeID = sotDay.Id.ToString();
             this.tag = string.Empty;
-            this.startTime = sotfdssfOrder.PeriodBegin > 0 ? sotfdssfOrder.PeriodBegin / 60 + ":" + sotfdssfOrder.PeriodBegin % 60 : string.Empty;
+            this.startTime = sotfdssfOrder.PeriodBegin> 0 ? sotfdssfOrder.PeriodBegin / 60 + ":" + sotfdssfOrder.PeriodBegin % 60 : string.Empty;
             this.endTime = sotfdssfOrder.PeriodEnd > 0 ? sotfdssfOrder.PeriodEnd / 60 + ":" + sotfdssfOrder.PeriodEnd % 60 : string.Empty;
             this.week = getWeekDay(sotfdssfOrder.Date.Year, sotfdssfOrder.Date.Month, sotfdssfOrder.Date.Day).ToString();
             //this.open = sotDay.Enabled ? "Y" : "N";

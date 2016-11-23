@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.Config;
+using Ydb.BusinessResource.DomainModel;
+
 namespace Dianzhu.Api.Model
 {
     public class RespDataASN_staffObj
@@ -156,7 +158,7 @@ namespace Dianzhu.Api.Model
         public string mark { get; set; }
         public RespDataASN_assignObj Adapt(OrderAssignment oa)
         {
-            this.userID = oa.AssignedStaff.Id.ToString();
+            this.userID = oa.AssignedStaffId;
             this.orderID = oa.Order.Id.ToString();
             if (oa.Enabled)
             {

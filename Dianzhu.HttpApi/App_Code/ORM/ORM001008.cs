@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+using Dianzhu.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 using Ydb.Common;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
@@ -11,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using Dianzhu.Api.Model;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.BusinessResource.Application;
 /// <summary>
 /// 获取用户的服务订单列表
 /// </summary>
@@ -25,9 +28,9 @@ public class ResponseORM001008 : BaseResponse
         ReqDataORM001008 requestData = this.request.ReqData.ToObject<ReqDataORM001008>();
 
         //todo:用户验证的复用.
-       
-      
-        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
+
+
+        IDZServiceService dzServiceService = Bootstrap.Container.Resolve<IDZServiceService>();
         PushService bllPushService = Bootstrap.Container.Resolve<PushService>();
 
         BLLServiceOrderRemind bllServiceOrderRemind = Bootstrap.Container.Resolve<BLLServiceOrderRemind>();

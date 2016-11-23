@@ -23,7 +23,7 @@ public partial class membership_Default : BasePage
     private void BindSummary()
     {
         BLLIMUserStatus bllIMUS = Bootstrap.Container.Resolve<BLLIMUserStatus>();
-       var onlineUser= bllIMUS.GetOnlineListByClientName(Dianzhu.enum_XmppResource.YDBan_User.ToString());
+       var onlineUser= bllIMUS.GetOnlineListByClientName(.enum_XmppResource.YDBan_User.ToString());
         lblTotalOnline.Text = onlineUser.Count.ToString();
     }
  

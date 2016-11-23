@@ -95,22 +95,22 @@ public partial class DZOrder_Detail : BasePage
 
         switch (order.OrderStatus)
         {
-            case Dianzhu.enum_OrderStatus.Payed:
+            case .enum_OrderStatus.Payed:
                 panelOrderStatus.Visible = true;
                 panelConfirmOrder.Visible = true;
                 btnConfirmOrder.Visible = true;
                 break;
-            case Dianzhu.enum_OrderStatus.Negotiate:
+            case .enum_OrderStatus.Negotiate:
                 panelOrderStatus.Visible = true;
                 panelConfirmPrice.Visible = true;
                 txtConfirmPrice.Visible = true;
                 btnConfirmPrice.Visible = true;
                 break;
-            case Dianzhu.enum_OrderStatus.Assigned:
+            case .enum_OrderStatus.Assigned:
                 panelOrderStatus.Visible = true;
                 btnBegin.Visible = true;
                 break;
-            case Dianzhu.enum_OrderStatus.Begin:
+            case .enum_OrderStatus.Begin:
                 panelOrderStatus.Visible = true;
                 btnIsEndOrder.Visible = true;
                 break;

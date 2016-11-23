@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+using Dianzhu.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 using Ydb.Common;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
@@ -11,6 +13,8 @@ using System.Collections.Specialized;
 using PHSuit;
 using Dianzhu.BLL.Validator;
 using Newtonsoft.Json;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
 
 /// <summary>
 /// 修改员工信息
@@ -25,18 +29,20 @@ public class ResponseSVC001003 : BaseResponse
         ReqDataSVC001003 requestData = this.request.ReqData.ToObject<ReqDataSVC001003>();
 
         //todo:用户验证的复用.
-       IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
-        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
- 
-        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
- 
-        BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
- 
+        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
+
+
+        IDZServiceService dzServiceService = Bootstrap.Container.Resolve<IDZServiceService>();
+
+        IDZTagService tagService = Bootstrap.Container.Resolve<IDZTagService>();
+        IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
+
+
+        IServiceTypeService serviceTypeService = Bootstrap.Container.Resolve<IServiceTypeService>();
+
         
-        BLLServiceType bllServiceType =Bootstrap.Container.Resolve<BLLServiceType>();
-      
-        BLLServiceOpenTime bllServiceOpenTime = Bootstrap.Container.Resolve <BLLServiceOpenTime>();
- 
+     //   BLLServiceOpenTime bllServiceOpenTime = Bootstrap.Container.Resolve <BLLServiceOpenTime>();
+ IServiceOpenTimeService workdayService= Bootstrap.Container.Resolve<IServiceOpenTimeService>();
 
         try
         {
@@ -86,7 +92,7 @@ public class ResponseSVC001003 : BaseResponse
             }
             try
             {
-                DZService service = dzServiceService.GetOne(svcID);
+                DZService service = dzServiceService.GetOne2(svcID);
                 if (service == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -111,7 +117,7 @@ public class ResponseSVC001003 : BaseResponse
                 {
                     string[] typeList = type.Split('>');
                     int typeLevel = typeList.Count() > 0 ? typeList.Count() - 1 : 0;
-                    ServiceType sType = bllServiceType.GetOneByName(typeList[typeLevel], typeLevel);
+                    ServiceType sType = serviceTypeService.GetOneByName(typeList[typeLevel], typeLevel);
                     if (sType == null)
                     {
                         this.state_CODE = Dicts.StateCode[1];
@@ -123,7 +129,7 @@ public class ResponseSVC001003 : BaseResponse
                     svcObj.type = "Y";
                 }
                 if (introduce != null) { service.Description = introduce; svcObj.introduce = "Y"; }
-                if (area != null) { service.BusinessAreaCode = area; svcObj.area = "Y"; }
+                if (area != null) { service.Scope = area; svcObj.area = "Y"; }
                 if (startAt != null) { service.MinPrice = decimal.Parse(startAt); svcObj.startAt = "Y "; }
                 if (unitPrice != null) { service.UnitPrice = decimal.Parse(unitPrice); svcObj.unitPrice = "Y"; }
                 if (deposit != null) { service.DepositAmount = decimal.Parse(deposit); svcObj.deposit = "Y"; }
@@ -134,12 +140,12 @@ public class ResponseSVC001003 : BaseResponse
                 if (open != null) { service.Enabled = open == "Y" ? true : false; svcObj.open = "Y"; }
                 if (tag != null)
                 {
-                    bllDZTag.DeleteByServiceId(service.Id);
+                    tagService.DeleteByServiceId(service.Id);
 
                     string[] tagList = tag.Split(',');
                     for (int i = 0; i < tagList.Count(); i++)
                     {
-                        bllDZTag.AddTag(tagList[i], service.Id.ToString(), service.Business.Id.ToString(), service.ServiceType.Id.ToString());
+                        tagService.AddTag(tagList[i], service.Id.ToString(), service.Business.Id.ToString(), service.ServiceType.Id.ToString());
                     }
                     svcObj.tag = "Y";
                 }
@@ -182,7 +188,8 @@ public class ResponseSVC001003 : BaseResponse
                             default:
                                 break;
                         }
-                        bllServiceOpenTime.Update(sot);
+                       
+                        workdayService.Update(sot);
                     }
                     svcObj.maxOrderString = "Y";
 
@@ -205,7 +212,7 @@ public class ResponseSVC001003 : BaseResponse
                             if (svcObj.introduce != null) { svcObj.introduce = "N"; service.Description = serviceoriginal.Description; }
                             break;
                         case "area":
-                            if (svcObj.area != null) { svcObj.area = "N"; service.BusinessAreaCode = serviceoriginal.BusinessAreaCode; }
+                            if (svcObj.area != null) { svcObj.area = "N"; service.Scope = serviceoriginal.Scope; }
                             break;
                         case "startAt":
                             if (svcObj.startAt != null) { svcObj.startAt = "N"; service.MinPrice = serviceoriginal.MinPrice; }

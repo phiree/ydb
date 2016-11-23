@@ -90,6 +90,8 @@
     <Compile Include="Application\Dto\ServiceOpenTimeDto.cs" />
     <Compile Include="Application\IAreaService.cs" />
     <Compile Include="Application\IDZServiceService.cs" />
+    <Compile Include="Application\IServiceOpenTimeForDayService.cs" />
+    <Compile Include="Application\IServiceOpenTimeService.cs" />
     <Compile Include="Application\ServiceOpenTimeService.cs" />
     <Compile Include="Application\IServiceTypeService.cs" />
     <Compile Include="Application\ServiceTypeService.cs" />
@@ -117,11 +119,9 @@
     <Compile Include="DomainModel\Service\IPeriodValidator.cs" />
     <Compile Include="DomainModel\Service\IRepositoryDZService.cs" />
     <Compile Include="DomainModel\Service\IRepositoryServiceOpenTime.cs" />
-    <Compile Include="DomainModel\Service\TimePeriodList.cs" />
+    <Compile Include="DomainModel\Service\PeriodValidator.cs" />
     <Compile Include="DomainModel\Service\ServiceOpenTime.cs" />
     <Compile Include="DomainModel\Service\ServiceOpenTimeForDay.cs" />
-    <Compile Include="DomainModel\Service\ServiceOpenTimeForDaySnapShotForOrder.cs" />
-    <Compile Include="DomainModel\Service\ServiceOpenTimeSnapshot.cs" />
     <Compile Include="DomainModel\Service\ServiceType.cs" />
     <Compile Include="DomainModel\Service\StaffServiceType.cs" />
     <Compile Include="DomainModel\Service\TimePeriod.cs" />

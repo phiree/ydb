@@ -245,7 +245,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebForTesting", "WebForTesting\", "{5816AA96-0563-4A52-8C99-04EF1F33A193}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
-		ProjectReferences = "{2e67aa78-6780-42bd-a3ab-ad953781e511}|Dianzhu.DAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;"
+		ProjectReferences = "{2e67aa78-6780-42bd-a3ab-ad953781e511}|Dianzhu.DAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}|Ydb.BusinessResource.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_7676"
 		Debug.AspNetCompiler.PhysicalPath = "WebForTesting\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_7676\"

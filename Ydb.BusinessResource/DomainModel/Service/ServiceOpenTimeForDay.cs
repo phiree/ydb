@@ -90,20 +90,20 @@ namespace Ydb.BusinessResource.DomainModel
         }
 
         /// <summary>
-        /// 快照~咔~~嚓!
+        /// todo:refactor:快照~咔~~嚓!快照初始化应该是在订单领域..
         /// </summary>
         /// <param name="datetime"></param>
         /// <returns></returns>
-        public virtual ServiceOpenTimeForDaySnapShotForOrder GetSnapShop(DateTime datetime)
-        {
-            return new ServiceOpenTimeForDaySnapShotForOrder(
-                   this.Id,
-                this.MaxOrderForOpenTime,
-                datetime.Date,
-               TimePeriod
+        //public virtual ServiceOpenTimeForDaySnapShotForOrder GetSnapShop(DateTime datetime)
+        //{
+        //    return new ServiceOpenTimeForDaySnapShotForOrder(
+        //           this.Id,
+        //        this.MaxOrderForOpenTime,
+        //        datetime.Date,
+        //       TimePeriod
 
-                );
-        }
+        //        );
+        //}
 
 
     }

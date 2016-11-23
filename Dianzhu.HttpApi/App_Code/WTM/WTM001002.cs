@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+using Dianzhu.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 using Ydb.Common;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
 using System.Collections.Specialized;
 using PHSuit;
 using FluentValidation.Results;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
 
 /// <summary>
 /// 新增店铺
@@ -25,14 +29,22 @@ public class ResponseWTM001002 : BaseResponse
 
         //todo:用户验证的复用.
        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
-        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
 
+        IDZServiceService dzServiceService = Bootstrap.Container.Resolve<IDZServiceService>();
+
+        IDZTagService tagService = Bootstrap.Container.Resolve<IDZTagService>();
+        IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
+
+
+       
+
+        //   BLLServiceOpenTime bllServiceOpenTime = Bootstrap.Container.Resolve <BLLServiceOpenTime>();
+        IServiceOpenTimeForDayService worktimeService = Bootstrap.Container.Resolve<IServiceOpenTimeForDayService>();
+       
         //20160620_longphui_modify
         //BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = new BLLServiceOpenTimeForDay();
-        BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = Bootstrap.Container.Resolve<BLLServiceOpenTimeForDay>();
-
-        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
-        try
+     
+         try
         {
             string raw_id = requestData.merchantID;
             string workTime_id = requestData.workTimeID;
@@ -75,7 +87,7 @@ public class ResponseWTM001002 : BaseResponse
             }
             try
             {
-                ServiceOpenTimeForDay sotForDay = bllServiceOpenTimeForDay.GetOne(workTimeID);
+                ServiceOpenTimeForDay sotForDay = worktimeService.GetOne(workTimeID);
                 if (sotForDay == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -83,7 +95,7 @@ public class ResponseWTM001002 : BaseResponse
                     return;
                 }
 
-                bllServiceOpenTimeForDay.Delete(sotForDay);
+                worktimeService.Delete(sotForDay);
                 
                 this.state_CODE = Dicts.StateCode[0];
             }

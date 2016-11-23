@@ -64,7 +64,7 @@ public partial class _Default : BasePage
                 {
                     Response.Write("fail");
                 }
-                //order.OrderStatus = Dianzhu.enum_OrderStatus.Canceled;
+                //order.OrderStatus = .enum_OrderStatus.Canceled;
                 
                 //bllOrder.SaveOrUpdate(order);
 

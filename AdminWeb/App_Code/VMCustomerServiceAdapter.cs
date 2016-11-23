@@ -22,7 +22,7 @@ public class VMCustomerServiceAdapter
     string errMsg;
     public VMCustomerService Adapt(MemberDto agentUser)
     {
-        if (agentUser.UserType != Dianzhu.enum_UserType.customerservice.ToString())
+        if (agentUser.UserType != .enum_UserType.customerservice.ToString())
         {
             errMsg = "该用户不是助理";
             log.Error(errMsg);

@@ -8,17 +8,21 @@ using Dianzhu.Config;
 using Ydb.Common;
 using Ydb.Membership.Application.Dto;
 using Ydb.Membership.Application;
+using Ydb.BusinessResource.DomainModel;
+using Ydb.BusinessResource.Application;
+
 namespace Dianzhu.Api.Model
 {
     #region orm接口公用的类
     public class RespDataORM_Order
     {
         public RespDataORM_orderObj orderObj { get; set; }
-        public RespDataORM_Order Adap(ServiceOrder order, IDZMembershipService memberService, ServiceOrderPushedService pushService)
+        public RespDataORM_Order Adap(ServiceOrder order, IDZMembershipService memberService, ServiceOrderPushedService pushService
+            ,IBusinessService businessService,IDZServiceService dzServiceService)
         {
             if (order != null)
             {
-                this.orderObj = new RespDataORM_orderObj().Adap(order, memberService, pushService);
+                this.orderObj = new RespDataORM_orderObj().Adap(order, memberService, pushService,businessService,dzServiceService);
             }
             return this;
         }
@@ -44,7 +48,7 @@ namespace Dianzhu.Api.Model
         public RespDataORM_storeObj storeObj { get; set; }
         public RespDataORM_contactObj contactObj { get; set; }
 
-        public RespDataORM_orderObj Adap(ServiceOrder order, IDZMembershipService memberService, ServiceOrderPushedService pushSevice)
+        public RespDataORM_orderObj Adap(ServiceOrder order, IDZMembershipService memberService, ServiceOrderPushedService pushSevice, IBusinessService businessService,IDZServiceService dzServiceService)
         {
             this.orderID = order.Id.ToString();
             //todo: serviceorder change
@@ -73,27 +77,30 @@ namespace Dianzhu.Api.Model
             this.address = order.TargetAddress ?? string.Empty;
             this.km = string.Empty;
             this.deliverySum = "0";//todo:出货记录不明确
-
+            var service = dzServiceService.GetOne2(new Guid(order.Details[0].OriginalServiceId));
+            var business = businessService.GetOne(new Guid(order.BusinessId));
             if (order.Details.Count > 0)
             {
-                this.svcObj = new RespDataORM_svcObj().Adap(order.Details[0], null);
-                this.storeObj = new RespDataORM_storeObj().Adap(order.Details[0].OriginalService.Business);
+                this.svcObj = new RespDataORM_svcObj().Adap(order.Details[0], null,dzServiceService);
+                this.storeObj = new RespDataORM_storeObj().Adap(business);// Details[0].OriginalService.Business);
                 this.contactObj = new RespDataORM_contactObj().Adapt(order.Details[0], null);
 
                 if (order.NegotiateAmount <= 0)
                 {
-                    this.orderAmount = this.negotiateAmount = (order.Details[0].UnitAmount * order.Details[0].OriginalService.UnitPrice).ToString("0.00");
+                   
+                    this.orderAmount = this.negotiateAmount = (order.Details[0].UnitAmount * service.UnitPrice).ToString("0.00");
                 }
             }
             else if (order.Details.Count == 0 && pushSevice != null)
             {
-                this.svcObj = new RespDataORM_svcObj().Adap(null, pushSevice);
-                this.storeObj = new RespDataORM_storeObj().Adap(pushSevice.OriginalService.Business);
+                this.svcObj = new RespDataORM_svcObj().Adap(null, pushSevice,dzServiceService);
+                this.storeObj = new RespDataORM_storeObj().Adap(business);
                 this.contactObj = new RespDataORM_contactObj().Adapt(null, pushSevice);
 
                 if (order.NegotiateAmount <= 0)
                 {
-                    this.orderAmount = this.negotiateAmount = (pushSevice.UnitAmount * pushSevice.OriginalService.UnitPrice).ToString("0.00");
+                    var pushservice = dzServiceService.GetOne2(new Guid(pushSevice.OriginalServiceId));
+                    this.orderAmount = this.negotiateAmount = (pushSevice.UnitAmount * pushservice.UnitPrice).ToString("0.00");
                 }
             }
             else
@@ -173,19 +180,21 @@ namespace Dianzhu.Api.Model
         public string appointmentTime { get; set; }
         public string tag { get; set; }
         public string chargeUnit { get; set; }
-        public RespDataORM_svcObj Adap(ServiceOrderDetail orderDetail,ServiceOrderPushedService pushService)
+        public RespDataORM_svcObj Adap(ServiceOrderDetail orderDetail,ServiceOrderPushedService pushService,IDZServiceService dzServiceService)
         {
             if (orderDetail != null)
             {
-                if (orderDetail.OriginalService != null)
+                if (!string.IsNullOrEmpty( orderDetail.OriginalServiceId))
                 {
-                    this.svcID = orderDetail.OriginalService.Id.ToString();
-                    this.type = orderDetail.OriginalService.ServiceType.ToString();
-                    this.introduce = orderDetail.OriginalService.Description;
-                    this.area = orderDetail.OriginalService.GetServiceArea();
-                    this.startAt = orderDetail.OriginalService.MinPrice.ToString("0.00");
-                    this.appointmentTime = orderDetail.OriginalService.OrderDelay.ToString();
-                    this.chargeUnit = orderDetail.OriginalService.ChargeUnitFriendlyName;
+                    var service = dzServiceService.GetOne2(new Guid(orderDetail.OriginalServiceId));
+
+                    this.svcID = service.Id.ToString();
+                    this.type = service.ServiceType.ToString();
+                    this.introduce = service.Description;
+                    this.area = service.GetServiceArea();
+                    this.startAt = service.MinPrice.ToString("0.00");
+                    this.appointmentTime = service.OrderDelay.ToString();
+                    this.chargeUnit = service.ChargeUnitFriendlyName;
                 }
                 else
                 {
@@ -214,15 +223,16 @@ namespace Dianzhu.Api.Model
             }
             else if(orderDetail == null && pushService != null)
             {
-                if (pushService.OriginalService != null)
+                if (!string.IsNullOrEmpty( pushService.OriginalServiceId ))
                 {
-                    this.svcID = pushService.OriginalService.Id.ToString();
-                    this.type = pushService.OriginalService.ServiceType.ToString();
-                    this.introduce = pushService.OriginalService.Description;
-                    this.area = pushService.OriginalService.GetServiceArea();
-                    this.startAt = pushService.OriginalService.MinPrice.ToString("0.00");
-                    this.appointmentTime = pushService.OriginalService.OrderDelay.ToString();                    
-                    this.chargeUnit = pushService.OriginalService.ChargeUnitFriendlyName;
+                    var service = dzServiceService.GetOne2(new Guid(orderDetail.OriginalServiceId));
+                    this.svcID = service.Id.ToString();
+                    this.type = service.ServiceType.ToString();
+                    this.introduce = service.Description;
+                    this.area = service.GetServiceArea();
+                    this.startAt = service.MinPrice.ToString("0.00");
+                    this.appointmentTime = service.OrderDelay.ToString();                    
+                    this.chargeUnit = service.ChargeUnitFriendlyName;
                 }
                 else
                 {
@@ -236,7 +246,7 @@ namespace Dianzhu.Api.Model
                     this.chargeUnit = string.Empty;
                 }
                 
-                this.name = pushService.ServiceName ?? string.Empty;
+                this.name = pushService.ServiceSnapShot.ServiceName ?? string.Empty;
                 if (pushService.TargetTime > DateTime.MinValue)
                 {
                     this.startTime = string.Format("{0:yyyyMMddHHmmss}", pushService.TargetTime);
@@ -246,8 +256,8 @@ namespace Dianzhu.Api.Model
                     this.startTime = string.Empty;
                 }
                 this.endTime = string.Empty;
-                this.deposit = pushService.DepositAmount.ToString("0.00");
-                this.unitPrice = pushService.UnitPrice.ToString("0.00");
+                this.deposit = pushService.ServiceOrder.DepositAmount.ToString("0.00");
+                this.unitPrice = pushService.ServiceSnapShot.UnitPrice.ToString("0.00");
             }
             else
             {
@@ -396,11 +406,11 @@ namespace Dianzhu.Api.Model
             arrayData = new List<RespDataORM_orderObj>();
         }
 
-        public void AdapList(Dictionary<ServiceOrder,ServiceOrderPushedService> serviceOrderList,IDZMembershipService memberService)
+        public void AdapList(Dictionary<ServiceOrder,ServiceOrderPushedService> serviceOrderList,IDZMembershipService memberService, IBusinessService businessService,IDZServiceService dzServiceService)
         {
             foreach (KeyValuePair<ServiceOrder,ServiceOrderPushedService> item in serviceOrderList)
             {
-                RespDataORM_orderObj adapted_order = new RespDataORM_orderObj().Adap(item.Key, memberService, item.Value);
+                RespDataORM_orderObj adapted_order = new RespDataORM_orderObj().Adap(item.Key, memberService, item.Value, businessService,dzServiceService);
                 arrayData.Add(adapted_order);
             }
         }

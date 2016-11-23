@@ -7,6 +7,8 @@ using Dianzhu.Model;
 using Dianzhu.Config;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.BusinessResource.DomainModel;
+
 namespace Dianzhu.Api.Model
 {
     public class RespDataSTORE_storeObj

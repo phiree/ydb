@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.Config;
+using Ydb.BusinessResource.DomainModel;
+
 namespace Dianzhu.Api.Model
 {
     #region SLF001007

@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+using Dianzhu.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 using Ydb.Common;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
 using System.Collections.Specialized;
 using PHSuit;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
 
 /// <summary>
 /// 新增店铺
@@ -24,10 +28,11 @@ public class ResponseSVC001005 : BaseResponse
 
         //todo:用户验证的复用.
        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
-        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
-        BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
 
+        IDZServiceService dzServiceService = Bootstrap.Container.Resolve<IDZServiceService>();
+
+        IDZTagService tagService = Bootstrap.Container.Resolve<IDZTagService>();
+        
         try
         {
             string svd_id = requestData.svcID;
@@ -43,7 +48,7 @@ public class ResponseSVC001005 : BaseResponse
             }
             try
             {
-                DZService service = bllDZService.GetOne(svcID);
+                DZService service = dzServiceService.GetOne2(svcID);
 
                 if (service == null)
                 {
@@ -59,7 +64,7 @@ public class ResponseSVC001005 : BaseResponse
                     return;
                 }
 
-                IList<DZTag> tagsList = bllDZTag.GetTagForService(svcID);
+                IList<DZTag> tagsList = tagService.GetTagForService(svcID);
 
                 RespDataSVC_svcObj SvcObj = new RespDataSVC_svcObj().Adapt(service, tagsList);
 

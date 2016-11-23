@@ -158,6 +158,34 @@ namespace Ydb.BusinessResource.DomainModel
                 }
             }
         }
+
+        public virtual void CopyTo(DZService newService)
+        {
+            newService.Id = Id;
+            newService.Name = Name;
+            newService.Business = Business;
+            newService.ServiceType = ServiceType;
+            newService.Description = Description;
+
+          //  newService.BusinessAreaCode = BusinessAreaCode;
+            newService.MinPrice = MinPrice;
+            newService.UnitPrice = UnitPrice;
+            newService.DepositAmount = DepositAmount;
+            newService.OrderDelay = OrderDelay;
+            newService.OpenTimes = OpenTimes;
+            newService.ServiceMode = ServiceMode;
+            newService.IsForBusiness = IsForBusiness;
+            newService.AllowedPayType = AllowedPayType;
+            newService.IsCompensationAdvance = IsCompensationAdvance;
+            newService.IsCertificated = IsCertificated;
+            newService.ChargeUnit = ChargeUnit;
+            newService.FixedPrice = FixedPrice;
+            newService.Enabled = Enabled;
+            newService.OverTimeForCancel = OverTimeForCancel;
+            newService.CancelCompensation = CancelCompensation;
+        }
+
+
         /// <summary>
         /// 一口价
         /// </summary>

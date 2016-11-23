@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+using Dianzhu.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 using Ydb.Common;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
 using System.Collections.Specialized;
 using PHSuit;
 using FluentValidation.Results;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
 
 /// <summary>
 /// 新增店铺
@@ -26,14 +30,14 @@ public class ResponseSVC001001 : BaseResponse
         //todo:用户验证的复用.
        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
  
-        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
+        
+        IDZServiceService dzServiceService = Bootstrap.Container.Resolve<IDZServiceService>();
       
-        BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
- 
-        
-        
-        BLLServiceType bllServiceType = Bootstrap.Container.Resolve < BLLServiceType>();
+        IDZTagService tagService = Bootstrap.Container.Resolve<IDZTagService>();
+        IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
+
+
+        IServiceTypeService serviceTypeService = Bootstrap.Container.Resolve <IServiceTypeService>();
  
 
         try
@@ -80,7 +84,7 @@ public class ResponseSVC001001 : BaseResponse
                     return;
                 }
 
-                Business business = bllBusiness.GetBusinessByIdAndOwner(storeID, userID);
+                Business business = businessService.GetBusinessByIdAndOwner(storeID, userID);
                 if (business == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -90,7 +94,7 @@ public class ResponseSVC001001 : BaseResponse
 
                 string[] typeList = service_Req.type.Split('>');
                 int typeLevel = typeList.Count() > 0 ? typeList.Count() - 1 : 0;
-                ServiceType sType = bllServiceType.GetOneByName(typeList[typeLevel], typeLevel);
+                ServiceType sType = serviceTypeService.GetOneByName(typeList[typeLevel], typeLevel);
                 if (sType == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -100,11 +104,11 @@ public class ResponseSVC001001 : BaseResponse
                 
                 DZService service = new DZService
                 {
-                    Business = bllBusiness.GetBusinessByIdAndOwner(storeID, userID),
+                    Business = businessService.GetBusinessByIdAndOwner(storeID, userID),
                     Name = service_Req.name,
                     ServiceType = sType,
                     Description = service_Req.introduce,
-                    BusinessAreaCode = service_Req.area,
+                 //   BusinessAreaCode = service_Req.area,
                     MinPrice = decimal.Parse(service_Req.startAt),
                     UnitPrice = decimal.Parse(service_Req.unitPrice),
                     OrderDelay = Int32.Parse(service_Req.appointmentTime),
@@ -120,7 +124,7 @@ public class ResponseSVC001001 : BaseResponse
                 string[] tagList = service_Req.tag.Split(',');
                 for (int i = 0; i < tagList.Count(); i++)
                 {
-                    bllDZTag.AddTag(tagList[i], service.Id.ToString(), service.Business.Id.ToString(), service.ServiceType.Id.ToString());
+                    tagService.AddTag(tagList[i], service.Id.ToString(), service.Business.Id.ToString(), service.ServiceType.Id.ToString());
                 }
 
                 RespDataSVC001001 respData = new RespDataSVC001001();

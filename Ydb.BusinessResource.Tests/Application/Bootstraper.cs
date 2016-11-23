@@ -25,7 +25,10 @@ namespace Ydb.BusinessResource.Application.Tests
             get
             {
                 FluentConfiguration dbConfigInstantMessage = Fluently.Configure()
-                 .Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_businessresource.db3"))
+                 .Database(SQLiteConfiguration.
+                 Standard
+                 .ConnectionString("Data Source=test_ydb_businessresource.db3; Version=3;BinaryGuid=False")
+                 )
                  .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });
                 return dbConfigInstantMessage;
             }

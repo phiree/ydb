@@ -179,7 +179,7 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.OrderStatus == (enum_OrderStatus)Enum.Parse(typeof(enum_OrderStatus), status) );
             }
-            //Dianzhu.enum_OrderSearchType searchType
+            //.enum_OrderSearchType searchType
             switch (statusSort)//switch (searchType)
             {
                 //case enum_OrderSearchType.De:
@@ -299,7 +299,7 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.OrderStatus == (enum_OrderStatus)Enum.Parse(typeof(enum_OrderStatus), status));
             }
-            //Dianzhu.enum_OrderSearchType searchType
+            //.enum_OrderSearchType searchType
             switch (statusSort)//switch (searchType)
             {
                 //case enum_OrderSearchType.De:

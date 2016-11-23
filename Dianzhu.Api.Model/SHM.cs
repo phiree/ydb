@@ -7,6 +7,9 @@ using Dianzhu.Model;
 using Dianzhu.Config;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.BusinessResource.DomainModel;
+using Ydb.BusinessResource.Application;
+
 namespace Dianzhu.Api.Model
 {
     public class RespDataSHM_snapshots
@@ -58,15 +61,18 @@ namespace Dianzhu.Api.Model
             return this;
         }
     }
+    
     public class RespDataSHM_snapshots_item_orderSnapshots_item
     {
         public RespDataSHM_snapshots_item_orderSnapshots_item_orderObj orderObj;
         public RespDataSHM_snapshots_item_orderSnapshots_item_worktimeObj worktimeObj;
-        public RespDataSHM_snapshots_item_orderSnapshots_item Adap(ServiceOrder order, IDZMembershipService memberService)
+        public RespDataSHM_snapshots_item_orderSnapshots_item Adap(ServiceOrder order, IDZMembershipService memberService,IDZServiceService dzServiceService)
         {
             this.orderObj = new RespDataSHM_snapshots_item_orderSnapshots_item_orderObj().Adap(order, memberService);
+            var service = dzServiceService.GetOne2(new Guid(order.ServiceId));
+           
             this.worktimeObj = new RespDataSHM_snapshots_item_orderSnapshots_item_worktimeObj()
-                            .Adap(order.Service.GetOpenTimeSnapShot(order.Details[0].TargetTime));
+                            .Adap(order.Details[0].ServiceOpentimeSnapshot);
             return this;
         }
 
@@ -174,7 +180,7 @@ namespace Dianzhu.Api.Model
         public string week{ get; set; }
         public string open{ get; set; }
         public string maxOrder{ get; set; }
-        public RespDataSHM_snapshots_item_orderSnapshots_item_worktimeObj Adap(ServiceOpenTimeForDaySnapShotForOrder snap)
+        public RespDataSHM_snapshots_item_orderSnapshots_item_worktimeObj Adap(ServiceOpenTimeSnapshot snap)// ServiceOpenTimeForDaySnapShotForOrder snap)
         {
             this.startTime = PHSuit.StringHelper.ConvertPeriodToTimeString(snap.PeriodBegin);//.ToString();
             this.endTime = PHSuit.StringHelper.ConvertPeriodToTimeString(snap.PeriodEnd);//.ToString();

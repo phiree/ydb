@@ -38,7 +38,7 @@ public partial class test_Default : BasePage
         order.LatestOrderUpdated = DateTime.Now;
         order.DepositAmount = 0.01m;
         bllOrder.Save(order);
-        bllPayment.ApplyPay(order, Dianzhu.enum_PayTarget.Deposit);
+        bllPayment.ApplyPay(order, .enum_PayTarget.Deposit);
         lblCreateOrderResult.Text = "创建成功";
 
     }

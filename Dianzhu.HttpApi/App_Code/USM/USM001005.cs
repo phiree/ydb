@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+using Dianzhu.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Dianzhu.Api.Model;
+using Ydb.Common;
 
 public class ResponseUSM001005 : BaseResponse
 {
@@ -39,7 +42,7 @@ public class ResponseUSM001005 : BaseResponse
                 return;
             }
 
-            if(member.UserType!= Dianzhu.enum_UserType.customer.ToString())
+            if(member.UserType!=  enum_UserType.customer.ToString())
             {
                 this.state_CODE = Dicts.StateCode[8];
                 this.err_Msg = "该用户不是普通用户，登录失败";

@@ -58,12 +58,12 @@ namespace Dianzhu.Api.Model
         public string pWord { get; set; }
         public string orderID { get; set; }
         public string target { get; set; }
-        public Dianzhu.enum_ChatTarget Target
+        public enum_ChatTarget Target
         {
             get
             {
-                Dianzhu.enum_ChatTarget tar;
-                bool isType = Enum.TryParse<Dianzhu.enum_ChatTarget>(target, out tar);
+                enum_ChatTarget tar;
+                bool isType = Enum.TryParse<enum_ChatTarget>(target, out tar);
                 if (!isType) { throw new Exception("不可识别的用户类型"); }
                 return tar;
             }
@@ -82,12 +82,12 @@ namespace Dianzhu.Api.Model
         public string pWord { get; set; }
         public string orderID { get; set; }
         public string target { get; set; }
-        public Dianzhu.enum_ChatTarget Target
+        public enum_ChatTarget Target
         {
             get
             {
-                Dianzhu.enum_ChatTarget tar;
-                bool isType = Enum.TryParse<Dianzhu.enum_ChatTarget>(target, out tar);
+                enum_ChatTarget tar;
+                bool isType = Enum.TryParse<enum_ChatTarget>(target, out tar);
                 if (!isType) { throw new Exception("不可识别的用户类型"); }
                 return tar;
             }
@@ -120,12 +120,12 @@ namespace Dianzhu.Api.Model
         public string pWord { get; set; }
         public string orderID { get; set; }
         public string target { get; set; }
-        public Dianzhu.enum_ChatTarget Target
+        public enum_ChatTarget Target
         {
             get
             {
-                Dianzhu.enum_ChatTarget tar;
-                bool isType = Enum.TryParse<Dianzhu.enum_ChatTarget>(target, out tar);
+                enum_ChatTarget tar;
+                bool isType = Enum.TryParse<enum_ChatTarget>(target, out tar);
                 if (!isType) { throw new Exception("不可识别的用户类型"); }
                 return tar;
             }

@@ -59,11 +59,11 @@ public partial class DZOrder_Default : BasePage
         liUnDoneOrderCount.Text = (bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id).Count()
             -
             bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id)
-            .Where(x => x.OrderStatus >= Dianzhu.enum_OrderStatus.Finished).Count()).ToString();
+            .Where(x => x.OrderStatus >= .enum_OrderStatus.Finished).Count()).ToString();
 
         // 已完成订单: IsEnd
         liFinishOrderCount.Text = bllOrder.GetAllCompleteOrdersForBusiness(CurrentBusiness.Id)
-            .Where(x => x.OrderStatus >= Dianzhu.enum_OrderStatus.Finished).Count().ToString();
+            .Where(x => x.OrderStatus >= .enum_OrderStatus.Finished).Count().ToString();
     }
 
     protected void rpt_ItemDataBound(object sender, RepeaterItemEventArgs e) {
@@ -88,9 +88,9 @@ public partial class DZOrder_Default : BasePage
     //        ServiceOrder order = (ServiceOrder)e.Item.DataItem;
     //            switch (order.OrderStatus)
     //            {
-    //                case Dianzhu.enum_OrderStatus.Created:
+    //                case .enum_OrderStatus.Created:
     //                    //获取支付项
-    //                    Payment payMent = bllPayment.GetPaymentForWaitPay(order);// .ApplyPay(order, Dianzhu.enum_PayTarget.Deposit);
+    //                    Payment payMent = bllPayment.GetPaymentForWaitPay(order);// .ApplyPay(order, .enum_PayTarget.Deposit);
     //                    if (payMent == null)
     //                    {
     //                        return;
@@ -101,32 +101,32 @@ public partial class DZOrder_Default : BasePage
     ////                    hlDepositAmount.NavigateUrl = payLinkDepositAmount;
     ////                    hlDepositAmount.Visible = true;
     //                    break;
-    //                case Dianzhu.enum_OrderStatus.Payed:
+    //                case .enum_OrderStatus.Payed:
     ////                    Button btnConfimOrder = e.Item.FindControl("btnConfimOrder") as Button;
     ////                    btnConfimOrder.Visible = true;
     //                    break;
-    //                case Dianzhu.enum_OrderStatus.Negotiate:
+    //                case .enum_OrderStatus.Negotiate:
     ////                    TextBox txtConfirmPrice = e.Item.FindControl("txtConfirmPrice") as TextBox;
     ////                    txtConfirmPrice.Visible = true;
     ////                    Button btnConfirmPrice = e.Item.FindControl("btnConfirmPrice") as Button;
     ////                    btnConfirmPrice.Visible = true;
     //                    break;
-    //                case Dianzhu.enum_OrderStatus.Assigned:
+    //                case .enum_OrderStatus.Assigned:
     //                    Button btnConfirmPriceCustomer = e.Item.FindControl("btnConfirmPriceCustomer") as Button;
     //                    btnConfirmPriceCustomer.Visible = true;
     //                    break;
-    //                case Dianzhu.enum_OrderStatus.Begin:
+    //                case .enum_OrderStatus.Begin:
     //                    Button btnIsEndOrder = e.Item.FindControl("btnIsEndOrder") as Button;
     //                    btnIsEndOrder.Visible = true;
     //                    Button btnIsEndOrderCustomer = e.Item.FindControl("btnIsEndOrderCustomer") as Button;
     //                    btnIsEndOrderCustomer.Visible = true;
     //                    break;
-    //                case Dianzhu.enum_OrderStatus.IsEnd:
+    //                case .enum_OrderStatus.IsEnd:
     //                    Button btnIsEndOrderCustomerIs = e.Item.FindControl("btnIsEndOrderCustomer") as Button;
     //                    btnIsEndOrderCustomerIs.Visible = true;
     //                    break;
-    //                case Dianzhu.enum_OrderStatus.Ended:
-    //                    Payment paymentFinal = bllPayment.GetPaymentForWaitPay(order); //bllPayment.ApplyPay(order, Dianzhu.enum_PayTarget.FinalPayment);
+    //                case .enum_OrderStatus.Ended:
+    //                    Payment paymentFinal = bllPayment.GetPaymentForWaitPay(order); //bllPayment.ApplyPay(order, .enum_PayTarget.FinalPayment);
     //                    string payLinkFinalPayment = bllPayment.BuildPayLink(paymentFinal.Id);
     //                    HyperLink hlFinalPayment = e.Item.FindControl("PayFinalPayment") as HyperLink;
     //                    hlFinalPayment.Text = "用户尾款付款链接：";
