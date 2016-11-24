@@ -4,18 +4,23 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.Model;
+//using Dianzhu.Model;
 using Dianzhu.BLL;
 using System.Web.UI.HtmlControls;
 using Ydb.Common;
 using System.IO;
 using Dianzhu.IDAL;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
+using Ydb.Common.Application;
 public partial class Business_Edit : BasePage
 {
     public Business b = new Business();
-    IDALBusiness dalBusiness = Bootstrap.Container.Resolve<IDALBusiness>();
+    public VMBusiness vmBusiness = new VMBusiness();
     
-    BLLBusinessImage bllBi =Bootstrap.Container.Resolve<BLLBusinessImage>();
+    IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
+    IBusinessImageService imageService= Bootstrap.Container.Resolve<IBusinessImageService>();
+   
     bool IsNew {get;set;}
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -25,8 +30,8 @@ public partial class Business_Edit : BasePage
         {
             businessId = new Guid(strBusinessId);
             IsNew = false;
-            b = dalBusiness.FindById(businessId.Value);
-            
+            b = businessService.GetOne(businessId.Value);
+            vmBusiness = new VMBusiness().Adap(b);
         }
         else
         {
@@ -101,33 +106,35 @@ public partial class Business_Edit : BasePage
     }
     private void UpdateForm()
     {
+       
+        vmBusiness.Name = tbxName.Value;
+        //vmBusiness.Longitude =Convert.ToDouble(Longitude.Text);
+        //vmBusiness.Latitude = Convert.ToDouble(Latitude.Text);
+        vmBusiness.Description = tbxIntroduced.Value;
 
-        b.Name = tbxName.Value;
-        //b.Longitude =Convert.ToDouble(Longitude.Text);
-        //b.Latitude = Convert.ToDouble(Latitude.Text);
-        b.Description = tbxIntroduced.Value;
+        vmBusiness.Phone = tbxContactPhone.Value;
+        vmBusiness.WebSite = tbxWebSite.Value;
+        vmBusiness.WorkingYears = int.Parse(tbxBusinessYears.Value);
 
-        b.Phone = tbxContactPhone.Value;
-        b.WebSite = tbxWebSite.Value;
-        b.WorkingYears = int.Parse(tbxBusinessYears.Value);
-
-        b.WorkingYears = int.Parse(tbxBusinessYears.Value);
-        b.Contact = tbxContact.Value;
-        b.StaffAmount = int.Parse(selStaffAmount.Value);
-        b.ChargePersonIdCardType = (enum_IDCardType)int.Parse(selCardType.Value);
-        b.ChargePersonIdCardNo = tbxCardIdNo.Value;
-        BLLArea bllArea = Bootstrap.Container.Resolve<BLLArea>();
-        AddressParser addressParser = new AddressParser(hiAddrId.Value, bllArea);
+        vmBusiness.WorkingYears = int.Parse(tbxBusinessYears.Value);
+        vmBusiness.Contact = tbxContact.Value;
+        vmBusiness.StaffAmount = int.Parse(selStaffAmount.Value);
+        vmBusiness.ChargePersonIdCardType = (enum_IDCardType)int.Parse(selCardType.Value);
+        vmBusiness.ChargePersonIdCardNo = tbxCardIdNo.Value;
+       // BLLArea bllArea = Bootstrap.Container.Resolve<BLLArea>();
+        IAreaService areaService = Bootstrap.Container.Resolve<IAreaService>();
+        AddressParser addressParser = new AddressParser(hiAddrId.Value, areaService);
         Area area;
         double latitude;
         double longtitude;
         addressParser.ParseAddress(out area, out latitude, out longtitude);
-        b.RawAddressFromMapAPI = hiAddrId.Value;
-        b.Latitude = latitude;
-        b.Longitude = longtitude;
-        b.AreaBelongTo = area;
+        vmBusiness.RawAddressFromMapApi = hiAddrId.Value;
+        vmBusiness.Latitude = latitude;
+        vmBusiness.Longtitude = longtitude;
+       //todo: 應該在領域內解析
+        // vmBusiness.AreaBelongTo = area;
 
-        b.Address = tbxAddress.Value;
+        vmBusiness.Address = tbxAddress.Value;
     }
     protected void btnSave_Click(object sender, EventArgs e)
     {
@@ -135,10 +142,15 @@ public partial class Business_Edit : BasePage
         //图片使用ajax上传,
         if (IsNew)
         {
-            dalBusiness.Add(b);
+     ActionResult<Business> addResult=       businessService.Add(vmBusiness.Name, vmBusiness.Phone, vmBusiness.Email, CurrentUser.Id,
+                vmBusiness.Latitude.ToString(), vmBusiness.Longtitude.ToString(), vmBusiness.RawAddressFromMapApi,
+                vmBusiness.Contact, vmBusiness.WorkingYears, vmBusiness.StaffAmount);
+         
         }
         else
-        { dalBusiness.Update(b); }
+        {
+             
+            businessService.Update(b); }
         NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
         Response.Redirect("/business/detail.aspx?businessid=" + b.Id);
        // Page.ClientScript.RegisterClientScriptBlock(typeof(string), "", @"<script language='javascript' defer>alert('提交成功！');window.document.location.href='" + Request.UrlReferrer.ToString() + "';</script>");

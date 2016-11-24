@@ -10,12 +10,13 @@ using System.Text.RegularExpressions;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.Common.Application;
-
+using Ydb.BusinessResource.Application;
 public partial class Account_Security :BasePage
 {
  //   DZMembershipProvider dzp = Bootstrap.Container.Resolve<DZMembershipProvider>();
     IDZMembershipService memberService= Bootstrap.Container.Resolve<IDZMembershipService>();
-    BLLBusinessImage bllBi =Bootstrap.Container.Resolve<BLLBusinessImage>();
+ 
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         NeedBusiness = false;

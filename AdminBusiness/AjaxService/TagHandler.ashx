@@ -5,7 +5,8 @@ using System.Web;
 using Dianzhu.Model;
 using Dianzhu.BLL;
 using System.Web.Security;
-
+    using Ydb.BusinessResource.Application;
+    using Ydb.BusinessResource.DomainModel;
 public class TagHandler : IHttpHandler,System.Web.SessionState.IRequiresSessionState
 {
 
@@ -33,7 +34,7 @@ public class TagHandler : IHttpHandler,System.Web.SessionState.IRequiresSessionS
         context.Response.ContentType = "text/plain";
 
         string action = context.Request["action"];
-        BLLDZTag bllTag = Bootstrap.Container.Resolve<BLLDZTag>();
+        IDZTagService bllTag = Bootstrap.Container.Resolve<IDZTagService>();
         switch (action.ToLower())
         {
             case "add":

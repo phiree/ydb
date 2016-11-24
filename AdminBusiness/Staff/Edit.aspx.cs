@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
 using Ydb.Common;
 //编辑 和 新增,合二为一.
 public partial class Staff_Edit : BasePage
@@ -16,9 +18,9 @@ public partial class Staff_Edit : BasePage
     Staff s = new Staff();
     public string StaffAvatarUrl = "/images/components/inputFile/input_head_default_128_128.png";
 
-    BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>();
+    IStaffService staffService = Bootstrap.Container.Resolve<IStaffService>();
     ServiceType ServiceType = new ServiceType();
-    BLLServiceType bllServiceType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
+    IServiceTypeService typeService = Bootstrap.Container.Resolve<IServiceTypeService>();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -27,7 +29,7 @@ public partial class Staff_Edit : BasePage
         if (!string.IsNullOrEmpty(paramId))
         {
             StaffId = new Guid(paramId);
-            s = bllStaff.GetOne(StaffId); //获取该职员信息
+            s = staffService.GetOne(StaffId); //获取该职员信息
         }
         
         if (!IsPostBack)
@@ -82,7 +84,7 @@ public partial class Staff_Edit : BasePage
         {
             PHSuit.Notification.Alert(this, "上传的图片超过2M，请重试!");
         }
-        string imagePath = bllStaff.Save(StaffId, empheadimg.PostedFile, enum_imagetype);
+        string imagePath = staffService.Save(StaffId, empheadimg.PostedFile, enum_imagetype);
         
 
     }
@@ -91,10 +93,10 @@ public partial class Staff_Edit : BasePage
     {
         UpdateForm();
         if (IsNew)
-        { bllStaff.Save(s); }
+        { staffService.Save(s); }
         else
         {
-            bllStaff.Update(s);
+            staffService.Update(s);
         }
          
         StaffId = s.Id;

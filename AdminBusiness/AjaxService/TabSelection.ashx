@@ -9,6 +9,8 @@ using Dianzhu.BLL;
 using Newtonsoft.Json;
 using NPOI.POIFS.Properties;
 using Newtonsoft.Json.Serialization;
+       using Ydb.BusinessResource.Application;
+     using Ydb.BusinessResource.DomainModel;
 /// <summary>
 /// 用于 tabselecttion 控件的ajax请求.
 /// </summary>
@@ -43,15 +45,16 @@ public class TabSelection : IHttpHandler,System.Web.SessionState.IRequiresSessio
 
     private string  GetServiceTypeList(string parentId)
     {
-        BLLServiceType bll= Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
+            IServiceTypeService typeService= Bootstrap.Container.Resolve<IServiceTypeService>();
+         
         IList<ServiceType> list=new List<ServiceType>();
         if (parentId == "0")
         {
-            list = bll.GetTopList();
+            list = typeService.GetTopList();
         }
         else
         {
-            ServiceType parentType = bll.GetOne(new Guid(parentId));
+            ServiceType parentType = typeService.GetOne(new Guid(parentId));
             list = parentType.Children;
         }
 

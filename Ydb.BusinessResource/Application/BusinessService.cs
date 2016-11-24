@@ -34,6 +34,13 @@ namespace Ydb.BusinessResource.Application
             repositoryBusiness.Delete(business);
         }
         [UnitOfWork]
+        public void Disable(Guid  businessId)
+        {
+            Business b = GetOne(businessId);
+            b.Enabled = false;
+            repositoryBusiness.Update(b);
+        }
+        [UnitOfWork]
        public  ActionResult<Business> Add(string name, string phone,string email, Guid ownerId, string latitude, string longtitude
            , string rawAddressFromMapApi, string contact, int workingYears, int staffAmount)
 

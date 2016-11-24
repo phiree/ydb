@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using Ydb.BusinessResource.Application;
 public partial class Business_Detail :BasePage
 {
  
@@ -23,11 +23,11 @@ public partial class Business_Detail :BasePage
          BindLicense();
          BindShow();
          BindCharge();
-            //   Dianzhu.BLL.BLLServiceOrder bllOrder= new Dianzhu.BLL.BLLServiceOrder();
-            Dianzhu.BLL.dzServiceService bllService = Bootstrap.Container.Resolve<Dianzhu.BLL.dzServiceService>();
+          
+         IDZServiceService  dzService = Bootstrap.Container.Resolve<IDZServiceService>();
          AllOrderCount =  bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id).Count.ToString();
          DoneOrderCount = bllOrder.GetAllCompleteOrdersForBusiness(CurrentBusiness.Id).Count.ToString();
-         ServiceCount = bllService.GetServiceByBusiness(CurrentBusiness.Id, 1, 999, out totalRecords).Count.ToString();
+         ServiceCount = dzService.GetServiceByBusiness(CurrentBusiness.Id, 1, 999, out totalRecords).Count.ToString();
         }
     }
     private void BindLicense()

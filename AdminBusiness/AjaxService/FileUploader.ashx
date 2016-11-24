@@ -5,13 +5,15 @@ using System.Web;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using Ydb.Common;
+    using Ydb.BusinessResource.Application;
+     using Ydb.BusinessResource.DomainModel;
 public class FileUploader : IHttpHandler,System.Web.SessionState.IRequiresSessionState {
 
-    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-    BLLBusinessImage bllBusinessImage =Bootstrap.Container.Resolve<BLLBusinessImage>();
+    IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
+   IBusinessImageService bllBusinessImage =Bootstrap.Container.Resolve<IBusinessImageService>();
     public void ProcessRequest (HttpContext context) {
         //权限判断
-        if (!AjaxAuth.authAjaxUser(context)){ 
+        if (!AjaxAuth.authAjaxUser(context)){
             context.Response.StatusCode = 400;
             context.Response.Clear();
             context.Response.Write("{\"result\":\"" + false + "\",\"msg\":\"unlogin\"}");
@@ -31,7 +33,7 @@ public class FileUploader : IHttpHandler,System.Web.SessionState.IRequiresSessio
         HttpFileCollection files = context.Request.Files;
 
         string strBusinessId = context.Request["businessId"];
-        Business b = bllBusiness.GetOne(new Guid(strBusinessId));
+        Business b = businessService.GetOne(new Guid(strBusinessId));
         string imageType = context.Request["imageType"];
         enum_ImageType enum_imagetype = enum_ImageType.Business_Show;
 
@@ -77,7 +79,7 @@ public class FileUploader : IHttpHandler,System.Web.SessionState.IRequiresSessio
         context.Response.Write(imagePath);
 
         NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-           
+
 
     }
 

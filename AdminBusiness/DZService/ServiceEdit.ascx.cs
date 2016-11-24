@@ -10,6 +10,8 @@ using Ydb.Common;
 using PHSuit;
 using FluentValidation.Results;
 using System.Web.UI.HtmlControls;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
 public partial class DZService_ServiceEdit : System.Web.UI.UserControl
 {
 
@@ -21,12 +23,11 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
 
     private Guid ServiceId = Guid.Empty;
 
-    BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
+     private IDZServiceService dzService = Bootstrap.Container.Resolve<IDZServiceService>();
     
-    
-    BLLDZTag bllTag = Bootstrap.Container.Resolve<BLLDZTag>();
  
-    BLLServiceType bllServiceType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
+ IDZTagService tagService= Bootstrap.Container.Resolve<IDZTagService>();
+    IServiceTypeService typeService= Bootstrap.Container.Resolve<IServiceTypeService>();
 
     private bool IsNew { get { return ServiceId == Guid.Empty; } }
 
@@ -41,7 +42,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         if (!string.IsNullOrEmpty(paramId))
         {
             ServiceId = new Guid(paramId);
-            CurrentService = bllService.GetOne(ServiceId);
+            CurrentService = dzService.GetOne2(ServiceId);
             ServiceType = CurrentService.ServiceType;
             dzTag.ServiceId = paramId;
             
@@ -99,7 +100,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         }
         
         cbxEnable.Checked = CurrentService.Enabled;
-        hiBusinessAreaCode.Value = CurrentService.BusinessAreaCode.ToString();
+        hiBusinessAreaCode.Value = CurrentService.Scope.ToString();
         tbxMinPrice.Text = CurrentService.MinPrice.ToString("#.#");
         tbxDespoist.Text = CurrentService.DepositAmount.ToString("0.00");
         tbxUnitPrice.Text = CurrentService.UnitPrice.ToString("#");
@@ -175,10 +176,10 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         CurrentService.Enabled = true;
         CurrentService.Business = (((BasePage)this.Page).CurrentBusiness);
         Guid gid = new Guid(hiTypeId.Value);
-        ServiceType = bllServiceType.GetOne(gid);
+        ServiceType = typeService.GetOne(gid);
         CurrentService.ServiceType = ServiceType;
         
-        CurrentService.BusinessAreaCode = hiBusinessAreaCode.Value;
+        CurrentService.Scope = hiBusinessAreaCode.Value;
         CurrentService.ChargeUnit = (enum_ChargeUnit)(Convert.ToInt32(rblChargeUnit.Value));
 //        CurrentService.ChargeUnit = (enum_ChargeUnit)(Convert.ToInt32(rblChargeUnit.SelectedValue));
         CurrentService.IsCertificated = cbxIsCertificated.Checked;
@@ -207,7 +208,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
             {
                 if (string.IsNullOrEmpty(tag) || string.IsNullOrWhiteSpace(tag))
                 { continue; }
-                bllTag.AddTag(tag, CurrentService.Id.ToString(), CurrentService.Business.Id.ToString(),
+                tagService.AddTag(tag, CurrentService.Id.ToString(), CurrentService.Business.Id.ToString(),
                 CurrentService.ServiceType.Id.ToString());
             }
         }
@@ -256,7 +257,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     {
         UpdateForm();
         ValidationResult result;
-        bllService.SaveOrUpdate(CurrentService, out result);
+        dzService.SaveOrUpdate(CurrentService, out result);
         
         if (result.IsValid)
         {

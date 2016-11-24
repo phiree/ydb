@@ -11,11 +11,12 @@ using System.Text.RegularExpressions;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.Common.Application;
+using Ydb.BusinessResource.Application;
+
 public partial class Assistant_AssistantRegister : Dianzhu.Web.Common.BasePage
 {
 
-    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-    IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
+     IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
 
     protected void Page_Load(object sender, EventArgs e)
     {

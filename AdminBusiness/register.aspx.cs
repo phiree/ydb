@@ -10,11 +10,11 @@ using System.Web.Security;
 using System.Text.RegularExpressions;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.BusinessResource.Application;
 
 public partial class register : Dianzhu.Web.Common.BasePage//System.Web.UI.Page
 {
-    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-    IDZMembershipService dzMembershipService = Bootstrap.Container.Resolve<IDZMembershipService>();
+     IDZMembershipService dzMembershipService = Bootstrap.Container.Resolve<IDZMembershipService>();
     protected void Page_Load(object sender, EventArgs e)
     {
         BrowserCheck.CheckVersion();

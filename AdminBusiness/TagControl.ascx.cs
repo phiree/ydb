@@ -6,9 +6,14 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
+
 public partial class TagControl : System.Web.UI.UserControl
 {
-    BLLDZTag bllTag = Bootstrap.Container.Resolve<BLLDZTag>();
+
+
+    IDZTagService tagService = Bootstrap.Container.Resolve<IDZTagService>();
     public string ServiceId { get; set; }
     public string BusinessId { get; set; }
     public string ServiceTypeId { get; set; }
@@ -21,7 +26,7 @@ public partial class TagControl : System.Web.UI.UserControl
         IList<DZTag> tags = new List<DZTag>();
         if (!string.IsNullOrEmpty(ServiceId))
         {
-            tags = bllTag.GetTagForService(new Guid(ServiceId));
+            tags = tagService.GetTagForService(new Guid(ServiceId));
         }
         return tags;
     }

@@ -670,7 +670,7 @@ namespace Dianzhu.ApplicationService.Order
                 try
                 {
                     ServiceOrder so = ibllserviceorder.GetOne(order.Id);
-                    if (so.OrderStatus != Model.Enums.enum_OrderStatus.Appraised)
+                    if (so.OrderStatus !=  enum_OrderStatus.Appraised)
                     {
                         ibllserviceorder.OrderFlow_CustomerAppraise(order);
                     }

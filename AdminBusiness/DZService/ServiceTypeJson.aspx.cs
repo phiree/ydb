@@ -8,9 +8,11 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using System.IO;
+using Ydb.BusinessResource.Application;
+
 public partial class DZService_ServiceTypeJson : BasePage
 {
-    BLLServiceType bllType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
+    IServiceTypeService bllType = Bootstrap.Container.Resolve<IServiceTypeService>();
     protected void Page_Load(object sender, EventArgs e)
     {
      var list=   bllType.GetAll();

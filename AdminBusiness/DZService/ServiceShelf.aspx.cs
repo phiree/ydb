@@ -6,12 +6,14 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
 
 public partial class DZService_ServiceShelf : BasePage
 {
 
     public DZService CurrentService = new DZService();
-    dzServiceService bllServcie = Bootstrap.Container.Resolve<dzServiceService>();
+    IDZServiceService bllServcie = Bootstrap.Container.Resolve<IDZServiceService>();
 
     public string merchantID {
         get {
@@ -24,7 +26,7 @@ public partial class DZService_ServiceShelf : BasePage
         string strId = Request["serviceId"];
         if (!string.IsNullOrEmpty(strId))
         {
-            CurrentService = bllServcie.GetOne(new Guid(strId));
+            CurrentService = bllServcie.GetOne2(new Guid(strId));
         }
     }
 }

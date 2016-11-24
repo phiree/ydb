@@ -5,11 +5,11 @@ using System.Web;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using Ydb.Common;
-
+       using Ydb.BusinessResource.Application;
+     using Ydb.BusinessResource.DomainModel;
 public class ImageDelete : IHttpHandler{
 
-    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-    BLLBusinessImage bllBusinessImage = Bootstrap.Container.Resolve<BLLBusinessImage>();
+   IBusinessImageService bllBusinessImage =Bootstrap.Container.Resolve<IBusinessImageService>();
 
     public void ProcessRequest(HttpContext context) {
 

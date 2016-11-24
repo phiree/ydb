@@ -5,9 +5,11 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
+using Ydb.BusinessResource.Application;
+
 public partial class DZService_ServiceOverview :BasePage
 {
-    dzServiceService bllService = Bootstrap.Container.Resolve<dzServiceService>();
+    IDZServiceService bllService = Bootstrap.Container.Resolve<IDZServiceService>();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -23,7 +25,7 @@ public partial class DZService_ServiceOverview :BasePage
     protected void delbt_Command(object sender, CommandEventArgs e)
     {
         Guid id = new Guid(e.CommandArgument.ToString());
-        bllService.Delete(bllService.GetOne(id));
+        bllService.Delete(bllService.GetOne2(id));
         Response.Redirect(Request.UrlReferrer.ToString());
 
     }

@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true" CodeFile="Detail.aspx.cs" Inherits="DZService_Detail" %>
+<%@ Import Namespace="Ydb.Common" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -55,10 +56,10 @@
                                                 <span class="model-pra-t">先付订金</span><%=CurrentService.DepositAmount.ToString("f2") %>元
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">服务单价</span><%=CurrentService.UnitPrice.ToString("f2") %>元/<%=CurrentService.ChargeUnit== Dianzhu.enum_ChargeUnit.Day?"天":
-                                                                                                                            CurrentService.ChargeUnit== Dianzhu.enum_ChargeUnit.Hour?"小时":
-                                                                                                                             CurrentService.ChargeUnit== Dianzhu.enum_ChargeUnit.Month?"月":
-                                                                                                                              CurrentService.ChargeUnit== Dianzhu.enum_ChargeUnit.Times?"次":"(次)"%>
+                                                <span class="model-pra-t">服务单价</span><%=CurrentService.UnitPrice.ToString("f2") %>元/<%=CurrentService.ChargeUnit== enum_ChargeUnit.Day?"天":
+                                                                                                                            CurrentService.ChargeUnit== enum_ChargeUnit.Hour?"小时":
+                                                                                                                             CurrentService.ChargeUnit== enum_ChargeUnit.Month?"月":
+                                                                                                                              CurrentService.ChargeUnit== enum_ChargeUnit.Times?"次":"(次)"%>
                                             </p>
                                         </div>
                                         <div class="col-md-4">
@@ -69,13 +70,13 @@
                                                 <span class="model-pra-t">服务对象</span><%=CurrentService.IsForBusiness?"不限":"私人/个体" %>
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">是否上门</span><%=CurrentService.ServiceMode== Dianzhu.enum_ServiceMode.ToHouse?"提供上门服务":"不提供上门" %>
+                                                <span class="model-pra-t">是否上门</span><%=CurrentService.ServiceMode== enum_ServiceMode.ToHouse?"提供上门服务":"不提供上门" %>
                                             </p>
                                         </div>
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">付款方式</span><%= CurrentService.AllowedPayType== Dianzhu.enum_PayType.Offline?"线下支付":
-                                                                                              CurrentService.AllowedPayType== Dianzhu.enum_PayType.Online?"线上支付":
+                                                <span class="model-pra-t">付款方式</span><%= CurrentService.AllowedPayType== enum_PayType.Offline?"线下支付":
+                                                                                              CurrentService.AllowedPayType== enum_PayType.Online?"线上支付":
                                                                                               "线上/线下"%>
                                             </p>
                                             <p class="model-pra">
@@ -92,7 +93,7 @@
                                     <h4>服务范围</h4>
                                 </div>
                                 <div class="model-m no-padding">
-                                    <input type="hidden" name="hiServiceArea" id="hiServiceArea" value=<%= CurrentService.BusinessAreaCode %> />
+                                    <input type="hidden" name="hiServiceArea" id="hiServiceArea" value=<%= CurrentService.Scope %> />
                                     <div id="serviceArea">
 
                                     </div>

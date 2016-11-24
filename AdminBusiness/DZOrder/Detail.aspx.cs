@@ -9,11 +9,14 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
+using Ydb.Common;
 
 public partial class DZOrder_Detail : BasePage
 {
     Dianzhu.BLL.IBLLServiceOrder bllServeiceOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
-    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
+   IBusinessService businessService= Bootstrap.Container.Resolve<IBusinessService>();
     // BLLServiceOrder bllServeiceOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
     BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<BLLServiceOrderStateChangeHis>();
     IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
@@ -31,7 +34,7 @@ public partial class DZOrder_Detail : BasePage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        CurrentBusiness = bllBusiness.GetOne(new Guid(Request["businessId"]));
+        CurrentBusiness = businessService.GetOne(new Guid(Request["businessId"]));
         CurrentOrder = bllServeiceOrder.GetOne(new Guid(Request["orderId"]));
         BingData();
         BindDoneStatusData();
@@ -104,22 +107,22 @@ public partial class DZOrder_Detail : BasePage
 
         switch (order.OrderStatus)
         {
-            case .enum_OrderStatus.Payed:
+            case  enum_OrderStatus.Payed:
                 panelOrderStatus.Visible = true;
                 panelConfirmOrder.Visible = true;
                 btnConfirmOrder.Visible = true;
                 break;
-            case .enum_OrderStatus.Negotiate:
+            case  enum_OrderStatus.Negotiate:
                 panelOrderStatus.Visible = true;
                 panelConfirmPrice.Visible = true;
                 txtConfirmPrice.Visible = true;
                 btnConfirmPrice.Visible = true;
                 break;
-            case .enum_OrderStatus.Assigned:
+            case  enum_OrderStatus.Assigned:
                 panelOrderStatus.Visible = true;
                 btnBegin.Visible = true;
                 break;
-            case .enum_OrderStatus.Begin:
+            case  enum_OrderStatus.Begin:
                 panelOrderStatus.Visible = true;
                 btnIsEndOrder.Visible = true;
                 break;

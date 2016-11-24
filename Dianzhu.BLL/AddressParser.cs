@@ -13,7 +13,7 @@ namespace Dianzhu.BLL
     {
         public string rawAddressFromMapApi;
         IAreaService areaService;
-        public AddressParser(string rawAddressFromMapApi,AreaService areaService)
+        public AddressParser(string rawAddressFromMapApi,IAreaService areaService)
         {
             this.rawAddressFromMapApi = rawAddressFromMapApi;
             this.areaService = areaService;

@@ -24,7 +24,7 @@
                                         <div class="col-md-4">
                                             <p class="model-pra">
 
-                                                <span class="model-pra-t">服务项目</span><%=CurrentOrder.Service.Name %>
+                                                <span class="model-pra-t">服务项目</span><%=CurrentOrder.Details[0].ServiceSnapShot.ServiceName %>
                                             </p>
                                             <p class="model-pra">
                                                 <span class="model-pra-t">订单号</span><%=CurrentOrder.SerialNo %>

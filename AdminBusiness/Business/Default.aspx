@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" EnableEventValidation="false" AutoEventWireup="true" CodeFile="~/Business/Default.aspx.cs" Inherits="Business_Default" %>
-
+<%@ Import Namespace="Ydb.BusinessResource.DomainModel" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <!--店铺列表-->
 <html lang="en">
@@ -87,7 +87,7 @@
                                                                 <div class="biz-item-h"><%#Eval("Name")%></div>
                                                                 <div class="biz-item-m">
                                                                     <div class="biz-img">
-                                                                        <img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=70&height=70&tt=3":"../images/common/touxiang/touxiang_70_70.png" %>'/>
+                                                                        <img src='<%# ((  BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode((( BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=70&height=70&tt=3":"../images/common/touxiang/touxiang_70_70.png" %>'/>
                                                                     </div>
                                                                     <div class="biz-info m-b10">
                                                                         <div class="m-b10">

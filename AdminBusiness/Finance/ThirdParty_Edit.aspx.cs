@@ -4,11 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
 using Ydb.Finance.Application;
 public partial class Finance_ThirdParty : BasePage
 {
     IBalanceAccountService balanceAccountService = Bootstrap.Container.Resolve<IBalanceAccountService>();
-    Dianzhu.BLL.BLLBusiness bllBusiness = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLBusiness>();
+    IBusinessService businessService = Bootstrap.Container.Resolve< IBusinessService>();
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -16,7 +19,7 @@ public partial class Finance_ThirdParty : BasePage
             try
             {
                 lblBusinessId.Text = Request.QueryString["businessid"].ToString();
-                Dianzhu.Model.Business b = bllBusiness.GetOne(new Guid(lblBusinessId.Text));
+             Business b = businessService.GetOne(new Guid(lblBusinessId.Text));
                 if (b == null)
                 {
                     PHSuit.Notification.Alert(Page, "商户不存在！");

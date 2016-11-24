@@ -9,8 +9,7 @@ using Dianzhu.BLL;
 using System.Web.Security;
 public partial class register : System.Web.UI.Page
 {
-    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-
+   
     protected void Page_Load(object sender, EventArgs e)
     {
         if ( !String.IsNullOrEmpty(Request["customerService"]) && Request["customerService"].ToLower() == "true" )

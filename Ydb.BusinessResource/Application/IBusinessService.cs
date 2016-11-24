@@ -55,5 +55,6 @@ namespace Ydb.BusinessResource.Application
         /// <param name="ownerId"></param>
         /// <returns></returns>
          long GetStoresCount(string alias, Guid ownerId);
+          void Disable(Guid businessId);
     }
 }

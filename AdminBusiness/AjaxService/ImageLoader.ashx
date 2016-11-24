@@ -6,11 +6,12 @@ using System.Collections.Generic;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using Ydb.Common;
-
+       using Ydb.BusinessResource.Application;
+     using Ydb.BusinessResource.DomainModel;
 public class ImageLoader : IHttpHandler {
 
-    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-    BLLBusinessImage bllBusinessImage = Bootstrap.Container.Resolve<BLLBusinessImage>();
+    IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
+   IBusinessImageService bllBusinessImage =Bootstrap.Container.Resolve<IBusinessImageService>();
 
     public void ProcessRequest (HttpContext context) {
         if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
@@ -26,7 +27,7 @@ public class ImageLoader : IHttpHandler {
         string strBusinessId = context.Request["businessId"];
         string imageType = context.Request["imageType"];
 
-        Business b = bllBusiness.GetOne(new Guid(strBusinessId));
+        Business b = businessService.GetOne(new Guid(strBusinessId));
 
         enum_ImageType enum_imagetype = enum_ImageType.Business_Show;
 

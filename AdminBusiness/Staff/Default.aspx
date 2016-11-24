@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true"
     CodeFile="Default.aspx.cs" Inherits="Staff_Default" %>
-   <%@ Register Namespace="Wuqi.Webdiyer" Assembly="AspNetPager" TagPrefix="UC" %>
+<%@ Import Namespace="Ydb.BusinessResource.DomainModel" %>
+<%@ Register Namespace="Wuqi.Webdiyer" Assembly="AspNetPager" TagPrefix="UC" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="pageDesc" runat="Server">
@@ -27,7 +28,7 @@
                                                 <a class="emp-ctrl edit-icon" href='edit.aspx?id=<%# Eval("id") %>&businessid=<%=Request["businessid"] %>' title="编辑" ></a>
                                             </div>
                                             <div class="emp-model-m">
-                                                <img class="emp-headImg" src=' <%# ((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")) == null ? "/images/common/emp-headicon.png" : "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")).ImageName) + "&width=120&height=120&tt=3)"%>  '/>
+                                                <img class="emp-headImg" src=' <%# (( BusinessImage)Eval("AvatarCurrent")) == null ? "/images/common/emp-headicon.png" : "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode((( BusinessImage)Eval("AvatarCurrent")).ImageName) + "&width=120&height=120&tt=3)"%>  '/>
                                                 <div class="emp-info">
                                                     <p>编号：<%#Eval("Code") %></p>
                                                     <p>姓名：<%#Eval("Name") %></p>

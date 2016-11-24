@@ -7,10 +7,15 @@ using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.IDAL;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
+using Ydb.Common.Application;
 public partial class Business_Default : BasePage
 {
-    IDALBusiness dalBusiness = Bootstrap.Container.Resolve<IDALBusiness>();
-    dzServiceService bllService = Bootstrap.Container.Resolve<dzServiceService>();
+   
+    IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
+    IServiceTypeService typeService = Bootstrap.Container.Resolve<IServiceTypeService>();
+    IDZServiceService dzService= Bootstrap.Container.Resolve<IDZServiceService>();
     protected void Page_Load(object sender, EventArgs e)
     {
         BrowserCheck.CheckVersion();
@@ -28,7 +33,7 @@ public partial class Business_Default : BasePage
     protected void BindBusinessList()
     {
 
-        var businessList = dalBusiness.GetBusinessListByOwner(CurrentUser.Id).Where(x=>x.Enabled);
+        var businessList = businessService.GetBusinessListByOwner(CurrentUser.Id).Where(x=>x.Enabled);
         
         rptBusinessList.DataSource = businessList;
         // rptBusinessList.ItemCommand+=new RepeaterCommandEventHandler(rptBusinessList_ItemCommand);
@@ -43,7 +48,7 @@ public partial class Business_Default : BasePage
         {
             Business b = (Business)e.Item.DataItem;
             Repeater rpt = e.Item.FindControl("rptServiceType") as Repeater;
-          IList<ServiceType> serviceTypes=  bllService.GetServiceTypeListByBusiness(b.Id);
+          IList<ServiceType> serviceTypes= dzService.GetServiceTypeListByBusiness(b.Id);
             rpt.DataSource = serviceTypes;
             rpt.DataBind();
         }
@@ -53,26 +58,29 @@ public partial class Business_Default : BasePage
     {
         
         Business b = new Business();
-        b.Name = tbxName.Value;
+       string Name = tbxName.Value;
         
-        b.OwnerId   = CurrentUser.Id;
+       Guid OwnerId   = CurrentUser.Id;
+        string email = string.Empty;
+        string website = string.Empty;
         if (tbxWebSite.Value.Contains("@"))
         {
-            b.Email = tbxWebSite.Value;
+            email = tbxWebSite.Value;
         }
         else
         {
-            b.WebSite = tbxWebSite.Value;
+            website = tbxWebSite.Value;
         }
-        b.RawAddressFromMapAPI = hiAddrId.Value;
-        b.Phone = tbxContactPhone.Value;
-        b.Address = tbxAddress.Value;
+        string RawAddressFromMapAPI = hiAddrId.Value;
+        string　Phone = tbxContactPhone.Value;
+        string　Address = tbxAddress.Value;
         
-        b.Description = tbxDescription.Value;
-        b.CreatedTime = DateTime.Now;
-        dalBusiness.Add(b);
-        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-        Response.Redirect("/business/detail.aspx?businessid="+b.Id);
+       string Description = tbxDescription.Value;
+       
+       
+       ActionResult<Business> result= businessService.Add(Name, Phone, email, OwnerId, string.Empty, string.Empty, RawAddressFromMapAPI, string.Empty, 0, 0);
+       
+        Response.Redirect("/business/detail.aspx?businessid="+result.ResultObject.Id);
     }
     protected void rptBusinessList_ItemCommand(object sender, RepeaterCommandEventArgs e)
     {
@@ -80,9 +88,8 @@ public partial class Business_Default : BasePage
         {
             string strBusinessId = e.CommandArgument.ToString();
             Guid businessId = new Guid(strBusinessId);
-            Business b = dalBusiness.FindById(businessId);
-            b.Enabled = false;
-            dalBusiness.Update(b);
+          businessService.Disable(businessId);
+            
             BindBusinessList();
         }
     }

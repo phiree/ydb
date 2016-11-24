@@ -6,6 +6,8 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
 /// <summary>
 ///BasePage 的摘要说明
 /// </summary>
@@ -14,8 +16,7 @@ public class BasePage : Dianzhu.Web.Common.BasePage
     log4net.ILog log = log4net.LogManager.GetLogger("Web.AdminBusiness.BasePage");
 
     MemberDto currentUser;
-    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-    bool needBusiness = true;
+    IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>(); bool needBusiness = true;
     public bool NeedBusiness { get; set; }
     public MemberDto CurrentUser
     {
@@ -35,7 +36,7 @@ public class BasePage : Dianzhu.Web.Common.BasePage
             if (!string.IsNullOrEmpty(strBusinessId))
             {
                 Guid bid = new Guid(strBusinessId);
-                b = bllBusiness.GetOne(bid);
+                b = businessService.GetOne(bid);
 
             }
             else

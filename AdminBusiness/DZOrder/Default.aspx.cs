@@ -7,14 +7,17 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Ydb.Common;
 using Ydb.Membership.Application.Dto;
+using Ydb.BusinessResource.Application;
+
 public partial class DZOrder_Default : BasePage
 {
     Dianzhu.BLL.IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
 
     //   BLLServiceOrder bllServeiceOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
     BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
-
+    IStaffService staffService = Bootstrap.Container.Resolve<IStaffService>();    
     public string merchantID {
         get {
             return System.Web.Security.Membership.GetUser().ProviderUserKey.ToString();
@@ -40,7 +43,7 @@ public partial class DZOrder_Default : BasePage
             currentPageIndex = int.Parse(paramPage);
         }
 
-        var IOrderList = bllOrder.GetListForBusiness(CurrentBusiness, currentPageIndex, pager.PageSize, out totalRecord)
+        var IOrderList = bllOrder.GetListForBusiness(CurrentBusiness.Id.ToString(), currentPageIndex, pager.PageSize, out totalRecord)
              .OrderByDescending(x => x.LatestOrderUpdated);
         rpOrderList.DataSource = IOrderList;
         foreach (ServiceOrder item in IOrderList) {
@@ -59,11 +62,11 @@ public partial class DZOrder_Default : BasePage
         liUnDoneOrderCount.Text = (bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id).Count()
             -
             bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id)
-            .Where(x => x.OrderStatus >= .enum_OrderStatus.Finished).Count()).ToString();
+            .Where(x => x.OrderStatus >= enum_OrderStatus.Finished).Count()).ToString();
 
         // 已完成订单: IsEnd
         liFinishOrderCount.Text = bllOrder.GetAllCompleteOrdersForBusiness(CurrentBusiness.Id)
-            .Where(x => x.OrderStatus >= .enum_OrderStatus.Finished).Count().ToString();
+            .Where(x => x.OrderStatus >= enum_OrderStatus.Finished).Count().ToString();
     }
     BLLOrderAssignment bllOrderAssignment = Bootstrap.Container.Resolve<BLLOrderAssignment>();
     Ydb.Membership.Application.IDZMembershipService memberService = Bootstrap.Container.Resolve<Ydb.Membership.Application.IDZMembershipService>();
@@ -79,7 +82,8 @@ public partial class DZOrder_Default : BasePage
 
         foreach (OrderAssignment ass in list)
         {
-            txtStaffs.Text += ass.AssignedStaff.Name.ToString();
+            var assedStaff= staffService.GetOne(new Guid(ass.AssignedStaffId));
+            txtStaffs.Text += assedStaff.Name + ";";
         }
         //CustomerName
         Label lblCustomerName = e.Item.FindControl("lblCustomerName") as Label;

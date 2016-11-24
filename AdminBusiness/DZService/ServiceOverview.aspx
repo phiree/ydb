@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true" CodeFile="ServiceOverview.aspx.cs" Inherits="DZService_ServiceOverview" %>
+<%@ Import Namespace="Ydb.BusinessResource.DomainModel" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server"></asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server"></asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -30,7 +31,7 @@
                                                     <div class="box-m-t"><%# Eval("Name") %></div>
                                                     <a href='/DZService/ServiceShelf.aspx?businessId=<%=Request["businessid"] %>&serviceId=<%# Eval("Id") %>' class="box-m-b">
                                                         <div class="box-m-bg"></div>
-                                                        <div class='box-m-icon svcType-l-icon-<%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.TopType.Id  %>'></div>
+                                                        <div class='box-m-icon svcType-l-icon-<%#(( DZService)GetDataItem()).ServiceType.TopType.Id  %>'></div>
                                                     </a>
                                                 </div>
                                             </div>

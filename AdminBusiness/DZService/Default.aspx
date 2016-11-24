@@ -1,7 +1,8 @@
 ﻿
 <%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true"
     CodeFile="Default.aspx.cs" Inherits="DZService_Default" %>
-    <%@ Register  Src="~/DZService/ServiceEdit.ascx" TagName="ServiceEdit" TagPrefix="UC" %>
+<%@ Import Namespace="Ydb.BusinessResource.DomainModel" %>
+<%@ Register  Src="~/DZService/ServiceEdit.ascx" TagName="ServiceEdit" TagPrefix="UC" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -75,11 +76,11 @@
                                                                 <span class="text-ellipsis"><a class="service-href" href="Detail.aspx?businessid=<%=Request.Params["businessId"]%>&serviceId=<%#Eval("Id") %>"><%#Eval("Name") %></a></span>
                                                             </div>
                                                             <div class="custom-col col-static-20">
-                                                                <i class="icon service-icon svcType-s-icon-<%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.TopType.Id  %>"></i>                                                                <span class=""><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %></span>
+                                                                <i class="icon service-icon svcType-s-icon-<%#(( DZService)GetDataItem()).ServiceType.TopType.Id  %>"></i>                                                                <span class=""><%#(( DZService)GetDataItem()).ServiceType.Name  %></span>
 
                                                             </div>
                                                             <div class="custom-col col-static-20">
-                                                                <span class="spServiceArea text-ellipsis" ></span><input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
+                                                                <span class="spServiceArea text-ellipsis" ></span><input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#(( DZService)GetDataItem()).Scope %>' />
                                                             </div>
                                                             <div class="custom-col col-static-10">
                                                                 <a class="btn btn-info btn-xs" href="ServiceShelf.aspx?businessId=<%=Request.Params["businessId"]%>&serviceId=<%#Eval("Id") %>" collapse-ignore="true">查看货架</a>
