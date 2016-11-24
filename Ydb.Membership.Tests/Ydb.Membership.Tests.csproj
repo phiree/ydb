@@ -117,6 +117,7 @@
     <Compile Include="Application\DZMembershipServiceTests.cs" />
     <Compile Include="Bootstraper.cs" />
     <Compile Include="DomainModel\Service\DZMembershipDomainServiceTests.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipMapTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

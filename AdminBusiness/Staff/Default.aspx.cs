@@ -4,12 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.ApplicationService;
-using Dianzhu.ApplicationService.Staff;
+ 
+
+//using Dianzhu.ApplicationService;
+//using Dianzhu.ApplicationService.Staff;
 using Dianzhu.BLL;
 using Dianzhu.Model;
+using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
-
+using Ydb.Common.Specification;
 public partial class Staff_Default : BasePage
 {
     
@@ -37,10 +40,10 @@ public partial class Staff_Default : BasePage
         {
             index = int.Parse(strIndex);
         }
-        var filter = new common_Trait_Filtering {pageNum = index.ToString(), pageSize = pager.PageSize.ToString()};
-        var filterStaff = new common_Trait_StaffFiltering();
-        IList<staffObj> staffList = staffService.GetStaffs(b.Id.ToString(), filter, filterStaff, null); // GetListByBusiness(b.Id, index, pager.PageSize, out total);
-        pager.RecordCount =Convert.ToInt32( staffService.GetStaffsCount(b.Id.ToString(), filterStaff, null).count);
+        var filter = new TraitFilter() { pageNum = index , pageSize = pager.PageSize };
+      
+        IList<Staff> staffList = staffService.GetStaffs(filter,string.Empty,string.Empty,String.Empty, String.Empty, String.Empty,String.Empty,b.Id ); // GetListByBusiness(b.Id, index, pager.PageSize, out total);
+        pager.RecordCount =(int) staffService.GetStaffsCount(string.Empty, string.Empty, String.Empty, String.Empty, String.Empty, String.Empty, b.Id);
         rptStaff.DataSource = staffList;
         rptStaff.DataBind();
 
@@ -51,7 +54,7 @@ public partial class Staff_Default : BasePage
         if (e.CommandName == "delete")
         {
             Guid id = new Guid(e.CommandArgument.ToString());
-             staffService.DeleteStaff(CurrentBusiness.Id.ToString(),id.ToString(),null);
+             staffService.Delete( id );
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             BindList();
         }

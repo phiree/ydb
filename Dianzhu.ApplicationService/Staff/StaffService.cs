@@ -324,13 +324,9 @@ namespace Dianzhu.ApplicationService.Staff
             BRM.Business business = checkRute(storeID, customer);
             BRM.Staff staff = null;
             Guid guidStaff = utils.CheckGuidID(staffID, "staffID");
-            staff = staffService.GetStaff(business.Id, guidStaff);
-            if (staff == null)
-            {
-                throw new Exception("该员工不在职！");
-            }
+            
             //staff.Enable = false;
-            staffService.Delete(staff);
+            staffService.Delete(guidStaff);
             //staff = staffService.GetStaff(guidStore, guidStaff);
             //if (staff == null)
             //{

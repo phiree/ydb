@@ -26,9 +26,12 @@ namespace Ydb.BusinessResource.Application
             this.repositoryStaff = repositoryStaff;
         }
         
-        public void Delete(Staff staff)
+        
+        [UnitOfWork]
+        public void Delete(Guid staffId)
         {
-            repositoryStaff.Delete(staff);
+          Staff  s= repositoryStaff.FindById(staffId);
+            repositoryStaff.Delete(s);
         }
         public Staff GetOne(Guid id)
         {

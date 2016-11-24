@@ -56,7 +56,7 @@ namespace NHibernateUnitOfWork
 
 
                         )
-                      .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.AreaMap>())
+                      .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.ServiceOrderMap>())
  
                        .ExposeConfiguration(BuildSchema)
  

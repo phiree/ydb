@@ -41,13 +41,13 @@ namespace Ydb.Membership.DomainModel
             }
             return null;
         }
-        public virtual int LoginTimes { get;  internal set; }
+        public virtual int LoginTimes { get; protected internal set; }
         /// <summary>
         /// 呼叫 或者 接收呼叫的次数
         /// </summary>
         public virtual int ReceptionTimes { get; set; }
         //public virtual Guid Id { get; set; }
-        public virtual string UserName { get; internal set; }
+        public virtual string UserName { get;protected internal set; }
         //用||(双竖线)替换邮箱用户中的@符号
         public virtual string UserNameForOpenFire { get; set; }
         public virtual string Password { get; set; }

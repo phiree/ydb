@@ -44,7 +44,7 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.DateApply);
             Map(x => x.DateApproved);
            
-            HasMany<BusinessImage>(x => x.BusinessImages).Cascade.AllDeleteOrphan();
+            HasMany<BusinessImage>(x => x.BusinessImages).Cascade.AllDeleteOrphan().Not.LazyLoad();
             Map(x => x.ChargePersonIdCardNo);
             Map(x => x.StaffAmount);
             Map(x => x.ChargePersonIdCardType).CustomType<enum_IDCardType>();

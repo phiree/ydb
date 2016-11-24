@@ -140,6 +140,7 @@
     <Compile Include="DomainModel\Staff\Staff.cs" />
     <Compile Include="DomainModel\Staff\IRepositoryStaff.cs" />
     <Compile Include="DomainModel\Service\IRepositoryServiceType.cs" />
+    <Compile Include="Infrastructure\Repository\Nhibernate\Mapping\StaffMap.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryServiceOpenTime.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryServiceType.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryBusiness.cs" />

@@ -9,7 +9,8 @@ namespace Ydb.BusinessResource.Application
 {
     public interface IStaffService
     {
-        void Delete(Staff staff);
+    
+        void Delete(Guid staffId);
         IList<Staff> GetAllListByBusiness(Business business);
         int GetEnableSum(Business business);
         IList<Staff> GetListByBusiness(Guid businessId, int pageIndex, int pageSize, out int totalRecord);

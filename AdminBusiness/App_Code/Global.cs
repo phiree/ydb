@@ -43,6 +43,7 @@ public class Global : HttpApplication, IContainerAccessor
 
     void Application_Error(object sender, EventArgs e)
     {
+        throw Server.GetLastError();
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.AdminBusiness");
         Exception exc = Server.GetLastError();
         //Server.ClearError();

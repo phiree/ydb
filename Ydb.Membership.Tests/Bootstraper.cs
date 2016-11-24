@@ -21,6 +21,19 @@ namespace Ydb.Membership.Tests
             get { return container; }
             private set { container = value; }
         }
+        public static FluentConfiguration dbConfigMembership
+        {
+            get
+            {
+                FluentConfiguration dbConfigInstantMessage = Fluently.Configure()
+                 .Database(SQLiteConfiguration.
+                 Standard
+                 .ConnectionString("Data Source=test_ydb_businessresource.db3; Version=3;BinaryGuid=False")
+                 )
+                 .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });
+                return dbConfigInstantMessage;
+            }
+        }
         public static void Boot()
         {
 
@@ -28,8 +41,8 @@ namespace Ydb.Membership.Tests
 
             FluentConfiguration dbConfigCommon = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_common.db3"))
            .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });
-            FluentConfiguration dbConfig = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_membership.db3"));
 
+          
             container.Install(
                     new Ydb.Infrastructure.Installer()
                     );
@@ -37,7 +50,7 @@ namespace Ydb.Membership.Tests
 
             container.Install(
                 new Ydb.Infrastructure.InstallerCommon(dbConfigCommon),
-                new Ydb.Membership.Infrastructure.InstallerMembership(dbConfig)
+                new Ydb.Membership.Infrastructure.InstallerMembership(dbConfigMembership)
                 );
 
 

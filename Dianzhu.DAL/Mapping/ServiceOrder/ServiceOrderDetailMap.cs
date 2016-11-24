@@ -34,11 +34,11 @@ namespace Dianzhu.DAL.Mapping
                     m.Component(x => x.TimePeriod, ms => {
                         ms.Component(x => x.StartTime, mss => {
                             mss.Map(x => x.Hour).Column("StartHour");
-                            mss.Map(x => x.Hour).Column("StartMinute");
+                            mss.Map(x => x.Minute).Column("StartMinute");
                         });
                         ms.Component(x => x.EndTime, mss => {
                             mss.Map(x => x.Hour).Column("EndHour");
-                            mss.Map(x => x.Hour).Column("EndMinute");
+                            mss.Map(x => x.Minute).Column("EndMinute");
                         });
                     });
             }
