@@ -9,6 +9,7 @@ using Ydb.BusinessResource.DomainModel;
 
 using FizzWare.NBuilder;
 using Ydb.Common.Application;
+using Ydb.Common.Domain;
 
 namespace Ydb.BusinessResource.Application.Tests
 {
@@ -42,11 +43,7 @@ namespace Ydb.BusinessResource.Application.Tests
             Assert.AreEqual(service.ServiceType, null);
         }
 
-        [Test()]
-        public void ModifyWorkTimeDayTest()
-        {
-            Assert.Fail();
-        }
+       
 
         [Test()]
         public void AddWorkTimeTest()

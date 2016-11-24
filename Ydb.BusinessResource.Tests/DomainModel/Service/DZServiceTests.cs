@@ -5,6 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FizzWare.NBuilder;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.Application.Tests;
+using Ydb.Common.Application;
+using Ydb.Common.Domain;
 
 namespace Ydb.BusinessResource.DomainModel.Tests
 {
@@ -39,6 +44,38 @@ namespace Ydb.BusinessResource.DomainModel.Tests
             
             Assert.AreEqual(4, servie.OpenTimes[5].OpenTimeForDay.Count);
             Assert.AreEqual(12, servie.OpenTimes[5].OpenTimeForDay[3].TimePeriod.StartTime.Minute);
+        }
+
+        [Test]
+        public void ModifyWorkTimeTestSuccess()
+       
+        {
+            DZService service = Builder<DZService>.CreateNew().Build();
+        
+            service.AddWorkTime(DayOfWeek.Sunday, "01:01", "02:02", 13, "test_tag");
+
+            string errMsg;
+            service.ModifyWorkTime(DayOfWeek.Sunday,13,new TimePeriod(new Time("01:01"),new Time("02:02")),
+               new TimePeriod(new Time("01:01"), new Time("03:03")),out errMsg
+                );
+
+         }
+        [Test]
+        public void ModifyWorkTimeTestConflict()
+
+        {
+            DZService service = Builder<DZService>.CreateNew().Build();
+
+            service.AddWorkTime(DayOfWeek.Sunday, "01:01", "02:02", 13, "test_tag");
+
+            string errMsg;
+            service.ModifyWorkTime(DayOfWeek.Sunday, 13, new TimePeriod(new Time("01:01"), new Time("02:02")),
+               new TimePeriod(new Time("09:01"), new Time("11:03")), out errMsg
+                );
+            Console.WriteLine("error"+errMsg);
+            Assert.IsTrue(string.IsNullOrEmpty(errMsg));
+            
+
         }
     }
 }
