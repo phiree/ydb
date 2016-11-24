@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using Com.Alipay;
+using Ydb.Common;
 
 /// <summary>
 /// 功能：服务器异步通知页面
@@ -72,7 +73,7 @@ public partial class notify_url : BasePage
                 {
                     Response.Write("fail");
                 }
-                order.OrderStatus = .enum_OrderStatus.EndCancel;
+                order.OrderStatus =  enum_OrderStatus.EndCancel;
                 order.OrderCreated = DateTime.Now;
                 order.OrderFinished = DateTime.Now;
                 bllOrder.Update(order);
@@ -81,7 +82,7 @@ public partial class notify_url : BasePage
                 BLLPaymentLog bllPaymentLog = Bootstrap.Container.Resolve<BLLPaymentLog>();
                 PaymentLog paymentLog = new PaymentLog();
                 paymentLog.ApiString = Request.Url + "|" + Request.QueryString.ToString() + "|" + Request.Form.ToString();
-                paymentLog.PaylogType = .enum_PaylogType.ResultNotifyFromAli;
+                paymentLog.PaylogType = enum_PaylogType.ResultNotifyFromAli;
                 paymentLog.LogTime = DateTime.Now;
                 //paymentLog.ServiceOrder = order;
                 bllPaymentLog.Save(paymentLog);

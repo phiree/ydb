@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
+using Ydb.Common;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 public partial class membership_Default : BasePage
@@ -23,7 +24,7 @@ public partial class membership_Default : BasePage
     private void BindSummary()
     {
         BLLIMUserStatus bllIMUS = Bootstrap.Container.Resolve<BLLIMUserStatus>();
-       var onlineUser= bllIMUS.GetOnlineListByClientName(.enum_XmppResource.YDBan_User.ToString());
+       var onlineUser= bllIMUS.GetOnlineListByClientName(enum_XmppResource.YDBan_User.ToString());
         lblTotalOnline.Text = onlineUser.Count.ToString();
     }
  

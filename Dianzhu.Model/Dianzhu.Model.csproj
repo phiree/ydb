@@ -99,7 +99,6 @@
     <Compile Include="ServiceOrder\ServiceOrderPushedService.cs" />
     <Compile Include="OrderAssignment.cs" />
     <Compile Include="Payment\PaymentLog.cs" />
-    <Compile Include="Area.cs" />
     <Compile Include="DeviceBind.cs" />
     <Compile Include="IdentityAccess\DZRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

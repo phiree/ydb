@@ -6,11 +6,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
 using Ydb.Finance.Application;
 public partial class servicetype_Edit : BasePage
 {
     private Guid TypeId=Guid.Empty;
-    BLLServiceType bllServiceType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
+    IServiceTypeService bllServiceType = Bootstrap.Container.Resolve<IServiceTypeService>();
     IServiceTypePointService bllPoint = Bootstrap.Container.Resolve<IServiceTypePointService>();
     private bool IsNew {
         get {

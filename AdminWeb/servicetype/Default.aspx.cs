@@ -7,10 +7,13 @@ using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
 using PHSuit;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
 
 public partial class servicetype_Default : BasePage
 {
-    BLLServiceType bllServiceType =  Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
+     
+    IServiceTypeService bllServiceType =  Bootstrap.Container.Resolve<IServiceTypeService>();
     Ydb.Finance.Application.IServiceTypePointService bllPoint = Bootstrap.Container.Resolve<Ydb.Finance.Application.IServiceTypePointService>();
     protected void Page_Load(object sender, EventArgs e)
     {

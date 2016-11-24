@@ -6,10 +6,11 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
+using Ydb.BusinessResource.Application;
 
 public partial class business_ToExcel : BasePage
 {
-    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
+    IBusinessService bllBusiness = Bootstrap.Container.Resolve<IBusinessService>();
     IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
     protected void Page_Load(object sender, EventArgs e)
     {

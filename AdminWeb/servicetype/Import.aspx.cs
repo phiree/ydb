@@ -5,11 +5,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Ydb.BusinessResource.Application;
 using Ydb.Finance.Application;
 
 public partial class servicetype_Import : BasePage
 {
-    Dianzhu.BLL.BLLServiceType bllServiceType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
+   IServiceTypeService bllServiceType = Bootstrap.Container.Resolve<IServiceTypeService>();
     IServiceTypePointService serviceTypePointService = Bootstrap.Container.Resolve<IServiceTypePointService>();
     protected void Page_Load(object sender, EventArgs e)
     {

@@ -137,7 +137,6 @@
     <Compile Include="Mapping\ServiceOrder\ServiceOrderPushedServiceMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderDetailMap.cs" />
     <Compile Include="Mapping\PaymentLogMap.cs" />
-    <Compile Include="Mapping\AreaMap.cs" />
     <Compile Include="Mapping\ServiceOrderStateChangeHisMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderMap.cs" />
     <Compile Include="Mapping\OrderAssignment.cs" />

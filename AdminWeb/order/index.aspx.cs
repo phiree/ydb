@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using System.Data;
+using Ydb.Common;
 
 public partial class order_index : BasePage
 {
@@ -63,7 +64,7 @@ public partial class order_index : BasePage
         {
 
             StatusSelect.Value = "index.aspx?status=" + Request.QueryString["status"].ToString();
-            .enum_OrderStatus status = (.enum_OrderStatus)Enum.Parse(typeof(.enum_OrderStatus), Request.QueryString["status"].ToString());
+             enum_OrderStatus status = ( enum_OrderStatus)Enum.Parse(typeof( enum_OrderStatus), Request.QueryString["status"].ToString());
             allServiceOrder = bllServiceOrder.GetAllByOrderStatus(status,page,pager.PageSize,out totalRecords).OrderByDescending(x => x.LatestOrderUpdated).ToList();
 
         }

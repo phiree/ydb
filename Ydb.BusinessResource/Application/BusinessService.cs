@@ -191,5 +191,17 @@ namespace Ydb.BusinessResource.Application
             long count = repositoryBusiness.GetRowCount(where);
             return count;
         }
+
+        public void ApprovedEnable(Guid businessId)
+        {
+            Business b = GetOne(businessId);
+            b.IsApplyApproved = true;
+        }
+
+        public void ApprovedDisable(Guid businessId)
+        {
+            Business b = GetOne(businessId);
+            b.IsApplyApproved = false;
+        }
     }
 }

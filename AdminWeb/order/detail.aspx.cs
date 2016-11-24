@@ -63,13 +63,13 @@ public partial class order_detail : BasePage
         //}
         //else
         //{ lblStaff.Text = ""; }
-        if (serviceorder.Staff == null)
+        if (string.IsNullOrEmpty(serviceorder.StaffId ))
         {
             lblStaff.Text = "";
         }
         else
         {
-            lblStaff.Text = serviceorder.Staff.Name;
+            lblStaff.Text = serviceorder.StaffId;
         }
         lblUnitAmount.Text = serviceorder.UnitAmount.ToString("f2");
         lblOrderAmount.Text = serviceorder.OrderAmount.ToString("f2");
@@ -102,7 +102,7 @@ public partial class order_detail : BasePage
                 {
                     lblCustomerServiceShare.Text = bf.Amount.ToString();
                 }
-                if (bf.AccountId != serviceorder.CustomerServiceId && bf.AccountId != serviceorder.Business .OwnerId.ToString() && bf.AccountId != "dc73ba0f-91a4-4e14-b17a-a567009dfd6a")
+                if (bf.AccountId != serviceorder.CustomerServiceId && bf.AccountId != serviceorder.ServiceBusinessOwnerId && bf.AccountId != "dc73ba0f-91a4-4e14-b17a-a567009dfd6a")
                 {
                     lblAgentShare.Text = bf.Amount.ToString();
                 }

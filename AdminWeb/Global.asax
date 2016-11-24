@@ -3,6 +3,8 @@
 <%@ Import Namespace="Castle.Windsor.Installer" %>
 <%@ Import Namespace="Dianzhu.Model" %>
 <%@ Import Namespace="Dianzhu.BLL" %>
+<%@ Import Namespace="Ydb.BusinessResource.Application" %>
+<%@ Import Namespace="Ydb.BusinessResource.DomainModel" %>
 <%@ Import Namespace="Ydb.Finance.Application" %>
 <script runat="server">
     public static IWindsorContainer container;
@@ -54,15 +56,19 @@
     OrderShareParam setOrderShareParam(ServiceOrder order)
     {
         OrderShareParam orderShareParam = new OrderShareParam();
-        orderShareParam.ServiceTypeID = order.Details[0].OriginalService.ServiceType.Id.ToString();
-        orderShareParam.BusinessUserId = order.Business.Id.ToString();
+
+       
+        IDZServiceService dzService = Bootstrap.Container.Resolve<IDZServiceService>();
+         DZService service = dzService.GetOne2(new Guid(order.Details[0].OriginalServiceId)); 
+        orderShareParam.ServiceTypeID = service.ServiceType.Id.ToString();//  order.Details[0].ServiceSnapShot.ServiceType.Id.ToString();
+        orderShareParam.BusinessUserId = order.BusinessId.ToString();
         orderShareParam.RelatedObjectId = order.Id.ToString();
         orderShareParam.SerialNo = order.SerialNo;
         orderShareParam.Amount = order.NegotiateAmount;
         orderShareParam.BalanceUser = new List<BalanceUserParam>();
         BalanceUserParam balanceAgent = new BalanceUserParam();
         Dianzhu.BLL.Agent.IAgentService agentService = Bootstrap.Container.Resolve<Dianzhu.BLL.Agent.IAgentService>();
-        var area = order.Details[0].OriginalService.Business.AreaBelongTo;
+        var area = service.Business.AreaBelongTo;
         var agent = agentService.GetAreaAgent(area);
         if (agent != null)
         {
