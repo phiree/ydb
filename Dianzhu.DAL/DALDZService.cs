@@ -35,6 +35,7 @@ namespace Dianzhu.DAL
         {
             string queryStr = "select service "
                            + " from DZService as service "
+                           + " inner join service.Business as business"
                            + " inner join service.OpenTimes as opentime" +
                                 " with opentime.DayOfWeek=" + (int)preOrderTime.DayOfWeek
                           + " inner join opentime.OpenTimeForDay as opentimeday"
@@ -53,6 +54,7 @@ namespace Dianzhu.DAL
                 where += " and service.ServiceType.Id='" + serviceTypeId + "'";
             }
             where += " and service.Enabled=true";
+            where += " and business.Enabled=true";
 
             //var totalquery = Session.QueryOver<DZService>()
             //.
