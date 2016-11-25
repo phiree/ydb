@@ -72,26 +72,12 @@ namespace Dianzhu.CSClient
             //登录成功
             if (result.Value)// == DialogResult.OK)
             {
-
-
                 log.Debug("登录成功");
 
-
-                Presenter.PIdentityList pIdentityList = Bootstrap.Container.Resolve<Presenter.PIdentityList>(); ;
-                Presenter.PChatList pChatList = Bootstrap.Container.Resolve<Presenter.PChatList>();
-              
-                Presenter.PSearch pSearch = Bootstrap.Container.Resolve<Presenter.PSearch>();
-                Presenter.PTabControl pTabControl = Bootstrap.Container.Resolve<Presenter.PTabControl>();
-                Presenter.POrderHistory pOrderHistory = Bootstrap.Container.Resolve<Presenter.POrderHistory>();
-                Presenter.PChatSend pChatSend = Bootstrap.Container.Resolve<Presenter.PChatSend>();
-                
+                Presenter.PIdentityList pIdentityList = Bootstrap.Container.Resolve<Presenter.PIdentityList>();                
 
                 var mainPresenter = Bootstrap.Container.Resolve<Presenter.PMain>();
-
-
                 mainPresenter.ShowDialog();
-
-
             }
 
 

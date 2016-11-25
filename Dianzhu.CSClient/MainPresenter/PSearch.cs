@@ -39,6 +39,23 @@ namespace Dianzhu.CSClient.Presenter
 
         IReceptionService receptionService;
 
+        string identity;
+        public IViewSearch ViewSearch
+        {
+            get
+            {
+                return viewSearch;
+            }
+        }
+
+        public IViewSearchResult ViewSearchResult
+        {
+            get
+            {
+                return viewSearchResult;
+            }
+        }
+
         #region 服务类型数据
         Dictionary<ServiceType, IList<ServiceType>> ServiceTypeCach;
         IList<ServiceType> ServiceTypeListTmp;
@@ -49,7 +66,7 @@ namespace Dianzhu.CSClient.Presenter
 
         #region contructor
  
-        public PSearch(IInstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
+        public PSearch(IInstantMessage iIM, IViewSearch viewSearch, IViewSearchResult viewSearchResult,
             IViewChatList viewChatList,IViewIdentityList viewIdentityList,
             IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder, IDAL.IDALServiceType dalServiceType,                     
                     PushService bllPushService, Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder, LocalStorage.LocalChatManager localChatManager, LocalStorage.LocalUIDataManager localUIDataManager, 

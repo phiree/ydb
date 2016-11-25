@@ -26,15 +26,28 @@ namespace Dianzhu.CSClient.Presenter
         LocalStorage.LocalHistoryOrderManager localHistoryOrderManager;
         IVMOrderHistoryAdapter vmOrderHistoryAdapter;
 
+        string identity;
+        public IViewOrderHistory ViewOrderHistory
+        {
+            get
+            {
+                return viewOrderHistory;
+            }
+        }
+
         public POrderHistory() { }
 
-        public POrderHistory(IViewOrderHistory viewOrderHistory, IViewIdentityList viewIdentityList, IBLLServiceOrder bllServiceOrder, LocalStorage.LocalHistoryOrderManager localHistoryOrderManager, IVMOrderHistoryAdapter vmOrderHistoryAdapter)
+        public POrderHistory(IViewOrderHistory viewOrderHistory, 
+            IViewIdentityList viewIdentityList, IBLLServiceOrder bllServiceOrder, 
+            LocalStorage.LocalHistoryOrderManager localHistoryOrderManager, IVMOrderHistoryAdapter vmOrderHistoryAdapter,
+            string identity)
         {
             this.viewOrderHistory = viewOrderHistory;
             this.orderList = new List<ServiceOrder>();
             this.bllServiceOrder = bllServiceOrder;
             this.localHistoryOrderManager = localHistoryOrderManager;
             this.vmOrderHistoryAdapter = vmOrderHistoryAdapter;
+            this.identity = identity;
 
             viewOrderHistory.SearchOrderHistoryClick += ViewOrderHistory_SearchOrderHistoryClick;
             viewOrderHistory.BtnMoreOrder += ViewOrderHistory_BtnMoreOrder;

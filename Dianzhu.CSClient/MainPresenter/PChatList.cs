@@ -31,9 +31,17 @@ namespace Dianzhu.CSClient.Presenter
         VMAdapter.IVMChatAdapter vmChatAdapter;
         IChatService chatService;
 
+        string identity;//对应的用户标志，当前为用户id
+        public IViewChatList ViewChatList
+        {
+            get
+            {
+                return viewChatList;
+            }
+        }
 
         public PChatList(IViewChatList viewChatList,IViewChatSend viewChatSend, IViewIdentityList viewCustomerList, IInstantMessage iIM,
-            Dianzhu.CSClient.LocalStorage.LocalChatManager chatManager, VMAdapter.IVMChatAdapter vmChatAdapter,IChatService chatService)
+            Dianzhu.CSClient.LocalStorage.LocalChatManager chatManager, VMAdapter.IVMChatAdapter vmChatAdapter,IChatService chatService,string identity)
         {
             this.chatManager = chatManager;
             this.viewChatList = viewChatList;
@@ -43,9 +51,21 @@ namespace Dianzhu.CSClient.Presenter
             this.vmChatAdapter = vmChatAdapter;
             this.chatService = chatService;
 
+            this.identity = identity;
+
+            iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
             viewChatList.CurrentCustomerServiceId = GlobalViables.CurrentCustomerService.Id;
             viewChatList.BtnMoreChat += ViewChatList_BtnMoreChat;
+        }
+
+        private void IIM_IMReceivedMessage(ReceptionChatDto dto)
+        {
+            if (dto.FromId == identity)
+            {
+                VMChat vmChat = vmChatAdapter.ChatToVMChat(dto);
+                viewChatList.AddOneChat(vmChat);
+            }
         }
 
         private void ViewChatList_BtnMoreChat(string targetChatId)

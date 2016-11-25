@@ -15,5 +15,12 @@ namespace Dianzhu.CSClient.IView
         string CSName { set; }
 
         void FlashTaskBar();//任务栏闪烁
+
+        void AddIdentityTab(string identity, 
+            IViewSearch viewSearch, IViewSearchResult viewSearchResult,
+            IViewChatList viewChatList, IViewChatSend viewChatSend,
+            IViewOrderHistory viewOrderHistory, IViewToolsControl viewTabControl);
+
+        void RemoveIdentityTab(string identity);
     }
 }

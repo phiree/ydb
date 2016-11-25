@@ -33,11 +33,20 @@ namespace Dianzhu.CSClient.Presenter
         LocalStorage.LocalChatManager localChatManager;
         VMAdapter.IVMChatAdapter vmChatAdapter;
         LocalUIDataManager localUIDataManager;
+
+        string identity;
+        public IViewChatSend ViewChatSend
+        {
+            get
+            {
+                return ViewChatSend;
+            }
+        }
         
         public PChatSend(IViewChatSend viewChatSend, IView.IViewChatList viewChatList,
             Ydb.InstantMessage.Application.IInstantMessage iIM,IViewIdentityList viewIdentityList,
             IViewOrderHistory viewOrderHistory, LocalStorage.LocalChatManager localChatManager, VMAdapter.IVMChatAdapter vmChatAdapter,
-            LocalUIDataManager localUIDataManager)
+            LocalUIDataManager localUIDataManager,string identity)
         {
             this.viewChatList = viewChatList;
             this.viewChatSend = viewChatSend;
@@ -45,6 +54,7 @@ namespace Dianzhu.CSClient.Presenter
             this.iIM = iIM;
             this.viewIdentityList = viewIdentityList;
             this.viewOrderHistory = viewOrderHistory;
+            this.identity = identity;
 
             this.viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
             this.viewChatSend.SendDidichuxing += ViewChatSend_SendDidichuxing;

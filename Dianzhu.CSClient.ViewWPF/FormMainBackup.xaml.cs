@@ -22,7 +22,7 @@ namespace Dianzhu.CSClient.ViewWPF
     /// <summary>
     /// FormMain.xaml 的交互逻辑
     /// </summary>
-    public partial class FormMain : Window,IViewMainForm
+    public partial class FormMainBackup : Window,IViewMainForm
     {
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF");
         Window main;
@@ -44,11 +44,19 @@ namespace Dianzhu.CSClient.ViewWPF
             {ResizeDirection.BottomLeft, Cursors.SizeNESW}
         };
 
-        public FormMain(IViewIdentityList viewIdentityList)
+        public FormMainBackup(IViewIdentityList viewIdentityList, IView.IViewChatList viewChatList, IViewChatSend viewChatSend,
+            IViewSearch viewSearch, IViewSearchResult viewSearchResult, IViewOrderHistory viewOrderHistory,
+            IViewNotice viewNotice,IViewToolsControl viewTabControl)
         {
             InitializeComponent();
-
+            //pnlNotice.Children.Add((UC_Notice) viewNotice);
             pnlCustomerList.Children.Add((UC_IdentityList) viewIdentityList);
+            pnlSearch.Children.Add((UC_Search) viewSearch);
+            pnlChatList.Children.Add((UC_ChatList)viewChatList);
+            pnlSearchResult.Children.Add((UC_SearchResult)viewSearchResult);
+            pnlChatSend.Children.Add((UC_ChatSend)viewChatSend);
+            pnlOrderHistory.Children.Add( (UC_OrderHistory)viewOrderHistory);
+            pnlTools.Children.Add((UC_TabControlTools)viewTabControl);
 
             main = System.Windows.Window.GetWindow(this) as FormMain;
 
@@ -138,22 +146,14 @@ namespace Dianzhu.CSClient.ViewWPF
             SendMessage(_HwndSource.Handle, WM_SYSCOMMAND, (IntPtr)(61440 + direction), IntPtr.Zero);
         }
 
-        public void AddIdentityTab(string identity,
-            IViewSearch viewSearch, IViewSearchResult viewSearchResult,
-            IViewChatList viewChatList, IViewChatSend viewChatSend,
-            IViewOrderHistory viewOrderHistory, IViewToolsControl viewTabControl)
+        public void AddIdentityTab(string identity, IViewSearch viewSearch, IViewSearchResult viewSearchResult, IViewChatList viewChatList, IViewChatSend viewChatSend, IViewOrderHistory viewOrderHistory, IViewToolsControl viewTabControl)
         {
-            TabItem tab = new TabItem();
-            tab.Name = identity;
-            UC_TabContent c = new UC_TabContent(viewSearch, viewSearchResult, viewChatList, viewChatSend, viewOrderHistory, viewTabControl);
-            tab.Content = c;
-            tabContent.Items.Add(tab);
+            throw new NotImplementedException();
         }
 
         public void RemoveIdentityTab(string identity)
         {
-            TabItem item = tabContent.ItemContainerGenerator.Items.Where(x => ((TabItem)x).Name == identity).SingleOrDefault() as TabItem;
-            tabContent.Items.Remove(item);
+            throw new NotImplementedException();
         }
     }
 
@@ -161,39 +161,39 @@ namespace Dianzhu.CSClient.ViewWPF
     /// <summary>
     /// 鼠标方向
     /// </summary>
-    public enum ResizeDirection
-    {
-        /// <summary>
-        /// 左
-        /// </summary>
-        Left = 1,
-        /// <summary>
-        /// 右
-        /// </summary>
-        Right = 2,
-        /// <summary>
-        /// 上
-        /// </summary>
-        Top = 3,
-        /// <summary>
-        /// 左上
-        /// </summary>
-        TopLeft = 4,
-        /// <summary>
-        /// 右上
-        /// </summary>
-        TopRight = 5,
-        /// <summary>
-        /// 下
-        /// </summary>
-        Bottom = 6,
-        /// <summary>
-        /// 左下
-        /// </summary>
-        BottomLeft = 7,
-        /// <summary>
-        /// 右下
-        /// </summary>
-        BottomRight = 8,
-    }
+    //public enum ResizeDirection
+    //{
+    //    /// <summary>
+    //    /// 左
+    //    /// </summary>
+    //    Left = 1,
+    //    /// <summary>
+    //    /// 右
+    //    /// </summary>
+    //    Right = 2,
+    //    /// <summary>
+    //    /// 上
+    //    /// </summary>
+    //    Top = 3,
+    //    /// <summary>
+    //    /// 左上
+    //    /// </summary>
+    //    TopLeft = 4,
+    //    /// <summary>
+    //    /// 右上
+    //    /// </summary>
+    //    TopRight = 5,
+    //    /// <summary>
+    //    /// 下
+    //    /// </summary>
+    //    Bottom = 6,
+    //    /// <summary>
+    //    /// 左下
+    //    /// </summary>
+    //    BottomLeft = 7,
+    //    /// <summary>
+    //    /// 右下
+    //    /// </summary>
+    //    BottomRight = 8,
+    //}
 }

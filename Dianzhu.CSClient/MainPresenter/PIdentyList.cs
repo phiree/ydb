@@ -18,6 +18,7 @@ using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.Application.Dto;
 using Ydb.Membership.Application.Dto;
 using Ydb.Membership.Application;
+using Dianzhu.CSClient.LocalStorage;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -37,26 +38,28 @@ namespace Dianzhu.CSClient.Presenter
         IViewOrderHistory iViewOrderHistory;
         
         IViewSearchResult viewSearchResult;
-        LocalStorage.LocalChatManager localChatManager;
-        LocalStorage.LocalHistoryOrderManager localHistoryOrderManager;
-        LocalStorage.LocalUIDataManager localUIDataManager;
+        LocalChatManager localChatManager;
+        LocalHistoryOrderManager localHistoryOrderManager;
+        LocalUIDataManager localUIDataManager;
         IVMChatAdapter vmChatAdapter;
         IVMIdentityAdapter vmIdentityAdapter;
         IReceptionService receptionService;
         IDZMembershipService memberService;
+        IViewMainForm viewMainForm;
 
         public PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,
             IInstantMessage iIM,
             IViewChatSend iViewChatSend,
             IBLLServiceOrder bllServiceOrder, IViewOrderHistory iViewOrderHistory,
             IViewSearchResult viewSearchResult,
-            LocalStorage.LocalChatManager localChatManager,
-            LocalStorage.LocalHistoryOrderManager localHistoryOrderManager,
-            LocalStorage.LocalUIDataManager localUIDataManager,
+            LocalChatManager localChatManager,
+            LocalHistoryOrderManager localHistoryOrderManager,
+            LocalUIDataManager localUIDataManager,
             IVMChatAdapter vmChatAdapter,
             IVMIdentityAdapter vmIdentityAdapter,
             IReceptionService receptionService,
-            IDZMembershipService memberService)
+            IDZMembershipService memberService,
+            IViewMainForm viewMainForm)
         {
             this.localChatManager = localChatManager;
             this.localHistoryOrderManager = localHistoryOrderManager;
@@ -71,6 +74,7 @@ namespace Dianzhu.CSClient.Presenter
             this.vmIdentityAdapter = vmIdentityAdapter;
             this.receptionService = receptionService;
             this.memberService = memberService;
+            this.viewMainForm = viewMainForm;
 
             iView.IdentityClick += IView_IdentityClick;
             iView.FinalChatTimerTick += IView_FinalChatTimerTick;
@@ -194,7 +198,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 if (!string.IsNullOrEmpty(chat.SessionId))
                 {
-                    NHibernateUnitOfWork.UnitOfWork.Start();                 
+                    NHibernateUnitOfWork.UnitOfWork.Start();
 
                     iView.PlayVoice();
 
@@ -322,14 +326,16 @@ namespace Dianzhu.CSClient.Presenter
 
                 IdentityManager.SetCurrentCustomerId(vmIdentity.CustomerId);
 
-                //if (IdentityManager.CurrentIdentityList.Keys.Select(x => x.Id).ToList().Contains(vmIdentity.OrderId))
-                //{
-                //    IdentityManager.CurrentIdentity = IdentityManager.CurrentIdentityList.Keys.ToList().Find(x => x.Id == vmIdentity.OrderId);
-                //}
-                //else
-                //{
-                //    throw new Exception("IdentityManager.CurrentIdentity is null");
-                //}
+                PSearch pSearch = Bootstrap.Container.Resolve<PSearch>(new { identity = vmIdentity.CustomerId });
+                PChatList pChatList = Bootstrap.Container.Resolve<PChatList>(new { identity = vmIdentity.CustomerId });
+                PChatSend pChatSend = Bootstrap.Container.Resolve<PChatSend>(new { identity = vmIdentity.CustomerId });
+                POrderHistory pOrderHistory = Bootstrap.Container.Resolve<POrderHistory>(new { identity = vmIdentity.CustomerId });
+                PToolsControl pTabControl = Bootstrap.Container.Resolve<PToolsControl>(new { identity = vmIdentity.CustomerId });
+
+                viewMainForm.AddIdentityTab(vmIdentity.CustomerId,
+                    pSearch.ViewSearch, pSearch.ViewSearchResult,
+                    pChatList.ViewChatList, pChatSend.ViewChatSend,
+                    pOrderHistory.ViewOrderHistory, pTabControl.ViewToolsControl);
 
                 iViewChatList.ClearUCData();
                 iViewChatList.ShowLoadingMsg();
@@ -367,7 +373,7 @@ namespace Dianzhu.CSClient.Presenter
             switch (type)
             {
                 case IdentityTypeOfOrder.CurrentCustomer:
-                    iViewChatList.AddOneChat(vmChat);
+                    //iViewChatList.AddOneChat(vmChat);
                     break;
                 case IdentityTypeOfOrder.InList:
                     iView.SetIdentityUnread(chat.FromId, 1);
@@ -377,6 +383,18 @@ namespace Dianzhu.CSClient.Presenter
                     VMIdentity vmIdentity = new VMIdentity (chat.SessionId,chat.FromId,customer.DisplayName, localChatManager.LocalCustomerAvatarUrls[vmChat.FromId]);
                     AddIdentity(vmIdentity);
                     iView.SetIdentityUnread(chat.FromId, 1);
+
+                    //PSearch pSearch = Bootstrap.Container.Resolve<PSearch>(new { identity = chat.FromId });
+                    //PChatList pChatList = Bootstrap.Container.Resolve<PChatList>(new { identity = chat.FromId });
+                    //PChatSend pChatSend = Bootstrap.Container.Resolve<PChatSend>(new { identity = chat.FromId });
+                    //POrderHistory pOrderHistory = Bootstrap.Container.Resolve<POrderHistory>(new { identity = chat.FromId });
+                    //PToolsControl pTabControl = Bootstrap.Container.Resolve<PToolsControl>(new { identity = chat.FromId });
+
+                    //viewMainForm.AddIdentityTab(chat.FromId,
+                    //    pSearch.ViewSearch, pSearch.ViewSearchResult,
+                    //    pChatList.ViewChatList, pChatSend.ViewChatSend,
+                    //    pOrderHistory.ViewOrderHistory, pTabControl.ViewToolsControl);
+
                     break;
                 default:
                     throw new Exception("无法判断消息属性");
