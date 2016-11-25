@@ -31,7 +31,7 @@ namespace Dianzhu.BLL
             this.DALMembership = container.Resolve<IDALMembership>();
             this.encryptService = container.Resolve<IEncryptService>();
             this.emailService = container.Resolve<IEmailService>();
-
+            this.usertoken = container.Resolve<IDALUserToken>();
         }
         IDALMembership DALMembership = null;
         IEncryptService encryptService;
@@ -78,8 +78,11 @@ namespace Dianzhu.BLL
 
             System.Runtime.Caching.MemoryCache.Default.Remove(member.Id.ToString());
             UserToken ut = usertoken.GetToken(member.Id.ToString());
-            ut.Flag = 0;
-            usertoken.Update(ut);
+            if (ut != null)
+            {
+                ut.Flag = 0;
+                usertoken.Update(ut);
+            }            
 
             return true;
         }
