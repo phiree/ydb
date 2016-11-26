@@ -84,6 +84,7 @@
     <Compile Include="Repository\IUnitOfWork.cs" />
     <Compile Include="Specification\PredicateBuilder.cs" />
     <Compile Include="Specification\TraitFilter.cs" />
+    <Compile Include="StringHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
