@@ -15,7 +15,7 @@
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>ftp://112.74.198.215:2121/publish/csclient/</PublishUrl>
+    <PublishUrl>ftp://business.ydban.cn:21112/publish/csclient/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -25,7 +25,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://112.74.198.215:8035/</InstallUrl>
+    <InstallUrl>http://business.ydban.cn:8035/</InstallUrl>
     <ProductName>客服工具测试版</ProductName>
     <PublisherName>JSYK</PublisherName>
     <SuiteName>yidianban</SuiteName>
@@ -259,7 +259,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 %28x86 和 x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
