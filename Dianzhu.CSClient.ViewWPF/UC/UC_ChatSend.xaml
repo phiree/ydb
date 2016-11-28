@@ -99,8 +99,8 @@
                 </WrapPanel>
 
                 <WrapPanel HorizontalAlignment="Right">
-                    <Button>
-                        <TextBlock x:Name="timerMsg" FontFamily="微软雅黑" FontWeight="Regular" FontSize="10"></TextBlock>
+                    <Button x:Name="btnSendDidiMsg" Click="btnSendDidiMsg_Click" Visibility="Collapsed">
+                        <TextBlock Text="滴滴" FontFamily="微软雅黑" FontWeight="Regular" FontSize="10"></TextBlock>
                     </Button>
                 </WrapPanel>
             </Grid>

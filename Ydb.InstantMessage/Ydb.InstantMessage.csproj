@@ -116,6 +116,8 @@
     <Compile Include="Application\ChatService.cs" />
     <Compile Include="Application\Dto\ReceptionStatusDto.cs" />
     <Compile Include="Application\IChatService.cs" />
+    <Compile Include="DomainModel\Chat\Dto\ReceptionChatDidichuxingDto.cs" />
+    <Compile Include="DomainModel\Chat\Model\ReceptionChatDidichuxing.cs" />
     <Compile Include="Installer\InstallerInstantMessage.cs" />
     <Compile Include="Application\ReceptionService.cs" />
     <Compile Include="Application\IReceptionService.cs" />

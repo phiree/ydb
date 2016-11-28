@@ -77,5 +77,21 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate.Mapping
             }
         }
 
+        public class ReceptionChatDidichuxingMap : SubclassMap<ReceptionChatDidichuxing>
+        {
+            public ReceptionChatDidichuxingMap()
+            {
+                Map(x => x.Fromlat);
+                Map(x => x.Fromlng);
+                Map(x => x.Fromaddr);
+                Map(x => x.Fromname);
+                Map(x => x.Tolat);
+                Map(x => x.Tolng);
+                Map(x => x.Toaddr);
+                Map(x => x.Toname);
+                Map(x => x.Phone);
+            }
+        }
+
     }
 }

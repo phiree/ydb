@@ -104,6 +104,7 @@
     <Compile Include="Bootstraper.cs" />
     <Compile Include="DomainModel\Chat\MessageAdapterTests.cs" />
     <Compile Include="DomainModel\Reception\ReceptionAssignerTests.cs" />
+    <Compile Include="Infrastructure\OpenfireXMPPTests.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryChatTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

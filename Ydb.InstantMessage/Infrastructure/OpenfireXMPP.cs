@@ -32,6 +32,7 @@ namespace Ydb.InstantMessage.Infrastructure
         public event IMStreamError IMStreamError;
         IMessageAdapter messageAdapter;
         IReceptionAssigner receptionAssigner;
+        IRepositoryChat repositoryChat;
         private string server = string.Empty;
         private string domain = string.Empty;
         public string Server
@@ -42,17 +43,18 @@ namespace Ydb.InstantMessage.Infrastructure
         {
             get { return domain; }
         }
-        public OpenfireXMPP(string server,string domain, IMessageAdapter messageAdapter, IReceptionAssigner receptionAssigner, string resourceName)
-            : this(server,domain, messageAdapter, receptionAssigner)
+        public OpenfireXMPP(string server,string domain, IMessageAdapter messageAdapter, IReceptionAssigner receptionAssigner, IRepositoryChat repositoryChat, string resourceName)
+            : this(server,domain, messageAdapter, receptionAssigner, repositoryChat)
         {
             XmppClientConnection.Resource = resourceName;
         }
-        public OpenfireXMPP(string server,string domain, IMessageAdapter messageAdapter, IReceptionAssigner receptionAssigner)
+        public OpenfireXMPP(string server,string domain, IMessageAdapter messageAdapter, IReceptionAssigner receptionAssigner,IRepositoryChat repositoryChat)
         {
             this.server = server;
             this.domain = domain;
             this.messageAdapter = messageAdapter;
             this.receptionAssigner = receptionAssigner;
+            this.repositoryChat = repositoryChat;
 
             if (XmppClientConnection == null)
             {
@@ -332,6 +334,19 @@ namespace Ydb.InstantMessage.Infrastructure
             }
             ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, string.Empty, sessionId, XmppResource.Unknow, resourceTo);
             ReceptionChat chat = receptionChatFactory.CreateReAssign(reAssignedCustomerServiceId, csAlias, csAvatar);
+            SendMessage(chat);
+        }
+
+        public void SendDidichuxing(string fromlat, string fromlng, string fromaddr, string fromname, string tolat, string tolng, string toaddr, string toname, string phone, Guid messageId, string to, string toResource, string sessionId)
+        {
+            XmppResource resourceTo;
+            if (!Enum.TryParse(toResource, out resourceTo))
+            {
+                throw new Exception("传入的toResource有误");
+            }
+            ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, string.Empty, sessionId, XmppResource.Unknow, resourceTo);
+            ReceptionChat chat = receptionChatFactory.CreateDidichuxing(fromlat, fromlng, fromaddr, fromname, tolat, tolng, toaddr, toname, phone);
+            repositoryChat.Add(chat);
             SendMessage(chat);
         }
     }

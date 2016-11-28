@@ -25,6 +25,13 @@ namespace Ydb.InstantMessage.Application
         void Update(ReceptionChat chat);
 
         /// <summary>
+        /// 根据id获取聊天记录
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        ReceptionChatDto GetChatById(string Id);
+
+        /// <summary>
         /// 根据订单获取聊天记录列表
         /// </summary>
         /// <param name="guid"></param>
