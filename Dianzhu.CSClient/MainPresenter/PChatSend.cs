@@ -39,7 +39,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             get
             {
-                return ViewChatSend;
+                return viewChatSend;
             }
         }
         

@@ -11,6 +11,7 @@ using Dianzhu.DAL;
 using System.ComponentModel;
 using System.IO;
 using System.Threading;
+using System.Windows;
 using Dianzhu.CSClient.ViewModel;
 using Dianzhu.CSClient.Presenter.VMAdapter;
 using Ydb.InstantMessage.Application;
@@ -326,7 +327,9 @@ namespace Dianzhu.CSClient.Presenter
 
                 IdentityManager.SetCurrentCustomerId(vmIdentity.CustomerId);
 
-                PSearch pSearch = Bootstrap.Container.Resolve<PSearch>(new { identity = vmIdentity.CustomerId });
+                Action act = () =>
+                {
+                     PSearch pSearch = Bootstrap.Container.Resolve<PSearch>(new { identity = vmIdentity.CustomerId });
                 PChatList pChatList = Bootstrap.Container.Resolve<PChatList>(new { identity = vmIdentity.CustomerId });
                 PChatSend pChatSend = Bootstrap.Container.Resolve<PChatSend>(new { identity = vmIdentity.CustomerId });
                 POrderHistory pOrderHistory = Bootstrap.Container.Resolve<POrderHistory>(new { identity = vmIdentity.CustomerId });
@@ -342,6 +345,17 @@ namespace Dianzhu.CSClient.Presenter
 
                 iViewOrderHistory.ClearUCData();
                 iViewOrderHistory.ShowListLoadingMsg();
+
+                };
+                if (!Application.Current.Dispatcher.CheckAccess())
+                {
+                    Application.Current.Dispatcher.Invoke(act);
+                }
+                else
+                {
+                    act();
+                }
+
 
             }
             catch (Exception ex)

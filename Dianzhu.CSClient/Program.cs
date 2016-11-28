@@ -8,6 +8,7 @@ using System.Deployment;
 using System.Deployment.Application;
 using System.Threading;
 using System.ComponentModel;
+using System.Windows;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
 using ViewWPF = Dianzhu.CSClient.ViewWPF;
@@ -22,8 +23,9 @@ using DDDCommon.Domain;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
- 
-using System.Windows.Forms;
+using Application = System.Windows.Forms.Application;
+using MessageBox = System.Windows.Forms.MessageBox;
+
 namespace Dianzhu.CSClient
 {
     static class Program
@@ -77,7 +79,9 @@ namespace Dianzhu.CSClient
                 Presenter.PIdentityList pIdentityList = Bootstrap.Container.Resolve<Presenter.PIdentityList>();                
 
                 var mainPresenter = Bootstrap.Container.Resolve<Presenter.PMain>();
-                mainPresenter.ShowDialog();
+                System.Windows.Application app=new System.Windows.Application();
+                app.Run((Window) mainPresenter.Form);
+              //  mainPresenter.ShowDialog();
             }
 
 

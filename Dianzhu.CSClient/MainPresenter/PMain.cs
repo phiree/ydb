@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.DomainModel.Chat;
 
@@ -37,6 +38,13 @@ namespace Dianzhu.CSClient.Presenter
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             iIM.IMStreamError += IIM_IMStreamError;
             iIM.IMClosed += IIM_IMClosed;
+        }
+
+        public IViewMainForm Form
+        {
+            get { return viewMainForm;
+                
+            }
         }
 
         private void IIM_IMClosed()
