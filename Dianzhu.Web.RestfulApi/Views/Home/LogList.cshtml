@@ -1,0 +1,60 @@
+﻿@model IList<Dianzhu.Web.RestfulApi.Models.log>
+@{
+    Layout = null;
+}
+
+
+<table class="table table-hover">
+    <tr>
+        <th>
+            反问时间
+        </th>
+        <th>
+            访问日志
+        </th>
+        <th>
+            详情
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.message)
+            </td>
+            <th>
+                <input id="btnDelete" type="button" value="详情" class="btn-link" data-target="#myModal" onclick="showModal('@Html.DisplayFor(modelItem => item.message)')"/> @*data-toggle="modal"*@
+            </th>
+        </tr>
+    }
+</table>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalTitle">
+                    接口访问详情
+                </h4>
+            </div>
+            <div class="modal-body" id="myModalBody">
+                在这里添加一些文本
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    关闭
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+    

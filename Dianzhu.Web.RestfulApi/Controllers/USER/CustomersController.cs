@@ -107,7 +107,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     userFilter = new common_Trait_UserFiltering();
                 }
-                GetRequestHeader.GetTraitHeaders("get/customers");
+                GetRequestHeader.GetTraitHeaders("get/customers/list");
                 return Json(iuserservice.GetUsers(filter,userFilter, "customer"));
             }
             catch (Exception ex)

@@ -63,7 +63,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
                 {
                     servicefilter = new common_Trait_ServiceFiltering();
                 }
-                GetRequestHeader.GetTraitHeaders("get/stores/{storeID}/services");
+                GetRequestHeader.GetTraitHeaders("get/stores/{storeID}/services/list");
                 return Json(iservice.GetServices(storeID, filter, servicefilter));
             }
             catch (Exception ex)

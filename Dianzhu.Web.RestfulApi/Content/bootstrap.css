@@ -898,6 +898,7 @@ pre code {
 
 .col-xs-6 {
   width: 50%;
+  height:100%
 }
 
 .col-xs-7 {
@@ -1243,7 +1244,8 @@ pre code {
 
 @media (min-width: 1200px) {
   .container {
-    max-width: 1170px;
+    /*max-width: 1170px;*/
+    max-width: 90%;
   }
   .col-lg-1,
   .col-lg-2,
@@ -2299,6 +2301,7 @@ fieldset[disabled] .btn-info.active {
   color: #428bca;
   cursor: pointer;
   border-radius: 0;
+  padding:0px 6px;
 }
 
 .btn-link,
@@ -3707,7 +3710,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .input-group-addon,
 .input-group-btn {
-  width: 1%;
+  /*width: 1%;*/
   white-space: nowrap;
   vertical-align: middle;
 }
@@ -4952,8 +4955,10 @@ a.list-group-item.active > .badge,
 
 @media screen and (min-width: 768px) {
   .jumbotron {
-    padding-top: 48px;
-    padding-bottom: 48px;
+    /*padding-top: 48px;
+    padding-bottom: 48px;*/
+    padding-top: 2px;
+    padding-bottom: 2px;
   }
   .container .jumbotron {
     padding-right: 60px;
@@ -5742,7 +5747,8 @@ body.modal-open,
   .modal-dialog {
     right: auto;
     left: 50%;
-    width: 600px;
+    width: 80%;
+    /*width: 600px;*/
     padding-top: 30px;
     padding-bottom: 30px;
   }

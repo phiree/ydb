@@ -78,7 +78,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.BILLSATISTIC
                 {
                     billfilter = new common_Trait_BillModelFiltering();
                 }
-                return Json(ibill.GetBillList(filter,billfilter, GetRequestHeader.GetTraitHeaders("get/bills")));
+                return Json(ibill.GetBillList(filter,billfilter, GetRequestHeader.GetTraitHeaders("get/bills/list")));
             }
             catch (Exception ex)
             {

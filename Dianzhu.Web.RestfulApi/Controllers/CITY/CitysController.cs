@@ -30,7 +30,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.LOCATION
         {
             try
             {
-                GetRequestHeader.GetTraitHeaders("get/citys");
+                GetRequestHeader.GetTraitHeaders("get/citys/list");
                 return Json(icityservice.GetAllCity(filter, location));
             }
             catch (Exception ex)

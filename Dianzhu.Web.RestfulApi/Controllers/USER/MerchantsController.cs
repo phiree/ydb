@@ -54,7 +54,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     userFilter = new common_Trait_UserFiltering();
                 }
-                GetRequestHeader.GetTraitHeaders("get/merchants");
+                GetRequestHeader.GetTraitHeaders("get/merchants/list");
                 return Json(iuserservice.GetUsers(filter, userFilter, "business"));
             }
             catch (Exception ex)
