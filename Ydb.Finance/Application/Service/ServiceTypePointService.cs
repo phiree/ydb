@@ -7,6 +7,7 @@ using Ydb.Finance.DomainModel;
 using NHibernate;
 using Ydb.Finance.DomainModel.Enums;
 using AutoMapper;
+using Ydb.Finance.Infrastructure;
 
 namespace Ydb.Finance.Application
 {
@@ -111,6 +112,16 @@ namespace Ydb.Finance.Application
         public void SaveList(IList<ServiceTypePointDto> serviceTypePointDtoList)
         {
             repositoryServiceTypePoint.SaveList(Mapper.Map<IList<ServiceTypePoint>>(serviceTypePointDtoList));
+        }
+
+        [UnitOfWork]
+        public void SaveOrUpdateList(IList<ServiceTypePoint> serviceTypePointDtoList)
+        {
+            foreach (var serviceTypePoint in serviceTypePointDtoList)
+            {
+                repositoryServiceTypePoint.SaveOrUpdate(serviceTypePoint);
+            }
+           
         }
     }
 }

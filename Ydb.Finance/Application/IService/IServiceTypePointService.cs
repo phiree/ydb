@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ydb.Finance.DomainModel;
 
 namespace Ydb.Finance.Application
 {
@@ -47,5 +48,6 @@ namespace Ydb.Finance.Application
         /// </summary>
         /// <param name="serviceTypePointDtoList" type="IList<ServiceTypePointDto>">服务类型扣点比例列表</param>
         void SaveList(IList<ServiceTypePointDto> serviceTypePointDtoList);
+        void SaveOrUpdateList(IList<ServiceTypePoint> serviceTypePointDtoList);
     }
 }

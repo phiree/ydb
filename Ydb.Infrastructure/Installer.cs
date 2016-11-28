@@ -20,7 +20,7 @@ namespace Ydb.Infrastructure
             container.Register(Component.For<IEncryptService>().ImplementedBy<EncryptService>());
             container.Register(Component.For<IHttpRequest>().ImplementedBy<HttpRequestImpl>());
             container.Register(Component.For<IDownloadAvatarToMediaServer>().ImplementedBy<DownloadAvatarToMediaServer>());
-            
+            container.Register(Component.For<IExcelReader>().ImplementedBy<ExcelReader>());
         }
         
     }

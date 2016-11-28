@@ -117,10 +117,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dianzhu.ApplicationService\Dianzhu.ApplicationService.csproj">
-      <Project>{417ac2d5-58e5-4cbc-b14f-c5747274a846}</Project>
-      <Name>Dianzhu.ApplicationService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
       <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
       <Name>Ydb.Common</Name>

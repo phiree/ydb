@@ -9,5 +9,6 @@ namespace Ydb.BusinessResource.DomainModel
         ServiceType GetOneByName(string name, int level);
         IList<ServiceType> GetTopList();
         void SaveList(IList<ServiceType> typeList);
+          void DeleteAll();
     }
 }

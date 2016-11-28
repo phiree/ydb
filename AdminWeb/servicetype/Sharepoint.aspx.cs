@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
+using Ydb.BusinessResource.Application;
 using Ydb.Finance.Application;
 public partial class servicetype_Sharepoint : BasePage
 {
@@ -13,8 +14,7 @@ public partial class servicetype_Sharepoint : BasePage
     /// 服务类别的分成列表
     /// </summary>
     IServiceTypePointService bLLServiceTypePoint = Bootstrap.Container.Resolve<IServiceTypePointService>();
-    BLLServiceType bllType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
-    protected void Page_Load(object sender, EventArgs e)
+      protected void Page_Load(object sender, EventArgs e)
     {
          
         rptPoints.DataSource = bLLServiceTypePoint.GetAll();

@@ -25,6 +25,9 @@ namespace Ydb.Test.Integration
             IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
             IChatService chatService= Bootstrap.Container.Resolve<IChatService>();
 
+            memberService.GetUserById(Guid.NewGuid().ToString());
+            return;
+
             string username = "18889387677";
             memberService.RegisterMember(username, "123456","123456","business","localhost");
             Assert.AreEqual(username, memberService.GetUserByName(username).UserName);

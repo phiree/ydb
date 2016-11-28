@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Ydb.Membership.Application.Dto;
-using Dianzhu.ApplicationService;
+ 
 using FizzWare.NBuilder;
 using AutoMapper;
 namespace Ydb.Test.Integration
@@ -20,7 +20,7 @@ namespace Ydb.Test.Integration
             AutoMapper.Mapper.Initialize(x => {
                 Membership.Application.AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
                 Ydb.Finance.Application.AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
-                Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.AutoMapperApplicationService.Invoke(x);
+                 
 
             });
 
@@ -30,8 +30,7 @@ namespace Ydb.Test.Integration
 
             Assert.AreEqual("email2", memebrDto.Email);
             
-            var    userobj = Mapper.Map< customerObj>(memebrDto);
-            Assert.AreEqual("email2", userobj.email);
+          
 
           
             Ydb.Finance.DomainModel.BalanceTotal total = new Finance.DomainModel.BalanceTotal { Total = 15 };

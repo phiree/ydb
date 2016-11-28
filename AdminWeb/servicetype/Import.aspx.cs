@@ -7,11 +7,15 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Ydb.BusinessResource.Application;
 using Ydb.Finance.Application;
+using Ydb.Common.Infrastructure;
+using Ydb.Finance.DomainModel;
 
-public partial class servicetype_Import : BasePage
+public partial class servicetype_Import : Page
 {
    IServiceTypeService bllServiceType = Bootstrap.Container.Resolve<IServiceTypeService>();
     IServiceTypePointService serviceTypePointService = Bootstrap.Container.Resolve<IServiceTypePointService>();
+
+    IExcelReader excelReader= Bootstrap.Container.Resolve<IExcelReader>();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -19,16 +23,9 @@ public partial class servicetype_Import : BasePage
     protected void btnUpload_Click(object sender, EventArgs e)
     {
 
-        IList< Dianzhu.Model.Finance.ServiceTypePoint> serviceTypePointList= bllServiceType.Import(fu.PostedFile.InputStream);
-        IList<ServiceTypePointDto> serviceTypePointDtoList = new List<ServiceTypePointDto>();
-        for (int i = 0; i < serviceTypePointList.Count; i++)
-        {
-            ServiceTypePointDto serviceTypePointDto = new ServiceTypePointDto();
-            serviceTypePointDto.ServiceTypeId = serviceTypePointList[i].ServiceType.Id.ToString();
-            serviceTypePointDto.Point = serviceTypePointList[i].Point;
-            serviceTypePointDtoList.Add(serviceTypePointDto);
-        }
-        serviceTypePointService.SaveList(serviceTypePointDtoList);
+        IList<VMServiceTypeAndPoint> serviceTypePointList=new ServiceTypeAndPointAdapter().Adapt(excelReader.ReadFromExcel(fu.PostedFile.InputStream));
+        bllServiceType.SaveOrUpdateList(serviceTypePointList.Select(x=>x.ServiceType).ToList());
+        serviceTypePointService.SaveOrUpdateList(serviceTypePointList.Where(x=>x.TypePoint!=null).Select(x=>x.TypePoint).ToList());
         Notification.Show(Page, "", "导入成功", string.Empty);
         lblMsg.Text = "导入完成";
     }

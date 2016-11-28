@@ -70,9 +70,17 @@ namespace Ydb.BusinessResource.Infrastructure
 
         private void InstallDomainService(IWindsorContainer container, IConfigurationStore store)
         {
-             
+
 
         }
+
+        private void InstallUnifOfWork2(IWindsorContainer container, IConfigurationStore store)
+        {
+            container.Register(Component.For<IUnitOfWork>().ImplementedBy<NhUnitOfWork>()
+                     .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("BusinessResourceSessionFactory"))
+                   );
+        }
+
         private void InstallUnifOfWork(IWindsorContainer container, IConfigurationStore store)
         {
             container.Kernel.ComponentRegistered += Kernel_ComponentRegistered;

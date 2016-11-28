@@ -40,6 +40,6 @@ public class InstallerRestfulApi : IWindsorInstaller
         container.Register(Component.For<Dianzhu.ApplicationService.Order.IOrderService>().ImplementedBy<Dianzhu.ApplicationService.Order.OrderService>());
         container.Register(Component.For<Dianzhu.ApplicationService.Storage.IStorageService>().ImplementedBy<Dianzhu.ApplicationService.Storage.StorageService>());
         container.Register(Component.For<Dianzhu.ApplicationService.Snapshot.ISnapshotService>().ImplementedBy<Dianzhu.ApplicationService.Snapshot.SnapshotService>());
-        container.Register(Component.For<Dianzhu.ApplicationService.BillSatistic.IBillSatisticService>().ImplementedBy<Dianzhu.ApplicationService.BillSatistic.BillSatisticService>());
+        //container.Register(Component.For<Dianzhu.ApplicationService.BillSatistic.IBillSatisticService>().ImplementedBy<Dianzhu.ApplicationService.BillSatistic.BillSatisticService>());
     }
 }

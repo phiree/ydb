@@ -17,7 +17,7 @@
         //InitializeWindsor();
         Bootstrap.Boot();
         System.Timers.Timer timerOrderShare = new System.Timers.Timer(60*1000);
-        timerOrderShare.Elapsed += new System.Timers.ElapsedEventHandler(timerOrderShare_Elapsed);
+   //     timerOrderShare.Elapsed += new System.Timers.ElapsedEventHandler(timerOrderShare_Elapsed);
 
         timerOrderShare.Start();
         PHSuit.HttpHelper._SetupRefreshJob(888);

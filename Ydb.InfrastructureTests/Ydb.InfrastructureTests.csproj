@@ -70,6 +70,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
+      <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
+      <Name>Ydb.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ydb.Infrastructure\Ydb.Infrastructure.csproj">
       <Project>{3D510583-1C11-48FB-8380-12E183E5914B}</Project>
       <Name>Ydb.Infrastructure</Name>

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Ydb.Membership.Application.Dto;
-using Dianzhu.ApplicationService;
+ 
 using FizzWare.NBuilder;
 using AutoMapper;
 using Ydb.Common.Infrastructure;

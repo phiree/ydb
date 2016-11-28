@@ -311,6 +311,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.BusinessResource.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.InfrastructureTests", "Ydb.InfrastructureTests\Ydb.InfrastructureTests.csproj", "{68CB4B39-AD5A-46EE-B743-B2DAE8429288}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.ApplicationService", "Ydb.ApplicationService\Ydb.ApplicationService.csproj", "{515A3298-F38B-40E0-968C-5C65EFB2AFFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.ApplicationServiceTests", "Ydb.ApplicationServiceTests\Ydb.ApplicationServiceTests.csproj", "{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1221,6 +1225,42 @@ Global
 		{68CB4B39-AD5A-46EE-B743-B2DAE8429288}.测试环境|Mixed Platforms.Build.0 = 测试环境|Any CPU
 		{68CB4B39-AD5A-46EE-B743-B2DAE8429288}.测试环境|x86.ActiveCfg = 测试环境|Any CPU
 		{68CB4B39-AD5A-46EE-B743-B2DAE8429288}.测试环境|x86.Build.0 = 测试环境|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.Debug|x86.Build.0 = Debug|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.Release|x86.ActiveCfg = Release|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.Release|x86.Build.0 = Release|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.测试环境|Any CPU.ActiveCfg = Release|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.测试环境|Any CPU.Build.0 = Release|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.测试环境|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.测试环境|Mixed Platforms.Build.0 = Release|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.测试环境|x86.ActiveCfg = Release|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.测试环境|x86.Build.0 = Release|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.Debug|x86.Build.0 = Debug|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.Release|x86.ActiveCfg = Release|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.Release|x86.Build.0 = Release|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.测试环境|Any CPU.ActiveCfg = Release|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.测试环境|Any CPU.Build.0 = Release|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.测试环境|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.测试环境|Mixed Platforms.Build.0 = Release|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.测试环境|x86.ActiveCfg = Release|Any CPU
+		{E4833DE9-5B85-48E3-AF5D-ED90AB4C6177}.测试环境|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

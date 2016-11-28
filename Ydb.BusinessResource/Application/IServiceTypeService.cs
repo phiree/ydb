@@ -13,5 +13,7 @@ namespace Ydb.BusinessResource.Application
         IList<ServiceType> GetTopList();
         void Save(ServiceType serviceType);
         void Update(ServiceType serviceType);
+        void SaveList(List<ServiceType> list);
+        void SaveOrUpdateList(List<ServiceType> list);
     }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.IO;
 using System.Data;
 using Ydb.BusinessResource.DomainModel;
+using Ydb.BusinessResource.Infrastructure;
 using Ydb.Common.Specification;
 namespace Ydb.BusinessResource.Application
 {
@@ -68,14 +69,27 @@ namespace Ydb.BusinessResource.Application
         {
             return repositoryServiceType.GetTopList();
         }
-        /// <summary>
-        /// 保存
-        /// </summary>
-        /// <param name="serviceName">属性名称</param>
-        /// <param name="parentId">所属分类ID</param>
-        /// <param name="values">属性值, 多个用逗号分隔</param>
-        /// <returns></returns>
 
+        
+
+        public void SaveList(List<ServiceType> list)
+        {
+            foreach (var serviceType in list)
+            {
+                Save(serviceType);
+            }
+        }
+        [UnitOfWork]
+        public void SaveOrUpdateList(List<ServiceType> list)
+        {
+            repositoryServiceType.DeleteAll();
+            
+            foreach (var serviceType in list)
+            {
+                
+               repositoryServiceType.Add(serviceType) ;
+            }
+        }
 
         /*
          * todo: 此处删除了 ServiceTypePoint相关的部分

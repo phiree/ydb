@@ -34,5 +34,10 @@ namespace Ydb.BusinessResource.Infrastructure.Repository
                 session.SaveOrUpdate(type);
             }
         }
+
+        public void DeleteAll()
+        {
+            session.Delete("from ServiceType t");
+        }
     }
 }

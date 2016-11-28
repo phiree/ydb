@@ -207,6 +207,12 @@ namespace Ydb.BusinessResource.Infrastructure
         public void SaveOrUpdate(TEntity t)
         {
             session.SaveOrUpdate(t);
+           
+        }
+
+        public void DeleteAll(string entityName)
+        {
+            session.Delete("from " + entityName + " e");
         }
 
 

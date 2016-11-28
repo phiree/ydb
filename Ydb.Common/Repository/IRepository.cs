@@ -64,5 +64,7 @@ namespace Ydb.Common.Repository
         /// <param name="baseone"></param>
         /// <returns></returns>
         IList<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords, string sortBy, bool ascending, int offset, TEntity baseone);
+
+        
     }
 }

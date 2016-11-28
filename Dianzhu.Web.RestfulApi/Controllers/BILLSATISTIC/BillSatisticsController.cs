@@ -10,6 +10,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.BILLSATISTIC
 {
     public class BillSatisticsController : ApiController
     {
+        /*
         private ApplicationService.BillSatistic.IBillSatisticService ibill = null;
         public BillSatisticsController()
         {
@@ -84,6 +85,6 @@ namespace Dianzhu.Web.RestfulApi.Controllers.BILLSATISTIC
             {
                 return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
             }
-        }
+        }*/
     }
 }

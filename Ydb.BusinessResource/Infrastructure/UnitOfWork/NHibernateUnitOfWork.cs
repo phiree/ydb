@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using Ydb.Common.Repository;
- 
+
+
 namespace Ydb.BusinessResource.Infrastructure
 {
     public class NhUnitOfWork : IUnitOfWork

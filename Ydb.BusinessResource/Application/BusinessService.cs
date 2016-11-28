@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using NHibernate;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Specification;
 using Ydb.BusinessResource.Infrastructure;
@@ -13,9 +14,11 @@ namespace Ydb.BusinessResource.Application
    public class BusinessService:IBusinessService
     {
         IRepositoryBusiness repositoryBusiness;
+        private ISessionFactory sessionFactory;
         public BusinessService(IRepositoryBusiness repositoryBusiness)
         {
             this.repositoryBusiness = repositoryBusiness;
+          
         }
         public IList<Business> GetAll()
         {
@@ -40,26 +43,29 @@ namespace Ydb.BusinessResource.Application
             b.Enabled = false;
             repositoryBusiness.Update(b);
         }
-        [UnitOfWork]
+       [UnitOfWork] 
        public  ActionResult<Business> Add(string name, string phone,string email, Guid ownerId, string latitude, string longtitude
            , string rawAddressFromMapApi, string contact, int workingYears, int staffAmount)
 
         {
+          
             ActionResult<Business> result = new ActionResult<Business>();
             try
             {
-                Business business = new Business(name, phone,email, ownerId, latitude, longtitude
-                , rawAddressFromMapApi,contact,workingYears,staffAmount);
+                Business business = new Business(name, phone, email, ownerId, latitude, longtitude
+                    , rawAddressFromMapApi, contact, workingYears, staffAmount);
                 repositoryBusiness.Add(business);
                 result.ResultObject = business;
-                
+              
             }
             catch (Exception ex)
             {
                 result.IsSuccess = false;
                 result.ErrMsg = ex.Message;
+               
 
             }
+            
             return result;
 
         }
@@ -95,6 +101,7 @@ namespace Ydb.BusinessResource.Application
         {
             return repositoryBusiness.FindOne(x => x.Phone == phone);
         }
+        [UnitOfWork]
         public Business GetBusinessByEmail(string email)
         {
             return repositoryBusiness.FindOne(x => x.Email == email);

@@ -71,17 +71,15 @@
   <ItemGroup>
     <Compile Include="Application\ActionResult.cs" />
     <Compile Include="Domain\IDomainEntity.cs" />
- 
     <Compile Include="Domain\Time.cs" />
     <Compile Include="Domain\TimePeriod.cs" />
     <Compile Include="Enums\Enums.cs" />
- 
     <Compile Include="Domain\SerialNo.cs" />
- 
     <Compile Include="Infrastructure\IDownloadAvatarToMediaServer.cs" />
     <Compile Include="Infrastructure\IEncryptService.cs" />
     <Compile Include="ExceptionHandler.cs" />
     <Compile Include="Infrastructure\IEmailService.cs" />
+    <Compile Include="Infrastructure\IExcelReader.cs" />
     <Compile Include="Infrastructure\IHttpRequest.cs" />
     <Compile Include="Infrastructure\ISerialNoBuilder.cs" />
     <Compile Include="Logging.cs" />

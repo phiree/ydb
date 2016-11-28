@@ -128,6 +128,8 @@
     <Compile Include="DomainModel\Service\IPeriodValidator.cs" />
     <Compile Include="DomainModel\Service\IRepositoryDZService.cs" />
     <Compile Include="DomainModel\Service\IRepositoryServiceOpenTime.cs" />
+    <Compile Include="DomainModel\Service\ServiceTypeAdapter.cs" />
+    <Compile Include="DomainModel\Service\IServiceTypeAdapter.cs" />
     <Compile Include="DomainModel\Service\PeriodValidator.cs" />
     <Compile Include="DomainModel\Service\ServiceOpenTime.cs" />
     <Compile Include="DomainModel\Service\ServiceOpenTimeForDay.cs" />
