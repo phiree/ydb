@@ -40,8 +40,9 @@ namespace Ydb.ApplicationService.ExcelImporter
         dataFromExcel.Rows.InsertAt(row1, 0);
 
         string[] pointLast = {"0", "0"};
-        ServiceType currentParent = null;
-        int currentParentIndex = -1;
+        ServiceType currentParentL1 = null;
+        ServiceType currentParentL2 = null;
+        int currentParentIndex =99;
         foreach (DataRow row in dataFromExcel.Rows)
         {
             Guid gid = new Guid(row[0].ToString());
@@ -53,15 +54,30 @@ namespace Ydb.ApplicationService.ExcelImporter
 
                 if (!string.IsNullOrEmpty(cellvalue))
                 {
+                       
                   ServiceType  s = new ServiceType
                     {
                         Id = gid,
                         Code = code,
                         Name = cellvalue,
-                        Parent = currentParent,
+                        
                         DeepLevel = i - 2,
                         OrderNumber = dataFromExcel.Rows.IndexOf(row)
                     };
+                    if (i == 2) { currentParentL1 = s;
+                        s.Parent = null;
+                    }
+                    else if (i == 3)
+                    {
+                        currentParentL2 = s;
+                        s.Parent = currentParentL1;
+                    }
+                    else
+                    {
+                        s.Parent = currentParentL2;
+
+                    }
+
                     ServiceTypePoint typePoint = null;
                     string pointValue = row[5].ToString();
                     if (!string.IsNullOrEmpty(StringHelper.ReplaceSpace(pointValue)))
@@ -69,11 +85,7 @@ namespace Ydb.ApplicationService.ExcelImporter
                         decimal point = Convert.ToDecimal(pointValue);
                         typePoint = new ServiceTypePoint {Id = s.Id, Point = point, ServiceTypeId = gid.ToString()};
                     }
-                    if (i < currentParentIndex)
-                    {
-                        currentParentIndex = i;
-                        currentParent = s;
-                    }
+                   
                     VMServiceTypeAndPoint vmTypeAndPoint = new VMServiceTypeAndPoint {ServiceType = s, TypePoint = typePoint};
                     vmTypeAndPointList.Add(vmTypeAndPoint);
                 }
