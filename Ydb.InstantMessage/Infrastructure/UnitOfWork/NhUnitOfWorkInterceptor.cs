@@ -76,10 +76,10 @@ namespace Ydb.InstantMessage.Infrastructure
                 return true;
             }
 
-            //if (UnitOfWorkHelper.IsRepositoryMethod(methodInfo))
-            //{
-            //    return true;
-            //}
+            if (UnitOfWorkHelper.IsRepositoryMethod(methodInfo))
+            {
+                return true;
+            }
 
             return false;
         }

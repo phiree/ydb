@@ -2,6 +2,7 @@
 using NHibernate;
 using System;
 using System.Reflection;
+using Ydb.Common;
 using IInterceptor = Castle.DynamicProxy.IInterceptor;
 using Ydb.Common.Repository;
 namespace Ydb.Finance.Infrastructure
@@ -92,7 +93,8 @@ namespace Ydb.Finance.Infrastructure
 
         public static bool IsRepositoryClass(Type type)
         {
-            return typeof(IRepository).IsAssignableFrom(type);
+            return typeof(IRepository).IsAssignableFrom(type)
+                  && StringHelper.IsSameDomain(type.Namespace, typeof(UnitOfWorkHelper).Namespace);
         }
 
         public static bool HasUnitOfWorkAttribute(MethodInfo methodInfo)
