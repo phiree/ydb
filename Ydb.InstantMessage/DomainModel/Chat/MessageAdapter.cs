@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
- 
- 
 using agsXMPP.protocol.client;
 using System.Xml;
 using agsXMPP.Xml.Dom;
 using System.Globalization;
 using Ydb.InstantMessage.DomainModel.Enums;
+
 namespace Ydb.InstantMessage.DomainModel.Chat
 {
     /// <summary>
@@ -33,7 +32,6 @@ namespace Ydb.InstantMessage.DomainModel.Chat
                 errMsg = "没有ext节点";
                 throw new Exception(errMsg);
             }
-            ReceptionChat chat;
             //获取基本数据
             Guid id = string.IsNullOrEmpty(message.Id) ? Guid.NewGuid() : new Guid(message.Id);
             string fromId = message.From.User;
@@ -225,11 +223,16 @@ namespace Ydb.InstantMessage.DomainModel.Chat
                     }
                     break;
                 case "ReceptionChatDidichuxing":
-                    extNode.Namespace = "ihelper:hyper:didichuxing";
+                    extNode.Namespace = "ihelper:chat:hyper";
+
+                    var hyperDidi = new agsXMPP.Xml.Dom.Element("hyper");
+                    hyperDidi.Namespace = "ihelper:hyper:didichuxing";
 
                     ReceptionChatDidichuxing chatDidichuxing = (ReceptionChatDidichuxing)chat;
                     var extHrefDidichuxing = new agsXMPP.Xml.Dom.Element("href", "/hypersmdias/"+ chatDidichuxing.Id);
-                    extNode.AddChild(extHrefDidichuxing);
+                    hyperDidi.AddChild(extHrefDidichuxing);
+
+                    extNode.AddChild(hyperDidi);
                     break;
                 default:
                     log.Error("不需要处理的命名空间:" + chat.GetType().Name);

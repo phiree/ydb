@@ -75,12 +75,7 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        public string MessageTimer
-        {
-            get { return timerMsg.Text; }
-            set { timerMsg.Text = value; }
-        }
-
+        public event SendDidichuxing SendDidichuxing;
         public event SendTextClick SendTextClick;
         public event SendMediaClick SendMediaClick;
         public event FinalChatTimerSend FinalChatTimerSend;
@@ -384,6 +379,14 @@ namespace Dianzhu.CSClient.ViewWPF
             if (SaveMessageText != null)
             {
                 SaveMessageText("MessageText", MessageText);
+            }
+        }
+
+        private void btnSendDidiMsg_Click(object sender, RoutedEventArgs e)
+        {
+            if (SendDidichuxing != null)
+            {
+                SendDidichuxing();
             }
         }
     }

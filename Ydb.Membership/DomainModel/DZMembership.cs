@@ -123,7 +123,7 @@ namespace Ydb.Membership.DomainModel
                 result.IsSuccess = false;
                 result.ErrMsg = "密码不能少于6个字符";
             }
-            else if (needOldPassword&& this.Password != oldEncryptedPassword)
+            else if (needOldPassword && this.Password.ToLower() != oldEncryptedPassword.ToLower())
             {
                 result.ErrMsg = "原密码有误";
                 result.IsSuccess = false;

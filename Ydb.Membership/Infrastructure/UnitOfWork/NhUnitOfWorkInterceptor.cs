@@ -4,6 +4,8 @@ using System;
 using System.Reflection;
 using IInterceptor = Castle.DynamicProxy.IInterceptor;
 using Ydb.Common.Repository;
+using Ydb.Common;
+
 namespace Ydb.Membership.Infrastructure
 {
     /// <summary>
@@ -92,7 +94,9 @@ namespace Ydb.Membership.Infrastructure
 
         public static bool IsRepositoryClass(Type type)
         {
-            return typeof(IRepository).IsAssignableFrom(type);
+            return typeof(IRepository).IsAssignableFrom(type)
+                                && StringHelper.IsSameDomain(type.Namespace, typeof(UnitOfWorkHelper).Namespace);
+
         }
 
         public static bool HasUnitOfWorkAttribute(MethodInfo methodInfo)
