@@ -117,9 +117,10 @@ namespace Ydb.Finance.Application
         [UnitOfWork]
         public void SaveOrUpdateList(IList<ServiceTypePoint> serviceTypePointDtoList)
         {
+            repositoryServiceTypePoint.DeleteAll();
             foreach (var serviceTypePoint in serviceTypePointDtoList)
             {
-                repositoryServiceTypePoint.SaveOrUpdate(serviceTypePoint);
+                repositoryServiceTypePoint.Add(serviceTypePoint);
             }
            
         }
