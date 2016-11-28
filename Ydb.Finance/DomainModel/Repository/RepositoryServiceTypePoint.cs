@@ -27,5 +27,7 @@ namespace Ydb.Finance.DomainModel
         /// </summary>
         /// <param name="list" type="IList<ServiceTypePoint>">服务扣点比例信息列表</param>
         void SaveList(IList<ServiceTypePoint> list);
+
+        void DeleteAll();
     }
 }

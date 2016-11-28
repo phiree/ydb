@@ -32,13 +32,13 @@ namespace Ydb.Test.Integration
                 new Ydb.Infrastructure.InstallerCommon(dbConfigCommon)
                 );
 
-//            FluentConfiguration dbConfigInstantMessage = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_InstantMessage.db3"));
+            FluentConfiguration dbConfigInstantMessage = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_InstantMessage.db3"));
 
-//            container.Install(
- 
- 
-//new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(dbConfigInstantMessage)
-//                );
+            container.Install(
+
+
+new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(dbConfigInstantMessage)
+                );
 
 
             FluentConfiguration dbConfigMembership = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_membership.db3"));

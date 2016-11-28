@@ -50,5 +50,10 @@ namespace Ydb.Finance.Infrastructure.Repository
                 }
             }
         }
+
+        public void DeleteAll()
+        {
+            session.Delete("from ServiceTypePoint p");
+        }
     }
 }
