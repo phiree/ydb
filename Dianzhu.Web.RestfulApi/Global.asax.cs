@@ -41,7 +41,7 @@ namespace Dianzhu.Web.RestfulApi
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.Result");
+            log4net.ILog log = log4net.LogManager.GetLogger("Result.NoRule.v1.RestfulApi.Web.Dianzhu");
             NHibernateUnitOfWork.UnitOfWork.Start();
 
             System.Web.HttpApplication hc = (System.Web.HttpApplication)sender;
@@ -54,7 +54,7 @@ namespace Dianzhu.Web.RestfulApi
 
         protected void Application_EndRequest(object sender, EventArgs e)
         {
-            log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.Result");
+            log4net.ILog log = log4net.LogManager.GetLogger("Result.NoRule.v1.RestfulApi.Web.Dianzhu");
 
             System.Web.HttpApplication hc = (System.Web.HttpApplication)sender;
             string strT = hc.Request.Headers.Get("stamp_TIMES");
@@ -79,13 +79,15 @@ namespace Dianzhu.Web.RestfulApi
         }
         protected void Application_Error(object sender, EventArgs e)
         {
-            log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.LastError");
+            log4net.ILog log = log4net.LogManager.GetLogger("LastError.NoRule.v1.RestfulApi.Web.Dianzhu");
+            System.Web.HttpApplication hc = (System.Web.HttpApplication)sender;
+            string strT = hc.Request.Headers.Get("stamp_TIMES");
             Exception ex = Server.GetLastError();
             if (ex.InnerException != null)
             {
-                log.Error("InnerException(Global.LastError):" + ex.InnerException.Message);
+                log.Error("InnerException(Global.LastError)" + strT + ":" + ex.InnerException.Message);
             }
-            log.Error("Error(Global.LastError):" + ex.Message);
+            log.Error("Error(Global.LastError)" + strT + ":" + ex.Message);
             PHSuit.ExceptionLoger.ExceptionLog(log, ex);
         }
 

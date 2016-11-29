@@ -30,12 +30,12 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             for (int i = 0; i < apiInfoList.Count; i++)
             {
                 var buildersFilter = Builders<log>.Filter;
-                var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute="+ apiInfoList[i].ApiRoute + "/");
+                //var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute="+ apiInfoList[i].ApiRoute + "/");
+                var filter = buildersFilter.Eq("logger", apiInfoList[i].ApiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu");
                 //var logCount= logs.CountAsync(a => a.logger.Contains("Dianzhu.Web.RestfulApi") && a.logger.Contains("ApiRoute="+ apiInfoList[i].ApiRoute)).ToListAsync().Result;
                 var logCount = logs.CountAsync(filter);
-                apiInfoList[i].ApiRequstNum = logCount.Result.ToString();
+                apiInfoList[i].ApiRequstNum = logCount.Result;
             }
-            
             return View(apiInfoList.OrderByDescending(s=>s.ApiRequstNum).ToList());
         }
 
@@ -44,7 +44,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers
         {
             var logs = db.logs;
             var buildersFilter = Builders<log>.Filter;
-            var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute=" + apiRoute + "/");
+            //var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute=" + apiRoute + "/"); 
+            var filter = buildersFilter.Eq("logger", apiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu");
             var logCount = logs.CountAsync(filter).Result;
             return Content(logCount.ToString());
         }
@@ -82,7 +83,19 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             IList<log> logList = new List<log>();
             var logs = db.logs;//不填"ApiInfos"，则默认为ApiInfos
             var buildersFilter = Builders<log>.Filter;
-            var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute=" + apiRoute + "/") & buildersFilter.Regex("message", "/" + searchText + "/");
+            //var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute=" + apiRoute + "/") & buildersFilter.Regex("message", "/" + searchText + "/");
+            string strLogger = "logger2";
+            if (string.IsNullOrEmpty(apiRoute))
+            {
+                strLogger = "logger2";
+                apiRoute = "Rule.v1.RestfulApi.Web.Dianzhu";
+            }
+            else
+            {
+                strLogger = "logger";
+                apiRoute = apiRoute+".Rule.v1.RestfulApi.Web.Dianzhu";
+            }
+            var filter = buildersFilter.Eq(strLogger, apiRoute) & buildersFilter.Regex("message", "/" + searchText + "/");
             var sort = Builders<log>.Sort.Descending("date");
             logList = logs.Find(filter).Sort(sort).Limit(100).ToListAsync().Result;
             return View(logList);
@@ -94,7 +107,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             IList<log> logList = new List<log>();
             var logs = db.logs;//不填"ApiInfos"，则默认为ApiInfos
             var buildersFilter = Builders<log>.Filter;
-            var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/" + apiTime + "/");
+            var filter = buildersFilter.Eq("logger1", "v1.RestfulApi.Web.Dianzhu") & buildersFilter.Regex("message", "/" + apiTime + "/");
             var sort = Builders<log>.Sort.Ascending("date");
             logList = logs.Find(filter).Sort(sort).Limit(100).ToListAsync().Result;
             return View(logList);

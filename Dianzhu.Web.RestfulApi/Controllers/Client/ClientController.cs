@@ -40,7 +40,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.Client
         [Route("api/v1/authorization")]//authorization//Token
         public IHttpActionResult PostToken([FromBody]Customer customer)
         {
-            log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.Rule");
+            log4net.ILog log = log4net.LogManager.GetLogger("post/authorization.Rule.v1.RestfulApi.Web.Dianzhu");
             try
             {
                 if (customer == null)

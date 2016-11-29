@@ -60,7 +60,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
                 {
                     stafffilter = new common_Trait_StaffFiltering();
                 }
-                return Json(istaff.GetStaffs(storeID, filter, stafffilter, GetRequestHeader.GetTraitHeaders("get/stores/{storeID}/staffs/list")));
+                return Json(istaff.GetStaffs(storeID, filter, stafffilter, GetRequestHeader.GetTraitHeaders("get/stores/{storeID}/staffs")));
             }
             catch (Exception ex)
             {

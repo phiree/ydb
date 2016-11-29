@@ -30,7 +30,7 @@ namespace PHSuit
             /********/
             CreateLogger(hierarchy, "Ydb", logFileNameRoot + "Ydb", "DianzhuAppender", 5, 20);
             CreateLogger(hierarchy, "Dianzhu", logFileNameRoot+"Dianzhu", "DianzhuAppender", 5, 20);
-            CreateLogger(hierarchy, "NHibernate", logFileNameRoot+"Nhibernate", "NhibernateAppender", 5, 20);
+           // CreateLogger(hierarchy, "NHibernate", logFileNameRoot+"Nhibernate", "NhibernateAppender", 5, 20);
             CreateLogger(hierarchy, "JSYK", logFileNameRoot+"Infra", "DianzhuAppender", 5, 20);
             hierarchy.Configured = true;
            

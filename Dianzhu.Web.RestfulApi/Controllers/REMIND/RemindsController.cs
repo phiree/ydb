@@ -64,7 +64,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
         {
             try
             {
-                return Json(iremind.GetReminds(filter, remind, GetRequestHeader.GetTraitHeaders("get/reminds/list")));
+                return Json(iremind.GetReminds(filter, remind, GetRequestHeader.GetTraitHeaders("get/reminds")));
             }
             catch (Exception ex)
             {

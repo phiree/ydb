@@ -37,7 +37,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.PAY
                 {
                     payfilter = new common_Trait_PayFiltering();
                 }
-                return Json(ipay.GetPays(orderID, filter, payfilter,GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/pays/list")));
+                return Json(ipay.GetPays(orderID, filter, payfilter,GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/pays")));
             }
             catch (Exception ex)
             {

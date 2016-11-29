@@ -37,7 +37,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     orderfilter = new common_Trait_OrderFiltering();
                 }
-                return Json(iorder.GetOrders(filter, orderfilter, GetRequestHeader.GetTraitHeaders("get/orders/list")));
+                return Json(iorder.GetOrders(filter, orderfilter, GetRequestHeader.GetTraitHeaders("get/orders")));
             }
             catch (Exception ex)
             {
@@ -130,7 +130,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         {
             try
             {
-                GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/info");
+                GetRequestHeader.GetTraitHeaders("get/orders/{orderID}");
                 return Json(iorder.GetOrder(id) ?? new object());
             }
             catch (Exception ex)
@@ -172,7 +172,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     orderobj = new orderObj();
                 }
-                return Json(iorder.PatchOrder(id, orderobj, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}/info")) ?? new object());
+                return Json(iorder.PatchOrder(id, orderobj, GetRequestHeader.GetTraitHeaders("patch/orders/{orderID}")) ?? new object());
             }
             catch (Exception ex)
             {
@@ -241,7 +241,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
             }
             catch (Exception ex)
             {
-                log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.OrdersController.confirmService");
+                log4net.ILog ilog = log4net.LogManager.GetLogger("ex_confirmService.NoRule.v1.RestfulApi.Web.Dianzhu");
                 ilog.Error(ex.ToString());
                 return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
             }

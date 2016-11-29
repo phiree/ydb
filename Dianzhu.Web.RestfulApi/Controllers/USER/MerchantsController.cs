@@ -11,7 +11,6 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
     [HMACAuthentication]
     public class MerchantsController : ApiController
     {
-        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.Rule");
         private ApplicationService.User.IUserService iuserservice = null;
         public MerchantsController()
         {
@@ -54,7 +53,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     userFilter = new common_Trait_UserFiltering();
                 }
-                GetRequestHeader.GetTraitHeaders("get/merchants/list");
+                GetRequestHeader.GetTraitHeaders("get/merchants");
                 return Json(iuserservice.GetUsers(filter, userFilter, "business"));
             }
             catch (Exception ex)
@@ -77,6 +76,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     userFilter = new common_Trait_UserFiltering();
                 }
+
+                log4net.ILog log = log4net.LogManager.GetLogger("get/merchants/count.Rule.v1.RestfulApi.Web.Dianzhu");
                 string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
                 log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=get/merchants/count,UserName=,UserId=,UserType=business");
                 return Json(iuserservice.GetUsersCount(userFilter, "business"));
@@ -139,6 +140,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     userBody = new Common_Body();
                 }
+                log4net.ILog log = log4net.LogManager.GetLogger("post/merchants.Rule.v1.RestfulApi.Web.Dianzhu");
                 string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
                 log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=post/merchants,UserName=" + userBody.email + ",UserId=,UserType=business");
                 return Json(iuserservice.PostUser(userBody, "business"));

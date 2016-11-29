@@ -47,7 +47,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
         {
             try
             {
-                GetRequestHeader.GetTraitHeaders("get/complaints/list");
+                GetRequestHeader.GetTraitHeaders("get/complaints");
                 return Json(icomplaintservice.GetComplaints(filter, complaint));
             }
             catch (Exception ex)

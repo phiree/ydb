@@ -56,6 +56,14 @@ namespace Ydb.Common
 			<layout type='log4net.Layout.PatternLayout' value='%logger' />
 		</field>
         <field>
+			<name value='logger1' />
+			<layout type='log4net.Layout.PatternLayout' value='%logger{4}' />
+		</field>
+        <field>
+			<name value='logger2' />
+			<layout type='log4net.Layout.PatternLayout' value='%logger{5}' />
+		</field>
+        <field>
 			<name value='message' />
 			<layout type='log4net.Layout.PatternLayout' value='%message' />
 		</field>

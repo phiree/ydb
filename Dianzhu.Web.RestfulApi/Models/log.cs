@@ -18,6 +18,8 @@ namespace Dianzhu.Web.RestfulApi.Models
         public String level { get; set; }
         public String thread { get; set; }
         public String logger { get; set; }
+        public String logger1 { get; set; }
+        public String logger2 { get; set; }
         public String message { get; set; }
         public String threadContextProperty { get; set; }
         public String globalContextProperty { get; set; }
