@@ -41,6 +41,7 @@ namespace PHSuit
             Console.WriteLine("172_ydb_finance:" + PHSuit.Security.Encrypt("data source=192.168.1.172;uid=root;pwd=root;database=ydb_finance", false));
             Console.WriteLine("172_ydb_common:" + PHSuit.Security.Encrypt("data source=192.168.1.172;uid=root;pwd=root;database=ydb_common", false));
 
+            Console.WriteLine("localhost_Dianzhu" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=dianzhu", false));
             Console.WriteLine("localhost_ydb_membership" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=ydb_membership", false));
             Console.WriteLine("localhost_ydb_instantmessage" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=ydb_instantmessage", false));
             Console.WriteLine("localhost_ydb_finance" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=ydb_finance", false));
