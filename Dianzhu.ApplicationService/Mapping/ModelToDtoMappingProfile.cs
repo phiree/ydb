@@ -43,7 +43,7 @@ namespace Dianzhu.ApplicationService.Mapping
            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.AvatarUrl : ""))
            .ForAllMembers(opt => opt.NullSubstitute(""));
 
-            Mapper.CreateMap<Model.Area, cityObj>()
+            Mapper.CreateMap< Area, cityObj>()
             .ForMember(x => x.name, opt => opt.MapFrom(source => source.Name.Substring(source.Name.IndexOf('省') + 1)))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 

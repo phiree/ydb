@@ -36,7 +36,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.AvatarUrl, opt => opt.MapFrom(source => source.imgUrl))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<cityObj, Model.Area>()
+            Mapper.CreateMap<cityObj, Area>()
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<complaintObj, Model.Complaint>()
