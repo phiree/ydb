@@ -26,6 +26,7 @@ namespace Dianzhu.Web.RestfulApi
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            BundleTable.EnableOptimizations = false;
 
 
             System.Timers.Timer timerOrderShare = new System.Timers.Timer(60 * 1000);

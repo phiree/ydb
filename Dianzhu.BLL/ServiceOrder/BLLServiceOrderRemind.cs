@@ -82,7 +82,7 @@ namespace Dianzhu.BLL
             }
             if (endTime != DateTime.MinValue)
             {
-                where = where.And(x => x.RemindTime <= endTime);
+                where = where.And(x => x.RemindTime <= endTime.AddDays(1));
             }
 
             ServiceOrderRemind baseone = null;
@@ -128,7 +128,7 @@ namespace Dianzhu.BLL
             }
             if (endTime != DateTime.MinValue)
             {
-                where = where.And(x => x.RemindTime <= endTime);
+                where = where.And(x => x.RemindTime <= endTime.AddDays(1));
             }
             long count = dalServiceOrderRemind.GetRowCount(where);
             return count;
