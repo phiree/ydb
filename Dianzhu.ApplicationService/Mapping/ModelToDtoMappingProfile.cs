@@ -101,9 +101,9 @@ namespace Dianzhu.ApplicationService.Mapping
 
             Mapper.CreateMap<Model.ServiceOrderPushedService, serviceSnapshotObj>()
            .ForMember(x => x.name, opt => opt.MapFrom(source => source.ServiceSnapShot.ServiceName))
-           .ForMember(x => x.serviceType.fullDescription, opt => opt.MapFrom(source => source.ServiceTypeName))
-                 .ForMember(x => x.serviceType.id, opt => opt.MapFrom(source => source.ServiceTypeId))
-                       .ForMember(x => x.serviceType.superID, opt => opt.MapFrom(source => source.ServiceTypeParentId))
+ 
+           .ForMember(dest=>dest.serviceType,input=>input.MapFrom(i=>new serviceTypeObj {  fullDescription=i.ServiceTypeName, id=i.ServiceTypeId, superID=i.ServiceTypeParentId}))
+ 
            .ForMember(x => x.introduce, opt => opt.MapFrom(source => source.ServiceSnapShot.Description))
            .ForMember(x => x.startAt, opt => opt.MapFrom(source => source.ServiceSnapShot.MinPrice))
            .ForMember(x => x.deposit, opt => opt.MapFrom(source => source.ServiceSnapShot.DepositAmount))

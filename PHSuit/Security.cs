@@ -11,8 +11,11 @@ namespace PHSuit
     {
         const string SecretKey = "1qaz2wsx3edc4rfv";
 
+        const string commentSpliter = "___";
         public static string Encrypt(string toEncrypt, bool useHashing)
         {
+            toEncrypt.Split(new string[] { commentSpliter },StringSplitOptions.None);
+
             byte[] keyArray;
             byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(toEncrypt);
 

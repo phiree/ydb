@@ -66,7 +66,7 @@ public class ServiceTypeAndPointAdapter
                     };
                     ServiceTypePoint typePoint = null;
                     string pointValue = row[5].ToString();
-                    if (!string.IsNullOrEmpty(StringHelper.ReplaceSpace(pointValue)))
+                    if (!string.IsNullOrEmpty(Ydb.Common. StringHelper.ReplaceSpace(pointValue)))
                     {
                         decimal point = Convert.ToDecimal(pointValue);
                         typePoint = new ServiceTypePoint {Id = s.Id, Point = point, ServiceTypeId = gid.ToString()};

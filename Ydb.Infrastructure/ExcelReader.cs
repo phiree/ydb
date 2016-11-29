@@ -59,7 +59,7 @@ namespace Ydb.Infrastructure
                     bool isEnd = true;
                     foreach (var cell in currentRow.Cells)
                     {
-                        if (!string.IsNullOrEmpty(StringHelper.ReplaceSpace(cell.ToString())))
+                        if (!string.IsNullOrEmpty(Ydb.Common. StringHelper.ReplaceSpace(cell.ToString())))
                         {
                             isEnd = false;
                             break;
