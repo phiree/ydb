@@ -130,6 +130,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         {
             try
             {
+                GetRequestHeader.GetTraitHeaders("get/orders/{orderID}");
                 return Json(iorder.GetOrder(id) ?? new object());
             }
             catch (Exception ex)
@@ -148,6 +149,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         {
             try
             {
+                GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/allStatusList");
                 return Json(iorder.GetAllStatusList(orderID));
             }
             catch (Exception ex)
@@ -239,7 +241,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
             }
             catch (Exception ex)
             {
-                log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.OrdersController.confirmService");
+                log4net.ILog ilog = log4net.LogManager.GetLogger("ex_confirmService.NoRule.v1.RestfulApi.Web.Dianzhu");
                 ilog.Error(ex.ToString());
                 return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
             }
@@ -328,6 +330,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
                 {
                     refundfilter = new common_Trait_RefundFiltering();
                 }
+                GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/refunds");
                 return Json(iorder.GetRefundStatus(orderID, filter, refundfilter));
             }
             catch (Exception ex)
@@ -369,6 +372,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         {
             try
             {
+                GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/forman");
                 return Json(iorder.GetForman(orderID) ?? new object());
             }
             catch (Exception ex)

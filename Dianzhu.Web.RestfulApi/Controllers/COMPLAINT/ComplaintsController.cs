@@ -47,6 +47,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
         {
             try
             {
+                GetRequestHeader.GetTraitHeaders("get/complaints");
                 return Json(icomplaintservice.GetComplaints(filter, complaint));
             }
             catch (Exception ex)
@@ -72,6 +73,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
                 {
                     complaint = new common_Trait_ComplainFiltering();
                 }
+                GetRequestHeader.GetTraitHeaders("get/complaints/count");
                 return Json(icomplaintservice.GetComplaintsCount(complaint));
             }
             catch (Exception ex)
@@ -89,6 +91,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
         {
             try
             {
+                GetRequestHeader.GetTraitHeaders("get/complaints/{complaintID}");
                 return Json(icomplaintservice.GetOneComplaint(id) ?? new object());
             }
             catch (Exception ex)

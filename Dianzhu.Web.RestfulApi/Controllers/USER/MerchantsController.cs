@@ -27,6 +27,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
         {
             try
             {
+                GetRequestHeader.GetTraitHeaders("get/merchants/{merchantID}");
                 return Json(iuserservice.GetUserById(id, "business")?? new object());
             }
             catch (Exception ex)
@@ -52,6 +53,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     userFilter = new common_Trait_UserFiltering();
                 }
+                GetRequestHeader.GetTraitHeaders("get/merchants");
                 return Json(iuserservice.GetUsers(filter, userFilter, "business"));
             }
             catch (Exception ex)
@@ -74,6 +76,10 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     userFilter = new common_Trait_UserFiltering();
                 }
+
+                log4net.ILog log = log4net.LogManager.GetLogger("get/merchants/count.Rule.v1.RestfulApi.Web.Dianzhu");
+                string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
+                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=get/merchants/count,UserName=,UserId=,UserType=business");
                 return Json(iuserservice.GetUsersCount(userFilter, "business"));
             }
             catch (Exception ex)
@@ -134,6 +140,9 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     userBody = new Common_Body();
                 }
+                log4net.ILog log = log4net.LogManager.GetLogger("post/merchants.Rule.v1.RestfulApi.Web.Dianzhu");
+                string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
+                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=post/merchants,UserName=" + userBody.email + ",UserId=,UserType=business");
                 return Json(iuserservice.PostUser(userBody, "business"));
             }
             catch (Exception ex)

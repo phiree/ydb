@@ -1,0 +1,52 @@
+﻿@model IList<Dianzhu.Web.RestfulApi.Models.ApiInfo>
+@{
+    //ViewBag.Title = "ApiInfo";
+    Layout = null;
+}
+
+<table class="table table-hover">
+    <tr>
+        @*<th>  IEnumerable<Dianzhu.Web.RestfulApi.Models.ApiInfo>  IList<MongoDB.Bson.BsonDocument>
+        @Html.DisplayNameFor(model => model.ObjectId)
+    </th>*@
+        <th>
+            接口名
+        </th>
+        <th>
+            接口路由
+        </th>
+        <th>
+            接口权限
+        </th>
+        <th>
+            访问次数
+        </th>
+        <th>
+            删除
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr onclick="GetApiLog(this)">
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.ObjectId)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.ApiName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApiRoute)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApiRule)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApiRequstNum)
+            </td>
+            <td>
+                <input id="btnDelete" type="button" value="删除" class="btn-link" onclick="PostDeleteApi('@Html.DisplayFor(modelItem => item.Id).ToString()')" />
+            </td>
+        </tr>
+    }
+</table>
+

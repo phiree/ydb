@@ -7,6 +7,157 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+        
+        $(document).ready(function () {
+            GetApiInfo();
+            GetLogList();
+        });
+
+        function GetApiInfo() {
+            $("#divCount").html("<img src='Content/load.gif' alt='数据加载中...' />");
+            $.ajax({
+                url: "/Home/ApiInfo?searchText=" + $("#txtSearch").val(),
+                //async: false,//同步
+                error: function () {
+                    $("#divCount").html("数据加载失败！");
+                },
+                success: function (data) {
+                    $("#divCount").html(data);
+                    $("#btnAddApi").show();
+                }
+            });
+        }
+
+        function GetAddApi() {
+            $("#divCount").html("<img src='Content/load.gif' alt='数据加载中...' />");
+            $.ajax({
+                url: "/Home/AddApi",
+                //async: false,
+                type: "GET",
+                error: function () {
+                    $("#divCount").html("数据加载失败！");
+                },
+                success: function (data) {
+                    $("#divCount").html(data);
+                    $("#btnAddApi").hide();
+                }
+            });
+        }
+
+        function PostAddApi() {
+            var formData = $('#addForm').serialize();
+            $("#divCount").html("<img src='Content/load.gif' alt='数据加载中...' />");
+            $.ajax({
+                url: "/Home/AddApi",
+                //async: false,
+                type: "POST",
+                data: formData,
+                error: function () {
+                    $("#divCount").html("数据加载失败！");
+                },
+                success: function (data) {
+                    $("#divCount").html(data);
+                    if (data.indexOf("/Home/AddApi") < 0) {
+                        $("#btnAddApi").show();
+                    }
+                }
+            });
+        }
+
+        function PostDeleteApi(strId) {
+            event.stopPropagation();
+            if (confirm("确定要删除该接口！")) {
+                $("#divCount").html("<img src='Content/load.gif' alt='数据加载中...' />");
+                $.ajax({
+                    url: "/Home/DeleteApi/" + strId,
+                    //async: false,
+                    type: "POST",
+                    error: function () {
+                        $("#divCount").html("数据加载失败！");
+                    },
+                    success: function (data) {
+                        $("#divCount").html(data);
+                    }
+                });
+            }
+        }
+
+        function GetLogList() {
+            $("#divLog").html("<img src='Content/load.gif' alt='数据加载中...' />");
+            $.ajax({
+                url: "/Home/LogList?apiRoute=" + $("#hApiRoute").val() + "&searchText=" + $("#txtSearchLog").val(),
+                //async: false,//同步
+                error: function () {
+                    $("#divLog").html("数据加载失败！");
+                },
+                success: function (data) {
+                    $("#divLog").html(data);
+                }
+            });
+        }
+
+        function GetApiLog(obj){
+            $("#hApiRoute").val(obj.children[1].innerText);
+            $.ajax({
+                url: "/Home/ApiCount?apiRoute=" + $("#hApiRoute").val(),
+                //async: false,//同步
+                error: function () {
+                },
+                success: function (data) {
+                    obj.children[3].innerText=data;
+                }
+            });
+            GetLogList();
+
+        }
+
+        function showModal(apiTime) {
+            $('#myModal').modal('show');
+            //$("#myModalTitle").html($("#hApiRoute").val() + "接口访问详情");
+            var b = apiTime.indexOf(":ApiRoute=");
+            var e = apiTime.indexOf(",UserName=");
+            $("#myModalTitle").html(apiTime.substring(b + ":ApiRoute=".length, e));
+            e = b;
+            b = apiTime.indexOf("Info(UserInfo)") + "Info(UserInfo)".length;
+            apiTime = apiTime.substring(b, e);
+            $.ajax({
+                url: "/Home/LogInfo?apiTime=" + apiTime,
+                //async: false,//同步
+                error: function () {
+                },
+                success: function (data) {
+                    $("#myModalBody").html(data);
+                }
+            });
+            //$('#myModal').modal('hide');
+        }
+
+        //$(function () {
+        //    $('#myModal').modal({
+        //        keyboard: true
+        //    })
+            
+        //});
+
+        //$(function () {
+        //    $('#myModal').on('show.bs.modal', function () {
+        //        $("#myModalTitle").html($("#hApiRoute").val() + "访问详情");
+        //        $.ajax({
+        //            url: "/Home/LogInfo?apiTime=" + $("#hApiRoute").val() ,
+        //            //async: false,//同步
+        //            error: function () {
+        //                $("#divLog").html("数据加载失败！");
+        //            },
+        //            success: function (data) {
+        //                $("#divLog").html(data);
+        //            }
+        //        });
+        //    })
+        //});
+    </script>
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <body>
@@ -18,12 +169,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("应用程序名称", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Dianzhu.Web.RestfulApi", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("主页", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    @*<li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>*@
                     <li>@Html.ActionLink("Swagger Help", "", "Swagger", new { area = "" }, null)</li>
                 </ul>
             </div>
@@ -32,13 +183,11 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
+        <input id="hApiRoute" type="hidden" value=""/>
         <footer>
-            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 应用程序</p>
+            <p>&copy; @DateTime.Now.Year - Dianzhu.Web.RestfulApi</p>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>

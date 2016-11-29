@@ -102,6 +102,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
         {
             try
             {
+                GetRequestHeader.GetTraitHeaders("get/stores/{storeID}/staffs/{staffID}");
                 return Json(istaff.GetStaff(storeID, staffID) ?? new object());
             }
             catch (Exception ex)

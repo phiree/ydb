@@ -23,7 +23,7 @@ namespace Dianzhu.Web.RestfulApi
 {
     public class HMACAuthenticationAttribute : Attribute, IAuthenticationFilter
     {
-        log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.HMACAuthenticationAttribute");
+        log4net.ILog ilog = log4net.LogManager.GetLogger("HMACAuthenticationAttribute.NoRule.v1.RestfulApi.Web.Dianzhu");
         private static Dictionary<string, string> allowedApps = new Dictionary<string, string>();
         private readonly Int64 requestMaxAgeInSeconds = 300000;  //5 mins
         private readonly string authenticationScheme = "amx";
@@ -283,6 +283,7 @@ namespace Dianzhu.Web.RestfulApi
                 //ilog.Debug("Create(requestContentBase64String)" + reqTime + ":" + requestContentBase64String);
             }
             string data = String.Format("{0}{1}{2}{3}{4}", appName, token, requestContentBase64String, stamp_TIMES, requestUri);
+            ilog.Debug("Request(signBefore)" + reqTime + ":" + data);
             //data = "123";
             byte[] signature = Encoding.UTF8.GetBytes(data);
             sb = new StringBuilder();
@@ -426,7 +427,7 @@ namespace Dianzhu.Web.RestfulApi
     
     public class ResultWithChallenge : IHttpActionResult
     {
-        log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.ResultWithChallenge");
+        log4net.ILog ilog = log4net.LogManager.GetLogger("ResultWithChallenge.NoRule.v1.RestfulApi.Web.Dianzhu");
         private readonly string authenticationScheme = "amx";
         private readonly IHttpActionResult next;
 
