@@ -14,7 +14,15 @@ namespace Dianzhu.CSClient.IView
     {
         
         IList<VMChat> ChatList { set;  get; }
+        /// <summary>
+        /// 在列表最后增加显示一条聊天消息
+        /// </summary>
+        /// <param name="vmChat"></param>
         void AddOneChat(VMChat vmChat);
+        /// <summary>
+        /// 在列表开始插入显示一条聊天消息
+        /// </summary>
+        /// <param name="vmChat"></param>
         void InsertOneChat(VMChat vmChat);
         /// <summary>
         /// 当前助理. 

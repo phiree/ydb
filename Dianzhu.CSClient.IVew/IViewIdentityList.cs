@@ -27,9 +27,6 @@ namespace Dianzhu.CSClient.IView
 
         event FinalChatTimerTick FinalChatTimerTick;
 
-        //当前订单临时变量
-        string IdentityCustomerTempId { get; set; }
-
         /// <summary>
         /// 播放提示音
         /// </summary>

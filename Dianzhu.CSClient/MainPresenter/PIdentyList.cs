@@ -48,10 +48,13 @@ namespace Dianzhu.CSClient.Presenter
         IDZMembershipService memberService;
         IViewMainForm viewMainForm;
 
-        public PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,
+        public PIdentityList(
+            IViewIdentityList iView,
+            IViewChatList iViewChatList,
             IInstantMessage iIM,
             IViewChatSend iViewChatSend,
-            IBLLServiceOrder bllServiceOrder, IViewOrderHistory iViewOrderHistory,
+            IBLLServiceOrder bllServiceOrder, 
+            IViewOrderHistory iViewOrderHistory,
             IViewSearchResult viewSearchResult,
             LocalChatManager localChatManager,
             LocalHistoryOrderManager localHistoryOrderManager,
@@ -125,6 +128,8 @@ namespace Dianzhu.CSClient.Presenter
                         }
                         VMIdentity vmIdentity = new VMIdentity(orderId.ToString(), customer.Id.ToString(), customer.DisplayName, localChatManager.LocalCustomerAvatarUrls[assignList[i].CustomerId]);
                         AddIdentity(vmIdentity);
+
+                        AddIdentityTab(vmIdentity.CustomerId, vmIdentity.CustomerName);
                     }
                 }
             }
@@ -149,6 +154,7 @@ namespace Dianzhu.CSClient.Presenter
 
         private void IViewChatSend_FinalChatTimerSend()
         {
+
             if (!string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
             {
                 iView.IdleTimerStart(IdentityManager.CurrentCustomerId);
@@ -179,7 +185,6 @@ namespace Dianzhu.CSClient.Presenter
                 localHistoryOrderManager.Remove(customerId.ToString());
                 localUIDataManager.Remove(customerId.ToString());
                 localUIDataManager.RemoveSearchObj(customerId.ToString());
-                iView.IdentityCustomerTempId = string.Empty;
                 RemoveIdentity(customerId);
             }
             else
@@ -323,40 +328,16 @@ namespace Dianzhu.CSClient.Presenter
         {
             try
             {
-                iView.IdentityCustomerTempId = vmIdentity.CustomerId;
-
                 IdentityManager.SetCurrentCustomerId(vmIdentity.CustomerId);
 
-                Action act = () =>
-                {
-                     PSearch pSearch = Bootstrap.Container.Resolve<PSearch>(new { identity = vmIdentity.CustomerId });
-                PChatList pChatList = Bootstrap.Container.Resolve<PChatList>(new { identity = vmIdentity.CustomerId });
-                PChatSend pChatSend = Bootstrap.Container.Resolve<PChatSend>(new { identity = vmIdentity.CustomerId });
-                POrderHistory pOrderHistory = Bootstrap.Container.Resolve<POrderHistory>(new { identity = vmIdentity.CustomerId });
-                PToolsControl pTabControl = Bootstrap.Container.Resolve<PToolsControl>(new { identity = vmIdentity.CustomerId });
+                //iViewChatList.ClearUCData();
+                //iViewChatList.ShowLoadingMsg();
 
-                viewMainForm.AddIdentityTab(vmIdentity.CustomerId,
-                    pSearch.ViewSearch, pSearch.ViewSearchResult,
-                    pChatList.ViewChatList, pChatSend.ViewChatSend,
-                    pOrderHistory.ViewOrderHistory, pTabControl.ViewToolsControl);
+                //iViewOrderHistory.ClearUCData();
+                //iViewOrderHistory.ShowListLoadingMsg();
 
-                iViewChatList.ClearUCData();
-                iViewChatList.ShowLoadingMsg();
-
-                iViewOrderHistory.ClearUCData();
-                iViewOrderHistory.ShowListLoadingMsg();
-
-                };
-                if (!Application.Current.Dispatcher.CheckAccess())
-                {
-                    Application.Current.Dispatcher.Invoke(act);
-                }
-                else
-                {
-                    act();
-                }
-
-
+                string identityFriendly = PHSuit.StringHelper.SafeNameForWpfControl(vmIdentity.CustomerId, GlobalViables.PRE_TAB_CUSTOMER);
+                viewMainForm.ShowIdentityTab(identityFriendly);
             }
             catch (Exception ex)
             {
@@ -382,7 +363,7 @@ namespace Dianzhu.CSClient.Presenter
         public void ReceivedMessage(Ydb.InstantMessage.DomainModel.Chat.ReceptionChatDto chat, IdentityTypeOfOrder type)
         {
             VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
-            
+
             localChatManager.Add(vmChat.FromId, vmChat);
             switch (type)
             {
@@ -394,25 +375,89 @@ namespace Dianzhu.CSClient.Presenter
                     break;
                 case IdentityTypeOfOrder.NewIdentity:
                     MemberDto customer = memberService.GetUserById(chat.FromId);
-                    VMIdentity vmIdentity = new VMIdentity (chat.SessionId,chat.FromId,customer.DisplayName, localChatManager.LocalCustomerAvatarUrls[vmChat.FromId]);
+                    VMIdentity vmIdentity = new VMIdentity(chat.SessionId, chat.FromId, customer.DisplayName, localChatManager.LocalCustomerAvatarUrls[vmChat.FromId]);
                     AddIdentity(vmIdentity);
                     iView.SetIdentityUnread(chat.FromId, 1);
 
-                    //PSearch pSearch = Bootstrap.Container.Resolve<PSearch>(new { identity = chat.FromId });
-                    //PChatList pChatList = Bootstrap.Container.Resolve<PChatList>(new { identity = chat.FromId });
-                    //PChatSend pChatSend = Bootstrap.Container.Resolve<PChatSend>(new { identity = chat.FromId });
-                    //POrderHistory pOrderHistory = Bootstrap.Container.Resolve<POrderHistory>(new { identity = chat.FromId });
-                    //PToolsControl pTabControl = Bootstrap.Container.Resolve<PToolsControl>(new { identity = chat.FromId });
-
-                    //viewMainForm.AddIdentityTab(chat.FromId,
-                    //    pSearch.ViewSearch, pSearch.ViewSearchResult,
-                    //    pChatList.ViewChatList, pChatSend.ViewChatSend,
-                    //    pOrderHistory.ViewOrderHistory, pTabControl.ViewToolsControl);
+                    AddIdentityTab(vmIdentity.CustomerId,vmIdentity.CustomerName);
 
                     break;
                 default:
                     throw new Exception("无法判断消息属性");
 
+            }
+        }
+
+        /// <summary>
+        /// 添加用户tab界面
+        /// </summary>
+        /// <param name="identityId"></param>
+        private void AddIdentityTab(string identityId, string customerName)
+        {
+            Action act = () =>
+            {
+                IViewTabContent viewTabContent = Bootstrap.Container.Resolve<IViewTabContent>(new { identity = identityId });
+                viewTabContent.IdleTimerOut += ViewTabContent_IdleTimerOut;
+
+                PSearch pSearch = Bootstrap.Container.Resolve<PSearch>(new {
+                    viewSearch =viewTabContent.ViewSearch,
+                    viewSearchResult=viewTabContent.ViewSearchResult,
+                    viewChatList=viewTabContent.ViewChatList,
+                    identity = identityId });
+                PChatList pChatList = Bootstrap.Container.Resolve<PChatList>(new {
+                    viewChatList = viewTabContent.ViewChatList,
+                    identity = identityId,
+                    customerName = customerName });
+                PChatSend pChatSend = Bootstrap.Container.Resolve<PChatSend>(new {
+                    viewChatSend= viewTabContent.ViewChatSend,
+                    viewChatList = viewTabContent.ViewChatList,
+                    identity = identityId });
+                POrderHistory pOrderHistory = Bootstrap.Container.Resolve<POrderHistory>(new {
+                    viewOrderHistory = viewTabContent.ViewOrderHistory,
+                    identity = identityId });
+                PToolsControl pTabControl = Bootstrap.Container.Resolve<PToolsControl>(new {
+                    viewToolsControl = viewTabContent.ViewToolsControl,
+                    viewSearch = viewTabContent.ViewSearch,
+                    identity = identityId });
+
+                string identityFriendly = PHSuit.StringHelper.SafeNameForWpfControl(identityId, GlobalViables.PRE_TAB_CUSTOMER);
+                viewMainForm.AddIdentityTab(identityFriendly, viewTabContent);
+            };
+            if (!Application.Current.Dispatcher.CheckAccess())
+            {
+                Application.Current.Dispatcher.Invoke(act);
+            }
+            else
+            {
+                act();
+            }
+        }
+
+        private void ViewTabContent_IdleTimerOut(string customerId)
+        {
+            try
+            {
+                log.Debug("计时结束，customerId：" + customerId);
+
+                string errMsg = string.Empty;
+
+                //删除当前订单临时变量
+                if (IdentityManager.DeleteCustomer(customerId))
+                {
+                    RemoveIdentity(customerId);
+                    viewMainForm.RemoveIdentityTab(customerId);
+                }
+                else
+                {
+                    errMsg = "用户删除失败.";
+                    log.Error(errMsg);
+                }
+
+                receptionService.DeleteReception(customerId);
+            }
+            catch (Exception e)
+            {
+                log.Error(e);
             }
         }
 

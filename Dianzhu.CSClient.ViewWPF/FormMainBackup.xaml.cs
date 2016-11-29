@@ -22,7 +22,7 @@ namespace Dianzhu.CSClient.ViewWPF
     /// <summary>
     /// FormMain.xaml 的交互逻辑
     /// </summary>
-    public partial class FormMainBackup : Window,IViewMainForm
+    public partial class FormMainBackup : Window
     {
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF");
         Window main;

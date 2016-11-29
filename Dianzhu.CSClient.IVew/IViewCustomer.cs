@@ -39,9 +39,7 @@ namespace Dianzhu.CSClient.IView
 
         void StartFinalChatTimer();
         void StopFinalChatTimer();
-        event IdleTimerOut IdleTimerOut;
     }
 
     public delegate void CustomerClick(VMIdentity vmIdentity);
-    public delegate void IdleTimerOut(string customerId);
 }

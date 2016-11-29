@@ -51,6 +51,7 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<IViewToolsControl>().ImplementedBy<ViewWPF.UC_TabControlTools>().LifestyleTransient());
             container.Register(Component.For<IViewFormShowMessage>().ImplementedBy<ViewWPF.FormShowMessage>());
             container.Register(Component.For<IViewCustomer>().ImplementedBy<ViewWPF.UC_Customer>().LifestyleTransient());
+            container.Register(Component.For<IViewTabContent>().ImplementedBy<ViewWPF.UC_TabContent>().LifestyleTransient());
 
             container.Register(Component.For<Presenter.VMAdapter.IVMChatAdapter>().ImplementedBy<Presenter.VMAdapter.VMChatAdapter>());
             container.Register(Component.For<Presenter.VMAdapter.IVMIdentityAdapter>().ImplementedBy<Presenter.VMAdapter.VMIdentityAdatper>());

@@ -16,10 +16,9 @@ namespace Dianzhu.CSClient.IView
 
         void FlashTaskBar();//任务栏闪烁
 
-        void AddIdentityTab(string identity, 
-            IViewSearch viewSearch, IViewSearchResult viewSearchResult,
-            IViewChatList viewChatList, IViewChatSend viewChatSend,
-            IViewOrderHistory viewOrderHistory, IViewToolsControl viewTabControl);
+        void AddIdentityTab(string identity,IViewTabContent viewTabContent);
+
+        void ShowIdentityTab(string identity);
 
         void RemoveIdentityTab(string identity);
     }

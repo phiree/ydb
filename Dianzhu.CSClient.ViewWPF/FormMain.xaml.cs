@@ -138,22 +138,40 @@ namespace Dianzhu.CSClient.ViewWPF
             SendMessage(_HwndSource.Handle, WM_SYSCOMMAND, (IntPtr)(61440 + direction), IntPtr.Zero);
         }
 
-        public void AddIdentityTab(string identity,
-            IViewSearch viewSearch, IViewSearchResult viewSearchResult,
-            IViewChatList viewChatList, IViewChatSend viewChatSend,
-            IViewOrderHistory viewOrderHistory, IViewToolsControl viewTabControl)
+        public void AddIdentityTab(string identity,IViewTabContent viewTabContent)
         {
             TabItem tab = new TabItem();
             tab.Name = identity;
-            UC_TabContent c = new UC_TabContent(viewSearch, viewSearchResult, viewChatList, viewChatSend, viewOrderHistory, viewTabControl);
-            tab.Content = c;
+            tab.Content = (UC_TabContent)viewTabContent;
+            tab.Style = Resources["TabItemStyle"] as Style;
             tabContent.Items.Add(tab);
         }
 
         public void RemoveIdentityTab(string identity)
         {
-            TabItem item = tabContent.ItemContainerGenerator.Items.Where(x => ((TabItem)x).Name == identity).SingleOrDefault() as TabItem;
-            tabContent.Items.Remove(item);
+            Action lambda = () =>
+            {
+                TabItem item = tabContent.ItemContainerGenerator.Items.Where(x => ((TabItem)x).Name == identity).SingleOrDefault() as TabItem;
+                tabContent.Items.Remove(item);
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
+        }
+
+        public void ShowIdentityTab(string identity)
+        {
+            Action lambda = () =>
+            {
+                tabContent.SelectedItem = tabContent.ItemContainerGenerator.Items.Where(x => ((TabItem)x).Name == identity).SingleOrDefault();
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
         }
     }
 

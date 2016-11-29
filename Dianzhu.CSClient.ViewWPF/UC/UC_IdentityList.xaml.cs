@@ -50,7 +50,6 @@ namespace Dianzhu.CSClient.ViewWPF
                         Identity = vmIdentity
                     };
                     c.CustomerClick += C_CustomerClick;
-                    c.IdleTimerOut += C_IdleTimerOut;
 
                     AddUIForTopPanel((UC_Customer)c, cbtnName);
                 }
@@ -201,36 +200,13 @@ namespace Dianzhu.CSClient.ViewWPF
         public event IdentityClick IdentityClick;
 
         BackgroundWorker worker;
-        string identityCustomerTempId;
-        public string IdentityCustomerTempId
-        {
-            get { return identityCustomerTempId; }
-            set { identityCustomerTempId = value; }
-        }
 
         private void C_CustomerClick(VMIdentity vmIdentity)
         {
             if (IdentityClick != null)
             {
                 VMIdentity Identity = vmIdentity;
-                if (identityCustomerTempId == null)
-                {
-                    identityCustomerTempId = Identity.CustomerId;
-                }
-                else
-                {
-                    if (identityCustomerTempId == Identity.CustomerId)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        identityCustomerTempId = Identity.CustomerId;
-                    }
-                }
                 SetIdentityReaded(Identity.CustomerId);
-
-
 
                 worker = new BackgroundWorker();
                 worker.DoWork += Worker_DoWork;
