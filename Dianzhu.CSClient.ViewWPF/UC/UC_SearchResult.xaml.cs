@@ -137,6 +137,7 @@ namespace Dianzhu.CSClient.ViewWPF
             if (order != null)
             {
                 log.Debug("推送完成");
+                //todo:timerControl
                 PushServiceTimerSend();
 
                 log.Debug("新草稿订单的id：" + order.Id.ToString());

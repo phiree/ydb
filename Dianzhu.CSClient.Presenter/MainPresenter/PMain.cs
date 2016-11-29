@@ -1,12 +1,5 @@
 ﻿using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.DomainModel.Chat;
 
@@ -93,6 +86,11 @@ namespace Dianzhu.CSClient.Presenter
             bllLoginLog.MemberLogoff(GlobalViables.CurrentCustomerService.Id.ToString(), string.Empty);
 
             viewMainForm.CloseApplication();
+        }
+
+        public void AddIdentityTab(string identityTabFriendly,IViewTabContent viewTabContent)
+        {
+            viewMainForm.AddIdentityTab(identityTabFriendly, viewTabContent);
         }
     }
 }

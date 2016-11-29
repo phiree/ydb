@@ -17,7 +17,6 @@ namespace Dianzhu.CSClient.Presenter
         IViewChatList viewChatList;
         IViewChatSend viewChatSend;
         IInstantMessage iIM;
-        IViewTabContent viewTabContent;
 
         string identity;
         public IViewChatSend ViewChatSend
@@ -29,13 +28,11 @@ namespace Dianzhu.CSClient.Presenter
         }
         
         public PChatSend(
-            IViewTabContent viewTabContent,
             IViewChatSend viewChatSend, 
             IViewChatList viewChatList,
             IInstantMessage iIM,
             string identity)
         {
-            this.viewTabContent = viewTabContent;
             this.viewChatList = viewChatList;
             this.viewChatSend = viewChatSend;
             this.iIM = iIM;
@@ -64,7 +61,7 @@ namespace Dianzhu.CSClient.Presenter
                 Guid messageId = Guid.NewGuid();
                 iIM.SendMessageMedia(messageId, GlobalViables.MediaGetUrl + fileName,mediaType, identity, IdentityManager.CurrentOrderId, "YDBan_User");
 
-                viewTabContent.StartFinalChatTimer();
+                //viewTabContent.StartFinalChatTimer();
 
                 bool downSuccess = PHSuit.LocalFileManagement.DownLoad(string.Empty, GlobalViables.MediaGetUrl + fileName, fileName);
                 
@@ -108,7 +105,7 @@ namespace Dianzhu.CSClient.Presenter
                      IdentityManager.CurrentOrderId);
 
                 viewChatSend.MessageText = string.Empty;//发送后清空文本框
-                viewTabContent.StartFinalChatTimer();
+                //viewTabContent.StartFinalChatTimer();
 
                 VMChatText vmChatText = new VMChatText(
                     messageText,

@@ -40,7 +40,7 @@ namespace Dianzhu.CSClient.Presenter
             this.identity = identity;
             this.customerName = customerName;
 
-            iIM.IMReceivedMessage += IIM_IMReceivedMessage;
+            //iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             viewChatList.CurrentCustomerServiceId = GlobalViables.CurrentCustomerService.Id;
             viewChatList.BtnMoreChat += ViewChatList_BtnMoreChat;
 
@@ -140,6 +140,12 @@ namespace Dianzhu.CSClient.Presenter
                 VMChat vmChat = vmChatAdapter.ChatToVMChat(dto);
                 viewChatList.AddOneChat(vmChat);
             }
+        }
+
+        public void ReceivedMessage(ReceptionChatDto dto)
+        {
+            VMChat vmChat = vmChatAdapter.ChatToVMChat(dto);
+            viewChatList.AddOneChat(vmChat);
         }
 
         private void ViewChatList_BtnMoreChat(string targetChatId)

@@ -84,7 +84,7 @@ namespace Dianzhu.CSClient.Presenter
             iView.FinalChatTimerTick += IView_FinalChatTimerTick;
             iViewChatSend.FinalChatTimerSend += IViewChatSend_FinalChatTimerSend;
 
-            iIM.IMReceivedMessage += IIM_IMReceivedMessage;
+            //iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             viewSearchResult.PushServiceTimerSend += ViewSearchResult_PushServiceTimerSend;
 
             Thread t = new Thread(SysAssign);
@@ -330,12 +330,6 @@ namespace Dianzhu.CSClient.Presenter
             {
                 IdentityManager.SetCurrentCustomerId(vmIdentity.CustomerId);
 
-                //iViewChatList.ClearUCData();
-                //iViewChatList.ShowLoadingMsg();
-
-                //iViewOrderHistory.ClearUCData();
-                //iViewOrderHistory.ShowListLoadingMsg();
-
                 string identityFriendly = PHSuit.StringHelper.SafeNameForWpfControl(vmIdentity.CustomerId, GlobalViables.PRE_TAB_CUSTOMER);
                 viewMainForm.ShowIdentityTab(identityFriendly);
             }
@@ -344,15 +338,7 @@ namespace Dianzhu.CSClient.Presenter
                 log.Error("IView_IdentityClick Error,skip.");
                 log.Error(ex);
             }
-
-
         }
-
-
-
-
-
-
 
         /// <summary>
         /// 接收聊天消息
@@ -388,49 +374,54 @@ namespace Dianzhu.CSClient.Presenter
             }
         }
 
+        public void SetIdentityUnread(string identity,int messageAmount)
+        {
+            iView.SetIdentityUnread(identity, messageAmount);
+        }
+
         /// <summary>
         /// 添加用户tab界面
         /// </summary>
         /// <param name="identityId"></param>
         private void AddIdentityTab(string identityId, string customerName)
         {
-            Action act = () =>
-            {
-                IViewTabContent viewTabContent = Bootstrap.Container.Resolve<IViewTabContent>(new { identity = identityId });
-                viewTabContent.IdleTimerOut += ViewTabContent_IdleTimerOut;
+            //Action act = () =>
+            //{
+                //IViewTabContent viewTabContent = Bootstrap.Container.Resolve<IViewTabContent>(new { identity = identityId });
+                //viewTabContent.IdleTimerOut += ViewTabContent_IdleTimerOut;
 
-                PSearch pSearch = Bootstrap.Container.Resolve<PSearch>(new {
-                    viewSearch =viewTabContent.ViewSearch,
-                    viewSearchResult=viewTabContent.ViewSearchResult,
-                    viewChatList=viewTabContent.ViewChatList,
-                    identity = identityId });
-                PChatList pChatList = Bootstrap.Container.Resolve<PChatList>(new {
-                    viewChatList = viewTabContent.ViewChatList,
-                    identity = identityId,
-                    customerName = customerName });
-                PChatSend pChatSend = Bootstrap.Container.Resolve<PChatSend>(new {
-                    viewChatSend= viewTabContent.ViewChatSend,
-                    viewChatList = viewTabContent.ViewChatList,
-                    identity = identityId });
-                POrderHistory pOrderHistory = Bootstrap.Container.Resolve<POrderHistory>(new {
-                    viewOrderHistory = viewTabContent.ViewOrderHistory,
-                    identity = identityId });
-                PToolsControl pTabControl = Bootstrap.Container.Resolve<PToolsControl>(new {
-                    viewToolsControl = viewTabContent.ViewToolsControl,
-                    viewSearch = viewTabContent.ViewSearch,
-                    identity = identityId });
+                //PSearch pSearch = Bootstrap.Container.Resolve<PSearch>(new {
+                //    viewSearch =viewTabContent.ViewSearch,
+                //    viewSearchResult=viewTabContent.ViewSearchResult,
+                //    viewChatList=viewTabContent.ViewChatList,
+                //    identity = identityId });
+                //PChatList pChatList = Bootstrap.Container.Resolve<PChatList>(new {
+                //    viewChatList = viewTabContent.ViewChatList,
+                //    identity = identityId,
+                //    customerName = customerName });
+                //PChatSend pChatSend = Bootstrap.Container.Resolve<PChatSend>(new {
+                //    viewChatSend= viewTabContent.ViewChatSend,
+                //    viewChatList = viewTabContent.ViewChatList,
+                //    identity = identityId });
+                //POrderHistory pOrderHistory = Bootstrap.Container.Resolve<POrderHistory>(new {
+                //    viewOrderHistory = viewTabContent.ViewOrderHistory,
+                //    identity = identityId });
+                //PToolsControl pTabControl = Bootstrap.Container.Resolve<PToolsControl>(new {
+                //    viewToolsControl = viewTabContent.ViewToolsControl,
+                //    viewSearch = viewTabContent.ViewSearch,
+                //    identity = identityId });
 
-                string identityFriendly = PHSuit.StringHelper.SafeNameForWpfControl(identityId, GlobalViables.PRE_TAB_CUSTOMER);
-                viewMainForm.AddIdentityTab(identityFriendly, viewTabContent);
-            };
-            if (!Application.Current.Dispatcher.CheckAccess())
-            {
-                Application.Current.Dispatcher.Invoke(act);
-            }
-            else
-            {
-                act();
-            }
+                //string identityFriendly = PHSuit.StringHelper.SafeNameForWpfControl(identityId, GlobalViables.PRE_TAB_CUSTOMER);
+                //viewMainForm.AddIdentityTab(identityFriendly, viewTabContent);
+            //};
+            //if (!Application.Current.Dispatcher.CheckAccess())
+            //{
+            //    Application.Current.Dispatcher.Invoke(act);
+            //}
+            //else
+            //{
+            //    act();
+            //}
         }
 
         private void ViewTabContent_IdleTimerOut(string customerId)
