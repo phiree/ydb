@@ -28,6 +28,7 @@ namespace Dianzhu.CSClient.ViewWPF
         IViewChatSend viewChatSend;
         IViewOrderHistory viewOrderHistory;
         IViewToolsControl viewToolsControl;
+        IViewTabContentTimer viewTabContentTimer;
 
         #region 界面相关各个控件的属性
         public IViewSearch ViewSearch
@@ -78,6 +79,14 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        public IViewTabContentTimer ViewTabContentTimer
+        {
+            get
+            {
+                return viewTabContentTimer;
+            }
+        }
+
         string identity;
         public string Identity
         {
@@ -91,6 +100,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 identity = value;
             }
         }
+        
         #endregion
 
         /// <summary>
@@ -102,6 +112,7 @@ namespace Dianzhu.CSClient.ViewWPF
             IViewSearch viewSearch, IViewSearchResult viewSearchResult,
             IViewChatList viewChatList, IViewChatSend viewChatSend,
             IViewOrderHistory viewOrderHistory, IViewToolsControl viewToolsControl,
+            IViewTabContentTimer viewTabContentTimer,
             string identity)
         {
             InitializeComponent();
@@ -112,6 +123,7 @@ namespace Dianzhu.CSClient.ViewWPF
             this.viewChatSend = viewChatSend;
             this.viewOrderHistory = viewOrderHistory;
             this.viewToolsControl = viewToolsControl;
+            this.viewTabContentTimer = viewTabContentTimer;
 
             this.identity = identity;
 

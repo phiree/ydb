@@ -14,6 +14,7 @@ namespace Dianzhu.CSClient.IView
         IViewChatSend ViewChatSend { get; }
         IViewOrderHistory ViewOrderHistory { get; }
         IViewToolsControl ViewToolsControl { get; }
+        IViewTabContentTimer ViewTabContentTimer { get; }
 
         string Identity { get; set; }
 

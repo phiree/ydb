@@ -17,7 +17,7 @@ namespace Dianzhu.Config
         static string[] ApplicationServers = new string[]   { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.172" };
         static string[] HttpApiServers = new string[]       { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.172" };
         static string[] IMNotifyServers = new string[]      { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.172" };
-        static string[] PayServers = new string[]           { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "223.198.86.24" };
+        static string[] PayServers = new string[]           { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "112.66.184.232" };
         
 
         static string IMServer = IMServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString(); 

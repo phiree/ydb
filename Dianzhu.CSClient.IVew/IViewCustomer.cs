@@ -13,6 +13,10 @@ namespace Dianzhu.CSClient.IView
     public interface IViewCustomer
     {
         /// <summary>
+        /// 用户标识
+        /// </summary>
+        string Identity { get; set; }
+        /// <summary>
         /// 用户头像
         /// </summary>
         string AvatarImage { set; }
@@ -31,15 +35,7 @@ namespace Dianzhu.CSClient.IView
         /// 点击事件
         /// </summary>
         event CustomerClick CustomerClick;
-
-        /// <summary>
-        /// 控件对应的订单
-        /// </summary>
-        VMIdentity Identity { get; set; }
-
-        void StartFinalChatTimer();
-        void StopFinalChatTimer();
     }
 
-    public delegate void CustomerClick(VMIdentity vmIdentity);
+    public delegate void CustomerClick(string identity);
 }

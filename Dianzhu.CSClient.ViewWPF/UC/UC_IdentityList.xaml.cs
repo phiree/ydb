@@ -44,10 +44,10 @@ namespace Dianzhu.CSClient.ViewWPF
                 {
                     IViewCustomer c = new UC_Customer()
                     {
+                        Identity = vmIdentity.CustomerId,
                         AvatarImage = vmIdentity.CustomerAvatarUrl,
                         CustomerName = vmIdentity.CustomerName,
-                        CustomerReceptionStatus = enum_CustomerReceptionStatus.Unread,
-                        Identity = vmIdentity
+                        CustomerReceptionStatus = enum_CustomerReceptionStatus.Unread
                     };
                     c.CustomerClick += C_CustomerClick;
 
@@ -60,24 +60,6 @@ namespace Dianzhu.CSClient.ViewWPF
             }
             else { lambda(); }
         }
-
-        private void C_IdleTimerOut(string customerId)
-        {
-            try
-            {
-                NHibernateUnitOfWork.UnitOfWork.Start();
-                FinalChatTimerTick(customerId);
-            }
-            catch (Exception e)
-            {
-                log.Error(e);
-            }
-            finally
-            {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-            }
-        }        
 
         public void RemoveIdentity(string customerId)
         {
@@ -113,9 +95,6 @@ namespace Dianzhu.CSClient.ViewWPF
 
                     //重新注册
                     wpNotTopIdentityList.RegisterName(ctrNewlName, btnOldCustomer);
-
-                    //更新
-                    btnOldCustomer.Identity = vmIdentity;
                 }
                 else
                 {
@@ -130,108 +109,18 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         #endregion
-
-        #region 时间控制器
-
-        public event FinalChatTimerTick FinalChatTimerTick;
-
-        public void IdleTimerStart(string customerId)
-        {
-            Action lambda = () =>
-            {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(customerId,GlobalVariable.PRECBUTTON);
-
-                var ucCutomer = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
-                if (ucCutomer != null)
-                {
-                    ucCutomer.StartFinalChatTimer();
-                    log.Debug("计时开始");
-                }
-            };
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(lambda);
-            }
-            else { lambda(); }
-        }
-
-        public void IdleTimerStop(string customerId)
-        {
-            Action lambda = () =>
-            {
-                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(customerId, GlobalVariable.PRECBUTTON);
-
-                var ucCutomer = (UC_Customer)wpNotTopIdentityList.FindName(ctrlName);
-                if (ucCutomer != null)
-                {
-                    ucCutomer.StopFinalChatTimer();
-                    log.Debug("计时停止");
-                }
-            };
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(lambda);
-            }
-            else { lambda(); }
-        }
-
-        private void UcIdentity_IdleTimerOut(string customerId)
-        {
-            try
-            {
-                NHibernateUnitOfWork.UnitOfWork.Start();
-                FinalChatTimerTick(customerId);
-            }
-            catch (Exception e)
-            {
-                log.Error(e.ToString());
-            }
-            finally
-            {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-            }
-        }
-
-        #endregion
-
+        
         #region 点击用户控件相关事件
 
         public event IdentityClick IdentityClick;
 
-        BackgroundWorker worker;
-
-        private void C_CustomerClick(VMIdentity vmIdentity)
+        private void C_CustomerClick(string identity)
         {
             if (IdentityClick != null)
             {
-                VMIdentity Identity = vmIdentity;
-                SetIdentityReaded(Identity.CustomerId);
+                SetIdentityReaded(identity);
 
-                worker = new BackgroundWorker();
-                worker.DoWork += Worker_DoWork;
-                worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-                worker.RunWorkerAsync(Identity);
-                log.Debug("开始异步加载");
-            }
-        }
-
-        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            log.Debug("异步加载完成");
-        }
-
-        private void Worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            try
-            {
-                VMIdentity vmIdentity = e.Argument as VMIdentity;
-                
-                IdentityClick(vmIdentity);
-            }
-            catch (Exception ee)
-            {
-                log.Error(ee.ToString());
+                IdentityClick(identity);
             }
         }
 
@@ -399,32 +288,6 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
         
-        #endregion
-
-        #region 播放提示音
-
-        MediaPlayer player = new MediaPlayer();
-        public void PlayVoice()
-        {
-            Action lambda = () =>
-            {
-                //player.Open(new Uri(System.Environment.CurrentDirectory + @"\Resources\YDBan.wav"));
-                ////player.Open(new Uri("E:\\projects\\output\\csclient\\Resources\\YDBan.wav"));
-                //player.Play();
-
-                SoundPlayer audio = new SoundPlayer(Properties.Resources.YDBan);
-                audio.Play();
-            };
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(lambda);
-            }
-            else
-            {
-                lambda();
-            }
-        }
-
         #endregion
     }
 }
