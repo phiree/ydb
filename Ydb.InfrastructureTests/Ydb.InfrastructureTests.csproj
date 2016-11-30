@@ -62,11 +62,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="EmailServiceTests.cs" />
+    <Compile Include="EncryptServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="config\appSettings.config" />
+    <None Include="config\appSettings.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
