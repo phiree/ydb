@@ -19,7 +19,7 @@ namespace Dianzhu.Web.RestfulApi
         {
             // 在应用程序启动时运行的代码
             PHSuit.Logging.Config("Dianzhu.Web.RestfulApi");
-            Ydb.Common.LogMongo.GetConfiguredLog();
+            Ydb.Common.LoggingConfiguration.Config(string.Empty);
 
             AreaRegistration.RegisterAllAreas();
             //GlobalConfiguration.Configure(WebApiConfig.Register);

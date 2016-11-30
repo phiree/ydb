@@ -63,13 +63,15 @@ namespace Ydb.Infrastructure.Tests
         [Test]
         public void EncryptTest__()
         {
-            Ydb.InfrastructureTests.DbConfigBuilder dbConfig = new InfrastructureTests.DbConfigBuilder();
+         
+            PrintOneServer(new InfrastructureTests.DbConfigBuilder().BuildForServer("localhost", "root", "root"));
+            PrintOneServer(new InfrastructureTests.DbConfigBuilder().ReplaceDianzhuDb("dianzhu_publish_test"). BuildForServer("192.168.1.172", "root", "root"));
+            PrintOneServer(new InfrastructureTests.DbConfigBuilder().ReplaceDianzhuDb("dianzhu_test").BuildForServer("192.168.1.150", "root", "root"));
+            PrintOneServer(new InfrastructureTests.DbConfigBuilder().BuildForServer("business.ydban.cn", "jsyk2016", "X*G7czoy6twAYIz7","4407"));
+            PrintOneServer(new InfrastructureTests.DbConfigBuilder().BuildForServer("dev.ydban.cn", "jsyk2016", "IQDv$qefeqFWuq_L","4407"));
 
-             PrintOneServer(dbConfig.BuildForServer("localhost", "root", "root"));
-            PrintOneServer(dbConfig.ReplaceDianzhuDb("dianzhu_publish_test"). BuildForServer("192.168.1.172", "root", "root"));
-            PrintOneServer(dbConfig.ReplaceDianzhuDb("dianzhu_test").BuildForServer("192.168.1.150", "root", "root"));
-            PrintOneServer(dbConfig.BuildForServer("business.ydban.cn", "jsyk2016", "X*G7czoy6twAYIz7","4407"));
-            PrintOneServer(dbConfig.BuildForServer("dev.ydban.cn", "jsyk2016", "IQDv$qefeqFWuq_L","4407"));
+            PrintConfigSection(new InfrastructureTests.DbConfigBuilder().BuildForServerConfig("localhost", "root", "root","3306"));
+            
 
             /*
             Console.WriteLine("172_dianzhu_publish_test:" + encryptService.Encrypt("172_dianzhu___data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test", false));
@@ -111,6 +113,19 @@ namespace Ydb.Infrastructure.Tests
             {
                 Console.WriteLine( encryptService.Encrypt(s, false));
             }
+        }
+        private void PrintConfigSection(IList<string> l)
+        {
+            StringBuilder sbConfig = new StringBuilder();
+            sbConfig.AppendLine("<connectionStrings>");
+
+            //l.Select(x => sbConfig.AppendLine(x));
+            foreach (string s in l)
+            {
+                sbConfig.AppendLine(s);
+            }
+            sbConfig.AppendLine("</connectionStrings>");
+            Console.WriteLine(sbConfig.ToString());
         }
 
         

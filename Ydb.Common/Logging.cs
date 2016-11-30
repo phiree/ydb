@@ -9,6 +9,7 @@ using System.IO;
 using System.Text;
 using System;
 using System.Linq;
+using Log4Mongo;
 
 namespace Ydb.Common
 {
@@ -29,8 +30,8 @@ namespace Ydb.Common
             Logger rootLogger = hierarchy.Root;
             rootLogger.Level = Level.Error;
             /********/
-            CreateLogger(hierarchy, "Ydb", logFileNameRoot+"Ydb", "YdbAppender", 5, 20);
-            CreateLogger(hierarchy, "NHibernate", logFileNameRoot+"Nhibernate", "NhibernateAppender", 5, 20);
+            CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "Ydb", logFileNameRoot+"Ydb", "YdbAppender", 5, 20);
+            CreateLoggerMogo(hierarchy, log4net.Core.Level.Warn, "NHibernate", logFileNameRoot+"Nhibernate", "NhibernateAppender", 5, 20);
             hierarchy.Configured = true;
            
         }
@@ -53,6 +54,23 @@ namespace Ydb.Common
             appenderMain.ActivateOptions();
  
             logger.Level = Level.Debug;
+            logger.AddAppender(appenderMain);
+        }
+        private static void CreateLoggerMogo(Hierarchy hierarchy,log4net.Core.Level logLevel, string loggerName, string logfileName, string appenderName, int maxFileSize, int maxRollBackups)
+        {
+            Logger logger = hierarchy.GetLogger(loggerName) as Logger;
+
+            
+             MongoDBAppender appenderMain = new MongoDBAppender();
+            appenderMain.ConnectionString = "mongodb://localhost";
+            appenderMain.Name = appenderName;
+ 
+            appenderMain.Layout = new PatternLayout(
+                "%date [%thread] %-5level %logger- %message%newline");
+            // this activates the FileAppender (without it, nothing would be written)
+            appenderMain.ActivateOptions();
+
+            logger.Level = logLevel;
             logger.AddAppender(appenderMain);
         }
     }

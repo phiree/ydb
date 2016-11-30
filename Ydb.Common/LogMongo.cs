@@ -103,7 +103,7 @@ namespace Ydb.Common
 		</field>
 	</appender>
 	<root>
-		<level value='ALL' />
+		<level value='WARN' />
 		<appender-ref ref='MongoDBAppender' />
 	</root>
 </log4net>
