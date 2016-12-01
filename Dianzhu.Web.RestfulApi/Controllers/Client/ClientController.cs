@@ -40,12 +40,16 @@ namespace Dianzhu.Web.RestfulApi.Controllers.Client
         [Route("api/v1/authorization")]//authorization//Token
         public IHttpActionResult PostToken([FromBody]Customer customer)
         {
+            log4net.ILog log = log4net.LogManager.GetLogger("Ydb.post/authorization.Rule.v1.RestfulApi.Web.Dianzhu");
             try
             {
                 if (customer == null)
                 {
                     customer = new Customer();
                 }
+                string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
+                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=post/authorization,UserName=" + customer.loginName + ",UserId=" + customer.UserID + ",UserType=" + customer.UserType);
+                //log.Info("Info(Route)" + stamp_TIMES + ":post/api/v1/authorization");
                 //HMACAuthenticationAttribute hmac = new HMACAuthenticationAttribute();
                 //string appName = Request.Headers.GetValues("appName").FirstOrDefault();
                 //ConfigurationManager .GetSection

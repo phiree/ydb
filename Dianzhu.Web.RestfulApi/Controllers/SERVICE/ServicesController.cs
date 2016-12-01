@@ -63,6 +63,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
                 {
                     servicefilter = new common_Trait_ServiceFiltering();
                 }
+                GetRequestHeader.GetTraitHeaders("get/stores/{storeID}/services");
                 return Json(iservice.GetServices(storeID, filter, servicefilter));
             }
             catch (Exception ex)
@@ -86,6 +87,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
                 {
                     servicefilter = new common_Trait_ServiceFiltering();
                 }
+                GetRequestHeader.GetTraitHeaders("get/stores/{storeID}/services/count");
                 return Json(iservice.GetServicesCount(storeID,servicefilter));
             }
             catch (Exception ex)
@@ -105,6 +107,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
         {
             try
             {
+                GetRequestHeader.GetTraitHeaders("get/stores/{storeID}/services/{serviceID}");
                 return Json(iservice.GetService(storeID, serviceID) ?? new object());
             }
             catch (Exception ex)
@@ -170,6 +173,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
                 {
                     servicefilter = new serviceTypeObj();
                 }
+                GetRequestHeader.GetTraitHeaders("get/allServiceTypes");
                 return Json(iservice.GetAllServiceTypes(servicefilter.superID));
             }
             catch (Exception ex)

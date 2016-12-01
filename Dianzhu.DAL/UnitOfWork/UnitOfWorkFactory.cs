@@ -6,6 +6,7 @@ using NHibernate.Cfg;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
+using Ydb.Common.Infrastructure;
 
 namespace NHibernateUnitOfWork
 {
@@ -17,9 +18,11 @@ namespace NHibernateUnitOfWork
         private static ISession _currentSession;
         private ISessionFactory _sessionFactory;
         private Configuration _configuration;
-
-        internal UnitOfWorkFactory()
-        { }
+       
+        internal UnitOfWorkFactory( )
+        {
+            
+        }
 
         public IUnitOfWork Create()
         {
@@ -49,7 +52,7 @@ namespace NHibernateUnitOfWork
                            MySQLConfiguration
                           .Standard
                           .ConnectionString(
-                               PHSuit.Security.Decrypt(
+                              new Ydb.Infrastructure.EncryptService().Decrypt(
                              System.Configuration.ConfigurationManager
                              .ConnectionStrings["DianzhuConnectionString"].ConnectionString,false)
                              )

@@ -30,7 +30,7 @@ namespace PHSuit
             /********/
             CreateLogger(hierarchy, "Ydb", logFileNameRoot + "Ydb", "DianzhuAppender", 5, 20);
             CreateLogger(hierarchy, "Dianzhu", logFileNameRoot+"Dianzhu", "DianzhuAppender", 5, 20);
-            CreateLogger(hierarchy, "NHibernate", logFileNameRoot+"Nhibernate", "NhibernateAppender", 5, 20);
+           // CreateLogger(hierarchy, "NHibernate", logFileNameRoot+"Nhibernate", "NhibernateAppender", 5, 20);
             CreateLogger(hierarchy, "JSYK", logFileNameRoot+"Infra", "DianzhuAppender", 5, 20);
             hierarchy.Configured = true;
            
@@ -52,7 +52,6 @@ namespace PHSuit
                 "%date [%thread] %-5level %logger- %message%newline");
             // this activates the FileAppender (without it, nothing would be written)
             appenderMain.ActivateOptions();
- 
             logger.Level = Level.Debug;
             logger.AddAppender(appenderMain);
         }

@@ -107,7 +107,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORE
                 {
                     storefilter = new common_Trait_StoreFiltering();
                 }
-
+                GetRequestHeader.GetTraitHeaders("get/allStores");
                 //return Json(istore.GetStores(filter, storefilter));
                 return Json(istore.GetAllStores(filter, storefilter));
             }
@@ -131,7 +131,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORE
                 {
                     storefilter = new common_Trait_StoreFiltering();
                 }
-
+                GetRequestHeader.GetTraitHeaders("get/allStores/count");
                 //return Json(istore.GetStores(filter, storefilter));
                 return Json(istore.GetAllStoresCount(storefilter));
             }
@@ -150,6 +150,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.STORE
         {
             try
             {
+                GetRequestHeader.GetTraitHeaders("get/stores/{storeID}");
                 return Json(istore.GetStore(id)?? new object());
             }
             catch (Exception ex)

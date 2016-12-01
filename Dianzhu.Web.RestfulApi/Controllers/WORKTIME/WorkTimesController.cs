@@ -57,6 +57,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.WORKTIME
                 {
                     worktime = new common_Trait_WorkTimeFiltering();
                 }
+                GetRequestHeader.GetTraitHeaders("get/stores/{storeID}/services/{serviceID}/workTimes");
                 return Json(iworktime.GetWorkTimes(storeID, serviceID,  worktime));
             }
             catch (Exception ex)
@@ -81,6 +82,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.WORKTIME
                 {
                     worktime = new common_Trait_WorkTimeFiltering();
                 }
+                GetRequestHeader.GetTraitHeaders("get/stores/{storeID}/services/{serviceID}/workTimes/count");
                 return Json(iworktime.GetWorkTimesCount(storeID, serviceID, worktime));
             }
             catch (Exception ex)

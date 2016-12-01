@@ -23,7 +23,8 @@ public class Bootstrap
               new InstallerComponent(),
            new InstallerInfrstructure(),
            new InstallerRepository(),
-           new InstallerApplicationService()
+           new InstallerApplicationService(),
+           new InstallerAdminWeb()
             );
 
 

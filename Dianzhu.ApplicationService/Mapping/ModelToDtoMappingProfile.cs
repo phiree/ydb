@@ -29,12 +29,12 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<MemberDto, customerObj>()
-            .ForMember(x => x.alias, opt => opt.MapFrom(source => source.UserName))
+            .ForMember(x => x.alias, opt => opt.MapFrom(source => source.DisplayName))
             .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.AvatarUrl : ""))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<MemberDto, merchantObj>()
-           .ForMember(x => x.alias, opt => opt.MapFrom(source => source.UserName))
+           .ForMember(x => x.alias, opt => opt.MapFrom(source => source.DisplayName))
            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.AvatarUrl : ""))
            .ForAllMembers(opt => opt.NullSubstitute(""));
 

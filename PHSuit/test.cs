@@ -35,19 +35,20 @@ namespace PHSuit
         public void crypttest()
         {
 
-            Console.WriteLine("172_dianzhu_publish_test:" + PHSuit.Security.Encrypt("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test", false));
-            Console.WriteLine("172_ydb_membership:" + PHSuit.Security.Encrypt("data source=192.168.1.172;uid=root;pwd=root;database=ydb_membership", false));
-            Console.WriteLine("172_ydb_instantmessage:" + PHSuit.Security.Encrypt("data source=192.168.1.172;uid=root;pwd=root;database=ydb_instantmessage", false));
-            Console.WriteLine("172_ydb_finance:" + PHSuit.Security.Encrypt("data source=192.168.1.172;uid=root;pwd=root;database=ydb_finance", false));
-            Console.WriteLine("172_ydb_common:" + PHSuit.Security.Encrypt("data source=192.168.1.172;uid=root;pwd=root;database=ydb_common", false));
+            Console.WriteLine("172_dianzhu_publish_test:" + PHSuit.Security.Encrypt("172_dianzhu___data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test", false));
+            Console.WriteLine("172_ydb_membership:" + PHSuit.Security.Encrypt("172_membership___data source=192.168.1.172;uid=root;pwd=root;database=ydb_membership", false));
+            Console.WriteLine("172_ydb_instantmessage:" + PHSuit.Security.Encrypt("172_instantmessage___data source=192.168.1.172;uid=root;pwd=root;database=ydb_instantmessage", false));
+            Console.WriteLine("172_ydb_finance:" + PHSuit.Security.Encrypt("172_finance___data source=192.168.1.172;uid=root;pwd=root;database=ydb_finance", false));
+            Console.WriteLine("172_ydb_common:" + PHSuit.Security.Encrypt("172_common___data source=192.168.1.172;uid=root;pwd=root;database=ydb_common", false));
+            Console.WriteLine("172_ydb_businessresource:" + PHSuit.Security.Encrypt("172_businessresource___data source=192.168.1.172;uid=root;pwd=root;database=ydb_businessresource", false));
 
-            Console.WriteLine("localhost_ydb_membership" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=ydb_membership", false));
-            Console.WriteLine("localhost_ydb_instantmessage" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=ydb_instantmessage", false));
-            Console.WriteLine("localhost_ydb_finance" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=ydb_finance", false));
-            Console.WriteLine("localhost_ydb_common" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=ydb_common", false));
-
-            Console.WriteLine("localhost_yuanfei" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=dianzhu", false));
-
+            Console.WriteLine("localhost_Dianzhu" + ":" + PHSuit.Security.Encrypt("localhost_dianzhu___data source=localhost;uid=root;pwd=root;database=dianzhu", false));
+            Console.WriteLine("localhost_ydb_membership" + ":" + PHSuit.Security.Encrypt("localhost_membership___data source=localhost;uid=root;pwd=root;database=ydb_membership", false));
+            Console.WriteLine("localhost_ydb_instantmessage" + ":" + PHSuit.Security.Encrypt("localhost_instantmessage___data source=localhost;uid=root;pwd=root;database=ydb_instantmessage", false));
+            Console.WriteLine("localhost_ydb_finance" + ":" + PHSuit.Security.Encrypt("localhost_finance___data source=localhost;uid=root;pwd=root;database=ydb_finance", false));
+            Console.WriteLine("localhost_ydb_common" + ":" + PHSuit.Security.Encrypt("localhost_common___data source=localhost;uid=root;pwd=root;database=ydb_common", false));
+            Console.WriteLine("localhost_ydb_businessresource" + ":" + PHSuit.Security.Encrypt("localhost_businessresource___data source=localhost;uid=root;pwd=root;database=ydb_businessresource", false));
+ 
             Console.WriteLine("150_dianzhu_test:" + PHSuit.Security.Encrypt("data source=192.168.1.150;uid=ydb;pwd=jsyk2016;database=dianzhu_test", false));
             Console.WriteLine("150_ydb_instantmessage:" + PHSuit.Security.Encrypt("data source=192.168.1.150;uid=ydb;pwd=jsyk2016;database=ydb_instantmessage", false));
 

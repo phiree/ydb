@@ -124,6 +124,7 @@
     <None Include="config\appSettings.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="config\connectionstrings.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

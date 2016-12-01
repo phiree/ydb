@@ -26,4 +26,20 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string CityPinyin { get; set; }
     }
+
+    public class BaiduCity
+    {
+        /// <summary>
+        /// 城市名
+        /// </summary>
+        public virtual string name { get; set; }
+        /// <summary>
+        /// 城市代码
+        /// </summary>
+        public virtual string code { get; set; }
+        /// <summary>
+        /// 城市拼音码
+        /// </summary>
+        public virtual string key { get; set; }
+    }
 }
