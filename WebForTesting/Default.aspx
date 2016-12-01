@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
-
+<%@ Import Namespace="Ydb.BusinessResource.DomainModel" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -19,7 +19,7 @@
                                                                 <div class="biz-item-h"><%#Eval("Name")%></div>
                                                                 <div class="biz-item-m">
                                                                     <div class="biz-img">
-                                                                        <img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=70&height=70&tt=3":"../images/common/touxiang/touxiang_70_70.png" %>'/>
+                                                                        <img src='<%# (( BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode((( BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=70&height=70&tt=3":"../images/common/touxiang/touxiang_70_70.png" %>'/>
                                                                     </div>
                                                                     <div class="biz-info m-b10">
                                                                         <div class="m-b10">
