@@ -40,7 +40,9 @@ namespace Dianzhu.CSClient
             container.Install(
                 new Ydb.Membership.Infrastructure.InstallerMembership(BuildDBConfig("ydb_membership"))        
                 );
-
+            container.Install(
+              new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig("ydb_businessresource"))
+              );
             container.Install(
                   new InstallerComponent(),
                new InstallerInfrstructure(),

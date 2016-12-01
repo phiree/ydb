@@ -104,6 +104,11 @@ namespace Dianzhu.CSClient
                 t.Start();
 
                 System.Windows.Application app=new System.Windows.Application();
+
+                VMIdentity vmIdentity = new VMIdentity("test_orderId", "sdf","aa", "");
+
+                pIdentityList.AddIdentity(vmIdentity);
+                AddIdentityTab(vmIdentity.CustomerId, vmIdentity.CustomerName);
                 app.Run((Window) mainPresenter.Form);
               //  mainPresenter.ShowDialog();
             }
