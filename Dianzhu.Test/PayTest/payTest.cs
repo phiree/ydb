@@ -7,6 +7,7 @@ using Dianzhu.Model;
 using NUnit.Framework;
 using FizzWare.NBuilder;
 using Dianzhu.BLL;
+using Ydb.Common;
 
 namespace Dianzhu.Test.PayTest
 {

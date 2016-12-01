@@ -139,49 +139,28 @@
     <Compile Include="BLLTest\Finance\BLLOrderShare.cs" />
     <Compile Include="BLLTest\Finance\BLLServiceTypePointTest.cs" />
     <Compile Include="BLLTest\OrderFlow.cs" />
-    <Compile Include="BLLTest\TestBLLPayment.cs" />
-    <Compile Include="BLLTest\TestBLLArea.cs" />
     <Compile Include="BLLTest\TestBLLServiceOrder.cs" />
-    <Compile Include="BLLTest\TestDZService.cs" />
     <Compile Include="Bootstrap.cs" />
-    <Compile Include="ClassMapper\DZMapperTests.cs" />
-    <Compile Include="DALTest\DALService.cs" />
-    <Compile Include="DALTest\MapTest.cs" />
     <Compile Include="DALTest\TestDALReceptionChatDD.cs" />
-    <Compile Include="DALTest\UnitOfWorkTest.cs" />
     <Compile Include="DiandianTest\DiandianTest.cs" />
-    <Compile Include="DianzhuModelTest\ServiceOrderTest.cs" />
     <Compile Include="DianzhuNotifyCenterTest\OrderNotifyTest.cs" />
     <Compile Include="DianzhuPushTest\TestPush.cs" />
     <Compile Include="DianzhuRestfulApi\ApiTestBase.cs" />
     <Compile Include="DianzhuRestfulApi\ClientApiTest.cs" />
     <Compile Include="dianzhu_test.cs" />
     <Compile Include="DZCSClientTest\LoginPresenterTest.cs" />
-    <Compile Include="DZCSClientTest\MainPresenterTest.cs" />
-    <Compile Include="DZCSClientTest\MessageAdapterTest\MessageAdapterTest.cs" />
     <Compile Include="DZCSClientTest\MessageBuildTest.cs" />
-    <Compile Include="DZCSClientTest\PGlobalTest.cs" />
-    <Compile Include="DZCSClientTest\PCustomerListTest.cs" />
-    <Compile Include="DZCSClientTest\PIdentityListTest.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
     <Compile Include="IdentityAccess\DALMembershipTests.cs" />
-    <Compile Include="IdentityManagerTests.cs" />
-    <Compile Include="InfraStructureTest\Class1.cs" />
-    <Compile Include="Installer.cs" />
     <Compile Include="JPush\JPushTests.cs" />
     <Compile Include="jsonconvert_test.cs" />
     <Compile Include="jsontest.cs" />
-    <Compile Include="ModelTest\DZServiceTest.cs" />
     <Compile Include="PayTest\payTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ExcelImportTest.cs" />
     <Compile Include="Push\BLLPushTests.cs" />
     <Compile Include="Push\PushMessageBuilderTests.cs" />
     <Compile Include="RespDataSHM_snapshotObjTests.cs" />
     <Compile Include="SecurityTest.cs" />
-    <Compile Include="SerialNo\SerialNoDbTests.cs" />
-    <Compile Include="ServiceOrder\DALServiceOrderTests.cs" />
-    <Compile Include="tagTest.cs" />
     <Compile Include="UnitOfWork\UnitOfWorkFactoryTests.cs" />
     <Compile Include="XMPush\XMPushTests.cs" />
   </ItemGroup>
@@ -246,10 +225,6 @@
       <Project>{D7AA114D-AD19-4399-B152-969D240053C7}</Project>
       <Name>Dianzhu.CSClient.ViewModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient\Dianzhu.CSClient.csproj">
-      <Project>{6A05019E-F3EA-460A-BC05-0336EB3BFCF4}</Project>
-      <Name>Dianzhu.CSClient</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
       <Project>{2E67AA78-6780-42BD-A3AB-AD953781E511}</Project>
       <Name>Dianzhu.DAL</Name>
@@ -274,13 +249,13 @@
       <Project>{be142427-1ce4-40f8-ac58-d0509ba05d21}</Project>
       <Name>Dianzhu.Push</Name>
     </ProjectReference>
-    <ProjectReference Include="..\JSYK.Infrastructure\JSYK.Infrastructure.csproj">
-      <Project>{7ce433bf-0692-4d37-ace9-e1984391cd3b}</Project>
-      <Name>JSYK.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
       <Name>PHSuit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
+      <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
+      <Name>Ydb.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
       <Project>{a141eb7d-6e71-43c1-9ca7-12af1b74c1c7}</Project>
@@ -295,6 +270,13 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ClassMapper\" />
+    <Folder Include="DianzhuModelTest\" />
+    <Folder Include="DZCSClientTest\MessageAdapterTest\" />
+    <Folder Include="InfraStructureTest\" />
+    <Folder Include="ModelTest\" />
+    <Folder Include="SerialNo\" />
+    <Folder Include="ServiceOrder\" />
     <Folder Include="XMPPTest\" />
   </ItemGroup>
   <ItemGroup>
