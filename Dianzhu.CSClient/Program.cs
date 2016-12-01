@@ -26,7 +26,7 @@ using NHibernate.Tool.hbm2ddl;
 using Application = System.Windows.Forms.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 using Ydb.InstantMessage.Application;
-using Dianzhu.Model.Enums;
+
 using Dianzhu.CSClient.Presenter;
 using Dianzhu.CSClient.ViewModel;
 using Dianzhu.CSClient.Presenter.VMAdapter;
@@ -37,6 +37,7 @@ using System.Windows.Threading;
 using Ydb.InstantMessage.Application.Dto;
 using Ydb.InstantMessage.DomainModel.Chat;
 using System.IO;
+using Ydb.Common;
 
 namespace Dianzhu.CSClient
 {

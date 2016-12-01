@@ -184,6 +184,10 @@
       <Project>{0122c6d5-6348-4b65-88b7-3c43a6e642f3}</Project>
       <Name>PHSuit</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
+      <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
+      <Name>Ydb.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

@@ -15,6 +15,7 @@ using System.Net;
 using Newtonsoft.Json.Converters;
 using System.Diagnostics;
 using Dianzhu.RequestRestful;
+using Ydb.Common;
 
 namespace Dianzhu.DemoClient
 {

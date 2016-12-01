@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Dianzhu.CSClient.IView;
 using Dianzhu.BLL;
 using Dianzhu.IDAL;
+using Ydb.BusinessResource.Application;
 
 namespace Dianzhu.CSClient
 {
@@ -32,6 +33,7 @@ namespace Dianzhu.CSClient
                         "bllPushService", 
                         new PushService(container.Resolve<IDALServiceOrderPushedService>(),
                         container.Resolve<IBLLServiceOrder>(), 
+                        container.Resolve<IDZServiceService>(),
                         new BLLPayment(container.Resolve<IDALPayment>(),
                         container.Resolve<IDALClaims>()), 
                         new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>()))

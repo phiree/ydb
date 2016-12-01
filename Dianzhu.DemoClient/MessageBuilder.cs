@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using agsXMPP;
 using agsXMPP.protocol.client;
+using Ydb.Common;
+
 namespace Dianzhu.DemoClient
 {
    public  class MessageBuilder

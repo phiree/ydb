@@ -4,6 +4,7 @@ using agsXMPP.protocol.client;
 using agsXMPP;
 using System;
 using System.Text.RegularExpressions;
+using Ydb.Common;
 
 namespace DianzhuService.Diandian
 {
@@ -128,7 +129,7 @@ namespace DianzhuService.Diandian
                     string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
                     string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
                                                   <active xmlns = ""http://jabber.org/protocol/chatstates""></active><body>客服已上线</body><ext xmlns=""ihelper:notice:cer:online""></ext></message>",
-                                                      msg.From.User + "@" + server + "/" + .enum_XmppResource.YDBan_User, msg.To.User, Guid.NewGuid());
+                                                      msg.From.User + "@" + server + "/" + enum_XmppResource.YDBan_User, msg.To.User, Guid.NewGuid());
                     GlobalViables.XMPPConnection.Send(noticeDraftNew);
                     log.Debug("send message:" + noticeDraftNew);
                     return;
