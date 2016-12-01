@@ -389,6 +389,20 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        DateTime targetTime;
+        public DateTime TargetTime
+        {
+            get
+            {
+                return targetTime;
+            }
+
+            set
+            {
+                targetTime = value;
+            }
+        }
+
         #endregion
 
         #region 接口委托的事件

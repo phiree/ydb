@@ -244,7 +244,7 @@ namespace Dianzhu.CSClient.ViewWPF
                     VMChat = vmChat
                 };
 
-                string chatId = PHSuit.StringHelper.SafeNameForWpfControl(vmChat.ChatId,GlobalVariable.PRECHATCUSTOMER);
+                string chatId = PHSuit.StringHelper.SafeNameForWpfControl(vmChat.ChatId,GlobalVariable.PRE_CHAT_CUSTOMER);
                 if ((UC_ChatCustomer)stackPanel.FindName(chatId) == null)
                 {
                     stackPanel.RegisterName(chatId, chatCustomer);
@@ -331,7 +331,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 try
                 {
-                    string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString(),GlobalVariable.PRECHATCUSTOMER);
+                    string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString(),GlobalVariable.PRE_CHAT_CUSTOMER);
                     UC_ChatCustomer ucC = stackPanel.FindName(id) as UC_ChatCustomer;
                     UC_ChatImageNoraml ucCI = ucC.FindName(id) as UC_ChatImageNoraml;
                     ucCI.ShowMask();
@@ -357,7 +357,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 try
                 {
-                    string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString(),GlobalVariable.PRECHATCUSTOMER);
+                    string id = PHSuit.StringHelper.SafeNameForWpfControl(chatId.ToString(),GlobalVariable.PRE_CHAT_CUSTOMER);
                     UC_ChatCustomer ucC = stackPanel.FindName(id) as UC_ChatCustomer;
                     UC_ChatImageNoraml ucCI = ucC.FindName(id) as UC_ChatImageNoraml;
                     ucCI.RemoveMask();

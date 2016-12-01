@@ -9,7 +9,7 @@ namespace Dianzhu.CSClient.IView
     /// <summary>
     /// 显示一些系统通知
     /// </summary>
-    public interface IViewTabControl
+    public interface IViewToolsControl
     {
         event SetSearchAddress SetSearchAddress;
     }

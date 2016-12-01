@@ -11,16 +11,27 @@ namespace Dianzhu.CSClient.Presenter
     /// <summary>
     /// order的控制类
     /// </summary>
-  public  class PTabControl
+  public  class PToolsControl
     {
-        IViewTabControl viewTabControl;
+        IViewToolsControl viewToolsControl;
         IViewSearch viewSearch;
-        public PTabControl(IViewTabControl viewTabControl, IViewSearch viewSearch)
-        {
-            this.viewTabControl = viewTabControl;
-            this.viewSearch = viewSearch;
 
-            viewTabControl.SetSearchAddress += ViewTabControl_SetSearchAddress;
+        string identity;
+        public IViewToolsControl ViewToolsControl
+        {
+            get
+            {
+                return viewToolsControl;
+            }
+        }
+
+        public PToolsControl(IViewToolsControl viewToolsControl, IViewSearch viewSearch,string identity)
+        {
+            this.viewToolsControl = viewToolsControl;
+            this.viewSearch = viewSearch;
+            this.identity = identity;
+
+            viewToolsControl.SetSearchAddress += ViewTabControl_SetSearchAddress;
         }
 
         private void ViewTabControl_SetSearchAddress(string address)

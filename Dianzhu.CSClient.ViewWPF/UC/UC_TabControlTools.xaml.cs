@@ -19,7 +19,7 @@ namespace Dianzhu.CSClient.ViewWPF
     /// <summary>
     /// UC_TabControlTools.xaml 的交互逻辑
     /// </summary>
-    public partial class UC_TabControlTools : UserControl, IView.IViewTabControl
+    public partial class UC_TabControlTools : UserControl, IView.IViewToolsControl
     {
         bool loadCompleted = false;
         public event SetSearchAddress SetSearchAddress;
