@@ -32,8 +32,8 @@
     <MinimumRequiredVersion>1.0.0.9</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>default.htm</WebPage>
-    <ApplicationRevision>166</ApplicationRevision>
-    <ApplicationVersion>1.2.0.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -166,7 +166,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstraper.cs" />
+    <Compile Include="Bootstrape.cs" />
     <Compile Include="InstallerUI.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -232,9 +232,17 @@
       <Project>{755eea8c-9d5e-406e-83dd-36b3ba4eb158}</Project>
       <Name>Dianzhu.CSClient.IView</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.LocalStorage\Dianzhu.CSClient.LocalStorage.csproj">
+      <Project>{6F064359-8BBD-4BDA-9532-D93505472582}</Project>
+      <Name>Dianzhu.CSClient.LocalStorage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.Presenter\Dianzhu.CSClient.Presenter.csproj">
-      <Project>{5AC8D7DE-A53D-4698-8957-C78D9243A793}</Project>
+      <Project>{2955ff18-c6c2-418c-bc99-a68e20ec0d61}</Project>
       <Name>Dianzhu.CSClient.Presenter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj">
+      <Project>{D7AA114D-AD19-4399-B152-969D240053C7}</Project>
+      <Name>Dianzhu.CSClient.ViewModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.ViewWPF\Dianzhu.CSClient.ViewWPF.csproj">
       <Project>{97792986-3421-464a-8711-0fc6eaba9bcb}</Project>
@@ -255,6 +263,10 @@
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MediaServer\MediaServer.csproj">
+      <Project>{9920da22-589c-4193-aeaa-363d5c029dfc}</Project>
+      <Name>MediaServer</Name>
     </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
