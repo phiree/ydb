@@ -12,6 +12,8 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/WdatePicker")
+    @*<script src="~/Scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>*@
     <script type="text/javascript">
         
         $(document).ready(function () {
@@ -91,7 +93,7 @@
         function GetLogList() {
             $("#divLog").html("<img src='Content/load.gif' alt='数据加载中...' />");
             $.ajax({
-                url: "/Home/LogList?apiRoute=" + $("#hApiRoute").val() + "&searchText=" + $("#txtSearchLog").val(),
+                url: "/Home/LogList?apiRoute=" + $("#txtSearchApiRoute").val() + "&beginTime=" + $("#txtSearchBeginTime").val() + "&endTime=" + $("#txtSearchEndTime").val() + "&searchText=" + $("#txtSearchLog").val(),
                 //async: false,//同步
                 error: function () {
                     $("#divLog").html("数据加载失败！");
@@ -103,9 +105,9 @@
         }
 
         function GetApiLog(obj){
-            $("#hApiRoute").val(obj.children[1].innerText);
+            $("#txtSearchApiRoute").val(obj.children[1].innerText);
             $.ajax({
-                url: "/Home/ApiCount?apiRoute=" + $("#hApiRoute").val(),
+                url: "/Home/ApiCount?apiRoute=" + $("#txtSearchApiRoute").val(),
                 //async: false,//同步
                 error: function () {
                 },

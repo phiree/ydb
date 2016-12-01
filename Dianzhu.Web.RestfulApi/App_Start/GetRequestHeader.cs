@@ -14,7 +14,7 @@ namespace Dianzhu.Web.RestfulApi
     {
         public static Customer GetTraitHeaders(string apiUrl)
         {
-            log4net.ILog log = log4net.LogManager.GetLogger(apiUrl+".Rule.v1.RestfulApi.Web.Dianzhu");
+            log4net.ILog log = log4net.LogManager.GetLogger("Ydb."+apiUrl +".Rule.v1.RestfulApi.Web.Dianzhu");
             common_Trait_Headers headers = new common_Trait_Headers();
             HttpRequest req = HttpContext.Current.Request;
             headers.appName = req.Headers.GetValues("appName").FirstOrDefault();

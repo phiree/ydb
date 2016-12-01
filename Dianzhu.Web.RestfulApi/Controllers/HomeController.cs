@@ -31,7 +31,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             {
                 var buildersFilter = Builders<log>.Filter;
                 //var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute="+ apiInfoList[i].ApiRoute + "/");
-                var filter = buildersFilter.Eq("logger", apiInfoList[i].ApiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu");
+                var filter = buildersFilter.Eq("logger", "Ydb." + apiInfoList[i].ApiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu");
                 //var logCount= logs.CountAsync(a => a.logger.Contains("Dianzhu.Web.RestfulApi") && a.logger.Contains("ApiRoute="+ apiInfoList[i].ApiRoute)).ToListAsync().Result;
                 var logCount = logs.CountAsync(filter);
                 apiInfoList[i].ApiRequstNum = logCount.Result;
@@ -45,7 +45,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             var logs = db.logs;
             var buildersFilter = Builders<log>.Filter;
             //var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute=" + apiRoute + "/"); 
-            var filter = buildersFilter.Eq("logger", apiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu");
+            var filter = buildersFilter.Eq("logger", "Ydb."+apiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu");
             var logCount = logs.CountAsync(filter).Result;
             return Content(logCount.ToString());
         }
@@ -78,7 +78,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers
 
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult LogList(string apiRoute,string searchText)
+        public ActionResult LogList(string apiRoute,string searchText,string beginTime,string endTime)
         {
             IList<log> logList = new List<log>();
             var logs = db.logs;//不填"ApiInfos"，则默认为ApiInfos
@@ -93,9 +93,28 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             else
             {
                 strLogger = "logger";
-                apiRoute = apiRoute+".Rule.v1.RestfulApi.Web.Dianzhu";
+                apiRoute = "Ydb." + apiRoute +".Rule.v1.RestfulApi.Web.Dianzhu";
             }
+            //DateTime dtBeginTime = new DateTime();
+            //DateTime dtEndTime = new DateTime();
+            //db.posts.find({ created_on: {$gte: start, $lt: end} });
             var filter = buildersFilter.Eq(strLogger, apiRoute) & buildersFilter.Regex("message", "/" + searchText + "/");
+            //if (DateTime.TryParse(beginTime, out dtBeginTime))
+            //{
+            //    filter = filter & buildersFilter.Gte("date", dtBeginTime);
+            //}
+            //if (DateTime.TryParse(endTime, out dtEndTime))
+            //{
+            //    filter = filter & buildersFilter.Lte("date", dtEndTime);
+            //}
+            if (!string.IsNullOrEmpty(beginTime))
+            {
+                filter = filter & buildersFilter.Gte("date", beginTime);
+            }
+            if (!string.IsNullOrEmpty(endTime))
+            {
+                filter = filter & buildersFilter.Lte("date", endTime);
+            }
             var sort = Builders<log>.Sort.Descending("date");
             logList = logs.Find(filter).Sort(sort).Limit(100).ToListAsync().Result;
             return View(logList);

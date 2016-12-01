@@ -16,8 +16,8 @@ namespace Ydb.Common.Tests
         {
             LoggingConfiguration.Config(string.Empty);
 
-            log4net.ILog log = log4net.LogManager.GetLogger("Ydb.CommTest");
-
+            //log4net.ILog log = log4net.LogManager.GetLogger("Ydb.CommTest");
+            log4net.ILog log = log4net.LogManager.GetLogger("Ydb.post.Rule.v1.RestfulApi.Web.Dianzhu");
             log.Debug("aaaaaa");
 
 

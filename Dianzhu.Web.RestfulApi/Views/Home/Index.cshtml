@@ -22,20 +22,22 @@
 
 
         </div>
-        </div>
+    </div>
     <div class="col-md-6">
         <div class="row">
-            <div class="col-md-4">
-                <h3>接口访问日志</h3>
+            <div class="col-md-2">
+                <h3>日志</h3>
             </div>
-            <div class="col-md-8">
-                <div class="input-group" style="float:right;margin-top: 20px;">
-                    <input id="txtSearchLog" type="text" class="form-control" placeholder="Search">
-                    <span class="input-group-btn">
-                        <button id="btnSearchLog" class="btn btn-default" type="button" onclick="GetLogList()">Go!</button>
-                    </span>
-                </div>
-            </div>
+            <div class="col-md-10">
+                <form  class="form-inline" style="margin-top: 20px;">
+                    <input id="txtSearchApiRoute" class="form-control" type="text" placeholder="接口路由"  style="width: 200px;" >
+                    <input id="txtSearchBeginTime" class="form-control" type="text"onClick="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm'})" style="width: 100px;"  placeholder="开始时间" >
+                    —
+                    <input id="txtSearchEndTime" class="form-control" type="text" onClick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm' })" style="width: 100px;"  placeholder="结束时间" >
+                    <input id="txtSearchLog" class="form-control" type="text"  placeholder="搜索条件 ..." >
+                    <button id="btnSearchLog" class="btn btn-default" type="button" onclick="GetLogList()">搜索</button>
+                </form>
+           </div>
         </div>
         <div id="divLog"></div>
     </div>

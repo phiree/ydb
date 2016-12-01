@@ -52,7 +52,6 @@ namespace PHSuit
                 "%date [%thread] %-5level %logger- %message%newline");
             // this activates the FileAppender (without it, nothing would be written)
             appenderMain.ActivateOptions();
- 
             logger.Level = Level.Debug;
             logger.AddAppender(appenderMain);
         }

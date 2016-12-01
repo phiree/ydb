@@ -241,7 +241,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
             }
             catch (Exception ex)
             {
-                log4net.ILog ilog = log4net.LogManager.GetLogger("ex_confirmService.NoRule.v1.RestfulApi.Web.Dianzhu");
+                log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.ex_confirmService.NoRule.v1.RestfulApi.Web.Dianzhu");
                 ilog.Error(ex.ToString());
                 return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
             }

@@ -79,7 +79,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     userBody = new Common_Body();
                 }
-                log4net.ILog log = log4net.LogManager.GetLogger("post/customers.Rule.v1.RestfulApi.Web.Dianzhu");
+                log4net.ILog log = log4net.LogManager.GetLogger("Ydb.post/customers.Rule.v1.RestfulApi.Web.Dianzhu");
                 string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
                 log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=post/customers,UserName=" + userBody.phone + ",UserId=,UserType=customer");
                 return Json(iuserservice.PostUser(userBody,"customer"));
@@ -137,7 +137,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 u3rd_Model.appName = apiKey;
 
 
-                log4net.ILog log = log4net.LogManager.GetLogger("post/customer3rds.Rule.v1.RestfulApi.Web.Dianzhu");
+                log4net.ILog log = log4net.LogManager.GetLogger("Ydb.post/customer3rds.Rule.v1.RestfulApi.Web.Dianzhu");
                 string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
                 log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=post/customer3rds,UserName=" + u3rd_Model.platform + ",UserId=,UserType=customer");
                 return Json(iuserservice.PostUser3rds(u3rd_Model, "customer"));
@@ -162,7 +162,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     userFilter = new common_Trait_UserFiltering();
                 }
-                log4net.ILog log = log4net.LogManager.GetLogger("get/customers/count.Rule.v1.RestfulApi.Web.Dianzhu");
+                log4net.ILog log = log4net.LogManager.GetLogger("Ydb.get/customers/count.Rule.v1.RestfulApi.Web.Dianzhu");
                 string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
                 log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=get/customers/count,UserName=,UserId=,UserType=customer");
                 return Json(iuserservice.GetUsersCount(userFilter, "customer"));
@@ -241,7 +241,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 {
                     userChangeBody = new UserChangeBody();
                 }
-                log4net.ILog log = log4net.LogManager.GetLogger("patch/customers/phones/{phone}.Rule.v1.RestfulApi.Web.Dianzhu");
+                log4net.ILog log = log4net.LogManager.GetLogger("Ydb.patch/customers/phones/{phone}.Rule.v1.RestfulApi.Web.Dianzhu");
                 string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
                 log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=patch/customers/phones/{phone},UserName=" + userChangeBody.phone + ",UserId=,UserType=customer");
                 return Json(iuserservice.PatchPasswordForForget(phone, userChangeBody.newPassWord));

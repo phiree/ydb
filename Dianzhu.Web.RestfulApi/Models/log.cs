@@ -21,12 +21,9 @@ namespace Dianzhu.Web.RestfulApi.Models
         public String logger1 { get; set; }
         public String logger2 { get; set; }
         public String message { get; set; }
-        public String threadContextProperty { get; set; }
-        public String globalContextProperty { get; set; }
-        public String numberProperty { get; set; }
-        public String dateProperty { get; set; }
-        public String exception { get; set; }
-        public String customProperty { get; set; }
-
+        public String filename { get; set; }
+        public String linenumber { get; set; }
+        public String classname { get; set; }
+        public String domain { get; set; }
     }
 }

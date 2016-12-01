@@ -59,14 +59,30 @@ namespace Ydb.Common
         private static void CreateLoggerMogo(Hierarchy hierarchy,log4net.Core.Level logLevel, string loggerName, string logfileName, string appenderName, int maxFileSize, int maxRollBackups)
         {
             Logger logger = hierarchy.GetLogger(loggerName) as Logger;
-
             
-             MongoDBAppender appenderMain = new MongoDBAppender();
+            MongoDBAppender appenderMain = new MongoDBAppender();
             appenderMain.ConnectionString = "mongodb://localhost";
+            appenderMain.CollectionName = "logs";
+            //MongoAppenderFileld mf = new MongoAppenderFileld();
+            //mf.Name = "logger2";
+            //LoggingEvent le = new LoggingEvent();
+            //mf.Layout.Format("%logger{5}");
+            //new Layout2RawLayoutAdapter(new PatternLayout("%logger{5}")
+            appenderMain.AddField(new MongoAppenderFileld { Layout= new Layout2RawLayoutAdapter(new PatternLayout("%date")),Name = "date" });
+            appenderMain.AddField(new MongoAppenderFileld { Layout = new Layout2RawLayoutAdapter(new PatternLayout("%thread")), Name = "thread" });
+            appenderMain.AddField(new MongoAppenderFileld { Layout = new Layout2RawLayoutAdapter(new PatternLayout("%level")), Name = "level" });
+            appenderMain.AddField(new MongoAppenderFileld { Layout = new Layout2RawLayoutAdapter(new PatternLayout("%logger")), Name = "logger" });
+            appenderMain.AddField(new MongoAppenderFileld { Layout = new Layout2RawLayoutAdapter(new PatternLayout("%logger{5}")), Name = "logger2" });
+            appenderMain.AddField(new MongoAppenderFileld { Layout = new Layout2RawLayoutAdapter(new PatternLayout("%logger{4}")), Name = "logger1" });
+            appenderMain.AddField(new MongoAppenderFileld { Layout = new Layout2RawLayoutAdapter(new PatternLayout("%message")), Name = "message" });
+            appenderMain.AddField(new MongoAppenderFileld { Layout = new Layout2RawLayoutAdapter(new PatternLayout("%file")), Name = "filename" });
+            appenderMain.AddField(new MongoAppenderFileld { Layout = new Layout2RawLayoutAdapter(new PatternLayout("%line")), Name = "linenumber" });
+            appenderMain.AddField(new MongoAppenderFileld { Layout = new Layout2RawLayoutAdapter(new PatternLayout("%class")), Name = "classname" });
+            appenderMain.AddField(new MongoAppenderFileld { Layout = new Layout2RawLayoutAdapter(new PatternLayout("%appdomain")), Name = "domain" });
             appenderMain.Name = appenderName;
  
-            appenderMain.Layout = new PatternLayout(
-                "%date [%thread] %-5level %logger- %message%newline");
+            //appenderMain.Layout = new PatternLayout(
+               // "%date [%thread] %-5level %logger- %message%newline");
             // this activates the FileAppender (without it, nothing would be written)
             appenderMain.ActivateOptions();
 

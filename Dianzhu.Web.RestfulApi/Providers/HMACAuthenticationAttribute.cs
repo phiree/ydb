@@ -23,7 +23,7 @@ namespace Dianzhu.Web.RestfulApi
 {
     public class HMACAuthenticationAttribute : Attribute, IAuthenticationFilter
     {
-        log4net.ILog ilog = log4net.LogManager.GetLogger("HMACAuthenticationAttribute.NoRule.v1.RestfulApi.Web.Dianzhu");
+        log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.HMACAuthenticationAttribute.NoRule.v1.RestfulApi.Web.Dianzhu");
         private static Dictionary<string, string> allowedApps = new Dictionary<string, string>();
         private readonly Int64 requestMaxAgeInSeconds = 300000;  //5 mins
         private readonly string authenticationScheme = "amx";
@@ -87,7 +87,7 @@ namespace Dianzhu.Web.RestfulApi
             if (req.Headers.TryGetValues("stamp_TIMES", out keyValue))
             {
                 stamp_TIMES = keyValue.FirstOrDefault();
-                ilog.Debug("Request(stamp_TIMES):" + stamp_TIMES);
+                //ilog.Debug("Request(stamp_TIMES):" + stamp_TIMES);
                 reqTime = stamp_TIMES;
             }
             else
@@ -97,7 +97,7 @@ namespace Dianzhu.Web.RestfulApi
             if (req.Headers.TryGetValues("appName", out keyValue))
             {
                 appName = keyValue.FirstOrDefault();
-                ilog.Debug("Request(appName)"+ reqTime + ":" + appName);
+                //ilog.Debug("Request(appName)"+ reqTime + ":" + appName);
             }
             else
             {
@@ -106,12 +106,12 @@ namespace Dianzhu.Web.RestfulApi
             if (req.Headers.TryGetValues("token", out keyValue))
             {
                 token = keyValue.FirstOrDefault();
-                ilog.Debug("Request(token)" + reqTime + ":" + token);
+                //ilog.Debug("Request(token)" + reqTime + ":" + token);
             }
             if (req.Headers.TryGetValues("sign", out keyValue))
             {
                 sign = keyValue.FirstOrDefault();
-                ilog.Debug("Request(sign)" + reqTime + ":" + sign);
+                //ilog.Debug("Request(sign)" + reqTime + ":" + sign);
             }
             else
             {
@@ -236,9 +236,9 @@ namespace Dianzhu.Web.RestfulApi
                 return false;
             }
 
-            ilog.Debug("Request(RequestMethod)" + reqTime + ":" + req.Method.ToString());
+            ilog.Debug("Request(RequestMethodUriSign)" + reqTime + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + sign);
             reqUri = req.RequestUri.AbsolutePath.ToLower();
-            ilog.Debug("Request(RequestUri)" + reqTime + ":" + req.RequestUri.AbsolutePath.ToLower());
+            //ilog.Debug("Request(RequestUri)" + reqTime + ":" + requestUri);
             //认证时是否加入token
             if (utils.CheckRoute(req.RequestUri.AbsolutePath.ToLower(),req.Method.ToString()))
             { }
@@ -427,7 +427,7 @@ namespace Dianzhu.Web.RestfulApi
     
     public class ResultWithChallenge : IHttpActionResult
     {
-        log4net.ILog ilog = log4net.LogManager.GetLogger("ResultWithChallenge.NoRule.v1.RestfulApi.Web.Dianzhu");
+        log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.ResultWithChallenge.NoRule.v1.RestfulApi.Web.Dianzhu");
         private readonly string authenticationScheme = "amx";
         private readonly IHttpActionResult next;
 
