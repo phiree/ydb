@@ -118,27 +118,13 @@ namespace Dianzhu.CSClient.ViewWPF
             //清空订单搜索内容
             SearchedService = null;
 
-            //ReceptionChat chat = (ReceptionChat)e.Result;
-            //if (chat != null)
-            //{
-            //    NHibernateUnitOfWork.UnitOfWork.Start();
-            //    //NHibernateUnitOfWork.With.Transaction(() => {
-            //    //    NHibernateUnitOfWork.UnitOfWork.Current.Refresh(chat);
-            //        log.Debug("开始发送消息");
-            //        iIm.SendMessage(chat);
-            //        log.Debug("消息发送完成");
-            //    //});
-            //    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            //    NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-            //}
-
             ServiceOrder order = e.Result as ServiceOrder;
 
             if (order != null)
             {
                 log.Debug("推送完成");
                 //todo:timerControl
-                PushServiceTimerSend();
+                //PushServiceTimerSend();
 
                 log.Debug("新草稿订单的id：" + order.Id.ToString());
                 string server = Dianzhu.Config.Config.GetAppSetting("ImServer");

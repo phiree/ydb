@@ -29,17 +29,14 @@ namespace Dianzhu.CSClient.Presenter
         IInstantMessage iIM;
         IDAL.IDALServiceType dalServiceType;
         IList<VMShelfService> SelectedServiceList;
-        //BLL.Common.SerialNo.ISerialNoBuilder serialNoBuilder;
         Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder;
-        LocalStorage.LocalChatManager localChatManager;
-        LocalStorage.LocalUIDataManager localUIDataManager;
-        IVMChatAdapter vmChatAdapter;
-        IVMIdentityAdapter vmIdentityAdapter;
+        LocalChatManager localChatManager;
         IDZMembershipService memberService;
 
         IReceptionService receptionService;
+        IViewTabContentTimer viewTabContentTimer;
 
-        string identity;
+        string identity = string.Empty;
         public IViewSearch ViewSearch
         {
             get
@@ -65,12 +62,14 @@ namespace Dianzhu.CSClient.Presenter
         #endregion
 
         #region contructor
- 
-        public PSearch(IInstantMessage iIM, IViewSearch viewSearch, IViewSearchResult viewSearchResult,
-            IViewChatList viewChatList,IViewIdentityList viewIdentityList,
-            IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder, IDAL.IDALServiceType dalServiceType,                     
-                    PushService bllPushService, Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder, LocalStorage.LocalChatManager localChatManager, LocalStorage.LocalUIDataManager localUIDataManager, 
-                    IVMChatAdapter vmChatAdapter,IVMIdentityAdapter vmIdentityAdapter, IDZMembershipService memberService, IReceptionService receptionService)
+
+        public PSearch(
+            IInstantMessage iIM, IViewSearch viewSearch, IViewSearchResult viewSearchResult,
+            IViewChatList viewChatList, IViewIdentityList viewIdentityList,
+            IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder, IDAL.IDALServiceType dalServiceType,
+                    PushService bllPushService, Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder,
+                    LocalChatManager localChatManager, IDZMembershipService memberService, IReceptionService receptionService,
+                    IViewTabContentTimer viewTabContentTimer, string identity)
         {
             this.serialNoBuilder = serialNoBuilder;
             this.viewSearch = viewSearch; ;
@@ -83,16 +82,12 @@ namespace Dianzhu.CSClient.Presenter
             this.bllPushService = bllPushService; 
             this.viewIdentityList = viewIdentityList;
             this.localChatManager = localChatManager;
-            this.localUIDataManager = localUIDataManager;
-            this.vmChatAdapter = vmChatAdapter;
-            this.vmIdentityAdapter = vmIdentityAdapter;
             this.memberService = memberService;
             this.receptionService = receptionService;
-
-            viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
-
+            this.viewTabContentTimer = viewTabContentTimer;
+            this.identity = identity;
+            
             viewSearch.Search += ViewSearch_Search;
-            viewSearch.SaveUIData += ViewSearch_SaveUIData;
 
             LoadTypes();
  
@@ -106,59 +101,6 @@ namespace Dianzhu.CSClient.Presenter
             viewSearch.ServiceTypeSecond_Select += ViewSearch_ServiceTypeSecond_Select;
             viewSearch.ServiceTypeThird_Select += ViewSearch_ServiceTypeThird_Select;
            
-        }
-
-        private void ViewIdentityList_IdentityClick(VMIdentity vmIdentity)
-        {
-            if (vmIdentity != null)
-            {
-                string id = vmIdentity.CustomerId.ToString();
-                localUIDataManager.InitUIData(id);
-                viewSearch.ServiceCustomerName = localUIDataManager.LocalUIDatas[id].Name;
-                viewSearch.SearchKeywordTime = localUIDataManager.LocalUIDatas[id].Date;
-                if (localUIDataManager.LocalUIDatas[id].ServiceType != null)
-                {
-                    if (localUIDataManager.LocalUIDatas[id].ServiceType.DeepLevel == 2)
-                    {
-                        ServiceType typeF = localUIDataManager.LocalUIDatas[id].ServiceType.Parent.Parent;
-                        ServiceType typeS = localUIDataManager.LocalUIDatas[id].ServiceType.Parent;
-                        ServiceType typeT = localUIDataManager.LocalUIDatas[id].ServiceType;
-
-                        viewSearch.setServiceTypeFirst = typeF;
-                        viewSearch.setServiceTypeSecond = typeS;
-                        viewSearch.setServiceTypeThird = typeT;
-                    }
-                    else if (localUIDataManager.LocalUIDatas[id].ServiceType.DeepLevel == 1)
-                    {
-                        viewSearch.setServiceTypeFirst = localUIDataManager.LocalUIDatas[id].ServiceType.Parent;
-                        viewSearch.setServiceTypeSecond = localUIDataManager.LocalUIDatas[id].ServiceType;
-                    }
-                    else if (localUIDataManager.LocalUIDatas[id].ServiceType.DeepLevel == 0)
-                    {
-                        viewSearch.setServiceTypeFirst = localUIDataManager.LocalUIDatas[id].ServiceType;
-                    }
-                }
-                else
-                {
-                    viewSearch.setServiceTypeFirst = ServiceTypeFirst;
-                }
-                viewSearch.ServiceName = localUIDataManager.LocalUIDatas[id].ServiceName;
-                viewSearch.ServiceTargetPriceMin = localUIDataManager.LocalUIDatas[id].PriceMin;
-                viewSearch.ServiceTargetPriceMax = localUIDataManager.LocalUIDatas[id].PriceMax;
-                viewSearch.ServiceCustomerPhone = localUIDataManager.LocalUIDatas[id].Phone;
-                viewSearch.UnitAmount = localUIDataManager.LocalUIDatas[id].Amount;
-                viewSearch.ServiceTargetAddress = localUIDataManager.LocalUIDatas[id].Address;
-                viewSearch.ServiceMemo = localUIDataManager.LocalUIDatas[id].Memo;
-                viewSearch.ServiceTargetAddressObj = localUIDataManager.LocalUIDatas[id].TargetAddressObj;
-            }
-        }
-
-        private void ViewSearch_SaveUIData(string key, object value)
-        {
-            if (!string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
-            {
-                localUIDataManager.Save(IdentityManager.CurrentCustomerId, key, value);
-            }
         }
 
         private void ViewSearchResult_FilterByBusinessName(string businessName)
@@ -178,13 +120,13 @@ namespace Dianzhu.CSClient.Presenter
             }
         }
 
+        #region 服务相关方法
         private void LoadTypes()
         {
             try
             {
                 NHibernateUnitOfWork.UnitOfWork.Start();
-                //Action ac = () =>
-                //{
+
                 System.Threading.Thread.Sleep(1000);
                 if (this.ServiceTypeListTmp != null) { return; }
 
@@ -209,34 +151,19 @@ namespace Dianzhu.CSClient.Presenter
             {
                 NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-            }
-            //};
-            //NHibernateUnitOfWork.With.Transaction(ac);            
+            }         
         }
         private void ViewSearch_ServiceTypeThird_Select(ServiceType type)
         {
             ServiceTypeThird = type;
-            if (!string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
-            {
-                localUIDataManager.Save(IdentityManager.CurrentCustomerId, "ServiceType", type);
-            }
         }
 
         private void ViewSearch_ServiceTypeSecond_Select(ServiceType type)
         {
-            //NHibernateUnitOfWork.UnitOfWork.Start();
-            //Action ac = () =>
-            //{
             try
             {
                 if (type != null)
                 {
-
-                    //if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
-                    //{
-
-                    //    NHibernateUnitOfWork.UnitOfWork.CurrentSession.Refresh(type);
-                    //}
                     ServiceTypeSecond = type;
                     ServiceTypeThird = null;
                     if (!ServiceTypeCach.ContainsKey(type))
@@ -247,17 +174,12 @@ namespace Dianzhu.CSClient.Presenter
                             NHibernateUnitOfWork.UnitOfWork.Start();
                             isSecondTypeStart = true;
                         }
-                        //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                        //NHibernateUnitOfWork.UnitOfWork.Start();
+
                         ServiceTypeCach[type] = type.Children;
                         if (isSecondTypeStart)
                         {
                             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                             NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-                        }
-                        if (!string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
-                        {
-                            localUIDataManager.Save(IdentityManager.CurrentCustomerId, "ServiceType", type);
                         }
                     }
                     viewSearch.ServiceTypeThird = ServiceTypeCach[type];
@@ -268,29 +190,13 @@ namespace Dianzhu.CSClient.Presenter
             {
                 log.Error(e);
             }
-            //};
-            //if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
-            //{
-            //    ac();
-            //}
-            //else
-            //{
-            //    NHibernateUnitOfWork.With.Transaction(ac);
-            //}
-            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         private void ViewSearch_ServiceTypeFirst_Select(ServiceType type)
         {
-
-            //Action ac = () =>
-            //{
-                if (type != null)
+            if (type != null)
             {
-                    //NHibernateUnitOfWork.UnitOfWork.CurrentSession.Refresh(type);
-
-                    ServiceTypeFirst = type;
+                ServiceTypeFirst = type;
                 ServiceTypeSecond = null;
                 ServiceTypeThird = null;
                 if (ServiceTypeCach[type] == null)
@@ -302,27 +208,16 @@ namespace Dianzhu.CSClient.Presenter
                 }
                 viewSearch.ServiceTypeSecond = ServiceTypeCach[type];
             }
-            //};
-            //NHibernateUnitOfWork.With.Transaction(ac);
-
         }
+        #endregion
 
         private ServiceOrder ViewSearchResult_PushServices(IList<Guid> pushedServices,out string errorMsg)
         {
             errorMsg = string.Empty;
-            SearchObj searchObj;
-            if (string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
+
+            if (string.IsNullOrEmpty(identity))
             {
                 errorMsg = "请选择用户后推送";
-                return null;
-            }
-            if (localUIDataManager.LocalSearchTempObj.ContainsKey(IdentityManager.CurrentCustomerId))
-            {
-                searchObj = localUIDataManager.LocalSearchTempObj[IdentityManager.CurrentCustomerId];
-            }
-            else
-            {
-                errorMsg = "订单已过期，请重新搜索";
                 return null;
             }
             if (string.IsNullOrEmpty(viewSearch.ServiceCustomerName))
@@ -335,7 +230,7 @@ namespace Dianzhu.CSClient.Presenter
                 errorMsg = "联系电话不能为空";
                 return null;
             }
-            if (searchObj.TargetTime < DateTime.Now)
+            if (viewSearch.TargetTime < DateTime.Now)
             {
                 errorMsg = "订单已过期，请重新搜索";
                 return null;
@@ -344,11 +239,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 errorMsg = "服务已过期，请重新搜索";
                 return null;
-            }
-
-            //禁用推送按钮
-            //viewSearchResult.BtnPush = false;
-            
+            }            
 
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
             DZService service;
@@ -357,7 +248,7 @@ namespace Dianzhu.CSClient.Presenter
             //订单不是草稿单的话，需生成新的草稿单后进行推送
             if (oldOrder.OrderStatus != Model.Enums.enum_OrderStatus.Draft)
             {
-                oldOrder = CreateDraftOrder(GlobalViables.CurrentCustomerService.Id.ToString(), IdentityManager.CurrentCustomerId);
+                oldOrder = CreateDraftOrder(GlobalViables.CurrentCustomerService.Id.ToString(), identity);
                 NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             }
 
@@ -366,7 +257,7 @@ namespace Dianzhu.CSClient.Presenter
                 service = dalDzService.FindById(serviceId);
                 NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
-                serviceOrderPushedServices.Add(new ServiceOrderPushedService(oldOrder, service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, searchObj.Address, searchObj.TargetTime, viewSearch.ServiceMemo ));
+                serviceOrderPushedServices.Add(new ServiceOrderPushedService(oldOrder, service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, viewSearch.ServiceTargetAddress, viewSearch.TargetTime, viewSearch.ServiceMemo ));
             }
             bllPushService.Push(oldOrder, serviceOrderPushedServices, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
@@ -406,11 +297,13 @@ namespace Dianzhu.CSClient.Presenter
 
             //iim发送消息
             Guid messageId = Guid.NewGuid();
-            iIM.SendMessagePushService(messageId, pushedServiceInfos, "推送的服务", IdentityManager.CurrentCustomerId, "YDBan_User", oldOrder.Id.ToString());
+            iIM.SendMessagePushService(messageId, pushedServiceInfos, "推送的服务", identity, "YDBan_User", oldOrder.Id.ToString());
+
+            //启动计时器
+            viewTabContentTimer.StartTimer();
 
 
             //助理工具显示发送的消息
-            //VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
             string imageUrl = string.IsNullOrEmpty(serviceOrderPushedServices[0].OriginalService.Business.BusinessAvatar.ImageName) ? string.Empty : Dianzhu.Config.Config.GetAppSetting("ImageHandler") + serviceOrderPushedServices[0].OriginalService.Business.BusinessAvatar.ImageName;
             VMChatPushServie vmChatPushService = new VMChatPushServie(
                 serviceOrderPushedServices[0].ServiceName,
@@ -423,7 +316,7 @@ namespace Dianzhu.CSClient.Presenter
                 messageId.ToString(),
                 GlobalViables.CurrentCustomerService.Id.ToString(),
                 GlobalViables.CurrentCustomerService.DisplayName,
-                IdentityManager.CurrentCustomerId,
+                identity,
                 DateTime.Now,
                 (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds,
                 "pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/DefaultCS.png",
@@ -431,43 +324,38 @@ namespace Dianzhu.CSClient.Presenter
                 "#b3d465",
                 true);
             viewChatList.AddOneChat(vmChatPushService);
-            //存储消息到内存中
-            localChatManager.Add(vmChatPushService.ToId, vmChatPushService);
 
             //生成新的草稿单
-            ServiceOrder newOrder = CreateDraftOrder(GlobalViables.CurrentCustomerService.Id.ToString(), IdentityManager.CurrentCustomerId);
+            ServiceOrder newOrder = CreateDraftOrder(GlobalViables.CurrentCustomerService.Id.ToString(), identity);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //更新当前订单
             //IdentityTypeOfOrder type;
             log.Debug("更新当前界面的订单");
             //IdentityManager.UpdateIdentityList(newOrder, out type);
-            IdentityTypeOfOrder type = IdentityManager.UpdateCustomerList(IdentityManager.CurrentCustomerId, newOrder.Id.ToString());
+            IdentityTypeOfOrder type = IdentityManager.UpdateCustomerList(identity, newOrder.Id.ToString());
             log.Debug("当前订单的id：" + IdentityManager.CurrentOrderId);
 
             //更新view
-            MemberDto cusomter = memberService.GetUserById(IdentityManager.CurrentCustomerId);
-            VMIdentity vmIdentityNew = new VMIdentity(newOrder.Id.ToString(), IdentityManager.CurrentCustomerId,cusomter.DisplayName, localChatManager.LocalCustomerAvatarUrls[IdentityManager.CurrentCustomerId]);
-            viewIdentityList.UpdateIdentityBtnName(IdentityManager.CurrentCustomerId, vmIdentityNew);
+            MemberDto cusomter = memberService.GetUserById(identity);
+            VMIdentity vmIdentityNew = new VMIdentity(newOrder.Id.ToString(), identity,cusomter.DisplayName, localChatManager.LocalCustomerAvatarUrls[identity]);
+            viewIdentityList.UpdateIdentityBtnName(identity, vmIdentityNew);
 
             //更新接待分配表
-            log.Debug("更新ReceptionStatus，customerId:" + IdentityManager.CurrentCustomerId + ",csId:" + GlobalViables.CurrentCustomerService.Id + ",orderId:" + newOrder.Id);
+            log.Debug("更新ReceptionStatus，customerId:" + identity + ",csId:" + GlobalViables.CurrentCustomerService.Id + ",orderId:" + newOrder.Id);
             //bllReceptionStatus.UpdateOrder(IdentityManager.CurrentIdentity.Customer, GlobalViables.CurrentCustomerService, newOrder);
-            receptionService.UpdateOrderId(IdentityManager.CurrentCustomerId, GlobalViables.CurrentCustomerService.Id.ToString(), newOrder.Id.ToString());
+            receptionService.UpdateOrderId(identity, GlobalViables.CurrentCustomerService.Id.ToString(), newOrder.Id.ToString());
 
             //清空搜索选项 todo:为了测试方便，先注释掉
             //viewSearch.ClearData();
             //发送订单通知.
 
             return newOrder;
-
-            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            //NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
         }
 
         private ServiceOrder CreateDraftOrder(string csId, string customerId)
         {
-            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService.Id.ToString(), IdentityManager.CurrentCustomerId);
+            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService.Id.ToString(), identity);
             bllServiceOrder.Save(newOrder);
 
             return newOrder;
@@ -476,14 +364,8 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId,string name,string lng,string lat)
         {
-            SearchObj searchObj = new SearchObj(name, minPrice, maxPrice, servieTypeId, targetTime, double.Parse(lng), double.Parse(lat), viewSearch.ServiceTargetAddress);
-            if (!string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
-            {
-                localUIDataManager.SaveSearchObj(IdentityManager.CurrentCustomerId, searchObj);
-            }
-            
-            //Action a = () =>
-            //{
+            viewSearch.TargetTime = targetTime;
+
             int total;
 
             IList<DZService> services = dalDzService.SearchService(name, minPrice, maxPrice, servieTypeId, targetTime, double.Parse(lng), double.Parse(lat), 0, 999, out total);
@@ -504,18 +386,6 @@ namespace Dianzhu.CSClient.Presenter
             }
             viewSearchResult.SearchedService = vmShelfServiceList;
             SelectedServiceList = vmShelfServiceList;
-
-            //NHibernateUnitOfWork.With.Transaction(a);
-
-            //foreach (DZService s in services)
-            //{
-
-            //}
-            //if (services.Count > 0)
-            //{
-            //    //启用推送按钮
-            //    viewSearchResult.BtnPush = true;
-            //}
         }
     }
 }

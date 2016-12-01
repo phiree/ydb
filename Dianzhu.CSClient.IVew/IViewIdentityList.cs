@@ -12,33 +12,32 @@ namespace Dianzhu.CSClient.IView
     public interface IViewIdentityList
     {
         event IdentityClick IdentityClick;
-        //增加一个标志
+        /// <summary>
+        /// 增加一个标志
+        /// </summary>
+        /// <param name="vmIdentity"></param>
         void AddIdentity(VMIdentity vmIdentity);
-        //删除一个用户
+        /// <summary>
+        /// 删除一个用户
+        /// </summary>
+        /// <param name="customerId"></param>
         void RemoveIdentity(string customerId);
         void UpdateIdentityBtnName(string customerId, VMIdentity vmIdentity);
-        //设置为未读
-        void SetIdentityUnread(string customerId, int messageAmount);
-        //设置为已读
-        void SetIdentityReaded(string customerId);
-
-        void IdleTimerStart(string cusomterId);
-        void IdleTimerStop(string customerId);
-
-        event FinalChatTimerTick FinalChatTimerTick;
-
         /// <summary>
-        /// 播放提示音
+        /// 设置为未读
         /// </summary>
-        void PlayVoice();
+        /// <param name="customerId"></param>
+        /// <param name="messageAmount"></param>
+        void SetIdentityUnread(string customerId, int messageAmount);
+        /// <summary>
+        /// 设置为已读
+        /// </summary>
+        /// <param name="customerId"></param>
+        void SetIdentityReaded(string customerId);
     }
     /// <summary>
     /// 点击用户按钮的委托.
     /// </summary>
     /// <param name="customer"></param>
-    public delegate void IdentityClick(VMIdentity vmIdentity);
-    /// <summary>
-    /// 客服发消息后在指定时间内触发的事件
-    /// </summary>
-    public delegate void FinalChatTimerTick(string customerId);
+    public delegate void IdentityClick(string identityId);
 }

@@ -35,6 +35,8 @@ using Ydb.Membership.Application;
 using Dianzhu.CSClient.LocalStorage;
 using System.Windows.Threading;
 using Ydb.InstantMessage.Application.Dto;
+using Ydb.InstantMessage.DomainModel.Chat;
+using System.IO;
 
 namespace Dianzhu.CSClient
 {
@@ -84,8 +86,7 @@ namespace Dianzhu.CSClient
             loginPresenter.Args = args;
             bool? result = loginPresenter.ShowDialog();
 
-
-            bool useWpf = true;
+            
             //登录成功
             if (result.Value)// == DialogResult.OK)
             {
@@ -112,6 +113,9 @@ namespace Dianzhu.CSClient
 
         }
 
+        /// <summary>
+        /// 自动拉取分配给点点的用户数据
+        /// </summary>
         private static void SysAssign()
         {
             try
@@ -132,7 +136,6 @@ namespace Dianzhu.CSClient
                         }
 
                         IdentityTypeOfOrder type = IdentityManager.UpdateCustomerList(assignList[i].CustomerId, assignList[i].OrderId);
-                        //IdentityManager.UpdateIdentityList(order, out type);
 
                         MemberDto customer = memberService.GetUserById(assignList[i].CustomerId);
                         ClientState.customerList.Add(customer);
@@ -159,6 +162,8 @@ namespace Dianzhu.CSClient
             }
         }
 
+        static BackgroundWorker workerChatImage;
+        static BackgroundWorker workerCustomerAvatar;
         private static void IIM_IMReceivedMessage(Ydb.InstantMessage.DomainModel.Chat.ReceptionChatDto chat)
         {
             string errMsg = string.Empty;
@@ -167,34 +172,38 @@ namespace Dianzhu.CSClient
             {
                 if (!string.IsNullOrEmpty(chat.SessionId)) 
                 {
-                    NHibernateUnitOfWork.UnitOfWork.Start();
-
-                    //todo:playvoice
-                    //iView.PlayVoice();
+                    NHibernateUnitOfWork.UnitOfWork.Start();//查询服务需开启
+                    
+                    IViewMainForm viewMainForm = Bootstrap.Container.Resolve<IViewMainForm>();
+                    viewMainForm.PlayVoice();
+                    viewMainForm.FlashTaskBar();
 
                     //1 更新当前聊天列表
                     //2 判断消息 和 聊天列表,当前聊天项的关系(是当前聊天项 但是需要修改订单 非激活的列表, 新聊天.
                     IdentityTypeOfOrder type;
-                    //IdentityManager.UpdateIdentityList(order, out type);
-
                     type = IdentityManager.UpdateCustomerList(chat.FromId, chat.SessionId);
 
                     ReceivedMessage(chat, type);
 
-                    //workerChatImage = new BackgroundWorker();
-                    //workerChatImage.DoWork += Worker_DoWork;
-                    //workerChatImage.RunWorkerCompleted += Worker_RunWorkerCompleted;
-                    //workerChatImage.RunWorkerAsync(chat);
+                    //聊天中的图片下载到本地
+                    if (chat is ReceptionChatMediaDto)
+                    {
+                        workerChatImage = new BackgroundWorker();
+                        workerChatImage.DoWork += Worker_DoWork;
+                        workerChatImage.RunWorkerCompleted += Worker_RunWorkerCompleted;
+                        workerChatImage.RunWorkerAsync(chat);
+                    }
 
-                    //// 用户头像的本地化处理
-                    //MemberDto from = memberService.GetUserById(chat.FromId);
-                    //if (from.AvatarUrl != null)
-                    //{
-                    //    workerCustomerAvatar = new BackgroundWorker();
-                    //    workerCustomerAvatar.DoWork += WorkerCustomerAvatar_DoWork;
-                    //    workerCustomerAvatar.RunWorkerCompleted += WorkerCustomerAvatar_RunWorkerCompleted;
-                    //    workerCustomerAvatar.RunWorkerAsync(from);
-                    //}
+
+                    // 用户头像的本地化处理
+                    MemberDto from = memberService.GetUserById(chat.FromId);
+                    if (from.AvatarUrl != null)
+                    {
+                        workerCustomerAvatar = new BackgroundWorker();
+                        workerCustomerAvatar.DoWork += WorkerCustomerAvatar_DoWork;
+                        workerCustomerAvatar.RunWorkerCompleted += WorkerCustomerAvatar_RunWorkerCompleted;
+                        workerCustomerAvatar.RunWorkerAsync(from);
+                    }
 
                     NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                     NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
@@ -202,18 +211,92 @@ namespace Dianzhu.CSClient
             }
         }
 
+        private static void WorkerCustomerAvatar_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            log.Debug("用户头像本地加载完成");
+        }
+
+        private static void WorkerCustomerAvatar_DoWork(object sender, DoWorkEventArgs e)
+        {
+            MemberDto customer = e.Argument as MemberDto;
+
+            string mediaUrl = customer.AvatarUrl;
+            string mediaUrl_32X32 = customer.AvatarUrl + "_32X32";
+            string fileName = string.Empty;
+            string fileName_32X32 = string.Empty;
+
+            if (!mediaUrl.Contains(GlobalViables.MediaGetUrl))
+            {
+                fileName = mediaUrl;
+                fileName_32X32 = mediaUrl_32X32;
+                mediaUrl_32X32 = GlobalViables.MediaGetUrl + mediaUrl_32X32;
+            }
+            else
+            {
+                fileName = mediaUrl.Replace(GlobalViables.MediaGetUrl, "");
+                fileName_32X32 = mediaUrl_32X32.Replace(GlobalViables.MediaGetUrl, "");
+            }
+
+            if (!File.Exists(PHSuit.LocalFileManagement.LocalFilePath + fileName_32X32))
+            {
+                if (PHSuit.LocalFileManagement.DownLoad(string.Empty, mediaUrl_32X32, fileName_32X32))
+                {
+                    customer.AvatarUrl = fileName;
+                    log.Debug("用户头像本地存储完成");
+                }
+            }
+        }
+
+        private static void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ReceptionChatDto chat = e.Result as ReceptionChatDto;
+            if (chat != null)
+            {
+                if (!string.IsNullOrEmpty(chat.SessionId))
+                {
+                    //iView.IdleTimerStop(chat.FromId);
+                }
+
+                if (chat is ReceptionChatMediaDto)
+                {
+                    viewTabContentList[chat.FromId].ViewChatList.RemoveChatImageNormalMask(chat.Id);
+                }
+            }
+        }
+
+        private static void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ReceptionChatDto chat = e.Argument as ReceptionChatDto;
+            
+            viewTabContentList[chat.FromId].ViewChatList.ShowChatImageNormalMask(chat.Id);
+
+            string mediaUrl = ((ReceptionChatMediaDto)chat).MedialUrl;
+            string fileName = string.Empty;
+            if (!mediaUrl.Contains(GlobalViables.MediaGetUrl))
+            {
+                fileName = mediaUrl;
+                mediaUrl = GlobalViables.MediaGetUrl + mediaUrl;
+            }
+            else
+            {
+                fileName = ((ReceptionChatMediaDto)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
+            }
+
+            bool downSuccess = PHSuit.LocalFileManagement.DownLoad(string.Empty, mediaUrl, fileName);
+
+            e.Result = chat;
+        }
+
         /// <summary>
         /// 接收聊天消息
         /// </summary>
         /// <param name="chat"></param>
-        /// <param name="isCurrentIdentity">是否是当前标识</param>
-        /// <param name="isCurrentCustomer"></param>
+        /// <param name="type">消息所属类型</param>
         public static void ReceivedMessage(Ydb.InstantMessage.DomainModel.Chat.ReceptionChatDto chat, IdentityTypeOfOrder type)
         {
-            IVMChatAdapter vmChatAdapter = Bootstrap.Container.Resolve<IVMChatAdapter>();           
-            
+            IVMChatAdapter vmChatAdapter = Bootstrap.Container.Resolve<IVMChatAdapter>();            
             VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
-            
+
             switch (type)
             {
                 case IdentityTypeOfOrder.CurrentCustomer:
@@ -234,8 +317,9 @@ namespace Dianzhu.CSClient
                     break;
                 default:
                     throw new Exception("无法判断消息属性");
-
             }
+
+            viewTabContentList[vmChat.FromId].ViewTabContentTimer.StopTimer();
         }
 
         /// <summary>
@@ -247,14 +331,16 @@ namespace Dianzhu.CSClient
             Action act = () =>
             {
                 IViewTabContent viewTabContent = Bootstrap.Container.Resolve<IViewTabContent>(new { identity = identityId });
-                //viewTabContent.IdleTimerOut += ViewTabContent_IdleTimerOut;
                 viewTabContentList.Add(identityId, viewTabContent);
+                viewTabContent.ViewTabContentTimer.Identity = identityId;
+                viewTabContent.ViewTabContentTimer.TimeOver += ViewTabContentTimer_TimeOver;
 
                 PSearch pSearch = Bootstrap.Container.Resolve<PSearch>(new
                 {
                     viewSearch = viewTabContent.ViewSearch,
                     viewSearchResult = viewTabContent.ViewSearchResult,
                     viewChatList = viewTabContent.ViewChatList,
+                    viewTabContentTimer = viewTabContent.ViewTabContentTimer,
                     identity = identityId
                 });
                 PChatList pChatList = Bootstrap.Container.Resolve<PChatList>(new
@@ -267,6 +353,7 @@ namespace Dianzhu.CSClient
                 {
                     viewChatSend = viewTabContent.ViewChatSend,
                     viewChatList = viewTabContent.ViewChatList,
+                    viewTabContentTimer = viewTabContent.ViewTabContentTimer,
                     identity = identityId
                 });
                 POrderHistory pOrderHistory = Bootstrap.Container.Resolve<POrderHistory>(new
@@ -282,7 +369,7 @@ namespace Dianzhu.CSClient
                 });
 
                 string identityFriendly = PHSuit.StringHelper.SafeNameForWpfControl(identityId, GlobalViables.PRE_TAB_CUSTOMER);
-                mainPresenter.AddIdentityTab(identityFriendly, viewTabContent);
+                mainPresenter.AddIdentityTabContent(identityFriendly, viewTabContent);
             };
             if (!System.Windows.Application.Current.Dispatcher.CheckAccess())
             {
@@ -292,6 +379,23 @@ namespace Dianzhu.CSClient
             {
                 act();
             }
+        }
+
+        private static void ViewTabContentTimer_TimeOver(string identity)
+        {
+            log.Debug("计时结束，customerId：" + identity);
+
+            if (IdentityManager.DeleteCustomer(identity))
+            {
+                string identityTabFriendly = PHSuit.StringHelper.SafeNameForWpfControl(identity, GlobalViables.PRE_TAB_CUSTOMER);
+                mainPresenter.RemoveIdentityTabContent(identityTabFriendly);
+
+                viewTabContentList.Remove(identity);
+                pIdentityList.RemoveIdentity(identity);
+
+                IReceptionService receptionService = Bootstrap.Container.Resolve<IReceptionService>();
+                receptionService.DeleteReception(identity);
+            }                
         }
 
         static bool CheckConfig()

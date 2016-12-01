@@ -25,312 +25,32 @@ namespace Dianzhu.CSClient.Presenter
 {
     /// <summary>
     /// 用户列表的控制.
-    /// 功能:
-    /// 1)根据接收的IM消息,增删用户列表,更改用户状态
-    /// 2)点击用户时,修改自身状态,加载聊天列表,加载订单信息
+    /// 功能:控制用户按钮的显示样式，显示对应用户的tabContent控件
     /// </summary>
     public class PIdentityList
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PIdentityList");
+
         IViewIdentityList iView;
-        IViewChatList iViewChatList;
-        IInstantMessage iIM;
-        IViewChatSend iViewChatSend;
-        IViewOrderHistory iViewOrderHistory;
-        
-        IViewSearchResult viewSearchResult;
-        LocalChatManager localChatManager;
-        LocalHistoryOrderManager localHistoryOrderManager;
-        LocalUIDataManager localUIDataManager;
-        IVMChatAdapter vmChatAdapter;
-        IVMIdentityAdapter vmIdentityAdapter;
-        IReceptionService receptionService;
-        IDZMembershipService memberService;
         IViewMainForm viewMainForm;
 
         public PIdentityList(
             IViewIdentityList iView,
-            IViewChatList iViewChatList,
-            IInstantMessage iIM,
-            IViewChatSend iViewChatSend,
-            IBLLServiceOrder bllServiceOrder, 
-            IViewOrderHistory iViewOrderHistory,
-            IViewSearchResult viewSearchResult,
-            LocalChatManager localChatManager,
-            LocalHistoryOrderManager localHistoryOrderManager,
-            LocalUIDataManager localUIDataManager,
-            IVMChatAdapter vmChatAdapter,
-            IVMIdentityAdapter vmIdentityAdapter,
-            IReceptionService receptionService,
-            IDZMembershipService memberService,
             IViewMainForm viewMainForm)
         {
-            this.localChatManager = localChatManager;
-            this.localHistoryOrderManager = localHistoryOrderManager;
-            this.localUIDataManager = localUIDataManager;
             this.iView = iView;
-            this.iIM = iIM;
-            this.iViewChatList = iViewChatList;
-            this.iViewChatSend = iViewChatSend;
-            this.iViewOrderHistory = iViewOrderHistory;
-            this.viewSearchResult = viewSearchResult;
-            this.vmChatAdapter = vmChatAdapter;
-            this.vmIdentityAdapter = vmIdentityAdapter;
-            this.receptionService = receptionService;
-            this.memberService = memberService;
             this.viewMainForm = viewMainForm;
 
             iView.IdentityClick += IView_IdentityClick;
-            iView.FinalChatTimerTick += IView_FinalChatTimerTick;
-            iViewChatSend.FinalChatTimerSend += IViewChatSend_FinalChatTimerSend;
-
-            //iIM.IMReceivedMessage += IIM_IMReceivedMessage;
-            viewSearchResult.PushServiceTimerSend += ViewSearchResult_PushServiceTimerSend;
-
-            Thread t = new Thread(SysAssign);
-            t.Start();
         }
-
-        private void SysAssign()
+        
+        public void IView_IdentityClick(string identity)
         {
             try
             {
-                log.Debug("-------开始 接收离线用户------");
-                IList<ReceptionStatusDto> assignList = receptionService.AssignCSLogin(GlobalViables.CurrentCustomerService.Id.ToString(), 3);
+                IdentityManager.SetCurrentCustomerId(identity);
 
-                //NHibernateUnitOfWork.UnitOfWork.Start();
-                
-                if (assignList.Count > 0)
-                {
-                    log.Debug("需要接待的离线用户数量:" + assignList.Count);
-                    for(int i=0;i< assignList.Count;i++)
-                    {
-                        Guid orderId;
-                        if (!Guid.TryParse(assignList[i].OrderId, out orderId))
-                        {
-                            continue;
-                        }
-
-                        IdentityTypeOfOrder type = IdentityManager.UpdateCustomerList(assignList[i].CustomerId, assignList[i].OrderId);
-                        //IdentityManager.UpdateIdentityList(order, out type);
-
-                        MemberDto customer = memberService.GetUserById(assignList[i].CustomerId);
-                        ClientState.customerList.Add(customer);
-
-                        if (!localChatManager.LocalCustomerAvatarUrls.ContainsKey(assignList[i].CustomerId))
-                        {
-                            string avatar = string.Empty;
-                            if (customer.AvatarUrl != null)
-                            {
-                                avatar = customer.AvatarUrl;
-                            }
-                            localChatManager.LocalCustomerAvatarUrls[assignList[i].CustomerId] = avatar;
-                        }
-                        VMIdentity vmIdentity = new VMIdentity(orderId.ToString(), customer.Id.ToString(), customer.DisplayName, localChatManager.LocalCustomerAvatarUrls[assignList[i].CustomerId]);
-                        AddIdentity(vmIdentity);
-
-                        AddIdentityTab(vmIdentity.CustomerId, vmIdentity.CustomerName);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                log.Error(e.ToString());
-            }
-            finally
-            {
-                //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-            }
-        }
-
-        private void ViewSearchResult_PushServiceTimerSend()
-        {
-            if (!string.IsNullOrEmpty( IdentityManager.CurrentCustomerId))
-            {
-                iView.IdleTimerStart(IdentityManager.CurrentCustomerId);
-            }
-        }
-
-        private void IViewChatSend_FinalChatTimerSend()
-        {
-
-            if (!string.IsNullOrEmpty(IdentityManager.CurrentCustomerId))
-            {
-                iView.IdleTimerStart(IdentityManager.CurrentCustomerId);
-            }
-        }
-
-        private void IView_FinalChatTimerTick(string customerId)
-        {
-            log.Debug("计时结束，customerId：" + customerId);
-            
-            string errMsg = string.Empty;
-
-            if (!string.IsNullOrEmpty(IdentityManager.CurrentCustomerId) && IdentityManager.CurrentCustomerId == customerId)
-            {
-                iViewChatList.ClearUCData();
-                iViewChatList.ShowNoChatMsg();
-                iViewOrderHistory.ClearUCData();
-                iViewOrderHistory.ShowNullListLable();
-            }
-
-            receptionService.DeleteReception(customerId);
-
-            //删除当前订单临时变量
-            //if (IdentityManager.DeleteIdentity(order))
-            if (IdentityManager.DeleteCustomer(customerId))
-            {
-                localChatManager.Remove(customerId.ToString());
-                localHistoryOrderManager.Remove(customerId.ToString());
-                localUIDataManager.Remove(customerId.ToString());
-                localUIDataManager.RemoveSearchObj(customerId.ToString());
-                RemoveIdentity(customerId);
-            }
-            else
-            {
-                errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
-                log.Error(errMsg);
-            }
-        }
-
-        BackgroundWorker workerChatImage;
-        BackgroundWorker workerCustomerAvatar;
-        public void IIM_IMReceivedMessage(Ydb.InstantMessage.DomainModel.Chat.ReceptionChatDto chat)
-        {
-            string errMsg = string.Empty;
-            //判断信息类型
-            if (chat.ChatType == enum_ChatType.Chat.ToString())
-            {
-                if (!string.IsNullOrEmpty(chat.SessionId))
-                {
-                    NHibernateUnitOfWork.UnitOfWork.Start();
-
-                    iView.PlayVoice();
-
-                    //1 更新当前聊天列表
-                    //2 判断消息 和 聊天列表,当前聊天项的关系(是当前聊天项 但是需要修改订单 非激活的列表, 新聊天.
-                    IdentityTypeOfOrder type;
-                    //IdentityManager.UpdateIdentityList(order, out type);
-
-                    type = IdentityManager.UpdateCustomerList(chat.FromId, chat.SessionId);
-
-                    ReceivedMessage(chat, type);
-
-                    workerChatImage = new BackgroundWorker();
-                    workerChatImage.DoWork += Worker_DoWork;
-                    workerChatImage.RunWorkerCompleted += Worker_RunWorkerCompleted;
-                    workerChatImage.RunWorkerAsync(chat);
-
-                    // 用户头像的本地化处理
-                    MemberDto from = memberService.GetUserById(chat.FromId);
-                    if (from.AvatarUrl != null)
-                    {
-                        workerCustomerAvatar = new BackgroundWorker();
-                        workerCustomerAvatar.DoWork += WorkerCustomerAvatar_DoWork;
-                        workerCustomerAvatar.RunWorkerCompleted += WorkerCustomerAvatar_RunWorkerCompleted;
-                        workerCustomerAvatar.RunWorkerAsync(from);
-                    }
-
-                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                    NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-                }
-            }
-        }
-
-        private void WorkerCustomerAvatar_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            log.Debug("用户头像本地加载完成");
-        }
-
-        private void WorkerCustomerAvatar_DoWork(object sender, DoWorkEventArgs e)
-        {
-            MemberDto customer = e.Argument as MemberDto;
-
-            string mediaUrl = customer.AvatarUrl;
-            string mediaUrl_32X32 = customer.AvatarUrl + "_32X32";
-            string fileName = string.Empty;
-            string fileName_32X32 = string.Empty;
-
-            if (!mediaUrl.Contains(GlobalViables.MediaGetUrl))
-            {
-                fileName = mediaUrl;
-                fileName_32X32 = mediaUrl_32X32;
-                mediaUrl_32X32 = GlobalViables.MediaGetUrl + mediaUrl_32X32;
-            }
-            else
-            {
-                fileName = mediaUrl.Replace(GlobalViables.MediaGetUrl, "");
-                fileName_32X32 = mediaUrl_32X32.Replace(GlobalViables.MediaGetUrl, "");
-            }
-
-            if (!File.Exists(PHSuit.LocalFileManagement.LocalFilePath + fileName_32X32))
-            {
-                if (PHSuit.LocalFileManagement.DownLoad(string.Empty, mediaUrl_32X32, fileName_32X32))
-                {
-                    customer.AvatarUrl = fileName;
-                    log.Debug("用户头像本地存储完成");
-                }
-            }
-        }
-
-        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            ReceptionChatDto chat = e.Result as ReceptionChatDto;
-            if (chat != null)
-            {
-                if (!string.IsNullOrEmpty(chat.SessionId))
-                {
-                    iView.IdleTimerStop(chat.FromId);
-                }
-
-                if (chat is ReceptionChatMediaDto)
-                {
-                    iViewChatList.RemoveChatImageNormalMask(chat.Id);
-                }
-            }
-        }
-
-        private void Worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            ReceptionChatDto chat = e.Argument as ReceptionChatDto;
-
-            //聊天中的图片下载到本地
-            //chat.SetReceiveTime(DateTime.Now);
-            if (chat is ReceptionChatMediaDto)
-            {
-                iViewChatList.ShowChatImageNormalMask(chat.Id);
-
-                string mediaUrl = ((ReceptionChatMediaDto)chat).MedialUrl;
-                string fileName = string.Empty;
-                if (!mediaUrl.Contains(GlobalViables.MediaGetUrl))
-                {
-                    fileName = mediaUrl;
-                    mediaUrl = GlobalViables.MediaGetUrl + mediaUrl;
-                }
-                else
-                {
-                    fileName = ((ReceptionChatMediaDto)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
-                }
-
-                //((ReceptionChatMediaDto)chat).SetMediaUrl(fileName);
-
-                if (PHSuit.LocalFileManagement.DownLoad(string.Empty, mediaUrl, fileName))
-                {
-                    //((ReceptionChatMediaDto)chat).SetMediaUrl(fileName);
-                }
-            }
-
-            e.Result = chat;
-        }
-
-        public void IView_IdentityClick(VMIdentity vmIdentity)
-        {
-            try
-            {
-                IdentityManager.SetCurrentCustomerId(vmIdentity.CustomerId);
-
-                string identityFriendly = PHSuit.StringHelper.SafeNameForWpfControl(vmIdentity.CustomerId, GlobalViables.PRE_TAB_CUSTOMER);
+                string identityFriendly = PHSuit.StringHelper.SafeNameForWpfControl(identity, GlobalViables.PRE_TAB_CUSTOMER);
                 viewMainForm.ShowIdentityTab(identityFriendly);
             }
             catch (Exception ex)
@@ -339,119 +59,12 @@ namespace Dianzhu.CSClient.Presenter
                 log.Error(ex);
             }
         }
-
-        /// <summary>
-        /// 接收聊天消息
-        /// </summary>
-        /// <param name="chat"></param>
-        /// <param name="isCurrentIdentity">是否是当前标识</param>
-        /// <param name="isCurrentCustomer"></param>
-        public void ReceivedMessage(Ydb.InstantMessage.DomainModel.Chat.ReceptionChatDto chat, IdentityTypeOfOrder type)
-        {
-            VMChat vmChat = vmChatAdapter.ChatToVMChat(chat);
-
-            localChatManager.Add(vmChat.FromId, vmChat);
-            switch (type)
-            {
-                case IdentityTypeOfOrder.CurrentCustomer:
-                    //iViewChatList.AddOneChat(vmChat);
-                    break;
-                case IdentityTypeOfOrder.InList:
-                    iView.SetIdentityUnread(chat.FromId, 1);
-                    break;
-                case IdentityTypeOfOrder.NewIdentity:
-                    MemberDto customer = memberService.GetUserById(chat.FromId);
-                    VMIdentity vmIdentity = new VMIdentity(chat.SessionId, chat.FromId, customer.DisplayName, localChatManager.LocalCustomerAvatarUrls[vmChat.FromId]);
-                    AddIdentity(vmIdentity);
-                    iView.SetIdentityUnread(chat.FromId, 1);
-
-                    AddIdentityTab(vmIdentity.CustomerId,vmIdentity.CustomerName);
-
-                    break;
-                default:
-                    throw new Exception("无法判断消息属性");
-
-            }
-        }
-
+        
         public void SetIdentityUnread(string identity,int messageAmount)
         {
             iView.SetIdentityUnread(identity, messageAmount);
         }
-
-        /// <summary>
-        /// 添加用户tab界面
-        /// </summary>
-        /// <param name="identityId"></param>
-        private void AddIdentityTab(string identityId, string customerName)
-        {
-            //Action act = () =>
-            //{
-                //IViewTabContent viewTabContent = Bootstrap.Container.Resolve<IViewTabContent>(new { identity = identityId });
-                //viewTabContent.IdleTimerOut += ViewTabContent_IdleTimerOut;
-
-                //PSearch pSearch = Bootstrap.Container.Resolve<PSearch>(new {
-                //    viewSearch =viewTabContent.ViewSearch,
-                //    viewSearchResult=viewTabContent.ViewSearchResult,
-                //    viewChatList=viewTabContent.ViewChatList,
-                //    identity = identityId });
-                //PChatList pChatList = Bootstrap.Container.Resolve<PChatList>(new {
-                //    viewChatList = viewTabContent.ViewChatList,
-                //    identity = identityId,
-                //    customerName = customerName });
-                //PChatSend pChatSend = Bootstrap.Container.Resolve<PChatSend>(new {
-                //    viewChatSend= viewTabContent.ViewChatSend,
-                //    viewChatList = viewTabContent.ViewChatList,
-                //    identity = identityId });
-                //POrderHistory pOrderHistory = Bootstrap.Container.Resolve<POrderHistory>(new {
-                //    viewOrderHistory = viewTabContent.ViewOrderHistory,
-                //    identity = identityId });
-                //PToolsControl pTabControl = Bootstrap.Container.Resolve<PToolsControl>(new {
-                //    viewToolsControl = viewTabContent.ViewToolsControl,
-                //    viewSearch = viewTabContent.ViewSearch,
-                //    identity = identityId });
-
-                //string identityFriendly = PHSuit.StringHelper.SafeNameForWpfControl(identityId, GlobalViables.PRE_TAB_CUSTOMER);
-                //viewMainForm.AddIdentityTab(identityFriendly, viewTabContent);
-            //};
-            //if (!Application.Current.Dispatcher.CheckAccess())
-            //{
-            //    Application.Current.Dispatcher.Invoke(act);
-            //}
-            //else
-            //{
-            //    act();
-            //}
-        }
-
-        private void ViewTabContent_IdleTimerOut(string customerId)
-        {
-            try
-            {
-                log.Debug("计时结束，customerId：" + customerId);
-
-                string errMsg = string.Empty;
-
-                //删除当前订单临时变量
-                if (IdentityManager.DeleteCustomer(customerId))
-                {
-                    RemoveIdentity(customerId);
-                    viewMainForm.RemoveIdentityTab(customerId);
-                }
-                else
-                {
-                    errMsg = "用户删除失败.";
-                    log.Error(errMsg);
-                }
-
-                receptionService.DeleteReception(customerId);
-            }
-            catch (Exception e)
-            {
-                log.Error(e);
-            }
-        }
-
+        
         public void AddIdentity(VMIdentity vmIdentity)
         {
             iView.AddIdentity(vmIdentity);

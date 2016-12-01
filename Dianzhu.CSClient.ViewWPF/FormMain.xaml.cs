@@ -16,6 +16,7 @@ using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
+using System.Media;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -71,11 +72,6 @@ namespace Dianzhu.CSClient.ViewWPF
                 Dispatcher.Invoke(lambda);
             }
             else { lambda(); }
-        }
-
-        public void ShowMessage(string message)
-        {
-            MessageBox.Show(message);
         }
 
         private void btnWindowsClosed_Click(object sender, RoutedEventArgs e)
@@ -138,20 +134,20 @@ namespace Dianzhu.CSClient.ViewWPF
             SendMessage(_HwndSource.Handle, WM_SYSCOMMAND, (IntPtr)(61440 + direction), IntPtr.Zero);
         }
 
-        public void AddIdentityTab(string identity,IViewTabContent viewTabContent)
+        public void AddIdentityTab(string identityTabFriendly, IViewTabContent viewTabContent)
         {
             TabItem tab = new TabItem();
-            tab.Name = identity;
+            tab.Name = identityTabFriendly;
             tab.Content = (UC_TabContent)viewTabContent;
             tab.Style = Resources["TabItemStyle"] as Style;
             tabContent.Items.Add(tab);
         }
 
-        public void RemoveIdentityTab(string identity)
+        public void RemoveIdentityTab(string identityTabFriendly)
         {
             Action lambda = () =>
             {
-                TabItem item = tabContent.ItemContainerGenerator.Items.Where(x => ((TabItem)x).Name == identity).SingleOrDefault() as TabItem;
+                TabItem item = tabContent.ItemContainerGenerator.Items.Where(x => ((TabItem)x).Name == identityTabFriendly).SingleOrDefault() as TabItem;
                 tabContent.Items.Remove(item);
             };
             if (!Dispatcher.CheckAccess())
@@ -161,17 +157,38 @@ namespace Dianzhu.CSClient.ViewWPF
             else { lambda(); }
         }
 
-        public void ShowIdentityTab(string identity)
+        public void ShowIdentityTab(string identityTabFriendly)
         {
             Action lambda = () =>
             {
-                tabContent.SelectedItem = tabContent.ItemContainerGenerator.Items.Where(x => ((TabItem)x).Name == identity).SingleOrDefault();
+                tabContent.SelectedItem = tabContent.ItemContainerGenerator.Items.Where(x => ((TabItem)x).Name == identityTabFriendly).SingleOrDefault();
             };
             if (!Dispatcher.CheckAccess())
             {
                 Dispatcher.Invoke(lambda);
             }
             else { lambda(); }
+        }
+
+        public void PlayVoice()
+        {
+            Action lambda = () =>
+            {
+                //player.Open(new Uri(System.Environment.CurrentDirectory + @"\Resources\YDBan.wav"));
+                ////player.Open(new Uri("E:\\projects\\output\\csclient\\Resources\\YDBan.wav"));
+                //player.Play();
+
+                SoundPlayer audio = new SoundPlayer(Properties.Resources.YDBan);
+                audio.Play();
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else
+            {
+                lambda();
+            }
         }
     }
 
