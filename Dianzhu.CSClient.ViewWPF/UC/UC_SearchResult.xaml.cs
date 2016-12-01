@@ -18,6 +18,7 @@ using System.ComponentModel;
 using System.Globalization;
 using Ydb.InstantMessage.Application;
 using Dianzhu.CSClient.ViewModel;
+using Ydb.Common;
 
 namespace Dianzhu.CSClient.ViewWPF
 {

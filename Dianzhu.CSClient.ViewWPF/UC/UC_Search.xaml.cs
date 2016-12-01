@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.Threading;
 using Newtonsoft.Json;
 using Dianzhu.Model;
+using Ydb.BusinessResource.DomainModel;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -51,12 +52,12 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        Model.ServiceType selectedType = null;
-        public Model.ServiceType ServiceType
+        ServiceType selectedType = null;
+        public  ServiceType ServiceType
         {
             get
             {
-                selectedType = (Model.ServiceType)(
+                selectedType = ( ServiceType)(
                                     cbxSearchTypeT.SelectedItem == null || cbxSearchTypeT.IsVisible == false ?
                                     (cbxSearchTypeS.SelectedItem == null || cbxSearchTypeS.IsVisible == false ?
                                     (cbxSearchTypeF.SelectedItem == null || cbxSearchTypeF.IsVisible == false ? null
@@ -277,7 +278,7 @@ namespace Dianzhu.CSClient.ViewWPF
         /// <summary>
         /// 绑定一级下拉框的值
         /// </summary>
-        public IList<Model.ServiceType> ServiceTypeFirst
+        public IList<ServiceType> ServiceTypeFirst
         {
             set
             {
@@ -296,7 +297,7 @@ namespace Dianzhu.CSClient.ViewWPF
         /// <summary>
         /// 绑定二级下拉框的值
         /// </summary>
-        public IList<Model.ServiceType> ServiceTypeSecond
+        public IList<ServiceType> ServiceTypeSecond
         {
             set
             {
@@ -321,7 +322,7 @@ namespace Dianzhu.CSClient.ViewWPF
         /// <summary>
         /// 绑定三级下拉框的值
         /// </summary>
-        public IList<Model.ServiceType> ServiceTypeThird
+        public IList<ServiceType> ServiceTypeThird
         {
             set
             {
@@ -570,7 +571,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             if (ServiceTypeFirst_Select != null)
             {
-                ServiceTypeFirst_Select((Model.ServiceType)cbxSearchTypeF.SelectedItem);
+                ServiceTypeFirst_Select((ServiceType)cbxSearchTypeF.SelectedItem);
             }
         }
 
@@ -578,7 +579,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             if (ServiceTypeSecond_Select != null)
             {
-                ServiceTypeSecond_Select((Model.ServiceType)cbxSearchTypeS.SelectedItem);
+                ServiceTypeSecond_Select((ServiceType)cbxSearchTypeS.SelectedItem);
             }            
         }
 
@@ -586,7 +587,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             if (ServiceTypeThird_Select != null)
             {
-                ServiceTypeThird_Select((Model.ServiceType)cbxSearchTypeT.SelectedItem);
+                ServiceTypeThird_Select((ServiceType)cbxSearchTypeT.SelectedItem);
             }
         }
 

@@ -13,6 +13,10 @@ using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.BusinessResource.DomainModel;
+using Ydb.BusinessResource.Application;
+using Ydb.Common;
+using AutoMapper;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -23,11 +27,11 @@ namespace Dianzhu.CSClient.Presenter
         IViewSearchResult viewSearchResult;
         IViewChatList viewChatList;
         IViewIdentityList viewIdentityList;
-        IDAL.IDALDZService dalDzService;
+       IDZServiceService dzService;
         IBLLServiceOrder bllServiceOrder;
         PushService bllPushService;
         IInstantMessage iIM;
-        IDAL.IDALServiceType dalServiceType;
+       IServiceTypeService typeService;
         IList<VMShelfService> SelectedServiceList;
         Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder;
         LocalChatManager localChatManager;
@@ -66,7 +70,7 @@ namespace Dianzhu.CSClient.Presenter
         public PSearch(
             IInstantMessage iIM, IViewSearch viewSearch, IViewSearchResult viewSearchResult,
             IViewChatList viewChatList, IViewIdentityList viewIdentityList,
-            IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder, IDAL.IDALServiceType dalServiceType,
+           IDZServiceService dalDzService, IBLLServiceOrder bllServiceOrder, IServiceTypeService dalServiceType,
                     PushService bllPushService, Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder,
                     LocalChatManager localChatManager, IDZMembershipService memberService, IReceptionService receptionService,
                     IViewTabContentTimer viewTabContentTimer, string identity)
@@ -74,11 +78,11 @@ namespace Dianzhu.CSClient.Presenter
             this.serialNoBuilder = serialNoBuilder;
             this.viewSearch = viewSearch; ;
             this.viewSearchResult = viewSearchResult;
-            this.dalDzService = dalDzService;
+            this.dzService = dalDzService;
             this.viewChatList = viewChatList;
             this.bllServiceOrder = bllServiceOrder;
             this.iIM = iIM;
-            this.dalServiceType = dalServiceType;            
+            this.typeService = dalServiceType;            
             this.bllPushService = bllPushService; 
             this.viewIdentityList = viewIdentityList;
             this.localChatManager = localChatManager;
@@ -131,7 +135,7 @@ namespace Dianzhu.CSClient.Presenter
                 if (this.ServiceTypeListTmp != null) { return; }
 
 
-                this.ServiceTypeListTmp = dalServiceType.GetTopList();
+                this.ServiceTypeListTmp = typeService.GetTopList();
                 this.ServiceTypeCach = new Dictionary<ServiceType, IList<ServiceType>>();
 
                 foreach (ServiceType t in ServiceTypeListTmp)
@@ -246,7 +250,7 @@ namespace Dianzhu.CSClient.Presenter
             ServiceOrder oldOrder = bllServiceOrder.GetOne(new Guid(IdentityManager.CurrentOrderId));
 
             //订单不是草稿单的话，需生成新的草稿单后进行推送
-            if (oldOrder.OrderStatus != Model.Enums.enum_OrderStatus.Draft)
+            if (oldOrder.OrderStatus !=  enum_OrderStatus.Draft)
             {
                 oldOrder = CreateDraftOrder(GlobalViables.CurrentCustomerService.Id.ToString(), identity);
                 NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
@@ -254,10 +258,12 @@ namespace Dianzhu.CSClient.Presenter
 
             foreach (var serviceId in pushedServices)
             {
-                service = dalDzService.FindById(serviceId);
+                service = dzService.GetOne2(serviceId);
+                ServiceSnapShot serviceSnapshot = Mapper.Map<ServiceSnapShot>(service);
+
                 NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
-                serviceOrderPushedServices.Add(new ServiceOrderPushedService(oldOrder, service,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, viewSearch.ServiceTargetAddress, viewSearch.TargetTime, viewSearch.ServiceMemo ));
+                serviceOrderPushedServices.Add(new ServiceOrderPushedService(oldOrder, serviceId.ToString(),serviceSnapshot,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, viewSearch.ServiceTargetAddress, viewSearch.TargetTime, viewSearch.ServiceMemo ));
             }
             bllPushService.Push(oldOrder, serviceOrderPushedServices, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
@@ -277,17 +283,18 @@ namespace Dianzhu.CSClient.Presenter
             IList<Ydb.InstantMessage.DomainModel.Chat.PushedServiceInfo> pushedServiceInfos = new List<Ydb.InstantMessage.DomainModel.Chat.PushedServiceInfo>();
             foreach (var pushedService in serviceOrderPushedServices)
             {
-                MemberDto businessDto = memberService.GetUserById(pushedService.OriginalService.Business.OwnerId.ToString());
+                DZService sericeInPushedService= dzService.GetOne2(new Guid(pushedService.OriginalServiceId));
+                MemberDto businessOwnerDto = memberService.GetUserById(sericeInPushedService.Business.OwnerId.ToString());
 
                 Ydb.InstantMessage.DomainModel.Chat.PushedServiceInfo psi = new Ydb.InstantMessage.DomainModel.Chat.PushedServiceInfo(
-                    pushedService.OriginalService.Id.ToString(),
-                    pushedService.ServiceName,
-                    pushedService.OriginalService.ServiceType.ToString(),
+                    pushedService.OriginalServiceId,
+                    pushedService.ServiceSnapShot.ServiceName,
+                    pushedService.ServiceTypeName ,
                     pushedService.TargetTime.ToString(),
                     string.Empty,
-                    pushedService.OriginalService.Business.OwnerId.ToString(),
-                    businessDto.NickName,
-                    businessDto.AvatarUrl
+                    businessOwnerDto.Id.ToString(),
+                    businessOwnerDto.NickName,
+                    businessOwnerDto.AvatarUrl
                     );
                 pushedServiceInfos.Add(psi);
             }
@@ -302,17 +309,30 @@ namespace Dianzhu.CSClient.Presenter
             //启动计时器
             viewTabContentTimer.StartTimer();
 
+            for (int i = 0; i < serviceOrderPushedServices.Count; i++) {
 
-            //助理工具显示发送的消息
-            string imageUrl = string.IsNullOrEmpty(serviceOrderPushedServices[0].OriginalService.Business.BusinessAvatar.ImageName) ? string.Empty : Dianzhu.Config.Config.GetAppSetting("ImageHandler") + serviceOrderPushedServices[0].OriginalService.Business.BusinessAvatar.ImageName;
+                if (i >= 1)
+                {
+                    errorMsg = "一个订单内包含多个推送的服务";
+                    log.Error(errorMsg);
+                    throw new Exception(errorMsg);
+                    
+                }
+                DZService sericeInPushedService = dzService.GetOne2(new Guid(serviceOrderPushedServices[i].OriginalServiceId));
+                MemberDto businessOwnerDto = memberService.GetUserById(sericeInPushedService.Business.OwnerId.ToString());
+
+                //助理工具显示发送的消息
+                string imageUrl = string.IsNullOrEmpty(businessOwnerDto.AvatarUrl) 
+                      ? string.Empty : Dianzhu.Config.Config.GetAppSetting("ImageHandler") + businessOwnerDto.AvatarUrl;
             VMChatPushServie vmChatPushService = new VMChatPushServie(
-                serviceOrderPushedServices[0].ServiceName,
+                sericeInPushedService.Name,
                 true,
                 imageUrl,
                 5,
-                serviceOrderPushedServices[0].UnitPrice,
-                serviceOrderPushedServices[0].DepositAmount,
-                serviceOrderPushedServices[0].Description,
+                sericeInPushedService.UnitPrice,
+                //todo:refactor: 需要确认
+                serviceOrderPushedServices[0].ServiceAmount,
+                serviceOrderPushedServices[0].ServiceSnapShot.Description,
                 messageId.ToString(),
                 GlobalViables.CurrentCustomerService.Id.ToString(),
                 GlobalViables.CurrentCustomerService.DisplayName,
@@ -324,7 +344,7 @@ namespace Dianzhu.CSClient.Presenter
                 "#b3d465",
                 true);
             viewChatList.AddOneChat(vmChatPushService);
-
+            }
             //生成新的草稿单
             ServiceOrder newOrder = CreateDraftOrder(GlobalViables.CurrentCustomerService.Id.ToString(), identity);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
@@ -368,15 +388,15 @@ namespace Dianzhu.CSClient.Presenter
 
             int total;
 
-            IList<DZService> services = dalDzService.SearchService(name, minPrice, maxPrice, servieTypeId, targetTime, double.Parse(lng), double.Parse(lat), 0, 999, out total);
+            IList<DZService> services = dzService.SearchService(name, minPrice, maxPrice, servieTypeId, targetTime, double.Parse(lng), double.Parse(lat), 0, 999, out total);
             IList<VMShelfService> vmShelfServiceList = new List<VMShelfService>();
             VMShelfService vmShelfService;
             int num = 1;//用来显示查询出来的服务数量
             foreach (DZService service in services)
             {
-                var opentimeObj = service.GetOpenTimeSnapShot(targetTime);
-                string timeBegin = PHSuit.StringHelper.ConvertPeriodToTimeString(opentimeObj.PeriodBegin);
-                string timeEnd = PHSuit.StringHelper.ConvertPeriodToTimeString(opentimeObj.PeriodEnd);
+                var opentimeObj = service.GetWorkTime(targetTime);
+                string timeBegin =  opentimeObj.TimePeriod.StartTime.ToString();
+                string timeEnd =  opentimeObj.TimePeriod.EndTime.ToString();
                 string time = timeBegin + "-" + timeEnd;
 
                 vmShelfService = new VMShelfService(service.Id, num, true, service.Business.Name, service.Name, 5, time, service.UnitPrice, service.DepositAmount);

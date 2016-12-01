@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
 
 namespace Dianzhu.CSClient.Presenter.VMAdapter
 {
@@ -18,13 +20,13 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.VMChatAdapter");
 
         IDZMembershipService memberService;
-        IDALDZService dalDZService;
+        IDZServiceService dzService;
         LocalChatManager localChatManager;
 
-        public VMChatAdapter(IDZMembershipService memberService, IDALDZService dalDZService, LocalChatManager localChatManager)
+        public VMChatAdapter(IDZMembershipService memberService, IDZServiceService dzService, LocalChatManager localChatManager)
         {
             this.memberService = memberService;
-            this.dalDZService = dalDZService;
+            this.dzService = dzService;
             this.localChatManager = localChatManager;
         }
 
@@ -77,7 +79,7 @@ namespace Dianzhu.CSClient.Presenter.VMAdapter
                     {
                         log.Error("ServiceInfos有误,chatPushServiceId:" + chatPushService.Id);
                     }
-                    DZService service = dalDZService.FindById(serviceId);
+                    DZService service = dzService.GetOne2(serviceId);
                     if (service == null)
                     {
                         log.Error("服务不存在,id:" + chatPushService.ServiceInfos[0].ServiceId);

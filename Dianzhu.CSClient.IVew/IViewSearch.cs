@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.CSClient.ViewModel;
+using Ydb.BusinessResource.DomainModel;
 
 namespace Dianzhu.CSClient.IView
 {

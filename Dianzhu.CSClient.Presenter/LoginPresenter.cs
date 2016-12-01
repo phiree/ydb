@@ -11,6 +11,7 @@ using Ydb.Membership.Application.Dto;
 using Ydb.Membership.Application;
 using System.Threading.Tasks;
 using Ydb.Common.Infrastructure;
+using Ydb.Common;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -60,7 +61,7 @@ namespace Dianzhu.CSClient.Presenter
                 var amount = order.OrderAmount;
                 foreach (ServiceOrderDetail d in order.Details)
                 {
-                    var damount = d.OriginalService.DepositAmount;
+                    var damount = d.ServiceAmount;//  d.OriginalService.DepositAmount;
                 }
             }
 
