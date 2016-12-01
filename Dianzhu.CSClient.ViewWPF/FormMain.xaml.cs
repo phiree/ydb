@@ -16,6 +16,7 @@ using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
+using System.Media;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -44,19 +45,11 @@ namespace Dianzhu.CSClient.ViewWPF
             {ResizeDirection.BottomLeft, Cursors.SizeNESW}
         };
 
-        public FormMain(IViewIdentityList viewIdentityList, IView.IViewChatList viewChatList, IViewChatSend viewChatSend,
-            IViewSearch viewSearch, IViewSearchResult viewSearchResult, IViewOrderHistory viewOrderHistory,
-            IViewNotice viewNotice,IViewTabControl viewTabControl)
+        public FormMain(IViewIdentityList viewIdentityList)
         {
             InitializeComponent();
-            //pnlNotice.Children.Add((UC_Notice) viewNotice);
+
             pnlCustomerList.Children.Add((UC_IdentityList) viewIdentityList);
-            pnlSearch.Children.Add((UC_Search) viewSearch);
-            pnlChatList.Children.Add((UC_ChatList)viewChatList);
-            pnlSearchResult.Children.Add((UC_SearchResult)viewSearchResult);
-            pnlChatSend.Children.Add((UC_ChatSend)viewChatSend);
-            pnlOrderHistory.Children.Add( (UC_OrderHistory)viewOrderHistory);
-            pnlTools.Children.Add((UC_TabControlTools)viewTabControl);
 
             main = System.Windows.Window.GetWindow(this) as FormMain;
 
@@ -79,11 +72,6 @@ namespace Dianzhu.CSClient.ViewWPF
                 Dispatcher.Invoke(lambda);
             }
             else { lambda(); }
-        }
-
-        public void ShowMessage(string message)
-        {
-            MessageBox.Show(message);
         }
 
         private void btnWindowsClosed_Click(object sender, RoutedEventArgs e)
@@ -144,6 +132,63 @@ namespace Dianzhu.CSClient.ViewWPF
         private void ResizeWindow(ResizeDirection direction)
         {
             SendMessage(_HwndSource.Handle, WM_SYSCOMMAND, (IntPtr)(61440 + direction), IntPtr.Zero);
+        }
+
+        public void AddIdentityTab(string identityTabFriendly, IViewTabContent viewTabContent)
+        {
+            TabItem tab = new TabItem();
+            tab.Name = identityTabFriendly;
+            tab.Content = (UC_TabContent)viewTabContent;
+            tab.Style = Resources["TabItemStyle"] as Style;
+            tabContent.Items.Add(tab);
+        }
+
+        public void RemoveIdentityTab(string identityTabFriendly)
+        {
+            Action lambda = () =>
+            {
+                TabItem item = tabContent.ItemContainerGenerator.Items.Where(x => ((TabItem)x).Name == identityTabFriendly).SingleOrDefault() as TabItem;
+                tabContent.Items.Remove(item);
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
+        }
+
+        public void ShowIdentityTab(string identityTabFriendly)
+        {
+            Action lambda = () =>
+            {
+                tabContent.SelectedItem = tabContent.ItemContainerGenerator.Items.Where(x => ((TabItem)x).Name == identityTabFriendly).SingleOrDefault();
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
+        }
+
+        public void PlayVoice()
+        {
+            Action lambda = () =>
+            {
+                //player.Open(new Uri(System.Environment.CurrentDirectory + @"\Resources\YDBan.wav"));
+                ////player.Open(new Uri("E:\\projects\\output\\csclient\\Resources\\YDBan.wav"));
+                //player.Play();
+
+                SoundPlayer audio = new SoundPlayer(Properties.Resources.YDBan);
+                audio.Play();
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else
+            {
+                lambda();
+            }
         }
     }
 

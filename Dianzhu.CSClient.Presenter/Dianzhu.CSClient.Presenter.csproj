@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5AC8D7DE-A53D-4698-8957-C78D9243A793}</ProjectGuid>
+    <ProjectGuid>{2955FF18-C6C2-418C-BC99-A68E20EC0D61}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dianzhu.CSClient.Presenter</RootNamespace>
@@ -43,20 +43,12 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FluentValidation, Version=5.6.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.5.6.2.0\lib\Net45\FluentValidation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -78,13 +70,13 @@
     <Compile Include="GlobalViables.cs" />
     <Compile Include="LoginPresenter.cs" />
     <Compile Include="MainPresenter\PMain.cs" />
-    <Compile Include="MainPresenter\PTabControl.cs" />
     <Compile Include="MainPresenter\POrderHistory.cs" />
     <Compile Include="MainPresenter\PChatSend.cs" />
     <Compile Include="MainPresenter\PChatList.cs" />
     <Compile Include="MainPresenter\PIdentyList.cs" />
     <Compile Include="IdentityManager.cs" />
     <Compile Include="MainPresenter\PSearch.cs" />
+    <Compile Include="MainPresenter\PToolsControl.cs" />
     <Compile Include="MainPresenter\State.cs" />
     <Compile Include="VMAdapter\IVMOrderHistoryAdapter.cs" />
     <Compile Include="VMAdapter\VMChatAdapter.cs" />

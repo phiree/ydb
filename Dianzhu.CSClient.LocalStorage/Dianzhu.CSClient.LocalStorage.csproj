@@ -49,9 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LocalUIDataManager.cs" />
     <Compile Include="LocalChatManager.cs" />
-    <Compile Include="LocalHistoryOrderManager.cs" />
+    <Compile Include="LocalUIDataManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

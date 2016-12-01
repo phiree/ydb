@@ -11,9 +11,13 @@ namespace Ydb.Infrastructure
     public class EncryptService:IEncryptService
     {
         const string SecretKey = "1qaz2wsx3edc4rfv";
-
-        public   string Encrypt(string toEncrypt, bool useHashing)
+        const string spliter = "___";
+        public   string Encrypt(string toEncryptRaw, bool useHashing)
         {
+           var t = toEncryptRaw.Split(new string[] { spliter }, StringSplitOptions.RemoveEmptyEntries );
+             
+            string toEncrypt = t.Count() == 2 ? t[1] : t[0];
+            string notToEncrypt = t.Count() == 2 ? t[0]+spliter : string.Empty;
             byte[] keyArray;
             byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(toEncrypt);
  
@@ -52,10 +56,13 @@ namespace Ydb.Infrastructure
             //Release resources held by TripleDes Encryptor
             tdes.Clear();
             //Return the encrypted data into unreadable string format
-            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+            return  notToEncrypt+ Convert.ToBase64String(resultArray, 0, resultArray.Length);
         }
-        public   string Decrypt(string cipherString, bool useHashing)
+        public   string Decrypt(string rawCipherString, bool useHashing)
         {
+            var t = rawCipherString.Split(new string[] { spliter }, StringSplitOptions.RemoveEmptyEntries);
+            string cipherString = t.Count() == 2 ? t[1] : rawCipherString;
+
             byte[] keyArray;
             //get the byte code of the string
 

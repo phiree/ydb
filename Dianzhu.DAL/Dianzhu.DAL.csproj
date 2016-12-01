@@ -101,9 +101,12 @@
     <Compile Include="DALRefund.cs" />
     <Compile Include="DALPayment.cs" />
     <Compile Include="DALRefundLog.cs" />
+    <Compile Include="DALServiceOpenTime.cs" />
     <Compile Include="DALIMUserStatusArchieve.cs" />
     <Compile Include="DALIMUserStatus.cs" />
     <Compile Include="DALPaymentLog.cs" />
+    <Compile Include="DALArea.cs" />
+    <Compile Include="DALDZTag.cs" />
     <Compile Include="Finance\DALDefaultSharePoint.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Mapping\SerialNoMap.cs" />
@@ -136,15 +139,28 @@
     <Compile Include="Mapping\ServiceOrder\ServiceOrderAppraiseMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderPushedServiceMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderDetailMap.cs" />
+    <Compile Include="Mapping\StaffServiceTypeMap.cs" />
     <Compile Include="Mapping\PaymentLogMap.cs" />
+    <Compile Include="Mapping\AreaMap.cs" />
+    <Compile Include="Mapping\BusinessMap.cs" />
     <Compile Include="Mapping\ServiceOrderStateChangeHisMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderMap.cs" />
+    <Compile Include="Mapping\ServiceTypeMap.cs" />
+    <Compile Include="Mapping\DZServiceMap.cs" />
     <Compile Include="Mapping\OrderAssignment.cs" />
     <Compile Include="Mapping\PaymentMap.cs" />
+    <Compile Include="Mapping\StaffMap.cs" />
     <Compile Include="Mapping\DeviceBindMap.cs" />
+    <Compile Include="Mapping\DZTagMap.cs" />
+    <Compile Include="Mapping\ServiceOpenTimeMap.cs" />
     <Compile Include="NHCustomDialect.cs" />
     <Compile Include="NHRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DALBusiness.cs" />
+    <Compile Include="DALServiceType.cs" />
+    <Compile Include="DALDZService.cs" />
+    <Compile Include="DALStaff.cs" />
+    <Compile Include="DALBusinessImage.cs" />
     <Compile Include="DALDeviceBind.cs" />
     <Compile Include="ServiceOrder\DALServiceOrder.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderPushedService.cs" />
@@ -190,6 +206,10 @@
     <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
       <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
       <Name>Ydb.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Infrastructure\Ydb.Infrastructure.csproj">
+      <Project>{3d510583-1c11-48fb-8380-12e183e5914b}</Project>
+      <Name>Ydb.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

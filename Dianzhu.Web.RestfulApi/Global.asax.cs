@@ -19,12 +19,14 @@ namespace Dianzhu.Web.RestfulApi
         {
             // 在应用程序启动时运行的代码
             PHSuit.Logging.Config("Dianzhu.Web.RestfulApi");
+            Ydb.Common.LoggingConfiguration.Config("Ydb.Dianzhu.Web.RestfulApi");
 
             AreaRegistration.RegisterAllAreas();
             //GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            BundleTable.EnableOptimizations = false;
 
 
             System.Timers.Timer timerOrderShare = new System.Timers.Timer(60 * 1000);
@@ -40,48 +42,53 @@ namespace Dianzhu.Web.RestfulApi
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.Result");
-           
-           
-
+            //log4net.ILog log = log4net.LogManager.GetLogger("Ydb.Result.NoRule.v1.RestfulApi.Web.Dianzhu");
             NHibernateUnitOfWork.UnitOfWork.Start();
 
-            System.Web.HttpApplication hc = (System.Web.HttpApplication)sender;
-            string strT = hc.Request.Headers.Get("stamp_TIMES");
-            if (!string.IsNullOrEmpty(strT))
-            {
-                log.Info("Info(begin)"+strT+":*******************************************************");
-            }
+            //System.Web.HttpApplication hc = (System.Web.HttpApplication)sender;
+            //string strT = hc.Request.Headers.Get("stamp_TIMES");
+            //if (!string.IsNullOrEmpty(strT))
+            //{
+            //    log.Info("Info(begin)"+strT+":*******************************************************");
+            //}
         }
 
         protected void Application_EndRequest(object sender, EventArgs e)
         {
-            log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.Result");
+            log4net.ILog log = log4net.LogManager.GetLogger("Ydb.Result.NoRule.v1.RestfulApi.Web.Dianzhu");
+
             System.Web.HttpApplication hc = (System.Web.HttpApplication)sender;
             string strT = hc.Request.Headers.Get("stamp_TIMES");
             if (!string.IsNullOrEmpty(strT))
             {
-                log.Info("Info(request.Url)" + strT + ":" + Context.Request.Url);
-                log.Info("Info(request.Method)" + strT + ":" + Context.Request.HttpMethod);
-                log.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusCode);
-                log.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusDescription);
+                //log.Info("Info(request.Url)" + strT + ":" + Context.Request.Url);
+                //log.Info("Info(request.Method)" + strT + ":" + Context.Request.HttpMethod);
+                log.Info("Info(response.Code)" + strT + ":CodeNo=" + Context.Response.StatusCode+ ";CodeString=" + Context.Response.StatusDescription);
+                //log.Info("Info(response.StatusCodeString)" + strT + ":" + Context.Response.StatusDescription);
+
+                //log1.Info("Info(request.Url)" + strT + ":" + Context.Request.Url);
+                //log1.Info("Info(request.Method)" + strT + ":" + Context.Request.HttpMethod);
+                //log1.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusCode);
+                //log1.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusDescription);
             }
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            if (!string.IsNullOrEmpty(strT))
-            {
-                log.Info("Info(end)" + strT + ":*******************************************************");
-            }
+            //if (!string.IsNullOrEmpty(strT))
+            //{
+            //    log.Info("Info(end)" + strT + ":*******************************************************");
+            //}
 
         }
         protected void Application_Error(object sender, EventArgs e)
         {
-            log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.LastError");
+            log4net.ILog log = log4net.LogManager.GetLogger("Ydb.LastError.NoRule.v1.RestfulApi.Web.Dianzhu");
+            System.Web.HttpApplication hc = (System.Web.HttpApplication)sender;
+            string strT = hc.Request.Headers.Get("stamp_TIMES");
             Exception ex = Server.GetLastError();
             if (ex.InnerException != null)
             {
-                log.Error("InnerException(Global.LastError):" + ex.InnerException.Message);
+                log.Error("InnerException(Global.LastError)" + strT + ":" + ex.InnerException.Message);
             }
-            log.Error("Error(Global.LastError):" + ex.Message);
+            log.Error("Error(Global.LastError)" + strT + ":" + ex.Message);
             PHSuit.ExceptionLoger.ExceptionLog(log, ex);
         }
 

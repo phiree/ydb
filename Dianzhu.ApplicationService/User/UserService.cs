@@ -22,7 +22,7 @@ namespace Dianzhu.ApplicationService.User
 {
     public class UserService:IUserService
     {
-        log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.UserService");
+        log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.UserService.NoRule.v1.RestfulApi.Web.Dianzhu");
         IDZMembershipService memberService;
         BLL.Client.BLLUserToken bllUserToken;
         IReceptionService receptionService;

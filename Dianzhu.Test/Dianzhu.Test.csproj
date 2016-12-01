@@ -196,6 +196,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="config\connectionstrings.config" />
+    <None Include="data\allcity.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="files\aps_development_Mark_CustomerService.p12">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -239,13 +242,13 @@
       <Project>{6f064359-8bbd-4bda-9532-d93505472582}</Project>
       <Name>Dianzhu.CSClient.LocalStorage</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.Presenter\Dianzhu.CSClient.Presenter.csproj">
-      <Project>{5AC8D7DE-A53D-4698-8957-C78D9243A793}</Project>
-      <Name>Dianzhu.CSClient.Presenter</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj">
       <Project>{D7AA114D-AD19-4399-B152-969D240053C7}</Project>
       <Name>Dianzhu.CSClient.ViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient\Dianzhu.CSClient.csproj">
+      <Project>{6A05019E-F3EA-460A-BC05-0336EB3BFCF4}</Project>
+      <Name>Dianzhu.CSClient</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
       <Project>{2E67AA78-6780-42BD-A3AB-AD953781E511}</Project>

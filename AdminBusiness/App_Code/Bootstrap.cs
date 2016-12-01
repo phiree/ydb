@@ -26,19 +26,34 @@ public class Bootstrap
            new InstallerApplicationService()
             );
 
-        //公用組件註冊
-        container.Install(   new Ydb.Infrastructure.Installer()   );
+        container.Install(
+            new Ydb.Infrastructure.Installer()
+            );
 
-        //限界上下文註冊
+      
 
-        container.Install( new Ydb.Infrastructure.InstallerCommon(BuildDBConfig("ydb_common")) );
+
+        container.Install(
+new Ydb.Finance.Infrastructure.InstallerFinance(BuildDBConfig("ydb_finance"))
+            );
+        container.Install(
+          new Ydb.Infrastructure.InstallerCommon(BuildDBConfig("ydb_common"))
+          );
+        container.Install(
+
  
-        container.Install(new Ydb.Finance.Infrastructure.InstallerFinance(BuildDBConfig("ydb_finance")));
+new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb_instantmessage"))
+            );
 
-        container.Install(new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb_instantmessage")));
+        container.Install(
 
-        container.Install( new Ydb.Membership.Infrastructure.InstallerMembership(BuildDBConfig("ydb_membership"))  );
-        container.Install(new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig("ydb_businessresource")));
+
+           new Ydb.Membership.Infrastructure.InstallerMembership(BuildDBConfig("ydb_membership"))
+        
+            // new Application.InstallerMembershipTestDB()
+
+            );
+        // Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
         AutoMapper.Mapper.Initialize(x =>
         {
             Ydb.Membership.Application.AutoMapperConfiguration.AutoMapperMembership.Invoke(x);

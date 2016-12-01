@@ -209,19 +209,6 @@ namespace Dianzhu.DependencyInstaller
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<CSClient.LocalStorage.LocalChatManager>().ImplementedBy<CSClient.LocalStorage.ChatManagerInMemory>());
-            container.Register(Component.For<CSClient.LocalStorage.LocalHistoryOrderManager>().ImplementedBy<CSClient.LocalStorage.HistoryChatManagerInMemory>());
-            container.Register(Component.For<CSClient.LocalStorage.LocalUIDataManager>().ImplementedBy<CSClient.LocalStorage.UIDataManagerInMemory>());
-
-            
-         
-            //container.Register(Component.For<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>().ImplementedBy<JSYK.Infrastructure.SerialNo.SerialNoDb>());
-
         }
     }
-
-    
-    /// <summary>
-    /// Summary description for Installer
-    /// </summary>
-
 }

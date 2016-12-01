@@ -269,7 +269,7 @@ namespace Dianzhu.DAL
                            + " and detail.OriginalService.Id='" + serviceId + "' ";
             if (timeBegin != DateTime.MinValue)
             {
-                query = query + " and  detail.TargetTime<='" + timeEnd + "'";
+                query = query + " and  detail.TargetTime<='" + timeEnd.AddDays(1) + "'";
             }
             if (timeEnd != DateTime.MinValue)
             {

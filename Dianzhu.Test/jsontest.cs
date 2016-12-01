@@ -21,6 +21,36 @@ namespace Dianzhu.Test
            Assert.AreEqual(e.Name, "袁飞");
            Assert.AreEqual(e.Age, "18");
         }
+
+        [Test]
+        public void jsonFileDeserializeTest()
+        {
+            string con_file_path = Environment.CurrentDirectory;
+            using (StreamReader sr = new StreamReader(con_file_path))
+            {
+                try
+                {
+                    //JsonSerializer serializer = new JsonSerializer();
+                    //serializer.Converters.Add(new JavaScriptDateTimeConverter());
+                    //serializer.NullValueHandling = NullValueHandling.Ignore;
+
+                    //构建Json.net的读取流  
+                    JsonReader reader = new JsonTextReader(sr);
+                    //对读取出的Json.net的reader流进行反序列化，并装载到模型中  
+                    //cfm = serializer.Deserialize<ConfigFileModel>(reader);
+
+                    //Response.Write("<br/>");
+                    //Response.Write(cfm.FileName + ", " + cfm.CreateDate);
+                }
+                catch (Exception ex)
+                {
+                    ex.Message.ToString();
+                }
+            }
+
+        }
+
+
         [Test]
         public void test_ignore_null_property()
         {

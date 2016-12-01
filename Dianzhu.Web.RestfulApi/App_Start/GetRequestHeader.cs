@@ -14,6 +14,7 @@ namespace Dianzhu.Web.RestfulApi
     {
         public static Customer GetTraitHeaders(string apiUrl)
         {
+            log4net.ILog log = log4net.LogManager.GetLogger("Ydb."+apiUrl +".Rule.v1.RestfulApi.Web.Dianzhu");
             common_Trait_Headers headers = new common_Trait_Headers();
             HttpRequest req = HttpContext.Current.Request;
             headers.appName = req.Headers.GetValues("appName").FirstOrDefault();
@@ -27,7 +28,9 @@ namespace Dianzhu.Web.RestfulApi
             //接口权限判断
             Customer customer = new Customer();
             customer = customer.getCustomer(headers.token, headers.apiKey, false);
+            log.Info("Info(UserInfo)" + headers.stamp_TIMES + ":ApiRoute=" + apiUrl + ",UserName=" + customer.loginName+",UserId="+ customer.UserID + ",UserType=" + customer.UserType);
             string strRule = ConfigurationManager.AppSettings[apiUrl].ToString();
+            //log.Info("Info(Route)" + headers.stamp_TIMES + ":" + apiUrl);
             if (strRule=="" || strRule.Contains("[" + customer.UserType + "]"))
             {
                 return customer;

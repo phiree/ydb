@@ -99,6 +99,9 @@
       <DependentUpon>ChatImageShow.xaml</DependentUpon>
     </Compile>
     <Compile Include="FlashInTaskBar.cs" />
+    <Compile Include="FormMainBackup.xaml.cs">
+      <DependentUpon>FormMainBackup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.xaml.cs">
       <DependentUpon>FormMain.xaml</DependentUpon>
     </Compile>
@@ -153,6 +156,12 @@
     <Compile Include="UC\UC_ShelfService.xaml.cs">
       <DependentUpon>UC_ShelfService.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\UC_TabContent.xaml.cs">
+      <DependentUpon>UC_TabContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_TabContentTimer.xaml.cs">
+      <DependentUpon>UC_TabContentTimer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\UC_TabControlTools.xaml.cs">
       <DependentUpon>UC_TabControlTools.xaml</DependentUpon>
     </Compile>
@@ -164,6 +173,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FormLogin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormMainBackup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -239,6 +252,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\UC_ShelfService.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_TabContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_TabContentTimer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

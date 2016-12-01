@@ -8,12 +8,25 @@ namespace Dianzhu.CSClient.IView
 {
     public interface IViewMainForm
     {
-        void ShowMessage(string message);
         void CloseApplication();
         bool? ShowDialog();
 
         string CSName { set; }
 
-        void FlashTaskBar();//任务栏闪烁
+        /// <summary>
+        /// 播放收到消息的提示音
+        /// </summary>
+        void PlayVoice();
+        /// <summary>
+        /// 任务栏闪烁
+        /// </summary>
+        void FlashTaskBar();
+
+        void AddIdentityTab(string identityTabFriendly, IViewTabContent viewTabContent);
+
+        void ShowIdentityTab(string identityTabFriendly);
+
+        void RemoveIdentityTab(string identityTabFriendly);
+        
     }
 }

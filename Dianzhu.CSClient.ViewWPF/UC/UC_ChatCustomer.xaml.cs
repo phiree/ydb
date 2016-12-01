@@ -54,7 +54,7 @@ namespace Dianzhu.CSClient.ViewWPF
                         //chatImageGif.MediaEnded += ChatImageGif_MediaEnded;
 
                         UC_ChatImageNoraml chatImageGif = new UC_ChatImageNoraml(mediaUrl);
-                        string chatId = PHSuit.StringHelper.SafeNameForWpfControl(vmChat.ChatId,GlobalVariable.PRECHATCUSTOMER);
+                        string chatId = PHSuit.StringHelper.SafeNameForWpfControl(vmChat.ChatId,GlobalVariable.PRE_CHAT_CUSTOMER);
                         if ((UC_ChatImageNoraml)this.FindName(chatId) == null)
                         {
                             this.RegisterName(chatId, chatImageGif);
