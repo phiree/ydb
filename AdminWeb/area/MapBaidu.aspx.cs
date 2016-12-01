@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
 using System.IO;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
 
 public partial class area_MapBaidu : BasePage
 {
@@ -16,7 +18,7 @@ public partial class area_MapBaidu : BasePage
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        Dianzhu.BLL.BLLArea bllArea = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLArea>();
+       IAreaService  bllArea = Bootstrap.Container.Resolve<IAreaService>();
         string con_file_path = System.Web.HttpContext.Current.Server.MapPath("allcity.json");
         using (StreamReader sr = new StreamReader(con_file_path))
         {
@@ -45,7 +47,7 @@ public partial class area_MapBaidu : BasePage
                     {
                         try
                         {
-                            Dianzhu.Model.Area area = bllArea.GetAreaByBaiduName(baiduCity.name);
+                             Area area = bllArea.GetAreaByBaiduName(baiduCity.name);
                             if (string.IsNullOrEmpty(area.BaiduCode))
                             {
                                 area.BaiduCode = baiduCity.code;

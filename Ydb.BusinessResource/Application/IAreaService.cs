@@ -13,5 +13,6 @@ namespace Ydb.BusinessResource.Application
         Area GetCityByAreaCode(string areacode);
         Area GetOne(int areaId);
         IList<Area> GetSubArea(string areacode);
+       Area GetAreaByBaiduName(string areaname);
     }
 }

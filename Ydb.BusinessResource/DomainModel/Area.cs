@@ -12,6 +12,10 @@ namespace Ydb.BusinessResource.DomainModel
         public virtual int AreaOrder { get; set; }
         public virtual string MetaDescription { get; set; }
 
+        public virtual string BaiduName { get; set; }
+
+        public virtual string BaiduCode { get; set; }
+
         /// <summary>
         ///行政级别:省,市,区
         /// </summary>
