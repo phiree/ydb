@@ -47,6 +47,7 @@ namespace Dianzhu.CSClient
         static PIdentityList pIdentityList;
         static PMain mainPresenter;
         static Dictionary<string,IViewTabContent> viewTabContentList = new Dictionary<string, IViewTabContent>();
+        static Ydb.Common.Infrastructure.IEncryptService encryptService;
         static IDZMembershipService memberService;
         static LocalChatManager localChatManager;
 
@@ -67,6 +68,10 @@ namespace Dianzhu.CSClient
             //log
 
             log.Debug("开始启动助理工具");
+           
+
+            Bootstrap.Boot();
+            encryptService = Bootstrap.Container.Resolve<Ydb.Common.Infrastructure.IEncryptService>();
             bool isValidConfig = CheckConfig();
             if (!isValidConfig)
             {
@@ -74,9 +79,6 @@ namespace Dianzhu.CSClient
                 Application.ExitThread();
                 return;
             }
-
-            Bootstrap.Boot();
-
             memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
             localChatManager = Bootstrap.Container.Resolve<LocalChatManager>();
 
@@ -403,9 +405,9 @@ namespace Dianzhu.CSClient
             log.Debug("--开始 检查配置是否冲突");
             //need: openfire服务器 数据库,api服务器,三者目标ip应该相等.
             bool isValidConfig = false;
-            string connectionString = PHSuit.Security.Decrypt(System.Configuration.ConfigurationManager
+            string connectionString =encryptService.Decrypt(System.Configuration.ConfigurationManager
                 .ConnectionStrings["DianzhuConnectionString"].ConnectionString, false);
-            System.Text.RegularExpressions.Match m = System.Text.RegularExpressions.Regex.Match(connectionString, @"(?<=data\s+source\=).+?(?=;uid)");
+            System.Text.RegularExpressions.Match m = System.Text.RegularExpressions.Regex.Match(connectionString, @"(?<=data\s+source\=).+?(?=;)");
             string ofserver = Dianzhu.Config.Config.GetAppSetting("ImServer");
             System.Text.RegularExpressions.Match m2 = System.Text.RegularExpressions.Regex.Match(Dianzhu.Config.Config.GetAppSetting("APIBaseURL"), "(?<=https?://).+?(?=:" + Dianzhu.Config.Config.GetAppSetting("GetHttpAPIPort") + ")");
 
