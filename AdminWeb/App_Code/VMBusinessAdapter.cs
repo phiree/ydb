@@ -19,7 +19,6 @@ public class VMBusinessAdapter
     string errMsg;
     public VMShop Adapt( Business business)
     {
-        
         VMShop vmShop = new VMShop();
         vmShop.BusinessName = business.Name;
         vmShop.CityName = business.AreaBelongTo==null?string.Empty: business.AreaBelongTo.Name;
@@ -28,7 +27,6 @@ public class VMBusinessAdapter
 
         vmShop.ServiceTypes = business.ServiceType.Select(x => x.Name).ToList();
         vmShop.RegisterTime = business.CreatedTime;
-
         
         vmShop.OrderCount = bllOrder.GetAllOrdersForBusiness(business.Id).Count;
         vmShop.OrderCompleteCount = bllOrder.GetAllCompleteOrdersForBusiness(business.Id).Count;
