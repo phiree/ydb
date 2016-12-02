@@ -10,6 +10,10 @@ namespace Dianzhu.CSClient.Presenter
     public class GlobalViables
     {
         public static readonly string ButtonNamePrefix = "btn";
+        /// <summary>
+        /// 用户tab控件对应的常量前缀
+        /// </summary>
+        public const string PRE_TAB_CUSTOMER = "tab";
 
         /// <summary>
         /// 当前登录的客服

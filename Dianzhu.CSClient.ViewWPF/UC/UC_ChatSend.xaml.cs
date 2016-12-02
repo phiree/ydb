@@ -29,9 +29,7 @@ namespace Dianzhu.CSClient.ViewWPF
     {
         private readonly ScreenCaputre screenCaputre = new ScreenCaputre();
         private Size? lastSize;
-
-        public event SaveMessageText SaveMessageText;
-
+        
         public UC_ChatSend()
         {
             InitializeComponent();
@@ -91,9 +89,8 @@ namespace Dianzhu.CSClient.ViewWPF
         Button btnMediaSender;
         private void btnSendMedia_Click(object sender, RoutedEventArgs e)
         {
-                btnMediaSender = (Button)sender;
-               SendMedia();
-            
+            btnMediaSender = (Button)sender;
+            SendMedia();
         }
 
         private void WorkerSendMedia_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -141,8 +138,6 @@ namespace Dianzhu.CSClient.ViewWPF
                     workerSendMedia.DoWork += WorkerSendMedia_DoWork;
                     workerSendMedia.RunWorkerCompleted += WorkerSendMedia_RunWorkerCompleted;
                     workerSendMedia.RunWorkerAsync();
-                    
-
                 }
                
             }
@@ -152,18 +147,12 @@ namespace Dianzhu.CSClient.ViewWPF
             this.Dispatcher.Invoke((Action)(() =>
             {
                 lblSendingMsg.Content = "正在发送,请稍后";
-               
+
             }));
             byte[] fileData = File.ReadAllBytes(dlg.FileName);
 
-            //NHibernateUnitOfWork.UnitOfWork.Start();
-            //Action ac = () => {
-                SendMediaClick(fileData, domain, mediaType);
-                FinalChatTimerSend();
-            //};
-            //NHibernateUnitOfWork.With.Transaction(ac);
-            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            SendMediaClick(fileData, domain, mediaType);
+            //FinalChatTimerSend();
         }
 
         #region 截图
@@ -178,7 +167,8 @@ namespace Dianzhu.CSClient.ViewWPF
             //Window mainForm = (Window)((Grid)((Grid)((Grid)((Grid)((Grid)this.Parent).Parent).Parent).Parent).Parent).Parent;
             if (mainForm == null)
             {
-                mainForm = (Window)((Grid)((Grid)((Grid)((Grid)((Grid)((Grid)this.Parent).Parent).Parent).Parent).Parent).Parent).Parent;
+                //mainForm = (Window)((Grid)((Grid)((Grid)((Grid)((Grid)((Grid)this.Parent).Parent).Parent).Parent).Parent).Parent).Parent;
+                mainForm = Window.GetWindow(this);
             }
             //mainForm.Visibility = Visibility.Collapsed;
             mainForm.WindowState = WindowState.Minimized;
@@ -239,22 +229,16 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            byte[] bytes=null;
+            byte[] bytes = null;
             this.Dispatcher.Invoke((Action)(() =>
             {
                 win.Title = "正在发送,请稍后........";
-                bytes= BitmapSource2ByteArray(bmp);
+                bytes = BitmapSource2ByteArray(bmp);
             }));
 
-            //NHibernateUnitOfWork.UnitOfWork.Start();
-            //Action ac = () =>
-            //{
-                SendMediaClick(bytes, "ChatImage", "image");
-            FinalChatTimerSend();
-            //};
-            //NHibernateUnitOfWork.With.Transaction(ac);
-            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+
+            SendMediaClick(bytes, "ChatImage", "image");
+            //FinalChatTimerSend();
         }
 
         private Byte[] BitmapSource2ByteArray(BitmapSource source)
@@ -279,15 +263,8 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void SendText()
         {
-            //NHibernateUnitOfWork.UnitOfWork.Start();
-            //Action ac = () =>
-            //{
             SendTextClick();
-                FinalChatTimerSend();
-            //};
-            //NHibernateUnitOfWork.With.Transaction(ac);
-            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                //FinalChatTimerSend();
         }
 
 
@@ -373,15 +350,7 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         #endregion
-
-        private void tbxTextMessage_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (SaveMessageText != null)
-            {
-                SaveMessageText("MessageText", MessageText);
-            }
-        }
-
+        
         private void btnSendDidiMsg_Click(object sender, RoutedEventArgs e)
         {
             if (SendDidichuxing != null)

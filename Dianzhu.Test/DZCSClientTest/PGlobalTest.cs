@@ -16,15 +16,15 @@ namespace Dianzhu.Test.DZCSClientTest
     {
         IViewIdentityList viewCustomerList;
         IViewChatList viewChatList;
-        PIdentityList pi;
-        PChatList pc;
+        //PIdentityList pi;
+        //PChatList pc;
         [SetUp]
         public void setup()
         {
             viewCustomerList = MockRepository.GenerateStub<IViewIdentityList>();
             viewChatList = MockRepository.GenerateStub<IViewChatList>();
-             pi = MockRepository.GenerateStub<PIdentityList>();
-          pc=  MockRepository.GenerateStub<PChatList>();
+          //   pi = MockRepository.GenerateStub<PIdentityList>();
+          //pc=  MockRepository.GenerateStub<PChatList>();
 
         }
     }

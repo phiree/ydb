@@ -69,9 +69,10 @@ namespace Ydb.Infrastructure.Tests
             PrintOneServer(new InfrastructureTests.DbConfigBuilder().ReplaceDianzhuDb("dianzhu_test").BuildForServer("192.168.1.150", "root", "root"));
             PrintOneServer(new InfrastructureTests.DbConfigBuilder().BuildForServer("business.ydban.cn", "jsyk2016", "X*G7czoy6twAYIz7","4407"));
             PrintOneServer(new InfrastructureTests.DbConfigBuilder().BuildForServer("dev.ydban.cn", "jsyk2016", "IQDv$qefeqFWuq_L","4407"));
+            PrintConfigSection(new InfrastructureTests.DbConfigBuilder().ReplaceDianzhuDb("dianzhu_publish"). BuildForServerConfig("dev.ydban.cn", "jsyk2016", "IQDv$qefeqFWuq_L", "4407"));
+            PrintConfigSection(new InfrastructureTests.DbConfigBuilder() .BuildForServerConfig("dev.ydban.cn", "jsyk2016", "IQDv$qefeqFWuq_L", "4407"));
 
             PrintConfigSection(new InfrastructureTests.DbConfigBuilder().BuildForServerConfig("localhost", "root", "root","3306"));
-            
 
             /*
             Console.WriteLine("172_dianzhu_publish_test:" + encryptService.Encrypt("172_dianzhu___data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test", false));
