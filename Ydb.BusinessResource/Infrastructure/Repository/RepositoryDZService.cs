@@ -42,7 +42,9 @@ namespace Ydb.BusinessResource.Infrastructure.Repository
                            + " inner join service.OpenTimes as opentime" +
                                 " with opentime.DayOfWeek=" + (int)preOrderTime.DayOfWeek
                           + " inner join opentime.OpenTimeForDay as opentimeday"
-                                + " with  " + (preOrderTime.Hour * 60 + preOrderTime.Minute) + " between opentimeday.PeriodStart and opentimeday.PeriodEnd";
+                                + " with  " + (preOrderTime.Hour * 60 + preOrderTime.Minute) 
+                                + " between opentimeday.TimePeriod.StartTime.Hour*60+opentimeday.TimePeriod.StartTime.Minute "
+                                        + " and opentimeday.TimePeriod.EndTime.Hour*60+opentimeday.TimePeriod.EndTime.Minute  ";
             string where = " where 1=1 ";
             if (priceMin >= 0 && priceMax > 0 && priceMin < priceMax)
             {

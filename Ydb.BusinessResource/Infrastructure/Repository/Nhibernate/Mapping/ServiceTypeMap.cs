@@ -20,7 +20,7 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.Code);
             Map(x => x.OrderNumber);
             References<ServiceType>(x => x.Parent);
-            HasMany<ServiceType>(x => x.Children).Cascade.All().Inverse();
+            HasMany<ServiceType>(x => x.Children).Cascade.All().Inverse().Not.LazyLoad();
            // HasMany<ServiceProperty>(x => x.Properties);
             
 

@@ -85,7 +85,7 @@ namespace Ydb.BusinessResource.DomainModel
         //给定时间在该范围内?
         public virtual bool IsIn(Time time)
         {
-            return TimePeriod.StartTime >= time && time <= TimePeriod.EndTime;
+            return TimePeriod.StartTime <=time && time <= TimePeriod.EndTime;
 
         }
 

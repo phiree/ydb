@@ -9,7 +9,7 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping
         {
             Id(x => x.Id);
             Map(x => x.Name);
-            References<Business>(x => x.Business);
+            References<Business>(x => x.Business).Not.LazyLoad();
                
             Map(x => x.Description);
             References<ServiceType>(x => x.ServiceType).Not.LazyLoad();
@@ -31,7 +31,7 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.IsDeleted);
             Map(x => x.CreatedTime);
             Map(x => x.LastModifiedTime);
-            HasMany<ServiceOpenTime>(x => x.OpenTimes).Cascade.All();// SaveUpdate();
+            HasMany<ServiceOpenTime>(x => x.OpenTimes).Cascade.All().Not.LazyLoad();// SaveUpdate();
             Map(x => x.PayFirst);
              
             Map(x => x.OverTimeForCancel);
