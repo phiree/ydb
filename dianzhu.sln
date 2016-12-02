@@ -313,6 +313,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.InfrastructureTests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.CommonTests", "Ydb.CommonTests\Ydb.CommonTests.csproj", "{C550CA32-8448-4D22-B101-C905D3CD499B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.Web.LogView", "Ydb.Web.LogView\Ydb.Web.LogView.csproj", "{644850B7-24C2-43E3-B381-DB5E5FF2C449}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1241,6 +1243,24 @@ Global
 		{C550CA32-8448-4D22-B101-C905D3CD499B}.测试环境|Mixed Platforms.Build.0 = Release|Any CPU
 		{C550CA32-8448-4D22-B101-C905D3CD499B}.测试环境|x86.ActiveCfg = Release|Any CPU
 		{C550CA32-8448-4D22-B101-C905D3CD499B}.测试环境|x86.Build.0 = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Debug|x86.Build.0 = Debug|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Release|Any CPU.Build.0 = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Release|x86.ActiveCfg = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Release|x86.Build.0 = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.测试环境|Any CPU.ActiveCfg = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.测试环境|Any CPU.Build.0 = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.测试环境|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.测试环境|Mixed Platforms.Build.0 = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.测试环境|x86.ActiveCfg = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.测试环境|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1296,6 +1316,7 @@ Global
 		{8CA79734-2B50-4EA4-A4C8-408E0F935EF1} = {E4338C9B-90F1-4640-A650-F903E722C878}
 		{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F} = {28666F1F-07A5-45FB-A9EF-D9E7BDB50565}
 		{E9218BB6-ED15-464E-8C96-AD5883396B08} = {28666F1F-07A5-45FB-A9EF-D9E7BDB50565}
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 	EndGlobalSection
 	GlobalSection(NDepend) = preSolution
 		Project = ".\dianzhu.ndproj"
