@@ -29,7 +29,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminWeb", "AdminWeb\", "{1
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "54359"
 		VWDVirtualPath = "/"
-		SlnRelativePath = "AdminWeb\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
@@ -57,7 +56,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.HttpApi", "Dianzhu.
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "6228"
 		VWDVirtualPath = "/"
-		SlnRelativePath = "Dianzhu.HttpApi\"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Model", "Dianzhu.Model\Dianzhu.Model.csproj", "{84187F7C-DD53-4895-A7FF-191E76756009}"
@@ -97,7 +95,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaServerWeb", "MediaServ
 		Release.AspNetCompiler.FixedNames = "true"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "2762"
-		SlnRelativePath = "MediaServerWeb\"
 	EndProjectSection
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Pay", "Dianzhu.Web.Pay\", "{FBEC30ED-52CD-49B0-B767-B2EC013796A4}"
@@ -119,7 +116,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Pay", "Dianzhu.
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "12360"
-		SlnRelativePath = "Dianzhu.Web.Pay\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
@@ -142,7 +138,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Notify", "Dianz
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "50182"
-		SlnRelativePath = "Dianzhu.Web.Notify\"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DianzhuService.Diandian", "DianzhuService.Diandian\DianzhuService.Diandian.csproj", "{D3820846-BAD7-49E9-8BCF-D5EF26579350}"
@@ -170,7 +165,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.PushServer", "D
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "29864"
-		SlnRelativePath = "Dianzhu.Web.PushServer\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
@@ -196,7 +190,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminBusiness", "AdminBusin
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "25404"
 		VWDVirtualPath = "/"
-		SlnRelativePath = "AdminBusiness\"
 		DefaultWebSiteLanguage = "Visual C#"
 		StartServerOnDebug = "true"
 	EndProjectSection
@@ -259,7 +252,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebForTesting", "WebForTest
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "7676"
-		SlnRelativePath = "WebForTesting\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
@@ -312,6 +304,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClientTests", "Dianzhu.CSClientTests\Dianzhu.CSClientTests.csproj", "{E9875729-4585-44B6-ABC2-00D766A64C5C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.Presenter", "Dianzhu.CSClient.Presenter\Dianzhu.CSClient.Presenter.csproj", "{2955FF18-C6C2-418C-BC99-A68E20EC0D61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.Web.LogView", "Ydb.Web.LogView\Ydb.Web.LogView.csproj", "{644850B7-24C2-43E3-B381-DB5E5FF2C449}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1242,6 +1236,24 @@ Global
 		{2955FF18-C6C2-418C-BC99-A68E20EC0D61}.测试环境|Mixed Platforms.Build.0 = Release|Any CPU
 		{2955FF18-C6C2-418C-BC99-A68E20EC0D61}.测试环境|x86.ActiveCfg = Release|Any CPU
 		{2955FF18-C6C2-418C-BC99-A68E20EC0D61}.测试环境|x86.Build.0 = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Debug|x86.Build.0 = Debug|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Release|Any CPU.Build.0 = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Release|x86.ActiveCfg = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.Release|x86.Build.0 = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.测试环境|Any CPU.ActiveCfg = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.测试环境|Any CPU.Build.0 = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.测试环境|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.测试环境|Mixed Platforms.Build.0 = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.测试环境|x86.ActiveCfg = Release|Any CPU
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449}.测试环境|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1297,6 +1309,7 @@ Global
 		{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F} = {28666F1F-07A5-45FB-A9EF-D9E7BDB50565}
 		{E9218BB6-ED15-464E-8C96-AD5883396B08} = {28666F1F-07A5-45FB-A9EF-D9E7BDB50565}
 		{2955FF18-C6C2-418C-BC99-A68E20EC0D61} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
+		{644850B7-24C2-43E3-B381-DB5E5FF2C449} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 	EndGlobalSection
 	GlobalSection(NDepend) = preSolution
 		Project = ".\dianzhu.ndproj"
