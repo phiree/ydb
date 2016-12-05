@@ -99,9 +99,6 @@
       <DependentUpon>ChatImageShow.xaml</DependentUpon>
     </Compile>
     <Compile Include="FlashInTaskBar.cs" />
-    <Compile Include="FormMainBackup.xaml.cs">
-      <DependentUpon>FormMainBackup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="FormMain.xaml.cs">
       <DependentUpon>FormMain.xaml</DependentUpon>
     </Compile>
@@ -173,10 +170,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FormLogin.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="FormMainBackup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -118,7 +118,6 @@
     <Compile Include="Finance\BLLSharePoint.cs" />
     <Compile Include="Finance\IOrderShare.cs" />
     <Compile Include="Finance\OrderShare.cs" />
-    <Compile Include="Push\PushMessageBuilder.cs" />
     <Compile Include="ServiceBase.cs" />
     <Compile Include="ServiceOrder\IBLLServiceOrder.cs" />
     <Compile Include="ServiceOrder\BLLServiceOrder.cs" />
@@ -180,6 +179,10 @@
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
       <Name>PHSuit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.BusinessResource\Ydb.BusinessResource.csproj">
+      <Project>{0c2206a1-308f-4090-a4a9-4e7cefd2fd9f}</Project>
+      <Name>Ydb.BusinessResource</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
       <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>

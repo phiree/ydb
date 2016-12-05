@@ -43,13 +43,14 @@ namespace Dianzhu.CSClient.Presenter
             //iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             viewChatList.CurrentCustomerServiceId = GlobalViables.CurrentCustomerService.Id;
             viewChatList.BtnMoreChat += ViewChatList_BtnMoreChat;
+            viewChatList.ChatListCustomerName = customerName;
 
             LoadChats();
         }
 
         private void LoadChats()
         {
-            viewChatList.ChatListCustomerName = customerName;
+         //   viewChatList.ChatListCustomerName = customerName;
 
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
@@ -87,6 +88,7 @@ namespace Dianzhu.CSClient.Presenter
 
             log.Debug("异步加载聊天记录完成");
         }
+
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {

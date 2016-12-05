@@ -42,8 +42,7 @@ namespace Dianzhu.CSClient.Presenter
             this.instantMessage = instantMessage;
             this.bllAdv = bllAdv;
             loginView.ViewLogin += new IView.ViewLogin(loginView_ViewLogin);
-            loginView.TestClick += LoginView_TestClick;
-            instantMessage.IMError += new IMError(XMPP_IMError);
+              instantMessage.IMError += new IMError(XMPP_IMError);
             instantMessage.IMConnectionError += new IMConnectionError(instantMessage_IMConenctionError);
             instantMessage.IMLogined += new IMLogined(IMLogined);
             instantMessage.IMAuthError += new IMAuthError(XMPP_IMAuthError);

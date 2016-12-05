@@ -204,6 +204,7 @@ namespace Dianzhu.DependencyInstaller
               Dependency.OnValue("bllPayment", new BLLPayment(container.Resolve<IDALPayment>(), container.Resolve<IDALClaims>())),
               Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>()))
               ));
+            container.Register(Component.For<Dianzhu.Push.IPushMessageBiulder>().ImplementedBy<Dianzhu.Push.PushMessageBuilder>());
 
         }
     }
