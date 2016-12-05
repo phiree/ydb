@@ -20,14 +20,12 @@ public partial class _Default : System.Web.UI.Page
     string msg;
     private void Push()
     {
-        foreach(ListItem a in cbxTokenList.Items)
-        {
-
-            if (!a.Selected) continue;
+        
+          
             msg += "-----------" + DateTime.Now + "-----------------" + Environment.NewLine;
         string appType = rblAppType.SelectedValue;
-        string message = tbxMessage.Text;
-            string deviceToken = a.Value;
+        string message = tbxMessage.Text+DateTime.Now;
+          
           
             
     
@@ -36,9 +34,16 @@ public partial class _Default : System.Web.UI.Page
             PushMessage pushMessage=   pushMessageBuilder.BuildPushMessage(message, ChatType, FromResource, "test_fromusername",
                 tbxOrderId.Text, "test_businessName", "test_serialNo", OrderStatus, rblOrderStatus.Text);
                  IPush push = PushFactory.Create(pushType, appType, pushMessage);
-            string pushResult= push.Push(  deviceToken,1);
+            string pushResult= push.Push(  PushToken,1);
 
-            msg += string.Format("推送结果{0}({1})", pushResult, a.Text)+Environment.NewLine;
+            msg += string.Format("推送结果{0}({1})", pushResult, PushToken)+Environment.NewLine;
+       
+    }
+
+    string PushToken {
+        get {
+            string customerToken = tbxToken.Text;
+            return string.IsNullOrEmpty(customerToken) ? rblTokenList.SelectedValue : customerToken;
         }
     }
 
