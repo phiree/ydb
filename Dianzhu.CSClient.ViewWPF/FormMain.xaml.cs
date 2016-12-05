@@ -92,6 +92,14 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        public string Version
+        {
+            set
+            {
+                FormTitle.Text = value;
+            }
+        }
+
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             main.DragMove();

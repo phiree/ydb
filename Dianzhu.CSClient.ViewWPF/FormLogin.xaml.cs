@@ -57,10 +57,10 @@ namespace Dianzhu.CSClient.ViewWPF
             }
             bgw.RunWorkerAsync();
         }
-        public string FormText
+        public   string Version
         {
-            get { return this.Title; }
-            set { this.Title = value; }
+           
+            set {  Title = value; }
         }
         public string ErrorMessage
         {

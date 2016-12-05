@@ -88,6 +88,10 @@ namespace Dianzhu.CSClient.Presenter
             return this.loginView.ShowDialog();
         }
         
+        public IView.ILoginForm LoginForm
+        {
+            get { return loginView; }
+        }
 
         public async void Login(string username, string plainPassword)
         {
