@@ -29,6 +29,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminWeb", "AdminWeb\", "{1
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "54359"
 		VWDVirtualPath = "/"
+		SlnRelativePath = "AdminWeb\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
@@ -56,6 +57,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.HttpApi", "Dianzhu.
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "6228"
 		VWDVirtualPath = "/"
+		SlnRelativePath = "Dianzhu.HttpApi\"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Model", "Dianzhu.Model\Dianzhu.Model.csproj", "{84187F7C-DD53-4895-A7FF-191E76756009}"
@@ -95,6 +97,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaServerWeb", "MediaServ
 		Release.AspNetCompiler.FixedNames = "true"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "2762"
+		SlnRelativePath = "MediaServerWeb\"
 	EndProjectSection
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Pay", "Dianzhu.Web.Pay\", "{FBEC30ED-52CD-49B0-B767-B2EC013796A4}"
@@ -116,6 +119,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Pay", "Dianzhu.
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "12360"
+		SlnRelativePath = "Dianzhu.Web.Pay\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
@@ -138,6 +142,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Notify", "Dianz
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "50182"
+		SlnRelativePath = "Dianzhu.Web.Notify\"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DianzhuService.Diandian", "DianzhuService.Diandian\DianzhuService.Diandian.csproj", "{D3820846-BAD7-49E9-8BCF-D5EF26579350}"
@@ -149,7 +154,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.PushServer", "Dianzhu.Web.PushServer\", "{CBE79023-31C6-455F-A6F0-3BFF280F66E8}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}|Dianzhu.Config.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;"
+		ProjectReferences = "{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}|Dianzhu.Config.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_29864"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.Web.PushServer\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_29864\"
@@ -165,6 +170,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.PushServer", "D
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "29864"
+		SlnRelativePath = "Dianzhu.Web.PushServer\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
@@ -190,6 +196,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminBusiness", "AdminBusin
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "25404"
 		VWDVirtualPath = "/"
+		SlnRelativePath = "AdminBusiness\"
 		DefaultWebSiteLanguage = "Visual C#"
 		StartServerOnDebug = "true"
 	EndProjectSection
@@ -252,6 +259,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebForTesting", "WebForTest
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "7676"
+		SlnRelativePath = "WebForTesting\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject

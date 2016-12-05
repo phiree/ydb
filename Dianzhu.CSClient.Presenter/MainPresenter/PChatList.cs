@@ -92,8 +92,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             try
             {
-                NHibernateUnitOfWork.UnitOfWork.Start();//查询服务需开启
-
+                
                 string identity = e.Argument.ToString();
 
                 IList<VMChat> vmList = new List<VMChat>();
@@ -126,11 +125,7 @@ namespace Dianzhu.CSClient.Presenter
                 e.Result = new List<ReceptionChatDto>();
                 log.Error(log, ee);
             }
-            finally
-            {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-            }
+            
         }
 
         private void IIM_IMReceivedMessage(ReceptionChatDto dto)

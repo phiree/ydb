@@ -505,7 +505,7 @@
                     </WrapPanel>
                     <WrapPanel>
                         <Label>
-                            <TextBlock Text=" 一点办测试版(2.0.0.1) 2016-12-1 12:30" Foreground="White"/>
+                            <TextBlock x:Name="FormTitle" Text=" 一点办测试版(2.0.0.1) 2016-12-1 12:30" Foreground="White"/>
                         </Label>
                     </WrapPanel>
                     <WrapPanel HorizontalAlignment="Right">

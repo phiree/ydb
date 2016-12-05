@@ -12,14 +12,14 @@ namespace Dianzhu.CSClient.IView
    
     public interface ILoginForm
     {
-        string FormText { get; set; }
+        string Version {  set; }
         string UserName { get; }
         string Password { get; }
         string LoginButtonText { set; }
         bool LoginButtonEnabled { set; }
         // when send login (click login button)
         event ViewLogin ViewLogin;
-        event EventHandler TestClick;
+        
 
         bool IsLoginSuccess { set; }
         string LoginMessage { set; }
