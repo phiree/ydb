@@ -38,6 +38,7 @@ using Ydb.InstantMessage.Application.Dto;
 using Ydb.InstantMessage.DomainModel.Chat;
 using System.IO;
 using System.Reflection;
+using Ydb.Common;
 
 namespace Dianzhu.CSClient
 {

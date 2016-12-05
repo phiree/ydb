@@ -1,9 +1,8 @@
 ﻿using System;
- 
+
 using Ydb.Common;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.DomainModel.Enums;
-using Dianzhu.Model.Enums;
 namespace Dianzhu.Push
 {
     public interface IPushMessageBiulder

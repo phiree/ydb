@@ -1,15 +1,11 @@
 ﻿using NUnit.Framework;
-using Dianzhu.Push;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Enums;
- 
+
 using FizzWare.NBuilder;
 using Ydb.InstantMessage.DomainModel.Chat;
-using Dianzhu.Model.Enums;
+using Ydb.Common;
+
 namespace Dianzhu.Push.Tests
 {
     [TestFixture()]

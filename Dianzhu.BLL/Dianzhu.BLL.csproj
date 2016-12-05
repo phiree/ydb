@@ -105,7 +105,6 @@
     <Compile Include="Client\IBLLClient.cs" />
     <Compile Include="Client\IBLLRefreshToken.cs" />
     <Compile Include="Common\SerialNo\ISerialNoBuilder.cs" />
-    <Compile Include="Push\PushMessageBuilder.cs" />
     <Compile Include="ServiceBase.cs" />
     <Compile Include="ServiceOrder\IBLLServiceOrder.cs" />
     <Compile Include="ServiceOrder\BLLServiceOrder.cs" />
@@ -179,9 +178,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Dianzhu.BLL.csproj.orig">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
