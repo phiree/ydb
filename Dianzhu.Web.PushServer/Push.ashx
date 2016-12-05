@@ -18,18 +18,23 @@ public class Push : IHttpHandler
         }
         else
         {
-            
-                    string deviceToken = context.Request["deviceToken"];
-                    string pushNum = context.Request["pushNum"];
-                    string notificaitonSound = context.Request["notificaitonSound"];
-                    string message = context.Request["message"];
-                    log.Debug(string.Format("推送参数为:devicetoken_{0},pushnum{1},sound_{2},message_{3}", deviceToken, pushNum, notificaitonSound, message));
-                //todo: 第一个参数需要根据目标类型变化, 现在是写死的.
-                    IPush push = PushFactory.Create( PushType.PushToUser, appType, string.Empty); 
-                    push.Push(message,deviceToken,1);
-                    log.Debug("推送完成");
-                    
+
+            string deviceToken = context.Request["deviceToken"];
+            string pushNum = context.Request["pushNum"];
+            string notificaitonSound = context.Request["notificaitonSound"];
+            string message = context.Request["message"];
+                string orderId = context.Request["orderId"];
+                  PushMessage pushMessage = new PushMessage { DisplayContent = message, OrderId = orderId, OrderSerialNo = "test_serialNo" };
        
+            log.Debug(string.Format("推送参数为:devicetoken_{0},pushnum{1},sound_{2},message_{3}", deviceToken, pushNum, notificaitonSound, message));
+
+
+            //todo: 第一个参数需要根据目标类型变化, 现在是写死的.
+            IPush push = PushFactory.Create( PushType.PushToUser, appType, pushMessage);
+            push.Push(deviceToken,1);
+            log.Debug("推送完成");
+
+
         }
         context.Response.Write(response);
     }

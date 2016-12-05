@@ -37,7 +37,7 @@ using System.Windows.Threading;
 using Ydb.InstantMessage.Application.Dto;
 using Ydb.InstantMessage.DomainModel.Chat;
 using System.IO;
-using Ydb.Common;
+using System.Reflection;
 
 namespace Dianzhu.CSClient
 {
@@ -83,9 +83,10 @@ namespace Dianzhu.CSClient
             memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
             localChatManager = Bootstrap.Container.Resolve<LocalChatManager>();
 
-            string version = GetVersion();
-            //  loginForm.FormText += "v" + version;
+            string version = GetVersionText();
+           //  loginForm.FormText += "v" + version;
             Presenter.LoginPresenter loginPresenter = Bootstrap.Container.Resolve<Presenter.LoginPresenter>();
+            loginPresenter.LoginForm.Version = version;
             loginPresenter.Args = args;
             bool? result = loginPresenter.ShowDialog();
 
@@ -100,16 +101,12 @@ namespace Dianzhu.CSClient
                 iIM.IMReceivedMessage += IIM_IMReceivedMessage;
 
                 mainPresenter = Bootstrap.Container.Resolve<PMain>();
+                mainPresenter.Form.Version = version;
                 Thread t = new Thread(SysAssign);
                 t.Start();
 
                 System.Windows.Application app=new System.Windows.Application();
-
-                VMIdentity vmIdentity = new VMIdentity("test_orderId", "sdf","aa", "");
-
-                pIdentityList.AddIdentity(vmIdentity);
-                AddIdentityTab(vmIdentity.CustomerId, vmIdentity.CustomerName);
-                app.Run((Window) mainPresenter.Form);
+				app.Run((Window) mainPresenter.Form);
               //  mainPresenter.ShowDialog();
             }
 
@@ -445,13 +442,30 @@ namespace Dianzhu.CSClient
 
             }
         }
+        static string GetVersionText()
+        {
+            return DateTime.Now.ToString("(yyyy-MM-dd hh:mm:ss)") + GetVersion();
+        }
         static string GetVersion()
         {
+            string versionText;
+
             Version myVersion = new Version();
 
             if (ApplicationDeployment.IsNetworkDeployed)
-                myVersion = ApplicationDeployment.CurrentDeployment.CurrentVersion;
-            return myVersion.ToString();
+            {
+                versionText = ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
+
+            }
+            else
+            {
+                versionText = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            }
+
+            return versionText;
+
+
+
         }
     }
 }

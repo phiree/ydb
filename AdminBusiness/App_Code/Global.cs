@@ -26,7 +26,7 @@ public class Global : HttpApplication, IContainerAccessor
         container = Bootstrap.Container;
 
         //在应用程序启动时运行的代码
-        PHSuit.Logging.Config("Dianzhu.AdminBusiness");
+        Ydb.Common.LoggingConfiguration.Config("Ydb.Web.AdminBusiness");// PHSuit.Logging.Config("Dianzhu.AdminBusiness");
 
 
 

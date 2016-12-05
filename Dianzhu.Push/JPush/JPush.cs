@@ -13,18 +13,18 @@ namespace Dianzhu.Push.JPush
     public class JPush : IPush
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Push.JPush");
-        string orderid;
-        public JPush(string orderid)
+        PushMessage message;
+        public JPush(PushMessage message)
         {
-            this.orderid = orderid;
+            this.message = message;
             log.Debug("-----------JPush开始--------------");
 
 
         }
-        public string Push(string message,string target,int amount)// string alert, string title,string target,string orderid)
+        public string Push(string target,int amount)// string alert, string title,string target,string orderid)
         {
             log.Debug(string.Format("anroid 推送开始:messaage:{0} target:{1} amount:{2}",message,target,amount));
-            JPushRequest req = JPushRequest.Create(new string[] { "android" }, new string[] { target }, message,"您有一条新消息", orderid);
+            JPushRequest req = JPushRequest.Create(new string[] { "android" }, new string[] { target }, message.DisplayContent,"您有一条新消息", message.OrderId);
             log.Debug("1");
             System.Net.WebHeaderCollection headers = new System.Net.WebHeaderCollection();
             log.Debug("2");

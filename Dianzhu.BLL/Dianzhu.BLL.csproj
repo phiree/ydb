@@ -185,7 +185,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Finance\" />
     <Folder Include="FormModel\" />
     <Folder Include="IdentityAccess\" />
   </ItemGroup>

@@ -26,7 +26,7 @@ namespace Dianzhu.DemoClient
                 RequestParams rpCS = new RequestParams();
                 rpCS.method = "0";
                 //rpCS.url = "http://business.dev.ydban.cn:8041/api/v1/customerServices";
-                rpCS.url = "http://localhost:8041/api/v1/customerServices";
+                rpCS.url = Dianzhu.Config.Config.GetAppSetting("RestApiSite")+"api/v1/customerServices";
                 //rp.url = "http://192.168.1.177:52554/api/v1/authorization";/api/v1/customerServices
                 rpCS.content = string.Empty; // "{\n\"loginName\":\"" + username + "\",\n\"password\":\"" + password + "\"\n}";
                 rpCS.token = resObject["token"].ToString();
