@@ -462,7 +462,7 @@
                                 <TextBlock Text="客服信息" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="btnSystemOperate" Style="{DynamicResource ButtonOperate}">
+                        <Button x:Name="btnSystemOperate" Style="{DynamicResource ButtonOperate}" MouseWheel="btnSystemOperate_MouseWheel" Click="btnSystemOperate_Click">
                             <StackPanel>
                                 <Image Height="60" Width="60" Source="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/set.png"/>
                                 <TextBlock Text="系统设置" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>

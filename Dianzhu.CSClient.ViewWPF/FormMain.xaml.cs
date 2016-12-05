@@ -45,6 +45,8 @@ namespace Dianzhu.CSClient.ViewWPF
             {ResizeDirection.BottomLeft, Cursors.SizeNESW}
         };
 
+        public event AddCustomerTest AddCustomerTest;
+
         public FormMain(IViewIdentityList viewIdentityList)
         {
             InitializeComponent();
@@ -197,6 +199,23 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 lambda();
             }
+        }
+
+    
+
+        private void btnSystemOperate_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.MiddleButton == MouseButtonState.Pressed)
+            {
+                AddCustomerTest();
+            }
+        }
+
+        private void btnSystemOperate_Click(object sender, RoutedEventArgs e)
+        {
+            
+                AddCustomerTest();
+            
         }
     }
 

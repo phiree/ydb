@@ -40,6 +40,8 @@ namespace Dianzhu.CSClient.Presenter
         IReceptionService receptionService;
         IViewTabContentTimer viewTabContentTimer;
 
+        IViewTypeSelect viewTypeSelect;
+
         string identity = string.Empty;
         public IViewSearch ViewSearch
         {
@@ -69,6 +71,7 @@ namespace Dianzhu.CSClient.Presenter
 
         public PSearch(
             IInstantMessage iIM, IViewSearch viewSearch, IViewSearchResult viewSearchResult,
+            IViewTypeSelect viewTypeSelect,
             IViewChatList viewChatList, IViewIdentityList viewIdentityList,
            IDZServiceService dalDzService, IBLLServiceOrder bllServiceOrder, IServiceTypeService dalServiceType,
                     PushService bllPushService, Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder,
@@ -78,6 +81,7 @@ namespace Dianzhu.CSClient.Presenter
             this.serialNoBuilder = serialNoBuilder;
             this.viewSearch = viewSearch; ;
             this.viewSearchResult = viewSearchResult;
+            this.viewTypeSelect = viewTypeSelect;
             this.dzService = dalDzService;
             this.viewChatList = viewChatList;
             this.bllServiceOrder = bllServiceOrder;
@@ -94,6 +98,7 @@ namespace Dianzhu.CSClient.Presenter
             viewSearch.Search += ViewSearch_Search;
 
             LoadTypes();
+            
  
             this.ServiceTypeFirst = new ServiceType();
             this.ServiceTypeSecond = new ServiceType();
@@ -125,11 +130,17 @@ namespace Dianzhu.CSClient.Presenter
         }
 
         #region 服务相关方法
+        /// <summary>
+        /// todo: 需要重构, 影响单元测试. 
+        /// 提出来作为一个单独的控件.
+        /// </summary>
         private void LoadTypes()
         {
             try
             {
-                NHibernateUnitOfWork.UnitOfWork.Start();
+                viewSearch.InitType(typeService.GetTopList());
+
+                
 
                 System.Threading.Thread.Sleep(1000);
                 if (this.ServiceTypeListTmp != null) { return; }
@@ -151,11 +162,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 log.Error(ee.ToString());
             }
-            finally
-            {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-            }         
+              
         }
         private void ViewSearch_ServiceTypeThird_Select(ServiceType type)
         {
@@ -382,7 +389,7 @@ namespace Dianzhu.CSClient.Presenter
         }
         #endregion
 
-        private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId,string name,string lng,string lat)
+        public   void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId,string name,string lng,string lat)
         {
             viewSearch.TargetTime = targetTime;
 

@@ -321,6 +321,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.Web.LogView", "Ydb.Web.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.PushTests", "Dianzhu.PushTests\Dianzhu.PushTests.csproj", "{C0B1E3FA-8C39-4096-90B5-40CB5944CD92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.PresenterTests", "Dianzhu.CSClient.PresenterTests\Dianzhu.CSClient.PresenterTests.csproj", "{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1322,6 +1324,24 @@ Global
 		{C0B1E3FA-8C39-4096-90B5-40CB5944CD92}.测试环境|Mixed Platforms.Build.0 = Release|Any CPU
 		{C0B1E3FA-8C39-4096-90B5-40CB5944CD92}.测试环境|x86.ActiveCfg = Release|Any CPU
 		{C0B1E3FA-8C39-4096-90B5-40CB5944CD92}.测试环境|x86.Build.0 = Release|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.Debug|x86.Build.0 = Debug|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.Release|x86.ActiveCfg = Release|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.Release|x86.Build.0 = Release|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.测试环境|Any CPU.ActiveCfg = Release|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.测试环境|Any CPU.Build.0 = Release|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.测试环境|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.测试环境|Mixed Platforms.Build.0 = Release|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.测试环境|x86.ActiveCfg = Release|Any CPU
+		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.测试环境|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

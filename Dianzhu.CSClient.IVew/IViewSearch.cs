@@ -46,6 +46,8 @@ namespace Dianzhu.CSClient.IView
         event ServiceTypeFirst_Select ServiceTypeFirst_Select;
         event ServiceTypeSecond_Select ServiceTypeSecond_Select;
         event ServiceTypeThird_Select ServiceTypeThird_Select;
+
+        void InitType(IList<ServiceType> typeList);
         #endregion
     }
     public delegate void SearchService(DateTime targetTime,decimal minPrice,decimal maxPrice,Guid servieTypeId,string name,string lng,string lat);

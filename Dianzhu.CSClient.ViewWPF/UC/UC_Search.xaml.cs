@@ -699,7 +699,12 @@ namespace Dianzhu.CSClient.ViewWPF
                 SaveUIData("Memo", ServiceMemo);
             }
         }
-        
+
+        public void InitType(IList<ServiceType> typeList)
+        {
+            UC_TypeSelect.Init(typeList);
+        }
+
         #endregion
     }
 }

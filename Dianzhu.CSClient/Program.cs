@@ -103,9 +103,9 @@ namespace Dianzhu.CSClient
 
                 mainPresenter = Bootstrap.Container.Resolve<PMain>();
                 mainPresenter.Form.Version = version;
+                mainPresenter.Form.AddCustomerTest += Form_AddCustomerTest;
                 Thread t = new Thread(SysAssign);
                 t.Start();
-
                 System.Windows.Application app=new System.Windows.Application();
 				app.Run((Window) mainPresenter.Form);
               //  mainPresenter.ShowDialog();
@@ -119,6 +119,14 @@ namespace Dianzhu.CSClient
 
         }
 
+        private static void Form_AddCustomerTest()
+        {
+            VMIdentity vmIdentityTest = new VMIdentity("orderId"+Guid.NewGuid(), "customer_id"+Guid.NewGuid(), "customerDisplayName", string.Empty);
+            pIdentityList.AddIdentity(vmIdentityTest);
+
+            AddIdentityTab(vmIdentityTest.CustomerId, vmIdentityTest.CustomerName);
+        }
+
         /// <summary>
         /// 自动拉取分配给点点的用户数据
         /// </summary>
@@ -126,6 +134,7 @@ namespace Dianzhu.CSClient
         {
             try
             {
+               
                 IReceptionService receptionService = Bootstrap.Container.Resolve<IReceptionService>();
                 log.Debug("-------开始 接收离线用户------");
                 IList<ReceptionStatusDto> assignList = receptionService.AssignCSLogin(GlobalViables.CurrentCustomerService.Id.ToString(), 3);

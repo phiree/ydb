@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="Dianzhu.CSClient.ViewWPF.UC_TypeSelect"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF.UC"
+             mc:Ignorable="d" Width="317.204" Height="32.528">
+   
+        <WrapPanel Margin="0,1" VerticalAlignment="Center">
+
+            <ComboBox x:Name="cbxSearchTypeF" Width="100" Margin="0,0,2,0" SelectionChanged="cbxSearchTypeF_SelectionChanged"/>
+            <ComboBox x:Name="cbxSearchTypeS" Width="100" Margin="0,0,2,0" SelectionChanged="cbxSearchTypeS_SelectionChanged" />
+            <ComboBox x:Name="cbxSearchTypeT" Width="100" SelectionChanged="cbxSearchTypeT_SelectionChanged" />
+        </WrapPanel>
+
+ 
+</UserControl>
