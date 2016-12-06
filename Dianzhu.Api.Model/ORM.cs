@@ -208,7 +208,7 @@ namespace Dianzhu.Api.Model
                     this.chargeUnit = string.Empty;
                 }
                 
-                this.name = orderDetail.ServiceSnapShot.ServiceName ?? string.Empty;
+                this.name = orderDetail.ServiceSnapShot.Name ?? string.Empty;
                 if (orderDetail.TargetTime > DateTime.MinValue)
                 {
                     this.startTime = string.Format("{0:yyyyMMddHHmmss}", orderDetail.TargetTime);
@@ -246,7 +246,7 @@ namespace Dianzhu.Api.Model
                     this.chargeUnit = string.Empty;
                 }
                 
-                this.name = pushService.ServiceSnapShot.ServiceName ?? string.Empty;
+                this.name = pushService.ServiceSnapShot.Name ?? string.Empty;
                 if (pushService.TargetTime > DateTime.MinValue)
                 {
                     this.startTime = string.Format("{0:yyyyMMddHHmmss}", pushService.TargetTime);

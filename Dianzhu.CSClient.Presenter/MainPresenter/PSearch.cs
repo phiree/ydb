@@ -239,7 +239,7 @@ namespace Dianzhu.CSClient.Presenter
 
                 Ydb.InstantMessage.DomainModel.Chat.PushedServiceInfo psi = new Ydb.InstantMessage.DomainModel.Chat.PushedServiceInfo(
                     pushedService.OriginalServiceId,
-                    pushedService.ServiceSnapShot.ServiceName,
+                    pushedService.ServiceSnapShot.Name,
                     pushedService.ServiceTypeName ,
                     pushedService.TargetTime.ToString(),
                     string.Empty,

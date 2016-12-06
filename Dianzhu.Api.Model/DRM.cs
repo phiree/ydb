@@ -41,7 +41,7 @@ namespace Dianzhu.Api.Model
         public RespDataDRM_svcOBj Adapt(ServiceSnapShot sssfOrder, DZService service, IList<DZTag> tags)
         {
             this.svcID = service.Id.ToString();
-            this.name = sssfOrder.ServiceName ?? service.Name ?? string.Empty;
+            this.name = sssfOrder.Name ?? service.Name ?? string.Empty;
             this.type = service.ServiceType != null ? service.ServiceType.Name : string.Empty;
             this.introduce = sssfOrder.Description ?? service.Description ?? string.Empty;
             this.area = service.GetServiceArea();
@@ -51,7 +51,7 @@ namespace Dianzhu.Api.Model
             this.appointmentTime = service.OrderDelay.ToString();
             service.OpenTimes.ToList().ForEach(x => this.serviceTimes += x.Id + ",");
             this.serviceTimes = this.serviceTimes != null ? this.serviceTimes.TrimEnd(',') : "";
-            this.doorService = sssfOrder.ServiceModeType == enum_ServiceMode.ToHouse.ToString() ? "Y" : "N";
+            this.doorService = sssfOrder.ServiceMode == enum_ServiceMode.ToHouse.ToString() ? "Y" : "N";
             this.serviceObject = service.IsForBusiness ? "company" : "all";
             this.payWay = service.AllowedPayType != 0 ? service.AllowedPayType.ToString() : enum_PayType.None.ToString();
             tags.ToList().ForEach(x => this.tag += x.Text + ",");

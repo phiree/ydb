@@ -75,26 +75,9 @@ namespace Dianzhu.BLL
                 }
 
                 //todo:  需要用Automapper
-             ServiceDto serviceDto=  dzServiceService.GetOne(new Guid(selectedServiceId));
-                ServiceSnapShot serviceSnapShot = new ServiceSnapShot {
-                    CancelCompensation = serviceDto.CancelCompensation,
-                    ChargeUnitType =   serviceDto.ChargeUnitType,
-                    DepositAmount = serviceDto.DepositAmount,
-                    Description = serviceDto.Description,
-                     IsCompensationAdvance= serviceDto.IsCompensationAdvance,
-                      MinPrice=serviceDto.MinPrice,
-                       OverTimeForCancel=serviceDto.OverTimeForCancel,
-                        ServiceBusinessId=serviceDto.ServiceBusinessId,
-                        ServiceBusinessName=serviceDto.ServiceBusinessName,
-                        ServiceBusinessPhone=serviceDto.ServiceBusinessPhone,
-                        ServiceModeType =   serviceDto.ServiceModeType,
-                         ServiceName=serviceDto.ServiceName,
-                          ServiceTypeName= serviceDto.ServiceTypeName,
-                    ServiceTypeId = serviceDto.ServiceTypeId,
-                    UnitPrice =serviceDto.UnitPrice,
-                           ServiceBusinessOwnerId=serviceDto.ServiceBusinessOwnerId
-                     
-                };
+             DZService serviceDto=  dzServiceService.GetOne2(new Guid(selectedServiceId));
+                ServiceSnapShot serviceSnapShot = AutoMapper.Mapper.Map<ServiceSnapShot>(serviceDto);
+                
                 ServiceOpenTimeForDay workTime = dzServiceService.GetWorkTime(new Guid(selectedServiceId), s.TargetTime);
                 WorkTimeSnapshot serviceTimeSnapShot = new WorkTimeSnapshot {
 

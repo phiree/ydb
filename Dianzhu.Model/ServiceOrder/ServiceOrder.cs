@@ -51,7 +51,7 @@ namespace Dianzhu.Model
                    //    OpenTimeForDaySnapShot,
                    unitAmount, targetCustomerName, targetCustomerPhone, targetAddress, targetTime, memo);
             Details.Add(detail);
-            BusinessId = serviceSnapShot.ServiceBusinessId;
+            BusinessId = serviceSnapShot.BusinessId;
  
 
         }
@@ -227,7 +227,7 @@ namespace Dianzhu.Model
                 string name = string.Empty;
                 foreach (ServiceOrderDetail detail in Details)
                 {
-                    name += detail.ServiceSnapShot.ServiceName + ";";
+                    name += detail.ServiceSnapShot.Name + ";";
                 }
                 return name.TrimEnd(';');
             }
@@ -244,7 +244,7 @@ namespace Dianzhu.Model
                 string name = string.Empty;
                 foreach (ServiceOrderDetail detail in Details)
                 {
-                    name += detail.ServiceSnapShot.ServiceBusinessName + ";";
+                    name += detail.ServiceSnapShot. BusinessName + ";";
                 }
                 return name.TrimEnd(';');
             }
@@ -259,7 +259,7 @@ namespace Dianzhu.Model
                 string name = string.Empty;
                 foreach (ServiceOrderDetail detail in Details)
                 {
-                    name += detail.ServiceSnapShot.ServiceBusinessPhone + ";";
+                    name += detail.ServiceSnapShot. BusinessPhone + ";";
                 }
                 return name.TrimEnd(';');
             }
@@ -553,7 +553,7 @@ namespace Dianzhu.Model
                 if (Details.Count > 1) { log.Error("订单服务数量大于1"); throw new Exception("订单服务数量大于1");  }
                 foreach (ServiceOrderDetail detail in Details)
                 {
-                    name += detail.ServiceSnapShot.ServiceBusinessOwnerId + ";";
+                    name += detail.ServiceSnapShot. BusinessOwnerId + ";";
                 }
                 return name.TrimEnd(';');
             }
