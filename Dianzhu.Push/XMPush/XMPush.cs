@@ -14,24 +14,25 @@ namespace Dianzhu.Push.XMPush
 
 
         PushType pushType;
-        string orderId;
+        PushMessage pushMessage;
         string secret { get { return pushType == PushType.PushToUser ? secretUser : secretBusiness; } }
-        public XMPush(PushType pushType,string orderId)
+
+        public XMPush(PushType pushType,PushMessage message)
         {
             this.pushType = pushType;
-            this.orderId = orderId;
+            this.pushMessage = message;
         }
 
         
 
-        public string Push( string message, string target, int amount)
+        public string Push(   string target, int amount)
         {
             string result = string.Empty;
             XMRequestAndoird msg = new XMRequestAndoird(pushType);
             msg.alias =target;
-            msg.description = message;
+            msg.description = pushMessage.DisplayContent;
          
-                msg.payload = orderId;
+                msg.payload = pushMessage.OrderId;
          
             
 
@@ -55,4 +56,5 @@ description=notification description
              */
         }
     }
+ 
 }

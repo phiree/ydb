@@ -30,15 +30,5 @@
             </Button.Background>
         </Button>
         <Label x:Name="lblResult" Content="" HorizontalAlignment="Left" Margin="121,275,0,0" VerticalAlignment="Top" Width="230"/>
-        <Button x:Name="btnTest" Content="" Margin="338,275,10,0" VerticalAlignment="Top" Height="30" Click="btnTest_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.837,1.157" StartPoint="0.158,-0.064">
-                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
-                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
-                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
-                    <GradientStop Color="#FFCDCDCD" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
     </Grid>
 </Window>

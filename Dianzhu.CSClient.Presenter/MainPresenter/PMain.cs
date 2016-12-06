@@ -29,7 +29,10 @@ namespace Dianzhu.CSClient.Presenter
 
             iIM.IMStreamError += IIM_IMStreamError;
             iIM.IMClosed += IIM_IMClosed;
+            
         }
+
+       
 
         public IViewMainForm Form
         {
@@ -38,6 +41,7 @@ namespace Dianzhu.CSClient.Presenter
                 return viewMainForm;
             }
         }
+
 
         private void IIM_IMClosed()
         {

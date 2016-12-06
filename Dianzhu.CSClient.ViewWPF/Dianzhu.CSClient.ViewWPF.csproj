@@ -99,9 +99,6 @@
       <DependentUpon>ChatImageShow.xaml</DependentUpon>
     </Compile>
     <Compile Include="FlashInTaskBar.cs" />
-    <Compile Include="FormMainBackup.xaml.cs">
-      <DependentUpon>FormMainBackup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="FormMain.xaml.cs">
       <DependentUpon>FormMain.xaml</DependentUpon>
     </Compile>
@@ -165,6 +162,9 @@
     <Compile Include="UC\UC_TabControlTools.xaml.cs">
       <DependentUpon>UC_TabControlTools.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\UC_TypeSelect.xaml.cs">
+      <DependentUpon>UC_TypeSelect.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\UC_UsefulLinks.xaml.cs">
       <DependentUpon>UC_UsefulLinks.xaml</DependentUpon>
     </Compile>
@@ -173,10 +173,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FormLogin.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="FormMainBackup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -264,6 +260,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\UC_TabControlTools.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_TypeSelect.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

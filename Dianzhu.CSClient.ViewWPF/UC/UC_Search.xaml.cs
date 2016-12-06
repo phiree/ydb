@@ -51,28 +51,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 else { lamda(); }
             }
         }
-
-        ServiceType selectedType = null;
-        public  ServiceType ServiceType
-        {
-            get
-            {
-                selectedType = ( ServiceType)(
-                                    cbxSearchTypeT.SelectedItem == null || cbxSearchTypeT.IsVisible == false ?
-                                    (cbxSearchTypeS.SelectedItem == null || cbxSearchTypeS.IsVisible == false ?
-                                    (cbxSearchTypeF.SelectedItem == null || cbxSearchTypeF.IsVisible == false ? null
-                                    : cbxSearchTypeF.SelectedItem)
-                                    : cbxSearchTypeS.SelectedItem)
-                                    : cbxSearchTypeT.SelectedItem
-                                 );
-                return selectedType;
-            }
-            set
-            {
-                selectedType = value;
-            }
-        }
-
+ 
         public string ServiceName
         {
             get { return tbxKeywordServiceName.Text.Trim(); }
@@ -275,121 +254,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 else { lamda(); }
             }
         }
-        /// <summary>
-        /// 绑定一级下拉框的值
-        /// </summary>
-        public IList<ServiceType> ServiceTypeFirst
-        {
-            set
-            {
-                Action lamda = () =>
-                {
-                    if (value.Count > 0)
-                    {
-                        cbxSearchTypeF.ItemsSource = value;
-                        cbxSearchTypeF.SelectedItem = value[0];
-                    }
-                };
-                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
-                else { lamda(); }
-            }
-        }
-        /// <summary>
-        /// 绑定二级下拉框的值
-        /// </summary>
-        public IList<ServiceType> ServiceTypeSecond
-        {
-            set
-            {
-                Action lamda = () =>
-                {
-                    if (value.Count > 0)
-                    {
-                        cbxSearchTypeS.ItemsSource = value;
-                        cbxSearchTypeS.DisplayMemberPath = "Name";
-                        cbxSearchTypeS.SelectedItem = value[0];
-                        cbxSearchTypeS.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        cbxSearchTypeS.Visibility = Visibility.Hidden;
-                    }
-                };
-                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
-                else { lamda(); }                
-            }
-        }
-        /// <summary>
-        /// 绑定三级下拉框的值
-        /// </summary>
-        public IList<ServiceType> ServiceTypeThird
-        {
-            set
-            {
-                Action lamda = () =>
-                {
-                    if (value.Count > 0)
-                    {
-                        cbxSearchTypeT.ItemsSource = value;
-                        cbxSearchTypeT.DisplayMemberPath = "Name";
-                        cbxSearchTypeT.SelectedItem = value[0];
-                        cbxSearchTypeT.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        cbxSearchTypeT.Visibility = Visibility.Hidden;
-                    }
-                };
-                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
-                else { lamda(); }               
-            }
-        }
-        /// <summary>
-        /// 设置一级下拉框的值
-        /// </summary>
-        public ServiceType setServiceTypeFirst
-        {
-            set
-            {
-                Action lamda = () =>
-                {
-                    cbxSearchTypeF.SelectedItem = value;
-                };
-                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
-                else { lamda(); }
-            }
-        }
-        /// <summary>
-        /// 设置二级下拉框的值
-        /// </summary>
-        public ServiceType setServiceTypeSecond
-        {
-            set
-            {
-                Action lamda = () =>
-                {
-                    cbxSearchTypeS.SelectedItem = value;
-                };
-                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
-                else { lamda(); }                
-            }
-        }
-        /// <summary>
-        /// 设置三级下拉框的值
-        /// </summary>
-        public ServiceType setServiceTypeThird
-        {
-            set
-            {
-                Action lamda = () =>
-                {
-                    cbxSearchTypeT.SelectedItem = value;
-                };
-                if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
-                else { lamda(); }                
-            }
-        }
-
+   
         DateTime targetTime;
         public DateTime TargetTime
         {
@@ -409,9 +274,7 @@ namespace Dianzhu.CSClient.ViewWPF
         #region 接口委托的事件
 
         public event SearchService Search;
-        public event ServiceTypeFirst_Select ServiceTypeFirst_Select;
-        public event ServiceTypeSecond_Select ServiceTypeSecond_Select;
-        public event ServiceTypeThird_Select ServiceTypeThird_Select;
+        
         public event SaveUIData SaveUIData;
 
         #endregion
@@ -505,7 +368,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 MessageBox.Show("预约时间不得小于当前时间!");
             }
-            else if (ServiceType == null)
+            else if (UC_TypeSelect.SelectedTypeId == null)
             {
                 MessageBox.Show("请选择服务类型");
             }
@@ -541,7 +404,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 try
                 {
                     NHibernateUnitOfWork.UnitOfWork.Start();
-                    Search(targetTime, minPrice, maxPrice, selectedType.Id, serviceName, serviceTargetAddressObj.point.lng, serviceTargetAddressObj.point.lat);
+                    Search(targetTime, minPrice, maxPrice, UC_TypeSelect.SelectedTypeId, serviceName, serviceTargetAddressObj.point.lng, serviceTargetAddressObj.point.lat);
                 }
                 catch (Exception ee)
                 {
@@ -564,35 +427,7 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         #endregion
-
-        #region 服务类型下拉框处理事件
-
-        private void cbxSearchTypeF_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ServiceTypeFirst_Select != null)
-            {
-                ServiceTypeFirst_Select((ServiceType)cbxSearchTypeF.SelectedItem);
-            }
-        }
-
-        private void cbxSearchTypeS_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ServiceTypeSecond_Select != null)
-            {
-                ServiceTypeSecond_Select((ServiceType)cbxSearchTypeS.SelectedItem);
-            }            
-        }
-
-        private void cbxSearchTypeT_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ServiceTypeThird_Select != null)
-            {
-                ServiceTypeThird_Select((ServiceType)cbxSearchTypeT.SelectedItem);
-            }
-        }
-
-        #endregion
-
+ 
         #region 文本框改变时，写入缓存中
         private void tbxKeywordPeople_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -699,7 +534,12 @@ namespace Dianzhu.CSClient.ViewWPF
                 SaveUIData("Memo", ServiceMemo);
             }
         }
-        
+
+        public void InitType(IList<ServiceType> typeList)
+        {
+            UC_TypeSelect.Init(typeList);
+        }
+
         #endregion
     }
 }

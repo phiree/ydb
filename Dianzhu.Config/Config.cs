@@ -81,6 +81,7 @@ namespace Dianzhu.Config
              {"cdnroot", BuildHttpUrlString(ApplicationServer, PortSet["cdnroot"])}
             , {"ImServer",IMServer  }
             , {"ImDomain",IMDomain  }
+            , { "RestApiSite",BuildHttpUrlString(ApplicationServer,PortSet["RestApiAuthUrl"])}
             , {"RestApiAuthUrl",BuildHttpUrlString(ApplicationServer, PortSet["RestApiAuthUrl"],"api/v1/authorization")  }
             , {"MediaUploadUrl",BuildHttpUrlString(ApplicationServer, PortSet["MediaUploadUrl"],"UploadFile.ashx") }
             , {"MediaGetUrl",BuildHttpUrlString(ApplicationServer, PortSet["MediaGetUrl"],"GetFile.ashx?fileName=")   }

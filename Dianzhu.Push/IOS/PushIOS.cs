@@ -17,44 +17,18 @@ namespace Dianzhu.Push
         string _strCertificateFilePath;
         string strCertificateFilePath {
             get {
-                if (!string.IsNullOrEmpty(_strCertificateFilePath))
-                {
-                    return _strCertificateFilePath;
-                }
-
+                if (!string.IsNullOrEmpty(_strCertificateFilePath)) return _strCertificateFilePath;
                 string fileBasePath = AppDomain.CurrentDomain.BaseDirectory + @"files\";
-                string fileName = string.Empty;
-                switch (pushType)
-                {
-                    case PushType.PushToBusiness:
-
-                        //
-                         
-                        fileName= "aps_production_Mark_Store.p12";
-
-                       
-                     //   fileName ="aps_production_Mark_Store.p12";
-                        break;
-
-                    case PushType.PushToUser:
-
-                      
-                        fileName = "aps_production_Mark.p12";
-
-                         
-                     //   fileName = "aps_production_Mark_CustomerService.p12";
-                        break;
-                        
-                    default:
-                        throw new Exception("未知的推送类型");
-                        
-                }
-                log.Debug("证书地址:" + fileBasePath + fileName);
+                string fileName = pushType == PushType.PushToBusiness ? "aps_production_Mark_Store.p12" : "aps_production_Mark.p12";
                 _strCertificateFilePath = fileBasePath + fileName;
                 return _strCertificateFilePath;
 
             }
         }
+        PushMessage pushMessage;
+
+        
+
         PushType pushType;
         /// <summary>
         /// IOS推送类
@@ -63,25 +37,18 @@ namespace Dianzhu.Push
         /// <param name="isTestCertificate">是测试证书，否则为正式证书</param>
         /// <param name="pushSum"></param>
         /// <param name="notificationSound"></param>
-        public PushIOS(PushType pushType)
+        public PushIOS(PushType pushType,PushMessage pushMessage)
         {
             this.pushType = pushType;
+            this.pushMessage = pushMessage;
             
             
         }
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Push");
-        public string Push(string strContent, string strDeviceToken, int amount)
+        public string Push(  string strDeviceToken, int amount)
         {
-            log.Debug("开始推送消息:"+strContent);
+            log.Debug("开始推送消息:"+pushMessage);
             bool sandbox = false;
-
-#if DEBUG
-             //sandbox=true;
-#endif
-            //Put your device token in here
-            //ipod
-            // string testDeviceToken = "80b9d1003efc019c70c33ccf943247941bf3f27b05760a71ab7e65bb6be3e071";
-            //iphone
             string testDeviceToken = strDeviceToken;
             //Put your PKCS12 .p12 or .pfx filename here.
             // Assumes it is in the same directory as your app
@@ -132,7 +99,7 @@ namespace Dianzhu.Push
             log.Debug(10);
 
             //通知内容
-            alertNotification.Payload.Alert.Body = strContent;
+            alertNotification.Payload.Alert.Body = pushMessage.DisplayContent;
 
             alertNotification.Payload.Sound = "default";//为空时就是静音
             alertNotification.Payload.Badge = amount;
@@ -192,6 +159,8 @@ namespace Dianzhu.Push
         {
           log.Error(string.Format("Error: {0}", ex.Message));
         }
+
+        
     }
 
    

@@ -24,5 +24,22 @@ namespace Ydb.Common
             string[] sections = nameSpace.Split('.');
             return sections[0] + sections[1];
         }
+        /// <summary>
+        /// 通过普通的Query hql语句 获取 count* 语句
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public static string BuildCountQuery(string query)
+        {
+            ////"select s from supplier from supplier d where 1=1   "
+
+
+            Regex reg = new Regex(@"(?<=select\s+(distinct)?).*?(?=from)");
+
+            Match m = reg.Match(query);
+
+            string result = reg.Replace(query, " count(*) ", 1);
+            return result;
+        }
     }
 }
