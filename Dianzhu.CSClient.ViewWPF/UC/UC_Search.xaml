@@ -83,8 +83,8 @@
                 </Label>
             </Grid>
 
-            <Grid Grid.Row="1">
-                <Border BorderThickness="1" BorderBrush="#FFdee2e5">
+            <Grid Grid.Row="1" Margin="0,0,0,-12">
+                <Border BorderThickness="1" BorderBrush="#FFdee2e5" Margin="0,0,10,26">
                     <StackPanel Margin="26,10">
                         <WrapPanel Margin="0,1" VerticalAlignment="Center">
                             <Label>
@@ -115,14 +115,7 @@
                             <local:UC_TypeSelect x:Name="UC_TypeSelect" Width="307" Height="30"   />
                         </WrapPanel>
 
-                        <WrapPanel Margin="0,1" VerticalAlignment="Center">
-                            <Label>
-                                <TextBlock Text="服务类型" Style="{DynamicResource TextBlockKey}"></TextBlock>
-                            </Label>
-                            <ComboBox x:Name="cbxSearchTypeF" Width="100" Margin="0,0,2,0" SelectionChanged="cbxSearchTypeF_SelectionChanged"/>
-                            <ComboBox x:Name="cbxSearchTypeS" Width="100" Margin="0,0,2,0" SelectionChanged="cbxSearchTypeS_SelectionChanged" Visibility="Collapsed"/>
-                            <ComboBox x:Name="cbxSearchTypeT" Width="100" SelectionChanged="cbxSearchTypeT_SelectionChanged" Visibility="Collapsed"/>
-                        </WrapPanel>
+                         
 
                         <WrapPanel Margin="0,1" VerticalAlignment="Center">
                             <Label>

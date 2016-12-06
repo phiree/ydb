@@ -106,9 +106,7 @@ namespace Dianzhu.CSClient.Presenter
             
             viewSearchResult.PushServices += ViewSearchResult_PushServices;
             viewSearchResult.FilterByBusinessName += ViewSearchResult_FilterByBusinessName; ;
-            viewSearch.ServiceTypeFirst_Select += ViewSearch_ServiceTypeFirst_Select;
-            viewSearch.ServiceTypeSecond_Select += ViewSearch_ServiceTypeSecond_Select;
-            viewSearch.ServiceTypeThird_Select += ViewSearch_ServiceTypeThird_Select;
+           
            
         }
 
@@ -140,7 +138,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 viewSearch.InitType(typeService.GetTopList());
 
-                
+                return;
 
                 System.Threading.Thread.Sleep(1000);
                 if (this.ServiceTypeListTmp != null) { return; }
@@ -156,7 +154,7 @@ namespace Dianzhu.CSClient.Presenter
                         ServiceTypeCach.Add(t, null);
                     }
                 }
-                viewSearch.ServiceTypeFirst = ServiceTypeListTmp;
+               
             }
             catch (Exception ee)
             {
@@ -164,62 +162,8 @@ namespace Dianzhu.CSClient.Presenter
             }
               
         }
-        private void ViewSearch_ServiceTypeThird_Select(ServiceType type)
-        {
-            ServiceTypeThird = type;
-        }
-
-        private void ViewSearch_ServiceTypeSecond_Select(ServiceType type)
-        {
-            try
-            {
-                if (type != null)
-                {
-                    ServiceTypeSecond = type;
-                    ServiceTypeThird = null;
-                    if (!ServiceTypeCach.ContainsKey(type))
-                    {
-                        bool isSecondTypeStart = false;
-                        if (!NHibernateUnitOfWork.UnitOfWork.IsStarted)
-                        {
-                            NHibernateUnitOfWork.UnitOfWork.Start();
-                            isSecondTypeStart = true;
-                        }
-
-                        ServiceTypeCach[type] = type.Children;
-                        if (isSecondTypeStart)
-                        {
-                            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-                        }
-                    }
-                    viewSearch.ServiceTypeThird = ServiceTypeCach[type];
-
-                }
-            }
-            catch (Exception e)
-            {
-                log.Error(e);
-            }
-        }
-
-        private void ViewSearch_ServiceTypeFirst_Select(ServiceType type)
-        {
-            if (type != null)
-            {
-                ServiceTypeFirst = type;
-                ServiceTypeSecond = null;
-                ServiceTypeThird = null;
-                if (ServiceTypeCach[type] == null)
-                {
-                    NHibernateUnitOfWork.UnitOfWork.Start();
-                    ServiceTypeCach[type] = type.Children;
-                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                    NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-                }
-                viewSearch.ServiceTypeSecond = ServiceTypeCach[type];
-            }
-        }
+     
+        
         #endregion
 
         private ServiceOrder ViewSearchResult_PushServices(IList<Guid> pushedServices,out string errorMsg)

@@ -13,7 +13,7 @@ namespace Dianzhu.CSClient.IView
    public interface IViewTypeSelect
     {
         void Init(IList<ServiceType> initData);
-        Guid SelectedTypeId { get;  set; }
+        Guid SelectedTypeId { get ; }
 
 
     }

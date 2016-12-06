@@ -8,9 +8,9 @@
    
         <WrapPanel Margin="0,1" VerticalAlignment="Center">
 
-            <ComboBox x:Name="cbxSearchTypeF" Width="100" Margin="0,0,2,0" SelectionChanged="cbxSearchTypeF_SelectionChanged"/>
-            <ComboBox x:Name="cbxSearchTypeS" Width="100" Margin="0,0,2,0" SelectionChanged="cbxSearchTypeS_SelectionChanged" />
-            <ComboBox x:Name="cbxSearchTypeT" Width="100" SelectionChanged="cbxSearchTypeT_SelectionChanged" />
+            <ComboBox x:Name="cbxSearchTypeF" DisplayMemberPath="Name" Width="100" Margin="0,0,2,0" SelectionChanged="cbxSearchTypeF_SelectionChanged"/>
+        <ComboBox x:Name="cbxSearchTypeS"  DisplayMemberPath="Name" Width="100" Margin="0,0,2,0" SelectionChanged="cbxSearchTypeS_SelectionChanged" />
+        <ComboBox x:Name="cbxSearchTypeT"  DisplayMemberPath="Name" Width="100" SelectionChanged="cbxSearchTypeT_SelectionChanged" />
         </WrapPanel>
 
  

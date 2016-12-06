@@ -18,6 +18,8 @@ namespace Dianzhu.CSClient.ViewWPF
 {
     /// <summary>
     /// UC_TypeSelect.xaml 的交互逻辑
+    /// 
+    /// todo:提炼成独立的级联控件.
     /// </summary>
     public partial class UC_TypeSelect : UserControl,IView.IViewTypeSelect
     {
@@ -32,46 +34,57 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 return selectedTypeId;
             }
-
-            set
-            {
-                selectedTypeId = value;
-            }
+ 
         }
 
         IList<ServiceType> typeList;
-        private object selectedF;
-
+      
         public void Init(IList<ServiceType> typeList)
         {
             this.typeList = typeList;
-            var source = typeList.Where(x => x.Parent == null);
-            cbxSearchTypeF.ItemsSource = source.ToList();
-            cbxSearchTypeF.SelectedIndex = 0;
+            var source = typeList.Where(x => x.Parent == null).ToList();
+            cbxSearchTypeF.ItemsSource = source;
+            cbxSearchTypeF.SelectedItem = source[0];
         }
 
         private void cbxSearchTypeF_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             object selected = cbxSearchTypeF.SelectedItem;
-            if (selected == null)
-            {   return;}
-
+          
             ServiceType type = (ServiceType)selected;
-            cbxSearchTypeS.ItemsSource = type.Children;
- 
+            var children = type.Children;
+            if (children == null || children.Count == 0)
+            {
+                selectedTypeId = type.Id;
+                cbxSearchTypeT.Visibility = Visibility.Collapsed;
+                return;
+            }
+            
+            cbxSearchTypeS.ItemsSource = children;
+            cbxSearchTypeS.SelectedItem = children[0];
+
         }
         private void cbxSearchTypeS_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            object selected = cbxSearchTypeF.SelectedItem;
+            object selected = cbxSearchTypeS.SelectedItem;
+
             if (selected == null)
             { return; }
-
-            ServiceType type = (ServiceType)selectedF;
-            cbxSearchTypeT.ItemsSource = type.Children;
+            ServiceType type = (ServiceType)selected;
+            var children = type.Children;
+            if (children == null || children.Count == 0)
+            {
+                selectedTypeId = type.Id;
+                cbxSearchTypeT.Visibility = Visibility.Collapsed;
+                return;
+            }
+            cbxSearchTypeT.Visibility = Visibility.Visible;
+            cbxSearchTypeT.ItemsSource = children;
+            cbxSearchTypeT.SelectedItem = children[0];
         }
         private void cbxSearchTypeT_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            object selected = cbxSearchTypeF.SelectedItem;
+            object selected = cbxSearchTypeT.SelectedItem;
             if (selected == null)
             { return; }
             selectedTypeId = ((ServiceType)selected).Id;
