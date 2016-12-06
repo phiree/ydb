@@ -659,10 +659,10 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new FormatException("评价对象只能是客户和店铺！");
             }
-            if (appraiseobj.target == "customerService")
-            {
-                appraiseobj.target = "cer";
-            }
+            //if (appraiseobj.target == "customerService")
+            //{
+            //    appraiseobj.target = "cer";
+            //}
            enum_ChatTarget target;
             if (!Enum.TryParse(appraiseobj.target, out target))
             {
