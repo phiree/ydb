@@ -630,6 +630,7 @@ namespace Ydb.Common
         /// 用户要求官方介入
         /// </summary>
         intervention = 32,
+        None=33
     }
 
     /// <summary>
