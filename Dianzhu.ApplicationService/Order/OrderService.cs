@@ -659,10 +659,10 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new FormatException("评价对象只能是客户和店铺！");
             }
-            if (appraiseobj.target == "customerService")
-            {
-                appraiseobj.target = "cer";
-            }
+            //if (appraiseobj.target == "customerService")
+            //{
+            //    appraiseobj.target = "cer";
+            //}
            enum_ChatTarget target;
             if (!Enum.TryParse(appraiseobj.target, out target))
             {
@@ -922,15 +922,19 @@ namespace Dianzhu.ApplicationService.Order
         /// <returns></returns>
         public IList<refundStatusObj> GetRefundStatus(string orderID, common_Trait_Filtering filter, common_Trait_RefundFiltering refundfilter)
         {
-           enum_RefundAction action;
-            try
+            enum_RefundAction action;
+            if (!Enum.TryParse<enum_RefundAction>(refundfilter.action, out action))
             {
-                action = (enum_RefundAction)Enum.Parse(typeof(enum_RefundAction), refundfilter.action);
+                action = enum_RefundAction.None;
             }
-            catch 
-            {
-                throw new FormatException("该理赔动作无效！");
-            }
+            //try
+            //{
+            //    action = (enum_RefundAction)Enum.Parse(typeof(enum_RefundAction), refundfilter.action);
+            //}
+            //catch 
+            //{
+            //    throw new FormatException("该理赔动作无效！");
+            //}
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
             Model.ServiceOrder order = ibllserviceorder.GetOne(guidOrder);
             if (order == null)

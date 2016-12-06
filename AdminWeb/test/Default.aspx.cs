@@ -37,7 +37,7 @@ public partial class test_Default : BasePage
         DZService service = dzServiceService.GetOne2(new Guid("0f4bdace-dad0-43aa-8cce-a5c501180535"));
          order.AddDetailFromIntelService(service.Id.ToString(),new ServiceSnapShot
          {
-             AllowedPayType =service.AllowedPayType.ToString(), CancelCompensation = service.CancelCompensation, ChargeUnitType =service.ChargeUnit.ToString() 
+             AllowedPayType =service.AllowedPayType.ToString(), CancelCompensation = service.CancelCompensation, ChargeUnit =service.ChargeUnit.ToString() 
              ,DepositAmount =0.01m,Description = service.Description,Enabled = service.Enabled,IsCompensationAdvance = service.IsCompensationAdvance,IsForBusiness = service.IsForBusiness
              ,MinPrice = service.MinPrice,OrderDelay = service.OrderDelay
              
