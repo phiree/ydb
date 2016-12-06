@@ -42,7 +42,7 @@ namespace Dianzhu.DAL.Mapping
                 m => {
                     m.Map(x => x.MaxOrderForWorkDay);
                     m.Map(x => x.MaxOrderForWorkTime);
-                    m.Map(x => x.Enabled);
+                    m.Map(x => x.Enabled).Column("WorkTimeEnabled");
                     m.Component(x => x.TimePeriod, ms => {
                         ms.Component(x => x.StartTime, mss => {
                             mss.Map(x => x.Hour).Column("StartHour");

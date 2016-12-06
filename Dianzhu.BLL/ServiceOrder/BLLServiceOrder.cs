@@ -955,7 +955,7 @@ namespace Dianzhu.BLL
 
             //更新订单状态
             order.OrderStatus = targetStatus;
-            Update(order);
+            //Update(order);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             log.Debug("当前订单状态为:" + targetStatus);
 
