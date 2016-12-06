@@ -55,7 +55,7 @@ namespace Ydb.BusinessResource.DomainModel
  
         #region  属性
         /// <summary>
-        /// 服务项目所属类别
+        /// 服务项目所属类别 
         /// </summary>
         public virtual ServiceType ServiceType { get; set; }
         /// <summary>

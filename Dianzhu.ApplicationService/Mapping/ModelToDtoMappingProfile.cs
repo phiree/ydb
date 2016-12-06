@@ -35,12 +35,12 @@ namespace Dianzhu.ApplicationService.Mapping
 
             Mapper.CreateMap<MemberDto, customerObj>()
             .ForMember(x => x.alias, opt => opt.MapFrom(source => source.DisplayName))
-            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.AvatarUrl : ""))
+            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => string.IsNullOrEmpty(source.AvatarUrl)? "":Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.AvatarUrl))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<MemberDto, merchantObj>()
            .ForMember(x => x.alias, opt => opt.MapFrom(source => source.DisplayName))
-           .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.AvatarUrl : ""))
+           .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => string.IsNullOrEmpty(source.AvatarUrl) ?"": Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.AvatarUrl ))
            .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap< Area, cityObj>()
@@ -54,7 +54,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Advertisement, adObj>()
-            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.ImgUrl != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.ImgUrl : ""))
+            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => string.IsNullOrEmpty(source.ImgUrl) ? "":Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.ImgUrl ))
             .ForMember(x => x.updateTime, opt => opt.MapFrom(source => source.LastUpdateTime))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
@@ -102,7 +102,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<Model.ServiceOrderPushedService, serviceSnapshotObj>()
            .ForMember(x => x.name, opt => opt.MapFrom(source => source.ServiceSnapShot.ServiceName))
  
-           .ForMember(dest=>dest.serviceType,input=>input.MapFrom(i=>new serviceTypeObj {  fullDescription=i.ServiceTypeName, id=i.ServiceTypeId, superID=i.ServiceTypeParentId}))
+           //.ForMember(dest=>dest.serviceType,input=>input.MapFrom(i=>new serviceTypeObj {  fullDescription=i.ServiceTypeName, id=i.ServiceTypeId, superID=i.ServiceTypeParentId}))
  
            .ForMember(x => x.introduce, opt => opt.MapFrom(source => source.ServiceSnapShot.Description))
            .ForMember(x => x.startAt, opt => opt.MapFrom(source => source.ServiceSnapShot.MinPrice))
@@ -119,16 +119,16 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<ServiceDto, ServiceSnapShot>();
             Mapper.CreateMap<Model.ServiceOrderDetail, serviceSnapshotObj>()
            .ForMember(x => x.name, opt => opt.MapFrom(source => source.ServiceSnapShot.ServiceName))
-           .ForMember(x => x.serviceType, opt => opt.MapFrom(source => source.ServiceSnapShot.ServiceTypeName ))
+           //.ForMember(x => x.serviceType, opt => opt.MapFrom(source => source.ServiceSnapShot.ServiceTypeName))
            .ForMember(x => x.introduce, opt => opt.MapFrom(source => source.ServiceSnapShot.Description))
            .ForMember(x => x.startAt, opt => opt.MapFrom(source => source.ServiceSnapShot.MinPrice))
            .ForMember(x => x.unitPrice, opt => opt.MapFrom(source => source.ServiceSnapShot.UnitPrice))
            .ForMember(x => x.deposit, opt => opt.MapFrom(source => source.ServiceSnapShot.DepositAmount))
            .ForMember(x => x.appointmentTime, opt => opt.MapFrom(source => source.TargetTime == DateTime.MinValue ? "" : source.TargetTime.ToString("yyyyMMddHHmmss")))
-           .ForMember(x => x.bDoorService, opt => opt.MapFrom(source => source.ServiceSnapShot.ServiceModeType  == "ToHouse" ? true : false))
+           .ForMember(x => x.bDoorService, opt => opt.MapFrom(source => source.ServiceSnapShot.ServiceModeType == "ToHouse" ? true : false))
            .ForMember(x => x.eServiceTarget, opt => opt.MapFrom(source => source.ServiceSnapShot.IsForBusiness ? "all" : "company"))
-         //  .ForMember(x => x.eSupportPayWay, opt => opt.MapFrom(source => source.OriginalService.AllowedPayType.ToString()))
-          // .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.OriginalService.Enabled))
+           //  .ForMember(x => x.eSupportPayWay, opt => opt.MapFrom(source => source.OriginalService.AllowedPayType.ToString()))
+           // .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.OriginalService.Enabled))
            .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.ServiceOpentimeSnapshot.MaxOrderForWorkDay))
            .ForMember(x => x.originalServiceID, opt => opt.MapFrom(source => source.OriginalServiceId))
           // .ForMember(x => x.chargeUnit, opt => opt.MapFrom(source => source.OriginalService.ChargeUnitFriendlyName))
@@ -138,7 +138,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<Ydb.BusinessResource.DomainModel.Staff, staffObj>()
             .ForMember(x => x.alias, opt => opt.MapFrom(source => source.DisplayName))
             .ForMember(x => x.number, opt => opt.MapFrom(source => source.Code))
-            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.Photo != null ? Dianzhu.Config.Config.GetAppSetting("ImageHandler") + source.Photo : source.AvatarCurrent==null?"": Dianzhu.Config.Config.GetAppSetting("ImageHandler") + source.AvatarCurrent.ImageName))//MediaGetUrl
+            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => !string.IsNullOrEmpty (source.Photo) ? Dianzhu.Config.Config.GetAppSetting("ImageHandler") + source.Photo : source.AvatarCurrent==null?"": Dianzhu.Config.Config.GetAppSetting("ImageHandler") + source.AvatarCurrent.ImageName))//MediaGetUrl
             .ForMember(x => x.sex, opt => opt.MapFrom(source => source.Gender == "女" ? true : false))
             .ForMember(x => x.realName, opt => opt.MapFrom(source => source.Name))
             //.ForMember(x => x.identity, opt => opt.MapFrom(source => source.Code))
@@ -147,7 +147,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap< Business, storeObj>()
             .ForMember(x => x.appraise, opt => opt.MapFrom(source => "3"))
             .ForMember(x => x.introduction, opt => opt.MapFrom(source => source.Description))
-            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.BusinessAvatar.ImageName != null ? Dianzhu.Config.Config.GetAppSetting("ImageHandler") + source.BusinessAvatar.ImageName : ""))//MediaGetUrl
+            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => string.IsNullOrEmpty(source.BusinessAvatar.ImageName) ?"": Dianzhu.Config.Config.GetAppSetting("ImageHandler") + source.BusinessAvatar.ImageName ))//MediaGetUrl
             .ForMember(x => x.storePhone, opt => opt.MapFrom(source => source.Phone))
             .ForMember(x => x.linkMan, opt => opt.MapFrom(source => source.Contact))
             .ForMember(x => x.linkPhone, opt => opt.MapFrom(source => source.Phone))
@@ -197,15 +197,15 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.StorageFileInfo, imageObj>()
-           .ForMember(x => x.url, opt => opt.MapFrom(source => source.FileName != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.FileName : ""))
+           .ForMember(x => x.url, opt => opt.MapFrom(source => string.IsNullOrEmpty(source.FileName) ? "": Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.FileName ))
            .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.StorageFileInfo, avatarImageObj>()
-           .ForMember(x => x.url, opt => opt.MapFrom(source => source.FileName != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.FileName : ""))
+           .ForMember(x => x.url, opt => opt.MapFrom(source => string.IsNullOrEmpty(source.FileName) ? "" : Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.FileName ))
            .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.StorageFileInfo, audioObj>()
-          .ForMember(x => x.url, opt => opt.MapFrom(source => source.FileName != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.FileName : ""))
+          .ForMember(x => x.url, opt => opt.MapFrom(source => string.IsNullOrEmpty(source.FileName) ? "" : Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.FileName ))
           .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.ClaimsDetails, refundStatusObj>()

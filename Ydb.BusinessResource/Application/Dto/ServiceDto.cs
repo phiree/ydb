@@ -21,6 +21,7 @@ namespace Ydb.BusinessResource.Application
         public virtual string ServiceModeType { get; set; }
 
         public virtual string ServiceTypeName { get; set; }
+        public virtual string ServiceTypeId { get; set; }
 
         public virtual string ServiceBusinessId { get; set; }
 

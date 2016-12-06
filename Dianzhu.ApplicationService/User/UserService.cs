@@ -207,7 +207,7 @@ namespace Dianzhu.ApplicationService.User
 
             if (!validateResult.IsValidated)
             {
-                throw new Exception("该用户不存在！");
+                throw new Exception(validateResult.ValidateErrMsg);
             }
 
             MemberDto validatedUser = validateResult.ValidatedMember;
@@ -219,7 +219,6 @@ namespace Dianzhu.ApplicationService.User
             
             if (!string.IsNullOrEmpty(userChangeBody.alias))
             {
-                
                 memberService.ChangeAlias(userID, userChangeBody.alias);
             }
             if (!string.IsNullOrEmpty(userChangeBody.email))

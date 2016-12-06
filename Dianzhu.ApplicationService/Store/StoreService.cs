@@ -15,7 +15,7 @@ namespace Dianzhu.ApplicationService.Store
     public class StoreService: IStoreService
     {
         IDZMembershipService memberService;
-     IBusinessService businessService;
+        IBusinessService businessService;
         IStaffService staffService;
         public StoreService(IBusinessService businessService, IDZMembershipService memberService, IStaffService staffService)
         {

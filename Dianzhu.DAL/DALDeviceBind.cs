@@ -96,6 +96,7 @@ namespace Dianzhu.DAL
             {
                 ilog.Debug("DeviceBind(1)");
                 db.AppToken = devicebind.AppToken;
+                db.AppName = devicebind.AppName;
                 db.IsBinding = true;
                 db.DZMembershipId = devicebind.DZMembershipId;
                 db.BindChangedTime = devicebind.BindChangedTime;

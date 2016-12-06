@@ -37,12 +37,12 @@ namespace Dianzhu.ApplicationService.Complaint
             }
             if (complaintobj.target!= "customerService" && complaintobj.target!="store")
             {
-                throw new FormatException("投诉对象只能是客户和店铺！");
+                throw new FormatException("投诉对象只能是客服和店铺！");
             }
-            if(complaintobj.target == "customerService")
-            {
-                complaintobj.target = "cer";
-            }
+            //if(complaintobj.target == "customerService")
+            //{
+            //    complaintobj.target = "cer";
+            //}
             if (string.IsNullOrEmpty(complaintobj.content))
             {
                 throw new FormatException("投诉的描述不能为空！");

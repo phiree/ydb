@@ -24,6 +24,18 @@ namespace Dianzhu.DAL.Mapping
                 m.Map(x => x.ServiceModeType);
                 m.Map(x => x.ServiceName);
                 m.Map(x => x.UnitPrice);
+
+                m.Map(x => x.ServiceTypeName);
+                m.Map(x => x.ServiceTypeId);
+                m.Map(x => x.ServiceBusinessId);
+                m.Map(x => x.ServiceBusinessOwnerId);
+                m.Map(x => x.ServiceBusinessName);
+                m.Map(x => x.ServiceBusinessPhone);
+                m.Map(x => x.IsForBusiness);
+                m.Map(x => x.Enabled);
+                m.Map(x => x.AllowedPayType);
+                m.Map(x => x.OrderDelay);
+                m.Map(x => x.Scope);
             });
 
             Component<WorkTimeSnapshot>(x => x.ServiceOpentimeSnapshot,

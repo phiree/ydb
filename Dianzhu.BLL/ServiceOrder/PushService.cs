@@ -90,7 +90,8 @@ namespace Dianzhu.BLL
                         ServiceModeType =   serviceDto.ServiceModeType,
                          ServiceName=serviceDto.ServiceName,
                           ServiceTypeName= serviceDto.ServiceTypeName,
-                           UnitPrice=serviceDto.UnitPrice,
+                    ServiceTypeId = serviceDto.ServiceTypeId,
+                    UnitPrice =serviceDto.UnitPrice,
                            ServiceBusinessOwnerId=serviceDto.ServiceBusinessOwnerId
                      
                 };

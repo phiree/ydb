@@ -60,7 +60,7 @@ namespace Dianzhu.Config
 
 
         static Dictionary<string, KeyValuePair<string, string>> DictsDianDianLogins = new Dictionary<string, KeyValuePair<string, string>>() {
-             { "localhost",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","123456") }
+             { "localhost",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
             ,{ "dev.ydban.cn",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
             ,{ "business.ydban.cn",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","123456") }
             ,{ "192.168.1.150",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }

@@ -33,11 +33,12 @@ namespace Dianzhu.ApplicationService.Order
         IBusinessService businessService;
 
         IStaffService staffService;
+        IServiceTypeService serviceTypeService;
 
         public OrderService(BLL.IBLLServiceOrder ibllserviceorder, BLL.BLLServiceOrderStateChangeHis bllstatehis, IDZServiceService dzServiceService, BLL.PushService bllpushservice, BLL.BLLServiceOrderRemind bllServiceOrderRemind,
         BLL.BLLServiceOrderAppraise bllServiceOrderAppraise, 
         BLL.BLLOrderAssignment bllOrderAssignment, IDZMembershipService memberService, 
-        BLL.BLLClaims bllClaims, BLL.BLLClaimsDetails bLLClaimsDetails, IStaffService staffService, IBusinessService businessService)
+        BLL.BLLClaims bllClaims, BLL.BLLClaimsDetails bLLClaimsDetails, IStaffService staffService, IBusinessService businessService, IServiceTypeService serviceTypeService)
            
         {
             this.businessService = businessService;
@@ -52,6 +53,7 @@ namespace Dianzhu.ApplicationService.Order
             this.bllClaims = bllClaims;
             this.bLLClaimsDetails = bLLClaimsDetails;
           this.staffService = staffService;
+            this.serviceTypeService = serviceTypeService;
         }
 
         /// <summary>
@@ -68,7 +70,7 @@ namespace Dianzhu.ApplicationService.Order
        public   void changeObj(orderObj orderobj, Model.ServiceOrder serviceorder)
         {
             Model.ServiceOrderStateChangeHis statehis = bllstatehis.GetMaxNumberOrderHis(serviceorder);
-            Business business = businessService.GetOne(new Guid(serviceorder.BusinessId));
+            Business business=null;//= businessService.GetOne(new Guid(serviceorder.BusinessId));
             orderobj.currentStatusObj = Mapper.Map<Model.ServiceOrderStateChangeHis, orderStatusObj>(statehis);
             if (statehis == null)
             {
@@ -78,10 +80,14 @@ namespace Dianzhu.ApplicationService.Order
             }
             orderobj.currentStatusObj.title = serviceorder.GetStatusTitleFriendly(serviceorder.OrderStatus);
             orderobj.currentStatusObj.content = serviceorder.GetStatusContextFriendly(serviceorder.OrderStatus);
-           // Store.StoreService.staffService = staffService;
+            // Store.StoreService.staffService = staffService;
+            ServiceType serviceType = null;
             if (serviceorder.Details != null && serviceorder.Details.Count > 0)
             {
                 orderobj.serviceSnapshotObj = Mapper.Map<Model.ServiceOrderDetail, serviceSnapshotObj>(serviceorder.Details[0]);
+
+                business = businessService.GetOne(utils.CheckGuidID(serviceorder.Details[0].ServiceSnapShot.ServiceBusinessId,"店铺Id"));
+                serviceType = serviceTypeService.GetOne(utils.CheckGuidID(serviceorder.Details[0].ServiceSnapShot.ServiceTypeId, "服务类型Id"));
                 
                 orderobj.storeObj = Mapper.Map<Business, storeObj>(business);
                 // todo: refactor 待解决
@@ -130,6 +136,10 @@ namespace Dianzhu.ApplicationService.Order
                     orderobj.notes = dzs[0].Memo ?? "";
                     orderobj.serviceTime = dzs[0].TargetTime.ToString("yyyyMMddHHmmss");
                     orderobj.serviceSnapshotObj = Mapper.Map<Model.ServiceOrderPushedService, serviceSnapshotObj>(dzs[0]);
+
+                    business = businessService.GetOne(utils.CheckGuidID(dzs[0].ServiceSnapShot.ServiceBusinessId, "店铺Id"));
+                    serviceType = serviceTypeService.GetOne(utils.CheckGuidID(dzs[0].ServiceSnapShot.ServiceTypeId, "服务类型Id"));
+
                     if (!string.IsNullOrEmpty(dzs[0].OriginalServiceId )  &&!string.IsNullOrEmpty( dzs[0].ServiceSnapShot.ServiceBusinessId ))
                     {
                      
@@ -149,16 +159,24 @@ namespace Dianzhu.ApplicationService.Order
             //}
             
             orderobj.customerObj = Mapper.Map<MemberDto, customerObj>(memberService.GetUserById( serviceorder.CustomerId));
-            Ydb.BusinessResource.DomainModel.Staff staff = staffService.GetOne(new Guid(serviceorder.StaffId));
-            orderobj.formanObj = Mapper.Map<Ydb.BusinessResource.DomainModel. Staff, staffObj>(staff);
-            if (orderobj.formanObj != null)
+            
+            if (serviceorder.StaffId != null)
             {
+                Ydb.BusinessResource.DomainModel.Staff staff = staffService.GetOne(new Guid(serviceorder.StaffId));
+                orderobj.formanObj = Mapper.Map<Ydb.BusinessResource.DomainModel.Staff, staffObj>(staff);
                 Staff.StaffService.bllAssignment = bllOrderAssignment;
                 Staff.StaffService.changeObj(orderobj.formanObj, staff);
             }
-            if (!string.IsNullOrEmpty(serviceorder.BusinessId))
+
+            if (serviceType != null)
             {
-              
+                orderobj.serviceSnapshotObj.serviceType.id = serviceType.Id.ToString();
+                orderobj.serviceSnapshotObj.serviceType.fullDescription = serviceType.ToString();
+                orderobj.serviceSnapshotObj.serviceType.superID = serviceType.ParentId.ToString();
+            }
+
+            if (business!=null)
+            {
                 foreach (BusinessImage bimg in business.ChargePersonIdCards)
                 {
                     if (bimg.ImageName != null)
@@ -497,19 +515,23 @@ namespace Dianzhu.ApplicationService.Order
             }
             if (!string.IsNullOrEmpty(orderobj.negotiateAmount))
             {
-                try
+                if (order.OrderStatus != enum_OrderStatus.Negotiate)
                 {
-                    //order.NegotiateAmount = decimal.Parse(orderobj.negotiateAmount);
-                    if (order.OrderStatus !=enum_OrderStatus.Negotiate)
-                    {
-                        throw new Exception(order.GetStatusTitleFriendly(order.OrderStatus) +"状态，无法修改协商价格！");
-                    }
-                    ibllserviceorder.OrderFlow_BusinessNegotiate(order, decimal.Parse(orderobj.negotiateAmount));
+                    throw new Exception(order.GetStatusTitleFriendly(order.OrderStatus) + "状态，无法修改协商价格！");
                 }
-                catch
+                decimal d = 0;
+                if (decimal.TryParse(orderobj.negotiateAmount, out d))
+                {
+                    ibllserviceorder.OrderFlow_BusinessNegotiate(order, d);
+                }
+                else
                 {
                     throw new FormatException("新协商价格格式不正确！");
                 }
+            }
+            else
+            {
+                throw new FormatException("新协商价格不能为空！");
             }
             //if (!string.IsNullOrEmpty(orderobj.notes))
             //{
@@ -557,11 +579,21 @@ namespace Dianzhu.ApplicationService.Order
             IList<serviceSnapshotObj> servicesobj = Mapper.Map<IList<Model.ServiceOrderPushedService>, IList<serviceSnapshotObj>>(pushServiceList);
             for (int i = 0; i < servicesobj.Count; i++)
             {
-                /*
-                servicesobj[i].location.longitude = pushServiceList[i].OriginalService.Business.Longitude.ToString();
-                servicesobj[i].location.latitude = pushServiceList[i].OriginalService.Business.Latitude.ToString();
-                servicesobj[i].location.address = pushServiceList[i].OriginalService.Business.RawAddressFromMapAPI == null ? "" : pushServiceList[i].OriginalService.Business.RawAddressFromMapAPI;
-                    */
+                Business business = businessService.GetOne(new Guid(pushServiceList[i].ServiceSnapShot.ServiceBusinessId));
+                if (business != null)
+                {
+                    //未确认的订单中没有店铺
+                    servicesobj[i].location.longitude = business.Longitude.ToString();
+                    servicesobj[i].location.latitude = business.Latitude.ToString();
+                    servicesobj[i].location.address = business.RawAddressFromMapAPI == null ? "" : business.RawAddressFromMapAPI;
+                }
+                ServiceType st = serviceTypeService.GetOne(utils.CheckGuidID(pushServiceList[i].ServiceSnapShot.ServiceTypeId, "服务类型Id"));
+                if (st != null)
+                {
+                    servicesobj[i].serviceType.id = st.Id.ToString();
+                    servicesobj[i].serviceType.fullDescription = st.ToString();
+                    servicesobj[i].serviceType.superID = st.ParentId.ToString();
+                }
             }
             return servicesobj;
         }

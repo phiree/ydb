@@ -27,9 +27,9 @@ namespace Dianzhu.Web.RestfulApi
         private static Dictionary<string, string> allowedApps = new Dictionary<string, string>();
         private readonly Int64 requestMaxAgeInSeconds = 300000;  //5 mins
         private readonly string authenticationScheme = "amx";
-        private  string reqTime = "";
+        //private  string reqTime = "";
 
-        private string reqUri = "";
+        //private string reqUri = "";
         /// <summary>
         /// 设定appName和security_key
         /// </summary>
@@ -63,11 +63,11 @@ namespace Dianzhu.Web.RestfulApi
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        private async Task<bool> isValidRequest1(HttpRequestMessage req)
-        {
-            byte[] hash = await ComputeHash(req.Content).ConfigureAwait(false);
-            return false;
-        }
+        //private async Task<bool> isValidRequest1(HttpRequestMessage req)
+        //{
+        //    //byte[] hash = await ComputeHash(req.Content).ConfigureAwait(false);
+        //    return false;
+        //}
 
         /// <summary>
         /// 认证
@@ -88,7 +88,7 @@ namespace Dianzhu.Web.RestfulApi
             {
                 stamp_TIMES = keyValue.FirstOrDefault();
                 //ilog.Debug("Request(stamp_TIMES):" + stamp_TIMES);
-                reqTime = stamp_TIMES;
+                //reqTime = stamp_TIMES;
             }
             else
             {
@@ -235,12 +235,12 @@ namespace Dianzhu.Web.RestfulApi
             {
                 return false;
             }
+            ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + sign);
 
-            ilog.Debug("Request(RequestMethodUriSign)" + reqTime + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + sign);
-            reqUri = req.RequestUri.AbsolutePath.ToLower();
+            string reqUri = req.RequestUri.AbsolutePath.ToLower();
             //ilog.Debug("Request(RequestUri)" + reqTime + ":" + requestUri);
             //认证时是否加入token
-            if (utils.CheckRoute(req.RequestUri.AbsolutePath.ToLower(),req.Method.ToString()))
+            if (utils.CheckRoute(reqUri, req.Method.ToString()))
             { }
             else
             {
@@ -269,7 +269,7 @@ namespace Dianzhu.Web.RestfulApi
                 }
             }
 
-            byte[] hash = await ComputeHash(req.Content).ConfigureAwait(false);
+            byte[] hash = await ComputeHash(req.Content, stamp_TIMES, reqUri).ConfigureAwait(false);
             //尝试使用异步 / 的await 一路下跌。换句话说，不要在阻止异步 code。你应该做的另一件事是使用.ConfigureAwait（假）
             StringBuilder sb = new StringBuilder();
             if (hash != null)
@@ -283,7 +283,7 @@ namespace Dianzhu.Web.RestfulApi
                 //ilog.Debug("Create(requestContentBase64String)" + reqTime + ":" + requestContentBase64String);
             }
             string data = String.Format("{0}{1}{2}{3}{4}", appName, token, requestContentBase64String, stamp_TIMES, requestUri);
-            ilog.Debug("Request(signBefore)" + reqTime + ":" + data);
+            ilog.Debug("Request(signBefore)" + stamp_TIMES + ":" + data);
             //data = "123";
             byte[] signature = Encoding.UTF8.GetBytes(data);
             sb = new StringBuilder();
@@ -329,7 +329,7 @@ namespace Dianzhu.Web.RestfulApi
                     //string strsb = sb.ToString();
                     baseBuffer = Encoding.UTF8.GetBytes(sb.ToString());
                     string tt = Convert.ToBase64String(baseBuffer);
-                    ilog.Debug("Create(sign)" + reqTime + ":" + tt);
+                    ilog.Debug("Create(sign)" + stamp_TIMES + ":" + tt);
                     return (sign.Equals(tt, StringComparison.Ordinal));
                 }
             }
@@ -374,7 +374,7 @@ namespace Dianzhu.Web.RestfulApi
             }
             catch (Exception ex)
             {
-                ilog.Error("Cache(sgin)" + reqTime + ":" + ex.Message);
+                ilog.Error("Cache(sgin)" + requestTimeStamp + ":" + ex.Message);
             }
             //ilog.Debug("Create(stamp_TIMES4)" + reqTime + ":" + serverTotalSeconds.ToString());
             return false;
@@ -385,7 +385,7 @@ namespace Dianzhu.Web.RestfulApi
         /// </summary>
         /// <param name="httpContent"></param>
         /// <returns></returns>
-        private async Task<byte[]> ComputeHash(HttpContent httpContent)//async
+        private async Task<byte[]> ComputeHash(HttpContent httpContent, string requestTimeStamp,string reqUri)//async
         {
             //MD5 md = new MD5CryptoServiceProvider();
             //MD5 md5 =MD5.Create()
@@ -402,7 +402,7 @@ namespace Dianzhu.Web.RestfulApi
                     { }
                     else
                     {
-                        ilog.Debug("Request(httpContent)" + reqTime + ":" + str.ToString());
+                        ilog.Debug("Request(httpContent)" + requestTimeStamp + ":" + str.ToString());
                     }
                     //string signatureRawData = await httpContent.ReadAsStringAsync();
                     //byte[] signature = Encoding.UTF8.GetBytes(str);

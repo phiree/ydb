@@ -510,7 +510,7 @@ namespace Ydb.Common
         /// <summary>
         /// 客服
         /// </summary>
-        //customerService,
+        customerService,
         /// <summary>
         /// 店铺
         /// </summary>
@@ -518,7 +518,7 @@ namespace Ydb.Common
         /// <summary>
         /// 与平台客服聊天类型
         /// </summary>
-        cer,
+        //cer,
         /// <summary>
         /// 与商家客服聊天类型
         /// </summary>

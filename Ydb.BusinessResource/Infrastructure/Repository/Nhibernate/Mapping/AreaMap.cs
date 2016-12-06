@@ -19,6 +19,8 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.SeoName);
             Map(x => x.AreaOrder);
             Map(x => x.MetaDescription);
+            Map(x => x.BaiduName);
+            Map(x => x.BaiduCode);
         }
     }
 }

@@ -7,6 +7,7 @@ namespace Dianzhu.Model
 {
     public class ServiceSnapShot
     {
+
         public virtual string ServiceName { get; set; }
         public virtual string Description { get; set; }
         public virtual bool IsCompensationAdvance { get; set; }
@@ -20,6 +21,7 @@ namespace Dianzhu.Model
         public virtual string ServiceModeType { get; set; }
 
         public virtual string ServiceTypeName { get; set; }
+        public virtual string ServiceTypeId { get; set; }
 
         public virtual string ServiceBusinessId { get; set; }
 

@@ -87,6 +87,9 @@ namespace Ydb.InstantMessage.Application
                     case "ReceptionChatPushService":
                         dtoList.Add(((ReceptionChatPushService)item).ToDto());
                         break;
+                    case "ReceptionChatDidichuxing":
+                        dtoList.Add(((ReceptionChatDidichuxing)item).ToDto());
+                        break;
                     default:
                         throw new Exception("未知chat类型");
                 }

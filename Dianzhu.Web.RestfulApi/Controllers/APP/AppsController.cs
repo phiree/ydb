@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Dianzhu.ApplicationService;
+using System.Configuration;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.APP
 {
@@ -28,6 +29,10 @@ namespace Dianzhu.Web.RestfulApi.Controllers.APP
         {
             try
             {
+                MySectionCollection1 mysection = (MySectionCollection1)ConfigurationManager.GetSection("MySectionCollection1");
+                //MySectionKeyValueSettings kv = mysection.KeyValues[Request.Headers.GetValues("appName").FirstOrDefault()];
+                string apiName = Request.Headers.GetValues("appName").FirstOrDefault();
+                appobj.appName = mysection.KeyValues[apiName].Value;
                 GetRequestHeader.GetTraitHeaders("post/apps/{appUUID}");
                 return Json(iapps.PostDeviceBind(id, appobj));
             }

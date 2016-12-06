@@ -179,12 +179,16 @@ namespace Ydb.Membership.DomainModel.Service
         public  DZMembership GeQQtUserInfo(string code, string appName, IRepositoryDZMembership repositoryMembership, string userType)
         {
             string AppIDQQ = string.Empty;
-            switch (appName.ToLower())
+            switch (appName)
             {
-                case "ios":
+                case "IOS_Customer":
+                case "IOS_Merchant":
+                case "IOS_CustomerService":
                     AppIDQQ = Dicts.AppIDQQIos;
                     break;
-                case "android":
+                case "Android_Customer":
+                case "Android_Merchant":
+                case "Android_CustomerService":
                     AppIDQQ = Dicts.AppIDQQAndroid;
                     break;
                 default:
