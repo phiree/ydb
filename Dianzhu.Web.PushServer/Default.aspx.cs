@@ -6,8 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Push;
 using Ydb.InstantMessage.DomainModel.Enums;
-using Dianzhu.Model.Enums;
+
 using Ydb.InstantMessage.DomainModel.Chat;
+using Ydb.Common;
 
 public partial class _Default : System.Web.UI.Page
 {
