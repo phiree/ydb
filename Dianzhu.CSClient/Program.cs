@@ -121,7 +121,14 @@ namespace Dianzhu.CSClient
 
         private static void Form_AddCustomerTest()
         {
-            VMIdentity vmIdentityTest = new VMIdentity("orderId"+Guid.NewGuid(), "customer_id"+Guid.NewGuid(), "customerDisplayName", string.Empty);
+            string orderId = Guid.NewGuid().ToString();
+            string customerId = Guid.NewGuid().ToString();
+            
+            VMIdentity vmIdentityTest = new VMIdentity(orderId, customerId, "TestCustomer", string.Empty);
+
+            IdentityTypeOfOrder type;
+            type = IdentityManager.UpdateCustomerList(customerId,orderId);
+
             pIdentityList.AddIdentity(vmIdentityTest);
 
             AddIdentityTab(vmIdentityTest.CustomerId, vmIdentityTest.CustomerName);
