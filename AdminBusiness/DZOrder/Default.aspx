@@ -113,7 +113,7 @@
                                                         </div>
                                                         <div class="custom-col col-10-1">
                                                             <div class="order-li">
-                                                                <a class="order-href" href='/DZService/Detail.aspx?businessid=<%=Request.Params["businessId"]%>&serviceId=<%# Eval("Service.Id").ToString() %>'><%# Eval("Service.Name").ToString() %></a>
+                                                                <a class="order-href" href='/DZService/Detail.aspx?businessid=<%=Request.Params["businessId"]%>&serviceId=<%# Eval("ServiceId").ToString() %>'><%# Eval("Description").ToString() %></a>
                                                             </div>
                                                         </div>
 

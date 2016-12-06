@@ -422,6 +422,7 @@ namespace Dianzhu.CSClient
 
         static bool CheckConfig()
         {
+            return true;
             log.Debug("--开始 检查配置是否冲突");
             //need: openfire服务器 数据库,api服务器,三者目标ip应该相等.
             bool isValidConfig = false;
