@@ -276,6 +276,10 @@
       <Project>{de79c6ab-b5a9-4baf-80fa-22835452785f}</Project>
       <Name>RisCaptureLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ydb.ApplicationService\Ydb.ApplicationService.csproj">
+      <Project>{515a3298-f38b-40e0-968c-5c65efb2affe}</Project>
+      <Name>Ydb.ApplicationService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ydb.BusinessResource\Ydb.BusinessResource.csproj">
       <Project>{0c2206a1-308f-4090-a4a9-4e7cefd2fd9f}</Project>
       <Name>Ydb.BusinessResource</Name>

@@ -86,7 +86,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 orderobj.serviceSnapshotObj = Mapper.Map<Model.ServiceOrderDetail, serviceSnapshotObj>(serviceorder.Details[0]);
 
-                business = businessService.GetOne(utils.CheckGuidID(serviceorder.Details[0].ServiceSnapShot.ServiceBusinessId,"店铺Id"));
+                business = businessService.GetOne(utils.CheckGuidID(serviceorder.Details[0].ServiceSnapShot.BusinessId,"店铺Id"));
                 serviceType = serviceTypeService.GetOne(utils.CheckGuidID(serviceorder.Details[0].ServiceSnapShot.ServiceTypeId, "服务类型Id"));
                 
                 orderobj.storeObj = Mapper.Map<Business, storeObj>(business);
@@ -137,10 +137,10 @@ namespace Dianzhu.ApplicationService.Order
                     orderobj.serviceTime = dzs[0].TargetTime.ToString("yyyyMMddHHmmss");
                     orderobj.serviceSnapshotObj = Mapper.Map<Model.ServiceOrderPushedService, serviceSnapshotObj>(dzs[0]);
 
-                    business = businessService.GetOne(utils.CheckGuidID(dzs[0].ServiceSnapShot.ServiceBusinessId, "店铺Id"));
+                    business = businessService.GetOne(utils.CheckGuidID(dzs[0].ServiceSnapShot.BusinessId, "店铺Id"));
                     serviceType = serviceTypeService.GetOne(utils.CheckGuidID(dzs[0].ServiceSnapShot.ServiceTypeId, "服务类型Id"));
 
-                    if (!string.IsNullOrEmpty(dzs[0].OriginalServiceId )  &&!string.IsNullOrEmpty( dzs[0].ServiceSnapShot.ServiceBusinessId ))
+                    if (!string.IsNullOrEmpty(dzs[0].OriginalServiceId )  &&!string.IsNullOrEmpty( dzs[0].ServiceSnapShot.BusinessId ))
                     {
                      
                         orderobj.storeObj = Mapper.Map< Business, storeObj>(business);
@@ -579,7 +579,7 @@ namespace Dianzhu.ApplicationService.Order
             IList<serviceSnapshotObj> servicesobj = Mapper.Map<IList<Model.ServiceOrderPushedService>, IList<serviceSnapshotObj>>(pushServiceList);
             for (int i = 0; i < servicesobj.Count; i++)
             {
-                Business business = businessService.GetOne(new Guid(pushServiceList[i].ServiceSnapShot.ServiceBusinessId));
+                Business business = businessService.GetOne(new Guid(pushServiceList[i].ServiceSnapShot.BusinessId));
                 if (business != null)
                 {
                     //未确认的订单中没有店铺
@@ -632,8 +632,8 @@ namespace Dianzhu.ApplicationService.Order
             //orderObj.svcObj.SetTag(orderObj.svcObj, tagsList);
             ServiceOrderStateChangeHis orderHis = bllstatehis.GetOrderHis(order);
 
-            string strName = order.Details[0].ServiceSnapShot.ServiceName ?? string.Empty;
-            string strAlias = order.Details[0].ServiceSnapShot.ServiceBusinessName ?? string.Empty;
+            string strName = order.Details[0].ServiceSnapShot.Name ?? string.Empty;
+            string strAlias = order.Details[0].ServiceSnapShot. BusinessName ?? string.Empty;
             string strType = order.Details[0].ServiceSnapShot.ServiceTypeName ?? string.Empty;
             //order.Details.Count > 0? order.Details[0].ServieSnapShot.ServiceName ?? string.Empty: pushService.ServiceName ?? string.Empty;
 
@@ -871,11 +871,11 @@ namespace Dianzhu.ApplicationService.Order
             else if (member.UserType ==enum_UserType.business.ToString())
             {
                 order = ibllserviceorder.GetOne(guidOrder);
-                if (order.Details[0].ServiceSnapShot.ServiceBusinessOwnerId != userId.ToString())
+                if (order.Details[0].ServiceSnapShot. BusinessOwnerId != userId.ToString())
                 {
                     throw new Exception("没有对应的订单！");
                 }
-                if (order.Details[0].ServiceSnapShot.ServiceBusinessOwnerId != member.Id.ToString())
+                if (order.Details[0].ServiceSnapShot. BusinessOwnerId != member.Id.ToString())
                 {
                     throw new Exception("该订单不属于该用商户！");
                 }

@@ -8,27 +8,30 @@ namespace Dianzhu.Model
     public class ServiceSnapShot
     {
 
-        public virtual string ServiceName { get; set; }
+        public virtual string  Name { get; set; }
         public virtual string Description { get; set; }
         public virtual bool IsCompensationAdvance { get; set; }
         public virtual decimal MinPrice { get; set; }
         public virtual decimal UnitPrice { get; set; }
-        public virtual string ChargeUnitType { get; set; }
+        public virtual string ChargeUnit { get; set; }
 
         public virtual decimal DepositAmount { get; set; }
         public virtual decimal CancelCompensation { get; set; }
         public virtual int OverTimeForCancel { get; set; }
-        public virtual string ServiceModeType { get; set; }
+        public virtual string ServiceMode { get; set; }
 
         public virtual string ServiceTypeName { get; set; }
         public virtual string ServiceTypeId { get; set; }
 
-        public virtual string ServiceBusinessId { get; set; }
+        public virtual string BusinessId { get; set; }
 
-        public virtual string ServiceBusinessOwnerId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual string  BusinessOwnerId { get; set; }
 
-        public virtual string ServiceBusinessName { get; set; }
-        public virtual string ServiceBusinessPhone { get; set; }
+        public virtual string   BusinessName { get; set; }
+        public virtual string  BusinessPhone { get; set; }
         public virtual bool IsForBusiness { get; set; }
 
         public virtual bool Enabled { get; set; }
