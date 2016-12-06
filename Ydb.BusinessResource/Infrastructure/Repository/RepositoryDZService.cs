@@ -69,13 +69,17 @@ namespace Ydb.BusinessResource.Infrastructure.Repository
 
             IList<DZService> list;
 
-            IQuery query = session.CreateQuery(queryStr + where);
-            totalRecord = query.List().Count;
+          
+            var qryResult = session.CreateQuery(queryStr + where);
 
-            var result = query.List<DZService>()
-                .Skip(pageindex * pagesize).Take(pagesize);
+            var qryCount =session.CreateQuery( Ydb.Common.StringHelper.BuildCountQuery(queryStr + where));
 
-            list = result.ToList();
+            totalRecord =(int) qryCount.FutureValue <long>().Value;
+
+            var pagedResult = qryResult.SetFirstResult((pageindex - 1) * pagesize).SetFetchSize(pagesize);
+                
+
+            list = pagedResult.List<DZService>();
 
 
             //按地区筛选
