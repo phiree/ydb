@@ -547,7 +547,7 @@
                 <!--主要操作区-->
                 <Grid Grid.Row="2">
                     <Grid.Background>
-                        <ImageBrush ImageSource="{DynamicResource ImageSource1}" Stretch="UniformToFill"/>
+                        <ImageBrush ImageSource="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/welcome.png" Stretch="UniformToFill"/>
                     </Grid.Background>
                     <TabControl x:Name="tabContent" Style="{DynamicResource TabControlStyle}" Visibility="Collapsed">
 

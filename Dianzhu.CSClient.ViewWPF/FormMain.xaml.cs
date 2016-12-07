@@ -155,13 +155,18 @@ namespace Dianzhu.CSClient.ViewWPF
             tabContent.Items.Add(tab);
         }
 
-        public void RemoveIdentityTab(string identityTabFriendly)
+        
+        public void RemoveIdentityTab(string identityTabFriendly,bool isActived)
         {
             Action lambda = () =>
             {
                 TabItem item = tabContent.ItemContainerGenerator.Items.Where(x => ((TabItem)x).Name == identityTabFriendly).SingleOrDefault() as TabItem;
                 tabContent.Items.Remove(item);
+                if(isActived)
+                { 
                 tabContent.Visibility = Visibility.Collapsed;
+                }
+
             };
             if (!Dispatcher.CheckAccess())
             {
@@ -169,13 +174,16 @@ namespace Dianzhu.CSClient.ViewWPF
             }
             else { lambda(); }
         }
-
+        
+        private string currentIdentity;
         public void ShowIdentityTab(string identityTabFriendly)
         {
             Action lambda = () =>
             {
+
                 tabContent.Visibility = Visibility.Visible;
                 tabContent.SelectedItem = tabContent.ItemContainerGenerator.Items.Where(x => ((TabItem)x).Name == identityTabFriendly).SingleOrDefault();
+                
             };
             if (!Dispatcher.CheckAccess())
             {

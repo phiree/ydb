@@ -72,7 +72,12 @@ namespace Dianzhu.CSClient.Presenter
 
         public void RemoveIdentityTabContent(string identityTabFriendly)
         {
-            viewMainForm.RemoveIdentityTab(identityTabFriendly);
+            string currentFriendlyName =
+                PHSuit.StringHelper.SafeNameForWpfControl(IdentityManager.CurrentCustomerId,
+                    GlobalViables.PRE_TAB_CUSTOMER);
+
+            bool isActived = currentFriendlyName == identityTabFriendly;
+            viewMainForm.RemoveIdentityTab(identityTabFriendly,isActived);
         }
     }
 }
