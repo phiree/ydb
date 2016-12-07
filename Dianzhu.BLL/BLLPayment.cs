@@ -210,44 +210,18 @@ namespace Dianzhu.BLL
             if (!string.IsNullOrEmpty(payStatus))
             {
                 enum_PaymentStatus ps;
-                switch (payStatus.ToLower())
+                if (Enum.TryParse<enum_PaymentStatus>(payStatus, out ps))
                 {
-                    case "waitforpay":
-                        ps = enum_PaymentStatus.Wait_Buyer_Pay;
-                        break;
-                    case "success":
-                        ps = enum_PaymentStatus.Trade_Success;
-                        break;
-                    case "failed":
-                        ps = enum_PaymentStatus.Fail;
-                        break;
-                    case "waitforverify":
-                        ///没有对应状态
-                    default:
-                        ps = enum_PaymentStatus.None;
-                            break;
+                    where = where.And(x => x.Status == ps);
                 }
-                where = where.And(x => x.Status == ps);
             }
             if (!string.IsNullOrEmpty(payType))
             {
-                enum_PayTarget ps;
-                switch (payType.ToLower())
+                enum_PayTarget ps; 
+                if (Enum.TryParse<enum_PayTarget>(payType, out ps))
                 {
-                    case "deposit":
-                        ps = enum_PayTarget.Deposit;
-                        break;
-                    case "finalpayment":
-                        ps = enum_PayTarget.FinalPayment;
-                        break;
-                    case "compensation":
-                        ps = enum_PayTarget.Compensation;
-                        break;
-                    default:
-                        ps = enum_PayTarget.None;
-                        break;
+                    where = where.And(x => x.PayTarget == ps);
                 }
-                where = where.And(x => x.PayTarget == ps);
             }
             Payment baseone = null;
             if (!string.IsNullOrEmpty(filter.baseID))

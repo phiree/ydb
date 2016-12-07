@@ -157,8 +157,10 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Payment, payObj>()
-            .ForMember(x => x.payStatus, opt => opt.MapFrom(source => source.Status== enum_PaymentStatus.Wait_Buyer_Pay? "waitforpay": source.Status == enum_PaymentStatus.Trade_Success ? "success": source.Status == enum_PaymentStatus.Trade_Finished? "success": "failed"))
-            .ForMember(x => x.type, opt => opt.MapFrom(source => source.PayTarget==  enum_PayTarget.Deposit? "deposit": source.PayTarget == enum_PayTarget.FinalPayment? "finalPayment": "compensation"))
+            //.ForMember(x => x.payStatus, opt => opt.MapFrom(source => source.Status== enum_PaymentStatus.Wait_Buyer_Pay? "waitforpay": source.Status == enum_PaymentStatus.Trade_Success ? "success": source.Status == enum_PaymentStatus.Trade_Finished? "success": "failed"))
+            //.ForMember(x => x.type, opt => opt.MapFrom(source => source.PayTarget==  enum_PayTarget.Deposit? "deposit": source.PayTarget == enum_PayTarget.FinalPayment? "finalPayment": "compensation"))
+            .ForMember(x => x.payStatus, opt => opt.MapFrom(source => source.Status.ToString()))
+            .ForMember(x => x.type, opt => opt.MapFrom(source => source.PayTarget.ToString()))
             .ForMember(x => x.updateTime, opt => opt.MapFrom(source => source.LastUpdateTime == DateTime.MinValue ? "" : source.LastUpdateTime.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.bOnline, opt => opt.MapFrom(source =>  source.PayType==  enum_PayType.Online))
             .ForMember(x => x.payTarget, opt => opt.MapFrom(source => source.PayApi.ToString()))

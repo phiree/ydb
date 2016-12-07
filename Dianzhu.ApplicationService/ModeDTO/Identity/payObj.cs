@@ -55,7 +55,23 @@ namespace Dianzhu.ApplicationService
             }
             set
             {
-                _payStatus = value;
+                switch (value)
+                {
+                    case "Wait_Buyer_Pay":
+                        _payStatus = "waitforpay";
+                        break;
+                    case "Trade_Success":
+                    case "Trade_Finished":
+                        _payStatus = "success";
+                        break;
+                    //case "Fail":
+                    //    _payStatus = "failed";
+                    //    break;
+                    //case "waitforverify":
+                    default:
+                        _payStatus = "failed";
+                        break;
+                }
             }
         }
 
@@ -72,7 +88,18 @@ namespace Dianzhu.ApplicationService
             }
             set
             {
-                _type = value;
+                switch (value)
+                {
+                    case "Deposit":
+                        _type = "deposit";
+                        break;
+                    case "FinalPayment":
+                        _type = "finalPayment";
+                        break;
+                    default:
+                        _type = "compensation";
+                        break;
+                }
             }
         }
 
