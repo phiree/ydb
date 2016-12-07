@@ -40,7 +40,7 @@ namespace Dianzhu.ApplicationService.Assign
                 throw new FormatException("指派的员工ID不能为空！");
             }
             Model.OrderAssignment oa = Mapper.Map<assignObj, Model.OrderAssignment>(assignobj);
-            Model.ServiceOrder order = ibllorder.GetOneOrder(utils.CheckGuidID(assignobj.orderID, "assignobj.orderID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            Model.ServiceOrder order = ibllorder.GetOneOrder(utils.CheckGuidID(assignobj.orderID, "assignobj.orderID"), customer.UserID);
             if (order == null)
             {
                 throw new Exception("该商户指派的订单不存在！");
@@ -128,7 +128,7 @@ namespace Dianzhu.ApplicationService.Assign
             {
                 throw new FormatException("取消指派的员工ID不能为空！");
             }
-            Model.ServiceOrder order = ibllorder.GetOneOrder(utils.CheckGuidID(assignobj.orderID, "assignobj.orderID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            Model.ServiceOrder order = ibllorder.GetOneOrder(utils.CheckGuidID(assignobj.orderID, "assignobj.orderID"), customer.UserID);
             if (order == null)
             {
                 throw new Exception("该商户不存在该订单！");
