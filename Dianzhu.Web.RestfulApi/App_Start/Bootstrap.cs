@@ -72,6 +72,7 @@ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb
                 x.AddProfile<ApplicationService.Mapping.DtoToModelMappingProfile>();
                 x.AddProfile<Ydb.Membership.Application.ModelToDtoMappingProfile>();
                 x.AddProfile<Ydb.BusinessResource.Application.ModelToDtoMappingProfile>();
+                x.AddProfile<Ydb.ApplicationService.ModelToDtoMappingProfileCrossDomain>();
             });
         }
 
