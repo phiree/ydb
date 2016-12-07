@@ -385,7 +385,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <None Include="Properties\PublishProfiles\RestfulApi.pubxml" />
+    <None Include="Properties\PublishProfiles\150.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -426,6 +426,7 @@
     <Content Include="Views\Home\ApiInfo.cshtml" />
     <Content Include="Views\Home\LogList.cshtml" />
     <Content Include="Views\Home\LogInfo.cshtml" />
+    <None Include="Web.150.config" />
     <None Include="Web.Report_RestfulApi_dev_ydban_cn.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

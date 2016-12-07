@@ -213,7 +213,7 @@ ul,ol{
                     <li><font class="note-help">如果您点击“确认”按钮，即表示您同意该次的执行操作。 </font></li>
                     <li>支付宝版权所有 2011-2015 ALIPAY.COM </li>
                 </ul>
-                <ul>
+                
             </div>
         </div>
     </form>

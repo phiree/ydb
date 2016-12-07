@@ -350,7 +350,9 @@
       <Name>Ydb.InstantMessage</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\welcome.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\1.png" />
     <Resource Include="Resources\2.png" />
