@@ -83,13 +83,14 @@ namespace Dianzhu.ApplicationService.Order
                 }
 
                 decimal d = 0;
-                if ( !decimal.TryParse(orderobj.orderAmount, out d) || d <= 0)
+                string strAmount= (serviceorder.Details[0].UnitAmount * serviceorder.Details[0].OriginalService.UnitPrice).ToString("0.00");
+                if (!decimal.TryParse(orderobj.orderAmount, out d) || d <= 0)
                 {
-                    orderobj.orderAmount = (serviceorder.Details[0].UnitAmount * serviceorder.Details[0].OriginalService.UnitPrice).ToString("0.00");
+                    orderobj.orderAmount = strAmount;
                 }
-                if (!decimal.TryParse(orderobj.negotiateAmount, out d) || d < 0)
+                if ( !decimal.TryParse(orderobj.negotiateAmount,out d) || d < 0)
                 {
-                    orderobj.negotiateAmount = (serviceorder.Details[0].UnitAmount * serviceorder.Details[0].OriginalService.UnitPrice).ToString("0.00");
+                    orderobj.negotiateAmount = strAmount;
                 }
                 if (string.IsNullOrEmpty(orderobj.serviceAddress))
                 {
@@ -108,13 +109,14 @@ namespace Dianzhu.ApplicationService.Order
                 if (dzs.Count > 0)
                 {
                     decimal d = 0;
+                    string strAmount = (serviceorder.Details[0].UnitAmount * serviceorder.Details[0].OriginalService.UnitPrice).ToString("0.00");
                     if (!decimal.TryParse(orderobj.orderAmount, out d) || d <= 0)
                     {
-                        orderobj.orderAmount =  (dzs[0].UnitAmount * dzs[0].OriginalService.UnitPrice).ToString("0.00");
+                        orderobj.orderAmount = strAmount;
                     }
                     if (!decimal.TryParse(orderobj.negotiateAmount, out d) || d < 0)
                     {
-                        orderobj.negotiateAmount = (dzs[0].UnitAmount * dzs[0].OriginalService.UnitPrice).ToString("0.00");
+                        orderobj.negotiateAmount = strAmount;
                     }
                     orderobj.contactObj.address = dzs[0].TargetAddress;
                     orderobj.contactObj.alias = dzs[0].TargetCustomerName ?? "";

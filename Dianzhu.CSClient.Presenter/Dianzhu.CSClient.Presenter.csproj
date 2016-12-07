@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5AC8D7DE-A53D-4698-8957-C78D9243A793}</ProjectGuid>
+    <ProjectGuid>{2955FF18-C6C2-418C-BC99-A68E20EC0D61}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dianzhu.CSClient.Presenter</RootNamespace>
@@ -70,13 +70,13 @@
     <Compile Include="GlobalViables.cs" />
     <Compile Include="LoginPresenter.cs" />
     <Compile Include="MainPresenter\PMain.cs" />
-    <Compile Include="MainPresenter\PTabControl.cs" />
     <Compile Include="MainPresenter\POrderHistory.cs" />
     <Compile Include="MainPresenter\PChatSend.cs" />
     <Compile Include="MainPresenter\PChatList.cs" />
     <Compile Include="MainPresenter\PIdentyList.cs" />
     <Compile Include="IdentityManager.cs" />
     <Compile Include="MainPresenter\PSearch.cs" />
+    <Compile Include="MainPresenter\PToolsControl.cs" />
     <Compile Include="MainPresenter\State.cs" />
     <Compile Include="VMAdapter\IVMOrderHistoryAdapter.cs" />
     <Compile Include="VMAdapter\VMChatAdapter.cs" />

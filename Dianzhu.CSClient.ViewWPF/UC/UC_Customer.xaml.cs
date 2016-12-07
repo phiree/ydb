@@ -22,23 +22,34 @@ namespace Dianzhu.CSClient.ViewWPF
     /// <summary>
     /// UC_CustomerNew.xaml 的交互逻辑
     /// </summary>
-    public partial class UC_Customer : UserControl,IView.IViewCustomer
+    public partial class UC_Customer : UserControl,IViewCustomer
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_CustomerNew");
         /// <summary>
         /// 界面上显示的时间控制器
         /// </summary>
         DispatcherTimer timerReceptionStatus;
-        /// <summary>
-        /// 客服回复之后得时间控制器
-        /// </summary>
-        DispatcherTimer FinalChatTimer;
+
         public UC_Customer()
         {
             InitializeComponent();
 
             InitTimer();
-            InitFinalChatTimer();
+        }
+
+        #region 属性
+        string identity;
+        public string Identity
+        {
+            get
+            {
+                return identity;
+            }
+
+            set
+            {
+                identity = value;
+            }
         }
 
         public string AvatarImage
@@ -74,6 +85,8 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        #endregion
+
         public enum_CustomerReceptionStatus CustomerReceptionStatus
         {
             set
@@ -93,20 +106,7 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        VMIdentity vmIdentity;
-        public VMIdentity Identity
-        {
-            get
-            {
-                return vmIdentity;
-            }
-
-            set
-            {
-                vmIdentity = value;
-            }
-        }
-
+        #region 用户头像点击事件
         public event CustomerClick CustomerClick;        
 
         private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -114,9 +114,10 @@ namespace Dianzhu.CSClient.ViewWPF
             if (CustomerClick != null)
             {
                 CustomerReceptionStatus = enum_CustomerReceptionStatus.Actived;
-                CustomerClick(vmIdentity);
+                CustomerClick(identity);
             }
         }
+        #endregion
 
         #region 接待状态时间控制器
 
@@ -219,45 +220,6 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         #endregion
-
-        #region 客服回复之后的时间控制器相关方法
-
-        public event IdleTimerOut IdleTimerOut;
-
-        protected void InitFinalChatTimer()
-        {
-            FinalChatTimer = new DispatcherTimer();
-            FinalChatTimer.Interval = new TimeSpan(0, 10, 0);
-            FinalChatTimer.Tick += FinalChatTimer_Tick;
-        }
-
-        private void FinalChatTimer_Tick(object sender, EventArgs e)
-        {
-            if (IdleTimerOut != null)
-            {
-                IdleTimerOut(vmIdentity.CustomerId);
-                StopFinalChatTimer();
-            }           
-        }
-
-        public void StartFinalChatTimer()
-        {
-            if (FinalChatTimer != null)
-            {
-                FinalChatTimer.Stop();
-                InitFinalChatTimer();
-                FinalChatTimer.Start();
-            }
-        }
-
-        public void StopFinalChatTimer()
-        {
-            if (FinalChatTimer != null)
-            {
-                FinalChatTimer.Stop();
-            }
-        }
-
-        #endregion
+        
     }
 }

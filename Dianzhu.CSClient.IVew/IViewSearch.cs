@@ -23,8 +23,11 @@ namespace Dianzhu.CSClient.IView
         string ServiceTargetAddressStr { get; set; }
         string ServiceTargetAddress { get; set; }
         string ServiceMemo { get; set; }
+        /// <summary>
+        /// 搜索时的服务时间
+        /// </summary>
+        DateTime TargetTime { get; set; }
         int UnitAmount { get; set; }
-        LocalStorage.TargetAddressObj ServiceTargetAddressObj { get; set; }
 
         void ClearData();
 
