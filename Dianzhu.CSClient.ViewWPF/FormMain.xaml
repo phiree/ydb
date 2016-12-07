@@ -120,7 +120,7 @@
             <Setter Property="FontWeight" Value="Regular"/>
         </Style>
 
-        <!--+++++++++++++++++++++++++++++++  TabItem  +++++++++++++++++++++++++++++++++++++++++-->        
+        <!--+++++++++++++++++++++++++++++++  TabItem  +++++++++++++++++++++++++++++++++++++++++-->
         <LinearGradientBrush x:Key="TabItem.Static.Background" EndPoint="0,1" StartPoint="0,0">
             <GradientStop Color="#9da6ad" Offset="0.0"/>
             <GradientStop Color="#9da6ad" Offset="1.0"/>
@@ -396,6 +396,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <BitmapImage x:Key="ImageSource1" >Resources/welcome.png</BitmapImage>
 
     </Window.Resources>
 
@@ -545,14 +546,17 @@
 
                 <!--主要操作区-->
                 <Grid Grid.Row="2">
-                    <TabControl x:Name="tabContent" Style="{DynamicResource TabControlStyle}">
-                        
+                    <Grid.Background>
+                        <ImageBrush ImageSource="{DynamicResource ImageSource1}" Stretch="UniformToFill"/>
+                    </Grid.Background>
+                    <TabControl x:Name="tabContent" Style="{DynamicResource TabControlStyle}" Visibility="Collapsed">
+
                     </TabControl>
                 </Grid>
             </Grid>
             <!--**********************************************************************************-->
 
         </Grid>
-        
+
     </Grid>
 </Window>

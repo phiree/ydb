@@ -146,6 +146,8 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public void AddIdentityTab(string identityTabFriendly, IViewTabContent viewTabContent)
         {
+           // tabContent.Visibility = Visibility.Visible;
+
             TabItem tab = new TabItem();
             tab.Name = identityTabFriendly;
             tab.Content = (UC_TabContent)viewTabContent;
@@ -159,6 +161,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 TabItem item = tabContent.ItemContainerGenerator.Items.Where(x => ((TabItem)x).Name == identityTabFriendly).SingleOrDefault() as TabItem;
                 tabContent.Items.Remove(item);
+                tabContent.Visibility = Visibility.Collapsed;
             };
             if (!Dispatcher.CheckAccess())
             {
@@ -171,6 +174,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
+                tabContent.Visibility = Visibility.Visible;
                 tabContent.SelectedItem = tabContent.ItemContainerGenerator.Items.Where(x => ((TabItem)x).Name == identityTabFriendly).SingleOrDefault();
             };
             if (!Dispatcher.CheckAccess())
