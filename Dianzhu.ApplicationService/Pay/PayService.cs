@@ -228,6 +228,10 @@ namespace Dianzhu.ApplicationService.Pay
             {
                 throw new Exception("该笔支付不存在！");
             }
+            if (payment.Status != enum_PaymentStatus.Wait_Buyer_Pay)
+            {
+                throw new Exception("该笔支付不是待支付状态！");
+            }
             pay3rdStringObj c = new pay3rdStringObj();
             switch (payTarget.ToLower())
             {
