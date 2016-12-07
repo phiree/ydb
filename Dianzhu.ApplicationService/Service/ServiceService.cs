@@ -35,7 +35,7 @@ namespace Dianzhu.ApplicationService.Service
         /// </summary>
         /// <param name="servicesobj"></param>
         /// <param name="dzservice"></param>
-        void changeObj(servicesObj servicesobj,ServiceSnapShot dzservice,Business business)
+        void changeObj(servicesObj servicesobj, ServiceDto dzservice,Business business)
         {
             //todo:refactor. 这里返回的是服务坐标 不是商家的 暂时注销
             servicesobj.location.longitude = business.Longitude.ToString();
@@ -254,11 +254,11 @@ namespace Dianzhu.ApplicationService.Service
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<servicesObj>();
             }
-            IList<ServiceSnapShot> serviceSnapShots = Mapper.Map<IList<ServiceSnapShot>>(dzservice);
-            IList<servicesObj> serviceobj = Mapper.Map<IList<servicesObj>>(serviceSnapShots);
+            //IList<ServiceSnapShot> serviceSnapShots = Mapper.Map<IList<ServiceSnapShot>>(dzservice);
+            IList<servicesObj> serviceobj = Mapper.Map<IList<servicesObj>>(dzservice);
             for (int i = 0; i < serviceobj.Count; i++)
             {
-                changeObj(serviceobj[i], serviceSnapShots[i],business);
+                changeObj(serviceobj[i], dzservice[i],business);
             }
             return serviceobj;
         }
@@ -323,10 +323,10 @@ namespace Dianzhu.ApplicationService.Service
                 //return null;
                 throw new Exception("没有找到资源！");
             }
-            ServiceSnapShot serviceSnapshot = Mapper.Map<ServiceSnapShot>(dzservice);
+            //ServiceSnapShot serviceSnapshot = Mapper.Map<ServiceSnapShot>(dzservice);
 
-            servicesObj servicesobj = Mapper.Map<servicesObj>(serviceSnapshot);
-            changeObj(servicesobj, serviceSnapshot,business);
+            servicesObj servicesobj = Mapper.Map<servicesObj>(dzservice);
+            changeObj(servicesobj, dzservice, business);
             return servicesobj;
         }
 

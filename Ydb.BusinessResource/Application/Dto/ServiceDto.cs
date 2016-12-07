@@ -8,6 +8,7 @@ namespace Ydb.BusinessResource.Application
 {
     public class ServiceDto
     {
+        public virtual Guid id { get; set; }
         public virtual string ServiceName { get; set; }
         public virtual string Description { get; set; }
         public virtual bool IsCompensationAdvance { get; set; }
@@ -32,7 +33,8 @@ namespace Ydb.BusinessResource.Application
         public virtual bool IsForBusiness { get; set; }
 
         public virtual string AllowedPayType { get; set; }
-        
+        public virtual string Scope { get; set; }
+
 
     }
 }
