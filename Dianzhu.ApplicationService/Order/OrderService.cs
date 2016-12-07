@@ -1246,10 +1246,9 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("改派给同一个人了！");
             }
-            Ydb.BusinessResource.DomainModel.Staff staff = null; 
             if (strState != "取消指派")
             {
-                staff = staffService.GetStaff(utils.CheckGuidID(order.BusinessId, "order.BusinessId"), utils.CheckGuidID(staffID, "staffID"));
+                Ydb.BusinessResource.DomainModel.Staff staff = staffService.GetStaff(utils.CheckGuidID(order.BusinessId, "order.BusinessId"), utils.CheckGuidID(staffID, "staffID"));
                 if (staff == null)
                 {
                     throw new Exception("该订单所属的店铺中不存在该员工！");
@@ -1259,10 +1258,10 @@ namespace Dianzhu.ApplicationService.Order
                     throw new Exception("指派或改派的员工不在职！");
                 }
             }
-            else
-            {
-                staff = staffService.GetOne(utils.CheckGuidID(order.StaffId, "order.StaffId"));
-            }
+            //else
+            //{
+            //    staff = staffService.GetOne(utils.CheckGuidID(order.StaffId, "order.StaffId"));
+            //}
             //if (staff.IsAssigned)
             //{
             //    throw new Exception("改派的员工已经被指派过！");
