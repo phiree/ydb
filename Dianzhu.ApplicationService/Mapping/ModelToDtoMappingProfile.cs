@@ -99,6 +99,19 @@ namespace Dianzhu.ApplicationService.Mapping
            .ForMember(x => x.chargeUnit, opt => opt.MapFrom(source => source.ChargeUnit))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
+            Mapper.CreateMap<ServiceDto, servicesObj>()
+           .ForMember(x => x.introduce, opt => opt.MapFrom(source => source.Description))
+           .ForMember(x => x.startAt, opt => opt.MapFrom(source => source.MinPrice))
+           .ForMember(x => x.deposit, opt => opt.MapFrom(source => source.DepositAmount))
+           .ForMember(x => x.appointmentTime, opt => opt.MapFrom(source => source.OrderDelay))
+           .ForMember(x => x.bDoorService, opt => opt.MapFrom(source => source.ServiceMode == "ToHouse" ? true : false))
+           .ForMember(x => x.eServiceTarget, opt => opt.MapFrom(source => source.IsForBusiness ? "all" : "company"))
+           .ForMember(x => x.eSupportPayWay, opt => opt.MapFrom(source => source.AllowedPayType.ToString()))
+           .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.Enabled))
+           //  .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.MaxOrdersPerDay))
+           .ForMember(x => x.chargeUnit, opt => opt.MapFrom(source => source.ChargeUnit))
+            .ForAllMembers(opt => opt.NullSubstitute(""));
+
             Mapper.CreateMap<Model.ServiceOrderPushedService, serviceSnapshotObj>()
            .ForMember(x => x.name, opt => opt.MapFrom(source => source.ServiceSnapShot.Name))
  
