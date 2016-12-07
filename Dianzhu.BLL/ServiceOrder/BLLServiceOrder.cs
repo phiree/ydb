@@ -372,13 +372,13 @@ namespace Dianzhu.BLL
         /// <param name="guid"></param>
         /// <param name="UserID"></param>
         /// <returns></returns>
-        public ServiceOrder GetOneOrder(Guid guid,Guid UserID)
+        public ServiceOrder GetOneOrder(Guid guid,string UserID)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            if (UserID != Guid.Empty)
+            if (string.IsNullOrEmpty(UserID))
             {
-                throw new NotImplementedException("为何传入UserId");
-               // where = where.And(x => x.Business.OwnerId == UserID);
+                //throw new NotImplementedException("为何传入UserId");
+                where = where.And(x => x.ServiceBusinessOwnerId == UserID);
             }
             where = where.And(x => x.Id == guid);
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft

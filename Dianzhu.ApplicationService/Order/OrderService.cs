@@ -978,14 +978,22 @@ namespace Dianzhu.ApplicationService.Order
                 }
             }
            enum_RefundAction action ;
-            try
-            {
-                action = (enum_RefundAction)Enum.Parse(typeof(enum_RefundAction), refundobj.action);
-            }
-            catch (Exception e)
+            if (!Enum.TryParse<enum_RefundAction>(refundobj.action, out action))
             {
                 throw new FormatException("该理赔动作无效！");
             }
+            if (action == enum_RefundAction.None)
+            {
+                throw new FormatException("该理赔动作无效！");
+            }
+            //try
+            //{
+            //    action = (enum_RefundAction)Enum.Parse(typeof(enum_RefundAction), refundobj.action);
+            //}
+            //catch (Exception e)
+            //{
+            //    throw new FormatException("该理赔动作无效！");
+            //}
             decimal amount = 0;
             bool isAmount = decimal.TryParse(refundobj.amount, out amount);
             if(action==enum_RefundAction.submit|| action ==enum_RefundAction.askPay)
@@ -1145,6 +1153,10 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单不存在!");
             }
+            if (string.IsNullOrEmpty(order.StaffId))
+            {
+                throw new Exception("该订单未指派员工!");
+            }
             Ydb.BusinessResource.DomainModel.Staff staff = staffService.GetOne(new Guid(order.StaffId));
             staffObj staffobj = Mapper.Map<Ydb.BusinessResource.DomainModel.Staff, staffObj>(staff);
             return staffobj;
@@ -1203,7 +1215,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new FormatException("改派的员工ID不能为空！");
             }
-            Model.ServiceOrder order = ibllserviceorder.GetOneOrder(utils.CheckGuidID(orderID, "orderID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            Model.ServiceOrder order = ibllserviceorder.GetOneOrder(utils.CheckGuidID(orderID, "orderID"), customer.UserID);
             if (order == null)
             {
                 throw new Exception("该商户不存在该订单！");
@@ -1234,10 +1246,10 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("改派给同一个人了！");
             }
-
-            Ydb.BusinessResource.DomainModel.Staff staff = staffService.GetStaff(new Guid(order.BusinessId), utils.CheckGuidID(staffID, "staffID"));
+            Ydb.BusinessResource.DomainModel.Staff staff = null; 
             if (strState != "取消指派")
             {
+                staff = staffService.GetStaff(utils.CheckGuidID(order.BusinessId, "order.BusinessId"), utils.CheckGuidID(staffID, "staffID"));
                 if (staff == null)
                 {
                     throw new Exception("该订单所属的店铺中不存在该员工！");
@@ -1246,6 +1258,10 @@ namespace Dianzhu.ApplicationService.Order
                 {
                     throw new Exception("指派或改派的员工不在职！");
                 }
+            }
+            else
+            {
+                staff = staffService.GetOne(utils.CheckGuidID(order.StaffId, "order.StaffId"));
             }
             //if (staff.IsAssigned)
             //{
@@ -1257,7 +1273,7 @@ namespace Dianzhu.ApplicationService.Order
             switch (strState)
             {
                 case "指派":
-                    staff.IsAssigned = true;
+                    //staff.IsAssigned = true;
                     oa.Enabled = true;
                     oa.CreateTime = dt;
                     oa.AssignedTime = dt;
@@ -1275,8 +1291,8 @@ namespace Dianzhu.ApplicationService.Order
                     {
                         throw new Exception("原指派不存在或已取消！");
                     }
-                    staff.IsAssigned = false;
-                    staff.IsAssigned = true;
+                    //staff.IsAssigned = false;
+                    //staff.IsAssigned = true;
                     oa.AssignedStaffId = staffID;
                     oa.AssignedTime = dt;
                     order.StaffId = staffID;
@@ -1288,7 +1304,7 @@ namespace Dianzhu.ApplicationService.Order
                     {
                         throw new Exception("该指派不存在或已取消！");
                     }
-                  staff.IsAssigned = false;
+                    //staff.IsAssigned = false;
                     oa.Enabled = false;
                     oa.DeAssignedTime = dt;
                     order.StaffId = null;
@@ -1317,7 +1333,7 @@ namespace Dianzhu.ApplicationService.Order
                 throw new FormatException("指派的员工ID不能为空！");
             }
             Model.OrderAssignment oa = new Model.OrderAssignment();//Mapper.Map<assignObj, Model.OrderAssignment>(assignobj);
-            Model.ServiceOrder order =ibllserviceorder.GetOneOrder(utils.CheckGuidID(orderID, "orderID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            Model.ServiceOrder order =ibllserviceorder.GetOneOrder(utils.CheckGuidID(orderID, "orderID"), customer.UserID);
             if (order == null)
             {
                 throw new Exception("该商户指派的订单不存在！");
@@ -1381,7 +1397,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new FormatException("取消指派的员工ID不能为空！");
             }
-            Model.ServiceOrder order =ibllserviceorder.GetOneOrder(utils.CheckGuidID(orderID, "orderID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            Model.ServiceOrder order =ibllserviceorder.GetOneOrder(utils.CheckGuidID(orderID, "orderID"), customer.UserID);
             if (order == null)
             {
                 throw new Exception("该商户不存在该订单！");
@@ -1403,11 +1419,11 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该指派不存在或已取消！");
             }
-           // staff.IsAssigned = false;
+           //staff.IsAssigned = false;
             oa.Enabled = false;
             DateTime dt = DateTime.Now;
             oa.DeAssignedTime = dt;
-          //  order.Staff = null;
+            order.StaffId = null;
             return new string[] { "取消成功！" };
         }
     }
