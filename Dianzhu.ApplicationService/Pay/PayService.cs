@@ -144,6 +144,14 @@ namespace Dianzhu.ApplicationService.Pay
             {
                 throw new Exception("该笔支付不存在！");
             }
+            if (payment.PayTarget != enum_PayTarget.FinalPayment)
+            {
+                throw new Exception("该笔支付类型不是尾款！");
+            }
+            if (payment.Status != enum_PaymentStatus.Wait_Buyer_Pay)
+            {
+                throw new Exception("该笔支付不是待支付状态！");
+            }
             //中能从线上改为到线下支付，无法改回
             //if (!string.IsNullOrEmpty(payobj.payStatus))
             //{
