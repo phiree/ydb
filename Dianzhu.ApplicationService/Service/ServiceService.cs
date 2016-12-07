@@ -35,12 +35,12 @@ namespace Dianzhu.ApplicationService.Service
         /// </summary>
         /// <param name="servicesobj"></param>
         /// <param name="dzservice"></param>
-        void changeObj(servicesObj servicesobj,ServiceSnapShot dzservice)
+        void changeObj(servicesObj servicesobj,ServiceSnapShot dzservice,Business business)
         {
             //todo:refactor. 这里返回的是服务坐标 不是商家的 暂时注销
-           // servicesobj.location.longitude = dzservice.Business.Longitude.ToString();
-          //  servicesobj.location.latitude = dzservice.Business.Latitude.ToString();
-       //     servicesobj.location.address = dzservice.Scope == null ? "" : dzservice.Business.RawAddressFromMapAPI;
+            servicesobj.location.longitude = business.Longitude.ToString();
+            servicesobj.location.latitude = business.Latitude.ToString();
+            servicesobj.location.address = dzservice.Scope == null ? "" : business.RawAddressFromMapAPI;
             int c = 0;
             foreach (enum_PayType item in Enum.GetValues(typeof(enum_PayType)))
             {
@@ -54,12 +54,14 @@ namespace Dianzhu.ApplicationService.Service
             {
                 servicesobj.eSupportPayWay = "all";
             }
-            //if (dzservice.ServiceType != null)
-            //{
-            //servicesobj.serviceType.serviceTypeID = dzservice.ServiceType.Id.ToString();
-            //servicesobj.serviceType.fullDescription = dzservice.ServiceType.ToString();
-            //servicesobj.serviceType.superID = dzservice.ServiceType.ParentId.ToString();
-            //}
+            ServiceType serviceType= serviceTypeService.GetOne(utils.CheckGuidID(dzservice.ServiceTypeId, "dzservice.ServiceTypeId"));
+
+            if (serviceType != null)
+            {
+                servicesobj.serviceType.id = serviceType.Id.ToString();
+                servicesobj.serviceType.fullDescription = serviceType.ToString();
+                servicesobj.serviceType.superID = serviceType.ParentId.ToString();
+            }
         }
 
    
@@ -256,7 +258,7 @@ namespace Dianzhu.ApplicationService.Service
             IList<servicesObj> serviceobj = Mapper.Map<IList<servicesObj>>(serviceSnapShots);
             for (int i = 0; i < serviceobj.Count; i++)
             {
-                changeObj(serviceobj[i], serviceSnapShots[i]);
+                changeObj(serviceobj[i], serviceSnapShots[i],business);
             }
             return serviceobj;
         }
@@ -324,7 +326,7 @@ namespace Dianzhu.ApplicationService.Service
             ServiceSnapShot serviceSnapshot = Mapper.Map<ServiceSnapShot>(dzservice);
 
             servicesObj servicesobj = Mapper.Map<servicesObj>(serviceSnapshot);
-            changeObj(servicesobj, serviceSnapshot);
+            changeObj(servicesobj, serviceSnapshot,business);
             return servicesobj;
         }
 
