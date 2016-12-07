@@ -21,22 +21,29 @@ namespace Dianzhu.ApplicationService
             }
             set
             {
-                switch (value.ToLower())
+                if (string.IsNullOrEmpty(value))
                 {
-                    case "waitforpay":
-                        _payStatus = "Wait_Buyer_Pay";
-                        break;
-                    case "success":
-                        _payStatus = "Trade_Success";
-                        break;
-                    case "failed":
-                        _payStatus = "Fail";
-                        break;
-                    case "waitforverify":
-                    ///没有对应状态
-                    default:
-                        _payStatus ="";
-                        break;
+                    _payStatus= "";
+                }
+                else
+                {
+                    switch (value.ToLower())
+                    {
+                        case "waitforpay":
+                            _payStatus = "Wait_Buyer_Pay";
+                            break;
+                        case "success":
+                            _payStatus = "Trade_Success";
+                            break;
+                        case "failed":
+                            _payStatus = "Fail";
+                            break;
+                        case "waitforverify":
+                        ///没有对应状态
+                        default:
+                            _payStatus=value;
+                            break;
+                    }
                 }
             }
         }
@@ -54,20 +61,27 @@ namespace Dianzhu.ApplicationService
             }
             set
             {
-                switch (value.ToLower())
+                if (string.IsNullOrEmpty(value))
                 {
-                    case "deposit":
-                        _payType = "Deposit";
-                        break;
-                    case "finalpayment":
-                        _payType = "FinalPayment";
-                        break;
-                    case "compensation":
-                        _payType = "Compensation";
-                        break;
-                    default:
-                        _payType = "";
-                        break;
+                    _payType = "";
+                }
+                else
+                {
+                    switch (value.ToLower())
+                    {
+                        case "deposit":
+                            _payType = "Deposit";
+                            break;
+                        case "finalpayment":
+                            _payType = "FinalPayment";
+                            break;
+                        case "compensation":
+                            _payType = "Compensation";
+                            break;
+                        default:
+                            _payType=value;
+                            break;
+                    }
                 }
             }
         }

@@ -214,13 +214,21 @@ namespace Dianzhu.BLL
                 {
                     where = where.And(x => x.Status == ps);
                 }
+                else
+                {
+                    throw new Exception("查询条件错误：不存在支付状态" + payStatus);
+                }
             }
             if (!string.IsNullOrEmpty(payType))
             {
-                enum_PayTarget ps; 
+                enum_PayTarget ps;
                 if (Enum.TryParse<enum_PayTarget>(payType, out ps))
                 {
                     where = where.And(x => x.PayTarget == ps);
+                }
+                else
+                {
+                    throw new Exception("查询条件错误：不存在支付类型" + payType);
                 }
             }
             Payment baseone = null;
