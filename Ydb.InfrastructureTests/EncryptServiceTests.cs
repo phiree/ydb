@@ -74,8 +74,8 @@ namespace Ydb.Infrastructure.Tests
             PrintConfigSection(new InfrastructureTests.DbConfigBuilder().BuildForServerConfig("localhost", "root", "root","3306"));
 
 
-            PrintConfigSection(new InfrastructureTests.DbConfigBuilder().BuildForServerConfig("192.168.1.172", "root", "root", "3306"));
-
+            PrintConfigSection(new InfrastructureTests.DbConfigBuilder().ReplaceDianzhuDb("dianzhu_test").BuildForServerConfig("192.168.1.150", "root", "root", "3306"));
+          
             /*
             Console.WriteLine("172_dianzhu_publish_test:" + encryptService.Encrypt("172_dianzhu___data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test", false));
             Console.WriteLine("172_ydb_membership:" + encryptService.Encrypt("172_membership___data source=192.168.1.172;uid=root;pwd=root;database=ydb_membership", false));
