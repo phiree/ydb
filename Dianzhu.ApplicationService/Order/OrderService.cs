@@ -109,7 +109,7 @@ namespace Dianzhu.ApplicationService.Order
                 if (dzs.Count > 0)
                 {
                     decimal d = 0;
-                    string strAmount = (serviceorder.Details[0].UnitAmount * serviceorder.Details[0].OriginalService.UnitPrice).ToString("0.00");
+                    string strAmount = (dzs[0].UnitAmount * dzs[0].OriginalService.UnitPrice).ToString("0.00");
                     if (!decimal.TryParse(orderobj.orderAmount, out d) || d <= 0)
                     {
                         orderobj.orderAmount = strAmount;
