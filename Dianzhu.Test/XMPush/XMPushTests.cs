@@ -14,8 +14,9 @@ namespace Dianzhu.Push.XMPush.Tests
         [Test()]
         public void PushTesttoUser()
         {
-            Dianzhu.Push.XMPush.XMPush xmpush = new XMPush(PushType.PushToUser,string.Empty);
-           string result=  xmpush.Push("this is a test for user"+DateTime.Now, "18608956891", 0);
+            PushMessage msg = new PushMessage {DisplayContent = "this is a test for user" + DateTime.Now};
+            Dianzhu.Push.XMPush.XMPush xmpush = new XMPush(PushType.PushToUser, msg);
+           string result=  xmpush.Push(  "18608956891", 0);
             Console.WriteLine(result);
 
            
@@ -23,10 +24,10 @@ namespace Dianzhu.Push.XMPush.Tests
         [Test]
         public void PushTesToBusiness()
         {
-            
+            PushMessage msg = new PushMessage { DisplayContent = "this is a test for business" + DateTime.Now };
 
-            Dianzhu.Push.XMPush.XMPush xmpushbusiness = new XMPush(PushType.PushToBusiness, Guid.NewGuid().ToString());
-            string result2 = xmpushbusiness.Push("this is a test for business" + DateTime.Now, "290842915@qq.com", 0);
+            Dianzhu.Push.XMPush.XMPush xmpushbusiness = new XMPush(PushType.PushToBusiness, msg);
+            string result2 = xmpushbusiness.Push(  "290842915@qq.com", 0);
             Console.WriteLine(result2);
         }
     }
