@@ -974,7 +974,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 for (int i = 0; i < refundobj.resourcesUrls.Count; i++)
                 {
-                    resourcesurls.Add(utils.GetFileName(refundobj.resourcesUrls[i]));
+                    resourcesurls.Add(utils.GetFileName(refundobj.resourcesUrls[i], "MediaGetUrl"));
                 }
             }
            enum_RefundAction action ;

@@ -477,7 +477,7 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <param name="fileUrl"></param>
         /// <returns></returns>
-        public static string GetFileName(string fileUrl)
+        public static string GetFileName(string fileUrl,string urlConfig)
         {
             string strFileName = fileUrl;
             if (string.IsNullOrEmpty(strFileName))
@@ -500,7 +500,8 @@ namespace Dianzhu.ApplicationService
                     strFileName = strFileName.Replace(regexMatch.Groups[1].Value, string.Empty);
                 }
             }
-            if (!JudgeFileExist03(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + strFileName))
+            //MediaGetUrl  ImageHandler
+            if (!JudgeFileExist03(Dianzhu.Config.Config.GetAppSetting(urlConfig) + strFileName))
             {
                 throw new Exception("该文件资源不存在！");
             }

@@ -245,7 +245,7 @@ namespace Dianzhu.ApplicationService.User
             if (!string.IsNullOrEmpty(userChangeBody.imgUrl))
             {
                 
-                memberService.ChangeAvatar(userID, utils.GetFileName(userChangeBody.imgUrl));
+                memberService.ChangeAvatar(userID, utils.GetFileName(userChangeBody.imgUrl, "MediaGetUrl"));
             }
             if (!string.IsNullOrEmpty(userChangeBody.newPassWord))
             {

@@ -48,16 +48,18 @@ namespace Ydb.BusinessResource.Application
             repositoryStaff.Update(staff);
         }
 
-        public string Save(Guid StaffId, System.Web.HttpPostedFile imageFile,  enum_ImageType imageType)
+        public string Save(Guid StaffId, string imageName,  enum_ImageType imageType,int size)
         {
+            //System.Web.HttpPostedFile imageFile
+            //上传图片都是先调用上传接口，然后将其结果传给该接口就好了，该接口不用上传。
             Staff s = GetOne(StaffId);
-            string savedPath = string.Empty;
-            string imageName = string.Empty;
-            if (imageFile != null && imageFile.ContentLength != 0)
+            //string savedPath = string.Empty;
+            //string imageName = string.Empty;
+            if(!string.IsNullOrEmpty(imageName)) //(imageFile != null && imageFile.ContentLength != 0)
             {
-                imageName = StaffId + imageType.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(imageFile.FileName);
-                savedPath = HttpContext.Current.Server.MapPath(Dianzhu.Config.Config.GetAppSetting("business_image_root") + "/original/") + imageName;
-                imageFile.SaveAs(savedPath);
+                //imageName = StaffId + imageType.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(imageFile.FileName);
+                //savedPath = HttpContext.Current.Server.MapPath(Dianzhu.Config.Config.GetAppSetting("business_image_root") + "/original/") + imageName;
+                //imageFile.SaveAs(savedPath);
                 var avatarList = s.StaffAvatar.Where(x => x.IsCurrent == true).ToList();
                 avatarList.ForEach(x => x.IsCurrent = false);
                 BusinessImage biImage = new BusinessImage
@@ -65,7 +67,7 @@ namespace Ydb.BusinessResource.Application
                     ImageType = imageType,
                     UploadTime = DateTime.Now,
                     ImageName = imageName,
-                    Size = imageFile.ContentLength,
+                    Size = size,//imageFile.ContentLength,
                     IsCurrent = true
                 };
                 s.StaffAvatar.Add(biImage);

@@ -95,27 +95,28 @@ namespace Dianzhu.ApplicationService.Staff
         /// <returns></returns>
         public staffObj PostStaff(string storeID, staffObj staffobj, Customer customer)
         {
-            /*   客户端还没有调用此方法,先注释.
+            //默认以手机号码为员工的用户名
             if (string.IsNullOrEmpty(staffobj.loginName))
             {
                 staffobj.loginName = staffobj.phone;
-               }
+            }
+            //默认登录密码为123456
             if (string.IsNullOrEmpty(staffobj.pWord))
             {
                 staffobj.pWord = "123456";
-              }
-          BRM.  Business business = checkRute(storeID, customer);
+            }
+            BRM.Business business = checkRute(storeID, customer);
             BRM.Staff staff = Mapper.Map<staffObj, BRM.Staff>(staffobj);
-          MemberDto dzms = memberService.GetUserByName(staffobj.loginName);
+            MemberDto dzms = memberService.GetUserByName(staffobj.loginName);
             if (dzms == null)
             {
                 System.Web.Security.MembershipCreateStatus mc = new System.Web.Security.MembershipCreateStatus();
-                RegisterResult registerResult = memberService.RegisterStaff(staffobj.loginName,  staffobj.pWord, staffobj.pWord,
-                    System.Web.HttpContext.Current.Request.Url.Scheme+"://" + System.Web.HttpContext.Current.Request.Url.Authority);
+                RegisterResult registerResult = memberService.RegisterStaff(staffobj.loginName, staffobj.pWord, staffobj.pWord,
+                    System.Web.HttpContext.Current.Request.Url.Scheme + "://" + System.Web.HttpContext.Current.Request.Url.Authority);
             }
             else
             {
-                if (dzms. UserType !=enum_UserType.staff.ToString())
+                if (dzms.UserType != enum_UserType.staff.ToString())
                 {
                     throw new Exception("该用户名已经存在其他类型的用户！");
                 }
@@ -125,28 +126,27 @@ namespace Dianzhu.ApplicationService.Staff
             {
                 throw new Exception("该员工在该店铺中已经存在！");
             }
-               staff.Enable = true;
+            staff.Enable = true;
             staff.UserID = dzms.Id.ToString();
             staff.Belongto = business;
             staff.IsAssigned = false;
             //上传图片都是先调用上传接口，然后将其结果传给该接口就好了，该接口不用上传。
             staffService.Save(staff);
-            var avatarList = staff.StaffAvatar.Where(x => x.IsCurrent == true).ToList();
-            avatarList.ForEach(x => x.IsCurrent = false);
-            BRM.BusinessImage biImage = new BRM.BusinessImage
-            {
-                ImageType = Enums.enum_ImageType.Staff_Avatar,
-                UploadTime = DateTime.Now,
-                ImageName = staff.Phone,
-                Size = 0,
-                IsCurrent = true
-            };
-            staff.StaffAvatar.Add(biImage);
-            
+            staffService.Save(staff.Id,utils.GetFileName(staff.Photo, "ImageHandler"), enum_ImageType.Staff_Avatar,0);
+            //var avatarList = staff.StaffAvatar.Where(x => x.IsCurrent == true).ToList();
+            //avatarList.ForEach(x => x.IsCurrent = false);
+            //BRM.BusinessImage biImage = new BRM.BusinessImage
+            //{
+            //    ImageType = Enums.enum_ImageType.Staff_Avatar,
+            //    UploadTime = DateTime.Now,
+            //    ImageName = staff.Phone,
+            //    Size = 0,
+            //    IsCurrent = true
+            //};
+            //staff.StaffAvatar.Add(biImage);
+
             staffobj = Mapper.Map<BRM.Staff, staffObj>(staff);
             changeObj(staffobj, staff);
-           */
-            throw new NotImplementedException();
             return staffobj;
         }
 
@@ -221,9 +221,6 @@ namespace Dianzhu.ApplicationService.Staff
         /// <returns></returns>
         public staffObj PatchStaff(string storeID, string staffID, staffObj staffobj, Customer customer)
         {
-            throw new NotImplementedException();
-            /*接口尚未用到,暂不修改.*/
-            /*
             if (string.IsNullOrEmpty(storeID))
             {
                 throw new FormatException("storeID不能为空！");
@@ -270,19 +267,20 @@ namespace Dianzhu.ApplicationService.Staff
             }
             if (string.IsNullOrEmpty(staffobj.imgUrl) == false && staffobj.imgUrl != staff.Photo)
             {
-                staff.Photo = utils.GetFileName(staffobj.imgUrl);
-                var avatarList = staff.StaffAvatar.Where(x => x.IsCurrent == true).ToList();
-                avatarList.ForEach(x => x.IsCurrent = false);
-                BRM.BusinessImage biImage = new BusinessImage
-                {
-                    ImageType = Enums.enum_ImageType.Staff_Avatar,
-                    UploadTime = DateTime.Now,
-                    ImageName = staff.Phone,
-                    Size = 0,
-                    IsCurrent = true
-                };
-                staff.StaffAvatar.Add(biImage);
+                //staff.Photo = utils.GetFileName(staffobj.imgUrl);
+                //var avatarList = staff.StaffAvatar.Where(x => x.IsCurrent == true).ToList();
+                //avatarList.ForEach(x => x.IsCurrent = false);
+                //BRM.BusinessImage biImage = new BusinessImage
+                //{
+                //    ImageType = Enums.enum_ImageType.Staff_Avatar,
+                //    UploadTime = DateTime.Now,
+                //    ImageName = staff.Phone,
+                //    Size = 0,
+                //    IsCurrent = true
+                //};
+                //staff.StaffAvatar.Add(biImage);
                 //staff1.Photo = utils.DownloadToMediaserver(staff2.Photo, string.Empty, "StaffAvatar", "image");
+                staffService.Save(staff.Id, utils.GetFileName(staffobj.imgUrl, "ImageHandler"), enum_ImageType.Staff_Avatar, 0);
             }
             if (string.IsNullOrEmpty(staffobj.realName) == false && staffobj.realName != staff.Name)
             {
@@ -292,20 +290,21 @@ namespace Dianzhu.ApplicationService.Staff
             {
                 staff.Code = staffobj.number;
             }
+            staffService.Save(staff);
             //staffService.Update(staff1);
             //staff2 = staffService.GetOne(staff1.Id);
 
 
             //if (staff2 != null )
             //{
-            staffobj = Mapper.Map<Staff, staffObj>(staff);
+            staffobj = Mapper.Map<BRM.Staff, staffObj>(staff);
             changeObj(staffobj, staff);
             //}
             //else
             //{
             //    throw new Exception("更新失败");
             //}
-            return staffobj;*/
+            return staffobj;
         }
 
         /// <summary>

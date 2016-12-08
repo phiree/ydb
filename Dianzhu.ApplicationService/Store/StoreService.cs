@@ -206,7 +206,7 @@ namespace Dianzhu.ApplicationService.Store
          ActionResult<Business> result=businessService.ChangeInfo(guidStore.ToString(),guidUser.ToString(),
              storeobj.name,
              storeobj.introduction, storeobj.storePhone, storeobj.address
-               , utils.GetFileName(storeobj.imgUrl));
+               , utils.GetFileName(storeobj.imgUrl, "ImageHandler"));
 
             if (!result.IsSuccess)
             {

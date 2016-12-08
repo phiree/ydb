@@ -64,7 +64,7 @@ namespace Dianzhu.ApplicationService.Complaint
             //complaint.Target= (enum_ComplaintTarget)Enum.Parse(typeof(enum_ComplaintTarget), complaintobj.target); 
             for (int i = 0; i < complaintobj.resourcesUrls.Count; i++)
             {
-                complaint.ComplaitResourcesUrl.Add(utils.GetFileName(complaintobj.resourcesUrls[i]));
+                complaint.ComplaitResourcesUrl.Add(utils.GetFileName(complaintobj.resourcesUrls[i], "MediaGetUrl"));
             }
             //Guid g = new Guid();
             //bool b = g == complaint.Id;
