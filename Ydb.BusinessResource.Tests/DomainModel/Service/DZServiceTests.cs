@@ -55,8 +55,8 @@ namespace Ydb.BusinessResource.DomainModel.Tests
             service.AddWorkTime(DayOfWeek.Sunday, newPeriod.StartTime.ToString(),newPeriod.EndTime.ToString(), 13, "test_tag");
             TimePeriod modifyPeriod = new TimePeriod(new Time("01:01"), new Time("03:03"));
             string errMsg;
-            service.ModifyWorkTimePeriod(DayOfWeek.Sunday,18, newPeriod,
-             modifyPeriod, true,"tag", out errMsg
+            service.ModifyWorkTimePeriod(DayOfWeek.Sunday,  newPeriod,
+             modifyPeriod,   out errMsg
                 );
             ServiceOpenTimeForDay workTime = service.GetWorkTime(DayOfWeek.Sunday, modifyPeriod);
             Assert.AreEqual("test_tag", workTime.Tag);
@@ -71,8 +71,8 @@ namespace Ydb.BusinessResource.DomainModel.Tests
             service.AddWorkTime(DayOfWeek.Sunday, "01:01", "02:02", 13, "test_tag");
             TimePeriod newPeriod = new TimePeriod(new Time("09:01"), new Time("11:03"));
             string errMsg;
-            service.ModifyWorkTimePeriod(DayOfWeek.Sunday, 13, new TimePeriod(new Time("01:01"), new Time("02:02")),
-              newPeriod, true, "tag", out errMsg
+            service.ModifyWorkTimePeriod(DayOfWeek.Sunday,   new TimePeriod(new Time("01:01"), new Time("02:02")),
+              newPeriod,  out errMsg
                 );
             Console.WriteLine("error"+errMsg);
             Assert.IsTrue(string.IsNullOrEmpty(errMsg));
