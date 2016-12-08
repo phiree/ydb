@@ -113,6 +113,7 @@ namespace Dianzhu.ApplicationService.Staff
                 System.Web.Security.MembershipCreateStatus mc = new System.Web.Security.MembershipCreateStatus();
                 RegisterResult registerResult = memberService.RegisterStaff(staffobj.loginName, staffobj.pWord, staffobj.pWord,
                     System.Web.HttpContext.Current.Request.Url.Scheme + "://" + System.Web.HttpContext.Current.Request.Url.Authority);
+                dzms = registerResult.ResultObject;
             }
             else
             {
