@@ -47,7 +47,6 @@ namespace Ydb.BusinessResource.DomainModel
 
             if (!periodList.IsConflict(period.TimePeriod))
             {
-
                 OpenTimeForDay.Add(period);
             }
             else {

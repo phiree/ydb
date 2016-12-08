@@ -339,7 +339,7 @@ namespace Ydb.BusinessResource.DomainModel
         /// <summary>
         /// 修改一个工作时间.
         /// </summary>
-        public virtual void ModifyWorkTime(DayOfWeek dayOfWeek,int maxOrderForPeriod,TimePeriod oldPeriod,TimePeriod newPeriod, out string errMsg)
+        public virtual ServiceOpenTimeForDay ModifyWorkTime(DayOfWeek dayOfWeek,int maxOrderForPeriod,TimePeriod oldPeriod,TimePeriod newPeriod, out string errMsg)
         {
             errMsg = string.Empty;
             //获取要修改的时间段
@@ -351,9 +351,19 @@ namespace Ydb.BusinessResource.DomainModel
           
             ServiceOpenTimeForDay existedPeriod = serviceOpenTime.GetItem(oldPeriod);
             PeriodValidator periodList = new PeriodValidator(serviceOpenTime.OpenTimeForDay.Select(x=>x.TimePeriod).ToList());
-           bool canModify= periodList.CanModify(oldPeriod, newPeriod, out errMsg);
+            bool canModify= periodList.CanModify(oldPeriod, newPeriod, out errMsg);
+            if (canModify)
+            {
+                existedPeriod.MaxOrderForOpenTime = maxOrderForPeriod;
+                existedPeriod.TimePeriod = newPeriod;
+            }
+            else
+            {
+                throw new Exception("时间段冲突");
+            }
+            return existedPeriod;
 
-            
+
         }
         
 
