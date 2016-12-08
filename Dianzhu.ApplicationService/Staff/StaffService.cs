@@ -291,8 +291,8 @@ namespace Dianzhu.ApplicationService.Staff
             {
                 staff.Code = staffobj.number;
             }
-            staffService.Save(staff);
-            //staffService.Update(staff1);
+            //staffService.Save(staff);
+            staffService.Update(staff);
             //staff2 = staffService.GetOne(staff1.Id);
 
 
