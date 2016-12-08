@@ -123,11 +123,18 @@
             $('#myModal').modal('show');
             //$("#myModalTitle").html($("#hApiRoute").val() + "接口访问详情");
             var b = apiTime.indexOf(":ApiRoute=");
-            var e = apiTime.indexOf(",UserName=");
-            $("#myModalTitle").html(apiTime.substring(b + ":ApiRoute=".length, e));
-            e = b;
-            b = apiTime.indexOf("Info(UserInfo)") + "Info(UserInfo)".length;
-            apiTime = apiTime.substring(b, e);
+            var e = 0;
+            if (b == -1) {
+                b = apiTime.indexOf("Response(Content)") + "Response(Content)".length;
+                apiTime = apiTime.substring(b, b+13);
+            }
+            else {
+                e = apiTime.indexOf(",UserName=");
+                $("#myModalTitle").html(apiTime.substring(b + ":ApiRoute=".length, e));
+                e = b;
+                b = apiTime.indexOf("Info(UserInfo)") + "Info(UserInfo)".length;
+                apiTime = apiTime.substring(b, e);
+            }
             $.ajax({
                 url: "/Home/LogInfo?apiTime=" + apiTime,
                 //async: false,//同步
