@@ -48,6 +48,33 @@ namespace Ydb.BusinessResource.Application
             repositoryStaff.Update(staff);
         }
 
+        public string Save(Guid StaffId, System.Web.HttpPostedFile imageFile, enum_ImageType imageType)
+        {
+            Staff s = GetOne(StaffId);
+            string savedPath = string.Empty;
+            string imageName = string.Empty;
+            if (imageFile != null && imageFile.ContentLength != 0)
+            {
+                imageName = StaffId + imageType.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(imageFile.FileName);
+                savedPath = HttpContext.Current.Server.MapPath(Dianzhu.Config.Config.GetAppSetting("business_image_root") + "/original/") + imageName;
+                imageFile.SaveAs(savedPath);
+                var avatarList = s.StaffAvatar.Where(x => x.IsCurrent == true).ToList();
+                avatarList.ForEach(x => x.IsCurrent = false);
+                BusinessImage biImage = new BusinessImage
+                {
+                    ImageType = imageType,
+                    UploadTime = DateTime.Now,
+                    ImageName = imageName,
+                    Size = imageFile.ContentLength,
+                    IsCurrent = true
+                };
+                s.StaffAvatar.Add(biImage);
+                //s.BusinessImages.Add(biImage);
+            }
+            Update(s);
+            return "/media/business/original/" + imageName;
+        }
+
         public string Save(Guid StaffId, string imageName,  enum_ImageType imageType,int size)
         {
             //System.Web.HttpPostedFile imageFile
