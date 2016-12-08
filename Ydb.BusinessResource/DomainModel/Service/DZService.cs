@@ -339,7 +339,9 @@ namespace Ydb.BusinessResource.DomainModel
         /// <summary>
         /// 修改一个工作时间.
         /// </summary>
+ 
         public virtual void ModifyWorkTimePeriod(DayOfWeek dayOfWeek,TimePeriod oldPeriod,TimePeriod newPeriod, out string errMsg)
+ 
         {
             errMsg = string.Empty;
             //获取要修改的时间段
@@ -354,6 +356,7 @@ namespace Ydb.BusinessResource.DomainModel
             bool canModify= periodList.CanModify(oldPeriod, newPeriod, out errMsg);
             if (canModify)
             {
+ 
                 serviceOpenTime.OpenTimeForDay.Remove(existedPeriod);
                 serviceOpenTime.OpenTimeForDay.Add(new ServiceOpenTimeForDay
                 {
@@ -377,7 +380,7 @@ namespace Ydb.BusinessResource.DomainModel
             string errmsg;
             var workDay = GetWorkDay(dayOfWeek,out errMsg);
             workDay.DeleteWorkTime(period);
-            
+ 
         }
         public virtual void ModifyWorkTimeEnable(DayOfWeek dayOfWeek, TimePeriod oldPeriod,bool isEnabled)
         {

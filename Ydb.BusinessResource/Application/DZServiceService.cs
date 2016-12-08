@@ -264,12 +264,16 @@ namespace Ydb.BusinessResource.Application
         [UnitOfWork]
         public ActionResult<ServiceOpenTimeForDay> AddWorkTime(string storeId, string serviceId, DayOfWeek weekday, string timeBegin, string timeEnd, int maxOrder, string tag)
         {
-
-            
-
             var result = new ActionResult<ServiceOpenTimeForDay>();
             DZService service = repositoryDZService.FindById(new Guid(serviceId));
-            
+            if (service == null)
+            {
+                throw new Exception("不存在该服务！");
+            }
+            if (service.Business.Id.ToString() != storeId)
+            {
+                throw new Exception("该服务不属于该店铺！");
+            }
             try
             {
 
@@ -302,6 +306,7 @@ namespace Ydb.BusinessResource.Application
             ActionResult<ServiceOpenTimeForDay> result = new ActionResult<ServiceOpenTimeForDay>();
             string errMsg;
             DZService service = repositoryDZService.FindById(new Guid(serviceId));
+ 
           
            
             try
@@ -330,6 +335,7 @@ namespace Ydb.BusinessResource.Application
                 result.ErrMsg = ex.Message;
 
             }
+ 
             return result;
         }
        
@@ -346,6 +352,14 @@ namespace Ydb.BusinessResource.Application
         {
             IList<ServiceOpenTimeForDay> list = new List<ServiceOpenTimeForDay>();
             DZService service = repositoryDZService.FindById(new Guid(serviceID));
+            if (service == null)
+            {
+                throw new Exception("不存在该服务！");
+            }
+            if (service.Business.Id.ToString() != storeID)
+            {
+                throw new Exception("该服务不属于该店铺！");
+            }
             foreach (var openTime in service.OpenTimes)
             {
                 if (dayOfWeek == null || openTime.DayOfWeek == dayOfWeek)
@@ -369,8 +383,27 @@ namespace Ydb.BusinessResource.Application
 
         public ServiceOpenTimeForDay GetWorkitem(string storeID, string serviceID, string workTimeID)
         {
+            DZService service = repositoryDZService.FindById(new Guid(serviceID));
+            if (service == null)
+            {
+                throw new Exception("不存在该服务！");
+            }
+            if (service.Business.Id.ToString() != storeID)
+            {
+                throw new Exception("该服务不属于该店铺！");
+            }
             ServiceOpenTimeForDay openTimeForDay=  repositoryOpenTimeForDay.FindById(new Guid(workTimeID));
-
+            if (openTimeForDay == null)
+            {
+                throw new Exception("该工作时间不存在！");
+            }
+            foreach (var openTime in service.OpenTimes)
+            {
+                if (openTimeForDay.ServiceOpenTime.Id == openTime.Id)
+                {
+                    openTimeForDay.ServiceOpenTime = openTime;
+                }
+            }
             return openTimeForDay;
         }
 

@@ -80,6 +80,16 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.endTime, opt => opt.MapFrom(source => source.TimePeriod.EndTime.ToString()))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
+            Mapper.CreateMap<ServiceOpenTimeForDay, workTimeObj>()
+            .ForMember(x => x.maxCountOrder, opt => opt.MapFrom(source => source.MaxOrderForOpenTime))
+            .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.Enabled))
+            .ForMember(x => x.week, opt => opt.MapFrom(source => source.ServiceOpenTime.DayOfWeek.ToString()))
+            .ForMember(x => x.tag, opt => opt.MapFrom(source => source.Tag))
+            //todo:refactor: 需要转换成字符串.
+            .ForMember(x => x.startTime, opt => opt.MapFrom(source => source.TimePeriod.StartTime.ToString()))
+            .ForMember(x => x.endTime, opt => opt.MapFrom(source => source.TimePeriod.EndTime.ToString()))
+            .ForAllMembers(opt => opt.NullSubstitute(""));
+
             Mapper.CreateMap<ServiceType, serviceTypeObj>()
            .ForMember(x => x.id, opt => opt.MapFrom(source => source.Id.ToString()))
            .ForMember(x => x.superID, opt => opt.MapFrom(source => source.ParentId==null?"":source.ParentId.ToString ()))

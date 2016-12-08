@@ -83,7 +83,7 @@ namespace Ydb.BusinessResource.Application
             }
             
             business.ChangeInfo(name, description, phone, address, avatarImageName);
-
+            result.ResultObject = business;
             return result;
         }
 

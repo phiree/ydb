@@ -103,7 +103,6 @@ namespace Dianzhu.ApplicationService.WorkTime
         /// <returns></returns>
         public workTimeObj GetWorkTime(string storeID, string serviceID, string workTimeID, Customer customer)
         {
-
             var serviceOpenTimeForDay = dzServiceService.GetWorkitem(storeID, serviceID, workTimeID);
 
             var worktimeobj = Mapper.Map<workTimeObj>(serviceOpenTimeForDay);
