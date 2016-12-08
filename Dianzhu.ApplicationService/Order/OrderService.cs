@@ -126,6 +126,13 @@ namespace Dianzhu.ApplicationService.Order
                 if (dzs.Count > 0)
                 {
                     decimal d = 0;
+ 
+                    string strAmount = (dzs[0].UnitAmount * dzs[0].ServiceSnapShot.UnitPrice).ToString("0.00");
+                    if (!decimal.TryParse(orderobj.orderAmount, out d) || d <= 0)
+                    {
+                        orderobj.orderAmount = strAmount;
+                    }
+ 
                     if (!decimal.TryParse(orderobj.negotiateAmount, out d) || d < 0)
                     {
                         orderobj.orderAmount = orderobj.negotiateAmount = (dzs[0].UnitAmount * dzs[0].ServiceSnapShot.UnitPrice).ToString("0.00");
