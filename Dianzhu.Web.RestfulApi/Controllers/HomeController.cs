@@ -85,20 +85,29 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             var buildersFilter = Builders<log>.Filter;
             //var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute=" + apiRoute + "/") & buildersFilter.Regex("message", "/" + searchText + "/");
             string strLogger = "logger2";
-            if (string.IsNullOrEmpty(apiRoute))
-            {
-                strLogger = "logger2";
-                apiRoute = "Rule.v1.RestfulApi.Web.Dianzhu";
-            }
-            else
-            {
-                strLogger = "logger";
-                apiRoute = "Ydb." + apiRoute +".Rule.v1.RestfulApi.Web.Dianzhu";
-            }
+
             //DateTime dtBeginTime = new DateTime();
             //DateTime dtEndTime = new DateTime();
             //db.posts.find({ created_on: {$gte: start, $lt: end} });
-            var filter = buildersFilter.Eq(strLogger, apiRoute) & buildersFilter.Regex("message", "/" + searchText + "/");
+            var filter= buildersFilter.Eq("logger1", "v1.RestfulApi.Web.Dianzhu");
+            if (apiRoute == "Unauthorized")
+            {
+                filter = filter& buildersFilter.Regex("message", "/用户认证失败/");
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(apiRoute))
+                {
+                    strLogger = "logger2";
+                    apiRoute = "Rule.v1.RestfulApi.Web.Dianzhu";
+                }
+                else
+                {
+                    strLogger = "logger";
+                    apiRoute = "Ydb." + apiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu";
+                }
+                filter = filter & buildersFilter.Eq(strLogger, apiRoute) & buildersFilter.Regex("message", "/" + searchText + "/");
+            }
             //if (DateTime.TryParse(beginTime, out dtBeginTime))
             //{
             //    filter = filter & buildersFilter.Gte("date", dtBeginTime);
