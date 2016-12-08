@@ -99,6 +99,11 @@ namespace Ydb.BusinessResource.DomainModel
                
            
         }
+        public virtual void DeleteWorkTime(TimePeriod period)
+        {
+            var workTime = GetItem(period);
+            OpenTimeForDay.Remove(workTime);
+        }
         
     }
    

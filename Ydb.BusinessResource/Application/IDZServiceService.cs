@@ -29,10 +29,15 @@ namespace Ydb.BusinessResource.Application
         ServiceOpenTimeForDay GetWorkitem(string storeID, string serviceID, string workTimeID);
         ServiceOpenTimeForDay GetWorkitem( string workTimeID);
         IList<ServiceOpenTimeForDay> GetWorkTimes(string storeID, string serviceID, DayOfWeek? dayOfWeek, string timeBegin, string timeEnd);
-        ActionResult<ServiceOpenTimeForDay> ModifyWorkTimeDay(string serviceId, DayOfWeek dayOfWeek, string workTimeId, string timeBegin, string endtime, int maxOrder);
-        void Save(DZService service);
+
+        ActionResult<ServiceOpenTimeForDay> ModifyWorkTimeDay(string serviceId, DayOfWeek dayOfWeek, string workTimeId,
+            string timeBegin, string endtime, int? maxOrder, bool? isOpen, string tag);
+        void DeleteWorkTime(string serviceId, string workTimeId);
+       void Save(DZService service);
         void SaveOrUpdate(DZService service, out ValidationResult validationResult);
-        IList<DZService> SearchService(string name, decimal priceMin, decimal priceMax, Guid typeId, DateTime datetime, double lng, double lat, int pageIndex, int pagesize, out int total);
+
+        IList<DZService> SearchService(string name, decimal priceMin, decimal priceMax, Guid typeId, DateTime datetime,
+            double lng, double lat, int pageIndex, int pagesize, out int total);
         void Update(DZService service);
     }
 }

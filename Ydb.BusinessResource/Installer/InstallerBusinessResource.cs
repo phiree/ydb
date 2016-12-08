@@ -66,6 +66,7 @@ namespace Ydb.BusinessResource.Infrastructure
             container.Register(Component.For<IBusinessImageService>().ImplementedBy<BusinessImageService>());
             container.Register(Component.For<IStaffService>().ImplementedBy<StaffService>());
             container.Register(Component.For<IServiceOpenTimeService>().ImplementedBy<ServiceOpenTimeService>());
+
         }
 
 
