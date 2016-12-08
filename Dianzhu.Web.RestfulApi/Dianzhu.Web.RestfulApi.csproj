@@ -430,6 +430,9 @@
     <None Include="Web.Report_RestfulApi_dev_ydban_cn.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <None Include="Web.Report_RestfulApi_localhsot.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dianzhu.ApplicationService\Dianzhu.ApplicationService.csproj">
