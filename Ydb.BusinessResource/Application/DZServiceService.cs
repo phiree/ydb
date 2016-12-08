@@ -299,20 +299,43 @@ namespace Ydb.BusinessResource.Application
         /// <returns></returns>
         [Obsolete("WorkTimeId参数应该取消,因为工作时间是vo")]
         [UnitOfWork]
-        public ActionResult<ServiceOpenTimeForDay> ModifyWorkTimeDay(string serviceId,DayOfWeek dayOfWeek, string workTimeId,string timeBegin,string endtime,int maxOrder)
+        public ActionResult<ServiceOpenTimeForDay> ModifyWorkTimeDay(string serviceId,DayOfWeek dayOfWeek, string workTimeId,string timeBegin,string endtime,int? maxOrder,bool? isOpen,string tag)
         {
+            var workTime = repositoryOpenTimeForDay.FindById(new Guid(workTimeId));
+            dayOfWeek = workTime.ServiceOpenTime.DayOfWeek;
             ActionResult<ServiceOpenTimeForDay> result = new ActionResult<ServiceOpenTimeForDay>();
             string errMsg;
             DZService service = repositoryDZService.FindById(new Guid(serviceId));
-            if (service == null)
+ 
+          
+           
+            try
             {
-                throw new Exception("不存在该服务！");
+              if(timeBegin!=null&&endtime!=null)
+                { 
+                service.ModifyWorkTimePeriod(dayOfWeek,  workTime.TimePeriod,
+                    new TimePeriod(new Time(timeBegin), new Time(endtime)),   out errMsg);
+                }
+                if (isOpen != null)
+                {
+                    service.ModifyWorkTimeEnable(dayOfWeek,workTime.TimePeriod, isOpen.Value);
+                }
+                if (tag != null)
+                {
+                    service.ModifyWorkTimeTag(dayOfWeek, workTime.TimePeriod, tag);
+                }
+                if (maxOrder != null)
+                {
+                    service.ModifyWorkTimeMaxOrder(dayOfWeek, workTime.TimePeriod, maxOrder.Value);
+                }
             }
-            var existedOpenTime = service.GetWorkDay(dayOfWeek, out errMsg);
-            var workTime = repositoryOpenTimeForDay.FindById(new Guid(workTimeId));
+            catch (Exception ex)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = ex.Message;
 
-            ServiceOpenTimeForDay sotf= service.ModifyWorkTime(dayOfWeek, maxOrder, workTime.TimePeriod, new TimePeriod(new Time(timeBegin), new Time(endtime)),out errMsg);
-            result.ResultObject = sotf;
+            }
+ 
             return result;
         }
        
@@ -384,6 +407,14 @@ namespace Ydb.BusinessResource.Application
             return openTimeForDay;
         }
 
+        [Obsolete]
+        [UnitOfWork]
+        public void DeleteWorkTime(string serviceId, string workTimeId)
+        {
+           var workTime= repositoryOpenTimeForDay.FindById(new Guid(workTimeId));
+            var service = repositoryDZService.FindById(new Guid(serviceId));
+            service.DeleteWorkTime(workTime.ServiceOpenTime.DayOfWeek,workTime.TimePeriod);
+        }
         public ServiceOpenTimeForDay GetWorkitem(  string workTimeID)
         {
             ServiceOpenTimeForDay openTimeForDay = repositoryOpenTimeForDay.FindById(new Guid(workTimeID));

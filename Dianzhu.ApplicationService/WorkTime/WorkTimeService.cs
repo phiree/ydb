@@ -123,8 +123,10 @@ namespace Dianzhu.ApplicationService.WorkTime
         {
 
             DayOfWeek dayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), worktimeobj.week);
+            
             ActionResult<ServiceOpenTimeForDay> modifyResult =
-                   dzServiceService.ModifyWorkTimeDay(serviceID, dayOfWeek, workTimeID, worktimeobj.startTime, worktimeobj.endTime, Convert.ToInt32(worktimeobj.maxCountOrder));
+                   dzServiceService.ModifyWorkTimeDay(serviceID, dayOfWeek, workTimeID, worktimeobj.startTime,
+                   worktimeobj.endTime, Convert.ToInt32(worktimeobj.maxCountOrder),worktimeobj.bOpen,worktimeobj.tag);
             if (modifyResult.IsSuccess)
             {
                 worktimeobj = Mapper.Map<workTimeObj>(modifyResult.ResultObject);

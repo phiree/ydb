@@ -10,6 +10,8 @@ using Dianzhu.Api.Model;
 using System.Collections.Specialized;
 using PHSuit;
 using FluentValidation.Results;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
 
 /// <summary>
 /// 新增店铺
@@ -25,8 +27,8 @@ public class ResponseWTM001004 : BaseResponse
 
         //todo:用户验证的复用.
        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
-        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-        dzServiceService dzServiceService = Bootstrap.Container.Resolve<dzServiceService>();
+        IBusinessService bllBusiness = Bootstrap.Container.Resolve<IBusinessService>();
+        IDZServiceService dzServiceService = Bootstrap.Container.Resolve<IDZServiceService>();
 
         try
         {
@@ -72,7 +74,7 @@ public class ResponseWTM001004 : BaseResponse
             }
             try
             {
-                DZService service = dzServiceService.GetOne(svcID);
+                DZService service = dzServiceService.GetOne2(svcID);
                 if (service == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];

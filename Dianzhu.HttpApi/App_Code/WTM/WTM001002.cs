@@ -39,8 +39,7 @@ public class ResponseWTM001002 : BaseResponse
        
 
         //   BLLServiceOpenTime bllServiceOpenTime = Bootstrap.Container.Resolve <BLLServiceOpenTime>();
-        IServiceOpenTimeForDayService worktimeService = Bootstrap.Container.Resolve<IServiceOpenTimeForDayService>();
-       
+        
         //20160620_longphui_modify
         //BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = new BLLServiceOpenTimeForDay();
      
@@ -87,16 +86,8 @@ public class ResponseWTM001002 : BaseResponse
             }
             try
             {
-                ServiceOpenTimeForDay sotForDay = worktimeService.GetOne(workTimeID);
-                if (sotForDay == null)
-                {
-                    this.state_CODE = Dicts.StateCode[1];
-                    this.err_Msg = "不存在该工作时间！";
-                    return;
-                }
-
-                worktimeService.Delete(sotForDay);
-                
+                dzServiceService.DeleteWorkTime(requestData.svcID,  requestData.workTimeID);
+              
                 this.state_CODE = Dicts.StateCode[0];
             }
             catch (Exception ex)
@@ -114,6 +105,22 @@ public class ResponseWTM001002 : BaseResponse
             this.err_Msg = e.Message;
             return;
         }
+    }
+    private DayOfWeek StrToWeek(string week)
+    {
+        DayOfWeek day = new DayOfWeek();
+        switch (week)
+        {
+            case "1": day = DayOfWeek.Monday; break;
+            case "2": day = DayOfWeek.Tuesday; break;
+            case "3": day = DayOfWeek.Wednesday; break;
+            case "4": day = DayOfWeek.Thursday; break;
+            case "5": day = DayOfWeek.Friday; break;
+            case "6": day = DayOfWeek.Saturday; break;
+            case "7": day = DayOfWeek.Sunday; break;
+            default: break;
+        }
+        return day;
     }
 }
 

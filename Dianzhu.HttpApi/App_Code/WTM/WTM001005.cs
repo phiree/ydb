@@ -10,6 +10,8 @@ using Dianzhu.Api.Model;
 using System.Collections.Specialized;
 using PHSuit;
 using FluentValidation.Results;
+using Ydb.BusinessResource.Application;
+using Ydb.BusinessResource.DomainModel;
 
 /// <summary>
 /// 新增店铺
@@ -25,9 +27,9 @@ public class ResponseWTM001005 : BaseResponse
 
         //todo:用户验证的复用.
        IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
-        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
+        IBusinessService bllBusiness = Bootstrap.Container.Resolve<IBusinessService>();
 
-        BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = Bootstrap.Container.Resolve<BLLServiceOpenTimeForDay>();
+        IServiceOpenTimeForDayService bllServiceOpenTimeForDay = Bootstrap.Container.Resolve<IServiceOpenTimeForDayService>();
 
         try
         {

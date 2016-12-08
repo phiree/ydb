@@ -339,7 +339,9 @@ namespace Ydb.BusinessResource.DomainModel
         /// <summary>
         /// 修改一个工作时间.
         /// </summary>
-        public virtual ServiceOpenTimeForDay ModifyWorkTime(DayOfWeek dayOfWeek,int maxOrderForPeriod,TimePeriod oldPeriod,TimePeriod newPeriod, out string errMsg)
+ 
+        public virtual void ModifyWorkTimePeriod(DayOfWeek dayOfWeek,TimePeriod oldPeriod,TimePeriod newPeriod, out string errMsg)
+ 
         {
             errMsg = string.Empty;
             //获取要修改的时间段
@@ -354,18 +356,63 @@ namespace Ydb.BusinessResource.DomainModel
             bool canModify= periodList.CanModify(oldPeriod, newPeriod, out errMsg);
             if (canModify)
             {
-                existedPeriod.MaxOrderForOpenTime = maxOrderForPeriod;
-                existedPeriod.TimePeriod = newPeriod;
+ 
+                serviceOpenTime.OpenTimeForDay.Remove(existedPeriod);
+                serviceOpenTime.OpenTimeForDay.Add(new ServiceOpenTimeForDay
+                {
+                    Enabled = existedPeriod.Enabled,
+                    MaxOrderForOpenTime = existedPeriod.MaxOrderForOpenTime,
+                    Tag=existedPeriod.Tag,
+                    ServiceOpenTime = serviceOpenTime,
+                    TimePeriod = newPeriod,
+                
+                });
             }
             else
             {
-                throw new Exception("时间段冲突");
+                throw new Exception("工作时间冲突");
             }
-            return existedPeriod;
-
 
         }
-        
+
+        public virtual void DeleteWorkTime(DayOfWeek dayOfWeek, TimePeriod period)
+        {
+            string errmsg;
+            var workDay = GetWorkDay(dayOfWeek,out errMsg);
+            workDay.DeleteWorkTime(period);
+ 
+        }
+        public virtual void ModifyWorkTimeEnable(DayOfWeek dayOfWeek, TimePeriod oldPeriod,bool isEnabled)
+        {
+            ServiceOpenTimeForDay workTime = GetWorkTime(dayOfWeek, oldPeriod);
+            workTime.Enabled = isEnabled;
+        }
+
+     
+        public virtual void ModifyWorkTimeMaxOrder(DayOfWeek dayOfWeek, TimePeriod oldPeriod,int maxOrder)
+        {
+            ServiceOpenTimeForDay workTime = GetWorkTime(dayOfWeek, oldPeriod);
+            workTime.MaxOrderForOpenTime =maxOrder;
+
+        }
+        public virtual void ModifyWorkTimeTag(DayOfWeek dayOfWeek, TimePeriod oldPeriod, string tag)
+        {
+            ServiceOpenTimeForDay workTime = GetWorkTime(dayOfWeek, oldPeriod);
+            workTime.Tag = tag;
+
+        }
+        public virtual ServiceOpenTimeForDay GetWorkTime(DayOfWeek dayOfWeek, TimePeriod period)
+        {
+            ServiceOpenTime serviceOpenTime = GetWorkDay(dayOfWeek, out errMsg);
+            if (!string.IsNullOrEmpty(errMsg))
+            {
+                throw new Exception(errMsg);
+            }
+
+            ServiceOpenTimeForDay workTime = serviceOpenTime.GetItem(period);
+            return workTime;
+        }
+
 
     }
 }

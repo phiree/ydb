@@ -146,7 +146,9 @@
                 url : globalApiUrl,
                 customApi : true,
                 protocolCode : "WTM001002",
-                data : {
+                data: {
+                    "svcID": YDBan.url.getUrlParam("serviceid"),
+                   
                     "merchantID": merchantID,
                     "workTimeID": this.model.get("workTimeID")
                 }
@@ -196,7 +198,8 @@
                 url : globalApiUrl,
                 customApi : true,
                 protocolCode : "WTM001003",
-                data : {
+                data: {
+                    "svcID": YDBan.url.getUrlParam("serviceid"),
                     "merchantID": merchantID,
                     "workTimeObj" : _.pick(this.model.attributes, function(value, key, object){
                         return modelFix[key];
@@ -219,7 +222,8 @@
                 url : globalApiUrl,
                 customApi : true,
                 protocolCode : "WTM001003",
-                data : {
+                data: {
+                    "svcID": YDBan.url.getUrlParam("serviceid"),
                     "merchantID": merchantID,
                     "workTimeObj" : _.pick(this.model.attributes, function(value, key, object){
                         return modelFix[key];
