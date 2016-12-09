@@ -42,6 +42,17 @@ namespace Dianzhu.CSClient.Presenter
 
         IViewTypeSelect viewTypeSelect;
 
+        static IList<ServiceType> typeList;
+         IList<ServiceType> TypeList {
+            get {
+                if (typeList == null)
+                {
+                    typeList = typeService.GetTopList();
+                }
+                return typeList;
+            }
+        }
+
         string identity = string.Empty;
         public IViewSearch ViewSearch
         {
@@ -136,7 +147,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             try
             {
-                viewSearch.InitType(typeService.GetTopList());
+                viewSearch.InitType(TypeList);
 
                 return;
 
