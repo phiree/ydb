@@ -29,9 +29,9 @@
         <th>
             date
         </th>
-        <th>
+        @*<th>
             domain
-        </th>
+        </th>*@
         <th>
             classname
         </th>
@@ -60,9 +60,9 @@
             <td>
                 @Html.DisplayFor(modelItem => Model[i - 1].date)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => Model[i - 1].domain)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => Model[i - 1].classname)
             </td>
@@ -77,10 +77,10 @@
             </td>
         </tr>
         <tr>
-            <td  style="font:bold">
+            <td  style="font:bold;width:18%">
                 message
             </td>
-            <td colspan="7">
+            <td colspan="7"  style="width:80%">
                 @Html.DisplayFor(modelItem => Model[i - 1].message)
             </td>
         </tr>

@@ -7,18 +7,20 @@ using System.Threading;
 using Dianzhu.Web.RestfulApi.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Web.Security;
 
 namespace Dianzhu.Web.RestfulApi.Controllers
 {
     public class HomeController : Controller
     {
         private readonly log4netDB db = new log4netDB();
+        [Authorize]//(Roles="restful")
         public ActionResult Index()
         {
             ViewBag.Title = "Dianzhu.Web.RestfulApi";
             return View();
         }
-
+        [Authorize]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult ApiInfo(string searchText)
         {
@@ -38,7 +40,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             }
             return View(apiInfoList.OrderByDescending(s=>s.ApiRequstNum).ToList());
         }
-
+        [Authorize]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult ApiCount(string apiRoute)
         {
@@ -49,13 +51,13 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             var logCount = logs.CountAsync(filter).Result;
             return Content(logCount.ToString());
         }
-
+        [Authorize]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult AddApi()
         {
             return View();
         }
-
+        [Authorize]
         [HttpPost]
         public ActionResult AddApi(ApiInfo _ApiInfo)
         {
@@ -67,7 +69,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             return View();
         }
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult DeleteApi(string Id)
         {
@@ -76,7 +78,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             return RedirectToAction("ApiInfo");
         }
 
-
+        [Authorize]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult LogList(string apiRoute,string searchText,string beginTime,string endTime)
         {
@@ -128,7 +130,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             logList = logs.Find(filter).Sort(sort).Limit(100).ToListAsync().Result;
             return View(logList);
         }
-
+        [Authorize]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult LogInfo(string apiTime)
         {
@@ -139,6 +141,57 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             var sort = Builders<log>.Sort.Ascending("date");
             logList = logs.Find(filter).Sort(sort).Limit(100).ToListAsync().Result;
             return View(logList);
+        }
+
+        // GET: Login
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        // GET: Login
+        public ActionResult Error()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(user p_user, string returnUrl)
+        {
+            IList<user> userList = new List<user>();
+            var users = db.users;
+            var buildersFilter = Builders<user>.Filter;
+            var filter = buildersFilter.Eq("username", p_user.username) & buildersFilter.Eq("password", p_user.password);
+            userList = users.Find(filter).ToListAsync().Result;
+            if (userList != null && userList.Count > 0)
+            {
+                FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+                    1,
+                    "login",
+                    DateTime.Now,
+                    DateTime.Now.AddMinutes(30),
+                    false,
+                    userList[0].username
+                    );
+                string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                System.Web.HttpCookie authCookie = new System.Web.HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                System.Web.HttpContext.Current.Response.Cookies.Add(authCookie);
+                if (returnUrl == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction(returnUrl);
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+            //Response.Redirect("~/");
+            //return RedirectToAction("Index");
         }
     }
 }
