@@ -106,6 +106,17 @@ namespace Ydb.InstantMessage.Application
             
             return ToDto(list);
         }
+        /// <summary>
+        /// 初始化聊天消息
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public IList<ReceptionChatDto> GetInitChatList(string customerId, int pageSize)
+        {
+            var list = repositoryChat.GetInitChatList(customerId, pageSize);
+            return ToDto(list);
+        }
 
         [UnitOfWork]
         public IList<ReceptionChatDto> GetReceptionChatListByTargetId(string customerId, int pageSize, string targetChatId, string low)

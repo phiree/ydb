@@ -89,5 +89,6 @@ namespace Ydb.InstantMessage.DomainModel.Chat
         /// <param name="userID"></param>
         /// <returns></returns>
         long GetUnreadChatsCount(string userID);
+        IList<ReceptionChat> GetInitChatList(string customerId, int pageSize);
     }
 }
