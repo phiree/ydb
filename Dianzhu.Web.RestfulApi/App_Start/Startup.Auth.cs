@@ -38,7 +38,9 @@ namespace Dianzhu.Web.RestfulApi
             Bootstrap.Boot();
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);//to wire up ASP.NET Web API to our Owin server pipeline.
+
             
+
         }
 
         /// <summary>

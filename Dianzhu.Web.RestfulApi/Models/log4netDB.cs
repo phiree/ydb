@@ -35,5 +35,13 @@ namespace Dianzhu.Web.RestfulApi.Models
                 return Database.GetCollection<log>("logs");
             }
         }
+
+        public IMongoCollection<user> users
+        {
+            get
+            {
+                return Database.GetCollection<user>("users");
+            }
+        }
     }
 }

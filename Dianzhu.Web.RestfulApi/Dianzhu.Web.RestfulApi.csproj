@@ -325,6 +325,7 @@
     <Compile Include="Models\ApiInfo.cs" />
     <Compile Include="Models\log.cs" />
     <Compile Include="Models\log4netDB.cs" />
+    <Compile Include="Models\user.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AuthorizationServerProvider.cs" />
     <Compile Include="Providers\Helper.cs" />
@@ -426,6 +427,7 @@
     <Content Include="Views\Home\ApiInfo.cshtml" />
     <Content Include="Views\Home\LogList.cshtml" />
     <Content Include="Views\Home\LogInfo.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
     <None Include="Web.150.config" />
     <None Include="Web.Report_RestfulApi_dev_ydban_cn.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Dianzhu.Web.Log.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Web.Security;
 
 namespace Dianzhu.Web.Log.Controllers
 {
@@ -13,6 +14,7 @@ namespace Dianzhu.Web.Log.Controllers
     {
         private readonly log4netDB db = new log4netDB();
         // GET: Log
+        [Authorize]
         public ActionResult Index(string logger,string level,string classname,string domain,string message,string begintime,string endtime)
         {
             ViewBag.Title = "Dianzhu.Web.Log";
@@ -22,7 +24,8 @@ namespace Dianzhu.Web.Log.Controllers
             var filter = buildersFilter.Empty;
             if (!string.IsNullOrEmpty(logger))
             {
-                filter=filter& buildersFilter.Eq("logger", logger);
+                //filter=filter& buildersFilter.Eq("logger", logger);
+                filter = filter & buildersFilter.Regex("logger", "/" + logger + "/" );
             }
             if (!string.IsNullOrEmpty(level)&& level!= "Level")
             {
@@ -123,6 +126,57 @@ namespace Dianzhu.Web.Log.Controllers
             //var logList = logs.MapReduce(map, reduce, options);
 
             //I hate this!!
+        }
+
+        // GET: Login
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        // GET: Login
+        public ActionResult Error()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(user p_user, string returnUrl)
+        {
+            IList<user> userList = new List<user>();
+            var users = db.users;
+            var buildersFilter = Builders<user>.Filter;
+            var filter = buildersFilter.Eq("username", p_user.username) & buildersFilter.Eq("password", p_user.password);
+            userList = users.Find(filter).ToListAsync().Result;
+            if (userList != null && userList.Count > 0)
+            {
+                FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+                    1,
+                    "login",
+                    DateTime.Now,
+                    DateTime.Now.AddMinutes(30),
+                    false,
+                    userList[0].username
+                    );
+                string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                System.Web.HttpCookie authCookie = new System.Web.HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                System.Web.HttpContext.Current.Response.Cookies.Add(authCookie);
+                if (returnUrl == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction(returnUrl);
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+            //Response.Redirect("~/");
+            //return RedirectToAction("Index");
         }
     }
 
