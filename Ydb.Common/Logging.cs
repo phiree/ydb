@@ -30,11 +30,13 @@ namespace Ydb.Common
             Logger rootLogger = hierarchy.Root;
             rootLogger.Level = Level.Error;
             /********/
-            CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "Ydb", logFileNameRoot+"Ydb", "YdbAppender", 5, 20);
-            CreateLoggerMogo(hierarchy, log4net.Core.Level.Warn, "NHibernate", logFileNameRoot+"Nhibernate", "NhibernateAppender", 5, 20);
+            CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "Dianzhu", "DianzhuAppender");
+            CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "Ydb",   "YdbAppender");
+            CreateLoggerMogo(hierarchy, log4net.Core.Level.Warn, "NHibernate",   "NhibernateAppender");
             hierarchy.Configured = true;
            
         }
+        [Obsolete("使用mongodbappender")]
         private static void CreateLogger(Hierarchy hierarchy,string loggerName,string logfileName, string appenderName,int maxFileSize,int maxRollBackups)
         {
             Logger logger = hierarchy.GetLogger(loggerName) as Logger;
@@ -56,13 +58,14 @@ namespace Ydb.Common
             logger.Level = Level.Debug;
             logger.AddAppender(appenderMain);
         }
-        private static void CreateLoggerMogo(Hierarchy hierarchy,log4net.Core.Level logLevel, string loggerName, string logfileName, string appenderName, int maxFileSize, int maxRollBackups)
+        private static void CreateLoggerMogo(Hierarchy hierarchy,log4net.Core.Level logLevel, string loggerName, string appenderName)
         {
             Logger logger = hierarchy.GetLogger(loggerName) as Logger;
             
             MongoDBAppender appenderMain = new MongoDBAppender();
             appenderMain.ConnectionString = "mongodb://localhost";
             appenderMain.CollectionName = "logs";
+            appenderMain.ExpireAfterSeconds = 3600 * 24 * 30*6;//半年.
             //MongoAppenderFileld mf = new MongoAppenderFileld();
             //mf.Name = "logger2";
             //LoggingEvent le = new LoggingEvent();
