@@ -172,7 +172,7 @@ namespace Dianzhu.BLL
                 }
                 else
                 {
-                    where = where.And(x => x.ServiceBusinessOwnerId == UserID.ToString());
+                    where = where.And(x => x.Details.Any(y=>y.ServiceSnapShot.BusinessOwnerId == UserID.ToString()));
                 }
             }
             if(!string.IsNullOrEmpty(status))
@@ -292,7 +292,7 @@ namespace Dianzhu.BLL
                 else
                 {
                     //todo:refactpr
-                  //  where = where.And(x => x.Business.OwnerId == UserID);
+                    where = where.And(x => x.Details.Any(y => y.ServiceSnapShot.BusinessOwnerId == UserID.ToString()));
                 }
             }
             if (!string.IsNullOrEmpty(status))
@@ -378,7 +378,7 @@ namespace Dianzhu.BLL
             if (string.IsNullOrEmpty(UserID))
             {
                 //throw new NotImplementedException("为何传入UserId");
-                where = where.And(x => x.ServiceBusinessOwnerId == UserID);
+                where = where.And(x => x.Details.Any(y=>y.ServiceSnapShot.BusinessOwnerId == UserID));
             }
             where = where.And(x => x.Id == guid);
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft

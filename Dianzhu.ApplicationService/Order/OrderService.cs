@@ -215,7 +215,7 @@ namespace Dianzhu.ApplicationService.Order
             }
             if (serviceorder.CustomerServiceId != null)
             {
-                MemberDto member = memberService.GetUserById(serviceorder.CustomerId);
+                MemberDto member = memberService.GetUserById(serviceorder.CustomerServiceId);
                 orderobj.customerServicesObj.id = serviceorder.CustomerServiceId ;
                 orderobj.customerServicesObj.alias = member.UserName;
                 orderobj.customerServicesObj.imgUrl = member.AvatarUrl == null?"" : Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + member.AvatarUrl;
