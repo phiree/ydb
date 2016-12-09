@@ -47,7 +47,11 @@ new Ydb.Finance.Infrastructure.InstallerFinance(BuildDBConfig("ydb_finance"))
  
 new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb_instantmessage"))
             );
+        container.Install(
 
+
+new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig("ydb_businessresource"))
+            );
         container.Install(
 
 
