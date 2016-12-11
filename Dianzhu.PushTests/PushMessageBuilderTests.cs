@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Dianzhu.Push;
+using NUnit.Framework;
 using System;
 using Ydb.InstantMessage.DomainModel.Enums;
 
@@ -15,9 +16,9 @@ namespace Dianzhu.Push.Tests
         [SetUp]
         public void Setup()
         {
-              inputDto = Builder<BuildPushMessageBInputDto>.CreateNew().Build();
+            inputDto = Builder<BuildPushMessageBInputDto>.CreateNew().Build();
         }
-       
+
         private PushMessage BuildPushMessage()
         {
             PushMessageBuilder messageBuilder = new PushMessageBuilder();
@@ -31,7 +32,7 @@ namespace Dianzhu.Push.Tests
             inputDto.chatType = typeof(ReceptionChatNoticeOrder);
             inputDto.orderStatus = enum_OrderStatus.EndWarranty;
             var pushMessage = BuildPushMessage();
-            Assert.AreEqual(null, pushMessage); 
+            Assert.AreEqual(null, pushMessage);
 
         }
         [Test()]
@@ -40,7 +41,7 @@ namespace Dianzhu.Push.Tests
             inputDto.chatType = typeof(ReceptionChatNoticeOrder);
             inputDto.orderStatus = enum_OrderStatus.EndCancel;
             var pushMessage = BuildPushMessage();
-            Assert.AreEqual(string.Format("<订单完成>{0}订单状态已变为{1},快来看看吧", pushMessage.OrderSerialNo,inputDto.orderStatus), pushMessage.DisplayContent);
+            Assert.AreEqual(string.Format("<订单完成>{0}订单状态已变为{1},快来看看吧", pushMessage.OrderSerialNo, inputDto.orderStatus), pushMessage.DisplayContent);
         }
         [Test()]
         public void BuildPushMessageTest_ChatNoticeOrder_OtherStatus()
@@ -54,10 +55,10 @@ namespace Dianzhu.Push.Tests
         public void BuildPushMessageTest_ChatNoticeSys()
         {
             inputDto.chatType = typeof(ReceptionChatNoticeSys);
-            
+
             var pushMessage = BuildPushMessage();
-            
-            Assert.AreEqual( inputDto.chatMessage, pushMessage.DisplayContent);
+
+            Assert.AreEqual(inputDto.chatMessage, pushMessage.DisplayContent);
         }
         [Test()]
         public void BuildPushMessageTest_ChatText_Media_FromCustomerService()
@@ -66,7 +67,7 @@ namespace Dianzhu.Push.Tests
             inputDto.fromResource = XmppResource.YDBan_CustomerService;
             var pushMessage = BuildPushMessage();
 
-            Assert.AreEqual("[小助理]"+inputDto.chatMessage, pushMessage.DisplayContent);
+            Assert.AreEqual("[小助理]" + inputDto.chatMessage, pushMessage.DisplayContent);
         }
         [Test()]
         public void BuildPushMessageTest_ChatText_Media_FromStore()
@@ -75,7 +76,7 @@ namespace Dianzhu.Push.Tests
             inputDto.fromResource = XmppResource.YDBan_Store;
             var pushMessage = BuildPushMessage();
 
-            Assert.AreEqual("["+inputDto.orderBusinessName+"]" + inputDto.chatMessage, pushMessage.DisplayContent);
+            Assert.AreEqual("[" + inputDto.orderBusinessName + "]" + inputDto.chatMessage, pushMessage.DisplayContent);
         }
         [Test()]
         public void BuildPushMessageTest_ChatText_Media_FromCustomer()
@@ -86,19 +87,30 @@ namespace Dianzhu.Push.Tests
 
             Assert.AreEqual("[" + inputDto.fromUserName + "]" + inputDto.chatMessage, pushMessage.DisplayContent);
         }
+        [Test()]
+        public void BuildPushMessageTest_PushedService()
+        {
+            inputDto.chatType = typeof(ReceptionChatPushService);
+            inputDto.fromResource = XmppResource.YDBan_CustomerService;
+            var pushMessage = BuildPushMessage();
+
+            Assert.AreEqual("[小助理]" + inputDto.chatMessage, pushMessage.DisplayContent);
+        }
 
         class BuildPushMessageBInputDto
         {
-           public   string chatMessage { get; set; }
+            public string chatMessage { get; set; }
             public Type chatType { get; set; }
             public XmppResource fromResource { get; set; }
             public string fromUserName { get; set; }
-            public string orderId  { get; set; }
+            public string orderId { get; set; }
             public string orderBusinessName { get; set; }
             public string serialNo { get; set; }
             public enum_OrderStatus orderStatus { get; set; }
             public string orderStatStr { get; set; }
 
         }
+
+        
     }
 }
