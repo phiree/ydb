@@ -43,13 +43,14 @@ namespace Dianzhu.CSClient.Presenter
             //iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             viewChatList.CurrentCustomerServiceId = GlobalViables.CurrentCustomerService.Id;
             viewChatList.BtnMoreChat += ViewChatList_BtnMoreChat;
+            viewChatList.ChatListCustomerName = customerName;
 
             LoadChats();
         }
 
         private void LoadChats()
         {
-            viewChatList.ChatListCustomerName = customerName;
+         //   viewChatList.ChatListCustomerName = customerName;
 
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
@@ -88,18 +89,18 @@ namespace Dianzhu.CSClient.Presenter
             log.Debug("异步加载聊天记录完成");
         }
 
+
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
-                NHibernateUnitOfWork.UnitOfWork.Start();//查询服务需开启
-
+                
                 string identity = e.Argument.ToString();
 
                 IList<VMChat> vmList = new List<VMChat>();
 
-                IList<ReceptionChatDto> dtoChatList = chatService.GetReceptionChatListByCustomerId(identity, 10);
-
+                IList<ReceptionChatDto> dtoChatList = chatService.GetInitChatList(identity, 10);
+              //  IList<ReceptionChatDto> dtoChatList = chatService.GetReceptionChatListByCustomerId(identity, 10);
                 if (dtoChatList.Count > 0)
                 {
                     VMChat vmChat;
@@ -126,11 +127,7 @@ namespace Dianzhu.CSClient.Presenter
                 e.Result = new List<ReceptionChatDto>();
                 log.Error(log, ee);
             }
-            finally
-            {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-            }
+            
         }
 
         private void IIM_IMReceivedMessage(ReceptionChatDto dto)

@@ -83,7 +83,7 @@ namespace Ydb.BusinessResource.Application
             }
             
             business.ChangeInfo(name, description, phone, address, avatarImageName);
-
+            result.ResultObject = business;
             return result;
         }
 
@@ -151,7 +151,7 @@ namespace Ydb.BusinessResource.Application
         public IList<Business> GetStores(TraitFilter filter, string strName, string UserID)
         {
             var where = PredicateBuilder.True<Business>();
-            //where = where.And(x => x.Enabled);
+            where = where.And(x => x.Enabled);
             if (!string.IsNullOrEmpty(UserID))
             {
                 where = where.And(x => x.OwnerId == new Guid(UserID));
@@ -186,7 +186,7 @@ namespace Ydb.BusinessResource.Application
         public long GetStoresCount(string alias, Guid ownerId)
         {
             var where = PredicateBuilder.True<Business>();
-            //where = where.And(x => x.Enabled);
+            where = where.And(x => x.Enabled);
             if (ownerId != Guid.Empty)
             {
                 where = where.And(x => x.OwnerId == ownerId);

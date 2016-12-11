@@ -37,12 +37,12 @@ namespace Dianzhu.ApplicationService.Complaint
             }
             if (complaintobj.target!= "customerService" && complaintobj.target!="store")
             {
-                throw new FormatException("投诉对象只能是客户和店铺！");
+                throw new FormatException("投诉对象只能是客服和店铺！");
             }
-            if(complaintobj.target == "customerService")
-            {
-                complaintobj.target = "cer";
-            }
+            //if(complaintobj.target == "customerService")
+            //{
+            //    complaintobj.target = "cer";
+            //}
             if (string.IsNullOrEmpty(complaintobj.content))
             {
                 throw new FormatException("投诉的描述不能为空！");
@@ -64,7 +64,7 @@ namespace Dianzhu.ApplicationService.Complaint
             //complaint.Target= (enum_ComplaintTarget)Enum.Parse(typeof(enum_ComplaintTarget), complaintobj.target); 
             for (int i = 0; i < complaintobj.resourcesUrls.Count; i++)
             {
-                complaint.ComplaitResourcesUrl.Add(utils.GetFileName(complaintobj.resourcesUrls[i]));
+                complaint.ComplaitResourcesUrl.Add(utils.GetFileName(complaintobj.resourcesUrls[i], "MediaGetUrl"));
             }
             //Guid g = new Guid();
             //bool b = g == complaint.Id;

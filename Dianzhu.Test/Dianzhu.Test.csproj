@@ -152,7 +152,6 @@
     <Compile Include="DZCSClientTest\MessageBuildTest.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
     <Compile Include="IdentityAccess\DALMembershipTests.cs" />
-    <Compile Include="JPush\JPushTests.cs" />
     <Compile Include="jsonconvert_test.cs" />
     <Compile Include="jsontest.cs" />
     <Compile Include="PayTest\payTest.cs" />

@@ -87,6 +87,9 @@ namespace Ydb.InstantMessage.Application
                     case "ReceptionChatPushService":
                         dtoList.Add(((ReceptionChatPushService)item).ToDto());
                         break;
+                    case "ReceptionChatDidichuxing":
+                        dtoList.Add(((ReceptionChatDidichuxing)item).ToDto());
+                        break;
                     default:
                         throw new Exception("未知chat类型");
                 }
@@ -101,6 +104,17 @@ namespace Ydb.InstantMessage.Application
             int rouCount;
             var list = repositoryChat.GetReceptionChatList(customerId, string.Empty, string.Empty, DateTime.Now.AddYears(-1), DateTime.Now, 0, pageSize, ChatTarget.cer, out rouCount);
             
+            return ToDto(list);
+        }
+        /// <summary>
+        /// 初始化聊天消息
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public IList<ReceptionChatDto> GetInitChatList(string customerId, int pageSize)
+        {
+            var list = repositoryChat.GetInitChatList(customerId, pageSize);
             return ToDto(list);
         }
 

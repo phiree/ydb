@@ -26,7 +26,11 @@ namespace Dianzhu.CSClient.IView
 
         void ShowIdentityTab(string identityTabFriendly);
 
-        void RemoveIdentityTab(string identityTabFriendly);
+        void RemoveIdentityTab(string identityTabFriendly,bool isActived);
+
+        string Version { set; }
+        event AddCustomerTest AddCustomerTest;
         
     }
+    public delegate void AddCustomerTest();
 }

@@ -1,0 +1,88 @@
+﻿@model IList<Dianzhu.Web.Log.Models.log>
+@{
+    ViewBag.Title = "Index";
+}
+<form class="form-inline" action="~/Log/Index" style="margin-top: 20px;">
+    <input id="txtSearchLogger" name ="logger" class="form-control" type="text" placeholder="logger" style="width: 120px;">
+    <select class="form-control" placeholder="level" style="width: 100px;"  name ="level" >
+        <option value="Level">Level</option><option value="DEBUG">DEBUG</option><option value="INFO">INFO</option><option value="WARN">WARN</option><option value="ERROR">ERROR</option><option value="FATAL">FATAL</option>
+    </select>
+    <input id="txtSearchClassname" name ="classname" class="form-control" type="text" placeholder="classname" style="width: 120px;">
+    <input id="txtSearchDomain" name ="domain" class="form-control" type="text" placeholder="domain" style="width: 120px;">
+    <input id="txtSearchMessage" name ="message" class="form-control" type="text" placeholder="message" style="width: 180px;">
+    <input id="txtSearchBeginTime" name ="begintime" class="form-control" type="text" onClick="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm'})" style="width: 120px;" placeholder="开始时间">
+    —
+    <input id="txtSearchEndTime" name ="endtime"  class="form-control" type="text" onClick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm' })" style="width: 120px;" placeholder="结束时间">
+    <button id="btnSearchLog" class="btn btn-default" type="submit" onclick="GetLogList()">搜索</button>
+</form>
+<table class="table table-hover" style="word-break:break-all; word-wrap:break-all;">
+    <tr>
+        <th>
+            序号
+        </th>
+        <th>
+            logger
+        </th>
+        <th>
+            level
+        </th>
+        <th>
+            date
+        </th>
+        @*<th>
+            domain
+        </th>*@
+        <th>
+            classname
+        </th>
+        <th>
+            filename
+        </th>
+        <th>
+            linenumber
+        </th>
+        <th>
+            thread
+        </th>
+    </tr>
+    @for (var i=1;i<= Model.Count;i++)
+    {
+        <tr>
+            <td rowspan="2">
+                @i
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model[i-1].logger)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model[i - 1].level)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model[i - 1].date)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => Model[i - 1].domain)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => Model[i - 1].classname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model[i - 1].filename)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model[i - 1].linenumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model[i - 1].thread)
+            </td>
+        </tr>
+        <tr>
+            <td  style="font:bold;width:18%">
+                message
+            </td>
+            <td colspan="7"  style="width:80%">
+                @Html.DisplayFor(modelItem => Model[i - 1].message)
+            </td>
+        </tr>
+    }
+</table>

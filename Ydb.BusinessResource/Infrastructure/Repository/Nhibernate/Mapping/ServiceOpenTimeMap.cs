@@ -33,7 +33,7 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping
 
             Map(x => x.MaxOrderForOpenTime);
             Map(x => x.Enabled);
-            References<ServiceOpenTime>(x => x.ServiceOpenTime).Column("ServiceOpenTime_id");
+            References<ServiceOpenTime>(x => x.ServiceOpenTime).Column("ServiceOpenTime_id").Not.LazyLoad();
 
         }
 

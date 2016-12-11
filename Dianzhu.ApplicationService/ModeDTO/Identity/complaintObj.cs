@@ -63,7 +63,7 @@ namespace Dianzhu.ApplicationService
 
         string _target = "";
         /// <summary>
-        /// 投诉的目标("cer":[客服]，"store":[商铺])
+        /// 投诉的目标("customerService":[客服]，"store":[商铺])customerService
         /// </summary>
         /// <type>string</type>
         public string target

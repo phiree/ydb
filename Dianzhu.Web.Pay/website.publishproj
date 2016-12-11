@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+***********************************************************************************************
+website.publishproj
+
+警告: 请勿修改此文件，它将用于 Web 发布过程。
+
+版权所有 (C) Microsoft Corporation。保留所有权利。
+
+***********************************************************************************************
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.30319</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5e119d61-a0fc-4503-bb2e-4d424c7b94c7}</ProjectGuid>
+    <SourceWebPhysicalPath>$(MSBuildThisFileDirectory)</SourceWebPhysicalPath>
+    <SourceWebVirtualPath>/Dianzhu.Web.Pay</SourceWebVirtualPath>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <SourceWebProject>
+    </SourceWebProject>
+    <SourceWebMetabasePath>
+    </SourceWebMetabasePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- for VS2010 we need to use 10.5 but for VS2012+ we should use VisualStudioVersion -->
+    <WebPublishTargetsVersion Condition=" '$(WebPublishTargetsVersion)' =='' and '$(VisualStudioVersion)' == 10.0 ">10.5</WebPublishTargetsVersion>
+    <WebPublishTargetsVersion Condition=" '$(WebPublishTargetsVersion)'=='' ">$(VisualStudioVersion)</WebPublishTargetsVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(WebPublishTargetsVersion)</VSToolsPath>
+    <_WebPublishTargetsPath Condition=" '$(_WebPublishTargetsPath)'=='' ">$(VSToolsPath)</_WebPublishTargetsPath>
+    <AssemblyFileVersion Condition="'$(AssemblyFileVersion)' == ''">1.0.0.0</AssemblyFileVersion>
+    <AssemblyVersion Condition="'$(AssemblyVersion)' == ''">1.0.0.0</AssemblyVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttributes Include="AssemblyFileVersion">
+      <Value>$(AssemblyFileVersion)</Value>
+    </AssemblyAttributes>
+    <AssemblyAttributes Include="AssemblyVersion">
+      <Value>$(AssemblyVersion)</Value>
+    </AssemblyAttributes>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">
+      <Project>{D90CDF37-7406-4DAE-9AE6-C894D83A796F}</Project>
+      <Name>DDDCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
+      <Project>{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}</Project>
+      <Name>Dianzhu.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
+      <Project>{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}</Project>
+      <Name>Dianzhu.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.LocalStorage\Dianzhu.CSClient.LocalStorage.csproj">
+      <Project>{6F064359-8BBD-4BDA-9532-D93505472582}</Project>
+      <Name>Dianzhu.CSClient.LocalStorage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj">
+      <Project>{D7AA114D-AD19-4399-B152-969D240053C7}</Project>
+      <Name>Dianzhu.CSClient.ViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
+      <Project>{2E67AA78-6780-42BD-A3AB-AD953781E511}</Project>
+      <Name>Dianzhu.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Dependency\Dianzhu.Dependency.csproj">
+      <Project>{F5F67C69-F9EE-4222-9F83-91C816FC686C}</Project>
+      <Name>Dianzhu.Dependency</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.IDAL\Dianzhu.IDAL.csproj">
+      <Project>{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}</Project>
+      <Name>Dianzhu.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
+      <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
+      <Name>Dianzhu.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Pay\Dianzhu.Pay.csproj">
+      <Project>{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}</Project>
+      <Name>Dianzhu.Pay</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
+      <Project>{BE142427-1CE4-40F8-AC58-D0509BA05D21}</Project>
+      <Name>Dianzhu.Push</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Web.Common\Dianzhu.Web.Common.csproj">
+      <Project>{B74CA750-EBD2-4EFD-823A-FC680F498E52}</Project>
+      <Name>Dianzhu.Web.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MediaServer\MediaServer.csproj">
+      <Project>{9920DA22-589C-4193-AEAA-363D5C029DFC}</Project>
+      <Name>MediaServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PHSuit\PHSuit.csproj">
+      <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
+      <Name>PHSuit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
+      <Project>{F351E700-E016-4A42-9154-54A6D92ECBDE}</Project>
+      <Name>Ydb.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Finance\Ydb.Finance.csproj">
+      <Project>{343214F8-A523-4BDA-B783-4D77942269B9}</Project>
+      <Name>Ydb.Finance</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Infrastructure\Ydb.Infrastructure.csproj">
+      <Project>{3D510583-1C11-48FB-8380-12E183E5914B}</Project>
+      <Name>Ydb.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
+      <Project>{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}</Project>
+      <Name>Ydb.InstantMessage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Membership\Ydb.Membership.csproj">
+      <Project>{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}</Project>
+      <Name>Ydb.Membership</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(_WebPublishTargetsPath)\Web\Microsoft.WebSite.Publishing.targets" />
+</Project>

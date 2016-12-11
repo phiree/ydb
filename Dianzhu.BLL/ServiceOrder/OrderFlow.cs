@@ -36,7 +36,7 @@ namespace Dianzhu.BLL
 
         }
 
-        //状态对应表. key:状态, value:该状态可以从哪些状态转变而来.
+        //状态对应表. key:状态, value:该状态可以从哪些状态转变而来. 
         static Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> dictAvailabelStatus =
             new Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> {
                 //正常支付流程订单状态变更
@@ -46,7 +46,7 @@ namespace Dianzhu.BLL
                                                                         enum_OrderStatus.Created,
                                                                         enum_OrderStatus.checkPayWithDeposit}},
                 { enum_OrderStatus.Negotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Payed,
-                                                                            enum_OrderStatus.isEnd,
+                                                                            //enum_OrderStatus.isEnd,不能从服务完成（isEnd）改到  服务已确认（Negotiate）
                                                                              enum_OrderStatus.isNegotiate }},
                 { enum_OrderStatus.isNegotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Negotiate }},
                 { enum_OrderStatus.Assigned,new List<enum_OrderStatus>() {enum_OrderStatus.isNegotiate }},

@@ -42,18 +42,25 @@ namespace Dianzhu.ApplicationService.App
             //}
             //Model.DeviceBind devicebind = Mapper.Map<appObj, Model.DeviceBind>(appobj);
             Model.DeviceBind devicebind = new Model.DeviceBind();
-           MemberDto dzmembership = null;
             if (!string.IsNullOrEmpty(appobj.userID))
             {
-                Guid userId=utils.CheckGuidID(appobj.userID, "UserId");
-                dzmembership = memberService.GetUserById(userId.ToString());
+                Guid userId = utils.CheckGuidID(appobj.userID, "UserId");
+                MemberDto dzmembership = memberService.GetUserById(userId.ToString());
+                if (dzmembership == null)
+                {
+                    throw new Exception("该用户不存在!");
+                }
+                devicebind.DZMembershipId = dzmembership.Id.ToString();
+            }
+            else
+            {
+                devicebind.DZMembershipId = "匿名用户";
             }
             DateTime dt= DateTime.Now;
             devicebind.IsBinding = true;
             devicebind.SaveTime = dt;
             devicebind.AppUUID = uuId;
             devicebind.BindChangedTime = dt;
-            devicebind.DZMembershipId = dzmembership.Id.ToString();
             devicebind.AppName = appobj.appName.ToString();
             devicebind.AppToken = appobj.appToken;
             blldevicebind.UpdateAndSave(devicebind);

@@ -21,6 +21,7 @@ namespace Ydb.BusinessResource.Application
         long GetStaffsCount(string alias, string email, string phone, string sex, string specialty, string realName, Guid storeID);
         void Save(Staff staff);
         string Save(Guid StaffId, HttpPostedFile imageFile, enum_ImageType imageType);
+        string Save(Guid StaffId, string imageName, enum_ImageType imageType, int size);
         void Update(Staff staff);
         /// <summary>
         /// 取消安排

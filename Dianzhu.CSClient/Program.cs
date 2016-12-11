@@ -37,6 +37,7 @@ using System.Windows.Threading;
 using Ydb.InstantMessage.Application.Dto;
 using Ydb.InstantMessage.DomainModel.Chat;
 using System.IO;
+using System.Reflection;
 using Ydb.Common;
 
 namespace Dianzhu.CSClient
@@ -83,9 +84,10 @@ namespace Dianzhu.CSClient
             memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
             localChatManager = Bootstrap.Container.Resolve<LocalChatManager>();
 
-            string version = GetVersion();
-            //  loginForm.FormText += "v" + version;
+            string version = GetVersionText();
+           //  loginForm.FormText += "v" + version;
             Presenter.LoginPresenter loginPresenter = Bootstrap.Container.Resolve<Presenter.LoginPresenter>();
+            loginPresenter.LoginForm.Version = version;
             loginPresenter.Args = args;
             bool? result = loginPresenter.ShowDialog();
 
@@ -100,16 +102,12 @@ namespace Dianzhu.CSClient
                 iIM.IMReceivedMessage += IIM_IMReceivedMessage;
 
                 mainPresenter = Bootstrap.Container.Resolve<PMain>();
+                mainPresenter.Form.Version = version;
+                mainPresenter.Form.AddCustomerTest += Form_AddCustomerTest;
                 Thread t = new Thread(SysAssign);
                 t.Start();
-
                 System.Windows.Application app=new System.Windows.Application();
-
-                VMIdentity vmIdentity = new VMIdentity("test_orderId", "sdf","aa", "");
-
-                pIdentityList.AddIdentity(vmIdentity);
-                AddIdentityTab(vmIdentity.CustomerId, vmIdentity.CustomerName);
-                app.Run((Window) mainPresenter.Form);
+				app.Run((Window) mainPresenter.Form);
               //  mainPresenter.ShowDialog();
             }
 
@@ -121,6 +119,21 @@ namespace Dianzhu.CSClient
 
         }
 
+        private static void Form_AddCustomerTest()
+        {
+            string orderId = Guid.NewGuid().ToString();
+            string customerId = Guid.NewGuid().ToString();
+            
+            VMIdentity vmIdentityTest = new VMIdentity(orderId, customerId, "TestCustomer", string.Empty);
+
+            IdentityTypeOfOrder type;
+            type = IdentityManager.UpdateCustomerList(customerId,orderId);
+
+            pIdentityList.AddIdentity(vmIdentityTest);
+
+            AddIdentityTab(vmIdentityTest.CustomerId, vmIdentityTest.CustomerName);
+        }
+
         /// <summary>
         /// 自动拉取分配给点点的用户数据
         /// </summary>
@@ -128,6 +141,7 @@ namespace Dianzhu.CSClient
         {
             try
             {
+               
                 IReceptionService receptionService = Bootstrap.Container.Resolve<IReceptionService>();
                 log.Debug("-------开始 接收离线用户------");
                 IList<ReceptionStatusDto> assignList = receptionService.AssignCSLogin(GlobalViables.CurrentCustomerService.Id.ToString(), 3);
@@ -408,6 +422,7 @@ namespace Dianzhu.CSClient
 
         static bool CheckConfig()
         {
+            return true;
             log.Debug("--开始 检查配置是否冲突");
             //need: openfire服务器 数据库,api服务器,三者目标ip应该相等.
             bool isValidConfig = false;
@@ -445,13 +460,30 @@ namespace Dianzhu.CSClient
 
             }
         }
+        static string GetVersionText()
+        {
+            return DateTime.Now.ToString("(yyyy-MM-dd hh:mm:ss)") + GetVersion();
+        }
         static string GetVersion()
         {
+            string versionText;
+
             Version myVersion = new Version();
 
             if (ApplicationDeployment.IsNetworkDeployed)
-                myVersion = ApplicationDeployment.CurrentDeployment.CurrentVersion;
-            return myVersion.ToString();
+            {
+                versionText = ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
+
+            }
+            else
+            {
+                versionText = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            }
+
+            return versionText;
+
+
+
         }
     }
 }

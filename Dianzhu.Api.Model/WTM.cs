@@ -74,6 +74,8 @@ namespace Dianzhu.Api.Model
         public string merchantID { get; set; }
         public string pWord { get; set; }
         public string workTimeID { get; set; }
+        public string svcID { get; set; }
+       
     }
 
     #endregion
@@ -84,8 +86,9 @@ namespace Dianzhu.Api.Model
     {
         public string merchantID { get; set; }
         public string pWord { get; set; }
+        public string svcID { get; set; }
 
-        public string serviceId { get; set; }
+
         public RespDataWTM_workTimeObj workTimeObj { get; set; }
     }
 

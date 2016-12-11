@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class=="regComp">
+                        <div class="regComp">
                             <asp:Label runat="server" ID="lblSendError" CssClass="errorText"></asp:Label>
                         </div>
                     </div>

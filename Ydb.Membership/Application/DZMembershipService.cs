@@ -258,6 +258,7 @@ namespace Ydb.Membership.Application
             {
                 result.IsSuccess = false;
                 result.ErrMsg = "该手机用户不存在!";
+                return result;
             }
             return member.ChangePasswordByPhone( newPassword, encryptService.GetMD5Hash(newPassword));
         }

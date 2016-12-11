@@ -29,7 +29,10 @@ namespace Dianzhu.CSClient.Presenter
 
             iIM.IMStreamError += IIM_IMStreamError;
             iIM.IMClosed += IIM_IMClosed;
+            
         }
+
+       
 
         public IViewMainForm Form
         {
@@ -38,6 +41,7 @@ namespace Dianzhu.CSClient.Presenter
                 return viewMainForm;
             }
         }
+
 
         private void IIM_IMClosed()
         {
@@ -68,7 +72,12 @@ namespace Dianzhu.CSClient.Presenter
 
         public void RemoveIdentityTabContent(string identityTabFriendly)
         {
-            viewMainForm.RemoveIdentityTab(identityTabFriendly);
+            string currentFriendlyName =
+                PHSuit.StringHelper.SafeNameForWpfControl(IdentityManager.CurrentCustomerId,
+                    GlobalViables.PRE_TAB_CUSTOMER);
+
+            bool isActived = currentFriendlyName == identityTabFriendly;
+            viewMainForm.RemoveIdentityTab(identityTabFriendly,isActived);
         }
     }
 }

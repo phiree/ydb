@@ -50,14 +50,12 @@ namespace Dianzhu.Web.RestfulApi
             container.Install(
                 new Ydb.Infrastructure.InstallerCommon(BuildDBConfig("ydb_common"))
                 );
-
-
-
             container.Install(
- 
- 
 new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb_instantmessage"))
                 );
+            container.Install(
+              new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig("ydb_businessresource"))
+              );
 
             container.Install(
 
@@ -73,6 +71,8 @@ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb
                 x.AddProfile<ApplicationService.Mapping.ModelToDtoMappingProfile>();
                 x.AddProfile<ApplicationService.Mapping.DtoToModelMappingProfile>();
                 x.AddProfile<Ydb.Membership.Application.ModelToDtoMappingProfile>();
+                x.AddProfile<Ydb.BusinessResource.Application.ModelToDtoMappingProfile>();
+                x.AddProfile<Ydb.ApplicationService.ModelToDtoMappingProfileCrossDomain>();
             });
         }
 

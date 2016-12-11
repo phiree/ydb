@@ -47,7 +47,6 @@ namespace Ydb.BusinessResource.DomainModel
 
             if (!periodList.IsConflict(period.TimePeriod))
             {
-
                 OpenTimeForDay.Add(period);
             }
             else {
@@ -98,6 +97,11 @@ namespace Ydb.BusinessResource.DomainModel
             }
                
            
+        }
+        public virtual void DeleteWorkTime(TimePeriod period)
+        {
+            var workTime = GetItem(period);
+            OpenTimeForDay.Remove(workTime);
         }
         
     }

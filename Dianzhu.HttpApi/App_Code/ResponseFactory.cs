@@ -27,12 +27,24 @@ public class ResponseFactory
                 return new ResponseORM001008(request);
             case "usm001005":
                 return new ResponseUSM001005(request);
-            
+
 
             //
+            case "wtm001006":
+                return new ResponseWTM001006(request);
+            case "wtm001005":
+                return new ResponseWTM001005(request);
+            case "wtm001004":
+                return new ResponseWTM001004(request);
+            case "wtm001003":
+                return new ResponseWTM001003(request);
+            case "wtm001002":
+                return new ResponseWTM001002(request);
+            case "wtm001001":
+                return new ResponseWTM001001(request);
 
-            
-            
+
+
             case "svc001003":
                 return new ResponseSVC001003(request);
 

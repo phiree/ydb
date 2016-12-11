@@ -60,6 +60,10 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<Presenter.VMAdapter.IVMOrderHistoryAdapter>().ImplementedBy<Presenter.VMAdapter.VMOrderHistoryAdapter>()); 
             
             container.Register(Component.For<IViewTabContentTimer>().ImplementedBy<ViewWPF.UC_TabContentTimer>().LifestyleTransient());
+
+            container.Register(Component.For<IViewTypeSelect>().ImplementedBy<ViewWPF.UC_TypeSelect>().LifestyleTransient());
+
+
         }
     }
 }

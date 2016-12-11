@@ -325,6 +325,7 @@
     <Compile Include="Models\ApiInfo.cs" />
     <Compile Include="Models\log.cs" />
     <Compile Include="Models\log4netDB.cs" />
+    <Compile Include="Models\user.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AuthorizationServerProvider.cs" />
     <Compile Include="Providers\Helper.cs" />
@@ -385,7 +386,8 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <None Include="Properties\PublishProfiles\RestfulApi.pubxml" />
+    <None Include="Properties\PublishProfiles\150.pubxml" />
+    <None Include="Properties\PublishProfiles\dev.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -426,7 +428,9 @@
     <Content Include="Views\Home\ApiInfo.cshtml" />
     <Content Include="Views\Home\LogList.cshtml" />
     <Content Include="Views\Home\LogInfo.cshtml" />
-    <None Include="Web.Report_RestfulApi_dev_ydban_cn.config">
+    <Content Include="Views\Home\Login.cshtml" />
+    <None Include="Web.150.config" />
+    <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
@@ -466,6 +470,14 @@
     <ProjectReference Include="..\Swashbuckle.Core\Swashbuckle.Core.csproj">
       <Project>{d50a26ff-02c6-4c16-ba94-4cd7d43efbb3}</Project>
       <Name>Swashbuckle.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.ApplicationService\Ydb.ApplicationService.csproj">
+      <Project>{515a3298-f38b-40e0-968c-5c65efb2affe}</Project>
+      <Name>Ydb.ApplicationService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.BusinessResource\Ydb.BusinessResource.csproj">
+      <Project>{0c2206a1-308f-4090-a4a9-4e7cefd2fd9f}</Project>
+      <Name>Ydb.BusinessResource</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
       <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>

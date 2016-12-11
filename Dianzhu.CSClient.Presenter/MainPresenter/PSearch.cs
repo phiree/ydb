@@ -40,6 +40,19 @@ namespace Dianzhu.CSClient.Presenter
         IReceptionService receptionService;
         IViewTabContentTimer viewTabContentTimer;
 
+        IViewTypeSelect viewTypeSelect;
+
+        static IList<ServiceType> typeList;
+         IList<ServiceType> TypeList {
+            get {
+                if (typeList == null)
+                {
+                    typeList = typeService.GetTopList();
+                }
+                return typeList;
+            }
+        }
+
         string identity = string.Empty;
         public IViewSearch ViewSearch
         {
@@ -69,6 +82,7 @@ namespace Dianzhu.CSClient.Presenter
 
         public PSearch(
             IInstantMessage iIM, IViewSearch viewSearch, IViewSearchResult viewSearchResult,
+            IViewTypeSelect viewTypeSelect,
             IViewChatList viewChatList, IViewIdentityList viewIdentityList,
            IDZServiceService dalDzService, IBLLServiceOrder bllServiceOrder, IServiceTypeService dalServiceType,
                     PushService bllPushService, Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder,
@@ -78,6 +92,7 @@ namespace Dianzhu.CSClient.Presenter
             this.serialNoBuilder = serialNoBuilder;
             this.viewSearch = viewSearch; ;
             this.viewSearchResult = viewSearchResult;
+            this.viewTypeSelect = viewTypeSelect;
             this.dzService = dalDzService;
             this.viewChatList = viewChatList;
             this.bllServiceOrder = bllServiceOrder;
@@ -94,6 +109,7 @@ namespace Dianzhu.CSClient.Presenter
             viewSearch.Search += ViewSearch_Search;
 
             LoadTypes();
+            
  
             this.ServiceTypeFirst = new ServiceType();
             this.ServiceTypeSecond = new ServiceType();
@@ -101,9 +117,7 @@ namespace Dianzhu.CSClient.Presenter
             
             viewSearchResult.PushServices += ViewSearchResult_PushServices;
             viewSearchResult.FilterByBusinessName += ViewSearchResult_FilterByBusinessName; ;
-            viewSearch.ServiceTypeFirst_Select += ViewSearch_ServiceTypeFirst_Select;
-            viewSearch.ServiceTypeSecond_Select += ViewSearch_ServiceTypeSecond_Select;
-            viewSearch.ServiceTypeThird_Select += ViewSearch_ServiceTypeThird_Select;
+           
            
         }
 
@@ -125,11 +139,17 @@ namespace Dianzhu.CSClient.Presenter
         }
 
         #region 服务相关方法
+        /// <summary>
+        /// todo: 需要重构, 影响单元测试. 
+        /// 提出来作为一个单独的控件.
+        /// </summary>
         private void LoadTypes()
         {
             try
             {
-                NHibernateUnitOfWork.UnitOfWork.Start();
+                viewSearch.InitType(TypeList);
+
+                return;
 
                 System.Threading.Thread.Sleep(1000);
                 if (this.ServiceTypeListTmp != null) { return; }
@@ -145,74 +165,16 @@ namespace Dianzhu.CSClient.Presenter
                         ServiceTypeCach.Add(t, null);
                     }
                 }
-                viewSearch.ServiceTypeFirst = ServiceTypeListTmp;
+               
             }
             catch (Exception ee)
             {
                 log.Error(ee.ToString());
             }
-            finally
-            {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-            }         
+              
         }
-        private void ViewSearch_ServiceTypeThird_Select(ServiceType type)
-        {
-            ServiceTypeThird = type;
-        }
-
-        private void ViewSearch_ServiceTypeSecond_Select(ServiceType type)
-        {
-            try
-            {
-                if (type != null)
-                {
-                    ServiceTypeSecond = type;
-                    ServiceTypeThird = null;
-                    if (!ServiceTypeCach.ContainsKey(type))
-                    {
-                        bool isSecondTypeStart = false;
-                        if (!NHibernateUnitOfWork.UnitOfWork.IsStarted)
-                        {
-                            NHibernateUnitOfWork.UnitOfWork.Start();
-                            isSecondTypeStart = true;
-                        }
-
-                        ServiceTypeCach[type] = type.Children;
-                        if (isSecondTypeStart)
-                        {
-                            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-                        }
-                    }
-                    viewSearch.ServiceTypeThird = ServiceTypeCach[type];
-
-                }
-            }
-            catch (Exception e)
-            {
-                log.Error(e);
-            }
-        }
-
-        private void ViewSearch_ServiceTypeFirst_Select(ServiceType type)
-        {
-            if (type != null)
-            {
-                ServiceTypeFirst = type;
-                ServiceTypeSecond = null;
-                ServiceTypeThird = null;
-                if (ServiceTypeCach[type] == null)
-                {
-                    NHibernateUnitOfWork.UnitOfWork.Start();
-                    ServiceTypeCach[type] = type.Children;
-                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                    NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-                }
-                viewSearch.ServiceTypeSecond = ServiceTypeCach[type];
-            }
-        }
+     
+        
         #endregion
 
         private ServiceOrder ViewSearchResult_PushServices(IList<Guid> pushedServices,out string errorMsg)
@@ -288,7 +250,7 @@ namespace Dianzhu.CSClient.Presenter
 
                 Ydb.InstantMessage.DomainModel.Chat.PushedServiceInfo psi = new Ydb.InstantMessage.DomainModel.Chat.PushedServiceInfo(
                     pushedService.OriginalServiceId,
-                    pushedService.ServiceSnapShot.ServiceName,
+                    pushedService.ServiceSnapShot.Name,
                     pushedService.ServiceTypeName ,
                     pushedService.TargetTime.ToString(),
                     string.Empty,
@@ -382,7 +344,7 @@ namespace Dianzhu.CSClient.Presenter
         }
         #endregion
 
-        private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId,string name,string lng,string lat)
+        public   void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId,string name,string lng,string lat)
         {
             viewSearch.TargetTime = targetTime;
 

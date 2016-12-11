@@ -14,23 +14,35 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.OriginalServiceId);
             //screenshot of the service
             Component<ServiceSnapShot>(x => x.ServiceSnapShot,m=> {
-               m. Map(x => x.ChargeUnitType);
+               m. Map(x => x.ChargeUnit);
                 m.Map(x => x.DepositAmount);
                 m.Map(x => x.CancelCompensation);
                 m.Map(x => x.Description);
                 m.Map(x => x.IsCompensationAdvance);
                 m.Map(x => x.MinPrice);
                 m.Map(x => x.OverTimeForCancel);
-                m.Map(x => x.ServiceModeType);
-                m.Map(x => x.ServiceName);
+                m.Map(x => x.ServiceMode);
+                m.Map(x => x.Name);
                 m.Map(x => x.UnitPrice);
+
+                m.Map(x => x.ServiceTypeName);
+                m.Map(x => x.ServiceTypeId);
+                m.Map(x => x.BusinessId);
+                m.Map(x => x. BusinessOwnerId);
+                m.Map(x => x.  BusinessName);
+                m.Map(x => x. BusinessPhone);
+                m.Map(x => x.IsForBusiness);
+                m.Map(x => x.Enabled);
+                m.Map(x => x.AllowedPayType);
+                m.Map(x => x.OrderDelay);
+                m.Map(x => x.Scope);
             });
 
             Component<WorkTimeSnapshot>(x => x.ServiceOpentimeSnapshot,
                 m => {
                     m.Map(x => x.MaxOrderForWorkDay);
                     m.Map(x => x.MaxOrderForWorkTime);
-                    m.Map(x => x.Enabled);
+                    m.Map(x => x.Enabled).Column("WorkTimeEnabled");
                     m.Component(x => x.TimePeriod, ms => {
                         ms.Component(x => x.StartTime, mss => {
                             mss.Map(x => x.Hour).Column("StartHour");

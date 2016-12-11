@@ -172,7 +172,7 @@ namespace Dianzhu.BLL
                 }
                 else
                 {
-                    where = where.And(x => x.ServiceBusinessOwnerId == UserID.ToString());
+                    where = where.And(x => x.Details.Any(y=>y.ServiceSnapShot.BusinessOwnerId == UserID.ToString()));
                 }
             }
             if(!string.IsNullOrEmpty(status))
@@ -292,7 +292,7 @@ namespace Dianzhu.BLL
                 else
                 {
                     //todo:refactpr
-                  //  where = where.And(x => x.Business.OwnerId == UserID);
+                    where = where.And(x => x.Details.Any(y => y.ServiceSnapShot.BusinessOwnerId == UserID.ToString()));
                 }
             }
             if (!string.IsNullOrEmpty(status))
@@ -372,13 +372,13 @@ namespace Dianzhu.BLL
         /// <param name="guid"></param>
         /// <param name="UserID"></param>
         /// <returns></returns>
-        public ServiceOrder GetOneOrder(Guid guid,Guid UserID)
+        public ServiceOrder GetOneOrder(Guid guid,string UserID)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            if (UserID != Guid.Empty)
+            if (string.IsNullOrEmpty(UserID))
             {
-                throw new NotImplementedException("为何传入UserId");
-               // where = where.And(x => x.Business.OwnerId == UserID);
+                //throw new NotImplementedException("为何传入UserId");
+                where = where.And(x => x.Details.Any(y=>y.ServiceSnapShot.BusinessOwnerId == UserID));
             }
             where = where.And(x => x.Id == guid);
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
@@ -955,7 +955,7 @@ namespace Dianzhu.BLL
 
             //更新订单状态
             order.OrderStatus = targetStatus;
-            Update(order);
+            //Update(order);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             log.Debug("当前订单状态为:" + targetStatus);
 

@@ -15,7 +15,7 @@ namespace Dianzhu.ApplicationService.Store
     public class StoreService: IStoreService
     {
         IDZMembershipService memberService;
-     IBusinessService businessService;
+        IBusinessService businessService;
         IStaffService staffService;
         public StoreService(IBusinessService businessService, IDZMembershipService memberService, IStaffService staffService)
         {
@@ -74,8 +74,8 @@ namespace Dianzhu.ApplicationService.Store
         public storeObj PostStore(storeObj storeobj,Customer customer)
         {
  
-            Guid guidUser = utils.CheckGuidID(customer.UserID, "customer.UserID");
-          MemberDto member= memberService.GetUserById(guidUser.ToString());
+           Guid guidUser = utils.CheckGuidID(customer.UserID, "customer.UserID");
+           MemberDto member= memberService.GetUserById(guidUser.ToString());
             if (member == null )
             {
                 throw new Exception("该商户账号不存在！");
@@ -84,7 +84,6 @@ namespace Dianzhu.ApplicationService.Store
             {
                 throw new Exception("您不是商户用户！");
             }
-
          ActionResult<Business> result=   businessService.Add(storeobj.name, storeobj.storePhone,string.Empty, guidUser, storeobj.location.latitude,
                 storeobj.location.longitude, storeobj.location.address,storeobj.linkMan,storeobj.vintage,storeobj.headCount);
 
@@ -92,6 +91,7 @@ namespace Dianzhu.ApplicationService.Store
             {
                 throw new Exception(result.ErrMsg);
             }
+            storeobj.id = result.ResultObject.Id.ToString();
             changeObj(storeobj,result.ResultObject);
            
             return storeobj;
@@ -206,7 +206,7 @@ namespace Dianzhu.ApplicationService.Store
          ActionResult<Business> result=businessService.ChangeInfo(guidStore.ToString(),guidUser.ToString(),
              storeobj.name,
              storeobj.introduction, storeobj.storePhone, storeobj.address
-               , utils.GetFileName(storeobj.imgUrl));
+               , utils.GetFileName(storeobj.imgUrl, "ImageHandler"));
 
             if (!result.IsSuccess)
             {

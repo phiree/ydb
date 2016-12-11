@@ -96,7 +96,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<staffObj,  Ydb.BusinessResource.DomainModel.Staff>()
             .ForMember(x => x.NickName, opt => opt.MapFrom(source => source.alias))
             .ForMember(x => x.Code, opt => opt.MapFrom(source => source.number))
-            .ForMember(x => x.Photo, opt => opt.MapFrom(source =>utils.GetFileName(source.imgUrl)))
+            .ForMember(x => x.Photo, opt => opt.MapFrom(source =>source.imgUrl))
             .ForMember(x => x.Gender, opt => opt.MapFrom(source => source.sex?"女":"男"))
             .ForMember(x => x.Name, opt => opt.MapFrom(source => source.realName))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));

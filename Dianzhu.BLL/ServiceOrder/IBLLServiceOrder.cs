@@ -69,7 +69,7 @@ namespace Dianzhu.BLL
         /// <param name="guid"></param>
         /// <param name="UserID"></param>
         /// <returns></returns>
-        ServiceOrder GetOneOrder(Guid guid, Guid UserID);
+        ServiceOrder GetOneOrder(Guid guid, string UserID);
 
         ServiceOrder GetOne(Guid guid);
         void Update(ServiceOrder order);

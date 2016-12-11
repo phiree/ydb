@@ -103,5 +103,6 @@ namespace Ydb.InstantMessage.Application
         /// <param name="userID"></param>
         /// <returns></returns>
         long GetUnreadChatsCount(string userID);
+          IList<ReceptionChatDto> GetInitChatList(string customerId, int pageSize);
     }
 }

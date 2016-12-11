@@ -186,9 +186,8 @@ namespace Dianzhu.DAL
             //todo:
             var query = "select o from ServiceOrder as o "+
                            " inner join o.Details  as d "+
-                           "  inner join d.OriginalService as s " +
-                            " inner join s.Business as b  " +
-                            " where b.Id='" + businessId+"'";
+                           "  inner join d.ServiceSnapShot as s " +
+                            " where s.BusinessId='" + businessId+"'";
             throw new NotImplementedException();
             // var list=  GetList(query);
 
@@ -266,7 +265,7 @@ namespace Dianzhu.DAL
             string query = " select o from ServiceOrder as o "
                            + " inner join o.Details as detail "
                            + " where 1=1"
-                           + " and detail.OriginalService.Id='" + serviceId + "' ";
+                           + " and detail.OriginalServiceId='" + serviceId + "' ";
             if (timeBegin != DateTime.MinValue)
             {
                 query = query + " and  detail.TargetTime<='" + timeEnd.AddDays(1) + "'";

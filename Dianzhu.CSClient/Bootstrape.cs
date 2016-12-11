@@ -54,6 +54,7 @@ namespace Dianzhu.CSClient
             AutoMapper.Mapper.Initialize(x =>
             {
                 Ydb.Membership.Application.AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
+                Ydb.ApplicationService.AutoMapperConfiguration.AutoMapperCrossDomain.Invoke(x);
             });
         }
 

@@ -75,7 +75,7 @@ namespace NHibernateUnitOfWork
                 //forces a flush of the current unit of work
                 tx.Commit();
             }
-            catch
+            catch(Exception ex)
             {
                 tx.Rollback();
                 throw;

@@ -156,7 +156,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <input id="hiBusinessAreaCode" class="dis-n" runat="server" snsi type="text">
+                                                <input id="hiBusinessAreaCode" class="dis-n" runat="server" snsi type="text"/>
                                             </div>
                                         </div>
                                         <div class="row">

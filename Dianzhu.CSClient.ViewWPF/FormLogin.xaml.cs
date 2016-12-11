@@ -57,10 +57,10 @@ namespace Dianzhu.CSClient.ViewWPF
             }
             bgw.RunWorkerAsync();
         }
-        public string FormText
+        public   string Version
         {
-            get { return this.Title; }
-            set { this.Title = value; }
+           
+            set {  Title = value; }
         }
         public string ErrorMessage
         {
@@ -176,8 +176,7 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         public event ViewLogin ViewLogin;
-        public event EventHandler TestClick;
-
+     
         private void tbxUserName_KeyDown(object sender, KeyEventArgs e)
         {
             if (!string.IsNullOrEmpty(tbxUserName.Text.Trim()) && e.Key == Key.Enter)
@@ -206,10 +205,7 @@ namespace Dianzhu.CSClient.ViewWPF
             else { return false; }
         }
 
-        private void btnTest_Click(object sender, RoutedEventArgs e)
-        {
-            TestClick(sender, e);
-        }
+      
 
         private void tbxPassword_GotFocus(object sender, RoutedEventArgs e)
         {
