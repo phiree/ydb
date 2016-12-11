@@ -63,5 +63,13 @@ namespace Ydb.InstantMessage.Application.Tests
 
             Console.WriteLine(chat.Id);
         }
+
+        [Test()]
+        public void GetInitChatListTest()
+        {
+            var chat = chatService.GetInitChatList("54f24bed-0aa5-4406-aa57-838bff39f3ce",10);
+
+            Console.WriteLine(chat.Count);
+        }
     }
 }

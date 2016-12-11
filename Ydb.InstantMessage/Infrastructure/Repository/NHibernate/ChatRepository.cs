@@ -78,7 +78,7 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
         /// <returns></returns>
         public IList<ReceptionChat> GetInitChatList(string customerId, int pageSize)
         {
-            return  session.QueryOver<ReceptionChat>().Where(x => x.FromId == customerId || x.ToId == customerId).Take(pageSize).List().OrderBy (x=>x.SavedTimestamp).ToList();
+            return  session.QueryOver<ReceptionChat>().Where(x => x.ChatTarget== ChatTarget.cer&&( x.FromId == customerId || x.ToId == customerId)).OrderBy(x=>x.SavedTimestamp).Desc.Take(pageSize).List();
         }
         public IList<ReceptionChat> GetReceptionChatList(string fromId, string toId, string orderId, DateTime timeBegin, DateTime timeEnd, int pageIndex, int pageSize, ChatTarget? target, out int rowCount)
         {

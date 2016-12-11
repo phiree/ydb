@@ -91,7 +91,9 @@ namespace Ydb.InstantMessage.Application
                         dtoList.Add(((ReceptionChatDidichuxing)item).ToDto());
                         break;
                     default:
-                        throw new Exception("未知chat类型");
+                        //throw new Exception("未知chat类型");
+                        
+                        break;
                 }
             }
 
@@ -112,9 +114,10 @@ namespace Ydb.InstantMessage.Application
         /// <param name="customerId"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
+        [UnitOfWork]
         public IList<ReceptionChatDto> GetInitChatList(string customerId, int pageSize)
         {
-            var list = repositoryChat.GetInitChatList(customerId, pageSize);
+            var list = repositoryChat.GetInitChatList(customerId, pageSize).OrderBy(x=>x.SavedTimestamp).ToList();
             return ToDto(list);
         }
 
