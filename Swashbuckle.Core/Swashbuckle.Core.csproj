@@ -42,8 +42,8 @@
     <AssemblyOriginatorKeyFile>Swashbuckle.Core.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '测试环境|AnyCPU'">
-    <OutputPath>bin\测试环境\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'dev|AnyCPU'">
+    <OutputPath>bin\dev\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>

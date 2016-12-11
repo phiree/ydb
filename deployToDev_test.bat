@@ -85,7 +85,13 @@ if "%App%" EQU "Two" (
 
  
 
-if "%App%" EQU "Three" echo Run Install for App Three here
+if "%App%" EQU "Three" 
+(
+:: build csclient and upload to server
+"C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe" "%~dp0Dianzhu.CSClient\Dianzhu.CSClient.csproj"  /target:publish
+ echo 3
+)
+
 if "%App%" EQU "Four" echo Run Install for App Four here
 if "%App%" EQU "Five" echo Run Install for App Five here
 if "%App%" EQU "All Apps" (
