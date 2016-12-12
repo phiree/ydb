@@ -70,7 +70,16 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
             var list = filter.pageSize == 0 ? Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList() : Find(where, filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
             return list;
         }
-
+        /// <summary>
+        /// todo: 需要使用 Specification模式.
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public IList<ReceptionChat> GetInitChatList(string customerId, int pageSize)
+        {
+            return  session.QueryOver<ReceptionChat>().Where(x => x.ChatTarget== ChatTarget.cer&&( x.FromId == customerId || x.ToId == customerId)).OrderBy(x=>x.SavedTimestamp).Desc.Take(pageSize).List();
+        }
         public IList<ReceptionChat> GetReceptionChatList(string fromId, string toId, string orderId, DateTime timeBegin, DateTime timeEnd, int pageIndex, int pageSize, ChatTarget? target, out int rowCount)
         {
             var result = BuildReceptionChatQuery(fromId, toId, orderId, timeBegin, timeEnd);

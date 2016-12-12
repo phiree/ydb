@@ -44,7 +44,8 @@ namespace Dianzhu.Push
             {
                 pushMessage.DisplayContent = System.Text.RegularExpressions.Regex.Replace(chatMessage, @"[\<|\>|\[|\]]", string.Empty);
             }
-            else if (chatType == typeof(ReceptionChat) || chatType == typeof(ReceptionChatMedia))
+            else if (chatType == typeof(ReceptionChat) || chatType == typeof(ReceptionChatMedia)
+                ||chatType== typeof(ReceptionChatPushService))
             {
  
                 switch (fromResource)// member.UserType)

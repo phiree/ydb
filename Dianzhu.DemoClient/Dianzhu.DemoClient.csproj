@@ -76,8 +76,8 @@
   <PropertyGroup>
     <ApplicationIcon>favicon %282%29.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '测试环境|x86'">
-    <OutputPath>bin\x86\测试环境\</OutputPath>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'dev|x86' ">
+    <OutputPath>bin\x86\dev\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>

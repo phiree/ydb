@@ -99,8 +99,8 @@ namespace Dianzhu.CSClient.Presenter
 
                 IList<VMChat> vmList = new List<VMChat>();
 
-                IList<ReceptionChatDto> dtoChatList = chatService.GetReceptionChatListByCustomerId(identity, 10);
-
+                IList<ReceptionChatDto> dtoChatList = chatService.GetInitChatList(identity, 10);
+              //  IList<ReceptionChatDto> dtoChatList = chatService.GetReceptionChatListByCustomerId(identity, 10);
                 if (dtoChatList.Count > 0)
                 {
                     VMChat vmChat;
