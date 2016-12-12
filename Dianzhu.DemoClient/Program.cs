@@ -17,7 +17,9 @@ namespace Dianzhu.DemoClient
             Application.SetCompatibleTextRenderingDefault(false);
             //获取分配的客服.
             //PHSuit.Logging.Config("Dianzhu.DemoClient");
-            Ydb.Common.LoggingConfiguration.Config("mongodb://112.74.198.215/");
+            //Ydb.Common.LoggingConfiguration.Config("mongodb://112.74.198.215/");
+            Bootstrap.Boot();
+
             bool isValid= GlobalViables.CheckConfig();
             if (!isValid)
             {

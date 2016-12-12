@@ -56,6 +56,10 @@ namespace Dianzhu.CSClient
                 Ydb.Membership.Application.AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
                 Ydb.ApplicationService.AutoMapperConfiguration.AutoMapperCrossDomain.Invoke(x);
             });
+
+            IEncryptService iEncryptService = container.Resolve<IEncryptService>();
+            Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager
+               .ConnectionStrings["MongoDB"].ConnectionString, false));
         }
 
         private static FluentConfiguration BuildDBConfig(string connectionStringName)
