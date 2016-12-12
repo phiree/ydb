@@ -235,7 +235,7 @@ namespace Dianzhu.Web.RestfulApi
             {
                 return false;
             }
-            ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + sign);
+            ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + token + ";sign=" + sign);
 
             string reqUri = req.RequestUri.AbsolutePath.ToLower();
             //ilog.Debug("Request(RequestUri)" + reqTime + ":" + requestUri);

@@ -7,12 +7,14 @@ using Dianzhu.Web.Log.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Web.Security;
+using Ydb.Common.Infrastructure;
 
 namespace Dianzhu.Web.Log.Controllers
 {
     public class LogController : Controller
     {
-        private readonly log4netDB db = new log4netDB();
+        private readonly log4netDB db = new log4netDB(Bootstrap.Container.Resolve<IEncryptService>(), System.Configuration.ConfigurationManager
+               .ConnectionStrings["MongoDB"].ConnectionString);
         // GET: Log
         [Authorize]
         public ActionResult Index(string logger,string level,string classname,string domain,string message,string begintime,string endtime)
@@ -41,7 +43,7 @@ namespace Dianzhu.Web.Log.Controllers
             }
             if (!string.IsNullOrEmpty(message))
             {
-                filter = filter & buildersFilter.Regex("message", "/"+domain+ "/");
+                filter = filter & buildersFilter.Regex("message", "/"+ message + "/");
             }
             if (!string.IsNullOrEmpty(begintime))
             {
