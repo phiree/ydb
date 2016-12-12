@@ -59,8 +59,8 @@ namespace Dianzhu.CSClient
         [STAThread]
         static void Main(string[] args)
         {
-            PHSuit.Logging.Config("Dianzhu.CSClient");
-
+            //PHSuit.Logging.Config("Dianzhu.CSClient");
+            Ydb.Common.LoggingConfiguration.Config();
             //systemconfig
             AppDomain cDomain = AppDomain.CurrentDomain;
             cDomain.UnhandledException += new UnhandledExceptionEventHandler(cDomain_UnhandledException);

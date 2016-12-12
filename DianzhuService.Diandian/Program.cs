@@ -15,7 +15,8 @@ namespace DianzhuService.Diandian
         /// </summary>
         static void Main(string[] args)
         {
-             PHSuit.Logging.Config("Dianzhu.DianDian");
+            //PHSuit.Logging.Config("Dianzhu.DianDian");
+            Ydb.Common.LoggingConfiguration.Config();
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             ServiceDiandian sdd = new ServiceDiandian();
             if (Environment.UserInteractive)

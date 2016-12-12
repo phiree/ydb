@@ -16,7 +16,8 @@ namespace Dianzhu.IM.Test
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            PHSuit.Logging.Config("Dianzhu.IMTest");
+            //PHSuit.Logging.Config("Dianzhu.IMTest");
+            Ydb.Common.LoggingConfiguration.Config();
             Application.Run(new Main());
         }
     }

@@ -14,7 +14,8 @@ namespace NHibernateUnitOfWork.Tests
         [SetUp]
         public void Init()
         {
-            PHSuit.Logging.Config("Dianzhu.Test.NHibernateUnitOfWork.Tests");
+            //PHSuit.Logging.Config("Dianzhu.Test.NHibernateUnitOfWork.Tests");
+            Ydb.Common.LoggingConfiguration.Config();
         }
         [Test()]
         public void CreateTest()

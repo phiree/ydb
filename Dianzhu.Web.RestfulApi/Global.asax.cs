@@ -18,8 +18,8 @@ namespace Dianzhu.Web.RestfulApi
         protected void Application_Start()
         {
             // 在应用程序启动时运行的代码
-            PHSuit.Logging.Config("Dianzhu.Web.RestfulApi");
-            Ydb.Common.LoggingConfiguration.Config("Ydb.Dianzhu.Web.RestfulApi");
+            //PHSuit.Logging.Config("Dianzhu.Web.RestfulApi");
+            Ydb.Common.LoggingConfiguration.Config();
 
             AreaRegistration.RegisterAllAreas();
             //GlobalConfiguration.Configure(WebApiConfig.Register);

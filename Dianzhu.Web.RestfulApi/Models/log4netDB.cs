@@ -9,7 +9,9 @@ namespace Dianzhu.Web.RestfulApi.Models
     {
         //For Best practice, Please put this in the web.config. This is only for demo purpose.
         //====================================================
-        public String connectionString = "mongodb://localhost";
+        //public String connectionString = "mongodb://localhost";
+        public String connectionString = System.Configuration.ConfigurationManager
+                .ConnectionStrings["MongoDB"].ConnectionString;
         public String DataBaseName = "log4net";
         //====================================================
         private IMongoDatabase Database;

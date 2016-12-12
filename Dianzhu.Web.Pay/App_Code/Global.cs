@@ -11,7 +11,8 @@ public class Global:HttpApplication
     static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
     void Application_Start(object sender, EventArgs e)
     {
-        PHSuit.Logging.Config("Dianzhu.Web.Pay");
+        //PHSuit.Logging.Config("Dianzhu.Web.Pay");
+        Ydb.Common.LoggingConfiguration.Config();
         Bootstrap.Boot();
 
 
