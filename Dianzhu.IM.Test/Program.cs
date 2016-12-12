@@ -17,7 +17,7 @@ namespace Dianzhu.IM.Test
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //PHSuit.Logging.Config("Dianzhu.IMTest");
-            Ydb.Common.LoggingConfiguration.Config();
+            Ydb.Common.LoggingConfiguration.Config("mongodb://112.74.198.215/");
             Application.Run(new Main());
         }
     }

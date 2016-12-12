@@ -12,7 +12,7 @@ public class Global:HttpApplication
     void Application_Start(object sender, EventArgs e)
     {
         //PHSuit.Logging.Config("Dianzhu.Web.Pay");
-        Ydb.Common.LoggingConfiguration.Config();
+        Ydb.Common.LoggingConfiguration.Config("mongodb://112.74.198.215/");
         Bootstrap.Boot();
 
 

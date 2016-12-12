@@ -60,7 +60,7 @@ namespace Dianzhu.CSClient
         static void Main(string[] args)
         {
             //PHSuit.Logging.Config("Dianzhu.CSClient");
-            Ydb.Common.LoggingConfiguration.Config();
+            Ydb.Common.LoggingConfiguration.Config("mongodb://112.74.198.215/");
             //systemconfig
             AppDomain cDomain = AppDomain.CurrentDomain;
             cDomain.UnhandledException += new UnhandledExceptionEventHandler(cDomain_UnhandledException);

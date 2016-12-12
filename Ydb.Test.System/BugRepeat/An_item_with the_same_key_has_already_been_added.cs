@@ -35,7 +35,7 @@ namespace Ydb.Test.System.BugRepeat
         public void Setup()
         {
             //PHSuit.Logging.Config("TestSystem");
-            Ydb.Common.LoggingConfiguration.Config();
+            Ydb.Common.LoggingConfiguration.Config("mongodb://112.74.198.215/");
 
         }
         [Test]
