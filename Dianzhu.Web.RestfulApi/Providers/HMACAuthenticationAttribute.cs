@@ -93,7 +93,7 @@ namespace Dianzhu.Web.RestfulApi
             }
             else
             {
-                ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + token + ";sign=" + sign + ";error=No stamp_TIMES!");
+                ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + token + ";sign=" + sign + ";appName=" + appName + ";error=No stamp_TIMES!");
                 b = false;
             }
             if (req.Headers.TryGetValues("appName", out keyValue))
@@ -103,7 +103,7 @@ namespace Dianzhu.Web.RestfulApi
             }
             else
             {
-                ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + token + ";sign=" + sign + ";error=No appName!");
+                ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + token + ";sign=" + sign + ";appName=" + appName + ";error=No appName!");
                 b = false;
             }
             if (req.Headers.TryGetValues("token", out keyValue))
@@ -118,12 +118,12 @@ namespace Dianzhu.Web.RestfulApi
             }
             else
             {
-                ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + token + ";sign=" + sign + ";error=No sign!");
+                ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + token + ";sign=" + sign + ";appName=" + appName+"; error=No sign!");
                 b = false;
             }
             //var bb= isValidRequest1(req);
 
-            strLog = "Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + token + ";sign=" + sign;
+            strLog = "Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + token + ";sign=" + sign + ";appName=" + appName;
             if (b)
             {
                 //bool bb = bool.Parse(ConfigurationManager.AppSettings["NoAuthentication"]);
@@ -222,7 +222,7 @@ namespace Dianzhu.Web.RestfulApi
             string requestHttpMethod = req.Method.Method;
             if (!allowedApps.ContainsKey(appName))
             {
-                ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":"+ strLog + ";error=appName Not exists!");
+                ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":"+ strLog + ";error=appKey Not exists!");
                 return false;
             }
             var sharedKey = allowedApps[appName];
