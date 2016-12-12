@@ -32,7 +32,7 @@ namespace Dianzhu.CSClient.Presenter
         PushService bllPushService;
         IInstantMessage iIM;
        IServiceTypeService typeService;
-        IList<VMShelfService> SelectedServiceList;
+        IList<VMShelfService> selectedServiceList;
         Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder;
         LocalChatManager localChatManager;
         IDZMembershipService memberService;
@@ -67,6 +67,12 @@ namespace Dianzhu.CSClient.Presenter
             get
             {
                 return viewSearchResult;
+            }
+        }
+        public IList<VMShelfService> SelectedServiceList
+        {
+            get {
+                return selectedServiceList;
             }
         }
 
@@ -366,8 +372,8 @@ namespace Dianzhu.CSClient.Presenter
 
                 num++;
             }
-            viewSearchResult.SearchedService = vmShelfServiceList;
-            SelectedServiceList = vmShelfServiceList;
+            selectedServiceList= viewSearchResult.SearchedService = vmShelfServiceList;
+          
         }
     }
 }
