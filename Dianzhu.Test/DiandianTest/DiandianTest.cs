@@ -18,7 +18,8 @@ namespace Dianzhu.Test.DiandianTest
     {
         [TestFixtureSetUp]
         public void setup(){
-            PHSuit.Logging.Config("Dianzhu.Test");
+            //PHSuit.Logging.Config("Dianzhu.Test");
+            Ydb.Common.LoggingConfiguration.Config();
             log4net.LogManager.GetLogger("Dianzhu.Test").Debug("test--");
             log4net.LogManager.GetLogger("NoLog").Debug("test--");
         }

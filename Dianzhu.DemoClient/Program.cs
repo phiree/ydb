@@ -16,7 +16,8 @@ namespace Dianzhu.DemoClient
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //获取分配的客服.
-             PHSuit.Logging.Config("Dianzhu.DemoClient");
+            //PHSuit.Logging.Config("Dianzhu.DemoClient");
+            Ydb.Common.LoggingConfiguration.Config();
             bool isValid= GlobalViables.CheckConfig();
             if (!isValid)
             {

@@ -19,10 +19,10 @@ namespace Ydb.Common
           /// <summary>
         /// Configures log4net
         /// </summary>
-        public static void Config(string logFilePath)
+        public static void Config()
         {
             
-            string logFileNameRoot = "../logs/" + logFilePath + "/" + System.Environment.MachineName;
+            //string logFileNameRoot = "../logs/" + logFilePath + "/" + System.Environment.MachineName;
             Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
           
             hierarchy.Root.RemoveAllAppenders();
@@ -63,7 +63,9 @@ namespace Ydb.Common
             Logger logger = hierarchy.GetLogger(loggerName) as Logger;
             
             MongoDBAppender appenderMain = new MongoDBAppender();
-            appenderMain.ConnectionString = "mongodb://localhost";
+            //appenderMain.ConnectionString = "mongodb://localhost";
+            appenderMain.ConnectionString = System.Configuration.ConfigurationManager
+                .ConnectionStrings["MongoDB"].ConnectionString;
             appenderMain.CollectionName = "logs";
             appenderMain.ExpireAfterSeconds = 3600 * 24 * 30*6;//半年.
             //MongoAppenderFileld mf = new MongoAppenderFileld();

@@ -29,12 +29,13 @@ namespace Ydb.Test.System.BugRepeat
          */
     [TestFixture]
    public class An_item_with_the_same_key_has_already_been_added
-    {
+   {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.SystemTest");
         [SetUp]
         public void Setup()
         {
-            PHSuit.Logging.Config("TestSystem");
+            //PHSuit.Logging.Config("TestSystem");
+            Ydb.Common.LoggingConfiguration.Config();
 
         }
         [Test]
