@@ -83,6 +83,7 @@ namespace Dianzhu.Web.RestfulApi
             string appName = "";
             string token = "";
             string sign = "";
+            string strLog = "";
             IEnumerable<string> keyValue = null;
             if (req.Headers.TryGetValues("stamp_TIMES", out keyValue))
             {
@@ -92,6 +93,7 @@ namespace Dianzhu.Web.RestfulApi
             }
             else
             {
+                ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + token + ";sign=" + sign + ";error=No stamp_TIMES!");
                 b = false;
             }
             if (req.Headers.TryGetValues("appName", out keyValue))
@@ -101,6 +103,7 @@ namespace Dianzhu.Web.RestfulApi
             }
             else
             {
+                ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + token + ";sign=" + sign + ";error=No appName!");
                 b = false;
             }
             if (req.Headers.TryGetValues("token", out keyValue))
@@ -115,10 +118,12 @@ namespace Dianzhu.Web.RestfulApi
             }
             else
             {
+                ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + token + ";sign=" + sign + ";error=No sign!");
                 b = false;
             }
-           //var bb= isValidRequest1(req);
+            //var bb= isValidRequest1(req);
 
+            strLog = "Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + token + ";sign=" + sign;
             if (b)
             {
                 //bool bb = bool.Parse(ConfigurationManager.AppSettings["NoAuthentication"]);
@@ -166,7 +171,7 @@ namespace Dianzhu.Web.RestfulApi
                     //    }
                     //}
                 }
-                var isValid = isValidRequest(req, appName, sign, token, stamp_TIMES, IP4Address);
+                var isValid = isValidRequest(req, appName, sign, token, stamp_TIMES, IP4Address, strLog);
                 if (isValid.Result)
                 {
                     var currentPrincipal = new GenericPrincipal(new GenericIdentity(appName), null);
@@ -210,13 +215,14 @@ namespace Dianzhu.Web.RestfulApi
         /// <param name="token"></param>
         /// <param name="stamp_TIMES"></param>
         /// <returns></returns>
-        private async Task<bool> isValidRequest(HttpRequestMessage req, string appName, string sign, string token, string stamp_TIMES,string IP4Address)
+        private async Task<bool> isValidRequest(HttpRequestMessage req, string appName, string sign, string token, string stamp_TIMES,string IP4Address,string strLog)
         {
             string requestContentBase64String = "";
             string requestUri =HttpUtility.UrlEncode(req.RequestUri.AbsoluteUri.ToLower());
             string requestHttpMethod = req.Method.Method;
             if (!allowedApps.ContainsKey(appName))
             {
+                ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":"+ strLog + ";error=appName Not exists!");
                 return false;
             }
             var sharedKey = allowedApps[appName];
@@ -231,11 +237,11 @@ namespace Dianzhu.Web.RestfulApi
                 token = stringToken[0] + "." + stringToken[1] + "." + stringToken[2];
             }
             //ilog.Debug("Request(apiKey)" + reqTime + ":" + sharedKey);
-            if (isReplayRequest(sign, stamp_TIMES))
+            if (isReplayRequest(sign, stamp_TIMES,req,token,strLog))
             {
                 return false;
             }
-            ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + token + ";sign=" + sign);
+            //ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + token + ";sign=" + sign);
 
             string reqUri = req.RequestUri.AbsolutePath.ToLower();
             //ilog.Debug("Request(RequestUri)" + reqTime + ":" + requestUri);
@@ -246,12 +252,16 @@ namespace Dianzhu.Web.RestfulApi
             {
                 ApplicationService.Customer customer = new ApplicationService.Customer();
                 try { customer = customer.getCustomer(token, sharedKey, true); }
-                catch { return false; }
+                catch {
+                    ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":" + strLog + ";error=Decode token error!");
+                    return false;
+                }
                 if (System.Runtime.Caching.MemoryCache.Default.Contains(customer.UserID))
                 {
                     string strToken = System.Runtime.Caching.MemoryCache.Default[customer.UserID].ToString();
                     if (token != strToken)
                     {
+                        ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":" + strLog + ";error= Token not equal!");
                         return false;
                     }
                 }
@@ -261,6 +271,7 @@ namespace Dianzhu.Web.RestfulApi
                     //NHibernateUnitOfWork.UnitOfWork.Start();
                     if (bllusertoken.CheckToken(token))
                     {
+                        ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":" + strLog + ";error= Not find user by token!");
                         //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                         return false;
                     }
@@ -283,7 +294,7 @@ namespace Dianzhu.Web.RestfulApi
                 //ilog.Debug("Create(requestContentBase64String)" + reqTime + ":" + requestContentBase64String);
             }
             string data = String.Format("{0}{1}{2}{3}{4}", appName, token, requestContentBase64String, stamp_TIMES, requestUri);
-            ilog.Debug("Request(signBefore)" + stamp_TIMES + ":" + data);
+           
             //data = "123";
             byte[] signature = Encoding.UTF8.GetBytes(data);
             sb = new StringBuilder();
@@ -329,8 +340,20 @@ namespace Dianzhu.Web.RestfulApi
                     //string strsb = sb.ToString();
                     baseBuffer = Encoding.UTF8.GetBytes(sb.ToString());
                     string tt = Convert.ToBase64String(baseBuffer);
-                    ilog.Debug("Create(sign)" + stamp_TIMES + ":" + tt);
-                    return (sign.Equals(tt, StringComparison.Ordinal));
+                    //ilog.Debug("Request(signBefore)" + stamp_TIMES + ":" + data);
+                    //ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":Method=" + req.Method.ToString() + ";Uri=" + req.RequestUri.AbsoluteUri.ToString() + ";Token=" + token + ";sign=" + sign);
+                    //ilog.Debug("Create(sign)" + stamp_TIMES + ":signBefore="+ data + ",CreateSign=" + tt);
+                    //return (sign.Equals(tt, StringComparison.Ordinal));
+                    if (sign.Equals(tt, StringComparison.Ordinal))
+                    {
+                        ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":" + strLog + ";signBefore=" + data + ";CreateSign=" + tt);
+                        return true;
+                    }
+                    else
+                    {
+                        ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":" + strLog + ";signBefore=" + data + ";CreateSign=" + tt+ ";Error=sign not equal!");
+                        return false;
+                    }
                 }
             }
 
@@ -342,10 +365,11 @@ namespace Dianzhu.Web.RestfulApi
         /// <param name="nonce"></param>
         /// <param name="requestTimeStamp"></param>
         /// <returns></returns>
-        private bool isReplayRequest(string nonce, string requestTimeStamp)
+        private bool isReplayRequest(string nonce, string requestTimeStamp, HttpRequestMessage req,string token,string strLog)
         {
             if (System.Runtime.Caching.MemoryCache.Default.Contains(nonce))
             {
+                ilog.Debug("Request(RequestMethodUriSign)" + requestTimeStamp + ":" + strLog + ";error=appName Not exists!");
                 return true;
             }
             //unixtime防止跨时区调用
@@ -364,6 +388,8 @@ namespace Dianzhu.Web.RestfulApi
             //ilog.Debug("Check(bool1)" + reqTime + ":" + ((serverTotalSeconds - requestTotalSeconds) > 120000).ToString());
             if (Math.Abs(serverTotalSeconds - requestTotalSeconds) > 120000)
             {
+
+                ilog.Debug("Request(RequestMethodUriSign)" + requestTimeStamp + ":" + strLog + ";error=Out Time," + serverTotalSeconds .ToString ()+ "-"+ requestTotalSeconds .ToString ()+ "="+ Math.Abs(serverTotalSeconds - requestTotalSeconds) .ToString ()+ "> 120000!");
                 //ilog.Debug("Create(stamp_TIMES2)" + reqTime + ":" + serverTotalSeconds.ToString());
                 return true;
             }
@@ -374,6 +400,7 @@ namespace Dianzhu.Web.RestfulApi
             }
             catch (Exception ex)
             {
+                ilog.Debug("Request(RequestMethodUriSign)" + requestTimeStamp + ":" + strLog + ";error=MemoryCache.Default.Add Error!");
                 ilog.Error("Cache(sgin)" + requestTimeStamp + ":" + ex.Message);
             }
             //ilog.Debug("Create(stamp_TIMES4)" + reqTime + ":" + serverTotalSeconds.ToString());

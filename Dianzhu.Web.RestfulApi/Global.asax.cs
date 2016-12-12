@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using Dianzhu.RequestRestful;
 
+
 namespace Dianzhu.Web.RestfulApi
 {
     public class WebApiApplication : System.Web.HttpApplication
@@ -19,7 +20,7 @@ namespace Dianzhu.Web.RestfulApi
         {
             // 在应用程序启动时运行的代码
             //PHSuit.Logging.Config("Dianzhu.Web.RestfulApi");
-            Ydb.Common.LoggingConfiguration.Config();
+           
 
             AreaRegistration.RegisterAllAreas();
             //GlobalConfiguration.Configure(WebApiConfig.Register);
