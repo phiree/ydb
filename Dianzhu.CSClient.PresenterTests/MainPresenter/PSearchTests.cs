@@ -32,7 +32,8 @@ namespace Dianzhu.CSClient.Presenter.Tests
         [Test()]
         public void ViewSearch_SearchTest()
         {
-            IList<DZService> serviceList = Builder<DZService>.CreateListOfSize(10).Build();
+            var business = Builder<Business>.CreateNew().Build();
+            IList<DZService> serviceList = Builder<DZService>.CreateListOfSize(10).All().With(x=>x.Business=business) .Build();
 
             string name = "name";
             double latitude =1, longtitude =2;
@@ -42,14 +43,12 @@ namespace Dianzhu.CSClient.Presenter.Tests
             int total;
 
             //dzService.SearchService(name, minPrice, maxPrice, servieTypeId, targetTime, double.Parse(lng), double.Parse(lat), 0, 999, out total);
-            dzService.Stub(x => x.SearchService(name, minPrice, maxPrice, serviceTypeId, targetTime, longtitude, latitude, 0, 000, out total)).Return(serviceList);
+            dzService.Stub(x => x.SearchService(name, minPrice, maxPrice, serviceTypeId, targetTime, longtitude, latitude, 0, 999, out total)).Return(serviceList);
           
             PSearch pSearch = new PSearch(null,viewSearch,viewSearchResult,viewTypeSelect, null, null, dzService, null, null, null, null, null, null, null, null, null);
             pSearch.ViewSearch_Search(targetTime, minPrice, maxPrice, serviceTypeId, name, longtitude.ToString(), latitude.ToString());
-            Assert.AreEqual(10, pSearch.ViewSearchResult.SearchedService.Count);
-            
+            Assert.AreEqual(10, pSearch.SelectedServiceList.Count);
 
-            Assert.Fail();
         }
     }
 }
