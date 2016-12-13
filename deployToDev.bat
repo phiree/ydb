@@ -174,6 +174,10 @@ setlocal
 SET /P AREYOUSURE=------------------------是否发布:11.DianDian(确认是否已经编译正确)(Y/N)?
 
 IF /I "%AREYOUSURE%" NEQ "Y" GOTO ENDY
+::使用dev配置编译点点
+"C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe" "%~dp0DianzhuService.Diandian\DianzhuService.Diandian.csproj" /property:Configuration=dev
+echo 11.DianDian编译成功
+
 ncftpput -R   -u yf     -P 2121 dev.ydban.cn  /publish/diandian/   E:\Projects\dianzhu\publish\diandian\dev\*
  
 echo 11.DianDian发布成功
