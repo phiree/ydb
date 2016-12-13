@@ -78,7 +78,26 @@ namespace Ydb.BusinessResource.DomainModel
         /// <summary>
         /// 每日接单总量
         /// </summary>       
-        public virtual int MaxOrdersPerDay { get; set; }
+        public virtual IList<string> MaxOrdersPerDay {
+            get
+            {
+                IList<string> MaxCounts = new List<string>();
+                string errMsg = "";
+                for (int i = 1; i < 8; i++)
+                {
+                    ServiceOpenTime serviceOpenTime = GetWorkDay((DayOfWeek)(i % 7), out errMsg);
+                    if (string.IsNullOrEmpty(errMsg))
+                    {
+                        MaxCounts.Add(serviceOpenTime.MaxOrderForDay.ToString());
+                    }
+                    else
+                    {
+                        MaxCounts.Add("0");
+                    }
+                }
+                return MaxCounts;
+            }
+        }
 
 
         /// <summary>

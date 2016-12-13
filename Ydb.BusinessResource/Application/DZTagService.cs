@@ -35,7 +35,7 @@ namespace Ydb.BusinessResource.Application
         public void DeleteTag(Guid tagId)
         {
             DZTag tag = repositoryDZTag.FindById(tagId);
-            repositoryDZTag.Delete(tag);
+            repositoryDZTag.Delete(tag); 
         }
         /// <summary>
         /// 获取一个服务的tag

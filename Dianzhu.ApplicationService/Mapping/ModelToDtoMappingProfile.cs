@@ -105,7 +105,7 @@ namespace Dianzhu.ApplicationService.Mapping
            .ForMember(x => x.eServiceTarget, opt => opt.MapFrom(source => source.IsForBusiness ? "all" : "company"))
            .ForMember(x => x.eSupportPayWay, opt => opt.MapFrom(source => source.AllowedPayType.ToString()))
            .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.Enabled))
-         //  .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.MaxOrdersPerDay))
+           .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.MaxOrdersPerDay))
            .ForMember(x => x.chargeUnit, opt => opt.MapFrom(source => source.ChargeUnit))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
@@ -118,7 +118,7 @@ namespace Dianzhu.ApplicationService.Mapping
            .ForMember(x => x.eServiceTarget, opt => opt.MapFrom(source => source.IsForBusiness ? "all" : "company"))
            .ForMember(x => x.eSupportPayWay, opt => opt.MapFrom(source => source.AllowedPayType.ToString()))
            .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.Enabled))
-           //  .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.MaxOrdersPerDay))
+           .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.MaxOrdersPerDay))
            .ForMember(x => x.chargeUnit, opt => opt.MapFrom(source => source.ChargeUnit))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 

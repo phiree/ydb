@@ -246,12 +246,12 @@ namespace Dianzhu.ApplicationService
             }
         }
 
-        string _maxCount = "0";
+        IList<string>  _maxCount =new List<string>();
         /// <summary>
         ///该服务最大接单量
         /// </summary>
         /// <type>string</type>
-        public string maxCount
+        public IList<string> maxCount
         {
             get
             {
