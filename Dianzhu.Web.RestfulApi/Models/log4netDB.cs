@@ -19,6 +19,7 @@ namespace Dianzhu.Web.RestfulApi.Models
         public log4netDB(IEncryptService encryptService, string strConn)
         {
             connectionString = string.IsNullOrEmpty(strConn) ? connectionString : encryptService.Decrypt(strConn, false);
+            //connectionString = "mongodb://jsyk2016:qwe.20161209@localhost/log4net";
             var client = new MongoClient(connectionString);
             Database = client.GetDatabase(DataBaseName);
         }
