@@ -8,6 +8,7 @@ using Microsoft.Owin;
 using Owin;
 using Microsoft.Owin.Security.OAuth;
 using System.Web.Http;
+using Ydb.Common.Infrastructure;
 
 
 namespace Dianzhu.Web.RestfulApi
@@ -36,6 +37,7 @@ namespace Dianzhu.Web.RestfulApi
 
 
             Bootstrap.Boot();
+            
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);//to wire up ASP.NET Web API to our Owin server pipeline.
 

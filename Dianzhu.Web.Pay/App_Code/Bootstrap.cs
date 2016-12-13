@@ -15,6 +15,7 @@ using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor.Installer;
+using Ydb.Common.Infrastructure;
 /// <summary>
 /// Summary description for Installer
 /// </summary>
@@ -56,6 +57,10 @@ public class Bootstrap
         {
             Ydb.Membership.Application.AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
         });
+
+        IEncryptService iEncryptService = container.Resolve<IEncryptService>();
+        Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager
+           .ConnectionStrings["MongoDB"].ConnectionString, false));
 
     }
 

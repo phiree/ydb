@@ -11,6 +11,7 @@ namespace Dianzhu.Web.Log
     {
         protected void Application_Start()
         {
+            Bootstrap.Boot();
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }

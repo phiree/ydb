@@ -19,7 +19,7 @@ namespace Ydb.Common
           /// <summary>
         /// Configures log4net
         /// </summary>
-        public static void Config()
+        public static void Config(string strConn)
         {
             
             //string logFileNameRoot = "../logs/" + logFilePath + "/" + System.Environment.MachineName;
@@ -30,9 +30,9 @@ namespace Ydb.Common
             Logger rootLogger = hierarchy.Root;
             rootLogger.Level = Level.Error;
             /********/
-            CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "Dianzhu", "DianzhuAppender");
-            CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "Ydb",   "YdbAppender");
-            CreateLoggerMogo(hierarchy, log4net.Core.Level.Warn, "NHibernate",   "NhibernateAppender");
+            CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "Dianzhu", "DianzhuAppender",  strConn);
+            CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "Ydb",   "YdbAppender",  strConn);
+            CreateLoggerMogo(hierarchy, log4net.Core.Level.Warn, "NHibernate",   "NhibernateAppender",  strConn);
             hierarchy.Configured = true;
            
         }
@@ -58,14 +58,15 @@ namespace Ydb.Common
             logger.Level = Level.Debug;
             logger.AddAppender(appenderMain);
         }
-        private static void CreateLoggerMogo(Hierarchy hierarchy,log4net.Core.Level logLevel, string loggerName, string appenderName)
+        private static void CreateLoggerMogo(Hierarchy hierarchy,log4net.Core.Level logLevel, string loggerName, string appenderName, string strConn)
         {
             Logger logger = hierarchy.GetLogger(loggerName) as Logger;
             
             MongoDBAppender appenderMain = new MongoDBAppender();
             //appenderMain.ConnectionString = "mongodb://localhost";
-            appenderMain.ConnectionString = System.Configuration.ConfigurationManager
-                .ConnectionStrings["MongoDB"].ConnectionString;
+            //appenderMain.ConnectionString = System.Configuration.ConfigurationManager
+            //    .ConnectionStrings["MongoDB"].ConnectionString;
+            appenderMain.ConnectionString = strConn;
             appenderMain.CollectionName = "logs";
             appenderMain.ExpireAfterSeconds = 3600 * 24 * 30*6;//半年.
             //MongoAppenderFileld mf = new MongoAppenderFileld();

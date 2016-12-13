@@ -8,12 +8,14 @@ using Dianzhu.Web.RestfulApi.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Web.Security;
+using Ydb.Common.Infrastructure;
 
 namespace Dianzhu.Web.RestfulApi.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly log4netDB db = new log4netDB();
+        private readonly log4netDB db = new log4netDB(Bootstrap.Container.Resolve<IEncryptService>(), System.Configuration.ConfigurationManager
+               .ConnectionStrings["MongoDB"].ConnectionString);
         [Authorize]//(Roles="restful")
         public ActionResult Index()
         {

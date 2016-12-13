@@ -81,7 +81,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaServerWeb", "MediaServerWeb\", "{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
-		ProjectReferences = "{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;"
+		ProjectReferences = "{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{f351e700-e016-4a42-9154-54a6d92ecbde}|Ydb.Common.dll;{3d510583-1c11-48fb-8380-12e183e5914b}|Ydb.Infrastructure.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_2762"
 		Debug.AspNetCompiler.PhysicalPath = "MediaServerWeb\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_2762\"
@@ -1224,8 +1224,8 @@ Global
 		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.Debug|x86.Build.0 = Debug|Any CPU
-		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.dev|Any CPU.ActiveCfg = Release|Any CPU
-		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.dev|Any CPU.Build.0 = Release|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.dev|Any CPU.ActiveCfg = dev|Any CPU
+		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.dev|Any CPU.Build.0 = dev|Any CPU
 		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.dev|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.dev|Mixed Platforms.Build.0 = Release|Any CPU
 		{515A3298-F38B-40E0-968C-5C65EFB2AFFE}.dev|x86.ActiveCfg = Release|Any CPU

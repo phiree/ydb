@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
+using Ydb.Common.Infrastructure;
 
 namespace Dianzhu.Web.RestfulApi.Models
 {
@@ -9,14 +10,15 @@ namespace Dianzhu.Web.RestfulApi.Models
     {
         //For Best practice, Please put this in the web.config. This is only for demo purpose.
         //====================================================
-        //public String connectionString = "mongodb://localhost";
-        public String connectionString = System.Configuration.ConfigurationManager
-                .ConnectionStrings["MongoDB"].ConnectionString;
+        public String connectionString = "mongodb://localhost";
+        //public String connectionString = System.Configuration.ConfigurationManager
+        //        .ConnectionStrings["MongoDB"].ConnectionString;
         public String DataBaseName = "log4net";
         //====================================================
         private IMongoDatabase Database;
-        public log4netDB()
+        public log4netDB(IEncryptService encryptService, string strConn)
         {
+            connectionString = string.IsNullOrEmpty(strConn) ? connectionString : encryptService.Decrypt(strConn, false);
             var client = new MongoClient(connectionString);
             Database = client.GetDatabase(DataBaseName);
         }

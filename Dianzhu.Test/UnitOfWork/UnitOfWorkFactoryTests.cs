@@ -15,7 +15,8 @@ namespace NHibernateUnitOfWork.Tests
         public void Init()
         {
             //PHSuit.Logging.Config("Dianzhu.Test.NHibernateUnitOfWork.Tests");
-            Ydb.Common.LoggingConfiguration.Config();
+            //Ydb.Common.LoggingConfiguration.Config("mongodb://112.74.198.215/");
+            Bootstrap.Boot();
         }
         [Test()]
         public void CreateTest()

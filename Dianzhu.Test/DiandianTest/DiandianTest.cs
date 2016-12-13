@@ -19,7 +19,8 @@ namespace Dianzhu.Test.DiandianTest
         [TestFixtureSetUp]
         public void setup(){
             //PHSuit.Logging.Config("Dianzhu.Test");
-            Ydb.Common.LoggingConfiguration.Config();
+            //Ydb.Common.LoggingConfiguration.Config("mongodb://112.74.198.215/");
+            Bootstrap.Boot();
             log4net.LogManager.GetLogger("Dianzhu.Test").Debug("test--");
             log4net.LogManager.GetLogger("NoLog").Debug("test--");
         }

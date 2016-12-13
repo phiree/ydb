@@ -43,6 +43,12 @@ namespace Dianzhu.ApplicationService.Complaint
             //{
             //    complaintobj.target = "cer";
             //}
+
+            Ydb.Common.enum_ComplaintTarget target;
+            if (!Enum.TryParse<Ydb.Common.enum_ComplaintTarget>(complaintobj.target, out target))
+            {
+                throw new FormatException("投诉对象格式不正确！");
+            }
             if (string.IsNullOrEmpty(complaintobj.content))
             {
                 throw new FormatException("投诉的描述不能为空！");

@@ -11,7 +11,7 @@
         //Code that runs on application startup
         //init xmpp conenction 
         //防止网站被iis喀嚓,导致发送通知的用户从openfire掉线.
-        PHSuit.Logging.Config("Dianzhu.Web.Notify");
+        //PHSuit.Logging.Config("Dianzhu.Web.Notify");
         string host= System.Net.Dns.GetHostName();
         PHSuit.HttpHelper. _SetupRefreshJob(8039);
         Ydb.InstantMessage.Application.IInstantMessage im = Bootstrap.Container.Resolve<Ydb.InstantMessage.Application.IInstantMessage>();

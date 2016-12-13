@@ -75,7 +75,7 @@ namespace Ydb.Infrastructure.Tests
 
 
             PrintConfigSection(new InfrastructureTests.DbConfigBuilder().ReplaceDianzhuDb("dianzhu_test").BuildForServerConfig("192.168.1.150", "root", "root", "3306"));
-          
+
             /*
             Console.WriteLine("172_dianzhu_publish_test:" + encryptService.Encrypt("172_dianzhu___data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test", false));
             Console.WriteLine("172_ydb_membership:" + encryptService.Encrypt("172_membership___data source=192.168.1.172;uid=root;pwd=root;database=ydb_membership", false));
@@ -106,6 +106,8 @@ namespace Ydb.Infrastructure.Tests
             Console.WriteLine("Aliyun_Test_ydb_finance:" + encryptService.Encrypt("data source=dev.ydban.cn;uid=jsyk2016;pwd=IQDv$qefeqFWuq_L;port=4407;database=ydb_finance", false));
             Console.WriteLine("Aliyun_Test_ydb_common:" + encryptService.Encrypt("data source=dev.ydban.cn;uid=jsyk2016;pwd=IQDv$qefeqFWuq_L;port=4407;database=ydb_common", false));
             */
+
+            PrintOneServer(new List<string> { "mongodb://112.74.198.215/", "mongodb://localhost/" });
         }
 
 

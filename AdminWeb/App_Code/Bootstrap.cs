@@ -66,6 +66,10 @@ new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig(
             Ydb.Membership.Application.AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
             Ydb.Finance.Application.AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
         });
+
+        IEncryptService iEncryptService = container.Resolve<IEncryptService>();
+        Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager
+           .ConnectionStrings["MongoDB"].ConnectionString, false));
     }
 
     private static FluentConfiguration BuildDBConfig(string connectionStringName)

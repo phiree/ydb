@@ -13,7 +13,7 @@
     void Application_Start(object sender, EventArgs e)
     {
         // 在应用程序启动时运行的代码
-        PHSuit.Logging.Config("Dianzhu.AdminWeb");
+        //PHSuit.Logging.Config("Dianzhu.AdminWeb");
         //InitializeWindsor();
         Bootstrap.Boot();
         System.Timers.Timer timerOrderShare = new System.Timers.Timer(60*1000);
