@@ -5,6 +5,7 @@ using System.Text;
 using Ydb.BusinessResource.DomainModel;
 
 using NHibernate;
+using NHibernate.Transform;
 
 namespace Ydb.BusinessResource.Infrastructure.Repository
 {
@@ -14,6 +15,8 @@ namespace Ydb.BusinessResource.Infrastructure.Repository
 
         public IList<ServiceType> GetTopList()
         {
+            // return session.CreateQuery("select t from ServiceType t join fetch t.Children c1 join fetch c1.Children c2").SetResultTransformer(new DistinctRootEntityResultTransformer()).List<ServiceType>();
+            return session.QueryOver<ServiceType>().Fetch(x => x.Children).Eager .List().Distinct<ServiceType>().ToList();
             return Find(x=>x.Parent==null);
         }
         public ServiceType GetOneByCode(string code)
