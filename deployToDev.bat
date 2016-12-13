@@ -34,7 +34,7 @@ endlocal
 
 setlocal
 :PROMPT
-SET /P AREYOUSURE=------------------------是否发布:3. HttpApi网站 (Y/N)?
+SET /P AREYOUSURE=------------------------是否发布:3. AdminBusiness网站 (Y/N)?
 
 IF /I "%AREYOUSURE%" NEQ "Y" GOTO ENDY
 "C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe" "%~dp0AdminBusiness\website.publishproj" /p:deployonbuild=true /p:publishprofile="%~dp0AdminBusiness\App_Data\PublishProfiles\dev.pubxml" /p:visualstudioversion=14.0 /p:AllowUntrustedCertificate=True /p:username="deployer" /p:password="deployer2016"
