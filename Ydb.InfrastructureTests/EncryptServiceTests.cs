@@ -107,7 +107,7 @@ namespace Ydb.Infrastructure.Tests
             Console.WriteLine("Aliyun_Test_ydb_common:" + encryptService.Encrypt("data source=dev.ydban.cn;uid=jsyk2016;pwd=IQDv$qefeqFWuq_L;port=4407;database=ydb_common", false));
             */
 
-            PrintOneServer(new List<string> { "mongodb://112.74.198.215/", "mongodb://localhost/", "mongodb://jsyk2016:qwe.20161209@localhost/log4net" });
+            PrintOneServer(new List<string> { "mongodb://112.74.198.215/", "mongodb://localhost/", "mongodb://jsyk2016:qwe.20161209@localhost/log4net", "mongodb://jsyk2016:fgwwSB&9oaJxMzYU@112.74.198.215/log4net" });
         }
 
 
