@@ -35,8 +35,8 @@ namespace Ydb.Test.System.BugRepeat
         public void Setup()
         {
             //PHSuit.Logging.Config("TestSystem");
-            Ydb.Common.LoggingConfiguration.Config("mongodb://112.74.198.215/");
-
+            //Ydb.Common.LoggingConfiguration.Config("mongodb://112.74.198.215/");
+            Bootstrap.Boot();
         }
         [Test]
         public void An_item_with_the_same_key_has_already_been_added_in_dal()

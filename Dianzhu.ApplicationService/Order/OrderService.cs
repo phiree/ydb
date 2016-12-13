@@ -670,8 +670,8 @@ namespace Dianzhu.ApplicationService.Order
             //{
             //    appraiseobj.target = "cer";
             //}
-           enum_ChatTarget target;
-            if (!Enum.TryParse(appraiseobj.target, out target))
+            enum_ComplaintTarget target;
+            if (!Enum.TryParse<enum_ComplaintTarget>(appraiseobj.target, out target))
             {
                 throw new FormatException("评价对象格式不正确！");
             }

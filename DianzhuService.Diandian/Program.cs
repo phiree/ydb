@@ -16,7 +16,9 @@ namespace DianzhuService.Diandian
         static void Main(string[] args)
         {
             //PHSuit.Logging.Config("Dianzhu.DianDian");
-            Ydb.Common.LoggingConfiguration.Config("mongodb://112.74.198.215/");
+            //Ydb.Common.LoggingConfiguration.Config("mongodb://112.74.198.215/");
+            Bootstrap.Boot();
+
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             ServiceDiandian sdd = new ServiceDiandian();
             if (Environment.UserInteractive)

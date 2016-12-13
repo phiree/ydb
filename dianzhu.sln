@@ -81,7 +81,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaServerWeb", "MediaServerWeb\", "{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
-		ProjectReferences = "{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;"
+		ProjectReferences = "{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{f351e700-e016-4a42-9154-54a6d92ecbde}|Ydb.Common.dll;{3d510583-1c11-48fb-8380-12e183e5914b}|Ydb.Infrastructure.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_2762"
 		Debug.AspNetCompiler.PhysicalPath = "MediaServerWeb\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_2762\"

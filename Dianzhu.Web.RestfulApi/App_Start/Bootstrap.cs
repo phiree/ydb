@@ -74,6 +74,11 @@ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb
                 x.AddProfile<Ydb.BusinessResource.Application.ModelToDtoMappingProfile>();
                 x.AddProfile<Ydb.ApplicationService.ModelToDtoMappingProfileCrossDomain>();
             });
+
+
+            IEncryptService iEncryptService = container.Resolve<IEncryptService>();
+            Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager
+               .ConnectionStrings["MongoDB"].ConnectionString, false));
         }
 
         private static FluentConfiguration BuildDBConfig(string connectionStringName)
