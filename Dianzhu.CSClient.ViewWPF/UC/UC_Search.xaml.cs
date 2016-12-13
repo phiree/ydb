@@ -276,6 +276,7 @@ namespace Dianzhu.CSClient.ViewWPF
         public event SearchService Search;
         
         public event SaveUIData SaveUIData;
+        public event ReloadServiceType ReloadServiecType;
 
         #endregion
 
@@ -540,6 +541,12 @@ namespace Dianzhu.CSClient.ViewWPF
             UC_TypeSelect.Init(typeList);
         }
 
+
         #endregion
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ReloadServiecType();
+        }
     }
 }

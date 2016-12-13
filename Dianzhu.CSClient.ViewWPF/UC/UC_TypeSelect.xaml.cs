@@ -43,8 +43,16 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             this.typeList = typeList;
             var source = typeList.Where(x => x.Parent == null).ToList();
-            cbxSearchTypeF.ItemsSource = source;
-            cbxSearchTypeF.SelectedItem = source[0];
+            Action lamda = () =>
+            {
+                cbxSearchTypeF.ItemsSource = source;
+                cbxSearchTypeF.SelectedItem = source[0];
+            };
+            if (!Dispatcher.CheckAccess()) { Dispatcher.Invoke(lamda); }
+            else { lamda(); }
+
+ 
+            
         }
 
         private void cbxSearchTypeF_SelectionChanged(object sender, SelectionChangedEventArgs e)

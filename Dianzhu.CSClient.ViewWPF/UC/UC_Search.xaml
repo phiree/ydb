@@ -79,7 +79,7 @@
 
             <Grid Grid.Row="0" VerticalAlignment="Center">
                 <Label Margin="26,0,0,0">
-                    <TextBlock FontFamily="微软雅黑" FontWeight="Bold" Foreground="#FF6f6f6f" FontSize="14" Text="订单编辑"></TextBlock>
+                    <TextBlock FontFamily="微软雅黑" FontWeight="Bold" Foreground="#FF6f6f6f" FontSize="14" Text="订单编辑" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"></TextBlock>
                 </Label>
             </Grid>
 

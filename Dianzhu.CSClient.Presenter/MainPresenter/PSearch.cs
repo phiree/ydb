@@ -113,7 +113,7 @@ namespace Dianzhu.CSClient.Presenter
             this.identity = identity;
             
             viewSearch.Search += ViewSearch_Search;
-
+            viewSearch.ReloadServiecType += ViewSearch_ReloadServiecType;
             LoadTypes();
             
  
@@ -121,10 +121,16 @@ namespace Dianzhu.CSClient.Presenter
             this.ServiceTypeSecond = new ServiceType();
             this.ServiceTypeThird = new ServiceType();
             
+            
             viewSearchResult.PushServices += ViewSearchResult_PushServices;
             viewSearchResult.FilterByBusinessName += ViewSearchResult_FilterByBusinessName; ;
            
            
+        }
+
+        private void ViewSearch_ReloadServiecType()
+        {
+            LoadTypes();
         }
 
         private void ViewSearchResult_FilterByBusinessName(string businessName)
@@ -153,7 +159,8 @@ namespace Dianzhu.CSClient.Presenter
         {
             try
             {
-                viewSearch.InitType(TypeList);
+                if (GlobalViables.AllServiceType == null) { return; }
+                viewSearch.InitType(GlobalViables.AllServiceType);
 
                 return;
 

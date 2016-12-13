@@ -53,6 +53,34 @@ namespace Dianzhu.CSClient
         static IDZMembershipService memberService;
         static LocalChatManager localChatManager;
 
+        static void InitData()
+        {
+            //init servicetype
+
+            BackgroundWorker bgk = new BackgroundWorker();
+            bgk.DoWork += Bgk_DoWork;
+            bgk.RunWorkerCompleted += Bgk_RunWorkerCompleted;
+            bgk.RunWorkerAsync();
+        }
+
+        private static void Bgk_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (mainPresenter == null) return;
+            foreach (IViewTabContent tabContent in mainPresenter.Form.ViewTabContents)
+            {
+                tabContent.ViewSearch.InitType(GlobalViables.AllServiceType);
+            }
+        }
+
+        private static void Bgk_DoWork(object sender, DoWorkEventArgs e)
+        {
+           
+          var typeService=  Bootstrap.Container.Resolve<Ydb.BusinessResource.Application.IServiceTypeService>();
+            var typeList = typeService.GetTopList();
+
+            GlobalViables.AllServiceType = typeList;
+        }
+
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
@@ -70,7 +98,7 @@ namespace Dianzhu.CSClient
             cDomain.UnhandledException += new UnhandledExceptionEventHandler(cDomain_UnhandledException);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+           InitData();
             
 
             log.Debug("开始启动助理工具");
@@ -108,6 +136,7 @@ namespace Dianzhu.CSClient
                 mainPresenter = Bootstrap.Container.Resolve<PMain>();
                 mainPresenter.Form.Version = version;
                 mainPresenter.Form.AddCustomerTest += Form_AddCustomerTest;
+                
                 Thread t = new Thread(SysAssign);
                 t.Start();
                 System.Windows.Application app=new System.Windows.Application();

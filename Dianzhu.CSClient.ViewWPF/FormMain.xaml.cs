@@ -33,6 +33,9 @@ namespace Dianzhu.CSClient.ViewWPF
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
+
+        IList<IViewTabContent> viewTabContents=new List<IViewTabContent>();
+
         private Dictionary<ResizeDirection, Cursor> cursors = new Dictionary<ResizeDirection, Cursor>
         {
             {ResizeDirection.Top, Cursors.SizeNS},
@@ -61,6 +64,7 @@ namespace Dianzhu.CSClient.ViewWPF
             };
 
             this.MouseMove += new MouseEventHandler(Window_MouseMove);
+           
         }
 
         public void CloseApplication()
@@ -99,6 +103,16 @@ namespace Dianzhu.CSClient.ViewWPF
             set
             {
                 FormTitle.Text = value;
+            }
+        }
+
+      
+
+        public IList<IViewTabContent> ViewTabContents
+        {
+            get
+            {
+                return viewTabContents;
             }
         }
 
@@ -146,8 +160,8 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public void AddIdentityTab(string identityTabFriendly, IViewTabContent viewTabContent)
         {
-           // tabContent.Visibility = Visibility.Visible;
-
+            // tabContent.Visibility = Visibility.Visible;
+            viewTabContents.Add(viewTabContent);
             TabItem tab = new TabItem();
             tab.Name = identityTabFriendly;
             tab.Content = (UC_TabContent)viewTabContent;

@@ -30,6 +30,7 @@ namespace Dianzhu.CSClient.IView
 
         string Version { set; }
         event AddCustomerTest AddCustomerTest;
+       IList< IViewTabContent> ViewTabContents { get; }
         
     }
     public delegate void AddCustomerTest();

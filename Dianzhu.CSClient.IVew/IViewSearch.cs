@@ -38,7 +38,7 @@ namespace Dianzhu.CSClient.IView
 
       
         void InitType(IList<ServiceType> typeList);
-       
+        event ReloadServiceType ReloadServiecType;
     }
     public delegate void SearchService(DateTime targetTime,decimal minPrice,decimal maxPrice,Guid servieTypeId,string name,string lng,string lat);
  
@@ -55,10 +55,12 @@ namespace Dianzhu.CSClient.IView
         //bool BtnPush { get; set; }
         event PushServiceTimerSend PushServiceTimerSend;
         event FilterByBusinessName FilterByBusinessName;
+     
     }
     
     public delegate ServiceOrder PushServices(IList<Guid> pushedServices,out string errorMsg);
     public delegate void PushServiceTimerSend();
     public delegate void FilterByBusinessName(string businessName);
+    public delegate void ReloadServiceType();
 
 }

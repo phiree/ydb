@@ -20,6 +20,7 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         public static MemberDto CurrentCustomerService = null;
         public static MemberDto Diandian = null;
+        public static IList<Ydb.BusinessResource.DomainModel.ServiceType> AllServiceType = null;
         public static string MediaUploadUrl = Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl");
         public static string MediaGetUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl");
         public static readonly string LocalMediaSaveDir =Environment.CurrentDirectory+ @"\localmedia\";
