@@ -21,7 +21,7 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.IsCertificated);
             Map(x => x.IsCompensationAdvance);
             Map(x => x.IsForBusiness);
-            Map(x => x.MaxOrdersPerDay);
+            //Map(x => x.MaxOrdersPerDay);
             Map(x => x.MinPrice);
             Map(x => x.OrderDelay);
             Map(x => x.AllowedPayType).CustomType<int>();

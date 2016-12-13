@@ -84,7 +84,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.AllowedPayType, opt => opt.MapFrom(source => source.eSupportPayWay))
             .ForMember(x => x.Enabled, opt => opt.MapFrom(source => source.bOpen))
             .ForMember(x => x.ChargeUnit, opt => opt.MapFrom(source =>enum_ChargeUnit.Hour))
-            .ForMember(x => x.MaxOrdersPerDay, opt => opt.MapFrom(source => Int32.Parse(source.maxCount)))
+            //.ForMember(x => x.MaxOrdersPerDay, opt => opt.MapFrom(source => Int32.Parse(source.maxCount)))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<serviceTypeObj,  ServiceType>()

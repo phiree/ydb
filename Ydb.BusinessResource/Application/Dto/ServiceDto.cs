@@ -36,7 +36,7 @@ namespace Ydb.BusinessResource.Application
         public virtual string AllowedPayType { get; set; }
         public virtual int OrderDelay { get; set; }
         public virtual string Scope { get; set; }
-
+        public virtual IList<string> MaxOrdersPerDay { get; set; }
 
     }
 }
