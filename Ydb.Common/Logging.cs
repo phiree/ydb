@@ -74,6 +74,7 @@ namespace Ydb.Common
             //LoggingEvent le = new LoggingEvent();
             //mf.Layout.Format("%logger{5}");
             //new Layout2RawLayoutAdapter(new PatternLayout("%logger{5}")
+            //appenderMain.AddField(new MongoAppenderFileld { Layout = new Layout2RawLayoutAdapter(new PatternLayout("%date{DATE}")), Name = "timestamp" });
             appenderMain.AddField(new MongoAppenderFileld { Layout= new Layout2RawLayoutAdapter(new PatternLayout("%date")),Name = "date" });
             appenderMain.AddField(new MongoAppenderFileld { Layout = new Layout2RawLayoutAdapter(new PatternLayout("%thread")), Name = "thread" });
             appenderMain.AddField(new MongoAppenderFileld { Layout = new Layout2RawLayoutAdapter(new PatternLayout("%level")), Name = "level" });
