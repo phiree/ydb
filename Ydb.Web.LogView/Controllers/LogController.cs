@@ -27,7 +27,7 @@ namespace Dianzhu.Web.Log.Controllers
             if (!string.IsNullOrEmpty(logger))
             {
                 //filter=filter& buildersFilter.Eq("logger", logger);
-                filter = filter & buildersFilter.Regex("logger", "/" + logger + "/" );
+                filter = filter & buildersFilter.Regex("logger", "/" + logger + "/i" );
             }
             if (!string.IsNullOrEmpty(level)&& level!= "Level")
             {
@@ -35,15 +35,15 @@ namespace Dianzhu.Web.Log.Controllers
             }
             if (!string.IsNullOrEmpty(classname))
             {
-                filter = filter & buildersFilter.Regex("classname", "/" + classname + "/");
+                filter = filter & buildersFilter.Regex("classname", "/" + classname + "/i");
             }
             if (!string.IsNullOrEmpty(domain))
             {
-                filter = filter & buildersFilter.Regex("domain", "/" + domain + "/");
+                filter = filter & buildersFilter.Regex("domain", "/" + domain + "/i");
             }
             if (!string.IsNullOrEmpty(message))
             {
-                filter = filter & buildersFilter.Regex("message", "/"+ message + "/");
+                filter = filter & buildersFilter.Regex("message", "/"+ message + "/i");
             }
             if (!string.IsNullOrEmpty(begintime))
             {
