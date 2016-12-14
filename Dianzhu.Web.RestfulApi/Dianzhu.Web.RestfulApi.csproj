@@ -322,6 +322,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ApiCount.cs" />
     <Compile Include="Models\ApiInfo.cs" />
     <Compile Include="Models\log.cs" />
     <Compile Include="Models\log4netDB.cs" />

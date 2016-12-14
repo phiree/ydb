@@ -31,15 +31,50 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             searchText = string.IsNullOrEmpty(searchText) ? "" : searchText;
             apiInfoList = apiInfos.Find(a => a.ApiName.Contains(searchText)||a.ApiRoute.Contains(searchText)).ToListAsync().Result;
             var logs = db.logs;
-            for (int i = 0; i < apiInfoList.Count; i++)
+
+
+            IList<ApiCount> apiCountList = logs.Aggregate()
+            .Match(r => r.logger2 == "Rule.v1.RestfulApi.Web.Dianzhu")
+            .Group(r => new { logger = r.logger }, g =>
+            new
             {
-                var buildersFilter = Builders<log>.Filter;
-                //var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute="+ apiInfoList[i].ApiRoute + "/");
-                var filter = buildersFilter.Eq("logger", "Ydb." + apiInfoList[i].ApiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu");
-                //var logCount= logs.CountAsync(a => a.logger.Contains("Dianzhu.Web.RestfulApi") && a.logger.Contains("ApiRoute="+ apiInfoList[i].ApiRoute)).ToListAsync().Result;
-                var logCount = logs.CountAsync(filter);
-                apiInfoList[i].ApiRequstNum = logCount.Result;
+                Key = g.Key,
+                sumCount = g.Count()
+            })
+            .Project(r => new ApiCount()
+            {
+                logger = r.Key.logger,
+                apiCount = r.sumCount
+            })
+            .ToListAsync().Result;
+
+            foreach (ApiInfo api in apiInfoList)
+            {
+                int c = 0;
+                for (int i = 0; i < apiCountList.Count; i++)
+                {
+                    if (apiCountList[i].logger == "Ydb." + api.ApiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu")
+                    {
+                        api.ApiRequstNum = apiCountList[i].apiCount;
+                        break;
+                    }
+                    c++;
+                }
+                if (c == apiCountList.Count)
+                {
+                    api.ApiRequstNum = 0;
+                }
             }
+
+            //for (int i = 0; i < apiInfoList.Count; i++)
+            //{
+            //    var buildersFilter = Builders<log>.Filter;
+            //    //var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute="+ apiInfoList[i].ApiRoute + "/");
+            //    var filter = buildersFilter.Eq("logger", "Ydb." + apiInfoList[i].ApiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu");
+            //    //var logCount= logs.CountAsync(a => a.logger.Contains("Dianzhu.Web.RestfulApi") && a.logger.Contains("ApiRoute="+ apiInfoList[i].ApiRoute)).ToListAsync().Result;
+            //    var logCount = logs.CountAsync(filter);
+            //    apiInfoList[i].ApiRequstNum = logCount.Result;
+            //}
             return View(apiInfoList.OrderByDescending(s=>s.ApiRequstNum).ToList());
         }
         [Authorize]
