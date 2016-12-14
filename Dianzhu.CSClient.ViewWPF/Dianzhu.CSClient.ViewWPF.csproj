@@ -351,9 +351,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\welcome.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\1.png" />
     <Resource Include="Resources\2.png" />
     <Resource Include="Resources\3.png" />
@@ -385,6 +382,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\YDBan.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\welcome.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

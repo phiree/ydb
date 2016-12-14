@@ -396,7 +396,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <BitmapImage x:Key="ImageSource1" >Resources/welcome.png</BitmapImage>
+         
 
     </Window.Resources>
 
@@ -547,7 +547,7 @@
                 <!--主要操作区-->
                 <Grid Grid.Row="2">
                     <Grid.Background>
-                        <ImageBrush ImageSource="pack://application:,,,/Dianzhu.CSClient.ViewWPF;component/Resources/welcome.png" Stretch="UniformToFill"/>
+                        <ImageBrush ImageSource="Resources/welcome.jpg" Stretch="UniformToFill"/>
                     </Grid.Background>
                     <TabControl x:Name="tabContent" Style="{DynamicResource TabControlStyle}" Visibility="Collapsed">
 
