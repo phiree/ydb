@@ -407,6 +407,7 @@ namespace Dianzhu.BLL
         }
         public IList<ServiceOrder> GetAll(int pageIndex, int pageSize, out long totalRecords) //获取全部订单
         {
+            return repoServiceOrder.GetAll(pageIndex, pageSize, out totalRecords);
             //  iuow.BeginTransaction();
             var where = PredicateBuilder.True<ServiceOrder>();
             var all = repoServiceOrder.Find(where, pageIndex, pageSize, out totalRecords);
