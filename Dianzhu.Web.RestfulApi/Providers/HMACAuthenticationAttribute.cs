@@ -347,6 +347,8 @@ namespace Dianzhu.Web.RestfulApi
                     if (sign.Equals(tt, StringComparison.Ordinal))
                     {
                         ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":" + strLog + ";signBefore=" + data + ";CreateSign=" + tt);
+                        
+                        
                         return true;
                     }
                     else

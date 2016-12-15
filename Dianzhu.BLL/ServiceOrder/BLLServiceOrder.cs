@@ -219,11 +219,11 @@ namespace Dianzhu.BLL
             {
                 if (strAssign == "false")
                 {
-                    where = where.And(x => string.IsNullOrEmpty( x.StaffId ));
+                    where = where.And(x => x.StaffId==null || x.StaffId==string.Empty);
                 }
                 else
                 {
-                    where = where.And(x => !string.IsNullOrEmpty(x.StaffId));
+                    where = where.And(x => x.StaffId != null && x.StaffId != string.Empty);
                 }
             }
             if (storeID != Guid.Empty)
