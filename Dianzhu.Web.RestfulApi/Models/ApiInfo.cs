@@ -18,8 +18,8 @@ namespace Dianzhu.Web.RestfulApi.Models
         
         public String ApiRule { get; set; }
 
-        long _ApiRequstNum = 0;
-        public long ApiRequstNum { get { return _ApiRequstNum; } set { _ApiRequstNum = value; } }
+        long _ApiRequestNum = 0;
+        public long ApiRequestNum { get { return _ApiRequestNum; } set { _ApiRequestNum = value; } }
 
     }
 }

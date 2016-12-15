@@ -30,42 +30,47 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             var apiInfos = db.ApiInfos;//不填"ApiInfos"，则默认为ApiInfos
             searchText = string.IsNullOrEmpty(searchText) ? "" : searchText;
             apiInfoList = apiInfos.Find(a => a.ApiName.Contains(searchText)||a.ApiRoute.Contains(searchText)).ToListAsync().Result;
-            var logs = db.logs;
+            //var logs = db.logs;
 
 
-            IList<ApiCount> apiCountList = logs.Aggregate()
-            .Match(r => r.logger2 == "Rule.v1.RestfulApi.Web.Dianzhu")
-            .Group(r => new { logger = r.logger }, g =>
-            new
-            {
-                Key = g.Key,
-                sumCount = g.Count()
-            })
-            .Project(r => new ApiCount()
-            {
-                logger = r.Key.logger,
-                apiCount = r.sumCount
-            })
-            .ToListAsync().Result;
+            ////分组聚合查询快
+            //IList<ApiCount> apiCountList = logs.Aggregate()
+            //.Match(r => r.logger2 == "Rule.v1.RestfulApi.Web.Dianzhu")
+            //.Group(r => new { logger = r.logger }, g =>
+            //new
+            //{
+            //    Key = g.Key,
+            //    sumCount = g.Count()
+            //})
+            //.Project(r => new ApiCount()
+            //{
+            //    logger = r.Key.logger,
+            //    apiCount = r.sumCount
+            //})
+            //.ToListAsync().Result;
 
-            foreach (ApiInfo api in apiInfoList)
-            {
-                int c = 0;
-                for (int i = 0; i < apiCountList.Count; i++)
-                {
-                    if (apiCountList[i].logger == "Ydb." + api.ApiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu")
-                    {
-                        api.ApiRequstNum = apiCountList[i].apiCount;
-                        break;
-                    }
-                    c++;
-                }
-                if (c == apiCountList.Count)
-                {
-                    api.ApiRequstNum = 0;
-                }
-            }
+            //foreach (ApiInfo api in apiInfoList)
+            //{
+            //    int c = 0;
+            //    for (int i = 0; i < apiCountList.Count; i++)
+            //    {
+            //        if (apiCountList[i].logger == "Ydb." + api.ApiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu")
+            //        {
+            //            var buildersFilter = Builders<ApiInfo>.Filter.Eq("ApiRoute", api.ApiRoute);
+            //            var update = Builders<ApiInfo>.Update.Set("ApiRequestNum", apiCountList[i].apiCount);
+            //            var result = apiInfos.UpdateOneAsync(buildersFilter, update).Result;
+            //            api.ApiRequestNum = apiCountList[i].apiCount;
+            //            break;
+            //        }
+            //        c++;
+            //    }
+            //    if (c == apiCountList.Count)
+            //    {
+            //        api.ApiRequestNum = 0;
+            //    }
+            //}
 
+            //循环去查慢
             //for (int i = 0; i < apiInfoList.Count; i++)
             //{
             //    var buildersFilter = Builders<log>.Filter;
@@ -73,9 +78,9 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             //    var filter = buildersFilter.Eq("logger", "Ydb." + apiInfoList[i].ApiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu");
             //    //var logCount= logs.CountAsync(a => a.logger.Contains("Dianzhu.Web.RestfulApi") && a.logger.Contains("ApiRoute="+ apiInfoList[i].ApiRoute)).ToListAsync().Result;
             //    var logCount = logs.CountAsync(filter);
-            //    apiInfoList[i].ApiRequstNum = logCount.Result;
+            //    apiInfoList[i].ApiRequestNum = logCount.Result;
             //}
-            return View(apiInfoList.OrderByDescending(s=>s.ApiRequstNum).ToList());
+            return View(apiInfoList.OrderByDescending(s=>s.ApiRequestNum).ToList());
         }
         [Authorize]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
