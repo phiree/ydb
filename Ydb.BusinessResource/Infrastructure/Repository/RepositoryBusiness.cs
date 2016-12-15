@@ -100,22 +100,22 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate
         /// <param name="pageSize"></param>
         /// <param name="totalRecord"></param>
         /// <returns></returns>
-        public IList<Business> GetListByPage(int pageIndex, int pageSize, out long totalRecord)
-        {
+        //public IList<Business> GetListByPage(int pageIndex, int pageSize, out long totalRecord)
+        //{
 
 
 
-            //IQuery qry = Session.CreateQuery("select b from Business b order by b.CreatedTime desc");
-            IQuery qryTotal = session.CreateQuery("select count(*) from Business b ");
-            //IList<Business> busList = qry.Future<Business>().Skip(pageIndex * pageSize).Take(pageSize).ToList();
-            IList<Business> busList = session.QueryOver<Business>().Where(x => x.Enabled == true).OrderBy(x => x.CreatedTime).Desc.List();
-            totalRecord = qryTotal.FutureValue<long>().Value;
+        //    //IQuery qry = Session.CreateQuery("select b from Business b order by b.CreatedTime desc");
+        //    IQuery qryTotal = session.CreateQuery("select count(*) from Business b ");
+        //    //IList<Business> busList = qry.Future<Business>().Skip(pageIndex * pageSize).Take(pageSize).ToList();
+        //    IList<Business> busList = session.QueryOver<Business>().Where(x => x.Enabled == true).OrderBy(x => x.CreatedTime).Desc.List();
+        //    totalRecord = qryTotal.FutureValue<long>().Value;
 
-            return busList;
+        //    return busList;
 
 
 
-        }
+        //}
 
         public int GetEnableSum(string memberId)
         {
@@ -136,6 +136,24 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate
             {
                 session.Save(b);
             }
+        }
+        public new Business FindById(Guid identityId)
+        {
+           var b= session.Get<Business>(identityId);
+
+            NHibernateUtil.Initialize(b.AreaBelongTo);
+            NHibernateUtil.Initialize(b.BusinessImages);
+            return b;
+        }
+        public IList<Business> GetListByPage(int pageIndex, int pageSize, out long total)
+        {
+            var businessList = session.QueryOver<Business>()
+               
+                 .Fetch(x => x.AreaBelongTo).Eager
+                .Skip((pageIndex-1)*pageSize).Take(pageSize)
+                .List();
+              total = session.QueryOver<Business>().RowCount();
+            return businessList;
         }
 
 

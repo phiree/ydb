@@ -278,5 +278,15 @@ namespace Dianzhu.DAL
             return Session.CreateQuery(query).List<ServiceOrder>();
 
         }
+
+        public IList<ServiceOrder> GetAll(int pageIndex, int pageSize, out long totalRecords)
+        {
+            var list=Session.QueryOver<ServiceOrder>()
+                 .Fetch(x => x.Details).Eager
+                .Skip((pageIndex - 1) * pageSize).Take(pageSize)
+                .List();
+            totalRecords = Session.QueryOver<ServiceOrder>().RowCount();
+            return list;
+        }
     }
 }

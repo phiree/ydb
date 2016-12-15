@@ -138,6 +138,7 @@ namespace Ydb.BusinessResource.Application
         }
         public IList<Business> GetListByPage(int pageIndex, int pageSize, out long totalRecord)
         {
+            return repositoryBusiness.GetListByPage( pageIndex, pageSize, out totalRecord);
             return repositoryBusiness.Find(x => true, pageIndex, pageSize, out totalRecord);
         }
 
