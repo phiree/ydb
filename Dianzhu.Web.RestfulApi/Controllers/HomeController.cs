@@ -86,12 +86,24 @@ namespace Dianzhu.Web.RestfulApi.Controllers
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult ApiCount(string apiRoute)
         {
-            var logs = db.logs;
-            var buildersFilter = Builders<log>.Filter;
-            //var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute=" + apiRoute + "/"); 
-            var filter = buildersFilter.Eq("logger", "Ydb."+apiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu");
-            var logCount = logs.CountAsync(filter).Result;
-            return Content(logCount.ToString());
+            //var logs = db.logs;
+            //var buildersFilter = Builders<log>.Filter;
+            ////var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute=" + apiRoute + "/"); 
+            //var filter = buildersFilter.Eq("logger", "Ydb."+apiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu");
+            //var logCount = logs.CountAsync(filter).Result;
+
+            var apiInfos = db.ApiInfos;
+            var buildersFilter = Builders<ApiInfo>.Filter;
+            var filter = buildersFilter.Eq("ApiRoute", apiRoute);
+            IList<ApiInfo> apiInfoList = apiInfos.Find(filter).ToListAsync().Result;
+            if (apiInfoList.Count > 0)
+            {
+                return Content(apiInfoList[0].ApiRequestNum.ToString());
+            }
+            else
+            {
+                return Content("0");
+            }
         }
         [Authorize]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
