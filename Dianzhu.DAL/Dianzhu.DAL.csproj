@@ -143,7 +143,6 @@
     <Compile Include="StorageManager\DALStorageFileInfo.cs" />
     <Compile Include="UnitOfWork\GenericTransaction.cs" />
     <Compile Include="UnitOfWork\IGenericTransaction.cs" />
-    <Compile Include="UnitOfWork\DianzhuUW.cs" />
     <Compile Include="UnitOfWork\ILocalData.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\IUnitOfWorkFactory.cs" />
