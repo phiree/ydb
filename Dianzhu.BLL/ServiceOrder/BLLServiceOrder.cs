@@ -682,6 +682,7 @@ namespace Dianzhu.BLL
 
             int Warranty = 4320;
             double minutes = 0;
+            //没有完成的服务.
             if (order.OrderFinished != DateTime.MinValue)
             {
                 minutes=(DateTime.Now - order.OrderFinished).TotalMinutes;
