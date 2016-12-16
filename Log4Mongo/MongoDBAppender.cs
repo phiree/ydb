@@ -304,7 +304,9 @@ namespace Log4Mongo
             doc.Add("UserName", strM[1].Replace("UserName=",""));
             doc.Add("UserId", strM[2].Replace("UserId=", ""));
             doc.Add("UserType", strM[3].Replace("UserType=", ""));
-            doc.Add("RequestMethodUriSign", message.Substring(message.IndexOf("RequestMethodUriSign=")).Replace("RequestMethodUriSign=", ""));
+            int ind = message.IndexOf("RequestMethodUriSign=");
+            if (ind >= 0)
+                doc.Add("RequestMethodUriSign", message.Substring(ind).Replace("RequestMethodUriSign=", ""));
             collection1.InsertOneAsync(doc);
         }
 

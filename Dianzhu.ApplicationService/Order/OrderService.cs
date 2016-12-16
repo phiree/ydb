@@ -174,6 +174,10 @@ namespace Dianzhu.ApplicationService.Order
                 Staff.StaffService.bllAssignment = bllOrderAssignment;
                 Staff.StaffService.changeObj(orderobj.formanObj, staff);
             }
+            else
+            {
+                orderobj.formanObj = null;
+            }
 
             if (serviceType != null)
             {
@@ -387,7 +391,7 @@ namespace Dianzhu.ApplicationService.Order
                 throw new Exception("没有找到资源！");
             }
             //排除草稿单，因为推送服务会有时间差
-            if (order.OrderStatus ==enum_OrderStatus.Draft)
+            if (order.OrderStatus ==enum_OrderStatus.Draft || order.OrderStatus == enum_OrderStatus.Search)
             { 
                 throw new Exception("没有找到资源！");
             }
