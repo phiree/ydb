@@ -181,7 +181,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers
                 filter = filter & buildersFilter.Lte("date", endTime);
             }
             var sort = Builders<log>.Sort.Descending("date");
-            logList = logs.Find(filter).Sort(sort).Limit(100).ToListAsync().Result;
+            logList = logs.Find(filter).Sort(sort).Limit(30).ToListAsync().Result;
             return View(logList);
         }
         [Authorize]

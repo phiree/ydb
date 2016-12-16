@@ -3,22 +3,22 @@
     Layout = null;
 }
 
-<table class="table table-hover" style="word-break:break-all; word-wrap:break-all;">
+<table class="table table-hover"  style="word-break:break-all; word-wrap:break-word;">@* table-layout:fixed;*@
     <tr>
-        <th>
+        <th >
             反问时间
         </th>
-        <th>
+        <th >
             访问日志
         </th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
-            <td width="10%">
+            <td class="time_td">
                 @Html.DisplayFor(modelItem => item.date)
             </td>
-            <td width="90%">
+            <td  class="message_td">
                 @Html.DisplayFor(modelItem => item.message)
             </td>
         </tr>

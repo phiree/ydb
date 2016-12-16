@@ -346,9 +346,11 @@ namespace Dianzhu.Web.RestfulApi
                     //return (sign.Equals(tt, StringComparison.Ordinal));
                     if (sign.Equals(tt, StringComparison.Ordinal))
                     {
-                        ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":" + strLog + ";signBefore=" + data + ";CreateSign=" + tt);
-                        
-                        
+                        //ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":" + strLog + ";signBefore=" + data + ";CreateSign=" + tt);
+                        string str = strLog + ";signBefore=" + data + ";CreateSign=" + tt;
+                        //req.Properties.Add("Request(RequestMethodUriSign)", str);
+                        req.GetOwinContext().Set<string>("as:RequestMethodUriSign", str);
+                        //req.SetOwinContext(new Microsoft.Owin.)
                         return true;
                     }
                     else

@@ -4,7 +4,7 @@
 }
 
 
-<table class="table table-hover" style="word-break:break-all; word-wrap:break-all;">
+<table class="table table-hover" style="word-break:break-all; word-wrap:break-word;">
     <tr>
         <th>
             反问时间
@@ -19,13 +19,13 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td style="width:10%">
                 @Html.DisplayFor(modelItem => item.date)
             </td>
-            <td>
+            <td style="width:85%">
                 @Html.DisplayFor(modelItem => item.message)
             </td>
-            <th>
+            <th style="width:5%">
                 <input id="btnDelete" type="button" value="详情" class="btn-link" data-target="#myModal" onclick="showModal('@Html.DisplayFor(modelItem => item.message)')"/> @*data-toggle="modal"*@
             </th>
         </tr>
