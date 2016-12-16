@@ -111,6 +111,13 @@ namespace Ydb.Infrastructure.Tests
             PrintOneServer(new List<string> { "mongodb://112.74.198.215/", "mongodb://localhost/", "mongodb://jsyk2016:qwe.20161209@localhost/log4net", "mongodb://jsyk2016:fgwwSB&9oaJxMzYU@112.74.198.215/log4net" });
         }
 
+        [Test]
+        public void DecryptTest__()
+        {
+            string s = "KkZl+RcgPXnCbMShFyd0hjMlkcFdWYFnxqk3+yt3M5ObS3hkRw1MZxTtAp/7JrAMrJUyeflfTwPIMZ4qSnstUwsg0lgYhErFrf8FyrlZiY8=";
+            Console.WriteLine(encryptService.Decrypt(s, false));
+        }
+
 
         private void PrintOneServer(IList<string> l)
 
