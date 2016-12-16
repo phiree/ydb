@@ -476,14 +476,21 @@ namespace Dianzhu.Web.RestfulApi
                 response.Headers.WwwAuthenticate.Add(new AuthenticationHeaderValue(authenticationScheme));
                 response.Content = new StringContent("{\"errCode\":\"001001\",\"errString\":\"用户认证失败\"}");
             }
-
+            else if (response.StatusCode == HttpStatusCode.OK)
+            { }
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
+            { }
+            else
+            {
+                response.Content = new StringContent("{\"errCode\":\"000001\",\"errString\":\"其他服务器错误:"+ response.StatusCode .ToString ()+ "\"}");
+            }
             IEnumerable<string> keyValue = null;
             string strT = "";
             if( response.RequestMessage.Headers.TryGetValues("stamp_TIMES", out keyValue))
             {
                 strT = keyValue.FirstOrDefault();
             }
-
+            
             ilog.Debug("Response(Content)"+ strT + ":" + await response.Content.ReadAsStringAsync().ConfigureAwait(false));
             return response;
         }
