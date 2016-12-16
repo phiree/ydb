@@ -48,7 +48,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.Client
                     customer = new Customer();
                 }
                 string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
-                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=post/authorization,UserName=" + customer.loginName + ",UserId=" + customer.UserID + ",UserType=" + customer.UserType);
+                var allowedOrigin = Request.GetOwinContext().Get<string>("as:RequestMethodUriSign");
+                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=post/authorization,UserName=" + customer.loginName + ",UserId=" + customer.UserID + ",UserType=" + customer.UserType + ",RequestMethodUriSign=" + allowedOrigin.ToString());
                 //log.Info("Info(Route)" + stamp_TIMES + ":post/api/v1/authorization");
                 //HMACAuthenticationAttribute hmac = new HMACAuthenticationAttribute();
                 //string appName = Request.Headers.GetValues("appName").FirstOrDefault();

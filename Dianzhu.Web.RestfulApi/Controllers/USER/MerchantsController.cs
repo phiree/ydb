@@ -79,7 +79,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
 
                 log4net.ILog log = log4net.LogManager.GetLogger("Ydb.get/merchants/count.Rule.v1.RestfulApi.Web.Dianzhu");
                 string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
-                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=get/merchants/count,UserName=,UserId=,UserType=business");
+                var allowedOrigin = Request.GetOwinContext().Get<string>("as:RequestMethodUriSign");
+                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=get/merchants/count,UserName=,UserId=,UserType=business,RequestMethodUriSign=" + allowedOrigin.ToString());
                 return Json(iuserservice.GetUsersCount(userFilter, "business"));
             }
             catch (Exception ex)
@@ -142,7 +143,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 }
                 log4net.ILog log = log4net.LogManager.GetLogger("Ydb.post/merchants.Rule.v1.RestfulApi.Web.Dianzhu");
                 string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
-                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=post/merchants,UserName=" + userBody.email + ",UserId=,UserType=business");
+                var allowedOrigin = Request.GetOwinContext().Get<string>("as:RequestMethodUriSign");
+                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=post/merchants,UserName=" + userBody.email + ",UserId=,UserType=business,RequestMethodUriSign=" + allowedOrigin.ToString());
                 return Json(iuserservice.PostUser(userBody, "business"));
             }
             catch (Exception ex)

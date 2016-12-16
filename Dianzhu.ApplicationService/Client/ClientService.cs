@@ -44,8 +44,8 @@ namespace Dianzhu.ApplicationService.Client
         public UserTokentDTO CreateToken(string loginName, string password, string apiName, string apiKey,string strPath)
         {
  
-            log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.ClientController.NoRule.v1.RestfulApi.Web.Dianzhu");
-            ilog.Debug("PostToken(Baegin1):" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
+            //log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.ClientController.NoRule.v1.RestfulApi.Web.Dianzhu");
+            //ilog.Debug("PostToken(Baegin1):" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
           ValidateResult validateResult=   memberService.Login(loginName, password);
             
             if (!validateResult.IsValidated )

@@ -139,7 +139,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
 
                 log4net.ILog log = log4net.LogManager.GetLogger("Ydb.post/customer3rds.Rule.v1.RestfulApi.Web.Dianzhu");
                 string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
-                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=post/customer3rds,UserName=" + u3rd_Model.platform + ",UserId=,UserType=customer");
+                var allowedOrigin = Request.GetOwinContext().Get<string>("as:RequestMethodUriSign");
+                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=post/customer3rds,UserName=" + u3rd_Model.platform + ",UserId=,UserType=customer,RequestMethodUriSign=" + allowedOrigin.ToString());
                 return Json(iuserservice.PostUser3rds(u3rd_Model, "customer"));
             }
             catch (Exception ex)
@@ -164,7 +165,9 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 }
                 log4net.ILog log = log4net.LogManager.GetLogger("Ydb.get/customers/count.Rule.v1.RestfulApi.Web.Dianzhu");
                 string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
-                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=get/customers/count,UserName=,UserId=,UserType=customer");
+
+                var allowedOrigin = Request.GetOwinContext().Get<string>("as:RequestMethodUriSign");
+                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=get/customers/count,UserName=,UserId=,UserType=customer,RequestMethodUriSign=" + allowedOrigin.ToString());
                 return Json(iuserservice.GetUsersCount(userFilter, "customer"));
             }
             catch (Exception ex)
@@ -243,7 +246,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 }
                 log4net.ILog log = log4net.LogManager.GetLogger("Ydb.patch/customers/phones/{phone}.Rule.v1.RestfulApi.Web.Dianzhu");
                 string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
-                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=patch/customers/phones/{phone},UserName=" + userChangeBody.phone + ",UserId=,UserType=customer");
+                var allowedOrigin = Request.GetOwinContext().Get<string>("as:RequestMethodUriSign");
+                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=patch/customers/phones/{phone},UserName=" + userChangeBody.phone + ",UserId=,UserType=customer,RequestMethodUriSign=" + allowedOrigin.ToString());
                 return Json(iuserservice.PatchPasswordForForget(phone, userChangeBody.newPassWord));
                 //return Json("没有用户定位信息记录！");
             }
