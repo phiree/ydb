@@ -482,7 +482,7 @@ namespace Dianzhu.Web.RestfulApi
             { }
             else
             {
-                response.Content = new StringContent("{\"errCode\":\"000001\",\"errString\":\"其他服务器错误:"+ response.StatusCode .ToString ()+ "\"}");
+                response.Content = new StringContent("{\"errCode\":\"000001\",\"errString\":\"其他服务器错误:"+ response.StatusCode.ToString ()+ "\"}");
             }
             IEnumerable<string> keyValue = null;
             string strT = "";
@@ -491,7 +491,7 @@ namespace Dianzhu.Web.RestfulApi
                 strT = keyValue.FirstOrDefault();
             }
             
-            ilog.Debug("Response(Content)"+ strT + ":" + await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+            ilog.Debug("Response(Content)"+ strT + ":" + await response.Content.ReadAsStringAsync().ConfigureAwait(false)+ "CodeNo=" +((int) response.StatusCode).ToString () + ";CodeString=" + response.StatusCode.ToString());
             return response;
         }
     }
