@@ -28,7 +28,6 @@ public class Bootstrap
             );
 
 
-
         container.Install(
             new Ydb.Infrastructure.Installer()
             );
@@ -60,6 +59,13 @@ new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig(
             // new Application.InstallerMembershipTestDB()
 
             );
+
+
+        container.Install(
+            new Ydb.ApplicationService.Installer()
+            );
+
+
         // Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
         AutoMapper.Mapper.Initialize(x =>
         {
