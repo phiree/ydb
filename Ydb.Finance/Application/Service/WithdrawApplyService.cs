@@ -195,7 +195,8 @@ namespace Ydb.Finance.Application
                     repositoryBalanceTotal.ReleaseBalance(withdrawApply.ApplyUserId, withdrawApply.ApplyAmount);
                     continue;
                 }
-                repositoryBalanceTotal.OutFrozenBalance(withdrawApply.ApplyUserId, withdrawApply.ApplyAmount);
+                //回调的时候再清除冻结账户
+                //repositoryBalanceTotal.OutFrozenBalance(withdrawApply.ApplyUserId, withdrawApply.ApplyAmount);
                 //回调的时候再插入流水
                 //BalanceFlow flow = new BalanceFlow
                 //{
@@ -246,6 +247,7 @@ namespace Ydb.Finance.Application
                     withdrawApply.UpdateTime = DateTime.Now;
                     repositoryWithdrawApply.Update(withdrawApply);
                     SaveBalanceFlow(withdrawApply);
+                    repositoryBalanceTotal.OutFrozenBalance(withdrawApply.ApplyUserId, withdrawApply.ApplyAmount);
                 }
             }
         }
@@ -270,7 +272,8 @@ namespace Ydb.Finance.Application
                     withdrawApply.D3Time = DetailItems[i][7];
                     withdrawApply.UpdateTime = DateTime.Now;
                     repositoryWithdrawApply.Update(withdrawApply);
-                    repositoryBalanceTotal.InBalance(withdrawApply.ApplyUserId, withdrawApply.ApplyAmount,"");
+                    //repositoryBalanceTotal.InBalance(withdrawApply.ApplyUserId, withdrawApply.ApplyAmount,"");
+                    repositoryBalanceTotal.ReleaseBalance(withdrawApply.ApplyUserId, withdrawApply.ApplyAmount);
                 }
             }
         }

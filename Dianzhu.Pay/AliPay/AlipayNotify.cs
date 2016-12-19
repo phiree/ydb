@@ -59,6 +59,7 @@ namespace Com.Alipay
         {
             //获取返回时的签名验证结果
             bool isSign = GetSignVeryfy(inputPara, sign);
+            //return isSign;测试用
             //获取是否是支付宝服务器发来的请求的验证结果
             string responseTxt = "false";
             if (notify_id != null && notify_id != "") { responseTxt = GetResponseTxt(notify_id); }

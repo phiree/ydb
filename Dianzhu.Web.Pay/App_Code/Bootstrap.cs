@@ -47,7 +47,9 @@ public class Bootstrap
             new Ydb.Infrastructure.InstallerCommon(BuildDBConfig("ydb_common"))
             );
 
-
+        container.Install(
+            new Ydb.Finance.Infrastructure.InstallerFinance(BuildDBConfig("ydb_finance"))
+            );
 
         container.Install(
            new Ydb.Membership.Infrastructure.InstallerMembership(BuildDBConfig("ydb_membership"))

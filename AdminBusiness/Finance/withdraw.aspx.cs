@@ -22,10 +22,10 @@ public partial class Finance_withdraw : BasePage
             try
             {
                 lblBusinessId.Text = Request.QueryString["businessid"].ToString();
-               Business b = businessService.GetOne(new Guid(lblBusinessId.Text));
+                Business b = businessService.GetOne(new Guid(lblBusinessId.Text));
                 if (b == null)
                 {
-                    PHSuit.Notification.Alert(Page, "商户不存在！");
+                    PHSuit.Notification.Alert(Page, "商户不存在！", "default.aspx");
                     return;
                 }
                 lblUserId.Text = b.OwnerId.ToString();
@@ -37,7 +37,8 @@ public partial class Finance_withdraw : BasePage
                 }
                 else
                 {
-                    PHSuit.Notification.Alert(Page, "该商户还没有绑定提现收款账户！");
+                    PHSuit.Notification.Alert(Page, "该商户还没有绑定提现收款账户！", "default.aspx?businessid=" + lblBusinessId.Text);
+                    //PHSuit.Notification.Show(Page, "", "该商户还没有绑定提现收款账户！", "default.aspx");//不起作用
                     return;
                 }
                 BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(lblBusinessId.Text);
@@ -52,8 +53,7 @@ public partial class Finance_withdraw : BasePage
             }
             catch (Exception ex)
             {
-                //PHSuit.Notification.Alert(Page, "没有businessid参数！");
-                PHSuit.Notification.Show(Page, "", ex.Message, "default.aspx");
+                PHSuit.Notification.Alert(Page, "没有businessid参数！", "default.aspx");
             }
         }
     }
