@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{866237E1-399E-4400-9C32-E792BFD24D1C}</ProjectGuid>
+    <ProjectGuid>{901E2A8A-E608-4477-B9BC-F583D818D87F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Ydb.Order</RootNamespace>
@@ -30,12 +30,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Log4Mongo, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4mongo-net.2.2.0\lib\net45\Log4Mongo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.0.1.27, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.0.1\lib\net45\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.0.1.27, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.0.1\lib\net45\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.0.1.27, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.0.1\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,24 +65,69 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Application\BLLServiceOrder.cs" />
+    <Compile Include="Application\BLLServiceOrderAppraise.cs" />
+    <Compile Include="Application\BLLServiceOrderRemind.cs" />
+    <Compile Include="Application\BLLServiceOrderStateChangeHis.cs" />
+    <Compile Include="Application\IBLLServiceOrder.cs" />
+    <Compile Include="Application\OrderFlow.cs" />
+    <Compile Include="Application\PushService.cs" />
+    <Compile Include="DomainModel\Claims.cs" />
+    <Compile Include="DomainModel\ClaimsDetails.cs" />
+    <Compile Include="DomainModel\OrderAssignment.cs" />
+    <Compile Include="DomainModel\Payment\Payment.cs" />
+    <Compile Include="DomainModel\Payment\PaymentLog.cs" />
+    <Compile Include="DomainModel\Payment\Refund.cs" />
+    <Compile Include="DomainModel\Payment\RefundLog.cs" />
+    <Compile Include="DomainModel\Repository\IRepositoryPayment.cs" />
+    <Compile Include="DomainModel\Repository\IRepositoryPaymentLog.cs" />
+    <Compile Include="DomainModel\Repository\IRepositoryClaims.cs" />
+    <Compile Include="DomainModel\Repository\IRepositoryClaimsDetails.cs" />
+    <Compile Include="DomainModel\Repository\IRepositoryOrderAssignment.cs" />
+    <Compile Include="DomainModel\Repository\IRepositoryRefund.cs" />
+    <Compile Include="DomainModel\Repository\IRepositoryRefundLog.cs" />
+    <Compile Include="DomainModel\Repository\IRepositoryServiceOrder.cs" />
+    <Compile Include="DomainModel\Repository\IRepositoryServiceOrderAppraise.cs" />
+    <Compile Include="DomainModel\Repository\IRepositoryServiceOrderPushedService.cs" />
+    <Compile Include="DomainModel\Repository\IRepositoryServiceOrderRemind.cs" />
+    <Compile Include="DomainModel\Repository\IRepositoryServiceOrderStateChangeHis.cs" />
     <Compile Include="DomainModel\ServiceOpenTimeSnapshot.cs" />
     <Compile Include="DomainModel\ServiceOrder.cs" />
     <Compile Include="DomainModel\ServiceOrderAppraise.cs" />
     <Compile Include="DomainModel\ServiceOrderDetail.cs" />
     <Compile Include="DomainModel\ServiceOrderFactory.cs" />
     <Compile Include="DomainModel\ServiceOrderPushedService.cs" />
+    <Compile Include="DomainModel\ServiceOrderRemind.cs" />
+    <Compile Include="DomainModel\ServiceOrderStateChangeHis.cs" />
     <Compile Include="DomainModel\ServiceSnapShotForOrder.cs" />
+    <Compile Include="Infrasturcture\AliPay\AlipayConfig.cs" />
+    <Compile Include="Infrasturcture\AliPay\AlipayCore.cs" />
+    <Compile Include="Infrasturcture\AliPay\AlipayNotify.cs" />
+    <Compile Include="Infrasturcture\AliPay\AlipaySignature.cs" />
+    <Compile Include="Infrasturcture\AliPay\AlipaySubmit.cs" />
+    <Compile Include="Infrasturcture\AliPay\AopException.cs" />
+    <Compile Include="Infrasturcture\AliPay\RSA.cs" />
+    <Compile Include="Infrasturcture\AliPay\RSACryptoServiceProviderExtension.cs" />
+    <Compile Include="Infrasturcture\WePay\WePayConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DomainModel\Refund\IRefund.cs" />
+    <Compile Include="Infrasturcture\Refund\RefundAli.cs" />
+    <Compile Include="Infrasturcture\Refund\RefundAliApp.cs" />
+    <Compile Include="Infrasturcture\Refund\RefundWePay.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Application\" />
-    <Folder Include="Infrasturcture\" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
+      <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
+      <Name>Dianzhu.Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
       <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
       <Name>Ydb.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Web.LogView\Ydb.Web.LogView.csproj">
+      <Project>{644850B7-24C2-43E3-B381-DB5E5FF2C449}</Project>
+      <Name>Ydb.Web.LogView</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@ using System.Text;
 using Ydb.Common;
 using System.Diagnostics;
 using Ydb.Common.Domain;
+using Ydb.Order.DomainModel.Repository;
 
 namespace Ydb.Order.DomainModel
 {
@@ -560,7 +561,145 @@ namespace Ydb.Order.DomainModel
             }
         }
 
-         
+        /// <summary>
+        /// 申请一个支付项
+        /// </summary>
+       
+        /// <param name="payTarget">支付类型</param>
+        /// <returns></returns>
+        public Payment ApplyPay(  enum_PayTarget payTarget,IRepositoryPayment repoPayment,IRepositoryClaims repoClaims)
+        {
+            string errMsg = string.Empty;
+            //验证请求类型是否有效
+            bool applyIsValid = false;
+
+            switch (payTarget)
+            {
+
+                case enum_PayTarget.Deposit:
+                    errMsg = "只有 刚创建的订单 才能申请 订金支付";
+                    applyIsValid = this.OrderStatus == enum_OrderStatus.Created;
+                    break;
+                case enum_PayTarget.FinalPayment:
+                    //只有 已经服务完成的 订单 才能申请 支付尾款 
+                    errMsg = "只有 已经服务完成的 订单 才能申请 支付尾款 ";
+                    applyIsValid = this.OrderStatus == enum_OrderStatus.Ended || this.OrderStatus == enum_OrderStatus.Finished;
+                    break;
+                case enum_PayTarget.Compensation:
+                    errMsg = "只有已经完成的订单 才能申请赔偿.";
+                    applyIsValid = this.OrderStatus == enum_OrderStatus.Finished ||
+                           this.OrderStatus == enum_OrderStatus.Appraised;
+                    break;
+            }
+            if (!applyIsValid)
+            {
+                throw new Exception(errMsg);
+            }
+            //获取该订单已经申请过的项目.
+            IList<Payment> payments = repoPayment.GetPaymentsForOrder(this);
+            var paymentList = payments.Where(x => x.PayTarget == payTarget).ToList();
+            //验证该支付申请是否有效. 
+            //无效: 同类型的支付申请已经创建, 直接返回该支付链接. 当前支付金额
+            var paymentCount = paymentList.Count();
+            Payment payment = null;
+            if (paymentCount == 1)
+            {
+                payment = paymentList[0];
+
+                //验证该支付项的状态
+                //todo:如果 支付成功 
+                if (payment.Status == enum_PaymentStatus.Trade_Success)
+                {
+                    errMsg = "该项已经支付完成";
+                    log.Error(errMsg);
+                    throw new Exception(errMsg);
+                }
+
+                //该支付项已经创建,验证其金额是否有变化
+                var payAmount = GetPayAmount( payTarget,repoClaims);
+                if (payAmount != payment.Amount)
+                {
+                    errMsg = string.Format("本次申请金额和上次不一样. 本次:{0},上次:{1}", payment.Amount, payAmount);
+                    log.Warn(errMsg);
+                    //申请金额和之前的不一致, 需要警告
+                }
+                payment.Amount = payAmount;
+                 
+
+
+            }
+            else if (paymentCount == 0)
+            {
+                payment = new Payment(GetPayAmount(  payTarget,repoClaims), this, payTarget);
+
+                repoPayment.Add(payment);
+            }
+            else //已经存在多项
+            {
+                errMsg = string.Format("该订单已经存在多项同类型的支付项", this.Id);
+                log.Fatal(errMsg);
+                throw new Exception(errMsg);
+            }
+            return payment;
+        }
+        public void SaveOrderHistory(enum_OrderStatus oldStatus,IRepositoryServiceOrderStateChangeHis repoStateChante)
+        {
+            int num = 1;
+            ServiceOrderStateChangeHis oldOrderHis = repoStateChante.GetMaxNumberOrderHis(this);
+            if (oldOrderHis != null)
+            {
+                num = oldOrderHis.Number + 1;
+            }
+            ServiceOrderStateChangeHis orderHis = new ServiceOrderStateChangeHis(this, oldStatus, num);
+            repoStateChante.Add(orderHis);
+        }
+        /// <summary>
+        /// 获取支付总额
+        /// </summary>
+        /// <param name="payTarget">支付类型</param>
+        /// <returns></returns>
+        public decimal GetPayAmount(  enum_PayTarget payTarget,IRepositoryClaims repoClaims)
+        {
+            if (payTarget == enum_PayTarget.Deposit)
+            {
+                return this.DepositAmount;
+            }
+            else if (payTarget == enum_PayTarget.FinalPayment)
+            {
+                return this.NegotiateAmount - this.DepositAmount;
+            }
+            else if (payTarget == enum_PayTarget.Compensation)
+            {
+                log.Debug("查询订单的理赔");
+                Claims claims = repoClaims.GetOneByOrder(this);
+                if (claims == null)
+                {
+                    log.Error("订单没有对应的理赔");
+                    throw new Exception("订单没有对应的理赔");
+                }
+
+                log.Debug("查询理赔详情");
+                IList<ClaimsDetails> cdList = claims.ClaimsDatailsList.OrderByDescending(x => x.LastUpdateTime).Where(x => x.Target == enum_ChatTarget.store).ToList();
+                ClaimsDetails claimsDetails;
+                if (cdList.Count > 0)
+                {
+                    claimsDetails = cdList[0];
+                }
+                else
+                {
+                    log.Error("该订单没有理赔");
+                    throw new Exception("该订单没有理赔");
+                }
+
+                return claimsDetails.Amount;
+            }
+            else
+            {
+                throw new Exception("没有计算公式");
+            }
+        }
+
+
 
     }
 }

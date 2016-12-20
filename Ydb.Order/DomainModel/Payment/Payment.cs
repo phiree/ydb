@@ -1,11 +1,14 @@
-﻿using System;
+﻿ 
+using System;
 using Ydb.Common;
-namespace Dianzhu.Model
+using Ydb.Common.Domain;
+ 
+namespace Ydb.Order.DomainModel
 {
     /// <summary>
     /// 支付项. 每个订单可能有多个支付项(订金,尾款,赔偿等)
     /// </summary>    
-    public class Payment:DDDCommon.Domain.Entity<Guid>
+    public class Payment:Entity<Guid>
     {
 
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model");

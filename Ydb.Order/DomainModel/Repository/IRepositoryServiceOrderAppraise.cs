@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Ydb.Common.Repository;
 using Ydb.Order.DomainModel;
 namespace Ydb.Order.DomainModel.Repository
 {
 
-    public interface IDALServiceOrderAppraise : IRepository<ServiceOrderAppraise, Guid>
+    public interface IRepositoryServiceOrderAppraise : IRepository<ServiceOrderAppraise, Guid>
     {
 
     }

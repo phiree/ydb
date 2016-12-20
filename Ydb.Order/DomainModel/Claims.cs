@@ -1,16 +1,17 @@
-﻿ 
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Ydb.Common;
+using Ydb.Common.Domain;
 
-namespace Dianzhu.Model
+namespace Ydb.Order.DomainModel
 {
     /// <summary>
     /// 理赔
     /// </summary>
-    public class Claims:DDDCommon.Domain.Entity<Guid>
+    public class Claims: Entity<Guid>
     {
         /// <summary>
         /// 构造函数

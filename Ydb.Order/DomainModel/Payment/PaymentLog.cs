@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Ydb.Common;
+using Ydb.Common.Domain;
 
 namespace Ydb.Order.DomainModel
 {

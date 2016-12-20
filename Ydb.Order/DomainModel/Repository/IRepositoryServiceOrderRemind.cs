@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Ydb.Common.Repository;
 using Ydb.Order.DomainModel;
- 
- 
+
+
 namespace Ydb.Order.DomainModel.Repository
 {
-    public interface IDALServiceOrderRemind :IRepository<ServiceOrderRemind,Guid>
+    public interface IRepositoryServiceOrderRemind :IRepository<ServiceOrderRemind,Guid>
     {
 
           ServiceOrderRemind GetOneByIdAndUserId(Guid Id, Guid UserId)

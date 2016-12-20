@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Ydb.Common.Domain;
 
-namespace Dianzhu.Model
+namespace Ydb.Order.DomainModel
 {
     /// <summary>
     /// 订单分配详情.
     /// </summary>
-    public   class OrderAssignment:DDDCommon.Domain.Entity<Guid>
+    public   class OrderAssignment: Entity<Guid>
     {
         /// <summary>
         /// 构造，初始化分配时间和是否有效

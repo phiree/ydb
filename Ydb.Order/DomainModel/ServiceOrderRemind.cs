@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Ydb.Common.Domain;
 
 namespace Ydb.Order.DomainModel
 {
     /// <summary>
     /// 订单提醒
     /// </summary>
-    public class ServiceOrderRemind:DDDCommon.Domain.Entity<Guid>
+    public class ServiceOrderRemind: Entity<Guid>
     {
         /// <summary>
         /// 默认构造

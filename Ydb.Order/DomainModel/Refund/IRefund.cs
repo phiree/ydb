@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using Com.Alipay;
 using System.Collections.Specialized;
+using Ydb.Common;
 
-namespace Dianzhu.Pay
+namespace Ydb.Order.DomainModel
 {
     /// <summary>
     /// 第三方支付的退款
     /// https://doc.open.alipay.com/doc2/detail.htm?spm=0.0.0.0.TYM6oi&treeId=66&articleId=103600&docType=1
     /// </summary>
-    public interface IRefund
+    public interface IRefundApi
     {
         /// <summary>
         /// 退款金额
@@ -29,14 +30,22 @@ namespace Dianzhu.Pay
         /// 操作员帐号, 默认为商户号
         /// </summary>
         string OperatorId { get; set; }
+ 
 
         /// <summary>
         /// 请求退款接口
         /// </summary>
         /// <returns></returns>
         NameValueCollection CreateRefundRequest();
-        
+        /// <summary>
+        /// 调用支付接口的退款接口.
+        /// </summary>
+        /// <returns></returns>
+        bool GetRefundResponse(Guid refundId
+        , Ydb.Order.DomainModel.Repository.IRepositoryRefundLog repoRefundLog, Ydb.Common.Infrastructure.IHttpRequest httpRequest);
+
+
     }
 
-  }
+
 }

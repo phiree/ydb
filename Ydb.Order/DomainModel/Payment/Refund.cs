@@ -5,6 +5,7 @@ using System.Text;
  
 using System.Diagnostics;
 using Ydb.Common;
+using Ydb.Common.Domain;
 
 namespace Ydb.Order.DomainModel
 {

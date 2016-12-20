@@ -6,38 +6,49 @@ using Ydb.Common;
 using Ydb.Common.Specification;
 using Ydb.Order.DomainModel;
 using Ydb.Order.DomainModel.Repository;
+using Ydb.Order.Infrasturcture;
+using Ydb.Common.Infrastructure;
 namespace Ydb.Order.Application
 {
 
     /// <summary>
     /// 订单业务逻辑
     /// </summary>
-    public class BLLServiceOrder 
+    public class BLLServiceOrder
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
 
         IRepositoryServiceOrder repoServiceOrder = null;
 
-      
+
         IRepositoryOrderAssignment repoOrderAssignment;
-      
-      
+
+
         IRepositoryServiceOrderStateChangeHis repoStateChangeHis = null;
-       
+        IRepositoryClaims repoClaims;
+        IRepositoryPayment repoPayment;
+
+        IRepositoryRefundLog repoRefundLog;
+        IRepositoryRefund repoRefund;
 
         //20160616_longphui_add
-       
-        
+        IHttpRequest httpRequest;
+
 
         public BLLServiceOrder(IRepositoryServiceOrder repoServiceOrder, IRepositoryServiceOrderStateChangeHis repoStateChangeHis,
-
-           IRepositoryRefund bllRefund, IRepositoryOrderAssignment repoOrderAssignment,  IRepositoryClaims repoClaims)
- 
- 
+           IRepositoryRefund repoRefund, IRepositoryRefundLog repoRefundLog, IRepositoryOrderAssignment repoOrderAssignment,
+           IRepositoryClaims repoClaims, IRepositoryPayment repoPayment,IHttpRequest httpRequest)
         {
-            
- 
- 
+
+            this.repoServiceOrder = repoServiceOrder;
+            this.repoOrderAssignment = repoOrderAssignment;
+            this.repoStateChangeHis = repoStateChangeHis;
+            this.repoClaims = repoClaims;
+            this.repoPayment = repoPayment;
+            this.repoRefundLog = repoRefundLog;
+            this.repoRefund = repoRefund;
+            this.httpRequest = httpRequest;
+
         }
 
         public int GetServiceOrderCount(Guid userId, enum_OrderSearchType searchType)
@@ -86,7 +97,7 @@ namespace Ydb.Order.Application
             return rowCount;
             // return DALServiceOrder.GetServiceOrderCount(userId, searchType);
         }
-        public IList<ServiceOrder> GetServiceOrderList(Guid userId,  enum_OrderSearchType searchType, int pageNum, int pageSize)
+        public IList<ServiceOrder> GetServiceOrderList(Guid userId, enum_OrderSearchType searchType, int pageNum, int pageSize)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
             where = where.And(x => x.CustomerId == userId.ToString());
@@ -137,7 +148,7 @@ namespace Ydb.Order.Application
         /// <param name="userType"></param>
         /// <param name="strAssign"></param>
         /// <returns></returns>
-        public IList<ServiceOrder> GetOrders(TraitFilter filter, string statusSort, string status,Guid storeID,string formanID,DateTime afterThisTime, DateTime beforeThisTime, Guid UserID,string userType,string strAssign)
+        public IList<ServiceOrder> GetOrders(TraitFilter filter, string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID, string userType, string strAssign)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
 
@@ -149,12 +160,12 @@ namespace Ydb.Order.Application
                 }
                 else
                 {
-                    where = where.And(x => x.Details.Any(y=>y.ServiceSnapShot.BusinessOwnerId == UserID.ToString()));
+                    where = where.And(x => x.Details.Any(y => y.ServiceSnapShot.BusinessOwnerId == UserID.ToString()));
                 }
             }
-            if(!string.IsNullOrEmpty(status))
+            if (!string.IsNullOrEmpty(status))
             {
-                where = where.And(x => x.OrderStatus == (enum_OrderStatus)Enum.Parse(typeof(enum_OrderStatus), status) );
+                where = where.And(x => x.OrderStatus == (enum_OrderStatus)Enum.Parse(typeof(enum_OrderStatus), status));
             }
             //.enum_OrderSearchType searchType
             switch (statusSort)//switch (searchType)
@@ -186,17 +197,17 @@ namespace Ydb.Order.Application
                     break;
                 default:
                     //case enum_OrderSearchType.ALL:
-                        where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
-                         && x.OrderStatus != enum_OrderStatus.DraftPushed
-                         && x.OrderStatus != enum_OrderStatus.Search)
-                      ;
+                    where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                     && x.OrderStatus != enum_OrderStatus.DraftPushed
+                     && x.OrderStatus != enum_OrderStatus.Search)
+                  ;
                     break;
             }
             if (!string.IsNullOrEmpty(strAssign))
             {
                 if (strAssign == "false")
                 {
-                    where = where.And(x => string.IsNullOrEmpty( x.StaffId ));
+                    where = where.And(x => string.IsNullOrEmpty(x.StaffId));
                 }
                 else
                 {
@@ -222,7 +233,7 @@ namespace Ydb.Order.Application
             if (!string.IsNullOrEmpty(filter.ids))
             {
                 IList<string> ids = filter.ids.Split(',').ToList();
-                where = where.And(x =>  ids.Contains(x.Id.ToString()));
+                where = where.And(x => ids.Contains(x.Id.ToString()));
             }
             ServiceOrder baseone = null;
             if (!string.IsNullOrEmpty(filter.baseID))
@@ -231,13 +242,13 @@ namespace Ydb.Order.Application
                 {
                     baseone = repoServiceOrder.FindByBaseId(new Guid(filter.baseID));
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     throw new Exception("filter.baseID错误，" + ex.Message);
                 }
             }
             long totalRecord;
-            var list = filter.pageSize == 0 ? repoServiceOrder.Find(where,filter.sortby,filter.ascending,filter.offset,baseone).ToList() : repoServiceOrder.Find(where, filter.pageNum, filter.pageSize, out totalRecord, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
+            var list = filter.pageSize == 0 ? repoServiceOrder.Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList() : repoServiceOrder.Find(where, filter.pageNum, filter.pageSize, out totalRecord, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
             return list;
 
             // return DALServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
@@ -316,11 +327,11 @@ namespace Ydb.Order.Application
             {
                 if (strAssign == "false")
                 {
-                    where = where.And(x =>string.IsNullOrEmpty(x.StaffId));
+                    where = where.And(x => string.IsNullOrEmpty(x.StaffId));
                 }
                 else
                 {
-                    where = where.And(x =>! string.IsNullOrEmpty(x.StaffId));
+                    where = where.And(x => !string.IsNullOrEmpty(x.StaffId));
                 }
             }
             if (storeID != Guid.Empty)
@@ -329,7 +340,7 @@ namespace Ydb.Order.Application
             }
             if (formanID != null)
             {
-                where = where.And(x => x.StaffId ==  formanID);
+                where = where.And(x => x.StaffId == formanID);
             }
             if (afterThisTime != DateTime.MinValue)
             {
@@ -349,13 +360,13 @@ namespace Ydb.Order.Application
         /// <param name="guid"></param>
         /// <param name="UserID"></param>
         /// <returns></returns>
-        public ServiceOrder GetOneOrder(Guid guid,string UserID)
+        public ServiceOrder GetOneOrder(Guid guid, string UserID)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
             if (string.IsNullOrEmpty(UserID))
             {
                 //throw new NotImplementedException("为何传入UserId");
-                where = where.And(x => x.Details.Any(y=>y.ServiceSnapShot.BusinessOwnerId == UserID));
+                where = where.And(x => x.Details.Any(y => y.ServiceSnapShot.BusinessOwnerId == UserID));
             }
             where = where.And(x => x.Id == guid);
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
@@ -393,12 +404,12 @@ namespace Ydb.Order.Application
             ///return DALServiceOrder.GetAll<ServiceOrder>();
         }
 
-        public IList<ServiceOrder> GetAllByOrderStatus( enum_OrderStatus status, int pageIndex, int pageSize, out long totalRecords)
+        public IList<ServiceOrder> GetAllByOrderStatus(enum_OrderStatus status, int pageIndex, int pageSize, out long totalRecords)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
             where = where.And(x => x.OrderStatus == status);
 
-            if(status== enum_OrderStatus.EndCancel)
+            if (status == enum_OrderStatus.EndCancel)
             {
                 where = where.Or(x => x.OrderStatus == enum_OrderStatus.WaitingDepositWithCanceled);
             }
@@ -459,7 +470,7 @@ namespace Ydb.Order.Application
         public virtual ServiceOrder GetDraftOrder(string cId, string csId)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.CustomerId == cId&& x.CustomerServiceId == csId && x.OrderStatus == enum_OrderStatus.Draft);
+            where = where.And(x => x.CustomerId == cId && x.CustomerServiceId == csId && x.OrderStatus == enum_OrderStatus.Draft);
             ServiceOrder order = null;
             try
             {
@@ -490,7 +501,7 @@ namespace Ydb.Order.Application
         {
 
 
-            return repoServiceOrder.GetOrderListOfServiceByDateRange(serviceId,timeBegin,timeEnd);
+            return repoServiceOrder.GetOrderListOfServiceByDateRange(serviceId, timeBegin, timeEnd);
         }
         public ServiceOrder GetOrderByIdAndCustomer(Guid Id, string customerId)
         {
@@ -501,7 +512,7 @@ namespace Ydb.Order.Application
 
             //  return DALServiceOrder.GetOrderByIdAndCustomer(Id, customer);
         }
- 
+
 
         #region 订单流程变化
 
@@ -511,7 +522,7 @@ namespace Ydb.Order.Application
             {
                 ChangeStatus(order, enum_OrderStatus.Created);
 
-                Payment payment = bllPayment.ApplyPay(order, enum_PayTarget.Deposit);
+                Payment payment = order.ApplyPay(enum_PayTarget.Deposit, repoPayment, repoClaims);
             }
             else
             {
@@ -611,7 +622,7 @@ namespace Ydb.Order.Application
             else
             {
                 ChangeStatus(order, enum_OrderStatus.Ended);
-                bllPayment.ApplyPay(order, enum_PayTarget.FinalPayment);
+                order.ApplyPay(enum_PayTarget.FinalPayment, repoPayment, repoClaims);
             }
         }
         /// <summary>
@@ -662,7 +673,7 @@ namespace Ydb.Order.Application
             //没有完成的服务.
             if (order.OrderFinished != DateTime.MinValue)
             {
-                minutes=(DateTime.Now - order.OrderFinished).TotalMinutes;
+                minutes = (DateTime.Now - order.OrderFinished).TotalMinutes;
             }
             if (oldStatus != enum_OrderStatus.Finished && (minutes < 0 || minutes > Warranty))
             {
@@ -673,7 +684,7 @@ namespace Ydb.Order.Application
                 if (isNeedRefund)
                 {
                     //查询尾款
-                    Payment payment = bllPayment.GetPayedForFinal(order);
+                    Payment payment = repoPayment.GetPayedByTarget(order, enum_PayTarget.FinalPayment);
                     if (payment == null)
                     {
                         log.Debug("订单" + order.Id + "没有尾款支付项");
@@ -713,7 +724,7 @@ namespace Ydb.Order.Application
 
             log.Debug("开始退还尾款");
             log.Debug("查询订单的理赔");
-            Claims claims = dalClaims.GetOneByOrder(order);
+            Claims claims = repoClaims.GetOneByOrder(order);
             if (claims == null)
             {
                 log.Error("订单没有对应的理赔");
@@ -734,7 +745,7 @@ namespace Ydb.Order.Application
             }
 
             log.Debug("查询订单尾款");
-            Payment payment = bllPayment.GetPayedForFinal(order);
+            Payment payment = repoPayment.GetPayedByTarget(order, enum_PayTarget.FinalPayment);
             if (payment == null)
             {
                 log.Debug("订单" + order.Id + "没有尾款支付项");
@@ -750,7 +761,7 @@ namespace Ydb.Order.Application
                 log.Debug("记录商户操作");
 
                 claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, memberId);
-                dalClaims.Update(claims);
+                //repoClaims.Update(claims);
             }
             else
             {
@@ -775,7 +786,7 @@ namespace Ydb.Order.Application
         public void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order, string context, decimal amount, IList<string> resourcesUrl, string memberId)
         {
             log.Debug("查询订单的理赔");
-            Claims claims = dalClaims.GetOneByOrder(order);
+            Claims claims = repoClaims.GetOneByOrder(order);
             if (claims == null)
             {
                 log.Error("订单没有对应的理赔");
@@ -784,7 +795,7 @@ namespace Ydb.Order.Application
 
             log.Debug("记录商户操作");
             claims.AddDetailsFromClaims(claims, context, amount, resourcesUrl, enum_ChatTarget.store, memberId);
-            dalClaims.Update(claims);
+            // dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.AskPayWithRefund);
         }
@@ -796,7 +807,7 @@ namespace Ydb.Order.Application
         public void OrderFlow_BusinessRejectRefund(ServiceOrder order, string memberId)
         {
             log.Debug("查询订单的理赔");
-            Claims claims = dalClaims.GetOneByOrder(order);
+            Claims claims = repoClaims.GetOneByOrder(order);
             if (claims == null)
             {
                 log.Error("订单没有对应的理赔");
@@ -806,7 +817,7 @@ namespace Ydb.Order.Application
             log.Debug("记录商户操作");
 
             claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, memberId);
-            dalClaims.Update(claims);
+            //dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.RejectRefund);
         }
@@ -818,7 +829,7 @@ namespace Ydb.Order.Application
         public void OrderFlow_WaitingPayWithRefund(ServiceOrder order, string memberId)
         {
             log.Debug("查询订单的理赔");
-            Claims claims = dalClaims.GetOneByOrder(order);
+            Claims claims = repoClaims.GetOneByOrder(order);
             if (claims == null)
             {
                 log.Error("订单没有对应的理赔");
@@ -838,11 +849,11 @@ namespace Ydb.Order.Application
                 throw new Exception("该订单没有理赔");
             }
 
-            bllPayment.ApplyPay(order, enum_PayTarget.Compensation);
+            order.ApplyPay(enum_PayTarget.Compensation, repoPayment, repoClaims);
 
             log.Debug("记录用户操作");
             claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.user, memberId);
-            dalClaims.Update(claims);
+            //dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.WaitingPayWithRefund);
         }
@@ -920,6 +931,7 @@ namespace Ydb.Order.Application
             ChangeStatus(order, enum_OrderStatus.ForceStop);
         }
 
+
         //订单状态改变通用方法
         private void ChangeStatus(ServiceOrder order, enum_OrderStatus targetStatus)
         {
@@ -930,12 +942,12 @@ namespace Ydb.Order.Application
 
             //保存订单历史记录
             //order.OrderStatus = oldStatus;
-            bllServiceOrderStateChangeHis.Save(order, oldStatus);
+            order.SaveOrderHistory(oldStatus, repoStateChangeHis);
 
             //更新订单状态
             order.OrderStatus = targetStatus;
             //Update(order);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            //       NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             log.Debug("当前订单状态为:" + targetStatus);
 
             log.Debug("调用IMServer,发送订单状态变更通知");
@@ -955,7 +967,7 @@ namespace Ydb.Order.Application
             {
                 return;
             }
-            if (string.IsNullOrEmpty( order.ServiceBusinessOwnerId))
+            if (string.IsNullOrEmpty(order.ServiceBusinessOwnerId))
             {
                 return;
             }
@@ -964,7 +976,7 @@ namespace Ydb.Order.Application
             RequestUri(uriParameterByStore);
 
             //发送给指派的员工
-            if (string.IsNullOrEmpty( order.StaffId))
+            if (string.IsNullOrEmpty(order.StaffId))
             {
                 return;
             }
@@ -1016,7 +1028,7 @@ namespace Ydb.Order.Application
                     log.Debug("订单为Created，取消成功");
                     //order.OrderStatus = oldStatus;
                     ChangeStatus(order, enum_OrderStatus.Canceled);
-                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                    //   NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                     ChangeStatus(order, enum_OrderStatus.EndCancel);
                     isCanceled = true;
                     break;
@@ -1044,7 +1056,7 @@ namespace Ydb.Order.Application
             {
                 double timeSpan = (targetTime - DateTime.Now).TotalMinutes;
                 double bookOrderRefundTimes;
-                if(!double.TryParse(Dianzhu.Config.Config.GetAppSetting("BookOrderRefundTimes"),out bookOrderRefundTimes))
+                if (!double.TryParse(Dianzhu.Config.Config.GetAppSetting("BookOrderRefundTimes"), out bookOrderRefundTimes))
                 {
                     log.Error("不是数字，转换出错");
                     bookOrderRefundTimes = -1;
@@ -1053,14 +1065,14 @@ namespace Ydb.Order.Application
                 {
                     log.Debug("取消订单不退订金，取消成功");
                     ChangeStatus(order, enum_OrderStatus.Canceled);
-                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                    //   NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                     ChangeStatus(order, enum_OrderStatus.EndCancel);
                     isCanceled = true;
                 }
                 else if (bookOrderRefundTimes <= timeSpan)
                 {
                     log.Debug("系统判定订金是否到帐");
-                    Payment payment = bllPayment.GetPayedForDeposit(order);
+                    Payment payment = repoPayment.GetPayedByTarget(order, enum_PayTarget.Deposit);
                     if (payment == null)
                     {
                         log.Error("订单" + order.Id + "没有订金支付项!");
@@ -1075,7 +1087,7 @@ namespace Ydb.Order.Application
                                 log.Debug("系统没有确认到帐，等待确认到帐后退款");
                                 log.Debug("更新订单状态");
                                 ChangeStatus(order, enum_OrderStatus.Canceled);
-                                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                                //   NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                                 ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
 
                                 isCanceled = true;
@@ -1087,7 +1099,7 @@ namespace Ydb.Order.Application
                                     log.Debug("更新订单状态");
                                     //order.OrderStatus = oldStatus;
                                     ChangeStatus(order, enum_OrderStatus.Canceled);
-                                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                                    //   NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                                     ChangeStatus(order, enum_OrderStatus.EndCancel);
 
                                     isCanceled = true;
@@ -1106,17 +1118,17 @@ namespace Ydb.Order.Application
                         log.Debug("更新订单状态");
                         //order.OrderStatus = oldStatus;
                         ChangeStatus(order, enum_OrderStatus.Canceled);
-                        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                        //  NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                         ChangeStatus(order, enum_OrderStatus.EndCancel);
 
                         isCanceled = true;
-                    }                    
+                    }
                 }
                 else
                 {
                     log.Debug("取消订单时间不在订单保险时间内，取消成功");
                     ChangeStatus(order, enum_OrderStatus.Canceled);
-                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                    // NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                     ChangeStatus(order, enum_OrderStatus.EndCancel);
                     isCanceled = true;
                 }
@@ -1125,7 +1137,7 @@ namespace Ydb.Order.Application
             {
                 log.Debug("取消订单时间大于预约时间，取消成功");
                 ChangeStatus(order, enum_OrderStatus.Canceled);
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                //   NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 ChangeStatus(order, enum_OrderStatus.EndCancel);
                 isCanceled = true;
             }
@@ -1143,162 +1155,24 @@ namespace Ydb.Order.Application
         /// <returns></returns>
         public bool ApplyRefund(Payment payment, decimal refundAmount, string refundReason)
         {
+            //申请退款记录.
+            Refund refund = new Refund(payment.Order, payment, payment.Amount, refundAmount, refundReason, payment.PlatformTradeNo, enum_RefundStatus.Fail, string.Empty);
+            repoRefund.Add(refund);
             bool isRefund = false;
+            IRefundApi refundApi = RefundFactory.CreateRefund(payment.PayApi);
 
-            switch (payment.PayApi)
+            bool refundResult = refundApi.GetRefundResponse(refund.Id, repoRefundLog,httpRequest);
+
+            if (refundResult)
             {
-                #region 支付宝退款
-                case enum_PayAPI.Alipay:
-                    try
-                    {
-                        log.Debug("支付宝退款开始");
-                        Refund refundAliApp = new Refund(payment.Order, payment, payment.Amount, refundAmount, refundReason, payment.PlatformTradeNo, enum_RefundStatus.Fail, string.Empty);
-                        bllRefund.Add(refundAliApp);
-                        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-
-                        string refund_no = DateTime.Now.ToString("yyyyMMdd") + refundAliApp.Id.ToString().Substring(0, 10);
-
-                        IRefund iRefundAliApp = new RefundAliApp(Dianzhu.Config.Config.GetAppSetting("PaySite") + "RefundCallBack/Alipay/notify_url.aspx", refund_no, refundAliApp.RefundAmount, refundAliApp.PlatformTradeNo, refundAliApp.Payment.Id.ToString(), string.Empty);
-                        var respDataAliApp = iRefundAliApp.CreateRefundRequest();
-
-                        string respDataStrAliApp = string.Empty;
-                        foreach (string key in respDataAliApp)
-                        {
-                            respDataStrAliApp += key + "=" + respDataAliApp[key] + "&";
-                        }
-                        respDataStrAliApp = respDataStrAliApp.TrimEnd('&');
-                        log.Debug("支付宝退款请求参数:" + respDataStrAliApp);
-
-                        #region 保存退款请求数据
-                        BLLRefundLog bllRefundLogAliApp = new BLLRefundLog();
-                        RefundLog refundLogAliApp = new RefundLog(respDataStrAliApp, refundAliApp.Id, refundAliApp.RefundAmount, enum_PaylogType.ResultNotifyFromAli, enum_PayType.Online);
-                        bllRefundLogAliApp.Save(refundLogAliApp);
-                        #endregion
-
-                        string url_AliApp = "https://mapi.alipay.com/gateway.do";
-                        string returnstrAliApp = HttpHelper.CreateHttpRequest(url_AliApp, "post", respDataAliApp, Encoding.Default);
-                        log.Debug("支付宝返回数据:" + returnstrAliApp);
-
-                        #region 保存退款返回数据，这里是同步数据，异步数据的在notify中处理
-                        refundLogAliApp = new RefundLog(returnstrAliApp, refundAliApp.Id, refundAliApp.RefundAmount, enum_PaylogType.ResultReturnFromAli, enum_PayType.Online);
-                        bllRefundLogAliApp.Save(refundLogAliApp);
-                        #endregion
-
-                        string jsonAliApp = JsonHelper.Xml2Json(returnstrAliApp, true);
-                        RefundReturnAliApp refundReturnAliApp = JsonConvert.DeserializeObject<RefundReturnAliApp>(jsonAliApp);
-
-                        if (refundReturnAliApp.is_success.ToUpper() == "T")
-                        {
-                            log.Debug("支付宝返回成功");
-                            isRefund = true;
-
-
-                            log.Debug("更新支付宝退款记录");
-                            refundAliApp.RefundStatus = enum_RefundStatus.Success;
-                            bllRefund.Update(refundAliApp);
-                        }
-                        else
-                        {
-                            log.Error("错误提示:" + refundReturnAliApp.error);
-                            isRefund = false;
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        log.Error(e.Message);
-                        throw new Exception(e.Message);
-                    }
-
-                    break;
-                #endregion
-
-                #region 微信退款
-                case enum_PayAPI.Wechat:
-                    try
-                    {
-                        log.Debug("微信退款开始");
-                        Refund refundWeChat = new Refund(payment.Order, payment, payment.Amount, refundAmount, refundReason, payment.PlatformTradeNo, enum_RefundStatus.Fail, string.Empty);
-                        bllRefund.Add(refundWeChat);
-
-                        //string refundNo = refundWeChat.Id.ToString().Replace("-", "");
-
-                        IRefund iRefundWeChat = new RefundWePay(Dianzhu.Config.Config.GetAppSetting("PaySite") + "RefundCallBack/Wepay/notify_url.aspx", refundWeChat.RefundAmount, refundWeChat.Id.ToString(), refundWeChat.PlatformTradeNo, refundWeChat.Payment.Id.ToString(), string.Empty, refundWeChat.TotalAmount);
-                        var respDataWeChat = iRefundWeChat.CreateRefundRequest();
-
-                        string respDataXmlWechat = "<xml>";
-
-                        string sign = string.Empty;
-                        foreach (string key in respDataWeChat)
-                        {
-                            if (key != "sign")
-                            {
-                                respDataXmlWechat += "<" + key + ">" + respDataWeChat[key] + "</" + key + ">";
-                            }
-                            else
-                            {
-                                sign = respDataWeChat[key];
-                            }
-                        }
-                        respDataXmlWechat += "<sign>" + sign + "</sign>";
-                        respDataXmlWechat = respDataXmlWechat + "</xml>";
-                        log.Debug("请求微信api数据:" + respDataXmlWechat);
-
-                        #region 保存退款请求数据
-                        BLLRefundLog bllRefundLogWechat = new BLLRefundLog();
-                        RefundLog refundLogWechat = new RefundLog(respDataXmlWechat, refundWeChat.Id, refundWeChat.RefundAmount, enum_PaylogType.ReturnNotifyFromWePay, enum_PayType.Online);
-                        bllRefundLogWechat.Save(refundLogWechat);
-                        #endregion
-
-                        string url_WeChat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
-                        string returnstrWeChat = HttpHelper.CreateHttpRequestPostXml(url_WeChat, respDataXmlWechat, "北京集思优科网络科技有限公司");
-                        log.Debug("微信返回数据:" + returnstrWeChat);
-
-                        string jsonWeChat = JsonHelper.Xml2Json(returnstrWeChat, true);
-                        RefundReturnWeChat refundReturnWeChat = JsonConvert.DeserializeObject<RefundReturnWeChat>(jsonWeChat);
-
-                        #region 保存退款返回数据
-                        refundLogWechat = new RefundLog(jsonWeChat, refundWeChat.Id, refundWeChat.RefundAmount, enum_PaylogType.ReturnNotifyFromWePay, enum_PayType.Online);
-                        bllRefundLogWechat.Save(refundLogWechat);
-                        #endregion
-
-                        if (refundReturnWeChat.return_code.ToUpper() == "SUCCESS")
-                        {
-                            if (refundReturnWeChat.result_code.ToUpper() == "SUCCESS")
-                            {
-                                log.Debug("微信返回退款成功");
-                                isRefund = true;
-
-
-                                log.Debug("更新微信退款记录");
-                                refundWeChat.RefundStatus = enum_RefundStatus.Success;
-                                bllRefund.Update(refundWeChat);
-                            }
-                            else
-                            {
-                                log.Error("err_code:" + refundReturnWeChat.err_code + "err_code_des:" + refundReturnWeChat.err_code_des);
-                                isRefund = false;
-                            }
-                        }
-                        else
-                        {
-                            log.Error(refundReturnWeChat.return_msg);
-                            isRefund = false;
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        isRefund = false;
-                        log.Error(e.Message);
-                        throw new Exception(e.Message);
-                    }
-
-                    break;
-                #endregion
-
-                default: break;
+                refund.RefundStatus = enum_RefundStatus.Success;
+            }
+            else
+            {
+                refund.RefundStatus = enum_RefundStatus.Fail;
             }
 
-            return isRefund;
+            return refundResult;
         }
 
         #endregion
@@ -1306,7 +1180,7 @@ namespace Ydb.Order.Application
         #region 分配工作人员
         public void AssignStaff(ServiceOrder order, string staffId)
         {
- 
+
             OrderAssignment oa = new OrderAssignment();
             oa.Order = order;
             oa.AssignedStaffId = staffId;
@@ -1314,9 +1188,9 @@ namespace Ydb.Order.Application
         }
         public void DeassignStaff(ServiceOrder order, string staffId)
         {
- 
+
             OrderAssignment oa = repoOrderAssignment.FindByOrderAndStaff(order, staffId);
- 
+
             oa.DeAssignedTime = DateTime.Now;
             oa.Enabled = false;
 

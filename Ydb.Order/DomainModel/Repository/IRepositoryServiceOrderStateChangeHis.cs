@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Ydb.Order.DomainModel;
- 
+
 using Ydb.Common;
+using Ydb.Common.Repository;
 
 namespace Ydb.Order.DomainModel.Repository
 {
-    public interface IDALServiceOrderStateChangeHis : IRepository<ServiceOrderStateChangeHis, Guid>
+    public interface IRepositoryServiceOrderStateChangeHis : IRepository<ServiceOrderStateChangeHis, Guid>
     {
 
 

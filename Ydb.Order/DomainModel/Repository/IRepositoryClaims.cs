@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dianzhu.Model;
- 
-namespace Dianzhu.IDAL
+ using Ydb.Common.Repository;
+
+namespace Ydb.Order.DomainModel.Repository
 {
-    public interface IDALClaims : IRepository<Claims, Guid>
+    public interface IRepositoryClaims : IRepository<Claims, Guid>
     {
         Claims GetOneByOrder(ServiceOrder order);
     }

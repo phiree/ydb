@@ -1,5 +1,5 @@
 ﻿using Com.Alipay;
-using Dianzhu.Pay.WePay;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -7,14 +7,17 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
-
-namespace Dianzhu.Pay.RefundRequest
+using Ydb.Common;
+using Ydb.Common.Infrastructure;
+using Ydb.Order.DomainModel;
+namespace Ydb.Order.Infrastructure
 {
     /// <summary>
-    /// 微信app退款接口
+    /// 支付宝app退款接口
     /// </summary>
-    public class RefundWePay : IRefund
+    public class RefundWePay : IRefundApi
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Ydb.Order.Infrastructure.RefundWePay");
         public decimal TotalAmount { get; set; }
         public decimal RefundAmount { get; set; }
         public string PlatformTradeNo { get; set; }
@@ -24,7 +27,7 @@ namespace Dianzhu.Pay.RefundRequest
 
         IList<RefundDetail> refundDetail;
 
-        string notify_url;
+      
 
         string nonce_str = Guid.NewGuid().ToString().Replace("-", "");
 
@@ -42,7 +45,7 @@ namespace Dianzhu.Pay.RefundRequest
             this.OutRefundNo = refundNo;
             this.OperatorId = operatorId;
             
-            this.notify_url = notify_url;
+          
 
         }
         public NameValueCollection CreateRefundRequest()
@@ -96,16 +99,10 @@ namespace Dianzhu.Pay.RefundRequest
             return collection;
         }
 
-        public bool GetRefundResponse(string callbackUrl)
+        public bool GetRefundResponse(Guid refundId, DomainModel.Repository.IRepositoryRefundLog repoRefundLog,Ydb.Common.Infrastructure.IHttpRequest httpRequest)
         {
-            IRefund iRefundWeChat = new RefundWePay(callbackUrl,// Dianzhu.Config.Config.GetAppSetting("PaySite") + "RefundCallBack/Wepay/notify_url.aspx", 
-                RefundAmount, 
-                refundWeChat.Id.ToString(),
-                refundWeChat.PlatformTradeNo,
-                refundWeChat.Payment.Id.ToString(), 
-                string.Empty,
-                refundWeChat.TotalAmount);
-            var respDataWeChat = iRefundWeChat.CreateRefundRequest();
+
+            var respDataWeChat = CreateRefundRequest();
 
             string respDataXmlWechat = "<xml>";
 
@@ -126,46 +123,49 @@ namespace Dianzhu.Pay.RefundRequest
             log.Debug("请求微信api数据:" + respDataXmlWechat);
 
             #region 保存退款请求数据
-            BLLRefundLog bllRefundLogWechat = new BLLRefundLog();
-            RefundLog refundLogWechat = new RefundLog(respDataXmlWechat, refundWeChat.Id, refundWeChat.RefundAmount, enum_PaylogType.ReturnNotifyFromWePay, enum_PayType.Online);
-            bllRefundLogWechat.Save(refundLogWechat);
+          
+            RefundLog refundLogWechat = new RefundLog(respDataXmlWechat,refundId,  RefundAmount, enum_PaylogType.ReturnNotifyFromWePay, enum_PayType.Online);
+            repoRefundLog.Add(refundLogWechat);
             #endregion
 
-            string url_WeChat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
-            string returnstrWeChat = HttpHelper.CreateHttpRequestPostXml(url_WeChat, respDataXmlWechat, "北京集思优科网络科技有限公司");
+          
+            string returnstrWeChat = httpRequest.CreateHttpRequestPostXml(ConfigWePay.refund_url, respDataXmlWechat, "北京集思优科网络科技有限公司");
             log.Debug("微信返回数据:" + returnstrWeChat);
 
             string jsonWeChat = JsonHelper.Xml2Json(returnstrWeChat, true);
             RefundReturnWeChat refundReturnWeChat = JsonConvert.DeserializeObject<RefundReturnWeChat>(jsonWeChat);
 
             #region 保存退款返回数据
-            refundLogWechat = new RefundLog(jsonWeChat, refundWeChat.Id, refundWeChat.RefundAmount, enum_PaylogType.ReturnNotifyFromWePay, enum_PayType.Online);
-            bllRefundLogWechat.Save(refundLogWechat);
+            refundLogWechat = new RefundLog(jsonWeChat, refundId, RefundAmount, enum_PaylogType.ReturnNotifyFromWePay, enum_PayType.Online);
+            repoRefundLog.Add(refundLogWechat);
             #endregion
 
+            bool refundSuccess = false;
             if (refundReturnWeChat.return_code.ToUpper() == "SUCCESS")
             {
                 if (refundReturnWeChat.result_code.ToUpper() == "SUCCESS")
                 {
                     log.Debug("微信返回退款成功");
-                    isRefund = true;
+                    refundSuccess = true;
 
 
                     log.Debug("更新微信退款记录");
-                    refundWeChat.RefundStatus = enum_RefundStatus.Success;
-                    bllRefund.Update(refundWeChat);
+                    //todo: 在外部更新.
+                    //refundWeChat.RefundStatus = enum_RefundStatus.Success;
+                    //bllRefund.Update(refundWeChat);
                 }
                 else
                 {
                     log.Error("err_code:" + refundReturnWeChat.err_code + "err_code_des:" + refundReturnWeChat.err_code_des);
-                    isRefund = false;
+                    refundSuccess = false;
                 }
             }
             else
             {
                 log.Error(refundReturnWeChat.return_msg);
-                isRefund = false;
+                refundSuccess = false;
             }
+            return refundSuccess;
         }
     }
 }
