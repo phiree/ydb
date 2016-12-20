@@ -43,10 +43,9 @@ namespace Dianzhu.ApplicationService.Client
         /// <returns></returns>
         public UserTokentDTO CreateToken(string loginName, string password, string apiName, string apiKey,string strPath)
         {
- 
-            //log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.ClientController.NoRule.v1.RestfulApi.Web.Dianzhu");
-            //ilog.Debug("PostToken(Baegin1):" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
-          ValidateResult validateResult=   memberService.Login(loginName, password);
+
+            log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.ClientController.NoRule.v1.RestfulApi.Web.Dianzhu");
+            ValidateResult validateResult=   memberService.Login(loginName, password);
             
             if (!validateResult.IsValidated )
  
@@ -108,7 +107,8 @@ namespace Dianzhu.ApplicationService.Client
             usertokendto.userEndpoint = userUri;
             usertokendto.token= JWT.JsonWebToken.Encode(customer, apiKey, JWT.JwtHashAlgorithm.HS256);
             Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.token, Flag = 1, CreatedTime = DateTime.Now };
-            
+            //string stamp_TIMES = http.Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
+            ilog.Debug("PostToken(Baegin1):" + usertoken.UserID + "_" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
             if (bllusertoken.addToken(usertoken))
             {
                 throw new Exception("Token保存失败！");

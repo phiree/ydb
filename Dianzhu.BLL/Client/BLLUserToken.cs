@@ -25,11 +25,13 @@ namespace Dianzhu.BLL.Client
         /// <returns></returns>
         public bool addToken(UserToken usertoken)
         {
+            log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.ClientController.NoRule.v1.RestfulApi.Web.Dianzhu");
             var where = PredicateBuilder.True<UserToken>();
             where = where.And(x => x.UserID == usertoken.UserID && x.Flag == 1);
             UserToken usertokenOld = dalusertoken.FindOne(where);
             if (usertokenOld != null)
             {
+                ilog.Debug("PostToken(Baegin2_Update):" + usertoken.UserID + "_" + usertokenOld.Id + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
                 //usertokenOld.Flag = 0;
                 usertokenOld.Token = usertoken.Token;
                 usertokenOld.CreatedTime = usertoken.CreatedTime;
@@ -38,10 +40,9 @@ namespace Dianzhu.BLL.Client
             else
             {
 
-                //log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.ClientController");
-                //ilog.Debug("PostToken(Baegin3):" + usertoken.Id + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
+                ilog.Debug("PostToken(Baegin3_Add):" + usertoken.UserID + "_" + usertoken.Id + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
                 dalusertoken.Add(usertoken);
-                //ilog.Debug("PostToken(Baegin4):" + usertoken.Id + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
+                ilog.Debug("PostToken(Baegin4_Add):" + usertoken.UserID + "_" + usertoken.Id + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
                 //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 //usertoken = dalusertoken.FindById(usertoken.Id);
                 //ilog.Debug("PostToken(Baegin5):" + usertoken.Id + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
