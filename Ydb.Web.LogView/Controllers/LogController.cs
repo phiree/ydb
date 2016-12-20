@@ -163,6 +163,10 @@ namespace Dianzhu.Web.Log.Controllers
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                 System.Web.HttpCookie authCookie = new System.Web.HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                 System.Web.HttpContext.Current.Response.Cookies.Add(authCookie);
+
+                //测试System.Runtime.Caching.MemoryCache，能不能夸项目
+                //string str = System.Runtime.Caching.MemoryCache.Default[userList[0].Id.ToString()].ToString();
+                //return Content(str);
                 if (returnUrl == null)
                 {
                     return RedirectToAction("Index");

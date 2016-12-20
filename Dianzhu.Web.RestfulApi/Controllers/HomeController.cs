@@ -230,6 +230,12 @@ namespace Dianzhu.Web.RestfulApi.Controllers
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                 System.Web.HttpCookie authCookie = new System.Web.HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                 System.Web.HttpContext.Current.Response.Cookies.Add(authCookie);
+
+                //测试System.Runtime.Caching.MemoryCache，能不能夸项目
+                //if (!System.Runtime.Caching.MemoryCache.Default.Contains(userList[0].Id.ToString()))
+                //    System.Runtime.Caching.MemoryCache.Default.Add(userList[0].Id.ToString(), "缓存是时间：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), DateTimeOffset.UtcNow.AddSeconds(172800));
+                //string str = System.Runtime.Caching.MemoryCache.Default[userList[0].Id.ToString()].ToString();
+                //return Content(str);
                 if (returnUrl == null)
                 {
                     return RedirectToAction("Index");

@@ -119,6 +119,7 @@ namespace Dianzhu.ApplicationService.Client
             System.Runtime.Caching.MemoryCache.Default.Remove(dzm.Id.ToString());
             System.Runtime.Caching.MemoryCache.Default.Add(dzm.Id.ToString(), usertokendto.token, DateTimeOffset.UtcNow.AddSeconds(172800));
             //ilog.Debug("PostToken(End):" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
+            
             return usertokendto;
         }
 
