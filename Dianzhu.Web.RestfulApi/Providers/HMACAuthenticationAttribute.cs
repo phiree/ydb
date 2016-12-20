@@ -25,7 +25,7 @@ namespace Dianzhu.Web.RestfulApi
     {
         log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.HMACAuthenticationAttribute.NoRule.v1.RestfulApi.Web.Dianzhu");
         private static Dictionary<string, string> allowedApps = new Dictionary<string, string>();
-        private readonly Int64 requestMaxAgeInSeconds = 300000;  //5 mins
+        private readonly Int64 requestMaxAgeInSeconds = 300;  //5 mins
         private readonly string authenticationScheme = "amx";
         //private  string reqTime = "";
 
