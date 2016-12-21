@@ -242,7 +242,6 @@ namespace Ydb.Membership.Application
             string[] recoveryParameters = recoveryString.Split(new string[] { Config.pwssword_recovery_spliter }, StringSplitOptions.None);
             string userName = encryptService.Decrypt(recoveryParameters[0], false);
             string recoveryCode = recoveryParameters[1];
-
             DZMembership member = repositoryMembership.GetMemberByName(userName);
             return member.RecoveryPassword(recoveryCode, newPassword, encryptService.GetMD5Hash(newPassword));
 
