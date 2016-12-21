@@ -24,13 +24,11 @@ namespace Dianzhu.ApplicationService.User
     {
         log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.UserService.NoRule.v1.RestfulApi.Web.Dianzhu");
         IDZMembershipService memberService;
-        BLL.Client.BLLUserToken bllUserToken;
         IReceptionService receptionService;
         IBLLServiceOrder bllServiceOrder;
-        public UserService(IDZMembershipService memberService, BLL.Client.BLLUserToken bllUserToken, IReceptionService receptionService, IBLLServiceOrder bllServiceOrder)
+        public UserService(IDZMembershipService memberService,  IReceptionService receptionService, IBLLServiceOrder bllServiceOrder)
         {
             this.memberService = memberService;
-            this.bllUserToken = bllUserToken;
             this.receptionService = receptionService;
             this.bllServiceOrder = bllServiceOrder;
         }
@@ -257,8 +255,8 @@ namespace Dianzhu.ApplicationService.User
                     throw new Exception(changePasswordResult.ErrMsg);
                 }
                 System.Runtime.Caching.MemoryCache.Default.Remove(userID.ToString());
-                Model.UserToken usertoken=bllUserToken.GetToken(userID.ToString());
-                usertoken.Flag = 0;
+                //Model.UserToken usertoken=bllUserToken.GetToken(userID.ToString());
+                //usertoken.Flag = 0;
                 //Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.token, Flag = 0, CreatedTime = DateTime.Now };
                 //UserToken ut = usertoken.GetToken(member.Id.ToString());
                 //ut.Flag = 0;

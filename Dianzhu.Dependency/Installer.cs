@@ -71,7 +71,7 @@ namespace Dianzhu.DependencyInstaller
 
 
             //20160628_longphui_add
-            container.Register(Component.For<BLL.Client.BLLUserToken>());
+            //container.Register(Component.For<BLL.Client.BLLUserToken>());
 
 
             //20160727_longphui_add
@@ -159,7 +159,7 @@ namespace Dianzhu.DependencyInstaller
 
 
             //20160628_longphui_add
-            container.Register(Component.For<IRepository<UserToken, Guid>, IDALUserToken>().ImplementedBy<DAL.Client.DALUserToken>());
+            //container.Register(Component.For<IRepository<UserToken, Guid>, IDALUserToken>().ImplementedBy<DAL.Client.DALUserToken>());
 
             //20160727_longphui_add
             container.Register(Component.For<IRepository<StorageFileInfo, Guid>, IDALStorageFileInfo>().ImplementedBy<DALStorageFileInfo>());

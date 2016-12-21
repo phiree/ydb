@@ -12,10 +12,11 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping
         public UserTokenMap()
         {
             Id(x => x.Id);
-            Map(x => x.UserID).Unique();
+            Map(x => x.UserID).UniqueKey("usertoken");
             Map(x => x.Token).Length(1000);
             Map(x => x.CreatedTime);
             Map(x => x.Flag);
+            Map(x => x.AppName).UniqueKey("usertoken");
         }
     }
 }

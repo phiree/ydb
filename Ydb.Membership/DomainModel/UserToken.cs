@@ -26,5 +26,10 @@ namespace Ydb.Membership.DomainModel
         /// 有效状态
         /// </summary>
         public virtual int Flag { get; set; }
+
+        /// <summary>
+        /// 平台AppName
+        /// </summary>
+        public virtual string AppName { get; set; }
     }
 }

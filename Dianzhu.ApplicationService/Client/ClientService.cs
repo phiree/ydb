@@ -16,17 +16,17 @@ namespace Dianzhu.ApplicationService.Client
     {
         BLL.Client.IBLLClient ibllclient;
         BLL.Client.IBLLRefreshToken ibllrefreshtoken;
-        BLL.Client.BLLUserToken bllusertoken = null;
+        IUserTokenService userTokenService = null;
         
         IDZMembershipService memberService;
         IStaffService staffService;
 
-        public ClientService(BLL.Client.BLLUserToken bllusertoken, IStaffService staffService
+        public ClientService(IUserTokenService userTokenService, IStaffService staffService
             ,IDZMembershipService memberService)
         {
             //this.ibllclient = ibllclient;
             //this.ibllrefreshtoken = ibllrefreshtoken;
-            this.bllusertoken = bllusertoken;
+            this.userTokenService = userTokenService;
         
             this.staffService = staffService;
             this.memberService = memberService;
@@ -106,13 +106,17 @@ namespace Dianzhu.ApplicationService.Client
             UserTokentDTO usertokendto = new UserTokentDTO();
             usertokendto.userEndpoint = userUri;
             usertokendto.token= JWT.JsonWebToken.Encode(customer, apiKey, JWT.JwtHashAlgorithm.HS256);
-            Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.token, Flag = 1, CreatedTime = DateTime.Now };
-            //string stamp_TIMES = http.Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
-            ilog.Debug("PostToken(Baegin1):" + usertoken.UserID + "_" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
-            if (bllusertoken.addToken(usertoken))
-            {
-                throw new Exception("Token保存失败！");
-            }
+
+            //Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.token, Flag = 1, CreatedTime = DateTime.Now };
+            
+            ilog.Debug("PostToken(Baegin1):" + dzm.Id.ToString() + "_" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
+            //if (bllusertoken.addToken(usertoken))
+            //{
+            //    throw new Exception("Token保存失败！");
+            //}
+
+            userTokenService.addToken(dzm.Id.ToString(), usertokendto.token, apiName);
+
             DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Local);
             TimeSpan currentTs = DateTime.Now - epochStart;
             string requestTimeStamp = currentTs.TotalSeconds.ToString ();

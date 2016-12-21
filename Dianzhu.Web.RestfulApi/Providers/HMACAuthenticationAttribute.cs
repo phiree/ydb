@@ -267,9 +267,9 @@ namespace Dianzhu.Web.RestfulApi
                 }
                 else
                 {
-                    BLL.Client.BLLUserToken bllusertoken = Bootstrap.Container.Resolve<BLL.Client.BLLUserToken>();
+                    Ydb.Membership.Application.IUserTokenService userTokenService = Bootstrap.Container.Resolve<Ydb.Membership.Application.IUserTokenService>();
                     //NHibernateUnitOfWork.UnitOfWork.Start();
-                    if (bllusertoken.CheckToken(token))
+                    if (userTokenService.CheckToken(token))
                     {
                         ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":" + strLog + ";error= Not find user by token!");
                         //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
@@ -373,7 +373,7 @@ namespace Dianzhu.Web.RestfulApi
         {
             if (System.Runtime.Caching.MemoryCache.Default.Contains(nonce))
             {
-                ilog.Debug("Request(RequestMethodUriSign)" + requestTimeStamp + ":" + strLog + ";error=appName Not exists!");
+                ilog.Debug("Request(RequestMethodUriSign)" + requestTimeStamp + ":" + strLog + ";error=sign repeat!");
                 return true;
             }
             //unixtime防止跨时区调用
