@@ -14,7 +14,7 @@ namespace Ydb.Order.Application
     /// <summary>
     /// 订单业务逻辑
     /// </summary>
-    public class BLLServiceOrder
+    public class ServiceOrderService : IServiceOrderService
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
 
@@ -35,7 +35,7 @@ namespace Ydb.Order.Application
         IHttpRequest httpRequest;
 
 
-        public BLLServiceOrder(IRepositoryServiceOrder repoServiceOrder, IRepositoryServiceOrderStateChangeHis repoStateChangeHis,
+        public ServiceOrderService(IRepositoryServiceOrder repoServiceOrder, IRepositoryServiceOrderStateChangeHis repoStateChangeHis,
            IRepositoryRefund repoRefund, IRepositoryRefundLog repoRefundLog, IRepositoryOrderAssignment repoOrderAssignment,
            IRepositoryClaims repoClaims, IRepositoryPayment repoPayment,IHttpRequest httpRequest)
         {
@@ -1206,7 +1206,7 @@ namespace Ydb.Order.Application
 
         public enum_OrderStatus GetOrderStatusPrevious(ServiceOrder order, enum_OrderStatus status)
         {
-            return bllServiceOrderStateChangeHis.GetOrderStatusPrevious(order, status);
+            return repoStateChangeHis.GetOrderStatusPrevious(order, status);
         }
 
         public int GetServiceOrderCountWithoutDraft(Guid userid, bool isCustomerService)

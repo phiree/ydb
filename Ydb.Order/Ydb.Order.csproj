@@ -100,20 +100,23 @@
     <Compile Include="DomainModel\ServiceOrderRemind.cs" />
     <Compile Include="DomainModel\ServiceOrderStateChangeHis.cs" />
     <Compile Include="DomainModel\ServiceSnapShotForOrder.cs" />
-    <Compile Include="Infrasturcture\AliPay\AlipayConfig.cs" />
-    <Compile Include="Infrasturcture\AliPay\AlipayCore.cs" />
-    <Compile Include="Infrasturcture\AliPay\AlipayNotify.cs" />
-    <Compile Include="Infrasturcture\AliPay\AlipaySignature.cs" />
-    <Compile Include="Infrasturcture\AliPay\AlipaySubmit.cs" />
-    <Compile Include="Infrasturcture\AliPay\AopException.cs" />
-    <Compile Include="Infrasturcture\AliPay\RSA.cs" />
-    <Compile Include="Infrasturcture\AliPay\RSACryptoServiceProviderExtension.cs" />
-    <Compile Include="Infrasturcture\WePay\WePayConfig.cs" />
+    <Compile Include="Infrastructure\AliPay\AlipayConfig.cs" />
+    <Compile Include="Infrastructure\AliPay\AlipayCore.cs" />
+    <Compile Include="Infrastructure\AliPay\AlipayNotify.cs" />
+    <Compile Include="Infrastructure\AliPay\AlipaySignature.cs" />
+    <Compile Include="Infrastructure\AliPay\AlipaySubmit.cs" />
+    <Compile Include="Infrastructure\AliPay\AopException.cs" />
+    <Compile Include="Infrastructure\AliPay\RSA.cs" />
+    <Compile Include="Infrastructure\AliPay\RSACryptoServiceProviderExtension.cs" />
+    <Compile Include="Infrastructure\Refund\RefundFactory.cs" />
+    <Compile Include="Infrastructure\Refund\RefundReturnAliApp.cs" />
+    <Compile Include="Infrastructure\Refund\RefundReturnWeChat.cs" />
+    <Compile Include="Infrastructure\WePay\WePayConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DomainModel\Refund\IRefund.cs" />
-    <Compile Include="Infrasturcture\Refund\RefundAli.cs" />
-    <Compile Include="Infrasturcture\Refund\RefundAliApp.cs" />
-    <Compile Include="Infrasturcture\Refund\RefundWePay.cs" />
+    <Compile Include="Infrastructure\Refund\RefundAli.cs" />
+    <Compile Include="Infrastructure\Refund\RefundAliApp.cs" />
+    <Compile Include="Infrastructure\Refund\RefundWePay.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
