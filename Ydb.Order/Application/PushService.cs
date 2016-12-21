@@ -4,25 +4,19 @@ using System.Linq;
 using System.Text;
 using Ydb.Order.DomainModel;
 using Ydb.Common;
-using Ydb.BusinessResource.Application;
-using Ydb.BusinessResource.DomainModel;
+using Ydb.Order.DomainModel.Repository;
 namespace Ydb.Order.Application
 {
+    /// <summary>
+    /// 推送给用户的服务.
+    /// </summary>
    public  class PushService
     {
-        IDAL.IDALServiceOrderPushedService dalSOP;
-        BLLPayment bllPayment;
-        IBLLServiceOrder bllServiceOrder;
-        IDZServiceService dzServiceService;
-        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis;
-        public PushService(IDAL.IDALServiceOrderPushedService dalSOP,IBLLServiceOrder bllServiceOrder, IDZServiceService dzServiceService, BLLPayment bllPayment,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis)
+        IRepositoryServiceOrderPushedService repoPushedService;
+       
+        public PushService( )
         {
-            this.dalSOP = dalSOP;
-            this.bllServiceOrder = bllServiceOrder;
-            this.dzServiceService = dzServiceService;
-            this.bllPayment = bllPayment;
-
-            this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
+             
         }
         public void Push(ServiceOrder order, ServiceOrderPushedService service, string targetAddress, DateTime targetTime)
         {
@@ -45,19 +39,19 @@ namespace Ydb.Order.Application
 
             foreach (ServiceOrderPushedService service in services)
             {
-                dalSOP.Add(service);
+                repoPushedService.Add(service);
             }
         }
         public IList<ServiceOrderPushedService> GetPushedServicesForOrder(ServiceOrder order)
         {
-            return dalSOP.FindByOrder(order);
+            return repoPushedService.FindByOrder(order);
         }
         /// <summary>
         /// 用户选择某项服务之后创建订单
         /// </summary>
         /// <param name="order"></param>
         /// <param name="selectedService"></param>
-        public void SelectServiceAndCreate(ServiceOrder order, string selectedServiceId)
+        public void SelectServiceAndCreate(ServiceOrder order,ServiceSnapShot serviceSnapshot,WorkTimeSnapshot worktimeSnapshot,  string selectedServiceId)
         {
 
 
@@ -75,18 +69,9 @@ namespace Ydb.Order.Application
                 }
 
                 //todo:  需要用Automapper
-             DZService serviceDto=  dzServiceService.GetOne2(new Guid(selectedServiceId));
-                ServiceSnapShot serviceSnapShot = AutoMapper.Mapper.Map<ServiceSnapShot>(serviceDto);
-                
-                ServiceOpenTimeForDay workTime = dzServiceService.GetWorkTime(new Guid(selectedServiceId), s.TargetTime);
-                WorkTimeSnapshot serviceTimeSnapShot = new WorkTimeSnapshot {
-
-                    MaxOrderForWorkDay = workTime.ServiceOpenTime.MaxOrderForDay,
-                    MaxOrderForWorkTime = workTime.MaxOrderForOpenTime,
-                    TimePeriod = workTime.TimePeriod
-                };
-                order.AddDetailFromIntelService(s.OriginalServiceId, serviceSnapShot,
-                    serviceTimeSnapShot,
+           
+                order.AddDetailFromIntelService(s.OriginalServiceId, serviceSnapshot,
+                    worktimeSnapshot,
                     s.UnitAmount,s.TargetCustomerName,s.TargetCustomerPhone, s.TargetAddress, s.TargetTime,s.Memo);
 
                 order.CreatedFromDraft();

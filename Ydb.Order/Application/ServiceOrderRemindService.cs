@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Ydb.Order.DomainModel;
-using Dianzhu.IDAL;
-using Dianzhu.DAL;
-using Ydb.Common;
-using Dianzhu.Pay;
-using DDDCommon;
+using Ydb.Order.DomainModel.Repository;
 using Ydb.Common.Specification;
 
 namespace Ydb.Order.Application
@@ -19,30 +12,30 @@ namespace Ydb.Order.Application
     {
         //20150616_longphui_modify
         //public DALServiceOrderRemind dalServiceOrderRemind = DALFactory.DALServiceOrderRemind;
-        private IDALServiceOrderRemind dalServiceOrderRemind;
-        public BLLServiceOrderRemind(IDALServiceOrderRemind dalServiceOrderRemind)
+        private IRepositoryServiceOrderRemind repoOrderRemind;
+        public BLLServiceOrderRemind(IRepositoryServiceOrderRemind repoOrderRemind)
         {
-            this.dalServiceOrderRemind = dalServiceOrderRemind;
+            this.repoOrderRemind = repoOrderRemind;
         }
 
         public void Save(ServiceOrderRemind Remind)
         {
-            dalServiceOrderRemind.Add(Remind);
+            repoOrderRemind.Add(Remind);
         }
 
         public void Update(ServiceOrderRemind Remind)
         {
-            dalServiceOrderRemind.Update(Remind);
+            repoOrderRemind.Update(Remind);
         }
 
         public ServiceOrderRemind GetOneByIdAndUserId(Guid Id, Guid UserId)
         {
-            return dalServiceOrderRemind.GetOneByIdAndUserId(Id, UserId);
+            return repoOrderRemind.GetOneByIdAndUserId(Id, UserId);
         }
 
         public int GetSumByUserIdAndDatetime(Guid userId, DateTime startTime, DateTime endTime)
         {
-            return dalServiceOrderRemind.GetSumByUserIdAndDatetime(userId, startTime, endTime);
+            return repoOrderRemind.GetSumByUserIdAndDatetime(userId, startTime, endTime);
         }
 
         public IList<ServiceOrderRemind> GetListByUserIdAndDatetime(Guid userId, DateTime startTime, DateTime endTime)
@@ -51,7 +44,7 @@ namespace Ydb.Order.Application
 
             if (startTime < endTime)
             {
-                remindList = dalServiceOrderRemind.GetListByUserIdAndDatetime(userId, startTime, endTime);
+                remindList = repoOrderRemind.GetListByUserIdAndDatetime(userId, startTime, endTime);
             }
 
             return remindList;
@@ -66,7 +59,7 @@ namespace Ydb.Order.Application
         /// <param name="startTime"></param>
         /// <param name="endTime"></param>
         /// <returns></returns>
-        public IList<Model.ServiceOrderRemind> GetReminds( TraitFilter filter, Guid orderID, Guid userId, DateTime startTime, DateTime endTime)
+        public IList<ServiceOrderRemind> GetReminds( TraitFilter filter, Guid orderID, Guid userId, DateTime startTime, DateTime endTime)
         {
             var where = PredicateBuilder.True<ServiceOrderRemind>();
             if (orderID != Guid.Empty)
@@ -91,7 +84,7 @@ namespace Ydb.Order.Application
             {
                 try
                 {
-                    baseone = dalServiceOrderRemind.FindByBaseId(new Guid(filter.baseID));
+                    baseone = repoOrderRemind.FindByBaseId(new Guid(filter.baseID));
                 }
                 catch (Exception ex)
                 {
@@ -99,7 +92,7 @@ namespace Ydb.Order.Application
                 }
             }
             long t = 0;
-            var list = filter.pageSize == 0 ? dalServiceOrderRemind.Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList() : dalServiceOrderRemind.Find(where, filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
+            var list = filter.pageSize == 0 ? repoOrderRemind.Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList() : repoOrderRemind.Find(where, filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
             return list;
 
         }
@@ -131,7 +124,7 @@ namespace Ydb.Order.Application
             {
                 where = where.And(x => x.RemindTime <= endTime.AddDays(1));
             }
-            long count = dalServiceOrderRemind.GetRowCount(where);
+            long count = repoOrderRemind.GetRowCount(where);
             return count;
         }
 
@@ -141,7 +134,7 @@ namespace Ydb.Order.Application
         /// <param name="RemindId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public Model.ServiceOrderRemind GetRemindById(Guid RemindId,Guid userId)
+        public ServiceOrderRemind GetRemindById(Guid RemindId,Guid userId)
         {
             var where = PredicateBuilder.True<ServiceOrderRemind>();
             where = where.And(x => x.Id == RemindId);
@@ -149,7 +142,7 @@ namespace Ydb.Order.Application
             {
                 where = where.And(x => x.UserId == userId);
             }
-            var remind = dalServiceOrderRemind.FindOne(where);
+            var remind = repoOrderRemind.FindOne(where);
             return remind;
         }
 
@@ -157,9 +150,9 @@ namespace Ydb.Order.Application
         /// 根据ID删除提醒
         /// </summary>
         /// <param name="remind"></param>
-        public void DeleteRemindById(Model.ServiceOrderRemind remind)
+        public void DeleteRemindById(ServiceOrderRemind remind)
         {
-            dalServiceOrderRemind.Delete(remind);
+            repoOrderRemind.Delete(remind);
         }
 
     }

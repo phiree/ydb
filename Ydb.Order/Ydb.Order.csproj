@@ -65,13 +65,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\BLLServiceOrder.cs" />
-    <Compile Include="Application\BLLServiceOrderAppraise.cs" />
-    <Compile Include="Application\BLLServiceOrderRemind.cs" />
-    <Compile Include="Application\BLLServiceOrderStateChangeHis.cs" />
-    <Compile Include="Application\IBLLServiceOrder.cs" />
+    <Compile Include="Application\IServiceOrderService.cs" />
     <Compile Include="Application\OrderFlow.cs" />
     <Compile Include="Application\PushService.cs" />
+    <Compile Include="Application\ServiceOrderAppraiseService.cs" />
+    <Compile Include="Application\ServiceOrderRemindService.cs" />
+    <Compile Include="Application\ServiceOrderService.cs" />
+    <Compile Include="Application\ServiceOrderStateChangeHisService.cs" />
     <Compile Include="DomainModel\Claims.cs" />
     <Compile Include="DomainModel\ClaimsDetails.cs" />
     <Compile Include="DomainModel\OrderAssignment.cs" />
