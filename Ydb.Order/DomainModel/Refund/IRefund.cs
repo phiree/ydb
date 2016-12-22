@@ -22,11 +22,9 @@ namespace Ydb.Order.DomainModel
         /// 平台交易号
         /// </summary>
         string PlatformTradeNo { get; set; }
-        /// <summary>
-        /// 商户订单号
+      
         /// </summary>
-        string OutTradeNo { get; set; }
-        /// <summary>
+         /// <summary>
         /// 操作员帐号, 默认为商户号
         /// </summary>
         string OperatorId { get; set; }

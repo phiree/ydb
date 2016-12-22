@@ -1134,6 +1134,10 @@ namespace Ydb.Order.Application
         }
         #endregion
 
+        public bool ApplyRefund(Payment payment, decimal refundAmount, string refundReason)
+        {
+          return   ApplyRefund(payment, refundAmount, refundReason, string.Empty);
+        }
 
         #region 退款
         /// <summary>
@@ -1141,13 +1145,13 @@ namespace Ydb.Order.Application
         /// </summary>
         /// <param name="payment"></param>
         /// <returns></returns>
-        public bool ApplyRefund(Payment payment, decimal refundAmount, string refundReason)
+        public bool ApplyRefund(Payment payment, decimal refundAmount, string refundReason,string operatorId)
         {
             //申请退款记录.
             Refund refund = new Refund(payment.Order, payment, payment.Amount, refundAmount, refundReason, payment.PlatformTradeNo, enum_RefundStatus.Fail, string.Empty);
             repoRefund.Add(refund);
-            bool isRefund = false;
-            IRefundApi refundApi = RefundFactory.CreateRefund(payment.PayApi);
+          
+            IRefundApi refundApi = RefundFactory.CreateRefund(refund,operatorId);
 
             bool refundResult = refundApi.GetRefundResponse(refund.Id, repoRefundLog,httpRequest);
 

@@ -1172,7 +1172,7 @@ namespace Dianzhu.BLL
             switch (payment.PayApi)
             {
                 #region 支付宝退款
-                case enum_PayAPI.Alipay:
+                case enum_PayAPI.AlipayWeb:
                     try
                     {
                         log.Debug("支付宝退款开始");
@@ -1182,7 +1182,8 @@ namespace Dianzhu.BLL
 
                         string refund_no = DateTime.Now.ToString("yyyyMMdd") + refundAliApp.Id.ToString().Substring(0, 10);
 
-                        IRefund iRefundAliApp = new RefundAliApp(Dianzhu.Config.Config.GetAppSetting("PaySite") + "RefundCallBack/Alipay/notify_url.aspx", refund_no, refundAliApp.RefundAmount, refundAliApp.PlatformTradeNo, refundAliApp.Payment.Id.ToString(), string.Empty);
+                        IRefund iRefundAliApp = new RefundAliApp(Dianzhu.Config.Config.GetAppSetting("PaySite") + "RefundCallBack/Alipay/notify_url.aspx",
+                            refund_no, refundAliApp.RefundAmount, refundAliApp.PlatformTradeNo, refundAliApp.Payment.Id.ToString(), string.Empty);
                         var respDataAliApp = iRefundAliApp.CreateRefundRequest();
 
                         string respDataStrAliApp = string.Empty;

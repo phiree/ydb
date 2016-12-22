@@ -16,12 +16,7 @@ namespace Ydb.Order.DomainModel
     {
 
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model");
-
-        protected Refund()
-        {
-
-        }
-
+ 
         /// <summary>
         /// 初始化
         /// </summary>

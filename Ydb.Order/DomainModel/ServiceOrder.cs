@@ -700,7 +700,8 @@ namespace Ydb.Order.DomainModel
         }
 
 
-        public void Confirm_Order(IRepositoryServiceOrderPushedService repoPushedService, string serviceId, ServiceSnapShot serviceSnapshot, WorkTimeSnapshot worktimeSnapshot,
+        public void Confirm_Order(IRepositoryServiceOrderPushedService repoPushedService, string serviceId,
+            ServiceSnapShot serviceSnapshot, WorkTimeSnapshot worktimeSnapshot,
           IRepositoryPayment repoPayment, IRepositoryClaims repoClaims)
         {
             IList<ServiceOrderPushedService> l = repoPushedService.FindByOrder(this);

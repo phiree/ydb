@@ -41,7 +41,7 @@ public partial class CallBackHandler :BasePage
         }
         else if (rawUrl.ToLower().StartsWith("/paycallback/alipay"))
         {
-            payApi = enum_PayAPI.Alipay;
+            payApi = enum_PayAPI.AlipayWeb;
             log.Debug("支付宝回调开始");
             //保存支付接口返回的原始数据
             if (rawUrl.ToLower().Contains("return_url"))
@@ -107,7 +107,7 @@ public partial class CallBackHandler :BasePage
             else
             {
                 log.Debug(payApi + "异步调用成功");
-                if (payApi == enum_PayAPI.Alipay)
+                if (payApi == enum_PayAPI.AlipayWeb)
                 {
                     Response.Write("success");
                 }

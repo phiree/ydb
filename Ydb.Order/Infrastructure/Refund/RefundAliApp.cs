@@ -9,8 +9,8 @@ using System.Web;
 using Ydb.Common;
 using Ydb.Common.Infrastructure;
 using Ydb.Order.DomainModel;
-using Ydb.Order.Infrasturcture.Refund;
 
+ 
 namespace Ydb.Order.Infrastructure
 {
     /// <summary>
@@ -21,7 +21,7 @@ namespace Ydb.Order.Infrastructure
         log4net.ILog log = log4net.LogManager.GetLogger("Ydb.Order.Infrastructure.RefundAliApp");
         public decimal RefundAmount { get; set; }
         public string PlatformTradeNo { get; set; }
-        public string OutTradeNo { get; set; }
+      
         public string OperatorId { get; set; }
       
         public string Batch_no { get; set; }
@@ -33,13 +33,13 @@ namespace Ydb.Order.Infrastructure
         /// </summary>
         /// <param name="notify_url"></param>
         /// <param name="refundDetail"></param>
-        public RefundAliApp(string notify_url,string refund_no, decimal refundAmount, string platformTradeNo, string outTradeNo,string operatorId)
+        public RefundAliApp(string notify_url,string refund_no, decimal refundAmount,  
+            string platformTradeNo,string operatorId)
         {
             this.notify_url = notify_url;
             this.RefundAmount = refundAmount;
             this.PlatformTradeNo = platformTradeNo;
-            this.OutTradeNo = outTradeNo;
-            this.OperatorId = operatorId;
+             this.OperatorId = operatorId;
             this.Batch_no = refund_no;
  
 

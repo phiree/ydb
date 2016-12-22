@@ -8,7 +8,9 @@ namespace Ydb.Order.Application
 {
     public interface IServiceOrderService
     {
+        bool ApplyRefund(Payment payment, decimal refundAmount, string refundReason,string operatorId);
         bool ApplyRefund(Payment payment, decimal refundAmount, string refundReason);
+
         void AssignStaff(ServiceOrder order, string staffId);
         void DeassignStaff(ServiceOrder order, string staffId);
         void Delete(ServiceOrder order);

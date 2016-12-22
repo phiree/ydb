@@ -13,7 +13,8 @@ using Ydb.Order.DomainModel;
 namespace Ydb.Order.Infrastructure
 {
     /// <summary>
-    /// 支付宝app退款接口
+    /// 微信app退款接口
+    /// https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_4
     /// </summary>
     public class RefundWePay : IRefundApi
     {
@@ -21,14 +22,10 @@ namespace Ydb.Order.Infrastructure
         public decimal TotalAmount { get; set; }
         public decimal RefundAmount { get; set; }
         public string PlatformTradeNo { get; set; }
-        public string OutTradeNo { get; set; }
-        public string OutRefundNo { get; set; }
+         public string OutRefundNo { get; set; }
         public string OperatorId { get; set; }
 
-        IList<RefundDetail> refundDetail;
-
-      
-
+     
         string nonce_str = Guid.NewGuid().ToString().Replace("-", "");
 
         /// <summary>
@@ -36,12 +33,13 @@ namespace Ydb.Order.Infrastructure
         /// </summary>
         /// <param name="notify_url"></param>
         /// <param name="refundDetail"></param>
-        public RefundWePay(string notify_url, decimal refundAmount,string refundNo, string platformTradeNo, string outTradeNo,string operatorId,decimal totalAmount)
+        public RefundWePay( string refundNo, decimal refundAmount, 
+            string platformTradeNo,decimal totalAmount, string operatorId)
         {
             this.TotalAmount = totalAmount;
             this.RefundAmount = refundAmount;
             this.PlatformTradeNo = platformTradeNo;
-            this.OutTradeNo = outTradeNo;
+         
             this.OutRefundNo = refundNo;
             this.OperatorId = operatorId;
             
@@ -55,7 +53,6 @@ namespace Ydb.Order.Infrastructure
             sParaTemp.Add("mch_id", ConfigWePay.mch_id);
             sParaTemp.Add("nonce_str", nonce_str);
             sParaTemp.Add("transaction_id", PlatformTradeNo);
-            sParaTemp.Add("out_trade_no", OutTradeNo.Replace("-",""));
             sParaTemp.Add("out_refund_no", OutRefundNo.Replace("-",""));
             sParaTemp.Add("total_fee", (TotalAmount*100).ToString("0"));
             sParaTemp.Add("refund_fee", (RefundAmount*100).ToString("0"));

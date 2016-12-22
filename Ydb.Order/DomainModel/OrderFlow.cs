@@ -12,7 +12,7 @@ namespace Ydb.Order.DomainModel
     /// </summary>
     public class OrderServiceFlow
     {
-        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL");
+      static  log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL");
 
         /// <summary>
         /// 确保目标状态是可以执行的.

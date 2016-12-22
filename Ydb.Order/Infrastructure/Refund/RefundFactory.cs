@@ -9,20 +9,27 @@ using Ydb.Order.Infrastructure;
 
 namespace Ydb.Order.Infrasturcture
 {
-    
 
-        public class RefundFactory
+
+    public class RefundFactory
+    {
+        public static IRefundApi CreateRefund(Refund refund,  string operatorId)
         {
-            public static IRefundApi CreateRefund(enum_PayAPI payApi)
+            string refund_no = DateTime.Now.ToString("yyyyMMdd") + refund.Id.ToString().Substring(0, 10);
+            
+            switch (refund.Payment.PayApi)
             {
-                switch (payApi)
-                {
-                    case enum_PayAPI.Alipay:
-                    return new RefundAli();
-                        break;
-                    case enum_PayAPI.Wechat: break;
-                }
-            }
+                case enum_PayAPI.AlipayApp:
+                    return new RefundAliApp(Dianzhu.Config.Config.GetAppSetting("PaySite") + "RefundCallBack/Alipay/notify_url.aspx",
+                        refund_no, refund.RefundAmount, refund.PlatformTradeNo, operatorId);
+                    
+                case enum_PayAPI.Wechat:
+                    return new RefundWePay(refund_no, refund.RefundAmount, refund.PlatformTradeNo, refund.TotalAmount, operatorId);
 
+                default:throw new NotImplementedException("未实现的退款接口");
+            }
         }
+
+    }
+}
     
