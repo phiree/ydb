@@ -1,4 +1,4 @@
-﻿    ``````````````````````````````````````````````````````````````````using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,11 +33,12 @@ namespace Ydb.Order.Application
 
         //20160616_longphui_add
         IHttpRequest httpRequest;
+        IRepositoryServiceOrderPushedService repoPushedService;
 
 
         public ServiceOrderService(IRepositoryServiceOrder repoServiceOrder, IRepositoryServiceOrderStateChangeHis repoStateChangeHis,
            IRepositoryRefund repoRefund, IRepositoryRefundLog repoRefundLog, IRepositoryOrderAssignment repoOrderAssignment,
-           IRepositoryClaims repoClaims, IRepositoryPayment repoPayment,IHttpRequest httpRequest)
+           IRepositoryClaims repoClaims, IRepositoryPayment repoPayment,IHttpRequest httpRequest,  IRepositoryServiceOrderPushedService repoPushedService)
         {
 
             this.repoServiceOrder = repoServiceOrder;
@@ -48,7 +49,7 @@ namespace Ydb.Order.Application
             this.repoRefundLog = repoRefundLog;
             this.repoRefund = repoRefund;
             this.httpRequest = httpRequest;
-
+            this.repoPushedService = repoPushedService;
         }
 
         public int GetServiceOrderCount(Guid userId, enum_OrderSearchType searchType)
@@ -516,18 +517,9 @@ namespace Ydb.Order.Application
 
         #region 订单流程变化
 
-        public void OrderFlow_ConfirmOrder(ServiceOrder order)
+        public void OrderFlow_ConfirmOrder(ServiceOrder order,string serviceId,ServiceSnapShot serviceSnapshot,WorkTimeSnapshot worktimeSnapshot)
         {
-            if (order.DepositAmount > 0)
-            {
-                ChangeStatus(order, enum_OrderStatus.Created);
-
-                Payment payment = order.ApplyPay(enum_PayTarget.Deposit, repoPayment, repoClaims);
-            }
-            else
-            {
-                OrderFlow_ConfirmDeposit(order);
-            }
+            order.Confirm_Order(repoPushedService, serviceId, serviceSnapshot, worktimeSnapshot, repoPayment, repoClaims);
         }
 
         /// <summary>
@@ -663,8 +655,8 @@ namespace Ydb.Order.Application
             enum_OrderStatus oldStatus = order.OrderStatus;
             log.Debug("当前订单状态:" + oldStatus.ToString());
 
-            OrderServiceFlow flow = new OrderServiceFlow();
-            flow.ChangeStatus(order, enum_OrderStatus.Refund);
+             
+            OrderServiceFlow.ChangeStatus(order, enum_OrderStatus.Refund);
             log.Debug("订单状态可改为 isRefund");
             order.OrderStatus = oldStatus;
 
@@ -716,8 +708,7 @@ namespace Ydb.Order.Application
             enum_OrderStatus oldStatus = order.OrderStatus;
             log.Debug("当前订单状态:" + oldStatus.ToString());
 
-            OrderServiceFlow flow = new OrderServiceFlow();
-            flow.ChangeStatus(order, enum_OrderStatus.isRefund);
+              OrderServiceFlow.ChangeStatus(order, enum_OrderStatus.isRefund);
             log.Debug("订单状态可改为 isRefund");
 
             order.OrderStatus = oldStatus;
@@ -936,9 +927,7 @@ namespace Ydb.Order.Application
         private void ChangeStatus(ServiceOrder order, enum_OrderStatus targetStatus)
         {
             enum_OrderStatus oldStatus = order.OrderStatus;
-
-            OrderServiceFlow flow = new OrderServiceFlow();
-            flow.ChangeStatus(order, targetStatus);
+            OrderServiceFlow.ChangeStatus(order, targetStatus);
 
             //保存订单历史记录
             //order.OrderStatus = oldStatus;
@@ -1016,8 +1005,7 @@ namespace Ydb.Order.Application
             log.Debug("当前订单状态:" + oldStatus.ToString());
 
             //ChangeStatus(order, enum_OrderStatus.Canceled);.
-            OrderServiceFlow flow = new OrderServiceFlow();
-            flow.ChangeStatus(order, enum_OrderStatus.Canceled);
+            OrderServiceFlow.ChangeStatus(order, enum_OrderStatus.Canceled);
             log.Debug("订单状态可以改为Cancled");
 
             order.OrderStatus = oldStatus;//还原订单状态

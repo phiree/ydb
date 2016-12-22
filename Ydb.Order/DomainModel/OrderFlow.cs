@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.DAL;
-using Ydb.Order.DomainModel;
+ 
 using Ydb.Common;
-namespace Ydb.Order.Application
+namespace Ydb.Order.DomainModel
 {
     /// <summary>
     /// 订单状态变更控制.
@@ -19,7 +18,7 @@ namespace Ydb.Order.Application
         /// 确保目标状态是可以执行的.
         /// </summary>
 
-        public void ChangeStatus(ServiceOrder order, enum_OrderStatus targetStatus)
+        public static void ChangeStatus(ServiceOrder order, enum_OrderStatus targetStatus)
         {
 
             bool validated = dictAvailabelStatus[targetStatus].Contains(order.OrderStatus);
