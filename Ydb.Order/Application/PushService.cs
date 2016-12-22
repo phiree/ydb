@@ -46,6 +46,7 @@ namespace Ydb.Order.Application
         {
             return repoPushedService.FindByOrder(order);
         }
+        [Obsolete("已经移到 ServiceOrderService.ConfirmOrder",true)]
         /// <summary>
         /// 用户选择某项服务之后创建订单
         /// </summary>
@@ -54,34 +55,8 @@ namespace Ydb.Order.Application
         public void SelectServiceAndCreate(ServiceOrder order,ServiceSnapShot serviceSnapshot,WorkTimeSnapshot worktimeSnapshot,  string selectedServiceId)
         {
 
-
-            IList<ServiceOrderPushedService> l = GetPushedServicesForOrder(order);
-            if (l.Count > 1)
-            {
-                throw new Exception("包含多个推送服务");
-            }
-            else if (l.Count == 1)
-            {
-                ServiceOrderPushedService s = l.Single(x => x.OriginalServiceId == selectedServiceId);
-                if (s == null)
-                {
-                    throw new Exception("该服务不是该订单的推送服务！");
-                }
-
-                //todo:  需要用Automapper
+            throw new NotImplementedException("已经移到 ServiceOrderService.ConfirmOrder");
            
-                order.AddDetailFromIntelService(s.OriginalServiceId, serviceSnapshot,
-                    worktimeSnapshot,
-                    s.UnitAmount,s.TargetCustomerName,s.TargetCustomerPhone, s.TargetAddress, s.TargetTime,s.Memo);
-
-                order.CreatedFromDraft();
-                bllServiceOrder.OrderFlow_ConfirmOrder(order);
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-
-                ////保存订单历史记录
-                //bllServiceOrderStateChangeHis.Save(order, enum_OrderStatus.DraftPushed);
-                //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            }
         }
     }
 }

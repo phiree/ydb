@@ -14,7 +14,7 @@ namespace Ydb.Order.DomainModel
     /// todo:refactor:和服务相关的信息不需要浮现到订单对象中,直接引用 detaiis[0].servicesnapshot.相关属性即可.
     /// </summary>
 
-    public class ServiceOrder :  Entity<Guid>
+    public class ServiceOrder : Entity<Guid>
     {
 
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model");
@@ -45,7 +45,7 @@ namespace Ydb.Order.DomainModel
         /// <param name="targetTime"></param>
         /// <param name="memo"></param>
         public virtual void AddDetailFromIntelService(string serviceId, ServiceSnapShot serviceSnapShot, WorkTimeSnapshot OpenTimeSnapShot,
-           // ServiceOpenTimeForDaySnapShotForOrder OpenTimeForDaySnapShot,
+            // ServiceOpenTimeForDaySnapShotForOrder OpenTimeForDaySnapShot,
             int unitAmount, string targetCustomerName, string targetCustomerPhone, string targetAddress, DateTime targetTime, string memo)
         {
             Details.Clear();
@@ -54,7 +54,7 @@ namespace Ydb.Order.DomainModel
                    unitAmount, targetCustomerName, targetCustomerPhone, targetAddress, targetTime, memo);
             Details.Add(detail);
             BusinessId = serviceSnapShot.BusinessId;
- 
+
 
         }
 
@@ -246,7 +246,7 @@ namespace Ydb.Order.DomainModel
                 string name = string.Empty;
                 foreach (ServiceOrderDetail detail in Details)
                 {
-                    name += detail.ServiceSnapShot. BusinessName + ";";
+                    name += detail.ServiceSnapShot.BusinessName + ";";
                 }
                 return name.TrimEnd(';');
             }
@@ -261,7 +261,7 @@ namespace Ydb.Order.DomainModel
                 string name = string.Empty;
                 foreach (ServiceOrderDetail detail in Details)
                 {
-                    name += detail.ServiceSnapShot. BusinessPhone + ";";
+                    name += detail.ServiceSnapShot.BusinessPhone + ";";
                 }
                 return name.TrimEnd(';');
             }
@@ -552,10 +552,10 @@ namespace Ydb.Order.DomainModel
             {
                 string name = string.Empty;
                 //todo:refactor 需要进一步处理
-                if (Details.Count > 1) { log.Error("订单服务数量大于1"); throw new Exception("订单服务数量大于1");  }
+                if (Details.Count > 1) { log.Error("订单服务数量大于1"); throw new Exception("订单服务数量大于1"); }
                 foreach (ServiceOrderDetail detail in Details)
                 {
-                    name += detail.ServiceSnapShot. BusinessOwnerId + ";";
+                    name += detail.ServiceSnapShot.BusinessOwnerId + ";";
                 }
                 return name.TrimEnd(';');
             }
@@ -564,10 +564,10 @@ namespace Ydb.Order.DomainModel
         /// <summary>
         /// 申请一个支付项
         /// </summary>
-       
+
         /// <param name="payTarget">支付类型</param>
         /// <returns></returns>
-        public Payment ApplyPay(  enum_PayTarget payTarget,IRepositoryPayment repoPayment,IRepositoryClaims repoClaims)
+        public Payment ApplyPay(enum_PayTarget payTarget, IRepositoryPayment repoPayment, IRepositoryClaims repoClaims)
         {
             string errMsg = string.Empty;
             //验证请求类型是否有效
@@ -616,7 +616,7 @@ namespace Ydb.Order.DomainModel
                 }
 
                 //该支付项已经创建,验证其金额是否有变化
-                var payAmount = GetPayAmount( payTarget,repoClaims);
+                var payAmount = GetPayAmount(payTarget, repoClaims);
                 if (payAmount != payment.Amount)
                 {
                     errMsg = string.Format("本次申请金额和上次不一样. 本次:{0},上次:{1}", payment.Amount, payAmount);
@@ -624,13 +624,13 @@ namespace Ydb.Order.DomainModel
                     //申请金额和之前的不一致, 需要警告
                 }
                 payment.Amount = payAmount;
-                 
+
 
 
             }
             else if (paymentCount == 0)
             {
-                payment = new Payment(GetPayAmount(  payTarget,repoClaims), this, payTarget);
+                payment = new Payment(GetPayAmount(payTarget, repoClaims), this, payTarget);
 
                 repoPayment.Add(payment);
             }
@@ -642,7 +642,7 @@ namespace Ydb.Order.DomainModel
             }
             return payment;
         }
-        public void SaveOrderHistory(enum_OrderStatus oldStatus,IRepositoryServiceOrderStateChangeHis repoStateChante)
+        public void SaveOrderHistory(enum_OrderStatus oldStatus, IRepositoryServiceOrderStateChangeHis repoStateChante)
         {
             int num = 1;
             ServiceOrderStateChangeHis oldOrderHis = repoStateChante.GetMaxNumberOrderHis(this);
@@ -658,7 +658,7 @@ namespace Ydb.Order.DomainModel
         /// </summary>
         /// <param name="payTarget">支付类型</param>
         /// <returns></returns>
-        public decimal GetPayAmount(  enum_PayTarget payTarget,IRepositoryClaims repoClaims)
+        public decimal GetPayAmount(enum_PayTarget payTarget, IRepositoryClaims repoClaims)
         {
             if (payTarget == enum_PayTarget.Deposit)
             {
@@ -700,6 +700,41 @@ namespace Ydb.Order.DomainModel
         }
 
 
+        public void Confirm_Order(IRepositoryServiceOrderPushedService repoPushedService, string serviceId, ServiceSnapShot serviceSnapshot, WorkTimeSnapshot worktimeSnapshot,
+          IRepositoryPayment repoPayment, IRepositoryClaims repoClaims)
+        {
+            IList<ServiceOrderPushedService> l = repoPushedService.FindByOrder(this);
+            if (l.Count > 1)
+            {
+                throw new Exception("包含多个推送服务");
+            }
+            else if (l.Count == 1)
+            {
+                ServiceOrderPushedService s = l.Single(x => x.OriginalServiceId == serviceId);
+                if (s == null)
+                {
+                    throw new Exception("该服务不是该订单的推送服务！");
+                }
 
+                //todo:  需要用Automapper
+
+                this.AddDetailFromIntelService(s.OriginalServiceId, serviceSnapshot,
+                    worktimeSnapshot,
+                    s.UnitAmount, s.TargetCustomerName, s.TargetCustomerPhone, s.TargetAddress, s.TargetTime, s.Memo);
+
+                CreatedFromDraft();
+                if (DepositAmount > 0)
+                {
+                    OrderServiceFlow.ChangeStatus(this, enum_OrderStatus.Created);
+
+                    Payment payment = ApplyPay(enum_PayTarget.Deposit, repoPayment, repoClaims);
+                }
+                else
+                {
+                    OrderServiceFlow.ChangeStatus(this, enum_OrderStatus.Payed);
+                }
+
+            }
+        }
     }
 }
