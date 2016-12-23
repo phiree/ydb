@@ -1290,6 +1290,7 @@ namespace Dianzhu.ApplicationService.Order
                     oa.Order = order;
                     oa.AssignedStaffId = staffID;
                     order.StaffId = staffID;
+                    order.LatestOrderUpdated = DateTime.Now;
                     //oa.Order.Details[0].Staff.Clear();
                     //oa.Order.Details[0].Staff.Add(staff);
                     bllOrderAssignment.Save(oa);
@@ -1306,6 +1307,7 @@ namespace Dianzhu.ApplicationService.Order
                     oa.AssignedStaffId = staffID;
                     oa.AssignedTime = dt;
                     order.StaffId = staffID;
+                    order.LatestOrderUpdated = DateTime.Now;
                     strState = "改派成功";
                     break;
                 case "取消指派":
@@ -1318,6 +1320,7 @@ namespace Dianzhu.ApplicationService.Order
                     oa.Enabled = false;
                     oa.DeAssignedTime = dt;
                     order.StaffId = null;
+                    order.LatestOrderUpdated = DateTime.Now;
                     strState = "取消成功";
                     break;
             }
@@ -1373,6 +1376,7 @@ namespace Dianzhu.ApplicationService.Order
             oa.Order = order;
             oa.AssignedStaffId = staffID;
             order.StaffId = staffID;
+            order.LatestOrderUpdated = DateTime.Now;
             //oa.Order.Details[0].Staff.Clear();
             //oa.Order.Details[0].Staff.Add(staff);
             bllOrderAssignment.Save(oa);
@@ -1434,6 +1438,7 @@ namespace Dianzhu.ApplicationService.Order
             DateTime dt = DateTime.Now;
             oa.DeAssignedTime = dt;
             order.StaffId = null;
+            order.LatestOrderUpdated = DateTime.Now;
             return new string[] { "取消成功！" };
         }
     }
