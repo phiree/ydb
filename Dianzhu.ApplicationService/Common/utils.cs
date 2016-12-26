@@ -357,7 +357,6 @@ namespace Dianzhu.ApplicationService
                 {
                     strBuilder.Append(sr.ReadLine());
                 }
-
                 strResult = strBuilder.ToString();
             }
             catch (Exception exp)

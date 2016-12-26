@@ -160,6 +160,7 @@
     <Compile Include="Push\PushMessageBuilderTests.cs" />
     <Compile Include="RespDataSHM_snapshotObjTests.cs" />
     <Compile Include="SecurityTest.cs" />
+    <Compile Include="DiandianTest\ServiceDiandianTests.cs" />
     <Compile Include="UnitOfWork\UnitOfWorkFactoryTests.cs" />
     <Compile Include="XMPush\XMPushTests.cs" />
   </ItemGroup>
@@ -247,6 +248,10 @@
     <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
       <Project>{be142427-1ce4-40f8-ac58-d0509ba05d21}</Project>
       <Name>Dianzhu.Push</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DianzhuService.Diandian\DianzhuService.Diandian.csproj">
+      <Project>{D3820846-BAD7-49E9-8BCF-D5EF26579350}</Project>
+      <Name>DianzhuService.Diandian</Name>
     </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>

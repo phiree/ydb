@@ -5,6 +5,10 @@ using agsXMPP;
 using System;
 using System.Text.RegularExpressions;
 using Ydb.Common;
+using System.Net;
+using System.IO;
+using System.Text;
+
 
 namespace DianzhuService.Diandian
 {
@@ -98,10 +102,16 @@ namespace DianzhuService.Diandian
                     return;
                 }
                 string msgType = extNode.Namespace;
+
+
+
+                string reply = string.Empty;// "当前没有客服在线，请留言..";
+
                 switch (msgType.ToLower())
                 {
                     case "ihelper:chat:text":
-
+                        //判断是否是特定格式的消息，返回 true 或 false
+                        reply = CheckMessage(body);
                         break;
                     case "ihelper:chat:media":
                         msgObj_url = msg.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("url");
@@ -176,7 +186,6 @@ namespace DianzhuService.Diandian
                 //}
 
                 //自动回复消息
-                string reply = "当前没有客服在线，请留言..";
                 csId = msg.To.User;
                 agsc.Message message = new MessageBuilder().Create(csId, customerId, reply, orderID).BuildText();
                 message.Id = Guid.NewGuid().ToString();
@@ -252,7 +261,26 @@ namespace DianzhuService.Diandian
             //    }
             //}
         }
- 
+
+        public string CheckMessage(string MessageBody)
+        {
+            string strResult = "当前没有客服在线，请留言..";
+            Regex reg = new Regex(System.Configuration.ConfigurationManager.AppSettings["CheckRegex"].ToString());
+            if (reg.IsMatch(MessageBody))
+            {
+                try
+                {
+                    string strUri = System.Configuration.ConfigurationManager.AppSettings["CheckUri"].ToString();
+                    strResult = PHSuit.HttpHelper.CreateHttpRequest(strUri, "get","","");
+                }
+                catch(Exception ex)
+                {
+                    strResult = "发生错误，请联系客服处理。。。";
+                }
+            }
+            return strResult;
+        }
+
     }
 
 }
