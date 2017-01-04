@@ -8,7 +8,8 @@ using Ydb.Common;
 using System.Net;
 using System.IO;
 using System.Text;
-
+using System.Collections.Specialized;
+using Newtonsoft.Json;
 
 namespace DianzhuService.Diandian
 {
@@ -111,7 +112,8 @@ namespace DianzhuService.Diandian
                 {
                     case "ihelper:chat:text":
                         //判断是否是特定格式的消息，返回 true 或 false
-                        reply = CheckMessage(body);
+                        Ydb.Common.Infrastructure.IHttpRequest httpRequest = Bootstrap.Container.Resolve<Ydb.Common.Infrastructure.IHttpRequest>();
+                        reply = CheckMessage(body,httpRequest);
                         break;
                     case "ihelper:chat:media":
                         msgObj_url = msg.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("url");
@@ -262,22 +264,40 @@ namespace DianzhuService.Diandian
             //}
         }
 
-        public string CheckMessage(string MessageBody)
+        public string CheckMessage(string MessageBody,Ydb.Common.Infrastructure.IHttpRequest httpRequest)
         {
             string strResult = "当前没有客服在线，请留言..";
             Regex reg = new Regex(System.Configuration.ConfigurationManager.AppSettings["CheckRegex"].ToString());
+            log.Debug("MessageBody="+ MessageBody+ ",reg="+reg.ToString());
             if (reg.IsMatch(MessageBody))
             {
+                log.Debug("MessageBody=" + MessageBody + ",IsMatch=true");
                 try
                 {
                     string strUri = System.Configuration.ConfigurationManager.AppSettings["CheckUri"].ToString();
-                    strResult = PHSuit.HttpHelper.CreateHttpRequest(strUri, "get","","");
+
+                    log.Debug("MessageBody=" + MessageBody + ",Uri="+ strUri);
+                    //strResult = PHSuit.HttpHelper.CreateHttpRequest(strUri, "get","","");
+                    //Newtonsoft.Json.Linq.JObject joData = (Newtonsoft.Json.Linq.JObject)JsonConvert.DeserializeObject("{'reward_code':'"+ MessageBody + "'}");
+
+                    //var respDataWeChat = new NameValueCollection();
+                    //respDataWeChat.Add("api_code", "DR001002");
+                    //respDataWeChat.Add("stamp_times", "");
+                    //respDataWeChat.Add("data", MessageBody);
+
+                    string value = "{\r\n\tapi_code : \"DR001002\", \r\n\tdata : \t{\r\n\t\treward_code : \""+ MessageBody + "\",\r\n\t} ,\r\n\tstamp_times : \"1490192929222\"\r\n}";
+                    strResult = httpRequest.CreateHttpRequest(strUri, "post", value,"");
+
+                    log.Debug("MessageBody=" + MessageBody + ",httpRequest=" + strResult);
+                    Newtonsoft.Json.Linq.JObject jo = (Newtonsoft.Json.Linq.JObject)JsonConvert.DeserializeObject(strResult);
+                    strResult = jo["err_Msg"].ToString();
                 }
                 catch(Exception ex)
                 {
-                    strResult = "发生错误，请联系客服处理。。。";
+                    strResult = "发生错误，请联系客服处理..";
                 }
             }
+            log.Debug("MessageBody=" + MessageBody + ",IsMatch=false");
             return strResult;
         }
 
