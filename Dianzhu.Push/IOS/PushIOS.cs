@@ -19,7 +19,7 @@ namespace Dianzhu.Push
             get {
                 if (!string.IsNullOrEmpty(_strCertificateFilePath)) return _strCertificateFilePath;
                 string fileBasePath = AppDomain.CurrentDomain.BaseDirectory + @"files\";
-                string fileName = pushType == PushType.PushToBusiness ? "aps_production_Mark_Store.p12" : "aps_production_Mark.p12";
+                string fileName = pushType == PushType.PushToBusiness ? "aps_production_Mark_Store.p12" : "aps_production_Mark_Customer.p12";
                 _strCertificateFilePath = fileBasePath + fileName;
                 return _strCertificateFilePath;
 
