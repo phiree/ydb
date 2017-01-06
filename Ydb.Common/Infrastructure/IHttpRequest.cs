@@ -10,5 +10,6 @@ namespace Ydb.Common.Infrastructure
    public interface IHttpRequest
     {
         string CreateHttpRequest(string url, string type, NameValueCollection paras);
+        string CreateHttpRequest(string url, string type, string values, string authorizationSecret);
     }
 }

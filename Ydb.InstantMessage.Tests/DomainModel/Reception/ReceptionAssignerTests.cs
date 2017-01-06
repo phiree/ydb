@@ -11,9 +11,13 @@ using Rhino.Mocks;
 
 namespace Ydb.InstantMessage.DomainModel.Reception.Tests
 {
+
+
     [TestFixture()]
     public class ReceptionAssignerTests
     {
+
+       
 
         #region AssignCustomerLogin
         /*匹配列表中有一个:{在线,离线}
