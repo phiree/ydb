@@ -207,7 +207,7 @@
         // 百度地图异步调用
         function loadBaiduMapScript() {
             var script = document.createElement("script");
-            script.src = "http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc&callback=initializeService";
+            script.src = "https://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc&callback=initializeService";
             document.body.appendChild(script);
         }
 
