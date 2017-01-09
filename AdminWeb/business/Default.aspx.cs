@@ -7,11 +7,14 @@ using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using Ydb.BusinessResource.Application;
+using Ydb.Order.Application;
 
 public partial class business_Default : BasePage
 {
     VMBusinessAdapter vmBusinessAdapter = Bootstrap.Container.Resolve<VMBusinessAdapter>();
     IBusinessService bllBusiness = Bootstrap.Container.Resolve<IBusinessService>();
+
+    IServiceOrderService orderService = Bootstrap.Container.Resolve<IServiceOrderService>();
     IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -64,7 +67,7 @@ public partial class business_Default : BasePage
         }
        
         string query = "select b from Business b";
-        IList<VMShop> allBusiness = new VMBusinessAdapter(bllServiceOrder).
+        IList<VMShop> allBusiness = new VMBusinessAdapter(orderService).
             AdaptList(bllBusiness.GetListByPage(currentPageIndex - 1, pager.PageSize, out totalRecord));
 
         switch (sortField.ToLower())

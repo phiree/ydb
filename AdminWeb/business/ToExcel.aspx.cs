@@ -7,11 +7,13 @@ using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using Ydb.BusinessResource.Application;
-
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 public partial class business_ToExcel : BasePage
 {
     IBusinessService bllBusiness = Bootstrap.Container.Resolve<IBusinessService>();
     IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+    IServiceOrderService orderService = Bootstrap.Container.Resolve<IServiceOrderService>();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -38,7 +40,7 @@ public partial class business_ToExcel : BasePage
         }
         
         string query = "select b from Business b";
-        IList<VMShop> allBusiness = new VMBusinessAdapter(bllServiceOrder).
+        IList<VMShop> allBusiness = new VMBusinessAdapter(orderService).
             AdaptList(bllBusiness.GetListByPage(currentPageIndex - 1, intSize, out totalRecord));
         gvBusiness.DataSource = allBusiness;
         //gvBusiness.DataBind();
