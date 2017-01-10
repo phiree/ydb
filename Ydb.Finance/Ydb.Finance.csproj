@@ -152,10 +152,6 @@
       <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
       <Name>Dianzhu.Config</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
-      <Project>{2e67aa78-6780-42bd-a3ab-ad953781e511}</Project>
-      <Name>Dianzhu.DAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Pay\Dianzhu.Pay.csproj">
       <Project>{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}</Project>
       <Name>Dianzhu.Pay</Name>
