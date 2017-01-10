@@ -21,14 +21,14 @@ namespace Dianzhu.CSClient.Presenter.Tests
         [SetUp]
         public void Setup()
         {
-             dzService = Rhino.Mocks.MockRepository.GenerateStub<IDZServiceService>();
+             dzService = Rhino.Mocks.MockRepository.Mock<IDZServiceService>();
             
 
         }
-        IView.IViewSearchResult viewSearchResult = Rhino.Mocks.MockRepository.GenerateMock<IView.IViewSearchResult>();
-        IView.IViewSearch viewSearch= Rhino.Mocks.MockRepository.GenerateMock<IViewSearch>();
+        IView.IViewSearchResult viewSearchResult = Rhino.Mocks.MockRepository.Mock<IView.IViewSearchResult>();
+        IView.IViewSearch viewSearch= Rhino.Mocks.MockRepository.Mock<IViewSearch>();
 
-        IView.IViewTypeSelect viewTypeSelect = Rhino.Mocks.MockRepository.GenerateMock<IViewTypeSelect>();
+        IView.IViewTypeSelect viewTypeSelect = Rhino.Mocks.MockRepository.Mock<IViewTypeSelect>();
         [Test()]
         public void ViewSearch_SearchTest()
         {
