@@ -30,28 +30,80 @@ namespace Dianzhu.Web.RestfulApi.Controllers
             var apiInfos = db.ApiInfos;//不填"ApiInfos"，则默认为ApiInfos
             searchText = string.IsNullOrEmpty(searchText) ? "" : searchText;
             apiInfoList = apiInfos.Find(a => a.ApiName.Contains(searchText)||a.ApiRoute.Contains(searchText)).ToListAsync().Result;
-            var logs = db.logs;
-            for (int i = 0; i < apiInfoList.Count; i++)
-            {
-                var buildersFilter = Builders<log>.Filter;
-                //var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute="+ apiInfoList[i].ApiRoute + "/");
-                var filter = buildersFilter.Eq("logger", "Ydb." + apiInfoList[i].ApiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu");
-                //var logCount= logs.CountAsync(a => a.logger.Contains("Dianzhu.Web.RestfulApi") && a.logger.Contains("ApiRoute="+ apiInfoList[i].ApiRoute)).ToListAsync().Result;
-                var logCount = logs.CountAsync(filter);
-                apiInfoList[i].ApiRequstNum = logCount.Result;
-            }
-            return View(apiInfoList.OrderByDescending(s=>s.ApiRequstNum).ToList());
+            //var logs = db.logs;
+
+
+            ////分组聚合查询快
+            //IList<ApiCount> apiCountList = logs.Aggregate()
+            //.Match(r => r.logger2 == "Rule.v1.RestfulApi.Web.Dianzhu")
+            //.Group(r => new { logger = r.logger }, g =>
+            //new
+            //{
+            //    Key = g.Key,
+            //    sumCount = g.Count()
+            //})
+            //.Project(r => new ApiCount()
+            //{
+            //    logger = r.Key.logger,
+            //    apiCount = r.sumCount
+            //})
+            //.ToListAsync().Result;
+
+            //foreach (ApiInfo api in apiInfoList)
+            //{
+            //    int c = 0;
+            //    for (int i = 0; i < apiCountList.Count; i++)
+            //    {
+            //        if (apiCountList[i].logger == "Ydb." + api.ApiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu")
+            //        {
+            //            var buildersFilter = Builders<ApiInfo>.Filter.Eq("ApiRoute", api.ApiRoute);
+            //            var update = Builders<ApiInfo>.Update.Set("ApiRequestNum", apiCountList[i].apiCount);
+            //            var result = apiInfos.UpdateOneAsync(buildersFilter, update).Result;
+            //            api.ApiRequestNum = apiCountList[i].apiCount;
+            //            break;
+            //        }
+            //        c++;
+            //    }
+            //    if (c == apiCountList.Count)
+            //    {
+            //        api.ApiRequestNum = 0;
+            //    }
+            //}
+
+            //循环去查慢
+            //for (int i = 0; i < apiInfoList.Count; i++)
+            //{
+            //    var buildersFilter = Builders<log>.Filter;
+            //    //var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute="+ apiInfoList[i].ApiRoute + "/");
+            //    var filter = buildersFilter.Eq("logger", "Ydb." + apiInfoList[i].ApiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu");
+            //    //var logCount= logs.CountAsync(a => a.logger.Contains("Dianzhu.Web.RestfulApi") && a.logger.Contains("ApiRoute="+ apiInfoList[i].ApiRoute)).ToListAsync().Result;
+            //    var logCount = logs.CountAsync(filter);
+            //    apiInfoList[i].ApiRequestNum = logCount.Result;
+            //}
+            return View(apiInfoList.OrderByDescending(s=>s.ApiRequestNum).ToList());
         }
         [Authorize]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult ApiCount(string apiRoute)
         {
-            var logs = db.logs;
-            var buildersFilter = Builders<log>.Filter;
-            //var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute=" + apiRoute + "/"); 
-            var filter = buildersFilter.Eq("logger", "Ydb."+apiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu");
-            var logCount = logs.CountAsync(filter).Result;
-            return Content(logCount.ToString());
+            //var logs = db.logs;
+            //var buildersFilter = Builders<log>.Filter;
+            ////var filter = buildersFilter.Regex("logger", "/Dianzhu.Web.RestfulApi/") & buildersFilter.Regex("message", "/ApiRoute=" + apiRoute + "/"); 
+            //var filter = buildersFilter.Eq("logger", "Ydb."+apiRoute + ".Rule.v1.RestfulApi.Web.Dianzhu");
+            //var logCount = logs.CountAsync(filter).Result;
+
+            var apiInfos = db.ApiInfos;
+            var buildersFilter = Builders<ApiInfo>.Filter;
+            var filter = buildersFilter.Eq("ApiRoute", apiRoute);
+            IList<ApiInfo> apiInfoList = apiInfos.Find(filter).ToListAsync().Result;
+            if (apiInfoList.Count > 0)
+            {
+                return Content(apiInfoList[0].ApiRequestNum.ToString());
+            }
+            else
+            {
+                return Content("0");
+            }
         }
         [Authorize]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -129,7 +181,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers
                 filter = filter & buildersFilter.Lte("date", endTime);
             }
             var sort = Builders<log>.Sort.Descending("date");
-            logList = logs.Find(filter).Sort(sort).Limit(100).ToListAsync().Result;
+            logList = logs.Find(filter).Sort(sort).Limit(30).ToListAsync().Result;
             return View(logList);
         }
         [Authorize]
@@ -178,6 +230,12 @@ namespace Dianzhu.Web.RestfulApi.Controllers
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                 System.Web.HttpCookie authCookie = new System.Web.HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                 System.Web.HttpContext.Current.Response.Cookies.Add(authCookie);
+
+                //测试System.Runtime.Caching.MemoryCache，能不能夸项目
+                //if (!System.Runtime.Caching.MemoryCache.Default.Contains(userList[0].Id.ToString()))
+                //    System.Runtime.Caching.MemoryCache.Default.Add(userList[0].Id.ToString(), "缓存是时间：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), DateTimeOffset.UtcNow.AddSeconds(172800));
+                //string str = System.Runtime.Caching.MemoryCache.Default[userList[0].Id.ToString()].ToString();
+                //return Content(str);
                 if (returnUrl == null)
                 {
                     return RedirectToAction("Index");

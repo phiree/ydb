@@ -9,6 +9,8 @@ using Dianzhu.Model;
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 //编辑 和 新增,合二为一.
 public partial class Staff_Edit : BasePage
 {
@@ -21,7 +23,7 @@ public partial class Staff_Edit : BasePage
     IStaffService staffService = Bootstrap.Container.Resolve<IStaffService>();
     ServiceType ServiceType = new ServiceType();
     IServiceTypeService typeService = Bootstrap.Container.Resolve<IServiceTypeService>();
-
+    IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -92,8 +94,30 @@ public partial class Staff_Edit : BasePage
     protected void btnOK_Click(object sender, EventArgs e)
     {
         UpdateForm();
+
+        //创建登录用户
+        MemberDto dzms = memberService.GetUserByName(s.Phone);
+        if (dzms == null)
+        {
+            System.Web.Security.MembershipCreateStatus mc = new System.Web.Security.MembershipCreateStatus();
+            RegisterResult registerResult = memberService.RegisterStaff(s.Phone, "123456", "123456",
+                System.Web.HttpContext.Current.Request.Url.Scheme + "://" + System.Web.HttpContext.Current.Request.Url.Authority);
+            dzms = registerResult.ResultObject;
+        }
+        else
+        {
+            if (dzms.UserType != enum_UserType.staff.ToString())
+            {
+                PHSuit.Notification.Alert(this, "该用户名已经存在其他类型的用户！");
+                //throw new Exception("该用户名已经存在其他类型的用户！");
+            }
+        }
+        s.LoginName = dzms.UserName;
+        s.UserID = dzms.Id.ToString();
         if (IsNew)
-        { staffService.Save(s); }
+        {
+            staffService.Save(s);
+        }
         else
         {
             staffService.Update(s);

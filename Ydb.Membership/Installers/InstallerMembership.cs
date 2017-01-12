@@ -60,6 +60,7 @@ namespace Ydb.Membership.Infrastructure
         private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IDZMembershipService>().ImplementedBy<DZMembershipService>());
+            container.Register(Component.For<IUserTokenService>().ImplementedBy<UserTokenService>());
         }
 
         private void InstallUnifOfWork(IWindsorContainer container, IConfigurationStore store)

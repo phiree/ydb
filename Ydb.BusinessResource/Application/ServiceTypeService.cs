@@ -82,12 +82,13 @@ namespace Ydb.BusinessResource.Application
         [UnitOfWork]
         public void SaveOrUpdateList(List<ServiceType> list)
         {
-            repositoryServiceType.DeleteAll();
+            //repositoryServiceType.DeleteAll();有外键，无法删除
             
             foreach (var serviceType in list)
             {
                 
-               repositoryServiceType.Add(serviceType) ;
+               //repositoryServiceType.Add(serviceType) ;
+               repositoryServiceType.SaveOrUpdate(serviceType);
             }
         }
 

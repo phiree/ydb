@@ -128,7 +128,7 @@ namespace Ydb.Membership.DomainModel
                 result.ErrMsg = "原密码有误";
                 result.IsSuccess = false;
             }
-            else if (this.Password == newEncryptedPassword)
+            else if (needOldPassword && this.Password == newEncryptedPassword)
             {
                 result.IsSuccess = false;
                 result.ErrMsg = "新密码与原密码相同,不需修改";
@@ -147,17 +147,18 @@ namespace Ydb.Membership.DomainModel
        protected internal virtual ActionResult ChangePasswordByPhone(string newPlainPassword, string newEncryptedPassword)
         {
             ActionResult result = new ActionResult();
-            if (newPlainPassword.Length < 6)
-            {
-                result.IsSuccess = false;
-                result.ErrMsg = "密码不能少于6个字符";
-            }
-            else
-            {
-                this.Password = newEncryptedPassword;
-                this.PlainPassword = newPlainPassword;
-                result.IsSuccess = true;
-            }
+            //if (newPlainPassword.Length < 6)
+            //{
+            //    result.IsSuccess = false;
+            //    result.ErrMsg = "密码不能少于6个字符";
+            //}
+            //else
+            //{
+            //    this.Password = newEncryptedPassword;
+            //    this.PlainPassword = newPlainPassword;
+            //    result.IsSuccess = true;
+            //}
+            result = ChangePassword(string.Empty, newPlainPassword, newEncryptedPassword, false);
             return result;
         }
         public virtual string FriendlyUserType

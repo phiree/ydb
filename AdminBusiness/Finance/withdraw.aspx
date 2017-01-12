@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="model-global-bottom">
-                            <asp:Button ID="btnSave" runat="server" Text="保存" class="btn btn-confirm btn-info m-l10" OnClick="btnSave_Click"  />
+                            <asp:Button ID="btnSave" runat="server" Text="确定" class="btn btn-confirm btn-info m-l10" OnClick="btnSave_Click"  />
                             <asp:Button ID="btnConcel" runat="server" Text="取消" class="btn btn-confirm btn-info m-l10" OnClick="btnConcel_Click"  />
                             <%--<a class="btn btn-confirm btn-info m-l10" href='default.aspx?businessid=<%=Request["businessid"] %>'>保存</a>
                             <a class="btn btn-cancel btn-big m-l10" href='default.aspx?businessid=<%=Request["businessid"] %>'>取消</a>--%>

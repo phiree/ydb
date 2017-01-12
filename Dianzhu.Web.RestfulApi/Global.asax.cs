@@ -56,22 +56,22 @@ namespace Dianzhu.Web.RestfulApi
 
         protected void Application_EndRequest(object sender, EventArgs e)
         {
-            log4net.ILog log = log4net.LogManager.GetLogger("Ydb.Result.NoRule.v1.RestfulApi.Web.Dianzhu");
+            //log4net.ILog log = log4net.LogManager.GetLogger("Ydb.Result.NoRule.v1.RestfulApi.Web.Dianzhu");
 
-            System.Web.HttpApplication hc = (System.Web.HttpApplication)sender;
-            string strT = hc.Request.Headers.Get("stamp_TIMES");
-            if (!string.IsNullOrEmpty(strT))
-            {
-                //log.Info("Info(request.Url)" + strT + ":" + Context.Request.Url);
-                //log.Info("Info(request.Method)" + strT + ":" + Context.Request.HttpMethod);
-                log.Info("Info(response.Code)" + strT + ":CodeNo=" + Context.Response.StatusCode+ ";CodeString=" + Context.Response.StatusDescription);
-                //log.Info("Info(response.StatusCodeString)" + strT + ":" + Context.Response.StatusDescription);
+            //System.Web.HttpApplication hc = (System.Web.HttpApplication)sender;
+            //string strT = hc.Request.Headers.Get("stamp_TIMES");
+            //if (!string.IsNullOrEmpty(strT))
+            //{
+            //    //log.Info("Info(request.Url)" + strT + ":" + Context.Request.Url);
+            //    //log.Info("Info(request.Method)" + strT + ":" + Context.Request.HttpMethod);
+            //    log.Info("Info(response.Code)" + strT + ":CodeNo=" + Context.Response.StatusCode+ ";CodeString=" + Context.Response.StatusDescription);
+            //    //log.Info("Info(response.StatusCodeString)" + strT + ":" + Context.Response.StatusDescription);
 
-                //log1.Info("Info(request.Url)" + strT + ":" + Context.Request.Url);
-                //log1.Info("Info(request.Method)" + strT + ":" + Context.Request.HttpMethod);
-                //log1.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusCode);
-                //log1.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusDescription);
-            }
+            //    //log1.Info("Info(request.Url)" + strT + ":" + Context.Request.Url);
+            //    //log1.Info("Info(request.Method)" + strT + ":" + Context.Request.HttpMethod);
+            //    //log1.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusCode);
+            //    //log1.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusDescription);
+            //}
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             //if (!string.IsNullOrEmpty(strT))
             //{

@@ -13,7 +13,7 @@ namespace Dianzhu.Web.RestfulApi.Models
 
         [BsonRepresentation(BsonType.ObjectId)]
         public String Id { get; set; }
-
+        public DateTime timestamp { get; set; }
         public String date { get; set; }
         public String level { get; set; }
         public String thread { get; set; }

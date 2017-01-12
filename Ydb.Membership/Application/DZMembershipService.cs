@@ -21,19 +21,21 @@ namespace Ydb.Membership.Application
         IDZMembershipDomainService dzmembershipDomainService;
         IEmailService emailService;
         IRepositoryDZMembership repositoryMembership;
+        IRepositoryUserToken repositoryUserToken;
         ILogin3rd login3rdService;
         IEncryptService encryptService;
 
         public DZMembershipService(IDZMembershipDomainService dzmembershipDomainService,
             IRepositoryDZMembership repositoryMembership,
             IEmailService emailService,IEncryptService encryptService,
-            ILogin3rd login3rdService)
+            ILogin3rd login3rdService, IRepositoryUserToken repositoryUserToken)
         {
             this.dzmembershipDomainService = dzmembershipDomainService;// Bootstrap.Container.Resolve<IDZMembershipDomainService>();
             this.login3rdService = login3rdService;// Bootstrap.Container.Resolve<ILogin3rd>();
             this.emailService = emailService;
             this.repositoryMembership = repositoryMembership;// Bootstrap.Container.Resolve<IRepositoryDZMembership>();
             this.encryptService = encryptService;
+            this.repositoryUserToken = repositoryUserToken;
 
         }
 
@@ -242,8 +244,8 @@ namespace Ydb.Membership.Application
             string[] recoveryParameters = recoveryString.Split(new string[] { Config.pwssword_recovery_spliter }, StringSplitOptions.None);
             string userName = encryptService.Decrypt(recoveryParameters[0], false);
             string recoveryCode = recoveryParameters[1];
-
             DZMembership member = repositoryMembership.GetMemberByName(userName);
+            repositoryUserToken.DeleteToken(member.Id.ToString());
             return member.RecoveryPassword(recoveryCode, newPassword, encryptService.GetMD5Hash(newPassword));
 
 
@@ -260,6 +262,7 @@ namespace Ydb.Membership.Application
                 result.ErrMsg = "该手机用户不存在!";
                 return result;
             }
+            repositoryUserToken.DeleteToken(member.Id.ToString());
             return member.ChangePasswordByPhone( newPassword, encryptService.GetMD5Hash(newPassword));
         }
 
@@ -301,6 +304,7 @@ namespace Ydb.Membership.Application
             DZMembership member = repositoryMembership.GetMemberByName(userName);
             string oldEncryptedPassword = encryptService.GetMD5Hash(oldPassword);
             string newEncryptedPassword = encryptService.GetMD5Hash(newPassword);
+            repositoryUserToken.DeleteToken(member.Id.ToString());
             return member.ChangePassword(oldEncryptedPassword, newPassword, newEncryptedPassword);
         }
 

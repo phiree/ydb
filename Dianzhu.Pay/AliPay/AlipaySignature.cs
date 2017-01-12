@@ -121,9 +121,10 @@ namespace Com.Alipay
                 bool bVerifyResultOriginal = rsa.VerifyData(Encoding.GetEncoding(charset).GetBytes(signContent), sha1, Convert.FromBase64String(sign));
                 return bVerifyResultOriginal;
             }
-            catch
+            catch(Exception ex)
             {
-                return false;
+                throw ex;
+                //return false;
             }
 
         }

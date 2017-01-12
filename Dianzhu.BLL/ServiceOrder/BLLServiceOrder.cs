@@ -219,11 +219,13 @@ namespace Dianzhu.BLL
             {
                 if (strAssign == "false")
                 {
-                    where = where.And(x => string.IsNullOrEmpty( x.StaffId ));
+                    //where = where.And(x => string.IsNullOrEmpty(x.StaffId));报错：Boolean IsNullOrEmpty(System.String)
+                    where = where.And(x => x.StaffId==null || x.StaffId==string.Empty);
                 }
                 else
                 {
-                    where = where.And(x => !string.IsNullOrEmpty(x.StaffId));
+                    //where = where.And(x => !string.IsNullOrEmpty(x.StaffId));
+                    where = where.And(x => x.StaffId != null && x.StaffId != string.Empty);
                 }
             }
             if (storeID != Guid.Empty)
@@ -957,7 +959,7 @@ namespace Dianzhu.BLL
 
             //更新订单状态
             order.OrderStatus = targetStatus;
-            //Update(order);
+            Update(order);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             log.Debug("当前订单状态为:" + targetStatus);
 

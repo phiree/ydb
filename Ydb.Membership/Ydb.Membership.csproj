@@ -44,7 +44,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.3.3.2\lib\net45\Castle.Core.dll</HintPath>
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
@@ -103,6 +103,8 @@
     <Compile Include="Application\Dto\RegisterResult.cs" />
     <Compile Include="Application\DZMembershipService.cs" />
     <Compile Include="Application\IDZMembershipService.cs" />
+    <Compile Include="Application\IUserTokenService.cs" />
+    <Compile Include="Application\UserTokenService.cs" />
     <Compile Include="DomainModel\Config.cs" />
     <Compile Include="DomainModel\Dicts.cs" />
     <Compile Include="DomainModel\Service\IDZMembershipDomainService.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="DomainModel\Service\ILogin3rd.cs" />
     <Compile Include="DomainModel\Service\Login3rd.cs" />
     <Compile Include="DomainModel\Service\U3RD_Model.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\UserTokenMap.cs" />
     <Compile Include="Installers\InstallerMembership.cs" />
     <Compile Include="DomainModel\DZMembership.cs" />
     <Compile Include="Application\DZMembershipProvider.cs" />

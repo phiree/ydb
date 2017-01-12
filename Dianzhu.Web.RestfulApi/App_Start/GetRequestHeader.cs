@@ -19,6 +19,7 @@ namespace Dianzhu.Web.RestfulApi
             HttpRequest req = HttpContext.Current.Request;
             headers.appName = req.Headers.GetValues("appName").FirstOrDefault();
             headers.token = req.Headers.GetValues("token").FirstOrDefault();
+            var allowedOrigin = req.GetOwinContext().Get<string>("as:RequestMethodUriSign");
             //headers.sign = req.Headers.GetValues("sign").FirstOrDefault();
             headers.stamp_TIMES = req.Headers.GetValues("stamp_TIMES").FirstOrDefault();
             MySectionCollection mysection = (MySectionCollection)ConfigurationManager.GetSection("MySectionCollection");
@@ -28,7 +29,7 @@ namespace Dianzhu.Web.RestfulApi
             //接口权限判断
             Customer customer = new Customer();
             customer = customer.getCustomer(headers.token, headers.apiKey, false);
-            log.Info("Info(UserInfo)" + headers.stamp_TIMES + ":ApiRoute=" + apiUrl + ",UserName=" + customer.loginName+",UserId="+ customer.UserID + ",UserType=" + customer.UserType);
+            log.Info("Info(UserInfo)" + headers.stamp_TIMES + ":ApiRoute=" + apiUrl + ",UserName=" + customer.loginName+",UserId="+ customer.UserID + ",UserType=" + customer.UserType + ",RequestMethodUriSign=" + allowedOrigin.ToString ());
             string strRule = ConfigurationManager.AppSettings[apiUrl].ToString();
             //log.Info("Info(Route)" + headers.stamp_TIMES + ":" + apiUrl);
             if (strRule=="" || strRule.Contains("[" + customer.UserType + "]"))

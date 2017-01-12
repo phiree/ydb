@@ -10,7 +10,9 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminWeb", "AdminWeb\", "{16075D17-B45F-4FDE-B48C-FA9534F6FE2D}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
-		ProjectReferences = "{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;{6F064359-8BBD-4BDA-9532-D93505472582}|Dianzhu.CSClient.LocalStorage.dll;{D7AA114D-AD19-4399-B152-969D240053C7}|Dianzhu.CSClient.ViewModel.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}|Ydb.InstantMessage.dll;{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}|Ydb.Membership.dll;{343214F8-A523-4BDA-B783-4D77942269B9}|Ydb.Finance.dll;{3D510583-1C11-48FB-8380-12E183E5914B}|Ydb.Infrastructure.dll;{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}|Ydb.BusinessResource.dll;{901e2a8a-e608-4477-b9bc-f583d818d87f}|Ydb.Order.dll;{644850B7-24C2-43E3-B381-DB5E5FF2C449}|Dianzhu.Web.Log.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;"
+ 
+		ProjectReferences = "{59D8ECF9-2867-43FD-BF18-EFE2758CF14F}|Log4Mongo.dll;{515a3298-f38b-40e0-968c-5c65efb2affe}|Ydb.ApplicationService.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;{6F064359-8BBD-4BDA-9532-D93505472582}|Dianzhu.CSClient.LocalStorage.dll;{D7AA114D-AD19-4399-B152-969D240053C7}|Dianzhu.CSClient.ViewModel.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}|Ydb.InstantMessage.dll;{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}|Ydb.Membership.dll;{343214F8-A523-4BDA-B783-4D77942269B9}|Ydb.Finance.dll;{3D510583-1C11-48FB-8380-12E183E5914B}|Ydb.Infrastructure.dll;{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}|Ydb.BusinessResource.dll;{59D8ECF9-2867-43FD-BF18-EFE2758CF14F}|Log4Mongo.dll;{515a3298-f38b-40e0-968c-5c65efb2affe}|Ydb.ApplicationService.dll;"
+ 
 		Debug.AspNetCompiler.VirtualPath = "/AdminWeb"
 		Debug.AspNetCompiler.PhysicalPath = "AdminWeb\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AdminWeb\"
@@ -38,7 +40,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.HttpApi", "Dianzhu.HttpApi\", "{0D1C0821-004D-4D6B-BB6C-F561895DCC4E}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
-		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{e9ac682e-e6d1-4eef-bacf-fb86d20f8766}|Dianzhu.Api.Model.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;{417ac2d5-58e5-4cbc-b14f-c5747274a846}|Dianzhu.ApplicationService.dll;{6F064359-8BBD-4BDA-9532-D93505472582}|Dianzhu.CSClient.LocalStorage.dll;{D7AA114D-AD19-4399-B152-969D240053C7}|Dianzhu.CSClient.ViewModel.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}|Ydb.InstantMessage.dll;{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}|Ydb.Membership.dll;{3d510583-1c11-48fb-8380-12e183e5914b}|Ydb.Infrastructure.dll;{343214F8-A523-4BDA-B783-4D77942269B9}|Ydb.Finance.dll;{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}|Ydb.BusinessResource.dll;{515a3298-f38b-40e0-968c-5c65efb2affe}|Ydb.ApplicationService.dll;"
+		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{e9ac682e-e6d1-4eef-bacf-fb86d20f8766}|Dianzhu.Api.Model.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;{417ac2d5-58e5-4cbc-b14f-c5747274a846}|Dianzhu.ApplicationService.dll;{6F064359-8BBD-4BDA-9532-D93505472582}|Dianzhu.CSClient.LocalStorage.dll;{D7AA114D-AD19-4399-B152-969D240053C7}|Dianzhu.CSClient.ViewModel.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}|Ydb.InstantMessage.dll;{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}|Ydb.Membership.dll;{3d510583-1c11-48fb-8380-12e183e5914b}|Ydb.Infrastructure.dll;{343214F8-A523-4BDA-B783-4D77942269B9}|Ydb.Finance.dll;{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}|Ydb.BusinessResource.dll;{515a3298-f38b-40e0-968c-5c65efb2affe}|Ydb.ApplicationService.dll;{59D8ECF9-2867-43FD-BF18-EFE2758CF14F}|Log4Mongo.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/Dianzhu.HttpApi"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.HttpApi\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Dianzhu.HttpApi\"
@@ -79,7 +81,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaServerWeb", "MediaServerWeb\", "{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
-		ProjectReferences = "{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{f351e700-e016-4a42-9154-54a6d92ecbde}|Ydb.Common.dll;{3d510583-1c11-48fb-8380-12e183e5914b}|Ydb.Infrastructure.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;"
+		ProjectReferences = "{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{f351e700-e016-4a42-9154-54a6d92ecbde}|Ydb.Common.dll;{3d510583-1c11-48fb-8380-12e183e5914b}|Ydb.Infrastructure.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{59D8ECF9-2867-43FD-BF18-EFE2758CF14F}|Log4Mongo.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_2762"
 		Debug.AspNetCompiler.PhysicalPath = "MediaServerWeb\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_2762\"
@@ -101,7 +103,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Pay", "Dianzhu.Web.Pay\", "{FBEC30ED-52CD-49B0-B767-B2EC013796A4}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
-		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;{6F064359-8BBD-4BDA-9532-D93505472582}|Dianzhu.CSClient.LocalStorage.dll;{D7AA114D-AD19-4399-B152-969D240053C7}|Dianzhu.CSClient.ViewModel.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}|Ydb.InstantMessage.dll;{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}|Ydb.Membership.dll;{343214F8-A523-4BDA-B783-4D77942269B9}|Ydb.Finance.dll;{3D510583-1C11-48FB-8380-12E183E5914B}|Ydb.Infrastructure.dll;{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}|Ydb.BusinessResource.dll;"
+		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;{6F064359-8BBD-4BDA-9532-D93505472582}|Dianzhu.CSClient.LocalStorage.dll;{D7AA114D-AD19-4399-B152-969D240053C7}|Dianzhu.CSClient.ViewModel.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}|Ydb.InstantMessage.dll;{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}|Ydb.Membership.dll;{343214F8-A523-4BDA-B783-4D77942269B9}|Ydb.Finance.dll;{3D510583-1C11-48FB-8380-12E183E5914B}|Ydb.Infrastructure.dll;{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}|Ydb.BusinessResource.dll;{59D8ECF9-2867-43FD-BF18-EFE2758CF14F}|Log4Mongo.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_12360"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.Web.Pay\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_12360\"
@@ -124,7 +126,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Notify", "Dianzhu.Web.Notify\", "{0B7AB42A-DED4-41A7-8A94-265686227268}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
-		ProjectReferences = "{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}|Ydb.InstantMessage.dll;{3d510583-1c11-48fb-8380-12e183e5914b}|Ydb.Infrastructure.dll;{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}|Ydb.Membership.dll;"
+		ProjectReferences = "{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}|Ydb.InstantMessage.dll;{3d510583-1c11-48fb-8380-12e183e5914b}|Ydb.Infrastructure.dll;{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}|Ydb.Membership.dll;{59D8ECF9-2867-43FD-BF18-EFE2758CF14F}|Log4Mongo.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_50182"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.Web.Notify\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50182\"
@@ -152,7 +154,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.PushServer", "Dianzhu.Web.PushServer\", "{CBE79023-31C6-455F-A6F0-3BFF280F66E8}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}|Dianzhu.Config.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}|Ydb.BusinessResource.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}|Ydb.InstantMessage.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{3D510583-1C11-48FB-8380-12E183E5914B}|Ydb.Infrastructure.dll;{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}|Ydb.Membership.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{6F064359-8BBD-4BDA-9532-D93505472582}|Dianzhu.CSClient.LocalStorage.dll;{D7AA114D-AD19-4399-B152-969D240053C7}|Dianzhu.CSClient.ViewModel.dll;"
+		ProjectReferences = "{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}|Dianzhu.Config.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}|Ydb.BusinessResource.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}|Ydb.InstantMessage.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{3D510583-1C11-48FB-8380-12E183E5914B}|Ydb.Infrastructure.dll;{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}|Ydb.Membership.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{6F064359-8BBD-4BDA-9532-D93505472582}|Dianzhu.CSClient.LocalStorage.dll;{D7AA114D-AD19-4399-B152-969D240053C7}|Dianzhu.CSClient.ViewModel.dll;{59D8ECF9-2867-43FD-BF18-EFE2758CF14F}|Log4Mongo.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_29864"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.Web.PushServer\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_29864\"
@@ -177,7 +179,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminBusiness", "AdminBusiness\", "{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
-		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;{BE142427-1CE4-40F8-AC58-D0509BA05D21}|Dianzhu.Push.dll;{0EE24EE8-A508-463C-BC2F-83E52110E643}|Dianzhu.RequestRestful.dll;{417AC2D5-58E5-4CBC-B14F-C5747274A846}|Dianzhu.ApplicationService.dll;{6F064359-8BBD-4BDA-9532-D93505472582}|Dianzhu.CSClient.LocalStorage.dll;{D7AA114D-AD19-4399-B152-969D240053C7}|Dianzhu.CSClient.ViewModel.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}|Ydb.InstantMessage.dll;{3d510583-1c11-48fb-8380-12e183e5914b}|Ydb.Infrastructure.dll;{343214F8-A523-4BDA-B783-4D77942269B9}|Ydb.Finance.dll;{6a7ed67d-846d-46c6-84b0-82b8556f0b8f}|Ydb.Membership.dll;{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}|Ydb.BusinessResource.dll;{515a3298-f38b-40e0-968c-5c65efb2affe}|Ydb.ApplicationService.dll;"
+		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{9920DA22-589C-4193-AEAA-363D5C029DFC}|MediaServer.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{f5f67c69-f9ee-4222-9f83-91c816fc686c}|Dianzhu.Dependency.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{b74ca750-ebd2-4efd-823a-fc680f498e52}|Dianzhu.Web.Common.dll;{BE142427-1CE4-40F8-AC58-D0509BA05D21}|Dianzhu.Push.dll;{0EE24EE8-A508-463C-BC2F-83E52110E643}|Dianzhu.RequestRestful.dll;{417AC2D5-58E5-4CBC-B14F-C5747274A846}|Dianzhu.ApplicationService.dll;{6F064359-8BBD-4BDA-9532-D93505472582}|Dianzhu.CSClient.LocalStorage.dll;{D7AA114D-AD19-4399-B152-969D240053C7}|Dianzhu.CSClient.ViewModel.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}|Ydb.InstantMessage.dll;{3d510583-1c11-48fb-8380-12e183e5914b}|Ydb.Infrastructure.dll;{343214F8-A523-4BDA-B783-4D77942269B9}|Ydb.Finance.dll;{6a7ed67d-846d-46c6-84b0-82b8556f0b8f}|Ydb.Membership.dll;{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}|Ydb.BusinessResource.dll;{515a3298-f38b-40e0-968c-5c65efb2affe}|Ydb.ApplicationService.dll;{59D8ECF9-2867-43FD-BF18-EFE2758CF14F}|Log4Mongo.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/AdminBusiness"
 		Debug.AspNetCompiler.PhysicalPath = "AdminBusiness\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AdminBusiness\"
@@ -241,7 +243,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebForTesting", "WebForTesting\", "{5816AA96-0563-4A52-8C99-04EF1F33A193}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
-		ProjectReferences = "{2e67aa78-6780-42bd-a3ab-ad953781e511}|Dianzhu.DAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{3D510583-1C11-48FB-8380-12E183E5914B}|Ydb.Infrastructure.dll;{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}|Ydb.Membership.dll;{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}|Ydb.BusinessResource.dll;"
+		ProjectReferences = "{2e67aa78-6780-42bd-a3ab-ad953781e511}|Dianzhu.DAL.dll;{D90CDF37-7406-4DAE-9AE6-C894D83A796F}|DDDCommon.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}|Dianzhu.IDAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{3D510583-1C11-48FB-8380-12E183E5914B}|Ydb.Infrastructure.dll;{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}|Ydb.Membership.dll;{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}|Ydb.BusinessResource.dll;{59D8ECF9-2867-43FD-BF18-EFE2758CF14F}|Log4Mongo.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_7676"
 		Debug.AspNetCompiler.PhysicalPath = "WebForTesting\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_7676\"
@@ -315,11 +317,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClientTests", "Di
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.Presenter", "Dianzhu.CSClient.Presenter\Dianzhu.CSClient.Presenter.csproj", "{2955FF18-C6C2-418C-BC99-A68E20EC0D61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.Web.LogView", "Ydb.Web.LogView\Ydb.Web.LogView.csproj", "{644850B7-24C2-43E3-B381-DB5E5FF2C449}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.Web.LogView", "Ydb.Web.LogView\Ydb.Web.LogView.csproj", "{	}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.PushTests", "Dianzhu.PushTests\Dianzhu.PushTests.csproj", "{C0B1E3FA-8C39-4096-90B5-40CB5944CD92}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.PresenterTests", "Dianzhu.CSClient.PresenterTests\Dianzhu.CSClient.PresenterTests.csproj", "{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log4Mongo", "Log4Mongo\Log4Mongo.csproj", "{59D8ECF9-2867-43FD-BF18-EFE2758CF14F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{08857DD3-886C-44A6-9465-2675F368F40F}"
 EndProject
@@ -1351,6 +1355,7 @@ Global
 		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.Release|x86.ActiveCfg = Release|Any CPU
 		{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}.Release|x86.Build.0 = Release|Any CPU
+ 
 		{901E2A8A-E608-4477-B9BC-F583D818D87F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{901E2A8A-E608-4477-B9BC-F583D818D87F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{901E2A8A-E608-4477-B9BC-F583D818D87F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -1369,6 +1374,7 @@ Global
 		{901E2A8A-E608-4477-B9BC-F583D818D87F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{901E2A8A-E608-4477-B9BC-F583D818D87F}.Release|x86.ActiveCfg = Release|Any CPU
 		{901E2A8A-E608-4477-B9BC-F583D818D87F}.Release|x86.Build.0 = Release|Any CPU
+ 
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1425,8 +1431,12 @@ Global
 		{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F} = {28666F1F-07A5-45FB-A9EF-D9E7BDB50565}
 		{E9218BB6-ED15-464E-8C96-AD5883396B08} = {28666F1F-07A5-45FB-A9EF-D9E7BDB50565}
 		{2955FF18-C6C2-418C-BC99-A68E20EC0D61} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
+ 
 		{644850B7-24C2-43E3-B381-DB5E5FF2C449} = {84E7F41F-F066-4951-8DCF-1ADD53733E23}
 		{901E2A8A-E608-4477-B9BC-F583D818D87F} = {42AE88F1-E519-4CBF-990B-F3454B04959F}
+ 
+		{59D8ECF9-2867-43FD-BF18-EFE2758CF14F} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
+ 
 	EndGlobalSection
 	GlobalSection(NDepend) = preSolution
 		Project = ".\dianzhu.ndproj"

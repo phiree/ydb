@@ -16,7 +16,7 @@ namespace DianzhuService.Diandian
         static void Main(string[] args)
         {
             //PHSuit.Logging.Config("Dianzhu.DianDian");
-            //Ydb.Common.LoggingConfiguration.Config("mongodb://112.74.198.215/");
+            
             Bootstrap.Boot();
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
@@ -40,7 +40,7 @@ namespace DianzhuService.Diandian
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            log.Error("发生异常" + ((Exception)e.ExceptionObject).Message);
+            log.Error("发生异常" + ((Exception)e.ExceptionObject).ToString());
         }
     }
 }

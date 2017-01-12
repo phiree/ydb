@@ -62,8 +62,8 @@
     <Reference Include="Dianzhu.ApplicationService">
       <HintPath>..\Dianzhu.ApplicationService\bin\Debug\Dianzhu.ApplicationService.dll</HintPath>
     </Reference>
-    <Reference Include="FizzWare.NBuilder, Version=3.0.1.0, Culture=neutral, PublicKeyToken=5651b03e12e42c12, processorArchitecture=MSIL">
-      <HintPath>..\packages\NBuilder.3.0.1.1\lib\FizzWare.NBuilder.dll</HintPath>
+    <Reference Include="FizzWare.NBuilder, Version=4.0.0.115, Culture=neutral, PublicKeyToken=5651b03e12e42c12, processorArchitecture=MSIL">
+      <HintPath>..\packages\NBuilder.4.0.0\lib\net40\FizzWare.NBuilder.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -106,8 +106,8 @@
       <HintPath>..\packages\AutoFixture.3.49.1\lib\net40\Ploeh.AutoFixture.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    <Reference Include="Rhino.Mocks, Version=4.0.0.0, Culture=neutral, PublicKeyToken=38730f1abddafc13, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoMocks.4.0.0-alpha3\lib\net40\Rhino.Mocks.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -160,16 +160,19 @@
     <Compile Include="Push\PushMessageBuilderTests.cs" />
     <Compile Include="RespDataSHM_snapshotObjTests.cs" />
     <Compile Include="SecurityTest.cs" />
+    <Compile Include="DiandianTest\ServiceDiandianTests.cs" />
     <Compile Include="UnitOfWork\UnitOfWorkFactoryTests.cs" />
     <Compile Include="XMPush\XMPushTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="acknowledgements.txt" />
     <Content Include="App.config">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="bin\Debug\NHibernate.dll" />
     <Content Include="bin\Debug\NHibernate.pdb" />
+    <Content Include="license.txt" />
     <None Include="config\appSettings.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -247,6 +250,10 @@
     <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
       <Project>{be142427-1ce4-40f8-ac58-d0509ba05d21}</Project>
       <Name>Dianzhu.Push</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DianzhuService.Diandian\DianzhuService.Diandian.csproj">
+      <Project>{D3820846-BAD7-49E9-8BCF-D5EF26579350}</Project>
+      <Name>DianzhuService.Diandian</Name>
     </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>

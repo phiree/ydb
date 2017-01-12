@@ -174,6 +174,10 @@ namespace Dianzhu.ApplicationService.Order
                 Staff.StaffService.bllAssignment = bllOrderAssignment;
                 Staff.StaffService.changeObj(orderobj.formanObj, staff);
             }
+            else
+            {
+                orderobj.formanObj = null;
+            }
 
             if (serviceType != null)
             {
@@ -387,7 +391,7 @@ namespace Dianzhu.ApplicationService.Order
                 throw new Exception("没有找到资源！");
             }
             //排除草稿单，因为推送服务会有时间差
-            if (order.OrderStatus ==enum_OrderStatus.Draft)
+            if (order.OrderStatus ==enum_OrderStatus.Draft || order.OrderStatus == enum_OrderStatus.Search)
             { 
                 throw new Exception("没有找到资源！");
             }
@@ -1286,6 +1290,7 @@ namespace Dianzhu.ApplicationService.Order
                     oa.Order = order;
                     oa.AssignedStaffId = staffID;
                     order.StaffId = staffID;
+                    order.LatestOrderUpdated = DateTime.Now;
                     //oa.Order.Details[0].Staff.Clear();
                     //oa.Order.Details[0].Staff.Add(staff);
                     bllOrderAssignment.Save(oa);
@@ -1302,6 +1307,7 @@ namespace Dianzhu.ApplicationService.Order
                     oa.AssignedStaffId = staffID;
                     oa.AssignedTime = dt;
                     order.StaffId = staffID;
+                    order.LatestOrderUpdated = DateTime.Now;
                     strState = "改派成功";
                     break;
                 case "取消指派":
@@ -1314,6 +1320,7 @@ namespace Dianzhu.ApplicationService.Order
                     oa.Enabled = false;
                     oa.DeAssignedTime = dt;
                     order.StaffId = null;
+                    order.LatestOrderUpdated = DateTime.Now;
                     strState = "取消成功";
                     break;
             }
@@ -1369,6 +1376,7 @@ namespace Dianzhu.ApplicationService.Order
             oa.Order = order;
             oa.AssignedStaffId = staffID;
             order.StaffId = staffID;
+            order.LatestOrderUpdated = DateTime.Now;
             //oa.Order.Details[0].Staff.Clear();
             //oa.Order.Details[0].Staff.Add(staff);
             bllOrderAssignment.Save(oa);
@@ -1430,6 +1438,7 @@ namespace Dianzhu.ApplicationService.Order
             DateTime dt = DateTime.Now;
             oa.DeAssignedTime = dt;
             order.StaffId = null;
+            order.LatestOrderUpdated = DateTime.Now;
             return new string[] { "取消成功！" };
         }
     }

@@ -44,8 +44,15 @@ public class CallBackAliBatch
 
         string notify_id = coll["notify_id"];
         string sign = coll["sign"];
-
-        bool isVerified = new Notify().Verify(sPara, notify_id, sign);
+        bool isVerified = false;
+        try
+        {
+            isVerified = new Notify().Verify(sPara, notify_id, sign);
+        }
+        catch (Exception ex)
+        {
+            log.Error("参数验证结果异常:" + ex.Message.ToString ());
+        }
         log.Debug("参数验证结果:" + isVerified);
        
         if (isVerified)
@@ -57,8 +64,15 @@ public class CallBackAliBatch
             string fail_details = coll["fail_details"];
 
             Ydb.Finance.Application.IWithdrawApplyService withdrawApplyService = Bootstrap.Container.Resolve<Ydb.Finance.Application.IWithdrawApplyService>();
-            withdrawApplyService.PayWithdrawSuccess(success_details);
-            withdrawApplyService.PayWithdrawFail(fail_details);
+            if (!string.IsNullOrEmpty(success_details))
+            {
+                withdrawApplyService.PayWithdrawSuccess(success_details);
+            }
+            if (!string.IsNullOrEmpty(fail_details))
+            {
+                withdrawApplyService.PayWithdrawFail(fail_details);
+            }
+            
             //string trade_status = coll["trade_status"].ToUpper();
             //log.Debug("交易结果:" + trade_status);
             //log.Debug("结果说明:" + Dianzhu.Pay.PayCallBackAliBatch.TradeStatus[trade_status]);

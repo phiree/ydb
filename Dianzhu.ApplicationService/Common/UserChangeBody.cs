@@ -20,13 +20,13 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <type>string</type>
         public string email { get; set; }
-
+        
         /// <summary>
         /// 手机
         /// </summary>
         /// <type>string</type>
-        [StringLength(11, ErrorMessage = "手机号码为11位.", MinimumLength = 11)]
-        [RegularExpression(@"^1[3578]\d{9}$", ErrorMessage = "手机号码不合法！")]
+        //[StringLength(11, ErrorMessage = "手机号码为11位.", MinimumLength = 11)]
+        //[RegularExpression(@"^1[3578]\d{9}$", ErrorMessage = "手机号码不合法！")]//这两个属性不起作用
         public string phone { get; set; }
 
         /// <summary>
@@ -47,11 +47,26 @@ namespace Dianzhu.ApplicationService
         /// <type>string</type>
         public string sex { get; set; }
 
+        string _newPassWord = "";
         /// <summary>
         ///新密码
         /// </summary>
         /// <type>string</type>
-        public string newPassWord { get; set; }
+        public string newPassWord
+        {
+            get
+            {
+                return _newPassWord;
+            }
+            set
+            {
+                //if (string.IsNullOrEmpty(value))
+                //{
+                //    throw new Exception("不能为空！");
+                //}//接口接收参数时该异常不会作为请求的响应传回去
+                _newPassWord = value;
+            }
+        }
 
         /// <summary>
         ///原始密码（必填）

@@ -25,7 +25,7 @@ namespace Dianzhu.Web.RestfulApi
     {
         log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.HMACAuthenticationAttribute.NoRule.v1.RestfulApi.Web.Dianzhu");
         private static Dictionary<string, string> allowedApps = new Dictionary<string, string>();
-        private readonly Int64 requestMaxAgeInSeconds = 300000;  //5 mins
+        private readonly Int64 requestMaxAgeInSeconds = 300;  //5 mins
         private readonly string authenticationScheme = "amx";
         //private  string reqTime = "";
 
@@ -267,9 +267,9 @@ namespace Dianzhu.Web.RestfulApi
                 }
                 else
                 {
-                    BLL.Client.BLLUserToken bllusertoken = Bootstrap.Container.Resolve<BLL.Client.BLLUserToken>();
+                    Ydb.Membership.Application.IUserTokenService userTokenService = Bootstrap.Container.Resolve<Ydb.Membership.Application.IUserTokenService>();
                     //NHibernateUnitOfWork.UnitOfWork.Start();
-                    if (bllusertoken.CheckToken(token))
+                    if (userTokenService.CheckToken(token))
                     {
                         ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":" + strLog + ";error= Not find user by token!");
                         //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
@@ -346,7 +346,11 @@ namespace Dianzhu.Web.RestfulApi
                     //return (sign.Equals(tt, StringComparison.Ordinal));
                     if (sign.Equals(tt, StringComparison.Ordinal))
                     {
-                        ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":" + strLog + ";signBefore=" + data + ";CreateSign=" + tt);
+                        //ilog.Debug("Request(RequestMethodUriSign)" + stamp_TIMES + ":" + strLog + ";signBefore=" + data + ";CreateSign=" + tt);
+                        string str = strLog + ";signBefore=" + data + ";CreateSign=" + tt;
+                        //req.Properties.Add("Request(RequestMethodUriSign)", str);
+                        req.GetOwinContext().Set<string>("as:RequestMethodUriSign", str);
+                        //req.SetOwinContext(new Microsoft.Owin.)
                         return true;
                     }
                     else
@@ -369,7 +373,7 @@ namespace Dianzhu.Web.RestfulApi
         {
             if (System.Runtime.Caching.MemoryCache.Default.Contains(nonce))
             {
-                ilog.Debug("Request(RequestMethodUriSign)" + requestTimeStamp + ":" + strLog + ";error=appName Not exists!");
+                ilog.Debug("Request(RequestMethodUriSign)" + requestTimeStamp + ":" + strLog + ";error=sign repeat!");
                 return true;
             }
             //unixtime防止跨时区调用
@@ -472,15 +476,22 @@ namespace Dianzhu.Web.RestfulApi
                 response.Headers.WwwAuthenticate.Add(new AuthenticationHeaderValue(authenticationScheme));
                 response.Content = new StringContent("{\"errCode\":\"001001\",\"errString\":\"用户认证失败\"}");
             }
-
+            else if (response.StatusCode == HttpStatusCode.OK)
+            { }
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
+            { }
+            else
+            {
+                response.Content = new StringContent("{\"errCode\":\"000001\",\"errString\":\"其他服务器错误:"+ response.StatusCode.ToString ()+ "\"}");
+            }
             IEnumerable<string> keyValue = null;
             string strT = "";
             if( response.RequestMessage.Headers.TryGetValues("stamp_TIMES", out keyValue))
             {
                 strT = keyValue.FirstOrDefault();
             }
-
-            ilog.Debug("Response(Content)"+ strT + ":" + await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+            
+            ilog.Debug("Response(Content)"+ strT + ":" + await response.Content.ReadAsStringAsync().ConfigureAwait(false)+ "CodeNo=" +((int) response.StatusCode).ToString () + ";CodeString=" + response.StatusCode.ToString());
             return response;
         }
     }

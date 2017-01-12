@@ -17,7 +17,7 @@
         //InitializeWindsor();
         Bootstrap.Boot();
         System.Timers.Timer timerOrderShare = new System.Timers.Timer(60*1000);
-   //     timerOrderShare.Elapsed += new System.Timers.ElapsedEventHandler(timerOrderShare_Elapsed);
+        timerOrderShare.Elapsed += new System.Timers.ElapsedEventHandler(timerOrderShare_Elapsed);
 
         timerOrderShare.Start();
         PHSuit.HttpHelper._SetupRefreshJob(888);
@@ -31,10 +31,14 @@
         IOrderShareService orderShare = Bootstrap.Container.Resolve<IOrderShareService>();
         //  NHibernateUnitOfWork.UnitOfWork.Start();
 
-
+        int c = 0;
         Action a = () => {
             IList<Dianzhu.Model.ServiceOrder> ordersForShare= bllOrder.GetOrdersForShare();
-            log.Debug("批量分账开始,需要分账的订单数量:" + ordersForShare.Count);
+            c = ordersForShare.Count;
+            if (c > 0)
+            {
+                log.Debug("批量分账开始,需要分账的订单数量:" + ordersForShare.Count);
+            }
             foreach (ServiceOrder order in ordersForShare)
             {
                 orderShare.ShareOrder(setOrderShareParam(order));
@@ -42,7 +46,10 @@
             }
         };
         NHibernateUnitOfWork.With.Transaction(a);
-        log.Debug("批量分账结束");
+        if (c > 0)
+        {
+            log.Debug("批量分账结束");
+        }
         //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
         //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
 
@@ -57,9 +64,9 @@
     {
         OrderShareParam orderShareParam = new OrderShareParam();
 
-       
+
         IDZServiceService dzService = Bootstrap.Container.Resolve<IDZServiceService>();
-         DZService service = dzService.GetOne2(new Guid(order.Details[0].OriginalServiceId)); 
+        DZService service = dzService.GetOne2(new Guid(order.Details[0].OriginalServiceId));
         orderShareParam.ServiceTypeID = service.ServiceType.Id.ToString();//  order.Details[0].ServiceSnapShot.ServiceType.Id.ToString();
         orderShareParam.BusinessUserId = order.BusinessId.ToString();
         orderShareParam.RelatedObjectId = order.Id.ToString();

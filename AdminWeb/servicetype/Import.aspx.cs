@@ -22,10 +22,12 @@ public partial class servicetype_Import : Page
     }
     protected void btnUpload_Click(object sender, EventArgs e)
     {
+        Ydb.ApplicationService.ExcelImporter.ServiceTypeImporter serviceTypeImporter= Bootstrap.Container.Resolve<Ydb.ApplicationService.ExcelImporter.ServiceTypeImporter>();
+        serviceTypeImporter.Import(fu.PostedFile.InputStream);
 
-        IList<VMServiceTypeAndPoint> serviceTypePointList=new ServiceTypeAndPointAdapter().Adapt(excelReader.ReadFromExcel(fu.PostedFile.InputStream));
-        bllServiceType.SaveOrUpdateList(serviceTypePointList.Select(x=>x.ServiceType).ToList());
-        serviceTypePointService.SaveOrUpdateList(serviceTypePointList.Where(x=>x.TypePoint!=null).Select(x=>x.TypePoint).ToList());
+        //IList<VMServiceTypeAndPoint> serviceTypePointList=new ServiceTypeAndPointAdapter().Adapt(excelReader.ReadFromExcel(fu.PostedFile.InputStream));
+        //bllServiceType.SaveOrUpdateList(serviceTypePointList.Select(x=>x.ServiceType).ToList());
+        //serviceTypePointService.SaveOrUpdateList(serviceTypePointList.Where(x=>x.TypePoint!=null).Select(x=>x.TypePoint).ToList());
         Notification.Show(Page, "", "导入成功", string.Empty);
         lblMsg.Text = "导入完成";
     }

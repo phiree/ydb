@@ -15,3 +15,13 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+.time_td {
+    width: 10%;
+}
+
+
+.message_td {
+    width: 90%;
+}

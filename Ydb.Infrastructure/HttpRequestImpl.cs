@@ -26,7 +26,9 @@ namespace Ydb.Infrastructure
             var responseString = string.Empty;
             using (var wb = new WebClient())
             {
+ 
                 wb.Encoding = code;
+ 
                 switch (type.ToLower())
                 {
                     case "get":
@@ -98,6 +100,35 @@ namespace Ydb.Infrastructure
             if (errors == SslPolicyErrors.None)
                 return true;
             return false;
+        }
+
+        public string CreateHttpRequest(string url, string type, string values, string authorizationSecret)
+        {
+            var responseString = string.Empty;
+            using (var wb = new WebClient())
+            {
+                wb.Headers.Add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+
+                if (!string.IsNullOrEmpty(authorizationSecret))
+                {
+                    wb.Headers.Add(HttpRequestHeader.Authorization, authorizationSecret);
+                }
+                wb.Encoding = Encoding.UTF8;
+                switch (type.ToLower())
+                {
+                    case "get":
+                        responseString = wb.DownloadString(url);
+                        break;
+                    case "post":
+                        responseString = wb.UploadString(url, "POST", values);
+
+                        //responseString = Encoding.UTF8.GetString(response);
+                        break;
+                    default:
+                        throw new Exception("Unsupported method");
+                }
+            }
+            return responseString;
         }
 
     }

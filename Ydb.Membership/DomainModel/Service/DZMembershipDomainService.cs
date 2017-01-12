@@ -55,13 +55,14 @@ namespace Ydb.Membership.DomainModel
             member.ChangePassword(oldPasswordEncrypted, newPassword, newPasswordEncrypted);
             repositoryDZMembership.Update(member);
 
-            System.Runtime.Caching.MemoryCache.Default.Remove(member.Id.ToString());
-            UserToken ut = repositoryUserToken.GetToken(member.Id.ToString());
-            if (ut != null)
-            {
-                ut.Flag = 0;
-                repositoryUserToken.Update(ut);
-            }
+            repositoryUserToken.DeleteToken(member.Id.ToString());
+            //System.Runtime.Caching.MemoryCache.Default.Remove(member.Id.ToString());
+            //UserToken ut = repositoryUserToken.GetToken(member.Id.ToString());
+            //if (ut != null)
+            //{
+            //    ut.Flag = 0;
+            //    repositoryUserToken.Update(ut);
+            //}
 
             return true;
         }

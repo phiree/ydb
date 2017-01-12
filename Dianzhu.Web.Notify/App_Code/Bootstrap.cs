@@ -37,9 +37,10 @@ public class Bootstrap
 new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb_instantmessage"))
             );
 
-        IEncryptService iEncryptService = container.Resolve<IEncryptService>();
-        Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager
-           .ConnectionStrings["MongoDB"].ConnectionString, false));
+        //IEncryptService iEncryptService = container.Resolve<IEncryptService>();
+        //Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager
+        //   .ConnectionStrings["MongoDB"].ConnectionString, false));
+        Ydb.Common.LoggingConfiguration.Config("Dianzhu.Web.Notify");
     }
 
     private static FluentConfiguration BuildDBConfig(string connectionStringName)

@@ -16,17 +16,17 @@ namespace Dianzhu.ApplicationService.Client
     {
         BLL.Client.IBLLClient ibllclient;
         BLL.Client.IBLLRefreshToken ibllrefreshtoken;
-        BLL.Client.BLLUserToken bllusertoken = null;
+        IUserTokenService userTokenService = null;
         
         IDZMembershipService memberService;
         IStaffService staffService;
 
-        public ClientService(BLL.Client.BLLUserToken bllusertoken, IStaffService staffService
+        public ClientService(IUserTokenService userTokenService, IStaffService staffService
             ,IDZMembershipService memberService)
         {
             //this.ibllclient = ibllclient;
             //this.ibllrefreshtoken = ibllrefreshtoken;
-            this.bllusertoken = bllusertoken;
+            this.userTokenService = userTokenService;
         
             this.staffService = staffService;
             this.memberService = memberService;
@@ -43,10 +43,9 @@ namespace Dianzhu.ApplicationService.Client
         /// <returns></returns>
         public UserTokentDTO CreateToken(string loginName, string password, string apiName, string apiKey,string strPath)
         {
- 
+
             log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.ClientController.NoRule.v1.RestfulApi.Web.Dianzhu");
-            ilog.Debug("PostToken(Baegin1):" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
-          ValidateResult validateResult=   memberService.Login(loginName, password);
+            ValidateResult validateResult=   memberService.Login(loginName, password);
             
             if (!validateResult.IsValidated )
  
@@ -107,18 +106,24 @@ namespace Dianzhu.ApplicationService.Client
             UserTokentDTO usertokendto = new UserTokentDTO();
             usertokendto.userEndpoint = userUri;
             usertokendto.token= JWT.JsonWebToken.Encode(customer, apiKey, JWT.JwtHashAlgorithm.HS256);
-            Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.token, Flag = 1, CreatedTime = DateTime.Now };
+
+            //Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.token, Flag = 1, CreatedTime = DateTime.Now };
             
-            if (bllusertoken.addToken(usertoken))
-            {
-                throw new Exception("Token保存失败！");
-            }
+            ilog.Debug("PostToken(Baegin1):" + dzm.Id.ToString() + "_" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
+            //if (bllusertoken.addToken(usertoken))
+            //{
+            //    throw new Exception("Token保存失败！");
+            //}
+
+            userTokenService.addToken(dzm.Id.ToString(), usertokendto.token, apiName);
+
             DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Local);
             TimeSpan currentTs = DateTime.Now - epochStart;
             string requestTimeStamp = currentTs.TotalSeconds.ToString ();
             System.Runtime.Caching.MemoryCache.Default.Remove(dzm.Id.ToString());
             System.Runtime.Caching.MemoryCache.Default.Add(dzm.Id.ToString(), usertokendto.token, DateTimeOffset.UtcNow.AddSeconds(172800));
             //ilog.Debug("PostToken(End):" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
+            
             return usertokendto;
         }
 
