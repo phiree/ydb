@@ -19,25 +19,40 @@ namespace Ydb.Common
           /// <summary>
         /// Configures log4net
         /// </summary>
-        public static void Config(string strConn)
+        public static void Config(string logFilePath)
         {
-            
-            //string logFileNameRoot = "../logs/" + logFilePath + "/" + System.Environment.MachineName;
+            ////MongoDB方式保存 string strConn
+            ////string logFileNameRoot = "../logs/" + logFilePath + "/" + System.Environment.MachineName;
+            //Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
+
+            //hierarchy.Root.RemoveAllAppenders();
+
+            //Logger rootLogger = hierarchy.Root;
+            //rootLogger.Level = Level.Error;
+            ///********/
+            //CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "Dianzhu", "DianzhuAppender",  strConn);
+            //CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "Ydb",   "YdbAppender",  strConn);
+            //CreateLoggerMogo(hierarchy, log4net.Core.Level.Warn, "NHibernate",   "NhibernateAppender",  strConn);
+            //hierarchy.Configured = true;
+
+            ////txt文件的方式保存
+            string logFileNameRoot = "../logs/" + logFilePath + "/" + System.Environment.MachineName;
             Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
-          
+
             hierarchy.Root.RemoveAllAppenders();
-            
+
             Logger rootLogger = hierarchy.Root;
             rootLogger.Level = Level.Error;
             /********/
-            CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "Dianzhu", "DianzhuAppender",  strConn);
-            CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "Ydb",   "YdbAppender",  strConn);
-            CreateLoggerMogo(hierarchy, log4net.Core.Level.Warn, "NHibernate",   "NhibernateAppender",  strConn);
+            CreateLogger(hierarchy, log4net.Core.Level.Debug, "Ydb", logFileNameRoot + "Ydb", "YdbAppender", 5, 20);
+            CreateLogger(hierarchy, log4net.Core.Level.Debug, "Dianzhu", logFileNameRoot + "Dianzhu", "DianzhuAppender", 5, 20);
+            CreateLogger(hierarchy, log4net.Core.Level.Warn, "NHibernate", logFileNameRoot+"Nhibernate", "NhibernateAppender", 5, 20);
+            CreateLogger(hierarchy, log4net.Core.Level.Debug, "JSYK", logFileNameRoot + "Infra", "JSYKAppender", 5, 20);
             hierarchy.Configured = true;
-           
+
         }
         [Obsolete("使用mongodbappender")]
-        private static void CreateLogger(Hierarchy hierarchy,string loggerName,string logfileName, string appenderName,int maxFileSize,int maxRollBackups)
+        private static void CreateLogger(Hierarchy hierarchy, log4net.Core.Level logLevel, string loggerName,string logfileName, string appenderName,int maxFileSize,int maxRollBackups)
         {
             Logger logger = hierarchy.GetLogger(loggerName) as Logger;
 

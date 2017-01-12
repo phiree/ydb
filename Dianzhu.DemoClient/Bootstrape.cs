@@ -23,9 +23,10 @@ namespace Dianzhu.DemoClient
                 new Ydb.Infrastructure.Installer()
                 );
 
-            IEncryptService iEncryptService = container.Resolve<IEncryptService>();
-            Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager
-               .ConnectionStrings["MongoDB"].ConnectionString, false));
+            //IEncryptService iEncryptService = container.Resolve<IEncryptService>();
+            //Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager
+            //   .ConnectionStrings["MongoDB"].ConnectionString, false));
+            Ydb.Common.LoggingConfiguration.Config("Dianzhu.DemoClient");
         }
 
     }

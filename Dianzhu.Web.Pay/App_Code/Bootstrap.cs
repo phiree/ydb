@@ -60,9 +60,10 @@ public class Bootstrap
             Ydb.Membership.Application.AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
         });
 
-        IEncryptService iEncryptService = container.Resolve<IEncryptService>();
-        Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager
-           .ConnectionStrings["MongoDB"].ConnectionString, false));
+        //IEncryptService iEncryptService = container.Resolve<IEncryptService>();
+        //Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager
+        //   .ConnectionStrings["MongoDB"].ConnectionString, false));
+        Ydb.Common.LoggingConfiguration.Config("Dianzhu.Web.Pay");
 
     }
 

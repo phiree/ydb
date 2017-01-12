@@ -73,9 +73,10 @@ new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig(
             Ydb.Finance.Application.AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
         });
 
-        IEncryptService iEncryptService = container.Resolve<IEncryptService>();
-        Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager
-           .ConnectionStrings["MongoDB"].ConnectionString, false));
+        //IEncryptService iEncryptService = container.Resolve<IEncryptService>();
+        //Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager
+        //   .ConnectionStrings["MongoDB"].ConnectionString, false));
+        Ydb.Common.LoggingConfiguration.Config("Dianzhu.AdminWeb");
     }
 
     private static FluentConfiguration BuildDBConfig(string connectionStringName)
