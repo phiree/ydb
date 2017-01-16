@@ -68,7 +68,7 @@ namespace Dianzhu.Config
             ,{ "dev.ydban.cn",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
             ,{ "business.ydban.cn",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","123456") }
             ,{ "192.168.1.150",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
-            ,{ "192.168.1.138",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","123456") }
+            ,{ "192.168.1.138",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
         };
         //通知中心登陆用户账号，不同数据库服务器有不同的值
         //todo: 需要使用 username登陆 而不是id

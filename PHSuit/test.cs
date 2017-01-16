@@ -48,7 +48,15 @@ namespace PHSuit
             Console.WriteLine("localhost_ydb_finance" + ":" + PHSuit.Security.Encrypt("localhost_finance___data source=localhost;uid=root;pwd=root;database=ydb_finance", false));
             Console.WriteLine("localhost_ydb_common" + ":" + PHSuit.Security.Encrypt("localhost_common___data source=localhost;uid=root;pwd=root;database=ydb_common", false));
             Console.WriteLine("localhost_ydb_businessresource" + ":" + PHSuit.Security.Encrypt("localhost_businessresource___data source=localhost;uid=root;pwd=root;database=ydb_businessresource", false));
- 
+
+            Console.WriteLine("138_dianzhu:" + PHSuit.Security.Encrypt("138_dianzhu___data source=192.168.1.138;uid=root;pwd=root;database=dianzhu", false));
+            Console.WriteLine("138_ydb_membership:" + PHSuit.Security.Encrypt("138_membership___data source=192.168.1.138;uid=root;pwd=root;database=ydb_membership", false));
+            Console.WriteLine("138_ydb_instantmessage:" + PHSuit.Security.Encrypt("138_instantmessage___data source=192.168.1.138;uid=root;pwd=root;database=ydb_instantmessage", false));
+            Console.WriteLine("138_ydb_finance:" + PHSuit.Security.Encrypt("138_finance___data source=192.168.1.138;uid=root;pwd=root;database=ydb_finance", false));
+            Console.WriteLine("138_ydb_common:" + PHSuit.Security.Encrypt("138_common___data source=192.168.1.138;uid=root;pwd=root;database=ydb_common", false));
+            Console.WriteLine("138_ydb_businessresource:" + PHSuit.Security.Encrypt("138_businessresource___data source=192.168.1.138;uid=root;pwd=root;database=ydb_businessresource", false));
+
+
             Console.WriteLine("150_dianzhu_test:" + PHSuit.Security.Encrypt("data source=192.168.1.150;uid=ydb;pwd=jsyk2016;database=dianzhu_test", false));
             Console.WriteLine("150_ydb_instantmessage:" + PHSuit.Security.Encrypt("data source=192.168.1.150;uid=ydb;pwd=jsyk2016;database=ydb_instantmessage", false));
 

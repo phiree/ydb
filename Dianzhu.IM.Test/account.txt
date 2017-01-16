@@ -1,6 +1,2 @@
-localhost|457fcfa8-701b-11e6-9ad9-02004c4f4f50|123456|YDBan_User
-localhost|05ad9bf7-6a9b-11e6-b78a-001a7dda7106|123456|YDBan_User
-localhost|05af94c5-6a9b-11e6-b78a-001a7dda7106|123456|YDBan_User
-localhost|0f98eb88-6a9b-11e6-b78a-001a7dda7106|123456|YDBan_CustomerService
-localhost|446a18fa-6aa3-11e6-b78a-001a7dda7106|123456|YDBan_Store
-112.74.198.215|74d1f82b-41c6-4197-bfdc-a64a00f1afb6|123456|YDBan_User
+192.168.1.138|4570306d-701b-11e6-9ad9-02004c4f4f50|123456|YDBan_User
+192.168.1.138|71df3fe7-73da-11e6-99ac-02004c4f4f50|123456|YDBan_CustomerService
