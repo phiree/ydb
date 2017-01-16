@@ -16,11 +16,11 @@ namespace Dianzhu.Config
         #region 服务器定义
         
         //本地服务器,局域网测试服务器,远程服务器,正式服务器
-        static string[] IMServers = new string[]            { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.38" };
-        static string[] IMDomains = new string[]            { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.38" };
-        static string[] ApplicationServers = new string[]   { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.38" };
-        static string[] HttpApiServers = new string[]       { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.38" };
-        static string[] IMNotifyServers = new string[]      { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.38" };
+        static string[] IMServers = new string[]            { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
+        static string[] IMDomains = new string[]            { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
+        static string[] ApplicationServers = new string[]   { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
+        static string[] HttpApiServers = new string[]       { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
+        static string[] IMNotifyServers = new string[]      { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
         static string[] PayServers = new string[]           { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", PublicIp };
         
 
@@ -68,13 +68,13 @@ namespace Dianzhu.Config
             ,{ "dev.ydban.cn",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
             ,{ "business.ydban.cn",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","123456") }
             ,{ "192.168.1.150",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
-            ,{ "192.168.1.38",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
+            ,{ "192.168.1.138",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","123456") }
         };
         //通知中心登陆用户账号，不同数据库服务器有不同的值
         //todo: 需要使用 username登陆 而不是id
         static Dictionary<string, KeyValuePair<string, string>> DictsNotifySenderLogins = new Dictionary<string, KeyValuePair<string, string>>() {
              { "localhost",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
-            ,{ "192.168.1.38",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
+            ,{ "192.168.1.138",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
             ,{ "dev.ydban.cn",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
             ,{ "business.ydban.cn",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
             ,{ "192.168.1.150",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
