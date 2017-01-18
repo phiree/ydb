@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ydb.Order.Infrastructure
+namespace Ydb.PayGateway
 {
     public class RefundReturnAliApp
     {

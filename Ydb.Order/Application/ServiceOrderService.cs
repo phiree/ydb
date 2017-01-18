@@ -6,7 +6,7 @@ using Ydb.Common;
 using Ydb.Common.Specification;
 using Ydb.Order.DomainModel;
 using Ydb.Order.DomainModel.Repository;
-using Ydb.Order.Infrasturcture;
+using Ydb.PayGateway;
 using Ydb.Common.Infrastructure;
 namespace Ydb.Order.Application
 {
@@ -35,10 +35,12 @@ namespace Ydb.Order.Application
         IHttpRequest httpRequest;
         IRepositoryServiceOrderPushedService repoPushedService;
 
+        IRefundFactory refundFactory;
+
 
         public ServiceOrderService(IRepositoryServiceOrder repoServiceOrder, IRepositoryServiceOrderStateChangeHis repoStateChangeHis,
            IRepositoryRefund repoRefund, IRepositoryRefundLog repoRefundLog, IRepositoryOrderAssignment repoOrderAssignment,
-           IRepositoryClaims repoClaims, IRepositoryPayment repoPayment,IHttpRequest httpRequest,  IRepositoryServiceOrderPushedService repoPushedService)
+           IRepositoryClaims repoClaims, IRepositoryPayment repoPayment,IHttpRequest httpRequest,  IRepositoryServiceOrderPushedService repoPushedService, IRefundFactory refundFactory)
         {
 
             this.repoServiceOrder = repoServiceOrder;
@@ -50,6 +52,7 @@ namespace Ydb.Order.Application
             this.repoRefund = repoRefund;
             this.httpRequest = httpRequest;
             this.repoPushedService = repoPushedService;
+            this.refundFactory = refundFactory;
         }
 
         public int GetServiceOrderCount(Guid userId, enum_OrderSearchType searchType)
@@ -1150,10 +1153,9 @@ namespace Ydb.Order.Application
             //申请退款记录.
             Refund refund = new Refund(payment.Order, payment, payment.Amount, refundAmount, refundReason, payment.PlatformTradeNo, enum_RefundStatus.Fail, string.Empty);
             repoRefund.Add(refund);
-          
-            IRefundApi refundApi = RefundFactory.CreateRefund(refund,operatorId);
-
-            bool refundResult = refundApi.GetRefundResponse(refund.Id, repoRefundLog,httpRequest);
+           //调用API 执行退款
+            IRefundApi refundApi = refundFactory.CreateRefund(payment.PayApi,refund.Id,refundAmount,payment.Amount,payment.PlatformTradeNo,operatorId);
+            bool refundResult = refundApi.GetRefundResponse();
 
             if (refundResult)
             {

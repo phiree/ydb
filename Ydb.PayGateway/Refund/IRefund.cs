@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Com.Alipay;
+ 
 using System.Collections.Specialized;
-using Ydb.Common;
+ 
 
-namespace Ydb.Order.DomainModel
+namespace Ydb.PayGateway
 {
     /// <summary>
     /// 第三方支付的退款
@@ -39,8 +39,7 @@ namespace Ydb.Order.DomainModel
         /// 调用支付接口的退款接口.
         /// </summary>
         /// <returns></returns>
-        bool GetRefundResponse(Guid refundId
-        , Ydb.Order.DomainModel.Repository.IRepositoryRefundLog repoRefundLog, Ydb.Common.Infrastructure.IHttpRequest httpRequest);
+        bool GetRefundResponse();
 
 
     }

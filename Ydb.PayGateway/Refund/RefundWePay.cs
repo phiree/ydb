@@ -1,4 +1,4 @@
-﻿using Com.Alipay;
+﻿ 
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,8 +9,8 @@ using System.Text;
 using System.Web;
 using Ydb.Common;
 using Ydb.Common.Infrastructure;
-using Ydb.Order.DomainModel;
-namespace Ydb.Order.Infrastructure
+ 
+namespace Ydb.PayGateway
 {
     /// <summary>
     /// 微信app退款接口
@@ -28,13 +28,14 @@ namespace Ydb.Order.Infrastructure
      
         string nonce_str = Guid.NewGuid().ToString().Replace("-", "");
 
+        IHttpRequest httpRequest;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="notify_url"></param>
         /// <param name="refundDetail"></param>
         public RefundWePay( string refundNo, decimal refundAmount, 
-            string platformTradeNo,decimal totalAmount, string operatorId)
+            string platformTradeNo,decimal totalAmount, string operatorId, IHttpRequest httpRequest)
         {
             this.TotalAmount = totalAmount;
             this.RefundAmount = refundAmount;
@@ -42,7 +43,7 @@ namespace Ydb.Order.Infrastructure
          
             this.OutRefundNo = refundNo;
             this.OperatorId = operatorId;
-            
+            this.httpRequest = httpRequest;
           
 
         }
@@ -96,7 +97,7 @@ namespace Ydb.Order.Infrastructure
             return collection;
         }
 
-        public bool GetRefundResponse(Guid refundId, DomainModel.Repository.IRepositoryRefundLog repoRefundLog,Ydb.Common.Infrastructure.IHttpRequest httpRequest)
+        public bool GetRefundResponse()
         {
 
             var respDataWeChat = CreateRefundRequest();
@@ -119,12 +120,7 @@ namespace Ydb.Order.Infrastructure
             respDataXmlWechat = respDataXmlWechat + "</xml>";
             log.Debug("请求微信api数据:" + respDataXmlWechat);
 
-            #region 保存退款请求数据
-          
-            RefundLog refundLogWechat = new RefundLog(respDataXmlWechat,refundId,  RefundAmount, enum_PaylogType.ReturnNotifyFromWePay, enum_PayType.Online);
-            repoRefundLog.Add(refundLogWechat);
-            #endregion
-
+            
           
             string returnstrWeChat = httpRequest.CreateHttpRequestPostXml(ConfigWePay.refund_url, respDataXmlWechat, "北京集思优科网络科技有限公司");
             log.Debug("微信返回数据:" + returnstrWeChat);
@@ -132,10 +128,7 @@ namespace Ydb.Order.Infrastructure
             string jsonWeChat = JsonHelper.Xml2Json(returnstrWeChat, true);
             RefundReturnWeChat refundReturnWeChat = JsonConvert.DeserializeObject<RefundReturnWeChat>(jsonWeChat);
 
-            #region 保存退款返回数据
-            refundLogWechat = new RefundLog(jsonWeChat, refundId, RefundAmount, enum_PaylogType.ReturnNotifyFromWePay, enum_PayType.Online);
-            repoRefundLog.Add(refundLogWechat);
-            #endregion
+          
 
             bool refundSuccess = false;
             if (refundReturnWeChat.return_code.ToUpper() == "SUCCESS")

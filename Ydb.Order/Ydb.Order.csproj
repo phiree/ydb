@@ -100,24 +100,11 @@
     <Compile Include="DomainModel\ServiceOrderRemind.cs" />
     <Compile Include="DomainModel\ServiceOrderStateChangeHis.cs" />
     <Compile Include="DomainModel\ServiceSnapShotForOrder.cs" />
-    <Compile Include="Infrastructure\AliPay\AlipayConfig.cs" />
-    <Compile Include="Infrastructure\AliPay\AlipayCore.cs" />
-    <Compile Include="Infrastructure\AliPay\AlipayNotify.cs" />
-    <Compile Include="Infrastructure\AliPay\AlipaySignature.cs" />
-    <Compile Include="Infrastructure\AliPay\AlipaySubmit.cs" />
-    <Compile Include="Infrastructure\AliPay\AopException.cs" />
-    <Compile Include="Infrastructure\AliPay\RSA.cs" />
-    <Compile Include="Infrastructure\AliPay\RSACryptoServiceProviderExtension.cs" />
-    <Compile Include="Infrastructure\Refund\RefundFactory.cs" />
-    <Compile Include="Infrastructure\Refund\RefundReturnAliApp.cs" />
-    <Compile Include="Infrastructure\Refund\RefundReturnWeChat.cs" />
-    <Compile Include="Infrastructure\WePay\WePayConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DomainModel\Refund\IRefund.cs" />
-    <Compile Include="Infrastructure\Refund\RefundAliApp.cs" />
-    <Compile Include="Infrastructure\Refund\RefundWePay.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
       <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
@@ -126,6 +113,10 @@
     <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
       <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
       <Name>Ydb.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.PayGateway\Ydb.PayGateway.csproj">
+      <Project>{a54365b5-4b06-4897-a280-38d18ed9eb0e}</Project>
+      <Name>Ydb.PayGateway</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ydb.Web.LogView\Ydb.Web.LogView.csproj">
       <Project>{644850B7-24C2-43E3-B381-DB5E5FF2C449}</Project>

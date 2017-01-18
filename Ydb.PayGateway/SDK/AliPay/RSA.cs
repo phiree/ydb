@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using System.Security.Cryptography;
 
-namespace Com.Alipay
+namespace Ydb.PayGateway
 {
     /// <summary>
     /// 类名：RSAFromPkcs8

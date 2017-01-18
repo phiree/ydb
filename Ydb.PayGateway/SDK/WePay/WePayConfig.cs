@@ -5,7 +5,7 @@ using System.Net;
 using System;
 using System.Collections.Generic;
 
-namespace Ydb.Order.Infrastructure
+namespace Ydb.PayGateway
 {
     public class ConfigWePay
     {

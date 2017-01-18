@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Com.Alipay
+namespace Ydb.PayGateway
 {
     /// <summary>
     /// AOP客户端异常。

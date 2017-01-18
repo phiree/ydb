@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.IO;
 
-namespace Com.Alipay
+namespace Ydb.PayGateway
 {
     public static class RSACryptoServiceProviderExtension
     {

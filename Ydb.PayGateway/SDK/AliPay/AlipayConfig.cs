@@ -5,7 +5,7 @@ using System.Net;
 using System;
 using System.Collections.Generic;
 
-namespace Com.Alipay
+namespace Ydb.PayGateway
 {
     /// <summary>
     /// 类名：Config

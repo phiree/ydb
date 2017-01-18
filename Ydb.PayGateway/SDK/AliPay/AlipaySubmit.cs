@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace Com.Alipay
+namespace Ydb.PayGateway
 {
     /// <summary>
     /// 类名：Submit

@@ -8,6 +8,7 @@ namespace Ydb.Order.Application
 {
     public interface IServiceOrderService
     {
+        //执行退款
         bool ApplyRefund(Payment payment, decimal refundAmount, string refundReason,string operatorId);
         bool ApplyRefund(Payment payment, decimal refundAmount, string refundReason);
 
