@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Dianzhu.BLL;
-using Dianzhu.Model;
 using Ydb.BusinessResource.DomainModel;
-using Ydb.Order.DomainModel;
 using Ydb.Order.Application;
 /// <summary>
 /// VMBusinessAdapter 的摘要说明

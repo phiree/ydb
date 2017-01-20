@@ -52,11 +52,14 @@
     <Compile Include="Pay\PayAliApp.cs" />
     <Compile Include="Pay\PayAliWeb.cs" />
     <Compile Include="Pay\PayBatch.cs" />
+    <Compile Include="Pay\PayCallBack\CallBackRequest.cs" />
     <Compile Include="Pay\PayCallBack\GetAliRequestGet.cs" />
     <Compile Include="Pay\PayCallBack\IPayCallBack.cs" />
     <Compile Include="Pay\PayCallBack\PayCallBackAli.cs" />
     <Compile Include="Pay\PayCallBack\PayCallBackAliBatch.cs" />
+    <Compile Include="Pay\PayCallBack\PayCallBackFactory.cs" />
     <Compile Include="Pay\PayCallBack\PayCallBackWePay.cs" />
+    <Compile Include="Pay\PayFactory.cs" />
     <Compile Include="Pay\PayWePay.cs" />
     <Compile Include="Refund\IRefund.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

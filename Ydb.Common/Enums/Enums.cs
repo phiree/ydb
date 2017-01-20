@@ -64,7 +64,8 @@ namespace Ydb.Common
         
         Wechat = 2,
         AliBatch = 3,
-            AlipayApp = 4
+            AlipayApp = 4,
+            AlipayBatch=5
     }
     /// <summary>
     /// 计费单位
