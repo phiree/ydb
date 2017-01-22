@@ -268,10 +268,6 @@
       <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Pay\Dianzhu.Pay.csproj">
-      <Project>{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}</Project>
-      <Name>Dianzhu.Pay</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MediaServer\MediaServer.csproj">
       <Project>{9920da22-589c-4193-aeaa-363d5c029dfc}</Project>
       <Name>MediaServer</Name>
@@ -299,6 +295,14 @@
     <ProjectReference Include="..\Ydb.Membership\Ydb.Membership.csproj">
       <Project>{6a7ed67d-846d-46c6-84b0-82b8556f0b8f}</Project>
       <Name>Ydb.Membership</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Order\Ydb.Order.csproj">
+      <Project>{901e2a8a-e608-4477-b9bc-f583d818d87f}</Project>
+      <Name>Ydb.Order</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.PayGateway\Ydb.PayGateway.csproj">
+      <Project>{a54365b5-4b06-4897-a280-38d18ed9eb0e}</Project>
+      <Name>Ydb.PayGateway</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

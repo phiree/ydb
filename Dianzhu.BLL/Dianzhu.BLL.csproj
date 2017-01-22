@@ -90,15 +90,10 @@
     <Compile Include="BLLComplaint.cs" />
     <Compile Include="BLLAdvertisement.cs" />
     <Compile Include="BLLDeviceBind.cs" />
-    <Compile Include="BLLPaymentLog.cs" />
     <Compile Include="BLLMembershipLoginLog.cs" />
     <Compile Include="Push\BLLPush.cs" />
-    <Compile Include="BLLRefundLog.cs" />
-    <Compile Include="BLLRefund.cs" />
-    <Compile Include="BLLPayment.cs" />
     <Compile Include="BLLIMUserStatusArchieve.cs" />
     <Compile Include="BLLIMUserStatus.cs" />
-    <Compile Include="BLLPay.cs" />
     <Compile Include="Client\BLLClient.cs" />
     <Compile Include="Client\BLLRefreshToken.cs" />
     <Compile Include="Client\BLLUserToken.cs" />
@@ -107,7 +102,6 @@
     <Compile Include="Common\SerialNo\ISerialNoBuilder.cs" />
     <Compile Include="ServiceBase.cs" />
     <Compile Include="ServiceOrder\IBLLServiceOrder.cs" />
-    <Compile Include="ServiceOrder\BLLServiceOrder.cs" />
     <Compile Include="DZRoleProvidercs.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -142,10 +136,6 @@
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Pay\Dianzhu.Pay.csproj">
-      <Project>{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}</Project>
-      <Name>Dianzhu.Pay</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
       <Project>{be142427-1ce4-40f8-ac58-d0509ba05d21}</Project>

@@ -34,11 +34,7 @@ namespace Dianzhu.DependencyInstaller
 
             container.Register(Component.For<BLLOrderAssignment>());
 
-            container.Register(Component.For<BLLPayment>());
-            container.Register(Component.For<BLLPaymentLog>());
-
-            container.Register(Component.For<BLLRefund>());
-            container.Register(Component.For<BLLRefundLog>());
+           
 
             container.Register(Component.For<BLLPush>());
 
@@ -180,27 +176,14 @@ namespace Dianzhu.DependencyInstaller
 
             container.Register(Component.For<IBLLMembershipLoginLog>().ImplementedBy<BLLMembershipLoginLog>());
             
-            container.Register(Component.For<IBLLServiceOrder>().ImplementedBy<BLLServiceOrder>()
-                               .DependsOn(Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>())))
-                               .DependsOn(Dependency.OnValue("bllPayment", new BLLPayment(container.Resolve<IDALPayment>(), container.Resolve<IDALClaims>())))
-
-
-                               )
-                               ;
-            //todo: 暂时只使用随机分配.
-
-            container.Register(Component.For<BLLPay>().DependsOn(Dependency.OnValue("bllPayment", new BLLPayment(container.Resolve<IDALPayment>(), container.Resolve<IDALClaims>()))));
-
+         
             // IDAL.IDALServiceOrder repoServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis,
             //IDALMembership repoMembership, IDALRefund bllRefund, IDALOrderAssignment repoOrderAssignment, BLLPayment bllPayment ,IDALClaims dalClaims
 
 
             container.Register(Component.For<BLL.Client.IBLLClient>().ImplementedBy<BLL.Client.BLLClient>());
             container.Register(Component.For<BLL.Client.IBLLRefreshToken>().ImplementedBy<BLL.Client.BLLRefreshToken>());
-            container.Register(Component.For<PushService>().DependsOn(
-              Dependency.OnValue("bllPayment", new BLLPayment(container.Resolve<IDALPayment>(), container.Resolve<IDALClaims>())),
-              Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>()))
-              ));
+          
             container.Register(Component.For<Dianzhu.Push.IPushMessageBiulder>().ImplementedBy<Dianzhu.Push.PushMessageBuilder>());
 
         }

@@ -53,7 +53,7 @@ namespace Ydb.Order.Application
         void OrderFlow_CustomerPayFinalPayment(ServiceOrder order);
         void OrderFlow_CustomerPayInternention(ServiceOrder order);
         void OrderFlow_CustomerPayRefund(ServiceOrder order);
-        bool OrderFlow_CustomerRefund(ServiceOrder order, bool isNeedRefund, decimal refundAmount);
+        bool OrderFlow_CustomerRefund(string orderId, bool isNeedRefund, decimal refundAmount);
         void OrderFlow_EndCancel(ServiceOrder order);
         void OrderFlow_ForceStop(ServiceOrder order);
         void OrderFlow_NeedPayInternention(ServiceOrder order);

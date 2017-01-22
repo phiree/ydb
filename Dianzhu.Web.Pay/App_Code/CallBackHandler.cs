@@ -17,6 +17,9 @@ using Ydb.Order.Application;
 using Ydb.Common;
 using Ydb.PayGateway;
 using System.Web.Script.Serialization;
+/// <summary>
+/// 支付结果回调 和 退款结果回调 接口参数一样.
+/// </summary>
 public partial class CallBackHandler : BasePage
 {
 
@@ -42,7 +45,7 @@ public partial class CallBackHandler : BasePage
         //根据回调值,处理业务逻辑
         if (callBack is IPayCallBackSingle)
         {
-            callBackResult = ((IPayCallBackSingle)callBack).PayCallBack(parameters, out businessOrderId, out platformOrderId, out totalAmount, out errMsg);
+             callBackResult = ((IPayCallBackSingle)callBack).PayCallBack(parameters, out businessOrderId, out platformOrderId, out totalAmount, out errMsg);
             //更新订单及支付项状态.
             IServiceOrderService orderService = Bootstrap.Container.Resolve<IServiceOrderService>();
             IPaymentService paymentService = Bootstrap.Container.Resolve<IPaymentService>();

@@ -12,9 +12,9 @@ using System.Text;
 using System.IO;
 using System.Xml;
 using Com.Alipay;
-using Dianzhu.BLL;
-using Dianzhu.Model;
-using Dianzhu.Pay;
+
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 /// <summary>
 /// 功能：即时到账批量退款有密接口接入页
 /// 版本：3.3
@@ -33,11 +33,11 @@ using Dianzhu.Pay;
 /// </summary>
 public partial class _Default : BasePage 
 {
-    IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+    IServiceOrderService bllOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        BLLPay bllPay = Bootstrap.Container.Resolve<BLLPay>();
+        IPaymentService bllPay = Bootstrap.Container.Resolve<IPaymentService>();
         
         
         if (!IsPostBack)

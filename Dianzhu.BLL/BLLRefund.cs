@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model;
 using Ydb.Common;
-using Dianzhu.Pay;
 
 namespace Dianzhu.BLL
 {

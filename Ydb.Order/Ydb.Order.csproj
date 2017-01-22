@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Application\IPaymentService.cs" />
     <Compile Include="Application\IServiceOrderService.cs" />
+    <Compile Include="Application\PaymentLogService.cs" />
     <Compile Include="Application\PaymentService.cs" />
     <Compile Include="DomainModel\OrderFlow.cs" />
     <Compile Include="Application\PushService.cs" />
@@ -78,16 +79,12 @@
     <Compile Include="DomainModel\ClaimsDetails.cs" />
     <Compile Include="DomainModel\OrderAssignment.cs" />
     <Compile Include="DomainModel\Payment\Payment.cs" />
-    <Compile Include="DomainModel\Payment\PaymentLog.cs" />
     <Compile Include="DomainModel\Payment\Refund.cs" />
-    <Compile Include="DomainModel\Payment\RefundLog.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryPayment.cs" />
-    <Compile Include="DomainModel\Repository\IRepositoryPaymentLog.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryClaims.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryClaimsDetails.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryOrderAssignment.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryRefund.cs" />
-    <Compile Include="DomainModel\Repository\IRepositoryRefundLog.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryServiceOrder.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryServiceOrderAppraise.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryServiceOrderPushedService.cs" />

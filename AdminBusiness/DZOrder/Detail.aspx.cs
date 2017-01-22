@@ -20,8 +20,7 @@ public partial class DZOrder_Detail : BasePage
     // BLLServiceOrder bllServeiceOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
     BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<BLLServiceOrderStateChangeHis>();
     IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
-    BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
-    public ServiceOrder CurrentOrder;
+     public ServiceOrder CurrentOrder;
     public Business CurrentBusiness;
 
     public string merchantID

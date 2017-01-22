@@ -947,7 +947,7 @@ namespace Dianzhu.ApplicationService.Order
             //    throw new FormatException("该理赔动作无效！");
             //}
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
-            Model.ServiceOrder order = ibllserviceorder.GetOne(guidOrder);
+         ServiceOrder order = ibllserviceorder.GetOne(guidOrder);
             if (order == null)
             {
                 throw new Exception("该订单不存在！");

@@ -11,10 +11,13 @@ using System.Web.UI.HtmlControls;
 using System.Collections.Specialized;
 using System.Collections.Generic;
 using Dianzhu.BLL;
-using Dianzhu.Model;
+ 
 using Com.Alipay;
 using Ydb.Common;
-
+using Ydb.PayGateway.Application;
+using Ydb.Order.DomainModel;
+using Ydb.Order.Application;
+using Ydb.PayGateway.DomainModel;
 /// <summary>
 /// 功能：服务器异步通知页面
 /// 版本：3.3
@@ -31,7 +34,7 @@ using Ydb.Common;
 /// </summary>
 public partial class notify_url : BasePage
 {
-    IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+     IServiceOrderService orderService = Bootstrap.Container.Resolve<IServiceOrderService>();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -68,7 +71,7 @@ public partial class notify_url : BasePage
                 string[] arrayresult_details = result_details.Split('^');
                 string trade_no = arrayresult_details[0];
                 allServiceOrder = null;//todo: bllOrder.GetAllByTradeNo(trade_no);
-                order = bllOrder.GetOne(allServiceOrder[0].Id);
+                order = orderService.GetOne(allServiceOrder[0].Id);
                 if (order == null)
                 {
                     Response.Write("fail");
@@ -76,16 +79,16 @@ public partial class notify_url : BasePage
                 order.OrderStatus =  enum_OrderStatus.EndCancel;
                 order.OrderCreated = DateTime.Now;
                 order.OrderFinished = DateTime.Now;
-                bllOrder.Update(order);
+                orderService.Update(order);
 
                 //保存接收数据
-                BLLPaymentLog bllPaymentLog = Bootstrap.Container.Resolve<BLLPaymentLog>();
+                 IPaymentLogService paymentlogService = Bootstrap.Container.Resolve<IPaymentLogService>();
                 PaymentLog paymentLog = new PaymentLog();
                 paymentLog.ApiString = Request.Url + "|" + Request.QueryString.ToString() + "|" + Request.Form.ToString();
                 paymentLog.PaylogType = enum_PaylogType.ResultNotifyFromAli;
                 paymentLog.LogTime = DateTime.Now;
                 //paymentLog.ServiceOrder = order;
-                bllPaymentLog.Save(paymentLog);
+                paymentlogService.Save(paymentLog);
                 //保存接收数据
 
                 //——请根据您的业务逻辑来编写程序（以下代码仅作参考）——

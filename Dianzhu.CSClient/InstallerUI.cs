@@ -33,9 +33,7 @@ namespace Dianzhu.CSClient
                         "bllPushService", 
                         new PushService(container.Resolve<IDALServiceOrderPushedService>(),
                         container.Resolve<IBLLServiceOrder>(), 
-                        container.Resolve<IDZServiceService>(),
-                        new BLLPayment(container.Resolve<IDALPayment>(),
-                        container.Resolve<IDALClaims>()), 
+                        container.Resolve<IDZServiceService>() , 
                         new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>()))
                         ))
                 .LifestyleTransient()

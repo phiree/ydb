@@ -16,8 +16,7 @@ public partial class DZOrder_Default : BasePage
     Dianzhu.BLL.IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
 
     //   BLLServiceOrder bllServeiceOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
-    BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
-    IStaffService staffService = Bootstrap.Container.Resolve<IStaffService>();    
+     IStaffService staffService = Bootstrap.Container.Resolve<IStaffService>();    
     public string merchantID {
         get {
             return System.Web.Security.Membership.GetUser().ProviderUserKey.ToString();

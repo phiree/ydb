@@ -28,7 +28,7 @@ namespace Ydb.Order.Application
         IRepositoryClaims repoClaims;
         IRepositoryPayment repoPayment;
 
-        IRepositoryRefundLog repoRefundLog;
+       
         IRepositoryRefund repoRefund;
 
         //20160616_longphui_add
@@ -39,7 +39,7 @@ namespace Ydb.Order.Application
 
 
         public ServiceOrderService(IRepositoryServiceOrder repoServiceOrder, IRepositoryServiceOrderStateChangeHis repoStateChangeHis,
-           IRepositoryRefund repoRefund, IRepositoryRefundLog repoRefundLog, IRepositoryOrderAssignment repoOrderAssignment,
+           IRepositoryRefund repoRefund,   IRepositoryOrderAssignment repoOrderAssignment,
            IRepositoryClaims repoClaims, IRepositoryPayment repoPayment,IHttpRequest httpRequest,  IRepositoryServiceOrderPushedService repoPushedService, IRefundFactory refundFactory)
         {
 
@@ -48,7 +48,7 @@ namespace Ydb.Order.Application
             this.repoStateChangeHis = repoStateChangeHis;
             this.repoClaims = repoClaims;
             this.repoPayment = repoPayment;
-            this.repoRefundLog = repoRefundLog;
+       
             this.repoRefund = repoRefund;
             this.httpRequest = httpRequest;
             this.repoPushedService = repoPushedService;
@@ -652,8 +652,9 @@ namespace Ydb.Order.Application
         /// 用户申请理赔
         /// </summary>
         /// <param name="order"></param>
-        public bool OrderFlow_CustomerRefund(ServiceOrder order, bool isNeedRefund, decimal refundAmount)
+        public bool OrderFlow_CustomerRefund(string  orderId, bool isNeedRefund, decimal refundAmount)
         {
+            ServiceOrder order = repoServiceOrder.FindById(new Guid(orderId));
             bool refund = false;
             enum_OrderStatus oldStatus = order.OrderStatus;
             log.Debug("当前订单状态:" + oldStatus.ToString());

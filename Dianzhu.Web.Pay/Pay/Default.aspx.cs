@@ -71,7 +71,7 @@ public partial class Pay_Default : System.Web.UI.Page
         //在线支付
         if (payType == enum_PayType.Online)
         {
-            IPayRequest pay = PayFactory.CreatePayAPI(payAPI,payment.Amount,payment.Id.ToString(),payment.Memo,payTarget);
+            IPayRequest pay = PayFactory.CreatePayAPI(payAPI,payment.Amount,payment.Id.ToString(),payment.Memo);
             requestString = pay.CreatePayRequest();
             
             Response.Write(requestString);

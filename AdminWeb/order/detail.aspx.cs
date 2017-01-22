@@ -5,14 +5,16 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
-using Dianzhu.Model;
+
 using System.Data;
 using Ydb.Finance.Application;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 public partial class order_detail : BasePage
 {
-    IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+    IServiceOrderService bllServiceOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
     IServiceTypePointService bllServiceTypePoint = Bootstrap.Container.Resolve<IServiceTypePointService>();
     IBalanceFlowService balanceService = Bootstrap.Container.Resolve<IBalanceFlowService>();
     //Dianzhu.BLL.Finance.IBLLSharePoint bllSharePoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBLLSharePoint>();
@@ -75,7 +77,7 @@ public partial class order_detail : BasePage
         lblOrderAmount.Text = serviceorder.OrderAmount.ToString("f2");
         lblDepositAmount.Text = serviceorder.DepositAmount.ToString("f2");
         lblNegotiateAmount.Text = serviceorder.NegotiateAmount.ToString("f2");
-        BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
+        IPaymentService bllPayment = Bootstrap.Container.Resolve<IPaymentService>();
         Payment payment = bllPayment.GetOne(id);
         if (payment == null)
         {

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Ydb.Order.DomainModel;
 using Ydb.Common;
 using Ydb.Order.DomainModel.Repository;
+using Ydb.Common.Specification;
+
 namespace Ydb.Order.Application
 {
     //支付相关
@@ -15,15 +17,19 @@ namespace Ydb.Order.Application
         IRepositoryPayment repoPayment;
         IRepositoryServiceOrder repoOrder;
         IRepositoryClaims repoClaims;
+        IRepositoryRefund repoRefund;
         //todo: applicationservice shouldn't reference other app_service?
         IServiceOrderService orderService;
-        public PaymentService(IRepositoryPayment repoPayment, IRepositoryServiceOrder repoOrder, IServiceOrderService orderService, IRepositoryClaims repoClaims)
+        public PaymentService(IRepositoryPayment repoPayment, IRepositoryServiceOrder repoOrder, 
+            IServiceOrderService orderService, IRepositoryClaims repoClaims
+            ,IRepositoryRefund repoRefund)
         {
             this.repoPayment = repoPayment;
             this.repoOrder = repoOrder;
             
             this.orderService = orderService;
             this.repoClaims = repoClaims;
+            this.repoRefund = repoRefund;
         }
         /// <summary>
         /// todo:　领域逻辑泄漏, 应该移到domain内部.
@@ -108,7 +114,7 @@ namespace Ydb.Order.Application
             }
             return payment;
         }
-          decimal GetPayAmount(ServiceOrder order, enum_PayTarget payTarget)
+        public  decimal GetPayAmount(ServiceOrder order, enum_PayTarget payTarget)
         {
             if (payTarget == enum_PayTarget.Deposit)
             {
@@ -207,5 +213,148 @@ namespace Ydb.Order.Application
                 log.Debug("TRADE_SUCCESS,订单最新状态为：" + order.OrderStatus.ToString());
           
         }
+        
+        public void RefundCallBack(enum_PayAPI payApi, string returnstr, string refundId, string platformTradeNo)
+        {
+             
+            log.Debug("保存退款回调记录");
+           //更新退款状态
+            Refund refund =repoRefund.GetRefundByPlatformTradeNo(platformTradeNo);
+            if (refund != null)
+            {
+                log.Debug("TRADE_SUCCESS,更新支付项,refundId为：" + refund.Id.ToString());
+                refund.RefundStatus = enum_RefundStatus.Success;
+            }
+            else
+            {
+                log.Error("该退款没有支付记录");
+                return;
+            }
+        }
+        /// <summary>
+        /// 条件读取支付项
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="payStatus"></param>
+        /// <param name="payType"></param>
+        /// <param name="orderID"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public IList<Payment> GetPays(TraitFilter filter, string payStatus, string payType, Guid orderID, Guid userID)
+        {
+            var where = PredicateBuilder.True<Payment>();
+            if (orderID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.Id == orderID);
+            }
+            if (userID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.CustomerId == userID.ToString());
+            }
+            if (!string.IsNullOrEmpty(payStatus))
+            {
+                enum_PaymentStatus ps;
+                if (Enum.TryParse<enum_PaymentStatus>(payStatus, out ps))
+                {
+                    where = where.And(x => x.Status == ps);
+                }
+                else
+                {
+                    throw new Exception("查询条件错误：不存在支付状态" + payStatus);
+                }
+            }
+            if (!string.IsNullOrEmpty(payType))
+            {
+                enum_PayTarget ps;
+                if (Enum.TryParse<enum_PayTarget>(payType, out ps))
+                {
+                    where = where.And(x => x.PayTarget == ps);
+                }
+                else
+                {
+                    throw new Exception("查询条件错误：不存在支付类型" + payType);
+                }
+            }
+            Payment baseone = null;
+            if (!string.IsNullOrEmpty(filter.baseID))
+            {
+                try
+                {
+                    baseone = repoPayment.FindByBaseId(new Guid(filter.baseID));
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("filter.baseID错误，" + ex.Message);
+                }
+            }
+            long t = 0;
+            var list = filter.pageSize == 0 ? repoPayment.Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList() 
+                : repoPayment.Find(where, filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
+            return list;
+        }
+        /// <summary>
+        /// 统计支付项的数量
+        /// </summary>
+        /// <param name="payStatus"></param>
+        /// <param name="payType"></param>
+        /// <param name="orderID"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public long GetPaysCount(string payStatus, string payType, Guid orderID, Guid userID)
+        {
+            var where = PredicateBuilder.True<Payment>();
+            if (orderID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.Id == orderID);
+            }
+            if (userID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.CustomerId == userID.ToString());
+            }
+            if (payStatus != null && payStatus != "")
+            {
+                where = where.And(x => x.Status == (enum_PaymentStatus)Enum.Parse(typeof(enum_PaymentStatus), payStatus));
+            }
+            if (payType != null && payType != "")
+            {
+                where = where.And(x => x.PayTarget == (enum_PayTarget)Enum.Parse(typeof(enum_PayTarget), payType));
+            }
+            long count = repoPayment.GetRowCount(where);
+            return count;
+        }
+        /// <summary>
+        /// 读取支付项 根据ID
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <param name="payID"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public Payment GetPay(Guid orderID, Guid payID, Guid userID)
+        {
+            var where = PredicateBuilder.True<Payment>();
+            if (orderID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.Id == orderID);
+            }
+            if (userID != Guid.Empty)
+            {
+                where = where.And(x => x.Order.CustomerId == userID.ToString());
+            }
+            if (payID != Guid.Empty)
+            {
+                where = where.And(x => x.Id == payID);
+            }
+            Payment payment = repoPayment.FindOne(where);
+            return payment;
+        }
+        public void Update(Payment payment)
+        {
+            repoPayment.Update(payment);
+        }
+        public Payment GetOne(Guid id)
+        {
+            return repoPayment.FindById(id);
+        }
+       
     }
 }

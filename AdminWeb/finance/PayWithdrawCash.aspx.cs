@@ -5,15 +5,15 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Ydb.Finance.Application;
-using Dianzhu.Pay;
+using Ydb.PayGateway.Application;
+using Ydb.PayGateway;
 using Dianzhu.BLL;
 
 public partial class finance_PayWithdrawCash : BasePage
 {
     IWithdrawApplyService withdrawApplyService = Bootstrap.Container.Resolve<IWithdrawApplyService>();
     Ydb.Common.Infrastructure.ISerialNoBuilder iserialno = Bootstrap.Container.Resolve<Ydb.Common.Infrastructure.ISerialNoBuilder>();
-    BLLPay bllPay = Bootstrap.Container.Resolve<BLLPay>();
-    protected void Page_Load(object sender, EventArgs e)
+     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
@@ -75,7 +75,10 @@ public partial class finance_PayWithdrawCash : BasePage
                 strSubject = strSubject + withdrawCashDtoList[i].ApplySerialNo + "^" + withdrawCashDtoList[i].Account + "^" + withdrawCashDtoList[i].AccountName + "^" + String.Format("{0:F}", withdrawCashDtoList[i].Amount) + "^" +(string.IsNullOrEmpty(withdrawCashDtoList[i].Remark)?"提现": withdrawCashDtoList[i].Remark) + "|";
             }
             strSubject.TrimEnd('|');
-            IPayRequest pay = bllPay.CreatePayBatch(withdrawCashDtoList.Count, strSerialNo, strSubject);
+            IPayRequest pay = PayFactory.CreatePayAPI(Ydb.Common.enum_PayAPI.AlipayBatch, 2, strSerialNo, strSubject);
+                
+              
+            //    bllPay.CreatePayBatch(withdrawCashDtoList.Count, strSerialNo, strSubject);
             string requestString = pay.CreatePayRequest();
             Response.Write(requestString);
         }

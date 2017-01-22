@@ -8,7 +8,7 @@ using Dianzhu.Model;
 using Dianzhu.DAL;
 using Dianzhu.IDAL;
 using Ydb.Common;
-using Dianzhu.Pay;
+ 
 namespace Dianzhu.BLL
 {
     /// <summary>

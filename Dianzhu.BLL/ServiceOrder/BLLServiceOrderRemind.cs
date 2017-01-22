@@ -8,7 +8,7 @@ using Dianzhu.Model;
 using Dianzhu.IDAL;
 using Dianzhu.DAL;
 using Ydb.Common;
-using Dianzhu.Pay;
+ 
 using DDDCommon;
 using Ydb.Common.Specification;
 

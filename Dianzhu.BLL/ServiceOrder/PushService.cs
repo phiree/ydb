@@ -11,16 +11,17 @@ namespace Dianzhu.BLL
    public  class PushService
     {
         IDAL.IDALServiceOrderPushedService dalSOP;
-        BLLPayment bllPayment;
+       
         IBLLServiceOrder bllServiceOrder;
         IDZServiceService dzServiceService;
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis;
-        public PushService(IDAL.IDALServiceOrderPushedService dalSOP,IBLLServiceOrder bllServiceOrder, IDZServiceService dzServiceService, BLLPayment bllPayment,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis)
+        public PushService(IDAL.IDALServiceOrderPushedService dalSOP,IBLLServiceOrder bllServiceOrder, IDZServiceService dzServiceService,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis)
         {
             this.dalSOP = dalSOP;
             this.bllServiceOrder = bllServiceOrder;
             this.dzServiceService = dzServiceService;
-            this.bllPayment = bllPayment;
+       
+
 
             this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
         }

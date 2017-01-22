@@ -18,7 +18,7 @@ namespace Ydb.PayGateway
         /// <param name="subject"></param>
         /// <param name="payTarget"></param>
         /// <returns></returns>
-        public static IPayRequest CreatePayAPI(enum_PayAPI payApi,decimal amount,string paymentId,string subject,  enum_PayTarget payTarget)
+        public static IPayRequest CreatePayAPI(enum_PayAPI payApi,decimal amount,string paymentId,string subject)
         {
             
             

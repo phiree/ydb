@@ -48,6 +48,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\IPaymentLogService.cs" />
+    <Compile Include="Application\IRefundLogService.cs" />
+    <Compile Include="Application\RefundLogService.cs" />
+    <Compile Include="Application\PaymentLogService.cs" />
+    <Compile Include="DomainModel\IRepositoryPaymentLog.cs" />
+    <Compile Include="DomainModel\IRepositoryRefundLog.cs" />
+    <Compile Include="DomainModel\PaymentLog.cs" />
+    <Compile Include="DomainModel\RefundLog.cs" />
     <Compile Include="Pay\IPay.cs" />
     <Compile Include="Pay\PayAliApp.cs" />
     <Compile Include="Pay\PayAliWeb.cs" />
@@ -67,6 +75,7 @@
     <Compile Include="Refund\IRefundFactory.cs" />
     <Compile Include="Refund\RefundAlipayApp.cs" />
     <Compile Include="Refund\RefundCallBack\RefundCallBackAli.cs" />
+    <Compile Include="Refund\RefundCallBack\RefundCallbackFactory.cs" />
     <Compile Include="Refund\RefundFactory.cs" />
     <Compile Include="Refund\RefundReturnAliApp.cs" />
     <Compile Include="Refund\RefundReturnWeChat.cs" />
