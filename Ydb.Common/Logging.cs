@@ -83,7 +83,7 @@ namespace Ydb.Common
             appenderMain.ActivateOptions();
 
 
-            logger.Level = Level.Debug;
+            logger.Level = logLevel;
             logger.AddAppender(appenderMain);
         }
         private static void CreateLoggerMogo(Hierarchy hierarchy,log4net.Core.Level logLevel, string loggerName, string appenderName, string strConn)
