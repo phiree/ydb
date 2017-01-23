@@ -129,7 +129,12 @@
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\OrderAssignment.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\PaymentMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\RefundMap.cs" />
-    <Compile Include="Infrastructure\Repository\NHibernate\RepositoryDZMembership.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceOrderAppraiseMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceOrderDetailMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceOrderMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceOrderPushedServiceMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceOrderRemindMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceOrderStateChangeHisMap.cs" />
     <Compile Include="Infrastructure\UnitOfWork\NHibernateUnitOfWork.cs" />
     <Compile Include="Infrastructure\UnitOfWork\NHRepository.cs" />
     <Compile Include="Infrastructure\UnitOfWork\NhUnitOfWorkInterceptor.cs" />

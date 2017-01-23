@@ -40,37 +40,17 @@ namespace Ydb.Order.Infrastructure
 
         private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IRepositoryBalanceFlow>().ImplementedBy<RepositoryBalanceFlow>()
-        //         .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("FinanceSessionFactory"))
-                );
-            container.Register(Component.For<IRepositoryBalanceTotal>().ImplementedBy<RepositoryBalanceTotal>()
-             //   .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("FinanceSessionFactory"))
-               );
-            container.Register(Component.For<IRepositoryServiceTypePoint>().ImplementedBy<RepositoryServiceTypePoint>()
-             //   .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("FinanceSessionFactory"))
-               );
-            container.Register(Component.For<IRepositoryUserTypeSharePoint>().ImplementedBy<RepositoryUserTypeSharePoint>()
-             //   .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("FinanceSessionFactory"))
-               );
-            container.Register(Component.For<IRepositoryBalanceAccount>().ImplementedBy<RepositoryBalanceAccount>()
-              //  .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("FinanceSessionFactory"))
-               );
-            container.Register(Component.For<IRepositoryWithdrawApply>().ImplementedBy<RepositoryWithdrawApply>());
-
+        //    container.Register(Component.For<IRepositoryBalanceFlow>().ImplementedBy<RepositoryBalanceFlow>());
+            
         }
         private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IBalanceFlowService>().ImplementedBy<BalanceFlowService>());
-            container.Register(Component.For<IOrderShareService>().ImplementedBy<OrderShareService>());
-            container.Register(Component.For<IServiceTypePointService>().ImplementedBy<ServiceTypePointService>());
-            container.Register(Component.For<IUserTypeSharePointService>().ImplementedBy<UserTypeSharePointService>());
-            container.Register(Component.For<IBalanceAccountService>().ImplementedBy<BalanceAccountService>());
-            container.Register(Component.For<IWithdrawApplyService>().ImplementedBy<WithdrawApplyService>());
-            container.Register(Component.For<IBalanceTotalService>().ImplementedBy<BalanceTotalService>());
+            //container.Register(Component.For<IBalanceFlowService>().ImplementedBy<BalanceFlowService>());
+           
         }
         private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<ICountServiceFee>().ImplementedBy<CountServiceFee_Alipay>());
+            //container.Register(Component.For<ICountServiceFee>().ImplementedBy<CountServiceFee_Alipay>());
         }
        
         private void InstallDomainService(IWindsorContainer container, IConfigurationStore store)
@@ -85,14 +65,14 @@ namespace Ydb.Order.Infrastructure
             if (!container.Kernel.HasComponent(typeof(IUnitOfWork)))//.HasComponent("IUnitOfWorkMembership" ))
             {
                 container.Register(Component.For<IUnitOfWork>().ImplementedBy<NhUnitOfWork>()
-                      .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("FinanceSessionFactory"))
+                      .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("OrderSessionFactory"))
                     );
             }
 
             if (!container.Kernel.HasComponent(typeof(NhUnitOfWorkInterceptor)))
             {
                 container.Register(Component.For<NhUnitOfWorkInterceptor>()
-                      .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("FinanceSessionFactory"))
+                      .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("OrderSessionFactory"))
                     );
             }
         }
@@ -119,11 +99,11 @@ namespace Ydb.Order.Infrastructure
         {
             var _sessionFactory =
                     dbConfigFinance
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.Order.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap>())
+                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.Order.Infrastructure.Repository.NHibernate.Mapping.ClaimsMap>())
                     .ExposeConfiguration(BuildSchema)
                     .BuildSessionFactory();
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory).Named("FinanceSessionFactory"));
+            container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory).Named("OrderSessionFactory"));
         }
         private void BuildSchema(Configuration config)
         {
