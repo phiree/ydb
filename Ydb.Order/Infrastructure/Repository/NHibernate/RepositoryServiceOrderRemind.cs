@@ -14,12 +14,12 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
     {
         public ServiceOrderRemind GetOneByIdAndUserId(Guid Id, Guid UserId)
         {
-            return Session.QueryOver<ServiceOrderRemind>().Where(x => x.Id == Id).And(x => x.UserId == UserId).SingleOrDefault();
+            return session.QueryOver<ServiceOrderRemind>().Where(x => x.Id == Id).And(x => x.UserId == UserId).SingleOrDefault();
         }
 
         public IQueryOver<ServiceOrderRemind> GetList(Guid userId, DateTime startTime, DateTime endTime)
         {
-            return Session.QueryOver<ServiceOrderRemind>().Where(x => x.UserId == userId).And(x => x.RemindTime >= startTime).And(x => x.RemindTime <= endTime);
+            return session.QueryOver<ServiceOrderRemind>().Where(x => x.UserId == userId).And(x => x.RemindTime >= startTime).And(x => x.RemindTime <= endTime);
         }
 
         public int GetSumByUserIdAndDatetime(Guid userId, DateTime startTime, DateTime endTime)

@@ -19,7 +19,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
         }
         private IQueryOver<ServiceOrder> GetList(Guid userId, enum_OrderSearchType searchType)
         {
-            IQueryOver<ServiceOrder, ServiceOrder> iqueryover = Session.QueryOver<ServiceOrder>().Where(x => x.CustomerId == userId.ToString());
+            IQueryOver<ServiceOrder, ServiceOrder> iqueryover = session.QueryOver<ServiceOrder>().Where(x => x.CustomerId == userId.ToString());
 
             switch (searchType)
             {
@@ -81,7 +81,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
         {
             //todo:
 
-            var iqueryover = Session.QueryOver<ServiceOrder>();
+            var iqueryover = session.QueryOver<ServiceOrder>();
             iqueryover = isCustomerService ? iqueryover.Where(x => x.CustomerServiceId == userid.ToString())
                                         : iqueryover.Where(x => x.CustomerId == userid.ToString());
             iqueryover = iqueryover.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
@@ -93,7 +93,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
         {
             //todo:
 
-            var iqueryover = Session.QueryOver<ServiceOrder>();
+            var iqueryover = session.QueryOver<ServiceOrder>();
             iqueryover = isCustomerService ? iqueryover.Where(x => x.CustomerServiceId == userid.ToString())
                                         : iqueryover.Where(x => x.CustomerId == userid.ToString());
             iqueryover = iqueryover.And(x => (int)x.OrderStatus != (int)enum_OrderStatus.Draft).And(x => (int)x.OrderStatus != (int)enum_OrderStatus.DraftPushed);
@@ -134,7 +134,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
         public IList<ServiceOrder> GetListForCustomer(string customerId, int pageNum, int pageSize, out int totalAmount)
         {
 
-            var iquery = Session.QueryOver<ServiceOrder>().Where(x => x.CustomerId == customerId).Where(x => x.OrderStatus != enum_OrderStatus.Draft).Where(x => x.OrderStatus != enum_OrderStatus.DraftPushed);
+            var iquery = session.QueryOver<ServiceOrder>().Where(x => x.CustomerId == customerId).Where(x => x.OrderStatus != enum_OrderStatus.Draft).Where(x => x.OrderStatus != enum_OrderStatus.DraftPushed);
             totalAmount = iquery.RowCount();
 
             IList<ServiceOrder> list = iquery.OrderBy(x => x.OrderFinished).Desc.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
@@ -275,17 +275,17 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
                 query = query + " and detail.TargetTime>='" + timeBegin + "'";
             }
 
-            return Session.CreateQuery(query).List<ServiceOrder>();
+            return session.CreateQuery(query).List<ServiceOrder>();
 
         }
 
         public IList<ServiceOrder> GetAll(int pageIndex, int pageSize, out long totalRecords)
         {
-            var list = Session.QueryOver<ServiceOrder>()
+            var list = session.QueryOver<ServiceOrder>()
                  .Fetch(x => x.Details).Eager
                 .Skip((pageIndex - 1) * pageSize).Take(pageSize)
                 .List();
-            totalRecords = Session.QueryOver<ServiceOrder>().RowCount();
+            totalRecords = session.QueryOver<ServiceOrder>().RowCount();
             return list;
         }
 

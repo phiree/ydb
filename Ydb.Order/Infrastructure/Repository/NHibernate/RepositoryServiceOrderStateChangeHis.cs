@@ -15,7 +15,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
     {
         public IQueryOver<ServiceOrderStateChangeHis> Query(ServiceOrder order)
         {
-            IQueryOver<ServiceOrderStateChangeHis, ServiceOrderStateChangeHis> iqueryover = Session.QueryOver<ServiceOrderStateChangeHis>().Where(x => x.Order == order).OrderBy(x => x.Number).Desc;
+            IQueryOver<ServiceOrderStateChangeHis, ServiceOrderStateChangeHis> iqueryover = session.QueryOver<ServiceOrderStateChangeHis>().Where(x => x.Order == order).OrderBy(x => x.Number).Desc;
             return iqueryover;
         }
 
