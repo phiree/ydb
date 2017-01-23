@@ -13,7 +13,7 @@ using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using Castle.Windsor;
 using Ydb.Order.DomainModel;
-using Ydb.Order.Infrastructure.Repository;
+using Ydb.Order.DomainModel.Repository;
 using Ydb.Order.Infrastructure.Repository.NHibernate;
 using Ydb.Order.Application;
 using Ydb.Common.Repository;
@@ -40,8 +40,17 @@ namespace Ydb.Order.Infrastructure
 
         private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
         {
-        //    container.Register(Component.For<IRepositoryBalanceFlow>().ImplementedBy<RepositoryBalanceFlow>());
-            
+            container.Register(Component.For<IRepositoryClaims>().ImplementedBy<RepositoryClaims>());
+            container.Register(Component.For<IRepositoryClaimsDetails>().ImplementedBy<RepositoryClaimsDetails>());
+            container.Register(Component.For<IRepositoryOrderAssignment>().ImplementedBy<RepositoryOrderAssignment>());
+            container.Register(Component.For<IRepositoryRefund>().ImplementedBy<RepositoryRefund>());
+            container.Register(Component.For<IRepositoryPayment>().ImplementedBy<RepositoryPayment>());
+            container.Register(Component.For<IRepositoryServiceOrder>().ImplementedBy<RepositoryServiceOrder>());
+            container.Register(Component.For<IRepositoryServiceOrderAppraise>().ImplementedBy<RepositoryServiceOrderAppraise>());
+            container.Register(Component.For<IRepositoryServiceOrderPushedService>().ImplementedBy<RepositoryServiceOrderPushedService>());
+            container.Register(Component.For<IRepositoryServiceOrderRemind>().ImplementedBy<RepositoryServiceOrderRemind>());
+            container.Register(Component.For<IRepositoryServiceOrderStateChangeHis>().ImplementedBy<RepositoryServiceOrderStateChangeHis>());
+
         }
         private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
         {
