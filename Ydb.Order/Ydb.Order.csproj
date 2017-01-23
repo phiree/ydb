@@ -135,6 +135,16 @@
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceOrderPushedServiceMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceOrderRemindMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceOrderStateChangeHisMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\RepositoryServiceOrderStateChangeHis.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\RepositoryServiceOrderRemind.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\RepositoryServiceOrderPushedService.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\RepositoryServiceOrderAppraise.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\RepositoryServiceOrder.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\RepositoryRefund.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\RepositoryPayment.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\RepositoryOrderAssignment.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\RepositoryClaimsDetails.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\RepositoryClaims.cs" />
     <Compile Include="Infrastructure\UnitOfWork\NHibernateUnitOfWork.cs" />
     <Compile Include="Infrastructure\UnitOfWork\NHRepository.cs" />
     <Compile Include="Infrastructure\UnitOfWork\NhUnitOfWorkInterceptor.cs" />
