@@ -2,31 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-namespace Dianzhu.Push.XMPush
+using Ydb.Common.Infrastructure;
+namespace Ydb.Push.XMPush
 {
 
-    public class XMPush : IPush
+    public class XMPush : IPushApi
     {
         string apiUrl = "https://api.xmpush.xiaomi.com/v2/message/alias";
         string secretUser = "6TRMaje2tzRjzuQzO0Oq8Q==";
         string secretBusiness = "ZKLdQ2Sdo0SfS84pxa3HTw==";
 
 
-        PushType pushType;
-        PushMessage pushMessage;
-        string secret { get { return pushType == PushType.PushToUser ? secretUser : secretBusiness; } }
-
-        public XMPush(PushType pushType,PushMessage message)
+       
+        
+       
+        IHttpRequest httpRequest;
+        public XMPush(IHttpRequest httpRequest)
         {
-            this.pushType = pushType;
-            this.pushMessage = message;
+            this.httpRequest = httpRequest;
         }
 
-        
-
-        public string Push(   string target, int amount)
+        public string Push(PushTargetClient pushType, PushMessage pushMessage,   string target, int amount)
         {
+            string secret= pushType == PushTargetClient.PushToUser ? secretUser : secretBusiness;
             string result = string.Empty;
             XMRequestAndoird msg = new XMRequestAndoird(pushType);
             msg.alias =target;
@@ -38,7 +36,7 @@ namespace Dianzhu.Push.XMPush
 
             string formData = msg.ToFormData();
            
-            result= PHSuit.HttpHelper.CreateHttpRequest(apiUrl, "post", formData, "key=" + secret);
+            result= httpRequest.CreateHttpRequest(apiUrl, "post", formData, "key=" + secret);
             return result;
 
             /*

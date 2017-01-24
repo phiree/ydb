@@ -130,6 +130,19 @@ namespace Ydb.Infrastructure
             }
             return responseString;
         }
+        public   string CreateHttpRequestPostXml(string url, string parasXml, WebHeaderCollection headers)
+        {
+            var responseString = string.Empty;
+            using (var wb = new WebClient())
+            {
+                wb.Headers = headers;
+                wb.Encoding = Encoding.UTF8;
 
+                responseString = wb.UploadString(url, "POST", parasXml);
+            }
+
+            return responseString;
+
+        }
     }
 }

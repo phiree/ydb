@@ -99,7 +99,7 @@ namespace Dianzhu.BLL
             MemberDto fromMember = memberService.GetUserById(chat.FromId);
             PushMessage pushMessage = pushMessageBuilder.BuildPushMessage(chat.MessageBody,chat.GetType(),chat.FromResource,fromMember.UserName,orderId,order.ServiceBusinessName,
                 order.SerialNo,order.OrderStatus,order.OrderStatusStr);
-            IPush ipush = Dianzhu.Push.PushFactory.Create(pushType, deviceName, pushMessage);
+            IPushApi ipush = Dianzhu.Push.PushFactory.Create(pushType, deviceName, pushMessage);
             int pushAmount = bind.PushAmount + 1;
             bind.PushAmount = pushAmount;
             dalDeviceBind.Update(bind);

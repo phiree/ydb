@@ -9,7 +9,7 @@ namespace Dianzhu.Push
     /// <summary>
     /// 客户端推送消息
     /// </summary>
-    public interface IPush
+    public interface IPushApi
     {
        
         /// <summary>
@@ -23,7 +23,7 @@ namespace Dianzhu.Push
     public class PushFactory
     {
         static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Push.PushFactory");
-        public static IPush Create(PushType pushType, string type,PushMessage pushMessage)
+        public static IPushApi Create(PushType pushType, string type,PushMessage pushMessage)
         {
             string errMsg;
             switch (type.ToLower())

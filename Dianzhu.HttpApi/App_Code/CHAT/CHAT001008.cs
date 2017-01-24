@@ -10,18 +10,24 @@ using agsXMPP.protocol.client;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.InstantMessage.DomainModel.Enums;
 using Ydb.InstantMessage.Application;
+using Ydb.InstantMessage.DomainModel.Reception;
+using Ydb.Push.Application;
+
+using Ydb.Push;
 /// <summary>
 /// Summary description for CHAT001001
 /// </summary>
 public class ResponseCHAT001008:BaseResponse
 {
+    log4net.ILog log;
     IMessageAdapter messageAdapter = Bootstrap.Container.Resolve<IMessageAdapter>();
     IChatService chatService = Bootstrap.Container.Resolve<IChatService>();
-
-    Dianzhu.IDAL.IDALIMUserStatus dalIMStatus = Bootstrap.Container.Resolve<Dianzhu.IDAL.IDALIMUserStatus>();
-    BLLPush bllPush = Bootstrap.Container.Resolve<BLLPush>();
+    IPushService pushService = Bootstrap.Container.Resolve<IPushService>();
+    IDZMembershipService memberService= Bootstrap.Container.Resolve<IDZMembershipService>();
+    
     public ResponseCHAT001008(BaseRequest request):base(request)
     {
+        log = log4net.LogManager.GetLogger(this.GetType().ToString());
         //
         // TODO: Add constructor logic here
         //
@@ -33,14 +39,28 @@ public class ResponseCHAT001008:BaseResponse
             ReqDataCHAT001008 requestData = this.request.ReqData.ToObject<ReqDataCHAT001008>();
 
             ReceptionChat chat = messageAdapter.RawXmlToChat(requestData.message);
+            IReceptionSession receptionSession = Bootstrap.Container.Resolve<IReceptionSession>();
             if (chat.FromResource != XmppResource.YDBan_DianDian)
             {
                 chatService.Add(chat);
                 //离线推送
                 if(chat.ToResource != XmppResource.YDBan_CustomerService)
                 {
-                    bllPush.Push(chat, new Guid(chat.ToId), chat.SessionId);
-                    chatService.Update(chat);
+                    //是否在线
+                    var isOnline = receptionSession.IsUserOnline(chat.ToId);// dalIMStatus.FindOne(x => x.UserID.ToString() == chat.ToId);
+                    if (isOnline)
+                    {
+                        log.Debug("用户在线,不推送");
+                        return;
+                    }
+                    chatService.SetChatUnread(chat.Id.ToString());
+                   var fromUser= memberService.GetUserById(chat.FromId);
+                    //todo: 需要订单领域的配合.
+                    
+                    //pushService.Push(chat.MessageBody,chat.GetType().ToString(),chat.ToId,chat.FromResource.ToString(),fromUser.UserName,
+                    //    chat.SessionId,chat.SessionId,)
+                   
+                    
                 }
                
             }

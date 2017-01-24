@@ -101,7 +101,6 @@
     <Compile Include="Client\IBLLRefreshToken.cs" />
     <Compile Include="Common\SerialNo\ISerialNoBuilder.cs" />
     <Compile Include="ServiceBase.cs" />
-    <Compile Include="ServiceOrder\IBLLServiceOrder.cs" />
     <Compile Include="DZRoleProvidercs.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

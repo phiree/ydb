@@ -11,7 +11,7 @@ namespace Dianzhu.Push
     /// </summary>
    
     
-    public class PushIOS:IPush
+    public class PushIOS:IPushApi
     {
        
         string _strCertificateFilePath;
