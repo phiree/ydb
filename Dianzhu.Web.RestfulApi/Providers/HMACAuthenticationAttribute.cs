@@ -433,7 +433,7 @@ namespace Dianzhu.Web.RestfulApi
                     { }
                     else
                     {
-                        ilog.Debug("Request(httpContent)" + requestTimeStamp + ":" + str.ToString());
+                        ilog.Debug("Request(httpContent)" + requestTimeStamp + ":" + str.ToString().Replace("\n", ""));
                     }
                     //string signatureRawData = await httpContent.ReadAsStringAsync();
                     //byte[] signature = Encoding.UTF8.GetBytes(str);

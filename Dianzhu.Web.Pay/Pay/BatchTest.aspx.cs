@@ -58,9 +58,11 @@ public partial class Pay_BatchTest : Dianzhu.Web.Common.BasePage
         string strSerialNo = iserialno.GetSerialNo("PAYB" + DateTime.Now.ToString("yyyyMMddHHmm"), 2);
         string strSubject= iserialno.GetSerialNo("PAYBL" + DateTime.Now.ToString("yyyyMMddHHmmssfff"), 2)+"^13288844855^邓楚献^1^测试|";
         strSubject = strSubject+iserialno.GetSerialNo("PAYBL" + DateTime.Now.ToString("yyyyMMddHHmmssfff"), 2) + "^jsyk_development@126.com^海口集思优科网络科技有限公司^1^测试";
+ 
 
         IPayRequest pay = PayFactory.CreatePayAPI(Ydb.Common.enum_PayAPI.AlipayBatch, 2m, strSerialNo, strSubject);
             //bllPay.CreatePayBatch(2, strSerialNo, strSubject);
+ 
         string requestString = pay.CreatePayRequest();
         Response.Write(requestString);
     }

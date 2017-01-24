@@ -67,18 +67,22 @@ public partial class finance_PayWithdrawCash : BasePage
         string errMsg = "";
         string strSerialNo = iserialno.GetSerialNo("PW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"), 2);
         IList <WithdrawCashDto> withdrawCashDtoList= withdrawApplyService.PayByWithdrawApply(guidId,"admin", strSerialNo, out errMsg);
+        decimal dAcount = 0;
         if (withdrawCashDtoList.Count > 0)
         {
             string strSubject = "";
             for (i = 0; i < withdrawCashDtoList.Count; i++)
             {
                 strSubject = strSubject + withdrawCashDtoList[i].ApplySerialNo + "^" + withdrawCashDtoList[i].Account + "^" + withdrawCashDtoList[i].AccountName + "^" + String.Format("{0:F}", withdrawCashDtoList[i].Amount) + "^" +(string.IsNullOrEmpty(withdrawCashDtoList[i].Remark)?"提现": withdrawCashDtoList[i].Remark) + "|";
+                dAcount = dAcount + withdrawCashDtoList[i].Amount;
             }
+ 
             strSubject.TrimEnd('|');
             IPayRequest pay = PayFactory.CreatePayAPI(Ydb.Common.enum_PayAPI.AlipayBatch, 2, strSerialNo, strSubject);
                 
               
             //    bllPay.CreatePayBatch(withdrawCashDtoList.Count, strSerialNo, strSubject);
+ 
             string requestString = pay.CreatePayRequest();
             Response.Write(requestString);
         }

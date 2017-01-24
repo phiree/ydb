@@ -16,26 +16,11 @@ namespace Ydb.Common
  
     public static class LoggingConfiguration
     {
-          /// <summary>
-        /// Configures log4net
+        /// <summary>
+        /// txt文件的方式保存
         /// </summary>
         public static void Config(string logFilePath)
         {
-            ////MongoDB方式保存 string strConn
-            ////string logFileNameRoot = "../logs/" + logFilePath + "/" + System.Environment.MachineName;
-            //Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
-
-            //hierarchy.Root.RemoveAllAppenders();
-
-            //Logger rootLogger = hierarchy.Root;
-            //rootLogger.Level = Level.Error;
-            ///********/
-            //CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "Dianzhu", "DianzhuAppender",  strConn);
-            //CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "Ydb",   "YdbAppender",  strConn);
-            //CreateLoggerMogo(hierarchy, log4net.Core.Level.Warn, "NHibernate",   "NhibernateAppender",  strConn);
-            //hierarchy.Configured = true;
-
-            ////txt文件的方式保存
             string logFileNameRoot = "../logs/" + logFilePath + "/" + System.Environment.MachineName;
             Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
 
@@ -51,6 +36,29 @@ namespace Ydb.Common
             hierarchy.Configured = true;
 
         }
+
+        /// <summary>
+        /// MongoDB方式保存
+        /// </summary>
+        /// <param name="strConn"></param>
+        public static void ConfigMongoDB(string strConn)
+        {
+            //string logFileNameRoot = "../logs/" + logFilePath + "/" + System.Environment.MachineName;
+            Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
+
+            hierarchy.Root.RemoveAllAppenders();
+
+            Logger rootLogger = hierarchy.Root;
+            rootLogger.Level = Level.Error;
+            /********/
+            CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "Dianzhu", "DianzhuAppender", strConn);
+            CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "Ydb", "YdbAppender", strConn);
+            CreateLoggerMogo(hierarchy, log4net.Core.Level.Warn, "NHibernate", "NhibernateAppender", strConn);
+            CreateLoggerMogo(hierarchy, log4net.Core.Level.Debug, "JSYK", "JSYKAppender", strConn);
+            hierarchy.Configured = true;
+
+        }
+
         [Obsolete("使用mongodbappender")]
         private static void CreateLogger(Hierarchy hierarchy, log4net.Core.Level logLevel, string loggerName,string logfileName, string appenderName,int maxFileSize,int maxRollBackups)
         {
@@ -65,12 +73,17 @@ namespace Ydb.Common
             appenderMain.StaticLogFileName = true;
             appenderMain.LockingModel = new FileAppender.MinimalLock();
             appenderMain.File = logfileName + ".log";
-            appenderMain.Layout = new PatternLayout(
-                "%date [%thread] %-5level %logger- %message%newline");
+            //appenderMain.Layout = new PatternLayout(
+            //    "%date [%thread] %-5level %logger- %message%newline");
             // this activates the FileAppender (without it, nothing would be written)
+
+            appenderMain.Layout = new PatternLayout(
+                "{date:\"%date\",thread:\"%thread\",leve:\"%-5level\",logger:\"%logger\",filename:\"%file\",linenumber:\"%line\",classname:\"%class\",domain:\"%appdomain\"},message=%message%newline");
+
             appenderMain.ActivateOptions();
- 
-            logger.Level = Level.Debug;
+
+
+            logger.Level = logLevel;
             logger.AddAppender(appenderMain);
         }
         private static void CreateLoggerMogo(Hierarchy hierarchy,log4net.Core.Level logLevel, string loggerName, string appenderName, string strConn)
