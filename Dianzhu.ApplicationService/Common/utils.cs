@@ -290,6 +290,7 @@ namespace Dianzhu.ApplicationService
                 Dianzhu.Config.Config.GetAppSetting("BaiduGeocodingAK") +
                 "&output=json&pois=0&location=" + tran_lng + "," + tran_lat;
             string geo_return = Regex.Unescape(utils.Get_Http(geo_url, 1000000));
+            //.net解析转义字符,可以替换或者使用Regex.Unescape方法
             return geo_return;
         }
 
