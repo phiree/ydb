@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.Model;
+ 
 using AutoMapper;
 using Ydb.Membership.Application;
 using Dianzhu.ApplicationService.Order;
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
-
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 namespace Dianzhu.ApplicationService
 {
     public class orderSnapshot
@@ -47,13 +48,13 @@ namespace Dianzhu.ApplicationService
         }
 
 
-        public IList<orderSnapshot> Adap(DateTime date,IList<ServiceOrder> orderList, BLL.BLLServiceOrderStateChangeHis bllstatehis,IOrderService orderService,IDZServiceService dzServiceService)
+        public IList<orderSnapshot> Adap(DateTime date,IList<ServiceOrder> orderList, IServiceOrderStateChangeHisService bllstatehis,IOrderService orderService,IDZServiceService dzServiceService)
         {
             IList<orderSnapshot> ordersnapshots = new List<orderSnapshot>();
             foreach (ServiceOrder order in orderList)
             {
                 orderSnapshot ordersnapshot = new orderSnapshot();
-                orderObj orderobj = Mapper.Map<Model.ServiceOrder, orderObj>(order);
+                orderObj orderobj = Mapper.Map< ServiceOrder, orderObj>(order);
                 Order.OrderService.bllstatehis = bllstatehis;
                 orderService.changeObj(orderobj, order);
                 //todo:refactor: Automapping refactor.

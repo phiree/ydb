@@ -10,9 +10,10 @@ using Ydb.Membership.Application.Dto;
 using BMA = Ydb.BusinessResource.Application;
 using BRM = Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Specification;
-using Dianzhu.Model;
+ 
 using Ydb.Common;
-
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 namespace Dianzhu.ApplicationService.Staff
 {
     public class StaffService : IStaffService
@@ -20,8 +21,8 @@ namespace Dianzhu.ApplicationService.Staff
         BMA.IBusinessService businessService;
         BMA. IStaffService staffService;
         IDZMembershipService memberService;
-        public static BLL.BLLOrderAssignment bllAssignment;
-        public StaffService(BMA.IBusinessService businessService, BMA.IStaffService staffService, IDZMembershipService memberService, BLL.BLLOrderAssignment bllAssignment)
+        public static IOrderAssignmentService bllAssignment;
+        public StaffService(BMA.IBusinessService businessService, BMA.IStaffService staffService, IDZMembershipService memberService, IOrderAssignmentService bllAssignment)
         {
             this.businessService = businessService;
             this.staffService = staffService;

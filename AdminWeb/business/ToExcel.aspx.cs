@@ -12,8 +12,7 @@ using Ydb.Order.DomainModel;
 public partial class business_ToExcel : BasePage
 {
     IBusinessService bllBusiness = Bootstrap.Container.Resolve<IBusinessService>();
-    IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
-    IServiceOrderService orderService = Bootstrap.Container.Resolve<IServiceOrderService>();
+     IServiceOrderService orderService = Bootstrap.Container.Resolve<IServiceOrderService>();
     protected void Page_Load(object sender, EventArgs e)
     {
 

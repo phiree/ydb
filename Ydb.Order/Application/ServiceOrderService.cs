@@ -520,9 +520,18 @@ namespace Ydb.Order.Application
 
         #region 订单流程变化
 
-        public void OrderFlow_ConfirmOrder(ServiceOrder order,string serviceId,ServiceSnapShot serviceSnapshot,WorkTimeSnapshot worktimeSnapshot)
+        /// <summary>
+        /// 客户端确认服务.  将推送的服务 存入订单详情
+        /// </summary>
+        /// <param name="order"></param>
+        /// <param name="serviceId"></param>
+        /// <param name="serviceSnapshot"></param>
+        /// <param name="worktimeSnapshot"></param>
+        public void OrderFlow_ConfirmOrder(ServiceOrder order,string serviceId)
         {
-            order.Confirm_Order(repoPushedService, serviceId, serviceSnapshot, worktimeSnapshot, repoPayment, repoClaims);
+          var pushedService=  repoPushedService.FindByOrder(order);
+
+            order.Confirm_Order(repoPushedService, serviceId, repoPayment, repoClaims);
         }
 
         /// <summary>

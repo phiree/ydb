@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.CSClient.IView;
-using Dianzhu.Model;
-using Dianzhu.BLL;
+ 
+ 
 using Dianzhu.CSClient.LocalStorage;
 using Dianzhu.CSClient.ViewModel;
 using Dianzhu.CSClient.Presenter.VMAdapter;
@@ -17,6 +17,8 @@ using Ydb.BusinessResource.DomainModel;
 using Ydb.BusinessResource.Application;
 using Ydb.Common;
 using AutoMapper;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -28,8 +30,8 @@ namespace Dianzhu.CSClient.Presenter
         IViewChatList viewChatList;
         IViewIdentityList viewIdentityList;
        IDZServiceService dzService;
-        IBLLServiceOrder bllServiceOrder;
-        PushService bllPushService;
+        IServiceOrderService bllServiceOrder;
+        OrderPushService bllPushService;
         IInstantMessage iIM;
        IServiceTypeService typeService;
         IList<VMShelfService> selectedServiceList;
@@ -90,8 +92,8 @@ namespace Dianzhu.CSClient.Presenter
             IInstantMessage iIM, IViewSearch viewSearch, IViewSearchResult viewSearchResult,
             IViewTypeSelect viewTypeSelect,
             IViewChatList viewChatList, IViewIdentityList viewIdentityList,
-           IDZServiceService dalDzService, IBLLServiceOrder bllServiceOrder, IServiceTypeService dalServiceType,
-                    PushService bllPushService, Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder,
+           IDZServiceService dalDzService, IServiceOrderService bllServiceOrder, IServiceTypeService dalServiceType,
+                    OrderPushService bllPushService, Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder,
                     LocalChatManager localChatManager, IDZMembershipService memberService, IReceptionService receptionService,
                     IViewTabContentTimer viewTabContentTimer, string identity)
         {

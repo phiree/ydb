@@ -1,16 +1,12 @@
-﻿using Dianzhu.Push;
+﻿ 
 using NUnit.Framework;
 using System;
-using Ydb.InstantMessage.DomainModel.Enums;
-
-using FizzWare.NBuilder;
-using Ydb.InstantMessage.DomainModel.Chat;
-using Ydb.Common;
+ 
 using Ydb.Push.DomainModel;
 using Ydb.Push.Application;
 using Ydb.Push;
-
-namespace Dianzhu.Push.Tests
+using FizzWare.NBuilder;
+namespace Ydb.PushTests
 {
     [TestFixture()]
     public class PushMessageBuilderTests
@@ -32,8 +28,8 @@ namespace Dianzhu.Push.Tests
         [Test()]
         public void BuildPushMessageTest_ChatNoticeOrder_EndWarranty()
         {
-            inputDto.chatType = typeof(ReceptionChatNoticeOrder);
-            inputDto.orderStatus = enum_OrderStatus.EndWarranty;
+            inputDto.chatType = "ReceptionChatNoticeOrder";
+            inputDto.orderStatus ="EndWarranty";
             var pushMessage = BuildPushMessage();
             Assert.AreEqual(null, pushMessage);
 
@@ -41,23 +37,23 @@ namespace Dianzhu.Push.Tests
         [Test()]
         public void BuildPushMessageTest_ChatNoticeOrder_EndCancel_EndRefund_EndIntervention()
         {
-            inputDto.chatType = typeof(ReceptionChatNoticeOrder);
-            inputDto.orderStatus = enum_OrderStatus.EndCancel;
+            inputDto.chatType ="ReceptionChatNoticeOrder";
+            inputDto.orderStatus = "EndCancel";
             var pushMessage = BuildPushMessage();
             Assert.AreEqual(string.Format("<订单完成>{0}订单状态已变为{1},快来看看吧", pushMessage.OrderSerialNo, inputDto.orderStatus), pushMessage.DisplayContent);
         }
         [Test()]
         public void BuildPushMessageTest_ChatNoticeOrder_OtherStatus()
         {
-            inputDto.chatType = typeof(ReceptionChatNoticeOrder);
-            inputDto.orderStatus = enum_OrderStatus.Ended;
+            inputDto.chatType = "ReceptionChatNoticeOrder";
+            inputDto.orderStatus ="Ended";
             var pushMessage = BuildPushMessage();
             Assert.AreEqual(string.Format("<订单更新>{0}订单状态已变为{1},快来看看吧", pushMessage.OrderSerialNo, inputDto.orderStatus), pushMessage.DisplayContent);
         }
         [Test()]
         public void BuildPushMessageTest_ChatNoticeSys()
         {
-            inputDto.chatType = typeof(ReceptionChatNoticeSys);
+            inputDto.chatType ="ReceptionChatNoticeSys";
 
             var pushMessage = BuildPushMessage();
 
@@ -66,8 +62,8 @@ namespace Dianzhu.Push.Tests
         [Test()]
         public void BuildPushMessageTest_ChatText_Media_FromCustomerService()
         {
-            inputDto.chatType = typeof(ReceptionChat);
-            inputDto.fromResource = XmppResource.YDBan_CustomerService;
+            inputDto.chatType ="ReceptionChat";
+            inputDto.fromResource ="YDBan_CustomerService";
             var pushMessage = BuildPushMessage();
 
             Assert.AreEqual("[小助理]" + inputDto.chatMessage, pushMessage.DisplayContent);
@@ -75,8 +71,8 @@ namespace Dianzhu.Push.Tests
         [Test()]
         public void BuildPushMessageTest_ChatText_Media_FromStore()
         {
-            inputDto.chatType = typeof(ReceptionChat);
-            inputDto.fromResource = XmppResource.YDBan_Store;
+            inputDto.chatType = "ReceptionChat";
+            inputDto.fromResource ="YDBan_Store";
             var pushMessage = BuildPushMessage();
 
             Assert.AreEqual("[" + inputDto.orderBusinessName + "]" + inputDto.chatMessage, pushMessage.DisplayContent);
@@ -84,8 +80,8 @@ namespace Dianzhu.Push.Tests
         [Test()]
         public void BuildPushMessageTest_ChatText_Media_FromCustomer()
         {
-            inputDto.chatType = typeof(ReceptionChat);
-            inputDto.fromResource = XmppResource.YDBan_User;
+            inputDto.chatType ="ReceptionChat";
+            inputDto.fromResource ="YDBan_User";
             var pushMessage = BuildPushMessage();
 
             Assert.AreEqual("[" + inputDto.fromUserName + "]" + inputDto.chatMessage, pushMessage.DisplayContent);
@@ -93,8 +89,8 @@ namespace Dianzhu.Push.Tests
         [Test()]
         public void BuildPushMessageTest_PushedService()
         {
-            inputDto.chatType = typeof(ReceptionChatPushService);
-            inputDto.fromResource = XmppResource.YDBan_CustomerService;
+            inputDto.chatType ="ReceptionChatPushService";
+            inputDto.fromResource = "YDBan_CustomerService";
             var pushMessage = BuildPushMessage();
 
             Assert.AreEqual("[小助理]" + inputDto.chatMessage, pushMessage.DisplayContent);
@@ -103,13 +99,13 @@ namespace Dianzhu.Push.Tests
         class BuildPushMessageBInputDto
         {
             public string chatMessage { get; set; }
-            public Type chatType { get; set; }
-            public XmppResource fromResource { get; set; }
+            public string chatType { get; set; }
+            public string fromResource { get; set; }
             public string fromUserName { get; set; }
             public string orderId { get; set; }
             public string orderBusinessName { get; set; }
             public string serialNo { get; set; }
-            public enum_OrderStatus orderStatus { get; set; }
+            public string orderStatus { get; set; }
             public string orderStatStr { get; set; }
 
         }

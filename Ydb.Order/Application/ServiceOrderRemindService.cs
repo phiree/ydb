@@ -8,12 +8,12 @@ using Ydb.Common.Specification;
 namespace Ydb.Order.Application
 {
 
-    public class BLLServiceOrderRemind
+    public class ServiceOrderRemindService: IServiceOrderRemindService
     {
         //20150616_longphui_modify
         //public DALServiceOrderRemind dalServiceOrderRemind = DALFactory.DALServiceOrderRemind;
         private IRepositoryServiceOrderRemind repoOrderRemind;
-        public BLLServiceOrderRemind(IRepositoryServiceOrderRemind repoOrderRemind)
+        public ServiceOrderRemindService(IRepositoryServiceOrderRemind repoOrderRemind)
         {
             this.repoOrderRemind = repoOrderRemind;
         }

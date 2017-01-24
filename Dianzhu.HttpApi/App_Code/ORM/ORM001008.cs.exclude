@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+ 
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.Common;
-using Dianzhu.BLL;
+ 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Dianzhu.Api.Model;
-using Ydb.Membership.Application;
-using Ydb.Membership.Application.Dto;
+ 
 using Ydb.BusinessResource.DomainModel;
 using Ydb.BusinessResource.Application;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 /// <summary>
 /// 获取用户的服务订单列表
 /// </summary>
@@ -38,7 +39,7 @@ public class ResponseORM001008 : BaseResponse
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<BLLServiceOrderStateChangeHis>();
 
         IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
-        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        IServiceOrderService bllServiceOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
         IDZMembershipService memberServcie = Bootstrap.Container.Resolve<IDZMembershipService>();
 
         try
@@ -117,7 +118,8 @@ public class ResponseORM001008 : BaseResponse
                     log.Error("该订单不是已推送的服务单！该订单Id:" + order.Id + "该订单当前状态:" + order.OrderStatus);
                     return;
                 }
-
+                 ServiceSnapShot serviceSnapShot = AutoMapper.Mapper.Map<ServiceSnapShot>(service);
+                bllServiceOrder.OrderFlow_ConfirmOrder(order,svcID,serviceSnapShot,)
                 bllPushService.SelectServiceAndCreate(order, service.Id.ToString());
                 //foreach (ServiceOrderDetail detail in order.Details)
                 //{

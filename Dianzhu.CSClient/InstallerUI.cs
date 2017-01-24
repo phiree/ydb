@@ -27,17 +27,7 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<CSClient.Presenter.PToolsControl>().LifestyleTransient());
             container.Register(Component.For<CSClient.Presenter.POrderHistory>().LifestyleTransient());
 
-            container.Register(Component.For<CSClient.Presenter.PSearch>()
-                .DependsOn(
-                    Dependency.OnValue(
-                        "bllPushService", 
-                        new PushService(container.Resolve<IDALServiceOrderPushedService>(),
-                        container.Resolve<IBLLServiceOrder>(), 
-                        container.Resolve<IDZServiceService>() , 
-                        new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>()))
-                        ))
-                .LifestyleTransient()
-                );
+            container.Register(Component.For<CSClient.Presenter.PSearch>().LifestyleTransient());
 
             container.Register(Component.For<IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());
             container.Register(Component.For<ILoginForm>().ImplementedBy<ViewWPF.FormLogin>());

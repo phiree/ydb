@@ -20,9 +20,7 @@ namespace Dianzhu.DependencyInstaller
         //    container.Register(Component.For<BLLBusiness>());
         //    container.Register(Component.For<BLLBusinessImage>());
 
-
-            container.Register(Component.For<BLLClaims>());
-            container.Register(Component.For<BLLComplaint>());
+   container.Register(Component.For<BLLComplaint>());
 
             container.Register(Component.For<BLLDeviceBind>());
          //   container.Register(Component.For<dzServiceService>());
@@ -36,8 +34,7 @@ namespace Dianzhu.DependencyInstaller
 
            
 
-            container.Register(Component.For<BLLPush>());
-
+          
          //   container.Register(Component.For<BLLServiceOpenTime>());
         //    container.Register(Component.For<BLLServiceOpenTimeForDay>());
        //     container.Register(Component.For<BLLServiceType>());
@@ -45,8 +42,7 @@ namespace Dianzhu.DependencyInstaller
 
             container.Register(Component.For<BLLServiceOrderAppraise>());
 
-            container.Register(Component.For<BLLServiceOrderStateChangeHis>());
-
+           
 
 
             // , BLLPayment bllPayment,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis
@@ -74,9 +70,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<BLL.BLLStorageFileInfo>());
 
             //20160802_longphui_add
-            container.Register(Component.For<BLL.BLLClaimsDetails>());
-
-
+        
 
 
         }
@@ -184,8 +178,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<BLL.Client.IBLLClient>().ImplementedBy<BLL.Client.BLLClient>());
             container.Register(Component.For<BLL.Client.IBLLRefreshToken>().ImplementedBy<BLL.Client.BLLRefreshToken>());
           
-            container.Register(Component.For<Dianzhu.Push.IPushMessageBiulder>().ImplementedBy<Dianzhu.Push.PushMessageBuilder>());
-
+          
         }
     }
     public class InstallerInfrstructure : IWindsorInstaller

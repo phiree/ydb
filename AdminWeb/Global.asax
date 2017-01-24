@@ -1,11 +1,13 @@
 ﻿<%@ Application Language="C#" %>
 <%@ Import Namespace="Castle.Windsor" %>
 <%@ Import Namespace="Castle.Windsor.Installer" %>
-<%@ Import Namespace="Dianzhu.Model" %>
-<%@ Import Namespace="Dianzhu.BLL" %>
+ 
+ 
 <%@ Import Namespace="Ydb.BusinessResource.Application" %>
 <%@ Import Namespace="Ydb.BusinessResource.DomainModel" %>
 <%@ Import Namespace="Ydb.Finance.Application" %>
+<%@ Import Namespace="Ydb.Order.Application" %>
+<%@ Import Namespace="Ydb.Order.DomainModel" %>
 <script runat="server">
     public static IWindsorContainer container;
     //  Dianzhu.IDAL.IUnitOfWork uow = Bootstrap.Container.Resolve<Dianzhu.IDAL.IUnitOfWork>();
@@ -27,13 +29,13 @@
     void timerOrderShare_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
     {
 
-        Dianzhu.BLL.IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
+       IServiceOrderService bllOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
         IOrderShareService orderShare = Bootstrap.Container.Resolve<IOrderShareService>();
         //  NHibernateUnitOfWork.UnitOfWork.Start();
 
         int c = 0;
         Action a = () => {
-            IList<Dianzhu.Model.ServiceOrder> ordersForShare= bllOrder.GetOrdersForShare();
+            IList< ServiceOrder> ordersForShare= bllOrder.GetOrdersForShare();
             c = ordersForShare.Count;
             if (c > 0)
             {

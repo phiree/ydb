@@ -10,11 +10,11 @@ namespace Ydb.Order.Application
     /// <summary>
     /// 推送给用户的服务.
     /// </summary>
-   public  class PushService
+   public  class OrderPushService : IOrderPushService
     {
         IRepositoryServiceOrderPushedService repoPushedService;
        
-        public PushService( )
+        public OrderPushService( )
         {
              
         }

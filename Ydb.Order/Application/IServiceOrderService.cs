@@ -45,7 +45,7 @@ namespace Ydb.Order.Application
         bool OrderFlow_Canceled(ServiceOrder order);
         void OrderFlow_ConfirmDeposit(ServiceOrder order);
         void OrderFlow_ConfirmInternention(ServiceOrder order);
-          void OrderFlow_ConfirmOrder(ServiceOrder order, string serviceId, ServiceSnapShot serviceSnapshot, WorkTimeSnapshot worktimeSnapshot);
+          void OrderFlow_ConfirmOrder(ServiceOrder order, string serviceId );
         void OrderFlow_CustomConfirmNegotiate(ServiceOrder order);
         void OrderFlow_CustomerAppraise(ServiceOrder order);
         void OrderFlow_CustomerDisagreeNegotiate(ServiceOrder order);

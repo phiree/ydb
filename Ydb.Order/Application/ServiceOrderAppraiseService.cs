@@ -2,11 +2,11 @@
 using Ydb.Order.DomainModel.Repository;
 namespace Ydb.Order.Application
 {
-    public class BLLServiceOrderAppraise
+    public class ServiceOrderAppraiseService : IServiceOrderAppraiseService
     {
       IRepositoryServiceOrderAppraise   repoServiceOrderAppraise;
 
-        public BLLServiceOrderAppraise(IRepositoryServiceOrderAppraise repoServiceOrderAppraise)
+        public ServiceOrderAppraiseService(IRepositoryServiceOrderAppraise repoServiceOrderAppraise)
         {
             this.repoServiceOrderAppraise = repoServiceOrderAppraise;
         }

@@ -90,12 +90,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\IOrderAssignmentService.cs" />
+    <Compile Include="Application\OrderAssignmentService.cs" />
+    <Compile Include="Application\ClaimService.cs" />
+    <Compile Include="Application\ClaimsDetailsService.cs" />
+    <Compile Include="Application\IServiceOrderAppraiseService.cs" />
+    <Compile Include="Application\IServiceOrderRemindService.cs" />
+    <Compile Include="Application\IClaimsDetailsService.cs" />
+    <Compile Include="Application\IClaimsService.cs" />
+    <Compile Include="Application\IServiceOrderStateChangeHis.cs" />
     <Compile Include="Application\IPaymentService.cs" />
+    <Compile Include="Application\IPushService.cs" />
     <Compile Include="Application\IServiceOrderService.cs" />
     <Compile Include="Application\PaymentLogService.cs" />
     <Compile Include="Application\PaymentService.cs" />
     <Compile Include="DomainModel\OrderFlow.cs" />
-    <Compile Include="Application\PushService.cs" />
+    <Compile Include="Application\OrderPushService.cs" />
     <Compile Include="Application\ServiceOrderAppraiseService.cs" />
     <Compile Include="Application\ServiceOrderRemindService.cs" />
     <Compile Include="Application\ServiceOrderService.cs" />

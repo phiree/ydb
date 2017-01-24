@@ -15,8 +15,7 @@ public partial class business_Default : BasePage
     IBusinessService bllBusiness = Bootstrap.Container.Resolve<IBusinessService>();
 
     IServiceOrderService orderService = Bootstrap.Container.Resolve<IServiceOrderService>();
-    IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
-    protected void Page_Load(object sender, EventArgs e)
+      protected void Page_Load(object sender, EventArgs e)
     {
 
         if (!IsPostBack)

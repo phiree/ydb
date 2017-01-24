@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.Model;
-
+using Ydb.Order.DomainModel;
+using Ydb.Order.Application;
 using Dianzhu.DAL;
 using Dianzhu.IDAL;
 using Ydb.Common;
@@ -21,6 +21,7 @@ namespace Dianzhu.BLL
         //20160622_longphui_modify
         //DALServiceOrderStateChangeHis dalServiceOrderStateChangeHis = null;
         IDALServiceOrderStateChangeHis dalServiceOrderStateChangeHis;
+        
         public BLLServiceOrderStateChangeHis(IDALServiceOrderStateChangeHis dalServiceOrderStateChangeHis)
         {
             this.dalServiceOrderStateChangeHis = dalServiceOrderStateChangeHis;

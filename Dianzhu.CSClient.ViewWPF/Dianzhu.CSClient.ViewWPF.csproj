@@ -349,6 +349,10 @@
       <Project>{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}</Project>
       <Name>Ydb.InstantMessage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ydb.Order\Ydb.Order.csproj">
+      <Project>{901e2a8a-e608-4477-b9bc-f583d818d87f}</Project>
+      <Name>Ydb.Order</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\1.png" />

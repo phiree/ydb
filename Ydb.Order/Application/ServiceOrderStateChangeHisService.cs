@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using Ydb.Order.DomainModel;
 using Ydb.Order.DomainModel.Repository;
 using Ydb.Common;
+
 namespace Ydb.Order.Application
 {
     /// <summary>
     /// 订单状态历史记录
     /// </summary>
-    public class BLLServiceOrderStateChangeHis
+    public class ServiceOrderStateChangeHisService : IServiceOrderStateChangeHisService
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
         
         //20160622_longphui_modify
         //DALServiceOrderStateChangeHis dalServiceOrderStateChangeHis = null;
         IRepositoryServiceOrderStateChangeHis repoStateChangeHis;
-        public BLLServiceOrderStateChangeHis(IRepositoryServiceOrderStateChangeHis repoStateChangeHis)
+
+        public ServiceOrderStateChangeHisService(IRepositoryServiceOrderStateChangeHis repoStateChangeHis)
         {
             this.repoStateChangeHis = repoStateChangeHis;
         }

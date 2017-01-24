@@ -28,11 +28,11 @@ namespace Ydb.Push.DomainModel
                     orderStatus == "EndRefund" ||
                     orderStatus == "EndIntervention")
                 {
-                    pushMessage.DisplayContent = string.Format("<订单完成>{0}订单状态已变为{1},快来看看吧", serialNo, orderStatStr);
+                    pushMessage.DisplayContent = string.Format("<订单完成>{0}订单状态已变为{1},快来看看吧", serialNo, orderStatus);
                 }
                 else
                 {
-                    pushMessage.DisplayContent = string.Format("<订单更新>{0}订单状态已变为{1},快来看看吧", serialNo, orderStatStr);
+                    pushMessage.DisplayContent = string.Format("<订单更新>{0}订单状态已变为{1},快来看看吧", serialNo, orderStatus);
 
                 }
 

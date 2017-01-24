@@ -701,7 +701,7 @@ namespace Ydb.Order.DomainModel
 
 
         public void Confirm_Order(IRepositoryServiceOrderPushedService repoPushedService, string serviceId,
-            ServiceSnapShot serviceSnapshot, WorkTimeSnapshot worktimeSnapshot,
+             
           IRepositoryPayment repoPayment, IRepositoryClaims repoClaims)
         {
             IList<ServiceOrderPushedService> l = repoPushedService.FindByOrder(this);
@@ -716,11 +716,12 @@ namespace Ydb.Order.DomainModel
                 {
                     throw new Exception("该服务不是该订单的推送服务！");
                 }
+                
 
                 //todo:  需要用Automapper
 
-                this.AddDetailFromIntelService(s.OriginalServiceId, serviceSnapshot,
-                    worktimeSnapshot,
+                this.AddDetailFromIntelService(s.OriginalServiceId, s.ServiceSnapShot,
+                    s.ServiceOpenTimeSnapShot,
                     s.UnitAmount, s.TargetCustomerName, s.TargetCustomerPhone, s.TargetAddress, s.TargetTime, s.Memo);
 
                 CreatedFromDraft();

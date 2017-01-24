@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dianzhu.Model;
+ 
 using Ydb.Common;
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 namespace Dianzhu.BLL
 {
    public  class PushService
     {
         IDAL.IDALServiceOrderPushedService dalSOP;
        
-        IBLLServiceOrder bllServiceOrder;
+        IServiceOrderService bllServiceOrder;
         IDZServiceService dzServiceService;
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis;
-        public PushService(IDAL.IDALServiceOrderPushedService dalSOP,IBLLServiceOrder bllServiceOrder, IDZServiceService dzServiceService,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis)
+        public PushService(IDAL.IDALServiceOrderPushedService dalSOP, IServiceOrderService bllServiceOrder, IDZServiceService dzServiceService,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis)
         {
             this.dalSOP = dalSOP;
             this.bllServiceOrder = bllServiceOrder;
@@ -25,30 +27,7 @@ namespace Dianzhu.BLL
 
             this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
         }
-        public void Push(ServiceOrder order, ServiceOrderPushedService service, string targetAddress, DateTime targetTime)
-        {
-            IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
-            serviceOrderPushedServices.Add(service);
-
-            Push(order, serviceOrderPushedServices, targetAddress, targetTime);
-        }
-        /// <summary>
-        /// 为某个订单推送服务.
-        /// </summary>
-        /// <param name="order"></param>
-        /// <param name="services"></param>
-        /// <param name="targetAddress"></param>
-        /// <param name="targetTime"></param>
-        public void Push(ServiceOrder order, IList<ServiceOrderPushedService> services, string targetAddress, DateTime targetTime)
-        {
-            //order.OrderStatus = enum_OrderStatus.DraftPushed;
-           
-
-            foreach (ServiceOrderPushedService service in services)
-            {
-                dalSOP.Add(service);
-            }
-        }
+        
         public IList<ServiceOrderPushedService> GetPushedServicesForOrder(ServiceOrder order)
         {
             return dalSOP.FindByOrder(order);

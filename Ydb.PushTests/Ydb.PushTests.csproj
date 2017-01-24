@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DBB8C5D5-EF0F-404F-BC34-92129D3E006E}</ProjectGuid>
+    <ProjectGuid>{B8D4E5EE-E533-46A1-9E70-42FD66B69D8C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dianzhu.CSClient.PresenterTests</RootNamespace>
-    <AssemblyName>Dianzhu.CSClient.PresenterTests</AssemblyName>
+    <RootNamespace>Ydb.PushTests</RootNamespace>
+    <AssemblyName>Ydb.PushTests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -44,10 +44,6 @@
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Rhino.Mocks, Version=4.0.0.0, Culture=neutral, PublicKeyToken=38730f1abddafc13, processorArchitecture=MSIL">
-      <HintPath>..\packages\RhinoMocks.4.0.0-alpha3\lib\net40\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -59,58 +55,17 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="MainPresenter\PSearchTests.cs" />
+    <Compile Include="DomainModel\PushMessageBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
-      <Project>{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}</Project>
-      <Name>Dianzhu.BLL</Name>
+    <ProjectReference Include="..\Ydb.Push\Ydb.Push.csproj">
+      <Project>{E0661833-5498-4F1D-94E7-35C39C5BD8B9}</Project>
+      <Name>Ydb.Push</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IView.csproj">
-      <Project>{755eea8c-9d5e-406e-83dd-36b3ba4eb158}</Project>
-      <Name>Dianzhu.CSClient.IView</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.LocalStorage\Dianzhu.CSClient.LocalStorage.csproj">
-      <Project>{6f064359-8bbd-4bda-9532-d93505472582}</Project>
-      <Name>Dianzhu.CSClient.LocalStorage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.Presenter\Dianzhu.CSClient.Presenter.csproj">
-      <Project>{2955FF18-C6C2-418C-BC99-A68E20EC0D61}</Project>
-      <Name>Dianzhu.CSClient.Presenter</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj">
-      <Project>{d7aa114d-ad19-4399-b152-969d240053c7}</Project>
-      <Name>Dianzhu.CSClient.ViewModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ydb.BusinessResource\Ydb.BusinessResource.csproj">
-      <Project>{0c2206a1-308f-4090-a4a9-4e7cefd2fd9f}</Project>
-      <Name>Ydb.BusinessResource</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
-      <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
-      <Name>Ydb.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
-      <Project>{a141eb7d-6e71-43c1-9ca7-12af1b74c1c7}</Project>
-      <Name>Ydb.InstantMessage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ydb.Membership\Ydb.Membership.csproj">
-      <Project>{6a7ed67d-846d-46c6-84b0-82b8556f0b8f}</Project>
-      <Name>Ydb.Membership</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ydb.Order\Ydb.Order.csproj">
-      <Project>{901e2a8a-e608-4477-b9bc-f583d818d87f}</Project>
-      <Name>Ydb.Order</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="acknowledgements.txt" />
-    <Content Include="license.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -1,5 +1,5 @@
 ﻿using Dianzhu.CSClient.ViewModel;
-using Dianzhu.Model;
+using Ydb.Order.DomainModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

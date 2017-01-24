@@ -1,5 +1,5 @@
 ﻿using Dianzhu.BLL;
-using Dianzhu.Model;
+ 
 using PHSuit;
 using System;
 using System.Collections.Generic;
@@ -12,13 +12,16 @@ using Ydb.Membership.Application.Dto;
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 
+ 
 public partial class DZOrder_Detail : BasePage
 {
-    Dianzhu.BLL.IBLLServiceOrder bllServeiceOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
+    IServiceOrderService bllServeiceOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
    IBusinessService businessService= Bootstrap.Container.Resolve<IBusinessService>();
     // BLLServiceOrder bllServeiceOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
-    BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<BLLServiceOrderStateChangeHis>();
+    IServiceOrderStateChangeHisService bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<IServiceOrderStateChangeHisService>();
     IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
      public ServiceOrder CurrentOrder;
     public Business CurrentBusiness;

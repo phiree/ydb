@@ -5,13 +5,18 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
-using Dianzhu.Model;
+ 
 using System.Data;
 using Ydb.Common;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 
+
+
+ 
 public partial class order_index : BasePage
 {
-    public IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+    public IServiceOrderService bllServiceOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
     ServiceOrder serviceorder;
     public int page;
     string linkStr;//链接字符串
