@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentNHibernate.Mapping;
-using Dianzhu.Model;
+using Ydb.Order.DomainModel;
 using Ydb.Common;
 using Ydb.Common.Domain;
 
-namespace Dianzhu.DAL.Mapping
+namespace Ydb.Order.Infrastructure.Repository.NHibernate.Mapping
 {
     public class ClaimsMap : ClassMap<Claims>
     {
-        public ClaimsMap() {
+        public ClaimsMap()
+        {
             Id(x => x.Id);
             References(x => x.Order);
             Map(x => x.Status).CustomType<enum_OrderStatus>();
