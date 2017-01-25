@@ -64,8 +64,8 @@
       <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -87,7 +87,6 @@
     <Compile Include="Agent\IAgentService.cs" />
     <Compile Include="BLLComplaint.cs" />
     <Compile Include="BLLAdvertisement.cs" />
-    <Compile Include="BLLDeviceBind.cs" />
     <Compile Include="BLLMembershipLoginLog.cs" />
     <Compile Include="BLLIMUserStatusArchieve.cs" />
     <Compile Include="BLLIMUserStatus.cs" />
@@ -101,12 +100,9 @@
     <Compile Include="DZRoleProvidercs.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceOrder\BLLServiceOrderAppraise.cs" />
-    <Compile Include="ServiceOrder\BLLServiceOrderRemind.cs" />
     <Compile Include="ServiceOrder\OrderFlow.cs" />
     <Compile Include="SiteConfig.cs" />
     <Compile Include="StorageManager\BLLStorageFileInfo.cs" />
-    <Compile Include="BLLOrderAssignment.cs" />
     <Compile Include="Validator\ValidatorDZMemership.cs" />
     <Compile Include="ReceptionAssigner.cs" />
   </ItemGroup>

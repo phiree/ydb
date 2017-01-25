@@ -81,11 +81,11 @@ namespace Ydb.Order.Application
             }
             if (orderID != Guid.Empty)
             {
-                where = where.And(x => x.Order.Id == orderID);
+                where = where.And(x => x.OrderId == orderID.ToString());
             }
             if (storeID != Guid.Empty)
             {
-                where = where.And(x => x.Order.BusinessId == storeID.ToString());
+                where = where.And(x => x. BusinessId == storeID.ToString());
             }
 
             OrderAssignment baseone = null;
@@ -130,11 +130,11 @@ namespace Ydb.Order.Application
             }
             if (orderID != Guid.Empty)
             {
-                where = where.And(x => x.Order.Id == orderID);
+                where = where.And(x => x.OrderId == orderID.ToString());
             }
             if (storeID != Guid.Empty)
             {
-                where = where.And(x => x.Order.BusinessId == storeID.ToString());
+                where = where.And(x => x. BusinessId == storeID.ToString());
             }
             long count = repoOrderAssignment.GetRowCount(where);
             return count;

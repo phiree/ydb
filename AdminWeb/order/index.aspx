@@ -1,5 +1,5 @@
 ﻿<%@ Page MasterPageFile="~/admin.master" Language="C#" AutoEventWireup="true" CodeFile="index.aspx.cs" Inherits="order_index" %>
-<%@ Import Namespace="Dianzhu.Model" %>
+<%@ Import Namespace="Ydb.Order.DomainModel" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>

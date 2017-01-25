@@ -13,7 +13,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate.Mapping
         {
             Id(x => x.Id);
             Map(x => x.AssignedStaffId);
-            References<ServiceOrder>(x => x.Order);
+            References<ServiceOrder>(x => x.OrderId);
             Map(x => x.AssignedTime);
             Map(x => x.DeAssignedTime);
             Map(x => x.Enabled);

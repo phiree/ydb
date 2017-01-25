@@ -10,6 +10,7 @@ using Ydb.Membership.Application.Dto;
 using Ydb.Membership.Application;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.BusinessResource.Application;
+using Ydb.Order.DomainModel;
 
 namespace Dianzhu.Api.Model
 {

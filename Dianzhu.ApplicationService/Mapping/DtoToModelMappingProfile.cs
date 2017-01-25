@@ -10,6 +10,8 @@ using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.Membership.Application.Dto;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common;
+using Ydb.Order.DomainModel;
+
 namespace Dianzhu.ApplicationService.Mapping
 {
 
@@ -39,10 +41,10 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<cityObj, Area>()
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<complaintObj, Model.Complaint>()
+            Mapper.CreateMap<complaintObj, Dianzhu.Model. Complaint>()
             .ForMember(x => x.ComplaitResourcesUrl, opt => opt.MapFrom(source =>new List<string>()))
             .ForMember(x => x.Target, opt => opt.MapFrom(source => (enum_ComplaintTarget)Enum.Parse(typeof(enum_ComplaintTarget), source.target)))
-            .ForMember(x => x.Order, opt => opt.MapFrom(source => new DAL.DALServiceOrder().FindById(utils.CheckGuidID(source.orderID, "orderID"))))
+            .ForMember(x => x.OrderId, opt => opt.MapFrom(source => source.orderID  ))
             .ForMember(x => x.OperatorId, opt => opt.MapFrom(source => source.senderID))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
@@ -54,13 +56,13 @@ namespace Dianzhu.ApplicationService.Mapping
             //.ForMember(x => x.AppName, opt => opt.MapFrom(source => source.appName .ToString ()))
             //.ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<remindObj, Model.ServiceOrderRemind>()
+            Mapper.CreateMap<remindObj,  ServiceOrderRemind>()
             .ForMember(x => x.RemindTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.remindTime, "yyyyMMddHHmmss", "remindObj.time")))
             .ForMember(x => x.Open, opt => opt.MapFrom(source => source.bOpen))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<assignObj, Model.OrderAssignment>()
-            .ForMember(x => x.Order, opt => opt.MapFrom(source => new DAL.DALServiceOrder().FindById(utils.CheckGuidID(source.orderID, "orderID"))))
+            Mapper.CreateMap<assignObj, OrderAssignment>()
+            .ForMember(x => x.OrderId, opt => opt.MapFrom(source => source.orderID))
             .ForMember(x => x.AssignedStaffId, opt => opt.MapFrom(source =>  source.staffID))
             .ForMember(x => x.CreateTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.createTime, "yyyyMMddHHmmss", "remindObj.time")))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
@@ -110,7 +112,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
 
-            Mapper.CreateMap<payObj, Model.Payment>()
+            Mapper.CreateMap<payObj, Payment>()
             .ForMember(x => x.Status, opt => opt.MapFrom(source => source.payStatus))
             .ForMember(x => x.PayTarget, opt => opt.MapFrom(source => source.type))
             .ForMember(x => x.PayType, opt => opt.MapFrom(source => source.bOnline?enum_PayType.Online :enum_PayType.Offline))

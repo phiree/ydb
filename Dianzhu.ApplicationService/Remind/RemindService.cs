@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-
+using Ydb.Order.DomainModel;
+using Ydb.Order.Application;
 namespace Dianzhu.ApplicationService.Remind
 {
     public class RemindService: IRemindService
     {
-        BLL.BLLServiceOrderRemind bllremind;
-        public RemindService(BLL.BLLServiceOrderRemind bllremind)
+      IServiceOrderRemindService bllremind;
+        public RemindService(IServiceOrderRemindService bllremind)
         {
             this.bllremind = bllremind;
         }
@@ -24,7 +25,7 @@ namespace Dianzhu.ApplicationService.Remind
         /// <returns></returns>
         public IList<remindObj> GetReminds(common_Trait_Filtering filter, common_Trait_RemindFiltering remind,Customer customer)
         {
-            IList<Model.ServiceOrderRemind> listremind = null;
+            IList< ServiceOrderRemind> listremind = null;
             Ydb.Common.Specification.TraitFilter filter1 = utils.CheckFilter(filter, "ServiceOrderRemind");
             listremind = bllremind.GetReminds(filter1, utils.CheckGuidID(remind.orderID, "orderID"), utils.CheckGuidID(customer.UserID, "customer.UserID"), utils.CheckDateTime(remind.startTime,"yyyyMMdd", "startTime"), utils.CheckDateTime(remind.endTime, "yyyyMMdd", "startTime"));
             if (listremind == null)
@@ -32,7 +33,7 @@ namespace Dianzhu.ApplicationService.Remind
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<remindObj>();
             }
-            IList<remindObj> remindobj = Mapper.Map<IList<Model.ServiceOrderRemind>, IList<remindObj>>(listremind);
+            IList<remindObj> remindobj = Mapper.Map<IList< ServiceOrderRemind>, IList<remindObj>>(listremind);
             return remindobj;
 
         }
@@ -58,14 +59,14 @@ namespace Dianzhu.ApplicationService.Remind
         /// <returns></returns>
         public remindObj GetRemindById(string remindID,Customer customer)
         {
-            Model.ServiceOrderRemind remind = bllremind.GetRemindById(utils.CheckGuidID(remindID, "remindID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            ServiceOrderRemind remind = bllremind.GetRemindById(utils.CheckGuidID(remindID, "remindID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (remind == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 //return null;
                 throw new Exception("没有找到资源！");
             }
-            remindObj remindobj = Mapper.Map<Model.ServiceOrderRemind, remindObj>(remind);
+            remindObj remindobj = Mapper.Map< ServiceOrderRemind, remindObj>(remind);
             return remindobj;
         }
 
@@ -78,7 +79,7 @@ namespace Dianzhu.ApplicationService.Remind
         public object DeleteRemindById(string remindID, Customer customer)
         {
             Guid guid = utils.CheckGuidID(remindID, "remindID");
-            Model.ServiceOrderRemind remind = bllremind.GetRemindById(guid, utils.CheckGuidID(customer.UserID, "customer.UserID"));
+             ServiceOrderRemind remind = bllremind.GetRemindById(guid, utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (remind == null)
             {
                 throw new Exception("该提醒不存在！");

@@ -7,6 +7,7 @@ using Dianzhu.Model;
 using Dianzhu.Config;
 using Ydb.Common;
 using Ydb.BusinessResource.DomainModel;
+using Ydb.Order.DomainModel;
 
 namespace Dianzhu.Api.Model
 {
@@ -86,15 +87,15 @@ namespace Dianzhu.Api.Model
         public string week { get; set; }
         public string open { get; set; }
         public string maxOrder { get; set; }
-        public RespDataDRM_workTimeObj Adapt(ServiceOpenTimeForDaySnapShotForOrder sotfdssfOrder)
+        public RespDataDRM_workTimeObj Adapt(WorkTimeSnapshot sotfdssfOrder)
         {
             //this.workTimeID = sotDay.Id.ToString();
             this.tag = string.Empty;
-            this.startTime = sotfdssfOrder.PeriodBegin> 0 ? sotfdssfOrder.PeriodBegin / 60 + ":" + sotfdssfOrder.PeriodBegin % 60 : string.Empty;
-            this.endTime = sotfdssfOrder.PeriodEnd > 0 ? sotfdssfOrder.PeriodEnd / 60 + ":" + sotfdssfOrder.PeriodEnd % 60 : string.Empty;
+            this.startTime =sotfdssfOrder.TimePeriod.StartTime.ToString() ;
+            this.endTime = sotfdssfOrder.TimePeriod.EndTime.ToString();
             this.week = getWeekDay(sotfdssfOrder.Date.Year, sotfdssfOrder.Date.Month, sotfdssfOrder.Date.Day).ToString();
             //this.open = sotDay.Enabled ? "Y" : "N";
-            this.maxOrder = sotfdssfOrder.MaxOrder > 0 ? sotfdssfOrder.MaxOrder.ToString() : string.Empty;
+            this.maxOrder = sotfdssfOrder.MaxOrderForWorkTime > 0 ? sotfdssfOrder.MaxOrderForWorkTime.ToString() : string.Empty;
 
             return this;
         }

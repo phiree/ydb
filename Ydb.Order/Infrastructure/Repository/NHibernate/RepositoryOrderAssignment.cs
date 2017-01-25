@@ -14,12 +14,12 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
     {
         public OrderAssignment FindByOrderAndStaff(ServiceOrder order, string staffId)
         {
-            return FindOne(x => x.Order.Id == order.Id && x.AssignedStaffId == staffId && x.Enabled == true);
+            return FindOne(x => x.OrderId == order.Id.ToString() && x.AssignedStaffId == staffId && x.Enabled == true);
         }
 
         public IList<OrderAssignment> GetOAListByOrder(ServiceOrder order)
         {
-            return Find(x => x.Order.Id == order.Id && x.Enabled == true);
+            return Find(x => x.OrderId == order.Id.ToString() && x.Enabled == true);
         }
 
         public IList<OrderAssignment> GetOAListByStaff(string staffId)
@@ -29,7 +29,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
 
         public IList<OrderAssignment> GetAllListForAssign(Guid businessId)
         {
-            return Find(x => x.Order.BusinessId == businessId.ToString() && x.Enabled == true);
+            return Find(x => x.AssignedStaffId == businessId.ToString() && x.Enabled == true);
 
             //   return Find(x => x.AssignedStaff.Belongto.Id == businessId && x.Enabled == true);
 

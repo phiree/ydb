@@ -1186,7 +1186,7 @@ namespace Ydb.Order.Application
         {
 
             OrderAssignment oa = new OrderAssignment();
-            oa.Order = order;
+            oa.OrderId = order.Id.ToString();
             oa.AssignedStaffId = staffId;
             repoOrderAssignment.Add(oa);
         }

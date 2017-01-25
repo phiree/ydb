@@ -28,6 +28,11 @@ namespace Ydb.Order.DomainModel
         public TimePeriod TimePeriod { get;   set; }
         
         public bool Enabled { get; set; }
+
+        /// <summary>
+        /// 下单的时间
+        /// </summary>
+        public DateTime Date { get; set; }
        
 
     }

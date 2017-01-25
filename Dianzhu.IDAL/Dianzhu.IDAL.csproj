@@ -52,34 +52,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALAdvertisement.cs" />
-    <Compile Include="DALClaimsDetails.cs" />
     <Compile Include="DALRefreshToken.cs" />
     <Compile Include="DALClient.cs" />
-    <Compile Include="DALPaymentLog.cs" />
-    <Compile Include="DALClaims.cs" />
     <Compile Include="DALComplaint.cs" />
-    <Compile Include="DALDeviceBind.cs" />
     <Compile Include="DALMembershipLoginLog.cs" />
     <Compile Include="DALIMUserStatusArchieve.cs" />
     <Compile Include="DALIMUserStatus.cs" />
-    <Compile Include="DALOrderAssignment.cs" />
-    <Compile Include="DALPayment.cs" />
-    <Compile Include="DALRefundLog.cs" />
-    <Compile Include="DALRefund.cs" />
     <Compile Include="DALUserToken.cs" />
-    <Compile Include="Finance\DALBalanceFlow.cs" />
-    <Compile Include="Finance\DALDefaultSharePoint.cs" />
-    <Compile Include="Finance\DALSharePoint.cs" />
-    <Compile Include="IDALSerialNo.cs" />
-    <Compile Include="ServiceOrder\DALServiceOrder.cs" />
-    <Compile Include="ServiceOrder\DALServiceOrderAppraise.cs" />
-    <Compile Include="ServiceOrder\DALServiceOrderRemind.cs" />
-    <Compile Include="ServiceOrder\DALServiceOrderStateChangeHis.cs" />
-    <Compile Include="Finance\DALServiceTypePoint.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceOrder\DALServiceOrderPushedService.cs" />
     <Compile Include="StorageFileInfo\DALStorageFileInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -97,9 +79,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Finance\" />
     <Folder Include="IdentityAccess\" />
     <Folder Include="Order\" />
     <Folder Include="Resource\" />
+    <Folder Include="ServiceOrder\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

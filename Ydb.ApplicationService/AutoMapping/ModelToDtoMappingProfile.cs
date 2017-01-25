@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Ydb.BusinessResource.DomainModel;
 using Dianzhu.Model;
 using AutoMapper;
+using Ydb.Order.DomainModel;
 
 namespace Ydb.ApplicationService
 {

@@ -55,7 +55,7 @@ namespace Dianzhu.ApplicationService
             {
                 orderSnapshot ordersnapshot = new orderSnapshot();
                 orderObj orderobj = Mapper.Map< ServiceOrder, orderObj>(order);
-                Order.OrderService.bllstatehis = bllstatehis;
+                
                 orderService.changeObj(orderobj, order);
                 //todo:refactor: Automapping refactor.
                 DZService service = dzServiceService.GetOne2(new Guid( order.ServiceId));

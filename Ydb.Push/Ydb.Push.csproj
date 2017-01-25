@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\DeviceBindService.cs" />
+    <Compile Include="Application\IDeviceBindService.cs" />
     <Compile Include="Application\IPushService.cs" />
     <Compile Include="Application\PushService.cs" />
     <Compile Include="DomainModel\DeviceBind.cs" />

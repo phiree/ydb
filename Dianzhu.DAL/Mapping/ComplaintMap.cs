@@ -12,7 +12,7 @@ namespace Dianzhu.DAL.Mapping
     {
         public ComplaintMap() {
             Id(x => x.Id);
-            References<ServiceOrder>(x => x.Order);
+            Map(x => x.OrderId);
             Map(x => x.Target).CustomType<enum_ChatTarget>();
             Map(x => x.Content);
 

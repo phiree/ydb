@@ -20,11 +20,13 @@ namespace Dianzhu.ApplicationService.Staff
     {
         BMA.IBusinessService businessService;
         BMA. IStaffService staffService;
+        IServiceOrderService orderService;
         IDZMembershipService memberService;
         public static IOrderAssignmentService bllAssignment;
-        public StaffService(BMA.IBusinessService businessService, BMA.IStaffService staffService, IDZMembershipService memberService, IOrderAssignmentService bllAssignment)
+        public StaffService(BMA.IBusinessService businessService, IServiceOrderService orderService, BMA.IStaffService staffService, IDZMembershipService memberService, IOrderAssignmentService bllAssignment)
         {
             this.businessService = businessService;
+            this.orderService = orderService;
             this.staffService = staffService;
             this.memberService = memberService;
             StaffService.bllAssignment = bllAssignment;
@@ -35,15 +37,17 @@ namespace Dianzhu.ApplicationService.Staff
         /// </summary>
         /// <param name="servicesobj"></param>
         /// <param name="dzservice"></param>
-        public static void changeObj(staffObj staffobj, BRM.Staff staff)
+        public   void changeObj(staffObj staffobj, BRM.Staff staff)
         {
             staffobj.storeData.storeID = staff.Belongto.Id.ToString();
             IList<OrderAssignment> listAssignment = bllAssignment.GetOAListByStaff(staff.Id.ToString());
             staffobj.storeData.allCount = listAssignment.Count;
             for (int i = 0; i < listAssignment.Count; i++)
             {
-                staffobj.storeData.assignOrderIDs.Add(listAssignment[i].Order.Id.ToString());
-                if (listAssignment[i].Order.OrderStatus !=  enum_OrderStatus.Finished && listAssignment[i].Order.OrderStatus !=enum_OrderStatus.Appraised)
+                string orderId = listAssignment[i].OrderId;
+                staffobj.storeData.assignOrderIDs.Add(orderId);
+                ServiceOrder order = orderService.GetOne(new Guid());
+                if (order.OrderStatus !=  enum_OrderStatus.Finished && order.OrderStatus != enum_OrderStatus.Appraised)
                 {
                     staffobj.storeData.handleCount++;
                 }

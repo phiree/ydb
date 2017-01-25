@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dianzhu.Model.Finance;
+ 
 using Dianzhu.Model;
 namespace Dianzhu.IDAL.Finance
 {/*

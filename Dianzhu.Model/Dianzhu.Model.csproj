@@ -53,8 +53,8 @@
       <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -68,43 +68,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClaimsDetails.cs" />
+    <Compile Include="Advertisement.cs" />
     <Compile Include="Client\Client.cs" />
     <Compile Include="Client\RefreshToken.cs" />
-    <Compile Include="Client\UserToken.cs" />
-    <Compile Include="SerialNo.cs" />
-    <Compile Include="ServiceOrder\ServiceOpenTimeForDaySnapShotForOrder.cs" />
-    <Compile Include="ServiceOrder\ServiceOpenTimeSnapshot.cs" />
-    <Compile Include="ServiceOrder\ServiceSnapShotForOrder.cs" />
     <Compile Include="StorageManager\StorageFileInfo.cs" />
-    <Compile Include="Trait_Filtering.cs" />
-    <Compile Include="Finance\BalanceFlow.cs" />
-    <Compile Include="Finance\ServiceTypePoint.cs" />
-    <Compile Include="Finance\SharePoint.cs" />
-    <Compile Include="IdentityAccess\emUserType.cs" />
-    <Compile Include="ISnatshop.cs" />
-    <Compile Include="Mapper.cs" />
     <Compile Include="MembershipLoginLog.cs" />
-    <Compile Include="Claims.cs" />
-    <Compile Include="Payment\RefundLog.cs" />
-    <Compile Include="Payment\Refund.cs" />
-    <Compile Include="ServiceOrderRemind.cs" />
     <Compile Include="Complaint.cs" />
-    <Compile Include="Resource\Advertisement.cs" />
     <Compile Include="Reception\IMUserStatus.cs" />
     <Compile Include="City.cs" />
-    <Compile Include="ServiceOrder\ServiceOrderAppraise.cs" />
-    <Compile Include="ServiceOrder\ServiceOrderDetail.cs" />
-    <Compile Include="ServiceOrder\ServiceOrderFactory.cs" />
-    <Compile Include="ServiceOrder\ServiceOrderPushedService.cs" />
-    <Compile Include="OrderAssignment.cs" />
-    <Compile Include="Payment\PaymentLog.cs" />
-    <Compile Include="DeviceBind.cs" />
-    <Compile Include="IdentityAccess\DZRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Payment\Payment.cs" />
-    <Compile Include="ServiceOrderStateChangeHis.cs" />
-    <Compile Include="ServiceOrder\ServiceOrder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -116,8 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Agent\" />
-    <Folder Include="Resource\Agent\" />
-    <Folder Include="Resource\Specs\" />
+    <Folder Include="Finance\" />
+    <Folder Include="IdentityAccess\" />
+    <Folder Include="Payment\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">

@@ -70,7 +70,7 @@ namespace Dianzhu.ApplicationService.Assign
             DateTime dt = DateTime.Now;
             oa.CreateTime = dt;
             oa.AssignedTime = dt;
-            oa.Order = order;
+            oa.OrderId = assignobj.orderID;
             oa.AssignedStaffId = assignobj.staffID;
             order.StaffId = assignobj.staffID;
       

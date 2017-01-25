@@ -27,7 +27,11 @@ namespace Dianzhu.Model
         /// <summary>
         /// 订单id
         /// </summary>
-        public virtual ServiceOrder Order { get; set; }
+        public virtual string  OrderId { get; set; }
+
+        public virtual string CustomerServiceId { get; set; }
+
+        public virtual string BusinessId { get; set; }
         /// <summary>
         /// 投诉目标
         /// </summary>

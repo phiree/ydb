@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.Config;
+using Ydb.Order.DomainModel;
+
 namespace Dianzhu.Api.Model
 {
     public class RespDataRMM_remindObj

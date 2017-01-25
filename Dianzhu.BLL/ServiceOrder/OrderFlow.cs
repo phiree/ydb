@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Dianzhu.DAL;
 using Dianzhu.Model;
 using Ydb.Common;
+using Ydb.Order.DomainModel;
+
 namespace Dianzhu.BLL
 {
     /// <summary>

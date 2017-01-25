@@ -21,10 +21,10 @@ namespace Dianzhu.ApplicationService.Order
     {
 
         IServiceOrderService ibllserviceorder;
-       public static IServiceOrderStateChangeHisService bllstatehis;
+        IServiceOrderStateChangeHisService bllstatehis;
         
-        public IDZServiceService dzServiceService;
-        public   IOrderPushService bllpushservice;
+          IDZServiceService dzServiceService;
+            IOrderPushService bllpushservice;
        IServiceOrderRemindService bllServiceOrderRemind;
          IServiceOrderAppraiseService bllServiceOrderAppraise;
        IOrderAssignmentService bllOrderAssignment;
@@ -35,18 +35,20 @@ namespace Dianzhu.ApplicationService.Order
 
         IStaffService staffService;
         IServiceTypeService serviceTypeService;
+        Dianzhu.ApplicationService.Staff.IStaffService appStaffService;
 
         public OrderService(IServiceOrderService ibllserviceorder, IServiceOrderStateChangeHisService bllstatehis, IDZServiceService dzServiceService,
            IOrderPushService bllpushservice, IServiceOrderRemindService bllServiceOrderRemind,
        IServiceOrderAppraiseService bllServiceOrderAppraise,
      IOrderAssignmentService bllOrderAssignment, IDZMembershipService memberService,
-      IClaimsService bllClaims, IClaimsDetailsService bLLClaimsDetails, IStaffService staffService, IBusinessService businessService, IServiceTypeService serviceTypeService)
+      IClaimsService bllClaims, IClaimsDetailsService bLLClaimsDetails, Staff.IStaffService appStaffService, IStaffService staffService, IBusinessService businessService, IServiceTypeService serviceTypeService)
            
         {
             this.businessService = businessService;
             this.ibllserviceorder = ibllserviceorder;
-             bllstatehis = bllstatehis;
+            this.bllstatehis = bllstatehis;
             this.dzServiceService = dzServiceService;
+            this.appStaffService = appStaffService;
             this.bllpushservice = bllpushservice;
             this.bllServiceOrderRemind = bllServiceOrderRemind;
             this.bllServiceOrderAppraise = bllServiceOrderAppraise;
@@ -178,8 +180,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 Ydb.BusinessResource.DomainModel.Staff staff = staffService.GetOne(new Guid(serviceorder.StaffId));
                 orderobj.formanObj = Mapper.Map<Ydb.BusinessResource.DomainModel.Staff, staffObj>(staff);
-                Staff.StaffService.bllAssignment = bllOrderAssignment;
-                Staff.StaffService.changeObj(orderobj.formanObj, staff);
+               appStaffService.changeObj(orderobj.formanObj, staff);
             }
             else
             {
@@ -1295,7 +1296,8 @@ namespace Dianzhu.ApplicationService.Order
                     oa.Enabled = true;
                     oa.CreateTime = dt;
                     oa.AssignedTime = dt;
-                    oa.Order = order;
+                    oa.OrderId = order.Id.ToString();
+                    oa.BusinessId = order.BusinessId;
                     oa.AssignedStaffId = staffID;
                     order.StaffId = staffID;
                     order.LatestOrderUpdated = DateTime.Now;
@@ -1381,7 +1383,8 @@ namespace Dianzhu.ApplicationService.Order
             DateTime dt = DateTime.Now;
             oa.CreateTime = dt;
             oa.AssignedTime = dt;
-            oa.Order = order;
+            oa.OrderId = order.Id.ToString();
+            oa.BusinessId = order.BusinessId;
             oa.AssignedStaffId = staffID;
             order.StaffId = staffID;
             order.LatestOrderUpdated = DateTime.Now;

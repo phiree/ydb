@@ -26,8 +26,12 @@ namespace Ydb.Order.DomainModel
         /// <summary>
         /// 被分配的订单
         /// </summary>
-        public virtual ServiceOrder Order { get; set; }
+        public virtual string OrderId { get; set; }
 
+        /// <summary>
+        /// 订单对应的商家, 冗余数据 方便查询
+        /// </summary>
+        public virtual string BusinessId { get; set; }
         /// <summary>
         /// 该订单分配的员工. 如果是多个员工,则创建多个对象.
         /// </summary>
