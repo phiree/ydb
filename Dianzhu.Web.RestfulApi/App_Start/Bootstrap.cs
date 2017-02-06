@@ -56,7 +56,9 @@ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb
             container.Install(
               new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig("ydb_businessresource"))
               );
-
+            container.Install(
+           new Ydb.Order.Infrastructure.InstallerOrder(BuildDBConfig("ydb_order"))
+           );
             container.Install(
 
          

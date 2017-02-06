@@ -1091,7 +1091,7 @@ namespace Dianzhu.ApplicationService.Order
                 if (ActionSuccess)
                 {
                     Claims claims = new Claims(order, oldStatus, member.Id.ToString());
-                    claims.AddDetailsFromClaims(claims, refundobj.content, amount, resourcesurls, target, member.Id.ToString());
+                    claims.AddDetailsFromClaims(refundobj.content, amount, resourcesurls, target, member.Id.ToString());
                     bllClaims.Save(claims);
                     refundstatusobj.content = refundobj.content;
                     refundstatusobj.amount = refundobj.amount;
@@ -1140,7 +1140,7 @@ namespace Dianzhu.ApplicationService.Order
                 if (ActionSuccess)
                 {
                     Claims claims = new Claims(order, oldStatus, member.Id.ToString());
-                    claims.AddDetailsFromClaims(claims, refundobj.content, amount, resourcesurls, target, member.Id.ToString());
+                    claims.AddDetailsFromClaims( refundobj.content, amount, resourcesurls, target, member.Id.ToString());
                     bllClaims.Save(claims);
                     refundstatusobj.content = refundobj.content;
                     refundstatusobj.amount = refundobj.amount;

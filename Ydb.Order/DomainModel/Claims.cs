@@ -78,10 +78,10 @@ namespace Ydb.Order.DomainModel
         /// <param name="resourcesUrl"></param>
         /// <param name="target"></param>
         /// <param name="member"></param>
-        public virtual void AddDetailsFromClaims(Claims claims, string context, decimal amount, IList<string> resourcesUrl, enum_ChatTarget target, string memberId)
+        public virtual void AddDetailsFromClaims(  string context, decimal amount, IList<string> resourcesUrl, enum_ChatTarget target, string memberId)
         {
             
-            ClaimsDetails claimsDetails = new ClaimsDetails(claims, context, amount, resourcesUrl, target, memberId);
+            ClaimsDetails claimsDetails = new ClaimsDetails(this, context, amount, resourcesUrl, target, memberId);
             ClaimsDatailsList.Add(claimsDetails);
         }
     }

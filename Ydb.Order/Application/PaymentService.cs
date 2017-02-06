@@ -42,77 +42,10 @@ namespace Ydb.Order.Application
         {
             string errMsg = string.Empty;
             ServiceOrder order = repoOrder.FindById(new Guid(orderId));
+
+            return order.ApplyPay(payTarget, repoPayment, repoClaims);
             //验证请求类型是否有效
-            bool applyIsValid = false;
-
-            switch (payTarget)
-            {
-
-                case enum_PayTarget.Deposit:
-                    errMsg = "只有 刚创建的订单 才能申请 订金支付";
-                    applyIsValid = order.OrderStatus == enum_OrderStatus.Created;
-                    break;
-                case enum_PayTarget.FinalPayment:
-                    //只有 已经服务完成的 订单 才能申请 支付尾款 
-                    errMsg = "只有 已经服务完成的 订单 才能申请 支付尾款 ";
-                    applyIsValid = order.OrderStatus == enum_OrderStatus.Ended || order.OrderStatus == enum_OrderStatus.Finished;
-                    break;
-                case enum_PayTarget.Compensation:
-                    errMsg = "只有已经完成的订单 才能申请赔偿.";
-                    applyIsValid = order.OrderStatus == enum_OrderStatus.Finished ||
-                          order.OrderStatus == enum_OrderStatus.Appraised;
-                    break;
-            }
-            if (!applyIsValid)
-            {
-                throw new Exception(errMsg);
-            }
-            //获取该订单已经申请过的项目.
-            IList<Payment> payments = repoPayment.GetPaymentsForOrder(order);
-            var paymentList = payments.Where(x => x.PayTarget == payTarget).ToList();
-            //验证该支付申请是否有效. 
-            //无效: 同类型的支付申请已经创建, 直接返回该支付链接. 当前支付金额
-            var paymentCount = paymentList.Count();
-            Payment payment = null;
-            if (paymentCount == 1)
-            {
-                payment = paymentList[0];
-
-                //验证该支付项的状态
-                //todo:如果 支付成功 
-                if (payment.Status == enum_PaymentStatus.Trade_Success)
-                {
-                    errMsg = "该项已经支付完成";
-                    log.Error(errMsg);
-                    throw new Exception(errMsg);
-                }
-
-                //该支付项已经创建,验证其金额是否有变化
-                var payAmount = GetPayAmount(order, payTarget);
-                if (payAmount != payment.Amount)
-                {
-                    errMsg = string.Format("本次申请金额和上次不一样. 本次:{0},上次:{1}", payment.Amount, payAmount);
-                    log.Warn(errMsg);
-                    //申请金额和之前的不一致, 需要警告
-                }
-                payment.Amount = payAmount;
-              
-
-
-            }
-            else if (paymentCount == 0)
-            {
-                payment = new Payment(GetPayAmount(order, payTarget), order, payTarget);
-
-                repoPayment.Add(payment);
-            }
-            else //已经存在多项
-            {
-                errMsg = string.Format("该订单已经存在多项同类型的支付项", order.Id);
-                log.Fatal(errMsg);
-                throw new Exception(errMsg);
-            }
-            return payment;
+            
         }
         public  decimal GetPayAmount(ServiceOrder order, enum_PayTarget payTarget)
         {

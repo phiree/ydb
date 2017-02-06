@@ -11,7 +11,7 @@ using Ydb.Common.Specification;
 using Ydb.Common.Repository;
 using Ydb.BusinessResource.DomainModel;
  
-namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate
+namespace Ydb.BusinessResource.Infrastructure.Repository
 {
     public class RepositoryBusiness : NHRepositoryBase<Business,Guid>,IRepositoryBusiness
     {

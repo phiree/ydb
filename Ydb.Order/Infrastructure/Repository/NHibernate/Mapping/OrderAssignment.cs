@@ -19,6 +19,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.Enabled);
             Map(x => x.CreateTime);
             Map(x => x.IsHeader);
+            Map(x => x.BusinessId);
 
 
         }

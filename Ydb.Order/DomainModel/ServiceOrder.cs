@@ -567,7 +567,7 @@ namespace Ydb.Order.DomainModel
 
         /// <param name="payTarget">支付类型</param>
         /// <returns></returns>
-        public Payment ApplyPay(enum_PayTarget payTarget, IRepositoryPayment repoPayment, IRepositoryClaims repoClaims)
+        public virtual Payment ApplyPay(enum_PayTarget payTarget, IRepositoryPayment repoPayment, IRepositoryClaims repoClaims)
         {
             string errMsg = string.Empty;
             //验证请求类型是否有效
@@ -642,7 +642,7 @@ namespace Ydb.Order.DomainModel
             }
             return payment;
         }
-        public void SaveOrderHistory(enum_OrderStatus oldStatus, IRepositoryServiceOrderStateChangeHis repoStateChante)
+        public virtual void SaveOrderHistory(enum_OrderStatus oldStatus, IRepositoryServiceOrderStateChangeHis repoStateChante)
         {
             int num = 1;
             ServiceOrderStateChangeHis oldOrderHis = repoStateChante.GetMaxNumberOrderHis(this);
@@ -658,7 +658,7 @@ namespace Ydb.Order.DomainModel
         /// </summary>
         /// <param name="payTarget">支付类型</param>
         /// <returns></returns>
-        public decimal GetPayAmount(enum_PayTarget payTarget, IRepositoryClaims repoClaims)
+        public virtual decimal GetPayAmount(enum_PayTarget payTarget, IRepositoryClaims repoClaims)
         {
             if (payTarget == enum_PayTarget.Deposit)
             {
@@ -700,7 +700,7 @@ namespace Ydb.Order.DomainModel
         }
 
 
-        public void Confirm_Order(IRepositoryServiceOrderPushedService repoPushedService, string serviceId,
+        public virtual void Confirm_Order(IRepositoryServiceOrderPushedService repoPushedService, string serviceId,
              
           IRepositoryPayment repoPayment, IRepositoryClaims repoClaims)
         {

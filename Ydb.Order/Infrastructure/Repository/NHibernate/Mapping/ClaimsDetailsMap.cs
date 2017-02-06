@@ -11,7 +11,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate.Mapping
     public class ClaimsDetailsMap : ClassMap<ClaimsDetails>
     {
         public ClaimsDetailsMap() {
-            Id(x => x.Id);
+            Id(x => x.Id).GeneratedBy.Assigned();
             References(x => x.Claims);
             Map(x => x.Target).CustomType<enum_ChatTarget>();
             Map(x => x.Context);

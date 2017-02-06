@@ -4,32 +4,32 @@ using System.Linq;
 using System.Text;
 using Ydb.Common;
 using System.Diagnostics;
- 
+
 namespace Ydb.Order.DomainModel
 {
     /// <summary>
     /// 订单明细. 包含服务项快照
     /// </summary>
-    
+
     public class ServiceOrderDetail
     {
 
         #region constructor
         public ServiceOrderDetail()
         {
-            
+
         }
-        public ServiceOrderDetail(string serviceId,ServiceSnapShot serviceSnapShot, WorkTimeSnapshot OpenTimeSnapShot,
-         //   ServiceOpenTimeForDaySnapShotForOrder OpenTimeForDaySnapShot,
-            int unitAmount,string targetCustomerName,string targetCustomerPhone, string targetAddress,DateTime targetTime,string memo)
+        public ServiceOrderDetail(string serviceId, ServiceSnapShot serviceSnapShot, WorkTimeSnapshot OpenTimeSnapShot,
+            //   ServiceOpenTimeForDaySnapShotForOrder OpenTimeForDaySnapShot,
+            int unitAmount, string targetCustomerName, string targetCustomerPhone, string targetAddress, DateTime targetTime, string memo)
         {
-            OriginalServiceId= serviceId;
+            OriginalServiceId = serviceId;
             this.ServiceSnapShot = serviceSnapShot;// service.GetServiceSnapShot();
 
-           // this.OpenTimeSnapShot = OpenTimeForDaySnapShot ;//service.GetOpenTimeSnapShot(targetTime);
-          this.ServiceOpentimeSnapshot = OpenTimeSnapShot;// service.GetServiceOpenTimeSnapshot(targetTime);
+            // this.OpenTimeSnapShot = OpenTimeForDaySnapShot ;//service.GetOpenTimeSnapShot(targetTime);
+            this.ServiceOpentimeSnapshot = OpenTimeSnapShot;// service.GetServiceOpenTimeSnapshot(targetTime);
 
-            this.UnitAmount = unitAmount ;
+            this.UnitAmount = unitAmount;
             this.TargetCustomerName = targetCustomerName;
             this.TargetCustomerPhone = targetCustomerPhone;
             this.TargetAddress = targetAddress;
@@ -51,9 +51,9 @@ namespace Ydb.Order.DomainModel
         public virtual WorkTimeSnapshot ServiceOpentimeSnapshot { get; protected set; }
         #endregion
 
-        
+
         #region 服务项需求
-      
+
         /// <summary>
         /// 购买数量
         /// </summary>
@@ -79,7 +79,7 @@ namespace Ydb.Order.DomainModel
         /// </summary>
         public virtual string Memo { get; set; }
 
-     
+
         #endregion
         /// <summary>
         /// 该服务分配的员工.
@@ -92,14 +92,15 @@ namespace Ydb.Order.DomainModel
 
         public virtual decimal ServiceAmount
         {
-            get {
+            get
+            {
                 return ServiceSnapShot.UnitPrice * UnitAmount;
             }
         }
         //分配的职员
-      
+
     }
 
 
-    
+
 }

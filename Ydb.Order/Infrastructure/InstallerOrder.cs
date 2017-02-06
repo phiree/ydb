@@ -21,10 +21,10 @@ using Castle.Core;
 
 namespace Ydb.Order.Infrastructure
 {
-    public class InstallerFinance : IWindsorInstaller
+    public class InstallerOrder : IWindsorInstaller
     {
         FluentConfiguration dbConfigFinance;
-        public InstallerFinance(FluentConfiguration dbConfigFinance)
+        public InstallerOrder(FluentConfiguration dbConfigFinance)
         {
             this.dbConfigFinance = dbConfigFinance;//Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap//Dianzhu.DAL.Mapping.AreaMap
         }
@@ -40,6 +40,10 @@ namespace Ydb.Order.Infrastructure
 
         private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
         {
+            container.Register(Classes.FromThisAssembly().InSameNamespaceAs(typeof(IRepositoryClaims))
+                                .WithService.Base()
+                );
+
             container.Register(Component.For<IRepositoryClaims>().ImplementedBy<RepositoryClaims>());
             container.Register(Component.For<IRepositoryClaimsDetails>().ImplementedBy<RepositoryClaimsDetails>());
             container.Register(Component.For<IRepositoryOrderAssignment>().ImplementedBy<RepositoryOrderAssignment>());

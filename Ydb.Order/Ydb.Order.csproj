@@ -158,7 +158,7 @@
     <Compile Include="Infrastructure\UnitOfWork\NHibernateUnitOfWork.cs" />
     <Compile Include="Infrastructure\UnitOfWork\NHRepository.cs" />
     <Compile Include="Infrastructure\UnitOfWork\NhUnitOfWorkInterceptor.cs" />
-    <Compile Include="Installer\InstallerOrder.cs" />
+    <Compile Include="Infrastructure\InstallerOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

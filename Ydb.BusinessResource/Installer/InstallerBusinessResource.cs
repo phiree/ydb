@@ -43,29 +43,34 @@ namespace Ydb.BusinessResource.Infrastructure
 
         private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IRepositoryBusiness>().ImplementedBy<RepositoryBusiness>()  );
-            container.Register(Component.For<IRepositoryDZService>().ImplementedBy<RepositoryDZService>() );
-            container.Register(Component.For<IRepositoryServiceOpenTimeForDay>().ImplementedBy<RepositoryServiceOpenTimeForDay>());
-            container.Register(Component.For<IRepositoryDZTag>().ImplementedBy<RepositoryDZTag>());
+            container.Register(Classes.FromThisAssembly().InSameNamespaceAs<RepositoryBusiness>()
+                              .WithService.DefaultInterfaces());
+            //container.Register(Component.For<IRepositoryBusiness>().ImplementedBy<RepositoryBusiness>()  );
+            //container.Register(Component.For<IRepositoryDZService>().ImplementedBy<RepositoryDZService>() );
+            //container.Register(Component.For<IRepositoryServiceOpenTimeForDay>().ImplementedBy<RepositoryServiceOpenTimeForDay>());
+            //container.Register(Component.For<IRepositoryDZTag>().ImplementedBy<RepositoryDZTag>());
 
-            container.Register(Component.For<IRepositoryArea>().ImplementedBy<RepositoryArea>());
+            //container.Register(Component.For<IRepositoryArea>().ImplementedBy<RepositoryArea>());
 
-            container.Register(Component.For<IRepositoryBusinessImage>().ImplementedBy<RepositoryBusinessImage>());
-            container.Register(Component.For<IRepositoryServiceOpenTime>().ImplementedBy<RepositoryServiceOpenTime>());
-            container.Register(Component.For<IRepositoryServiceType>().ImplementedBy<RepositoryServiceType>());
-            container.Register(Component.For<IRepositoryStaff>().ImplementedBy<RepositoryStaff>());
+            //container.Register(Component.For<IRepositoryBusinessImage>().ImplementedBy<RepositoryBusinessImage>());
+            //container.Register(Component.For<IRepositoryServiceOpenTime>().ImplementedBy<RepositoryServiceOpenTime>());
+            //container.Register(Component.For<IRepositoryServiceType>().ImplementedBy<RepositoryServiceType>());
+            //container.Register(Component.For<IRepositoryStaff>().ImplementedBy<RepositoryStaff>());
 
         }
         private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IBusinessService>().ImplementedBy< BusinessService>());
-            container.Register(Component.For<IDZServiceService>().ImplementedBy<DZServiceService>());
-            container.Register(Component.For<IServiceTypeService>().ImplementedBy<ServiceTypeService>());
-            container.Register(Component.For<IAreaService>().ImplementedBy<AreaService>());
-            container.Register(Component.For<IDZTagService>().ImplementedBy<DZTagService>());
-            container.Register(Component.For<IBusinessImageService>().ImplementedBy<BusinessImageService>());
-            container.Register(Component.For<IStaffService>().ImplementedBy<StaffService>());
-            container.Register(Component.For<IServiceOpenTimeService>().ImplementedBy<ServiceOpenTimeService>());
+            container.Register(Classes.FromThisAssembly().InSameNamespaceAs<IBusinessService>()
+                              .WithService.DefaultInterfaces()
+              );
+            //container.Register(Component.For<IBusinessService>().ImplementedBy< BusinessService>());
+            //container.Register(Component.For<IDZServiceService>().ImplementedBy<DZServiceService>());
+            //container.Register(Component.For<IServiceTypeService>().ImplementedBy<ServiceTypeService>());
+            //container.Register(Component.For<IAreaService>().ImplementedBy<AreaService>());
+            //container.Register(Component.For<IDZTagService>().ImplementedBy<DZTagService>());
+            //container.Register(Component.For<IBusinessImageService>().ImplementedBy<BusinessImageService>());
+            //container.Register(Component.For<IStaffService>().ImplementedBy<StaffService>());
+            //container.Register(Component.For<IServiceOpenTimeService>().ImplementedBy<ServiceOpenTimeService>());
 
         }
 
@@ -75,14 +80,8 @@ namespace Ydb.BusinessResource.Infrastructure
 
 
         }
-
-        private void InstallUnifOfWork2(IWindsorContainer container, IConfigurationStore store)
-        {
-            container.Register(Component.For<IUnitOfWork>().ImplementedBy<NhUnitOfWork>()
-                     .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("BusinessResourceSessionFactory"))
-                   );
-        }
-
+ 
+         
         private void InstallUnifOfWork(IWindsorContainer container, IConfigurationStore store)
         {
             container.Kernel.ComponentRegistered += Kernel_ComponentRegistered;

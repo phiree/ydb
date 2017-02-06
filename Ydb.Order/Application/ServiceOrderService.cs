@@ -764,7 +764,7 @@ namespace Ydb.Order.Application
 
                 log.Debug("记录商户操作");
 
-                claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, memberId);
+                claims.AddDetailsFromClaims(  string.Empty, 0, null, enum_ChatTarget.store, memberId);
                 //repoClaims.Update(claims);
             }
             else
@@ -798,7 +798,7 @@ namespace Ydb.Order.Application
             }
 
             log.Debug("记录商户操作");
-            claims.AddDetailsFromClaims(claims, context, amount, resourcesUrl, enum_ChatTarget.store, memberId);
+            claims.AddDetailsFromClaims(  context, amount, resourcesUrl, enum_ChatTarget.store, memberId);
             // dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.AskPayWithRefund);
@@ -820,7 +820,7 @@ namespace Ydb.Order.Application
 
             log.Debug("记录商户操作");
 
-            claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, memberId);
+            claims.AddDetailsFromClaims(  string.Empty, 0, null, enum_ChatTarget.store, memberId);
             //dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.RejectRefund);
@@ -856,7 +856,7 @@ namespace Ydb.Order.Application
             order.ApplyPay(enum_PayTarget.Compensation, repoPayment, repoClaims);
 
             log.Debug("记录用户操作");
-            claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.user, memberId);
+            claims.AddDetailsFromClaims(  string.Empty, 0, null, enum_ChatTarget.user, memberId);
             //dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.WaitingPayWithRefund);
