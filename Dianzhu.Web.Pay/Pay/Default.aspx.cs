@@ -4,11 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
- 
+
 using Ydb.Common;
 using Ydb.PayGateway;
 using Ydb.Order.DomainModel;
 using Ydb.Order.Application;
+using Ydb.PayGateway.DomainModel.Pay;
 
 /// <summary>
 /// 

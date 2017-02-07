@@ -60,7 +60,7 @@ namespace Ydb.BusinessResource.Infrastructure
         }
         private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Classes.FromThisAssembly().InSameNamespaceAs<IBusinessService>()
+            container.Register(Classes.FromThisAssembly().InSameNamespaceAs<BusinessService>()
                               .WithService.DefaultInterfaces()
               );
             //container.Register(Component.For<IBusinessService>().ImplementedBy< BusinessService>());

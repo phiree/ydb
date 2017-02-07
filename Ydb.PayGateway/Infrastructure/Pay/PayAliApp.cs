@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
- 
+
 using System.Collections.Specialized;
 using System.Security.Cryptography;
 using System.IO;
 using Newtonsoft.Json;
 using System.Web;
+using Ydb.PayGateway.DomainModel.Pay;
 
 namespace Ydb.PayGateway
 {

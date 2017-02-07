@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
- 
+
 using PHSuit;
 using Newtonsoft.Json;
 using Ydb.Common.Specification;
@@ -14,6 +14,8 @@ using Ydb.Order.DomainModel;
 using Ydb.PayGateway;
 using Ydb.PayGateway.Application;
 using Ydb.PayGateway.DomainModel;
+using Ydb.PayGateway.DomainModel.Pay;
+
 namespace Dianzhu.ApplicationService.Pay
 {
     public class PayService:IPayService

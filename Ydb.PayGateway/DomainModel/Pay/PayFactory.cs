@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Ydb.Common;
 using Ydb.PayGateway;
 
-namespace Ydb.PayGateway
+namespace Ydb.PayGateway.DomainModel.Pay
 { 
-   public class PayFactory
+   public class PayFactory  
     {
         /// <summary>
         ///  
@@ -18,7 +18,7 @@ namespace Ydb.PayGateway
         /// <param name="subject"></param>
         /// <param name="payTarget"></param>
         /// <returns></returns>
-        public static IPayRequest CreatePayAPI(enum_PayAPI payApi,decimal amount,string paymentId,string subject)
+        public static  IPayRequest CreatePayAPI(enum_PayAPI payApi,decimal amount,string paymentId,string subject)
         {
             
             

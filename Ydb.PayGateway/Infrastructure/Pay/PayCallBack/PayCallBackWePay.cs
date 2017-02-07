@@ -8,6 +8,8 @@ using System.Security.Cryptography;
 using System.IO;
 using Newtonsoft.Json;
 using Ydb.Common.Infrastructure;
+using Ydb.PayGateway.DomainModel.Pay;
+
 namespace Ydb.PayGateway
 {
     #region WePay

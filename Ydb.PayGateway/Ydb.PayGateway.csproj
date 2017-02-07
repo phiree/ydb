@@ -30,6 +30,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\Dianzhu.Web.PushServer\Bin\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\Dianzhu.Web.PushServer\Bin\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HibernatingRhinos.Profiler.Appender, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernateProfiler.Appender.3.0.3105.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -37,7 +55,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\Dianzhu.Web.Notify\Bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.0.0.4000\lib\net40\NHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -55,40 +78,49 @@
     <Compile Include="DomainModel\IRepositoryPaymentLog.cs" />
     <Compile Include="DomainModel\IRepositoryRefundLog.cs" />
     <Compile Include="DomainModel\PaymentLog.cs" />
+    <Compile Include="DomainModel\Pay\IPayFactory.cs" />
     <Compile Include="DomainModel\RefundLog.cs" />
-    <Compile Include="Pay\IPay.cs" />
-    <Compile Include="Pay\PayAliApp.cs" />
-    <Compile Include="Pay\PayAliWeb.cs" />
-    <Compile Include="Pay\PayBatch.cs" />
-    <Compile Include="Pay\PayCallBack\CallBackRequest.cs" />
-    <Compile Include="Pay\PayCallBack\GetAliRequestGet.cs" />
-    <Compile Include="Pay\PayCallBack\IPayCallBack.cs" />
-    <Compile Include="Pay\PayCallBack\PayCallBackAli.cs" />
-    <Compile Include="Pay\PayCallBack\PayCallBackAliBatch.cs" />
-    <Compile Include="Pay\PayCallBack\PayCallBackFactory.cs" />
-    <Compile Include="Pay\PayCallBack\PayCallBackWePay.cs" />
-    <Compile Include="Pay\PayFactory.cs" />
-    <Compile Include="Pay\PayWePay.cs" />
-    <Compile Include="Refund\IRefund.cs" />
+    <Compile Include="DomainModel\Pay\IPay.cs" />
+    <Compile Include="Infrastructure\Nhibernate\Mapping\PaymentLogMap.cs" />
+    <Compile Include="Infrastructure\Nhibernate\Mapping\RefundLogMap.cs" />
+    <Compile Include="Infrastructure\Nhibernate\Repository\DALPaymentLog.cs" />
+    <Compile Include="Infrastructure\Nhibernate\Repository\DALRefundLog.cs" />
+    <Compile Include="Infrastructure\Pay\PayAliApp.cs" />
+    <Compile Include="Infrastructure\Pay\PayAliWeb.cs" />
+    <Compile Include="Infrastructure\Pay\PayBatch.cs" />
+    <Compile Include="Infrastructure\Pay\PayCallBack\CallBackRequest.cs" />
+    <Compile Include="Infrastructure\Pay\PayCallBack\GetAliRequestGet.cs" />
+    <Compile Include="DomainModel\Pay\IPayCallBack.cs" />
+    <Compile Include="Infrastructure\Pay\PayCallBack\PayCallBackAli.cs" />
+    <Compile Include="Infrastructure\Pay\PayCallBack\PayCallBackAliBatch.cs" />
+    <Compile Include="DomainModel\Pay\PayCallBackFactory.cs" />
+    <Compile Include="Infrastructure\Pay\PayCallBack\PayCallBackWePay.cs" />
+    <Compile Include="DomainModel\Pay\PayFactory.cs" />
+    <Compile Include="Infrastructure\Pay\PayWePay.cs" />
+    <Compile Include="DomainModel\Refund\IRefund.cs" />
+    <Compile Include="Infrastructure\Nhibernate\UnitOfWork\NHibernateUnitOfWork.cs" />
+    <Compile Include="Infrastructure\Nhibernate\UnitOfWork\NHRepository.cs" />
+    <Compile Include="Infrastructure\Nhibernate\UnitOfWork\NhUnitOfWorkInterceptor.cs" />
+    <Compile Include="InstallerPayGateway.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Refund\RefundCallBack\IRefundCallBack.cs" />
-    <Compile Include="Refund\IRefundFactory.cs" />
-    <Compile Include="Refund\RefundAlipayApp.cs" />
-    <Compile Include="Refund\RefundCallBack\RefundCallBackAli.cs" />
-    <Compile Include="Refund\RefundCallBack\RefundCallbackFactory.cs" />
-    <Compile Include="Refund\RefundFactory.cs" />
-    <Compile Include="Refund\RefundReturnAliApp.cs" />
-    <Compile Include="Refund\RefundReturnWeChat.cs" />
-    <Compile Include="Refund\RefundWePay.cs" />
-    <Compile Include="SDK\AliPay\AlipayConfig.cs" />
-    <Compile Include="SDK\AliPay\AlipayCore.cs" />
-    <Compile Include="SDK\AliPay\AlipayNotify.cs" />
-    <Compile Include="SDK\AliPay\AlipaySignature.cs" />
-    <Compile Include="SDK\AliPay\AlipaySubmit.cs" />
-    <Compile Include="SDK\AliPay\AopException.cs" />
-    <Compile Include="SDK\AliPay\RSA.cs" />
-    <Compile Include="SDK\AliPay\RSACryptoServiceProviderExtension.cs" />
-    <Compile Include="SDK\WePay\WePayConfig.cs" />
+    <Compile Include="DomainModel\Refund\IRefundCallBack.cs" />
+    <Compile Include="DomainModel\Refund\IRefundFactory.cs" />
+    <Compile Include="Infrastructure\Refund\RefundAlipayApp.cs" />
+    <Compile Include="Infrastructure\Refund\RefundCallBack\RefundCallBackAli.cs" />
+    <Compile Include="DomainModel\Refund\RefundCallbackFactory.cs" />
+    <Compile Include="DomainModel\Refund\RefundFactory.cs" />
+    <Compile Include="Infrastructure\Refund\RefundReturnAliApp.cs" />
+    <Compile Include="Infrastructure\Refund\RefundReturnWeChat.cs" />
+    <Compile Include="Infrastructure\Refund\RefundWePay.cs" />
+    <Compile Include="Infrastructure\SDK\AliPay\AlipayConfig.cs" />
+    <Compile Include="Infrastructure\SDK\AliPay\AlipayCore.cs" />
+    <Compile Include="Infrastructure\SDK\AliPay\AlipayNotify.cs" />
+    <Compile Include="Infrastructure\SDK\AliPay\AlipaySignature.cs" />
+    <Compile Include="Infrastructure\SDK\AliPay\AlipaySubmit.cs" />
+    <Compile Include="Infrastructure\SDK\AliPay\AopException.cs" />
+    <Compile Include="Infrastructure\SDK\AliPay\RSA.cs" />
+    <Compile Include="Infrastructure\SDK\AliPay\RSACryptoServiceProviderExtension.cs" />
+    <Compile Include="Infrastructure\SDK\WePay\WePayConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.Common;
 
-namespace Ydb.PayGateway
+namespace Ydb.PayGateway.DomainModel.Pay
 {
    public  class PayCallBackFactory
     {

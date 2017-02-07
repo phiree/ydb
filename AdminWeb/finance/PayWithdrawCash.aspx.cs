@@ -8,6 +8,7 @@ using Ydb.Finance.Application;
 using Ydb.PayGateway.Application;
 using Ydb.PayGateway;
 using Dianzhu.BLL;
+using Ydb.PayGateway.DomainModel.Pay;
 
 public partial class finance_PayWithdrawCash : BasePage
 {

@@ -17,6 +17,7 @@ using Ydb.Order.Application;
 using Ydb.Common;
 using Ydb.PayGateway;
 using System.Web.Script.Serialization;
+using Ydb.PayGateway.DomainModel.Pay;
 /// <summary>
 /// 支付结果回调 和 退款结果回调 接口参数一样.
 /// </summary>

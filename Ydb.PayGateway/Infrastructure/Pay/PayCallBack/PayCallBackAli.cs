@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.IO;
 using Newtonsoft.Json;
 using System.Web;
+using Ydb.PayGateway.DomainModel.Pay;
 
 namespace Ydb.PayGateway
 {

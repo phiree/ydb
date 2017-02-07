@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
- 
+
 
 using System.IO;
 using System.Net;
@@ -14,6 +14,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Ydb.PayGateway.Application;
 using Ydb.PayGateway;
+using Ydb.PayGateway.DomainModel.Pay;
+
 public partial class Pay_BatchTest : Dianzhu.Web.Common.BasePage
 {  //Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder iserialno = Bootstrap.Container.Resolve<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>();
     Ydb.Common.Infrastructure.ISerialNoBuilder iserialno = Bootstrap.Container.Resolve<Ydb.Common.Infrastructure.ISerialNoBuilder>();

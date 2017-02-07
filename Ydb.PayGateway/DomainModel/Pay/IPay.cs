@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 /// <summary>
 /// 第三方支付接口
 /// </summary>
-namespace Ydb.PayGateway
+namespace Ydb.PayGateway.DomainModel.Pay
 {
     /// <summary>
     /// 创建支付链接
