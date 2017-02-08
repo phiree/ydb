@@ -53,7 +53,27 @@ namespace Ydb.Order.DomainModel
                    //    OpenTimeForDaySnapShot,
                    unitAmount, targetCustomerName, targetCustomerPhone, targetAddress, targetTime, memo);
             Details.Add(detail);
-            BusinessId = serviceSnapShot.BusinessId;
+
+
+
+
+            //更新 需要根据detail计算的值
+            UpdateDescription();
+            UpdateOrderAmount();
+            UpdateServiceBusinessName();
+            UpdateServiceBusinessOwnerId();
+            UpdateServiceBusinessPhone();
+            UpdateServiceId();
+            UpdateServiceOvertimeForCancel();
+            UpdateServiceTypeName();
+            UpdateTargetAddress();
+            UpdateTargetCustomerName();
+            UpdateTargetCustomerPhone();
+            UpdateTargetMemo();
+            UpdateTargetTime();
+            UpdateTitle();
+            UpdateUnitAmount();
+            UpdateBusinessId();
 
 
         }
@@ -189,50 +209,49 @@ namespace Ydb.Order.DomainModel
         /// </summary>
         public virtual string BusinessId
         {
-            get
-            {
-                return businessId;
-                //if (Details.Count == 0)
-                //{ return null; }
-                // ;
-                //string errMsg;
-                //var businessesInOrder=    Details.Select(x => x.OriginalService.Business).ToList();
-                //int count = businessesInOrder.Count;
-                //if (count == 1)
-                //{
-                //    return businessesInOrder[0];
-                //}
-                //else {
-                //    if (count > 1)
-                //    {
-                //        errMsg = "订单内有多个商家";
-                //        log.Error(errMsg);
-                //        throw new Exception(errMsg);
-                //    }
-                //    else {
-                //        errMsg = "订单内的服务居然没有";
-                //        log.Error(errMsg);
-                //        throw new Exception(errMsg);
-                //    }
-                //}
+            get; protected internal set;
+        }
+        private void UpdateBusinessId()
+        {
+            if (Details.Count == 0)
+            { return; }
 
+            string errMsg;
+            var businessesInOrder = Details.Select(x => x.ServiceSnapShot.BusinessId).ToList();
+            int count = businessesInOrder.Count;
+            if (count == 1)
+            {
+                BusinessId = businessesInOrder[0];
             }
-            protected set { businessId = value; }
+            else if (count > 1)
+            {
+                errMsg = "订单内有多个商家";
+                log.Error(errMsg);
+                throw new Exception(errMsg);
+            }
+            else
+            {
+                errMsg = "订单内的服务快照没有商家Id";
+                log.Error(errMsg);
+                throw new Exception(errMsg);
+            }
+
         }
         /// <summary>
         /// 订单的标题
         /// </summary>
         public virtual string Title
         {
-            get
+            get; protected internal set;
+        }
+        private void UpdateTitle()
+        {
+            string name = string.Empty;
+            foreach (ServiceOrderDetail detail in Details)
             {
-                string name = string.Empty;
-                foreach (ServiceOrderDetail detail in Details)
-                {
-                    name += detail.ServiceSnapShot.Name + ";";
-                }
-                return name.TrimEnd(';');
+                name += detail.ServiceSnapShot.Name + ";";
             }
+            Title = name.TrimEnd(';');
         }
 
 
@@ -241,68 +260,72 @@ namespace Ydb.Order.DomainModel
         /// </summary>
         public virtual string ServiceBusinessName
         {
-            get
+            get; protected internal set;
+        }
+        private void UpdateServiceBusinessName()
+        {
+            string name = string.Empty;
+            foreach (ServiceOrderDetail detail in Details)
             {
-                string name = string.Empty;
-                foreach (ServiceOrderDetail detail in Details)
-                {
-                    name += detail.ServiceSnapShot.BusinessName + ";";
-                }
-                return name.TrimEnd(';');
+                name += detail.ServiceSnapShot.BusinessName + ";";
             }
+            ServiceBusinessName = name.TrimEnd(';');
         }
         /// <summary>
         /// 服务商家电话
         /// </summary>
         public virtual string ServiceBusinessPhone
         {
-            get
+            get; protected internal set;
+        }
+        private void UpdateServiceBusinessPhone()
+        {
+            string phone = string.Empty;
+            foreach (ServiceOrderDetail detail in Details)
             {
-                string name = string.Empty;
-                foreach (ServiceOrderDetail detail in Details)
-                {
-                    name += detail.ServiceSnapShot.BusinessPhone + ";";
-                }
-                return name.TrimEnd(';');
+                phone += detail.ServiceSnapShot.BusinessPhone + ";";
             }
+
+            ServiceBusinessPhone = phone.TrimEnd(';');
         }
         /// <summary>
         /// 服务描述
         /// </summary>
         public virtual string Description
         {
-            get
+            get; protected internal set;
+        }
+        private void UpdateDescription()
+        {
+            string description = string.Empty;
+            foreach (ServiceOrderDetail detain in Details)
             {
-                string description = string.Empty;
-                foreach (ServiceOrderDetail detain in Details)
-                {
-                    description += detain.ServiceSnapShot.Description + ";";
-                }
-                return description.TrimEnd(';');
+                description += detain.ServiceSnapShot.Description + ";";
             }
+            Description = description.TrimEnd(';');
         }
         /// <summary>
         /// 订单关联的服务,可以为空.
         /// </summary>
         public virtual string ServiceId
         {
-            get
+            get; protected internal set;
+        }
+        private void UpdateServiceId()
+        {
+            int i = Details.Count;
+            if (i == 1)
             {
-                int i = Details.Count;
-                if (i == 1)
-                {
-                    return Details[0].OriginalServiceId;
-                }
-                else if (i > 1)
-                {
-                    log.Warn("该订单包含多个服务.返回第一个");
-                    return Details[0].OriginalServiceId;
-                }
-                else
-                {
-                    return null;
-                    throw new Exception("该订单内没有服务项");
-                }
+                ServiceId = Details[0].OriginalServiceId;
+            }
+            else if (i > 1)
+            {
+                log.Warn("该订单包含多个服务.返回第一个");
+                ServiceId = Details[0].OriginalServiceId;
+            }
+            else
+            {
+                throw new Exception("该订单内没有服务项");
             }
         }
 
@@ -353,50 +376,56 @@ namespace Ydb.Order.DomainModel
         /// </summary>
         public virtual string TargetCustomerName
         {
-            get
-            {
-                return string.Join(Environment.NewLine, Details.Select(o => o.TargetCustomerName));
-            }
+            get; protected internal set;
         }
+        private void UpdateTargetCustomerName()
+        {
+            TargetCustomerName = string.Join(Environment.NewLine, Details.Select(o => o.TargetCustomerName));
+        }
+
         /// <summary>
         /// 目标用户名称
         /// </summary>
         public virtual string TargetCustomerPhone
         {
-            get
-            {
-                return string.Join(Environment.NewLine, Details.Select(o => o.TargetCustomerPhone));
-            }
+            get; protected internal set;
+        }
+        private void UpdateTargetCustomerPhone()
+        {
+            TargetCustomerPhone = string.Join(Environment.NewLine, Details.Select(o => o.TargetCustomerPhone));
         }
         /// <summary>
         /// 服务的目标地址
         /// </summary>
         public virtual string TargetAddress
         {
-            get
-            {
-                return string.Join(Environment.NewLine, Details.Select(o => o.TargetAddress));
-            }
+            get; protected internal set;
+        }
+        private void UpdateTargetAddress()
+        {
+            TargetAddress = string.Join(Environment.NewLine, Details.Select(o => o.TargetAddress));
         }
         /// <summary>
         /// 用户备注
         /// </summary>
         public virtual string TargetMemo
         {
-            get
-            {
-                return string.Join(Environment.NewLine, Details.Select(o => o.Memo));
-            }
+            get; protected internal set;
+        }
+        private void UpdateTargetMemo()
+        {
+            TargetMemo = string.Join(Environment.NewLine, Details.Select(o => o.Memo));
         }
         /// <summary>
         /// 用户预定的服务时间
         /// </summary>
         public virtual string TargetTime
         {
-            get
-            {
-                return string.Join(Environment.NewLine, Details.Select(o => o.TargetTime));
-            }
+            get; protected internal set;
+        }
+        private void UpdateTargetTime()
+        {
+            TargetTime = string.Join(Environment.NewLine, Details.Select(o => o.TargetTime));
         }
         /// <summary>
         /// 分配的职员
@@ -427,35 +456,37 @@ namespace Ydb.Order.DomainModel
         }
         /// <summary>
         /// 服务总数, 用来计算总价 service.unitprice*unitamount
+        /// //
         /// </summary>
         public virtual int UnitAmount
         {
-            get
+            get; protected internal set;
+        }
+        private void UpdateUnitAmount()
+        {
+            int unitAmount = 0;
+            foreach (ServiceOrderDetail detail in Details)
             {
-                int unitAmount = 0;
-                foreach (ServiceOrderDetail detail in Details)
-                {
-                    unitAmount += detail.UnitAmount;
-                }
-                return unitAmount;
+                unitAmount += detail.UnitAmount;
             }
+            UnitAmount = unitAmount;
         }
         /// <summary>
         ///根据订单价格和订购数量计算的预期总价. 可能会被修改
         /// </summary>
         public virtual decimal OrderAmount
         {
-            get
-            {
-                decimal amount = 0;
-                foreach (ServiceOrderDetail detail in Details)
-                {
-                    amount += detail.ServiceAmount;
-                }
-                return amount;
-            }
+            get; protected internal set;
         }
-
+        private void UpdateOrderAmount()
+        {
+            decimal amount = 0;
+            foreach (ServiceOrderDetail detail in Details)
+            {
+                amount += detail.ServiceAmount;
+            }
+            OrderAmount = amount;
+        }
         /// <summary>
         /// 订金
         /// </summary>
@@ -486,10 +517,14 @@ namespace Ydb.Order.DomainModel
         /// </summary>
         public virtual int ServiceOvertimeForCancel
         {
-            get
+            get; protected internal set;
+        }
+        private void UpdateServiceOvertimeForCancel()
+        {
+            if (Details.Count == 0) ServiceOvertimeForCancel = 0;
+            else
             {
-                if (Details.Count == 0) return 0;
-                return Details.Min(x => x.ServiceSnapShot.OverTimeForCancel);
+                ServiceOvertimeForCancel = Details.Min(x => x.ServiceSnapShot.OverTimeForCancel);
             }
         }
 
@@ -536,29 +571,31 @@ namespace Ydb.Order.DomainModel
         public virtual string ServiceTypeName
         {
 
-            get
+            get; protected internal set;
+        }
+        private void UpdateServiceTypeName()
+        {
+            string name = string.Empty;
+            foreach (ServiceOrderDetail detail in Details)
             {
-                string name = string.Empty;
-                foreach (ServiceOrderDetail detail in Details)
-                {
-                    name += detail.ServiceSnapShot.ServiceTypeName + ";";
-                }
-                return name.TrimEnd(';');
+                name += detail.ServiceSnapShot.ServiceTypeName + ";";
             }
+            ServiceTypeName = name.TrimEnd(';');
         }
         public virtual string ServiceBusinessOwnerId
         {
-            get
+            get; protected internal set;
+        }
+        private void UpdateServiceBusinessOwnerId()
+        {
+            string name = string.Empty;
+            //todo:refactor 需要进一步处理
+            if (Details.Count > 1) { log.Error("订单服务数量大于1"); throw new Exception("订单服务数量大于1"); }
+            foreach (ServiceOrderDetail detail in Details)
             {
-                string name = string.Empty;
-                //todo:refactor 需要进一步处理
-                if (Details.Count > 1) { log.Error("订单服务数量大于1"); throw new Exception("订单服务数量大于1"); }
-                foreach (ServiceOrderDetail detail in Details)
-                {
-                    name += detail.ServiceSnapShot.BusinessOwnerId + ";";
-                }
-                return name.TrimEnd(';');
+                name += detail.ServiceSnapShot.BusinessOwnerId + ";";
             }
+            ServiceBusinessOwnerId = name.TrimEnd(';');
         }
 
         /// <summary>
@@ -701,7 +738,7 @@ namespace Ydb.Order.DomainModel
 
 
         public virtual void Confirm_Order(IRepositoryServiceOrderPushedService repoPushedService, string serviceId,
-             
+
           IRepositoryPayment repoPayment, IRepositoryClaims repoClaims)
         {
             IList<ServiceOrderPushedService> l = repoPushedService.FindByOrder(this);
@@ -716,7 +753,7 @@ namespace Ydb.Order.DomainModel
                 {
                     throw new Exception("该服务不是该订单的推送服务！");
                 }
-                
+
 
                 //todo:  需要用Automapper
 
