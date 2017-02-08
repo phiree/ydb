@@ -60,11 +60,27 @@ namespace Ydb.Membership.DomainModel
         public virtual string Phone { get; set; }
         public virtual string NickName { get; set; }
         public virtual string Address { get; set; }
+        /// <summary>
+        /// 真实姓名
+        /// </summary>
+        public virtual string RealName { get; set; }
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public virtual bool Sex { get; set; }
+        /// <summary>
+        /// 身份证号
+        /// </summary>
+        public virtual string PersonalID { get; set; }
 
         /// <summary>
         /// 注册平台
         /// </summary>
         public virtual LoginType LoginType { get; set; }
+        /// <summary>
+        /// 区域
+        /// </summary>
+        public virtual Area Area { get; set; }
 
         /// <summary>
         /// 注册验证码(邮箱验证链接,手机验证码)

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Ydb.BusinessResource.Application;
-using Ydb.BusinessResource.DomainModel;
+using Ydb.Common.Application;
+using Ydb.Common.Domain;
 using Ydb.Common.Specification;
 
 namespace Dianzhu.ApplicationService.City

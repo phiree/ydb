@@ -10,6 +10,7 @@ using Ydb.BusinessResource.DomainModel;
 using Ydb.BusinessResource.Application;
 using Dianzhu.Model;
 using Ydb.Common;
+using Ydb.Common.Domain;
 
 namespace Dianzhu.ApplicationService.Mapping
 {

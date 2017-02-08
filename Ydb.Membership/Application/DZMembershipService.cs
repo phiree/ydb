@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Ydb.Common.Specification;
 using Ydb.Common.Repository;
 using Ydb.Membership.DomainModel.Service;
+using Ydb.Common.Domain;
 
 namespace Ydb.Membership.Application
 {
@@ -268,7 +269,7 @@ namespace Ydb.Membership.Application
 
 
         [UnitOfWork]
-        public ActionResult ChangeUserCity(Guid memberId, string cityCode,string longitude, string latitude)
+        public ActionResult ChangeUserCity(Guid memberId, string cityCode,string longitude, string latitude,Area area)
         {
             ActionResult result = new ActionResult();
             DZMembership member = repositoryMembership.GetMemberById(memberId);
@@ -293,6 +294,10 @@ namespace Ydb.Membership.Application
             if (!string.IsNullOrEmpty(latitude))
             {
                 member.Latitude = latitude;
+            }
+            if (area != null)
+            {
+                member.Area = area;
             }
             repositoryMembership.Update(member);
             return result;

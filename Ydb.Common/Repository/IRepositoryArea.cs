@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ydb.Common.Repository;
-namespace Ydb.BusinessResource.DomainModel
+namespace Ydb.Common.Repository
 {
-  public  interface IRepositoryArea:IRepository<Area,int>
+  public  interface IRepositoryArea:IRepository<Domain.Area,int>
     {
     }
 }

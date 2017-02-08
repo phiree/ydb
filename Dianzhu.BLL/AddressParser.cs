@@ -5,8 +5,9 @@ using System.Text;
 using Dianzhu.DAL;
 using Dianzhu.Model;
 using Newtonsoft.Json;
-using Ydb.BusinessResource.Application;
-using BD=Ydb.BusinessResource.DomainModel;
+
+using Ydb.Common.Application;
+using BD=Ydb.Common.Domain;
 namespace Dianzhu.BLL
 {
     public class AddressParser

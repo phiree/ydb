@@ -47,9 +47,7 @@ namespace Ydb.BusinessResource.Infrastructure
             container.Register(Component.For<IRepositoryDZService>().ImplementedBy<RepositoryDZService>() );
             container.Register(Component.For<IRepositoryServiceOpenTimeForDay>().ImplementedBy<RepositoryServiceOpenTimeForDay>());
             container.Register(Component.For<IRepositoryDZTag>().ImplementedBy<RepositoryDZTag>());
-
-            container.Register(Component.For<IRepositoryArea>().ImplementedBy<RepositoryArea>());
-
+            
             container.Register(Component.For<IRepositoryBusinessImage>().ImplementedBy<RepositoryBusinessImage>());
             container.Register(Component.For<IRepositoryServiceOpenTime>().ImplementedBy<RepositoryServiceOpenTime>());
             container.Register(Component.For<IRepositoryServiceType>().ImplementedBy<RepositoryServiceType>());
@@ -61,7 +59,6 @@ namespace Ydb.BusinessResource.Infrastructure
             container.Register(Component.For<IBusinessService>().ImplementedBy< BusinessService>());
             container.Register(Component.For<IDZServiceService>().ImplementedBy<DZServiceService>());
             container.Register(Component.For<IServiceTypeService>().ImplementedBy<ServiceTypeService>());
-            container.Register(Component.For<IAreaService>().ImplementedBy<AreaService>());
             container.Register(Component.For<IDZTagService>().ImplementedBy<DZTagService>());
             container.Register(Component.For<IBusinessImageService>().ImplementedBy<BusinessImageService>());
             container.Register(Component.For<IStaffService>().ImplementedBy<StaffService>());
@@ -124,7 +121,7 @@ namespace Ydb.BusinessResource.Infrastructure
         private void InstallDb(IWindsorContainer container, IConfigurationStore store)
         {
             var _sessionFactory = dbConfigBusinessResource
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping.AreaMap>())
+                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping.BusinessMap>())
                     .ExposeConfiguration(BuildSchema)
                     .BuildSessionFactory();
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();

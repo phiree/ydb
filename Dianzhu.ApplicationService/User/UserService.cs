@@ -17,6 +17,7 @@ using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.Common.Application;
 using Ydb.Common;
+using Ydb.Common.Domain;
 
 namespace Dianzhu.ApplicationService.User
 {
@@ -26,11 +27,13 @@ namespace Dianzhu.ApplicationService.User
         IDZMembershipService memberService;
         IReceptionService receptionService;
         IBLLServiceOrder bllServiceOrder;
-        public UserService(IDZMembershipService memberService,  IReceptionService receptionService, IBLLServiceOrder bllServiceOrder)
+        IAreaService areaService;
+        public UserService(IDZMembershipService memberService,  IReceptionService receptionService, IBLLServiceOrder bllServiceOrder, IAreaService areaService)
         {
             this.memberService = memberService;
             this.receptionService = receptionService;
             this.bllServiceOrder = bllServiceOrder;
+            this.areaService = areaService;
         }
 
         /// <summary>
@@ -341,6 +344,12 @@ namespace Dianzhu.ApplicationService.User
         public object PatchCurrentGeolocation(string userID, common_Trait_LocationFiltering cityCode, Customer customer)
         {
             Guid guidUser = utils.CheckGuidID(userID, "userID");
+            Area area=null;
+            if (!string.IsNullOrEmpty(cityCode.longitude) && !string.IsNullOrEmpty(cityCode.latitude))
+            {
+                RespGeo geoObj = utils.Deserialize<RespGeo>(utils.GetCity(cityCode.longitude, cityCode.latitude));
+                area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city);
+            }
             ActionResult actionResult = memberService.ChangeUserCity(guidUser, cityCode.code, cityCode.longitude, cityCode.latitude);
             if (!actionResult.IsSuccess)
             {

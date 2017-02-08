@@ -4,10 +4,7 @@ using System.Linq;
 using System.Text;
 using FluentNHibernate.Mapping;
 using Ydb.BusinessResource.DomainModel;
-using Ydb.BusinessResource.DomainModel;
-
-using Ydb.BusinessResource.DomainModel;
-using Ydb.BusinessResource.DomainModel;
+using Ydb.Common.Domain;
 using Ydb.Common;
 
 namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping

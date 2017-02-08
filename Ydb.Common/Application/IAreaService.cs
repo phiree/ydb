@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Ydb.BusinessResource.DomainModel;
+using Ydb.Common.Domain;
 using Ydb.Common.Specification;
 
-namespace Ydb.BusinessResource.Application
+namespace Ydb.Common.Application
 {
     public interface IAreaService
     {

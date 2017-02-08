@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Linq;
 using System.Text;
-using Ydb.BusinessResource.DomainModel;
-namespace Ydb.BusinessResource.Application
+using Ydb.Common.Repository;
+using Ydb.Common.Domain;
+namespace Ydb.Common.Application
 {
     public class AreaService : IAreaService
     {

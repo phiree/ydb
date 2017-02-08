@@ -1,7 +1,6 @@
 ﻿using System;
-using Ydb.Common.Domain;
 
-namespace Ydb.BusinessResource.DomainModel
+namespace Ydb.Common.Domain
 {
     public class Area:Entity<int>
     {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Specification;
 using Ydb.Common.Application;
+using Ydb.Common.Domain;
 namespace Ydb.BusinessResource.Application
 {
    public interface  IBusinessService

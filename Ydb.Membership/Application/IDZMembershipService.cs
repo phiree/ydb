@@ -8,6 +8,7 @@ using Ydb.Membership.DomainModel.Enums;
 using Ydb.Common.Application;
 using Ydb.Common.Specification;
 using Ydb.Membership.Application.Dto;
+using Ydb.Common.Domain;
 
 namespace Ydb.Membership.Application
 {
@@ -80,7 +81,7 @@ namespace Ydb.Membership.Application
 
         ActionResult RecoveryPasswordByPhone(string phone, string newPassword);
 
-         ActionResult ChangeUserCity(Guid memberId, string cityCode, string longitude, string latitude);
+         ActionResult ChangeUserCity(Guid memberId, string cityCode, string longitude, string latitude, Area area);
 
 
         ActionResult RecoveryPassword( string recoveryString, string newPassword);

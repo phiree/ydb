@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using System.Web.UI.HtmlControls;
 using Ydb.Common;
+using Ydb.Common.Domain;
 using System.IO;
 using Dianzhu.IDAL;
 using Ydb.BusinessResource.Application;

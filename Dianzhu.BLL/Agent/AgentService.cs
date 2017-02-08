@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.Membership.Application.Dto;
-using Ydb.BusinessResource.DomainModel;
+using Ydb.Common.Domain;
 namespace Dianzhu.BLL.Agent
 {
     public class AgentService : IAgentService

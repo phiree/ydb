@@ -6,8 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
 using System.IO;
-using Ydb.BusinessResource.Application;
-using Ydb.BusinessResource.DomainModel;
+using Ydb.Common.Application;
+using Ydb.Common.Domain;
 
 public partial class area_MapBaidu : BasePage
 {

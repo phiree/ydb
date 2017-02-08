@@ -9,6 +9,8 @@ using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using Castle.Core;
 using Ydb.Common.Repository;
+using Ydb.Common.Application;
+using Ydb.Infrastructure.Repository;
 
 
 namespace Ydb.Infrastructure
@@ -20,11 +22,24 @@ namespace Ydb.Infrastructure
         {
             this.dbConfigCommon = dbConfigCommon;
         }
+
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             InstallDb(container, store);
             InstallUnifOfWork(container, store);
             container.Register(Component.For<ISerialNoBuilder>().ImplementedBy<SerialNoBuilder>());
+        }
+
+        private void InstallApplication(IWindsorContainer container, IConfigurationStore store)
+        {
+
+            container.Register(Component.For<IAreaService>().ImplementedBy<AreaService>());
+        }
+
+        private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
+        {
+
+            container.Register(Component.For<IRepositoryArea>().ImplementedBy<RepositoryArea>());
         }
 
         private void InstallUnifOfWork(IWindsorContainer container, IConfigurationStore store)

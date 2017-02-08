@@ -9,6 +9,7 @@ using System.Linq;
 using Ydb.Common.Specification;
  
 using Ydb.Common.Repository;
+using Ydb.Common.Domain;
 using Ydb.BusinessResource.DomainModel;
  
 namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate

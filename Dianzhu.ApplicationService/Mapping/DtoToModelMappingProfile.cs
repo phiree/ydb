@@ -10,6 +10,7 @@ using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.Membership.Application.Dto;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common;
+using Ydb.Common.Domain;
 namespace Dianzhu.ApplicationService.Mapping
 {
 

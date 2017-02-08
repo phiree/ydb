@@ -23,6 +23,10 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.Address);
             Map(x => x.Email);//.Unique();
             Map(x => x.Phone);//.Unique();
+            Map(x => x.RealName);
+            Map(x => x.Sex);
+            Map(x => x.PersonalID);
+            Map(x => x.Area);
             Map(x => x.IsRegisterValidated);
             Map(x => x.RegisterValidateCode);
             Map(x => x.UserNameForOpenFire);

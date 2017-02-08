@@ -95,9 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\AreaService.cs" />
     <Compile Include="Application\Dto\ServiceOpenTimeDto.cs" />
-    <Compile Include="Application\IAreaService.cs" />
     <Compile Include="Application\IDZServiceService.cs" />
     <Compile Include="Application\IServiceOpenTimeForDayService.cs" />
     <Compile Include="Application\IServiceOpenTimeService.cs" />
@@ -116,12 +114,10 @@
     <Compile Include="Application\IBusinessImageService.cs" />
     <Compile Include="Application\IBusinessService.cs" />
     <Compile Include="Application\IDZTagService.cs" />
-    <Compile Include="DomainModel\Area.cs" />
     <Compile Include="DomainModel\Business\Business.cs" />
     <Compile Include="DomainModel\Business\IRepositoryBusiness.cs" />
     <Compile Include="DomainModel\Business\IRepositoryBusinessImage.cs" />
     <Compile Include="DomainModel\DZTag.cs" />
-    <Compile Include="DomainModel\IRepositoryArea.cs" />
     <Compile Include="DomainModel\PhoneValidator.cs" />
     <Compile Include="DomainModel\Service\DZService.cs" />
     <Compile Include="DomainModel\IRepositoryDZTag.cs" />
@@ -149,9 +145,7 @@
     <Compile Include="Infrastructure\Repository\RepositoryStaff.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryBusinessImage.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryDZService.cs" />
-    <Compile Include="Infrastructure\Repository\RepositoryArea.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryDZTag.cs" />
-    <Compile Include="Infrastructure\Repository\Nhibernate\Mapping\AreaMap.cs" />
     <Compile Include="Infrastructure\Repository\Nhibernate\Mapping\BusinessMap.cs" />
     <Compile Include="Infrastructure\Repository\Nhibernate\Mapping\DZServiceMap.cs" />
     <Compile Include="Infrastructure\Repository\Nhibernate\Mapping\DZTagMap.cs" />

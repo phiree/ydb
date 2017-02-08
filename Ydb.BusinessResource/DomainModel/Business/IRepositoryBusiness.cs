@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.Common.Repository;
+using Ydb.Common.Domain;
 namespace Ydb.BusinessResource.DomainModel
 {
    public  interface IRepositoryBusiness:IRepository<Business,Guid>

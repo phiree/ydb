@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ydb.Common.Domain;
 
 namespace Ydb.Membership.Application.Dto
 {
@@ -18,6 +19,10 @@ namespace Ydb.Membership.Application.Dto
         public virtual string Phone { get; set; }
         public virtual string NickName { get; set; }
         public virtual string Address { get; set; }
+        public virtual string RealName { get; set; }
+        public virtual bool Sex { get; set; }
+        public virtual string PersonalID { get; set; }
+        public virtual Area Area { get; set; }
         public virtual bool IsRegisterValidated { get; set; }
         public virtual string RegisterValidateCode { get; set; }
         public virtual string UserType { get; set; }        
