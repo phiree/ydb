@@ -331,6 +331,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.LogManage", "Ydb.LogMan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.LogManageTests", "Ydb.LogManageTests\Ydb.LogManageTests.csproj", "{2684AE2D-5FEE-406E-AFEC-62BB5EB974F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminAgent", "AdminAgent\AdminAgent.csproj", "{35A39010-0B80-46E7-AE33-D9FC1B27AF46}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1407,6 +1409,24 @@ Global
 		{2684AE2D-5FEE-406E-AFEC-62BB5EB974F7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2684AE2D-5FEE-406E-AFEC-62BB5EB974F7}.Release|x86.ActiveCfg = Release|Any CPU
 		{2684AE2D-5FEE-406E-AFEC-62BB5EB974F7}.Release|x86.Build.0 = Release|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.Debug|x86.Build.0 = Debug|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.dev|Any CPU.ActiveCfg = Debug|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.dev|Any CPU.Build.0 = Debug|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.dev|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.dev|Mixed Platforms.Build.0 = Debug|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.dev|x86.ActiveCfg = Debug|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.dev|x86.Build.0 = Debug|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.Release|x86.ActiveCfg = Release|Any CPU
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1464,6 +1484,7 @@ Global
 		{E9218BB6-ED15-464E-8C96-AD5883396B08} = {28666F1F-07A5-45FB-A9EF-D9E7BDB50565}
 		{2955FF18-C6C2-418C-BC99-A68E20EC0D61} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{59D8ECF9-2867-43FD-BF18-EFE2758CF14F} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
+		{35A39010-0B80-46E7-AE33-D9FC1B27AF46} = {08857DD3-886C-44A6-9465-2675F368F40F}
 	EndGlobalSection
 	GlobalSection(NDepend) = preSolution
 		Project = ".\dianzhu.ndproj"
