@@ -7,7 +7,7 @@ using Ydb.BusinessResource.DomainModel;
 using NHibernate;
 using NHibernate.Transform;
 
-namespace Ydb.BusinessResource.Infrastructure.Repository
+namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Repository
 {
     public class RepositoryServiceType : NHRepositoryBase<ServiceType, Guid>, IRepositoryServiceType
     {

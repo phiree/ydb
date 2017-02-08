@@ -9,6 +9,8 @@ using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Specification;
 using Ydb.BusinessResource.Infrastructure;
 using Ydb.Common.Application;
+using Ydb.BusinessResource.Infrastructure.YdbNHibernate.UnitOfWork;
+
 namespace Ydb.BusinessResource.Application
 {
    public class BusinessService:IBusinessService

@@ -30,6 +30,8 @@ namespace Ydb.Order.Infrastructure
         }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            //todo: 支撑域的注册应该有不同之处. 可能需要体现在被支撑域中, 如何体现?
+ 
             InstallDb(container, store);
             InstallUnifOfWork(container, store);
             InstallInfrastructure(container, store);

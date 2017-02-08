@@ -9,9 +9,9 @@ using NHibernate.Linq;
 using Ydb.Common.Domain;
 using Ydb.Common.Repository;
 using Ydb.Common.Specification;
+using Ydb.BusinessResource.Infrastructure.YdbNHibernate.UnitOfWork;
 
-
-namespace Ydb.BusinessResource.Infrastructure
+namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Repository
 {
     public class NHRepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
         where TEntity : Entity<TPrimaryKey>

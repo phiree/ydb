@@ -8,6 +8,8 @@ using Ydb.Common.Specification;
 using Ydb.BusinessResource.Infrastructure;
 using Ydb.Common.Application;
 using Ydb.Common.Domain;
+using Ydb.BusinessResource.Infrastructure.YdbNHibernate.UnitOfWork;
+
 namespace Ydb.BusinessResource.Application
 {
     public class DZServiceService : IDZServiceService

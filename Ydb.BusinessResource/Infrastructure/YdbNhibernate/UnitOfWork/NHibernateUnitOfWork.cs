@@ -8,7 +8,7 @@ using NHibernate.Tool.hbm2ddl;
 using Ydb.Common.Repository;
 
 
-namespace Ydb.BusinessResource.Infrastructure
+namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.UnitOfWork
 {
     public class NhUnitOfWork : IUnitOfWork
     {

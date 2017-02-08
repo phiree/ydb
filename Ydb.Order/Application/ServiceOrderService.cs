@@ -36,7 +36,7 @@ namespace Ydb.Order.Application
         IRepositoryServiceOrderPushedService repoPushedService;
 
         IRefundFactory refundFactory;
-
+        
 
         public ServiceOrderService(IRepositoryServiceOrder repoServiceOrder, IRepositoryServiceOrderStateChangeHis repoStateChangeHis,
            IRepositoryRefund repoRefund,   IRepositoryOrderAssignment repoOrderAssignment,

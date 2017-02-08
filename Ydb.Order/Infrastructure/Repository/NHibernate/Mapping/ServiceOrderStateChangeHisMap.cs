@@ -12,7 +12,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate.Mapping
        public ServiceOrderStateChangeHisMap()
        {
             Id(x => x.Id);
-            References<ServiceOrder>(x => x.Order);
+            References<ServiceOrder>(x => x.Order).Not.LazyLoad();
             Map(x => x.OldStatus).CustomType< enum_OrderStatus>();
             Map(x => x.NewStatus).CustomType< enum_OrderStatus>();
             Map(x => x.OrderAmount);

@@ -24,7 +24,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.Memo);
             Map(x => x.OrderStatus).CustomType<enum_OrderStatus>();
             Map (x => x.CustomerServiceId);
-            HasMany<ServiceOrderDetail>(x => x.Details).Cascade.All();
+            HasMany<ServiceOrderDetail>(x => x.Details).Not.LazyLoad(). Cascade.All();
             Map(x => x.BusinessId);
             Map(x => x.NegotiateAmount);
             Map(x => x.NegotiateAmount_Modified);
@@ -33,6 +33,26 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate.Mapping
             //指派的负责人
             Map(x => x.StaffId);
             Map(x => x.IsShared);
+
+            //
+            Map(x => x.Description);
+            Map(x => x.OrderAmount);
+            Map(x => x.ServiceBusinessName);
+            Map(x => x.ServiceBusinessOwnerId);
+            Map(x => x.ServiceBusinessPhone);
+            Map(x => x.ServiceId);
+            Map(x => x.ServiceOvertimeForCancel);
+            Map(x => x.ServiceTypeName);
+            Map(x => x.TargetAddress);
+
+            Map(x => x.TargetCustomerName);
+            Map(x => x.TargetCustomerPhone);
+            Map(x => x.TargetMemo);
+            Map(x => x.TargetTime);
+            Map(x => x.Title);
+            Map(x => x.UnitAmount);
+          
+             
         }
     }
 }

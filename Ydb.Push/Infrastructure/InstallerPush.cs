@@ -1,29 +1,28 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using Castle.Core;
+using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
-using FluentNHibernate.Cfg;
 using Castle.Windsor;
-
-using Ydb.Common.Repository;
-using Castle.Core;
+using FluentNHibernate.Cfg;
 using NHibernate;
-using NHibernate.Tool.hbm2ddl;
 using NHibernate.Cfg;
-using Ydb.PayGateway.DomainModel.Repository;
-using Ydb.PayGateway.Infrastructure;
-using Ydb.PayGateway.Infrastructure.Nhibernate.Repository;
+using NHibernate.Tool.hbm2ddl;
+using Ydb.Common.Repository;
+using Ydb.Push.Infrastructure.NHibernate.UnitOfWork;
 
-namespace Ydb.PayGateway
+namespace Ydb.Push.Infrastructure
 {
-    public class InstallerPayGateway : IWindsorInstaller
+    public class InstallerPush : IWindsorInstaller
     {
-        FluentConfiguration dbConfigPayGateway;
-        const string sessionFactoryName = "PayGatewaySessionFactory";
-        public InstallerPayGateway(FluentConfiguration dbConfigPayGateway)
+        FluentConfiguration dbConfigFinance;
+        string sessionFactoryName = "PushSessionFactory";
+        public InstallerPush(FluentConfiguration dbConfigFinance)
         {
-            this.dbConfigPayGateway =dbConfigPayGateway;//Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap//Dianzhu.DAL.Mapping.AreaMap
+            this.dbConfigFinance = dbConfigFinance;//Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap//Dianzhu.DAL.Mapping.AreaMap
         }
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            //todo: 支撑域的注册应该有不同之处. 可能需要体现在被支撑域中, 如何体现?
+ 
             InstallDb(container, store);
             InstallUnifOfWork(container, store);
             InstallInfrastructure(container, store);
@@ -34,27 +33,37 @@ namespace Ydb.PayGateway
 
         private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Classes.FromThisAssembly().InSameNamespaceAs<RepositoryRefundLog>().WithService.DefaultInterfaces());
-          
+            container.Register(Classes.FromThisAssembly().InSameNamespaceAs<NHibernate.Repository.RepositoryDeviceBind>()
+                               .WithService.DefaultInterfaces()
+               );
+            //container.Register(Component.For<IRepositoryClaims>().ImplementedBy<RepositoryClaims>());
+            //container.Register(Component.For<IRepositoryClaimsDetails>().ImplementedBy<RepositoryClaimsDetails>());
+            //container.Register(Component.For<IRepositoryOrderAssignment>().ImplementedBy<RepositoryOrderAssignment>());
+            //container.Register(Component.For<IRepositoryRefund>().ImplementedBy<RepositoryRefund>());
+            //container.Register(Component.For<IRepositoryPayment>().ImplementedBy<RepositoryPayment>());
+            //container.Register(Component.For<IRepositoryServiceOrder>().ImplementedBy<RepositoryServiceOrder>());
+            //container.Register(Component.For<IRepositoryServiceOrderAppraise>().ImplementedBy<RepositoryServiceOrderAppraise>());
+            //container.Register(Component.For<IRepositoryServiceOrderPushedService>().ImplementedBy<RepositoryServiceOrderPushedService>());
+            //container.Register(Component.For<IRepositoryServiceOrderRemind>().ImplementedBy<RepositoryServiceOrderRemind>());
+            //container.Register(Component.For<IRepositoryServiceOrderStateChangeHis>().ImplementedBy<RepositoryServiceOrderStateChangeHis>());
 
         }
         private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Classes.FromThisAssembly().InSameNamespaceAs<Application.PaymentLogService>()
+            container.Register(Classes.FromThisAssembly().InSameNamespaceAs<Application.DeviceBindService>()
                                .WithService.DefaultInterfaces()
                );
-           
+            //container.Register(Component.For<IBalanceFlowService>().ImplementedBy<BalanceFlowService>());
+
         }
         private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
         {
-             
-          
+            //container.Register(Component.For<ICountServiceFee>().ImplementedBy<CountServiceFee_Alipay>());
         }
        
         private void InstallDomainService(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IRefundFactory>().ImplementedBy<RefundFactory>());
-                
+           
 
         }
         private void InstallUnifOfWork(IWindsorContainer container, IConfigurationStore store)
@@ -97,11 +106,11 @@ namespace Ydb.PayGateway
         private void InstallDb(IWindsorContainer container, IConfigurationStore store)
         {
             var _sessionFactory =
-                    dbConfigPayGateway
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.PayGateway.Infrastructure.Nhibernate.Mapping.RefundLogMap>())
+                    dbConfigFinance
+                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.Push.Infrastructure.NHibernate.Mapping.DeviceBindMap>())
                     .ExposeConfiguration(BuildSchema)
                     .BuildSessionFactory();
-            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+           // HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
             container.Register(Component.For<ISessionFactory>().Instance(_sessionFactory).Named(sessionFactoryName));
         }
         private void BuildSchema(Configuration config)

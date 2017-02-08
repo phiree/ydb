@@ -24,7 +24,7 @@ namespace Ydb.PayGateway.DomainModel.Pay
     /// <summary>
     /// 单一支付请求的回调
     /// </summary>
-    public interface IPayCallBackSingle:IPayCallBack
+    public interface IPayCallBackSingle: IPayCallBack
     {
         string PayCallBack(object callBackParameters, out string businessOrderId, out string platformOrderId, out decimal total_amoun, out string errMsg);
 

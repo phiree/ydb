@@ -14,7 +14,7 @@ namespace Ydb.PayGateway
 {
     #region 支付宝网页
     
-    public class PayCallBackAli : IPayCallBack
+    public class PayCallBackAli : IPayCallBackSingle
     {
 
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Pay.PayCallBackAli");

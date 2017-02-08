@@ -1,7 +1,7 @@
 ﻿using FluentNHibernate.Mapping;
 using Ydb.BusinessResource.DomainModel;
 
-namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping
+namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Mapping
 {
     public class DZServiceMap : ClassMap<DZService>
     {

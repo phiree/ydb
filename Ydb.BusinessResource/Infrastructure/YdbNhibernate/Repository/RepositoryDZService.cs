@@ -14,7 +14,7 @@ using Ydb.BusinessResource.DomainModel;
 using System.Device.Location;
 using Newtonsoft.Json;
 
-namespace Ydb.BusinessResource.Infrastructure.Repository
+namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Repository
 {
     public class RepositoryDZService : NHRepositoryBase<DZService, Guid>, IRepositoryDZService
     {

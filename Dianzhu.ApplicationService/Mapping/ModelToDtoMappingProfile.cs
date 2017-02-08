@@ -204,7 +204,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap< ServiceOrder, orderObj>()
             .ForMember(x => x.createTime, opt => opt.MapFrom(source => source.OrderConfirmTime== DateTime.MinValue ? "" : source.OrderConfirmTime.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.closeTime, opt => opt.MapFrom(source => source.OrderFinished==DateTime.MinValue?"":source.OrderFinished.ToString("yyyyMMddHHmmss")))
-            .ForMember(x => x.serviceTime, opt => opt.MapFrom(source => source.Details==null || source.Details.Count==0? "":source.Details[0].TargetTime == DateTime.MinValue ? "" : source.Details[0].TargetTime.ToString("yyyyMMddHHmmss")))
+            .ForMember(x => x.serviceTime, opt => opt.MapFrom(source => source.TargetTime))
             .ForMember(x => x.startTime, opt => opt.MapFrom(source => source.OrderServerStartTime == DateTime.MinValue ? "" : source.OrderServerStartTime.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.doneTime, opt => opt.MapFrom(source => source.OrderServerFinishedTime == DateTime.MinValue ? "" : source.OrderServerFinishedTime.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.updateTime, opt => opt.MapFrom(source => source.LatestOrderUpdated == DateTime.MinValue ? "" : source.LatestOrderUpdated.ToString("yyyyMMddHHmmss")))

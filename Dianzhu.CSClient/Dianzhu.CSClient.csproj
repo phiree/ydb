@@ -295,6 +295,14 @@
       <Project>{901e2a8a-e608-4477-b9bc-f583d818d87f}</Project>
       <Name>Ydb.Order</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ydb.PayGateway\Ydb.PayGateway.csproj">
+      <Project>{a54365b5-4b06-4897-a280-38d18ed9eb0e}</Project>
+      <Name>Ydb.PayGateway</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Push\Ydb.Push.csproj">
+      <Project>{e0661833-5498-4f1d-94e7-35c39c5bd8b9}</Project>
+      <Name>Ydb.Push</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Repository;
-namespace Ydb.BusinessResource.Infrastructure.Repository
+namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Repository
 {
     public class RepositoryBusinessImage : NHRepositoryBase<BusinessImage, Guid>, IRepositoryBusinessImage
     {

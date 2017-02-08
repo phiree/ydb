@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Mapping;
 using Ydb.BusinessResource.DomainModel;
-using Ydb.BusinessResource.DomainModel;
-
-using Ydb.BusinessResource.DomainModel;
-using Ydb.BusinessResource.DomainModel;
-namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping
+namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Mapping
 {
     public class AreaMap:ClassMap<Area>
     {

@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Ydb.Order.Application;
+using Ydb.Order.Application.Tests;
+using Ydb.OrderTests;
 namespace Ydb.Order.Application.Tests
 {
     [TestFixture()]
@@ -14,7 +16,9 @@ namespace Ydb.Order.Application.Tests
         [Test()]
         public void PushTest()
         {
-            Assert.Fail();
+            IOrderPushService pushService = Bootstrap.Container.Resolve<IOrderPushService>();
+
+            Assert.IsNotNull(pushService);
         }
     }
 }

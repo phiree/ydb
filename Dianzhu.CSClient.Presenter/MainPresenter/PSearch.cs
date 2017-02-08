@@ -31,7 +31,7 @@ namespace Dianzhu.CSClient.Presenter
         IViewIdentityList viewIdentityList;
        IDZServiceService dzService;
         IServiceOrderService bllServiceOrder;
-        OrderPushService bllPushService;
+        IOrderPushService bllPushService;
         IInstantMessage iIM;
        IServiceTypeService typeService;
         IList<VMShelfService> selectedServiceList;
@@ -93,7 +93,7 @@ namespace Dianzhu.CSClient.Presenter
             IViewTypeSelect viewTypeSelect,
             IViewChatList viewChatList, IViewIdentityList viewIdentityList,
            IDZServiceService dalDzService, IServiceOrderService bllServiceOrder, IServiceTypeService dalServiceType,
-                    OrderPushService bllPushService, Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder,
+                    IOrderPushService bllPushService, Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder,
                     LocalChatManager localChatManager, IDZMembershipService memberService, IReceptionService receptionService,
                     IViewTabContentTimer viewTabContentTimer, string identity)
         {

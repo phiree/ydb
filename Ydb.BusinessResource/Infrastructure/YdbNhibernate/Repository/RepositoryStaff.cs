@@ -8,8 +8,8 @@ using Ydb.Common.Specification;
 using Ydb.Common.Repository;
 using Ydb.BusinessResource.DomainModel;
 
-namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate
-{  
+namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Repository
+{
     public class RepositoryStaff : NHRepositoryBase<Staff, Guid>, IRepositoryStaff
     {
        

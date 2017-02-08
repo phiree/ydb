@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
- 
+
 using System.IO;
 using System.Data;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.BusinessResource.Infrastructure;
 using Ydb.Common.Specification;
+using Ydb.BusinessResource.Infrastructure.YdbNHibernate.UnitOfWork;
+
 namespace Ydb.BusinessResource.Application
 {
     public class ServiceTypeService : IServiceTypeService

@@ -11,6 +11,7 @@ using Ydb.Common.Specification;
 using Ydb.Common.Application;
 using Ydb.BusinessResource.Infrastructure;
 using Ydb.Common;
+using Ydb.BusinessResource.Infrastructure.YdbNHibernate.UnitOfWork;
 
 namespace Ydb.BusinessResource.Application
 {

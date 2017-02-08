@@ -7,7 +7,7 @@ using Ydb.BusinessResource.DomainModel;
 
 using NHibernate;
 
-namespace Ydb.BusinessResource.Infrastructure.Repository
+namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Repository
 {
     public class RepositoryDZTag : NHRepositoryBase<DZTag, Guid>, IRepositoryDZTag
     {       

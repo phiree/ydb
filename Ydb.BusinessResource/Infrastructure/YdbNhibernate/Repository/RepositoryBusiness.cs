@@ -10,8 +10,8 @@ using Ydb.Common.Specification;
  
 using Ydb.Common.Repository;
 using Ydb.BusinessResource.DomainModel;
- 
-namespace Ydb.BusinessResource.Infrastructure.Repository
+
+namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Repository
 {
     public class RepositoryBusiness : NHRepositoryBase<Business,Guid>,IRepositoryBusiness
     {

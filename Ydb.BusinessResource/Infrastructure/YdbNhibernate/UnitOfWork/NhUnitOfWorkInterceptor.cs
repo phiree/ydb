@@ -5,7 +5,7 @@ using System.Reflection;
 using Ydb.Common;
 using IInterceptor = Castle.DynamicProxy.IInterceptor;
 using Ydb.Common.Repository;
-namespace Ydb.BusinessResource.Infrastructure
+namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.UnitOfWork
 {
     /// <summary>
     /// Represents a transactional job.

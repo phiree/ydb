@@ -1,25 +1,15 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
-using FluentNHibernate.Cfg.Db;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentNHibernate;
 using FluentNHibernate.Cfg;
-using NHibernate;
-using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using Castle.Windsor;
-using Ydb.BusinessResource.DomainModel;
-using Ydb.BusinessResource.Infrastructure.Repository;
-
-using Ydb.BusinessResource.Infrastructure.Repository.NHibernate;
 
 using Ydb.BusinessResource.Application;
 using Castle.Core;
 using Ydb.Common.Repository;
+using NHibernate;
+using Ydb.BusinessResource.Infrastructure.YdbNHibernate.Repository;
+using Ydb.BusinessResource.Infrastructure.YdbNHibernate.UnitOfWork;
 
 namespace Ydb.BusinessResource.Infrastructure
 {
@@ -123,7 +113,7 @@ namespace Ydb.BusinessResource.Infrastructure
         private void InstallDb(IWindsorContainer container, IConfigurationStore store)
         {
             var _sessionFactory = dbConfigBusinessResource
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping.AreaMap>())
+                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.BusinessResource.Infrastructure.YdbNHibernate.Mapping.AreaMap>())
                     .ExposeConfiguration(BuildSchema)
                     .BuildSessionFactory();
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();

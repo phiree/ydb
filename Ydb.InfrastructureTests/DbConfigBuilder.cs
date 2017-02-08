@@ -45,10 +45,10 @@ namespace Ydb.InfrastructureTests
         }
 
         private string[] DbList = new string[] { "dianzhu", "ydb_finance", "ydb_instantmessage",
-            "ydb_businessresource", "ydb_membership", "ydb_common", "ydb_order" };
+            "ydb_businessresource", "ydb_membership", "ydb_common", "ydb_order","ydb_paygateway","ydb_push" };
 
         private string[] DbconfigKeys = new string[] { "DianzhuConnectionString", "ydb_finance", "ydb_instantmessage",
-            "ydb_businessresource", "ydb_membership", "ydb_common", "ydb_order" };
+            "ydb_businessresource", "ydb_membership", "ydb_common", "ydb_order" ,"ydb_paygateway","ydb_push"};
 
     }
 }

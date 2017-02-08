@@ -8,7 +8,7 @@ using Ydb.BusinessResource.DomainModel;
 
 using Ydb.BusinessResource.DomainModel;
 using Ydb.BusinessResource.DomainModel;
-namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping
+namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Mapping
 {
     public class ServiceTypeMap : ClassMap<ServiceType>
     {

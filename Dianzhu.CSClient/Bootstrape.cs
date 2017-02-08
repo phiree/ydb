@@ -35,6 +35,13 @@ namespace Dianzhu.CSClient
               );
 
             container.Install(
+            new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
+            );
+            container.Install(
+           new Ydb.Push.Infrastructure.InstallerPush(BuildDBConfig("ydb_push"))
+           );
+
+            container.Install(
                 
                 new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb_instantmessage"))
                 );

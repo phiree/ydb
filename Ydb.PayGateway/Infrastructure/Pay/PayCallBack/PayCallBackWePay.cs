@@ -14,7 +14,7 @@ namespace Ydb.PayGateway
 {
     #region WePay
     
-    public class PayCallBackWePay : IPayCallBack
+    public class PayCallBackWePay : IPayCallBackSingle
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Pay.PayCallBackWePay");
 

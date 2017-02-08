@@ -14,9 +14,9 @@ namespace Ydb.Order.Application
     {
         IRepositoryServiceOrderPushedService repoPushedService;
        
-        public OrderPushService( )
+        public OrderPushService(IRepositoryServiceOrderPushedService repoPushedService)
         {
-             
+            this.repoPushedService = repoPushedService;
         }
         public void Push(ServiceOrder order, ServiceOrderPushedService service, string targetAddress, DateTime targetTime)
         {
