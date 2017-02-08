@@ -1,0 +1,332 @@
+<!--header template-->
+@@include('./header.html')
+<!-- DataTables -->
+<link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
+<link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
+</head>
+
+<!--navbar template-->
+@@include('./navbar.html')
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    @@include('./content-head.html', {
+    "headTitle": "助理列表",
+    "subTitle": "助理信息",
+    "breadcrumbOl": ["助理列表","助理信息"]
+    })
+    <!-- Main content -->
+    <section class="content">
+        <!-- /.row -->
+        <div class="row">
+            <!-- /.col -->
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        <div class="col-xs-12">
+                            <div class="box-header with-border text-center">
+                                <h3 class="box-title text-center">740981978@qq.com<span style="color: #4db2c6">&nbsp;&nbsp;活跃中</span></h3>
+                                <div class="box-tools pull-right">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-wrench"></i>&nbsp;设置</button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">重置密码</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">封停账号</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <ul class="list-group list-group-unbordered">
+                                    <li class="list-group-item">
+                                        <div class="height20">
+                                            <div class="col-xs-6">
+                                                <b>姓名：</b> <a class="pull-right">陈俊宏</a>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <b>首次登录助理工具时间：</b> <a class="pull-right">2016.11.12 15:23</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="height20">
+                                            <div class="col-xs-6">
+                                                <b>性别：</b> <a class="pull-right">男</a>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <b>最近一次上线时间：</b> <a class="pull-right">2016.12.02 15:23</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="height20">
+                                            <div class="col-xs-6">
+                                                <b>身份证号：</b> <a class="pull-right">460102199402062710</a>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <b>累计上线时长：</b> <a class="pull-right">8天12小时49分</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="height20">
+                                            <div class="col-xs-6">
+                                                <b>联系电话：</b> <a class="pull-right">13136099449</a>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <b>注册时间：</b> <a class="pull-right">2016.10.01 15:23</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="height20">
+                                            <div class="col-xs-6">
+                                                <b>QQ号码：</b> <a class="pull-right">740981978456</a>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <b>申请时间：</b> <a class="pull-right">2016.10.02 15:23</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="height20">
+                                            <div class="col-xs-6">
+                                                <b>工作城市：</b> <a class="pull-right">男</a>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <b>通过时间：</b> <a class="pull-right">2016.12.03 15:23</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="height20">
+                                            <div class="col-xs-6">
+                                                <b>性别：</b> <a class="pull-right">男</a>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <b>最近一次上线时间：</b> <a class="pull-right">2016.12.02 15:23</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="height20">
+                                            <div class="col-xs-6">
+                                                <b>累计接单：</b> <a class="pull-right"><span>1232125</span>单</a>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <b>收到投诉：</b> <a class="pull-right"><span>5</span>单</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h4 class="box-title col-xs-12">查看聊天记录</h4>
+                        <div class="col-xs-12">
+                            <div class="form-horizontal col-xs-3 no-padding">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" class="form-control pull-right" id="reservation">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-content col-xs-12">
+                            <div class="tab-pane active" id="tab_1">
+                                <table class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>助理账号</th>
+                                            <th>助理姓名</th>
+                                            <th>工作城市</th>
+                                            <th>联系电话</th>
+                                            <th>预留QQ</th>
+                                            <th>扣点比例</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td><a href="assistant-detail.html">740981978@qq.com</a></td>
+                                            <td>陈俊宏</td>
+                                            <td>海口</td>
+                                            <td>13136099449</td>
+                                            <td>740981978</td>
+                                            <td>6%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td><a href="assistant-detail.html">740981978@qq.com</a></td>
+                                            <td>陈俊可爱</td>
+                                            <td>三亚</td>
+                                            <td>13136299449</td>
+                                            <td>740981978</td>
+                                            <td>6%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td><a href="assistant-detail.html">740981978@qq.com</a></td>
+                                            <td>陈俊萌</td>
+                                            <td>深圳</td>
+                                            <td>13536099449</td>
+                                            <td>740911978</td>
+                                            <td>6%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td><a href="assistant-detail.html">740981978@qq.com</a></td>
+                                            <td>陈俊帅</td>
+                                            <td>广州</td>
+                                            <td>23136099449</td>
+                                            <td>740911978</td>
+                                            <td>6%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td><a href="assistant-detail.html">740981978@qq.com</a></td>
+                                            <td>陈俊丑</td>
+                                            <td>海口</td>
+                                            <td>13136099449</td>
+                                            <td>740981378</td>
+                                            <td>6%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td><a href="assistant-detail.html">740981978@qq.com</a></td>
+                                            <td>陈俊宏</td>
+                                            <td>海口</td>
+                                            <td>13136099449</td>
+                                            <td>740981928</td>
+                                            <td>6%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td><a href="assistant-detail.html">740981978@qq.com</a></td>
+                                            <td>陈俊宏</td>
+                                            <td>海口</td>
+                                            <td>13136099449</td>
+                                            <td>740981978</td>
+                                            <td>6%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td><a href="assistant-detail.html">740981978@qq.com</a></td>
+                                            <td>陈俊可爱</td>
+                                            <td>三亚</td>
+                                            <td>13136299449</td>
+                                            <td>740981978</td>
+                                            <td>6%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td><a href="assistant-detail.html">740981978@qq.com</a></td>
+                                            <td>陈俊萌</td>
+                                            <td>深圳</td>
+                                            <td>13536099449</td>
+                                            <td>740911978</td>
+                                            <td>6%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td><a href="assistant-detail.html">740981978@qq.com</a></td>
+                                            <td>陈俊帅</td>
+                                            <td>广州</td>
+                                            <td>23136099449</td>
+                                            <td>740911978</td>
+                                            <td>6%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td><a href="assistant-detail.html">740981978@qq.com</a></td>
+                                            <td>陈俊丑</td>
+                                            <td>海口</td>
+                                            <td>13136099449</td>
+                                            <td>740981378</td>
+                                            <td>6%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td><a href="assistant-detail.html">740981978@qq.com</a></td>
+                                            <td>陈俊宏</td>
+                                            <td>海口</td>
+                                            <td>13136099449</td>
+                                            <td>740981928</td>
+                                            <td>6%</td>
+                                        </tr>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>助理账号</th>
+                                            <th>助理姓名</th>
+                                            <th>工作城市</th>
+                                            <th>联系电话</th>
+                                            <th>预留QQ</th>
+                                            <th>扣点比例</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                <!-- /.tab-pane -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- footer template-->
+@@include('./footer.html')
+<!-- DataTables -->
+<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- date-range-picker -->
+<script src="../plugins/daterangepicker/moment.min.js"></script>
+<script src="../plugins/daterangepicker/daterangepicker.js"></script>
+<script>
+    (function(){
+        //Date range picker
+        $('#reservation').daterangepicker();
+        //Date range picker with time picker
+        //初始化定制数据列表
+        $(".table-striped").DataTable({
+            "order": [[ 0, "asc" ]],
+            "language" :{
+                "decimal":        "",
+                "emptyTable":     "没有数据",
+                "info":           "从_START_ 到 _END_ 条记录——总记录数为 _TOTAL_ 条",
+                "infoEmpty":      "记录数为0",
+                "infoFiltered":   "(全部记录数 _MAX_  条)",
+                "infoPostFix":    "",
+                "thousands":      ",",
+                "lengthMenu":     "显示 _MENU_ 条",
+                "loadingRecords": "加载中...",
+                "processing":     "处理中...",
+                "search":         "查找：",
+                "zeroRecords":    "找不到内容",
+                "paginate": {
+                    "first":      "第一页",
+                    "last":       "最后一页",
+                    "next":       "下一页",
+                    "previous":   "上一页"
+                }
+            }
+        });
+    })();
+</script>
+</body>
+</html>

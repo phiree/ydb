@@ -1,0 +1,200 @@
+<!--header template-->
+@@include('./header.html')
+
+<!-- DataTables -->
+<link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<!--navbar template-->
+@@include('./navbar.html')
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    @@include('./content-head.html', {
+    "headTitle": "提现确认",
+    "subTitle": "",
+    "breadcrumbOl": ["财务管理","提现管理"]
+    })
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">平台账户余额</span>
+                        <span class="info-box-number">2016.09.09 12:12:56</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">本次转账总额</span>
+                        <span class="info-box-number">420</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">本次转账单量</span>
+                        <span class="info-box-number">25</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">分账确认</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <form action="" lpformnum="2">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>提现序号</th>
+                                    <th>申请账号</th>
+                                    <th>金额</th>
+                                    <th>提现目标账户</th>
+                                    <th>申请日期</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1232</td>
+                                    <td><a href="#">1234@ydban.cn</a></td>
+                                    <td>2000.00</td>
+                                    <td>111@alipay.com</td>
+                                    <td>2016-11-17 11:11:11</td>
+                                </tr>
+                                <tr>
+                                    <td>1232</td>
+                                    <td><a href="#">1234@ydban.cn</a></td>
+                                    <td>2000.00</td>
+                                    <td>111@alipay.com</td>
+                                    <td>2016-11-17 11:11:11</td>
+                                </tr>
+                                <tr>
+                                    <td>1232</td>
+                                    <td><a href="#">1234@ydban.cn</a></td>
+                                    <td>2000.00</td>
+                                    <td>111@alipay.com</td>
+                                    <td>2016-11-17 11:11:11</td>
+                                </tr>
+                                <tr>
+                                    <td>1232</td>
+                                    <td><a href="#">1234@ydban.cn</a></td>
+                                    <td>2000.00</td>
+                                    <td>111@alipay.com</td>
+                                    <td>2016-11-17 11:11:11</td>
+                                </tr>
+                                <tr>
+                                    <td>1232</td>
+                                    <td><a href="#">1234@ydban.cn</a></td>
+                                    <td>2000.00</td>
+                                    <td>111@alipay.com</td>
+                                    <td>2016-11-17 11:11:11</td>
+                                </tr>
+                                <tr>
+                                    <td>1232</td>
+                                    <td><a href="#">1234@ydban.cn</a></td>
+                                    <td>2000.00</td>
+                                    <td>111@alipay.com</td>
+                                    <td>2016-11-17 11:11:11</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <input class="btn btn-primary" type="button" value="确认并转账">
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- footer template-->
+@@include('./footer.html')
+
+<!-- DataTables -->
+<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+
+
+<script>
+    $(function () {
+        var language = {
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项结果",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "表中数据为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上页",
+                "sNext": "下页",
+                "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        };
+
+        $('#example1').DataTable({
+            language : language,
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        });
+
+    });
+</script>
+
+</body>
+</html>

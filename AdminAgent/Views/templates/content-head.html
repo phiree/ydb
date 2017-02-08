@@ -1,0 +1,22 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        @@headTitle
+        <small>@@subTitle</small>
+    </h1>
+    <ol class="breadcrumb">
+
+        @@for (var i = 0; i < 1; i++) {
+            <li><a href="#"><i class="fa fa-dashboard"></i>`+breadcrumbOl[i]+`</a></li>
+        }
+
+        @@for (var i = 1; i < breadcrumbOl.length - 1; i++) {
+            <li>`+breadcrumbOl[i]+`</li>
+        }
+
+        @@for (var i = breadcrumbOl.length -1 ; i < breadcrumbOl.length; i++) {
+            <li class="active">`+breadcrumbOl[i]+`</li>
+        }
+
+    </ol>
+</section>

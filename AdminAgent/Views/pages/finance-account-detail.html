@@ -1,0 +1,124 @@
+<!--header template-->
+@@include('./header.html')
+
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<!--navbar template-->
+@@include('./navbar.html')
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    @@include('./content-head.html', {
+    "headTitle": "订单分账详情",
+    "subTitle": "",
+    "breadcrumbOl": ["财务管理","分账详情"]
+    })
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box">
+                    <div class="box-header">
+                        <i class="fa fa-th-list"></i>
+
+                        <h3 class="box-title">订单号：XXXXXXXXXX</h3>
+                    </div>
+                    <div class="box-body no-padding">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th style="width:90%">流水号：</th>
+                                    <td>$250.30</td>
+                                </tr>
+                                <tr>
+                                    <th>订单金额：</th>
+                                    <td>$10.34</td>
+                                </tr>
+                                <tr>
+                                    <th>商家分账</th>
+                                    <td>$5.80</td>
+                                </tr>
+                                <tr>
+                                    <th>代理分账</th>
+                                    <td>$265.24</td>
+                                </tr>
+                                <tr>
+                                    <th>助理分账</th>
+                                    <td>$265.24</td>
+                                </tr>
+                                <tr>
+                                    <th>平台分账</th>
+                                    <td>$265.24</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box">
+                    <div class="box-header">
+                        <i class="fa fa-th-list"></i>
+                        <h3 class="box-title">分账详情</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>付款时间：</th>
+                                    <td style="width:80%">2019.09.23   12:12:12</td>
+                                </tr>
+                                <tr>
+                                    <th>店铺名称：</th>
+                                    <td>万家火火服饰设计国贸店</td>
+                                </tr>
+                                <tr>
+                                    <th>服务名称：</th>
+                                    <td>$5.80</td>
+                                </tr>
+                                <tr>
+                                    <th>商家账号：</th>
+                                    <td>$265.24</td>
+                                </tr>
+                                <tr>
+                                    <th>用户账号：</th>
+                                    <td>$265.24</td>
+                                </tr>
+                                <tr>
+                                    <th>代理账号</th>
+                                    <td>$265.24</td>
+                                </tr>
+                                <tr>
+                                    <th>助理账号：</th>
+                                    <td>$265.24</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- footer template-->
+@@include('./footer.html')
+
+
+</body>
+</html>

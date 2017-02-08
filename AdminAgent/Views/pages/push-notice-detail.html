@@ -1,0 +1,89 @@
+<!--header template-->
+@@include('./header.html')
+<!-- DataTables -->
+<link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
+</head>
+
+<!--navbar template-->
+@@include('./navbar.html')
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    @@include('./content-head.html', {
+    "headTitle": "公告列表",
+    "subTitle": "公告详情",
+    "breadcrumbOl": ["公告列表","公告详情"]
+    })
+    <!-- Main content -->
+    <section class="content">
+        <!-- /.row -->
+        <div class="row">
+            <!-- /.col -->
+            <div class="col-xs-6 col-xs-offset-3">
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        <div class="col-xs-12">
+                            <div class="box-header with-border text-center">
+                                <h3 class="box-title text-center" style="margin-top: 8px">公告详情</h3>
+                            </div>
+                            <ul class="list-group list-group-unbordered">
+                                <li class="list-group-item">
+                                    <b>公告标题</b> <p class="pull-right">哈市科技的哈萨克接电话看撒谎</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="control-group">
+                                        <dl class="dl-horizontal">
+                                            <dt class="notice-text-left">正文内容</dt>
+                                            <dd>机回萨达是打开了减肥了开始的减肥了开始就打飞机的时刻连接方式上岛咖啡叫啥了的会计法律思考的减肥了开始的减肥流口水的发了可视对讲发了可视对讲分类考试及分类考试及联发科建设路口福建省的离开房间熟练度空间发熟练度空间发熟练度空间发死定了空间发送到了开机费说多了几分斯达康龙卷风</dd>
+                                        </dl>
+                                    </div>
+                                </li>
+                                <li class="list-group-item" style="height: 400px;">
+                                    <b>上传图片</b>
+                                    <a class="pull-right">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <img style="height: 380px;width: auto !important;" class="profile-user-img img-responsive" src="../libs/adminLTE/img/photo1.png" alt="Photo">
+                                                </div>
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>跳转链接</b> <a class="pull-right">https://worktile.com/project/123124131</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>公告类型</b> <p class="pull-right">纯图片公告</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>发送目标</b> <p class="pull-right">用户版app商户版app助理工具商户管理系统</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>推送日期</b> <p class="pull-right">2016.11.15——2016.11.19</p>
+                                </li>
+                            </ul>
+                            <div class="col-xs-8 col-xs-offset-2">
+                                <div class="col-xs-4 col-xs-offset-4">
+                                    <a href="javascript:void(0)" class="btn btn-block btn-default">返回</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- footer template-->
+@@include('./footer.html')
+<!-- DataTables -->
+<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+</body>
+</html>

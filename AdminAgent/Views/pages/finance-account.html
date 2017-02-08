@@ -1,0 +1,169 @@
+<!--header template-->
+@@include('./header.html')
+
+<!-- DataTables -->
+<link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<!--navbar template-->
+@@include('./navbar.html')
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    @@include('./content-head.html', {
+    "headTitle": "分账记录",
+    "subTitle": "",
+    "breadcrumbOl": ["财务管理","分账记录"]
+    })
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">账号余额</span>
+                        <span class="info-box-number">123412.50</span>
+                        <span class="info-box-number text-right"><a href="finance-withdraw-apply.html" class="btn btn-info">提现</a></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">支付宝账号</span>
+                        <span class="info-box-number">123@alipay.com</span>
+                        <span class="info-box-number text-right"><a href="finance-account-bind.html" class="btn btn-success">绑定/更改</a></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">分账记录列表</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th style="width: 50px">账单号</th>
+                                <th>订单号</th>
+                                <th>订单金额</th>
+                                <th>分账金额</th>
+                                <th>支付平台</th>
+                                <th>付款账号</th>
+                                <th>账单日期</th>
+                                <th>详情</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th style="width: 50px">账单号</th>
+                                <th>订单号</th>
+                                <th>店铺</th>
+                                <th>金额</th>
+                                <th>支付平台</th>
+                                <th>付款账号</th>
+                                <th>账单日期</th>
+                                <th>详情</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            @@for (var i = 0; i < 20; i++) {
+                                <tr>
+                                    <td>` + i + `</td>
+                                    <td><a href="./order.html">FW1322131</a></td>
+                                    <td>400</td>
+                                    <td>366.00</td>
+                                    <td>支付宝</td>
+                                    <td>alipay@126.com</td>
+                                    <td>2016.07.01</td>
+                                    <td><a href="./finance-account-detail.html"></a>进入</td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- footer template-->
+@@include('./footer.html')
+
+<!-- DataTables -->
+<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+
+
+<script>
+    $(function () {
+        var language = {
+            "sProcessing": "处理中...",
+                    "sLengthMenu": "显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+            }
+        };
+
+        $('#example1').DataTable({
+            language : language
+        });
+//
+//        $('#example1').on("click", "tr", function(e){
+//            var href = $(this).data("detail");
+//
+//            if ( e.target.nodeType === 1 && e.target.nodeName.toString().toLowerCase() === "a" ){
+//                return false;
+//            }
+//
+//            location.href = href;
+//        })
+    });
+</script>
+
+</body>
+</html>
