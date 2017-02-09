@@ -20,11 +20,11 @@ namespace Dianzhu.ApplicationService.Client
         
         IDZMembershipService memberService;
         IStaffService staffService;
-
-        IBLLMembershipLoginLog bLLMembershipLoginLog;
+        
+        IMembershipLoginLogService membershipLoginLogService;
 
         public ClientService(IUserTokenService userTokenService, IStaffService staffService
-            ,IDZMembershipService memberService, IBLLMembershipLoginLog bLLMembershipLoginLog)
+            ,IDZMembershipService memberService, IMembershipLoginLogService membershipLoginLogService)
         {
             //this.ibllclient = ibllclient;
             //this.ibllrefreshtoken = ibllrefreshtoken;
@@ -32,7 +32,7 @@ namespace Dianzhu.ApplicationService.Client
         
             this.staffService = staffService;
             this.memberService = memberService;
-            this.bLLMembershipLoginLog = bLLMembershipLoginLog;
+            this.membershipLoginLogService = membershipLoginLogService;
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Dianzhu.ApplicationService.Client
             MemberDto dzm = validateResult.ValidatedMember;
 
             //用户登录记录
-            bLLMembershipLoginLog.MemberLogin(dzm.Id.ToString(), "");
+            membershipLoginLogService.MemberLogin(dzm.Id.ToString(), "");
 
             string userUri = "";
             switch (dzm.UserType)

@@ -65,6 +65,7 @@ namespace Ydb.Common.Repository
         /// <returns></returns>
         IList<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords, string sortBy, bool ascending, int offset, TEntity baseone);
 
-        
+
+        IList<object[]> SelectObject(string strHQL);
     }
 }

@@ -121,7 +121,7 @@ namespace Dianzhu.DependencyInstaller
 
             //container.Register(Component.For<IRepository<Model.Finance.SharePoint, Guid>, IDAL.Finance.IDALSharePoint>().ImplementedBy<DAL.Finance.DALSharePoint>());
             //mmmmmmmmmm
-            container.Register(Component.For<IRepository<MembershipLoginLog, Guid>, IDALMembershipLoginLog>().ImplementedBy<DALMembershipLoginLog>());
+            //container.Register(Component.For<IRepository<MembershipLoginLog, Guid>, IDALMembershipLoginLog>().ImplementedBy<DALMembershipLoginLog>());
             //iiiiiiiiii
 
             container.Register(Component.For<IRepository<IMUserStatus, Guid>, IDALIMUserStatus>().ImplementedBy<DALIMUserStatus>());
@@ -178,7 +178,7 @@ namespace Dianzhu.DependencyInstaller
             //agent
             container.Register(Component.For<Dianzhu.BLL.Agent.IAgentService>().ImplementedBy<Dianzhu.BLL.Agent.AgentService>());
 
-            container.Register(Component.For<IBLLMembershipLoginLog>().ImplementedBy<BLLMembershipLoginLog>());
+            //container.Register(Component.For<IBLLMembershipLoginLog>().ImplementedBy<BLLMembershipLoginLog>());
             
             container.Register(Component.For<IBLLServiceOrder>().ImplementedBy<BLLServiceOrder>()
                                .DependsOn(Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>())))

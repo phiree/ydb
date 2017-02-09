@@ -17,6 +17,7 @@ using Ydb.Membership.Infrastructure;
 using Ydb.Membership.Infrastructure.Repository.NHibernate;
 using Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping;
 using Ydb.Membership.DomainModel.Service;
+using Ydb.Membership.DomainModel.DataStatistics;
 using Ydb.Membership.Application;
 using Ydb.Common.Repository;
 using Castle.Core;
@@ -46,6 +47,9 @@ namespace Ydb.Membership.Infrastructure
         {
             container.Register(Component.For<IRepositoryDZMembership>().ImplementedBy<RepositoryDZMembership>());
             container.Register(Component.For<IRepositoryUserToken>().ImplementedBy<RepositoryUserToken>());
+            container.Register(Component.For<IRepositoryMembershipLoginLog>().ImplementedBy<RepositoryMembershipLoginLog>());
+
+            container.Register(Component.For<IStatisticsMembershipCount>().ImplementedBy<StatisticsMembershipCount>());
 
         }
        
@@ -61,6 +65,7 @@ namespace Ydb.Membership.Infrastructure
         {
             container.Register(Component.For<IDZMembershipService>().ImplementedBy<DZMembershipService>());
             container.Register(Component.For<IUserTokenService>().ImplementedBy<UserTokenService>());
+            container.Register(Component.For<IMembershipLoginLogService>().ImplementedBy<MembershipLoginLogService>());
         }
 
         private void InstallUnifOfWork(IWindsorContainer container, IConfigurationStore store)

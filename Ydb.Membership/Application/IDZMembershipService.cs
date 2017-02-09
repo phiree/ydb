@@ -93,6 +93,7 @@ namespace Ydb.Membership.Application
         ActionResult ChangeAvatar(string userId, string newAvatar);
         IList<Dto.MemberDto> GetUsers(TraitFilter filter, string name, string email, string phone, string loginType, string userType);
         long GetUsersCount(string name, string email, string phone, string loginType, string userType);
-         
+        long GetCountOfNewCustomersYesterdayByArea(Area area);
+        long GetCountOfAllCustomersByArea(Area area);
     }
 }

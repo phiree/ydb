@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using Ydb.Common.Domain;
 
-namespace Dianzhu.Model
+namespace Ydb.Membership.DomainModel
 {
-    /// <summary>
-    /// 用户登录/注销 记录
-    /// </summary>
-    public class MembershipLoginLog : DDDCommon.Domain.Entity<Guid>
+    public class MembershipLoginLog : Entity<Guid>
     {
         public MembershipLoginLog()
         { }
@@ -34,6 +33,4 @@ namespace Dianzhu.Model
         Login,
         Logoff
     }
-
-
 }

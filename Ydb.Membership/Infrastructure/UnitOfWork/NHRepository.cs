@@ -27,7 +27,6 @@ namespace Ydb.Membership.Infrastructure
 
             session.Save(t);
 
-
         }
 
         /// <summary>
@@ -207,6 +206,12 @@ namespace Ydb.Membership.Infrastructure
         public void SaveOrUpdate(TEntity t)
         {
             session.SaveOrUpdate(t);
+        }
+
+        public IList<object[]> SelectObject(string strHQL)
+        {
+            return session.CreateQuery(strHQL)
+                 .List<object[]>();
         }
 
 

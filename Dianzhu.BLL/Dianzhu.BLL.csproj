@@ -91,7 +91,6 @@
     <Compile Include="BLLAdvertisement.cs" />
     <Compile Include="BLLDeviceBind.cs" />
     <Compile Include="BLLPaymentLog.cs" />
-    <Compile Include="BLLMembershipLoginLog.cs" />
     <Compile Include="Push\BLLPush.cs" />
     <Compile Include="BLLRefundLog.cs" />
     <Compile Include="BLLRefund.cs" />

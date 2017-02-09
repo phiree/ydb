@@ -84,7 +84,6 @@
     <Compile Include="IdentityAccess\emUserType.cs" />
     <Compile Include="ISnatshop.cs" />
     <Compile Include="Mapper.cs" />
-    <Compile Include="MembershipLoginLog.cs" />
     <Compile Include="Claims.cs" />
     <Compile Include="Payment\RefundLog.cs" />
     <Compile Include="Payment\Refund.cs" />

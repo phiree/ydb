@@ -13,6 +13,7 @@ using Ydb.Common.Specification;
 using Ydb.Common.Repository;
 using Ydb.Membership.DomainModel.Service;
 using Ydb.Common.Domain;
+using Ydb.Membership.DomainModel.DataStatistics;
 
 namespace Ydb.Membership.Application
 {
@@ -26,10 +27,15 @@ namespace Ydb.Membership.Application
         ILogin3rd login3rdService;
         IEncryptService encryptService;
 
+        IRepositoryMembershipLoginLog repositoryMembershipLoginLog;
+        IStatisticsMembershipCount statisticsMembershipCount;
+
         public DZMembershipService(IDZMembershipDomainService dzmembershipDomainService,
             IRepositoryDZMembership repositoryMembership,
             IEmailService emailService,IEncryptService encryptService,
-            ILogin3rd login3rdService, IRepositoryUserToken repositoryUserToken)
+            ILogin3rd login3rdService, IRepositoryUserToken repositoryUserToken,
+            IRepositoryMembershipLoginLog repositoryMembershipLoginLog,
+            IStatisticsMembershipCount statisticsMembershipCount)
         {
             this.dzmembershipDomainService = dzmembershipDomainService;// Bootstrap.Container.Resolve<IDZMembershipDomainService>();
             this.login3rdService = login3rdService;// Bootstrap.Container.Resolve<ILogin3rd>();
@@ -37,6 +43,8 @@ namespace Ydb.Membership.Application
             this.repositoryMembership = repositoryMembership;// Bootstrap.Container.Resolve<IRepositoryDZMembership>();
             this.encryptService = encryptService;
             this.repositoryUserToken = repositoryUserToken;
+            this.repositoryMembershipLoginLog = repositoryMembershipLoginLog;
+            this.statisticsMembershipCount = statisticsMembershipCount;
 
         }
 
@@ -417,6 +425,29 @@ namespace Ydb.Membership.Application
             IList<DZMembership> memberList = repositoryMembership.GetUsers(filter, string.Empty, string.Empty, string.Empty, string.Empty,UserType.customer.ToString());
             totalRecord = repositoryMembership.GetUsersCount(string.Empty, string.Empty, string.Empty, string.Empty, UserType.customer.ToString());
             return Mapper.Map<IList<DZMembership>, IList<MemberDto>>(memberList);
+        }
+
+        [UnitOfWork]
+        public long GetCountOfNewCustomersYesterdayByArea(Area area)
+        {
+            DateTime beginTime = DateTime.Parse(DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"));
+            return repositoryMembership.GetUsersCountByArea(area, beginTime, beginTime.AddDays(1), UserType.customer.ToString());
+        }
+
+        [UnitOfWork]
+        public long GetCountOfAllCustomersByArea(Area area)
+        {
+            return repositoryMembership.GetUsersCountByArea(area, DateTime.MinValue, DateTime.MinValue, UserType.customer.ToString());
+        }
+
+        [UnitOfWork]
+        public long GetCountOfLoginCustomersLastMonthByArea(Area area)
+        {
+            string strUserType = UserType.customer.ToString();
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(new TraitFilter(), area, strUserType);
+            DateTime baseTime = DateTime.Parse(DateTime.Now.ToString("yyyy-MM")+"-01");
+            IList<MembershipLoginLog> loginList = repositoryMembershipLoginLog.GetMembershipLoginLogListByTime(baseTime.AddMonths(-1), baseTime);
+            return statisticsMembershipCount.StatisticsLoginCountLastMonth(memberList,loginList);
         }
     }
 }

@@ -94,7 +94,6 @@
     <Compile Include="Client\DALUserToken.cs" />
     <Compile Include="DALSerialNo.cs" />
     <Compile Include="DALClaimsDetails.cs" />
-    <Compile Include="DALMembershipLoginLog.cs" />
     <Compile Include="DALClaims.cs" />
     <Compile Include="DALComplaint.cs" />
     <Compile Include="DALAdvertisement.cs" />
@@ -116,7 +115,6 @@
     <Compile Include="Mapping\ClaimsDetailsMap.cs" />
     <Compile Include="Mapping\Client\ClientMap.cs" />
     <Compile Include="Mapping\Client\RefreshTokenMap.cs" />
-    <Compile Include="Mapping\MembershipLoginLogMap.cs" />
     <Compile Include="Mapping\ClaimsMap.cs" />
     <Compile Include="Mapping\ComplaintMap.cs" />
     <Compile Include="Mapping\AdvertisementMap.cs" />

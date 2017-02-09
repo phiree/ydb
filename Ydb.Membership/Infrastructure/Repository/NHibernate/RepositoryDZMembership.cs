@@ -11,6 +11,7 @@ using NHibernate;
 using System.Linq.Expressions;
 using Ydb.Common.Repository;
 using Ydb.Common.Specification;
+using Ydb.Common.Domain;
 namespace Ydb.Membership.Infrastructure.Repository.NHibernate
 {
    public class RepositoryDZMembership:NHRepositoryBase<DZMembership,Guid>,IRepositoryDZMembership
@@ -155,10 +156,42 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate
             return list;
         }
 
+        public IList<DZMembership> GetUsersByArea(TraitFilter filter, Area area, string userType)
+        {
+            var where = Ydb.Common.Specification.PredicateBuilder.True<DZMembership>();
+            if (!string.IsNullOrEmpty(userType))
+            {
+                where = where.And(x => x.UserType == (UserType)Enum.Parse(typeof(UserType), userType));
+            }
+            if (area != null)
+            {
+                where = where.And(x => x.Area == area);
+            }
+            DZMembership baseone = null;
+            if (!string.IsNullOrEmpty(filter.baseID))
+            {
+                try
+                {
+                    baseone = FindByBaseId(new Guid(filter.baseID));
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("filter.baseID错误，" + ex.Message);
+                }
+            }
+            long t = 0;
+            var list = filter.pageSize == 0 ? Find(where, filter.sortby, filter.ascending, filter.offset, baseone).ToList()
+                : Find(where, filter.pageNum, filter.pageSize, out t, filter.sortby, filter.ascending, filter.offset, baseone).ToList();
+            return list;
+        }
+
         public long GetUsersCount(string name, string email, string phone, string loginType, string userType)
         {
             var where = Ydb.Common.Specification.PredicateBuilder.True<DZMembership>();
-            where = where.And(x => x.UserType == (UserType)Enum.Parse(typeof(UserType), userType));
+            if (!string.IsNullOrEmpty(userType))
+            {
+                where = where.And(x => x.UserType == (UserType)Enum.Parse(typeof(UserType), userType));
+            }
             if (!string.IsNullOrEmpty(name))
             {
                 where = where.And(x => x.DisplayName.Contains(name));
@@ -174,6 +207,29 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate
             if (!string.IsNullOrEmpty(loginType))
             {
                 where = where.And(x => x.LoginType == (LoginType)Enum.Parse(typeof(LoginType), loginType));
+            }
+            long count = GetRowCount(where);
+            return count;
+        }
+
+        public long GetUsersCountByArea(Area area,DateTime beginTime,DateTime endTime, string userType)
+        {
+            var where = Ydb.Common.Specification.PredicateBuilder.True<DZMembership>();
+            if (!string.IsNullOrEmpty(userType))
+            {
+                where = where.And(x => x.UserType == (UserType)Enum.Parse(typeof(UserType), userType));
+            }
+            if (area!=null)
+            {
+                where = where.And(x => x.Area == area);
+            }
+            if (beginTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.TimeCreated >= beginTime);
+            }
+            if (endTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.TimeCreated < endTime);
             }
             long count = GetRowCount(where);
             return count;

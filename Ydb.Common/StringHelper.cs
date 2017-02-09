@@ -41,5 +41,23 @@ namespace Ydb.Common
             string result = reg.Replace(query, " count(*) ", 1);
             return result;
         }
+
+        public static DateTime ParseToDate(string strDate,bool b)
+        {
+            try
+            {
+                DateTime dt = DateTime.Parse(strDate);
+                if (b)
+                {
+                    dt.AddDays(1);
+                }
+                return dt;
+            }
+            catch
+            {
+                throw new Exception("日期格式不正确");
+            }
+            
+        }
     }
 }

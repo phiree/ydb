@@ -59,7 +59,6 @@
     <Compile Include="DALClaims.cs" />
     <Compile Include="DALComplaint.cs" />
     <Compile Include="DALDeviceBind.cs" />
-    <Compile Include="DALMembershipLoginLog.cs" />
     <Compile Include="DALIMUserStatusArchieve.cs" />
     <Compile Include="DALIMUserStatus.cs" />
     <Compile Include="DALOrderAssignment.cs" />
