@@ -350,7 +350,7 @@ namespace Dianzhu.ApplicationService.User
                 RespGeo geoObj = utils.Deserialize<RespGeo>(utils.GetCity(cityCode.longitude, cityCode.latitude));
                 area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city);
             }
-            ActionResult actionResult = memberService.ChangeUserCity(guidUser, cityCode.code, cityCode.longitude, cityCode.latitude);
+            ActionResult actionResult = memberService.ChangeUserCity(guidUser, cityCode.code, cityCode.longitude, cityCode.latitude,area);
             if (!actionResult.IsSuccess)
             {
                 throw new Exception(actionResult.ErrMsg);
