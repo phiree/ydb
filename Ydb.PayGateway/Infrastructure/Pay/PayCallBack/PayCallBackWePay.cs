@@ -17,10 +17,28 @@ namespace Ydb.PayGateway
     public class PayCallBackWePay : IPayCallBackSingle
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Pay.PayCallBackWePay");
-
-        public string PayCallBack(object callBackParameters, out string businessOrderId, out string platformOrderId, out decimal total_amount, out string errMsg)
+        public bool DoIgnore(object callbackParameters)
         {
-            string result = "FAIL";
+            string json = JsonHelper.Xml2Json((string)callbackParameters, true);
+
+            CallBack callbackParameter = JsonConvert.DeserializeObject<CallBack>(json);
+            string trade_status = callbackParameter.result_code.ToUpper();
+            if (trade_status == "SUCCESS" )
+
+            {
+                log.Debug("继续处理");
+                return false;
+            }
+            else  
+            {
+                log.Debug("忽略,直接返回");
+                return true;
+            }
+ 
+        }
+        public bool ParseBusinessData(object callBackParameters, out string payedStatus, out string businessOrderId, out string platformOrderId, out decimal total_amount, out string errMsg)
+        {
+           
             businessOrderId = string.Empty;
             platformOrderId = string.Empty;
             total_amount = 0;
@@ -29,46 +47,37 @@ namespace Ydb.PayGateway
             string json = JsonHelper.Xml2Json((string)callBackParameters, true);
 
             CallBack callbackParameter = JsonConvert.DeserializeObject<CallBack>(json);
-            if (callbackParameter.result_code.ToUpper() == "SUCCESS")
-            {
-                string result_code = callbackParameter.result_code;
+         
+            string result_code = payedStatus=callbackParameter.result_code;
+             
                 if (result_code.ToUpper()== "SUCCESS")
                 {
                     businessOrderId = callbackParameter.out_trade_no;
                     platformOrderId = callbackParameter.transaction_id;
                     total_amount = Convert.ToDecimal(callbackParameter.total_fee);
                     //更新订单 发送订单状态变更通知
-                    return "TRADE_SUCCESS";
+                    payedStatus= "TRADE_SUCCESS";
 
                 }
                 else if (result_code.ToUpper() == "FAIL")
                 {
-                    //
+                    return false;
                 }
                 else {
                     errMsg = "业务操作失败" + callbackParameter.err_code + ":" + callbackParameter.err_code_des;
                     log.Error(errMsg);
-                    return "FAIL";
+                    payedStatus= "FAIL";
+                    return false;
                 }
 
                 businessOrderId = callbackParameter.out_trade_no;
                 platformOrderId = callbackParameter.transaction_id;
                 total_amount = Convert.ToDecimal(callbackParameter.total_fee) / 100;
                 errMsg = callbackParameter.err_code + ":" + callbackParameter.err_code_des;
-
-                return result;
-            }
-            else if (callbackParameter.result_code.ToUpper() == "FAIL")
-            {
-                errMsg = "服务器通信失败,返回FAIL";
-                log.Error(errMsg);
-                return "FAIL";
-            }
-            else {
-                errMsg = "未知的服务器返回参数" + callbackParameter.result_code;
-                log.Error(errMsg);
-                return "FAIL";
-            }
+                return true;
+                 
+          
+           
         }
 
         /// <summary>

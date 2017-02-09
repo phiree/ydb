@@ -7,10 +7,19 @@ using Ydb.Common;
 
 namespace Ydb.PayGateway.DomainModel.Pay
 {
-   public  class PayCallBackFactory
+    public interface IPayCallBackFactory {
+
+        IPayCallBack Create(string invokeUrl, string httpMethod, object requestParameters, out enum_PayAPI payApi);
+    }
+   public  class PayCallBackFactory:IPayCallBackFactory
     {
         static log4net.ILog log = log4net.LogManager.GetLogger("Ydb.PayGateway.Pay.PayCallback.PayCallBackFactory");
-        public static IPayCallBack CreateCallBack(string invokeUrl,string httpMethod,object requestParameters,out enum_PayAPI payApi)
+        ICallBackVerify callBackNotify;
+        public PayCallBackFactory(ICallBackVerify callBackNotify)
+        {
+            this.callBackNotify = callBackNotify;
+        }
+        public  IPayCallBack Create(string invokeUrl,string httpMethod,object requestParameters,out enum_PayAPI payApi)
         {
             IPayCallBack payCallBack = null;
             payApi = enum_PayAPI.None;
@@ -26,7 +35,7 @@ namespace Ydb.PayGateway.DomainModel.Pay
             {
 
                 payApi = enum_PayAPI.AlipayApp;
-                payCallBack = new PayCallBackAli();
+                payCallBack = new PayCallBackAli(callBackNotify);
             }
 
             
@@ -35,7 +44,7 @@ namespace Ydb.PayGateway.DomainModel.Pay
             {
                 payApi = enum_PayAPI.AlipayWeb;
                 requestParameters = requestParameters.ToString().Replace("PayType=PayBatch&", "");
-                payCallBack = new PayCallBackAliBatch();
+                payCallBack = new PayCallBackAliBatch(callBackNotify);
                
             }
 

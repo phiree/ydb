@@ -11,6 +11,7 @@ using NHibernate.Cfg;
 using Ydb.PayGateway.DomainModel.Repository;
 using Ydb.PayGateway.Infrastructure;
 using Ydb.PayGateway.Infrastructure.Nhibernate.Repository;
+using Ydb.PayGateway.DomainModel.Pay;
 
 namespace Ydb.PayGateway
 {
@@ -54,7 +55,8 @@ namespace Ydb.PayGateway
         private void InstallDomainService(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IRefundFactory>().ImplementedBy<RefundFactory>());
-                
+            container.Register(Component.For<ICallBackVerify>().ImplementedBy<Ydb.PayGateway.Notify>());
+            container.Register(Component.For<IPayCallBackFactory>().ImplementedBy<PayCallBackFactory>());
 
         }
         private void InstallUnifOfWork(IWindsorContainer container, IConfigurationStore store)

@@ -7,6 +7,7 @@ using Ydb.Order.DomainModel;
 using Ydb.Common;
 using Ydb.Order.DomainModel.Repository;
 using Ydb.Common.Specification;
+using Ydb.Order.Infrastructure;
 
 namespace Ydb.Order.Application
 {
@@ -93,6 +94,7 @@ namespace Ydb.Order.Application
         /// 只处理需要更新payment和order的回调.
         /// </summary>
         /// <param name="returnstr"></param>
+        [UnitOfWork]
         public void PayCallBack(enum_PayAPI payApi, string returnstr,string paymentId,string platformTradeNo)
         {
             //更新支付状态
@@ -104,11 +106,11 @@ namespace Ydb.Order.Application
                 payment.PayApi = payApi;
                 payment.PayType = enum_PayType.Online;
                 payment.PlatformTradeNo = platformTradeNo;
-                
-                //更新订单状态.
 
-                ServiceOrder order = repoOrder.FindById(payment.Order.Id); //payment.Order;
-                 switch (order.OrderStatus)
+            //更新订单状态.
+
+            ServiceOrder order =   repoOrder.FindById(payment.Order.Id); //payment.Order;
+                switch (order.OrderStatus)
                 {
                     case enum_OrderStatus.checkPayWithDeposit:
                     case enum_OrderStatus.Created:
@@ -146,7 +148,7 @@ namespace Ydb.Order.Application
                 log.Debug("TRADE_SUCCESS,订单最新状态为：" + order.OrderStatus.ToString());
           
         }
-        
+        [UnitOfWork]
         public void RefundCallBack(enum_PayAPI payApi, string returnstr, string refundId, string platformTradeNo)
         {
              

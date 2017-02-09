@@ -29,7 +29,7 @@ namespace Ydb.PayGateway.DomainModel.Pay
                     return new PayAli(amount, paymentId, subject,
                             "1",
                             Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/notify_url.aspx",
-                            Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/return_url.aspx",
+                            string.Empty,//无需同步通知. Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/return_url.aspx",
                             "http://www.ydban.cn");
                     ;
                 case enum_PayAPI.AlipayBatch:

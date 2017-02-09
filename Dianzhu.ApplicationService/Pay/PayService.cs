@@ -247,15 +247,15 @@ namespace Dianzhu.ApplicationService.Pay
             switch (payTarget.ToLower())
             {
                 case "alipay":
-                    // http://119.29.39.211:8168
+                
                     IPayRequest ipayAli = new PayAlipayApp(payment.Amount, payment.Id.ToString(), order.Title, Dianzhu.Config.Config.GetAppSetting("PaySite") + "PayCallBack/Alipay/notify_url.aspx", order.Description);
                     c.pay3rdString = ipayAli.CreatePayRequest();
                     return c;
                 case "wepay":
                     for (int i = 0; i < 10; i++)
                     {
-                        IPayRequest ipayWe = new PayWeChat(payment.Amount, payment.Id.ToString(), payment.Order.Title
-                            , Dianzhu.Config.Config.GetAppSetting("PaySite") + "PayCallBack/Wepay/notify_url.aspx", payment.Order.Description);
+                        IPayRequest ipayWe = new PayWeChat(payment.Amount, payment.Id.ToString(), order.Title
+                            , Dianzhu.Config.Config.GetAppSetting("PaySite") + "PayCallBack/Wepay/notify_url.aspx",order.Description);
                         //var respDataWeibo = new NameValueCollection();
                         string respDataWechat = "<xml>";
 

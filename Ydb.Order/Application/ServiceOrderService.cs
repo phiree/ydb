@@ -8,6 +8,8 @@ using Ydb.Order.DomainModel;
 using Ydb.Order.DomainModel.Repository;
 using Ydb.PayGateway;
 using Ydb.Common.Infrastructure;
+using Ydb.Order.Infrastructure;
+
 namespace Ydb.Order.Application
 {
 
@@ -538,6 +540,7 @@ namespace Ydb.Order.Application
         /// 用户定金支付完成,等待后台确认订单是否到帐
         /// </summary>
         /// <param name="order"></param>
+        [UnitOfWork]
         public void OrderFlow_PayDepositAndWaiting(ServiceOrder order)
         {
             ChangeStatus(order, enum_OrderStatus.checkPayWithDeposit);
@@ -547,6 +550,7 @@ namespace Ydb.Order.Application
         /// 后台确认订单到帐
         /// </summary>
         /// <param name="order"></param>
+        [UnitOfWork]
         public void OrderFlow_ConfirmDeposit(ServiceOrder order)
         {
             ChangeStatus(order, enum_OrderStatus.Payed);
@@ -563,6 +567,7 @@ namespace Ydb.Order.Application
         /// </summary>
         /// <param name="order"></param>
         /// <param name="negotiateAmount"></param>
+        [UnitOfWork]
         public void OrderFlow_BusinessNegotiate(ServiceOrder order, decimal negotiateAmount)
         {
             //order.NegotiateAmount_Modified = negotiateAmount;

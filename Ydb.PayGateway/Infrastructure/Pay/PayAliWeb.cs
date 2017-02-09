@@ -45,9 +45,11 @@ namespace Ydb.PayGateway
             get; set;
         }
 
-        string payment_type, notify_url, return_url,
-              show_url
-           ;
+        string payment_type,
+            notify_url,
+            return_url,//同步通知结果. 如果不需要
+              show_url;
+        
         public PayAli(decimal payAmount, string paymentId, string paySubject,
             string payment_type, string notify_url, string return_url,
             string show_url

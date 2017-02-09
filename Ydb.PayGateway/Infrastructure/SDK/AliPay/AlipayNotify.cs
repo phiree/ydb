@@ -7,6 +7,12 @@ using System.Collections.Generic;
 
 namespace Ydb.PayGateway
 {
+    public interface ICallBackVerify
+    {
+        bool Verify(SortedDictionary<string, string> inputPara, string notify_id, string sign);
+    }
+
+
     /// <summary>
     /// 类名：Notify
     /// 功能：支付宝通知处理类
@@ -20,7 +26,7 @@ namespace Ydb.PayGateway
     /// //////////////////////注意/////////////////////////////
     /// 调试通知返回时，可查看或改写log日志的写入TXT里的数据，来检查通知返回是否正常 
     /// </summary>
-    public class Notify
+    public class Notify:ICallBackVerify
     {
         #region 字段
         private string _partner = "";               //合作身份者ID
