@@ -21,8 +21,10 @@ namespace Dianzhu.ApplicationService.Client
         IDZMembershipService memberService;
         IStaffService staffService;
 
+        IBLLMembershipLoginLog bLLMembershipLoginLog;
+
         public ClientService(IUserTokenService userTokenService, IStaffService staffService
-            ,IDZMembershipService memberService)
+            ,IDZMembershipService memberService, IBLLMembershipLoginLog bLLMembershipLoginLog)
         {
             //this.ibllclient = ibllclient;
             //this.ibllrefreshtoken = ibllrefreshtoken;
@@ -30,6 +32,7 @@ namespace Dianzhu.ApplicationService.Client
         
             this.staffService = staffService;
             this.memberService = memberService;
+            this.bLLMembershipLoginLog = bLLMembershipLoginLog;
         }
 
         /// <summary>
@@ -48,7 +51,6 @@ namespace Dianzhu.ApplicationService.Client
             ValidateResult validateResult=   memberService.Login(loginName, password);
             
             if (!validateResult.IsValidated )
- 
             {
                 //throw new Exception("用户名或密码错误！");
                 throw new Exception("001002");
@@ -63,6 +65,10 @@ namespace Dianzhu.ApplicationService.Client
             //    throw new Exception("该用户不存在！");
             //}
             MemberDto dzm = validateResult.ValidatedMember;
+
+            //用户登录记录
+            bLLMembershipLoginLog.MemberLogin(dzm.Id.ToString(), "");
+
             string userUri = "";
             switch (dzm.UserType)
             {
