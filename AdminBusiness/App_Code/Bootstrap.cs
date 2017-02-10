@@ -26,7 +26,12 @@ public class Bootstrap
            new InstallerApplicationService()
             );
 
+        container.Install(
+            new Ydb.Infrastructure.Installer()
+            );
+
       
+
 
         container.Install(
 new Ydb.Finance.Infrastructure.InstallerFinance(BuildDBConfig("ydb_finance"))

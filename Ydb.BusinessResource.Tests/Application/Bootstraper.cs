@@ -37,7 +37,7 @@ namespace Ydb.BusinessResource.Application.Tests
         public static void Boot()
         {
             container = new WindsorContainer();
-            container.Install(new Ydb.Infrastructure.InstallerCommonWithoutDb());
+            container.Install(new Ydb.Infrastructure.Installer());
             container.Install(new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(dbConfigInstantMessage));
             AutoMapper.Mapper.Initialize(cfg=>
             {

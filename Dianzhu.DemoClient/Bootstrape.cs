@@ -20,7 +20,7 @@ namespace Dianzhu.DemoClient
 
 
             container.Install(
-                new Ydb.Infrastructure.InstallerCommonWithoutDb()
+                new Ydb.Infrastructure.Installer()
                 );
 
             //IEncryptService iEncryptService = container.Resolve<IEncryptService>();

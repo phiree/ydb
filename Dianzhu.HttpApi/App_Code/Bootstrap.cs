@@ -29,7 +29,9 @@ public class Bootstrap
 
 
 
-     
+        container.Install(
+            new Ydb.Infrastructure.Installer()
+            );
         container.Install(
            new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig("ydb_businessresource"))
            );

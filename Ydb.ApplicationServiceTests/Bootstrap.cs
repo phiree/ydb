@@ -23,7 +23,9 @@ public class Bootstrap
 
 
         container.Register(Component.For<ServiceTypeImporter>());
-       
+        //公用組件註冊
+        container.Install(   new Ydb.Infrastructure.Installer()   );
+
         //限界上下文註冊
 
         container.Install( new Ydb.Infrastructure.InstallerCommon(BuildDBConfig("ydb_common")) );

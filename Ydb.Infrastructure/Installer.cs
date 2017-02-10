@@ -12,7 +12,7 @@ using Ydb.Common.Repository;
 
 namespace Ydb.Infrastructure
 {
-    public class InstallerCommonWithoutDb: IWindsorInstaller
+    public class Installer : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {

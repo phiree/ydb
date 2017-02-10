@@ -20,7 +20,7 @@ namespace DianzhuService.Diandian
 
 
             container.Install(
-                new Ydb.Infrastructure.InstallerCommonWithoutDb()
+                new Ydb.Infrastructure.Installer()
                 );
 
 
