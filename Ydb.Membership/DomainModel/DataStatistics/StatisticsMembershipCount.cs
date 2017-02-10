@@ -28,21 +28,52 @@ namespace Ydb.Membership.DomainModel.DataStatistics
             return l;
         }
 
-        public StatisticsInfo StatisticsNewMembershipCountListByDay(IList<DZMembership> memberList, DateTime beginTime,DateTime endTime)
+        public StatisticsInfo StatisticsNewMembershipCountListByTime(IList<DZMembership> memberList, DateTime beginTime,DateTime endTime,bool IsHour)
         {
             StatisticsInfo statisticsInfo = new StatisticsInfo();
             statisticsInfo.XName = "新增用户";
-            statisticsInfo.YName = "日期";
+            statisticsInfo.YName = IsHour ? "时" : "日";
             while (beginTime < endTime)
             {
-                DateTime middleTime = beginTime.AddDays(1);
+                DateTime middleTime =IsHour ? beginTime.AddHours(1) : beginTime.AddDays(1);
                 statisticsInfo.XYValue.Add(beginTime, 0);
-                //IList<DZMembership> members = memberList.Where(x => x.TimeCreated >= beginTime && x.TimeCreated < middleTime).ToList();
                 statisticsInfo.XYValue[beginTime]= memberList.Count(x => x.TimeCreated >= beginTime && x.TimeCreated < middleTime);
                 beginTime = middleTime;
             }
             return statisticsInfo;
         }
+
+        public StatisticsInfo StatisticsAllMembershipCountListByTime(IList<DZMembership> memberList, DateTime beginTime, DateTime endTime, bool IsHour)
+        {
+            StatisticsInfo statisticsInfo = new StatisticsInfo();
+            statisticsInfo.XName = "累计用户";
+            statisticsInfo.YName = IsHour ? "时" : "日";
+            while (beginTime < endTime)
+            {
+                DateTime middleTime = IsHour ? beginTime.AddHours(1) : beginTime.AddDays(1);
+                statisticsInfo.XYValue.Add(beginTime, 0);
+                beginTime = middleTime;
+                statisticsInfo.XYValue[beginTime] = memberList.Count(x => x.TimeCreated < middleTime);
+            }
+            return statisticsInfo;
+        }
+
+        public StatisticsInfo StatisticsLoginCountListByTime(IList<DZMembership> memberList, IList<MembershipLoginLog> loginList, DateTime beginTime, DateTime endTime, bool IsHour)
+        {
+            StatisticsInfo statisticsInfo = new StatisticsInfo();
+            statisticsInfo.XName = "用户活跃度";
+            statisticsInfo.YName = IsHour ? "时" : "日";
+            while (beginTime < endTime)
+            {
+                DateTime middleTime = IsHour ? beginTime.AddHours(1) : beginTime.AddDays(1);
+                IList<MembershipLoginLog>  logins = loginList.Where(x => x.LogTime >= beginTime && x.LogTime < middleTime).ToList();
+                statisticsInfo.XYValue.Add(beginTime, 0);
+                statisticsInfo.XYValue[beginTime] = StatisticsLoginCountLastMonth(memberList,logins);
+                beginTime = middleTime;
+            }
+            return statisticsInfo;
+        }
+
 
     }
 }
