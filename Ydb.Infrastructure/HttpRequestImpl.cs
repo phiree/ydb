@@ -12,23 +12,23 @@ using System.Net.Security;
 using System.IO;
 
 namespace Ydb.Infrastructure
-{  
+{
     public class HttpRequestImpl : IHttpRequest
     {
         static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.HttpHelper");
-        public   string CreateHttpRequest(string url, string type, NameValueCollection paras)
+        public string CreateHttpRequest(string url, string type, NameValueCollection paras)
         {
             return CreateHttpRequest(url, type, paras, Encoding.UTF8);
         }
 
-        public   string CreateHttpRequest(string url, string type, NameValueCollection paras, Encoding code)
+        public string CreateHttpRequest(string url, string type, NameValueCollection paras, Encoding code)
         {
             var responseString = string.Empty;
             using (var wb = new WebClient())
             {
- 
+
                 wb.Encoding = code;
- 
+
                 switch (type.ToLower())
                 {
                     case "get":
@@ -44,7 +44,7 @@ namespace Ydb.Infrastructure
             }
             return responseString;
         }
-        public   string CreateHttpRequestPostXml(string url, string requestXml, string certName)
+        public string CreateHttpRequestPostXml(string url, string requestXml, string certName)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace Ydb.Infrastructure
                 return exp.ToString();
             }
         }
-        private   bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
+        private bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {
             if (errors == SslPolicyErrors.None)
                 return true;
@@ -130,7 +130,7 @@ namespace Ydb.Infrastructure
             }
             return responseString;
         }
-        public   string CreateHttpRequestPostXml(string url, string parasXml, WebHeaderCollection headers)
+        public string CreateHttpRequestPostXml(string url, string parasXml, WebHeaderCollection headers)
         {
             var responseString = string.Empty;
             using (var wb = new WebClient())
@@ -143,6 +143,23 @@ namespace Ydb.Infrastructure
 
             return responseString;
 
+        }
+
+        public string CreateHttpRequest(string url)
+        {
+
+            using (WebClient wc = new System.Net.WebClient())
+            {
+                Uri uri = new Uri(url);
+                log.Debug(uri);
+                System.IO.Stream returnData = wc.OpenRead(uri);
+
+                using (System.IO.StreamReader reader = new System.IO.StreamReader(returnData))
+                {
+                    return reader.ReadToEnd();
+
+                }
+            }
         }
     }
 }

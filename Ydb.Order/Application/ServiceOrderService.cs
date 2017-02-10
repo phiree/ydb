@@ -982,10 +982,9 @@ namespace Ydb.Order.Application
                                 + "&ordertype=" + order.ServiceTypeName
                                 + "&orderstatusfriendly=" + order.GetStatusTitleFriendly(order.OrderStatus);
             //发送给用户
-            string uriParameterByCustomer = uriParameter + "&userid=" + order.CustomerId
-                                                         + "&toresource=" + enum_XmppResource.YDBan_User;
-            RequestUri(uriParameterByCustomer);
+            string uriParameterByCustomer = uriParameter + "&userid=" + order.CustomerId + "&toresource=" + enum_XmppResource.YDBan_User;
 
+            httpRequest.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice" + uriParameterByCustomer);
             //发送给商户
             if (order.BusinessId == null)
             {
@@ -997,7 +996,8 @@ namespace Ydb.Order.Application
             }
             string uriParameterByStore = uriParameter + "&userid=" + order.ServiceBusinessOwnerId
                                                       + "&toresource=" + enum_XmppResource.YDBan_Store;
-            RequestUri(uriParameterByStore);
+          
+            httpRequest.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice" + uriParameterByStore);
 
             //发送给指派的员工
             if (string.IsNullOrEmpty(order.StaffId))
@@ -1006,21 +1006,11 @@ namespace Ydb.Order.Application
             }
             string uriParameterByStaff = uriParameter + "&userid=" + order.StaffId
                                                       + "&toresource=" + enum_XmppResource.YDBan_Staff;
-            RequestUri(uriParameterByStaff);
-        }
+          
+            httpRequest.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice" + uriParameterByStaff);
 
-        private void RequestUri(string uriStr)
-        {
-            System.Net.WebClient wc = new System.Net.WebClient();
-            string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
-            Uri uri = new Uri(notifyServer + "type=ordernotice" + uriStr);
-            log.Debug(uri);
-            System.IO.Stream returnData = wc.OpenRead(uri);
-            System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
-            string result = reader.ReadToEnd();
-            log.Debug("发送结果:" + result);
         }
-
+ 
         [UnitOfWork]
         public void OrderFlow_EndCancel(ServiceOrder order)
         {
