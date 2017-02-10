@@ -466,7 +466,7 @@ namespace Ydb.Order.Application
             return result;
             //return DALServiceOrder.GetListForCustomer(customer, pageNum, pageSize, out totalAmount);
         }
-
+        [UnitOfWork]
         public void Delete(ServiceOrder order)
         {
             repoServiceOrder.Delete(order);
@@ -529,6 +529,7 @@ namespace Ydb.Order.Application
         /// <param name="serviceId"></param>
         /// <param name="serviceSnapshot"></param>
         /// <param name="worktimeSnapshot"></param>
+        [UnitOfWork]
         public void OrderFlow_ConfirmOrder(ServiceOrder order,string serviceId)
         {
           var pushedService=  repoPushedService.FindByOrder(order);
@@ -558,6 +559,7 @@ namespace Ydb.Order.Application
         /// <summary>
         /// 商家确认订单,准备执行.
         /// </summary>
+        [UnitOfWork]
         public void OrderFlow_BusinessConfirm(ServiceOrder order)
         {
             ChangeStatus(order, enum_OrderStatus.Negotiate);
@@ -585,6 +587,7 @@ namespace Ydb.Order.Application
         /// </summary>
         /// <param name="order"></param>
 
+        [UnitOfWork]
         public void OrderFlow_CustomConfirmNegotiate(ServiceOrder order)
         {
             //order.NegotiateAmount = order.NegotiateAmount_Modified;
@@ -594,6 +597,7 @@ namespace Ydb.Order.Application
         /// 用户不同意协商价格
         /// </summary>
         /// <param name="order"></param>
+        [UnitOfWork]
         public void OrderFlow_CustomerDisagreeNegotiate(ServiceOrder order)
         {
             order.NegotiateAmount = order.OrderAmount;
@@ -603,6 +607,7 @@ namespace Ydb.Order.Application
         /// 用户确认协商价格,并确定开始服务
         /// </summary>
         /// <param name="order"></param>
+        [UnitOfWork]
         public void OrderFlow_BusinessStartService(ServiceOrder order)
         {
             order.OrderServerStartTime = DateTime.Now;
@@ -612,6 +617,7 @@ namespace Ydb.Order.Application
         /// 商家确定服务完成
         /// </summary>
         /// <param name="order"></param>
+        [UnitOfWork]
         public void OrderFlow_BusinessFinish(ServiceOrder order)
         {
             order.OrderServerFinishedTime = DateTime.Now;
@@ -621,6 +627,7 @@ namespace Ydb.Order.Application
         /// 用户确认服务完成。
         /// </summary>
         /// <param name="order"></param>
+        [UnitOfWork]
         public void OrderFlow_CustomerFinish(ServiceOrder order)
         {
             order.OrderServerFinishedTime = DateTime.Now;
@@ -638,6 +645,7 @@ namespace Ydb.Order.Application
         /// 用户支付尾款
         /// </summary>
         /// <param name="order"></param>
+        [UnitOfWork]
         public void OrderFlow_CustomerPayFinalPayment(ServiceOrder order)
         {
             ChangeStatus(order, enum_OrderStatus.checkPayWithNegotiate);
@@ -647,6 +655,7 @@ namespace Ydb.Order.Application
         /// 订单完成
         /// </summary>
         /// <param name="order"></param>
+        [UnitOfWork]
         public void OrderFlow_OrderFinished(ServiceOrder order)
         {
             order.OrderFinished = DateTime.Now;
@@ -657,6 +666,7 @@ namespace Ydb.Order.Application
         /// 订单评价
         /// </summary>
         /// <param name="order"></param>
+        [UnitOfWork]
         public void OrderFlow_CustomerAppraise(ServiceOrder order)
         {
             ChangeStatus(order, enum_OrderStatus.Appraised);
@@ -666,6 +676,7 @@ namespace Ydb.Order.Application
         /// 用户申请理赔
         /// </summary>
         /// <param name="order"></param>
+        [UnitOfWork]
         public bool OrderFlow_CustomerRefund(string  orderId, bool isNeedRefund, decimal refundAmount)
         {
             ServiceOrder order = repoServiceOrder.FindById(new Guid(orderId));
@@ -721,6 +732,7 @@ namespace Ydb.Order.Application
         /// 商户裁定理赔
         /// </summary>
         /// <param name="order"></param>
+        [UnitOfWork]
         public void OrderFlow_BusinessIsRefund(ServiceOrder order, string memberId)
         {
             enum_OrderStatus oldStatus = order.OrderStatus;
@@ -783,6 +795,7 @@ namespace Ydb.Order.Application
         /// 理赔成功
         /// </summary>
         /// <param name="order"></param>
+        [UnitOfWork]
         public void OrderFlow_RefundSuccess(ServiceOrder order)
         {
             ChangeStatus(order, enum_OrderStatus.EndRefund);
@@ -792,6 +805,7 @@ namespace Ydb.Order.Application
         /// 商户要求支付赔偿金
         /// </summary>
         /// <param name="order"></param>
+        [UnitOfWork]
         public void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order, string context, decimal amount, IList<string> resourcesUrl, string memberId)
         {
             log.Debug("查询订单的理赔");
@@ -813,6 +827,7 @@ namespace Ydb.Order.Application
         /// 商户驳回理赔请求
         /// </summary>
         /// <param name="order"></param>
+        [UnitOfWork]
         public void OrderFlow_BusinessRejectRefund(ServiceOrder order, string memberId)
         {
             log.Debug("查询订单的理赔");
@@ -835,6 +850,7 @@ namespace Ydb.Order.Application
         /// 用户同意支付赔偿金
         /// </summary>
         /// <param name="order"></param>
+        [UnitOfWork]
         public void OrderFlow_WaitingPayWithRefund(ServiceOrder order, string memberId)
         {
             log.Debug("查询订单的理赔");
@@ -942,6 +958,7 @@ namespace Ydb.Order.Application
 
 
         //订单状态改变通用方法
+        [UnitOfWork]
         private void ChangeStatus(ServiceOrder order, enum_OrderStatus targetStatus)
         {
             enum_OrderStatus oldStatus = order.OrderStatus;
@@ -1004,6 +1021,7 @@ namespace Ydb.Order.Application
             log.Debug("发送结果:" + result);
         }
 
+        [UnitOfWork]
         public void OrderFlow_EndCancel(ServiceOrder order)
         {
             ChangeStatus(order, enum_OrderStatus.EndCancel);
@@ -1015,6 +1033,7 @@ namespace Ydb.Order.Application
         /// 申请取消
         /// </summary>
         /// <param name="order"></param>
+        [UnitOfWork]
         public bool OrderFlow_Canceled(ServiceOrder order)
         {
             log.Debug("---------开始取消订单---------");
@@ -1152,6 +1171,7 @@ namespace Ydb.Order.Application
         }
         #endregion
 
+        [UnitOfWork]
         public bool ApplyRefund(Payment payment, decimal refundAmount, string refundReason)
         {
           return   ApplyRefund(payment, refundAmount, refundReason, string.Empty);
@@ -1163,6 +1183,7 @@ namespace Ydb.Order.Application
         /// </summary>
         /// <param name="payment"></param>
         /// <returns></returns>
+        [UnitOfWork]
         public bool ApplyRefund(Payment payment, decimal refundAmount, string refundReason,string operatorId)
         {
             //申请退款记录.
@@ -1187,6 +1208,7 @@ namespace Ydb.Order.Application
         #endregion
 
         #region 分配工作人员
+        [UnitOfWork]
         public void AssignStaff(ServiceOrder order, string staffId)
         {
 
@@ -1195,6 +1217,7 @@ namespace Ydb.Order.Application
             oa.AssignedStaffId = staffId;
             repoOrderAssignment.Add(oa);
         }
+        [UnitOfWork]
         public void DeassignStaff(ServiceOrder order, string staffId)
         {
 
@@ -1206,12 +1229,7 @@ namespace Ydb.Order.Application
             repoOrderAssignment.Update(oa);
         }
         #endregion
-
-        #region http接口方法
-
-
-
-        #endregion
+ 
 
         public enum_OrderStatus GetOrderStatusPrevious(ServiceOrder order, enum_OrderStatus status)
         {
@@ -1288,7 +1306,7 @@ namespace Ydb.Order.Application
 
             return repoServiceOrder.Find(where).ToList();
         }
-
+        [UnitOfWork]
         public void OrderShared(ServiceOrder order)
         {
             order.IsShared = true;
@@ -1302,129 +1320,6 @@ namespace Ydb.Order.Application
     /// <summary>
     /// 支付宝退款返回数据
     /// </summary>
-    public class RefundReturnAliApp
-    {
-        public string is_success { get; set; }
-        public string error { get; set; }
-    }
-    /// <summary>
-    /// 支付宝无密退款返回数据的对象
-    /// </summary>
-    public class RefundReturnAlipay
-    {
-        public string is_success { get; set; }
-        public string error { get; set; }
-    }
-    /// <summary>
-    /// 支付宝退款返回数据中的对象
-    /// </summary>
-    public class RefundReturnResposeAliApp
-    {
-        /// <summary>
-        /// 支付宝交易号
-        /// </summary>
-        public string trade_no { get; set; }
-        /// <summary>
-        /// 商户订单号
-        /// </summary>
-        public string out_trade_no { get; set; }
-        /// <summary>
-        /// 买家支付宝用户号，该参数已废弃，请不要使用
-        /// </summary>
-        public string open_id { get; set; }
-        /// <summary>
-        /// 用户的登录id
-        /// </summary>
-        public string buyer_logon_id { get; set; }
-        /// <summary>
-        /// 本次退款是否发生了资金变化
-        /// </summary>
-        public string fund_change { get; set; }
-        /// <summary>
-        /// 本次发生的退款金额
-        /// </summary>
-        public string refund_fee { get; set; }
-        /// <summary>
-        /// 退款支付时间
-        /// </summary>
-        public string gmt_refund_pay { get; set; }
-        /// <summary>
-        /// 用户的登录id
-        /// </summary>
-        public RefundDetailItemListAliApp refund_detail_item_list { get; set; }
-        /// <summary>
-        /// 交易在支付时候的门店名称
-        /// </summary>
-        public string store_name { get; set; }
-        /// <summary>
-        /// 买家在支付宝的用户id
-        /// </summary>
-        public string buyer_user_id { get; set; }
-        /// <summary>
-        /// 实际退回给用户的金额
-        /// </summary>
-        public string send_back_fee { get; set; }
-        /// <summary>
-        /// 返回码
-        /// </summary>
-        public string code { get; set; }
-        /// <summary>
-        /// 返回消息
-        /// </summary>
-        public string msg { get; set; }
-        /// <summary>
-        /// 错误码
-        /// </summary>
-        public string sub_code { get; set; }
-        /// <summary>
-        /// 错误消息
-        /// </summary>
-        public string sub_msg { get; set; }
-    }
-    /// <summary>
-    /// 微信退款放回数据
-    /// </summary>
-    public class RefundReturnWeChat
-    {
-        public string return_code { get; set; }
-        public string return_msg { get; set; }
-        public string result_code { get; set; }
-        public string err_code { get; set; }
-        public string err_code_des { get; set; }
-        public string appid { get; set; }
-        public string mch_id { get; set; }
-        public string device_info { get; set; }
-        public string nonce_str { get; set; }
-        public string sign { get; set; }
-        public string transaction_id { get; set; }
-        public string out_trade_no { get; set; }
-        public string out_refund_no { get; set; }
-        public string refund_id { get; set; }
-        public string refund_channel { get; set; }
-        public string refund_fee { get; set; }
-        public string total_fee { get; set; }
-        public string fee_type { get; set; }
-        public string cash_fee { get; set; }
-        public string cash_refund_fee { get; set; }
-        public string coupon_refund_fee { get; set; }
-        public string coupon_refund_count { get; set; }
-        public string coupon_refund_id { get; set; }
-    }
-
-    /// <summary>
-    /// 退款返回的资金明细类型
-    /// </summary>
-    public class RefundDetailItemListAliApp
-    {
-        /// <summary>
-        /// 支付所使用的渠道
-        /// </summary>
-        public string fund_channel { get; set; }
-        /// <summary>
-        /// 该支付工具类型所使用的金额
-        /// </summary>
-        public string amount { get; set; }
-    }
-
+   
 
 }
