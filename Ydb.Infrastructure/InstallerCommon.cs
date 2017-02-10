@@ -20,13 +20,17 @@ namespace Ydb.Infrastructure
         {
             this.dbConfigCommon = dbConfigCommon;
         }
+        
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            container.Install(new InstallerCommonWithoutDb());
             InstallDb(container, store);
             InstallUnifOfWork(container, store);
+          
+            //repository
             container.Register(Component.For<ISerialNoBuilder>().ImplementedBy<SerialNoBuilder>());
         }
-
+      
         private void InstallUnifOfWork(IWindsorContainer container, IConfigurationStore store)
         {
             container.Kernel.ComponentRegistered += Kernel_ComponentRegistered;

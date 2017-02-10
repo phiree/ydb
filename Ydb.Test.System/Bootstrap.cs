@@ -38,7 +38,7 @@ public class Bootstrap
                 new Dianzhu.DependencyInstaller.InstallerApplicationService()
             );
         container.Install(
-              new Ydb.Infrastructure.Installer()
+              new Ydb.Infrastructure.InstallerCommonWithoutDb()
               );
         //IEncryptService iEncryptService = container.Resolve<IEncryptService>();
         //Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager

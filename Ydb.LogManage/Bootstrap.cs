@@ -28,7 +28,7 @@ namespace Ydb.LogManage
         {
             container = new WindsorContainer();
             container.Install(
-                new Ydb.Infrastructure.Installer()
+                new Ydb.Infrastructure.InstallerCommonWithoutDb()
                 );
 
           

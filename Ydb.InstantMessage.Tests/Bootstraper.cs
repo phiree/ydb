@@ -33,9 +33,7 @@ namespace Ydb.InstantMessage.Tests
                 .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });
 
 
-            container.Install(
-                    new Ydb.Infrastructure.Installer()
-                    );
+           
 
             container.Install(
                 new Ydb.Infrastructure.InstallerCommon(dbConfigCommon)

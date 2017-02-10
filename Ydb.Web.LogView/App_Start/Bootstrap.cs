@@ -28,7 +28,7 @@ namespace Dianzhu.Web.Log
         {
             container = new WindsorContainer();
             container.Install(
-                new Ydb.Infrastructure.Installer()
+                new Ydb.Infrastructure.InstallerCommonWithoutDb()
                 );
 
           

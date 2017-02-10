@@ -24,10 +24,7 @@ namespace Ydb.Test.Integration
 
             FluentConfiguration dbConfigCommon = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_Common.db3"));
 
-            container.Install(
-                    new Ydb.Infrastructure.Installer()
-                    );
-
+           
             container.Install(
                 new Ydb.Infrastructure.InstallerCommon(dbConfigCommon)
                 );

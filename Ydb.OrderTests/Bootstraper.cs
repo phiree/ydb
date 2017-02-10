@@ -44,9 +44,7 @@ namespace Ydb.OrderTests
             FluentConfiguration dbConfigPay = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_paygateway.db3"))
          .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });
 
-            container.Install(
-                    new Ydb.Infrastructure.Installer()
-                    );
+          
             
 
             container.Install(

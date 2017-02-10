@@ -31,9 +31,7 @@ namespace Ydb.Finance.Tests
             FluentConfiguration dbConfigCommon = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_common.db3"))
               .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });//test_ydb_finance.db3
 
-            container.Install(
-                    new Ydb.Infrastructure.Installer()
-                    );
+            
 
             container.Install(
                 new Ydb.Infrastructure.InstallerCommon(dbConfigCommon)

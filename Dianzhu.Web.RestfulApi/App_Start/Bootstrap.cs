@@ -43,9 +43,7 @@ namespace Dianzhu.Web.RestfulApi
 
 
 
-            container.Install(
-                new Ydb.Infrastructure.Installer()
-                );
+           
 
             container.Install(
                 new Ydb.Infrastructure.InstallerCommon(BuildDBConfig("ydb_common"))
