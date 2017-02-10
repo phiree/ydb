@@ -2,6 +2,7 @@
 using Dianzhu.CSClient.IView;
 using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.DomainModel.Chat;
+using Ydb.Membership.Application;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -13,12 +14,12 @@ namespace Dianzhu.CSClient.Presenter
         IViewFormShowMessage viewFormShowMessage;
 
         IInstantMessage iIM;
-        IBLLMembershipLoginLog bllLoginLog;
+        IMembershipLoginLogService bllLoginLog;
 
         public PMain(
             IViewMainForm viewMainForm,
-            IInstantMessage iIM, 
-            IBLLMembershipLoginLog bllLoginLog,
+            IInstantMessage iIM,
+            IMembershipLoginLogService bllLoginLog,
             IViewFormShowMessage viewFormShowMessage)
         {
             this.viewMainForm = viewMainForm;
