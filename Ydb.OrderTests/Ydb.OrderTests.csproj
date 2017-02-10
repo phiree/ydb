@@ -101,6 +101,7 @@
     <Compile Include="Application\ClaimsDetailsServiceTests.cs" />
     <Compile Include="Application\OrderPushServiceTests.cs" />
     <Compile Include="Application\PaymentServiceTests.cs" />
+    <Compile Include="Application\ServiceOrderServiceTests.cs" />
     <Compile Include="Application\TestSetUp.cs" />
     <Compile Include="Bootstraper.cs" />
     <Compile Include="DomainModel\ClaimsTests.cs" />
@@ -124,6 +125,10 @@
     <ProjectReference Include="..\Ydb.Order\Ydb.Order.csproj">
       <Project>{901E2A8A-E608-4477-B9BC-F583D818D87F}</Project>
       <Name>Ydb.Order</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.PayGateway\Ydb.PayGateway.csproj">
+      <Project>{a54365b5-4b06-4897-a280-38d18ed9eb0e}</Project>
+      <Name>Ydb.PayGateway</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

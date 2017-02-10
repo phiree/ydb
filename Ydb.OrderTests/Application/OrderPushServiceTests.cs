@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Ydb.Order.Application;
 using Ydb.Order.Application.Tests;
 using Ydb.OrderTests;
+using Ydb.Order.DomainModel;
+using FizzWare.NBuilder;
 namespace Ydb.Order.Application.Tests
 {
     [TestFixture()]
@@ -16,9 +18,10 @@ namespace Ydb.Order.Application.Tests
         [Test()]
         public void PushTest()
         {
-            IOrderPushService pushService = Bootstrap.Container.Resolve<IOrderPushService>();
-
-            Assert.IsNotNull(pushService);
+            IOrderPushService orderPushService = Bootstrap.Container.Resolve<IOrderPushService>();
+            ServiceOrder order = Builder<ServiceOrder>.CreateNew().Build();
+            ServiceOrderPushedService pushService = Builder<ServiceOrderPushedService>.CreateNew().Build();
+            orderPushService.Push(order, pushService, "TargetAddress", DateTime.Now);
         }
     }
 }

@@ -41,8 +41,9 @@ namespace Ydb.OrderTests
 
             FluentConfiguration dbConfigCommon = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_common.db3"))
            .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });
+            FluentConfiguration dbConfigPay = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_paygateway.db3"))
+         .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });
 
-          
             container.Install(
                     new Ydb.Infrastructure.Installer()
                     );
@@ -50,7 +51,8 @@ namespace Ydb.OrderTests
 
             container.Install(
                 new Ydb.Infrastructure.InstallerCommon(dbConfigCommon),
-                new Ydb.Order.Infrastructure.InstallerOrder(dbConfigOrder)
+                new Ydb.Order.Infrastructure.InstallerOrder(dbConfigOrder),
+                new Ydb.PayGateway.InstallerPayGateway(dbConfigPay)
                 );
 
 
