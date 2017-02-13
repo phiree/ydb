@@ -28,7 +28,7 @@ namespace Ydb.Membership.DomainModel.DataStatistics
             return l;
         }
 
-        public StatisticsInfo StatisticsNewMembershipCountListByTime(IList<DZMembership> memberList, DateTime beginTime,DateTime endTime,bool IsHour)
+        public StatisticsInfo StatisticsNewMembershipsCountListByTime(IList<DZMembership> memberList, DateTime beginTime,DateTime endTime,bool IsHour)
         {
             StatisticsInfo statisticsInfo = new StatisticsInfo();
             statisticsInfo.YName = "新增用户";
@@ -44,7 +44,7 @@ namespace Ydb.Membership.DomainModel.DataStatistics
             return statisticsInfo;
         }
 
-        public StatisticsInfo StatisticsAllMembershipCountListByTime(IList<DZMembership> memberList, DateTime beginTime, DateTime endTime, bool IsHour)
+        public StatisticsInfo StatisticsAllMembershipsCountListByTime(IList<DZMembership> memberList, DateTime beginTime, DateTime endTime, bool IsHour)
         {
             StatisticsInfo statisticsInfo = new StatisticsInfo();
             statisticsInfo.YName = "累计用户";
@@ -76,6 +76,7 @@ namespace Ydb.Membership.DomainModel.DataStatistics
             }
             return statisticsInfo;
         }
+        
 
 
     }

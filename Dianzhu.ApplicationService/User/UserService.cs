@@ -348,9 +348,13 @@ namespace Dianzhu.ApplicationService.User
             if (!string.IsNullOrEmpty(cityCode.longitude) && !string.IsNullOrEmpty(cityCode.latitude))
             {
                 RespGeo geoObj = utils.Deserialize<RespGeo>(utils.GetCity(cityCode.longitude, cityCode.latitude));
-                area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city);
+                area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city + geoObj.result.addressComponent.district);
+                if (area == null)
+                {
+                    area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city );
+                }
             }
-            ActionResult actionResult = memberService.ChangeUserCity(guidUser, cityCode.code, cityCode.longitude, cityCode.latitude,area);
+            ActionResult actionResult = memberService.ChangeUserCity(guidUser, cityCode.code, cityCode.longitude, cityCode.latitude,area.Id.ToString ());
             if (!actionResult.IsSuccess)
             {
                 throw new Exception(actionResult.ErrMsg);

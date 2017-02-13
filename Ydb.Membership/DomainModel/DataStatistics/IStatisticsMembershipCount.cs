@@ -10,8 +10,8 @@ namespace Ydb.Membership.DomainModel.DataStatistics
     public interface IStatisticsMembershipCount
     {
         long StatisticsLoginCountLastMonth(IList<DZMembership> memberList, IList<MembershipLoginLog> loginList);
-        StatisticsInfo StatisticsNewMembershipCountListByTime(IList<DZMembership> memberList, DateTime beginTime, DateTime endTime, bool IsHour);
-        StatisticsInfo StatisticsAllMembershipCountListByTime(IList<DZMembership> memberList, DateTime beginTime, DateTime endTime, bool IsHour);
+        StatisticsInfo StatisticsNewMembershipsCountListByTime(IList<DZMembership> memberList, DateTime beginTime, DateTime endTime, bool IsHour);
+        StatisticsInfo StatisticsAllMembershipsCountListByTime(IList<DZMembership> memberList, DateTime beginTime, DateTime endTime, bool IsHour);
         StatisticsInfo StatisticsLoginCountListByTime(IList<DZMembership> memberList, IList<MembershipLoginLog> loginList, DateTime beginTime, DateTime endTime, bool IsHour);
     }
 }

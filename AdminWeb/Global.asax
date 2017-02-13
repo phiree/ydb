@@ -6,6 +6,7 @@
 <%@ Import Namespace="Ydb.BusinessResource.Application" %>
 <%@ Import Namespace="Ydb.BusinessResource.DomainModel" %>
 <%@ Import Namespace="Ydb.Finance.Application" %>
+<%@ Import Namespace="Ydb.Common.Application" %>
 <script runat="server">
     public static IWindsorContainer container;
     //  Dianzhu.IDAL.IUnitOfWork uow = Bootstrap.Container.Resolve<Dianzhu.IDAL.IUnitOfWork>();
@@ -75,7 +76,9 @@
         orderShareParam.BalanceUser = new List<BalanceUserParam>();
         BalanceUserParam balanceAgent = new BalanceUserParam();
         Dianzhu.BLL.Agent.IAgentService agentService = Bootstrap.Container.Resolve<Dianzhu.BLL.Agent.IAgentService>();
-        var area = service.Business.AreaBelongTo;
+        int areaId = int.Parse(service.Business.AreaBelongTo);
+        IAreaService areaService=Bootstrap.Container.Resolve<IAreaService>();
+        Ydb.Common.Domain.Area area = areaService.GetOne(areaId);
         var agent = agentService.GetAreaAgent(area);
         if (agent != null)
         {

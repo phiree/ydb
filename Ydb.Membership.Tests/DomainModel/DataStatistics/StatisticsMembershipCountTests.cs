@@ -33,7 +33,7 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
         }
 
         [Test()]
-        public void StatisticsMembershipCount_StatisticsNewMembershipCountListByTime_ByDay_Test()
+        public void StatisticsMembershipCount_StatisticsNewMembershipsCountListByTime_ByDay_Test()
         {
             StatisticsMembershipCount statisticsMembershipCount = new StatisticsMembershipCount();
             IList<DZMembership> memberList = new List<DZMembership> {
@@ -47,7 +47,7 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             DateTime beginTime = DateTime.Parse("2017-01-01");
             DateTime endTime = DateTime.Parse("2017-02-01");
             bool IsHour = false;
-            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipCountListByTime(memberList, beginTime, endTime, IsHour);
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipsCountListByTime(memberList, beginTime, endTime, IsHour);
             Assert.IsNotNull(statisticsInfo);
             Assert.AreEqual("新增用户", statisticsInfo.YName);
             Assert.AreEqual("日", statisticsInfo.XName);
@@ -62,7 +62,7 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
         }
 
         [Test()]
-        public void StatisticsMembershipCount_StatisticsNewMembershipCountListByTime_ByHour_Test()
+        public void StatisticsMembershipCount_StatisticsNewMembershipsCountListByTime_ByHour_Test()
         {
             StatisticsMembershipCount statisticsMembershipCount = new StatisticsMembershipCount();
             IList<DZMembership> memberList = new List<DZMembership> {
@@ -76,7 +76,7 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             DateTime beginTime = DateTime.Parse("2017-01-01");
             DateTime endTime = DateTime.Parse("2017-01-02");
             bool IsHour = true;
-            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipCountListByTime(memberList, beginTime, endTime, true);
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipsCountListByTime(memberList, beginTime, endTime, true);
             Assert.IsNotNull(statisticsInfo);
             Assert.AreEqual("新增用户", statisticsInfo.YName);
             Assert.AreEqual("时", statisticsInfo.XName);
@@ -92,7 +92,7 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
 
 
         [Test()]
-        public void StatisticsMembershipCount_StatisticsAllMembershipCountListByTime_ByDay_Test()
+        public void StatisticsMembershipCount_StatisticsAllMembershipsCountListByTime_ByDay_Test()
         {
             StatisticsMembershipCount statisticsMembershipCount = new StatisticsMembershipCount();
             IList<DZMembership> memberList = new List<DZMembership> {
@@ -106,7 +106,7 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             DateTime beginTime = DateTime.Parse("2017-01-01");
             DateTime endTime = DateTime.Parse("2017-02-01");
             bool IsHour = false;
-            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipCountListByTime(memberList, beginTime, endTime, IsHour);
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListByTime(memberList, beginTime, endTime, IsHour);
             Assert.IsNotNull(statisticsInfo);
             Assert.AreEqual("累计用户", statisticsInfo.YName);
             Assert.AreEqual("日", statisticsInfo.XName);
@@ -121,7 +121,7 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
         }
 
         [Test()]
-        public void StatisticsMembershipCount_StatisticsAllMembershipCountListByTime_ByHour_Test()
+        public void StatisticsMembershipCount_StatisticsAllMembershipsCountListByTime_ByHour_Test()
         {
             StatisticsMembershipCount statisticsMembershipCount = new StatisticsMembershipCount();
             IList<DZMembership> memberList = new List<DZMembership> {
@@ -135,7 +135,7 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             DateTime beginTime = DateTime.Parse("2017-01-01");
             DateTime endTime = DateTime.Parse("2017-01-02");
             bool IsHour = true;
-            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipCountListByTime(memberList, beginTime, endTime, true);
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListByTime(memberList, beginTime, endTime, true);
             Assert.IsNotNull(statisticsInfo);
             Assert.AreEqual("累计用户", statisticsInfo.YName);
             Assert.AreEqual("时", statisticsInfo.XName);

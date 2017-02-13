@@ -37,14 +37,15 @@ namespace Dianzhu.Api.Model
             //}
             this.userID = business.Id != null ? business.Id.ToString() : "";
             this.alias = business.Name != null ? business.Name : "";
-            if (business.AreaBelongTo != null)
-            {
-                this.area = business.AreaBelongTo.Name != null ? business.AreaBelongTo.Name : "";
-            }
-            else
-            {
-                this.area = "";
-            }
+            this.area = business.AreaBelongTo;
+            //if (business.AreaBelongTo != null)
+            //{
+            //    this.area = business.AreaBelongTo.Name != null ? business.AreaBelongTo.Name : "";
+            //}
+            //else
+            //{
+            //    this.area = "";
+            //}
             this.doc = business.Description != null ? business.Description : "";
             if (business.BusinessAvatar.Id != Guid.Empty)
             {

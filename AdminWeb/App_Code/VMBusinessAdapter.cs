@@ -21,7 +21,7 @@ public class VMBusinessAdapter
     {
         VMShop vmShop = new VMShop();
         vmShop.BusinessName = business.Name;
-        vmShop.CityName = business.AreaBelongTo==null?string.Empty: business.AreaBelongTo.Name;
+        vmShop.CityName = business.AreaBelongTo==null?string.Empty: business.AreaBelongTo;
         vmShop.Score = 0;
         vmShop.ShopName = business.Name;
 

@@ -485,7 +485,7 @@ namespace Ydb.Membership.Application
             DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
             DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
             IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaId, BeginTime, EndTime, userType);
-            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipCountListByTime(memberList,BeginTime,EndTime,strBeginTime==strEndTime);
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipsCountListByTime(memberList,BeginTime,EndTime,strBeginTime==strEndTime);
             return statisticsInfo;
         }
         /// <summary>
@@ -502,7 +502,7 @@ namespace Ydb.Membership.Application
             DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
             DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
             IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaId, DateTime.MinValue, DateTime.MinValue, userType);
-            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipCountListByTime(memberList, BeginTime, EndTime, strBeginTime == strEndTime);
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListByTime(memberList, BeginTime, EndTime, strBeginTime == strEndTime);
             return statisticsInfo;
         }
         /// <summary>
