@@ -150,9 +150,7 @@ namespace Dianzhu.ApplicationService.WorkTime
         public object DeleteWorkTime(string storeID, string serviceID, string workTimeID, Customer customer)
         {
             //todo: refactor: 没用到 暂时注释
-            throw new NotImplementedException();
-           
-            /*
+            //throw new NotImplementedException();
            
             if (string.IsNullOrEmpty(storeID))
             {
@@ -167,40 +165,41 @@ namespace Dianzhu.ApplicationService.WorkTime
                 throw new FormatException("删除的工作时间ID不能为空！");
             }
             workTimeObj worktimeobj = new workTimeObj();
-           DZService service = dzServiceService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
+           ServiceDto service = dzServiceService.GetOne(utils.CheckGuidID(serviceID, "serviceID"));
             if (service == null)
             {
                 throw new Exception("不存在该服务！");
             }
-            if (service.Business.Id != utils.CheckGuidID(storeID, "storeID"))
+            if (service.ServiceBusinessId != storeID)
             {
                 throw new Exception("该服务不属于该店铺！");
             }
-            if (service.Business.OwnerId.ToString() != customer.UserID)
+            if (service.ServiceBusinessOwnerId != customer.UserID)
             {
                 throw new Exception("这不是你店铺的服务！");
             }
-            Guid guidId = utils.CheckGuidID(workTimeID, "workTimeID");
-            int c = 0;
-            foreach (Model.ServiceOpenTime sotObj in service.OpenTimes)
-            {
-                foreach (Model.ServiceOpenTimeForDay sotdayObj in sotObj.OpenTimeForDay)
-                {
-                    if (guidId == sotdayObj.Id)
-                    {
-                        sotObj.OpenTimeForDay.Remove(sotdayObj);
-                        //   blltimeforday.Delete(sotdayObj);
-                        c++;
-                        return "删除成功！";
-                    }
-                }
-            }
-            if (c == 0)
-            {
-                throw new Exception("该服务时段不存在！");
-            }
+            // Guid guidId = utils.CheckGuidID(workTimeID, "workTimeID");
+            dzServiceService.DeleteWorkTime(serviceID, workTimeID);
+            //int c = 0;
+            //foreach (Model.ServiceOpenTime sotObj in service.OpenTimes)
+            //{
+            //    foreach (Model.ServiceOpenTimeForDay sotdayObj in sotObj.OpenTimeForDay)
+            //    {
+            //        if (guidId == sotdayObj.Id)
+            //        {
+            //            sotObj.OpenTimeForDay.Remove(sotdayObj);
+            //            //   blltimeforday.Delete(sotdayObj);
+            //            c++;
+            //            return "删除成功！";
+            //        }
+            //    }
+            //}
+            //if (c == 0)
+            //{
+            //    throw new Exception("该服务时段不存在！");
+            //}
             return worktimeobj;
-            */
+           
         }
 
     }
