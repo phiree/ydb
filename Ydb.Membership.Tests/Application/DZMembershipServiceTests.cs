@@ -50,72 +50,72 @@ namespace Ydb.Membership.ApplicationTests
         [Test()]
         public void DZMembershipService_GetCountOfNewMembershipsYesterdayByArea_Test()
         {
-            string areaId = "areaId";
+            IList<string> areaList = new List<string>{ "areaId" };
             DateTime beginTime = DateTime.Parse(DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"));
-            repositoryMembership.Stub(x => x.GetUsersCountByArea(areaId, beginTime, beginTime.AddDays(1), UserType.customer)).Return(100);
-            long l = dzMembershipService.GetCountOfNewMembershipsYesterdayByArea(areaId,UserType.customer);
+            repositoryMembership.Stub(x => x.GetUsersCountByArea(areaList, beginTime, beginTime.AddDays(1), UserType.customer)).Return(100);
+            long l = dzMembershipService.GetCountOfNewMembershipsYesterdayByArea(areaList, UserType.customer);
             Assert.AreEqual(100, l);
         }
 
         [Test()]
         public void DZMembershipService_GetCountOfAllMembershipsByArea_Test()
         {
-            string areaId = "areaId";
-            repositoryMembership.Stub(x => x.GetUsersCountByArea(areaId, DateTime.MinValue, DateTime.MinValue, UserType.customer)).Return(100);
-            long l = dzMembershipService.GetCountOfAllMembershipsByArea(areaId,UserType.customer);
+            IList<string> areaList = new List<string> { "areaId" };
+            repositoryMembership.Stub(x => x.GetUsersCountByArea(areaList, DateTime.MinValue, DateTime.MinValue, UserType.customer)).Return(100);
+            long l = dzMembershipService.GetCountOfAllMembershipsByArea(areaList, UserType.customer);
             Assert.AreEqual(100, l);
         }
 
         [Test()]
         public void DZMembershipService_GetCountOfLoginMembershipsLastMonthByArea_Test()
         {
-            string areaId = "areaId";
+            IList<string> areaList = new List<string> { "areaId" };
             IList<DZMembership> memberList = new List<DZMembership>();
             DateTime baseTime = DateTime.Parse(DateTime.Now.ToString("yyyy-MM") + "-01");
             IList<MembershipLoginLog> loginList = new List<MembershipLoginLog>();
-            repositoryMembership.Stub(x => x.GetUsersByArea(areaId, DateTime.MinValue, DateTime.MinValue, UserType.customer)).Return(memberList);
+            repositoryMembership.Stub(x => x.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, UserType.customer)).Return(memberList);
             repositoryMembershipLoginLog.Stub(x => x.GetMembershipLoginLogListByTime(baseTime.AddMonths(-1), baseTime)).Return(loginList);
             statisticsMembershipCount.Stub(x => x.StatisticsLoginCountLastMonth(memberList, loginList)).Return(100);
-            long l = dzMembershipService.GetCountOfLoginMembershipsLastMonthByArea(areaId, UserType.customer);
+            long l = dzMembershipService.GetCountOfLoginMembershipsLastMonthByArea(areaList, UserType.customer);
             Assert.AreEqual(100, l);
         }
 
         [Test()]
         public void DZMembershipService_GetStatisticsNewMembershipsCountListByTime_Test()
         {
-            string areaId = "areaId";
+            IList<string> areaList = new List<string> { "areaId" };
             string strBeginTime = "2017-01-01";
             string strEndTime = "2017-01-31";
             StatisticsInfo statisticsInfo = new StatisticsInfo();
             DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
             DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
             IList<DZMembership> memberList = new List<DZMembership>();
-            repositoryMembership.Stub(x => x.GetUsersByArea(areaId, BeginTime, EndTime, UserType.customer)).Return(memberList);
+            repositoryMembership.Stub(x => x.GetUsersByArea(areaList, BeginTime, EndTime, UserType.customer)).Return(memberList);
             statisticsMembershipCount.Stub(x => x.StatisticsNewMembershipsCountListByTime(memberList,BeginTime,EndTime,strBeginTime==strEndTime)).Return(statisticsInfo);
-            StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsNewMembershipsCountListByTime(areaId,strBeginTime,strEndTime,UserType.customer);
+            StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsNewMembershipsCountListByTime(areaList, strBeginTime,strEndTime,UserType.customer);
             Assert.AreEqual(statisticsInfo, statisticsInfo1);
         }
 
         [Test()]
         public void DZMembershipService_GetStatisticsAllMembershipsCountListByTime_Test()
         {
-            string areaId = "areaId";
+            IList<string> areaList = new List<string> { "areaId" };
             string strBeginTime = "2017-01-01";
             string strEndTime = "2017-01-31";
             StatisticsInfo statisticsInfo = new StatisticsInfo();
             DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
             DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
             IList<DZMembership> memberList = new List<DZMembership>();
-            repositoryMembership.Stub(x => x.GetUsersByArea(areaId, DateTime.MinValue, DateTime.MinValue, UserType.customer)).Return(memberList);
+            repositoryMembership.Stub(x => x.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, UserType.customer)).Return(memberList);
             statisticsMembershipCount.Stub(x => x.StatisticsAllMembershipsCountListByTime(memberList, BeginTime, EndTime, strBeginTime == strEndTime)).Return(statisticsInfo);
-            StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsAllMembershipsCountListByTime(areaId, strBeginTime, strEndTime,UserType.customer);
+            StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsAllMembershipsCountListByTime(areaList, strBeginTime, strEndTime,UserType.customer);
             Assert.AreEqual(statisticsInfo, statisticsInfo1);
         }
 
         [Test()]
         public void DZMembershipService_GetStatisticsLoginCountListByTime_Test()
         {
-            string areaId = "areaId";
+            IList<string> areaList = new List<string> { "areaId" };
             string strBeginTime = "2017-01-01";
             string strEndTime = "2017-01-31";
             StatisticsInfo statisticsInfo = new StatisticsInfo();
@@ -123,10 +123,10 @@ namespace Ydb.Membership.ApplicationTests
             DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
             IList<DZMembership> memberList = new List<DZMembership>();
             IList<MembershipLoginLog> loginList = new List<MembershipLoginLog>();
-            repositoryMembership.Stub(x => x.GetUsersByArea(areaId, DateTime.MinValue, DateTime.MinValue, UserType.customer)).Return(memberList);
+            repositoryMembership.Stub(x => x.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, UserType.customer)).Return(memberList);
             repositoryMembershipLoginLog.Stub(x => x.GetMembershipLoginLogListByTime(BeginTime,EndTime)).Return(loginList);
             statisticsMembershipCount.Stub(x => x.StatisticsLoginCountListByTime(memberList,loginList, BeginTime, EndTime, strBeginTime == strEndTime)).Return(statisticsInfo);
-            StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsLoginCountListByTime(areaId, strBeginTime, strEndTime,UserType.customer);
+            StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsLoginCountListByTime(areaList, strBeginTime, strEndTime,UserType.customer);
             Assert.AreEqual(statisticsInfo, statisticsInfo1);
         }
     }

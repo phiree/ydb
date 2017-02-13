@@ -99,21 +99,21 @@ namespace Ydb.Membership.Application
         /// <param name="areaId"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        long GetCountOfNewMembershipsYesterdayByArea(string areaId,UserType userType);
+        long GetCountOfNewMembershipsYesterdayByArea(IList<string> areaList, UserType userType);
         /// <summary>
         /// 当前用户总量
         /// </summary>
         /// <param name="areaId"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        long GetCountOfAllMembershipsByArea(string areaId, UserType userType);
+        long GetCountOfAllMembershipsByArea(IList<string> areaList, UserType userType);
         /// <summary>
         /// 上月用户在线活跃度（数量）
         /// </summary>
         /// <param name="areaId"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        long GetCountOfLoginMembershipsLastMonthByArea(string areaId, UserType userType);
+        long GetCountOfLoginMembershipsLastMonthByArea(IList<string> areaList, UserType userType);
         /// <summary>
         /// 统计用户每日或每时新增数量列表
         /// </summary>
@@ -122,7 +122,7 @@ namespace Ydb.Membership.Application
         /// <param name="strEndTime"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        StatisticsInfo GetStatisticsNewMembershipsCountListByTime(string areaId, string strBeginTime, string strEndTime, UserType userType);
+        StatisticsInfo GetStatisticsNewMembershipsCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime, UserType userType);
         /// <summary>
         /// 统计用户每日或每时累计数量列表
         /// </summary>
@@ -131,7 +131,7 @@ namespace Ydb.Membership.Application
         /// <param name="strEndTime"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        StatisticsInfo GetStatisticsAllMembershipsCountListByTime(string areaId, string strBeginTime, string strEndTime, UserType userType);
+        StatisticsInfo GetStatisticsAllMembershipsCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime, UserType userType);
         /// <summary>
         /// 统计用户每日或每时在线活跃度（数量）列表
         /// </summary>
@@ -140,6 +140,6 @@ namespace Ydb.Membership.Application
         /// <param name="strEndTime"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        StatisticsInfo GetStatisticsLoginCountListByTime(string areaId, string strBeginTime, string strEndTime, UserType userType);
+        StatisticsInfo GetStatisticsLoginCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime, UserType userType);
     }
 }

@@ -11,6 +11,6 @@ namespace Ydb.Common.Domain
         public string XName { get; set; }
         public string YName { get; set; }
 
-        public IDictionary<DateTime,long> XYValue { get; set; }
+        public IDictionary<string,long> XYValue { get; set; }
     }
 }

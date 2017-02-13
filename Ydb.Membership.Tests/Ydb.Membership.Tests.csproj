@@ -120,6 +120,7 @@
     <Compile Include="DomainModel\DataStatistics\StatisticsMembershipCountTests.cs" />
     <Compile Include="DomainModel\Service\DZMembershipDomainServiceTests.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipMapTests.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\RepositoryDZMembershipTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

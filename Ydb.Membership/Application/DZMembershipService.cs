@@ -439,10 +439,10 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public long GetCountOfNewMembershipsYesterdayByArea(string areaId, UserType userType )
+        public long GetCountOfNewMembershipsYesterdayByArea(IList<string> areaList, UserType userType )
         {
             DateTime beginTime = DateTime.Parse(DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"));
-            return repositoryMembership.GetUsersCountByArea(areaId, beginTime, beginTime.AddDays(1), userType);
+            return repositoryMembership.GetUsersCountByArea(areaList, beginTime, beginTime.AddDays(1), userType);
         }
 
         /// <summary>
@@ -452,9 +452,9 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public long GetCountOfAllMembershipsByArea(string areaId, UserType userType)
+        public long GetCountOfAllMembershipsByArea(IList<string> areaList, UserType userType)
         {
-            return repositoryMembership.GetUsersCountByArea(areaId, DateTime.MinValue, DateTime.MinValue, userType);
+            return repositoryMembership.GetUsersCountByArea(areaList, DateTime.MinValue, DateTime.MinValue, userType);
         }
 
         /// <summary>
@@ -464,9 +464,9 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public long GetCountOfLoginMembershipsLastMonthByArea(string areaId, UserType userType)
+        public long GetCountOfLoginMembershipsLastMonthByArea(IList<string> areaList, UserType userType)
         {
-            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaId, DateTime.MinValue,DateTime.MinValue, userType);
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue,DateTime.MinValue, userType);
             DateTime baseTime = DateTime.Parse(DateTime.Now.ToString("yyyy-MM")+"-01");
             IList<MembershipLoginLog> loginList = repositoryMembershipLoginLog.GetMembershipLoginLogListByTime(baseTime.AddMonths(-1), baseTime);
             return statisticsMembershipCount.StatisticsLoginCountLastMonth(memberList,loginList);
@@ -480,11 +480,11 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public StatisticsInfo GetStatisticsNewMembershipsCountListByTime(string areaId, string strBeginTime,string strEndTime, UserType userType)
+        public StatisticsInfo GetStatisticsNewMembershipsCountListByTime(IList<string> areaList, string strBeginTime,string strEndTime, UserType userType)
         {
             DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
             DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
-            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaId, BeginTime, EndTime, userType);
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaList, BeginTime, EndTime, userType);
             StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipsCountListByTime(memberList,BeginTime,EndTime,strBeginTime==strEndTime);
             return statisticsInfo;
         }
@@ -497,11 +497,11 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public StatisticsInfo GetStatisticsAllMembershipsCountListByTime(string areaId, string strBeginTime, string strEndTime, UserType userType)
+        public StatisticsInfo GetStatisticsAllMembershipsCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime, UserType userType)
         {
             DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
             DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
-            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaId, DateTime.MinValue, DateTime.MinValue, userType);
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, userType);
             StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListByTime(memberList, BeginTime, EndTime, strBeginTime == strEndTime);
             return statisticsInfo;
         }
@@ -514,11 +514,11 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public StatisticsInfo GetStatisticsLoginCountListByTime(string areaId, string strBeginTime, string strEndTime, UserType userType)
+        public StatisticsInfo GetStatisticsLoginCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime, UserType userType)
         {
             DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
             DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
-            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaId, DateTime.MinValue, DateTime.MinValue, userType);
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, userType);
             IList<MembershipLoginLog> loginList = repositoryMembershipLoginLog.GetMembershipLoginLogListByTime(BeginTime, EndTime);
             StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsLoginCountListByTime(memberList,loginList, BeginTime, EndTime, strBeginTime == strEndTime);
             return statisticsInfo;

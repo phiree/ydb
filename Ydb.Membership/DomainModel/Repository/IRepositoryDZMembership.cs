@@ -43,9 +43,9 @@ namespace Ydb.Membership.DomainModel.Repository
 
 
         IList<DZMembership> GetUsers(TraitFilter filter, string name, string email, string phone, LoginType loginType, UserType userType);
-        IList<DZMembership> GetUsersByArea(string areaId, DateTime beginTime, DateTime endTime, UserType userType);
+        IList<DZMembership> GetUsersByArea(IList<string> areaList, DateTime beginTime, DateTime endTime, UserType userType);
         long GetUsersCount(string name, string email, string phone, LoginType loginType, UserType userType);
-        long GetUsersCountByArea(string areaId, DateTime beginTime, DateTime endTime, UserType userType);
+        long GetUsersCountByArea(IList<string> areaList, DateTime beginTime, DateTime endTime, UserType userType);
         IList< DZMembership> GetAll();
         
 

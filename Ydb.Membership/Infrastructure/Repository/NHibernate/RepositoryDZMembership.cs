@@ -156,7 +156,7 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate
             return list;
         }
 
-        public IList<DZMembership> GetUsersByArea(string areaId, DateTime beginTime, DateTime endTime, UserType userType)
+        public IList<DZMembership> GetUsersByArea(IList<string> areaList, DateTime beginTime, DateTime endTime, UserType userType)
         {
             var where = Ydb.Common.Specification.PredicateBuilder.True<DZMembership>();
             //if (!string.IsNullOrEmpty(userType))
@@ -164,9 +164,9 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate
             //    where = where.And(x => x.UserType == (UserType)Enum.Parse(typeof(UserType), userType));
             //}
             where = where.And(x => x.UserType ==userType);
-            if (!string.IsNullOrEmpty(areaId))
+            if (areaList.Count>0)
             {
-                where = where.And(x => x.AreaId == areaId);
+                where = where.And(x => areaList.Contains(x.AreaId));
             }
             if (beginTime != DateTime.MinValue)
             {
@@ -211,15 +211,15 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate
             return count;
         }
 
-        public long GetUsersCountByArea(string areaId,DateTime beginTime,DateTime endTime, UserType userType)
+        public long GetUsersCountByArea(IList<string> areaList,DateTime beginTime,DateTime endTime, UserType userType)
         {
             var where = Ydb.Common.Specification.PredicateBuilder.True<DZMembership>();
            
             where = where.And(x => x.UserType == userType);
             
-            if (!string.IsNullOrEmpty(areaId))
+            if (areaList.Count >0)
             {
-                where = where.And(x => x.AreaId == areaId);
+                where = where.And(x => areaList.Contains(x.AreaId));
             }
             if (beginTime != DateTime.MinValue)
             {

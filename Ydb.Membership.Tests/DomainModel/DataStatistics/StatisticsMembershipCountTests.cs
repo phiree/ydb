@@ -52,13 +52,13 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             Assert.AreEqual("新增用户", statisticsInfo.YName);
             Assert.AreEqual("日", statisticsInfo.XName);
             Assert.AreEqual(31, statisticsInfo.XYValue.Count);
-            Assert.AreEqual(0, statisticsInfo.XYValue[DateTime.Parse("2017-01-01")]);
-            Assert.AreEqual(2, statisticsInfo.XYValue[DateTime.Parse("2017-01-02")]);
-            Assert.AreEqual(0, statisticsInfo.XYValue[DateTime.Parse("2017-01-03")]);
-            Assert.AreEqual(3, statisticsInfo.XYValue[DateTime.Parse("2017-01-04")]);
-            Assert.AreEqual(0, statisticsInfo.XYValue[DateTime.Parse("2017-01-05")]);
-            Assert.AreEqual(1, statisticsInfo.XYValue[DateTime.Parse("2017-01-06")]);
-            Assert.AreEqual(0, statisticsInfo.XYValue[DateTime.Parse("2017-01-07")]);
+            Assert.AreEqual(0, statisticsInfo.XYValue["20170101"]);
+            Assert.AreEqual(2, statisticsInfo.XYValue["20170102"]);
+            Assert.AreEqual(0, statisticsInfo.XYValue["20170103"]);
+            Assert.AreEqual(3, statisticsInfo.XYValue["20170104"]);
+            Assert.AreEqual(0, statisticsInfo.XYValue["20170105"]);
+            Assert.AreEqual(1, statisticsInfo.XYValue["20170106"]);
+            Assert.AreEqual(0, statisticsInfo.XYValue["20170107"]);
         }
 
         [Test()]
@@ -81,13 +81,13 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             Assert.AreEqual("新增用户", statisticsInfo.YName);
             Assert.AreEqual("时", statisticsInfo.XName);
             Assert.AreEqual(24, statisticsInfo.XYValue.Count);
-            Assert.AreEqual(0, statisticsInfo.XYValue[DateTime.Parse("2017-01-01 00:00")]);
-            Assert.AreEqual(2, statisticsInfo.XYValue[DateTime.Parse("2017-01-01 07:00")]);
-            Assert.AreEqual(0, statisticsInfo.XYValue[DateTime.Parse("2017-01-01 09:00")]);
-            Assert.AreEqual(3, statisticsInfo.XYValue[DateTime.Parse("2017-01-01 14:00")]);
-            Assert.AreEqual(0, statisticsInfo.XYValue[DateTime.Parse("2017-01-01 18:00")]);
-            Assert.AreEqual(1, statisticsInfo.XYValue[DateTime.Parse("2017-01-01 20:00")]);
-            Assert.AreEqual(0, statisticsInfo.XYValue[DateTime.Parse("2017-01-01 21:00")]);
+            Assert.AreEqual(0, statisticsInfo.XYValue["0"]);
+            Assert.AreEqual(2, statisticsInfo.XYValue["7"]);
+            Assert.AreEqual(0, statisticsInfo.XYValue["9"]);
+            Assert.AreEqual(3, statisticsInfo.XYValue["14"]);
+            Assert.AreEqual(0, statisticsInfo.XYValue["18"]);
+            Assert.AreEqual(1, statisticsInfo.XYValue["20"]);
+            Assert.AreEqual(0, statisticsInfo.XYValue["21"]);
         }
 
 
@@ -111,13 +111,13 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             Assert.AreEqual("累计用户", statisticsInfo.YName);
             Assert.AreEqual("日", statisticsInfo.XName);
             Assert.AreEqual(31, statisticsInfo.XYValue.Count);
-            Assert.AreEqual(0, statisticsInfo.XYValue[DateTime.Parse("2017-01-01")]);
-            Assert.AreEqual(2, statisticsInfo.XYValue[DateTime.Parse("2017-01-02")]);
-            Assert.AreEqual(2, statisticsInfo.XYValue[DateTime.Parse("2017-01-03")]);
-            Assert.AreEqual(5, statisticsInfo.XYValue[DateTime.Parse("2017-01-04")]);
-            Assert.AreEqual(5, statisticsInfo.XYValue[DateTime.Parse("2017-01-05")]);
-            Assert.AreEqual(6, statisticsInfo.XYValue[DateTime.Parse("2017-01-06")]);
-            Assert.AreEqual(6, statisticsInfo.XYValue[DateTime.Parse("2017-01-07")]);
+            Assert.AreEqual(0, statisticsInfo.XYValue["20170101"]);
+            Assert.AreEqual(2, statisticsInfo.XYValue["20170102"]);
+            Assert.AreEqual(2, statisticsInfo.XYValue["20170103"]);
+            Assert.AreEqual(5, statisticsInfo.XYValue["20170104"]);
+            Assert.AreEqual(5, statisticsInfo.XYValue["20170105"]);
+            Assert.AreEqual(6, statisticsInfo.XYValue["20170106"]);
+            Assert.AreEqual(6, statisticsInfo.XYValue["20170107"]);
         }
 
         [Test()]
@@ -140,13 +140,13 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             Assert.AreEqual("累计用户", statisticsInfo.YName);
             Assert.AreEqual("时", statisticsInfo.XName);
             Assert.AreEqual(24, statisticsInfo.XYValue.Count);
-            Assert.AreEqual(0, statisticsInfo.XYValue[DateTime.Parse("2017-01-01 00:00")]);
-            Assert.AreEqual(2, statisticsInfo.XYValue[DateTime.Parse("2017-01-01 07:00")]);
-            Assert.AreEqual(2, statisticsInfo.XYValue[DateTime.Parse("2017-01-01 09:00")]);
-            Assert.AreEqual(5, statisticsInfo.XYValue[DateTime.Parse("2017-01-01 14:00")]);
-            Assert.AreEqual(5, statisticsInfo.XYValue[DateTime.Parse("2017-01-01 18:00")]);
-            Assert.AreEqual(6, statisticsInfo.XYValue[DateTime.Parse("2017-01-01 20:00")]);
-            Assert.AreEqual(6, statisticsInfo.XYValue[DateTime.Parse("2017-01-01 21:00")]);
+            Assert.AreEqual(0, statisticsInfo.XYValue["0"]);
+            Assert.AreEqual(2, statisticsInfo.XYValue["7"]);
+            Assert.AreEqual(2, statisticsInfo.XYValue["9"]);
+            Assert.AreEqual(5, statisticsInfo.XYValue["14"]);
+            Assert.AreEqual(5, statisticsInfo.XYValue["18"]);
+            Assert.AreEqual(6, statisticsInfo.XYValue["20"]);
+            Assert.AreEqual(6, statisticsInfo.XYValue["21"]);
         }
 
         [Test()]
@@ -171,14 +171,14 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             DateTime beginTime = dateBase.AddDays(-2);
             DateTime endTime = dateBase.AddDays(1);
             bool IsHour = false;
-            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsLoginCountListByTime(memberList,loginList, beginTime, endTime, IsHour);
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsLoginCountListByTime(memberList, loginList, beginTime, endTime, IsHour);
             Assert.IsNotNull(statisticsInfo);
             Assert.AreEqual("用户活跃度", statisticsInfo.YName);
             Assert.AreEqual("日", statisticsInfo.XName);
             Assert.AreEqual(3, statisticsInfo.XYValue.Count);
-            Assert.AreEqual(0, statisticsInfo.XYValue[dateBase.AddDays(-2)]);
-            Assert.AreEqual(0, statisticsInfo.XYValue[dateBase.AddDays(-1)]);
-            Assert.AreEqual(2, statisticsInfo.XYValue[dateBase]);
+            Assert.AreEqual(0, statisticsInfo.XYValue[dateBase.AddDays(-2).ToString("yyyyMMdd")]);
+            Assert.AreEqual(0, statisticsInfo.XYValue[dateBase.AddDays(-1).ToString("yyyyMMdd")]);
+            Assert.AreEqual(2, statisticsInfo.XYValue[dateBase.ToString("yyyyMMdd")]);
         }
 
         [Test()]
@@ -199,7 +199,7 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
                 new MembershipLoginLog ("015351d4-ba0a-41b2-bc5e-a6b400c11c26",enumLoginLogType.Login,""),
                 new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,"")
             };
-            DateTime dateBase = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH")+":00");
+            DateTime dateBase = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH") + ":00");
             DateTime beginTime = dateBase.AddHours(-2);
             DateTime endTime = dateBase.AddHours(1);
             bool IsHour = true;
@@ -208,9 +208,31 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             Assert.AreEqual("用户活跃度", statisticsInfo.YName);
             Assert.AreEqual("时", statisticsInfo.XName);
             Assert.AreEqual(3, statisticsInfo.XYValue.Count);
-            Assert.AreEqual(0, statisticsInfo.XYValue[dateBase.AddHours(-2)]);
-            Assert.AreEqual(0, statisticsInfo.XYValue[dateBase.AddHours(-1)]);
-            Assert.AreEqual(2, statisticsInfo.XYValue[dateBase]);
+            Assert.AreEqual(0, statisticsInfo.XYValue[dateBase.AddHours(-2).Hour.ToString ()]);
+            Assert.AreEqual(0, statisticsInfo.XYValue[dateBase.AddHours(-1).Hour.ToString()]);
+            Assert.AreEqual(2, statisticsInfo.XYValue[dateBase.Hour.ToString()]);
+        }
+
+        [Test()]
+        public void StatisticsMembershipCount_StatisticsAllMembershipsCountListBySex_Test()
+        {
+            StatisticsMembershipCount statisticsMembershipCount = new StatisticsMembershipCount();
+            IList<DZMembership> memberList = new List<DZMembership> {
+                new DZMembership { Id=new Guid("002c0c77-c2a0-4dba-930c-a6b000f80ceb"),Sex=true},
+                new DZMembership { Id=new Guid("00c02067-4900-41b6-b3d4-a68100c47cb9"),Sex=false},
+                new DZMembership { Id=new Guid("015351d4-ba0a-41b2-bc5e-a6b400c11c26"),Sex=true},
+                new DZMembership { Id=new Guid("03b647cb-a449-4f93-abf3-a67c0098ecdf"),Sex=true},
+                new DZMembership { Id=new Guid("015351d4-ba0a-41b2-bc5e-a6b400c11c26"),Sex=false},
+                new DZMembership { Id=new Guid("015351d4-ba0a-41b2-bc5e-a6b400c11c26"),TimeCreated=DateTime.Parse("2017-01-01 20:20")},
+                new DZMembership { Id=new Guid("015351d4-ba0a-41b2-bc5e-a6b400c11c26"),TimeCreated=DateTime.Parse("2017-01-01 20:20")}
+            };
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListBySex(memberList);
+            Assert.IsNotNull(statisticsInfo);
+            Assert.AreEqual("用户数量", statisticsInfo.YName);
+            Assert.AreEqual("性别", statisticsInfo.XName);
+            Assert.AreEqual(2, statisticsInfo.XYValue.Count);
+            Assert.AreEqual(3, statisticsInfo.XYValue["女"]);
+            Assert.AreEqual(4, statisticsInfo.XYValue["男"]);
         }
     }
 }
