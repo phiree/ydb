@@ -27,7 +27,7 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.RealName);
             Map(x => x.Sex);
             Map(x => x.PersonalID);
-            //Map(x => x.AreaId);
+            Map(x => x.AreaId);
             //References<Area>(x => x.Area).ForeignKey("none");
             Map(x => x.IsRegisterValidated);
             Map(x => x.RegisterValidateCode);

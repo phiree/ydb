@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.Membership.DomainModel;
 using FluentNHibernate.Mapping;
+using Ydb.Common;
 
 namespace Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping
 {
@@ -17,6 +18,7 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.LogType).CustomType<enumLoginLogType>();
             Map(x => x.Memo);
             Map(x => x.MemberId);
+            Map(x => x.AppName).CustomType<enum_appName>();
 
         }
     }

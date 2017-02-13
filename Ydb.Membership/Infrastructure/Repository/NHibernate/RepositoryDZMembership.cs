@@ -213,6 +213,7 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate
 
         public long GetUsersCountByArea(IList<string> areaList,DateTime beginTime,DateTime endTime, UserType userType)
         {
+            //session.CreateQuery
             var where = Ydb.Common.Specification.PredicateBuilder.True<DZMembership>();
            
             where = where.And(x => x.UserType == userType);
