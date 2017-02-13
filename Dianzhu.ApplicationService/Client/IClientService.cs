@@ -17,7 +17,7 @@ namespace Dianzhu.ApplicationService.Client
         /// <param name="apiKey"></param>
         /// <param name="strPath"></param>
         /// <returns></returns>
-        UserTokentDTO CreateToken(string loginName, string password, string apiName, string apiKey, string strPath);
+        UserTokentDTO CreateToken(string loginName, string password, string apiName, string apiKey, string strPath,string appName);
 
         /// <summary>
         /// 注册客户端

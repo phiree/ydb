@@ -9,6 +9,7 @@ using AutoMapper;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.BusinessResource.Application;
+using Ydb.Common;
 
 namespace Dianzhu.ApplicationService.Client
 {
@@ -44,7 +45,7 @@ namespace Dianzhu.ApplicationService.Client
         /// <param name="apiKey"></param>
         /// <param name="strPath"></param>
         /// <returns></returns>
-        public UserTokentDTO CreateToken(string loginName, string password, string apiName, string apiKey,string strPath)
+        public UserTokentDTO CreateToken(string loginName, string password, string apiName, string apiKey,string strPath,string appName)
         {
 
             log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.ClientController.NoRule.v1.RestfulApi.Web.Dianzhu");
@@ -66,8 +67,9 @@ namespace Dianzhu.ApplicationService.Client
             //}
             MemberDto dzm = validateResult.ValidatedMember;
 
+
             //用户登录记录
-            membershipLoginLogService.MemberLogin(dzm.Id.ToString(), "");
+            membershipLoginLogService.MemberLogin(dzm.Id.ToString(), "", (enum_appName)Enum.Parse(typeof(enum_appName), appName));
 
             string userUri = "";
             switch (dzm.UserType)
