@@ -390,7 +390,7 @@ namespace Dianzhu.Web.RestfulApi
             //ilog.Debug("Request(requestMaxAgeInSeconds)" + reqTime + ":120000");
             //ilog.Debug("Check(bool)" + reqTime + ":" + (serverTotalSeconds - requestTotalSeconds).ToString());
             //ilog.Debug("Check(bool1)" + reqTime + ":" + ((serverTotalSeconds - requestTotalSeconds) > 120000).ToString());
-            if (Math.Abs(serverTotalSeconds - requestTotalSeconds) > 120000)
+            if (Math.Abs(serverTotalSeconds - requestTotalSeconds) > 30000)//120000//茅哥要求30秒超时
             {
 
                 ilog.Debug("Request(RequestMethodUriSign)" + requestTimeStamp + ":" + strLog + ";error=Out Time," + serverTotalSeconds .ToString ()+ "-"+ requestTotalSeconds .ToString ()+ "="+ Math.Abs(serverTotalSeconds - requestTotalSeconds) .ToString ()+ "> 120000!");
