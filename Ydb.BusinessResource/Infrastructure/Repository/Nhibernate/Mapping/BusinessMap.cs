@@ -36,8 +36,9 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.Longitude);
             Map(x => x.IsApplyApproved);
             Map(x => x.ApplyRejectMessage);
-            References<Area>(x => x.AreaBelongTo).ForeignKey("none");
-           
+            Map(x => x.AreaBelongTo);
+            //References<Area>(x => x.AreaBelongTo).ForeignKey("none");
+
             Map(x => x.DateApply);
             Map(x => x.DateApproved);
            

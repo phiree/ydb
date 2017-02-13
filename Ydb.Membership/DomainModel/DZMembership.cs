@@ -80,7 +80,7 @@ namespace Ydb.Membership.DomainModel
         /// <summary>
         /// 区域
         /// </summary>
-        public virtual Area Area { get; set; }
+        public virtual string AreaId { get; set; }
 
         /// <summary>
         /// 注册验证码(邮箱验证链接,手机验证码)

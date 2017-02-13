@@ -31,8 +31,9 @@ namespace Ydb.Membership.DomainModel.DataStatistics
         public StatisticsInfo StatisticsNewMembershipCountListByTime(IList<DZMembership> memberList, DateTime beginTime,DateTime endTime,bool IsHour)
         {
             StatisticsInfo statisticsInfo = new StatisticsInfo();
-            statisticsInfo.XName = "新增用户";
-            statisticsInfo.YName = IsHour ? "时" : "日";
+            statisticsInfo.YName = "新增用户";
+            statisticsInfo.XName = IsHour ? "时" : "日";
+            statisticsInfo.XYValue = new Dictionary<DateTime, long>();
             while (beginTime < endTime)
             {
                 DateTime middleTime =IsHour ? beginTime.AddHours(1) : beginTime.AddDays(1);
@@ -46,14 +47,15 @@ namespace Ydb.Membership.DomainModel.DataStatistics
         public StatisticsInfo StatisticsAllMembershipCountListByTime(IList<DZMembership> memberList, DateTime beginTime, DateTime endTime, bool IsHour)
         {
             StatisticsInfo statisticsInfo = new StatisticsInfo();
-            statisticsInfo.XName = "累计用户";
-            statisticsInfo.YName = IsHour ? "时" : "日";
+            statisticsInfo.YName = "累计用户";
+            statisticsInfo.XName = IsHour ? "时" : "日";
+            statisticsInfo.XYValue = new Dictionary<DateTime, long>();
             while (beginTime < endTime)
             {
                 DateTime middleTime = IsHour ? beginTime.AddHours(1) : beginTime.AddDays(1);
                 statisticsInfo.XYValue.Add(beginTime, 0);
-                beginTime = middleTime;
                 statisticsInfo.XYValue[beginTime] = memberList.Count(x => x.TimeCreated < middleTime);
+                beginTime = middleTime;
             }
             return statisticsInfo;
         }
@@ -61,8 +63,9 @@ namespace Ydb.Membership.DomainModel.DataStatistics
         public StatisticsInfo StatisticsLoginCountListByTime(IList<DZMembership> memberList, IList<MembershipLoginLog> loginList, DateTime beginTime, DateTime endTime, bool IsHour)
         {
             StatisticsInfo statisticsInfo = new StatisticsInfo();
-            statisticsInfo.XName = "用户活跃度";
-            statisticsInfo.YName = IsHour ? "时" : "日";
+            statisticsInfo.YName = "用户活跃度";
+            statisticsInfo.XName = IsHour ? "时" : "日";
+            statisticsInfo.XYValue = new Dictionary<DateTime, long>();
             while (beginTime < endTime)
             {
                 DateTime middleTime = IsHour ? beginTime.AddHours(1) : beginTime.AddDays(1);

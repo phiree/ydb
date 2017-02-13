@@ -13,5 +13,6 @@ namespace Ydb.Membership.DomainModel.Enums
         WeChat = 1,
         SinaWeiBo = 2,
         TencentQQ = 3,
+        None=-1
     }
 }

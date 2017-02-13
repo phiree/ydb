@@ -81,7 +81,7 @@ namespace Ydb.Membership.Application
 
         ActionResult RecoveryPasswordByPhone(string phone, string newPassword);
 
-         ActionResult ChangeUserCity(Guid memberId, string cityCode, string longitude, string latitude, Area area);
+         ActionResult ChangeUserCity(Guid memberId, string cityCode, string longitude, string latitude, string areaId);
 
 
         ActionResult RecoveryPassword( string recoveryString, string newPassword);
@@ -93,7 +93,53 @@ namespace Ydb.Membership.Application
         ActionResult ChangeAvatar(string userId, string newAvatar);
         IList<Dto.MemberDto> GetUsers(TraitFilter filter, string name, string email, string phone, string loginType, string userType);
         long GetUsersCount(string name, string email, string phone, string loginType, string userType);
-        long GetCountOfNewCustomersYesterdayByArea(Area area);
-        long GetCountOfAllCustomersByArea(Area area);
+        /// <summary>
+        /// 昨日新增用户
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        long GetCountOfNewMembershipsYesterdayByArea(string areaId,UserType userType);
+        /// <summary>
+        /// 当前用户总量
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        long GetCountOfAllMembershipsByArea(string areaId, UserType userType);
+        /// <summary>
+        /// 上月用户在线活跃度（数量）
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        long GetCountOfLoginMembershipsLastMonthByArea(string areaId, UserType userType);
+        /// <summary>
+        /// 统计用户每日或每时新增数量列表
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="strBeginTime"></param>
+        /// <param name="strEndTime"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        StatisticsInfo GetStatisticsNewMembershipsCountListByTime(string areaId, string strBeginTime, string strEndTime, UserType userType);
+        /// <summary>
+        /// 统计用户每日或每时累计数量列表
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="strBeginTime"></param>
+        /// <param name="strEndTime"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        StatisticsInfo GetStatisticsAllMembershipsCountListByTime(string areaId, string strBeginTime, string strEndTime, UserType userType);
+        /// <summary>
+        /// 统计用户每日或每时在线活跃度（数量）列表
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="strBeginTime"></param>
+        /// <param name="strEndTime"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        StatisticsInfo GetStatisticsLoginCountListByTime(string areaId, string strBeginTime, string strEndTime, UserType userType);
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.Membership.DomainModel;
+using Ydb.Membership.DomainModel.Enums;
 using Ydb.Common.Repository;
 using Ydb.Common.Specification;
-using Ydb.Common.Domain;
 namespace Ydb.Membership.DomainModel.Repository
 {
    public interface IRepositoryDZMembership:IRepository<DZMembership,Guid>
@@ -42,10 +42,10 @@ namespace Ydb.Membership.DomainModel.Repository
 
 
 
-        IList<DZMembership> GetUsers(TraitFilter filter, string name, string email, string phone, string loginType, string userType);
-        IList<DZMembership> GetUsersByArea(TraitFilter filter, Area area, string userType);
-        long GetUsersCount(string name, string email, string phone, string loginType, string userType);
-        long GetUsersCountByArea(Area area, DateTime beginTime, DateTime endTime, string userType);
+        IList<DZMembership> GetUsers(TraitFilter filter, string name, string email, string phone, LoginType loginType, UserType userType);
+        IList<DZMembership> GetUsersByArea(string areaId, DateTime beginTime, DateTime endTime, UserType userType);
+        long GetUsersCount(string name, string email, string phone, LoginType loginType, UserType userType);
+        long GetUsersCountByArea(string areaId, DateTime beginTime, DateTime endTime, UserType userType);
         IList< DZMembership> GetAll();
         
 

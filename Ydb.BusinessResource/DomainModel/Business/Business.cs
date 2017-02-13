@@ -112,8 +112,8 @@ namespace Ydb.BusinessResource.DomainModel
         /// <summary>
         ///  所在辖区
         /// </summary>
-        public virtual Area AreaBelongTo { get;protected internal set; }
-
+        //public virtual Area AreaBelongTo { get;protected internal set; }
+        public virtual string AreaBelongTo { get; protected internal set; }
 
         /// <summary>
         ///  地址

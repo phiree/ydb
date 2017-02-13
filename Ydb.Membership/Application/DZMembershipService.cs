@@ -12,8 +12,8 @@ using System.Collections.Generic;
 using Ydb.Common.Specification;
 using Ydb.Common.Repository;
 using Ydb.Membership.DomainModel.Service;
-using Ydb.Common.Domain;
 using Ydb.Membership.DomainModel.DataStatistics;
+using Ydb.Common.Domain;
 
 namespace Ydb.Membership.Application
 {
@@ -277,7 +277,7 @@ namespace Ydb.Membership.Application
 
 
         [UnitOfWork]
-        public ActionResult ChangeUserCity(Guid memberId, string cityCode,string longitude, string latitude,Area area)
+        public ActionResult ChangeUserCity(Guid memberId, string cityCode,string longitude, string latitude,string areaId)
         {
             ActionResult result = new ActionResult();
             DZMembership member = repositoryMembership.GetMemberById(memberId);
@@ -303,9 +303,9 @@ namespace Ydb.Membership.Application
             {
                 member.Latitude = latitude;
             }
-            if (area != null)
+            if (!string.IsNullOrEmpty(areaId))
             {
-                member.Area = area;
+                member.AreaId = areaId;
             }
             repositoryMembership.Update(member);
             return result;
@@ -368,7 +368,10 @@ namespace Ydb.Membership.Application
         [UnitOfWork]
         public IList<MemberDto> GetUsers(TraitFilter filter, string name, string email, string phone, string loginType, string userType)
         {
-            IList<DZMembership> memberList = repositoryMembership.GetUsers(filter, name, email, phone, loginType, userType);
+            //(UserType)Enum.Parse(typeof(UserType), userType)
+            LoginType lType = LoginType.None;
+            Enum.TryParse<LoginType>(loginType, out lType);
+            IList<DZMembership> memberList = repositoryMembership.GetUsers(filter, name, email, phone, lType, (UserType)Enum.Parse(typeof(UserType), userType));
 
           return  Mapper.Map<IList<DZMembership>, IList<MemberDto>>(memberList);
         }
@@ -376,7 +379,9 @@ namespace Ydb.Membership.Application
         [UnitOfWork]
         public long GetUsersCount(string name, string email, string phone, string loginType, string userType)
         {
-         return   repositoryMembership.GetUsersCount(name, email, phone, loginType, userType);
+            LoginType lType = LoginType.None;
+            Enum.TryParse<LoginType>(loginType, out lType);
+            return   repositoryMembership.GetUsersCount(name, email, phone, lType, (UserType)Enum.Parse(typeof(UserType), userType));
         }
         [UnitOfWork]
         public MemberDto Login3rd(string platform, string code, string appName, string userType)
@@ -422,32 +427,101 @@ namespace Ydb.Membership.Application
         public IList<MemberDto> GetAllCustomer(int currentPageIndex, int pageSize, out long totalRecord)
         {
             TraitFilter filter = new TraitFilter { pageNum=currentPageIndex,pageSize=pageSize };
-            IList<DZMembership> memberList = repositoryMembership.GetUsers(filter, string.Empty, string.Empty, string.Empty, string.Empty,UserType.customer.ToString());
-            totalRecord = repositoryMembership.GetUsersCount(string.Empty, string.Empty, string.Empty, string.Empty, UserType.customer.ToString());
+            IList<DZMembership> memberList = repositoryMembership.GetUsers(filter, string.Empty, string.Empty, string.Empty, LoginType.None,UserType.customer);
+            totalRecord = repositoryMembership.GetUsersCount(string.Empty, string.Empty, string.Empty, LoginType.None, UserType.customer);
             return Mapper.Map<IList<DZMembership>, IList<MemberDto>>(memberList);
         }
 
+        /// <summary>
+        /// 昨日新增用户
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
         [UnitOfWork]
-        public long GetCountOfNewCustomersYesterdayByArea(Area area)
+        public long GetCountOfNewMembershipsYesterdayByArea(string areaId, UserType userType )
         {
             DateTime beginTime = DateTime.Parse(DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"));
-            return repositoryMembership.GetUsersCountByArea(area, beginTime, beginTime.AddDays(1), UserType.customer.ToString());
+            return repositoryMembership.GetUsersCountByArea(areaId, beginTime, beginTime.AddDays(1), userType);
         }
 
+        /// <summary>
+        /// 当前用户总量
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
         [UnitOfWork]
-        public long GetCountOfAllCustomersByArea(Area area)
+        public long GetCountOfAllMembershipsByArea(string areaId, UserType userType)
         {
-            return repositoryMembership.GetUsersCountByArea(area, DateTime.MinValue, DateTime.MinValue, UserType.customer.ToString());
+            return repositoryMembership.GetUsersCountByArea(areaId, DateTime.MinValue, DateTime.MinValue, userType);
         }
 
+        /// <summary>
+        /// 上月用户在线活跃度（数量）
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
         [UnitOfWork]
-        public long GetCountOfLoginCustomersLastMonthByArea(Area area)
+        public long GetCountOfLoginMembershipsLastMonthByArea(string areaId, UserType userType)
         {
-            string strUserType = UserType.customer.ToString();
-            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(new TraitFilter(), area, strUserType);
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaId, DateTime.MinValue,DateTime.MinValue, userType);
             DateTime baseTime = DateTime.Parse(DateTime.Now.ToString("yyyy-MM")+"-01");
             IList<MembershipLoginLog> loginList = repositoryMembershipLoginLog.GetMembershipLoginLogListByTime(baseTime.AddMonths(-1), baseTime);
             return statisticsMembershipCount.StatisticsLoginCountLastMonth(memberList,loginList);
+        }
+        /// <summary>
+        /// 统计用户每日或每时新增数量列表
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="strBeginTime"></param>
+        /// <param name="strEndTime"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public StatisticsInfo GetStatisticsNewMembershipsCountListByTime(string areaId, string strBeginTime,string strEndTime, UserType userType)
+        {
+            DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
+            DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaId, BeginTime, EndTime, userType);
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipCountListByTime(memberList,BeginTime,EndTime,strBeginTime==strEndTime);
+            return statisticsInfo;
+        }
+        /// <summary>
+        /// 统计用户每日或每时累计数量列表
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="strBeginTime"></param>
+        /// <param name="strEndTime"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public StatisticsInfo GetStatisticsAllMembershipsCountListByTime(string areaId, string strBeginTime, string strEndTime, UserType userType)
+        {
+            DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
+            DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaId, DateTime.MinValue, DateTime.MinValue, userType);
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipCountListByTime(memberList, BeginTime, EndTime, strBeginTime == strEndTime);
+            return statisticsInfo;
+        }
+        /// <summary>
+        /// 统计用户每日或每时在线活跃度（数量）列表
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="strBeginTime"></param>
+        /// <param name="strEndTime"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public StatisticsInfo GetStatisticsLoginCountListByTime(string areaId, string strBeginTime, string strEndTime, UserType userType)
+        {
+            DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
+            DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaId, DateTime.MinValue, DateTime.MinValue, userType);
+            IList<MembershipLoginLog> loginList = repositoryMembershipLoginLog.GetMembershipLoginLogListByTime(BeginTime, EndTime);
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsLoginCountListByTime(memberList,loginList, BeginTime, EndTime, strBeginTime == strEndTime);
+            return statisticsInfo;
         }
     }
 }
