@@ -147,13 +147,33 @@ namespace Ydb.Membership.ApplicationTests
         [Test()]
         public void DZMembershipService_GetStatisticsAllMembershipsCountListBySex_Test()
         {
-
             IList<string> areaList = new List<string> { "areaId" };
             StatisticsInfo statisticsInfo = new StatisticsInfo();
             IList<DZMembership> memberList = new List<DZMembership>();
             repositoryMembership.Stub(x => x.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, UserType.customer)).Return(memberList);
             statisticsMembershipCount.Stub(x => x.StatisticsAllMembershipsCountListBySex(memberList)).Return(statisticsInfo);
             StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsAllMembershipsCountListBySex(areaList, UserType.customer);
+            Assert.AreEqual(statisticsInfo, statisticsInfo1);
+        }
+
+        [Test()]
+        public void DZMembershipService_GetStatisticsAllMembershipsCountListByArea_Test()
+        {
+            IList<Area> areaList = new List<Area> { new Area {Id=1,Name="北京市" },
+                new Area {Id=2,Name="北京市市辖区" },
+                new Area {Id=3,Name="北京市东城区" },
+                new Area {Id=4,Name="北京市西城区" },
+                new Area {Id=5,Name="北京市崇文区" },
+                new Area {Id=6,Name="北京市宣武区" },
+                new Area {Id=7,Name="北京市朝阳区" },
+                new Area {Id=8,Name="北京市丰台区" },
+                new Area {Id=9,Name="北京市石景山区" }};
+            IList<string> AreaIdList = areaList.Select(x => x.Id.ToString()).ToList();
+            StatisticsInfo statisticsInfo = new StatisticsInfo();
+            IList<DZMembership> memberList = new List<DZMembership>();
+            repositoryMembership.Stub(x => x.GetUsersByArea(AreaIdList, DateTime.MinValue, DateTime.MinValue, UserType.customer)).Return(memberList);
+            statisticsMembershipCount.Stub(x => x.StatisticsAllMembershipsCountGroupByArea(memberList,areaList)).Return(statisticsInfo);
+            StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsAllMembershipsCountListByArea(areaList, UserType.customer);
             Assert.AreEqual(statisticsInfo, statisticsInfo1);
         }
     }

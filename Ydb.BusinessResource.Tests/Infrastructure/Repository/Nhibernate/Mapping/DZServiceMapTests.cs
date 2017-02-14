@@ -30,6 +30,9 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping.Test
                 .BuildSessionFactory().OpenSession();
 
         }
+        /// <summary>
+        /// 确认是否做mapping
+        /// </summary>
         [Test()]
         public void AllMappingsBasicTest()
         {
@@ -42,6 +45,9 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping.Test
             new PersistenceSpecification<Area>(session).VerifyTheMappings();
             new PersistenceSpecification<DZTag>(session).VerifyTheMappings();
         }
+        /// <summary>
+        /// mapping测试
+        /// </summary>
         [Test()]
         public void DZServiceMapTest()
         {

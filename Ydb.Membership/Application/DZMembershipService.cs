@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Ydb.Membership.DomainModel;
 using Ydb.Membership.DomainModel.Enums;
 using Ydb.Membership.DomainModel.Repository;
@@ -539,7 +540,6 @@ namespace Ydb.Membership.Application
             return statisticsInfo;
         }
 
-
         /// <summary>
         /// 根据用户性别统计用户数量列表
         /// </summary>
@@ -551,6 +551,21 @@ namespace Ydb.Membership.Application
         {
             IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, userType);
             StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListBySex(memberList);
+            return statisticsInfo;
+        }
+
+        /// <summary>
+        /// 根据用户所在子区域统计用户数量列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public StatisticsInfo GetStatisticsAllMembershipsCountListByArea(IList<Area> areaList, UserType userType)
+        {
+            IList<string> AreaIdList = areaList.Select(x => x.Id.ToString ()).ToList();
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(AreaIdList, DateTime.MinValue, DateTime.MinValue, userType);
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountGroupByArea(memberList,areaList);
             return statisticsInfo;
         }
     }

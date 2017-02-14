@@ -155,5 +155,12 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
          StatisticsInfo GetStatisticsAllMembershipsCountListBySex(IList<string> areaList, UserType userType);
+        /// <summary>
+        /// 根据用户所在子区域统计用户数量列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+         StatisticsInfo GetStatisticsAllMembershipsCountListByArea(IList<Area> areaList, UserType userType);
     }
 }

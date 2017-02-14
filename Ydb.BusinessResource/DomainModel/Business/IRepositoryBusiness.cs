@@ -31,5 +31,8 @@ namespace Ydb.BusinessResource.DomainModel
         IList<Business> GetListByPage(int pageIndex, int pageSize, out long totalRecord);
 
         int GetEnableSum(string memberId);
+
+        IList<Business> GetBusinessesByArea(IList<string> areaList, DateTime beginTime, DateTime endTime);
+        long GetBusinessesCountByArea(IList<string> areaList, DateTime beginTime, DateTime endTime);
     }
 }

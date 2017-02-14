@@ -158,5 +158,45 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate
         }
 
 
+        public IList<Business> GetBusinessesByArea(IList<string> areaList, DateTime beginTime, DateTime endTime)
+        {
+            var where = Ydb.Common.Specification.PredicateBuilder.True<Business>();
+            if (areaList.Count > 0)
+            {
+                where = where.And(x => areaList.Contains(x.AreaBelongTo));
+            }
+            if (beginTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.CreatedTime >= beginTime);
+            }
+            if (endTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.CreatedTime < endTime);
+            }
+            return Find(where).ToList();
+        }
+
+        public long GetBusinessesCountByArea(IList<string> areaList, DateTime beginTime, DateTime endTime)
+        {
+            //session.CreateQuery
+            var where = Ydb.Common.Specification.PredicateBuilder.True<Business>();
+            if (areaList.Count > 0)
+            {
+                where = where.And(x => areaList.Contains(x.AreaBelongTo));
+            }
+            if (beginTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.CreatedTime >= beginTime);
+            }
+            if (endTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.CreatedTime < endTime);
+            }
+            long count = GetRowCount(where);
+            return count;
+        }
+
+
+
     }
 }

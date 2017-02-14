@@ -119,6 +119,8 @@
     <Compile Include="DomainModel\Business\IRepositoryBusinessImage.cs" />
     <Compile Include="DomainModel\DZTag.cs" />
     <Compile Include="DomainModel\PhoneValidator.cs" />
+    <Compile Include="DomainModel\Service\DataStatistics\IStatisticsBusinessCount.cs" />
+    <Compile Include="DomainModel\Service\DataStatistics\StatisticsBusinessCount.cs" />
     <Compile Include="DomainModel\Service\DZService.cs" />
     <Compile Include="DomainModel\IRepositoryDZTag.cs" />
     <Compile Include="DomainModel\Service\IPeriodValidator.cs" />
