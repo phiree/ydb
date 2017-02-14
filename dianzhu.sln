@@ -333,6 +333,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.LogManageTests", "Ydb.L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminAgent", "AdminAgent\AdminAgent.csproj", "{35A39010-0B80-46E7-AE33-D9FC1B27AF46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.CommonTests", "Ydb.CommonTests\Ydb.CommonTests.csproj", "{C550CA32-8448-4D22-B101-C905D3CD499B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1427,6 +1429,24 @@ Global
 		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.Release|x86.ActiveCfg = Release|Any CPU
 		{35A39010-0B80-46E7-AE33-D9FC1B27AF46}.Release|x86.Build.0 = Release|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.Debug|x86.Build.0 = Debug|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.dev|Any CPU.ActiveCfg = Debug|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.dev|Any CPU.Build.0 = Debug|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.dev|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.dev|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.dev|x86.ActiveCfg = Debug|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.dev|x86.Build.0 = Debug|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.Release|x86.ActiveCfg = Release|Any CPU
+		{C550CA32-8448-4D22-B101-C905D3CD499B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

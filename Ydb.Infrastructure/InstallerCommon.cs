@@ -27,6 +27,8 @@ namespace Ydb.Infrastructure
         {
             InstallDb(container, store);
             InstallUnifOfWork(container, store);
+            InstallApplication(container, store);
+            InstallRepository(container, store);
             container.Register(Component.For<ISerialNoBuilder>().ImplementedBy<SerialNoBuilder>());
         }
 

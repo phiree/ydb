@@ -12,7 +12,7 @@ using Ydb.Common.Domain;
 
 namespace Ydb.Membership.Application
 {
-  public interface  IDZMembershipService
+    public interface IDZMembershipService
     {
         /// <summary>
         /// 商户注册
@@ -22,10 +22,10 @@ namespace Ydb.Membership.Application
         /// <param name="confirmPassword"></param>
         /// <param name="hostInMail">验证邮件中链接的主机名称或者ip地址</param>
         /// <returns></returns>
-        Dto.RegisterResult RegisterBusinessUser(string registerName, string password,string confirmPassword,string hostInMail);
+        Dto.RegisterResult RegisterBusinessUser(string registerName, string password, string confirmPassword, string hostInMail);
         Dto.RegisterResult RegisterCustomerService(string registerName, string password, string confirmPassword, string hostInMail);
         Dto.RegisterResult RegisterMember(string registerName, string password, string confirmPassword, string userType, string hostInMail);
-        Dto.RegisterResult RegisterStaff(string registerName, string password, string confirmPassword,   string hostInMail);
+        Dto.RegisterResult RegisterStaff(string registerName, string password, string confirmPassword, string hostInMail);
         /// <summary>
         /// 重新发送注册验证邮件
         /// </summary>
@@ -41,13 +41,13 @@ namespace Ydb.Membership.Application
         /// <param name="verifyCode">注册验证码</param>
         /// <returns></returns>
         ActionResult VerifyRegisterCode(string verifyCode, string userid);
-        
+
         /// <summary>
         /// 根据用户名获取用户信息
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-         Dto.MemberDto GetUserByName(string userName);
+        Dto.MemberDto GetUserByName(string userName);
 
         /// <summary>
         /// 根据用户名id获取用户信息
@@ -63,30 +63,30 @@ namespace Ydb.Membership.Application
         /// <param name="userNameOrUserId">用户登录名或者ID</param>
         /// <param name="password"></param>
         /// <returns>验证结果,如果验证通过则包含memberdto</returns>
-        Dto.ValidateResult  ValidateUser(string userNameOrUserId, string password,bool isLogin);
+        Dto.ValidateResult ValidateUser(string userNameOrUserId, string password, bool isLogin);
         Dto.ValidateResult Login(string userNameOrUserId, string password);
-        Dto.MemberDto Login3rd(string platForm, string code, string appName,  string userType);
+        Dto.MemberDto Login3rd(string platForm, string code, string appName, string userType);
         /// <summary>
         /// 申请重置密码
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="hostInMail">验证邮件中链接的主机名称或者ip地址</param>
         /// <returns></returns>
-        ActionResult ApplyRecovery(string userName,string hostInMail);
+        ActionResult ApplyRecovery(string userName, string hostInMail);
 
-        
+
 
         ActionResult ChangePassword(string userName, string oldPassword, string newPassword);
 
 
         ActionResult RecoveryPasswordByPhone(string phone, string newPassword);
 
-         ActionResult ChangeUserCity(Guid memberId, string cityCode, string longitude, string latitude, string areaId);
+        ActionResult ChangeUserCity(Guid memberId, string cityCode, string longitude, string latitude, string areaId);
 
 
-        ActionResult RecoveryPassword( string recoveryString, string newPassword);
+        ActionResult RecoveryPassword(string recoveryString, string newPassword);
 
-        ActionResult ChangePhone(string userId,string newPhone);
+        ActionResult ChangePhone(string userId, string newPhone);
         ActionResult ChangeEmail(string userId, string newEmail);
         ActionResult ChangeAlias(string userId, string neAlias);
         ActionResult ChangeAddress(string userId, string newAddress);
@@ -141,5 +141,19 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         StatisticsInfo GetStatisticsLoginCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime, UserType userType);
+        /// <summary>
+        /// 根据用户手机系统统计用户数量列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+         StatisticsInfo GetStatisticsAllMembershipsCountListByAppName(IList<string> areaList, UserType userType);
+        /// <summary>
+        /// 根据用户性别统计用户数量列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+         StatisticsInfo GetStatisticsAllMembershipsCountListBySex(IList<string> areaList, UserType userType);
     }
 }

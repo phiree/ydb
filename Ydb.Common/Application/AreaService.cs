@@ -55,19 +55,20 @@ namespace Ydb.Common.Application
             if (mCode == "00")
             {
                 //查找市级区域单位
-                where = i => i.Code.StartsWith(bCode) && i.Code.Substring(2, 2) != "00" && i.Code.EndsWith("00");
-
+                where = i => i.Code.StartsWith(bCode); //&& i.Code.Substring(2, 2) != "00" && i.Code.EndsWith("00");
+                //注释后面的是为了获取所有的子区域
 
             }
             else if (lCode == "00")
             {
                 //查找市内区、县级区域单位(并排除市和辖区)
-                where = i => i.Code.StartsWith(bCode + mCode) && !i.Code.EndsWith("00");
-
+                where = i => i.Code.StartsWith(bCode + mCode);//&& !i.Code.EndsWith("00");
+                //注释后面的是为了获取所有的子区域
             }
             else
             {
-                Func<Area, bool> where2 = i => i.Code == "" && i.Code == "dd";
+                //Func<Area, bool> where2 = i => i.Code == "" && i.Code == "dd";
+                where = i => i.Code == areacode;//.StartsWith(bCode + mCode +lCode);
             }
          //  iuw.BeginTransaction();
             var result= repoArea.Find(where).ToList();

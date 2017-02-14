@@ -418,12 +418,12 @@ namespace Ydb.Membership.Application
 
             return new ActionResult();
         }
-
+        [UnitOfWork]
         public RegisterResult RegisterStaff(string registerName, string password, string confirmPassword, string hostInMail)
         {
             return RegisterMember(registerName, password, confirmPassword, UserType.staff.ToString(), hostInMail);
         }
-
+        [UnitOfWork]
         public IList<MemberDto> GetAllCustomer(int currentPageIndex, int pageSize, out long totalRecord)
         {
             TraitFilter filter = new TraitFilter { pageNum=currentPageIndex,pageSize=pageSize };
@@ -521,6 +521,36 @@ namespace Ydb.Membership.Application
             IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, userType);
             IList<MembershipLoginLog> loginList = repositoryMembershipLoginLog.GetMembershipLoginLogListByTime(BeginTime, EndTime);
             StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsLoginCountListByTime(memberList,loginList, BeginTime, EndTime, strBeginTime == strEndTime);
+            return statisticsInfo;
+        }
+
+        /// <summary>
+        /// 根据用户手机系统统计用户数量列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public StatisticsInfo GetStatisticsAllMembershipsCountListByAppName(IList<string> areaList, UserType userType)
+        {
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, userType);
+            IList<MembershipLoginLog> loginList = repositoryMembershipLoginLog.GetMembershipLastLoginLog();
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListByAppName(memberList, loginList);
+            return statisticsInfo;
+        }
+
+
+        /// <summary>
+        /// 根据用户性别统计用户数量列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public StatisticsInfo GetStatisticsAllMembershipsCountListBySex(IList<string> areaList, UserType userType)
+        {
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, userType);
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListBySex(memberList);
             return statisticsInfo;
         }
     }

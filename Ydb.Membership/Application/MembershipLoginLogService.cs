@@ -28,9 +28,9 @@ namespace Ydb.Membership.Application
             repositoryMembershipLoginLog.Add(log);
         }
 
-        public void MemberLogoff(string memberId, string memo, enum_appName appName)
+        public void MemberLogoff(string memberId, string memo)
         {
-            MembershipLoginLog log = new MembershipLoginLog(memberId, enumLoginLogType.Logoff, memo, appName);
+            MembershipLoginLog log = new MembershipLoginLog(memberId, enumLoginLogType.Logoff, memo,enum_appName.IOS_Customer);
             repositoryMembershipLoginLog.Add(log);
         }
     }

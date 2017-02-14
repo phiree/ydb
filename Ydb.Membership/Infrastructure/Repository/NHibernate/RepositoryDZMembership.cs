@@ -234,7 +234,6 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate
             return count;
         }
 
-
         public IList<DZMembership> GetAll()
         {
             return Find(x => true).ToList();

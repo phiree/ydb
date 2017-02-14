@@ -267,5 +267,48 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             Assert.AreEqual(4, statisticsInfo.XYValue["IOS_Customer"]);
             Assert.AreEqual(3, statisticsInfo.XYValue["other"]);
         }
+
+        [Test()]
+        public void StatisticsMembershipCount_StatisticsAllMembershipsCountGroupByArea_Test()
+        {
+
+            StatisticsMembershipCount statisticsMembershipCount = new StatisticsMembershipCount();
+            IList<DZMembership> memberList = new List<DZMembership> {
+                new DZMembership { Id=new Guid("003c0c77-c2a0-4dba-930c-a6b000f80ceb"),AreaId="1"},
+                new DZMembership { Id=new Guid("002c0c77-c2a0-4dba-930c-a6b000f80ceb"),AreaId="1"},
+                new DZMembership { Id=new Guid("00c02067-4900-41b6-b3d4-a68100c47cb9"),AreaId="2"},
+                new DZMembership { Id=new Guid("015351d4-ba0a-41b2-bc5e-a6b400c11c26"),AreaId="1"},
+                new DZMembership { Id=new Guid("005c0c77-c2a0-4dba-930c-a6b000f80ceb"),AreaId="2"},
+                new DZMembership { Id=new Guid("03b647cb-a449-4f93-abf3-a67c0098ecdf"),AreaId="1"},
+                new DZMembership { Id=new Guid("004c0c77-c2a0-4dba-930c-a6b000f80ceb"),AreaId="3"},
+                new DZMembership { Id=new Guid("115351d4-ba0a-41b2-bc5e-a6b400c11c23"),AreaId="1"},
+                new DZMembership { Id=new Guid("215351d4-ba0a-41b2-bc5e-a6b400c11c25"),AreaId="1"}
+            };
+            IList<Area> areaList = new List<Area> {
+                new Area {Id=1,Name="北京市" },
+                new Area {Id=2,Name="北京市市辖区" },
+                new Area {Id=3,Name="北京市东城区" },
+                new Area {Id=4,Name="北京市西城区" },
+                new Area {Id=5,Name="北京市崇文区" },
+                new Area {Id=6,Name="北京市宣武区" },
+                new Area {Id=7,Name="北京市朝阳区" },
+                new Area {Id=8,Name="北京市丰台区" },
+                new Area {Id=9,Name="北京市石景山区" }
+            };
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountGroupByArea(memberList, areaList);
+            Assert.IsNotNull(statisticsInfo);
+            Assert.AreEqual("用户数量", statisticsInfo.YName);
+            Assert.AreEqual("区域", statisticsInfo.XName);
+            Assert.AreEqual(9, statisticsInfo.XYValue.Count);
+            Assert.AreEqual(6, statisticsInfo.XYValue["北京市"]);
+            Assert.AreEqual(2, statisticsInfo.XYValue["北京市市辖区"]);
+            Assert.AreEqual(1, statisticsInfo.XYValue["北京市东城区"]);
+            Assert.AreEqual(0, statisticsInfo.XYValue["北京市西城区"]);
+            Assert.AreEqual(0, statisticsInfo.XYValue["北京市崇文区"]);
+            Assert.AreEqual(0, statisticsInfo.XYValue["北京市宣武区"]);
+            Assert.AreEqual(0, statisticsInfo.XYValue["北京市朝阳区"]);
+            Assert.AreEqual(0, statisticsInfo.XYValue["北京市丰台区"]);
+            Assert.AreEqual(0, statisticsInfo.XYValue["北京市石景山区"]);
+        }
     }
 }

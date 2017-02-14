@@ -10,6 +10,6 @@ namespace Ydb.Membership.Application
     public interface IMembershipLoginLogService
     {
         void MemberLogin(string memeberId, string memo, enum_appName appName);
-        void MemberLogoff(string memberId, string memo, enum_appName appName);
+        void MemberLogoff(string memberId, string memo);
     }
 }

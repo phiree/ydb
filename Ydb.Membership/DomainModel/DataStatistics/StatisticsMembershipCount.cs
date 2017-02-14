@@ -99,8 +99,6 @@ namespace Ydb.Membership.DomainModel.DataStatistics
             statisticsInfo.YName = "用户数量";
             statisticsInfo.XName = "手机系统";
             statisticsInfo.XYValue = new Dictionary<string, long>();
-            //long l = memberList.Count(x => x.Sex);
-            //statisticsInfo.XYValue.Add("男", memberList.Count - l);
             statisticsInfo.XYValue.Add("other", 0);
             foreach (DZMembership member in memberList)
             {
@@ -125,6 +123,19 @@ namespace Ydb.Membership.DomainModel.DataStatistics
             return statisticsInfo;
         }
 
+        public StatisticsInfo StatisticsAllMembershipsCountGroupByArea(IList<DZMembership> memberList, IList<Area> areaList)
+        {
+            StatisticsInfo statisticsInfo = new StatisticsInfo();
+            statisticsInfo.YName = "用户数量";
+            statisticsInfo.XName = "区域";
+            statisticsInfo.XYValue = new Dictionary<string, long>();
+            foreach (Area area in areaList)
+            {
+                long mc = memberList.Count(x => x.AreaId == area.Id.ToString());
+                statisticsInfo.XYValue.Add(area.Name, mc);
+            }
+            return statisticsInfo;
+        }
 
     }
 }
