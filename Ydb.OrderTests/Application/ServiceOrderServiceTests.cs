@@ -12,12 +12,38 @@ namespace Ydb.Order.Application.Tests
     [TestFixture()]
     public class ServiceOrderServiceTests
     {
+        IServiceOrderService orderService = Ydb.OrderTests.Bootstrap.Container.Resolve<IServiceOrderService>();
         [Test()]
-        public void OrderFlow_ConfirmOrderTest()
+        public void OrderFlow_BusinessConfirmOrderTest()
         {
-            IServiceOrderService orderService = Ydb.OrderTests.Bootstrap.Container.Resolve<IServiceOrderService>();
-            Order.DomainModel.ServiceOrder order = FizzWare.NBuilder.Builder<ServiceOrder>.CreateNew().Build();
-            orderService.OrderFlow_ConfirmOrder(order, "serviceid");
+            Order.DomainModel.ServiceOrder order = FizzWare.NBuilder.Builder<ServiceOrder>.CreateNew()
+               .With(x => x.OrderStatus = Common.enum_OrderStatus.Payed).Build();
+            orderService.Save(order);
+            orderService.OrderFlow_BusinessConfirm(order);
+            Assert.AreEqual(Common.enum_OrderStatus.Negotiate, order.OrderStatus);
+        }
+
+        [Test()]
+        public void OrderFlow_BusinessNegotiateTest()
+        {
+            ServiceOrder order = Builder<ServiceOrder>.CreateNew()
+                 .With(x => x.OrderStatus = Common.enum_OrderStatus.Negotiate).Build();
+            orderService.Save(order);
+            orderService.OrderFlow_BusinessNegotiate(order, 12m);
+          
+            Assert.AreEqual(12m, order.NegotiateAmount);
+            Assert.AreEqual(Common.enum_OrderStatus.isNegotiate, order.OrderStatus);
+        }
+
+        [Test()]
+        public void OrderFlow_ConfirmDepositTest()
+        {
+            Order.DomainModel.ServiceOrder order = FizzWare.NBuilder.Builder<ServiceOrder>.CreateNew()
+             .With(x => x.OrderStatus = Common.enum_OrderStatus.Created).Build();
+            orderService.Save(order);
+           
+            orderService.OrderFlow_ConfirmDeposit(order);
+            Assert.AreEqual(Common.enum_OrderStatus.Payed, order.OrderStatus);
         }
     }
 }

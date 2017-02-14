@@ -43,9 +43,9 @@ namespace Ydb.Order.Application
         void OrderFlow_BusinessRejectRefund(ServiceOrder order, string memberId);
         void OrderFlow_BusinessStartService(ServiceOrder order);
         bool OrderFlow_Canceled(ServiceOrder order);
-        void OrderFlow_ConfirmDeposit(ServiceOrder order);
+        void OrderFlow_ConfirmDeposit(Guid orderId);
         void OrderFlow_ConfirmInternention(ServiceOrder order);
-          void OrderFlow_ConfirmOrder(ServiceOrder order, string serviceId );
+          void OrderFlow_ConfirmOrder(Guid orderId, string serviceId );
         void OrderFlow_CustomConfirmNegotiate(ServiceOrder order);
         void OrderFlow_CustomerAppraise(ServiceOrder order);
         void OrderFlow_CustomerDisagreeNegotiate(ServiceOrder order);
@@ -67,5 +67,6 @@ namespace Ydb.Order.Application
         void OrderShared(ServiceOrder order);
         void Save(ServiceOrder order);
         void Update(ServiceOrder order);
+        ServiceOrder CreateDraftOrder(string v, string identity);
     }
 }

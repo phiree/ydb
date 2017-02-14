@@ -6,6 +6,7 @@ using Ydb.Common;
 using System.Diagnostics;
 using Ydb.Common.Domain;
 using Ydb.Order.DomainModel.Repository;
+using Ydb.Order.Infrastructure;
 
 namespace Ydb.Order.DomainModel
 {
@@ -557,7 +558,7 @@ namespace Ydb.Order.DomainModel
                 this.NegotiateAmount += detail.ServiceAmount;
                 this.DepositAmount += detail.ServiceSnapShot.DepositAmount;
             }
-            //this.OrderStatus = enum_OrderStatus.Created;
+          //  this.OrderStatus = enum_OrderStatus.Created;
             this.OrderConfirmTime = DateTime.Now;
         }
 
@@ -736,7 +737,7 @@ namespace Ydb.Order.DomainModel
             }
         }
 
-
+        [UnitOfWork]
         public virtual void Confirm_Order(IRepositoryServiceOrderPushedService repoPushedService, string serviceId,
 
           IRepositoryPayment repoPayment, IRepositoryClaims repoClaims)

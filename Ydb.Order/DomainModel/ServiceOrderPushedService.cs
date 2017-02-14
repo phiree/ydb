@@ -52,7 +52,6 @@ namespace Ydb.Order.DomainModel
         /// </summary>
         public virtual ServiceOrder ServiceOrder { get; set; }
         #region 服务项
-        public virtual Guid Id { get; set; }
         /// <summary>
         /// 服务项
         /// </summary>

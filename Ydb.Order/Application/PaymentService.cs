@@ -115,7 +115,7 @@ namespace Ydb.Order.Application
                     case enum_OrderStatus.checkPayWithDeposit:
                     case enum_OrderStatus.Created:
                     //支付定金
-                    orderService.OrderFlow_ConfirmDeposit(order);
+                    orderService.OrderFlow_ConfirmDeposit(order.Id);
                         break;
                     case enum_OrderStatus.WaitingDepositWithCanceled:
                         log.Debug("系统确认到帐，订单当前在等待退款，直接退款");

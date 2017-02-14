@@ -530,8 +530,9 @@ namespace Ydb.Order.Application
         /// <param name="serviceSnapshot"></param>
         /// <param name="worktimeSnapshot"></param>
         [UnitOfWork]
-        public void OrderFlow_ConfirmOrder(ServiceOrder order,string serviceId)
+        public void OrderFlow_ConfirmOrder(Guid orderId,string serviceId)
         {
+            ServiceOrder order = repoServiceOrder.FindById(orderId);
           var pushedService=  repoPushedService.FindByOrder(order);
 
             order.Confirm_Order(repoPushedService, serviceId, repoPayment, repoClaims);
@@ -552,8 +553,9 @@ namespace Ydb.Order.Application
         /// </summary>
         /// <param name="order"></param>
         [UnitOfWork]
-        public void OrderFlow_ConfirmDeposit(ServiceOrder order)
+        public void OrderFlow_ConfirmDeposit(Guid orderId)
         {
+            ServiceOrder order = repoServiceOrder.FindById(orderId);
             ChangeStatus(order, enum_OrderStatus.Payed);
         }
         /// <summary>
@@ -1301,6 +1303,14 @@ namespace Ydb.Order.Application
         {
             order.IsShared = true;
             Update(order);
+        }
+
+        [UnitOfWork]
+        public ServiceOrder CreateDraftOrder(string customerSericeId, string customerId)
+        {
+            ServiceOrder order = new ServiceOrder { CustomerServiceId = customerSericeId, CustomerId = customerId };
+            repoServiceOrder.Add(order);
+            return order;
         }
 
 

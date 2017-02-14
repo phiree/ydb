@@ -1,0 +1,39 @@
+﻿using Castle.MicroKernel.Registration;
+
+//using NHibernate;
+//using nhf = FluentNHibernate.Cfg;
+//using FluentNHibernate.Cfg.Db;
+//using NHibernate.Tool.hbm2ddl;
+using Castle.MicroKernel.SubSystems.Configuration;
+using Castle.Windsor;
+
+namespace Dianzhu.ApplicationService
+{
+    public class InstallerApplicationService : IWindsorInstaller
+    {
+        public void Install(IWindsorContainer container, IConfigurationStore store)
+        {
+            ////container.Register(Component.For<Dianzhu.Web.RestfulApi.Controllers.Users.UsersController>());
+            //container.Register(Component.For<Dianzhu.BLL.Client.IBLLClient>().ImplementedBy<Dianzhu.BLL.Client.BLLClient>());
+            //container.Register(Component.For<Dianzhu.BLL.Client.IBLLRefreshToken>().ImplementedBy<Dianzhu.BLL.Client.BLLRefreshToken>());
+            container.Register(Component.For<Client.IClientService>().ImplementedBy<Dianzhu.ApplicationService.Client.ClientService>());
+            container.Register(Component.For<User.IUserService>().ImplementedBy<User.UserService>());
+            container.Register(Component.For<Dianzhu.ApplicationService.City.ICityService>().ImplementedBy<Dianzhu.ApplicationService.City.CityService>());
+            container.Register(Component.For<Dianzhu.ApplicationService.Complaint.IComplaintService>().ImplementedBy<Dianzhu.ApplicationService.Complaint.ComplaintService>());
+            container.Register(Component.For<Dianzhu.ApplicationService.ADs.IADsService>().ImplementedBy<Dianzhu.ApplicationService.ADs.ADsService>());
+            container.Register(Component.For<Dianzhu.ApplicationService.App.IAppService>().ImplementedBy<Dianzhu.ApplicationService.App.AppService>());
+            container.Register(Component.For<Dianzhu.ApplicationService.Remind.IRemindService>().ImplementedBy<Dianzhu.ApplicationService.Remind.RemindService>());
+            container.Register(Component.For<Dianzhu.ApplicationService.Assign.IAssignService>().ImplementedBy<Dianzhu.ApplicationService.Assign.AssignService>());
+            container.Register(Component.For<Dianzhu.ApplicationService.WorkTime.IWorkTimeService>().ImplementedBy<Dianzhu.ApplicationService.WorkTime.WorkTimeService>());
+            container.Register(Component.For<Dianzhu.ApplicationService.Service.IServiceService>().ImplementedBy<Dianzhu.ApplicationService.Service.ServiceService>());
+            container.Register(Component.For<Staff.IStaffService>().ImplementedBy<Staff.StaffService>());
+            container.Register(Component.For<Dianzhu.ApplicationService.Store.IStoreService>().ImplementedBy<Dianzhu.ApplicationService.Store.StoreService>());
+            container.Register(Component.For<Dianzhu.ApplicationService.Pay.IPayService>().ImplementedBy<Dianzhu.ApplicationService.Pay.PayService>());
+            container.Register(Component.For<Dianzhu.ApplicationService.Chat.IChatService>().ImplementedBy<Dianzhu.ApplicationService.Chat.ChatService>());
+            container.Register(Component.For<Dianzhu.ApplicationService.Order.IOrderService>().ImplementedBy<Dianzhu.ApplicationService.Order.OrderService>());
+            container.Register(Component.For<Dianzhu.ApplicationService.Storage.IStorageService>().ImplementedBy<Dianzhu.ApplicationService.Storage.StorageService>());
+            container.Register(Component.For<Dianzhu.ApplicationService.Snapshot.ISnapshotService>().ImplementedBy<Dianzhu.ApplicationService.Snapshot.SnapshotService>());
+            //container.Register(Component.For<Dianzhu.ApplicationService.BillSatistic.IBillSatisticService>().ImplementedBy<Dianzhu.ApplicationService.BillSatistic.BillSatisticService>());
+        }
+    }
+}

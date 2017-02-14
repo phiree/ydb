@@ -5,6 +5,8 @@ using System.Text;
 using Ydb.Order.DomainModel;
 using Ydb.Common;
 using Ydb.Order.DomainModel.Repository;
+using Ydb.Order.Infrastructure;
+
 namespace Ydb.Order.Application
 {
     /// <summary>
@@ -13,18 +15,15 @@ namespace Ydb.Order.Application
    public  class OrderPushService : IOrderPushService
     {
         IRepositoryServiceOrderPushedService repoPushedService;
-       
-        public OrderPushService(IRepositoryServiceOrderPushedService repoPushedService)
+        IServiceOrderService orderService;
+
+
+        public OrderPushService(IRepositoryServiceOrderPushedService repoPushedService,IServiceOrderService orderService)
         {
             this.repoPushedService = repoPushedService;
+            this.orderService = orderService;
         }
-        public void Push(ServiceOrder order, ServiceOrderPushedService service, string targetAddress, DateTime targetTime)
-        {
-            IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
-            serviceOrderPushedServices.Add(service);
-
-            Push(order, serviceOrderPushedServices, targetAddress, targetTime);
-        }
+        
         /// <summary>
         /// 为某个订单推送服务.
         /// </summary>
@@ -32,13 +31,15 @@ namespace Ydb.Order.Application
         /// <param name="services"></param>
         /// <param name="targetAddress"></param>
         /// <param name="targetTime"></param>
-        public void Push(ServiceOrder order, IList<ServiceOrderPushedService> services, string targetAddress, DateTime targetTime)
+       [UnitOfWork]
+        public void Push(Guid orderId, IList<ServiceOrderPushedService> services, string targetAddress, DateTime targetTime)
         {
-            //order.OrderStatus = enum_OrderStatus.DraftPushed;
+            ServiceOrder order = orderService.GetOne(orderId);
+            order.OrderStatus = enum_OrderStatus.DraftPushed;
            
-
             foreach (ServiceOrderPushedService service in services)
             {
+                service.ServiceOrder = order;
                 repoPushedService.Add(service);
             }
         }

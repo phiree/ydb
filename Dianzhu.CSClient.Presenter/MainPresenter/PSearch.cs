@@ -352,8 +352,7 @@ namespace Dianzhu.CSClient.Presenter
 
         private ServiceOrder CreateDraftOrder(string csId, string customerId)
         {
-            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService.Id.ToString(), identity);
-            bllServiceOrder.Save(newOrder);
+            ServiceOrder newOrder =bllServiceOrder.CreateDraftOrder(GlobalViables.CurrentCustomerService.Id.ToString(), identity);
 
             return newOrder;
         }
