@@ -483,6 +483,7 @@ namespace Dianzhu.Web.RestfulApi
             else
             {
                 response.Content = new StringContent("{\"errCode\":\"000001\",\"errString\":\"其他服务器错误:"+ response.StatusCode.ToString ()+ "\"}");
+                response.StatusCode = HttpStatusCode.BadRequest;
             }
             IEnumerable<string> keyValue = null;
             string strT = "";
