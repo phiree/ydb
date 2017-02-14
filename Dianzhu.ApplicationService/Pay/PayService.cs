@@ -175,7 +175,7 @@ namespace Dianzhu.ApplicationService.Pay
             //payment.PayType = payobj.bOnline ?enum_PayType.Online :enum_PayType.Offline;
             //保存记录
 
-            orderService.OrderFlow_OrderFinished(order);
+            orderService.OrderFlow_OrderFinished(guidOrder);
 
             //Payment payment = bllPayment.ApplyPay(order, Enums.enum_PayTarget.FinalPayment);
 

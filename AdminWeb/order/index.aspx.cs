@@ -96,8 +96,7 @@ public partial class order_index : BasePage
     protected void delbt_Command(object sender, CommandEventArgs e)
     {
         Guid id = Guid.Parse(e.CommandArgument.ToString());
-        serviceorder = bllServiceOrder.GetOne(id);
-        bllServiceOrder.Delete(serviceorder);
+          bllServiceOrder.Delete(id);
         Response.Redirect(Request.UrlReferrer.ToString());
     }
     protected void ddlp_SelectedIndexChanged(object sender, EventArgs e)
@@ -115,8 +114,8 @@ public partial class order_index : BasePage
 
         foreach (string Item in ID)
         {
-            serviceorder = bllServiceOrder.GetOne(Guid.Parse(Item));
-            bllServiceOrder.Delete(serviceorder);
+            Guid orderId = Guid.Parse(Item);
+             bllServiceOrder.Delete(orderId);
         }
         Response.Redirect(Request.UrlReferrer.ToString());
 

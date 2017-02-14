@@ -42,6 +42,8 @@ namespace Ydb.Order.Application
 
         public ServiceOrderStateChangeHis GetMaxNumberOrderHis(ServiceOrder order)
         {
+            
+
             return repoStateChangeHis.GetMaxNumberOrderHis(order);
         }
 

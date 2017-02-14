@@ -19,7 +19,7 @@ namespace Ydb.Order.Application.Tests
             Order.DomainModel.ServiceOrder order = FizzWare.NBuilder.Builder<ServiceOrder>.CreateNew()
                .With(x => x.OrderStatus = Common.enum_OrderStatus.Payed).Build();
             orderService.Save(order);
-            orderService.OrderFlow_BusinessConfirm(order);
+            orderService.OrderFlow_BusinessConfirm(order.Id);
             Assert.AreEqual(Common.enum_OrderStatus.Negotiate, order.OrderStatus);
         }
 
@@ -29,7 +29,7 @@ namespace Ydb.Order.Application.Tests
             ServiceOrder order = Builder<ServiceOrder>.CreateNew()
                  .With(x => x.OrderStatus = Common.enum_OrderStatus.Negotiate).Build();
             orderService.Save(order);
-            orderService.OrderFlow_BusinessNegotiate(order, 12m);
+            orderService.OrderFlow_BusinessNegotiate(order.Id, 12m);
           
             Assert.AreEqual(12m, order.NegotiateAmount);
             Assert.AreEqual(Common.enum_OrderStatus.isNegotiate, order.OrderStatus);
@@ -42,7 +42,7 @@ namespace Ydb.Order.Application.Tests
              .With(x => x.OrderStatus = Common.enum_OrderStatus.Created).Build();
             orderService.Save(order);
            
-            orderService.OrderFlow_ConfirmDeposit(order);
+            orderService.OrderFlow_ConfirmDeposit(order.Id);
             Assert.AreEqual(Common.enum_OrderStatus.Payed, order.OrderStatus);
         }
     }

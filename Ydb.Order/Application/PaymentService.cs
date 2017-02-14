@@ -108,7 +108,8 @@ namespace Ydb.Order.Application
                 payment.PlatformTradeNo = platformTradeNo;
 
             //更新订单状态.
-
+            //错开客户端请求"check"状态的时间
+            System.Threading.Thread.Sleep(3000);
             ServiceOrder order =   repoOrder.FindById(payment.Order.Id); //payment.Order;
                 switch (order.OrderStatus)
                 {
@@ -123,7 +124,7 @@ namespace Ydb.Order.Application
                         {
                             log.Debug("更新订单状态");
 
-                        orderService.OrderFlow_EndCancel(order);
+                        orderService.OrderFlow_EndCancel(order.Id);
                         }
                         else
                         {
@@ -132,15 +133,15 @@ namespace Ydb.Order.Application
                         break;
                     case enum_OrderStatus.checkPayWithNegotiate:
                     case enum_OrderStatus.Ended:
-                    orderService.OrderFlow_OrderFinished(order);
+                    orderService.OrderFlow_OrderFinished(order.Id);
                         break;
                     case enum_OrderStatus.checkPayWithRefund:
                     case enum_OrderStatus.WaitingPayWithRefund:
-                    orderService.OrderFlow_RefundSuccess(order);
+                    orderService.OrderFlow_RefundSuccess(order.Id);
                         break;
                     case enum_OrderStatus.checkPayWithIntervention:
                     case enum_OrderStatus.NeedPayWithIntervention:
-                    orderService.OrderFlow_ConfirmInternention(order);
+                    orderService.OrderFlow_ConfirmInternention(order.Id);
                         break;
                     default:
                         break;

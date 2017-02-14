@@ -37,12 +37,12 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
         public ServiceOrderStateChangeHis GetMaxNumberOrderHis(ServiceOrder order)
         {
 
-            var query = Query(order);
-            IList<ServiceOrderStateChangeHis> orderList = query.Take(1).List();
 
-            if (orderList.Count > 0)
+            IList<ServiceOrderStateChangeHis> statusList = session.QueryOver<ServiceOrderStateChangeHis>().Where(x => x.NewStatus == order.OrderStatus).List();
+            
+            if (statusList.Count > 0)
             {
-                return orderList[0];
+                return statusList[0];
             }
             return null;
 

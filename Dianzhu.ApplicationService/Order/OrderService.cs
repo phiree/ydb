@@ -72,8 +72,9 @@ namespace Dianzhu.ApplicationService.Order
         /// <param name="serviceorder"></param>
         public void changeObj(orderObj orderobj, ServiceOrder serviceorder)
         {
-            ServiceOrderStateChangeHis statehis = bllstatehis.GetMaxNumberOrderHis(serviceorder);
+                               
             Business business = null;//= businessService.GetOne(new Guid(serviceorder.BusinessId));
+            ServiceOrderStateChangeHis statehis = bllstatehis.GetMaxNumberOrderHis(serviceorder);
             orderobj.currentStatusObj = Mapper.Map<ServiceOrderStateChangeHis, orderStatusObj>(statehis);
             if (statehis == null)
             {
@@ -530,7 +531,7 @@ namespace Dianzhu.ApplicationService.Order
                 decimal d = 0;
                 if (decimal.TryParse(orderobj.negotiateAmount, out d))
                 {
-                    ibllserviceorder.OrderFlow_BusinessNegotiate(order, d);
+                    ibllserviceorder.OrderFlow_BusinessNegotiate(guidOrder, d);
                 }
                 else
                 {
@@ -634,8 +635,9 @@ namespace Dianzhu.ApplicationService.Order
                 throw new Exception("该订单不是已推送服务的状态！");
             }
             ibllserviceorder.OrderFlow_ConfirmOrder(order.Id, serviceID);
+            order = ibllserviceorder.GetOne(order.Id);
             // bllpushservice.SelectServiceAndCreate(order, serviceID);
-            ibllserviceorder.Update(order);
+           // ibllserviceorder.Update(order);
             //IList<ServiceOrderPushedService> pushServiceList = bllpushservice.GetPushedServicesForOrder(order);
             //orderObj.svcObj.SetTag(orderObj.svcObj, tagsList);
             ServiceOrderStateChangeHis orderHis = bllstatehis.GetOrderHis(order);
@@ -712,7 +714,7 @@ namespace Dianzhu.ApplicationService.Order
                     ServiceOrder so = ibllserviceorder.GetOne(order.Id);
                     if (so.OrderStatus != enum_OrderStatus.Appraised)
                     {
-                        ibllserviceorder.OrderFlow_CustomerAppraise(order);
+                        ibllserviceorder.OrderFlow_CustomerAppraise(guidOrder);
                     }
                     c = 0;
                 }
@@ -830,20 +832,20 @@ namespace Dianzhu.ApplicationService.Order
                 switch (status)
                 {
                     case enum_OrderStatus.checkPayWithDeposit:
-                        ibllserviceorder.OrderFlow_PayDepositAndWaiting(order);
+                        ibllserviceorder.OrderFlow_PayDepositAndWaiting(guidOrder);
                         break;
 
                     case enum_OrderStatus.Negotiate:
-                        ibllserviceorder.OrderFlow_CustomerDisagreeNegotiate(order);
+                        ibllserviceorder.OrderFlow_CustomerDisagreeNegotiate(guidOrder);
                         break;
 
                     case enum_OrderStatus.Assigned:
-                        ibllserviceorder.OrderFlow_CustomConfirmNegotiate(order);
+                        ibllserviceorder.OrderFlow_CustomConfirmNegotiate(guidOrder);
                         break;
 
                     case enum_OrderStatus.Canceled:
                         //bllServiceOrder.OrderFlow_Canceled(order);
-                        if (ibllserviceorder.OrderFlow_Canceled(order))
+                        if (ibllserviceorder.OrderFlow_Canceled(guidOrder))
                         {
                             //orderObj orderobj = Mapper.Map<ServiceOrder, orderObj>(order);
                             //changeObj(orderobj, order);
@@ -855,23 +857,23 @@ namespace Dianzhu.ApplicationService.Order
                             throw new Exception("订单取消失败，请稍候再试");
                         }
                     case enum_OrderStatus.Ended:
-                        ibllserviceorder.OrderFlow_CustomerFinish(order);
+                        ibllserviceorder.OrderFlow_CustomerFinish(guidOrder);
                         break;
 
                     case enum_OrderStatus.checkPayWithNegotiate:
-                        ibllserviceorder.OrderFlow_CustomerPayFinalPayment(order);
+                        ibllserviceorder.OrderFlow_CustomerPayFinalPayment(guidOrder);
                         break;
 
                     case enum_OrderStatus.WaitingPayWithRefund:
-                        ibllserviceorder.OrderFlow_WaitingPayWithRefund(order, member.Id.ToString());
+                        ibllserviceorder.OrderFlow_WaitingPayWithRefund(guidOrder, member.Id.ToString());
                         break;
 
                     case enum_OrderStatus.checkPayWithRefund:
-                        ibllserviceorder.OrderFlow_CustomerPayRefund(order);
+                        ibllserviceorder.OrderFlow_CustomerPayRefund(guidOrder);
                         break;
 
                     case enum_OrderStatus.checkPayWithIntervention:
-                        ibllserviceorder.OrderFlow_CustomerPayInternention(order);
+                        ibllserviceorder.OrderFlow_CustomerPayInternention(guidOrder);
                         break;
 
                     default:
@@ -896,15 +898,15 @@ namespace Dianzhu.ApplicationService.Order
                 switch (status)
                 {
                     case enum_OrderStatus.Negotiate:
-                        ibllserviceorder.OrderFlow_BusinessConfirm(order);
+                        ibllserviceorder.OrderFlow_BusinessConfirm(guidOrder);
                         break;
 
                     case enum_OrderStatus.Begin:
-                        ibllserviceorder.OrderFlow_BusinessStartService(order);
+                        ibllserviceorder.OrderFlow_BusinessStartService(guidOrder);
                         break;
 
                     case enum_OrderStatus.isEnd:
-                        ibllserviceorder.OrderFlow_BusinessFinish(order);
+                        ibllserviceorder.OrderFlow_BusinessFinish(guidOrder);
                         break;
 
                     default:
@@ -923,6 +925,7 @@ namespace Dianzhu.ApplicationService.Order
                 //this.err_Msg = "该用户没有权限访问接口!";
                 //return;
             }
+            order = ibllserviceorder.GetOne(guidOrder);
             orderObj orderobj = Mapper.Map<ServiceOrder, orderObj>(order);
             changeObj(orderobj, order);
             return orderobj;
@@ -1068,19 +1071,19 @@ namespace Dianzhu.ApplicationService.Order
                         break;
 
                     case enum_RefundAction.agree:
-                        ibllserviceorder.OrderFlow_WaitingPayWithRefund(order, member.Id.ToString());
+                        ibllserviceorder.OrderFlow_WaitingPayWithRefund(guidOrder, member.Id.ToString());
                         //target =enum_ChatTarget.store;
                         ActionSuccess = true;
                         break;
 
                     case enum_RefundAction.intervention:
-                        ibllserviceorder.OrderFlow_YDBInsertIntervention(order);
+                        ibllserviceorder.OrderFlow_YDBInsertIntervention(guidOrder);
                         //target =enum_ChatTarget.user;
                         ActionSuccess = true;
                         break;
 
                     case enum_RefundAction.cancel:
-                        ibllserviceorder.OrderFlow_RefundSuccess(order);
+                        ibllserviceorder.OrderFlow_RefundSuccess(guidOrder);
                         //target =enum_ChatTarget.user;
                         ActionSuccess = true;
                         break;
@@ -1116,19 +1119,19 @@ namespace Dianzhu.ApplicationService.Order
                 switch (action)
                 {
                     case enum_RefundAction.refund:
-                        ibllserviceorder.OrderFlow_BusinessIsRefund(order, member.Id.ToString());
+                        ibllserviceorder.OrderFlow_BusinessIsRefund(guidOrder, member.Id.ToString());
                         //target =enum_ChatTarget.user;
                         ActionSuccess = true;
                         break;
 
                     case enum_RefundAction.reject:
-                        ibllserviceorder.OrderFlow_BusinessRejectRefund(order, member.Id.ToString());
+                        ibllserviceorder.OrderFlow_BusinessRejectRefund(guidOrder, member.Id.ToString());
                         //target =enum_ChatTarget.user;
                         ActionSuccess = true;
                         break;
 
                     case enum_RefundAction.askPay:
-                        ibllserviceorder.OrderFlow_BusinessAskPayWithRefund(order, refundobj.content, amount, resourcesurls, member.Id.ToString());
+                        ibllserviceorder.OrderFlow_BusinessAskPayWithRefund(guidOrder, refundobj.content, amount, resourcesurls, member.Id.ToString());
                         refundstatusobj.content = refundobj.content;
                         refundstatusobj.amount = refundobj.amount;
                         refundstatusobj.resourcesUrls = refundobj.resourcesUrls;

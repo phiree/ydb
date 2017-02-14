@@ -20,8 +20,8 @@ namespace Ydb.Order.Application.Tests
         {
             IOrderPushService orderPushService = Bootstrap.Container.Resolve<IOrderPushService>();
             ServiceOrder order = Builder<ServiceOrder>.CreateNew().Build();
-            ServiceOrderPushedService pushService = Builder<ServiceOrderPushedService>.CreateNew().Build();
-            orderPushService.Push(order, pushService, "TargetAddress", DateTime.Now);
+            IList<ServiceOrderPushedService> pushServices = Builder<ServiceOrderPushedService>.CreateListOfSize(1).Build();
+            orderPushService.Push(order.Id, pushServices, "TargetAddress", DateTime.Now);
         }
     }
 }
