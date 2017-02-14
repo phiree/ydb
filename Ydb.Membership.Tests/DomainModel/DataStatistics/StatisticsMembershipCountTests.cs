@@ -23,10 +23,10 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
                 new DZMembership { Id=new Guid("03b647cb-a449-4f93-abf3-a67c0098ecdf")}
             };
             IList<MembershipLoginLog> loginList = new List<MembershipLoginLog> {
-                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,""),
-                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,""),
-                new MembershipLoginLog ("015351d4-ba0a-41b2-bc5e-a6b400c11c26",enumLoginLogType.Login,""),
-                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,"")
+                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,"",Common.enum_appName.Android_Customer),
+                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,"",Common.enum_appName.Android_Customer),
+                new MembershipLoginLog ("015351d4-ba0a-41b2-bc5e-a6b400c11c26",enumLoginLogType.Login,"",Common.enum_appName.Android_Customer),
+                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,"",Common.enum_appName.Android_Customer)
             };
             long l = statisticsMembershipCount.StatisticsLoginCountLastMonth(memberList, loginList);
             Assert.AreEqual(2, l);
@@ -162,10 +162,10 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
                 new DZMembership { Id=new Guid("215351d4-ba0a-41b2-bc5e-a6b400c11c25")}
             };
             IList<MembershipLoginLog> loginList = new List<MembershipLoginLog> {
-                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,""),
-                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,""),
-                new MembershipLoginLog ("015351d4-ba0a-41b2-bc5e-a6b400c11c26",enumLoginLogType.Login,""),
-                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,"")
+                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,"",Common.enum_appName.Android_Customer),
+                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,"",Common.enum_appName.Android_Customer),
+                new MembershipLoginLog ("015351d4-ba0a-41b2-bc5e-a6b400c11c26",enumLoginLogType.Login,"",Common.enum_appName.Android_Customer),
+                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,"",Common.enum_appName.Android_Customer)
             };
             DateTime dateBase = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
             DateTime beginTime = dateBase.AddDays(-2);
@@ -194,10 +194,10 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
                 new DZMembership { Id=new Guid("215351d4-ba0a-41b2-bc5e-a6b400c11c25")}
             };
             IList<MembershipLoginLog> loginList = new List<MembershipLoginLog> {
-                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,""),
-                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,""),
-                new MembershipLoginLog ("015351d4-ba0a-41b2-bc5e-a6b400c11c26",enumLoginLogType.Login,""),
-                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,"")
+                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,"",Common.enum_appName.Android_Customer),
+                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,"",Common.enum_appName.Android_Customer),
+                new MembershipLoginLog ("015351d4-ba0a-41b2-bc5e-a6b400c11c26",enumLoginLogType.Login,"",Common.enum_appName.Android_Customer),
+                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,"",Common.enum_appName.Android_Customer)
             };
             DateTime dateBase = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH") + ":00");
             DateTime beginTime = dateBase.AddHours(-2);
@@ -208,7 +208,7 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             Assert.AreEqual("用户活跃度", statisticsInfo.YName);
             Assert.AreEqual("时", statisticsInfo.XName);
             Assert.AreEqual(3, statisticsInfo.XYValue.Count);
-            Assert.AreEqual(0, statisticsInfo.XYValue[dateBase.AddHours(-2).Hour.ToString ()]);
+            Assert.AreEqual(0, statisticsInfo.XYValue[dateBase.AddHours(-2).Hour.ToString()]);
             Assert.AreEqual(0, statisticsInfo.XYValue[dateBase.AddHours(-1).Hour.ToString()]);
             Assert.AreEqual(2, statisticsInfo.XYValue[dateBase.Hour.ToString()]);
         }
@@ -233,6 +233,39 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             Assert.AreEqual(2, statisticsInfo.XYValue.Count);
             Assert.AreEqual(3, statisticsInfo.XYValue["女"]);
             Assert.AreEqual(4, statisticsInfo.XYValue["男"]);
+        }
+
+        [Test()]
+        public void StatisticsMembershipCount_StatisticsAllMembershipsCountListByAppName_Test()
+        {
+            StatisticsMembershipCount statisticsMembershipCount = new StatisticsMembershipCount();
+            IList<DZMembership> memberList = new List<DZMembership> {
+                new DZMembership { Id=new Guid("003c0c77-c2a0-4dba-930c-a6b000f80ceb")},
+                new DZMembership { Id=new Guid("002c0c77-c2a0-4dba-930c-a6b000f80ceb")},
+                new DZMembership { Id=new Guid("00c02067-4900-41b6-b3d4-a68100c47cb9")},
+                new DZMembership { Id=new Guid("015351d4-ba0a-41b2-bc5e-a6b400c11c26")},
+                new DZMembership { Id=new Guid("005c0c77-c2a0-4dba-930c-a6b000f80ceb")},
+                new DZMembership { Id=new Guid("03b647cb-a449-4f93-abf3-a67c0098ecdf")},
+                new DZMembership { Id=new Guid("004c0c77-c2a0-4dba-930c-a6b000f80ceb")},
+                new DZMembership { Id=new Guid("115351d4-ba0a-41b2-bc5e-a6b400c11c23")},
+                new DZMembership { Id=new Guid("215351d4-ba0a-41b2-bc5e-a6b400c11c25")}
+            };
+            IList<MembershipLoginLog> loginList = new List<MembershipLoginLog> {
+                new MembershipLoginLog ("215351d4-ba0a-41b2-bc5e-a6b400c11c25",enumLoginLogType.Login,"",Common.enum_appName.IOS_Customer),
+                new MembershipLoginLog ("00c02067-4900-41b6-b3d4-a68100c47cb9",enumLoginLogType.Login,"",Common.enum_appName.IOS_Customer),
+                new MembershipLoginLog ("002c0c77-c2a0-4dba-930c-a6b000f80ceb",enumLoginLogType.Login,"",Common.enum_appName.Android_Customer),
+                new MembershipLoginLog ("03b647cb-a449-4f93-abf3-a67c0098ecdf",enumLoginLogType.Login,"",Common.enum_appName.IOS_Customer),
+                new MembershipLoginLog ("015351d4-ba0a-41b2-bc5e-a6b400c11c26",enumLoginLogType.Login,"",Common.enum_appName.Android_Customer),
+                new MembershipLoginLog ("115351d4-ba0a-41b2-bc5e-a6b400c11c23",enumLoginLogType.Login,"",Common.enum_appName.IOS_Customer)
+            };
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListByAppName(memberList, loginList);
+            Assert.IsNotNull(statisticsInfo);
+            Assert.AreEqual("用户数量", statisticsInfo.YName);
+            Assert.AreEqual("手机系统", statisticsInfo.XName);
+            Assert.AreEqual(3, statisticsInfo.XYValue.Count);
+            Assert.AreEqual(2, statisticsInfo.XYValue["Android_Customer"]);
+            Assert.AreEqual(4, statisticsInfo.XYValue["IOS_Customer"]);
+            Assert.AreEqual(3, statisticsInfo.XYValue["other"]);
         }
     }
 }

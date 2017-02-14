@@ -15,7 +15,7 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernateTests
     [TestFixture()]
     public class RepositoryDZMembershipTests
     {
-        IRepositoryDZMembership repositoryDZMembership;
+       IRepositoryDZMembership repositoryDZMembership;
        [SetUp]
         public void SetUp()
         {
@@ -28,7 +28,6 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernateTests
         {
             IList<string> areaList = new List<string> { "1", "2" };
             long c = repositoryDZMembership.GetUsersCountByArea(areaList,DateTime.MinValue,DateTime.MinValue,UserType.customer);
-
         }
     }
 }

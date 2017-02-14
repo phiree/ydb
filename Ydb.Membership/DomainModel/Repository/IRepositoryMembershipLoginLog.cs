@@ -11,5 +11,6 @@ namespace Ydb.Membership.DomainModel.Repository
     public interface IRepositoryMembershipLoginLog : IRepository<MembershipLoginLog, Guid>
     {
         IList<MembershipLoginLog> GetMembershipLoginLogListByTime(DateTime beginTime, DateTime endTime);
+        IList<MembershipLoginLog> GetMembershipLastLoginLog();
     }
 }

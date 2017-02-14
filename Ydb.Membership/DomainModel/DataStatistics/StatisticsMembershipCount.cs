@@ -93,6 +93,38 @@ namespace Ydb.Membership.DomainModel.DataStatistics
             return statisticsInfo;
         }
 
+        public StatisticsInfo StatisticsAllMembershipsCountListByAppName(IList<DZMembership> memberList, IList<MembershipLoginLog> loginList)
+        {
+            StatisticsInfo statisticsInfo = new StatisticsInfo();
+            statisticsInfo.YName = "用户数量";
+            statisticsInfo.XName = "手机系统";
+            statisticsInfo.XYValue = new Dictionary<string, long>();
+            //long l = memberList.Count(x => x.Sex);
+            //statisticsInfo.XYValue.Add("男", memberList.Count - l);
+            statisticsInfo.XYValue.Add("other", 0);
+            foreach (DZMembership member in memberList)
+            {
+                MembershipLoginLog membershipLoginLog = loginList.FirstOrDefault(x => x.MemberId == member.Id.ToString());
+                if (membershipLoginLog==null)
+                {
+                    statisticsInfo.XYValue["other"]++;
+                }
+                else
+                {
+                    string appName = membershipLoginLog.AppName.ToString();
+                    if (statisticsInfo.XYValue.Keys.Contains(appName))
+                    {
+                        statisticsInfo.XYValue[appName]++;
+                    }
+                    else
+                    {
+                        statisticsInfo.XYValue.Add(appName, 1);
+                    }
+                }
+            }
+            return statisticsInfo;
+        }
+
 
     }
 }

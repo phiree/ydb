@@ -25,5 +25,14 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate
             }
             return Find(where).ToList();
         }
+
+        public IList<MembershipLoginLog> GetMembershipLastLoginLog()
+        {
+            string strHQL = "from MembershipLoginLog l where l.LogTime=(select max(l1.LogTime) from MembershipLoginLog l1 where l.MemberId=l1.MemberId)";
+            IList<MembershipLoginLog> membershipLoginLogList = session.CreateQuery(strHQL).List<MembershipLoginLog>();
+            return membershipLoginLogList;
+        }
     }
+
+
 }

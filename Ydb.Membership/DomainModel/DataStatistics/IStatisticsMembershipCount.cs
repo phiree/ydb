@@ -14,5 +14,6 @@ namespace Ydb.Membership.DomainModel.DataStatistics
         StatisticsInfo StatisticsAllMembershipsCountListByTime(IList<DZMembership> memberList, DateTime beginTime, DateTime endTime, bool IsHour);
         StatisticsInfo StatisticsLoginCountListByTime(IList<DZMembership> memberList, IList<MembershipLoginLog> loginList, DateTime beginTime, DateTime endTime, bool IsHour);
         StatisticsInfo StatisticsAllMembershipsCountListBySex(IList<DZMembership> memberList);
+        StatisticsInfo StatisticsAllMembershipsCountListByAppName(IList<DZMembership> memberList, IList<MembershipLoginLog> loginList);
     }
 }
