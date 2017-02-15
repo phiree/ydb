@@ -146,8 +146,7 @@ namespace Dianzhu.DependencyInstaller
             //finance
  
             //agent
-            container.Register(Component.For<Dianzhu.BLL.Agent.IAgentService>().ImplementedBy<Dianzhu.BLL.Agent.AgentService>());
-
+           
             container.Register(Component.For<IBLLMembershipLoginLog>().ImplementedBy<BLLMembershipLoginLog>());
             
          
