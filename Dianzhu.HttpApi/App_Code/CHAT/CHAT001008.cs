@@ -19,7 +19,7 @@ using Ydb.Push;
 /// </summary>
 public class ResponseCHAT001008:BaseResponse
 {
-    log4net.ILog log;
+    log4net.ILog log = log4net.LogManager.GetLogger("HttpApi.ResponseChat001008");
     IMessageAdapter messageAdapter = Bootstrap.Container.Resolve<IMessageAdapter>();
     IChatService chatService = Bootstrap.Container.Resolve<IChatService>();
     IPushService pushService = Bootstrap.Container.Resolve<IPushService>();
