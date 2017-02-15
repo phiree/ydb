@@ -164,7 +164,7 @@ namespace Ydb.BusinessResource.DomainModel.Service.DataStatisticsTests
                 new Business { StaffAmount=1},
                 new Business { StaffAmount=1}
             };
-            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsAllBusinessesCountGroupByStaff(businessList);
+            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsAllBusinessesCountListByStaff(businessList);
             Assert.IsNotNull(statisticsInfo);
             Assert.AreEqual("店铺数量", statisticsInfo.YName);
             Assert.AreEqual("员工总数", statisticsInfo.XName);

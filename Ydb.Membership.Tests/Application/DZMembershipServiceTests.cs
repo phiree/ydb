@@ -43,8 +43,8 @@ namespace Ydb.Membership.ApplicationTests
             repositoryMembershipLoginLog = MockRepository.Mock<IRepositoryMembershipLoginLog>();
             statisticsMembershipCount = MockRepository.Mock<IStatisticsMembershipCount>();
             dzMembershipService = new DZMembershipService(dzmembershipDomainService,
-             repositoryMembership, emailService, encryptService, login3rdService, repositoryUserToken,
-             repositoryMembershipLoginLog, statisticsMembershipCount);
+            repositoryMembership, emailService, encryptService, login3rdService, repositoryUserToken,
+            repositoryMembershipLoginLog, statisticsMembershipCount);
         }
 
         [Test()]

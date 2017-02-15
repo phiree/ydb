@@ -13,6 +13,7 @@ using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using Castle.Windsor;
 using Ydb.BusinessResource.DomainModel;
+using Ydb.BusinessResource.DomainModel.Service.DataStatistics;
 using Ydb.BusinessResource.Infrastructure.Repository;
 
 using Ydb.BusinessResource.Infrastructure.Repository.NHibernate;
@@ -69,7 +70,7 @@ namespace Ydb.BusinessResource.Infrastructure
 
         private void InstallDomainService(IWindsorContainer container, IConfigurationStore store)
         {
-
+            container.Register(Component.For<IStatisticsBusinessCount>().ImplementedBy<StatisticsBusinessCount>());
 
         }
 

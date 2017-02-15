@@ -59,5 +59,74 @@ namespace Ydb.BusinessResource.Application
           void Disable(Guid businessId);
         void ApprovedEnable(Guid businessId);
         void ApprovedDisable(Guid businessId);
+
+
+        /// <summary>
+        /// 昨日新增店铺
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        long GetCountOfNewBusinessesYesterdayByArea(IList<string> areaList);
+
+        /// <summary>
+        /// 当前店铺总量
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        long GetCountOfAllBusinessesByArea(IList<string> areaList);
+
+        /// <summary>
+        /// 统计店铺每日或每时新增数量列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <param name="strBeginTime"></param>
+        /// <param name="strEndTime"></param>
+        /// <returns></returns>
+        StatisticsInfo GetStatisticsNewBusinessesCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime);
+
+        /// <summary>
+        /// 统计店铺每日或每时累计数量列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <param name="strBeginTime"></param>
+        /// <param name="strEndTime"></param>
+        /// <returns></returns>
+        StatisticsInfo GetStatisticsAllBusinessesCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime);
+
+        /// <summary>
+        /// 根据店铺年限统计店铺数量列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        StatisticsInfo GetStatisticsAllBusinessesCountListByLife(IList<string> areaList);
+
+        /// <summary>
+        /// 根据店铺员工数量统计店铺数量列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        StatisticsInfo GetStatisticsAllBusinessesCountListByStaff(IList<string> areaList);
+
+        /// <summary>
+        /// 根据店铺所在子区域统计店铺数量列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        StatisticsInfo GetStatisticsAllBusinessesCountListByArea(IList<Area> areaList);
+
+        /// <summary>
+        /// 计算上个月同比
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        string GetStatisticsRatioYearOnYear(IList<string> areaList);
+
+        /// <summary>
+        /// 计算上个月环比
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        string GetStatisticsRatioMonthOnMonth(IList<string> areaList);
+
     }
 }

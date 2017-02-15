@@ -449,7 +449,7 @@ namespace Ydb.Membership.Application
         /// <summary>
         /// 当前用户总量
         /// </summary>
-        /// <param name="areaId"></param>
+        /// <param name="areaList"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
@@ -461,7 +461,7 @@ namespace Ydb.Membership.Application
         /// <summary>
         /// 上月用户在线活跃度（数量）
         /// </summary>
-        /// <param name="areaId"></param>
+        /// <param name="areaList"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
@@ -475,7 +475,7 @@ namespace Ydb.Membership.Application
         /// <summary>
         /// 统计用户每日或每时新增数量列表
         /// </summary>
-        /// <param name="areaId"></param>
+        /// <param name="areaList"></param>
         /// <param name="strBeginTime"></param>
         /// <param name="strEndTime"></param>
         /// <param name="userType"></param>
@@ -492,7 +492,7 @@ namespace Ydb.Membership.Application
         /// <summary>
         /// 统计用户每日或每时累计数量列表
         /// </summary>
-        /// <param name="areaId"></param>
+        /// <param name="areaList"></param>
         /// <param name="strBeginTime"></param>
         /// <param name="strEndTime"></param>
         /// <param name="userType"></param>
@@ -509,7 +509,7 @@ namespace Ydb.Membership.Application
         /// <summary>
         /// 统计用户每日或每时在线活跃度（数量）列表
         /// </summary>
-        /// <param name="areaId"></param>
+        /// <param name="areaList"></param>
         /// <param name="strBeginTime"></param>
         /// <param name="strEndTime"></param>
         /// <param name="userType"></param>

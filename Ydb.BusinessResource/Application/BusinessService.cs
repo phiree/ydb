@@ -219,7 +219,7 @@ namespace Ydb.BusinessResource.Application
         /// <summary>
         /// 昨日新增店铺
         /// </summary>
-        /// <param name="areaId"></param>=
+        /// <param name="areaList"></param>
         /// <returns></returns>
         [UnitOfWork]
         public long GetCountOfNewBusinessesYesterdayByArea(IList<string> areaList)
@@ -231,8 +231,7 @@ namespace Ydb.BusinessResource.Application
         /// <summary>
         /// 当前店铺总量
         /// </summary>
-        /// <param name="areaId"></param>
-        /// <param name="userType"></param>
+        /// <param name="areaList"></param>
         /// <returns></returns>
         [UnitOfWork]
         public long GetCountOfAllBusinessesByArea(IList<string> areaList)
@@ -243,10 +242,9 @@ namespace Ydb.BusinessResource.Application
         /// <summary>
         /// 统计店铺每日或每时新增数量列表
         /// </summary>
-        /// <param name="areaId"></param>
+        /// <param name="areaList"></param>
         /// <param name="strBeginTime"></param>
         /// <param name="strEndTime"></param>
-        /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
         public StatisticsInfo GetStatisticsNewBusinessesCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime)
@@ -258,21 +256,88 @@ namespace Ydb.BusinessResource.Application
             return statisticsInfo;
         }
         /// <summary>
-        /// 统计用户每日或每时累计数量列表
+        /// 统计店铺每日或每时累计数量列表
         /// </summary>
-        /// <param name="areaId"></param>
+        /// <param name="areaList"></param>
         /// <param name="strBeginTime"></param>
         /// <param name="strEndTime"></param>
-        /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public StatisticsInfo GetStatisticsAllMembershipsCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime, UserType userType)
+        public StatisticsInfo GetStatisticsAllBusinessesCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime)
         {
             DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
             DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
-            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, userType);
-            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListByTime(memberList, BeginTime, EndTime, strBeginTime == strEndTime);
+            IList<Business> businessList = repositoryBusiness.GetBusinessesByArea(areaList, DateTime.MinValue, DateTime.MinValue);
+            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsAllBusinessesCountListByTime(businessList, BeginTime, EndTime, strBeginTime == strEndTime);
             return statisticsInfo;
+        }
+
+        /// <summary>
+        /// 根据店铺年限统计店铺数量列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public StatisticsInfo GetStatisticsAllBusinessesCountListByLife(IList<string> areaList)
+        {
+            IList<Business> businessList = repositoryBusiness.GetBusinessesByArea(areaList, DateTime.MinValue, DateTime.MinValue);
+            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsAllBusinessesCountListByLife(businessList);
+            return statisticsInfo;
+        }
+
+        /// <summary>
+        /// 根据店铺员工数量统计店铺数量列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public StatisticsInfo GetStatisticsAllBusinessesCountListByStaff(IList<string> areaList)
+        {
+            IList<Business> businessList = repositoryBusiness.GetBusinessesByArea(areaList, DateTime.MinValue, DateTime.MinValue);
+            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsAllBusinessesCountListByStaff(businessList);
+            return statisticsInfo;
+        }
+
+        /// <summary>
+        /// 根据店铺所在子区域统计店铺数量列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public StatisticsInfo GetStatisticsAllBusinessesCountListByArea(IList<Area> areaList)
+        {
+            IList<string> AreaIdList = areaList.Select(x => x.Id.ToString()).ToList();
+            IList<Business> businessList = repositoryBusiness.GetBusinessesByArea(AreaIdList, DateTime.MinValue, DateTime.MinValue);
+            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsAllBusinessesCountGroupByArea(businessList, areaList);
+            return statisticsInfo;
+        }
+
+        /// <summary>
+        /// 计算上个月同比
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public string GetStatisticsRatioYearOnYear(IList<string> areaList)
+        {
+            DateTime dtBase = DateTime.Parse(DateTime.Now.ToString("yyyy-MM") + "-01");
+            long businessCountLastMonth = repositoryBusiness.GetBusinessesCountByArea(areaList, dtBase.AddMonths(-1), dtBase);
+            long businessCountBeforeLastMonth = repositoryBusiness.GetBusinessesCountByArea(areaList, dtBase.AddMonths(-1).AddYears(-1), dtBase.AddYears(-1));
+            return Ydb.Common.MathHelper.GetCalculatedRatio(businessCountLastMonth, businessCountBeforeLastMonth);
+        }
+
+        /// <summary>
+        /// 计算上个月环比
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public string GetStatisticsRatioMonthOnMonth(IList<string> areaList)
+        {
+            DateTime dtBase = DateTime.Parse(DateTime.Now.ToString("yyyy-MM") + "-01");
+            long businessCountLastMonth = repositoryBusiness.GetBusinessesCountByArea(areaList, dtBase.AddMonths(-1), dtBase);
+            long businessCountBeforeLastMonth = repositoryBusiness.GetBusinessesCountByArea(areaList, dtBase.AddMonths(-2), dtBase.AddMonths(-1));
+            return Ydb.Common.MathHelper.GetCalculatedRatio(businessCountLastMonth, businessCountBeforeLastMonth);
         }
 
     }

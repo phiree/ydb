@@ -66,7 +66,7 @@ namespace Ydb.BusinessResource.DomainModel.Service.DataStatistics
             return statisticsInfo;
         }
 
-        public StatisticsInfo StatisticsAllBusinessesCountGroupByStaff(IList<Business> businessList)
+        public StatisticsInfo StatisticsAllBusinessesCountListByStaff(IList<Business> businessList)
         {
             StatisticsInfo statisticsInfo = new StatisticsInfo();
             statisticsInfo.YName = "店铺数量";
@@ -100,6 +100,7 @@ namespace Ydb.BusinessResource.DomainModel.Service.DataStatistics
             }
             return statisticsInfo;
         }
+        
 
     }
 }

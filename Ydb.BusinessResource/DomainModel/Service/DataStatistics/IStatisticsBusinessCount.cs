@@ -15,6 +15,6 @@ namespace Ydb.BusinessResource.DomainModel.Service.DataStatistics
         StatisticsInfo StatisticsAllBusinessesCountListByTime(IList<Business> businessList, DateTime beginTime, DateTime endTime, bool IsHour);
         StatisticsInfo StatisticsAllBusinessesCountListByLife(IList<Business> businessList);
         StatisticsInfo StatisticsAllBusinessesCountGroupByArea(IList<Business> businessList, IList<Area> areaList);
-        StatisticsInfo StatisticsAllBusinessesCountGroupByStaff(IList<Business> businessList);
+        StatisticsInfo StatisticsAllBusinessesCountListByStaff(IList<Business> businessList);
     }
 }
