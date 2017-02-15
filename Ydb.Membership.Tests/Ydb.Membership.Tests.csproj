@@ -125,6 +125,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Ydb.BusinessResource\Ydb.BusinessResource.csproj">
+      <Project>{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}</Project>
+      <Name>Ydb.BusinessResource</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
       <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
       <Name>Ydb.Common</Name>

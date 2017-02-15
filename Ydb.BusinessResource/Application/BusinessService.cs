@@ -10,16 +10,18 @@ using Ydb.Common.Specification;
 using Ydb.BusinessResource.Infrastructure;
 using Ydb.Common.Application;
 using Ydb.Common.Domain;
+using Ydb.BusinessResource.DomainModel.Service.DataStatistics;
 namespace Ydb.BusinessResource.Application
 {
    public class BusinessService:IBusinessService
     {
         IRepositoryBusiness repositoryBusiness;
-        private ISessionFactory sessionFactory;
-        public BusinessService(IRepositoryBusiness repositoryBusiness)
+        IStatisticsBusinessCount statisticsBusinessCount;
+        //private ISessionFactory sessionFactory;
+        public BusinessService(IRepositoryBusiness repositoryBusiness, IStatisticsBusinessCount statisticsBusinessCount)
         {
             this.repositoryBusiness = repositoryBusiness;
-          
+            this.statisticsBusinessCount = statisticsBusinessCount;
         }
         public IList<Business> GetAll()
         {
@@ -212,5 +214,66 @@ namespace Ydb.BusinessResource.Application
             Business b = GetOne(businessId);
             b.IsApplyApproved = false;
         }
+
+
+        /// <summary>
+        /// 昨日新增店铺
+        /// </summary>
+        /// <param name="areaId"></param>=
+        /// <returns></returns>
+        [UnitOfWork]
+        public long GetCountOfNewBusinessesYesterdayByArea(IList<string> areaList)
+        {
+            DateTime beginTime = DateTime.Parse(DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"));
+            return repositoryBusiness.GetBusinessesCountByArea(areaList, beginTime, beginTime.AddDays(1));
+        }
+
+        /// <summary>
+        /// 当前店铺总量
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public long GetCountOfAllBusinessesByArea(IList<string> areaList)
+        {
+            return repositoryBusiness.GetBusinessesCountByArea(areaList, DateTime.MinValue, DateTime.MinValue);
+        }
+
+        /// <summary>
+        /// 统计店铺每日或每时新增数量列表
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="strBeginTime"></param>
+        /// <param name="strEndTime"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public StatisticsInfo GetStatisticsNewBusinessesCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime)
+        {
+            DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
+            DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
+            IList<Business> businessList = repositoryBusiness.GetBusinessesByArea(areaList, BeginTime, EndTime);
+            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsNewBusinessesCountListByTime(businessList, BeginTime, EndTime, strBeginTime == strEndTime);
+            return statisticsInfo;
+        }
+        /// <summary>
+        /// 统计用户每日或每时累计数量列表
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="strBeginTime"></param>
+        /// <param name="strEndTime"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public StatisticsInfo GetStatisticsAllMembershipsCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime, UserType userType)
+        {
+            DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
+            DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, userType);
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListByTime(memberList, BeginTime, EndTime, strBeginTime == strEndTime);
+            return statisticsInfo;
+        }
+
     }
 }

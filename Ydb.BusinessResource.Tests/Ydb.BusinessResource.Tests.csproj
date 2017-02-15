@@ -94,10 +94,13 @@
     <Compile Include="Application\Bootstraper.cs" />
     <Compile Include="Application\BusinessServiceTests.cs" />
     <Compile Include="Application\DZServiceServiceTests.cs" />
+    <Compile Include="Bootstraper.cs" />
+    <Compile Include="DomainModel\Service\DataStatistics\StatisticsBusinessCountTests.cs" />
     <Compile Include="DomainModel\Service\DZServiceTests.cs" />
     <Compile Include="DomainModel\Service\TimePeriodListTests.cs" />
     <Compile Include="Infrastructure\Repository\Nhibernate\Mapping\DZServiceMapTests.cs" />
     <Compile Include="Infrastructure\Repository\Nhibernate\Mapping\ServiceOpenTimeForDayMapTests.cs" />
+    <Compile Include="Infrastructure\Repository\RepositoryBusinessTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

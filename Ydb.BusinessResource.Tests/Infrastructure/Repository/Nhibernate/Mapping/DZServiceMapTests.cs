@@ -25,7 +25,7 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping.Test
         public void Setup()
         {
 
-            session = Bootstrap.dbConfigInstantMessage
+            session = Bootstrap.dbConfigBusinessResource
                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping.BusinessImageMap>())
                 .BuildSessionFactory().OpenSession();
 
@@ -42,7 +42,6 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping.Test
             new PersistenceSpecification<ServiceOpenTimeForDay>(session).VerifyTheMappings();
             new PersistenceSpecification<ServiceType>(session).VerifyTheMappings();
             new PersistenceSpecification<Staff>(session).VerifyTheMappings();
-            new PersistenceSpecification<Area>(session).VerifyTheMappings();
             new PersistenceSpecification<DZTag>(session).VerifyTheMappings();
         }
         /// <summary>
