@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Ydb.Membership.Application;
 using Ydb.Membership.DomainModel.Enums;
 using Ydb.Common.Domain;
+using com = Ydb.Common.Application;
 
 namespace AdminAgent.Controllers
 {
@@ -24,6 +25,7 @@ namespace AdminAgent.Controllers
             }
             catch (Exception ex)
             {
+                Response.StatusCode = 400;
                 return Content(ex.Message);
             }
         }
@@ -47,6 +49,7 @@ namespace AdminAgent.Controllers
             }
             catch (Exception ex)
             {
+                Response.StatusCode = 400;
                 return Content(ex.Message);
             }
         }
@@ -60,6 +63,7 @@ namespace AdminAgent.Controllers
             }
             catch (Exception ex)
             {
+                Response.StatusCode = 400;
                 return Content(ex.Message);
             }
         }
@@ -73,6 +77,7 @@ namespace AdminAgent.Controllers
             }
             catch (Exception ex)
             {
+                Response.StatusCode = 400;
                 return Content(ex.Message);
             }
         }
@@ -86,6 +91,7 @@ namespace AdminAgent.Controllers
             }
             catch (Exception ex)
             {
+                Response.StatusCode = 400;
                 return Content(ex.Message);
             }
         }
@@ -99,6 +105,7 @@ namespace AdminAgent.Controllers
             }
             catch (Exception ex)
             {
+                Response.StatusCode = 400;
                 return Content(ex.Message);
             }
         }
@@ -107,13 +114,14 @@ namespace AdminAgent.Controllers
         {
             try
             {
-                Ydb.Common.Application.IAreaService areaService = Bootstrap.Container.Resolve<Ydb.Common.Application.IAreaService>();
+                com.IAreaService areaService = Bootstrap.Container.Resolve<com.IAreaService>();
                 IList<Area> AreaList = areaService.GetSubArea("460100");
                 StatisticsInfo statisticsInfo = dzMembershipService.GetStatisticsAllMembershipsCountListByArea(AreaList, CheckEnums.CheckUserType(usertype));
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                Response.StatusCode = 400;
                 return Content(ex.Message);
             }
         }
