@@ -45,4 +45,5 @@ namespace Ydb.Membership.DomainModel.Enums
         /// </summary>
         openfire = 256
     }
+    
 }

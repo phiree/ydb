@@ -357,7 +357,7 @@ namespace Ydb.Membership.DomainModel.Service
             member.Scope = tokenObj.scope;
             member.Unionid = userObj.unionid;
             member.Nickname = userObj.nickname;
-            member.Sex = userObj.sex;
+            member.Sex = userObj.sex==2;
             member.Province = userObj.province;
             member.City = userObj.city;
             member.Country = userObj.country;

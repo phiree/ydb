@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ydb.Common.Application
 {
-  public  class ActionResult<T>:ActionResult
+  public  class ActionResult<T>: ActionResult
     {
        
         public T ResultObject { get; set; }

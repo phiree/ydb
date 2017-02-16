@@ -6,13 +6,8 @@ using System.Web.Mvc;
 
 namespace AdminAgent.Controllers
 {
-    public class AgentController : Controller
+    public class UserController : Controller
     {
-        // GET: Agent
-        public ActionResult Index()
-        {
-            return View();
-        }
 
     }
 }

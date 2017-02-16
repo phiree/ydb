@@ -19,7 +19,7 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.Scope);
             Map(x => x.Unionid);
             Map(x => x.NickName);
-            Map(x => x.Sex);
+            //Map(x => x.Sex);
             Map(x => x.Province);
             Map(x => x.City);
             Map(x => x.Country);

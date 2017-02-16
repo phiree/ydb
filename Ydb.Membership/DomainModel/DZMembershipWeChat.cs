@@ -18,7 +18,7 @@ namespace Ydb.Membership.DomainModel
         public virtual string Scope { get; set; }//用户授权的作用域，使用逗号（,）分隔
         public virtual string Unionid { get; set; }//当且仅当该移动应用已获得该用户的userinfo授权时，才会出现该字段
         public virtual string Nickname { get; set; }//普通用户昵称
-        public virtual int Sex { get; set; }//普通用户性别，1为男性，2为女性
+        //public virtual int Sex { get; set; }//普通用户性别，1为男性，2为女性
         public virtual string Province { get; set; }//普通用户个人资料填写的省份
         public virtual string City { get; set; }//普通用户个人资料填写的城市
         public virtual string Country { get; set; }//国家，如中国为CN
