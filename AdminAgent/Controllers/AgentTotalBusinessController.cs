@@ -37,90 +37,76 @@ namespace AdminAgent.Controllers
             return View();
         }
 
-        //public ActionResult total_user_NewList(string usertype)
-        //{
-        //    try
-        //    {
-        //        StatisticsInfo statisticsInfo = dzMembershipService.GetStatisticsNewMembershipsCountListByTime(areaList, DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), CheckEnums.CheckUserType(usertype));
-        //        return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Response.StatusCode = 400;
-        //        return Content(ex.Message);
-        //    }
-        //}
+        public ActionResult total_business_NewList(string usertype)
+        {
+            try
+            {
+                StatisticsInfo statisticsInfo = businessService.GetStatisticsNewBusinessesCountListByTime(areaList, DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+                return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
 
-        //public ActionResult total_user_AllList(string usertype)
-        //{
-        //    try
-        //    {
-        //        StatisticsInfo statisticsInfo = dzMembershipService.GetStatisticsAllMembershipsCountListByTime(areaList, DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), CheckEnums.CheckUserType(usertype));
-        //        return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Response.StatusCode = 400;
-        //        return Content(ex.Message);
-        //    }
-        //}
+        public ActionResult total_business_AllList(string usertype)
+        {
+            try
+            {
+                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByTime(areaList, DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+                return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
 
-        //public ActionResult total_user_LoginList(string usertype)
-        //{
-        //    try
-        //    {
-        //        StatisticsInfo statisticsInfo = dzMembershipService.GetStatisticsLoginCountListByTime(areaList, DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), CheckEnums.CheckUserType(usertype));
-        //        return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Response.StatusCode = 400;
-        //        return Content(ex.Message);
-        //    }
-        //}
+        public ActionResult total_business_LifeList(string usertype)
+        {
+            try
+            {
+                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByLife(areaList);
+                return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
 
-        //public ActionResult total_user_SexList(string usertype)
-        //{
-        //    try
-        //    {
-        //        StatisticsInfo statisticsInfo = dzMembershipService.GetStatisticsAllMembershipsCountListBySex(areaList, CheckEnums.CheckUserType(usertype));
-        //        return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Response.StatusCode = 400;
-        //        return Content(ex.Message);
-        //    }
-        //}
+        public ActionResult total_business_StaffList(string usertype)
+        {
+            try
+            {
+                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByStaff(areaList);
+                return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
 
-        //public ActionResult total_user_AppNameList(string usertype)
-        //{
-        //    try
-        //    {
-        //        StatisticsInfo statisticsInfo = dzMembershipService.GetStatisticsAllMembershipsCountListByAppName(areaList, CheckEnums.CheckUserType(usertype));
-        //        return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Response.StatusCode = 400;
-        //        return Content(ex.Message);
-        //    }
-        //}
-
-        //public ActionResult total_user_AreaList(string usertype)
-        //{
-        //    try
-        //    {
-        //        com.IAreaService areaService = Bootstrap.Container.Resolve<com.IAreaService>();
-        //        IList<Area> AreaList = areaService.GetSubArea("460100");
-        //        StatisticsInfo statisticsInfo = dzMembershipService.GetStatisticsAllMembershipsCountListByArea(AreaList, CheckEnums.CheckUserType(usertype));
-        //        return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Response.StatusCode = 400;
-        //        return Content(ex.Message);
-        //    }
-        //}
+        public ActionResult total_business_AreaList(string usertype)
+        {
+            try
+            {
+                com.IAreaService areaService = Bootstrap.Container.Resolve<com.IAreaService>();
+                IList<Area> AreaList = areaService.GetSubArea("460100");
+                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByArea(AreaList);
+                return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
     }
 }

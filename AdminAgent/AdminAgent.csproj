@@ -637,6 +637,7 @@
     <Content Include="Views\AgentTotalUser\total_user_detail.cshtml" />
     <Content Include="Views\AgentTotalUser\total_assistant.cshtml" />
     <Content Include="Views\AgentTotalBusiness\total_business.cshtml" />
+    <Content Include="Views\AgentTotalBusiness\total_business_detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
