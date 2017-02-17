@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.Common.Domain;
-using Ydb.BusinessResource.DomainModel;
 
 
 namespace Ydb.BusinessResource.DomainModel.Service.DataStatistics
