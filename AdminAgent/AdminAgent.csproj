@@ -639,10 +639,10 @@
     <Content Include="Views\AgentTotalUser\total_assistant.cshtml" />
     <Content Include="Views\AgentTotalBusiness\total_business.cshtml" />
     <Content Include="Views\AgentTotalBusiness\total_business_detail.cshtml" />
+    <Content Include="Views\AgentFinance\finance_account.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\AgentFinance\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

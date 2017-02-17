@@ -8,10 +8,12 @@ namespace AdminAgent.Controllers
 {
     public class AgentFinanceController : Controller
     {
-        // GET: AgentFinance
-        public ActionResult Index()
+        public ActionResult finance_account()
         {
+            ViewData["SharedOrder"] = 1230;
+            ViewData["NotSharedOrder"] = 30;
             return View();
         }
+        
     }
 }
