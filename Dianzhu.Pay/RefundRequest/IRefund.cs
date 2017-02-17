@@ -37,4 +37,6 @@ namespace Dianzhu.Pay
         NameValueCollection CreateRefundRequest();
         
     }
+
+  
 }

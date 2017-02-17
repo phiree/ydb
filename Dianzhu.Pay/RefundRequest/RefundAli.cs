@@ -12,6 +12,7 @@ namespace Dianzhu.Pay.RefundRequest
     /// </summary>
     public class RefundAli : IRefund
     {
+        
         public decimal RefundAmount { get; set; }
         public string PlatformTradeNo { get; set; }
         public string OutTradeNo { get; set; }
@@ -58,6 +59,7 @@ namespace Dianzhu.Pay.RefundRequest
             NameValueCollection collection = new NameValueCollection();
             return collection;
         }
+       
     }
     public class RefundDetail
     {

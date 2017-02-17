@@ -5,6 +5,7 @@ using System.Text;
 using FluentNHibernate.Mapping;
 using Dianzhu.Model;
 using Ydb.Common;
+using Ydb.Common.Domain;
 
 namespace Dianzhu.DAL.Mapping
 {

@@ -55,8 +55,8 @@
       <HintPath>..\packages\FluentValidation.5.6.2.0\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -132,10 +132,6 @@
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
-      <Project>{be142427-1ce4-40f8-ac58-d0509ba05d21}</Project>
-      <Name>Dianzhu.Push</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MediaServer\MediaServer.csproj">
       <Project>{9920da22-589c-4193-aeaa-363d5c029dfc}</Project>
       <Name>MediaServer</Name>
@@ -159,6 +155,10 @@
     <ProjectReference Include="..\Ydb.Membership\Ydb.Membership.csproj">
       <Project>{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}</Project>
       <Name>Ydb.Membership</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Order\Ydb.Order.csproj">
+      <Project>{901e2a8a-e608-4477-b9bc-f583d818d87f}</Project>
+      <Name>Ydb.Order</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

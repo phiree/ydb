@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.CSClient.ViewModel;
-using Dianzhu.Model;
+using Ydb.Order.DomainModel;
 
 namespace Dianzhu.CSClient.Presenter.VMAdapter
 {

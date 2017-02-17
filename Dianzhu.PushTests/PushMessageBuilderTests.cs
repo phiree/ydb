@@ -6,6 +6,9 @@ using Ydb.InstantMessage.DomainModel.Enums;
 using FizzWare.NBuilder;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.Common;
+using Ydb.Push.DomainModel;
+using Ydb.Push.Application;
+using Ydb.Push;
 
 namespace Dianzhu.Push.Tests
 {

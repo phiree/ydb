@@ -104,5 +104,10 @@ namespace Ydb.InstantMessage.Application
         /// <returns></returns>
         long GetUnreadChatsCount(string userID);
           IList<ReceptionChatDto> GetInitChatList(string customerId, int pageSize);
+        /// <summary>
+        /// 设置聊天消息为 未读
+        /// </summary>
+        /// <param name="chatId"></param>
+        void SetChatUnread(string chatId);
     }
 }

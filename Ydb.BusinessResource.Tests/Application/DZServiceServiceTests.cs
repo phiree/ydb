@@ -48,15 +48,16 @@ namespace Ydb.BusinessResource.Application.Tests
         [Test()]
         public void AddWorkTimeTest()
         {
-            Business b = new Business();
-            IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
-            ActionResult<Business> result=  businessService.Add("测试店","13666666666","",Guid.NewGuid (),"","","","",1,2);
-            DZService service = Builder<DZService>.CreateNew().Build();
-            service.Business = result.ResultObject;
+           Business business= Builder<Business>.CreateNew().Build();
+            IRepositoryBusiness businessRepo = Bootstrap.Container.Resolve<IRepositoryBusiness>();
+            businessRepo.Add(business);
+            DZService service = Builder<DZService>.CreateNew()
+                .With(x=>x.Business=business)
+                .Build();
             IDZServiceService dzServie = Bootstrap.Container.Resolve<IDZServiceService>();
             dzServie.Save(service);
-           
-            ActionResult<ServiceOpenTimeForDay> addedWorkTime= dzServie.AddWorkTime(result.ResultObject.Id.ToString (), service.Id.ToString(), DayOfWeek.Sunday, "01:01", "03:13", 33, "test_tag");
+
+           ActionResult<ServiceOpenTimeForDay> addedWorkTime= dzServie.AddWorkTime(business.Id.ToString(), service.Id.ToString(), DayOfWeek.Sunday, "01:01", "03:13", 33, "test_tag");
 
             
 

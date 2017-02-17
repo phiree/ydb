@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.Push.DomainModel;
+using Ydb.Push.Application;
 namespace Dianzhu.ApplicationService.App
 {
     public class AppService : IAppService
     {
 
-        BLL.BLLDeviceBind blldevicebind;
+       IDeviceBindService blldevicebind;
         IDZMembershipService memberService;
-        public AppService(BLL.BLLDeviceBind blldevicebind, IDZMembershipService memberService)
+        public AppService(IDeviceBindService blldevicebind, IDZMembershipService memberService)
         {
             this.blldevicebind = blldevicebind;
             this.memberService = memberService;
@@ -41,7 +43,7 @@ namespace Dianzhu.ApplicationService.App
             //    throw new FormatException("Token长度不够64");
             //}
             //Model.DeviceBind devicebind = Mapper.Map<appObj, Model.DeviceBind>(appobj);
-            Model.DeviceBind devicebind = new Model.DeviceBind();
+             DeviceBind devicebind = new  DeviceBind();
             if (!string.IsNullOrEmpty(appobj.userID))
             {
                 Guid userId = utils.CheckGuidID(appobj.userID, "UserId");
@@ -105,7 +107,7 @@ namespace Dianzhu.ApplicationService.App
         public object DeleteDeviceBind(string id)
         {
             Guid uuId=utils.CheckGuidID(id, "appUUID"); 
-            Model.DeviceBind obj = blldevicebind.getDevBindByUUID(uuId);
+       DeviceBind obj = blldevicebind.getDevBindByUUID(uuId);
             if (obj == null)
             {
                 throw new Exception("该设备没有注册！");
@@ -126,7 +128,7 @@ namespace Dianzhu.ApplicationService.App
         public object PatchDeviceBind(string id,string pushCount)
         {
             Guid uuId = utils.CheckGuidID(id, "appUUID");
-            Model.DeviceBind obj = blldevicebind.getDevBindByUUID(uuId);
+        DeviceBind obj = blldevicebind.getDevBindByUUID(uuId);
             if (obj == null)
             {
                 throw new Exception("该设备没有注册！");

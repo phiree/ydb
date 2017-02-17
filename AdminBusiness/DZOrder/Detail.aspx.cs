@@ -1,5 +1,5 @@
 ﻿using Dianzhu.BLL;
-using Dianzhu.Model;
+ 
 using PHSuit;
 using System;
 using System.Collections.Generic;
@@ -12,18 +12,20 @@ using Ydb.Membership.Application.Dto;
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 
+ 
 public partial class DZOrder_Detail : BasePage
 {
-    Dianzhu.BLL.IBLLServiceOrder bllServeiceOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
+    IServiceOrderService bllServeiceOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
    IBusinessService businessService= Bootstrap.Container.Resolve<IBusinessService>();
     // BLLServiceOrder bllServeiceOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
-    BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<BLLServiceOrderStateChangeHis>();
+    IServiceOrderStateChangeHisService bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<IServiceOrderStateChangeHisService>();
     IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
-    BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
-    public ServiceOrder CurrentOrder;
+     public ServiceOrder CurrentOrder;
     public Business CurrentBusiness;
-
+    Guid OrderId;
     public string merchantID
     {
         get
@@ -34,7 +36,8 @@ public partial class DZOrder_Detail : BasePage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        CurrentBusiness = businessService.GetOne(new Guid(Request["businessId"]));
+        OrderId = new Guid(Request["businessId"]);
+        CurrentBusiness = businessService.GetOne(OrderId);
         CurrentOrder = bllServeiceOrder.GetOne(new Guid(Request["orderId"]));
         BingData();
         BindDoneStatusData();
@@ -61,23 +64,24 @@ public partial class DZOrder_Detail : BasePage
     protected void btnOrderStatusChange_Click(object sender, EventArgs e)
     {
         Button btn = (Button)sender;
+       
         switch (btn.CommandName)
         {
             case "ConfirmOrder":
-                bllServeiceOrder.OrderFlow_BusinessConfirm(CurrentOrder);
+                bllServeiceOrder.OrderFlow_BusinessConfirm(OrderId);
                 break;
             case "ConfirmPrice":
                 // 如果输入为空，则价格为原来的价格
                 if (txtConfirmPrice.Text == "") {
                     txtConfirmPrice.Text = CurrentOrder.NegotiateAmount.ToString();
                 }
-                bllServeiceOrder.OrderFlow_BusinessNegotiate(CurrentOrder,Convert.ToDecimal(txtConfirmPrice.Text));
+                bllServeiceOrder.OrderFlow_BusinessNegotiate(OrderId, Convert.ToDecimal(txtConfirmPrice.Text));
                 break;
             case "Assigned":
-                bllServeiceOrder.OrderFlow_BusinessStartService(CurrentOrder);
+                bllServeiceOrder.OrderFlow_BusinessStartService(OrderId);
                 break;
             case "Begin":
-                bllServeiceOrder.OrderFlow_BusinessFinish(CurrentOrder);
+                bllServeiceOrder.OrderFlow_BusinessFinish(OrderId);
                 break;
         }
         BingData();

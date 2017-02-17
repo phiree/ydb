@@ -8,6 +8,8 @@ using Ydb.Membership.Application.Dto;
 using Dianzhu.BLL;
 using Ydb.Common.Domain;
 using Ydb.Common;
+using Ydb.Order.DomainModel;
+using Ydb.Order.Application;
 /// <summary>
 /// VMCustomerListAdapter 的摘要说明
 /// </summary>
@@ -15,12 +17,12 @@ public class VMCustomerAdapter
 {
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.AdminWeb.VMCustomerAdapter");
    IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
-    
+
     //  Dianzhu.BLL.BLLServiceOrder bllOrder = new Dianzhu.BLL.BLLServiceOrder();
-    private Dianzhu.BLL.IBLLServiceOrder bllOrder;
-    public VMCustomerAdapter(IBLLServiceOrder bllOrder)
+    IServiceOrderService orderService;
+    public VMCustomerAdapter(IServiceOrderService orderService)
     {
-        this.bllOrder = bllOrder;        
+        this.orderService = orderService;        
     }
     string errMsg;
     public VMCustomer  Adapt(MemberDto member)
@@ -36,8 +38,8 @@ public class VMCustomerAdapter
         vm.Email = member.Email;
         vm.FriendlyUserType = member.FriendlyUserType;
         vm.LoginTimes = member.LoginTimes;
-        vm.OrderAmount = bllOrder.GetServiceOrderAmountWithoutDraft(member.Id, false);
-        vm.OrderCount = bllOrder.GetServiceOrderCountWithoutDraft(member.Id, false);
+        vm.OrderAmount = orderService.GetServiceOrderAmountWithoutDraft(member.Id, false);
+        vm.OrderCount = orderService.GetServiceOrderCountWithoutDraft(member.Id, false);
         vm.TimeCreated = member.TimeCreated;
         //vm.LoginDates = dalRSA.GetReceptionDates(member);
         vm.UserName = member.UserName;

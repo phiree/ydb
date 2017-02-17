@@ -8,15 +8,18 @@ using Ydb.Common.Specification;
 using Ydb.BusinessResource.Application;
 using BRM= Ydb.BusinessResource.DomainModel;
 using Ydb.Common;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
+
 namespace Dianzhu.ApplicationService.Assign
 {
     public class AssignService:IAssignService
     {
-        BLL.BLLOrderAssignment bllassign;
+       IOrderAssignmentService bllassign;
       
         IStaffService staffService;
-        BLL.IBLLServiceOrder ibllorder;
-        public AssignService(BLL.BLLOrderAssignment bllassign, IStaffService staffService, BLL.IBLLServiceOrder ibllorder)
+       IServiceOrderService ibllorder;
+        public AssignService(IOrderAssignmentService bllassign, IStaffService staffService, IServiceOrderService ibllorder)
         {
             this.bllassign = bllassign;
             this.staffService = staffService;
@@ -39,8 +42,8 @@ namespace Dianzhu.ApplicationService.Assign
             {
                 throw new FormatException("指派的员工ID不能为空！");
             }
-            Model.OrderAssignment oa = Mapper.Map<assignObj, Model.OrderAssignment>(assignobj);
-            Model.ServiceOrder order = ibllorder.GetOneOrder(utils.CheckGuidID(assignobj.orderID, "assignobj.orderID"), customer.UserID);
+            OrderAssignment oa = Mapper.Map<assignObj, OrderAssignment>(assignobj);
+            ServiceOrder order = ibllorder.GetOneOrder(utils.CheckGuidID(assignobj.orderID, "assignobj.orderID"), customer.UserID);
             if (order == null)
             {
                 throw new Exception("该商户指派的订单不存在！");
@@ -67,13 +70,13 @@ namespace Dianzhu.ApplicationService.Assign
             DateTime dt = DateTime.Now;
             oa.CreateTime = dt;
             oa.AssignedTime = dt;
-            oa.Order = order;
+            oa.OrderId = assignobj.orderID;
             oa.AssignedStaffId = assignobj.staffID;
             order.StaffId = assignobj.staffID;
       
             bllassign.Save(oa);
         
-            assignobj = Mapper.Map<Model.OrderAssignment, assignObj>(oa);
+            assignobj = Mapper.Map<OrderAssignment, assignObj>(oa);
             return assignobj;
           
         }
@@ -87,7 +90,7 @@ namespace Dianzhu.ApplicationService.Assign
         /// <returns></returns>
         public IList<assignObj> GetAssigns(common_Trait_Filtering filter, common_Trait_AssignFiltering assign,Customer customer)
         {
-            IList<Model.OrderAssignment> listassign = null;
+            IList<OrderAssignment> listassign = null;
          TraitFilter    filter1 = utils.CheckFilter(filter, "OrderAssignment");
             listassign = bllassign.GetAssigns(filter1, utils.CheckGuidID(assign.staffID, "assign.staffID"), utils.CheckGuidID(assign.orderID, "assign.orderID"), utils.CheckGuidID(assign.storeID, "assign.storeID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (listassign == null)
@@ -95,7 +98,7 @@ namespace Dianzhu.ApplicationService.Assign
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<assignObj>();
             }
-            IList<assignObj> complaintobj = Mapper.Map<IList<Model.OrderAssignment>, IList<assignObj>>(listassign);
+            IList<assignObj> complaintobj = Mapper.Map<IList<OrderAssignment>, IList<assignObj>>(listassign);
             return complaintobj;
         }
 
@@ -128,7 +131,7 @@ namespace Dianzhu.ApplicationService.Assign
             {
                 throw new FormatException("取消指派的员工ID不能为空！");
             }
-            Model.ServiceOrder order = ibllorder.GetOneOrder(utils.CheckGuidID(assignobj.orderID, "assignobj.orderID"), customer.UserID);
+            ServiceOrder order = ibllorder.GetOneOrder(utils.CheckGuidID(assignobj.orderID, "assignobj.orderID"), customer.UserID);
             if (order == null)
             {
                 throw new Exception("该商户不存在该订单！");
@@ -141,7 +144,7 @@ namespace Dianzhu.ApplicationService.Assign
             {
                 throw new Exception("该订单的服务已经完成，无法再取消指派！");
             }
-            //Model.Staff staff = bllstaff.GetStaff(order.Business.Id, utils.CheckGuidID(assignobj.staffID, "assignobj.staffID"));
+            //Staff staff = bllstaff.GetStaff(order.Business.Id, utils.CheckGuidID(assignobj.staffID, "assignobj.staffID"));
             //if (staff == null)
             //{
             //    throw new Exception("在指派订单所属的店铺中不存在该指派的员工！");
@@ -155,7 +158,7 @@ namespace Dianzhu.ApplicationService.Assign
                 throw new Exception("该订单指派的不是该员工！");
             }
             //以下三个操作应该在同一个事务中,目前无法实现.
-            Model.OrderAssignment oa = bllassign.FindByOrderAndStaff(order, order.StaffId);
+            OrderAssignment oa = bllassign.FindByOrderAndStaff(order, order.StaffId);
             if (oa == null || oa.Enabled == false)
             {
                 throw new Exception("该指派不存在或已取消！");
@@ -172,7 +175,7 @@ namespace Dianzhu.ApplicationService.Assign
             //oa = bllassign.GetAssignById(oa.Id);
             //if (oa != null && oa.CreateTime == dt)
             //{
-            //assignobj = Mapper.Map<Model.OrderAssignment, assignObj>(oa);
+            //assignobj = Mapper.Map<OrderAssignment, assignObj>(oa);
             return new string[] { "取消成功！" };
             //}
             //else

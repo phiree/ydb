@@ -55,6 +55,14 @@ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb
             // new Application.InstallerMembershipTestDB()
 
             );
+        container.Install(
+
+
+         new Ydb.Push.Infrastructure.InstallerPush(BuildDBConfig("ydb_push"))
+
+          // new Application.InstallerMembershipTestDB()
+
+          );
         // Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
         AutoMapper.Mapper.Initialize(x =>
         {

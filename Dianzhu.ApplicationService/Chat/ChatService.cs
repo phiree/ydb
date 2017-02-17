@@ -7,6 +7,9 @@ using AutoMapper;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.BusinessResource.Application;
 using Ydb.Common.Specification;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
+
 
 namespace Dianzhu.ApplicationService.Chat
 {
@@ -14,10 +17,10 @@ namespace Dianzhu.ApplicationService.Chat
     {
         Ydb.InstantMessage.Application.IChatService bllChat;
         IStaffService staffService;
-     
-        BLL.IBLLServiceOrder bllOrder;
+
+        IServiceOrderService bllOrder;
         // BLL.DZMembershipProvider bllDZM;
-        public ChatService(Ydb.InstantMessage.Application.IChatService bllChat, BLL.IBLLServiceOrder bllOrder, IStaffService staffService)
+        public ChatService(Ydb.InstantMessage.Application.IChatService bllChat, IServiceOrderService bllOrder, IStaffService staffService)
         {
             this.bllChat = bllChat;
             this.bllOrder = bllOrder;
@@ -37,7 +40,7 @@ namespace Dianzhu.ApplicationService.Chat
                 throw new FormatException("orderID不能为空");
             }
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
-            Model.ServiceOrder order = bllOrder.GetOne(guidOrder);
+           ServiceOrder order = bllOrder.GetOne(guidOrder);
             if (order == null)
             {
                 throw new Exception("该订单不存在！");

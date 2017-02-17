@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.CSClient.IView;
-using Dianzhu.Model;
-using Dianzhu.BLL;
+ 
+ 
 using Dianzhu.CSClient.LocalStorage;
 using Dianzhu.CSClient.ViewModel;
 using Dianzhu.CSClient.Presenter.VMAdapter;
@@ -17,6 +17,8 @@ using Ydb.BusinessResource.DomainModel;
 using Ydb.BusinessResource.Application;
 using Ydb.Common;
 using AutoMapper;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -28,8 +30,8 @@ namespace Dianzhu.CSClient.Presenter
         IViewChatList viewChatList;
         IViewIdentityList viewIdentityList;
        IDZServiceService dzService;
-        IBLLServiceOrder bllServiceOrder;
-        PushService bllPushService;
+        IServiceOrderService bllServiceOrder;
+        IOrderPushService bllPushService;
         IInstantMessage iIM;
        IServiceTypeService typeService;
         IList<VMShelfService> selectedServiceList;
@@ -90,8 +92,8 @@ namespace Dianzhu.CSClient.Presenter
             IInstantMessage iIM, IViewSearch viewSearch, IViewSearchResult viewSearchResult,
             IViewTypeSelect viewTypeSelect,
             IViewChatList viewChatList, IViewIdentityList viewIdentityList,
-           IDZServiceService dalDzService, IBLLServiceOrder bllServiceOrder, IServiceTypeService dalServiceType,
-                    PushService bllPushService, Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder,
+           IDZServiceService dalDzService, IServiceOrderService bllServiceOrder, IServiceTypeService dalServiceType,
+                    IOrderPushService bllPushService, Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder,
                     LocalChatManager localChatManager, IDZMembershipService memberService, IReceptionService receptionService,
                     IViewTabContentTimer viewTabContentTimer, string identity)
         {
@@ -240,7 +242,7 @@ namespace Dianzhu.CSClient.Presenter
 
                 serviceOrderPushedServices.Add(new ServiceOrderPushedService(oldOrder, serviceId.ToString(),serviceSnapshot,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, viewSearch.ServiceTargetAddress, viewSearch.TargetTime, viewSearch.ServiceMemo ));
             }
-            bllPushService.Push(oldOrder, serviceOrderPushedServices, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime);
+            bllPushService.Push(oldOrder.Id, serviceOrderPushedServices, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime);
             NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //获取之前orderid
@@ -350,8 +352,7 @@ namespace Dianzhu.CSClient.Presenter
 
         private ServiceOrder CreateDraftOrder(string csId, string customerId)
         {
-            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService.Id.ToString(), identity);
-            bllServiceOrder.Save(newOrder);
+            ServiceOrder newOrder =bllServiceOrder.CreateDraftOrder(GlobalViables.CurrentCustomerService.Id.ToString(), identity);
 
             return newOrder;
         }

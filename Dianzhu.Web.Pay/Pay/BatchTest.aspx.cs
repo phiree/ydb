@@ -4,8 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.Pay;
-using Dianzhu.BLL;
+
 
 using System.IO;
 using System.Net;
@@ -13,11 +12,12 @@ using System.Net.Security;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Ydb.PayGateway.Application;
+using Ydb.PayGateway;
+using Ydb.PayGateway.DomainModel.Pay;
 
 public partial class Pay_BatchTest : Dianzhu.Web.Common.BasePage
-{
-    BLLPay bllPay = Bootstrap.Container.Resolve<BLLPay>();
-    //Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder iserialno = Bootstrap.Container.Resolve<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>();
+{  //Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder iserialno = Bootstrap.Container.Resolve<Dianzhu.BLL.Common.SerialNo.ISerialNoBuilder>();
     Ydb.Common.Infrastructure.ISerialNoBuilder iserialno = Bootstrap.Container.Resolve<Ydb.Common.Infrastructure.ISerialNoBuilder>();
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
     /// <summary>
@@ -60,7 +60,11 @@ public partial class Pay_BatchTest : Dianzhu.Web.Common.BasePage
         string strSerialNo = iserialno.GetSerialNo("PAYB" + DateTime.Now.ToString("yyyyMMddHHmm"), 2);
         string strSubject= iserialno.GetSerialNo("PAYBL" + DateTime.Now.ToString("yyyyMMddHHmmssfff"), 2)+"^13288844855^邓楚献^1^测试|";
         strSubject = strSubject+iserialno.GetSerialNo("PAYBL" + DateTime.Now.ToString("yyyyMMddHHmmssfff"), 2) + "^jsyk_development@126.com^海口集思优科网络科技有限公司^1^测试";
-        IPayRequest pay = bllPay.CreatePayBatch(2, strSerialNo, strSubject,"2");
+ 
+
+        IPayRequest pay = PayFactory.CreatePayAPI(Ydb.Common.enum_PayAPI.AlipayBatch, 2m, strSerialNo, strSubject);
+            //bllPay.CreatePayBatch(2, strSerialNo, strSubject);
+ 
         string requestString = pay.CreatePayRequest();
         Response.Write(requestString);
     }

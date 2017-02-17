@@ -19,6 +19,6 @@ namespace Dianzhu.IDAL
         void UpdateAndSave(DeviceBind devicebind);
 
         DeviceBind getDevBindByUUID(Guid uuid);
-          DeviceBind getDevBindByUserID(Guid userId);
+        DeviceBind getDevBindByUserID(Guid userId);
     }
 }

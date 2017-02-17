@@ -6,7 +6,7 @@ using Dianzhu.Model;
 
 using Dianzhu.DAL;
 using Ydb.Common;
-using Dianzhu.Pay;
+ 
 
 namespace Dianzhu.BLL
 {

@@ -12,6 +12,8 @@ using System.Threading;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using Ydb.Membership.Application;
+using Ydb.PayGateway.DomainModel.Repository;
+
 namespace Ydb.Test.System.BugRepeat
 {
     ///<summary>
@@ -76,13 +78,13 @@ namespace Ydb.Test.System.BugRepeat
                 container.Install(
                    new InstallerRepository()
                     );
-                NHibernateUnitOfWork.UnitOfWork.Start();
-                IDALPaymentLog dalPaymentLog = container.Resolve<IDALPaymentLog>();
-                Guid newId = Guid.NewGuid();
-                dalPaymentLog.FindById(newId);
-                log.Debug("find palymentlog:"+ newId);
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                //NHibernateUnitOfWork.UnitOfWork.Start();
+                //IRepositoryPaymentLog dalPaymentLog = container.Resolve<IRepositoryPaymentLog>();
+                //Guid newId = Guid.NewGuid();
+                //dalPaymentLog.FindById(newId);
+                //log.Debug("find palymentlog:"+ newId);
+                //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
                
             }
             catch (Exception ex)

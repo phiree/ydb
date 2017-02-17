@@ -44,7 +44,7 @@ namespace Dianzhu.BLL
 
             switch (payApi)
             {
-                case enum_PayAPI.Alipay:
+                case enum_PayAPI.AlipayWeb:
                     return new PayAli(payAmount, paymentId, paySubject,
                             "1",
                             Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/notify_url.aspx",
@@ -212,7 +212,7 @@ namespace Dianzhu.BLL
             {
                 case enum_PaylogType.ResultReturnFromAli:
                 case enum_PaylogType.ResultNotifyFromAli:
-                    payApi = enum_PayAPI.Alipay;
+                    payApi = enum_PayAPI.AlipayWeb;
                     break;
                 case enum_PaylogType.ReturnNotifyFromWePay:
                     payApi = enum_PayAPI.Wechat;

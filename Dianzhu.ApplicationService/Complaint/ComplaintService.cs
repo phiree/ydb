@@ -5,14 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Ydb.Common.Specification;
-using Dianzhu.Model;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
+
+
 namespace Dianzhu.ApplicationService.Complaint
 {
     public class ComplaintService: IComplaintService
     {
         BLL.BLLComplaint bllcomplaint;
-        BLL.IBLLServiceOrder ibllServiceOrder;
-        public ComplaintService(BLL.BLLComplaint bllcomplaint, BLL.IBLLServiceOrder ibllServiceOrder)
+        IServiceOrderService  ibllServiceOrder;
+        public ComplaintService(BLL.BLLComplaint bllcomplaint, IServiceOrderService ibllServiceOrder)
         {
             this.bllcomplaint = bllcomplaint;
             this.ibllServiceOrder = ibllServiceOrder;

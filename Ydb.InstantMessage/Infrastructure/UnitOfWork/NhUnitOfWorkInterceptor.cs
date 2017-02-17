@@ -7,6 +7,7 @@ using Ydb.Common.Repository;
 using Ydb.Common;
 namespace Ydb.InstantMessage.Infrastructure
 {
+    
     /// <summary>
     /// Represents a transactional job.
     /// </summary>
@@ -15,6 +16,7 @@ namespace Ydb.InstantMessage.Infrastructure
     /// </summary>
     public class NhUnitOfWorkInterceptor : IInterceptor
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Ydb.InstantMessage.Infrastructure.NhUnitOfWorkInterceptor");
         private readonly ISessionFactory _sessionFactory;
 
         /// <summary>
@@ -49,7 +51,7 @@ namespace Ydb.InstantMessage.Infrastructure
                     invocation.Proceed();
                     NhUnitOfWork.Current.Commit();
                 }
-                catch
+                catch(Exception ex)
                 {
                     try
                     {
@@ -57,7 +59,7 @@ namespace Ydb.InstantMessage.Infrastructure
                     }
                     catch
                     {
-
+                        log.Error(ex.ToString());
                     }
 
                     throw;

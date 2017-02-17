@@ -47,8 +47,8 @@
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+    <Reference Include="Castle.Windsor, Version=3.4.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.3.4.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
@@ -100,6 +100,9 @@
     <ProjectReference Include="..\Ydb.Membership\Ydb.Membership.csproj">
       <Project>{6a7ed67d-846d-46c6-84b0-82b8556f0b8f}</Project>
       <Name>Ydb.Membership</Name>
+    <ProjectReference Include="..\Ydb.Order\Ydb.Order.csproj">
+      <Project>{901e2a8a-e608-4477-b9bc-f583d818d87f}</Project>
+      <Name>Ydb.Order</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

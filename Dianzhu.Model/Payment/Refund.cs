@@ -101,6 +101,7 @@ namespace Dianzhu.Model
         public virtual string Memo { get; set; }
 
 
+        
 
 
     }

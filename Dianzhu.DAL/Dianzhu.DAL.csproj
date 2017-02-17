@@ -60,8 +60,8 @@
       <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.5\lib\net40-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -92,52 +92,23 @@
     <Compile Include="Client\DALClient.cs" />
     <Compile Include="Client\DALRefreshToken.cs" />
     <Compile Include="Client\DALUserToken.cs" />
-    <Compile Include="DALSerialNo.cs" />
-    <Compile Include="DALClaimsDetails.cs" />
-    <Compile Include="DALClaims.cs" />
     <Compile Include="DALComplaint.cs" />
     <Compile Include="DALAdvertisement.cs" />
-    <Compile Include="DALRefund.cs" />
-    <Compile Include="DALPayment.cs" />
-    <Compile Include="DALRefundLog.cs" />
     <Compile Include="DALIMUserStatusArchieve.cs" />
     <Compile Include="DALIMUserStatus.cs" />
-    <Compile Include="DALPaymentLog.cs" />
     <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="Mapping\SerialNoMap.cs" />
     <Compile Include="Mapping\Client\UserTokenMap.cs" />
     <Compile Include="Mapping\StorageManager\StorageFileInfoMap.cs" />
-    <Compile Include="ServiceOrder\DALServiceOrderRemind.cs" />
-    <Compile Include="ServiceOrder\DALServiceOrderAppraise.cs" />
-    <Compile Include="DALPaylog.cs" />
-    <Compile Include="DALOrderAssignment.cs" />
-    <Compile Include="ServiceOrder\DALServiceOrderStateChangeHis.cs" />
-    <Compile Include="Mapping\ClaimsDetailsMap.cs" />
     <Compile Include="Mapping\Client\ClientMap.cs" />
     <Compile Include="Mapping\Client\RefreshTokenMap.cs" />
-    <Compile Include="Mapping\ClaimsMap.cs" />
+
     <Compile Include="Mapping\ComplaintMap.cs" />
     <Compile Include="Mapping\AdvertisementMap.cs" />
     <Compile Include="Mapping\IMUserStatusMap.cs" />
     <Compile Include="Mapping\CityMap.cs" />
-    <Compile Include="Mapping\RefundLogMap.cs" />
-    <Compile Include="Mapping\RefundMap.cs" />
-    <Compile Include="Mapping\ServiceOrderRemindMap.cs" />
-    <Compile Include="Mapping\ServiceOrder\ServiceOrderAppraiseMap.cs" />
-    <Compile Include="Mapping\ServiceOrder\ServiceOrderPushedServiceMap.cs" />
-    <Compile Include="Mapping\ServiceOrder\ServiceOrderDetailMap.cs" />
-    <Compile Include="Mapping\PaymentLogMap.cs" />
-    <Compile Include="Mapping\ServiceOrderStateChangeHisMap.cs" />
-    <Compile Include="Mapping\ServiceOrder\ServiceOrderMap.cs" />
-    <Compile Include="Mapping\OrderAssignment.cs" />
-    <Compile Include="Mapping\PaymentMap.cs" />
-    <Compile Include="Mapping\DeviceBindMap.cs" />
     <Compile Include="NHCustomDialect.cs" />
     <Compile Include="NHRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DALDeviceBind.cs" />
-    <Compile Include="ServiceOrder\DALServiceOrder.cs" />
-    <Compile Include="ServiceOrder\DALServiceOrderPushedService.cs" />
     <Compile Include="StorageManager\DALStorageFileInfo.cs" />
     <Compile Include="UnitOfWork\GenericTransaction.cs" />
     <Compile Include="UnitOfWork\IGenericTransaction.cs" />
@@ -190,6 +161,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="dlls\" />
+    <Folder Include="Mapping\ServiceOrder\" />
+    <Folder Include="ServiceOrder\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

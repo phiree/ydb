@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Dianzhu.BLL;
-using Dianzhu.Model;
 using Ydb.BusinessResource.DomainModel;
+using Ydb.Order.Application;
 /// <summary>
 /// VMBusinessAdapter 的摘要说明
 /// </summary>
 public class VMBusinessAdapter
 {
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.AdminWeb.VMBusinessAdapter");
-    Dianzhu.BLL.IBLLServiceOrder bllOrder;
-    public VMBusinessAdapter(IBLLServiceOrder bllOrder)
+    //  Dianzhu.BLL.IBLLServiceOrder bllOrder;
+    IServiceOrderService orderService;
+    public VMBusinessAdapter(IServiceOrderService orderService)
     {
-        this.bllOrder = bllOrder;
+        this.orderService = orderService;
     }
     string errMsg;
     public VMShop Adapt( Business business)
@@ -28,8 +26,8 @@ public class VMBusinessAdapter
         vmShop.ServiceTypes = business.ServiceType.Select(x => x.Name).ToList();
         vmShop.RegisterTime = business.CreatedTime;
         
-        vmShop.OrderCount = bllOrder.GetAllOrdersForBusiness(business.Id).Count;
-        vmShop.OrderCompleteCount = bllOrder.GetAllCompleteOrdersForBusiness(business.Id).Count;
+        vmShop.OrderCount = orderService.GetAllOrdersForBusiness(business.Id).Count;
+        vmShop.OrderCompleteCount = orderService.GetAllCompleteOrdersForBusiness(business.Id).Count;
         //vmShop.OrderCompleteRate = null;
         //vmShop.OrderAmount = bllOrder.GetServiceOrderAmountWithoutDraft(busines)
         //vmShop.ExposureRate = null;

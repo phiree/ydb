@@ -4,17 +4,22 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.BLL;
-using Dianzhu.Model;
-using Ydb.Common;
-using Com.Alipay;
-using Dianzhu.Pay;
 
+using Ydb.Common;
+using Ydb.PayGateway;
+using Ydb.Order.DomainModel;
+using Ydb.Order.Application;
+using Ydb.PayGateway.DomainModel.Pay;
+
+/// <summary>
+/// 
+/// </summary>
+[Obsolete("网页支付已经停用,该页面只保证编译通过.")]
 public partial class Pay_Default : System.Web.UI.Page
 {
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
-    BLLServiceOrder bllOrder = Bootstrap.Container.Resolve<BLLServiceOrder>();
-    BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
+    IServiceOrderService orderService = Bootstrap.Container.Resolve<IServiceOrderService>();
+    IPaymentService paymentService = Bootstrap.Container.Resolve<IPaymentService>();
     ServiceOrder order = null;
     Payment payment = null;
     public Payment Payment
@@ -25,12 +30,16 @@ public partial class Pay_Default : System.Web.UI.Page
         get { return order; }
         
     }
-  
+    string orderId;
+    enum_PayTarget payTarget;
     protected void Page_Load(object sender, EventArgs e)
     {
-     
-        LoadOrder();
+
+        string orderId = Request["orderId"];
+        string paramPayTarget = Request["paytarget"];
+      bool isPayTarget=  Enum.TryParse<enum_PayTarget>(paramPayTarget, out payTarget);
        
+
 
     }
     protected void btnPay_Click(object sender, EventArgs e)
@@ -46,7 +55,7 @@ public partial class Pay_Default : System.Web.UI.Page
         enum_PayAPI payAPI = enum_PayAPI.None;
         if (radioAlipay.Checked)
         {
-            payAPI = enum_PayAPI.Alipay;
+            payAPI = enum_PayAPI.AlipayWeb;
         }
         else if (radioWechat.Checked)
         {
@@ -57,19 +66,20 @@ public partial class Pay_Default : System.Web.UI.Page
             payAPI = enum_PayAPI.AliBatch;
         }
         
-        BLLPay bllPay = Bootstrap.Container.Resolve<BLLPay>();
+       
         string requestString=string.Empty;
+        payment = paymentService.ApplyPay(orderId, payTarget);
         //在线支付
         if (payType == enum_PayType.Online)
         {
-            IPayRequest pay = bllPay.CreatePayAPI(payAPI, order,payTarget);
+            IPayRequest pay = PayFactory.CreatePayAPI(payAPI,payment.Amount,payment.Id.ToString(),payment.Memo);
             requestString = pay.CreatePayRequest();
             
             Response.Write(requestString);
             
         }
         //保存支付记录
-        bllPay.SavePaymentLog(payment, payType, enum_PaylogType.ApplyFromUser, payTarget, payAPI, requestString);
+       
         //离线支付.
         if (payType== enum_PayType.Offline)
         {
@@ -79,25 +89,6 @@ public partial class Pay_Default : System.Web.UI.Page
 
        
     }
-    private void LoadOrder() {
-       string paramPaymentId = Request["paymentid"];
-        Guid paymentId;
-        bool isValidId = Guid.TryParse(paramPaymentId, out paymentId);
-        if (!isValidId)
-        {
-          
-
-            Response.Redirect("error.aspx?err=1",true);
-        }
-        payment = bllPayment.GetOne(paymentId);
-        order = payment.Order;
-        if (order == null)
-        {            
-            Response.Redirect("error.aspx?err=2",true);
-        }
-         
-        
-       
-    }
+   
     
 }

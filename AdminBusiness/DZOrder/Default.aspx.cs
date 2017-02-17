@@ -1,5 +1,5 @@
 ﻿using Dianzhu.BLL;
-using Dianzhu.Model;
+ 
 using PHSuit;
 using System;
 using System.Collections.Generic;
@@ -10,14 +10,16 @@ using System.Web.UI.WebControls;
 using Ydb.Common;
 using Ydb.Membership.Application.Dto;
 using Ydb.BusinessResource.Application;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
+
 
 public partial class DZOrder_Default : BasePage
 {
-    Dianzhu.BLL.IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
+    IServiceOrderService bllOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
 
     //   BLLServiceOrder bllServeiceOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
-    BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
-    IStaffService staffService = Bootstrap.Container.Resolve<IStaffService>();    
+     IStaffService staffService = Bootstrap.Container.Resolve<IStaffService>();    
     public string merchantID {
         get {
             return System.Web.Security.Membership.GetUser().ProviderUserKey.ToString();
@@ -68,7 +70,7 @@ public partial class DZOrder_Default : BasePage
         liFinishOrderCount.Text = bllOrder.GetAllCompleteOrdersForBusiness(CurrentBusiness.Id)
             .Where(x => x.OrderStatus >= enum_OrderStatus.Finished).Count().ToString();
     }
-    BLLOrderAssignment bllOrderAssignment = Bootstrap.Container.Resolve<BLLOrderAssignment>();
+   IOrderAssignmentService bllOrderAssignment = Bootstrap.Container.Resolve<IOrderAssignmentService>();
     Ydb.Membership.Application.IDZMembershipService memberService = Bootstrap.Container.Resolve<Ydb.Membership.Application.IDZMembershipService>();
 
     protected void rpt_ItemDataBound(object sender, RepeaterItemEventArgs e) {

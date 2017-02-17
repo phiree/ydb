@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
 using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.Application.Dto;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
+
 
 /// <summary>
 /// 获取用户的服务订单列表
@@ -26,7 +29,7 @@ public class ResponseORM002001 : BaseResponse
         
         IReceptionService receptionService = Bootstrap.Container.Resolve<IReceptionService>();
 
-        IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        IServiceOrderService bllServiceOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
         Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder = Bootstrap.Container.Resolve<Ydb.Common.Infrastructure.ISerialNoBuilder>();
         IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
 

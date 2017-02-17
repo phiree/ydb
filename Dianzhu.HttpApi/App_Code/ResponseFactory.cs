@@ -23,8 +23,7 @@ public class ResponseFactory
                 return new ResponseAPP001001(request);
             case "orm002001":
                 return new ResponseORM002001(request);
-            case "orm001008":
-                return new ResponseORM001008(request);
+           
             case "usm001005":
                 return new ResponseUSM001005(request);
 

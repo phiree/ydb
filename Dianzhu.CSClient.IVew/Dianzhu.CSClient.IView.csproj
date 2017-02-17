@@ -43,8 +43,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -99,6 +99,10 @@
     <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
       <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
       <Name>Ydb.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Order\Ydb.Order.csproj">
+      <Project>{901e2a8a-e608-4477-b9bc-f583d818d87f}</Project>
+      <Name>Ydb.Order</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

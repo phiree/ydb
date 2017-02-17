@@ -4,24 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Dianzhu.Pay;
+
 using PHSuit;
 using Newtonsoft.Json;
 using Ydb.Common.Specification;
 using Ydb.Common;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
+using Ydb.PayGateway;
+using Ydb.PayGateway.Application;
+using Ydb.PayGateway.DomainModel;
+using Ydb.PayGateway.DomainModel.Pay;
 
 namespace Dianzhu.ApplicationService.Pay
 {
     public class PayService:IPayService
     {
-        BLL.IBLLServiceOrder bllOrder;
-        BLL.BLLPayment bllPayment;
-        BLL.BLLPaymentLog bllPaymentLog;
-        public PayService(BLL.BLLPayment bllPayment, BLL.IBLLServiceOrder bllOrder, BLL.BLLPaymentLog bllPaymentLog)
+       
+        IServiceOrderService orderService;
+        IPaymentService paymentService;
+
+        IPaymentLogService paymentLogService;
+       
+        public PayService(IServiceOrderService orderService,
+        IPaymentService paymentService
+            , IPaymentLogService paymentLogService)
         {
-            this.bllPayment = bllPayment;
-            this.bllOrder = bllOrder;
-            this.bllPaymentLog = bllPaymentLog;
+            this. orderService=orderService;
+            this.paymentService=paymentService;
+            this.paymentLogService = paymentLogService;
         }
 
         /// <summary>
@@ -39,20 +50,20 @@ namespace Dianzhu.ApplicationService.Pay
                 throw new FormatException("orderID不能为空！");
             }
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
-            Model.ServiceOrder order = bllOrder.GetOne(guidOrder);
+             ServiceOrder order = orderService.GetOne(guidOrder);
             if (order == null)
             {
                 throw new Exception("该订单不存在！");
             }
-            IList<Model.Payment> payment = null;
+            IList< Payment> payment = null;
             TraitFilter filter1 = utils.CheckFilter(filter, "Payment");
-            payment = bllPayment.GetPays(filter1, payfilter.payStatus, payfilter.payType, guidOrder, utils.CheckGuidID(customer.UserID, "customer.UserID"));
+            payment = paymentService.GetPays(filter1, payfilter.payStatus, payfilter.payType, guidOrder, utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (payment == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<payObj>();
             }
-            IList<payObj> payobj = Mapper.Map<IList<Model.Payment>, IList<payObj>>(payment);
+            IList<payObj> payobj = Mapper.Map<IList<Payment>, IList<payObj>>(payment);
             return payobj;
         }
 
@@ -70,13 +81,13 @@ namespace Dianzhu.ApplicationService.Pay
                 throw new FormatException("orderID不能为空！");
             }
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
-            Model.ServiceOrder order = bllOrder.GetOne(guidOrder);
+         ServiceOrder order = orderService.GetOne(guidOrder);
             if (order == null)
             {
                 throw new Exception("该订单不存在！");
             }
             countObj c = new countObj();
-            c.count = bllPayment.GetPaysCount(payfilter.payStatus, payfilter.payType, guidOrder, utils.CheckGuidID(customer.UserID, "customer.UserID")).ToString();
+            c.count = paymentService.GetPaysCount(payfilter.payStatus, payfilter.payType, guidOrder, utils.CheckGuidID(customer.UserID, "customer.UserID")).ToString();
             return c;
         }
 
@@ -98,19 +109,19 @@ namespace Dianzhu.ApplicationService.Pay
                 throw new FormatException("payID不能为空！");
             }
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
-            Model.ServiceOrder order = bllOrder.GetOne(guidOrder);
+         ServiceOrder order = orderService.GetOne(guidOrder);
             if (order == null)
             {
                 throw new Exception("该订单不存在！");
             }
-            Model.Payment payment =  bllPayment.GetPay(guidOrder, utils.CheckGuidID(payID, "payID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
+         Payment payment =  paymentService.GetPay(guidOrder, utils.CheckGuidID(payID, "payID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (payment == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 //return null;
                 throw new Exception("没有找到资源！");
             }
-            payObj payobj = Mapper.Map<Model.Payment, payObj>(payment);
+            payObj payobj = Mapper.Map<Payment, payObj>(payment);
             return payobj;
         }
 
@@ -129,7 +140,7 @@ namespace Dianzhu.ApplicationService.Pay
                 throw new FormatException("orderID不能为空！");
             }
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
-            Model.ServiceOrder order = bllOrder.GetOne(guidOrder);
+         ServiceOrder order = orderService.GetOne(guidOrder);
             if (order == null)
             {
                 throw new Exception("该订单不存在！");
@@ -139,7 +150,7 @@ namespace Dianzhu.ApplicationService.Pay
                 throw new Exception("该订单不是支付尾款的状态！");
             }
             Guid guidPay = utils.CheckGuidID(payID, "payID");
-            Model.Payment payment = bllPayment.GetPay(guidOrder, guidPay, utils.CheckGuidID(customer.UserID, "customer.UserID"));
+         Payment payment = paymentService.GetPay(guidOrder, guidPay, utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (payment == null)
             {
                 throw new Exception("该笔支付不存在！");
@@ -164,9 +175,9 @@ namespace Dianzhu.ApplicationService.Pay
             //payment.PayType = payobj.bOnline ?enum_PayType.Online :enum_PayType.Offline;
             //保存记录
 
-            bllOrder.OrderFlow_OrderFinished(order);
+            orderService.OrderFlow_OrderFinished(guidOrder);
 
-            //Model.Payment payment = bllPayment.ApplyPay(order, Model.Enums.enum_PayTarget.FinalPayment);
+            //Payment payment = bllPayment.ApplyPay(order, Enums.enum_PayTarget.FinalPayment);
 
             //if (payment == null)
             //{
@@ -174,12 +185,12 @@ namespace Dianzhu.ApplicationService.Pay
             //}
 
 
-            Dianzhu.Model.PaymentLog paymentLog = new Dianzhu.Model.PaymentLog();
+            PaymentLog paymentLog = new PaymentLog();
             paymentLog.PaylogType =  enum_PaylogType.None;
             paymentLog.PayType =  enum_PayType.Offline;
             paymentLog.PayAmount = payment.Amount;
             paymentLog.PaymentId = payment.Id;
-            bllPaymentLog.Save(paymentLog);
+            paymentLogService.Save(paymentLog);
 
             //更新支付项              
             payment.Status = enum_PaymentStatus.Trade_Success;
@@ -189,14 +200,14 @@ namespace Dianzhu.ApplicationService.Pay
 
             DateTime dt = DateTime.Now;
             payment.LastUpdateTime = dt;
-            bllPayment.Update(payment);
+            paymentService.Update(payment);
             //bllPayment.Update(payment1);
             //payment2 = bllPayment.GetOne(payment1.Id);
 
 
             //if (payment2 != null && payment2.LastUpdateTime==dt)
             //{
-            payobj = Mapper.Map<Model.Payment, payObj>(payment);
+            payobj = Mapper.Map<Payment, payObj>(payment);
             //}
             //else
             //{
@@ -217,13 +228,13 @@ namespace Dianzhu.ApplicationService.Pay
         {
 
             Guid guidOrder = utils.CheckGuidID(orderID, "orderID");
-            Model.ServiceOrder order = bllOrder.GetOne(guidOrder);
+         ServiceOrder order = orderService.GetOne(guidOrder);
             if (order == null)
             {
                 throw new Exception("该订单不存在！");
             }
             Guid guidPay = utils.CheckGuidID(payID, "payID");
-            Model.Payment payment = bllPayment.GetPay(guidOrder, guidPay, utils.CheckGuidID(customer.UserID, "customer.UserID"));
+         Payment payment = paymentService.GetPay(guidOrder, guidPay, utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (payment == null)
             {
                 throw new Exception("该笔支付不存在！");
@@ -236,15 +247,15 @@ namespace Dianzhu.ApplicationService.Pay
             switch (payTarget.ToLower())
             {
                 case "alipay":
-                    // http://119.29.39.211:8168
-                    IPayRequest ipayAli = new PayAlipayApp(payment.Amount, payment.Id.ToString(), payment.Order.Title, Dianzhu.Config.Config.GetAppSetting("PaySite") + "PayCallBack/Alipay/notify_url.aspx", payment.Order.Description);
+                
+                    IPayRequest ipayAli = new PayAlipayApp(payment.Amount, payment.Id.ToString(), order.Title, Dianzhu.Config.Config.GetAppSetting("PaySite") + "PayCallBack/Alipay/notify_url.aspx", order.Description);
                     c.pay3rdString = ipayAli.CreatePayRequest();
                     return c;
                 case "wepay":
                     for (int i = 0; i < 10; i++)
                     {
-                        IPayRequest ipayWe = new PayWeChat(payment.Amount, payment.Id.ToString(), payment.Order.Title
-                            , Dianzhu.Config.Config.GetAppSetting("PaySite") + "PayCallBack/Wepay/notify_url.aspx", payment.Order.Description);
+                        IPayRequest ipayWe = new PayWeChat(payment.Amount, payment.Id.ToString(), order.Title
+                            , Dianzhu.Config.Config.GetAppSetting("PaySite") + "PayCallBack/Wepay/notify_url.aspx",order.Description);
                         //var respDataWeibo = new NameValueCollection();
                         string respDataWechat = "<xml>";
 

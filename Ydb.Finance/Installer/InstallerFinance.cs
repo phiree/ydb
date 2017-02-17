@@ -40,37 +40,23 @@ namespace Ydb.Finance.Infrastructure
 
         private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IRepositoryBalanceFlow>().ImplementedBy<RepositoryBalanceFlow>()
-        //         .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("FinanceSessionFactory"))
-                );
-            container.Register(Component.For<IRepositoryBalanceTotal>().ImplementedBy<RepositoryBalanceTotal>()
-             //   .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("FinanceSessionFactory"))
-               );
-            container.Register(Component.For<IRepositoryServiceTypePoint>().ImplementedBy<RepositoryServiceTypePoint>()
-             //   .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("FinanceSessionFactory"))
-               );
-            container.Register(Component.For<IRepositoryUserTypeSharePoint>().ImplementedBy<RepositoryUserTypeSharePoint>()
-             //   .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("FinanceSessionFactory"))
-               );
-            container.Register(Component.For<IRepositoryBalanceAccount>().ImplementedBy<RepositoryBalanceAccount>()
-              //  .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("FinanceSessionFactory"))
-               );
-            container.Register(Component.For<IRepositoryWithdrawApply>().ImplementedBy<RepositoryWithdrawApply>());
+            container.Register(Classes.FromThisAssembly().InSameNamespaceAs<RepositoryBalanceFlow>().WithService.DefaultInterfaces());
+          
 
         }
         private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IBalanceFlowService>().ImplementedBy<BalanceFlowService>());
-            container.Register(Component.For<IOrderShareService>().ImplementedBy<OrderShareService>());
-            container.Register(Component.For<IServiceTypePointService>().ImplementedBy<ServiceTypePointService>());
-            container.Register(Component.For<IUserTypeSharePointService>().ImplementedBy<UserTypeSharePointService>());
-            container.Register(Component.For<IBalanceAccountService>().ImplementedBy<BalanceAccountService>());
-            container.Register(Component.For<IWithdrawApplyService>().ImplementedBy<WithdrawApplyService>());
-            container.Register(Component.For<IBalanceTotalService>().ImplementedBy<BalanceTotalService>());
+            container.Register(Classes.FromThisAssembly().InSameNamespaceAs<BalanceFlowService>()
+                               .WithService.DefaultInterfaces()
+               );
+           
         }
         private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<ICountServiceFee>().ImplementedBy<CountServiceFee_Alipay>());
+            container.Register(Classes.FromThisAssembly().InSameNamespaceAs<CountServiceFee_Alipay>()
+                                 .WithService.DefaultInterfaces()
+                 );
+          
         }
        
         private void InstallDomainService(IWindsorContainer container, IConfigurationStore store)

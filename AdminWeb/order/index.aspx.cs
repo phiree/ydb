@@ -5,13 +5,18 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
-using Dianzhu.Model;
+ 
 using System.Data;
 using Ydb.Common;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 
+
+
+ 
 public partial class order_index : BasePage
 {
-    public IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+    public IServiceOrderService bllServiceOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
     ServiceOrder serviceorder;
     public int page;
     string linkStr;//链接字符串
@@ -91,8 +96,7 @@ public partial class order_index : BasePage
     protected void delbt_Command(object sender, CommandEventArgs e)
     {
         Guid id = Guid.Parse(e.CommandArgument.ToString());
-        serviceorder = bllServiceOrder.GetOne(id);
-        bllServiceOrder.Delete(serviceorder);
+          bllServiceOrder.Delete(id);
         Response.Redirect(Request.UrlReferrer.ToString());
     }
     protected void ddlp_SelectedIndexChanged(object sender, EventArgs e)
@@ -110,8 +114,8 @@ public partial class order_index : BasePage
 
         foreach (string Item in ID)
         {
-            serviceorder = bllServiceOrder.GetOne(Guid.Parse(Item));
-            bllServiceOrder.Delete(serviceorder);
+            Guid orderId = Guid.Parse(Item);
+             bllServiceOrder.Delete(orderId);
         }
         Response.Redirect(Request.UrlReferrer.ToString());
 

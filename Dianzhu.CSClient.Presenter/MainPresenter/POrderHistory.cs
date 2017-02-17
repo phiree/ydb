@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.Model;
+ 
 using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
 using System.ComponentModel;
 using Dianzhu.CSClient.ViewModel;
 using Dianzhu.CSClient.Presenter.VMAdapter;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
+
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -21,7 +24,7 @@ namespace Dianzhu.CSClient.Presenter
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.POrderHistory");
 
         IViewOrderHistory viewOrderHistory;
-        IBLLServiceOrder bllServiceOrder;
+        IServiceOrderService bllServiceOrder;
         IVMOrderHistoryAdapter vmOrderHistoryAdapter;
 
         string identity;
@@ -37,8 +40,8 @@ namespace Dianzhu.CSClient.Presenter
 
         public POrderHistory(
             IViewOrderHistory viewOrderHistory, 
-            IViewIdentityList viewIdentityList, 
-            IBLLServiceOrder bllServiceOrder, 
+            IViewIdentityList viewIdentityList,
+            IServiceOrderService bllServiceOrder, 
             IVMOrderHistoryAdapter vmOrderHistoryAdapter,
             string identity)
         {

@@ -11,7 +11,7 @@ using System.Web;
 namespace Dianzhu.Pay.RefundRequest
 {
     /// <summary>
-    /// 支付宝app退款接口
+    /// 微信app退款接口
     /// </summary>
     public class RefundWePay : IRefund
     {
@@ -95,5 +95,7 @@ namespace Dianzhu.Pay.RefundRequest
 
             return collection;
         }
+
+        
     }
 }

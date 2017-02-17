@@ -8,7 +8,8 @@ using Dianzhu.DAL;
 using Dianzhu.Model;
 using DDDCommon;
 using Ydb.Common.Specification;
-
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 namespace Dianzhu.BLL
 {
     public class BLLComplaint
@@ -16,9 +17,11 @@ namespace Dianzhu.BLL
         //public DALComplaint DALComplaint = DALFactory.DALComplaint;
 
         public IDALComplaint dalComplaint;
-        public BLLComplaint(IDALComplaint dalComplaint)
+       IServiceOrderService orderService;
+        public BLLComplaint(IDALComplaint dalComplaint, IServiceOrderService orderService)
         {
             this.dalComplaint = dalComplaint;
+            this.orderService = orderService;
             // this.iuw = iuw;
         }
 
@@ -51,18 +54,19 @@ namespace Dianzhu.BLL
         /// <returns></returns>
         public IList<Model.Complaint> GetComplaints( TraitFilter filter, Guid orderID, Guid storeID, Guid customerServiceID)
         {
+            ServiceOrder order = orderService.GetOne(orderID);
             var where = PredicateBuilder.True<Complaint>();
             if(orderID != Guid.Empty)
             {
-                where = where.And(x => x.Order.Id == orderID);
+                where = where.And(x => x.OrderId == orderID.ToString());
             }
             if (storeID != Guid.Empty)
             {
-                where = where.And(x => x.Order.BusinessId== storeID.ToString());
+                where = where.And(x => x.BusinessId== storeID.ToString());
             }
             if (customerServiceID != Guid.Empty)
             {
-                where = where.And(x => x.Order.CustomerServiceId== customerServiceID.ToString());
+                where = where.And(x => x.CustomerServiceId== customerServiceID.ToString());
             }
             Model.Complaint baseone = null;
             if (!string.IsNullOrEmpty(filter.baseID))
@@ -91,15 +95,15 @@ namespace Dianzhu.BLL
             var where = PredicateBuilder.True<Complaint>();
             if (orderID != Guid.Empty)
             {
-                where = where.And(x => x.Order.Id == orderID);
+                where = where.And(x => x.OrderId == orderID.ToString());
             }
             if (storeID != Guid.Empty)
             {
-                where = where.And(x => x.Order.BusinessId == storeID.ToString());
+                where = where.And(x => x.BusinessId == storeID.ToString());
             }
             if (customerServiceID != Guid.Empty)
             {
-                where = where.And(x => x.Order.CustomerServiceId == customerServiceID.ToString());
+                where = where.And(x => x.CustomerServiceId == customerServiceID.ToString());
             }
             long count= dalComplaint.GetRowCount(where) ;
             return count;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.BLL;
-using Dianzhu.Model;
+ 
 using System.Configuration;
 using AutoMapper;
 using DDDCommon;
@@ -19,6 +19,8 @@ using Ydb.Common.Application;
 using Ydb.Common;
 using Ydb.Common.Domain;
 
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 namespace Dianzhu.ApplicationService.User
 {
     public class UserService:IUserService
@@ -26,9 +28,9 @@ namespace Dianzhu.ApplicationService.User
         log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.UserService.NoRule.v1.RestfulApi.Web.Dianzhu");
         IDZMembershipService memberService;
         IReceptionService receptionService;
-        IBLLServiceOrder bllServiceOrder;
         IAreaService areaService;
-        public UserService(IDZMembershipService memberService,  IReceptionService receptionService, IBLLServiceOrder bllServiceOrder, IAreaService areaService)
+        IServiceOrderService bllServiceOrder;
+        public UserService(IDZMembershipService memberService,  IReceptionService receptionService, IServiceOrderService bllServiceOrder, IAreaService areaService)
         {
             this.memberService = memberService;
             this.receptionService = receptionService;

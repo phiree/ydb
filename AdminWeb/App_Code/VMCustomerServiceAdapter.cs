@@ -12,10 +12,10 @@ using Ydb.Common;
 public class VMCustomerServiceAdapter
 {
     ILog log = LogManager.GetLogger("Dianzhu.Web.AdminWeb.VMAgentAdapter");
-    Dianzhu.BLL.BLLServiceOrder bllOrder;
-    public VMCustomerServiceAdapter(Dianzhu.BLL.BLLServiceOrder bllOrder)
+    
+    public VMCustomerServiceAdapter( )
     {
-        this.bllOrder = bllOrder;
+       
         //
         // TODO: 在此处添加构造函数逻辑
         //

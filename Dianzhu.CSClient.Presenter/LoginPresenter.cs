@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dianzhu.Model;
+ 
 using Dianzhu.BLL;
 
 using System.Threading;
@@ -12,7 +12,8 @@ using Ydb.Membership.Application;
 using System.Threading.Tasks;
 using Ydb.Common.Infrastructure;
 using Ydb.Common;
-
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 namespace Dianzhu.CSClient.Presenter
 {
     /// <summary>
@@ -26,14 +27,14 @@ namespace Dianzhu.CSClient.Presenter
         IView.ILoginForm loginView;
         IInstantMessage instantMessage;
         BLLAdvertisement bllAdv;
-        IBLLServiceOrder bllServiceOrder;
+        IServiceOrderService bllServiceOrder;
         IEncryptService encryptService;
         
         IDZMembershipService memberServcie;
 
         public string[] Args { get; set; }
         public LoginPresenter(IView.ILoginForm loginView, IInstantMessage instantMessage, BLLAdvertisement bllAdv,
-            IBLLServiceOrder bllServiceOrder, IDZMembershipService memberServcie, IEncryptService encryptService
+            IServiceOrderService bllServiceOrder, IDZMembershipService memberServcie, IEncryptService encryptService
  )
         {
             this.encryptService = encryptService;

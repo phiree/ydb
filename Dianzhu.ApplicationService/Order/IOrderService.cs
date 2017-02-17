@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Ydb.Order.DomainModel;
 namespace Dianzhu.ApplicationService.Order
 {
     public interface IOrderService
@@ -32,7 +32,7 @@ namespace Dianzhu.ApplicationService.Order
         /// <param name="customer"></param>
         /// <returns></returns>
          ordersVerifyObj GetOrdersVerify(common_Trait_Filtering filter, common_Trait_OrderFiltering orderfilter, Customer customer);
-        void changeObj(orderObj orderobj, Model.ServiceOrder serviceorder);
+        void changeObj(orderObj orderobj,  ServiceOrder serviceorder);
         /// <summary>
         /// 查询订单超媒体合集
         /// </summary>

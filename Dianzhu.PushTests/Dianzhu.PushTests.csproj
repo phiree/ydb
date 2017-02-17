@@ -67,10 +67,6 @@
       <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
-      <Project>{BE142427-1CE4-40F8-AC58-D0509BA05D21}</Project>
-      <Name>Dianzhu.Push</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Ydb.BusinessResource\Ydb.BusinessResource.csproj">
       <Project>{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}</Project>
       <Name>Ydb.BusinessResource</Name>
@@ -82,6 +78,10 @@
     <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
       <Project>{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}</Project>
       <Name>Ydb.InstantMessage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Push\Ydb.Push.csproj">
+      <Project>{e0661833-5498-4f1d-94e7-35c39c5bd8b9}</Project>
+      <Name>Ydb.Push</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

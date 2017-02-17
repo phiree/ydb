@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.Model;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 using Dianzhu.CSClient.ViewModel;
 using Ydb.BusinessResource.DomainModel;
 

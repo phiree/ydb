@@ -5,10 +5,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Ydb.BusinessResource.Application;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
+
+
 public partial class Business_Detail :BasePage
 {
- 
-    Dianzhu.BLL.IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
+
+    IServiceOrderService bllOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
  
 
     public string AllOrderCount;

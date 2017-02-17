@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Dianzhu.BLL;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+using Dianzhu.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 using System.Net;
 using Ydb.Common;
 using Dianzhu.Api.Model;
+using Ydb.Push.DomainModel;
+using Ydb.Push.Application;
 /// <summary>
 /// Summary description for CHAT001001
 /// </summary>
@@ -27,7 +31,7 @@ public class ResponseAPP001001:BaseResponse
         ReqDataAPP001001 requestData = this.request.ReqData.ToObject<ReqDataAPP001001>();
 
  
-        BLLDeviceBind bllDeviceBind = Bootstrap.Container.Resolve<BLLDeviceBind>();
+       IDeviceBindService deviceBindService   = Bootstrap.Container.Resolve<IDeviceBindService>();
         
  
 
@@ -66,31 +70,31 @@ public class ResponseAPP001001:BaseResponse
             DeviceBind devB = reqDataToDevB(requestData);
             if (requestData.mark == "Y" || requestData.mark == null)
             {
-                DeviceBind uuid = bllDeviceBind.getDevBindByUUID(devB.AppUUID);
+                DeviceBind uuid = deviceBindService.getDevBindByUUID(devB.AppUUID);
                 if (uuid != null)
                 {
                     uuid.DZMembershipId = devB.DZMembershipId;
                     uuid.AppName = devB.AppName;
                     uuid.AppToken = devB.AppToken;
                     uuid.BindChangedTime = DateTime.Now;
-                    bllDeviceBind.Update(uuid);
+                    deviceBindService.Update(uuid);
                 }
                 else
                 {
                     devB.IsBinding = true;
                     devB.BindChangedTime = DateTime.Now;
                     devB.SaveTime = DateTime.Now;
-                    bllDeviceBind.Save(devB);
+                    deviceBindService.Save(devB);
                 }
             }
             else if (requestData.mark == "N")
             {
-                DeviceBind uuid = bllDeviceBind.getDevBindByUUID(devB.AppUUID);
+                DeviceBind uuid = deviceBindService.getDevBindByUUID(devB.AppUUID);
                 if (uuid != null)
                 {
                     uuid.IsBinding = false;
                     uuid.BindChangedTime = DateTime.Now;
-                    bllDeviceBind.Update(uuid);
+                    deviceBindService.Update(uuid);
                 }
                 else
                 {

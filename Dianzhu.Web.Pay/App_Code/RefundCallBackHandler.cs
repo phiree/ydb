@@ -13,86 +13,54 @@ using System.Collections.Generic;
 using Com.Alipay;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-using Dianzhu.Pay;
+ 
 using Ydb.Common;
+using Ydb.PayGateway;
+using Ydb.Order.Application;
 using System.Web.Script.Serialization;
-public partial class RefundCallBackHandler :BasePage
+public partial class RefundCallBackHandler : BasePage
 {
 
 
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
-    BLLRefund bllRefund = Bootstrap.Container.Resolve<BLLRefund>();
+    IPaymentService paymentService = Bootstrap.Container.Resolve<IPaymentService>();
     string errMsg;
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        log.Debug("-------------------支付完成,回调开始------------------");
-      
+        string invokeUrl = Request.RawUrl;
+        string httpMethod = Request.HttpMethod.ToLower();
+        object parameters =null;
+
+        if (httpMethod == "get") { parameters = Request.QueryString; }
+        else if (httpMethod == "post") { using (System.IO.StreamReader sr = new System.IO.StreamReader(Request.InputStream)) { parameters = sr.ReadToEnd(); } }
+        else { log.Error("请求参数有误：" + Request.HttpMethod); throw new Exception("请求参数有误：" + Request.HttpMethod); }
+
+
         string rawUrl = Request.RawUrl;
-        log.Debug("回调地址：" + rawUrl);
-        //IPayCallBack payCallBack=null;
-        IRefundCallBack refundCallBack = null;
-        enum_PaylogType payLogType= enum_PaylogType.None;
+     
+       
         enum_PayAPI payApi;
-        if (rawUrl.ToLower().StartsWith("/refundcallback/wepay"))
-        {
-            payApi = enum_PayAPI.Wechat;
-            log.Debug("微支付回调开始");
-            //payCallBack = new PayCallBackWePay();
-            refundCallBack = new RefundCallBackAli();
-            payLogType = enum_PaylogType.ReturnNotifyFromWePay;
-        }
-        else if (rawUrl.ToLower().StartsWith("/refundcallback/alipay"))
-        {
-            payApi = enum_PayAPI.Alipay;
-            log.Debug("支付宝回调开始");
-            //保存支付接口返回的原始数据
-            if (rawUrl.ToLower().Contains("return_url"))
-            {
-                payLogType = enum_PaylogType.ResultReturnFromAli;
-            }
-            else
-            {
-                payLogType = enum_PaylogType.ResultNotifyFromAli;
-            }
-            //payCallBack = new PayCallBackAli();
-            refundCallBack = new RefundCallBackAli();
-        }
-        else
-        {
-            payApi = enum_PayAPI.None;
-            errMsg = "错误的回调页面: " + rawUrl;
-            log.Error(errMsg);
-            Response.Write(errMsg);
-            Response.End();
-        }
+      
+        string refundId, platformOrderId;
+        decimal totalAmount;
+        string success_details, fail_details;
+        ////微信代码已删除, 因为微信退款通知是同步返回的,无需回调.
+
+
+        IRefundCallBack refundCallBack = RefundCallbackFactory.CreateCallBack(invokeUrl,out payApi);
+       string callbackResult= refundCallBack.RefundCallBack(parameters, out refundId, out totalAmount, out errMsg);
+
+        //处理业务: 订单状态已经在 接口中处理了, 回调至需要更新退款申请状态
+       
         try
         {
             //BLLPay bllPay = new BLLPay();
-           
 
-            object parameters = null;
-            log.Debug("回调参数:");
-            if (Request.HttpMethod.ToLower() == "get")
-            {
-                log.Debug("Get参数:"+Request.RawUrl);
-                parameters = Request.QueryString;               
-            }
-            else if(Request.HttpMethod.ToLower()=="post")
-            {
-                using (System.IO.StreamReader sr = new System.IO.StreamReader(Request.InputStream))
-                {
-                    parameters = sr.ReadToEnd();
-                    log.Debug("Post参数:" + parameters);
-                }
-            }
-            else
-            {
-                log.Error("请求参数有误：" + Request.HttpMethod);
-                throw new Exception("请求参数有误：" + Request.HttpMethod);
-            }
 
-            bllRefund.ReceiveAPICallBack(payLogType, refundCallBack, Request.RawUrl, parameters);
+            paymentService.RefundCallBack(payApi, callbackResult, refundId, string.Empty);
+
+            //bllRefund.ReceiveAPICallBack(payLogType, refundCallBack, Request.RawUrl, parameters);
             //bllPay.ReceiveAPICallBack(payLogType, payCallBack, Request.RawUrl, parameters);
             if (rawUrl.Contains("return_url"))
             {
@@ -102,7 +70,7 @@ public partial class RefundCallBackHandler :BasePage
             else
             {
                 log.Debug(payApi + "异步调用成功");
-                if (payApi == enum_PayAPI.Alipay)
+                if (payApi == enum_PayAPI.AlipayWeb)
                 {
                     Response.Write("success");
                 }
@@ -115,7 +83,7 @@ public partial class RefundCallBackHandler :BasePage
             Response.Write("fail");
         }
         log.Debug("-------------------回调结束------------------");
-        
+
 
     }
 

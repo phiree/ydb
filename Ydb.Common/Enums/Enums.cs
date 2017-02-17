@@ -60,9 +60,12 @@ namespace Ydb.Common
     public enum enum_PayAPI
     {
         None = 0,
-        Alipay = 1,
+        AlipayWeb = 1,
+        
         Wechat = 2,
-        AliBatch = 3
+        AliBatch = 3,
+            AlipayApp = 4,
+            AlipayBatch=5
     }
     /// <summary>
     /// 计费单位

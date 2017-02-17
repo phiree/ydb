@@ -174,5 +174,11 @@ namespace Ydb.InstantMessage.Application
         {
             repositoryChat.Update(chat);
         }
+
+        public void SetChatUnread(string chatId)
+        {
+            ReceptionChat chat = repositoryChat.FindById(new Guid(chatId));
+            chat.SetUnread();
+        }
     }
 }

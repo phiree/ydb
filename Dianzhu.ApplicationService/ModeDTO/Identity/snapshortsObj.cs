@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.BusinessResource.Application;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
+
 namespace Dianzhu.ApplicationService
 {
     public class snapshortsObj
@@ -42,13 +45,13 @@ namespace Dianzhu.ApplicationService
         }
 
 
-        public IList<snapshortsObj> Adap(IList<Dianzhu.Model.ServiceOrder> orderList, BLL.BLLServiceOrderStateChangeHis bllstatehis,Order.IOrderService orderService,IDZServiceService dzService)
+        public IList<snapshortsObj> Adap(IList< ServiceOrder> orderList, IServiceOrderStateChangeHisService bllstatehis,Order.IOrderService orderService,IDZServiceService dzService)
         {
             IList<snapshortsObj> snapshortsobjs = new List<snapshortsObj>();
             IList <DateTime> dates = orderList.Select(x => x.OrderCreated.Date).Distinct().ToList();
             foreach (DateTime date in dates)
             {
-                IList<Dianzhu.Model.ServiceOrder> orderInDateList = orderList.Where(x => x.OrderCreated.Date == date).ToList();
+                IList< ServiceOrder> orderInDateList = orderList.Where(x => x.OrderCreated.Date == date).ToList();
                 //接单量平均值
                 snapshortsObj snapshortsobj = new snapshortsObj();
                 snapshortsobj.date = date.ToString("yyyyMMdd");

@@ -13,9 +13,10 @@ using Newtonsoft.Json;
 /// </summary>
 namespace Dianzhu.Pay
 {
-   
+
     /// <summary>
     /// 接收支付平台回调
+    /// 微信的结果是同步返回的 不需要回调 https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_4
     /// </summary>
     public interface IRefundCallBack
     {

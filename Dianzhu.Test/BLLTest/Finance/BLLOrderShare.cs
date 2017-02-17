@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 //using Dianzhu.BLL.Finance;
-using Dianzhu.Model.Finance;
+ 
 using Rhino.Mocks;
 using FizzWare.NBuilder;
 using Ploeh.AutoFixture;

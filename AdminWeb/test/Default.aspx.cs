@@ -5,15 +5,18 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
-using Dianzhu.Model;
+
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
+
 public partial class test_Default : BasePage
 {
-    public IBLLServiceOrder bllOrder =Bootstrap.Container.Resolve<IBLLServiceOrder>();
+    public IServiceOrderService bllOrder =Bootstrap.Container.Resolve<IServiceOrderService>();
     Ydb.Common.Infrastructure.ISerialNoBuilder serialNoBuilder = Bootstrap.Container.Resolve<Ydb.Common.Infrastructure.ISerialNoBuilder>();
     IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
     protected void Page_Load(object sender, EventArgs e)
@@ -24,7 +27,7 @@ public partial class test_Default : BasePage
     {
       
        IDZServiceService dzServiceService = Bootstrap.Container.Resolve<IDZServiceService>();
-        BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
+        IPaymentService bllPayment = Bootstrap.Container.Resolve<IPaymentService>();
 
         MemberDto customer = memberService.GetUserByName(tbxCustomerName.Text);
         if (customer == null)
@@ -47,7 +50,7 @@ public partial class test_Default : BasePage
         order.LatestOrderUpdated = DateTime.Now;
         order.DepositAmount = 0.01m;
         bllOrder.Save(order);
-        bllPayment.ApplyPay(order, enum_PayTarget.Deposit);
+        bllPayment.ApplyPay(order.Id.ToString(), enum_PayTarget.Deposit);
         lblCreateOrderResult.Text = "创建成功";
 
     }

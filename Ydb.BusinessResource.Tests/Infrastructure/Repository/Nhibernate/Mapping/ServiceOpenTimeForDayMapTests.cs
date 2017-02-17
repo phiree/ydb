@@ -22,8 +22,8 @@ namespace Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping.Test
         public void Setup()
         {
 
-            session = Bootstrap.dbConfigBusinessResource
-                   .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.BusinessResource.Infrastructure.Repository.NHibernate.Mapping.BusinessImageMap>())
+            session = Bootstrap.dbConfigInstantMessage
+                   .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.BusinessResource.Infrastructure.YdbNHibernate.Mapping.BusinessImageMap>())
                 .BuildSessionFactory().OpenSession();
 
         }

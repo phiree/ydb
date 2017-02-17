@@ -30,7 +30,16 @@ namespace Dianzhu.CSClient
                 new Ydb.Infrastructure.InstallerCommon(BuildDBConfig("ydb_common"))
                 );
 
+            container.Install(
+              new Ydb.Order.Infrastructure.InstallerOrder (BuildDBConfig("ydb_order"))
+              );
 
+            container.Install(
+            new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
+            );
+            container.Install(
+           new Ydb.Push.Infrastructure.InstallerPush(BuildDBConfig("ydb_push"))
+           );
 
             container.Install(
                 
@@ -43,6 +52,8 @@ namespace Dianzhu.CSClient
             container.Install(
               new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig("ydb_businessresource"))
               );
+
+
             container.Install(
                   new InstallerComponent(),
                new InstallerInfrstructure(),

@@ -54,6 +54,13 @@ public class Bootstrap
         container.Install(
            new Ydb.Membership.Infrastructure.InstallerMembership(BuildDBConfig("ydb_membership"))
             );
+        container.Install(
+         new Ydb.Order.Infrastructure.InstallerOrder(BuildDBConfig("ydb_order"))
+          );
+
+        container.Install(
+       new Ydb.PayGateway.InstallerPayGateway (BuildDBConfig("ydb_paygateway"))
+        );
 
         AutoMapper.Mapper.Initialize(x =>
         {

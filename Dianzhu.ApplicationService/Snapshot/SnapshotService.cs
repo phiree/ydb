@@ -5,21 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.BLL;
 using AutoMapper;
-using Dianzhu.Model;
+ 
 using Dianzhu.ApplicationService.Order;
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Specification;
-
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
 namespace Dianzhu.ApplicationService.Snapshot
 {
     public class SnapshotService: ISnapshotService
     {
-        BLL.IBLLServiceOrder ibllserviceorder;
+        IServiceOrderService ibllserviceorder;
          IDZServiceService dzServiceService;
-        BLL.BLLServiceOrderStateChangeHis bllstatehis;
+       IServiceOrderStateChangeHisService bllstatehis;
         Order.IOrderService orderService;
-        public SnapshotService(BLL.IBLLServiceOrder ibllserviceorder, IDZServiceService dzServiceService, BLL.BLLServiceOrderStateChangeHis bllstatehis,IOrderService orderService)
+        public SnapshotService(IServiceOrderService ibllserviceorder, IDZServiceService dzServiceService, 
+            IServiceOrderStateChangeHisService bllstatehis,IOrderService orderService)
         {
             this.ibllserviceorder = ibllserviceorder;
             this.dzServiceService = dzServiceService;
