@@ -125,5 +125,18 @@ namespace AdminAgent.Controllers
                 return Content(ex.Message);
             }
         }
+
+        //public ActionResult total_user_model(Area area,string code)
+        //{
+        //    try
+        //    {
+        //        return Json(area, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Response.StatusCode = 400;
+        //        return Content(ex.Message);
+        //    }
+        //}
     }
 }
