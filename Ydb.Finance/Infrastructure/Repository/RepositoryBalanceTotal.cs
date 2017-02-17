@@ -65,6 +65,10 @@ namespace Ydb.Finance.Infrastructure.Repository
             else
             {
                 bt.Total = bt.Total + amount;
+                if (string.IsNullOrEmpty(bt.UserType))
+                {
+                    bt.UserType = userType;
+                }
                 Update(bt);
             }
         }

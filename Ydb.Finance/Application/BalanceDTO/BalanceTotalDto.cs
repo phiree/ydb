@@ -32,5 +32,11 @@ namespace Ydb.Finance.Application
         /// 用户账户冻结金额
         /// </summary>
         public decimal Frozen { get; set; }
+
+
+        /// <summary>
+        /// 用户绑定的收款账户
+        /// </summary>
+        public BalanceAccountDto AccountDto { get; set; }
     }
 }

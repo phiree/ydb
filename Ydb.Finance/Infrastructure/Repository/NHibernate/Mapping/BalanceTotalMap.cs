@@ -17,6 +17,7 @@ namespace Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.UserType);
             Map(x => x.Total);
             Map(x => x.Frozen);
+            References<BalanceAccount>(x => x.Account).ForeignKey("none");
         }
     }
 }

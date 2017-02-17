@@ -14,9 +14,11 @@ namespace Ydb.Finance.Application
     public class BalanceAccountService: IBalanceAccountService
     {
         IRepositoryBalanceAccount repositoryBalanceAccount;
-        public BalanceAccountService(IRepositoryBalanceAccount repositoryBalanceAccount)
+        IRepositoryBalanceTotal repositoryBalanceTotal;
+        public BalanceAccountService(IRepositoryBalanceAccount repositoryBalanceAccount, IRepositoryBalanceTotal repositoryBalanceTotal)
         {
             this.repositoryBalanceAccount = repositoryBalanceAccount;
+            this.repositoryBalanceTotal = repositoryBalanceTotal;
         }
 
         bool CheckBalanceAccountDto(BalanceAccountDto balanceAccountDto ,out string errMsg)
@@ -68,9 +70,17 @@ namespace Ydb.Finance.Application
             {
                 throw new Exception("该用户已经绑定了提现账号！");
             }
+
+            BalanceTotal balanceTotal = repositoryBalanceTotal.GetOneByUserId(balanceAccountDto.UserId);
+            if (balanceTotal == null)
+            {
+                balanceTotal = new DomainModel.BalanceTotal { UserId = balanceAccountDto.UserId };
+                repositoryBalanceTotal.Add(balanceTotal);
+            }
             balanceAccountNow = Mapper.Map<BalanceAccountDto, BalanceAccount>(balanceAccountDto);
             balanceAccountNow.flag = 1;
             repositoryBalanceAccount.Add(balanceAccountNow);
+            balanceTotal.Account = balanceAccountNow;
         }
 
         /// <summary>
@@ -109,8 +119,17 @@ namespace Ydb.Finance.Application
             }
             else
             {
-                repositoryBalanceAccount.Add(Mapper.Map<BalanceAccountDto, BalanceAccount>(balanceAccountDto));
+                balanceAccountOld = Mapper.Map<BalanceAccountDto, BalanceAccount>(balanceAccountDto);
+                repositoryBalanceAccount.Add(balanceAccountOld);
             }
+
+            BalanceTotal balanceTotal = repositoryBalanceTotal.GetOneByUserId(balanceAccountDto.UserId);
+            if (balanceTotal == null)
+            {
+                balanceTotal = new DomainModel.BalanceTotal { UserId = balanceAccountDto.UserId };
+                repositoryBalanceTotal.Add(balanceTotal);
+            }
+            balanceTotal.Account = balanceAccountOld;
         }
 
         /// <summary>

@@ -28,5 +28,10 @@ namespace Ydb.Finance.DomainModel
         /// 用户账户冻结金额
         /// </summary>
         public virtual decimal Frozen { get; set; }
-    }
+
+        /// <summary>
+        /// 用户绑定的收款账户
+        /// </summary>
+        public virtual BalanceAccount Account { get; set; }
+}
 }
