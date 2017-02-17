@@ -147,7 +147,6 @@
     <Compile Include="Infrastructure\YdbNhibernate\Repository\RepositoryStaff.cs" />
     <Compile Include="Infrastructure\YdbNhibernate\Repository\RepositoryBusinessImage.cs" />
     <Compile Include="Infrastructure\YdbNhibernate\Repository\RepositoryDZService.cs" />
-    <Compile Include="Infrastructure\YdbNhibernate\Repository\RepositoryArea.cs" />
     <Compile Include="Infrastructure\YdbNhibernate\Repository\RepositoryDZTag.cs" />
     <Compile Include="Infrastructure\YdbNhibernate\Mapping\BusinessMap.cs" />
     <Compile Include="Infrastructure\YdbNhibernate\Mapping\DZServiceMap.cs" />

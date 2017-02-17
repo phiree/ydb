@@ -55,7 +55,6 @@
     <Compile Include="DALRefreshToken.cs" />
     <Compile Include="DALClient.cs" />
     <Compile Include="DALComplaint.cs" />
-    <Compile Include="DALDeviceBind.cs" />
     <Compile Include="DALIMUserStatusArchieve.cs" />
     <Compile Include="DALIMUserStatus.cs" />
     <Compile Include="DALUserToken.cs" />

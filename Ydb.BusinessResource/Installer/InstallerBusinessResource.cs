@@ -5,9 +5,6 @@ using NHibernate.Tool.hbm2ddl;
 using Castle.Windsor;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.BusinessResource.DomainModel.Service.DataStatistics;
-using Ydb.BusinessResource.Infrastructure.Repository;
-
-using Ydb.BusinessResource.Infrastructure.Repository.NHibernate;
 
 using Ydb.BusinessResource.Application;
 using Castle.Core;
