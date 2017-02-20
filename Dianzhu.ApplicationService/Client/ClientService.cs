@@ -9,21 +9,25 @@ using AutoMapper;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.BusinessResource.Application;
-
+using S=Ydb.ApiClient.Application;
+using M= Ydb.ApiClient.DomainModel;
 namespace Dianzhu.ApplicationService.Client
 {
     public class ClientService:IClientService
     {
-        BLL.Client.IBLLClient ibllclient;
-        BLL.Client.IBLLRefreshToken ibllrefreshtoken;
+       S.IClientService ibllclient;
+       S.IRefreshTokenService ibllrefreshtoken;
         IUserTokenService userTokenService = null;
         
         IDZMembershipService memberService;
         IStaffService staffService;
 
         public ClientService(IUserTokenService userTokenService, IStaffService staffService
-            ,IDZMembershipService memberService)
+            ,IDZMembershipService memberService, S.IClientService ibllclient,
+        S.IRefreshTokenService ibllrefreshtoken)
         {
+            this.ibllclient = ibllclient;
+            this.ibllrefreshtoken = ibllrefreshtoken;
             //this.ibllclient = ibllclient;
             //this.ibllrefreshtoken = ibllrefreshtoken;
             this.userTokenService = userTokenService;
@@ -133,7 +137,7 @@ namespace Dianzhu.ApplicationService.Client
         /// <param name="client"></param>
         public void RegisterClient(ClientDTO clientdto)
         {
-            Model.Client client= Mapper.Map<ClientDTO, Model.Client>(clientdto);
+          M.Client client= Mapper.Map<ClientDTO, M.Client>(clientdto);
             ibllclient.RegisterClient(client);
         }
 
@@ -144,8 +148,8 @@ namespace Dianzhu.ApplicationService.Client
         /// <returns></returns>
         public ClientDTO FindClient(string clientId)
         {
-            Model.Client client= ibllclient.FindClient(clientId);
-            ClientDTO clientdto = Mapper.Map<Model.Client, ClientDTO>(client);
+            M.Client client= ibllclient.FindClient(clientId);
+            ClientDTO clientdto = Mapper.Map<M.Client, ClientDTO>(client);
             return clientdto;
         }
 
@@ -155,7 +159,7 @@ namespace Dianzhu.ApplicationService.Client
         /// <param name="token"></param>
         public bool AddRefreshToken(RefreshTokenDTO tokendto)
         {
-            Model.RefreshToken token = Mapper.Map<RefreshTokenDTO, Model.RefreshToken>(tokendto);
+            M.RefreshToken token = Mapper.Map<RefreshTokenDTO, M.RefreshToken>(tokendto);
             return ibllrefreshtoken.AddRefreshToken(token);
         }
 
@@ -174,7 +178,7 @@ namespace Dianzhu.ApplicationService.Client
         /// <param name="refreshtoken"></param>
         public void RemoveRefreshToken(RefreshTokenDTO tokendto)
         {
-            Model.RefreshToken refreshtoken = Mapper.Map<RefreshTokenDTO, Model.RefreshToken>(tokendto);
+            M.RefreshToken refreshtoken = Mapper.Map<RefreshTokenDTO, M.RefreshToken>(tokendto);
             ibllrefreshtoken.RemoveRefreshToken(refreshtoken);
         }
 
@@ -185,8 +189,8 @@ namespace Dianzhu.ApplicationService.Client
         /// <returns></returns>
         public RefreshTokenDTO FindRefreshToken(string refreshTokenId)
         {
-            Model.RefreshToken refreshtoken= ibllrefreshtoken.FindRefreshToken(refreshTokenId);
-            RefreshTokenDTO tokendto = Mapper.Map< Model.RefreshToken, RefreshTokenDTO>(refreshtoken);
+            M.RefreshToken refreshtoken= ibllrefreshtoken.FindRefreshToken(refreshTokenId);
+            RefreshTokenDTO tokendto = Mapper.Map<M.RefreshToken, RefreshTokenDTO>(refreshtoken);
             return tokendto;
         }
 
@@ -196,8 +200,8 @@ namespace Dianzhu.ApplicationService.Client
         /// <returns></returns>
         public IList<RefreshTokenDTO> GetAllRefreshTokens()
         {
-            IList < Model.RefreshToken > refreshtoken = ibllrefreshtoken.GetAllRefreshTokens();
-            IList < RefreshTokenDTO> tokendto = Mapper.Map< IList<Model.RefreshToken>, IList< RefreshTokenDTO> >(refreshtoken);
+            IList<M.RefreshToken > refreshtoken = ibllrefreshtoken.GetAllRefreshTokens();
+            IList < RefreshTokenDTO> tokendto = Mapper.Map< IList<M.RefreshToken>, IList< RefreshTokenDTO> >(refreshtoken);
             return tokendto;
         }
 

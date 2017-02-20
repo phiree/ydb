@@ -472,6 +472,10 @@
       <Project>{d50a26ff-02c6-4c16-ba94-4cd7d43efbb3}</Project>
       <Name>Swashbuckle.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ydb.ApiClient\Ydb.ApiClient.csproj">
+      <Project>{2355784d-5f6c-4063-837f-5b9999fac1fe}</Project>
+      <Name>Ydb.ApiClient</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ydb.ApplicationService\Ydb.ApplicationService.csproj">
       <Project>{515a3298-f38b-40e0-968c-5c65efb2affe}</Project>
       <Name>Ydb.ApplicationService</Name>

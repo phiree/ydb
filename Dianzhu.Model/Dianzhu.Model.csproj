@@ -69,8 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Advertisement.cs" />
-    <Compile Include="Client\Client.cs" />
-    <Compile Include="Client\RefreshToken.cs" />
     <Compile Include="StorageManager\StorageFileInfo.cs" />
     <Compile Include="MembershipLoginLog.cs" />
     <Compile Include="Complaint.cs" />

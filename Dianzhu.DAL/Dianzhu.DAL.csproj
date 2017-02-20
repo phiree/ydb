@@ -89,19 +89,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client\DALClient.cs" />
-    <Compile Include="Client\DALRefreshToken.cs" />
-    <Compile Include="Client\DALUserToken.cs" />
     <Compile Include="DALMembershipLoginLog.cs" />
     <Compile Include="DALComplaint.cs" />
     <Compile Include="DALAdvertisement.cs" />
     <Compile Include="DALIMUserStatusArchieve.cs" />
     <Compile Include="DALIMUserStatus.cs" />
     <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="Mapping\Client\UserTokenMap.cs" />
     <Compile Include="Mapping\StorageManager\StorageFileInfoMap.cs" />
-    <Compile Include="Mapping\Client\ClientMap.cs" />
-    <Compile Include="Mapping\Client\RefreshTokenMap.cs" />
     <Compile Include="Mapping\MembershipLoginLogMap.cs" />
     <Compile Include="Mapping\ComplaintMap.cs" />
     <Compile Include="Mapping\AdvertisementMap.cs" />

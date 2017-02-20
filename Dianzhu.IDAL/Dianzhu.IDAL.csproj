@@ -52,13 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALAdvertisement.cs" />
-    <Compile Include="DALRefreshToken.cs" />
-    <Compile Include="DALClient.cs" />
     <Compile Include="DALComplaint.cs" />
     <Compile Include="DALMembershipLoginLog.cs" />
     <Compile Include="DALIMUserStatusArchieve.cs" />
     <Compile Include="DALIMUserStatus.cs" />
-    <Compile Include="DALUserToken.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

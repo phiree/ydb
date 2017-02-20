@@ -74,7 +74,6 @@ namespace Ydb.Infrastructure.Tests
             PrintConfigSection(new InfrastructureTests.DbConfigBuilder().BuildForServerConfig("localhost", "root", "root","3306"));
             PrintConfigSection(new InfrastructureTests.DbConfigBuilder().BuildForServerConfig("192.168.1.138", "root", "root", "3306"));
 
-
             PrintConfigSection(new InfrastructureTests.DbConfigBuilder().ReplaceDianzhuDb("dianzhu_test").BuildForServerConfig("192.168.1.150", "root", "root", "3306"));
 
             /*

@@ -64,9 +64,11 @@ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb
          new Ydb.Push.Infrastructure.InstallerPush(BuildDBConfig("ydb_push"))
          );
             container.Install(
-        new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
+        new Ydb.ApiClient.InstallerApiClient(BuildDBConfig("ydb_apiclient"))
         );
-
+            container.Install(
+     new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
+     );
             container.Install(
 
 

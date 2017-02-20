@@ -11,7 +11,7 @@ using Ydb.Membership.Application.Dto;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common;
 using Ydb.Order.DomainModel;
-
+using M = Ydb.ApiClient.DomainModel;
 namespace Dianzhu.ApplicationService.Mapping
 {
 
@@ -27,10 +27,10 @@ namespace Dianzhu.ApplicationService.Mapping
             //Mapper.CreateMap<common_Trait_Filtering, Model.Trait_Filtering>()
             //.ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<ClientDTO, Model.Client>()
+            Mapper.CreateMap<ClientDTO, M.Client>()
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<RefreshTokenDTO, RefreshToken>()
+            Mapper.CreateMap<RefreshTokenDTO, M.RefreshToken>()
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<customerObj, MemberDto>()
