@@ -9,6 +9,7 @@ using Ydb.Common;
 using NHibernate;
 using System.Linq.Expressions;
 using Ydb.Common.Repository;
+using Ydb.Common.Specification;
 namespace Ydb.Order.Infrastructure.Repository.NHibernate
 {
    public class RepositoryServiceOrder : NHRepositoryBase<ServiceOrder, Guid>, IRepositoryServiceOrder
@@ -287,6 +288,49 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
                 .List();
             totalRecords = session.QueryOver<ServiceOrder>().RowCount();
             return list;
+        }
+
+
+        /// <summary>
+        /// 根据代理区域获取该区域内所有商户的订单数量，区分是否分账
+        /// </summary>
+        /// <param name="businessIdList">该区域内所有商户Id列表</param>
+        /// <param name="isShared">订单是否分账</param>
+        /// <returns></returns>
+        public long GetOrdersCountByBusinessList(IList<string> businessIdList, bool isShared)
+        {
+            var where = PredicateBuilder.True<ServiceOrder>();
+            if (businessIdList.Count > 0)
+            {
+                where = where.And(x => businessIdList.Contains(x.BusinessId));
+            }
+            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                    && x.OrderStatus != enum_OrderStatus.DraftPushed
+                    && x.OrderStatus != enum_OrderStatus.Search);
+            where = where.And(x => x.IsShared == isShared);
+            long count = GetRowCount(where);
+            return count;
+        }
+
+
+        /// <summary>
+        /// 根据代理区域获取该区域内所有商户的订单列表，区分是否分账
+        /// </summary>
+        /// <param name="businessIdList">该区域内所有商户Id列表</param>
+        /// <param name="isShared">订单是否分账</param>
+        /// <returns></returns>
+        public IList<ServiceOrder> GetOrdersByBusinessList(IList<string> businessIdList, bool isShared)
+        {
+            var where = PredicateBuilder.True<ServiceOrder>();
+            if (businessIdList.Count > 0)
+            {
+                where = where.And(x => businessIdList.Contains(x.BusinessId));
+            }
+            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                    && x.OrderStatus != enum_OrderStatus.DraftPushed
+                    && x.OrderStatus != enum_OrderStatus.Search);
+            where = where.And(x => x.IsShared == isShared);
+            return Find(where);
         }
 
     }

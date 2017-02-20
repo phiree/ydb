@@ -102,7 +102,6 @@
     <Compile Include="Application\IServiceOrderStateChangeHis.cs" />
     <Compile Include="Application\IPaymentService.cs" />
     <Compile Include="Application\IPushService.cs" />
-    <None Include="Application\IServiceOrderService_old.cs.excluded" />
     <Compile Include="Application\PaymentLogService.cs" />
     <Compile Include="Application\PaymentService.cs" />
     <Compile Include="DomainModel\OrderFlow.cs" />

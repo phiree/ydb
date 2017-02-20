@@ -108,6 +108,7 @@
     <Compile Include="DomainModel\ClaimsTests.cs" />
     <Compile Include="DomainModel\ServiceOrderTests.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ClaimsDetailsMapTests.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\RepositoryServiceOrderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

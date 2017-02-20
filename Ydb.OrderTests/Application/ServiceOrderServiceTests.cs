@@ -7,6 +7,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.Order.DomainModel;
 using FizzWare.NBuilder;
+
+namespace Ydb.Order.ApplicationTests
+{
+    [TestFixture()]
+    public class ServiceOrderServiceTests
+    {
+        [Test()]
+        public void GetOrdersCountByBusinessListTest()
+        {
+            Assert.Fail();
+        }
+    }
+}
+
 namespace Ydb.Order.Application.Tests
 {
     [TestFixture()]
