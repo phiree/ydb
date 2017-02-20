@@ -31,10 +31,26 @@ namespace Ydb.Finance.Application
         }
 
         /// <summary>
+        /// 获取代理及其助理的所有账户流水信息
+        /// </summary>
+        /// <param name="UserList">代理及其助理的用户Id列表</param>
+        /// <returns></returns>
+        [Ydb.Finance.Infrastructure.UnitOfWork]
+        public IList<BalanceFlowDto> GetBalanceFlowByArea(IList<string> UserIdList)
+        {
+            var where = PredicateBuilder.True<BalanceFlow>();
+            if (UserIdList.Count>0)
+            {
+                where = where.And(x => UserIdList.Contains(x.AccountId));
+            }
+            return Mapper.Map<IList<BalanceFlow>, IList<BalanceFlowDto>>(repositoryBalanceFlow.Find(where));
+        }
+
+        /// <summary>
         /// 根据条件获取账户流水信息
         /// </summary>
         /// <param name="traitFilter" type="Ydb.Common.Specification.TraitFilter">通用筛选器分页、排序等</param>
-        /// <param name="withdrawApplyFilter" type="Ydb.Finance.Application.BalanceFlowFilter">账户流水的查询筛选条件</param>
+        /// <param name="balanceFlowFilter" type="Ydb.Finance.Application.BalanceFlowFilter">账户流水的查询筛选条件</param>
         /// <returns type="IList<Ydb.Finance.Application.BalanceFlowDto>">账户流水信息列表</returns>
         [Ydb.Finance.Infrastructure.UnitOfWork]
         public IList<BalanceFlowDto> GetBalanceFlowList(TraitFilter traitFilter, BalanceFlowFilter balanceFlowFilter)

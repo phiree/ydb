@@ -30,6 +30,40 @@ namespace Ydb.Finance.Tests.Application
         }
 
         /// <summary>
+        /// 获取代理及其助理的所有账户流水信息
+        /// </summary>
+        [Test()]
+        public void BalanceFlowService_GetBalanceFlowByArea_Test()
+        {
+            BalanceFlowDto flow = new BalanceFlowDto
+            {
+                AccountId = "c64d9dda-4f6e-437b-89d2-a591012d8c65",
+                Amount = 0.1m,
+                RelatedObjectId = "0763ec35-e349-425f-8217-a69b0114bb1e",
+                OccurTime = DateTime.Now,
+                FlowType = "OrderShare",
+                Income = true
+            };
+            balanceFlowService.Save(flow);
+            BalanceFlowDto flow1 = new BalanceFlowDto
+            {
+                AccountId = "c64c6dda-4f6e-437b-89d2-a591012d8c65",
+                Amount = 0.1m,
+                RelatedObjectId = "0763ec34-e349-425f-8217-a69b0114bb1e",
+                OccurTime = DateTime.Now,
+                FlowType = "OrderShare",
+                Income = true
+            };
+            balanceFlowService.Save(flow1);
+            IList<string> userList = new List<string>{ "c64c6dda-4f6e-437b-89d2-a591012d8c65","1","2" };
+
+            var list = balanceFlowService.GetBalanceFlowByArea(userList);
+            Assert.AreEqual(1, list.Count);
+            Assert.AreEqual("c64c6dda-4f6e-437b-89d2-a591012d8c65", list[0].AccountId);
+            Assert.AreEqual("0763ec34-e349-425f-8217-a69b0114bb1e", list[0].RelatedObjectId);
+        }
+
+        /// <summary>
         /// 根据条件获取流水列表
         /// </summary>
         [Test()]

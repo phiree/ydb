@@ -9,6 +9,7 @@ using NHibernate;
 using Ydb.Common.Repository;
 using Ydb.Finance.DomainModel;
 using NHibernate.Transform;
+using Ydb.Common.Specification;
 namespace Ydb.Finance.Infrastructure.Repository
 { 
     public class RepositoryBalanceFlow : NHRepositoryBase<BalanceFlow, Guid>, IRepositoryBalanceFlow
