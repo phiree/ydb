@@ -76,6 +76,13 @@ namespace Ydb.BusinessResource.Application
         long GetCountOfAllBusinessesByArea(IList<string> areaList);
 
         /// <summary>
+        /// 当前代理区域的所有店铺列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        IList<Business> GetAllBusinessesByArea(IList<string> areaList);
+
+        /// <summary>
         /// 统计店铺每日或每时新增数量列表
         /// </summary>
         /// <param name="areaList"></param>

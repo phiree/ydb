@@ -166,6 +166,16 @@ namespace Ydb.BusinessResource.ApplicationTests
             string strRatio = businessService.GetStatisticsRatioMonthOnMonth(areaList);
             Assert.AreEqual("0", strRatio);
         }
+
+        [Test()]
+        public void BusinessService_GetAllBusinessesByArea_Test()
+        {
+            IList<string> areaList = new List<string> { "areaId" };
+            IList<Business> businessList = new List<Business>();
+            repositoryBusiness.Stub(x => x.GetBusinessesByArea(areaList, DateTime.MinValue, DateTime.MinValue)).Return(businessList);
+            IList<Business> businessList1 = businessService.GetAllBusinessesByArea(areaList);
+            Assert.AreEqual(businessList, businessList1);
+        }
     }
 }
 
