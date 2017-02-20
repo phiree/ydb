@@ -69,6 +69,10 @@
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Rhino.Mocks, Version=4.0.0.0, Culture=neutral, PublicKeyToken=38730f1abddafc13, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoMocks.4.0.0-alpha3\lib\net40\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Xml" />
@@ -82,6 +86,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Application\AgentService\OrdersServiceTests.cs" />
+    <Compile Include="Application\AgentService\FinanceFlowServiceTests.cs" />
     <Compile Include="Bootstrap.cs" />
     <Compile Include="ExcelImporter\ServiceTypeImporterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,6 +120,18 @@
       <Project>{3d510583-1c11-48fb-8380-12e183e5914b}</Project>
       <Name>Ydb.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ydb.Membership\Ydb.Membership.csproj">
+      <Project>{6a7ed67d-846d-46c6-84b0-82b8556f0b8f}</Project>
+      <Name>Ydb.Membership</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Order\Ydb.Order.csproj">
+      <Project>{901e2a8a-e608-4477-b9bc-f583d818d87f}</Project>
+      <Name>Ydb.Order</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="acknowledgements.txt" />
+    <Content Include="license.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

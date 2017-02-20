@@ -1,4 +1,4 @@
-﻿
+﻿@model IList<Ydb.ApplicationService.ModelDto.FinanceFlowDto>
 @{
     ViewBag.headTitle = "财务管理";
     ViewBag.subTitle = "分账记录";
@@ -73,12 +73,12 @@
                             @for (int i = 0; i < 20; i++) {
                             <tr>
                                 <td>@(i+1)</td>
-                                <td><a href="./order.html">FW1322131</a></td>
-                                <td>400</td>
-                                <td>366.00</td>
-                                <td>2016.07.01</td>
-                                <td>张三</td>
-                                <td>代理</td>
+                                <td><a href="./order.html">@Html.DisplayFor(modelItem => Model[i - 1].SerialNo)</a></td>
+                                <td>@Html.DisplayFor(modelItem => Model[i - 1].AmountTotal)</td>
+                                <td>@Html.DisplayFor(modelItem => Model[i - 1].Amount)</td>
+                                <td>@Html.DisplayFor(modelItem => Model[i - 1].OccurTime)</td>
+                                <td>@Html.DisplayFor(modelItem => Model[i - 1].UserNickName)</td>
+                                <td>@Html.DisplayFor(modelItem => Model[i - 1].UserType)</td>
                             </tr>
                             }
                         </tbody>

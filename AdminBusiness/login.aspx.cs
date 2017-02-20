@@ -18,15 +18,12 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
     {
         //PHSuit.Logging.GetLog(Dianzhu.Config.Config.GetAppSetting("LoggerName")).Debug("login page");
         Config.log.Debug("loging");
-
         BrowserCheck.CheckVersion();
     }
     protected void btnLogin_Click(object sender, EventArgs e)
     {
-
         HttpCookie CookieErrorTime = Request.Cookies["errorTime"];
         HttpCookie CookieApiToken = Request.Cookies["api_token"];
-
 
         if (CookieErrorTime == null)
         {

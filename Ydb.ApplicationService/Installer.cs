@@ -14,6 +14,8 @@ namespace Ydb.ApplicationService
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            container.Register(Classes.FromThisAssembly().InSameNamespaceAs<Ydb.ApplicationService.Application.AgentService.FinanceFlowService>()
+                              .WithService.DefaultInterfaces());
             container.Register(Component.For<ExcelImporter.ServiceTypeImporter>());
         }
 

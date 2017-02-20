@@ -5,18 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.Common.Domain;
 using Ydb.Finance.Application;
-using Ydb.Membership.DomainModel;
+using Ydb.Membership.Application.Dto;
 using Ydb.ApplicationService.ModelDto;
 
-namespace Ydb.ApplictaionService.DataStatistics
+namespace Ydb.ApplicationService.DataStatistics
 {
     public class StatisticsCount : IStatisticsCount
     {
 
-        public IList<FinanceFlowDto> StatisticsFinanceFlowList(IList<BalanceFlowDto> balanceFlowDtoList,IList<DZMembership>memberList )
+        public IList<FinanceFlowDto> StatisticsFinanceFlowList(IList<BalanceFlowDto> balanceFlowDtoList,IList<MemberDto>memberList )
         {
             IList<FinanceFlowDto> financeFlowDtoList = new List<FinanceFlowDto>();
-            foreach (DZMembership member in memberList)
+            foreach (MemberDto member in memberList)
             {
                 IList<BalanceFlowDto> flowList = balanceFlowDtoList.Where(x => x.AccountId == member.Id.ToString()).ToList();
                 foreach (BalanceFlowDto balanceFlow in flowList)
