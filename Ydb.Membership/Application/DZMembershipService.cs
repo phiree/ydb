@@ -568,5 +568,17 @@ namespace Ydb.Membership.Application
             StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountGroupByArea(memberList,areaList);
             return statisticsInfo;
         }
+
+        /// <summary>
+        /// 根据用户所在子区域统计用户列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        public IList<Dto.MemberDto> GetMembershipsByArea(IList<string> areaList, UserType userType)
+        {
+            IList<Dto.MemberDto> memberDtoList = Mapper.Map<IList<Dto.MemberDto>>(repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, userType));
+            return memberDtoList;
+        }
     }
 }

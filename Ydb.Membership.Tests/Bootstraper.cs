@@ -9,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.Common.Infrastructure;
-
 namespace Ydb.Membership.Tests
 {
     public class Bootstrap
@@ -42,11 +41,11 @@ namespace Ydb.Membership.Tests
             FluentConfiguration dbConfigCommon = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_common.db3"))
            .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });
 
-          
+
             container.Install(
                     new Ydb.Infrastructure.Installer()
                     );
-            
+
 
             container.Install(
                 new Ydb.Infrastructure.InstallerCommon(dbConfigCommon),
@@ -56,8 +55,6 @@ namespace Ydb.Membership.Tests
             Ydb.Common.LoggingConfiguration.Config("Ydb.Membership.Tests");
 
         }
-
-
 
     }
 }
