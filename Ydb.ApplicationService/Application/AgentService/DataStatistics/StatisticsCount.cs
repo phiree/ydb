@@ -24,8 +24,8 @@ namespace Ydb.ApplicationService.Application.AgentService.DataStatistics
                     FinanceFlowDto financeFlowDto = new FinanceFlowDto();
                     financeFlowDto.Id = balanceFlow.Id;
                     financeFlowDto.UserId = balanceFlow.AccountId;
-                    financeFlowDto.UserNickName = member.NickName;
-                    financeFlowDto.UserType = member.UserType.ToString();
+                    financeFlowDto.UserNickName = member.DisplayName;
+                    financeFlowDto.UserType = member.UserType;
                     financeFlowDto.Amount = balanceFlow.Amount;
                     financeFlowDto.AmountTotal = balanceFlow.AmountTotal;
                     financeFlowDto.AmountView = balanceFlow.AmountView;

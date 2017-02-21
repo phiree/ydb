@@ -10,9 +10,9 @@ namespace Ydb.Membership.Application.Dto
    public class MemberDto
     {
          
-        public Guid Id { get; internal set; }
-        public string UserName{ get; internal set; }
-        public string PlainPassword { get; internal set; }
+        public Guid Id { get;  set; }
+        public string UserName{ get;  set; }
+        public string PlainPassword { get;  set; }
         public virtual DateTime TimeCreated { get; set; }
         public virtual DateTime LastLoginTime { get; set; }
         public virtual string Email { get; set; }

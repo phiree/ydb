@@ -86,6 +86,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Application\AgentService\DataStatistics\StatisticsCountTests.cs" />
     <Compile Include="Application\AgentService\OrdersServiceTests.cs" />
     <Compile Include="Application\AgentService\FinanceFlowServiceTests.cs" />
     <Compile Include="Bootstrap.cs" />
