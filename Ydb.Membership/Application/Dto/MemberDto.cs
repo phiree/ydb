@@ -19,6 +19,7 @@ namespace Ydb.Membership.Application.Dto
         public virtual string Phone { get; set; }
         public virtual string NickName { get; set; }
         public virtual string Address { get; set; }
+        public virtual string QQNumber { get; set; }
         public virtual string RealName { get; set; }
         public virtual bool Sex { get; set; }
         public virtual string PersonalID { get; set; }

@@ -22,6 +22,7 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.LoginTimes);
             Map(x => x.NickName);
             Map(x => x.Address);
+            Map(x => x.QQNumber);
             Map(x => x.Email);//.Unique();
             Map(x => x.Phone);//.Unique();
             Map(x => x.RealName);

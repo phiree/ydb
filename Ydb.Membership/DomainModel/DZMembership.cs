@@ -60,6 +60,7 @@ namespace Ydb.Membership.DomainModel
         public virtual string Phone { get; set; }
         public virtual string NickName { get; set; }
         public virtual string Address { get; set; }
+        public virtual string QQNumber { get; set; }
         /// <summary>
         /// 真实姓名
         /// </summary>
