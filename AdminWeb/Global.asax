@@ -78,7 +78,7 @@
         orderShareParam.BalanceUser = new List<BalanceUserParam>();
         BalanceUserParam balanceAgent = new BalanceUserParam();
 
-        var agent = memberService.GetAreaAgent(service.Business.AreaBelongTo.Code);
+        var agent = memberService.GetAreaAgent(service.Business.AreaBelongTo);
         if (agent.ResultObject != null)
         {
             balanceAgent.AccountId = agent.ResultObject.Id.ToString();

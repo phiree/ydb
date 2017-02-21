@@ -25,7 +25,7 @@ namespace Dianzhu.ApplicationService.Client
         
         IMembershipLoginLogService membershipLoginLogService;
 
-        public ClientService(IUserTokenService userTokenService, IStaffService staffService
+        public ClientService(IUserTokenService userTokenService, IStaffService staffService,
 IMembershipLoginLogService membershipLoginLogService
             ,IDZMembershipService memberService, S.IClientService ibllclient,
         S.IRefreshTokenService ibllrefreshtoken)
