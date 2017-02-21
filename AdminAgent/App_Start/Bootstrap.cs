@@ -33,10 +33,16 @@ public class Bootstrap
             new Ydb.Infrastructure.InstallerCommon(BuildDBConfig("ydb_common"))
             );
         container.Install(
+            new Ydb.Finance.Infrastructure.InstallerFinance(BuildDBConfig("ydb_finance"))
+           );
+        container.Install(
           new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig("ydb_businessresource"))
           );
         container.Install(
           new Ydb.Order.Infrastructure.InstallerOrder(BuildDBConfig("ydb_order"))
+          );
+        container.Install(
+          new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
           );
 
         container.Install(

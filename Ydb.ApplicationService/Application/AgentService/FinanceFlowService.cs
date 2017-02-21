@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Ydb.ApplicationService.ModelDto;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
-using Ydb.ApplicationService.DataStatistics;
+using Ydb.ApplicationService.Application.AgentService.DataStatistics;
 using Ydb.Finance.Application;
 
 

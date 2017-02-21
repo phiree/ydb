@@ -9,11 +9,11 @@ using Ydb.ApplicationService.ModelDto;
 using Ydb.Membership.Application;
 using Ydb.Membership.DomainModel.Enums;
 using Ydb.Membership.Application.Dto;
-using Ydb.ApplicationService.DataStatistics;
+using Ydb.ApplicationService.Application.AgentService.DataStatistics;
 using Ydb.Finance.Application;
 using Rhino.Mocks;
 
-namespace Ydb.ApplicationService.ApplicationTests.AgentServiceTests
+namespace Ydb.ApplicationService.Application.AgentServiceTests
 {
     [TestFixture()]
     public class FinanceFlowServiceTests

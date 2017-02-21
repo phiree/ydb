@@ -71,8 +71,8 @@
     <Compile Include="Application\AgentService\OrdersService.cs" />
     <Compile Include="AutoMapping\AutoMapperConfiguration.cs" />
     <Compile Include="AutoMapping\ModelToDtoMappingProfile.cs" />
-    <Compile Include="DataStatistics\IStatisticsCount.cs" />
-    <Compile Include="DataStatistics\StatisticsCount.cs" />
+    <Compile Include="Application\AgentService\DataStatistics\IStatisticsCount.cs" />
+    <Compile Include="Application\AgentService\DataStatistics\StatisticsCount.cs" />
     <Compile Include="ExcelImporter\ServiceTypeAndPointAdapter.cs" />
     <Compile Include="ExcelImporter\ServiceTypeImporter.cs" />
     <Compile Include="Installer.cs" />

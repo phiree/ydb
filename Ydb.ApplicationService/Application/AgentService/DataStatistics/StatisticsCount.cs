@@ -8,7 +8,7 @@ using Ydb.Finance.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.ApplicationService.ModelDto;
 
-namespace Ydb.ApplicationService.DataStatistics
+namespace Ydb.ApplicationService.Application.AgentService.DataStatistics
 {
     public class StatisticsCount : IStatisticsCount
     {
