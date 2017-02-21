@@ -111,7 +111,10 @@
     <Compile Include="DomainModel\DataStatistics\IStatisticsMembershipCount.cs" />
     <Compile Include="DomainModel\DataStatistics\StatisticsMembershipCount.cs" />
     <Compile Include="DomainModel\Dicts.cs" />
+    <Compile Include="DomainModel\DZMembershipCustomerService.cs" />
+    <Compile Include="DomainModel\DZMembershipImage.cs" />
     <Compile Include="DomainModel\Enums\CheckEnums.cs" />
+    <Compile Include="DomainModel\Enums\DZMembershipImageType.cs" />
     <Compile Include="DomainModel\MembershipLoginLog.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryMembershipLoginLog.cs" />
     <Compile Include="DomainModel\Service\IDZMembershipDomainService.cs" />
