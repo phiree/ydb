@@ -90,8 +90,7 @@ namespace Dianzhu.DependencyInstaller
 
 
              container.Register(Component.For<IRepository<Complaint, Guid>, IDALComplaint>().ImplementedBy<DALComplaint>());
-            container.Register(Component.For<IRepository<Client, string>, IDALClient>().ImplementedBy<DALClient>());
-            //dddddddddddd
+             //dddddddddddd
           //   container.Register(Component.For<IRepository<DZService, Guid>, IDALDZService>().ImplementedBy<DALDZService>());
             //container.Register(Component.For<IRepository<DZTag, Guid>, IDALDZTag>().ImplementedBy<DALDZTag>());
           
@@ -152,10 +151,7 @@ namespace Dianzhu.DependencyInstaller
             // IDAL.IDALServiceOrder repoServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis,
             //IDALMembership repoMembership, IDALRefund bllRefund, IDALOrderAssignment repoOrderAssignment, BLLPayment bllPayment ,IDALClaims dalClaims
 
-
-            container.Register(Component.For<BLL.Client.IBLLClient>().ImplementedBy<BLL.Client.BLLClient>());
-            container.Register(Component.For<BLL.Client.IBLLRefreshToken>().ImplementedBy<BLL.Client.BLLRefreshToken>());
-          
+   
           
         }
     }

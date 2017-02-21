@@ -579,6 +579,19 @@ namespace Ydb.Membership.Application
         {
             IList<Dto.MemberDto> memberDtoList = Mapper.Map<IList<Dto.MemberDto>>(repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, userType));
             return memberDtoList;
+		}
+		
+        public ActionResult<MemberDto> GetAreaAgent(string city)
+        {
+            ActionResult<MemberDto> result = new ActionResult<MemberDto>();
+            try { DZMembership agentForCity = repositoryMembership.FindOne(x => x.UserCity == city);
+                result.ResultObject = Mapper.Map<MemberDto>(agentForCity);
+            }
+            catch{
+                result.IsSuccess = false;
+                result.ErrMsg = "错误.该城市出现多个代理:" + city;
+            }
+            return result;
         }
     }
 }

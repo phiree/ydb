@@ -12,6 +12,7 @@ using Ydb.Membership.DomainModel;
 using FizzWare.NBuilder;
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
+using Dianzhu.ApplicationService.Tests;
 namespace Dianzhu.ApplicationService.Order.Tests
 {
     [TestFixture()]

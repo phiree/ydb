@@ -82,17 +82,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddressParser.cs" />
-    <Compile Include="Agent\AgentService.cs" />
-    <Compile Include="Agent\IAgentService.cs" />
     <Compile Include="BLLComplaint.cs" />
     <Compile Include="BLLAdvertisement.cs" />
     <Compile Include="BLLIMUserStatusArchieve.cs" />
     <Compile Include="BLLIMUserStatus.cs" />
-    <Compile Include="Client\BLLClient.cs" />
-    <Compile Include="Client\BLLRefreshToken.cs" />
-    <Compile Include="Client\IBLLClient.cs" />
-    <Compile Include="Client\IBLLRefreshToken.cs" />
     <Compile Include="DZRoleProvidercs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StorageManager\BLLStorageFileInfo.cs" />

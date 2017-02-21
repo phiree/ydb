@@ -170,5 +170,6 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         IList<Dto.MemberDto> GetMembershipsByArea(IList<string> areaList, UserType userType);
+        ActionResult<MemberDto> GetAreaAgent(string city);
     }
 }

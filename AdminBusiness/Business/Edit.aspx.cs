@@ -124,11 +124,11 @@ public partial class Business_Edit : BasePage
         vmBusiness.ChargePersonIdCardNo = tbxCardIdNo.Value;
        // BLLArea bllArea = Bootstrap.Container.Resolve<BLLArea>();
         IAreaService areaService = Bootstrap.Container.Resolve<IAreaService>();
-        AddressParser addressParser = new AddressParser(hiAddrId.Value, areaService);
+       
         Area area;
         double latitude;
         double longtitude;
-        addressParser.ParseAddress(out area, out latitude, out longtitude);
+        areaService.ParseAddress(hiAddrId.Value, out area, out latitude, out longtitude);
         vmBusiness.RawAddressFromMapApi = hiAddrId.Value;
         vmBusiness.Latitude = latitude;
         vmBusiness.Longtitude = longtitude;

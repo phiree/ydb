@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-namespace Dianzhu.ApplicationService.Order.Tests
+namespace Dianzhu.ApplicationService.Tests
 {
  [SetUpFixture]
  public   class TestSetup

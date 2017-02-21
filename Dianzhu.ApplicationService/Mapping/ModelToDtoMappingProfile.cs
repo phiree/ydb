@@ -13,7 +13,7 @@ using Ydb.Common;
 using Ydb.Common.Domain;
 using Ydb.Order.DomainModel;
 using Ydb.Push.DomainModel;
-
+using M=Ydb.ApiClient.DomainModel;
 namespace Dianzhu.ApplicationService.Mapping
 {
 
@@ -30,10 +30,10 @@ namespace Dianzhu.ApplicationService.Mapping
             //Mapper.CreateMap< Model.Trait_Filtering, common_Trait_Filtering>()
             //.ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<Model.Client, ClientDTO>()
+            Mapper.CreateMap<M. Client, ClientDTO>()
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
-            Mapper.CreateMap<Model.RefreshToken, RefreshTokenDTO>()
+            Mapper.CreateMap<M.RefreshToken, RefreshTokenDTO>()
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<MemberDto, customerObj>()

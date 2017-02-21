@@ -14,5 +14,7 @@ namespace Ydb.Common.Application
         Area GetOne(int areaId);
         IList<Area> GetSubArea(string areacode);
        Area GetAreaByBaiduName(string areaname);
+        void ParseAddress(string rawAddressFromMapApi, out Area area, out double latitude, out double longtitude);
+
     }
 }

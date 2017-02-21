@@ -30,7 +30,7 @@
     void timerOrderShare_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
     {
 
-       IServiceOrderService bllOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
+        IServiceOrderService bllOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
         IOrderShareService orderShare = Bootstrap.Container.Resolve<IOrderShareService>();
         //  NHibernateUnitOfWork.UnitOfWork.Start();
 
@@ -67,7 +67,7 @@
     {
         OrderShareParam orderShareParam = new OrderShareParam();
 
-
+        Ydb.Membership.Application.IDZMembershipService memberService = Bootstrap.Container.Resolve<Ydb.Membership.Application.IDZMembershipService>();
         IDZServiceService dzService = Bootstrap.Container.Resolve<IDZServiceService>();
         DZService service = dzService.GetOne2(new Guid(order.Details[0].OriginalServiceId));
         orderShareParam.ServiceTypeID = service.ServiceType.Id.ToString();//  order.Details[0].ServiceSnapShot.ServiceType.Id.ToString();
@@ -77,14 +77,11 @@
         orderShareParam.Amount = order.NegotiateAmount;
         orderShareParam.BalanceUser = new List<BalanceUserParam>();
         BalanceUserParam balanceAgent = new BalanceUserParam();
-        Dianzhu.BLL.Agent.IAgentService agentService = Bootstrap.Container.Resolve<Dianzhu.BLL.Agent.IAgentService>();
-        int areaId = int.Parse(service.Business.AreaBelongTo);
-        IAreaService areaService=Bootstrap.Container.Resolve<IAreaService>();
-        Ydb.Common.Domain.Area area = areaService.GetOne(areaId);
-        var agent = agentService.GetAreaAgent(area);
-        if (agent != null)
+
+        var agent = memberService.GetAreaAgent(service.Business.AreaBelongTo.Code);
+        if (agent.ResultObject != null)
         {
-            balanceAgent.AccountId = agent.Id.ToString();
+            balanceAgent.AccountId = agent.ResultObject.Id.ToString();
             balanceAgent.UserType = "agent";
             orderShareParam.BalanceUser.Add(balanceAgent);
         }
