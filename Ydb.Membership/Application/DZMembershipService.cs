@@ -413,5 +413,17 @@ namespace Ydb.Membership.Application
             totalRecord = repositoryMembership.GetUsersCount(string.Empty, string.Empty, string.Empty, string.Empty, UserType.customer.ToString());
             return Mapper.Map<IList<DZMembership>, IList<MemberDto>>(memberList);
         }
+        public ActionResult<MemberDto> GetAreaAgent(string city)
+        {
+            ActionResult<MemberDto> result = new ActionResult<MemberDto>();
+            try { DZMembership agentForCity = repositoryMembership.FindOne(x => x.UserCity == city);
+                result.ResultObject = Mapper.Map<MemberDto>(agentForCity);
+            }
+            catch{
+                result.IsSuccess = false;
+                result.ErrMsg = "错误.该城市出现多个代理:" + city;
+            }
+            return result;
+        }
     }
 }

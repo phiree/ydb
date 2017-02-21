@@ -19,8 +19,7 @@ public partial class order_detail : BasePage
     IBalanceFlowService balanceService = Bootstrap.Container.Resolve<IBalanceFlowService>();
     //Dianzhu.BLL.Finance.IBLLSharePoint bllSharePoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBLLSharePoint>();
     IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
-    Dianzhu.BLL.Agent.AgentService agentService = new Dianzhu.BLL.Agent.AgentService();
-    ServiceOrder serviceorder;
+     ServiceOrder serviceorder;
 
     string strID;//链接字符串
     protected void Page_Load(object sender, EventArgs e)

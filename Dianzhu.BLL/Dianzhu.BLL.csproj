@@ -83,8 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressParser.cs" />
-    <Compile Include="Agent\AgentService.cs" />
-    <Compile Include="Agent\IAgentService.cs" />
     <Compile Include="BLLComplaint.cs" />
     <Compile Include="BLLAdvertisement.cs" />
     <Compile Include="BLLMembershipLoginLog.cs" />
