@@ -177,27 +177,42 @@ namespace Ydb.Membership.Application
         /// </summary>
         /// <param name="membership"></param>
         /// <returns></returns>
-        //Dto.RegisterResult CompleteDZMembership(MemberDto membershipDto);
+        Dto.RegisterResult CompleteDZMembership(MemberDto membershipDto);
 
-        ///// <summary>
-        ///// 申请助理
-        ///// </summary>
-        ///// <param name="membership"></param>
-        ///// <returns></returns>
-        //Dto.RegisterResult ApplyDZMembershipCustomerService(DZMembershipCustomerServiceDto membershipDto);
+        /// <summary>
+        /// 申请助理
+        /// </summary>
+        /// <param name="membership"></param>
+        /// <returns></returns>
+        Dto.RegisterResult ApplyDZMembershipCustomerService(DZMembershipCustomerServiceDto membershipDto);
 
-        ///// <summary>
-        ///// 认证审核助理
-        ///// </summary>
-        ///// <param name="membership"></param>
-        ///// <returns></returns>
-        //Dto.RegisterResult VerifyDZMembershipCustomerService(string membershipId,bool isVerified,string strMemo);
+        /// <summary>
+        /// 认证审核助理
+        /// </summary>
+        /// <param name="membership"></param>
+        /// <returns></returns>
+        Dto.RegisterResult VerifyDZMembershipCustomerService(string membershipId, bool isVerified, string strMemo);
 
-        ///// <summary>
-        ///// 封停/解封助理
-        ///// </summary>
-        ///// <param name="membership"></param>
-        ///// <returns></returns>
-        //Dto.RegisterResult LockDZMembershipCustomerService(string membershipId, bool isLocked, string strMemo);
+        /// <summary>
+        /// 封停/解封助理
+        /// </summary>
+        /// <param name="membership"></param>
+        /// <returns></returns>
+        Dto.RegisterResult LockDZMembershipCustomerService(string membershipId, bool isLocked, string strMemo);
+
+        /// <summary>
+        /// 根据用户名获取客服
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        Dto.DZMembershipCustomerServiceDto GetDZMembershipCustomerServiceByName(string userName);
+
+        /// <summary>
+        /// 根据用户Id获取客服
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        Dto.DZMembershipCustomerServiceDto GetDZMembershipCustomerServiceById(string id);
+
     }
 }

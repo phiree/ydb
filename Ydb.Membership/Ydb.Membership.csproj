@@ -124,6 +124,8 @@
     <Compile Include="DomainModel\Service\ILogin3rd.cs" />
     <Compile Include="DomainModel\Service\Login3rd.cs" />
     <Compile Include="DomainModel\Service\U3RD_Model.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipCustomerServiceMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipImageMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\MembershipLoginLogMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\UserTokenMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryMembershipLoginLog.cs" />

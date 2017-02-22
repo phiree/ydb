@@ -346,5 +346,34 @@ namespace Ydb.Membership.DomainModel
 
         }
 
+        [UnitOfWork]
+        public DZMembershipCustomerService GetDZMembershipCustomerServiceByName(string userName)
+        {
+            DZMembership membership = repositoryDZMembership.GetMemberByName(userName);
+            if (membership.GetType() == typeof(DZMembershipCustomerService))
+            {
+                return (DZMembershipCustomerService)membership;
+            }
+            else
+            {
+                return null;
+            }
+            
+        }
+
+        [UnitOfWork]
+        public DZMembershipCustomerService GetDZMembershipCustomerServiceById(string id)
+        {
+            DZMembership membership = repositoryDZMembership.GetMemberById(new Guid(id));
+            if (membership.GetType() == typeof(DZMembershipCustomerService))
+            {
+                return (DZMembershipCustomerService)membership;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }

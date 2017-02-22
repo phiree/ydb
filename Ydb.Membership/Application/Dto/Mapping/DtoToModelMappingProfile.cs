@@ -22,6 +22,7 @@ namespace Ydb.Membership.Application
         protected override void Configure()
         {
             Mapper.CreateMap<Dto.MemberDto, DZMembership>();
+            Mapper.CreateMap<Dto.DZMembershipCustomerServiceDto, DZMembershipCustomerService>();
         }
     }
 }

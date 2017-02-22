@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.Membership.DomainModel.Enums;
+using Ydb.Common.Domain;
 
 namespace Ydb.Membership.DomainModel
 {
-    public class DZMembershipImage
+    public class DZMembershipImage: Entity<Guid>
     {
 
         public DZMembershipImage()

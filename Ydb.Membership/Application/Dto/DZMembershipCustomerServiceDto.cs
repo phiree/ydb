@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ydb.Membership.Application.Dto
 {
-    public class DZMembershipCustomerServiceDto
+    public class DZMembershipCustomerServiceDto:MemberDto
     {
         public  IList<DZMembershipImageDto> DZMembershipImages { get; set; }
         public  string ApplyMemo { get; set; }

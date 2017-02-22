@@ -70,6 +70,10 @@ namespace Ydb.Membership.DomainModel
         /// </summary>
         public virtual bool Sex { get; set; }
         /// <summary>
+        /// 生日
+        /// </summary>
+        public virtual DateTime Birthday { get; set; }
+        /// <summary>
         /// 身份证号
         /// </summary>
         public virtual string PersonalID { get; set; }

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,8 @@ namespace Ydb.Membership.ApplicationTests
         IStatisticsMembershipCount statisticsMembershipCount;
 
         IDZMembershipService dzMembershipService;
+
+        IDZMembershipService dzMembershipService1;
         [SetUp]
         public void Initialize()
         {
@@ -45,6 +48,13 @@ namespace Ydb.Membership.ApplicationTests
             dzMembershipService = new DZMembershipService(dzmembershipDomainService,
             repositoryMembership, emailService, encryptService, login3rdService, repositoryUserToken,
             repositoryMembershipLoginLog, statisticsMembershipCount);
+
+            Bootstrap.Boot();
+            AutoMapper.Mapper.Initialize(x =>
+            {
+                AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
+            });
+            dzMembershipService1 = Bootstrap.Container.Resolve<IDZMembershipService>();
         }
 
         [Test()]
@@ -172,9 +182,48 @@ namespace Ydb.Membership.ApplicationTests
             StatisticsInfo statisticsInfo = new StatisticsInfo();
             IList<DZMembership> memberList = new List<DZMembership>();
             repositoryMembership.Stub(x => x.GetUsersByArea(AreaIdList, DateTime.MinValue, DateTime.MinValue, UserType.customer)).Return(memberList);
-            statisticsMembershipCount.Stub(x => x.StatisticsAllMembershipsCountGroupByArea(memberList,areaList)).Return(statisticsInfo);
+            statisticsMembershipCount.Stub(x => x.StatisticsAllMembershipsCountGroupByArea(memberList, areaList)).Return(statisticsInfo);
             StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsAllMembershipsCountListByArea(areaList, UserType.customer);
             Assert.AreEqual(statisticsInfo, statisticsInfo1);
+        }
+
+        [Test()]
+        public void DZMembershipService_CompleteDZMembership_Test()
+        {
+            dzMembershipService1.RegisterCustomerService("customerService1", "123456", "123456", "");
+            DZMembershipCustomerServiceDto dzMembershipCustomerServiceDto = (DZMembershipCustomerServiceDto)dzMembershipService1.GetDZMembershipCustomerServiceByName("customerService1");
+            dzMembershipCustomerServiceDto.QQNumber = "4548973";
+            dzMembershipService1.CompleteDZMembership(dzMembershipCustomerServiceDto);
+            DZMembershipCustomerServiceDto dzMembershipCustomerServiceDto1 = (DZMembershipCustomerServiceDto)dzMembershipService1.GetDZMembershipCustomerServiceByName("customerService1");
+            Assert.AreEqual(dzMembershipCustomerServiceDto.Id, dzMembershipCustomerServiceDto1.Id);
+            Assert.AreEqual(dzMembershipCustomerServiceDto.QQNumber, dzMembershipCustomerServiceDto1.QQNumber);
+        }
+
+        [Test()]
+        public void DZMembershipService_RegisterCustomerService_RightPassword_Test()
+        {
+            string errMsg = "";
+            string userName = "userName1";
+            string password = "123456";
+            DZMembership dzMembership = new DZMembershipCustomerService { UserName = userName, Password = "123456" };
+            dzmembershipDomainService.Stub(x => x.CreateCustomerService(userName, password,out errMsg)).Return(dzMembership).OutRef(errMsg);
+            RegisterResult registerResult = dzMembershipService.RegisterCustomerService(userName, password, password, "");
+            Assert.IsTrue(registerResult.RegisterSuccess);
+            Assert.IsTrue(registerResult.SendEmailSuccess);
+        }
+
+        [Test()]
+        public void DZMembershipService_RegisterCustomerService_ErrorPassword_Test()
+        {
+            string errMsg = "";
+            string userName = "userName1";
+            string password = "123456";
+            DZMembership dzMembership = new DZMembershipCustomerService { UserName = userName, Password = "123456" };
+            dzmembershipDomainService.Stub(x => x.CreateCustomerService(userName, password, out errMsg)).Return(dzMembership).OutRef(errMsg);
+            RegisterResult registerResult = dzMembershipService.RegisterCustomerService(userName, password, "1234567", "");
+            Assert.IsFalse(registerResult.RegisterSuccess);
+            Assert.AreEqual("密码不匹配", registerResult.RegisterErrMsg);
+            Assert.IsTrue(registerResult.SendEmailSuccess);
         }
     }
 }
