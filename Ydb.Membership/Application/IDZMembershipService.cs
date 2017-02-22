@@ -171,5 +171,33 @@ namespace Ydb.Membership.Application
         /// <returns></returns>
         IList<Dto.MemberDto> GetMembershipsByArea(IList<string> areaList, UserType userType);
         ActionResult<MemberDto> GetAreaAgent(string city);
+
+        /// <summary>
+        /// 用户信息补全
+        /// </summary>
+        /// <param name="membership"></param>
+        /// <returns></returns>
+        //Dto.RegisterResult CompleteDZMembership(MemberDto membershipDto);
+
+        ///// <summary>
+        ///// 申请助理
+        ///// </summary>
+        ///// <param name="membership"></param>
+        ///// <returns></returns>
+        //Dto.RegisterResult ApplyDZMembershipCustomerService(DZMembershipCustomerServiceDto membershipDto);
+
+        ///// <summary>
+        ///// 认证审核助理
+        ///// </summary>
+        ///// <param name="membership"></param>
+        ///// <returns></returns>
+        //Dto.RegisterResult VerifyDZMembershipCustomerService(string membershipId,bool isVerified,string strMemo);
+
+        ///// <summary>
+        ///// 封停/解封助理
+        ///// </summary>
+        ///// <param name="membership"></param>
+        ///// <returns></returns>
+        //Dto.RegisterResult LockDZMembershipCustomerService(string membershipId, bool isLocked, string strMemo);
     }
 }

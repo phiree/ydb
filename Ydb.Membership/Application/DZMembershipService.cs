@@ -97,8 +97,44 @@ namespace Ydb.Membership.Application
         [UnitOfWork]
         public Dto.RegisterResult RegisterCustomerService(string registerName, string password, string confirmPassword, string hostInMail)
         {
-            return RegisterMember(registerName, password, confirmPassword, UserType.customerservice.ToString(), hostInMail);
+            //return RegisterMember(registerName, password, confirmPassword, UserType.customerservice.ToString(), hostInMail);
+            
+            Dto.RegisterResult registerResult = new Dto.RegisterResult();
+            if (password != confirmPassword)
+            {
+                registerResult.RegisterSuccess = false;
+                registerResult.RegisterErrMsg = "密码不匹配";
 
+                return registerResult;
+            }
+            string errMsg;
+            DZMembership createdUser = dzmembershipDomainService.CreateCustomerService(registerName, password, out errMsg);
+            if (!string.IsNullOrEmpty(errMsg))
+            {
+                registerResult.RegisterSuccess = false;
+                registerResult.RegisterErrMsg = errMsg;
+            }
+            if (!string.IsNullOrEmpty(createdUser.Email))
+            {
+                try
+                {
+                    emailService.SendEmail(createdUser.Email, "一点办注册验证邮件",
+                        createdUser.BuildRegisterValidationContent(hostInMail)
+                        );
+                }
+                catch (Exception ex)
+                {
+                    registerResult.SendEmailSuccess = false;
+                    registerResult.SendEmailErrMsg = "邮件发送失败";
+
+                    log.Warn("注册邮件发送失败.注册用户" + createdUser.Id
+                        + Environment.NewLine + ex.ToString());
+
+                }
+            }
+            MemberDto registeredUser = Mapper.Map<MemberDto>(createdUser);
+            registerResult.ResultObject = registeredUser;
+            return registerResult;
         }
 
         

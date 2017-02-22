@@ -24,6 +24,13 @@ namespace Ydb.Membership.Application
             Mapper.CreateMap<DZMembership, Dto.MemberDto>()
                   .ForMember(x => x.UserType, opt => opt.MapFrom(source => source.UserType.ToString()))
             .ForAllMembers(opt => opt.NullSubstitute(""));
+
+            Mapper.CreateMap<DZMembershipCustomerService, Dto.DZMembershipCustomerServiceDto>()
+            .ForAllMembers(opt => opt.NullSubstitute(""));
+
+            Mapper.CreateMap<DZMembershipImage, Dto.DZMembershipImageDto>()
+                  .ForMember(x => x.ImageType, opt => opt.MapFrom(source => source.ImageType.ToString()))
+            .ForAllMembers(opt => opt.NullSubstitute(""));
         }
     }
 }

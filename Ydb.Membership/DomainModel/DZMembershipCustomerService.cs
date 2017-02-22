@@ -12,6 +12,7 @@ namespace Ydb.Membership.DomainModel
         public DZMembershipCustomerService():base()
         {
             IsVerified = false;
+            IsLocked = false;
         }
 
         public virtual IList<DZMembershipImage> DZMembershipImages { get; set; }
@@ -64,7 +65,7 @@ namespace Ydb.Membership.DomainModel
         {
             get
             {
-                DZMembershipImage[] mi = DZMembershipImages.Where(x => x.ImageType == DZMembershipImageType.Avatar && x.IsCurrent).OrderByDescending(x => x.UploadTime).ToArray();
+                DZMembershipImage[] mi = DZMembershipImages.Where(x => x.ImageType == DZMembershipImageType.Diploma && x.IsCurrent).OrderByDescending(x => x.UploadTime).ToArray();
                 if (mi.Count() >= 1)
                 {
                     return mi[0];
@@ -143,5 +144,31 @@ namespace Ydb.Membership.DomainModel
             }
             DZMembershipImages.Add(image);
         }
+
+        /// <summary>
+        /// 认证助理
+        /// </summary>
+        public virtual void Verification(bool isVerified, string strReason)
+        {
+            if (!isVerified && string.IsNullOrEmpty(strReason))
+            {
+                throw new FormatException("拒绝原因不能为空!");
+            }
+            this.RefuseReason = strReason;
+            this.IsVerified = isVerified;
+            this.VerifyTime = DateTime.Now;
+        }
+
+        /// <summary>
+        /// 封停/解封账号
+        /// </summary>
+        public virtual void LockCustomerService(bool isLocked,string strReason)
+        {
+            this.IsLocked = isLocked;
+            this.LockTime = DateTime.Now;
+            this.LockReason = strReason;
+        }
+
+
     }
 }

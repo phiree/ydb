@@ -115,7 +115,6 @@ namespace Ydb.Membership.DomainModel
 
         public DZMembership CreateUser(string loginName, string password, UserType userType, out string errMsg)
         {
-
             errMsg = string.Empty;
             LoginNameType loginNameType = loginNameDetermine.Determin(loginName);
             string userName = loginName,
@@ -298,6 +297,53 @@ namespace Ydb.Membership.DomainModel
         public IList<DZMembership> GetAllCustomer(int pageIndex, int pageSize, out long totalRecords)
         {
             return repositoryDZMembership.GetAllCustomer(pageIndex, pageSize, out totalRecords);
+        }
+
+        public DZMembership CreateCustomerService(string loginName, string password, out string errMsg)
+        {
+            errMsg = string.Empty;
+            LoginNameType loginNameType = loginNameDetermine.Determin(loginName);
+            string userName = loginName,
+                    nickName = loginName,
+                    email = string.Empty,
+                    phone = string.Empty;
+            Guid registerValidateCode = Guid.Empty;
+            switch (loginNameType)
+            {
+                case LoginNameType.Email:
+                    email = loginName;
+                    registerValidateCode = Guid.NewGuid();
+                    break;
+                case LoginNameType.PhoneNumber: phone = loginName; break;
+            }
+            var existedUser = GetUserByName(loginName);
+            if (existedUser != null)
+            {
+                errMsg = "用户已存在";
+                return existedUser;
+            }
+            var password_cred = encryptService.GetMD5Hash(password).ToUpper();
+            DZMembershipCustomerService newMember = new DZMembershipCustomerService
+            {
+                UserName = userName,
+                Password = password_cred,
+                Email = email,
+                Phone = phone,
+                NickName = nickName,
+                PlainPassword = password,
+
+                UserType = UserType.customerservice,
+                LoginType = LoginType.original
+            };
+            if (registerValidateCode != Guid.Empty)
+            {
+                newMember.RegisterValidateCode = registerValidateCode.ToString();
+            }
+
+            repositoryDZMembership.Add(newMember);
+
+            return newMember;
+
         }
 
     }

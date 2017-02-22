@@ -93,6 +93,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Dto\DZMembershipCustomerServiceDto.cs" />
+    <Compile Include="Application\Dto\DZMembershipImageDto.cs" />
     <Compile Include="Application\Dto\Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Application\Dto\Mapping\DtoToModelMappingProfile.cs" />
     <Compile Include="Application\Dto\Mapping\ModelToDtoMappingProfile.cs" />
