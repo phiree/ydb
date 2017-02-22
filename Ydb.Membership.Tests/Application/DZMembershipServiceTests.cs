@@ -16,6 +16,7 @@ using Ydb.Membership.DomainModel.Service;
 using Rhino.Mocks;
 using Ydb.Common.Domain;
 using Ydb.Membership.DomainModel.Enums;
+using Ydb.Common.Application;
 
 namespace Ydb.Membership.ApplicationTests
 {
@@ -206,7 +207,7 @@ namespace Ydb.Membership.ApplicationTests
             string userName = "userName1";
             string password = "123456";
             DZMembership dzMembership = new DZMembershipCustomerService { UserName = userName, Password = "123456" };
-            dzmembershipDomainService.Stub(x => x.CreateCustomerService(userName, password,out errMsg)).Return(dzMembership).OutRef(errMsg);
+            dzmembershipDomainService.Stub(x => x.CreateCustomerService(userName, password, out errMsg)).Return(dzMembership).OutRef(errMsg);
             RegisterResult registerResult = dzMembershipService.RegisterCustomerService(userName, password, password, "");
             Assert.IsTrue(registerResult.RegisterSuccess);
             Assert.IsTrue(registerResult.SendEmailSuccess);
@@ -224,6 +225,93 @@ namespace Ydb.Membership.ApplicationTests
             Assert.IsFalse(registerResult.RegisterSuccess);
             Assert.AreEqual("密码不匹配", registerResult.RegisterErrMsg);
             Assert.IsTrue(registerResult.SendEmailSuccess);
+        }
+
+        [Test()]
+        public void DZMembershipService_ApplyDZMembershipCustomerService_RealNameIsEmpty_Test()
+        {
+            Guid memberId = Guid.NewGuid();
+            DZMembershipCustomerService dzMembership = new DZMembershipCustomerService() { Id=memberId};
+            dzmembershipDomainService.Stub(x => x.GetDZMembershipCustomerServiceById(memberId.ToString())).Return(dzMembership);
+            ActionResult result = dzMembershipService.ApplyDZMembershipCustomerService(memberId.ToString(),string.Empty,"personalId","phone",new List<DZMembershipImageDto> { new DZMembershipImageDto()},new DZMembershipImageDto());
+            Assert.IsFalse(result.IsSuccess);
+            Assert.AreEqual("助理申请出错:真实姓名不能为空", result.ErrMsg);
+
+        }
+
+        [Test()]
+        public void DZMembershipService_ApplyDZMembershipCustomerService_PersonalIdIsEmpty_Test()
+        {
+            Guid memberId = Guid.NewGuid();
+            DZMembershipCustomerService dzMembership = new DZMembershipCustomerService() { Id = memberId };
+            dzmembershipDomainService.Stub(x => x.GetDZMembershipCustomerServiceById(memberId.ToString())).Return(dzMembership);
+            ActionResult result = dzMembershipService.ApplyDZMembershipCustomerService(memberId.ToString(), "realName", "", "phone", new List<DZMembershipImageDto> { new DZMembershipImageDto() }, new DZMembershipImageDto());
+            Assert.IsFalse(result.IsSuccess);
+            Assert.AreEqual("助理申请出错:身份证件不能为空", result.ErrMsg);
+        }
+
+        [Test()]
+        public void DZMembershipService_ApplyDZMembershipCustomerService_PhoneIsEmpty_Test()
+        {
+            Guid memberId = Guid.NewGuid();
+            DZMembershipCustomerService dzMembership = new DZMembershipCustomerService() { Id = memberId };
+            dzmembershipDomainService.Stub(x => x.GetDZMembershipCustomerServiceById(memberId.ToString())).Return(dzMembership);
+            ActionResult result = dzMembershipService.ApplyDZMembershipCustomerService(memberId.ToString(), "realName", "personalId", "", new List<DZMembershipImageDto> { new DZMembershipImageDto() }, new DZMembershipImageDto());
+            Assert.IsFalse(result.IsSuccess);
+            Assert.AreEqual("助理申请出错:手机不能为空", result.ErrMsg);
+        }
+
+        [Test()]
+        public void DZMembershipService_ApplyDZMembershipCustomerService_CertificatesIsEmpty_Test()
+        {
+            Guid memberId = Guid.NewGuid();
+            DZMembershipCustomerService dzMembership = new DZMembershipCustomerService() { Id = memberId };
+            dzmembershipDomainService.Stub(x => x.GetDZMembershipCustomerServiceById(memberId.ToString())).Return(dzMembership);
+            ActionResult result = dzMembershipService.ApplyDZMembershipCustomerService(memberId.ToString(), "realName", "personalId", "phone", null, new DZMembershipImageDto());
+            Assert.IsFalse(result.IsSuccess);
+            Assert.AreEqual("助理申请出错:证件照片不能为空", result.ErrMsg);
+        }
+        [Test()]
+        public void DZMembershipService_ApplyDZMembershipCustomerService_DiplomaIsEmpty_Test()
+        {
+            Guid memberId = Guid.NewGuid();
+            DZMembershipCustomerService dzMembership = new DZMembershipCustomerService() { Id = memberId };
+            dzmembershipDomainService.Stub(x => x.GetDZMembershipCustomerServiceById(memberId.ToString())).Return(dzMembership);
+            ActionResult result = dzMembershipService.ApplyDZMembershipCustomerService(memberId.ToString(), "realName", "personalId", "phone", new List<DZMembershipImageDto> { new DZMembershipImageDto() }, null);
+            Assert.IsFalse(result.IsSuccess);
+            Assert.AreEqual("助理申请出错:学历证明不能为空", result.ErrMsg);
+        }
+
+        [Test()]
+        public void DZMembershipService_ApplyDZMembershipCustomerService_MemberNotExists_Test()
+        {
+            Guid memberId = Guid.NewGuid();
+            DZMembershipCustomerService dzMembership = new DZMembershipCustomerService() { Id = memberId };
+            dzmembershipDomainService.Stub(x => x.GetDZMembershipCustomerServiceById(memberId.ToString())).Return(null);
+            ActionResult result = dzMembershipService.ApplyDZMembershipCustomerService(memberId.ToString(), "realName", "personalId", "phone", new List<DZMembershipImageDto> { new DZMembershipImageDto() }, new DZMembershipImageDto());
+            Assert.IsFalse(result.IsSuccess);
+            Assert.AreEqual("助理申请出错:该助理不存在", result.ErrMsg);
+        }
+
+        [Test()]
+        public void DZMembershipService_ApplyDZMembershipCustomerService_ErrorImageType_Test()
+        {
+            Guid memberId = Guid.NewGuid();
+            DZMembershipCustomerService dzMembership = new DZMembershipCustomerService() { Id = memberId };
+            dzmembershipDomainService.Stub(x => x.GetDZMembershipCustomerServiceById(memberId.ToString())).Return(dzMembership);
+            ActionResult result = dzMembershipService.ApplyDZMembershipCustomerService(memberId.ToString(), "realName", "personalId", "phone", new List<DZMembershipImageDto> { new DZMembershipImageDto() }, new DZMembershipImageDto() );//
+            Assert.IsFalse(result.IsSuccess);
+            Assert.AreEqual("助理申请出错:图片类型必须为Certificate", result.ErrMsg);
+        }
+        
+        [Test()]
+        public void DZMembershipService_ApplyDZMembershipCustomerService_NotException_Test()
+        {
+            Guid memberId = Guid.NewGuid();
+            DZMembershipCustomerService dzMembership = new DZMembershipCustomerService() { Id = memberId };
+            dzmembershipDomainService.Stub(x => x.GetDZMembershipCustomerServiceById(memberId.ToString())).Return(dzMembership);
+            ActionResult result = dzMembershipService.ApplyDZMembershipCustomerService(memberId.ToString(), "realName", "personalId", "phone", new List<DZMembershipImageDto> { new DZMembershipImageDto() { ImageType = "Certificate" } }, new DZMembershipImageDto() { ImageType = "Diploma" });//
+            Assert.IsTrue(result.IsSuccess);
         }
     }
 }

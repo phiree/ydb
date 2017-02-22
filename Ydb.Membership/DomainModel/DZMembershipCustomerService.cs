@@ -11,6 +11,7 @@ namespace Ydb.Membership.DomainModel
     {
         public DZMembershipCustomerService():base()
         {
+            DZMembershipImages = new List<DZMembershipImage>();
             IsVerified = false;
             IsLocked = false;
         }

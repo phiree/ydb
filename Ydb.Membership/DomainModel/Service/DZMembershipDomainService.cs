@@ -350,28 +350,28 @@ namespace Ydb.Membership.DomainModel
         public DZMembershipCustomerService GetDZMembershipCustomerServiceByName(string userName)
         {
             DZMembership membership = repositoryDZMembership.GetMemberByName(userName);
-            if (membership.GetType() == typeof(DZMembershipCustomerService))
+            if (membership != null && membership.GetType() == typeof(DZMembershipCustomerService))
             {
                 return (DZMembershipCustomerService)membership;
             }
             else
             {
-                return null;
+                throw new Exception("该助理不存在");
             }
-            
+
         }
 
         [UnitOfWork]
         public DZMembershipCustomerService GetDZMembershipCustomerServiceById(string id)
         {
             DZMembership membership = repositoryDZMembership.GetMemberById(new Guid(id));
-            if (membership.GetType() == typeof(DZMembershipCustomerService))
+            if (membership!=null && membership.GetType() == typeof(DZMembershipCustomerService))
             {
                 return (DZMembershipCustomerService)membership;
             }
             else
             {
-                return null;
+                throw new Exception("该助理不存在");
             }
         }
 

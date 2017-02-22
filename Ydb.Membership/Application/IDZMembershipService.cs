@@ -177,14 +177,19 @@ namespace Ydb.Membership.Application
         /// </summary>
         /// <param name="membership"></param>
         /// <returns></returns>
-        Dto.RegisterResult CompleteDZMembership(MemberDto membershipDto);
+        ActionResult CompleteDZMembership(MemberDto membershipDto);
 
         /// <summary>
         /// 申请助理
         /// </summary>
-        /// <param name="membership"></param>
+        /// <param name="memberId"></param>
+        /// <param name="realName"></param>
+        /// <param name="personalID"></param>
+        /// <param name="phone"></param>
+        /// <param name="certificatesImageList"></param>
+        /// <param name="diplomaImage"></param>
         /// <returns></returns>
-        Dto.RegisterResult ApplyDZMembershipCustomerService(DZMembershipCustomerServiceDto membershipDto);
+        ActionResult ApplyDZMembershipCustomerService(string membershipId, string realName, string personalID, string phone, IList<Dto.DZMembershipImageDto> certificatesImageList, Dto.DZMembershipImageDto diplomaImage);
 
         /// <summary>
         /// 认证审核助理

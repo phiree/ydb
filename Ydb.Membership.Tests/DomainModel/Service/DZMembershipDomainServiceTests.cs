@@ -10,7 +10,7 @@ using Rhino.Mocks;
 using FizzWare.NBuilder;
 using Ydb.Common.Application;
 using Ydb.Common.Infrastructure;
-namespace Ydb.Membership.DomainModel.Tests
+namespace Ydb.Membership.DomainModelTests
 {
     [TestFixture()]
     public class DZMembershipDomainServiceTests
@@ -79,6 +79,70 @@ namespace Ydb.Membership.DomainModel.Tests
             string errMsg;
             DZMembership m = mds.ValidateUser(username, password, false, out errMsg);
             Assert.AreEqual(null, m);
+        }
+
+        [Test()]
+        public void DZMembershipDomainService_GetDZMembershipCustomerServiceByName_NotException_Test()
+        {
+            string username = "username";
+            DZMembershipCustomerService membership = Builder<DZMembershipCustomerService>.CreateNew().Build();
+            repositoryDZMembership.Stub(x => x.GetMemberByName(username)).Return(membership);
+
+            IDZMembershipDomainService mds = new DZMembershipDomainService(repositoryDZMembership, null, null, encryptService);
+            DZMembershipCustomerService m = mds.GetDZMembershipCustomerServiceByName(username);
+            Assert.AreEqual(membership, m);
+        }
+        [Test()]
+        public void DZMembershipDomainService_GetDZMembershipCustomerServiceByName_MemberNotExists_Test()
+        {
+            string username = "username";
+            DZMembershipCustomerService membership = Builder<DZMembershipCustomerService>.CreateNew().Build();
+            repositoryDZMembership.Stub(x => x.GetMemberByName(username)).Return(null);
+
+            IDZMembershipDomainService mds = new DZMembershipDomainService(repositoryDZMembership, null, null, encryptService);
+            DZMembershipCustomerService m = null;
+            try
+            {
+                m = mds.GetDZMembershipCustomerServiceByName(username);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsNull(m);
+                Assert.AreEqual("该助理不存在", ex.Message);
+            }
+        }
+
+        [Test()]
+        public void DZMembershipDomainService_GetDZMembershipCustomerServiceById_NotException_Test()
+        {
+            Guid memberId=Guid.NewGuid();
+            DZMembershipCustomerService membership = Builder<DZMembershipCustomerService>.CreateNew().With(x=>x.Id=memberId).Build();
+            repositoryDZMembership.Stub(x => x.GetMemberById(memberId)).Return(membership);
+
+            IDZMembershipDomainService mds = new DZMembershipDomainService(repositoryDZMembership, null, null, encryptService);
+            DZMembershipCustomerService m = mds.GetDZMembershipCustomerServiceById(memberId.ToString());
+            Assert.AreEqual(membership, m);
+        }
+        [Test()]
+        public void DZMembershipDomainService_GetDZMembershipCustomerServiceById_MemberNotExists_Test()
+        {
+            Guid memberId = Guid.NewGuid();
+            DZMembershipCustomerService membership = Builder<DZMembershipCustomerService>.CreateNew().With(x => x.Id = memberId).Build();
+            repositoryDZMembership.Stub(x => x.GetMemberById(memberId)).Return(null);
+
+            IDZMembershipDomainService mds = new DZMembershipDomainService(repositoryDZMembership, null, null, encryptService);
+            DZMembershipCustomerService m = null;
+            try
+            {
+                m = mds.GetDZMembershipCustomerServiceById(memberId.ToString());
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsNull(m);
+                Assert.AreEqual("该助理不存在", ex.Message);
+            }
         }
     }
 }

@@ -39,7 +39,11 @@ namespace Ydb.Membership.DomainModel
         /// <summary>
         /// 图片的类型,
         /// </summary>
-        public virtual DZMembershipImageType ImageType { get; protected internal set; }
+        public virtual DZMembershipImageType ImageType
+        {
+            get;
+            protected internal set;
+        }
         /// <summary>
         /// 是否是当前使用的图片
         /// </summary>
