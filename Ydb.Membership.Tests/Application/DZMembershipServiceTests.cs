@@ -283,17 +283,6 @@ namespace Ydb.Membership.ApplicationTests
         }
 
         [Test()]
-        public void DZMembershipService_ApplyDZMembershipCustomerService_MemberNotExists_Test()
-        {
-            Guid memberId = Guid.NewGuid();
-            DZMembershipCustomerService dzMembership = new DZMembershipCustomerService() { Id = memberId };
-            dzmembershipDomainService.Stub(x => x.GetDZMembershipCustomerServiceById(memberId.ToString())).Return(null);
-            ActionResult result = dzMembershipService.ApplyDZMembershipCustomerService(memberId.ToString(), "realName", "personalId", "phone", new List<DZMembershipImageDto> { new DZMembershipImageDto() }, new DZMembershipImageDto());
-            Assert.IsFalse(result.IsSuccess);
-            Assert.AreEqual("助理申请出错:该助理不存在", result.ErrMsg);
-        }
-
-        [Test()]
         public void DZMembershipService_ApplyDZMembershipCustomerService_ErrorImageType_Test()
         {
             Guid memberId = Guid.NewGuid();

@@ -226,6 +226,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AgentController.cs" />
+    <Compile Include="Controllers\AgentCustomerServiceManageController.cs" />
     <Compile Include="Controllers\AgentFinanceController.cs" />
     <Compile Include="Controllers\AgentTotalBusinessController.cs" />
     <Compile Include="Controllers\AgentTotalUserController.cs" />
@@ -640,6 +641,7 @@
     <Content Include="Views\AgentTotalBusiness\total_business.cshtml" />
     <Content Include="Views\AgentTotalBusiness\total_business_detail.cshtml" />
     <Content Include="Views\AgentFinance\finance_account.cshtml" />
+    <Content Include="Views\AgentCustomerServiceManage\assistant_validate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

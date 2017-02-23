@@ -103,6 +103,7 @@ namespace Ydb.Membership.DomainModelTests
             DZMembershipCustomerService dzMembershipCustomerService = new DZMembershipCustomerService();
             dzMembershipCustomerService.Verification(true, "234");
             Assert.IsTrue(dzMembershipCustomerService.IsVerified);
+            Assert.IsTrue(dzMembershipCustomerService.VerificationIsAgree);
             Assert.AreEqual("234", dzMembershipCustomerService.RefuseReason);
         }
 
@@ -110,11 +111,6 @@ namespace Ydb.Membership.DomainModelTests
         public void DZMembershipCustomerService_Verification_NotVerify_Test()
         {
             DZMembershipCustomerService dzMembershipCustomerService = new DZMembershipCustomerService();
-            dzMembershipCustomerService.Verification(false, "234");
-            Assert.IsFalse(dzMembershipCustomerService.IsVerified);
-            Assert.AreEqual("234", dzMembershipCustomerService.RefuseReason);
-            DZMembershipCustomerService dzMembershipCustomerService1 = new DZMembershipCustomerService();
-            dzMembershipCustomerService.Verification(true, "");
             try
             {
                 dzMembershipCustomerService.Verification(false, "");
@@ -122,8 +118,31 @@ namespace Ydb.Membership.DomainModelTests
             }
             catch (Exception ex)
             {
-                Assert.IsTrue(dzMembershipCustomerService.IsVerified);
+                Assert.IsFalse(dzMembershipCustomerService.IsVerified);
+                Assert.IsFalse(dzMembershipCustomerService.VerificationIsAgree);
                 Assert.AreEqual("拒绝原因不能为空!", ex.Message);
+            }
+            dzMembershipCustomerService.Verification(false, "123");
+            Assert.IsTrue(dzMembershipCustomerService.IsVerified);
+            Assert.IsFalse(dzMembershipCustomerService.VerificationIsAgree);
+            Assert.AreEqual("123", dzMembershipCustomerService.RefuseReason);
+        }
+
+        [Test()]
+        public void DZMembershipCustomerService_Verification_RepeatVerify_Test()
+        {
+            DZMembershipCustomerService dzMembershipCustomerService = new DZMembershipCustomerService();
+            dzMembershipCustomerService.Verification(true, "");
+            try
+            {
+                dzMembershipCustomerService.Verification(false, "123");
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(dzMembershipCustomerService.IsVerified);
+                Assert.IsTrue(dzMembershipCustomerService.VerificationIsAgree);
+                Assert.AreEqual("该客服已经验证过了!", ex.Message);
             }
         }
 

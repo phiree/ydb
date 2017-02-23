@@ -137,5 +137,39 @@ namespace Ydb.Membership.DomainModel.DataStatistics
             return statisticsInfo;
         }
 
+
+        public IDictionary<string,IList<DZMembershipCustomerService>> StatisticsVerifiedCustomerServiceByArea(IList<DZMembership> memberList, IList<Area> areaList,IList<string> memberKey)
+        {
+            IDictionary<string, IList<DZMembershipCustomerService>> dic = new Dictionary<string, IList<DZMembershipCustomerService>>();
+            foreach (string strKey in memberKey)
+            {
+                dic.Add(strKey, new List<DZMembershipCustomerService>());
+            }
+            foreach (DZMembership member in memberList)
+            {
+                if (member.GetType() == typeof(DZMembershipCustomerService))
+                {
+                    DZMembershipCustomerService membershipCustomerService = (DZMembershipCustomerService)member;
+                }
+            }
+            return dic;
+        }
+
+        public bool CheckCustomerServiceByArea(DZMembershipCustomerService member, string strKey)
+        {
+            switch (strKey)
+            {
+                case "NotVerifiedCustomerService":
+                    return member.IsVerified;
+                case "AgreeVerifiedCustomerService":
+                    return member.VerificationIsAgree;
+                case "RefuseVerifiedCustomerService":
+                    return !member.VerificationIsAgree;
+                case "MyCustomerService":
+                    return member.IsAgentCustomerService;
+                default:return false;
+            }
+        }
+
     }
 }

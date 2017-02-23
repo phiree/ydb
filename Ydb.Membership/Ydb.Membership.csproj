@@ -95,12 +95,14 @@
   <ItemGroup>
     <Compile Include="Application\Dto\DZMembershipCustomerServiceDto.cs" />
     <Compile Include="Application\Dto\DZMembershipImageDto.cs" />
+    <Compile Include="Application\Dto\Enum_ValiedateCustomerServiceType.cs" />
     <Compile Include="Application\Dto\Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Application\Dto\Mapping\DtoToModelMappingProfile.cs" />
     <Compile Include="Application\Dto\Mapping\ModelToDtoMappingProfile.cs" />
     <Compile Include="Application\Dto\MemberWeChatDto.cs" />
     <Compile Include="Application\Dto\MemberDto.cs" />
     <Compile Include="Application\Dto\ApplyRecoveryResult.cs" />
+    <Compile Include="Application\Dto\ValidateCustomerServiceDto.cs" />
     <Compile Include="Application\Dto\ValidateResult.cs" />
     <Compile Include="Application\Dto\RegisterResult.cs" />
     <Compile Include="Application\DZMembershipService.cs" />
