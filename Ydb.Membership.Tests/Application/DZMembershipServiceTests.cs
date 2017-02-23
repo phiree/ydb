@@ -17,6 +17,7 @@ using Rhino.Mocks;
 using Ydb.Common.Domain;
 using Ydb.Membership.DomainModel.Enums;
 using Ydb.Common.Application;
+using Ydb.Common.Enums;
 
 namespace Ydb.Membership.ApplicationTests
 {
@@ -231,9 +232,9 @@ namespace Ydb.Membership.ApplicationTests
         public void DZMembershipService_ApplyDZMembershipCustomerService_RealNameIsEmpty_Test()
         {
             Guid memberId = Guid.NewGuid();
-            DZMembershipCustomerService dzMembership = new DZMembershipCustomerService() { Id=memberId};
+            DZMembershipCustomerService dzMembership = new DZMembershipCustomerService() { Id = memberId };
             dzmembershipDomainService.Stub(x => x.GetDZMembershipCustomerServiceById(memberId.ToString())).Return(dzMembership);
-            ActionResult result = dzMembershipService.ApplyDZMembershipCustomerService(memberId.ToString(),string.Empty,"personalId","phone",new List<DZMembershipImageDto> { new DZMembershipImageDto()},new DZMembershipImageDto());
+            ActionResult result = dzMembershipService.ApplyDZMembershipCustomerService(memberId.ToString(), string.Empty, "personalId", "phone", new List<DZMembershipImageDto> { new DZMembershipImageDto() }, new DZMembershipImageDto());
             Assert.IsFalse(result.IsSuccess);
             Assert.AreEqual("助理申请出错:真实姓名不能为空", result.ErrMsg);
 
@@ -288,11 +289,11 @@ namespace Ydb.Membership.ApplicationTests
             Guid memberId = Guid.NewGuid();
             DZMembershipCustomerService dzMembership = new DZMembershipCustomerService() { Id = memberId };
             dzmembershipDomainService.Stub(x => x.GetDZMembershipCustomerServiceById(memberId.ToString())).Return(dzMembership);
-            ActionResult result = dzMembershipService.ApplyDZMembershipCustomerService(memberId.ToString(), "realName", "personalId", "phone", new List<DZMembershipImageDto> { new DZMembershipImageDto() }, new DZMembershipImageDto() );//
+            ActionResult result = dzMembershipService.ApplyDZMembershipCustomerService(memberId.ToString(), "realName", "personalId", "phone", new List<DZMembershipImageDto> { new DZMembershipImageDto() }, new DZMembershipImageDto());//
             Assert.IsFalse(result.IsSuccess);
             Assert.AreEqual("助理申请出错:图片类型必须为Certificate", result.ErrMsg);
         }
-        
+
         [Test()]
         public void DZMembershipService_ApplyDZMembershipCustomerService_NotException_Test()
         {
@@ -301,6 +302,34 @@ namespace Ydb.Membership.ApplicationTests
             dzmembershipDomainService.Stub(x => x.GetDZMembershipCustomerServiceById(memberId.ToString())).Return(dzMembership);
             ActionResult result = dzMembershipService.ApplyDZMembershipCustomerService(memberId.ToString(), "realName", "personalId", "phone", new List<DZMembershipImageDto> { new DZMembershipImageDto() { ImageType = "Certificate" } }, new DZMembershipImageDto() { ImageType = "Diploma" });//
             Assert.IsTrue(result.IsSuccess);
+        }
+
+        [Test()]
+        public void DZMembershipService_GetVerifiedDZMembershipCustomerServiceByArea_Test()
+        {
+            IDictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto =null;
+            IDictionary<string, IList<DZMembershipCustomerService>> dic = new Dictionary<string, IList<DZMembershipCustomerService>>();
+            IList<string> memberKey = EnumberHelper.EnumNameToList<Enum_ValiedateCustomerServiceType>();
+            foreach (string strKey in memberKey)
+            {
+                dic.Add(strKey, new List<DZMembershipCustomerService>());
+            }
+            IList<Area> areaList = new List<Area> { new Area {Id=1,Name="北京市" },
+                new Area {Id=2,Name="北京市市辖区" },
+                new Area {Id=3,Name="北京市东城区" },
+                new Area {Id=4,Name="北京市西城区" },
+                new Area {Id=5,Name="北京市崇文区" },
+                new Area {Id=6,Name="北京市宣武区" },
+                new Area {Id=7,Name="北京市朝阳区" },
+                new Area {Id=8,Name="北京市丰台区" },
+                new Area {Id=9,Name="北京市石景山区" }};
+            IList<string> AreaIdList = areaList.Select(x => x.Id.ToString()).ToList();
+            IList<DZMembership> memberList = new List<DZMembership>();
+            repositoryMembership.Stub(x => x.GetUsersByArea(AreaIdList, DateTime.MinValue, DateTime.MinValue, UserType.customerservice)).Return(memberList);
+            statisticsMembershipCount.Stub(x => x.StatisticsVerifiedCustomerServiceByArea(memberList, areaList,memberKey)).Return(dic);
+            dicDto = dzMembershipService.GetVerifiedDZMembershipCustomerServiceByArea(areaList);
+            Assert.IsNotNull(dicDto);
+            Assert.AreEqual(4, dicDto.Count );
         }
     }
 }

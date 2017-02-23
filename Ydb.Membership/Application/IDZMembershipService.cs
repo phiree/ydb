@@ -147,21 +147,21 @@ namespace Ydb.Membership.Application
         /// <param name="areaList"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-         StatisticsInfo GetStatisticsAllMembershipsCountListByAppName(IList<string> areaList, UserType userType);
+        StatisticsInfo GetStatisticsAllMembershipsCountListByAppName(IList<string> areaList, UserType userType);
         /// <summary>
         /// 根据用户性别统计用户数量列表
         /// </summary>
         /// <param name="areaList"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-         StatisticsInfo GetStatisticsAllMembershipsCountListBySex(IList<string> areaList, UserType userType);
+        StatisticsInfo GetStatisticsAllMembershipsCountListBySex(IList<string> areaList, UserType userType);
         /// <summary>
         /// 根据用户所在子区域统计用户数量列表
         /// </summary>
         /// <param name="areaList"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-         StatisticsInfo GetStatisticsAllMembershipsCountListByArea(IList<Area> areaList, UserType userType);
+        StatisticsInfo GetStatisticsAllMembershipsCountListByArea(IList<Area> areaList, UserType userType);
 
         /// <summary>
         /// 根据用户所在子区域统计用户列表
@@ -219,5 +219,11 @@ namespace Ydb.Membership.Application
         /// <returns></returns>
         Dto.DZMembershipCustomerServiceDto GetDZMembershipCustomerServiceById(string id);
 
+        /// <summary>
+        /// 根据代理区域获取其助理的验证信息获取客服
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        IDictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> GetVerifiedDZMembershipCustomerServiceByArea(IList<Area> areaList);
     }
 }

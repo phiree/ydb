@@ -15,6 +15,7 @@ using Ydb.Common.Repository;
 using Ydb.Membership.DomainModel.Service;
 using Ydb.Membership.DomainModel.DataStatistics;
 using Ydb.Common.Domain;
+using Ydb.Common.Enums;
 
 namespace Ydb.Membership.Application
 {
@@ -781,6 +782,25 @@ namespace Ydb.Membership.Application
             
             Dto.DZMembershipCustomerServiceDto memberDto = Mapper.Map<DZMembershipCustomerService, Dto.DZMembershipCustomerServiceDto>(membership);
             return memberDto;
+        }
+
+        /// <summary>
+        /// 根据代理区域获取其助理的验证信息获取客服
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public IDictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> GetVerifiedDZMembershipCustomerServiceByArea(IList<Area> areaList)
+        {
+            IDictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto = new Dictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>>();
+            IList<string> AreaIdList = areaList.Select(x => x.Id.ToString()).ToList();
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(AreaIdList, DateTime.MinValue, DateTime.MinValue, UserType.customerservice);
+            IDictionary<string, IList<DZMembershipCustomerService>> dic = statisticsMembershipCount.StatisticsVerifiedCustomerServiceByArea(memberList, areaList, EnumberHelper.EnumNameToList<Enum_ValiedateCustomerServiceType>());
+            foreach (KeyValuePair<string, IList<DZMembershipCustomerService>> pair in dic)
+            {
+                dicDto.Add((Enum_ValiedateCustomerServiceType)Enum.Parse(typeof(Enum_ValiedateCustomerServiceType), pair.Key), Mapper.Map<IList<DZMembershipCustomerServiceDto>>(pair.Value));
+            }
+            return dicDto;
         }
 
     }
