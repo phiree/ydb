@@ -86,6 +86,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Application\AgentService\AgentNoticeServiceTests.cs" />
     <Compile Include="Application\AgentService\DataStatistics\StatisticsCountTests.cs" />
     <Compile Include="Application\AgentService\OrdersServiceTests.cs" />
     <Compile Include="Application\AgentService\FinanceFlowServiceTests.cs" />
@@ -101,6 +102,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OpenfireExtension\OpenfireExtension.csproj">
+      <Project>{8b398f01-b6bb-409f-89ef-b874899c05e0}</Project>
+      <Name>OpenfireExtension</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ydb.ApplicationService\Ydb.ApplicationService.csproj">
       <Project>{515A3298-F38B-40E0-968C-5C65EFB2AFFE}</Project>
       <Name>Ydb.ApplicationService</Name>
