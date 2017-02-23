@@ -16,39 +16,51 @@ namespace Ydb.InstantMessage.Infrastructure
     /// </summary>
     public class OpenfireXMPP : IInstantMessage
     {
-        log4net.ILog log = log4net.LogManager.GetLogger("Ydb.InstantMessage.Infrastructure.OpenfireXMPP");
- 
-        static agsXMPP.XmppClientConnection XmppClientConnection;
+        private log4net.ILog log = log4net.LogManager.GetLogger("Ydb.InstantMessage.Infrastructure.OpenfireXMPP");
 
+        private static agsXMPP.XmppClientConnection XmppClientConnection;
 
         public event IMClosed IMClosed;
+
         public event IMLogined IMLogined;
+
         public event IMAuthError IMAuthError;
+
         public event IMPresent IMPresent;
+
         public event IMReceivedMessage IMReceivedMessage;
+
         public event IMError IMError;
+
         public event IMConnectionError IMConnectionError;
+
         public event IMIQ IMIQ;
+
         public event IMStreamError IMStreamError;
-        IMessageAdapter messageAdapter;
-        IReceptionAssigner receptionAssigner;
-        IRepositoryChat repositoryChat;
+
+        private IMessageAdapter messageAdapter;
+        private IReceptionAssigner receptionAssigner;
+        private IRepositoryChat repositoryChat;
         private string server = string.Empty;
         private string domain = string.Empty;
+
         public string Server
         {
             get { return server; }
         }
+
         public string Domain
         {
             get { return domain; }
         }
-        public OpenfireXMPP(string server,string domain, IMessageAdapter messageAdapter, IReceptionAssigner receptionAssigner, IRepositoryChat repositoryChat, string resourceName)
-            : this(server,domain, messageAdapter, receptionAssigner, repositoryChat)
+
+        public OpenfireXMPP(string server, string domain, IMessageAdapter messageAdapter, IReceptionAssigner receptionAssigner, IRepositoryChat repositoryChat, string resourceName)
+            : this(server, domain, messageAdapter, receptionAssigner, repositoryChat)
         {
             XmppClientConnection.Resource = resourceName;
         }
-        public OpenfireXMPP(string server,string domain, IMessageAdapter messageAdapter, IReceptionAssigner receptionAssigner,IRepositoryChat repositoryChat)
+
+        public OpenfireXMPP(string server, string domain, IMessageAdapter messageAdapter, IReceptionAssigner receptionAssigner, IRepositoryChat repositoryChat)
         {
             this.server = server;
             this.domain = domain;
@@ -59,7 +71,7 @@ namespace Ydb.InstantMessage.Infrastructure
             if (XmppClientConnection == null)
             {
                 XmppClientConnection = new agsXMPP.XmppClientConnection();
-                XmppClientConnection.Server =domain;
+                XmppClientConnection.Server = domain;
                 XmppClientConnection.ConnectServer = server;
                 XmppClientConnection.AutoResolveConnectServer = false;
                 XmppClientConnection.OnLogin += new agsXMPP.ObjectHandler(Connection_OnLogin);
@@ -71,7 +83,6 @@ namespace Ydb.InstantMessage.Infrastructure
                 XmppClientConnection.OnClose += new ObjectHandler(XmppClientConnection_OnClose);
                 XmppClientConnection.OnIq += XmppClientConnection_OnIq;
                 XmppClientConnection.OnStreamError += XmppClientConnection_OnStreamError;
-
             }
         }
 
@@ -81,12 +92,11 @@ namespace Ydb.InstantMessage.Infrastructure
             if (IMStreamError != null)
             {
                 IMStreamError();
-            }            
+            }
         }
 
         private void XmppClientConnection_OnIq(object sender, IQ iq)
         {
-           
             log.Debug("receive_iq:" + iq.ToString());
             if (iq.Type == IqType.get)
             {
@@ -96,28 +106,31 @@ namespace Ydb.InstantMessage.Infrastructure
                 log.Debug("send_iq:" + pong);
             }
         }
-        void XmppClientConnection_OnSocketError(object sender, Exception ex)
+
+        private void XmppClientConnection_OnSocketError(object sender, Exception ex)
         {
             log.Debug("Receive  SocketError:" + ex.Message);
             if (IMConnectionError == null) return;
             IMConnectionError(ex.Message);
         }
-        void XmppClientConnection_OnError(object sender, Exception ex)
+
+        private void XmppClientConnection_OnError(object sender, Exception ex)
         {
             log.Debug("Receive  Error:" + ex.Message);
             if (IMError == null) return;
             IMError(ex.Message);
         }
-        void XmppClientConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
+
+        private void XmppClientConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
         {
             log.Debug("Receive AuthError:" + e.ToString());
             if (IMAuthError == null) return;
             IMAuthError();
         }
-        void XmppClientConnection_OnMessage(object sender, Message msg)
-        {
 
-            //Action a = () => { 
+        private void XmppClientConnection_OnMessage(object sender, Message msg)
+        {
+            //Action a = () => {
             //接受消息,由presenter构建chat
             //message-->chat
             //1 转换为chat对象
@@ -134,12 +147,15 @@ namespace Ydb.InstantMessage.Infrastructure
                         case "ReceptionChat":
                             dtoChat = chat.ToDto();
                             break;
+
                         case "ReceptionChatMedia":
                             dtoChat = ((ReceptionChatMedia)chat).ToDto();
                             break;
+
                         case "ReceptionChatPushService":
                             dtoChat = ((ReceptionChatPushService)chat).ToDto();
                             break;
+
                         case "ReceptionChatNoticeCustomerServiceOnline":
                         case "ReceptionChatNoticeCustomerServiceOffline":
                         case "ReceptionChatNoticeOrder":
@@ -153,25 +169,25 @@ namespace Ydb.InstantMessage.Infrastructure
                 catch (Exception ex)
                 {
                     log.Error(ex.Message);
-                  //  PHSuit.ExceptionLoger.ExceptionLog(log, ex);
+                    //  PHSuit.ExceptionLoger.ExceptionLog(log, ex);
                 }
             }
 
             //};
             //NHibernateUnitOfWork.With.Transaction(a);
-
         }
-        void Connection_OnPresence(object sender, Presence pres)
+
+        private void Connection_OnPresence(object sender, Presence pres)
         {
             log.Debug("Receive Presence:" + pres);
-            
+
             if (IMPresent != null)
             {
-                
                 IMPresent(pres.From.User, (int)pres.Type);
             }
         }
-        void Connection_OnLogin(object sender)
+
+        private void Connection_OnLogin(object sender)
         {
             if (IMLogined == null) return;
             IMLogined(XmppClientConnection.Username);
@@ -182,6 +198,7 @@ namespace Ydb.InstantMessage.Infrastructure
             tmHeartBeat.Interval = 5 * 60 * 1000;
             tmHeartBeat.Start();
         }
+
         private void TmHeartBeat_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             IQ iqHeartBeat = new IQ(IqType.get, XmppClientConnection.MyJID, server);
@@ -190,16 +207,17 @@ namespace Ydb.InstantMessage.Infrastructure
             iqHeartBeat.AddChild(pingNode);
 
             XmppClientConnection.Send(iqHeartBeat);
-            log.Debug("HeartBeat"+iqHeartBeat.ToString());
+            log.Debug("HeartBeat" + iqHeartBeat.ToString());
         }
+
         public void SendPresent()
         {
-          
             Presence p = new Presence(ShowType.chat, "Online");
             p.Type = PresenceType.available;
-            log.Debug("send present:"+p.ToString());
+            log.Debug("send present:" + p.ToString());
             XmppClientConnection.Send(p);
         }
+
         public void SendMessage(ReceptionChat chat)
         {
             //判断用户对应的tokoen
@@ -207,25 +225,30 @@ namespace Ydb.InstantMessage.Infrastructure
             Message msg = messageAdapter.ChatToMessage(chat, domain);
             log.Debug("send chat message" + msg.ToString());
             XmppClientConnection.Send(msg);
-
         }
-        //todo:发送消息 应该分离出来, 用来处理 xmpp发送和 push.
-        
+
+        public void SendNotice(string title, string content)
+        {
+        }//todo:发送消息 应该分离出来, 用来处理 xmpp发送和 push.
+
         public void SendMessage(string xml)
         {
             log.Debug("send xml message" + xml);
             XmppClientConnection.Send(xml);
         }
+
         public void Close()
         {
             log.Debug("xmppconenction close ");
             XmppClientConnection.Close();
         }
+
         public void OpenConnection(string userName, string password)
         {
-            log.Debug("xmpp open connection:"+userName);
+            log.Debug("xmpp open connection:" + userName);
             XmppClientConnection.Open(userName, password);
         }
+
         public void XmppClientConnection_OnClose(object sender)
         {
             log.Debug("Connection closed");
@@ -236,7 +259,7 @@ namespace Ydb.InstantMessage.Infrastructure
         public void SendMessageMedia(Guid messageId, string mediaUrl, string mediaType, string to, string sessionId, string toResource)
         {
             XmppResource resourceTo;
-            if(!Enum.TryParse(toResource,out resourceTo))
+            if (!Enum.TryParse(toResource, out resourceTo))
             {
                 throw new Exception("传入的toResource有误");
             }
@@ -308,7 +331,7 @@ namespace Ydb.InstantMessage.Infrastructure
                 throw new Exception("传入的toResource有误");
             }
             ReceptionChatFactory receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, to, messageBody, sessionId, XmppResource.Unknow, resourceTo);
-            ReceptionChat chat = receptionChatFactory.CreateNoticeOrder(orderTilte,orderStatus,orderType);
+            ReceptionChat chat = receptionChatFactory.CreateNoticeOrder(orderTilte, orderStatus, orderType);
             SendMessage(chat);
         }
 

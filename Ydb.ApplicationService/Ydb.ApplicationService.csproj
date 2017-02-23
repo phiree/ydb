@@ -68,6 +68,8 @@
     <Compile Include="Application\AgentService\FinanceFlowService.cs" />
     <Compile Include="Application\AgentService\IFinanceFlowService.cs" />
     <Compile Include="Application\AgentService\IOrdersService.cs" />
+    <Compile Include="Application\AgentService\INoticeService.cs" />
+    <Compile Include="Application\AgentService\NoticeService.cs" />
     <Compile Include="Application\AgentService\OrdersService.cs" />
     <Compile Include="AutoMapping\AutoMapperConfiguration.cs" />
     <Compile Include="AutoMapping\ModelToDtoMappingProfile.cs" />
@@ -85,6 +87,14 @@
       <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Notice\Ydb.Notice.csproj">
+      <Project>{db0dd68a-1a9b-4028-b4fb-477e447edb6e}</Project>
+      <Name>Ydb.Notice</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenfireExtension\OpenfireExtension.csproj">
+      <Project>{8b398f01-b6bb-409f-89ef-b874899c05e0}</Project>
+      <Name>OpenfireExtension</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ydb.BusinessResource\Ydb.BusinessResource.csproj">
       <Project>{0c2206a1-308f-4090-a4a9-4e7cefd2fd9f}</Project>
       <Name>Ydb.BusinessResource</Name>
@@ -101,6 +111,10 @@
       <Project>{3d510583-1c11-48fb-8380-12e183e5914b}</Project>
       <Name>Ydb.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
+      <Project>{a141eb7d-6e71-43c1-9ca7-12af1b74c1c7}</Project>
+      <Name>Ydb.InstantMessage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ydb.Membership\Ydb.Membership.csproj">
       <Project>{6a7ed67d-846d-46c6-84b0-82b8556f0b8f}</Project>
       <Name>Ydb.Membership</Name>
@@ -108,6 +122,10 @@
     <ProjectReference Include="..\Ydb.Order\Ydb.Order.csproj">
       <Project>{901e2a8a-e608-4477-b9bc-f583d818d87f}</Project>
       <Name>Ydb.Order</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Push\Ydb.Push.csproj">
+      <Project>{e0661833-5498-4f1d-94e7-35c39c5bd8b9}</Project>
+      <Name>Ydb.Push</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B8D4E5EE-E533-46A1-9E70-42FD66B69D8C}</ProjectGuid>
+    <ProjectGuid>{482CF3FE-EF85-4AD5-922C-3144637C393D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ydb.PushTests</RootNamespace>
-    <AssemblyName>Ydb.PushTests</AssemblyName>
+    <RootNamespace>OpenfireExtensionTests</RootNamespace>
+    <AssemblyName>OpenfireExtensionTests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -36,10 +36,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FizzWare.NBuilder, Version=4.0.0.115, Culture=neutral, PublicKeyToken=5651b03e12e42c12, processorArchitecture=MSIL">
-      <HintPath>..\packages\NBuilder.4.0.0\lib\net40\FizzWare.NBuilder.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
@@ -55,17 +51,17 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Application\PushServiceTests.cs" />
-    <Compile Include="DomainModel\PushMessageBuilderTests.cs" />
+    <Compile Include="OpenfireDbServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ydb.Push\Ydb.Push.csproj">
-      <Project>{E0661833-5498-4F1D-94E7-35C39C5BD8B9}</Project>
-      <Name>Ydb.Push</Name>
+    <ProjectReference Include="..\OpenfireExtension\OpenfireExtension.csproj">
+      <Project>{8B398F01-B6BB-409F-89EF-B874899C05E0}</Project>
+      <Name>OpenfireExtension</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

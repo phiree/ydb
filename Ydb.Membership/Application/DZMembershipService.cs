@@ -15,7 +15,7 @@ using Ydb.Common.Repository;
 using Ydb.Membership.DomainModel.Service;
 using Ydb.Membership.DomainModel.DataStatistics;
 using Ydb.Common.Domain;
-
+using Ydb.Common;
 namespace Ydb.Membership.Application
 {
     public class DZMembershipService : IDZMembershipService
