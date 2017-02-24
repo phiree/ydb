@@ -7,34 +7,24 @@ using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.Common.Domain;
 
+
 namespace AdminAgent.Controllers
 {
     public class AgentCustomerServiceManageController : Controller
     {
         IDZMembershipService dzMembershipService = Bootstrap.Container.Resolve<IDZMembershipService>();
-        IList<Area> areaList = new List<Area> { new Area { Id = 2445 }, new Area { Id = 2446 }, new Area { Id = 2447 }, new Area { Id = 2448 }, new Area { Id = 2449 }, new Area { Id = 2450 } };
-        MemberDto memberAgent = new MemberDto();
+        IList<Area> areaList = MockData.areaList;
         public ActionResult assistant_validate()
         {
             try
             {
-                IDictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto = dzMembershipService.GetVerifiedDZMembershipCustomerServiceByArea(areaList);
-                for (int i = 1; i < 15; i++)
-                {
-                    DZMembershipCustomerServiceDto member = new DZMembershipCustomerServiceDto()
-                    {
-                        Id = Guid.NewGuid(),
-                        DisplayName = "DisplayName" + i.ToString(),
-                        Phone = "1363769130" + i.ToString(),
-                        QQNumber = "50264711" + i.ToString(),
-                        TimeCreated = DateTime.Now.AddDays(-12).AddHours(i),
-                        ApplyTime = DateTime.Now.AddDays(-1).AddHours(i)
-                    };
-                    dicDto[Enum_ValiedateCustomerServiceType.NotVerifiedCustomerService].Add(member);
-                }
+                //模拟数据
+                IDictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto = MockData.dicDto;
+                //接口
+                //IDictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto = dzMembershipService.GetVerifiedDZMembershipCustomerServiceByArea(areaList);
                 foreach (KeyValuePair<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> d in dicDto)
                 {
-                    TempData[d.Key.ToString()] = d.Value.Select(x => x.Id).ToString();
+                    TempData[d.Key.ToString()] = d.Value.Select(x => x.Id.ToString()).ToList();
                 }
                 return View(dicDto);
             }
@@ -51,7 +41,10 @@ namespace AdminAgent.Controllers
             {
                 TempData["assistant_validate_info_id"] = id;
                 TempData["assistant_validate_info_type"] = type;
-                DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
+                //接口
+                //DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
+                //模拟数据
+                DZMembershipCustomerServiceDto member = MockData.GetDZMembershipCustomerServiceDtoById(id,type);
                 return View(member);
             }
             catch (Exception ex)
@@ -93,9 +86,9 @@ namespace AdminAgent.Controllers
         {
             string id=TempData["assistant_validate_info_id"].ToString();
             string type=TempData["assistant_validate_info_type"].ToString();
-            var list =(List<Guid>)TempData[type];
+            var list =(List<string>)TempData[type];
             TempData[type] = list;
-            int index = list.IndexOf(new Guid(id));
+            int index = list.IndexOf(id);
             if (index == list.Count - 1)
             {
                 Response.StatusCode = 400;

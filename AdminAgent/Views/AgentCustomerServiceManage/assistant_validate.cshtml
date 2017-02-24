@@ -79,7 +79,7 @@
                                 {
                                     <tr>
                                         <td>@(i + 1)</td>
-                                        <td><a href="./order.html">@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i].DisplayName)</a></td>
+                                        <td><a href="./assistant_validate_info?type=@Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService.ToString()&id=@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i].Id).ToString()">@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i].DisplayName)</a></td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i].UserCity)</td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i].Phone)</td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i].QQNumber)</td>
@@ -120,7 +120,7 @@
                                 {
                                     <tr>
                                         <td>@(i + 1)</td>
-                                        <td><a href="./order.html">@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i].DisplayName)</a></td>
+                                        <td><a href="./assistant_validate_info?type=@Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService.ToString()&id=@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i].Id).ToString()">@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i].DisplayName)</a></td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i].UserCity)</td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i].Phone)</td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i].QQNumber)</td>
@@ -160,7 +160,7 @@
                                 {
                                     <tr>
                                         <td>@(i + 1)</td>
-                                        <td><a href="./order.html">@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.MyCustomerService][i].DisplayName)</a></td>
+                                        <td><a href="./assistant_validate_info?type=@Enum_ValiedateCustomerServiceType.MyCustomerService.ToString()&id=@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.MyCustomerService][i].Id).ToString()">@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.MyCustomerService][i].DisplayName)</a></td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.MyCustomerService][i].UserCity)</td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.MyCustomerService][i].Phone)</td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.MyCustomerService][i].QQNumber)</td>

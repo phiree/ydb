@@ -355,6 +355,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.ApiClient", "Ydb.ApiCli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.ApiClientTests", "Ydb.ApiClientTests\Ydb.ApiClientTests.csproj", "{CF50FAF0-1081-45E1-8363-7BB4459E63DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminAgentTests", "AdminAgentTests\AdminAgentTests.csproj", "{8644095C-0968-4365-A3F7-5654A7FC5B05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1575,6 +1577,24 @@ Global
 		{CF50FAF0-1081-45E1-8363-7BB4459E63DE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CF50FAF0-1081-45E1-8363-7BB4459E63DE}.Release|x86.ActiveCfg = Release|Any CPU
 		{CF50FAF0-1081-45E1-8363-7BB4459E63DE}.Release|x86.Build.0 = Release|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.Debug|x86.Build.0 = Debug|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.dev|Any CPU.ActiveCfg = Debug|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.dev|Any CPU.Build.0 = Debug|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.dev|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.dev|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.dev|x86.ActiveCfg = Debug|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.dev|x86.Build.0 = Debug|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.Release|x86.ActiveCfg = Release|Any CPU
+		{8644095C-0968-4365-A3F7-5654A7FC5B05}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
