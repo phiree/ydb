@@ -716,9 +716,9 @@ namespace Ydb.Membership.Application
         /// <param name="membership"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public Dto.RegisterResult VerifyDZMembershipCustomerService(string membershipId, bool isVerified, string strMemo)
+        public ActionResult VerifyDZMembershipCustomerService(string membershipId, bool isVerified, string strMemo)
         {
-            RegisterResult result = new RegisterResult();
+            ActionResult result = new ActionResult();
             try
             {
                 DZMembershipCustomerService dzMembership = dzmembershipDomainService.GetDZMembershipCustomerServiceById(membershipId);
@@ -739,9 +739,9 @@ namespace Ydb.Membership.Application
         /// <param name="membership"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public Dto.RegisterResult LockDZMembershipCustomerService(string membershipId, bool isLocked, string strMemo)
+        public ActionResult LockDZMembershipCustomerService(string membershipId, bool isLocked, string strMemo)
         {
-            RegisterResult result = new RegisterResult();
+            ActionResult result = new ActionResult();
             try
             {
                 DZMembershipCustomerService dzMembership = dzmembershipDomainService.GetDZMembershipCustomerServiceById(membershipId);
@@ -801,6 +801,16 @@ namespace Ydb.Membership.Application
                 dicDto.Add((Enum_ValiedateCustomerServiceType)Enum.Parse(typeof(Enum_ValiedateCustomerServiceType), pair.Key), Mapper.Map<IList<DZMembershipCustomerServiceDto>>(pair.Value));
             }
             return dicDto;
+        }
+
+        /// <summary>
+        /// 根据代理区域获取一条为验证的客服信息
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        public DZMembershipCustomerServiceDto GetOneNotVerifiedDZMembershipCustomerServiceByArea(IList<string> areaList)
+        {
+            return Mapper.Map<DZMembershipCustomerServiceDto>(repositoryMembership.GetOneNotVerifiedDZMembershipCustomerServiceByArea(areaList));
         }
 
     }

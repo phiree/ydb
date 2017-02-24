@@ -38,12 +38,12 @@
                                 {
                                     <tr>
                                         <td>@(i + 1)</td>
-                                        <td><a href="./order.html">@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.NotVerifiedCustomerService][i - 1].DisplayName)</a></td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.NotVerifiedCustomerService][i - 1].UserCity)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.NotVerifiedCustomerService][i - 1].Phone)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.NotVerifiedCustomerService][i - 1].QQNumber)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.NotVerifiedCustomerService][i - 1].TimeCreated)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.NotVerifiedCustomerService][i - 1].ApplyTime)</td>
+                                        <td><a href="./assistant_validate_info?type=@Enum_ValiedateCustomerServiceType.NotVerifiedCustomerService.ToString()&id=@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.NotVerifiedCustomerService][i].Id).ToString()">@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.NotVerifiedCustomerService][i].DisplayName)</a></td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.NotVerifiedCustomerService][i].UserCity)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.NotVerifiedCustomerService][i].Phone)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.NotVerifiedCustomerService][i].QQNumber)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.NotVerifiedCustomerService][i].TimeCreated)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.NotVerifiedCustomerService][i].ApplyTime)</td>
                                     </tr>
                                 }
                             </tbody>
@@ -79,12 +79,12 @@
                                 {
                                     <tr>
                                         <td>@(i + 1)</td>
-                                        <td><a href="./order.html">@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i - 1].DisplayName)</a></td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i - 1].UserCity)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i - 1].Phone)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i - 1].QQNumber)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i - 1].TimeCreated)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i - 1].VerifyTime)</td>
+                                        <td><a href="./order.html">@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i].DisplayName)</a></td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i].UserCity)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i].Phone)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i].QQNumber)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i].TimeCreated)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.AgreeVerifiedCustomerService][i].VerifyTime)</td>
                                     </tr>
                                 }
                             </tbody>
@@ -120,12 +120,12 @@
                                 {
                                     <tr>
                                         <td>@(i + 1)</td>
-                                        <td><a href="./order.html">@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i - 1].DisplayName)</a></td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i - 1].UserCity)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i - 1].Phone)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i - 1].QQNumber)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i - 1].TimeCreated)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i - 1].VerifyTime)</td>
+                                        <td><a href="./order.html">@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i].DisplayName)</a></td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i].UserCity)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i].Phone)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i].QQNumber)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i].TimeCreated)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService][i].VerifyTime)</td>
                                     </tr>
                                 }
                             </tbody>
@@ -156,15 +156,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @for (int i = 0; i < @Model[Enum_ValiedateCustomerServiceType.RefuseVerifiedCustomerService].Count; i++)
+                                @for (int i = 0; i < @Model[Enum_ValiedateCustomerServiceType.MyCustomerService].Count; i++)
                                 {
                                     <tr>
                                         <td>@(i + 1)</td>
-                                        <td><a href="./order.html">@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.MyCustomerService][i - 1].DisplayName)</a></td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.MyCustomerService][i - 1].UserCity)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.MyCustomerService][i - 1].Phone)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.MyCustomerService][i - 1].QQNumber)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.MyCustomerService][i - 1].TimeCreated)</td>
+                                        <td><a href="./order.html">@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.MyCustomerService][i].DisplayName)</a></td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.MyCustomerService][i].UserCity)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.MyCustomerService][i].Phone)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.MyCustomerService][i].QQNumber)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[Enum_ValiedateCustomerServiceType.MyCustomerService][i].TimeCreated)</td>
                                     </tr>
                                 }
                             </tbody>

@@ -196,14 +196,14 @@ namespace Ydb.Membership.Application
         /// </summary>
         /// <param name="membership"></param>
         /// <returns></returns>
-        Dto.RegisterResult VerifyDZMembershipCustomerService(string membershipId, bool isVerified, string strMemo);
+        ActionResult VerifyDZMembershipCustomerService(string membershipId, bool isVerified, string strMemo);
 
         /// <summary>
         /// 封停/解封助理
         /// </summary>
         /// <param name="membership"></param>
         /// <returns></returns>
-        Dto.RegisterResult LockDZMembershipCustomerService(string membershipId, bool isLocked, string strMemo);
+        ActionResult LockDZMembershipCustomerService(string membershipId, bool isLocked, string strMemo);
 
         /// <summary>
         /// 根据用户名获取客服
@@ -220,10 +220,17 @@ namespace Ydb.Membership.Application
         Dto.DZMembershipCustomerServiceDto GetDZMembershipCustomerServiceById(string id);
 
         /// <summary>
-        /// 根据代理区域获取其助理的验证信息获取客服
+        /// 根据代理区域获取其助理的验证信息
         /// </summary>
         /// <param name="areaList"></param>
         /// <returns></returns>
         IDictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> GetVerifiedDZMembershipCustomerServiceByArea(IList<Area> areaList);
+
+        /// <summary>
+        /// 根据代理区域获取一条为验证的客服信息
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        DZMembershipCustomerServiceDto GetOneNotVerifiedDZMembershipCustomerServiceByArea(IList<string> areaList);
     }
 }
