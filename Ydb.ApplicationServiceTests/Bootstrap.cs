@@ -1,59 +1,61 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using AutoMapper;
 using Castle.Windsor;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
-using System.Configuration;
-using Ydb.ApplicationService;
-using Ydb.ApplicationService.ExcelImporter;
-using Ydb.Common.Infrastructure;
+using OpenfireExtension;
+using Ydb.BusinessResource.Infrastructure;
+using Ydb.Common;
+using Ydb.Finance.Application;
+using Ydb.Finance.Infrastructure;
 using Ydb.Infrastructure;
+using Ydb.InstantMessage.Infrastructure;
+using Ydb.Membership.Infrastructure;
+using Ydb.Notice;
+using Ydb.Push.Infrastructure;
 
 public class Bootstrap
 {
-    private static IWindsorContainer container;
-
-    public static IWindsorContainer Container
-    {
-        get { return container; }
-        private set { container = value; }
-    }
+    public static IWindsorContainer Container { get; private set; }
 
     public static void Boot()
     {
-        container = new WindsorContainer();
+        Container = new WindsorContainer();
         //公用組件註冊
-        container.Install(new Ydb.Infrastructure.Installer());
+        Container.Install(new Installer());
 
         //限界上下文註冊
 
-        container.Install(new Ydb.Infrastructure.InstallerCommon(GetDbConfig("ydb_common")));
+        Container.Install(new InstallerCommon(GetDbConfig("ydb_common")));
 
-        container.Install(new OpenfireExtension.InstallerOpenfireExtension());
+        Container.Install(new InstallerOpenfireExtension());
 
-        container.Install(new Ydb.Finance.Infrastructure.InstallerFinance(GetDbConfig("ydb_finance")));
-        container.Install(new Ydb.Notice.InstallerNotice(GetDbConfig("ydb_notice")));
-        container.Install(new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(GetDbConfig("ydb_instantmessage")));
-        container.Install(new Ydb.Push.Infrastructure.InstallerPush(GetDbConfig("ydb_push")));
-        container.Install(new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(GetDbConfig("ydb_businessresource")));
-        container.Install(new Ydb.Membership.Infrastructure.InstallerMembership(GetDbConfig("ydb_membership")));
+        Container.Install(new InstallerFinance(GetDbConfig("ydb_finance")));
+        Container.Install(new InstallerNotice(GetDbConfig("ydb_notice")));
+        Container.Install(new InstallerInstantMessage(GetDbConfig("ydb_instantmessage")));
+        Container.Install(new InstallerPush(GetDbConfig("ydb_push")));
+        Container.Install(new InstallerBusinessResource(GetDbConfig("ydb_businessresource")));
+        Container.Install(new InstallerMembership(GetDbConfig("ydb_membership")));
 
-        container.Install(new Ydb.ApplicationService.Installer());
+        Container.Install(new Ydb.ApplicationService.Installer());
 
-        AutoMapper.Mapper.Initialize(x =>
+        Mapper.Initialize(x =>
         {
-            Ydb.Finance.Application.AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
+            AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
+            Ydb.Membership.Application.AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
         });
+
+        LoggingConfiguration.Config("ApplicationTest.log");
     }
 
     private static FluentConfiguration GetDbConfig(string databaseName)
     {
-        FluentConfiguration dbConfigInstantMessage = Fluently.Configure()
-         .Database(SQLiteConfiguration.
-         Standard
-         .ConnectionString("Data Source=" + databaseName + "; Version=3;BinaryGuid=False")
-         )
-         .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });
+        var dbConfigInstantMessage = Fluently.Configure()
+            .Database(SQLiteConfiguration.
+                Standard
+                .ConnectionString("Data Source=" + databaseName + "; Version=3;BinaryGuid=False")
+            )
+            .ExposeConfiguration(config => { new SchemaExport(config).Create(true, true); });
         return dbConfigInstantMessage;
     }
 }

@@ -1,47 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using jd = JdSoft.Apple.Apns.Notifications;
+using log4net;
 using Ydb.Common;
+using jd = JdSoft.Apple.Apns.Notifications;
 
 namespace Ydb.Push
 {
     /// <summary>
-    /// 客户端推送消息
+    ///     客户端推送消息
     /// </summary>
-
     public class PushIOS : IPushApi
     {
         private string _strCertificateFilePath;
 
-        private string GetCertificateFilePath(PushTargetClient pushTargetClient)
-        {
-            if (!string.IsNullOrEmpty(_strCertificateFilePath)) return _strCertificateFilePath;
-            string fileBasePath = AppDomain.CurrentDomain.BaseDirectory + @"files\";
-            string fileName = pushTargetClient == PushTargetClient.PushToBusiness ? "aps_production_Mark_Store.p12" : "aps_production_Mark_Customer.p12";
-            _strCertificateFilePath = fileBasePath + fileName;
-            return _strCertificateFilePath;
-        }
-
-        private log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Push");
+        private readonly ILog log = LogManager.GetLogger("Dianzhu.Push");
 
         public string Push(PushTargetClient pushType, PushMessage message, string target, int amount)
         {
             log.Debug("开始推送消息:" + message.DisplayContent);
-            bool sandbox = false;
-            string testDeviceToken = target;
+            var sandbox = false;
+            var testDeviceToken = target;
             //Put your PKCS12 .p12 or .pfx filename here.
             // Assumes it is in the same directory as your app
             //开发者测试证书
-            string p12File = GetCertificateFilePath(pushType);
+            var p12File = GetCertificateFilePath(pushType);
             //发布用证书
             // string p12File = "aps_production_identity.p12";
             log.Debug(11);
             //This is the password that you protected your p12File
             //  If you did not use a password, set it as null or an empty string
-            string p12FilePassword = "jsyk";
+            var p12FilePassword = "jsyk";
             //Actual Code starts below:
             //--------------------------------
             log.Debug(12);
@@ -61,29 +48,29 @@ namespace Ydb.Push
             service.ReconnectDelay = 5000; //5 seconds
 
             log.Debug(1);
-            service.Error += new jd.NotificationService.OnError(service_Error);
+            service.Error += service_Error;
             log.Debug(2);
-            service.NotificationTooLong += new jd.NotificationService.OnNotificationTooLong(service_NotificationTooLong);
+            service.NotificationTooLong += service_NotificationTooLong;
             log.Debug(3);
-            service.BadDeviceToken += new jd.NotificationService.OnBadDeviceToken(service_BadDeviceToken);
+            service.BadDeviceToken += service_BadDeviceToken;
             log.Debug(4);
-            service.NotificationFailed += new jd.NotificationService.OnNotificationFailed(service_NotificationFailed);
+            service.NotificationFailed += service_NotificationFailed;
             log.Debug(5);
-            service.NotificationSuccess += new jd.NotificationService.OnNotificationSuccess(service_NotificationSuccess);
+            service.NotificationSuccess += service_NotificationSuccess;
             log.Debug(6);
-            service.Connecting += new jd.NotificationService.OnConnecting(service_Connecting);
+            service.Connecting += service_Connecting;
             log.Debug(7);
-            service.Connected += new jd.NotificationService.OnConnected(service_Connected);
+            service.Connected += service_Connected;
             log.Debug(8);
-            service.Disconnected += new jd.NotificationService.OnDisconnected(service_Disconnected);
+            service.Disconnected += service_Disconnected;
             log.Debug(9);
-            jd.Notification alertNotification = new jd.Notification(testDeviceToken);
+            var alertNotification = new jd.Notification(testDeviceToken);
             log.Debug(10);
 
             //通知内容
             alertNotification.Payload.Alert.Body = message.DisplayContent;
 
-            alertNotification.Payload.Sound = "default";//为空时就是静音
+            alertNotification.Payload.Sound = "default"; //为空时就是静音
             alertNotification.Payload.Badge = amount;
 
             //Queue the notification to be sent
@@ -96,9 +83,20 @@ namespace Ydb.Push
             return "OK";
         }
 
+        private string GetCertificateFilePath(PushTargetClient pushTargetClient)
+        {
+            if (!string.IsNullOrEmpty(_strCertificateFilePath)) return _strCertificateFilePath;
+            var fileBasePath = AppDomain.CurrentDomain.BaseDirectory + @"files\";
+            var fileName = pushTargetClient == PushTargetClient.PushToBusiness
+                ? "aps_production_Mark_Store.p12"
+                : "aps_production_Mark_Customer.p12";
+            _strCertificateFilePath = fileBasePath + fileName;
+            return _strCertificateFilePath;
+        }
+
         private void Service_NotificationFailed(object sender, jd.Notification failed)
         {
-            log.Error("推送失败.DeviceToken:" + failed.DeviceToken + ";tag" + failed.Tag.ToString());
+            log.Error("推送失败.DeviceToken:" + failed.DeviceToken + ";tag" + failed.Tag);
         }
 
         private void service_BadDeviceToken(object sender, jd.BadDeviceTokenException ex)
@@ -123,17 +121,17 @@ namespace Ydb.Push
 
         private void service_NotificationTooLong(object sender, jd.NotificationLengthException ex)
         {
-            log.Error(string.Format("Notification Too Long: {0}", ex.Notification.ToString()));
+            log.Error(string.Format("Notification Too Long: {0}", ex.Notification));
         }
 
         private void service_NotificationSuccess(object sender, jd.Notification notification)
         {
-            log.Debug(string.Format("Notification Success: {0}", notification.ToString()));
+            log.Debug(string.Format("Notification Success: {0}", notification));
         }
 
         private void service_NotificationFailed(object sender, jd.Notification notification)
         {
-            log.Error(string.Format("Notification Failed: {0}", notification.ToString()));
+            log.Error(string.Format("Notification Failed: {0}", notification));
         }
 
         private void service_Error(object sender, Exception ex)

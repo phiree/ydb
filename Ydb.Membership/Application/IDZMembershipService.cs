@@ -23,9 +23,13 @@ namespace Ydb.Membership.Application
         /// <param name="hostInMail">验证邮件中链接的主机名称或者ip地址</param>
         /// <returns></returns>
         Dto.RegisterResult RegisterBusinessUser(string registerName, string password, string confirmPassword, string hostInMail);
+
         Dto.RegisterResult RegisterCustomerService(string registerName, string password, string confirmPassword, string hostInMail);
+
         Dto.RegisterResult RegisterMember(string registerName, string password, string confirmPassword, string userType, string hostInMail);
+
         Dto.RegisterResult RegisterStaff(string registerName, string password, string confirmPassword, string hostInMail);
+
         /// <summary>
         /// 重新发送注册验证邮件
         /// </summary>
@@ -55,6 +59,7 @@ namespace Ydb.Membership.Application
         /// <param name="userName"></param>
         /// <returns></returns>
         Dto.MemberDto GetUserById(string id);
+
         IList<MemberDto> GetAllCustomer(int currentPageIndex, int pageSize, out long totalRecord);
 
         /// <summary>
@@ -64,8 +69,11 @@ namespace Ydb.Membership.Application
         /// <param name="password"></param>
         /// <returns>验证结果,如果验证通过则包含memberdto</returns>
         Dto.ValidateResult ValidateUser(string userNameOrUserId, string password, bool isLogin);
+
         Dto.ValidateResult Login(string userNameOrUserId, string password);
+
         Dto.MemberDto Login3rd(string platForm, string code, string appName, string userType);
+
         /// <summary>
         /// 申请重置密码
         /// </summary>
@@ -74,25 +82,36 @@ namespace Ydb.Membership.Application
         /// <returns></returns>
         ActionResult ApplyRecovery(string userName, string hostInMail);
 
-
-
         ActionResult ChangePassword(string userName, string oldPassword, string newPassword);
-
 
         ActionResult RecoveryPasswordByPhone(string phone, string newPassword);
 
         ActionResult ChangeUserCity(Guid memberId, string cityCode, string longitude, string latitude, string areaId);
 
-
         ActionResult RecoveryPassword(string recoveryString, string newPassword);
 
         ActionResult ChangePhone(string userId, string newPhone);
+
         ActionResult ChangeEmail(string userId, string newEmail);
+
         ActionResult ChangeAlias(string userId, string neAlias);
+
         ActionResult ChangeAddress(string userId, string newAddress);
+
         ActionResult ChangeAvatar(string userId, string newAvatar);
+
+        /// <summary>
+        /// 更新用户所属区域
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        ActionResult UpdateArea(string userId, string areaId);
+
         IList<Dto.MemberDto> GetUsers(TraitFilter filter, string name, string email, string phone, string loginType, string userType);
+
         long GetUsersCount(string name, string email, string phone, string loginType, string userType);
+
         /// <summary>
         /// 昨日新增用户
         /// </summary>
@@ -100,6 +119,7 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         long GetCountOfNewMembershipsYesterdayByArea(IList<string> areaList, UserType userType);
+
         /// <summary>
         /// 当前用户总量
         /// </summary>
@@ -107,6 +127,7 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         long GetCountOfAllMembershipsByArea(IList<string> areaList, UserType userType);
+
         /// <summary>
         /// 上月用户在线活跃度（数量）
         /// </summary>
@@ -114,6 +135,7 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         long GetCountOfLoginMembershipsLastMonthByArea(IList<string> areaList, UserType userType);
+
         /// <summary>
         /// 统计用户每日或每时新增数量列表
         /// </summary>
@@ -123,6 +145,7 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         StatisticsInfo GetStatisticsNewMembershipsCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime, UserType userType);
+
         /// <summary>
         /// 统计用户每日或每时累计数量列表
         /// </summary>
@@ -132,6 +155,7 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         StatisticsInfo GetStatisticsAllMembershipsCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime, UserType userType);
+
         /// <summary>
         /// 统计用户每日或每时在线活跃度（数量）列表
         /// </summary>
@@ -141,27 +165,30 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         StatisticsInfo GetStatisticsLoginCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime, UserType userType);
+
         /// <summary>
         /// 根据用户手机系统统计用户数量列表
         /// </summary>
         /// <param name="areaList"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-         StatisticsInfo GetStatisticsAllMembershipsCountListByAppName(IList<string> areaList, UserType userType);
+        StatisticsInfo GetStatisticsAllMembershipsCountListByAppName(IList<string> areaList, UserType userType);
+
         /// <summary>
         /// 根据用户性别统计用户数量列表
         /// </summary>
         /// <param name="areaList"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-         StatisticsInfo GetStatisticsAllMembershipsCountListBySex(IList<string> areaList, UserType userType);
+        StatisticsInfo GetStatisticsAllMembershipsCountListBySex(IList<string> areaList, UserType userType);
+
         /// <summary>
         /// 根据用户所在子区域统计用户数量列表
         /// </summary>
         /// <param name="areaList"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-         StatisticsInfo GetStatisticsAllMembershipsCountListByArea(IList<Area> areaList, UserType userType);
+        StatisticsInfo GetStatisticsAllMembershipsCountListByArea(IList<Area> areaList, UserType userType);
 
         /// <summary>
         /// 根据用户所在子区域统计用户列表
@@ -170,6 +197,7 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         IList<Dto.MemberDto> GetMembershipsByArea(IList<string> areaList, UserType userType);
+
         ActionResult<MemberDto> GetAreaAgent(string city);
 
         /// <summary>

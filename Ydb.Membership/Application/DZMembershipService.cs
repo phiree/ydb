@@ -3,6 +3,7 @@ using System.Linq;
 using Ydb.Membership.DomainModel;
 using Ydb.Membership.DomainModel.Enums;
 using Ydb.Membership.DomainModel.Repository;
+
 //using Ydb.Membership.Infrastructure.UnitOfWork;
 using AutoMapper;
 using Ydb.Membership.Application.Dto;
@@ -16,24 +17,25 @@ using Ydb.Membership.DomainModel.Service;
 using Ydb.Membership.DomainModel.DataStatistics;
 using Ydb.Common.Domain;
 using Ydb.Common;
+
 namespace Ydb.Membership.Application
 {
     public class DZMembershipService : IDZMembershipService
     {
-        log4net.ILog log = log4net.LogManager.GetLogger(" Ydb.Membership.Application.DZMembershipService");
-        IDZMembershipDomainService dzmembershipDomainService;
-        IEmailService emailService;
-        IRepositoryDZMembership repositoryMembership;
-        IRepositoryUserToken repositoryUserToken;
-        ILogin3rd login3rdService;
-        IEncryptService encryptService;
+        private log4net.ILog log = log4net.LogManager.GetLogger(" Ydb.Membership.Application.DZMembershipService");
+        private IDZMembershipDomainService dzmembershipDomainService;
+        private IEmailService emailService;
+        private IRepositoryDZMembership repositoryMembership;
+        private IRepositoryUserToken repositoryUserToken;
+        private ILogin3rd login3rdService;
+        private IEncryptService encryptService;
 
-        IRepositoryMembershipLoginLog repositoryMembershipLoginLog;
-        IStatisticsMembershipCount statisticsMembershipCount;
+        private IRepositoryMembershipLoginLog repositoryMembershipLoginLog;
+        private IStatisticsMembershipCount statisticsMembershipCount;
 
         public DZMembershipService(IDZMembershipDomainService dzmembershipDomainService,
             IRepositoryDZMembership repositoryMembership,
-            IEmailService emailService,IEncryptService encryptService,
+            IEmailService emailService, IEncryptService encryptService,
             ILogin3rd login3rdService, IRepositoryUserToken repositoryUserToken,
             IRepositoryMembershipLoginLog repositoryMembershipLoginLog,
             IStatisticsMembershipCount statisticsMembershipCount)
@@ -46,15 +48,11 @@ namespace Ydb.Membership.Application
             this.repositoryUserToken = repositoryUserToken;
             this.repositoryMembershipLoginLog = repositoryMembershipLoginLog;
             this.statisticsMembershipCount = statisticsMembershipCount;
-
         }
 
-
-
-         
         public Dto.RegisterResult RegisterMember(string registerName, string password, string confirmPassword, string strUserType, string hostInMail)
         {
-            UserType userType =(UserType) Enum.Parse(typeof(UserType), strUserType);
+            UserType userType = (UserType)Enum.Parse(typeof(UserType), strUserType);
 
             Dto.RegisterResult registerResult = new Dto.RegisterResult();
             if (password != confirmPassword)
@@ -86,19 +84,18 @@ namespace Ydb.Membership.Application
 
                     log.Warn("注册邮件发送失败.注册用户" + createdUser.Id
                         + Environment.NewLine + ex.ToString());
-
                 }
             }
             MemberDto registeredUser = Mapper.Map<MemberDto>(createdUser);
             registerResult.ResultObject = registeredUser;
             return registerResult;
-
         }
+
         [UnitOfWork]
         public Dto.RegisterResult RegisterCustomerService(string registerName, string password, string confirmPassword, string hostInMail)
         {
             //return RegisterMember(registerName, password, confirmPassword, UserType.customerservice.ToString(), hostInMail);
-            
+
             Dto.RegisterResult registerResult = new Dto.RegisterResult();
             if (password != confirmPassword)
             {
@@ -129,7 +126,6 @@ namespace Ydb.Membership.Application
 
                     log.Warn("注册邮件发送失败.注册用户" + createdUser.Id
                         + Environment.NewLine + ex.ToString());
-
                 }
             }
             MemberDto registeredUser = Mapper.Map<MemberDto>(createdUser);
@@ -137,12 +133,10 @@ namespace Ydb.Membership.Application
             return registerResult;
         }
 
-        
         [UnitOfWork]
         public Dto.RegisterResult RegisterBusinessUser(string registerName, string password, string confirmPassword, string hostInMail)
         {
             return RegisterMember(registerName, password, confirmPassword, UserType.business.ToString(), hostInMail);
-
         }
 
         [UnitOfWork]
@@ -151,10 +145,7 @@ namespace Ydb.Membership.Application
             DZMembershipWeChat wechatUser = new DZMembershipWeChat();
             repositoryMembership.Add(wechatUser);
         }
-      
 
-
-         
         [UnitOfWork]
         public ActionResult ResendVerifyEmail(string username, string hostInEmail)
         {
@@ -173,14 +164,13 @@ namespace Ydb.Membership.Application
 
                 log.Warn("注册邮件发送失败.注册用户" + member.Id
                     + Environment.NewLine + ex.ToString());
-
             }
             return result;
         }
 
         [UnitOfWork]
-        public ActionResult VerifyRegisterCode(string verifyCode, string userid) {
-
+        public ActionResult VerifyRegisterCode(string verifyCode, string userid)
+        {
             ActionResult result = new ActionResult();
             DZMembership member = repositoryMembership.GetMemberById(new Guid(userid));
             if (member == null)
@@ -218,7 +208,7 @@ namespace Ydb.Membership.Application
         [UnitOfWork]
         public Dto.MemberDto GetUserById(string id)
         {
-            DZMembership membership = repositoryMembership.GetMemberById(new Guid (id));
+            DZMembership membership = repositoryMembership.GetMemberById(new Guid(id));
             if (membership == null) { return null; }
 
             Dto.MemberDto memberDto = Mapper.Map<DZMembership, Dto.MemberDto>(membership);//new Dto.MemberDto { Id = membership.Id, UserName = membership.UserName };
@@ -242,7 +232,6 @@ namespace Ydb.Membership.Application
                 validateResult.ValidatedMember = Mapper.Map<DZMembership, Dto.MemberDto>(member);
             }
             return validateResult;
-
         }
 
         [UnitOfWork]
@@ -272,7 +261,6 @@ namespace Ydb.Membership.Application
                     string body = member.BuildRecoveryContent(hostInMail);
                     string tilte = "一点办-密码重置";
                     emailService.SendEmail(member.Email, tilte, body);
-
                 }
                 catch (Exception ex)
                 {
@@ -293,8 +281,6 @@ namespace Ydb.Membership.Application
             DZMembership member = repositoryMembership.GetMemberByName(userName);
             repositoryUserToken.DeleteToken(member.Id.ToString());
             return member.RecoveryPassword(recoveryCode, newPassword, encryptService.GetMD5Hash(newPassword));
-
-
         }
 
         [UnitOfWork]
@@ -309,12 +295,11 @@ namespace Ydb.Membership.Application
                 return result;
             }
             repositoryUserToken.DeleteToken(member.Id.ToString());
-            return member.ChangePasswordByPhone( newPassword, encryptService.GetMD5Hash(newPassword));
+            return member.ChangePasswordByPhone(newPassword, encryptService.GetMD5Hash(newPassword));
         }
 
-
         [UnitOfWork]
-        public ActionResult ChangeUserCity(Guid memberId, string cityCode,string longitude, string latitude,string areaId)
+        public ActionResult ChangeUserCity(Guid memberId, string cityCode, string longitude, string latitude, string areaId)
         {
             ActionResult result = new ActionResult();
             DZMembership member = repositoryMembership.GetMemberById(memberId);
@@ -327,7 +312,7 @@ namespace Ydb.Membership.Application
             {
                 member.UserCity = cityCode;
             }
-            if (string.IsNullOrEmpty(longitude)^string.IsNullOrEmpty(latitude))
+            if (string.IsNullOrEmpty(longitude) ^ string.IsNullOrEmpty(latitude))
             {
                 result.IsSuccess = false;
                 result.ErrMsg = "经纬度不能只传一个!";
@@ -378,6 +363,7 @@ namespace Ydb.Membership.Application
             member.Phone = newPhone;
             return result;
         }
+
         [UnitOfWork]
         public ActionResult ChangeEmail(string userId, string newEmail)
         {
@@ -410,24 +396,26 @@ namespace Ydb.Membership.Application
             Enum.TryParse<LoginType>(loginType, out lType);
             IList<DZMembership> memberList = repositoryMembership.GetUsers(filter, name, email, phone, lType, (UserType)Enum.Parse(typeof(UserType), userType));
 
-          return  Mapper.Map<IList<DZMembership>, IList<MemberDto>>(memberList);
+            return Mapper.Map<IList<DZMembership>, IList<MemberDto>>(memberList);
         }
+
         [Obsolete("尽快移除")]
         [UnitOfWork]
         public long GetUsersCount(string name, string email, string phone, string loginType, string userType)
         {
             LoginType lType = LoginType.None;
             Enum.TryParse<LoginType>(loginType, out lType);
-            return   repositoryMembership.GetUsersCount(name, email, phone, lType, (UserType)Enum.Parse(typeof(UserType), userType));
+            return repositoryMembership.GetUsersCount(name, email, phone, lType, (UserType)Enum.Parse(typeof(UserType), userType));
         }
+
         [UnitOfWork]
         public MemberDto Login3rd(string platform, string code, string appName, string userType)
         {
-          DZMembership membership=  login3rdService.Login(platform, code, appName, userType);
+            DZMembership membership = login3rdService.Login(platform, code, appName, userType);
 
             return Mapper.Map<MemberDto>(membership);
-            
         }
+
         [UnitOfWork]
         public ActionResult ChangeAlias(string userId, string neAlias)
         {
@@ -437,6 +425,7 @@ namespace Ydb.Membership.Application
 
             return new ActionResult();
         }
+
         [UnitOfWork]
         public ActionResult ChangeAddress(string userId, string newAddress)
         {
@@ -446,6 +435,7 @@ namespace Ydb.Membership.Application
 
             return new ActionResult();
         }
+
         [UnitOfWork]
         public ActionResult ChangeAvatar(string userId, string newAvatar)
         {
@@ -455,16 +445,18 @@ namespace Ydb.Membership.Application
 
             return new ActionResult();
         }
+
         [UnitOfWork]
         public RegisterResult RegisterStaff(string registerName, string password, string confirmPassword, string hostInMail)
         {
             return RegisterMember(registerName, password, confirmPassword, UserType.staff.ToString(), hostInMail);
         }
+
         [UnitOfWork]
         public IList<MemberDto> GetAllCustomer(int currentPageIndex, int pageSize, out long totalRecord)
         {
-            TraitFilter filter = new TraitFilter { pageNum=currentPageIndex,pageSize=pageSize };
-            IList<DZMembership> memberList = repositoryMembership.GetUsers(filter, string.Empty, string.Empty, string.Empty, LoginType.None,UserType.customer);
+            TraitFilter filter = new TraitFilter { pageNum = currentPageIndex, pageSize = pageSize };
+            IList<DZMembership> memberList = repositoryMembership.GetUsers(filter, string.Empty, string.Empty, string.Empty, LoginType.None, UserType.customer);
             totalRecord = repositoryMembership.GetUsersCount(string.Empty, string.Empty, string.Empty, LoginType.None, UserType.customer);
             return Mapper.Map<IList<DZMembership>, IList<MemberDto>>(memberList);
         }
@@ -476,7 +468,7 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public long GetCountOfNewMembershipsYesterdayByArea(IList<string> areaList, UserType userType )
+        public long GetCountOfNewMembershipsYesterdayByArea(IList<string> areaList, UserType userType)
         {
             DateTime beginTime = DateTime.Parse(DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"));
             return repositoryMembership.GetUsersCountByArea(areaList, beginTime, beginTime.AddDays(1), userType);
@@ -503,11 +495,12 @@ namespace Ydb.Membership.Application
         [UnitOfWork]
         public long GetCountOfLoginMembershipsLastMonthByArea(IList<string> areaList, UserType userType)
         {
-            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue,DateTime.MinValue, userType);
-            DateTime baseTime = DateTime.Parse(DateTime.Now.ToString("yyyy-MM")+"-01");
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, userType);
+            DateTime baseTime = DateTime.Parse(DateTime.Now.ToString("yyyy-MM") + "-01");
             IList<MembershipLoginLog> loginList = repositoryMembershipLoginLog.GetMembershipLoginLogListByTime(baseTime.AddMonths(-1), baseTime);
-            return statisticsMembershipCount.StatisticsLoginCountLastMonth(memberList,loginList);
+            return statisticsMembershipCount.StatisticsLoginCountLastMonth(memberList, loginList);
         }
+
         /// <summary>
         /// 统计用户每日或每时新增数量列表
         /// </summary>
@@ -517,14 +510,15 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public StatisticsInfo GetStatisticsNewMembershipsCountListByTime(IList<string> areaList, string strBeginTime,string strEndTime, UserType userType)
+        public StatisticsInfo GetStatisticsNewMembershipsCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime, UserType userType)
         {
             DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
             DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
             IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaList, BeginTime, EndTime, userType);
-            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipsCountListByTime(memberList,BeginTime,EndTime,strBeginTime==strEndTime);
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipsCountListByTime(memberList, BeginTime, EndTime, strBeginTime == strEndTime);
             return statisticsInfo;
         }
+
         /// <summary>
         /// 统计用户每日或每时累计数量列表
         /// </summary>
@@ -542,6 +536,7 @@ namespace Ydb.Membership.Application
             StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListByTime(memberList, BeginTime, EndTime, strBeginTime == strEndTime);
             return statisticsInfo;
         }
+
         /// <summary>
         /// 统计用户每日或每时在线活跃度（数量）列表
         /// </summary>
@@ -557,7 +552,7 @@ namespace Ydb.Membership.Application
             DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
             IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, userType);
             IList<MembershipLoginLog> loginList = repositoryMembershipLoginLog.GetMembershipLoginLogListByTime(BeginTime, EndTime);
-            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsLoginCountListByTime(memberList,loginList, BeginTime, EndTime, strBeginTime == strEndTime);
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsLoginCountListByTime(memberList, loginList, BeginTime, EndTime, strBeginTime == strEndTime);
             return statisticsInfo;
         }
 
@@ -599,9 +594,9 @@ namespace Ydb.Membership.Application
         [UnitOfWork]
         public StatisticsInfo GetStatisticsAllMembershipsCountListByArea(IList<Area> areaList, UserType userType)
         {
-            IList<string> AreaIdList = areaList.Select(x => x.Id.ToString ()).ToList();
+            IList<string> AreaIdList = areaList.Select(x => x.Id.ToString()).ToList();
             IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(AreaIdList, DateTime.MinValue, DateTime.MinValue, userType);
-            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountGroupByArea(memberList,areaList);
+            StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountGroupByArea(memberList, areaList);
             return statisticsInfo;
         }
 
@@ -615,19 +610,31 @@ namespace Ydb.Membership.Application
         {
             IList<Dto.MemberDto> memberDtoList = Mapper.Map<IList<Dto.MemberDto>>(repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, userType));
             return memberDtoList;
-		}
-		
+        }
+
         public ActionResult<MemberDto> GetAreaAgent(string city)
         {
             ActionResult<MemberDto> result = new ActionResult<MemberDto>();
-            try { DZMembership agentForCity = repositoryMembership.FindOne(x => x.UserCity == city);
+            try
+            {
+                DZMembership agentForCity = repositoryMembership.FindOne(x => x.UserCity == city);
                 result.ResultObject = Mapper.Map<MemberDto>(agentForCity);
             }
-            catch{
+            catch
+            {
                 result.IsSuccess = false;
                 result.ErrMsg = "错误.该城市出现多个代理:" + city;
             }
             return result;
+        }
+        [UnitOfWork]
+        public ActionResult UpdateArea(string userId, string areaId)
+        {
+            DZMembership member = repositoryMembership.GetMemberById(new Guid(userId));
+
+            member.AreaId = areaId;
+
+            return new ActionResult();
         }
     }
 }

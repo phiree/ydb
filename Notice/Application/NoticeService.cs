@@ -1,26 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Ydb.Common;
-using M = Ydb.Notice.DomainModel;
 using Ydb.Notice.DomainModel.Repository;
+using Ydb.Notice.Infrastructure.YdbNHibernate.UnitOfWork;
+using M = Ydb.Notice.DomainModel;
 
 namespace Ydb.Notice.Application
 {
     public class NoticeService : INoticeService
     {
-        private IRepositoryNotice repoNotice;
+        private readonly IRepositoryNotice repoNotice;
 
         public NoticeService(IRepositoryNotice repoNotice)
         {
             this.repoNotice = repoNotice;
         }
 
+        [UnitOfWork]
         public M.Notice AddNotice(string title, string htmlBody, Guid authorId, enum_UserType targetUserType)
         {
-            M.Notice notice = new DomainModel.Notice { Title = title, Body = htmlBody, AuthorId = authorId, TargetUserType = targetUserType };
+            var notice = new M.Notice
+            {
+                Title = title,
+                Body = htmlBody,
+                AuthorId = authorId,
+                TargetUserType = targetUserType
+            };
 
             repoNotice.Add(notice);
             return notice;
