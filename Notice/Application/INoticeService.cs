@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.Common;
-using M=Ydb.Notice.DomainModel;
+using M = Ydb.Notice.DomainModel;
+
 namespace Ydb.Notice.Application
 {
     public interface INoticeService
@@ -17,7 +18,8 @@ namespace Ydb.Notice.Application
         /// <param name="authorId"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        M.Notice AddNotice(string title, string htmlBody,string authorId,   enum_UserType targetUserType);
+        M.Notice AddNotice(string title, string htmlBody, Guid authorId, enum_UserType targetUserType);
+
         /// <summary>
         /// 用户获取推送列表
         /// </summary>
@@ -26,18 +28,21 @@ namespace Ydb.Notice.Application
         /// <param name="readed">是否已读,null表示全部</param>
         /// <returns></returns>
         IList<M.UserNotice> GetNoticeForUser(Guid userId, enum_UserType targetUserType, bool? readed);
+
         /// <summary>
         /// 用户获取一条通知,设置为已读状态.
         /// </summary>
         /// <param name="noticeId"></param>
         /// <returns></returns>
         M.Notice ReadOne(string noticeId);
+
         /// <summary>
         /// 获取一条通知的详情
         /// </summary>
         /// <param name="noticeId"></param>
         /// <returns></returns>
         M.Notice GetOne(string noticeId);
+
         /// <summary>
         /// 审核通过
         /// </summary>
@@ -45,6 +50,7 @@ namespace Ydb.Notice.Application
         /// <param name="checkerId"></param>
         /// <returns>审核结果</returns>
         void CheckPass(string noticeId, string checkerId);
+
         /// <summary>
         /// 审核不通过
         /// </summary>
