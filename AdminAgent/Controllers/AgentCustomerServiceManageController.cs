@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.Common.Domain;
+using Ydb.Finance.Application;
+using Ydb.Membership.DomainModel.Enums;
 
 
 namespace AdminAgent.Controllers
@@ -13,7 +15,13 @@ namespace AdminAgent.Controllers
     public class AgentCustomerServiceManageController : Controller
     {
         IDZMembershipService dzMembershipService = Bootstrap.Container.Resolve<IDZMembershipService>();
+        IUserTypeSharePointService userTypeSharePointService = Bootstrap.Container.Resolve<IUserTypeSharePointService>();
         IList<Area> areaList = MockData.areaList;
+        
+        /// <summary>
+        /// 获取验证助理列表
+        /// </summary>
+        /// <returns></returns>
         public ActionResult assistant_validate()
         {
             try
@@ -35,12 +43,20 @@ namespace AdminAgent.Controllers
             }
         }
 
+        /// <summary>
+        /// 获取助理验证信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public ActionResult assistant_validate_info(string id,string type)
         {
             try
             {
                 TempData["assistant_validate_info_id"] = id;
                 TempData["assistant_validate_info_type"] = type;
+                ViewData["id"] = id;
+                ViewData["type"] = type;
                 //接口
                 //DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
                 //模拟数据
@@ -54,6 +70,11 @@ namespace AdminAgent.Controllers
             }
         }
 
+        /// <summary>
+        /// 验证通过
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult assistant_validate_info_agree(string id)
         {
             Ydb.Common.Application.ActionResult result = dzMembershipService.VerifyDZMembershipCustomerService(id, true, "");
@@ -68,6 +89,12 @@ namespace AdminAgent.Controllers
             }
         }
 
+        /// <summary>
+        /// 验证拒绝
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="memo"></param>
+        /// <returns></returns>
         public ActionResult assistant_validate_info_refuse(string id,string memo)
         {
             Ydb.Common.Application.ActionResult result = dzMembershipService.VerifyDZMembershipCustomerService(id, false, memo);
@@ -82,6 +109,10 @@ namespace AdminAgent.Controllers
             }
         }
 
+        /// <summary>
+        /// 获取下一个
+        /// </summary>
+        /// <returns></returns>
         public ActionResult assistant_validate_info_next()
         {
             string id=TempData["assistant_validate_info_id"].ToString();
@@ -96,9 +127,32 @@ namespace AdminAgent.Controllers
             }
             else
             {
-                return RedirectToAction("./ assistant_validate_info?type="+type+"&id="+list[index+1].ToString());
+                return Redirect("./assistant_validate_info?type="+type+"&id="+list[index+1].ToString());
             }
+        }
 
+        /// <summary>
+        /// 获取已验证所有助理列表区分账号是否封锁
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult assistant_list()
+        {
+            try
+            {
+                //模拟数据
+                IDictionary<Enum_LockCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto = MockData.dicLockDto;
+                ViewData["assistantPoint"] = MockData.assistantPoint;
+                //接口
+                //IDictionary<Enum_LockCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto = dzMembershipService.GetLockDZMembershipCustomerServiceByArea(areaList);
+                //string errMsg = "";
+                //ViewData["assistantPoint"] = userTypeSharePointService.GetSharePoint(UserType.customerservice.ToString(), out errMsg);
+                return View(dicDto);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
         }
     }
 }

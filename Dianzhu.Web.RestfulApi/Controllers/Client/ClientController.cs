@@ -59,7 +59,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.Client
                 string apiName = Request.Headers.GetValues("appName").FirstOrDefault();
                 string apiKey = mysection.KeyValues[apiName].Value; //hmac.getAllowedApps(Request.Headers.GetValues("appName").FirstOrDefault());
 
-                MySectionCollection mysection1 = (MySectionCollection)ConfigurationManager.GetSection("MySectionCollection1");
+                MySectionCollection1 mysection1 = (MySectionCollection1)ConfigurationManager.GetSection("MySectionCollection1");
                 string appName = mysection1.KeyValues[apiName].Value;
 
                 //log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.ClientController");

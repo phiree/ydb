@@ -29,6 +29,7 @@ public class MockData
     /// </summary>
     public static IList<string> areaIdList = areaList.Select(x => x.Id.ToString()).ToList();
 
+    static IList<DZMembershipCustomerServiceDto> _memberNotVerifiedList;
     /// <summary>
     /// 
     /// </summary>
@@ -36,28 +37,36 @@ public class MockData
     {
         get
         {
-            IList<DZMembershipCustomerServiceDto> memberList = new List<DZMembershipCustomerServiceDto>();
-            for (int i = 0; i < 15; i++)
+            if (_memberNotVerifiedList == null)
             {
-                DZMembershipCustomerServiceDto member = new DZMembershipCustomerServiceDto()
+                _memberNotVerifiedList = new List<DZMembershipCustomerServiceDto>();
+                for (int i = 0; i < 15; i++)
                 {
-                    Id = Guid.NewGuid(),
-                    DisplayName = "NotVerified" + i.ToString(),
-                    UserCity = areaList[i % 6].Name,
-                    Phone = "1363769130" + i.ToString(),
-                    QQNumber = "50264711" + i.ToString(),
-                    TimeCreated = DateTime.Now.AddDays(-12).AddHours(i),
-                    ApplyTime = DateTime.Now.AddDays(-1).AddHours(i),
-                    IsVerified = false,
-                    RealName= "RealName" + i.ToString(),
-                    PersonalID= "PersonalID" + i.ToString(),
-                };
-                memberList.Add(member);
+                    DZMembershipCustomerServiceDto member = new DZMembershipCustomerServiceDto()
+                    {
+                        Id = Guid.NewGuid(),
+                        DisplayName = "NotVerified" + i.ToString(),
+                        UserCity = areaList[i % 6].Name,
+                        Phone = "1363769130" + i.ToString(),
+                        QQNumber = "50264711" + i.ToString(),
+                        TimeCreated = DateTime.Now.AddDays(-12).AddHours(i),
+                        ApplyTime = DateTime.Now.AddDays(-1).AddHours(i),
+                        IsVerified = false,
+                        RealName = "RealName" + i.ToString(),
+                        PersonalID = "PersonalID" + i.ToString(),
+                        DZMembershipImages = dzMembershipImageList,
+                        DZMembershipDiploma=dzMembershipImageDiploma,
+                        DZMembershipCertificates=dzMembershipImageCertificate,
+                        Sex = i % 2 == 0
+                    };
+                    _memberNotVerifiedList.Add(member);
+                }
             }
-            return memberList;
+            return _memberNotVerifiedList;
         }
     }
 
+    static IList<DZMembershipCustomerServiceDto> _memberAgreeVerifiedList;
     /// <summary>
     /// 
     /// </summary>
@@ -65,29 +74,37 @@ public class MockData
     {
         get
         {
-            IList<DZMembershipCustomerServiceDto> memberList = new List<DZMembershipCustomerServiceDto>();
-            for (int i = 0; i < 15; i++)
+            if(_memberAgreeVerifiedList==null)
             {
-                DZMembershipCustomerServiceDto member = new DZMembershipCustomerServiceDto()
+                _memberAgreeVerifiedList = new List<DZMembershipCustomerServiceDto>();
+                for (int i = 0; i < 15; i++)
                 {
-                    Id = Guid.NewGuid(),
-                    DisplayName = "AgreeVerified" + i.ToString(),
-                    UserCity = areaList[i % 6].Name,
-                    Phone = "1363769130" + i.ToString(),
-                    QQNumber = "50264711" + i.ToString(),
-                    TimeCreated = DateTime.Now.AddDays(-12).AddHours(i),
-                    ApplyTime = DateTime.Now.AddDays(-1).AddHours(i),
-                    IsVerified = true,
-                    VerificationIsAgree = true,
-                    RealName = "RealName" + i.ToString(),
-                    PersonalID = "PersonalID" + i.ToString(),
-                };
-                memberList.Add(member);
+                    DZMembershipCustomerServiceDto member = new DZMembershipCustomerServiceDto()
+                    {
+                        Id = Guid.NewGuid(),
+                        DisplayName = "AgreeVerified" + i.ToString(),
+                        UserCity = areaList[i % 6].Name,
+                        Phone = "1363769130" + i.ToString(),
+                        QQNumber = "50264711" + i.ToString(),
+                        TimeCreated = DateTime.Now.AddDays(-12).AddHours(i),
+                        ApplyTime = DateTime.Now.AddDays(-1).AddHours(i),
+                        IsVerified = true,
+                        VerificationIsAgree = true,
+                        RealName = "RealName" + i.ToString(),
+                        PersonalID = "PersonalID" + i.ToString(),
+                        DZMembershipImages = dzMembershipImageList,
+                        DZMembershipDiploma = dzMembershipImageDiploma,
+                        DZMembershipCertificates = dzMembershipImageCertificate,
+                        Sex = i % 2 == 0
+                    };
+                    _memberAgreeVerifiedList.Add(member);
+                }
             }
-            return memberList;
+            return _memberAgreeVerifiedList;
         }
     }
 
+    static IList<DZMembershipCustomerServiceDto> _memberRefuseVerifiedList;
     /// <summary>
     /// 
     /// </summary>
@@ -95,29 +112,37 @@ public class MockData
     {
         get
         {
-            IList<DZMembershipCustomerServiceDto> memberList = new List<DZMembershipCustomerServiceDto>();
-            for (int i = 0; i < 15; i++)
+            if(_memberRefuseVerifiedList==null)
             {
-                DZMembershipCustomerServiceDto member = new DZMembershipCustomerServiceDto()
+                _memberRefuseVerifiedList = new List<DZMembershipCustomerServiceDto>();
+                for (int i = 0; i < 15; i++)
                 {
-                    Id = Guid.NewGuid(),
-                    DisplayName = "RefuseVerified" + i.ToString(),
-                    UserCity = areaList[i % 6].Name,
-                    Phone = "1363769130" + i.ToString(),
-                    QQNumber = "50264711" + i.ToString(),
-                    TimeCreated = DateTime.Now.AddDays(-12).AddHours(i),
-                    ApplyTime = DateTime.Now.AddDays(-1).AddHours(i),
-                    IsVerified = true,
-                    VerificationIsAgree = false,
-                    RealName = "RealName" + i.ToString(),
-                    PersonalID = "PersonalID" + i.ToString(),
-                };
-                memberList.Add(member);
+                    DZMembershipCustomerServiceDto member = new DZMembershipCustomerServiceDto()
+                    {
+                        Id = Guid.NewGuid(),
+                        DisplayName = "RefuseVerified" + i.ToString(),
+                        UserCity = areaList[i % 6].Name,
+                        Phone = "1363769130" + i.ToString(),
+                        QQNumber = "50264711" + i.ToString(),
+                        TimeCreated = DateTime.Now.AddDays(-12).AddHours(i),
+                        ApplyTime = DateTime.Now.AddDays(-1).AddHours(i),
+                        IsVerified = true,
+                        VerificationIsAgree = false,
+                        RealName = "RealName" + i.ToString(),
+                        PersonalID = "PersonalID" + i.ToString(),
+                        DZMembershipImages = dzMembershipImageList,
+                        DZMembershipDiploma = dzMembershipImageDiploma,
+                        DZMembershipCertificates = dzMembershipImageCertificate,
+                        Sex = i % 2 == 0
+                    };
+                    _memberRefuseVerifiedList.Add(member);
+                }
             }
-            return memberList;
+            return _memberRefuseVerifiedList;
         }
     }
 
+    static IList<DZMembershipCustomerServiceDto> _memberMyList;
     /// <summary>
     /// 
     /// </summary>
@@ -125,26 +150,109 @@ public class MockData
     {
         get
         {
-            IList<DZMembershipCustomerServiceDto> memberList = new List<DZMembershipCustomerServiceDto>();
-            for (int i = 1; i < 15; i++)
+            if(_memberMyList==null)
             {
-                DZMembershipCustomerServiceDto member = new DZMembershipCustomerServiceDto()
+                _memberMyList = new List<DZMembershipCustomerServiceDto>();
+                for (int i = 1; i < 15; i++)
                 {
-                    Id = Guid.NewGuid(),
-                    DisplayName = "My" + i.ToString(),
-                    UserCity = areaList[i % 6].Name,
-                    Phone = "1363769130" + i.ToString(),
-                    QQNumber = "50264711" + i.ToString(),
-                    TimeCreated = DateTime.Now.AddDays(-12).AddHours(i),
-                    ApplyTime = DateTime.Now.AddDays(-1).AddHours(i),
-                    IsVerified = true,
-                    VerificationIsAgree = true,
-                    RealName = "RealName" + i.ToString(),
-                    PersonalID = "PersonalID" + i.ToString(),
-                };
-                memberList.Add(member);
+                    DZMembershipCustomerServiceDto member = new DZMembershipCustomerServiceDto()
+                    {
+                        Id = Guid.NewGuid(),
+                        DisplayName = "My" + i.ToString(),
+                        UserCity = areaList[i % 6].Name,
+                        Phone = "1363769130" + i.ToString(),
+                        QQNumber = "50264711" + i.ToString(),
+                        TimeCreated = DateTime.Now.AddDays(-12).AddHours(i),
+                        ApplyTime = DateTime.Now.AddDays(-1).AddHours(i),
+                        IsVerified = true,
+                        VerificationIsAgree = true,
+                        RealName = "RealName" + i.ToString(),
+                        PersonalID = "PersonalID" + i.ToString(),
+                        DZMembershipImages = dzMembershipImageList,
+                        DZMembershipDiploma = dzMembershipImageDiploma,
+                        DZMembershipCertificates = dzMembershipImageCertificate,
+                        Sex = i % 2 == 0
+                    };
+                    _memberMyList.Add(member);
+                }
             }
-            return memberList;
+            return _memberMyList;
+        }
+    }
+
+    static IList<DZMembershipCustomerServiceDto> _memberLockedList;
+    /// <summary>
+    /// 
+    /// </summary>
+    public static IList<DZMembershipCustomerServiceDto> memberLockedList
+    {
+        get
+        {
+            if (_memberLockedList == null)
+            {
+                _memberLockedList = new List<DZMembershipCustomerServiceDto>();
+                for (int i = 1; i < 15; i++)
+                {
+                    DZMembershipCustomerServiceDto member = new DZMembershipCustomerServiceDto()
+                    {
+                        Id = Guid.NewGuid(),
+                        DisplayName = "Locked" + i.ToString(),
+                        UserCity = areaList[i % 6].Name,
+                        Phone = "1363769130" + i.ToString(),
+                        QQNumber = "50264711" + i.ToString(),
+                        TimeCreated = DateTime.Now.AddDays(-12).AddHours(i),
+                        ApplyTime = DateTime.Now.AddDays(-1).AddHours(i),
+                        IsVerified = true,
+                        VerificationIsAgree = true,
+                        RealName = "RealName" + i.ToString(),
+                        PersonalID = "PersonalID" + i.ToString(),
+                        DZMembershipImages = dzMembershipImageList,
+                        DZMembershipDiploma = dzMembershipImageDiploma,
+                        DZMembershipCertificates = dzMembershipImageCertificate,
+                        Sex = i % 2 == 0
+                    };
+                    _memberLockedList.Add(member);
+                }
+            }
+            return _memberLockedList;
+        }
+    }
+
+    static IList<DZMembershipCustomerServiceDto> _memberUnLockedList;
+    /// <summary>
+    /// 
+    /// </summary>
+    public static IList<DZMembershipCustomerServiceDto> memberUnLockedList
+    {
+        get
+        {
+            if (_memberUnLockedList == null)
+            {
+                _memberUnLockedList = new List<DZMembershipCustomerServiceDto>();
+                for (int i = 1; i < 15; i++)
+                {
+                    DZMembershipCustomerServiceDto member = new DZMembershipCustomerServiceDto()
+                    {
+                        Id = Guid.NewGuid(),
+                        DisplayName = "UnLocked" + i.ToString(),
+                        UserCity = areaList[i % 6].Name,
+                        Phone = "1363769130" + i.ToString(),
+                        QQNumber = "50264711" + i.ToString(),
+                        TimeCreated = DateTime.Now.AddDays(-12).AddHours(i),
+                        ApplyTime = DateTime.Now.AddDays(-1).AddHours(i),
+                        IsVerified = true,
+                        VerificationIsAgree = true,
+                        RealName = "RealName" + i.ToString(),
+                        PersonalID = "PersonalID" + i.ToString(),
+                        DZMembershipImages = dzMembershipImageList,
+                        DZMembershipDiploma = dzMembershipImageDiploma,
+                        DZMembershipCertificates = dzMembershipImageCertificate,
+                        Sex = i % 2 == 0
+                    };
+                    _memberUnLockedList.Add(member);
+                }
+            }
+            return _memberUnLockedList;
         }
     }
 
@@ -164,6 +272,26 @@ public class MockData
         }
     }
 
+
+    /// <summary>
+    /// assistant_list
+    /// </summary>
+    public static IDictionary<Enum_LockCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicLockDto
+    {
+        get
+        {
+            IDictionary<Enum_LockCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dic = new Dictionary<Enum_LockCustomerServiceType, IList<DZMembershipCustomerServiceDto>>();
+            dic[Enum_LockCustomerServiceType.LockedCustomerService] = memberLockedList;
+            dic[Enum_LockCustomerServiceType.UnLockedCustomerService] = memberUnLockedList;
+            return dic;
+        }
+    }
+
+    /// <summary>
+    /// assistant_list
+    /// </summary>
+    public static decimal assistantPoint = 0.35m;
+
     /// <summary>
     /// assistant_validate_info
     /// </summary>
@@ -176,4 +304,19 @@ public class MockData
         DZMembershipCustomerServiceDto member = dicDto[t].FirstOrDefault(x => x.Id == new Guid(id));
         return member;
     }
+
+    public static DZMembershipImageDto dzMembershipImageDiploma = new DZMembershipImageDto { ImageName = "https://dev.ydban.cn/images/logo.png", ImageType= "Diploma" };
+
+    public static IList<DZMembershipImageDto> dzMembershipImageCertificate = new List<DZMembershipImageDto>
+    {
+        new DZMembershipImageDto { ImageName = "http://dev.ydban.cn/agent_admin_preview/dist/libs/adminLTE/img/photo1.png", ImageType = "Certificate" },
+        new DZMembershipImageDto { ImageName = "http://dev.ydban.cn/agent_admin_preview/dist/libs/adminLTE/img/photo2.png", ImageType = "Certificate" }
+    };
+
+    public static IList<DZMembershipImageDto> dzMembershipImageList = new List<DZMembershipImageDto>
+    {
+         new DZMembershipImageDto { ImageName = "https://dev.ydban.cn/images/logo.png" ,ImageType= "Diploma" },
+    new DZMembershipImageDto { ImageName = "http://dev.ydban.cn/agent_admin_preview/dist/libs/adminLTE/img/photo1.png", ImageType = "Certificate" },
+        new DZMembershipImageDto { ImageName = "http://dev.ydban.cn/agent_admin_preview/dist/libs/adminLTE/img/photo2.png", ImageType = "Certificate" }
+    };
 }
