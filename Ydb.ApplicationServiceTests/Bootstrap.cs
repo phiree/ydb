@@ -22,39 +22,38 @@ public class Bootstrap
     public static void Boot()
     {
         container = new WindsorContainer();
-
-        container.Register(Component.For<ServiceTypeImporter>());
         //公用組件註冊
         container.Install(new Ydb.Infrastructure.Installer());
 
-        container.Install(new OpenfireExtension.InstallerOpenfireExtension());
-
         //限界上下文註冊
 
-        container.Install(new Ydb.Infrastructure.InstallerCommon(BuildDBConfig("ydb_common")));
+        container.Install(new Ydb.Infrastructure.InstallerCommon(GetDbConfig("ydb_common")));
 
-        container.Install(new Ydb.Finance.Infrastructure.InstallerFinance(BuildDBConfig("ydb_finance")));
+        container.Install(new OpenfireExtension.InstallerOpenfireExtension());
 
-        container.Install(new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig("ydb_businessresource")));
+        container.Install(new Ydb.Finance.Infrastructure.InstallerFinance(GetDbConfig("ydb_finance")));
+        container.Install(new Ydb.Notice.InstallerNotice(GetDbConfig("ydb_notice")));
+        container.Install(new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(GetDbConfig("ydb_instantmessage")));
+        container.Install(new Ydb.Push.Infrastructure.InstallerPush(GetDbConfig("ydb_push")));
+        container.Install(new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(GetDbConfig("ydb_businessresource")));
+        container.Install(new Ydb.Membership.Infrastructure.InstallerMembership(GetDbConfig("ydb_membership")));
+
+        container.Install(new Ydb.ApplicationService.Installer());
+
         AutoMapper.Mapper.Initialize(x =>
         {
             Ydb.Finance.Application.AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
         });
     }
 
-    private static FluentConfiguration BuildDBConfig(string connectionStringName)
+    private static FluentConfiguration GetDbConfig(string databaseName)
     {
-        IEncryptService encryptService = container.Resolve<IEncryptService>();
-        FluentConfiguration dbConfig = Fluently.Configure()
-                                                       .Database(
-                                                            MySQLConfiguration
-                                                           .Standard
-                                                           .ConnectionString(
-                                                                encryptService.Decrypt(
-                                                                System.Configuration.ConfigurationManager
-                                                              .ConnectionStrings[connectionStringName].ConnectionString, false)
-                                                                )
-                                                     );
-        return dbConfig;
+        FluentConfiguration dbConfigInstantMessage = Fluently.Configure()
+         .Database(SQLiteConfiguration.
+         Standard
+         .ConnectionString("Data Source=" + databaseName + "; Version=3;BinaryGuid=False")
+         )
+         .ExposeConfiguration((config) => { new SchemaExport(config).Create(true, true); });
+        return dbConfigInstantMessage;
     }
 }

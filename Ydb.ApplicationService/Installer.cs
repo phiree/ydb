@@ -20,6 +20,5 @@ namespace Ydb.ApplicationService
                               .WithService.DefaultInterfaces());
             container.Register(Component.For<ExcelImporter.ServiceTypeImporter>());
         }
-
     }
 }

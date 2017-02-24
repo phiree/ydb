@@ -25,6 +25,19 @@ namespace Ydb.ApplicationService.Application.AgentService
         private OpenfireExtension.IOpenfireDbService openfireDbService;
         private InstantMessage.Application.IInstantMessage imService;
 
+        public AgentNoticeService(INoticeService noticeService,
+          IPushService pushService,
+          IDZMembershipService memberService,
+          OpenfireExtension.IOpenfireDbService openfireDbService,
+          InstantMessage.Application.IInstantMessage imService)
+        {
+            this.noticeService = noticeService;
+            this.pushService = pushService;
+            this.memberService = memberService;
+            this.openfireDbService = openfireDbService;
+            this.imService = imService;
+        }
+
         /// <summary>
         /// 发送一条推送
         /// </summary>
