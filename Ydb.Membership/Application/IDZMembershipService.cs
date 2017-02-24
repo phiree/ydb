@@ -227,6 +227,14 @@ namespace Ydb.Membership.Application
         IDictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> GetVerifiedDZMembershipCustomerServiceByArea(IList<Area> areaList);
 
         /// <summary>
+        /// 根据代理区域获取其助理的信息列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        IDictionary<Enum_LockCustomerServiceType, IList<DZMembershipCustomerServiceDto>> GetLockDZMembershipCustomerServiceByArea(IList<Area> areaList);
+
+
+        /// <summary>
         /// 根据代理区域获取一条为验证的客服信息
         /// </summary>
         /// <param name="areaList"></param>

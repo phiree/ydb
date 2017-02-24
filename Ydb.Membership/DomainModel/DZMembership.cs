@@ -66,7 +66,7 @@ namespace Ydb.Membership.DomainModel
         /// </summary>
         public virtual string RealName { get; set; }
         /// <summary>
-        /// 性别
+        /// 性别true:女，false:男
         /// </summary>
         public virtual bool Sex { get; set; }
         /// <summary>

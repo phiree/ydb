@@ -30,6 +30,7 @@ namespace Ydb.Membership.Application
 
             Mapper.CreateMap<DZMembershipImage, Dto.DZMembershipImageDto>()
                   .ForMember(x => x.ImageType, opt => opt.MapFrom(source => source.ImageType.ToString()))
+                  .ForMember(x => x.ImageName, opt => opt.MapFrom(source => string.IsNullOrEmpty(source.ImageName) ? "" : Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.ImageName))
             .ForAllMembers(opt => opt.NullSubstitute(""));
         }
     }
