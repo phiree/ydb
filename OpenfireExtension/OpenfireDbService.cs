@@ -20,7 +20,7 @@ namespace OpenfireExtension
         void AddUsersToGroup(string userids, string groupname);
     }
 
-    public class OpenfireDbService
+    public class OpenfireDbService : IOpenfireDbService
     {
         private Ydb.Common.Infrastructure.IEncryptService encryptService;
 

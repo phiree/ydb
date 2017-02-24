@@ -14,8 +14,9 @@ namespace OpenfireExtension.Tests
         [Test()]
         public void AddUsersToGroupTest()
         {
-            OpenfireDbService dbservice = new OpenfireDbService();
-            dbservice.AddUsersToGroup("u1,u2,u3,u4", "gg1");
+            Ydb.Infrastructure.EncryptService en = new Ydb.Infrastructure.EncryptService();
+            OpenfireDbService dbservice = new OpenfireDbService(en);
+            dbservice.AddUsersToGroup("u1,u2,u4", "gg1");
         }
     }
 }

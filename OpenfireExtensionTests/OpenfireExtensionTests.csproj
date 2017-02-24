@@ -51,7 +51,6 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Bootstraper.cs" />
     <Compile Include="OpenfireDbServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,6 +62,14 @@
     <ProjectReference Include="..\OpenfireExtension\OpenfireExtension.csproj">
       <Project>{8B398F01-B6BB-409F-89EF-B874899C05E0}</Project>
       <Name>OpenfireExtension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
+      <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
+      <Name>Ydb.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Infrastructure\Ydb.Infrastructure.csproj">
+      <Project>{3d510583-1c11-48fb-8380-12e183e5914b}</Project>
+      <Name>Ydb.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
