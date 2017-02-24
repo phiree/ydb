@@ -14,8 +14,7 @@ namespace AdminAgent.ControllersTests
         [Test()]
         public void AgentCustomerServiceManageController_assistant_validate_Test()
         {
-            AgentCustomerServiceManageController agentCustomerServiceManageController = new AgentCustomerServiceManageController();
-            agentCustomerServiceManageController.assistant_validate();
+            Assert.Fail();
         }
     }
 }
