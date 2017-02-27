@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Ydb.Common;
 
 namespace Ydb.Push.Tests
 {
@@ -8,23 +9,23 @@ namespace Ydb.Push.Tests
         [SetUp]
         public void Setup()
         {
-           // Ydb.Common.LoggingConfiguration.Config("PushTests");
+            LoggingConfiguration.Config("pushiostest");
+            // Ydb.Common.LoggingConfiguration.Config("PushTests");
         }
 
         [Test]
-        public void PushTest()
+        public void PushIOSTest()
         {
-            var pushIos = new PushIOS();
+            var pushIos = new PushIOS(true);
             pushIos.Push(PushTargetClient.PushToUser,
                 new PushMessage
                 {
                     DisplayContent = "message",
                     OrderId = "12492362-2f92-476f-b956-a71500a04e23",
-
                     OrderSerialNo = "FW11111"
                 }
                 , "4eb8954fda72c9bb8d0c0f5f85d99ac0b324c84836806c53d0fe43352f047aa1", 1
-                );
+            );
         }
     }
 }

@@ -21,9 +21,17 @@ namespace Ydb.Push.Application
         }
 
         public ActionResult Push(string chatMessage, string chatType, string toUserId, string fromClient,
+          string fromUserName,
+          string orderId, string orderSerialNo, string orderStatus, string orderStatusStr,
+          string businessName, string toClient)
+        {
+            return this.Push(chatMessage, chatType, toUserId, fromClient, fromUserName, orderId, orderSerialNo, orderStatus, orderStatusStr, businessName, toClient, false);
+        }
+
+        public ActionResult Push(string chatMessage, string chatType, string toUserId, string fromClient,
             string fromUserName,
             string orderId, string orderSerialNo, string orderStatus, string orderStatusStr,
-            string businessName, string toClient)
+            string businessName, string toClient, bool isDebug)
         {
             //判断用户是否在线的接口
             var result = new ActionResult();
@@ -79,7 +87,7 @@ namespace Ydb.Push.Application
             var pushMessage = new PushMessageBuilder().BuildPushMessage(chatMessage, chatType, fromClient, fromUserName,
                 orderId, businessName,
                 orderSerialNo, orderStatus, orderStatusStr);
-            var ipush = _pushApiFactory.Create(pushMessage, pushType, deviceName);
+            var ipush = _pushApiFactory.Create(pushMessage, pushType, deviceName, isDebug);
             var pushAmount = bind.PushAmount + 1;
             bind.PushAmount = pushAmount;
 

@@ -10,14 +10,19 @@ namespace Ydb.Push
     /// </summary>
     public class PushIOS : IPushApi
     {
+        private readonly bool isDebug;
+        private readonly ILog log = LogManager.GetLogger("Ydb.Push.IOSPush");
         private string _strCertificateFilePath;
 
-        private readonly ILog log = LogManager.GetLogger("Dianzhu.Push");
+        public PushIOS(bool isDebug)
+        {
+            this.isDebug = isDebug;
+        }
 
         public string Push(PushTargetClient pushType, PushMessage message, string target, int amount)
         {
             log.Debug("开始推送消息:" + message.DisplayContent);
-            var sandbox = false;
+
             var testDeviceToken = target;
             //Put your PKCS12 .p12 or .pfx filename here.
             // Assumes it is in the same directory as your app
@@ -35,8 +40,8 @@ namespace Ydb.Push
             jd.NotificationService service = null;
             try
             {
-                log.Debug("notificationservice  sandbox:" + sandbox + ",filepath" + p12File);
-                service = new jd.NotificationService(sandbox, p12File, p12FilePassword, 1);
+                log.Debug("notificationservice  sandbox:" + isDebug + ",filepath" + p12File);
+                service = new jd.NotificationService(isDebug, p12File, p12FilePassword, 1);
             }
             catch (Exception ex)
             {
@@ -87,9 +92,11 @@ namespace Ydb.Push
         {
             if (!string.IsNullOrEmpty(_strCertificateFilePath)) return _strCertificateFilePath;
             var fileBasePath = AppDomain.CurrentDomain.BaseDirectory + @"files\";
-            var fileName = pushTargetClient == PushTargetClient.PushToBusiness
-                ? "aps_production_Mark_Store.p12"
-                : "aps_production_Mark_Customer.p12";
+            var fileName = string.Empty;
+            if (pushTargetClient == PushTargetClient.PushToBusiness)
+                fileName = isDebug ? "aps_development_Mark_Store.p12" : "aps_production_Mark_Store.p12";
+            if (pushTargetClient == PushTargetClient.PushToUser)
+                fileName = isDebug ? "aps_development_Mark_Customer.p12" : "aps_production_Mark_Customer.p12";
             _strCertificateFilePath = fileBasePath + fileName;
             return _strCertificateFilePath;
         }

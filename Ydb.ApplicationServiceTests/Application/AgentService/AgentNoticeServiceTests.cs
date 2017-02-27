@@ -25,7 +25,7 @@ namespace Ydb.ApplicationService.Application.AgentService.Tests
         {
             //一些id
 
-            var usernames = new[] { "user1", "user2" };
+            var usernames = new[] {"user1", "user2"};
             var apptokens = new[]
             {
                 "4eb8954fda72c9bb8d0c0f5f85d99ac0b324c84836806c53d0fe43352f047aa1" //QQ登录 CAT Debug证书
@@ -48,7 +48,7 @@ namespace Ydb.ApplicationService.Application.AgentService.Tests
                 var memberDto = memberService.RegisterMember(userName, "aaaaaa", "aaaaaa", "customer", string.Empty);
                 memberService.UpdateArea(memberDto.ResultObject.Id.ToString(), areaId);
             }
-            var users = memberService.GetMembershipsByArea(new List<string> { areaId }, UserType.customer);
+            var users = memberService.GetMembershipsByArea(new List<string> {areaId}, UserType.customer);
 
             //为用户绑定devicetoken
             var deviceBindService = Bootstrap.Container.Resolve<IDeviceBindService>();
@@ -74,7 +74,7 @@ namespace Ydb.ApplicationService.Application.AgentService.Tests
 
             var agentNoticeService = Bootstrap.Container.Resolve<IAgentNoticeService>();
 
-            agentNoticeService.SendNotice(notice.Id.ToString());
+            agentNoticeService.SendNotice(notice.Id.ToString(), true);
             Assert.Fail();
         }
     }
