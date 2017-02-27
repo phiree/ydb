@@ -17,11 +17,19 @@ namespace AdminAgent.Controllers
         MemberDto memberAgent = new MemberDto();
         public ActionResult finance_account()
         {
-            ViewData["SharedOrder"] = ordersService.GetOrdersCountByArea(areaList,true);
-            ViewData["NotSharedOrder"] = ordersService.GetOrdersCountByArea(areaList, false);
-            IList<FinanceFlowDto> financeFlowDtoList = financeFlowService.GetFinanceFlowList(areaList, memberAgent);
-            return View(financeFlowDtoList);
+            try
+            {
+                ViewData["SharedOrder"] = ordersService.GetOrdersCountByArea(areaList, true);
+                ViewData["NotSharedOrder"] = ordersService.GetOrdersCountByArea(areaList, false);
+                IList<FinanceFlowDto> financeFlowDtoList = financeFlowService.GetFinanceFlowList(areaList, memberAgent);
+                return View(financeFlowDtoList);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
         }
-        
+
     }
 }

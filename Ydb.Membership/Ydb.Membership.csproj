@@ -95,12 +95,14 @@
   <ItemGroup>
     <Compile Include="Application\Dto\DZMembershipCustomerServiceDto.cs" />
     <Compile Include="Application\Dto\DZMembershipImageDto.cs" />
+    <Compile Include="Application\Dto\Enum_ValiedateCustomerServiceType.cs" />
     <Compile Include="Application\Dto\Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Application\Dto\Mapping\DtoToModelMappingProfile.cs" />
     <Compile Include="Application\Dto\Mapping\ModelToDtoMappingProfile.cs" />
     <Compile Include="Application\Dto\MemberWeChatDto.cs" />
     <Compile Include="Application\Dto\MemberDto.cs" />
     <Compile Include="Application\Dto\ApplyRecoveryResult.cs" />
+    <Compile Include="Application\Dto\ValidateCustomerServiceDto.cs" />
     <Compile Include="Application\Dto\ValidateResult.cs" />
     <Compile Include="Application\Dto\RegisterResult.cs" />
     <Compile Include="Application\DZMembershipService.cs" />
@@ -124,6 +126,8 @@
     <Compile Include="DomainModel\Service\ILogin3rd.cs" />
     <Compile Include="DomainModel\Service\Login3rd.cs" />
     <Compile Include="DomainModel\Service\U3RD_Model.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipCustomerServiceMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipImageMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\MembershipLoginLogMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\UserTokenMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryMembershipLoginLog.cs" />

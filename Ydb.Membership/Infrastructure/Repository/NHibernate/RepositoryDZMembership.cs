@@ -238,6 +238,14 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate
         {
             return Find(x => true).ToList();
         }
-       
+
+        public DZMembershipCustomerService GetOneNotVerifiedDZMembershipCustomerServiceByArea(IList<string> areaList)
+        {
+            var where = Ydb.Common.Specification.PredicateBuilder.True<DZMembership>();
+            where = where.And(x => x.UserType == UserType.customerservice && x is DZMembershipCustomerService && areaList.Contains(x.AreaId));
+            long totalRecord = 0;
+            return  (DZMembershipCustomerService)Find(where,1,1,out totalRecord).ToList()[0];
+        }
+
     }
 }

@@ -71,5 +71,9 @@ namespace Ydb.Membership.DomainModel
 
         DZMembership CreateCustomerService(string loginName, string password, out string errMsg);
 
+        DZMembershipCustomerService GetDZMembershipCustomerServiceByName(string userName);
+
+        DZMembershipCustomerService GetDZMembershipCustomerServiceById(string id);
+
     }
 }

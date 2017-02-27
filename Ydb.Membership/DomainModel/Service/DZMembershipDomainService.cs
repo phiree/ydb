@@ -346,5 +346,34 @@ namespace Ydb.Membership.DomainModel
 
         }
 
+        [UnitOfWork]
+        public DZMembershipCustomerService GetDZMembershipCustomerServiceByName(string userName)
+        {
+            DZMembership membership = repositoryDZMembership.GetMemberByName(userName);
+            if (membership != null && membership.GetType() == typeof(DZMembershipCustomerService))
+            {
+                return (DZMembershipCustomerService)membership;
+            }
+            else
+            {
+                throw new Exception("该助理不存在");
+            }
+
+        }
+
+        [UnitOfWork]
+        public DZMembershipCustomerService GetDZMembershipCustomerServiceById(string id)
+        {
+            DZMembership membership = repositoryDZMembership.GetMemberById(new Guid(id));
+            if (membership!=null && membership.GetType() == typeof(DZMembershipCustomerService))
+            {
+                return (DZMembershipCustomerService)membership;
+            }
+            else
+            {
+                throw new Exception("该助理不存在");
+            }
+        }
+
     }
 }

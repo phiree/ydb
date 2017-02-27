@@ -11,7 +11,9 @@ namespace Ydb.Membership.DomainModel
     {
         public DZMembershipCustomerService():base()
         {
+            DZMembershipImages = new List<DZMembershipImage>();
             IsVerified = false;
+            VerificationIsAgree = false;
             IsLocked = false;
         }
 
@@ -22,6 +24,7 @@ namespace Ydb.Membership.DomainModel
         public virtual string RefuseReason { get; set; }
         public virtual bool IsAgentCustomerService { get; set; }
         public virtual bool IsVerified { get; set; }
+        public virtual bool VerificationIsAgree { get; set; }
         public virtual DateTime LockTime { get; set; }
         public virtual bool IsLocked { get; set; }
         public virtual string LockReason { get; set; }
@@ -148,15 +151,23 @@ namespace Ydb.Membership.DomainModel
         /// <summary>
         /// 认证助理
         /// </summary>
-        public virtual void Verification(bool isVerified, string strReason)
+        public virtual void Verification(bool isAgree, string strReason)
         {
-            if (!isVerified && string.IsNullOrEmpty(strReason))
+            if (!IsVerified)
             {
-                throw new FormatException("拒绝原因不能为空!");
+                if (!isAgree && string.IsNullOrEmpty(strReason))
+                {
+                    throw new FormatException("拒绝原因不能为空!");
+                }
+                this.IsVerified = true;
+                this.RefuseReason = strReason;
+                this.VerificationIsAgree = isAgree;
+                this.VerifyTime = DateTime.Now;
             }
-            this.RefuseReason = strReason;
-            this.IsVerified = isVerified;
-            this.VerifyTime = DateTime.Now;
+            else
+            {
+                throw new FormatException("该客服已经验证过了!");
+            }
         }
 
         /// <summary>

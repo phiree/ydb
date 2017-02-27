@@ -22,6 +22,7 @@ namespace Ydb.Membership.Application.Dto
         public virtual string QQNumber { get; set; }
         public virtual string RealName { get; set; }
         public virtual bool Sex { get; set; }
+        public virtual DateTime Birthday { get; set; }
         public virtual string PersonalID { get; set; }
         public virtual string AreaId { get; set; }
         public virtual bool IsRegisterValidated { get; set; }

@@ -86,6 +86,7 @@
     <Compile Include="Domain\StatisticsInfo.cs" />
     <Compile Include="Domain\Time.cs" />
     <Compile Include="Domain\TimePeriod.cs" />
+    <Compile Include="Enums\EnumberHelper.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Domain\SerialNo.cs" />
     <Compile Include="Infrastructure\IDownloadAvatarToMediaServer.cs" />

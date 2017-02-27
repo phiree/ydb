@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.Membership.DomainModel.Enums;
+using Ydb.Common.Domain;
 
 namespace Ydb.Membership.DomainModel
 {
-    public class DZMembershipImage
+    public class DZMembershipImage: Entity<Guid>
     {
 
         public DZMembershipImage()
@@ -38,7 +39,11 @@ namespace Ydb.Membership.DomainModel
         /// <summary>
         /// 图片的类型,
         /// </summary>
-        public virtual DZMembershipImageType ImageType { get; protected internal set; }
+        public virtual DZMembershipImageType ImageType
+        {
+            get;
+            protected internal set;
+        }
         /// <summary>
         /// 是否是当前使用的图片
         /// </summary>

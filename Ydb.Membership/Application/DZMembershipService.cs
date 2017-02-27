@@ -18,6 +18,8 @@ using Ydb.Membership.DomainModel.DataStatistics;
 using Ydb.Common.Domain;
 using Ydb.Common;
 
+using Ydb.Common.Enums;
+
 namespace Ydb.Membership.Application
 {
     public class DZMembershipService : IDZMembershipService
@@ -627,7 +629,7 @@ namespace Ydb.Membership.Application
             }
             return result;
         }
-        [UnitOfWork]
+
         public ActionResult UpdateArea(string userId, string areaId)
         {
             DZMembership member = repositoryMembership.GetMemberById(new Guid(userId));
@@ -635,6 +637,183 @@ namespace Ydb.Membership.Application
             member.AreaId = areaId;
 
             return new ActionResult();
+        }
+
+        /// <summary>
+        /// 用户信息补全
+        /// </summary>
+        /// <param name="membership"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public ActionResult CompleteDZMembership(MemberDto membershipDto)
+        {
+            ActionResult result = new ActionResult();
+            try
+            {
+                DZMembership dzMembership = Mapper.Map<DZMembership>(membershipDto);
+                dzmembershipDomainService.UpdateDZMembership(dzMembership);
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "补全用户信息出错:" + ex.Message;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 申请助理
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="realName"></param>
+        /// <param name="personalID"></param>
+        /// <param name="phone"></param>
+        /// <param name="certificatesImageList"></param>
+        /// <param name="diplomaImage"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public ActionResult ApplyDZMembershipCustomerService(string membershipId, string realName, string personalID, string phone, IList<Dto.DZMembershipImageDto> certificatesImageList, Dto.DZMembershipImageDto diplomaImage)
+        {
+            ActionResult result = new ActionResult();
+            try
+            {
+                if (string.IsNullOrEmpty(realName))
+                {
+                    throw new Exception("真实姓名不能为空");
+                }
+                if (string.IsNullOrEmpty(personalID))
+                {
+                    throw new Exception("身份证件不能为空");
+                }
+                if (string.IsNullOrEmpty(phone))
+                {
+                    throw new Exception("手机不能为空");
+                }
+                if (diplomaImage == null)
+                {
+                    throw new Exception("学历证明不能为空");
+                }
+                if (certificatesImageList == null || certificatesImageList.Count == 0)
+                {
+                    throw new Exception("证件照片不能为空");
+                }
+                DZMembershipCustomerService dzMembership = dzmembershipDomainService.GetDZMembershipCustomerServiceById(membershipId);
+                dzMembership.RealName = realName;
+                dzMembership.PersonalID = personalID;
+                dzMembership.Phone = phone;
+                dzMembership.DZMembershipCertificates = Mapper.Map<IList<DZMembershipImage>>(certificatesImageList);
+                dzMembership.DZMembershipDiploma = Mapper.Map<DZMembershipImage>(diplomaImage);
+                dzmembershipDomainService.UpdateDZMembership(dzMembership);
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "助理申请出错:" + ex.Message;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 认证审核助理
+        /// </summary>
+        /// <param name="membership"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public ActionResult VerifyDZMembershipCustomerService(string membershipId, bool isVerified, string strMemo)
+        {
+            ActionResult result = new ActionResult();
+            try
+            {
+                DZMembershipCustomerService dzMembership = dzmembershipDomainService.GetDZMembershipCustomerServiceById(membershipId);
+                dzMembership.Verification(isVerified, strMemo);
+                //dzmembershipDomainService.UpdateDZMembership(dzMembership);
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "出错:" + ex.Message;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 封停/解封助理
+        /// </summary>
+        /// <param name="membership"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public ActionResult LockDZMembershipCustomerService(string membershipId, bool isLocked, string strMemo)
+        {
+            ActionResult result = new ActionResult();
+            try
+            {
+                DZMembershipCustomerService dzMembership = dzmembershipDomainService.GetDZMembershipCustomerServiceById(membershipId);
+                dzMembership.LockCustomerService(isLocked, strMemo);
+                //dzmembershipDomainService.UpdateDZMembership(dzMembership);
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "出错:" + ex.Message;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 根据用户名获取客服
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public Dto.DZMembershipCustomerServiceDto GetDZMembershipCustomerServiceByName(string userName)
+        {
+            DZMembershipCustomerService membership = dzmembershipDomainService.GetDZMembershipCustomerServiceByName(userName);
+
+            Dto.DZMembershipCustomerServiceDto memberDto = Mapper.Map<DZMembershipCustomerService, Dto.DZMembershipCustomerServiceDto>(membership);
+            return memberDto;
+        }
+
+        /// <summary>
+        /// 根据用户Id获取客服
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public Dto.DZMembershipCustomerServiceDto GetDZMembershipCustomerServiceById(string id)
+        {
+            DZMembershipCustomerService membership = dzmembershipDomainService.GetDZMembershipCustomerServiceById(id);
+
+            Dto.DZMembershipCustomerServiceDto memberDto = Mapper.Map<DZMembershipCustomerService, Dto.DZMembershipCustomerServiceDto>(membership);
+            return memberDto;
+        }
+
+        /// <summary>
+        /// 根据代理区域获取其助理的验证信息获取客服
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public IDictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> GetVerifiedDZMembershipCustomerServiceByArea(IList<Area> areaList)
+        {
+            IDictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto = new Dictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>>();
+            IList<string> AreaIdList = areaList.Select(x => x.Id.ToString()).ToList();
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(AreaIdList, DateTime.MinValue, DateTime.MinValue, UserType.customerservice);
+            IDictionary<string, IList<DZMembershipCustomerService>> dic = statisticsMembershipCount.StatisticsVerifiedCustomerServiceByArea(memberList, areaList, EnumberHelper.EnumNameToList<Enum_ValiedateCustomerServiceType>());
+            foreach (KeyValuePair<string, IList<DZMembershipCustomerService>> pair in dic)
+            {
+                dicDto.Add((Enum_ValiedateCustomerServiceType)Enum.Parse(typeof(Enum_ValiedateCustomerServiceType), pair.Key), Mapper.Map<IList<DZMembershipCustomerServiceDto>>(pair.Value));
+            }
+            return dicDto;
+        }
+
+        /// <summary>
+        /// 根据代理区域获取一条为验证的客服信息
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        public DZMembershipCustomerServiceDto GetOneNotVerifiedDZMembershipCustomerServiceByArea(IList<string> areaList)
+        {
+            return Mapper.Map<DZMembershipCustomerServiceDto>(repositoryMembership.GetOneNotVerifiedDZMembershipCustomerServiceByArea(areaList));
         }
     }
 }

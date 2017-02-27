@@ -21,7 +21,9 @@ namespace Ydb.Membership.Application
         //[System.Obsolete("No Use")]
         protected override void Configure()
         {
-            Mapper.CreateMap<Dto.MemberDto, DZMembership>();
+            Mapper.CreateMap<Dto.MemberDto, DZMembership>().ForAllMembers(opt => opt.NullSubstitute("")); 
+            Mapper.CreateMap<Dto.DZMembershipCustomerServiceDto, DZMembershipCustomerService>().ForAllMembers(opt => opt.NullSubstitute(""));
+            Mapper.CreateMap<Dto.DZMembershipImageDto, DZMembershipImage>().ForAllMembers(opt => opt.NullSubstitute(""));
         }
     }
 }

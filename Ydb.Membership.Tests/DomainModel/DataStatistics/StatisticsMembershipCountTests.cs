@@ -271,7 +271,6 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
         [Test()]
         public void StatisticsMembershipCount_StatisticsAllMembershipsCountGroupByArea_Test()
         {
-
             StatisticsMembershipCount statisticsMembershipCount = new StatisticsMembershipCount();
             IList<DZMembership> memberList = new List<DZMembership> {
                 new DZMembership { Id=new Guid("003c0c77-c2a0-4dba-930c-a6b000f80ceb"),AreaId="1"},
@@ -309,6 +308,48 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             Assert.AreEqual(0, statisticsInfo.XYValue["北京市朝阳区"]);
             Assert.AreEqual(0, statisticsInfo.XYValue["北京市丰台区"]);
             Assert.AreEqual(0, statisticsInfo.XYValue["北京市石景山区"]);
+        }
+
+        [Test()]
+        public void StatisticsMembershipCount_StatisticsVerifiedCustomerServiceByArea_Test()
+        {
+            IList<string> memberKey = new List<string> { "NotVerifiedCustomerService", "AgreeVerifiedCustomerService", "RefuseVerifiedCustomerService", "MyCustomerService" };
+            StatisticsMembershipCount statisticsMembershipCount = new StatisticsMembershipCount();
+            IList<DZMembership> memberList = new List<DZMembership> {
+                new DZMembership { Id=new Guid("003c0c77-c2a0-4dba-930c-a6b000f80ceb"),AreaId="1"},
+                new DZMembershipCustomerService { Id=new Guid("002c0c77-c2a0-4dba-930c-a6b000f80ceb"),AreaId="1"},
+                new DZMembershipCustomerService { Id=new Guid("00c02067-4900-41b6-b3d4-a68100c47cb9"),AreaId="2",IsVerified=true,IsAgentCustomerService=true,VerificationIsAgree=true},
+                new DZMembershipCustomerService { Id=new Guid("015351d4-ba0a-41b2-bc5e-a6b400c11c26"),AreaId="1",IsVerified=true,VerificationIsAgree=true},
+                new DZMembershipCustomerService { Id=new Guid("005c0c77-c2a0-4dba-930c-a6b000f80ceb"),AreaId="2"},
+                new DZMembershipCustomerService { Id=new Guid("03b647cb-a449-4f93-abf3-a67c0098ecdf"),AreaId="1",IsVerified=true,VerificationIsAgree=true},
+                new DZMembershipCustomerService { Id=new Guid("004c0c77-c2a0-4dba-930c-a6b000f80ceb"),AreaId="3",IsVerified=true,VerificationIsAgree=false},
+                new DZMembershipCustomerService { Id=new Guid("115351d4-ba0a-41b2-bc5e-a6b400c11c23"),AreaId="1",IsVerified=true,VerificationIsAgree=true},
+                new DZMembership { Id=new Guid("215351d4-ba0a-41b2-bc5e-a6b400c11c25"),AreaId="1"},
+                new DZMembershipCustomerService { Id=new Guid("002c0c77-c2a0-4dba-930c-a6b000f80bce"),AreaId="1"},
+                new DZMembershipCustomerService { Id=new Guid("00c02067-4900-41b6-b3d4-a68100c479cb"),AreaId="2",IsVerified=true,IsAgentCustomerService=true,VerificationIsAgree=true},
+                new DZMembershipCustomerService { Id=new Guid("015351d4-ba0a-41b2-bc5e-a6b400c116c2"),AreaId="1",IsVerified=true,IsAgentCustomerService=true,VerificationIsAgree=true},
+                new DZMembershipCustomerService { Id=new Guid("005c0c77-c2a0-4dba-930c-a6b000f80bce"),AreaId="2",IsVerified=true,VerificationIsAgree=false},
+                new DZMembershipCustomerService { Id=new Guid("03b647cb-a449-4f93-abf3-a67c0098efcd"),AreaId="1"},
+                new DZMembershipCustomerService { Id=new Guid("004c0c77-c2a0-4dba-930c-a6b000f80bce"),AreaId="3",IsVerified=true,VerificationIsAgree=false},
+                new DZMembershipCustomerService { Id=new Guid("115351d4-ba0a-41b2-bc5e-a6b400c113c2"),AreaId="1",IsVerified=true,IsAgentCustomerService=true,VerificationIsAgree=true},
+            };
+            IList<Area> areaList = new List<Area> {
+                new Area {Id=1,Name="北京市" },
+                new Area {Id=2,Name="北京市市辖区" },
+                new Area {Id=3,Name="北京市东城区" },
+                new Area {Id=4,Name="北京市西城区" },
+                new Area {Id=5,Name="北京市崇文区" },
+                new Area {Id=6,Name="北京市宣武区" },
+                new Area {Id=7,Name="北京市朝阳区" },
+                new Area {Id=8,Name="北京市丰台区" },
+                new Area {Id=9,Name="北京市石景山区" }
+            };
+            IDictionary<string, IList<DZMembershipCustomerService>> dic = statisticsMembershipCount.StatisticsVerifiedCustomerServiceByArea(memberList, areaList,memberKey);
+            Assert.AreEqual(4, dic.Count);
+            Assert.AreEqual(4, dic["NotVerifiedCustomerService"].Count);
+            Assert.AreEqual(7, dic["AgreeVerifiedCustomerService"].Count);
+            Assert.AreEqual(3, dic["RefuseVerifiedCustomerService"].Count);
+            Assert.AreEqual(4, dic["MyCustomerService"].Count);
         }
     }
 }

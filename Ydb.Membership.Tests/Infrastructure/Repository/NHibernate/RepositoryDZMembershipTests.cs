@@ -53,8 +53,8 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernateTests
             DZMembership member2 = new DZMembership() { AreaId = "1", UserType = UserType.customer, TimeCreated = DateTime.Now.AddDays(-1) };
             repositoryDZMembership.Add(member2);
             IList<string> areaList = new List<string> { "1", "2" };
-            IList< DZMembership > memberList= repositoryDZMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, UserType.customer);
-            Assert.AreEqual(2, memberList.Count );
+            IList<DZMembership> memberList = repositoryDZMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, UserType.customer);
+            Assert.AreEqual(2, memberList.Count);
             Assert.AreEqual("1", memberList[0].AreaId);
             Assert.AreEqual("1", memberList[1].AreaId);
             Assert.AreEqual(UserType.customer, memberList[0].UserType);
@@ -75,6 +75,12 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernateTests
 
             memberList = repositoryDZMembership.GetUsersByArea(areaList, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(2), UserType.customer|UserType.customerservice);
             Assert.AreEqual(3, memberList.Count);
+        }
+
+        [Test()]
+        public void RepositoryDZMembership_GetOneNotVerifiedDZMembershipCustomerServiceByArea_Test()
+        {
+            //Assert.Fail();
         }
     }
 }

@@ -205,27 +205,60 @@ namespace Ydb.Membership.Application
         /// </summary>
         /// <param name="membership"></param>
         /// <returns></returns>
-        //Dto.RegisterResult CompleteDZMembership(MemberDto membershipDto);
+        ActionResult CompleteDZMembership(MemberDto membershipDto);
 
-        ///// <summary>
-        ///// 申请助理
-        ///// </summary>
-        ///// <param name="membership"></param>
-        ///// <returns></returns>
-        //Dto.RegisterResult ApplyDZMembershipCustomerService(DZMembershipCustomerServiceDto membershipDto);
+        /// <summary>
+        /// 申请助理
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="realName"></param>
+        /// <param name="personalID"></param>
+        /// <param name="phone"></param>
+        /// <param name="certificatesImageList"></param>
+        /// <param name="diplomaImage"></param>
+        /// <returns></returns>
+        ActionResult ApplyDZMembershipCustomerService(string membershipId, string realName, string personalID, string phone, IList<Dto.DZMembershipImageDto> certificatesImageList, Dto.DZMembershipImageDto diplomaImage);
 
-        ///// <summary>
-        ///// 认证审核助理
-        ///// </summary>
-        ///// <param name="membership"></param>
-        ///// <returns></returns>
-        //Dto.RegisterResult VerifyDZMembershipCustomerService(string membershipId,bool isVerified,string strMemo);
+        /// <summary>
+        /// 认证审核助理
+        /// </summary>
+        /// <param name="membership"></param>
+        /// <returns></returns>
+        ActionResult VerifyDZMembershipCustomerService(string membershipId, bool isVerified, string strMemo);
 
-        ///// <summary>
-        ///// 封停/解封助理
-        ///// </summary>
-        ///// <param name="membership"></param>
-        ///// <returns></returns>
-        //Dto.RegisterResult LockDZMembershipCustomerService(string membershipId, bool isLocked, string strMemo);
+        /// <summary>
+        /// 封停/解封助理
+        /// </summary>
+        /// <param name="membership"></param>
+        /// <returns></returns>
+        ActionResult LockDZMembershipCustomerService(string membershipId, bool isLocked, string strMemo);
+
+        /// <summary>
+        /// 根据用户名获取客服
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        Dto.DZMembershipCustomerServiceDto GetDZMembershipCustomerServiceByName(string userName);
+
+        /// <summary>
+        /// 根据用户Id获取客服
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        Dto.DZMembershipCustomerServiceDto GetDZMembershipCustomerServiceById(string id);
+
+        /// <summary>
+        /// 根据代理区域获取其助理的验证信息
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        IDictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> GetVerifiedDZMembershipCustomerServiceByArea(IList<Area> areaList);
+
+        /// <summary>
+        /// 根据代理区域获取一条为验证的客服信息
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        DZMembershipCustomerServiceDto GetOneNotVerifiedDZMembershipCustomerServiceByArea(IList<string> areaList);
     }
 }

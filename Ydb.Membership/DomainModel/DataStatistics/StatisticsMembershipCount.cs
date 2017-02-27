@@ -137,5 +137,48 @@ namespace Ydb.Membership.DomainModel.DataStatistics
             return statisticsInfo;
         }
 
+
+        public IDictionary<string,IList<DZMembershipCustomerService>> StatisticsVerifiedCustomerServiceByArea(IList<DZMembership> memberList, IList<Area> areaList,IList<string> memberKey)
+        {
+            IDictionary<string, IList<DZMembershipCustomerService>> dic = new Dictionary<string, IList<DZMembershipCustomerService>>();
+            foreach (string strKey in memberKey)
+            {
+                dic.Add(strKey, new List<DZMembershipCustomerService>());
+            }
+            foreach (DZMembership member in memberList)
+            {
+                if (member.GetType() == typeof(DZMembershipCustomerService))
+                {
+                    DZMembershipCustomerService membershipCustomerService = (DZMembershipCustomerService)member;
+                    Area area = areaList.FirstOrDefault(x => x.Id == int.Parse(membershipCustomerService.AreaId));
+                    membershipCustomerService.UserCity = area.Name;
+                    foreach (string strKey in memberKey)
+                    {
+                        if (CheckCustomerServiceByArea(membershipCustomerService, strKey))
+                        {
+                            dic[strKey].Add(membershipCustomerService);
+                        }
+                    }
+                }
+            }
+            return dic;
+        }
+
+        public bool CheckCustomerServiceByArea(DZMembershipCustomerService member, string strKey)
+        {
+            switch (strKey)
+            {
+                case "NotVerifiedCustomerService":
+                    return !member.IsVerified;
+                case "AgreeVerifiedCustomerService":
+                    return member.VerificationIsAgree;
+                case "RefuseVerifiedCustomerService":
+                    return member.IsVerified && !member.VerificationIsAgree;
+                case "MyCustomerService":
+                    return member.IsAgentCustomerService;
+                default:return false;
+            }
+        }
+
     }
 }

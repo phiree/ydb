@@ -47,7 +47,8 @@ namespace Ydb.Membership.DomainModel.Repository
         long GetUsersCount(string name, string email, string phone, LoginType loginType, UserType userType);
         long GetUsersCountByArea(IList<string> areaList, DateTime beginTime, DateTime endTime, UserType userType);
         IList< DZMembership> GetAll();
-        
+
+        DZMembershipCustomerService GetOneNotVerifiedDZMembershipCustomerServiceByArea(IList<string> areaList);
 
     }
 }
