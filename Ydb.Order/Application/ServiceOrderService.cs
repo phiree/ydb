@@ -1292,7 +1292,7 @@ namespace Ydb.Order.Application
             {
                 where = where.And(x => x.CustomerId == userid.ToString());
             }
-            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
+            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed && x.OrderStatus != enum_OrderStatus.Search);
 
             return (int)repoServiceOrder.GetRowCount(where);
 
@@ -1310,7 +1310,7 @@ namespace Ydb.Order.Application
             {
                 where = where.And(x => x.CustomerId == userid.ToString());
             }
-            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
+            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed && x.OrderStatus != enum_OrderStatus.Search);
 
             var list = repoServiceOrder.Find(where).ToList();
 
