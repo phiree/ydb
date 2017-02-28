@@ -38,7 +38,7 @@ public class Bootstrap
         Container.Install(new InstallerMembership(GetDbConfig("ydb_membership")));
 
         Container.Install(new Ydb.ApplicationService.Installer());
-
+        LoggingConfiguration.Config("Ydb.ApplicationTest");
         Mapper.Initialize(x =>
         {
             AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
@@ -56,6 +56,7 @@ public class Bootstrap
                 .ConnectionString("Data Source=" + databaseName + "; Version=3;BinaryGuid=False")
             )
             .ExposeConfiguration(config => { new SchemaExport(config).Create(true, true); });
+
         return dbConfigInstantMessage;
     }
 }

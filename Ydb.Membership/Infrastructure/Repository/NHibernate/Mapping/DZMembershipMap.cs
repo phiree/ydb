@@ -1,19 +1,14 @@
 ﻿using FluentNHibernate.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ydb.Common.Domain;
 using Ydb.Membership.DomainModel;
 using Ydb.Membership.DomainModel.Enums;
+
 namespace Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping
 {
     public class DZMembershipMap : ClassMap<DZMembership>
     {
         public DZMembershipMap()
         {
-            Id(x => x.Id);
+            Id(x => x.Id).GeneratedBy.Custom<IdGeneratedOrAssigned>();
             Map(x => x.UserName).Unique();
             Map(x => x.Password);
             Map(x => x.PlainPassword);
@@ -23,8 +18,8 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.NickName);
             Map(x => x.Address);
             Map(x => x.QQNumber);
-            Map(x => x.Email);//.Unique();
-            Map(x => x.Phone);//.Unique();
+            Map(x => x.Email); //.Unique();
+            Map(x => x.Phone); //.Unique();
             Map(x => x.RealName);
             Map(x => x.Sex);
             Map(x => x.Birthday);
@@ -41,9 +36,6 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.UserCity);
             Map(x => x.Longitude);
             Map(x => x.Latitude);
-
-
         }
-
     }
 }

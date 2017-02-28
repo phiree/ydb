@@ -644,6 +644,8 @@
     <Content Include="Views\AgentFinance\finance_account.cshtml" />
     <Content Include="Views\AgentCustomerServiceManage\assistant_validate.cshtml" />
     <Content Include="Views\AgentCustomerServiceManage\assistant_validate_info.cshtml" />
+    <Content Include="Views\Home\_ViewStart.cshtml" />
+    <Content Include="Views\Account\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -658,6 +660,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Notice\Ydb.Notice.csproj">
+      <Project>{db0dd68a-1a9b-4028-b4fb-477e447edb6e}</Project>
+      <Name>Ydb.Notice</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ydb.ApplicationService\Ydb.ApplicationService.csproj">
       <Project>{515a3298-f38b-40e0-968c-5c65efb2affe}</Project>
       <Name>Ydb.ApplicationService</Name>

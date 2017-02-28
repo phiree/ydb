@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using OpenfireExtension;
+using Ydb.Common;
 using Ydb.Common.Application;
 using Ydb.InstantMessage.Application;
 using Ydb.Membership.Application;
@@ -42,6 +43,7 @@ namespace Ydb.ApplicationService.Application.AgentService
         ///     发送一条推送
         /// </summary>
         /// <param name="noticeId"></param>
+        /// <param name="isDebug">是否沙箱环境(IOS)</param>
         /// <returns></returns>
         public ActionResult SendNotice(string noticeId, bool isDebug)
         {
@@ -62,12 +64,15 @@ namespace Ydb.ApplicationService.Application.AgentService
                     member.UserName, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                     isDebug);
             //instantmessage 发送xmpp推送.
-            // 将用户放到组内
-            var groupname = "agentid_" + agent.Id;
+            // 将用户放到组内,根据用户类型分组
+
+            var groupname = noticeId;
             var userIds = string.Join(",", targetUsers.Select(x => x.Id));
             openfireDbService.AddUsersToGroup(userIds, groupname);
-            imService.SendMessageText(Guid.NewGuid(), notice.Title, groupname + "@broadcast." + imService.Server,
-                string.Empty, string.Empty);
+
+            imService.SendMessageText(Guid.NewGuid(), notice.Title, groupname + "@broadcast",
+               string.Empty, string.Empty);
+
             return result;
         }
 

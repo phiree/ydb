@@ -1,37 +1,30 @@
-﻿using NUnit.Framework;
-using Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using FluentNHibernate.Testing;
 using NHibernate;
-using Ydb.Common;
+using NUnit.Framework;
 using Ydb.Membership.DomainModel;
 using Ydb.Membership.Tests;
 
 namespace Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping.Tests
 {
-    [TestFixture()]
+    [TestFixture]
     public class DZMembershipMapTests
     {
-        private ISession session;
         [SetUp]
         public void setup()
         {
             session = Bootstrap.dbConfigMembership
-                  .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping.DZMembershipMap>())
-               .BuildSessionFactory().OpenSession();
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<DZMembershipMap>())
+                .BuildSessionFactory().OpenSession();
         }
 
-        [Test()]
+        private ISession session;
+
+        [Test]
         public void DZMembershipMapTest()
         {
-            new PersistenceSpecification<DZMembership>(session)
-
-
-       .VerifyTheMappings();
+            new PersistenceSpecification<DZMembership>(session).CheckProperty(x => x.Id, Guid.NewGuid())
+                .VerifyTheMappings();
         }
     }
 }
