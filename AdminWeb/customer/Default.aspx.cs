@@ -4,11 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.Model;
-using Dianzhu.BLL;
 using Ydb.Common;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
+using Ydb.InstantMessage.Application;
 public partial class membership_Default : BasePage
 {
     IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
@@ -23,7 +22,7 @@ public partial class membership_Default : BasePage
 
     private void BindSummary()
     {
-        BLLIMUserStatus bllIMUS = Bootstrap.Container.Resolve<BLLIMUserStatus>();
+        IIMUserStatusService bllIMUS = Bootstrap.Container.Resolve<IIMUserStatusService>();
        var onlineUser= bllIMUS.GetOnlineListByClientName(enum_XmppResource.YDBan_User.ToString());
         lblTotalOnline.Text = onlineUser.Count.ToString();
     }

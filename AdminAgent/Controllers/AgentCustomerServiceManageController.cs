@@ -8,6 +8,9 @@ using Ydb.Membership.Application.Dto;
 using Ydb.Common.Domain;
 using Ydb.Finance.Application;
 using Ydb.Membership.DomainModel.Enums;
+using Ydb.InstantMessage.Application;
+using Ydb.InstantMessage.DomainModel.Chat;
+using Ydb.Common.Specification;
 
 
 namespace AdminAgent.Controllers
@@ -16,6 +19,8 @@ namespace AdminAgent.Controllers
     {
         IDZMembershipService dzMembershipService = Bootstrap.Container.Resolve<IDZMembershipService>();
         IUserTypeSharePointService userTypeSharePointService = Bootstrap.Container.Resolve<IUserTypeSharePointService>();
+        IChatService chatService = Bootstrap.Container.Resolve<IChatService>();
+        IIMUserStatusArchieveService imUserStatusArchieveService= Bootstrap.Container.Resolve<IIMUserStatusArchieveService>();
         IList<Area> areaList = MockData.areaList;
         
         /// <summary>
@@ -154,5 +159,114 @@ namespace AdminAgent.Controllers
                 return Content(ex.Message);
             }
         }
+
+
+        /// <summary>
+        /// 获取助理详细信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public ActionResult assistant_detail(string id, string type)
+        {
+            try
+            {
+                ViewData["id"] = id;
+                ViewData["type"] = type;
+                //接口
+                //DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
+                //ViewData["totalOnlineTime"] = imUserStatusArchieveService.GetUserTotalOnlineTime(member.Id.ToString());
+                //模拟数据
+                DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
+                ViewData["totalOnlineTime"] = MockData.totalOnlineTime;
+                return View(member);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public ActionResult assistant_detail_recoverypassword(string id, string type)
+        {
+            try
+            {
+                //接口
+                //DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
+                //dzMembershipService.ChangePassword(member.UserName, member.PlainPassword, "123456");
+                //模拟数据
+                DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
+                member.PlainPassword = "123456";
+                return View(member);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 封停/解封账号
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public ActionResult assistant_detail_Lock(string id, string type,bool islock)
+        {
+            try
+            {
+                //接口
+                //DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
+                //dzMembershipService.LockDZMembershipCustomerService(member.Id.ToString(), islock, "违规操作");
+                //模拟数据
+                DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
+                member.IsLocked = islock;
+                if (islock)
+                {
+                    member.LockReason = "违规操作";
+                }
+                return View(member);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 获取助理详细信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public ActionResult assistant_detail_message(string id)
+        {
+            try
+            {
+                ViewData["id"] = id;
+                //接口
+                //DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
+                //IList<ReceptionChatDto> receptionChatDtoList = chatService.GetChats(new TraitFilter(), "", "", "", member.Id.ToString(), member.UserType);
+                //模拟数据
+                IList<ReceptionChatDto> receptionChatDtoList = MockData.receptionChatDtoList;
+                return View(receptionChatDtoList);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+
     }
 }

@@ -315,7 +315,6 @@ namespace Ydb.Membership.Application
             return member.ChangePasswordByPhone(newPassword, encryptService.GetMD5Hash(newPassword));
         }
 
-
         [UnitOfWork]
         public ActionResult ChangeUserCity(Guid memberId, string cityCode, string longitude, string latitude, string areaId)
         {

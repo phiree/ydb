@@ -5,6 +5,7 @@ using System.Web;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.Common.Domain;
+using Ydb.InstantMessage.DomainModel.Chat;
 
 public class MockData
 {
@@ -202,6 +203,7 @@ public class MockData
                         QQNumber = "50264711" + i.ToString(),
                         TimeCreated = DateTime.Now.AddDays(-12).AddHours(i),
                         ApplyTime = DateTime.Now.AddDays(-1).AddHours(i),
+                        VerifyTime = DateTime.Now.AddDays(-1).AddHours(i+1),
                         IsVerified = true,
                         VerificationIsAgree = true,
                         RealName = "RealName" + i.ToString(),
@@ -209,6 +211,9 @@ public class MockData
                         DZMembershipImages = dzMembershipImageList,
                         DZMembershipDiploma = dzMembershipImageDiploma,
                         DZMembershipCertificates = dzMembershipImageCertificate,
+                        IsLocked = true,
+                        LastLoginTime = DateTime.Now,
+                        PlainPassword = "123456789" + i.ToString(),
                         Sex = i % 2 == 0
                     };
                     _memberLockedList.Add(member);
@@ -240,6 +245,7 @@ public class MockData
                         QQNumber = "50264711" + i.ToString(),
                         TimeCreated = DateTime.Now.AddDays(-12).AddHours(i),
                         ApplyTime = DateTime.Now.AddDays(-1).AddHours(i),
+                        VerifyTime = DateTime.Now.AddDays(-1).AddHours(i + 1),
                         IsVerified = true,
                         VerificationIsAgree = true,
                         RealName = "RealName" + i.ToString(),
@@ -247,6 +253,9 @@ public class MockData
                         DZMembershipImages = dzMembershipImageList,
                         DZMembershipDiploma = dzMembershipImageDiploma,
                         DZMembershipCertificates = dzMembershipImageCertificate,
+                        IsLocked = false,
+                        LastLoginTime = DateTime.Now,
+                        PlainPassword = "123456789" + i.ToString(),
                         Sex = i % 2 == 0
                     };
                     _memberUnLockedList.Add(member);
@@ -319,4 +328,58 @@ public class MockData
     new DZMembershipImageDto { ImageName = "http://dev.ydban.cn/agent_admin_preview/dist/libs/adminLTE/img/photo1.png", ImageType = "Certificate" },
         new DZMembershipImageDto { ImageName = "http://dev.ydban.cn/agent_admin_preview/dist/libs/adminLTE/img/photo2.png", ImageType = "Certificate" }
     };
+
+    /// <summary>
+    /// assistant_detail
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static DZMembershipCustomerServiceDto GetLockDZMembershipCustomerServiceDtoById(string id,string type)
+    {
+        Enum_LockCustomerServiceType t = (Enum_LockCustomerServiceType)Enum.Parse(typeof(Enum_LockCustomerServiceType), type);
+        DZMembershipCustomerServiceDto member = dicLockDto[t].FirstOrDefault(x => x.Id == new Guid(id));
+        return member;
+    }
+
+    static IList<ReceptionChatDto> _receptionChatDtoList;
+    /// <summary>
+    /// 
+    /// </summary>
+    public static IList<ReceptionChatDto> receptionChatDtoList
+    {
+        get
+        {
+            if (_receptionChatDtoList == null)
+            {
+                _receptionChatDtoList = new List<ReceptionChatDto>();
+                for (int i = 1; i < 15; i++)
+                {
+                    ReceptionChatDto chat = new ReceptionChatDto()
+                    {
+                        Id = Guid.NewGuid(),
+                        SessionId = "SessionId" + i.ToString(),
+                        SavedTimestamp = 502 + i,
+                        SavedTime = DateTime.Now.AddDays(-12).AddHours(i),
+                        SendTime = DateTime.Now.AddDays(-1).AddHours(i),
+                        ReceiveTime = DateTime.Now.AddDays(-1).AddHours(i + 1),
+                        ChatType = "ChatType" + i.ToString(),
+                        FromId = "FromId" + i.ToString(),
+                        ToId = "ToId" + i.ToString(),
+                        MessageBody = "MessageBody" + i.ToString(),
+                        ChatTarget = "ChatTarget" + i.ToString(),
+                        FromResource = "FromResource" + i.ToString(),
+                        ToResource = "ToResource" + i.ToString(),
+                        IsReaded = true,
+                        IsfromCustomerService = true
+                    };
+                    _receptionChatDtoList.Add(chat);
+                }
+            }
+            return _receptionChatDtoList;
+        }
+    }
+
+    public static string totalOnlineTime = "40天2小时3分钟4秒";
+
 }
