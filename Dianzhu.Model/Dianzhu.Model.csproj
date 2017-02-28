@@ -71,7 +71,6 @@
     <Compile Include="Advertisement.cs" />
     <Compile Include="StorageManager\StorageFileInfo.cs" />
     <Compile Include="Complaint.cs" />
-    <Compile Include="Reception\IMUserStatus.cs" />
     <Compile Include="City.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -88,6 +87,7 @@
     <Folder Include="Finance\" />
     <Folder Include="IdentityAccess\" />
     <Folder Include="Payment\" />
+    <Folder Include="Reception\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">

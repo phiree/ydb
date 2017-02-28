@@ -1,10 +1,12 @@
 ﻿using System;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
-using Dianzhu.BLL;
 using Ydb.Common;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 using System.Collections.Generic;
 using System.Configuration;
 using Dianzhu.Api.Model;
+using Ydb.InstantMessage.Application;
+using Ydb.InstantMessage.DomainModel.Reception;
 
 /// <summary>
 /// 实时汇报用户的状态
@@ -62,8 +64,8 @@ public class ResponseOFP001001 : BaseResponse
                 return;
             }
 
-            BLLIMUserStatus bllIMUserStatus = Bootstrap.Container.Resolve<BLLIMUserStatus>();
-            BLLIMUserStatusArchieve bllIMUserStatusArchieve = Bootstrap.Container.Resolve<BLLIMUserStatusArchieve>();
+            IIMUserStatusService bllIMUserStatus = Bootstrap.Container.Resolve<IIMUserStatusService>();
+            IIMUserStatusArchieveService bllIMUserStatusArchieve = Bootstrap.Container.Resolve<IIMUserStatusArchieveService>();
             IMUserStatus currentIM = reqDataToImData(requestData);
         
             IDZMembershipService bllMember = Bootstrap.Container.Resolve<IDZMembershipService>();

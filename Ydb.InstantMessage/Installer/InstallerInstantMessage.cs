@@ -49,12 +49,20 @@ namespace Ydb.InstantMessage.Infrastructure
             container.Register(Component.For<IRepositoryChat>().ImplementedBy<RepositoryChat>()
                //     .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
                 );
+            container.Register(Component.For<IRepositoryIMUserStatus>().ImplementedBy<RepositoryIMUserStatus>()
+                //     .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
+                );
+            container.Register(Component.For<IRepositoryIMUserStatusArchieve>().ImplementedBy<RepositoryIMUserStatusArchieve>()
+                //     .DependsOn(ServiceOverride.ForKey<ISessionFactory>().Eq("InstantMessageSessionFactory"))
+                );
 
         }
         private void InstallApplicationService(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IReceptionService>().ImplementedBy<Ydb.InstantMessage.Application.ReceptionService>());
             container.Register(Component.For<IChatService>().ImplementedBy<Ydb.InstantMessage.Application.ChatService>());
+            container.Register(Component.For<IIMUserStatusService>().ImplementedBy<Ydb.InstantMessage.Application.IMUserStatusService>());
+            container.Register(Component.For<IIMUserStatusArchieveService>().ImplementedBy<Ydb.InstantMessage.Application.IMUserStatusArchieveService>());
         }
         private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
         {
@@ -71,8 +79,9 @@ namespace Ydb.InstantMessage.Infrastructure
        
         private void InstallDomainService(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<AssignStratage>().ImplementedBy<Ydb.InstantMessage.DomainModel.Reception.AssignStratageRandom>());
-            container.Register(Component.For<IReceptionAssigner>().ImplementedBy<Ydb.InstantMessage.DomainModel.Reception.ReceptionAssigner>());
+            container.Register(Component.For<AssignStratage>().ImplementedBy<AssignStratageRandom>());
+            container.Register(Component.For<IReceptionAssigner>().ImplementedBy<ReceptionAssigner>());
+            container.Register(Component.For<DomainModel.DataStatistics.IStatisticsInstantMessage>().ImplementedBy<DomainModel.DataStatistics.StatisticsInstantMessage>());
 
             container.Register(Component.For<IMessageAdapter>().ImplementedBy<MessageAdapter>());
             container.Register(Component.For<IReceptionSession>().ImplementedBy<ReceptionSessionOpenfireRestapi>()
