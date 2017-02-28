@@ -12,5 +12,7 @@ namespace Ydb.ApplicationService.Application.AgentService
     public interface IFinanceFlowService
     {
         IList<FinanceFlowDto> GetFinanceFlowList(IList<string> areaList,MemberDto memberAgent);
+
+        IList<FinanceTotalDto> GetFinanceTotalList(IList<string> areaList);
     }
 }

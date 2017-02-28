@@ -17,12 +17,15 @@ namespace Ydb.ApplicationService.Application.AgentService
         IDZMembershipService dzMembershipService;
         IStatisticsCount statisticsCount;
         IBalanceFlowService balanceFlowService;
+        IBalanceTotalService balanceTotalService;
         public FinanceFlowService(IDZMembershipService dzMembershipService,
-            IStatisticsCount statisticsCount,IBalanceFlowService balanceFlowService)
+            IStatisticsCount statisticsCount,IBalanceFlowService balanceFlowService,
+            IBalanceTotalService balanceTotalService)
         {
             this.dzMembershipService = dzMembershipService;
             this.statisticsCount = statisticsCount;
             this.balanceFlowService = balanceFlowService;
+            this.balanceTotalService = balanceTotalService;
         }
 
         public IList<FinanceFlowDto> GetFinanceFlowList(IList<string> areaList, MemberDto memberAgent)
@@ -33,6 +36,16 @@ namespace Ydb.ApplicationService.Application.AgentService
             IList<BalanceFlowDto> balanceFlowDtoList = balanceFlowService.GetBalanceFlowByArea(UserIdList);
             IList<FinanceFlowDto> financeFlowDtoList = statisticsCount.StatisticsFinanceFlowList(balanceFlowDtoList,memberList);
             return financeFlowDtoList;
+        }
+
+
+        public IList<FinanceTotalDto> GetFinanceTotalList(IList<string> areaList)
+        {
+            IList<DZMembershipCustomerServiceDto> memberList = dzMembershipService.GetDZMembershipCustomerServiceByArea(areaList);
+            IList<string> UserIdList = memberList.Select(x => x.Id.ToString()).ToList();
+            IList<BalanceTotalDto> balanceTotalDtoList = balanceTotalService.GetBalanceTotalByArea(UserIdList);
+            IList<FinanceTotalDto> financeTotalDtoList = statisticsCount.StatisticsFinanceTotalList(balanceTotalDtoList, memberList);
+            return financeTotalDtoList;
         }
     }
 }
