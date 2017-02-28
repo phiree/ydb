@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Ydb.Common.Specification;
 using Ydb.Order.Application;
-using Ydb.Order.DomainModel;
+using m=Ydb.Order.DomainModel;
+
 
 
 namespace Dianzhu.ApplicationService.Complaint
 {
     public class ComplaintService: IComplaintService
     {
-        BLL.BLLComplaint bllcomplaint;
+        Ydb.Order.Application.IComplaintService complaintService;
         IServiceOrderService  ibllServiceOrder;
-        public ComplaintService(BLL.BLLComplaint bllcomplaint, IServiceOrderService ibllServiceOrder)
+        public ComplaintService(Ydb.Order.Application.IComplaintService complaintService, IServiceOrderService ibllServiceOrder)
         {
-            this.bllcomplaint = bllcomplaint;
+            this.complaintService = complaintService;
             this.ibllServiceOrder = ibllServiceOrder;
         }
 
@@ -60,7 +61,7 @@ namespace Dianzhu.ApplicationService.Complaint
             {
                 throw new Exception("不能帮别人投诉！");
             }
-            ServiceOrder order = ibllServiceOrder.GetOne(utils.CheckGuidID(complaintobj.orderID, "complaintobj.orderID"));
+            m.ServiceOrder order = ibllServiceOrder.GetOne(utils.CheckGuidID(complaintobj.orderID, "complaintobj.orderID"));
             if (order == null)
             {
                 throw new Exception("投诉的订单不存在！");
@@ -69,7 +70,7 @@ namespace Dianzhu.ApplicationService.Complaint
             {
                 throw new Exception("不能投诉别人的订单！");
             }
-            Model.Complaint complaint = Mapper.Map<complaintObj, Model.Complaint>(complaintobj);
+            m.Complaint complaint = Mapper.Map<complaintObj, m.Complaint>(complaintobj);
             //complaint.Target= (enum_ComplaintTarget)Enum.Parse(typeof(enum_ComplaintTarget), complaintobj.target); 
             for (int i = 0; i < complaintobj.resourcesUrls.Count; i++)
             {
@@ -77,7 +78,7 @@ namespace Dianzhu.ApplicationService.Complaint
             }
             //Guid g = new Guid();
             //bool b = g == complaint.Id;
-            bllcomplaint.AddComplaint(complaint);
+            complaintService.AddComplaint(complaint);
             //b = g == complaint.Id;
             // if(complaint.Id==new Guid())
             //complaintobj.status = complaint.Status;
@@ -86,7 +87,7 @@ namespace Dianzhu.ApplicationService.Complaint
             //{
             //    throw new Exception("没有获取到新增的数据，可能新增失败！");
             //}
-            complaintobj = Mapper.Map<Model.Complaint,complaintObj > (complaint);
+            complaintobj = Mapper.Map<m.Complaint,complaintObj > (complaint);
             for (int i = 0; i < complaintobj.resourcesUrls.Count; i++)
             {
                 complaintobj.resourcesUrls[i] = complaintobj.resourcesUrls[i] != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + complaintobj.resourcesUrls[i] : "";
@@ -102,15 +103,15 @@ namespace Dianzhu.ApplicationService.Complaint
         /// <returns></returns>
         public IList<complaintObj> GetComplaints(common_Trait_Filtering filter, common_Trait_ComplainFiltering complaint)
         {
-            IList<Model.Complaint> listcomplaint = null;
+            IList<m.Complaint> listcomplaint = null;
             TraitFilter filter1 = utils.CheckFilter(filter, "Complaint");
-            listcomplaint = bllcomplaint.GetComplaints(filter1, utils.CheckGuidID(complaint.orderID, "orderID"), utils.CheckGuidID(complaint.storeID, "storeID"), utils.CheckGuidID(complaint.customerServiceID, "customerServiceID"));
+            listcomplaint = complaintService.GetComplaints(filter1, utils.CheckGuidID(complaint.orderID, "orderID"), utils.CheckGuidID(complaint.storeID, "storeID"), utils.CheckGuidID(complaint.customerServiceID, "customerServiceID"));
             if (listcomplaint == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<complaintObj>();
             }
-            IList<complaintObj> complaintobj = Mapper.Map<IList<Model.Complaint>, IList<complaintObj>>(listcomplaint);
+            IList<complaintObj> complaintobj = Mapper.Map<IList<m.Complaint>, IList<complaintObj>>(listcomplaint);
             for (int i = 0; i < complaintobj.Count; i++)
             {
                 for (int j = 0; j < complaintobj[i].resourcesUrls.Count; j++)
@@ -130,7 +131,7 @@ namespace Dianzhu.ApplicationService.Complaint
         public countObj GetComplaintsCount(common_Trait_ComplainFiltering complaint)
         {
             countObj c = new countObj();
-            c.count = bllcomplaint.GetComplaintsCount(utils.CheckGuidID(complaint.orderID, "orderID"), utils.CheckGuidID(complaint.storeID, "storeID"), utils.CheckGuidID(complaint.customerServiceID, "customerServiceID")).ToString();
+            c.count = complaintService.GetComplaintsCount(utils.CheckGuidID(complaint.orderID, "orderID"), utils.CheckGuidID(complaint.storeID, "storeID"), utils.CheckGuidID(complaint.customerServiceID, "customerServiceID")).ToString();
             return c; 
 
         }
@@ -142,14 +143,14 @@ namespace Dianzhu.ApplicationService.Complaint
         /// <returns></returns>
         public complaintObj GetOneComplaint(string complaintID)
         {
-            Model.Complaint complaint = bllcomplaint.GetComplaintById(utils.CheckGuidID(complaintID, "complaintID"));
+            m.Complaint complaint = complaintService.GetComplaintById(utils.CheckGuidID(complaintID, "complaintID"));
             if (complaint == null)
             {
                 //throw new Exception(Dicts.StateCode[4]);
                 //return null;
                 throw new Exception("没有找到资源！");
             }
-            complaintObj complaintobj = Mapper.Map<Model.Complaint, complaintObj>(complaint);
+            complaintObj complaintobj = Mapper.Map<m.Complaint, complaintObj>(complaint);
             for (int i = 0; i < complaint.ComplaitResourcesUrl.Count; i++)
             {
                 complaintobj.resourcesUrls[i] = complaintobj.resourcesUrls[i] != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + complaintobj.resourcesUrls[i] : "";

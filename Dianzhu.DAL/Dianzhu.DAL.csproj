@@ -89,11 +89,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DALComplaint.cs" />
     <Compile Include="DALAdvertisement.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Mapping\StorageManager\StorageFileInfoMap.cs" />
-    <Compile Include="Mapping\ComplaintMap.cs" />
     <Compile Include="Mapping\AdvertisementMap.cs" />
     <Compile Include="Mapping\CityMap.cs" />
     <Compile Include="NHCustomDialect.cs" />

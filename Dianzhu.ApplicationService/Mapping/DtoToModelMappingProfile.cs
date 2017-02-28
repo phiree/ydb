@@ -42,7 +42,7 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<cityObj, Area>()
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<complaintObj, Dianzhu.Model. Complaint>()
+            Mapper.CreateMap<complaintObj, Ydb.Order.DomainModel.Complaint>()
             .ForMember(x => x.ComplaitResourcesUrl, opt => opt.MapFrom(source =>new List<string>()))
             .ForMember(x => x.Target, opt => opt.MapFrom(source => (enum_ComplaintTarget)Enum.Parse(typeof(enum_ComplaintTarget), source.target)))
             .ForMember(x => x.OrderId, opt => opt.MapFrom(source => source.orderID  ))

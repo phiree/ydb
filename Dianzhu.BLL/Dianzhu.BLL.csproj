@@ -82,7 +82,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLLComplaint.cs" />
     <Compile Include="BLLAdvertisement.cs" />
     <Compile Include="DZRoleProvidercs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -20,7 +20,7 @@ namespace Dianzhu.DependencyInstaller
         //    container.Register(Component.For<BLLBusiness>());
         //    container.Register(Component.For<BLLBusinessImage>());
 
-   container.Register(Component.For<BLLComplaint>());
+   //container.Register(Component.For<BLLComplaint>());
 
           //   container.Register(Component.For<dzServiceService>());
           //  container.Register(Component.For<BLLDZTag>());
@@ -89,7 +89,7 @@ namespace Dianzhu.DependencyInstaller
 
 
 
-             container.Register(Component.For<IRepository<Complaint, Guid>, IDALComplaint>().ImplementedBy<DALComplaint>());
+             //container.Register(Component.For<IRepository<Complaint, Guid>, IDALComplaint>().ImplementedBy<DALComplaint>());
              //dddddddddddd
           //   container.Register(Component.For<IRepository<DZService, Guid>, IDALDZService>().ImplementedBy<DALDZService>());
             //container.Register(Component.For<IRepository<DZTag, Guid>, IDALDZTag>().ImplementedBy<DALDZTag>());
