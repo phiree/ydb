@@ -7,6 +7,7 @@ using NHibernate;
 using System.Collections;
 using Ydb.Finance.DomainModel;
 using AutoMapper;
+using Ydb.Common.Specification;
 
 namespace Ydb.Finance.Application
 {
@@ -26,6 +27,22 @@ namespace Ydb.Finance.Application
         public BalanceTotalDto GetOneByUserId(string userId)
         {
             return Mapper.Map<BalanceTotal, BalanceTotalDto>(repositoryBalanceTotal.GetOneByUserId(userId));
+        }
+
+        /// <summary>
+        /// 获取代理及其助理的所有账户余额信息
+        /// </summary>
+        /// <param name="UserList">代理及其助理的用户Id列表</param>
+        /// <returns></returns>
+        [Ydb.Finance.Infrastructure.UnitOfWork]
+        public IList<BalanceTotalDto> GetBalanceTotalByArea(IList<string> UserIdList)
+        {
+            var where = PredicateBuilder.True<BalanceTotal>();
+            if (UserIdList.Count > 0)
+            {
+                where = where.And(x => UserIdList.Contains(x.UserId));
+            }
+            return Mapper.Map<IList<BalanceTotal>, IList<BalanceTotalDto>>(repositoryBalanceTotal.Find(where));
         }
     }
 }
