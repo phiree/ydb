@@ -6,6 +6,7 @@ using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.Common.Domain;
 using Ydb.InstantMessage.DomainModel.Chat;
+using Ydb.ApplicationService.ModelDto;
 
 public class MockData
 {
@@ -381,5 +382,85 @@ public class MockData
     }
 
     public static string totalOnlineTime = "40天2小时3分钟4秒";
+
+    public static string totalOrderCount = "234";
+
+    public static string totalComplaintCount = "7";
+
+
+
+    public static string SharedOrder = "45";
+    public static string NotSharedOrder = "32";
+    static IList<FinanceFlowDto> _financeFlowDtoList;
+    /// <summary>
+    /// 
+    /// </summary>
+    public static IList<FinanceFlowDto> financeFlowDtoList
+    {
+        get
+        {
+            if (_financeFlowDtoList == null)
+            {
+                _financeFlowDtoList = new List<FinanceFlowDto>();
+                for (int i = 1; i < 15; i++)
+                {
+                    FinanceFlowDto flow = new FinanceFlowDto()
+                    {
+                        Id = Guid.NewGuid(),
+                        UserId = "UserId" + i.ToString(),
+                        UserNickName = "UserNickName" + i.ToString(),
+                        UserType = "UserType" + i.ToString(),
+                        Amount = 502 + i,
+                        OccurTime = DateTime.Now.AddDays(-12).AddHours(i),
+                        RelatedObjectId = "RelatedObjectId" + i.ToString(),
+                        SerialNo = "SerialNo" + i.ToString(),
+                        FlowType = "FlowType" + i.ToString(),
+                        AmountTotal = "AmountTotal" + i.ToString(),
+                        Rate = "Rate" + i.ToString(),
+                        AmountView = "AmountView" + i.ToString(),
+                        Income = true
+                    };
+                    _financeFlowDtoList.Add(flow);
+                }
+            }
+            return _financeFlowDtoList;
+        }
+    }
+
+
+    public static string myAccountFinance = "7895";
+    public static string myAliAccount = "123@alipay.com";
+    static IList<FinanceTotalDto> _financeTatolDtoList;
+    /// <summary>
+    /// 
+    /// </summary>
+    public static IList<FinanceTotalDto> financeTotalDtoList
+    {
+        get
+        {
+            if (_financeTatolDtoList == null)
+            {
+                _financeTatolDtoList = new List<FinanceTotalDto>();
+                for (int i = 1; i < 15; i++)
+                {
+                    FinanceTotalDto flow = new FinanceTotalDto()
+                    {
+                        Id = Guid.NewGuid(),
+                        UserId = "UserId" + i.ToString(),
+                        UserNickName = "UserNickName" + i.ToString(),
+                        UserType = "UserType" + i.ToString(),
+                        Total = 502 + i,
+                        Frozen = 12 + i,
+                        Account = "Account" + i.ToString(),
+                        RealName = "RealName" + i.ToString(),
+                        Phone = "1324567890" + i.ToString(),
+                        IsAgentCustomerService = true
+                    };
+                    _financeTatolDtoList.Add(flow);
+                }
+            }
+            return _financeTatolDtoList;
+        }
+    }
 
 }

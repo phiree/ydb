@@ -11,6 +11,7 @@ using Ydb.Membership.DomainModel.Enums;
 using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.Common.Specification;
+using Ydb.Order.Application;
 
 
 namespace AdminAgent.Controllers
@@ -21,6 +22,9 @@ namespace AdminAgent.Controllers
         IUserTypeSharePointService userTypeSharePointService = Bootstrap.Container.Resolve<IUserTypeSharePointService>();
         IChatService chatService = Bootstrap.Container.Resolve<IChatService>();
         IIMUserStatusArchieveService imUserStatusArchieveService= Bootstrap.Container.Resolve<IIMUserStatusArchieveService>();
+        IServiceOrderService serviceOrderService = Bootstrap.Container.Resolve<IServiceOrderService>();
+        IComplaintService complaintService = Bootstrap.Container.Resolve<IComplaintService>();
+        MemberDto memberAgent = MockData.memberAgent;
         IList<Area> areaList = MockData.areaList;
         
         /// <summary>
@@ -176,9 +180,13 @@ namespace AdminAgent.Controllers
                 //接口
                 //DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
                 //ViewData["totalOnlineTime"] = imUserStatusArchieveService.GetUserTotalOnlineTime(member.Id.ToString());
+                //ViewData["totalOrderCount"] = serviceOrderService.GetServiceOrderCountWithoutDraft(memberAgent.Id, true);
+                //ViewData["totalComplaintCount"] = complaintService.GetComplaintsCount(Guid.Empty, Guid.Empty, memberAgent.Id);
                 //模拟数据
                 DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
                 ViewData["totalOnlineTime"] = MockData.totalOnlineTime;
+                ViewData["totalOrderCount"] = MockData.totalOrderCount;
+                ViewData["totalComplaintCount"] = MockData.totalComplaintCount;
                 return View(member);
             }
             catch (Exception ex)
