@@ -59,7 +59,7 @@ namespace Ydb.ApplicationService.Application.AgentService.DataStatistics
                     financeTotalDto.IsAgentCustomerService = member.IsAgentCustomerService;
                     financeTotalDto.Total = balanceTotal.Total;
                     financeTotalDto.Frozen = balanceTotal.Frozen;
-                    financeTotalDto.Account = balanceTotal.AccountDto.Account;
+                    financeTotalDto.Account = balanceTotal.AccountDto==null?"": balanceTotal.AccountDto.Account;
                     financeTotalDtoList.Add(financeTotalDto);
                 }
             }

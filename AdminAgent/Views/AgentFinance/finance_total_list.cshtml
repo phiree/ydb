@@ -1,4 +1,4 @@
-﻿
+﻿@model IList<Ydb.ApplicationService.ModelDto.FinanceTotalDto>
 @{
     ViewBag.headTitle = "财务管理";
     ViewBag.subTitle = "提现申请";
@@ -15,6 +15,7 @@
                 <div class="info-box-content">
                     <span class="info-box-text">账户余额</span>
                     <span class="info-box-number">@ViewData["myAccountFinance"]</span>
+                    <span class="info-box-number text-right">@Html.ActionLink("提现", "finance_withdraw_apply", "AgentFinance", new { @class = "btn btn-info" })</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -28,6 +29,7 @@
                 <div class="info-box-content">
                     <span class="info-box-text">支付宝账号</span>
                     <span class="info-box-number">@ViewData["myAliAccount"]</span>
+                    <span class="info-box-number text-right">@Html.ActionLink("绑定/更改", "finance_account_bind", "AgentFinance", new { @class = "btn btn-success" })@*<a href="finance-account-bind.html" class="btn btn-success">绑定/更改</a>*@</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -96,59 +98,57 @@
                                     <th>序号</th>
                                     <th>助理名</th>
                                     <th>真实姓名</th>
-                                    <th>账户余额</th>
-                                    <th>我的助理</th>
-                                    <th>支付宝账号</th>
                                     <th>联系电话</th>
+                                    <th>我的助理</th>
+                                    <th>账户余额</th>
+                                    <th>支付宝账号</th>
                                     <th>提现</th>
                                 </tr>
                             </tfoot>
                             <tbody>
-                                <tr>
-                                    <td>132456</td>
-                                    <td>test@test.com</td>
-                                    <td>$123</td>
-                                    <td>get@alipay.com</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>某某某</td>
-                                </tr>
-                                <tr>
-                                    <td>132456</td>
-                                    <td>test@test.com</td>
-                                    <td>$123</td>
-                                    <td>get@alipay.com</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>某某某</td>
-                                </tr>
-                                <tr>
-                                    <td>132456</td>
-                                    <td>test@test.com</td>
-                                    <td>$123</td>
-                                    <td>get@alipay.com</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>某某某</td>
-                                </tr>
-                                <tr>
-                                    <td>132456</td>
-                                    <td>test@test.com</td>
-                                    <td>$123</td>
-                                    <td>get@alipay.com</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>某某某</td>
-                                </tr>
-                                <tr>
-                                    <td>132456</td>
-                                    <td>test@test.com</td>
-                                    <td>$123</td>
-                                    <td>get@alipay.com</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>某某某</td>
-                                </tr>
+                                @for (int i = 0; i < @Model.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@(i + 1)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[i].UserNickName)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[i].RealName)</td>
+                                        <td>@Html.DisplayFor(modelItem => Model[i].Phone)</td>
+                                        <td>
+                                            @if (Model[i].IsAgentCustomerService)
+                                            {
+                                                @Html.Label("是");
+                                            }
+                                            else
+                                            {
+                                                @Html.Label("否");
+                                            }
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => Model[i].Total)</td>
+                                        <td>
+                                            @if (string.IsNullOrEmpty(Model[i].Account))
+                                            {
+                                                if (Model[i].IsAgentCustomerService)
+                                                {
+                                                    @Html.ActionLink("绑定/更改", "finance_account", "AgentFinance")
+                                                }
+                                                else
+                                                {
+                                                    @Html.Label("未绑定")
+                                                }
+                                            }
+                                            else
+                                            {
+                                                @Html.DisplayFor(modelItem => Model[i].Account)
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (Model[i].IsAgentCustomerService)
+                                            {
+                                                @Html.ActionLink("提现", "finance_withdraw_apply", "AgentFinance")
+                                            }
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </form>

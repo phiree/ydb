@@ -649,6 +649,7 @@
     <Content Include="Views\AgentCustomerServiceManage\assistant_detail_message.cshtml" />
     <Content Include="Views\AgentFinance\finance_withdraw_apply.cshtml" />
     <Content Include="Views\AgentFinance\finance_total_list.cshtml" />
+    <Content Include="Views\AgentFinance\finance_account_bind.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

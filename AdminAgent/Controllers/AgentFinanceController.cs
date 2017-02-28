@@ -38,19 +38,39 @@ namespace AdminAgent.Controllers
             }
         }
 
-        public ActionResult finance_withdraw_apply()
+        public ActionResult finance_withdraw_apply(string id)
         {
             try
             {
                 //接口
-                //ViewData["myAccountFinance"] = ordersService.GetOrdersCountByArea(areaList, true);
-                //ViewData["myAliAccount"] = ordersService.GetOrdersCountByArea(areaList, false);
-                //IList<FinanceFlowDto> financeFlowDtoList = financeFlowService.GetFinanceFlowList(areaList, memberAgent);
+                //BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(id);
+                //ViewData["myAccountFinance"] = balanceTotalDto.Total;
+                //ViewData["myAliAccount"] = balanceTotalDto.AccountDto.Account;
                 //模拟数据
                 ViewData["myAccountFinance"] = MockData.myAccountFinance;
                 ViewData["myAliAccount"] = MockData.myAliAccount;
-                IList<FinanceFlowDto> financeFlowDtoList = MockData.financeFlowDtoList;
-                return View(financeFlowDtoList);
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+
+        public ActionResult finance_account_bind(string id)
+        {
+            try
+            {
+                //接口
+                //BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(id);
+                //ViewData["myAccountFinance"] = balanceTotalDto.Total;
+                //ViewData["myAliAccount"] = balanceTotalDto.AccountDto.Account;
+                //模拟数据
+                ViewData["myAccountFinance"] = MockData.myAccountFinance;
+                ViewData["myAliAccount"] = MockData.myAliAccount;
+                return View();
             }
             catch (Exception ex)
             {
