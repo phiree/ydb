@@ -75,5 +75,6 @@ namespace Ydb.Membership.DomainModel
 
         DZMembershipCustomerService GetDZMembershipCustomerServiceById(string id);
 
+        IList<DZMembershipCustomerService> GetDZMembershipCustomerServiceByArea(IList<string> areaIdList);
     }
 }

@@ -831,6 +831,10 @@ namespace Ydb.Membership.Application
             return Mapper.Map<DZMembershipCustomerServiceDto>(repositoryMembership.GetOneNotVerifiedDZMembershipCustomerServiceByArea(areaList));
         }
 
+        public IList<DZMembershipCustomerServiceDto> GetDZMembershipCustomerServiceByArea(IList<string> areaIdList)
+        {
+            return Mapper.Map<IList<DZMembershipCustomerServiceDto>>(dzmembershipDomainService.GetDZMembershipCustomerServiceByArea(areaIdList));
+        }
 
 
     }

@@ -240,5 +240,12 @@ namespace Ydb.Membership.Application
         /// <param name="areaList"></param>
         /// <returns></returns>
         DZMembershipCustomerServiceDto GetOneNotVerifiedDZMembershipCustomerServiceByArea(IList<string> areaList);
+
+        /// <summary>
+        /// 根据代理区域获取客服信息
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        IList<DZMembershipCustomerServiceDto> GetDZMembershipCustomerServiceByArea(IList<string> areaIdList);
     }
 }

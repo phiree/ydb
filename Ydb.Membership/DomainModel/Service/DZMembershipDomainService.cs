@@ -346,7 +346,7 @@ namespace Ydb.Membership.DomainModel
 
         }
 
-        [UnitOfWork]
+
         public DZMembershipCustomerService GetDZMembershipCustomerServiceByName(string userName)
         {
             DZMembership membership = repositoryDZMembership.GetMemberByName(userName);
@@ -361,7 +361,7 @@ namespace Ydb.Membership.DomainModel
 
         }
 
-        [UnitOfWork]
+
         public DZMembershipCustomerService GetDZMembershipCustomerServiceById(string id)
         {
             DZMembership membership = repositoryDZMembership.GetMemberById(new Guid(id));
@@ -373,6 +373,26 @@ namespace Ydb.Membership.DomainModel
             {
                 throw new Exception("该助理不存在");
             }
+        }
+
+        /// <summary>
+        /// 根据代理区域获取客服信息
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        public IList<DZMembershipCustomerService> GetDZMembershipCustomerServiceByArea(IList<string> areaIdList)
+        {
+            IList<DZMembershipCustomerService> dzMembershipCustomerServiceList = new List<DZMembershipCustomerService>();
+            IList<DZMembership> memberList = repositoryDZMembership.GetUsersByArea(areaIdList, DateTime.MinValue, DateTime.MinValue, UserType.customerservice);
+            foreach (DZMembership member in memberList)
+            {
+                if (member.GetType() == typeof(DZMembershipCustomerService))
+                {
+                    DZMembershipCustomerService membershipCustomerService = (DZMembershipCustomerService)member;
+                    dzMembershipCustomerServiceList.Add(membershipCustomerService);
+                }
+            }
+            return dzMembershipCustomerServiceList;
         }
 
     }
