@@ -24,6 +24,7 @@ public class Bootstrap
     }
     public static void Boot()
     {
+        Ydb.Common.LoggingConfiguration.Config("Ydb.AdminAgent");
         container = new WindsorContainer();
         container.Install(
             new Ydb.Infrastructure.Installer()
@@ -33,6 +34,15 @@ public class Bootstrap
             new Ydb.Infrastructure.InstallerCommon(BuildDBConfig("ydb_common"))
             );
         container.Install(
+       new Ydb.Push.Infrastructure.InstallerPush(BuildDBConfig("ydb_push"))
+       );
+        container.Install(
+    new OpenfireExtension.InstallerOpenfireExtension()
+    );
+        container.Install(
+         new Ydb.Notice.InstallerNotice(BuildDBConfig("ydb_notice"))
+         );
+        container.Install(
             new Ydb.Finance.Infrastructure.InstallerFinance(BuildDBConfig("ydb_finance"))
            );
         container.Install(
@@ -41,6 +51,9 @@ public class Bootstrap
         container.Install(
           new Ydb.Order.Infrastructure.InstallerOrder(BuildDBConfig("ydb_order"))
           );
+        container.Install(
+         new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb_instantmessage"))
+         );
         container.Install(
           new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
           );

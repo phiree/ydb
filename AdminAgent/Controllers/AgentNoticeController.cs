@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Web.Mvc;
 using Ydb.ApplicationService.Application.AgentService;
 using Ydb.Common;
@@ -12,9 +14,10 @@ namespace AdminAgent.Controllers
         private readonly IAgentNoticeService agentNoticeService;
         private readonly INoticeService noticeService;
 
-        public AgentNoticeController(IAgentNoticeService agentNoticeService)
+        public AgentNoticeController()
         {
-            this.agentNoticeService = agentNoticeService;
+            this.agentNoticeService = Bootstrap.Container.Resolve<IAgentNoticeService>();
+            this.noticeService = Bootstrap.Container.Resolve<INoticeService>();
         }
 
         // GET: PushMessage
@@ -42,11 +45,14 @@ namespace AdminAgent.Controllers
 
         public ActionResult TestSendNotice()
         {
+            Guid userId = Guid.Empty;
+            ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
+            userId =new Guid( claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
             var notice = noticeService.AddNotice("title11", "<h1>title11</h1>",
-                new Guid("71df3fe7-73da-11e6-99ac-02004c4f4f50"), enum_UserType.customer | enum_UserType.customerservice);
+               userId,  enum_UserType.customer | enum_UserType.customerservice);
 
-            agentNoticeService.SendNotice(notice.Id.ToString());
-            return View();
+            agentNoticeService.SendNotice(notice.Id.ToString(),true);
+            return Content("fasongchenggong");
         }
     }
 }
