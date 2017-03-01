@@ -52,11 +52,7 @@ namespace Ydb.Membership.Application
             this.statisticsMembershipCount = statisticsMembershipCount;
         }
 
-        public RegisterResult RegisterMember(string registerName, string password, string confirmPassword,
-            string strUserType, string hostInMail)
-        {
-            return RegisterMember(Guid.NewGuid(), registerName, password, confirmPassword, strUserType, hostInMail);
-        }
+        
 
         [UnitOfWork]
         public RegisterResult RegisterCustomerService(string registerName, string password, string confirmPassword,
@@ -808,8 +804,14 @@ namespace Ydb.Membership.Application
                 Mapper.Map<DZMembershipCustomerServiceDto>(
                     repositoryMembership.GetOneNotVerifiedDZMembershipCustomerServiceByArea(areaList));
         }
+        public RegisterResult RegisterMember(string registerName, string password, string confirmPassword, string strUserType, string hostInMail)
+        {
+            return RegisterMember(Guid.NewGuid(), registerName, password, confirmPassword, strUserType, hostInMail);
+        }
+        [UnitOfWork]
+        public RegisterResult RegisterMember(Guid Id, string registerName, string password, string confirmPassword,
 
-            string strUserType, string hostInMail)
+    string strUserType, string hostInMail)
         {
             var userType = (UserType) Enum.Parse(typeof(UserType), strUserType);
 
@@ -822,6 +824,8 @@ namespace Ydb.Membership.Application
                 return registerResult;
             }
             string errMsg;
+            DZMembership createdUser = dzmembershipDomainService.CreateUser(Id, registerName, password, userType, out errMsg);
+
             if (!string.IsNullOrEmpty(errMsg))
             {
                 registerResult.RegisterSuccess = false;
@@ -852,6 +856,11 @@ namespace Ydb.Membership.Application
         {
             var wechatUser = new DZMembershipWeChat();
             repositoryMembership.Add(wechatUser);
+        }
+
+        public IList<DZMembershipCustomerServiceDto> GetDZMembershipCustomerServiceByArea(IList<string> areaIdList)
+        {
+            return Mapper.Map<IList<DZMembershipCustomerServiceDto>>(dzmembershipDomainService.GetDZMembershipCustomerServiceByArea(areaIdList));
         }
     }
 }
