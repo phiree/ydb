@@ -80,17 +80,13 @@ website.publishproj
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Pay\Dianzhu.Pay.csproj">
-      <Project>{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}</Project>
-      <Name>Dianzhu.Pay</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
-      <Project>{BE142427-1CE4-40F8-AC58-D0509BA05D21}</Project>
-      <Name>Dianzhu.Push</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Web.Common\Dianzhu.Web.Common.csproj">
       <Project>{B74CA750-EBD2-4EFD-823A-FC680F498E52}</Project>
       <Name>Dianzhu.Web.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Log4Mongo\Log4Mongo.csproj">
+      <Project>{59D8ECF9-2867-43FD-BF18-EFE2758CF14F}</Project>
+      <Name>Log4Mongo</Name>
     </ProjectReference>
     <ProjectReference Include="..\MediaServer\MediaServer.csproj">
       <Project>{9920DA22-589C-4193-AEAA-363D5C029DFC}</Project>
@@ -99,6 +95,10 @@ website.publishproj
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
       <Name>PHSuit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.BusinessResource\Ydb.BusinessResource.csproj">
+      <Project>{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}</Project>
+      <Name>Ydb.BusinessResource</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
       <Project>{F351E700-E016-4A42-9154-54A6D92ECBDE}</Project>
@@ -119,6 +119,18 @@ website.publishproj
     <ProjectReference Include="..\Ydb.Membership\Ydb.Membership.csproj">
       <Project>{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}</Project>
       <Name>Ydb.Membership</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Order\Ydb.Order.csproj">
+      <Project>{901E2A8A-E608-4477-B9BC-F583D818D87F}</Project>
+      <Name>Ydb.Order</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.PayGateway\Ydb.PayGateway.csproj">
+      <Project>{A54365B5-4B06-4897-A280-38D18ED9EB0E}</Project>
+      <Name>Ydb.PayGateway</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Web.LogView\Ydb.Web.LogView.csproj">
+      <Project>{939E8BAF-F3DD-47FC-A3CD-92417A30C066}</Project>
+      <Name>Ydb.Web.LogView</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(_WebPublishTargetsPath)\Web\Microsoft.WebSite.Publishing.targets" />

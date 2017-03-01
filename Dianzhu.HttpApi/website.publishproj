@@ -88,14 +88,8 @@ website.publishproj
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Pay\Dianzhu.Pay.csproj">
-      <Project>{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}</Project>
-      <Name>Dianzhu.Pay</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
-      <Project>{BE142427-1CE4-40F8-AC58-D0509BA05D21}</Project>
-      <Name>Dianzhu.Push</Name>
-    </ProjectReference>
+    
+   
     <ProjectReference Include="..\Dianzhu.Web.Common\Dianzhu.Web.Common.csproj">
       <Project>{B74CA750-EBD2-4EFD-823A-FC680F498E52}</Project>
       <Name>Dianzhu.Web.Common</Name>
