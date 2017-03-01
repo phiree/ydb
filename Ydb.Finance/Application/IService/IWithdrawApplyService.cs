@@ -53,5 +53,12 @@ namespace Ydb.Finance.Application
         /// </summary>
         /// <param name="fail_details" type="string">转账失败的详细信息</param>
         void PayWithdrawFail(string fail_details);
+
+        /// <summary>
+        /// 获取代理及其助理的所有提现信息
+        /// </summary>
+        /// <param name="userIdList"></param>
+        /// <returns></returns>
+        IList<WithdrawApplyDto> GetWithdrawApplyListByArea(IList<string> userIdList);
     }
 }

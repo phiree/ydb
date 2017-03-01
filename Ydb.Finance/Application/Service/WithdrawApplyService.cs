@@ -159,6 +159,23 @@ namespace Ydb.Finance.Application
         }
 
         /// <summary>
+        /// 获取代理及其助理的所有提现信息
+        /// </summary>
+        /// <param name="userIdList"></param>
+        /// <returns></returns>
+        [Ydb.Finance.Infrastructure.UnitOfWork]
+        public IList<WithdrawApplyDto> GetWithdrawApplyListByArea(IList<string> userIdList)
+        {
+            var where = PredicateBuilder.True<WithdrawApply>();
+            if (userIdList.Count >0)
+            {
+                where = where.And(x => userIdList.Contains(x.ApplyUserId));
+            }
+            var list =  repositoryWithdrawApply.Find(where).ToList();
+            return Mapper.Map<IList<WithdrawApply>, IList<WithdrawApplyDto>>(list);
+        }
+
+        /// <summary>
         /// 支付操作
         /// </summary>
         /// <param name="withdrawApplyIds" type="IList<Guid>">要支付的提现申请Id列表</param>

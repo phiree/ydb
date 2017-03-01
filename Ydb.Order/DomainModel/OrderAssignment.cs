@@ -20,8 +20,7 @@ namespace Ydb.Order.DomainModel
             Enabled = true;
             IsHeader = true;
         }
-
-        public virtual Guid Id { get; set; }
+        
 
         /// <summary>
         /// 被分配的订单

@@ -138,5 +138,29 @@ namespace AdminAgent.Controllers
             }
         }
 
+        public ActionResult finance_withdraw_history()
+        {
+            try
+            {
+                //接口
+                //BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(memberAgent.Id.ToString());
+                //ViewData["myAccountFinance"] = balanceTotalDto.Total;
+                //ViewData["myAliAccount"] = balanceTotalDto.AccountDto.Account;
+                //IList<FinanceTotalDto> financeTotalDtoList = financeFlowService.GetFinanceTotalList(areaList);
+                //ViewData["agentId"] = memberAgent.Id;
+                //模拟数据
+                ViewData["myAccountFinance"] = MockData.myAccountFinance;
+                ViewData["myAliAccount"] = MockData.myAliAccount;
+                IList<FinanceTotalDto> financeTotalDtoList = MockData.financeTotalDtoList;
+                return View(financeTotalDtoList);
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
     }
 }
