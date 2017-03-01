@@ -26,7 +26,14 @@ var test_data = [
     },
   {
       "reqData": {
-          "message": "<message type=\"chat\" id=\"8f19fd5f-5efd-48e7-8a6f-6cca77fb9f7e\" to=\"ca91d8f5-ac4a-4124-9438-a66700f481f9@112.74.198.215/YDBan_User\" from=\"85c0d79f-64a1-41bf-bc1b-a64400a2ad18@112.74.198.215/YDBan_CustomerService\"><body/><active xmlns=\"http://jabber.org/protocol/chatstates\"/><ext xmlns=\"ihelper:chat:orderobj\"><orderID>fa17fcb9-37a1-4029-bc68-a66d00b5ad9a<\/orderID><svcObj svcID=\"3e3dc024-bb31-4886-b4d7-a66600fcc9e4\" name=\"展会摄影摄像预订\" type=\"预订&gt;展会摄影摄像预订\" startTime=\"20160825150000\"/><customerObj customerPhone=\"13637642372\" customerName=\"聂先生\" customerAddress=\"海涯大厦12楼a座\" customerStartTime=\"2016/8/25 15:00:00\"/><storeObj userID=\"fa6eed96-caec-4f00-8819-a66600fc3e29\" alias=\"于成的店铺\" imgUrl=\"fa6eed96-caec-4f00-8819-a66600fc3e29Business_Avatar1273122340.JPG\"/><\/ext><\/message>"
+          "message": "<message type=\"chat\" id=\"8f19fd5f-5efd-48e7-8a6f-6cca77fb9f7e\" to=\"ca91d8f5-ac4a-4124-9438-a66700f481f9@112.74.198.215/YDBan_User\" from=\"85c0d79f-64a1-41bf-bc1b-a64400a2ad18@112.74.198.215/YDBan_CustomerService\"><body/><active xmlns=\"http://jabber.org/protocol/chatstates\"/><ext xmlns=\"ihelper:chat:orderobj\"><orderID>fa17fcb9-37a1-4029-bc68-a66d00b5ad9a<\/orderID><svcObj svcID=\"3e3dc024-bb31-4886-b4d7-a66600fcc9e4\" name=\"展会摄影摄像预订\" type=\"预订&gt;展会摄影摄像预订\" startTime=\"20160825150000\" endTime=\"20160825150000\"/><customerObj customerPhone=\"13637642372\" customerName=\"聂先生\" customerAddress=\"海涯大厦12楼a座\" customerStartTime=\"2016/8/25 15:00:00\"/><storeObj userID=\"fa6eed96-caec-4f00-8819-a66600fc3e29\" alias=\"于成的店铺\" imgUrl=\"fa6eed96-caec-4f00-8819-a66600fc3e29Business_Avatar1273122340.JPG\"/><\/ext><\/message>"
+      },
+      "protocol_CODE": "Chat001008"
+  },
+  {
+      "reqData": {
+          "message":  "<message id=\"0a7ec33d-11ee-422a-bce6-d754d22229ce\" type=\"chat\" to=\"8be4a054-c641-4709-a5c3-a66c011ec62a@dev.ydban.cn/YDBan_User\" from=\"f35fd340-b763-4879-94cd-a64a00ac7b0f@dev.ydban.cn/YDBan_Store\"><body>bab<\/body><ext xmlns=\"ihelper:chat:text\"><orderID>6fb35e15-8368-4a47-b005-a72900f7fede<\/orderID><\/ext><request xmlns=\"urn:xmpp:receipts\"/><\/message>"
+ 
       },
       "protocol_CODE": "Chat001008"
   },

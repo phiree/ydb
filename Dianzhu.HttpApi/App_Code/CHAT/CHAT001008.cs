@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Dianzhu.BLL;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+using Dianzhu.Model;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 using Ydb.Common;
 using Dianzhu.Api.Model;
 using agsXMPP.protocol.client;
@@ -14,6 +16,7 @@ using Ydb.InstantMessage.DomainModel.Reception;
 using Ydb.Push.Application;
 
 using Ydb.Push;
+using Ydb.Order.DomainModel;
 /// <summary>
 /// Summary description for CHAT001001
 /// </summary>
@@ -24,7 +27,7 @@ public class ResponseCHAT001008:BaseResponse
     IChatService chatService = Bootstrap.Container.Resolve<IChatService>();
     IPushService pushService = Bootstrap.Container.Resolve<IPushService>();
     IDZMembershipService memberService= Bootstrap.Container.Resolve<IDZMembershipService>();
-    
+    Ydb.Order.Application.IServiceOrderService orderService = Bootstrap.Container.Resolve<Ydb.Order.Application.IServiceOrderService>();
     public ResponseCHAT001008(BaseRequest request):base(request)
     {
         log = log4net.LogManager.GetLogger(this.GetType().ToString());
@@ -53,16 +56,22 @@ public class ResponseCHAT001008:BaseResponse
                         log.Debug("用户在线,不推送");
                         return;
                     }
+                    log.Debug("1");
                     chatService.SetChatUnread(chat.Id.ToString());
-                   var fromUser= memberService.GetUserById(chat.FromId);
+                    log.Debug("2");
+                    var fromUser= memberService.GetUserById(chat.FromId);
+                    log.Debug("3");
                     //todo: 需要订单领域的配合.
-                    
-                    //pushService.Push(chat.MessageBody,chat.GetType().ToString(),chat.ToId,chat.FromResource.ToString(),fromUser.UserName,
-                    //    chat.SessionId,chat.SessionId,)
-                   
-                    
+                    ServiceOrder order = orderService.GetOne(new Guid(chat.SessionId));
+                    log.Debug("4");
+                    pushService.Push(chat.MessageBody, chat.GetType().ToString(), chat.ToId,
+                        chat.FromResource.ToString(), fromUser.UserName,
+                        chat.SessionId, order.SerialNo, order.OrderStatus.ToString(), order.OrderStatusStr,
+                        order.ServiceBusinessName, chat.ToResource.ToString(),string.Empty,string.Empty);
+
+
                 }
-               
+
             }
             else
             {
