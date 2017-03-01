@@ -55,7 +55,7 @@ namespace Ydb.Finance.Application
         void PayWithdrawFail(string fail_details);
 
         /// <summary>
-        /// 根据代理区域获取该区域内所有人的提现信息
+        /// 获取代理及其助理的所有提现信息
         /// </summary>
         /// <param name="userIdList"></param>
         /// <returns></returns>
