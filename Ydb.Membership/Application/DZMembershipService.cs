@@ -756,7 +756,7 @@ namespace Ydb.Membership.Application
         }
 
         /// <summary>
-        ///     根据代理区域获取其助理的验证信息获取客服
+        /// 根据代理区域获取其助理的验证信息获取客服
         /// </summary>
         /// <param name="areaList"></param>
         /// <returns></returns>
@@ -779,7 +779,26 @@ namespace Ydb.Membership.Application
         }
 
         /// <summary>
-        ///     根据代理区域获取一条为验证的客服信息
+        /// 根据代理区域获取其助理的信息列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public IDictionary<Enum_LockCustomerServiceType, IList<DZMembershipCustomerServiceDto>> GetLockDZMembershipCustomerServiceByArea(IList<Area> areaList)
+        {
+            IDictionary<Enum_LockCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto = new Dictionary<Enum_LockCustomerServiceType, IList<DZMembershipCustomerServiceDto>>();
+            IList<string> AreaIdList = areaList.Select(x => x.Id.ToString()).ToList();
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(AreaIdList, DateTime.MinValue, DateTime.MinValue, UserType.customerservice);
+            IDictionary<string, IList<DZMembershipCustomerService>> dic = statisticsMembershipCount.StatisticsVerifiedCustomerServiceByArea(memberList, areaList, EnumberHelper.EnumNameToList<Enum_LockCustomerServiceType>());
+            foreach (KeyValuePair<string, IList<DZMembershipCustomerService>> pair in dic)
+            {
+                dicDto.Add((Enum_LockCustomerServiceType)Enum.Parse(typeof(Enum_LockCustomerServiceType), pair.Key), Mapper.Map<IList<DZMembershipCustomerServiceDto>>(pair.Value));
+            }
+            return dicDto;
+        }
+
+        /// <summary>
+        /// 根据代理区域获取一条为验证的客服信息
         /// </summary>
         /// <param name="areaList"></param>
         /// <returns></returns>
@@ -790,7 +809,6 @@ namespace Ydb.Membership.Application
                     repositoryMembership.GetOneNotVerifiedDZMembershipCustomerServiceByArea(areaList));
         }
 
-        public RegisterResult RegisterMember(Guid Id, string registerName, string password, string confirmPassword,
             string strUserType, string hostInMail)
         {
             var userType = (UserType) Enum.Parse(typeof(UserType), strUserType);
@@ -804,7 +822,6 @@ namespace Ydb.Membership.Application
                 return registerResult;
             }
             string errMsg;
-            var createdUser = dzmembershipDomainService.CreateUser(Id, registerName, password, userType, out errMsg);
             if (!string.IsNullOrEmpty(errMsg))
             {
                 registerResult.RegisterSuccess = false;

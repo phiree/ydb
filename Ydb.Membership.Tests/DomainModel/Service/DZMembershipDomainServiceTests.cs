@@ -10,6 +10,8 @@ using Rhino.Mocks;
 using FizzWare.NBuilder;
 using Ydb.Common.Application;
 using Ydb.Common.Infrastructure;
+using Ydb.Membership.DomainModel.Enums;
+
 namespace Ydb.Membership.DomainModelTests
 {
     [TestFixture()]
@@ -59,7 +61,7 @@ namespace Ydb.Membership.DomainModelTests
         public void ValidateUserTestWithCorrectPair()
         {
             string username = "user", password = "password";
-            DZMembership membership = Builder<DZMembership>.CreateNew().With(x=>x.UserName=username).With(x=>x.Password=password). Build();
+            DZMembership membership = Builder<DZMembership>.CreateNew().With(x => x.UserName = username).With(x => x.Password = password).Build();
             repositoryDZMembership.Stub(x => x.ValidateUser(username, "5f4dcc3b5aa765d61d8327deb882cf99")).Return(membership);
 
             IDZMembershipDomainService mds = new DZMembershipDomainService(repositoryDZMembership, null, null, encryptService);
@@ -116,8 +118,8 @@ namespace Ydb.Membership.DomainModelTests
         [Test()]
         public void DZMembershipDomainService_GetDZMembershipCustomerServiceById_NotException_Test()
         {
-            Guid memberId=Guid.NewGuid();
-            DZMembershipCustomerService membership = Builder<DZMembershipCustomerService>.CreateNew().With(x=>x.Id=memberId).Build();
+            Guid memberId = Guid.NewGuid();
+            DZMembershipCustomerService membership = Builder<DZMembershipCustomerService>.CreateNew().With(x => x.Id = memberId).Build();
             repositoryDZMembership.Stub(x => x.GetMemberById(memberId)).Return(membership);
 
             IDZMembershipDomainService mds = new DZMembershipDomainService(repositoryDZMembership, null, null, encryptService);
@@ -144,5 +146,23 @@ namespace Ydb.Membership.DomainModelTests
                 Assert.AreEqual("该助理不存在", ex.Message);
             }
         }
+
+        [Test()]
+        public void DZMembershipDomainService_GetDZMembershipCustomerServiceByArea_Test()
+        {
+            IList<DZMembership> memberList = new List<DZMembership> {
+                new DZMembership() { AreaId = "1", UserType = UserType.customerservice, UserName = "UserName0" },
+                new DZMembershipCustomerService() { AreaId = "1", UserType = UserType.customerservice, UserName = "UserName1" },
+            };
+            IList<string> areaList = new List<string> { "1", "2" };
+            repositoryDZMembership.Stub(x => x.GetUsersByArea(areaList,DateTime.MinValue,DateTime.MinValue,UserType.customerservice)).Return(memberList);
+            IDZMembershipDomainService mds = new DZMembershipDomainService(repositoryDZMembership, null, null, encryptService);
+            IList<DZMembershipCustomerService> memberCustomerServiceList = mds.GetDZMembershipCustomerServiceByArea(areaList);
+            Assert.AreEqual(1, memberCustomerServiceList.Count);
+            Assert.AreEqual("1", memberCustomerServiceList[0].AreaId);
+            Assert.AreEqual("UserName1", memberCustomerServiceList[0].UserName);
+        }
+
+
     }
 }

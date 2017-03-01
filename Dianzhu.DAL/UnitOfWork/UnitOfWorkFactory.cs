@@ -59,7 +59,7 @@ namespace NHibernateUnitOfWork
 
 
                         )
-                      .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.ComplaintMap>())
+                      .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CityMap>())
  
                        .ExposeConfiguration(BuildSchema)
  

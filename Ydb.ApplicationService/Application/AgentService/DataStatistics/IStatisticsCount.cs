@@ -13,5 +13,7 @@ namespace Ydb.ApplicationService.Application.AgentService.DataStatistics
     public interface IStatisticsCount
     {
         IList<FinanceFlowDto> StatisticsFinanceFlowList(IList<BalanceFlowDto> balanceFlowDtoList, IList<MemberDto> memberList);
+
+        IList<FinanceTotalDto> StatisticsFinanceTotalList(IList<BalanceTotalDto> balanceTotalDtoList, IList<DZMembershipCustomerServiceDto> memberList);
     }
 }

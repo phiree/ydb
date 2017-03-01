@@ -2,7 +2,7 @@
 @{
     ViewBag.headTitle = "助理管理";
     ViewBag.subTitle = "认证信息";
-    ViewBag.breadcrumbOl = new List<string>() { "助理管理", "认证信息" };
+    ViewBag.breadcrumbOl = new List<string>() { "助理管理", "验证助理", "认证信息" };
 }
 
 <!-- Main content -->
@@ -15,40 +15,44 @@
                 <div class="box-body box-profile">
                     <div class="col-xs-12">
                         <div class="box-header with-border text-center">
-                            <h3 class="box-title text-center" style="margin-top: 8px">740981978@qq.com</h3>
-                            <button type="button" class="btn btn-default pull-right">下一位</button>
+                            <h3 class="box-title text-center" style="margin-top: 8px">@Model.DisplayName</h3>
+                            @*<button type="button" class="btn btn-default pull-right">下一位</button>*@
+                            <a href="./assistant_validate_info_next?type=@ViewData["type"].ToString()&id=@ViewData["id"].ToString()" class="btn btn-default pull-right">下一位</a>
                         </div>
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
-                                <b>姓名</b> <a class="pull-right">陈俊宏</a>
+                                <b>姓名</b> <a class="pull-right">@Model.RealName</a>
                             </li>
                             <li class="list-group-item">
-                                <b>性别</b> <a class="pull-right">男</a>
+                                <b>性别</b> <a class="pull-right">@(Model.Sex ? "女" : "男")</a>
                             </li>
                             <li class="list-group-item">
-                                <b>身份证号</b> <a class="pull-right">460102199402062740</a>
+                                <b>身份证号</b> <a class="pull-right">@Model.PersonalID</a>
                             </li>
                             <li class="list-group-item">
-                                <b>联系电话</b> <a class="pull-right">13136099449</a>
+                                <b>联系电话</b> <a class="pull-right">@Model.Phone</a>
                             </li>
                             <li class="list-group-item">
-                                <b>QQ号码</b> <a class="pull-right">740981978</a>
+                                <b>QQ号码</b> <a class="pull-right">@Model.QQNumber</a>
                             </li>
                             <li class="list-group-item">
-                                <b>工作城市</b> <a class="pull-right">北京</a>
+                                <b>工作城市</b> <a class="pull-right">@Model.UserCity</a>
                             </li>
                             <li class="list-group-item" style="height: 200px;">
                                 <b>证件照</b>
                                 <a class="pull-right">
                                     <div class="col-sm-12">
                                         <div class="row">
-                                            <div class="col-sm-6">
-                                                <img style="height: 180px;width: auto !important;" class="profile-user-img img-responsive" src="../libs/adminLTE/img/photo1.png" alt="Photo">
-                                            </div>
+                                            @for (int i = 0; i < @Model.DZMembershipCertificates.Count; i++)
+                                            {
+                                                <div class="col-sm-6">
+                                                    <img style="height: 180px;width: auto !important;" class="profile-user-img img-responsive" src="@Model.DZMembershipCertificates[i].ImageName" alt="Photo">
+                                                </div>
+                                            }
                                             <!-- /.col -->
-                                            <div class="col-sm-6">
-                                                <img style="height: 180px;width: auto !important;" class="profile-user-img img-responsive" src="../libs/adminLTE/img/photo2.png" alt="Photo">
-                                            </div>
+                                            @*<div class="col-sm-6">
+                                                    <img style="height: 180px;width: auto !important;" class="profile-user-img img-responsive" src="@Model.DZMembershipCertificates[0].ImageName" alt="Photo">
+                                                </div>*@
                                             <!-- /.col -->
                                         </div>
                                         <!-- /.row -->
@@ -61,7 +65,7 @@
                                     <div class="col-sm-12">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <img style="height: 380px;width: auto !important;" class="profile-user-img img-responsive" src="../libs/adminLTE/img/photo1.png" alt="Photo">
+                                                <img style="height: 380px;width: auto !important;" class="profile-user-img img-responsive" src="@Model.DZMembershipDiploma.ImageName" alt="Photo">
                                             </div>
                                         </div>
                                         <!-- /.row -->
@@ -103,7 +107,6 @@
     <!-- /.row -->
 </section>
 <!-- /.content -->
-
 <!-- DataTables -->
 <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>

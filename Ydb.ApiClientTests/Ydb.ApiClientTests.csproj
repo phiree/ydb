@@ -98,6 +98,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AdminAgent\AdminAgent.csproj">
+      <Project>{35A39010-0B80-46E7-AE33-D9FC1B27AF46}</Project>
+      <Name>AdminAgent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ydb.ApiClient\Ydb.ApiClient.csproj">
       <Project>{2355784D-5F6C-4063-837F-5B9999FAC1FE}</Project>
       <Name>Ydb.ApiClient</Name>

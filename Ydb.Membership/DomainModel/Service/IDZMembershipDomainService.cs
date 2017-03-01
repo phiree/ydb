@@ -1,12 +1,19 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Ydb.Common.Domain;
 using Ydb.Common.Specification;
 using Ydb.Membership.DomainModel.Enums;
-
+using Ydb.Membership.DomainModel.Repository;
 namespace Ydb.Membership.DomainModel
 {
+
     public interface IDZMembershipDomainService
     {
+
         bool ChangePassword(string username, string oldPassword, string newPassword, out string errMsg);
 
         DZMembership GetUser(string username, bool userIsOnline);
@@ -14,8 +21,6 @@ namespace Ydb.Membership.DomainModel
         DZMembership ValidateUser(string username, string password, bool isLogin, out string errMsg);
 
         DZMembership CreateUser(string loginName, string password, UserType userType, out string errMsg);
-
-        DZMembership CreateUser(Guid Id, string loginName, string password, UserType userType, out string errMsg);
 
         void CreateUserForU3rd(DZMembership member);
 
@@ -40,7 +45,7 @@ namespace Ydb.Membership.DomainModel
         DZMembership GetUserByPhone(string phone);
 
         /// <summary>
-        ///     根据用户信息获取user
+        /// 根据用户信息获取user
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="name"></param>
@@ -49,11 +54,10 @@ namespace Ydb.Membership.DomainModel
         /// <param name="platform"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        IList<DZMembership> GetUsers(TraitFilter filter, string name, string email, string phone, string platform,
-            string userType);
+        IList<DZMembership> GetUsers(TraitFilter filter, string name, string email, string phone, string platform, string userType) ;
 
         /// <summary>
-        ///     统计用户数量
+        /// 统计用户数量
         /// </summary>
         /// <param name="name">用户名</param>
         /// <param name="email"></param>
@@ -70,5 +74,7 @@ namespace Ydb.Membership.DomainModel
         DZMembershipCustomerService GetDZMembershipCustomerServiceByName(string userName);
 
         DZMembershipCustomerService GetDZMembershipCustomerServiceById(string id);
+
+        IList<DZMembershipCustomerService> GetDZMembershipCustomerServiceByArea(IList<string> areaIdList);
     }
 }

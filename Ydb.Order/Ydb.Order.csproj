@@ -90,6 +90,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\ComplaintService.cs" />
+    <Compile Include="Application\IComplaintService.cs" />
     <Compile Include="Application\IOrderAssignmentService.cs" />
     <Compile Include="Application\IServiceOrderService.cs" />
     <Compile Include="Application\OrderAssignmentService.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Application\IPushService.cs" />
     <Compile Include="Application\PaymentLogService.cs" />
     <Compile Include="Application\PaymentService.cs" />
+    <Compile Include="DomainModel\Complaint.cs" />
     <Compile Include="DomainModel\OrderFlow.cs" />
     <Compile Include="Application\OrderPushService.cs" />
     <Compile Include="Application\ServiceOrderAppraiseService.cs" />
@@ -115,6 +118,7 @@
     <Compile Include="DomainModel\OrderAssignment.cs" />
     <Compile Include="DomainModel\Payment\Payment.cs" />
     <Compile Include="DomainModel\Payment\Refund.cs" />
+    <Compile Include="DomainModel\Repository\IRepositoryComplaint.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryPayment.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryClaims.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryClaimsDetails.cs" />
@@ -136,6 +140,7 @@
     <Compile Include="DomainModel\ServiceSnapShotForOrder.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ClaimsDetailsMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ClaimsMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ComplaintMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\OrderAssignment.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\PaymentMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\RefundMap.cs" />
@@ -145,6 +150,7 @@
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceOrderPushedServiceMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceOrderRemindMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ServiceOrderStateChangeHisMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\RepositoryComplaint.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryServiceOrderStateChangeHis.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryServiceOrderRemind.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryServiceOrderPushedService.cs" />

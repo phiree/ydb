@@ -11,6 +11,12 @@ namespace AdminAgent.ControllersTests
     [TestFixture()]
     public class AgentCustomerServiceManageControllerTests
     {
+        [SetUp]
+        public void SetUp()
+        {
+            Bootstrap.Boot();
+        }
+
         [Test()]
         public void AgentCustomerServiceManageController_assistant_validate_Test()
         {

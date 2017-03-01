@@ -57,7 +57,9 @@ public class Bootstrap
         container.Install(
           new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
           );
-
+        container.Install(
+        new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb_instantmessage"))
+            );
         container.Install(
            new Ydb.Membership.Infrastructure.InstallerMembership(BuildDBConfig("ydb_membership"))
             );

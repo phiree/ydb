@@ -82,5 +82,6 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernateTests
         {
             //Assert.Fail();
         }
+
     }
 }

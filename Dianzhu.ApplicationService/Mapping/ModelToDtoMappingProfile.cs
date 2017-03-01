@@ -14,6 +14,7 @@ using Ydb.Common.Domain;
 using Ydb.Order.DomainModel;
 using Ydb.Push.DomainModel;
 using M=Ydb.ApiClient.DomainModel;
+
 namespace Dianzhu.ApplicationService.Mapping
 {
 
@@ -50,7 +51,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.name, opt => opt.MapFrom(source => source.Name.Substring(source.Name.IndexOf('省') + 1)))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
-            Mapper.CreateMap<Model.Complaint, complaintObj>()
+            Mapper.CreateMap<Ydb.Order.DomainModel.Complaint, complaintObj>()
             .ForMember(x => x.resourcesUrls, opt => opt.MapFrom(source => source.ComplaitResourcesUrl))
             .ForMember(x => x.orderID, opt => opt.MapFrom(source => source.OrderId))
             .ForMember(x => x.senderID, opt => opt.MapFrom(source => source.OperatorId))

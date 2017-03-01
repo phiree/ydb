@@ -95,6 +95,7 @@
   <ItemGroup>
     <Compile Include="Application\Dto\DZMembershipCustomerServiceDto.cs" />
     <Compile Include="Application\Dto\DZMembershipImageDto.cs" />
+    <Compile Include="Application\Dto\Enum_LockCustomerServiceType.cs" />
     <Compile Include="Application\Dto\Enum_ValiedateCustomerServiceType.cs" />
     <Compile Include="Application\Dto\Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Application\Dto\Mapping\DtoToModelMappingProfile.cs" />

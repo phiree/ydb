@@ -103,6 +103,7 @@
     <Compile Include="Application\Reception\ReceptionServiceTests.cs" />
     <Compile Include="Bootstraper.cs" />
     <Compile Include="DomainModel\Chat\MessageAdapterTests.cs" />
+    <Compile Include="DomainModel\DataStatistics\StatisticsInstantMessageTests.cs" />
     <Compile Include="DomainModel\Reception\ReceptionAssignerTests.cs" />
     <Compile Include="Infrastructure\OpenfireXMPPTests.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryChatTests.cs" />

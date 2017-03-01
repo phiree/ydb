@@ -223,6 +223,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\MockData.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -670,6 +671,12 @@
     <Content Include="Views\AgentNotice\Index.cshtml" />
     <Content Include="Views\AgentNotice\AddNotice.cshtml" />
     <Content Include="Views\AgentNotice\NoticeDetail.cshtml" />
+     <Content Include="Views\AgentCustomerServiceManage\assistant_list.cshtml" />
+    <Content Include="Views\AgentCustomerServiceManage\assistant_detail.cshtml" />
+    <Content Include="Views\AgentCustomerServiceManage\assistant_detail_message.cshtml" />
+    <Content Include="Views\AgentFinance\finance_withdraw_apply.cshtml" />
+    <Content Include="Views\AgentFinance\finance_total_list.cshtml" />
+    <Content Include="Views\AgentFinance\finance_account_bind.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -715,6 +722,10 @@
     <ProjectReference Include="..\Ydb.Infrastructure\Ydb.Infrastructure.csproj">
       <Project>{3d510583-1c11-48fb-8380-12e183e5914b}</Project>
       <Name>Ydb.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
+      <Project>{a141eb7d-6e71-43c1-9ca7-12af1b74c1c7}</Project>
+      <Name>Ydb.InstantMessage</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ydb.InstantMessage\Ydb.InstantMessage.csproj">
       <Project>{a141eb7d-6e71-43c1-9ca7-12af1b74c1c7}</Project>

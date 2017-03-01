@@ -284,7 +284,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li>@Html.ActionLink("验证助理", "assistant_validate", "AgentCustomerServiceManage")@*<a href="./assistant-validate.html">验证助理</a>*@</li>
-                            <li><a href="./assistant-list.html">助理列表</a></li>
+                            <li>@Html.ActionLink("助理列表", "assistant_list", "AgentCustomerServiceManage")@*<a href="./assistant-list.html">助理列表</a>*@</li>
                             <!--<li><a href="./assistant-upload.html">上传资料</a></li>-->
                         </ul>
                     </li>
@@ -312,7 +312,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li>@Html.ActionLink("分账记录", "finance_account", "AgentFinance")@*<a href="./push-notice-list.html">分账记录</a>*@</li>
-                            <li><a href="./push-notice-list.html">提现申请</a></li>
+                            <li>@Html.ActionLink("提现申请", "finance_total_list", "AgentFinance")@*<a href="./push-notice-list.html">提现申请</a>*@</li>
                             <li><a href="./push-notice-list.html">提现记录</a></li>
                             @*<li>
                                 <a href="#">

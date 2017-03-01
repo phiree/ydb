@@ -176,6 +176,10 @@ namespace Ydb.Membership.DomainModel.DataStatistics
                     return member.IsVerified && !member.VerificationIsAgree;
                 case "MyCustomerService":
                     return member.IsAgentCustomerService;
+                case "UnLockedCustomerService":
+                    return member.IsVerified && member.VerificationIsAgree && !member.IsLocked;
+                case "LockedCustomerService":
+                    return member.IsVerified && member.VerificationIsAgree && member.IsLocked;
                 default:return false;
             }
         }
