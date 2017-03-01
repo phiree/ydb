@@ -11,16 +11,17 @@ using a = agsXMPP;
 using System.IO;
 using log4net;
 using System.Text.RegularExpressions;
+
 namespace Dianzhu.IM.Test
 {
     public partial class Main : Form
     {
-        ILog log = LogManager.GetLogger("Dianzhu.IMTest");
-        a.XmppClientConnection conn;
-        IList<LoginAccount> loginAccounts = new List<LoginAccount>();
+        private ILog log = LogManager.GetLogger("Dianzhu.IMTest");
+        private a.XmppClientConnection conn;
+        private IList<LoginAccount> loginAccounts = new List<LoginAccount>();
+
         public Main()
         {
-
             InitializeComponent();
             LoadAccountButton();
             conn = new a.XmppClientConnection();
@@ -35,8 +36,6 @@ namespace Dianzhu.IM.Test
             conn.OnMessage += Conn_OnMessage;
             conn.OnPresence += Conn_OnPresence;
             conn.OnIq += Conn_OnIq;
-
-
         }
 
         private void Conn_OnIq(object sender, a.protocol.client.IQ iq)
@@ -58,7 +57,6 @@ namespace Dianzhu.IM.Test
         {
             Action lambda = () =>
             {
-
                 tbxMyJID.Text = conn.MyJID;
                 btnLogOut.Visible = true;
                 btnCopy.Visible = true;
@@ -70,8 +68,8 @@ namespace Dianzhu.IM.Test
                 Invoke(lambda);
             }
             else { lambda(); }
-
         }
+
         private void LoadTestButton()
         {
             string[] files = Directory.GetFiles(Environment.CurrentDirectory + "\\messages\\");
@@ -87,8 +85,8 @@ namespace Dianzhu.IM.Test
                 btn.Click += Btn_Click;
                 flowLayoutPanel1.Controls.Add(btn);
             }
-
         }
+
         private void LoadAccountButton()
         {
             ReadAccountFromFile();
@@ -108,7 +106,6 @@ namespace Dianzhu.IM.Test
         {
             LoginAccount account = (LoginAccount)((Button)sender).Tag;
 
-
             Login(account.server, account.loginid, account.password, account.resource);
         }
 
@@ -124,7 +121,6 @@ namespace Dianzhu.IM.Test
                 string password = sl[2];
                 string resource = sl[3];
                 loginAccounts.Add(new LoginAccount { loginid = loginid, password = password, server = server, resource = resource });
-
             }
         }
 
@@ -134,7 +130,6 @@ namespace Dianzhu.IM.Test
 
             string xml = File.ReadAllText(fielPath);
             xml = string.Format(xml, tbxTargetUser.Text, server);
-
 
             if (string.IsNullOrEmpty(tbxTargetUser.Text))
             {
@@ -147,10 +142,11 @@ namespace Dianzhu.IM.Test
 
             SendMessage(xml);
         }
+
         #region xmpp event
+
         private void Conn_OnStreamError(object sender, a.Xml.Dom.Element e)
         {
-
             Log(e.ToString(), MessageDirection.Received);
         }
 
@@ -164,8 +160,6 @@ namespace Dianzhu.IM.Test
             Log("Conn_Closed");
         }
 
-
-
         private void Conn_OnAuthError(object sender, a.Xml.Dom.Element e)
         {
             Log("Conn_AuthError");
@@ -175,14 +169,15 @@ namespace Dianzhu.IM.Test
         {
             Log(ex.Message);
         }
-        #endregion
-        string username, server;
+
+        #endregion xmpp event
+
+        private string username, server;
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
-
-
-
         }
+
         private void Login(string server, string username, string password, string resource)
         {
             conn.Close();
@@ -194,15 +189,13 @@ namespace Dianzhu.IM.Test
             conn.Open(username, password);
             this.username = username;
             this.server = server;
-
         }
-
-
 
         private string GetMessageFromFile(string name)
         {
             return File.ReadAllText(Environment.CurrentDirectory + "\\messages\\" + name + ".xml");
         }
+
         private string ReadLoginAccount(string server)
         {
             string[] lines = File.ReadAllLines(Environment.CurrentDirectory + "\\account.txt");
@@ -223,7 +216,7 @@ namespace Dianzhu.IM.Test
             LoadTestButton();
         }
 
-        struct LoginAccount
+        private struct LoginAccount
         {
             public string server { get; set; }
             public string loginid { get; set; }
@@ -235,18 +228,21 @@ namespace Dianzhu.IM.Test
                 return server + "##" + loginid + "##" + resource;
             }
         }
-        enum MessageDirection
+
+        private enum MessageDirection
         {
             Received,
             Sent
         }
+
         private void Log(string content)
         {
             Log(content, MessageDirection.Received);
         }
+
         private void Log(string content, MessageDirection direction)
         {
-            string formatedContent = "-------------" + DateTime.Now + "--------------" + Environment.NewLine + content + Environment.NewLine;
+            string formatedContent = "-------------" + DateTime.Now + ":" + DateTime.Now.Millisecond + "--------------" + Environment.NewLine + content + Environment.NewLine;
             InvokeIfRequired(this, () =>
             {
                 switch (direction)
@@ -256,6 +252,7 @@ namespace Dianzhu.IM.Test
                         tbxLogReceived.SelectionStart = tbxLogReceived.Text.Length;
                         tbxLogReceived.ScrollToCaret();
                         break;
+
                     case MessageDirection.Sent:
                         tbxLogSent.Text += formatedContent;
 
@@ -265,29 +262,25 @@ namespace Dianzhu.IM.Test
                 }
                 log.Debug(direction.ToString() + content);
             });
-
         }
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-   
-
             string[] messages = PHSuit.StringHelper.RegexSpliter("---{3,}", tbxManualMessage.Text);
 
             foreach (string message in messages)
             {
                 SendMessage(message);
-
             }
             //  conn.Send(tbxManualMessage.Text);
         }
-
 
         private void SendMessage(string message)
         {
             conn.Send(message);
             Log(message, MessageDirection.Sent);
         }
+
         private void btnLogOut_Click(object sender, EventArgs e)
         {
             conn.Close();
@@ -296,13 +289,13 @@ namespace Dianzhu.IM.Test
             btnLogOut.Visible = false;
             btnCopy.Visible = false;
             this.Text = "未登录";
-
         }
 
-        Timer tLabelDisplay = new Timer();
+        private Timer tLabelDisplay = new Timer();
+
         private void btnCopy_Click(object sender, EventArgs e)
         {
-            if(conn.MyJID!=null)
+            if (conn.MyJID != null)
             {
                 Clipboard.SetText(conn.MyJID.User);
                 lblCopyResult.Text = "已复制";
@@ -310,7 +303,7 @@ namespace Dianzhu.IM.Test
                 tLabelDisplay.Interval = 5000;
                 tLabelDisplay.Tick += TLabelDisplay_Tick;
                 tLabelDisplay.Start();
-                    }
+            }
         }
 
         private void TLabelDisplay_Tick(object sender, EventArgs e)
@@ -332,6 +325,5 @@ namespace Dianzhu.IM.Test
                 action();
             }
         }
-
     }
 }

@@ -1,0 +1,15 @@
+﻿@model Ydb.Notice.DomainModel.Notice
+@{
+    ViewBag.Title = "管理";
+    //ViewBag.Name = new List<string>() { "1", "2" };
+}
+
+<h2>@ViewBag.Title。</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    @using (Html.BeginForm("AgentNotice", "SendNotice", FormMethod.Get))
+    {
+        <input type="submit" value="测试发送" />
+    }
+</div>

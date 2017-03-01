@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
+using AdminAgent.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using AdminAgent.Models;
-
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 namespace AdminAgent
 {
     public class EmailService : IIdentityMessageService
@@ -40,8 +37,10 @@ namespace AdminAgent
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options,
+            IOwinContext context)
         {
+            
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // 配置用户名的验证逻辑
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
@@ -57,7 +56,7 @@ namespace AdminAgent
                 RequireNonLetterOrDigit = true,
                 RequireDigit = true,
                 RequireLowercase = true,
-                RequireUppercase = true,
+                RequireUppercase = true
             };
 
             // 配置用户锁定默认值
@@ -80,10 +79,8 @@ namespace AdminAgent
             manager.SmsService = new SmsService();
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
-            {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
-            }
             return manager;
         }
     }
@@ -96,12 +93,30 @@ namespace AdminAgent
         {
         }
 
+        public override Task<SignInStatus> PasswordSignInAsync(string userName, string password, bool isPersistent,
+            bool shouldLockout)
+        {
+            IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
+
+           ValidateResult result=  memberService.Login(userName, password);
+            if (result.IsValidated)
+            {
+                return new Task<SignInStatus>(() => SignInStatus.Success);
+            }
+            else
+            {
+                return new Task<SignInStatus>(() => SignInStatus.Failure);
+            }
+            return base.PasswordSignInAsync(userName, password, isPersistent, shouldLockout);
+        }
+
         public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
         {
             return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
         }
 
-        public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
+        public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options,
+            IOwinContext context)
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }

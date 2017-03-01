@@ -163,7 +163,7 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate
             //{
             //    where = where.And(x => x.UserType == (UserType)Enum.Parse(typeof(UserType), userType));
             //}
-            where = where.And(x => x.UserType ==userType);
+            where = where.And(x => (x.UserType&userType)!=0);
             if (areaList.Count>0)
             {
                 where = where.And(x => areaList.Contains(x.AreaId));

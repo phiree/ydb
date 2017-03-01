@@ -108,12 +108,15 @@ namespace Ydb.Membership.DomainModel
             return member;
 
         }
-         
+
 
 
         #region additional method for user
-
         public DZMembership CreateUser(string loginName, string password, UserType userType, out string errMsg)
+        {
+            return CreateUser(Guid.NewGuid(), loginName, password, userType, out errMsg);
+        }
+        public DZMembership CreateUser(Guid id, string loginName, string password, UserType userType, out string errMsg)
         {
             errMsg = string.Empty;
             LoginNameType loginNameType = loginNameDetermine.Determin(loginName);
