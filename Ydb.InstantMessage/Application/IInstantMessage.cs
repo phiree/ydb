@@ -50,6 +50,8 @@ namespace   Ydb.InstantMessage.Application
         /// <param name="toResource"></param>
         /// <param name="sessionId"></param>
         void SendMessageText(Guid messageId, string messageBody, string to,string toResource, string sessionId);
+
+        void SendBroadcast(Guid messageId, string messageBody, string groupTo);
         /// <summary>
         /// 发送多媒体消息
         /// </summary>

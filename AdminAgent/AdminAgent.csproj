@@ -226,6 +226,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AgentBaseController.cs" />
     <Compile Include="Controllers\AgentController.cs" />
     <Compile Include="Controllers\AgentCustomerServiceManageController.cs" />
     <Compile Include="Controllers\AgentFinanceController.cs" />
@@ -238,6 +239,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\NoticeModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -590,6 +592,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\AgentNotice\push-notice-createNew.html" />
+    <Content Include="Views\AgentNotice\push-notice-detail.html" />
+    <Content Include="Views\AgentNotice\push-notice-list.html" />
     <Content Include="Views\pages\assistant-detail.html" />
     <Content Include="Views\pages\assistant-list.html" />
     <Content Include="Views\pages\assistant-validate-info.html" />
@@ -662,6 +667,9 @@
     <Content Include="Views\AgentCustomerServiceManage\assistant_validate_info.cshtml" />
     <Content Include="Views\Home\_ViewStart.cshtml" />
     <Content Include="Views\Account\_ViewStart.cshtml" />
+    <Content Include="Views\AgentNotice\Index.cshtml" />
+    <Content Include="Views\AgentNotice\AddNotice.cshtml" />
+    <Content Include="Views\AgentNotice\NoticeDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

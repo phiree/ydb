@@ -10,12 +10,13 @@ using Ydb.Membership.DomainModel.Enums;
 using Ydb.Notice.Application;
 using Ydb.Push.Application;
 using M = Ydb.Notice.DomainModel;
+using System.Web;
 
 namespace Ydb.ApplicationService.Application.AgentService
 {
     public class AgentNoticeService : IAgentNoticeService
     {
-        private readonly IInstantMessage imService;
+        
         private readonly IDZMembershipService memberService;
         private readonly INoticeService noticeService;
         private readonly IOpenfireDbService openfireDbService;
@@ -24,19 +25,18 @@ namespace Ydb.ApplicationService.Application.AgentService
         public AgentNoticeService(INoticeService noticeService,
             IPushService pushService,
             IDZMembershipService memberService,
-            IOpenfireDbService openfireDbService,
-            IInstantMessage imService)
+            IOpenfireDbService openfireDbService )
         {
             this.noticeService = noticeService;
             this.pushService = pushService;
             this.memberService = memberService;
             this.openfireDbService = openfireDbService;
-            this.imService = imService;
+            
         }
 
-        public ActionResult SendNotice(string noticeId)
+        public ActionResult SendNotice(IInstantMessage imService, string noticeId)
         {
-            return SendNotice(noticeId, false);
+            return SendNotice(  imService, noticeId, false);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Ydb.ApplicationService.Application.AgentService
         /// <param name="noticeId"></param>
         /// <param name="isDebug">是否沙箱环境(IOS)</param>
         /// <returns></returns>
-        public ActionResult SendNotice(string noticeId, bool isDebug)
+        public ActionResult SendNotice(IInstantMessage imService, string noticeId, bool isDebug)
         {
             var result = new ActionResult();
             var notice = noticeService.GetOne(noticeId);
@@ -66,12 +66,12 @@ namespace Ydb.ApplicationService.Application.AgentService
             //instantmessage 发送xmpp推送.
             // 将用户放到组内,根据用户类型分组
 
-            var groupname = noticeId;
+            var groupname = "gg";
             var userIds = string.Join(",", targetUsers.Select(x => x.Id));
             openfireDbService.AddUsersToGroup(userIds, groupname);
+            
 
-            imService.SendMessageText(Guid.NewGuid(), notice.Title, groupname + "@broadcast",
-               string.Empty, string.Empty);
+            imService.SendBroadcast(Guid.NewGuid(), notice.Title, groupname + "@broadcast");
 
             return result;
         }

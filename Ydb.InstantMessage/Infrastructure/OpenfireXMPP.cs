@@ -124,6 +124,15 @@ namespace Ydb.InstantMessage.Infrastructure
             SendMessage(chat);
         }
 
+        public void SendBroadcast(Guid messageId, string messageBody, string groupTo)
+        {
+            
+            var receptionChatFactory = new ReceptionChatFactory(messageId, string.Empty, groupTo, messageBody, string.Empty,
+                XmppResource.Unknow, XmppResource.Unknow);
+            var chat = receptionChatFactory.CreateNoticeSys();
+            SendMessage(chat);
+        }
+
         public void OpenConnection(string userName, string password, string resource)
         {
             log.Debug("xmpp open connection:" + userName);

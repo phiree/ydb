@@ -1,4 +1,5 @@
 ﻿using Ydb.Common.Application;
+using Ydb.InstantMessage.Application;
 
 namespace Ydb.ApplicationService.Application.AgentService
 {
@@ -9,14 +10,14 @@ namespace Ydb.ApplicationService.Application.AgentService
         /// </summary>
         /// <param name="noticeId"></param>
         /// <returns></returns>
-        ActionResult SendNotice(string noticeId);
+        ActionResult SendNotice(IInstantMessage imService,string noticeId);
 
         /// <summary>
         /// </summary>
         /// <param name="noticeId"></param>
         /// <param name="isDebug">true:苹果推送的沙箱环境,false:正式环境</param>
         /// <returns></returns>
-        ActionResult SendNotice(string noticeId, bool isDebug);
+        ActionResult SendNotice(IInstantMessage imService,string noticeId, bool isDebug);
 
         /// <summary>
         ///     设置为已读. 如果未读, 则不设置.

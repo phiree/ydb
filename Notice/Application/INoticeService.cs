@@ -20,6 +20,8 @@ namespace Ydb.Notice.Application
         /// <returns></returns>
         M.Notice AddNotice(string title, string htmlBody, Guid authorId, enum_UserType targetUserType);
 
+        IList<M.Notice> GetNoticeForAuther(Guid authorId);
+
         /// <summary>
         /// 用户获取推送列表
         /// </summary>
@@ -28,7 +30,8 @@ namespace Ydb.Notice.Application
         /// <param name="readed">是否已读,null表示全部</param>
         /// <returns></returns>
         IList<M.UserNotice> GetNoticeForUser(Guid userId, enum_UserType targetUserType, bool? readed);
-
+        
+        
         /// <summary>
         /// 用户获取一条通知,设置为已读状态.
         /// </summary>

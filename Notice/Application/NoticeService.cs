@@ -31,6 +31,11 @@ namespace Ydb.Notice.Application
             return notice;
         }
 
+        public IList<M.Notice> GetNoticeForAuther(Guid authorId)
+        {
+           return repoNotice.Find(x => x.AuthorId == authorId);
+        }
+
         public void CheckPass(string noticeId, string checkerId)
         {
             throw new NotImplementedException();

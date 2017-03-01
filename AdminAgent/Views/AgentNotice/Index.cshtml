@@ -1,0 +1,272 @@
+﻿@model IList<Ydb.Notice.DomainModel.Notice>
+
+@{
+        ViewBag.headTitle = "通知列表";
+        ViewBag.subTitle = "";
+        ViewBag. breadcrumbOl=new List<string>{"推送管理","公告列表"};
+}
+
+<section class="content">
+<!-- /.row -->
+<div class="row">
+<!-- /.col -->
+<div class="col-xs-12">
+<div class="nav-tabs-custom">
+<ul class="nav nav-tabs pull-left col-md-12">
+    <li class="active"><a href="#tab_1" data-toggle="tab">历史公告</a></li>
+    <li><a href="#tab_2" data-toggle="tab">验证公告</a></li>
+</ul>
+<div class="tab-content ">
+<div class="tab-pane marginTop50 active" id="tab_1">
+    <a href="./push-notice-createNew.html" type="button" class="btn btn-default pull-right marginBottom20">新建公告</a>
+    <table class="col-xs-6 pull-left marginBottom20">
+        <tr class="pull-left">
+            <td>公告类型筛选：</td>
+            <td>
+                <select id="selectType" class="form-control input-sm">
+                    <option value="">全部</option>
+                    <option value="文本公告">文本公告</option>
+                    <option value="图片公告">图片公告</option>
+                    <option value="升级包公告">升级包公告</option>
+                </select>
+            </td>
+        </tr>
+        <tr class="pull-left">
+            <td>发送目标筛选：</td>
+            <td>
+                <select id="selectTarget" class="form-control input-sm">
+                    <option value="">全部</option>
+                    <option value="用户版app">用户版app</option>
+                    <option value="商户版app">商户版app</option>
+                    <option value="助理工具">助理工具</option>
+                    <option value="商家后台">商家后台</option>
+                </select>
+            </td>
+        </tr>
+
+    </table>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>公告标题</th>
+            <th id="type">公告类型</th>
+            <th id="target">发送目标</th>
+            <th>创建日期</th>
+            <th>推送日期</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var notice in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(notice.Title, "NoticeDetail","AgentNotice",new {noticeId=notice.Id},
+            new {}
+                        ) </td>
+                <td>@notice.Body</td>
+                <td>@notice.TargetUserTypeString</td>
+                <td>@notice.TimeCreated</td>
+                <td>@notice.ApprovedTime </td>
+            </tr>
+        }
+       
+ 
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>公告标题</th>
+            <th>公告类型</th>
+            <th>发送目标</th>
+            <th>创建日期</th>
+            <th>推送日期</th>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+<!-- /.tab-pane -->
+<div class="tab-pane marginTop50" id="tab_2">
+
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs pull-left col-xs-12">
+            <li class="active"><a href="#tab_1-1" data-toggle="tab">未审核</a></li>
+            <li><a href="#tab_2-2" data-toggle="tab">已审核</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active marginTop50" id="tab_1-1">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>公告标题</th>
+                        <th>公告类型</th>
+                        <th>代理属地</th>
+                        <th>发送目标</th>
+                        <th>推送日期</th>
+                        <th>申请时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><a href="push-notice-detail.html">版本升级公告</a></td>
+                        <td>升级包公告</td>
+                        <td>北京</td>
+                        <td>用户版app&nbsp;&nbsp;商户版app&nbsp;&nbsp;助理工具&nbsp;&nbsp;商家后台</td>
+                        <td>2016.11.13——2016.11.14</td>
+                        <td>2016.11.11 15:20</td>
+                    </tr>
+                    <tr>
+                        <td><a href="push-notice-detail.html">活动推送公告</a></td>
+                        <td>文本公告</td>
+                        <td>上海</td>
+                        <td>用户版app&nbsp;&nbsp;商户版app&nbsp;&nbsp;商家后台</td>
+                        <td>2016.11.13——2016.11.14</td>
+                        <td>2016.11.11 15:20</td>
+                    </tr>
+                    <tr>
+                        <td><a href="push-notice-detail.html">图片跳转公告</a></td>
+                        <td>图片公告</td>
+                        <td>广州</td>
+                        <td>用户版app&nbsp;&nbsp;商户版app&nbsp;&nbsp;助理工具&nbsp;&nbsp;商家后台</td>
+                        <td>2016.11.13——2016.11.14</td>
+                        <td>2016.11.11 15:20</td>
+                    </tr>
+                    <tr>
+                        <td><a href="push-notice-detail.html">账户变更通知公告</a></td>
+                        <td>升级包公告</td>
+                        <td>深圳</td>
+                        <td>用户版app</td>
+                        <td>2016.11.13——2016.11.14</td>
+                        <td>2016.11.11 15:20</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>公告标题</th>
+                        <th>公告类型</th>
+                        <th>代理属地</th>
+                        <th>发送目标</th>
+                        <th>推送日期</th>
+                        <th>申请时间</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.tab-pane -->
+            <div class="tab-pane marginTop50" id="tab_2-2">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>公告标题</th>
+                        <th>公告类型</th>
+                        <th>代理属地</th>
+                        <th>发送目标</th>
+                        <th>推送日期</th>
+                        <th>申请时间</th>
+                        <th>审核结果</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><a href="push-notice-detail.html">版本升级公告</a></td>
+                        <td>升级包公告</td>
+                        <td>北京</td>
+                        <td>用户版app&nbsp;&nbsp;商户版app&nbsp;&nbsp;助理工具&nbsp;&nbsp;商家后台</td>
+                        <td>2016.11.13——2016.11.14</td>
+                        <td>2016.11.11 15:20</td>
+                        <td>已通过</td>
+                    </tr>
+                    <tr>
+                        <td><a href="push-notice-detail.html">活动推送公告</a></td>
+                        <td>文本公告</td>
+                        <td>上海</td>
+                        <td>用户版app&nbsp;&nbsp;商户版app&nbsp;&nbsp;商家后台</td>
+                        <td>2016.11.13——2016.11.14</td>
+                        <td>2016.11.11 15:20</td>
+                        <td>已通过</td>
+                    </tr>
+                    <tr>
+                        <td><a href="push-notice-detail.html">图片跳转公告</a></td>
+                        <td>图片公告</td>
+                        <td>广州</td>
+                        <td>用户版app&nbsp;&nbsp;商户版app&nbsp;&nbsp;助理工具&nbsp;&nbsp;商家后台</td>
+                        <td>2016.11.13——2016.11.14</td>
+                        <td>2016.11.11 15:20</td>
+                        <td>已拒绝</td>
+                    </tr>
+                    <tr>
+                        <td><a href="push-notice-detail.html">账户变更通知公告</a></td>
+                        <td>升级包公告</td>
+                        <td>深圳</td>
+                        <td>用户版app</td>
+                        <td>2016.11.13——2016.11.14</td>
+                        <td>2016.11.11 15:20</td>
+                        <td>已拒绝</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>公告标题</th>
+                        <th>公告类型</th>
+                        <th>代理属地</th>
+                        <th>发送目标</th>
+                        <th>推送日期</th>
+                        <th>申请时间</th>
+                        <th>审核结果</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <!-- /.tab-content -->
+    </div>
+
+</div>
+</div>
+</div>
+</div>
+<!-- /.col -->
+</div>
+<!-- /.row -->
+</section>
+<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script>
+    (function(){
+        var selectType = $('#selectType');
+        var selectTarget = $('#selectTarget');
+        selectType.change(function(){
+            $('.table-striped').DataTable()
+                .columns('#type')
+                .search(selectType.val())
+                .draw();
+        });
+        selectTarget.change(function(){
+            $('.table-striped').DataTable()
+                    .columns('#target')
+                    .search(selectTarget.val())
+                    .draw();
+        });
+        //初始化定制数据列表
+        $(".table-striped").DataTable({
+            "order": [[ 0, "asc" ]],
+            "language" :{
+                "decimal":        "",
+                "emptyTable":     "没有数据",
+                "info":           "从_START_ 到 _END_ 条记录——总记录数为 _TOTAL_ 条",
+                "infoEmpty":      "记录数为0",
+                "infoFiltered":   "(全部记录数 _MAX_  条)",
+                "infoPostFix":    "",
+                "thousands":      ",",
+                "lengthMenu":     "显示 _MENU_ 条",
+                "loadingRecords": "加载中...",
+                "processing":     "处理中...",
+                "search":         "查找：",
+                "zeroRecords":    "找不到内容",
+                "paginate": {
+                    "first":      "第一页",
+                    "last":       "最后一页",
+                    "next":       "下一页",
+                    "previous":   "上一页"
+                }
+            }
+        });
+    })();
+</script>

@@ -79,7 +79,7 @@ namespace Ydb.ApplicationService.Application.AgentService.Tests
 
             var agentNoticeService = Bootstrap.Container.Resolve<IAgentNoticeService>();
 
-            agentNoticeService.SendNotice(notice.Id.ToString(), true);
+            agentNoticeService.SendNotice(im,notice.Id.ToString(), true);
             //  Assert.Fail();
         }
     }
