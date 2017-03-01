@@ -233,3 +233,4 @@ PHSuit/files/ffmpeg.exe
  
 appSettings.config
 connectionstrings.config
+*.orig

@@ -55,8 +55,8 @@
       <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="HibernatingRhinos.Profiler.Appender, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHibernateProfiler.Appender.3.0.3103.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
+    <Reference Include="HibernatingRhinos.Profiler.Appender, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernateProfiler.Appender.4.0.4034-beta\lib\net46\HibernatingRhinos.Profiler.Appender.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
@@ -129,6 +129,7 @@
     <Compile Include="DomainModel\Service\U3RD_Model.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipCustomerServiceMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\DZMembershipImageMap.cs" />
+    <Compile Include="Infrastructure\Repository\NHibernate\Mapping\IdGeneratedOrAssigned.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\MembershipLoginLogMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\UserTokenMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryMembershipLoginLog.cs" />
@@ -157,7 +158,9 @@
     <Compile Include="Infrastructure\UnitOfWork\NhUnitOfWorkInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DomainModel\IdentityImpl\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
       <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>

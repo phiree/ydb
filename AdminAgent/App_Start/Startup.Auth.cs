@@ -16,9 +16,9 @@ namespace AdminAgent
         {
             Bootstrap.Boot();
             // 配置数据库上下文、用户管理器和登录管理器，以便为每个请求使用单个实例
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+        //    app.CreatePerOwinContext(ApplicationDbContext.Create);
+           // app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+        //    app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
             // 使应用程序可以使用 Cookie 来存储已登录用户的信息
             // 并使用 Cookie 来临时存储有关使用第三方登录提供程序登录的用户的信息

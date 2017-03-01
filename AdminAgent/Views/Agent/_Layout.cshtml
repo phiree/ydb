@@ -272,6 +272,7 @@
                             <li>@Html.ActionLink("订单统计", "total_user", "AgentTotalUser")@*<a href="./total-order.html">订单统计</a>*@</li>
                             <li>@Html.ActionLink("商户统计", "total_business", "AgentTotalBusiness")@*<a href="./total-business.html">商户统计</a>*@</li>
                             <li>@Html.ActionLink("助理统计", "total_assistant", "AgentTotalUser")@*<a href="./total-assistant.html">助理统计</a>*@</li>
+                            <li>@Html.ActionLink("公告管理", "Index", "AgentNotice")@*<a href="./total-assistant.html">助理统计</a>*@</li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -296,7 +297,9 @@
                         </a>
                         <ul class="treeview-menu">
                             <!--<li><a href="./push-ad-manage.html">广告banner</a></li>-->
-                            <li><a href="./push-notice-list.html">公告列表</a></li>
+                            <li>@Html.ActionLink("公告列表", "Index", "AgentNotice")</li>
+                            <li>@Html.ActionLink("创建公告", "AddNotice", "AgentNotice")</li>
+                             
                             <!--<li><a href="./push-meassage-list.html">消息列表</a></li>-->
                         </ul>
                     </li>

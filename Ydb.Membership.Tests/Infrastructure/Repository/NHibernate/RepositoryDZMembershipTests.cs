@@ -72,6 +72,9 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernateTests
             Assert.AreEqual(UserType.customer, memberList[1].UserType);
             memberList = repositoryDZMembership.GetUsersByArea(areaList, DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), UserType.customer);
             Assert.AreEqual(0, memberList.Count);
+
+            memberList = repositoryDZMembership.GetUsersByArea(areaList, DateTime.Now.AddDays(-2), DateTime.Now.AddDays(2), UserType.customer|UserType.customerservice);
+            Assert.AreEqual(3, memberList.Count);
         }
 
         [Test()]

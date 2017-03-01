@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Dianzhu.ApplicationService;
-using System.Threading.Tasks;
-using System.Configuration;
+using Dianzhu.ApplicationService.Client;
+using log4net;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.Client
 {
@@ -15,12 +15,12 @@ namespace Dianzhu.Web.RestfulApi.Controllers.Client
     public class _AuthorizationController : ApiController
     {
         //  private AuthRepository _repo = null;
-        private ApplicationService.Client.IClientService iclientservice  = null;
-        
+        private readonly IClientService iclientservice;
+
         public _AuthorizationController()
         {
             // _repo = new AuthRepository();
-            iclientservice = Bootstrap.Container.Resolve<ApplicationService.Client.IClientService>();
+            iclientservice = Bootstrap.Container.Resolve<IClientService>();
         }
 
         //[AllowAnonymous]
@@ -36,35 +36,38 @@ namespace Dianzhu.Web.RestfulApi.Controllers.Client
         //    return Ok();
         //}
 
-        
-        [Route("api/v1/authorization")]//authorization//Token
-        public IHttpActionResult PostToken([FromBody]Customer customer)
+        [Route("api/v1/authorization")] //authorization//Token
+        public IHttpActionResult PostToken([FromBody] Customer customer)
         {
-            log4net.ILog log = log4net.LogManager.GetLogger("Ydb.post/authorization.Rule.v1.RestfulApi.Web.Dianzhu");
+            var log = LogManager.GetLogger("Ydb.post/authorization.Rule.v1.RestfulApi.Web.Dianzhu");
             try
             {
                 if (customer == null)
-                {
                     customer = new Customer();
-                }
-                string stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
+                var stamp_TIMES = Request.Headers.GetValues("stamp_TIMES").FirstOrDefault();
                 var allowedOrigin = Request.GetOwinContext().Get<string>("as:RequestMethodUriSign");
-                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=post/authorization,UserName=" + customer.loginName + ",UserId=" + customer.UserID + ",UserType=" + customer.UserType + ",RequestMethodUriSign=" + allowedOrigin.ToString());
+                log.Info("Info(UserInfo)" + stamp_TIMES + ":ApiRoute=post/authorization,UserName=" + customer.loginName +
+                         ",UserId=" + customer.UserID + ",UserType=" + customer.UserType + ",RequestMethodUriSign=" +
+                         allowedOrigin);
                 //log.Info("Info(Route)" + stamp_TIMES + ":post/api/v1/authorization");
                 //HMACAuthenticationAttribute hmac = new HMACAuthenticationAttribute();
                 //string appName = Request.Headers.GetValues("appName").FirstOrDefault();
                 //ConfigurationManager .GetSection
-                MySectionCollection mysection = (MySectionCollection)ConfigurationManager.GetSection("MySectionCollection");
+                var mysection = (MySectionCollection)ConfigurationManager.GetSection("MySectionCollection");
                 //MySectionKeyValueSettings kv = mysection.KeyValues[Request.Headers.GetValues("appName").FirstOrDefault()];
-                string apiName = Request.Headers.GetValues("appName").FirstOrDefault();
-                string apiKey = mysection.KeyValues[apiName].Value; //hmac.getAllowedApps(Request.Headers.GetValues("appName").FirstOrDefault());
+                var apiName = Request.Headers.GetValues("appName").FirstOrDefault();
+                var apiKey = mysection.KeyValues[apiName].Value;
+                //hmac.getAllowedApps(Request.Headers.GetValues("appName").FirstOrDefault());
 
-                MySectionCollection1 mysection1 = (MySectionCollection1)ConfigurationManager.GetSection("MySectionCollection1");
-                string appName = mysection1.KeyValues[apiName].Value;
+                var mysection1 = (MySectionCollection1)ConfigurationManager.GetSection("MySectionCollection1");
+                var appName = mysection1.KeyValues[apiName].Value;
 
                 //log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.ClientController");
                 //ilog.Debug("PostToken(Baegin):"+customer.loginName+"_"+DateTime.Now.ToString("yyyyMMddHHmmss"));
-                return Json(iclientservice.CreateToken(customer.loginName, customer.password, apiName, apiKey, Request.RequestUri.Scheme+"://" +Request.RequestUri.Authority,appName) ?? new object());
+                return
+                    Json(
+                        iclientservice.CreateToken(customer.loginName, customer.password, apiName, apiKey,
+                            Request.RequestUri.Scheme + "://" + Request.RequestUri.Authority, appName) ?? new object());
             }
             catch (Exception ex)
             {

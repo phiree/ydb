@@ -21,6 +21,7 @@ namespace Ydb.Membership.DomainModel
         DZMembership ValidateUser(string username, string password, bool isLogin, out string errMsg);
 
         DZMembership CreateUser(string loginName, string password, UserType userType, out string errMsg);
+        DZMembership CreateUser(Guid Id, string loginName, string password, UserType userType, out string errMsg);
 
         void CreateUserForU3rd(DZMembership member);
 

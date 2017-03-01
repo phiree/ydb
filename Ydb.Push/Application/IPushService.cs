@@ -13,8 +13,12 @@ namespace Ydb.Push.Application
         /// <param name="messageContent"></param>
         /// <param name="messageType"></param>
         /// <returns></returns>
-          ActionResult Push(string chatMessage, string chatType, string toUserId, string fromClient, string fromUserName,
-                            string orderId, string orderSerialNo, string orderStatus, string orderStatusStr,
-                            string businessName, string toClient, string messageContent, string messageType);
+        ActionResult Push(string chatMessage, string chatType, string toUserId, string fromClient, string fromUserName,
+                          string orderId, string orderSerialNo, string orderStatus, string orderStatusStr,
+                          string businessName, string toClient, bool isDebug);
+
+        ActionResult Push(string chatMessage, string chatType, string toUserId, string fromClient, string fromUserName,
+                          string orderId, string orderSerialNo, string orderStatus, string orderStatusStr,
+                          string businessName, string toClient);
     }
 }

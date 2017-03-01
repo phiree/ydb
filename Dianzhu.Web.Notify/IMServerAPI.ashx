@@ -16,11 +16,12 @@ public class IMServerAPI : IHttpHandler
             Ydb.InstantMessage.Application.IInstantMessage im = (Ydb.InstantMessage.Application.IInstantMessage)context.Application["im"];
             Ydb.InstantMessage.Application.IReceptionService receptionService = Bootstrap.Container.Resolve<Ydb.InstantMessage.Application.IReceptionService>();
 
-
             switch (type.ToLower())
             {
                 case "systemnotice":
                     string sysMsg = context.Request["body"];
+                    string group = context.Request["group"];
+
                     break;
                 case "ordernotice":
                     string strOrderId = context.Request["orderid"];

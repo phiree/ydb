@@ -1,59 +1,62 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using AutoMapper;
 using Castle.Windsor;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
-using System.Configuration;
-using Ydb.ApplicationService;
-using Ydb.ApplicationService.ExcelImporter;
-using Ydb.Common.Infrastructure;
+using OpenfireExtension;
+using Ydb.BusinessResource.Infrastructure;
+using Ydb.Common;
+using Ydb.Finance.Application;
+using Ydb.Finance.Infrastructure;
 using Ydb.Infrastructure;
+using Ydb.InstantMessage.Infrastructure;
+using Ydb.Membership.Infrastructure;
+using Ydb.Notice;
+using Ydb.Push.Infrastructure;
 
 public class Bootstrap
 {
-    static IWindsorContainer container;
-    public static IWindsorContainer Container
-    {
-        get { return container; }
-        private set { container = value; }
-    }
+    public static IWindsorContainer Container { get; private set; }
+
     public static void Boot()
     {
-        container = new WindsorContainer();
-
-
-        container.Register(Component.For<ServiceTypeImporter>());
+        Container = new WindsorContainer();
         //公用組件註冊
-        container.Install(   new Ydb.Infrastructure.Installer()   );
+        Container.Install(new Installer());
 
         //限界上下文註冊
 
-        container.Install( new Ydb.Infrastructure.InstallerCommon(BuildDBConfig("ydb_common")) );
- 
-        container.Install(new Ydb.Finance.Infrastructure.InstallerFinance(BuildDBConfig("ydb_finance")));
- 
- 
-        container.Install(new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig("ydb_businessresource")));
-        AutoMapper.Mapper.Initialize(x =>
+        Container.Install(new InstallerCommon(GetDbConfig("ydb_common")));
+
+        Container.Install(new InstallerOpenfireExtension());
+
+        Container.Install(new InstallerFinance(GetDbConfig("ydb_finance")));
+        Container.Install(new InstallerNotice(GetDbConfig("ydb_notice")));
+        Container.Install(new InstallerInstantMessage(GetDbConfig("ydb_instantmessage")));
+        Container.Install(new InstallerPush(GetDbConfig("ydb_push")));
+        Container.Install(new InstallerBusinessResource(GetDbConfig("ydb_businessresource")));
+        Container.Install(new InstallerMembership(GetDbConfig("ydb_membership")));
+
+        Container.Install(new Ydb.ApplicationService.Installer());
+        LoggingConfiguration.Config("Ydb.ApplicationTest");
+        Mapper.Initialize(x =>
         {
-          
-            Ydb.Finance.Application.AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
+            AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
+            Ydb.Membership.Application.AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
         });
+
+        LoggingConfiguration.Config("ApplicationTest.log");
     }
 
-    private static FluentConfiguration BuildDBConfig(string connectionStringName)
+    private static FluentConfiguration GetDbConfig(string databaseName)
     {
-        IEncryptService encryptService = container.Resolve<IEncryptService>();
-        FluentConfiguration dbConfig = Fluently.Configure()
-                                                       .Database(
-                                                            MySQLConfiguration
-                                                           .Standard
-                                                           .ConnectionString(
-                                                                encryptService.Decrypt(
-                                                                System.Configuration.ConfigurationManager
-                                                              .ConnectionStrings[connectionStringName].ConnectionString, false)
-                                                                )
-                                                     );
-        return dbConfig;
+        var dbConfigInstantMessage = Fluently.Configure()
+            .Database(SQLiteConfiguration.
+                Standard
+                .ConnectionString("Data Source=" + databaseName + "; Version=3;BinaryGuid=False")
+            )
+            .ExposeConfiguration(config => { new SchemaExport(config).Create(true, true); });
+
+        return dbConfigInstantMessage;
     }
 }
