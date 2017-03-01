@@ -143,5 +143,16 @@ namespace Ydb.Finance.Tests.Application
             string fail_details = "流水号^收款方账号^收款账号姓名^付款金额^失败标识(F)^失败原因^支付宝内部流水号^完成时间";
             withdrawApplyService.PayWithdrawFail(fail_details);
         }
+
+        [Test()]
+        public void WithdrawApplyService_GetWithdrawApplyListByArea_Test()
+        {
+            WithdrawApplyDto withdrawApplyDto = SaveWithdrawApply();
+            IList<string> userIdList = new List<string> { withdrawApplyDto.ApplyUserId };
+            IList<WithdrawApplyDto> withdrawApplyDtoList= withdrawApplyService.GetWithdrawApplyListByArea(userIdList);
+            Assert.AreEqual(1, withdrawApplyDtoList.Count);
+            Assert.AreEqual(withdrawApplyDto.Id, withdrawApplyDtoList[0].Id);
+
+        }
     }
 }

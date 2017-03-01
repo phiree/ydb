@@ -28,5 +28,15 @@ namespace Ydb.Finance.Tests.Application
             var list = balanceTotalService.GetOneByUserId("09ccc183-ed87-462a-8d11-a66600fbbd24");
             Console.WriteLine("BalanceTotalService.GetOneByUserId:" + (list==null).ToString());
         }
+
+        /// <summary>
+        /// 获取代理及其助理的所有账户余额信息
+        /// </summary>
+        [Test()]
+        public void BalanceTotalService_GetBalanceTotalByArea_Test()
+        {
+            var list = balanceTotalService.GetBalanceTotalByArea(new List<string> { "09ccc183-ed87-462a-8d11-a66600fbbd24" });
+            Console.WriteLine("BalanceTotalService.GetOneByUserId:" + (list == null).ToString());
+        }
     }
 }

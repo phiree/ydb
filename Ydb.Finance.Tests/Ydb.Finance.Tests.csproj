@@ -114,6 +114,7 @@
     <Compile Include="Application\BalanceTotalServiceTests.cs" />
     <Compile Include="Application\OrderShareServiceTests.cs" />
     <Compile Include="Application\ServiceTypePointServiceTests.cs" />
+    <Compile Include="Application\Service\WithdrawApplyServiceTests.cs" />
     <Compile Include="Application\UserTypeSharePointServiceTests.cs" />
     <Compile Include="Application\WithdrawApplyServiceTests.cs" />
     <Compile Include="Bootstrap.cs" />
