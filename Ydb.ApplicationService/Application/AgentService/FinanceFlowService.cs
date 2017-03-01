@@ -38,8 +38,16 @@ namespace Ydb.ApplicationService.Application.AgentService
             return financeFlowDtoList;
         }
 
-
         public IList<FinanceTotalDto> GetFinanceTotalList(IList<string> areaList)
+        {
+            IList<DZMembershipCustomerServiceDto> memberList = dzMembershipService.GetDZMembershipCustomerServiceByArea(areaList);
+            IList<string> UserIdList = memberList.Select(x => x.Id.ToString()).ToList();
+            IList<BalanceTotalDto> balanceTotalDtoList = balanceTotalService.GetBalanceTotalByArea(UserIdList);
+            IList<FinanceTotalDto> financeTotalDtoList = statisticsCount.StatisticsFinanceTotalList(balanceTotalDtoList, memberList);
+            return financeTotalDtoList;
+        }
+
+        public IList<FinanceTotalDto> GetFinanceWithdrawList(IList<string> areaList)
         {
             IList<DZMembershipCustomerServiceDto> memberList = dzMembershipService.GetDZMembershipCustomerServiceByArea(areaList);
             IList<string> UserIdList = memberList.Select(x => x.Id.ToString()).ToList();
