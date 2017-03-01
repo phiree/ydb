@@ -17,7 +17,7 @@ namespace Ydb.PayGateway
         //更换微信账号
         public readonly static string appid = "wx11ee76c3c2104b41";
         public readonly static string mch_id = "1437565802";//商户号
-        public readonly static string key = "8fab3036ffc61804c0c06803ffeeada4";
+        public readonly static string key = "lZ16HklmBTXaRnf1PC9afrhvz4rxdJvA";
         public readonly static string refund_url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
 
         #endregion
