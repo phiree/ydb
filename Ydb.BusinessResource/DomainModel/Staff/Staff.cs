@@ -17,7 +17,7 @@ namespace Ydb.BusinessResource.DomainModel
             StaffAvatar = new List<BusinessImage>();
             Enable = true;
         }
-        public virtual Guid Id { get; set; }
+    
         /// <summary>
         /// 所属商家
         /// </summary>

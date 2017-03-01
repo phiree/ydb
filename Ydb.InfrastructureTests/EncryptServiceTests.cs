@@ -70,11 +70,14 @@ namespace Ydb.Infrastructure.Tests
             PrintOneServer(new InfrastructureTests.DbConfigBuilder().BuildForServer("business.ydban.cn", "jsyk2016", "X*G7czoy6twAYIz7","4407"));
             PrintOneServer(new InfrastructureTests.DbConfigBuilder().BuildForServer("dev.ydban.cn", "jsyk2016", "IQDv$qefeqFWuq_L","4407"));
             PrintConfigSection(new InfrastructureTests.DbConfigBuilder().ReplaceDianzhuDb("dianzhu_publish"). BuildForServerConfig("dev.ydban.cn", "jsyk2016", "IQDv$qefeqFWuq_L", "4407"));
-            
+            PrintConfigSection(new InfrastructureTests.DbConfigBuilder().ReplaceDianzhuDb("dianzhu_publish").BuildForServerConfig("dev.ydban.cn", "jsyk2016", "IQDv$qefeqFWuq_L", "4407",true));
+
             PrintConfigSection(new InfrastructureTests.DbConfigBuilder().BuildForServerConfig("localhost", "root", "root","3306"));
             PrintConfigSection(new InfrastructureTests.DbConfigBuilder().BuildForServerConfig("192.168.1.138", "root", "root", "3306"));
 
             PrintConfigSection(new InfrastructureTests.DbConfigBuilder().ReplaceDianzhuDb("dianzhu_test").BuildForServerConfig("192.168.1.150", "root", "root", "3306"));
+
+           
 
             /*
             Console.WriteLine("172_dianzhu_publish_test:" + encryptService.Encrypt("172_dianzhu___data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test", false));
@@ -126,6 +129,11 @@ namespace Ydb.Infrastructure.Tests
                 Console.WriteLine( encryptService.Encrypt(s, false));
             }
         }
+        private void PrintConfigSectionTransform(IList<string> l)
+        {
+
+        }
+        
         private void PrintConfigSection(IList<string> l)
         {
             StringBuilder sbConfig = new StringBuilder();

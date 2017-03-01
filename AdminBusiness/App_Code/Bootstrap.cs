@@ -52,8 +52,32 @@ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb
         container.Install(
 
 
-           new Ydb.Membership.Infrastructure.InstallerMembership(BuildDBConfig("ydb_membership"))
+           new Ydb.Order.Infrastructure.InstallerOrder(BuildDBConfig("ydb_order"))
         
+            // new Application.InstallerMembershipTestDB()
+
+            );
+        container.Install(
+
+
+           new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
+
+            // new Application.InstallerMembershipTestDB()
+
+            );
+        container.Install(
+
+
+           new Ydb.Push.Infrastructure.InstallerPush(BuildDBConfig("ydb_push"))
+
+            // new Application.InstallerMembershipTestDB()
+
+            );
+        container.Install(
+
+
+           new Ydb.Membership.Infrastructure.InstallerMembership(BuildDBConfig("ydb_membership"))
+
             // new Application.InstallerMembershipTestDB()
 
             );
