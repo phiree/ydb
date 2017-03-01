@@ -2,7 +2,7 @@
 @{
     ViewBag.headTitle = "财务管理";
     ViewBag.subTitle = "提现记录";
-    ViewBag.breadcrumbOl = new List<string>() { "财务管理", "提现记录" };
+    ViewBag.breadcrumbOl = new List<string>() { "财务管理", "提现管理", "提现记录" };
 }
 
  <!-- Main content -->
@@ -13,7 +13,7 @@
                 <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">上次分账时间</span>
+                    <span class="info-box-text">累计体现金额</span>
                     <span class="info-box-number">2016.09.09 12:12:56</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -26,7 +26,7 @@
                 <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">已分账数量</span>
+                    <span class="info-box-text">待转账单量</span>
                     <span class="info-box-number">420</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -39,12 +39,12 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">分账记录</h3>
+                    <h3 class="box-title">历史记录</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <form action="" lpformnum="2">
-                        <div class="row">
+                        @*<div class="row">
                             <div class="col-md-3">
                                 <div class="form-horizontal">
                                     <div class="form-group">
@@ -75,30 +75,34 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
 
 
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>流水号</th>
+                                    <th>序号</th>
+                                    <th>申请单号</th>
                                     <th>申请用户</th>
-                                    <th>申请金额</th>
-                                    <th>目标账号</th>
                                     <th>申请时间</th>
+                                    <th>目标账号</th>
+                                    <th>提现金额</th>
+                                    <th>转账金额</th>
                                     <th>转账时间</th>
-                                    <th>操作人</th>
+                                    <th>转账结果</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>流水号</th>
+                                    <th>序号</th>
+                                    <th>申请单号</th>
                                     <th>申请用户</th>
-                                    <th>申请金额</th>
-                                    <th>目标账号</th>
                                     <th>申请时间</th>
+                                    <th>目标账号</th>
+                                    <th>提现金额</th>
+                                    <th>转账金额</th>
                                     <th>转账时间</th>
-                                    <th>操作人</th>
+                                    <th>转账结果</th>
                                 </tr>
                             </tfoot>
                             <tbody>

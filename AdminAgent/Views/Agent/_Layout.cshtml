@@ -309,21 +309,19 @@
                         </a>
                         <ul class="treeview-menu">
                             <li>@Html.ActionLink("分账记录", "finance_account", "AgentFinance")@*<a href="./push-notice-list.html">分账记录</a>*@</li>
-                            <li>@Html.ActionLink("提现申请", "finance_total_list", "AgentFinance")@*<a href="./push-notice-list.html">提现申请</a>*@</li>
-                            <li><a href="./push-notice-list.html">提现记录</a></li>
-                            @*<li>
+                            <li>
                                 <a href="#">
-                                    分账记录
+                                   提现管理
                                     <span class="pull-right-container">
                                         <i class="fa fa-angle-left pull-right"></i>
                                     </span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="./finance-account.html"><i class="fa fa-circle-o"></i>代理分账</a></li>
-                                    <li><a href="./finance-account.html"><i class="fa fa-circle-o"></i>助理分账</a></li>
+                                    <li>@Html.ActionLink("提现申请", "finance_total_list", "AgentFinance")@*<a href="./push-notice-list.html">提现申请</a>*@</li>
+                                    <li>@Html.ActionLink("提现记录", "finance_withdraw_history", "AgentFinance")@*<a href="./push-notice-list.html">提现记录</a>*@</li>
                                 </ul>
                             </li>
-                            <li>
+                            @*<li>
                                 <a href="#">
                                     提现管理
                                     <span class="pull-right-container">
