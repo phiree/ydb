@@ -26,18 +26,28 @@ namespace Ydb.InfrastructureTests
         }
         public IList<string> BuildForServerConfig(string host, string uid, string pwd, string port)
         {
-            return DbList.Select((x,index) => BuildOneDbConfig(host, x, uid, pwd, port,DbconfigKeys[index])).ToList();
+            return BuildForServerConfig(host, uid, pwd, port, false);
         }
-        private string BuildOneDbConfig(string s, string d, string u, string w, string p,string key)
+        public IList<string> BuildForServerConfig(string host, string uid, string pwd, string port,bool transform)
+        {
+            return DbList.Select((x,index) => BuildOneDbConfig(host, x, uid, pwd, port,DbconfigKeys[index],transform)).ToList();
+        }
+        private string BuildOneDbConfig(string s, string d, string u, string w, string p,string key,bool transform)
         {
 
             string conn = BuildOneDb(s, d, u, w, p);
             string encrypted = encryptService.Encrypt(conn,false);
             string config = string.Format("<add name=\"{0}\"  connectionString=\"{1}\"/>",
                 key,encrypted);
+            if (transform)
+            {
+                config= string.Format("<add  xdt:Transform=\"Replace\" xdt:Locator=\"Match(name)\" name=\"{0}\" connectionString=\"{1}\"/>",
+                key, encrypted);
+            }
             return config;
             
         }
+       
         public DbConfigBuilder ReplaceDianzhuDb(string newDb)
         {
             DbList[0] = newDb;
