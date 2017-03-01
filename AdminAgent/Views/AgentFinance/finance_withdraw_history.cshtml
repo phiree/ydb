@@ -1,11 +1,11 @@
-﻿@model IList<Ydb.ApplicationService.ModelDto.FinanceTotalDto>
+﻿
 @{
     ViewBag.headTitle = "财务管理";
-    ViewBag.subTitle = "提现申请";
-    ViewBag.breadcrumbOl = new List<string>() { "财务管理", "提现申请" };
+    ViewBag.subTitle = "提现记录";
+    ViewBag.breadcrumbOl = new List<string>() { "财务管理", "提现记录" };
 }
 
-<!-- Main content -->
+ <!-- Main content -->
 <section class="content">
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -13,9 +13,8 @@
                 <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">账户余额</span>
-                    <span class="info-box-number">@ViewData["myAccountFinance"]</span>
-                    <span class="info-box-number text-right">@Html.ActionLink("提现", "finance_withdraw_apply", "AgentFinance",new {id=@ViewData["agentId"] }, new { @class = "btn btn-info" })</span>
+                    <span class="info-box-text">上次分账时间</span>
+                    <span class="info-box-number">2016.09.09 12:12:56</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -27,9 +26,8 @@
                 <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">支付宝账号</span>
-                    <span class="info-box-number">@ViewData["myAliAccount"]</span>
-                    <span class="info-box-number text-right">@Html.ActionLink("绑定/更改", "finance_account_bind", "AgentFinance", new { id = @ViewData["agentId"].ToString() }, new { @class = "btn btn-success" })@*<a href="finance-account-bind.html" class="btn btn-success">绑定/更改</a>*@</span>
+                    <span class="info-box-text">已分账数量</span>
+                    <span class="info-box-number">420</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -41,12 +39,12 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">助理余额</h3>
+                    <h3 class="box-title">分账记录</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <form action="" lpformnum="2">
-                        @*<div class="row">
+                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form-horizontal">
                                     <div class="form-group">
@@ -77,78 +75,78 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>*@
+                        </div>
 
 
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>序号</th>
-                                    <th>助理名</th>
-                                    <th>真实姓名</th>
-                                    <th>账户余额</th>
-                                    <th>我的助理</th>
-                                    <th>支付宝账号</th>
-                                    <th>联系电话</th>
-                                    <th>提现</th>
+                                    <th>流水号</th>
+                                    <th>申请用户</th>
+                                    <th>申请金额</th>
+                                    <th>目标账号</th>
+                                    <th>申请时间</th>
+                                    <th>转账时间</th>
+                                    <th>操作人</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>序号</th>
-                                    <th>助理名</th>
-                                    <th>真实姓名</th>
-                                    <th>联系电话</th>
-                                    <th>我的助理</th>
-                                    <th>账户余额</th>
-                                    <th>支付宝账号</th>
-                                    <th>提现</th>
+                                    <th>流水号</th>
+                                    <th>申请用户</th>
+                                    <th>申请金额</th>
+                                    <th>目标账号</th>
+                                    <th>申请时间</th>
+                                    <th>转账时间</th>
+                                    <th>操作人</th>
                                 </tr>
                             </tfoot>
                             <tbody>
-                                @for (int i = 0; i < @Model.Count; i++)
-                                {
-                                    <tr>
-                                        <td>@(i + 1)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[i].UserNickName)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[i].RealName)</td>
-                                        <td>@Html.DisplayFor(modelItem => Model[i].Phone)</td>
-                                        <td>
-                                            @if (Model[i].IsAgentCustomerService)
-                                            {
-                                                @Html.Label("是");
-                                            }
-                                            else
-                                            {
-                                                @Html.Label("否");
-                                            }
-                                        </td>
-                                        <td>@Html.DisplayFor(modelItem => Model[i].Total)</td>
-                                        <td>
-                                            @if (string.IsNullOrEmpty(Model[i].Account))
-                                            {
-                                                if (Model[i].IsAgentCustomerService)
-                                                {
-                                                    @Html.ActionLink("绑定/更改", "finance_account", new { id = Model[i].UserId })
-                                                }
-                                                else
-                                                {
-                                                    @Html.Label("未绑定")
-                                                }
-                                            }
-                                            else
-                                            {
-                                                @Html.DisplayFor(modelItem => Model[i].Account)
-                                            }
-                                        </td>
-                                        <td>
-                                            @if (Model[i].IsAgentCustomerService)
-                                            {
-                                                @Html.ActionLink("提现", "finance_withdraw_apply", new { id = Model[i].UserId })
-                                            }
-                                        </td>
-                                    </tr>
-                                }
+                                <tr>
+                                    <td>132456</td>
+                                    <td>test@test.com</td>
+                                    <td>$123</td>
+                                    <td>get@alipay.com</td>
+                                    <td>2016-16-12 12:34:12</td>
+                                    <td>2016-16-12 12:34:12</td>
+                                    <td>某某某</td>
+                                </tr>
+                                <tr>
+                                    <td>132456</td>
+                                    <td>test@test.com</td>
+                                    <td>$123</td>
+                                    <td>get@alipay.com</td>
+                                    <td>2016-16-12 12:34:12</td>
+                                    <td>2016-16-12 12:34:12</td>
+                                    <td>某某某</td>
+                                </tr>
+                                <tr>
+                                    <td>132456</td>
+                                    <td>test@test.com</td>
+                                    <td>$123</td>
+                                    <td>get@alipay.com</td>
+                                    <td>2016-16-12 12:34:12</td>
+                                    <td>2016-16-12 12:34:12</td>
+                                    <td>某某某</td>
+                                </tr>
+                                <tr>
+                                    <td>132456</td>
+                                    <td>test@test.com</td>
+                                    <td>$123</td>
+                                    <td>get@alipay.com</td>
+                                    <td>2016-16-12 12:34:12</td>
+                                    <td>2016-16-12 12:34:12</td>
+                                    <td>某某某</td>
+                                </tr>
+                                <tr>
+                                    <td>132456</td>
+                                    <td>test@test.com</td>
+                                    <td>$123</td>
+                                    <td>get@alipay.com</td>
+                                    <td>2016-16-12 12:34:12</td>
+                                    <td>2016-16-12 12:34:12</td>
+                                    <td>某某某</td>
+                                </tr>
                             </tbody>
                         </table>
                     </form>
@@ -160,6 +158,7 @@
     </div>
 </section>
 <!-- /.content -->
+
 <!-- DataTables -->
 <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
@@ -222,4 +221,3 @@
         });
     });
 </script>
-

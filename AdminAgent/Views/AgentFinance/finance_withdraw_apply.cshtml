@@ -15,7 +15,7 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form class="form-horizontal">
+                <form class="form-horizontal" method="post">
                     <div class="box-body">
                         <div class="form-group">
                             <label class="col-md-5 text-right">账号余额</label>
@@ -26,20 +26,21 @@
                         <div class="form-group">
                             <label class="col-md-5 text-right">支付账号</label>
                             <div class="col-md-6">
-                                @ViewData["myAliAccount"]
+                                <input type="text" class="form-control" readonly value="@ViewData["myAliAccount"]" name="account" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputMoney" class="col-sm-5 control-label">提现金额</label>
 
                             <div class="col-sm-6">
-                                <input type="password" class="form-control" id="inputMoney">
+                                <input type="text" class="form-control" id="inputMoney" name="amount">
                             </div>
                         </div>
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-default">取消</button>
+                        @*<button type="submit" class="btn btn-default">取消</button>*@
+                        @Html.ActionLink("取消", "finance_total_list", "AgentFinance", new { id = "" }, new { @class = "btn btn-default" })
                         <button type="submit" class="btn btn-info pull-right">提现</button>
                     </div>
                     <!-- /.box-footer -->

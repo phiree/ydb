@@ -15,47 +15,48 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form class="form-horizontal">
+                <form class="form-horizontal" method="post">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="alipayAcc" class="col-sm-5 control-label">支付宝账号</label>
 
                             <div class="col-sm-6">
-                                <input type="password" class="form-control" id="alipayAcc">
+                                <input type="text" class="form-control" id="alipayAcc" name="account">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="owner" class="col-sm-5 control-label">账号所有人姓名</label>
 
                             <div class="col-sm-6">
-                                <input type="password" class="form-control" id="owner">
+                                <input type="text" class="form-control" id="owner" name="accountName">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="IDNumber" class="col-sm-5 control-label">身份证号码</label>
 
                             <div class="col-sm-6">
-                                <input type="password" class="form-control" id="IDNumber">
+                                <input type="text" class="form-control" id="IDNumber" name="accountCode">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="phone" class="col-sm-5 control-label">手机号码</label>
 
                             <div class="col-sm-6">
-                                <input type="password" class="form-control" id="phone">
+                                <input type="text" class="form-control" id="phone" name="accountPhone">
                             </div>
                         </div>
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <label for="check" class="col-sm-5 control-label">验证码</label>
 
                             <div class="col-sm-6">
-                                <input type="password" class="form-control" id="check">
+                                <input type="text" class="form-control" id="check" name="verificationCode">
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-default">取消</button>
+                        @*<button type="submit" class="btn btn-default">取消</button>*@
+                        @Html.ActionLink("取消", "finance_total_list", "AgentFinance", new { id = "" }, new { @class = "btn btn-default" })
                         <button type="submit" class="btn btn-info pull-right">绑定</button>
                     </div>
                     <!-- /.box-footer -->
