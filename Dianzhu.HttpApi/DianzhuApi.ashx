@@ -13,7 +13,7 @@ public class DianzhuApi : IHttpHandler,IRequiresSessionState
     public void ProcessRequest(HttpContext context)
     {
             ilog.Debug("dddd");
-        NHibernateUnitOfWork.UnitOfWork.Start();
+      //  NHibernateUnitOfWork.UnitOfWork.Start();
 
         context.Response.ContentType = "application/json";
         context.Response.ContentEncoding = Encoding.UTF8;
@@ -28,7 +28,7 @@ public class DianzhuApi : IHttpHandler,IRequiresSessionState
         context.Response.Write(jsonResponse);
         ilog.Debug("Resonse("+rid+"):"+PHSuit.JsonHelper.FormatJson(jsonResponse));
 
-        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+       // NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
     }
     public bool IsReusable
     {

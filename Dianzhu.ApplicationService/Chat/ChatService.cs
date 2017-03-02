@@ -9,7 +9,7 @@ using Ydb.BusinessResource.Application;
 using Ydb.Common.Specification;
 using Ydb.Order.Application;
 using Ydb.Order.DomainModel;
-
+using Ydb.Push.Application;
 
 namespace Dianzhu.ApplicationService.Chat
 {
@@ -19,12 +19,14 @@ namespace Dianzhu.ApplicationService.Chat
         IStaffService staffService;
 
         IServiceOrderService bllOrder;
+        IDeviceBindService deviceService;
         // BLL.DZMembershipProvider bllDZM;
-        public ChatService(Ydb.InstantMessage.Application.IChatService bllChat, IServiceOrderService bllOrder, IStaffService staffService)
+        public ChatService(Ydb.InstantMessage.Application.IChatService bllChat, IServiceOrderService bllOrder, IStaffService staffService, IDeviceBindService deviceService)
         {
             this.bllChat = bllChat;
             this.bllOrder = bllOrder;
             this.staffService = staffService;
+            this.deviceService = deviceService;
             //this.bllDZM = bllDZM;
         }
 
@@ -166,7 +168,11 @@ namespace Dianzhu.ApplicationService.Chat
                 //throw new Exception(Dicts.StateCode[4]);
                 return new List<chatObj>();
             }
+           
             IList<chatObj> staffobj = Mapper.Map<IList<ReceptionChatDto>, IList<chatObj>>(chat);
+
+            deviceService.SetPushAmountZero(guidCustomer);
+
             return staffobj;
         }
 

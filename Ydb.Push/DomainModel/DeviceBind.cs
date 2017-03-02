@@ -21,6 +21,9 @@ namespace Ydb.Push.DomainModel
         public virtual DateTime SaveTime { get; set; }//保存时间
         public virtual int PushAmount { get; set; }//推送条数
 
-        
+        public virtual void SetPushAmountZero()
+        {
+            PushAmount = 0;
+        }
     }
 }

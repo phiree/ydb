@@ -8,6 +8,7 @@ namespace Ydb.Push.Application
         void Delete(DeviceBind db);
         DeviceBind getDevBindByUserID(string userId);
         DeviceBind getDevBindByUUID(Guid uuid);
+        void SetPushAmountZero(Guid userId);
         void Save(DeviceBind db);
         void SaveOrUpdate(DeviceBind db);
         void Update(DeviceBind db);

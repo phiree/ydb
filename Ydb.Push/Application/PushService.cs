@@ -3,6 +3,7 @@ using log4net;
 using Ydb.Common.Application;
 using Ydb.Push.DomainModel;
 using Ydb.Push.DomainModel.IRepository;
+using Ydb.Push.Infrastructure.NHibernate.UnitOfWork;
 
 namespace Ydb.Push.Application
 {
@@ -19,7 +20,7 @@ namespace Ydb.Push.Application
             this._pushApiFactory = pushApiFactory;
             log = LogManager.GetLogger(GetType().ToString());
         }
-
+        [UnitOfWork]
         public ActionResult Push(string chatMessage, string chatType, string toUserId, string fromClient,
           string fromUserName,
           string orderId, string orderSerialNo, string orderStatus, string orderStatusStr,
@@ -27,7 +28,7 @@ namespace Ydb.Push.Application
         {
             return this.Push(chatMessage, chatType, toUserId, fromClient, fromUserName, orderId, orderSerialNo, orderStatus, orderStatusStr, businessName, toClient, false);
         }
-
+        [UnitOfWork]
         public ActionResult Push(string chatMessage, string chatType, string toUserId, string fromClient,
             string fromUserName,
             string orderId, string orderSerialNo, string orderStatus, string orderStatusStr,
@@ -88,7 +89,9 @@ namespace Ydb.Push.Application
                 orderId, businessName,
                 orderSerialNo, orderStatus, orderStatusStr);
             var ipush = _pushApiFactory.Create(pushMessage, pushType, deviceName, isDebug);
+            log.Debug("bind.PushAmount:" + bind.PushAmount);
             var pushAmount = bind.PushAmount + 1;
+            log.Debug("pushamount:" + pushAmount);
             bind.PushAmount = pushAmount;
 
             log.Debug("prepare for push,token:" + bind.AppToken);
