@@ -580,6 +580,7 @@
     <Content Include="files\动词服务分类-%282015-8-19%29-表格.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\dev.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -671,7 +672,7 @@
     <Content Include="Views\AgentNotice\Index.cshtml" />
     <Content Include="Views\AgentNotice\AddNotice.cshtml" />
     <Content Include="Views\AgentNotice\NoticeDetail.cshtml" />
-     <Content Include="Views\AgentCustomerServiceManage\assistant_list.cshtml" />
+    <Content Include="Views\AgentCustomerServiceManage\assistant_list.cshtml" />
     <Content Include="Views\AgentCustomerServiceManage\assistant_detail.cshtml" />
     <Content Include="Views\AgentCustomerServiceManage\assistant_detail_message.cshtml" />
     <Content Include="Views\AgentFinance\finance_withdraw_apply.cshtml" />

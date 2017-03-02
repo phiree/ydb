@@ -80,10 +80,6 @@ website.publishproj
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Pay\Dianzhu.Pay.csproj">
-      <Project>{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}</Project>
-      <Name>Dianzhu.Pay</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Web.Common\Dianzhu.Web.Common.csproj">
       <Project>{B74CA750-EBD2-4EFD-823A-FC680F498E52}</Project>
       <Name>Dianzhu.Web.Common</Name>
@@ -95,6 +91,14 @@ website.publishproj
     <ProjectReference Include="..\MediaServer\MediaServer.csproj">
       <Project>{9920DA22-589C-4193-AEAA-363D5C029DFC}</Project>
       <Name>MediaServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Notice\Ydb.Notice.csproj">
+      <Project>{DB0DD68A-1A9B-4028-B4FB-477E447EDB6E}</Project>
+      <Name>Ydb.Notice</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenfireExtension\OpenfireExtension.csproj">
+      <Project>{8B398F01-B6BB-409F-89EF-B874899C05E0}</Project>
+      <Name>OpenfireExtension</Name>
     </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
@@ -140,7 +144,6 @@ website.publishproj
       <Project>{E0661833-5498-4F1D-94E7-35C39C5BD8B9}</Project>
       <Name>Ydb.Push</Name>
     </ProjectReference>
-    
   </ItemGroup>
   <Import Project="$(_WebPublishTargetsPath)\Web\Microsoft.WebSite.Publishing.targets" />
 </Project>

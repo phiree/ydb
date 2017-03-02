@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Xml;
-using Com.Alipay;
+ 
 
 /// <summary>
 /// 功能：批量付款到支付宝账户有密接口接入页

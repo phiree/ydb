@@ -64,7 +64,15 @@ new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig(
         container.Install(
             new Ydb.ApplicationService.Installer()
             );
+        container.Install(
+        new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
+         // new Application.InstallerMembershipTestDB()
+         );
 
+        container.Install(
+           new Ydb.Order.Infrastructure.InstallerOrder(BuildDBConfig("ydb_order"))
+            // new Application.InstallerMembershipTestDB()
+            );
 
         // Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
         AutoMapper.Mapper.Initialize(x =>
