@@ -20,7 +20,7 @@ namespace Ydb.PayGateway
         public string PaySubject { get; set; }
         string notify_url;
 
-        public PayBatch(decimal payAmount, string paymentId, string paySubject , string notify_url, string memo)
+        public PayBatch(decimal payAmount, string paymentId, string paySubject , string notify_url, string memo,string paySubjectPre)
         {
           
             this.PaySubject = paySubject;
@@ -28,6 +28,7 @@ namespace Ydb.PayGateway
             this.PayMemo = memo;
             this.notify_url = notify_url;
             this.PaymentId = paymentId;
+            this.PaySubjectPre = paySubjectPre;
         }
 
 
