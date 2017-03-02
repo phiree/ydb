@@ -17,7 +17,7 @@ namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Repository
     public class RepositoryBusiness : NHRepositoryBase<Business,Guid>,IRepositoryBusiness
     {
 
-
+      
 
         public IList<Area> GetDistinctAreasOfBusiness()
         {
@@ -141,7 +141,7 @@ namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Repository
         public new Business FindById(Guid identityId)
         {
            var b= session.Get<Business>(identityId);
-
+            Log.Debug(b.Id);
             NHibernateUtil.Initialize(b.AreaBelongTo);
             NHibernateUtil.Initialize(b.BusinessImages);
             return b;

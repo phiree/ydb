@@ -604,7 +604,9 @@ namespace Ydb.Order.Application
         public void OrderFlow_BusinessConfirm(Guid orderId)
         {
             ServiceOrder order = repoServiceOrder.FindById(orderId);
+            log.Debug("商家确认服务:" + orderId);
             ChangeStatus(order, enum_OrderStatus.Negotiate);
+            log.Debug("确认完成");
         }
         /// <summary>
         /// 商家输入协议
@@ -1024,15 +1026,20 @@ namespace Ydb.Order.Application
 
         private void ChangeStatus(ServiceOrder order, enum_OrderStatus targetStatus)
         {
+            log.Debug("开始改变订单状态");
+            if (order == null) { log.Debug("订单为null"); };
             enum_OrderStatus oldStatus = order.OrderStatus;
+            
+            log.Debug("1");
             OrderServiceFlow.ChangeStatus(order, targetStatus);
 
             //保存订单历史记录
             //order.OrderStatus = oldStatus;
             order.SaveOrderHistory(oldStatus, repoStateChangeHis);
-
+            log.Debug("2");
             //更新订单状态
             order.OrderStatus = targetStatus;
+            log.Debug("3");
             //Update(order);
             //       NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             log.Debug("当前订单状态为:" + targetStatus);
