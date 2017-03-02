@@ -18,7 +18,7 @@ namespace Ydb.PayGateway.DomainModel.Pay
         /// <param name="subject"></param>
         /// <param name="payTarget"></param>
         /// <returns></returns>
-        public static  IPayRequest CreatePayAPI(enum_PayAPI payApi,decimal amount,string paymentId,string subject)
+        public static  IPayRequest CreatePayAPI(enum_PayAPI payApi,decimal amount,string paymentId,string subject,string subjectpre)
         {
             
             
@@ -35,7 +35,7 @@ namespace Ydb.PayGateway.DomainModel.Pay
                 case enum_PayAPI.AlipayBatch:
                     return new PayBatch(amount, paymentId, subject,
                   Dianzhu.Config.Config.GetAppSetting("PaySite") + "PayCallBack/alipay/notify_url.aspx?PayType=PayBatch",
-                  "http://www.ydban.cn");
+                  "http://www.ydban.cn", subjectpre);
                     ;
                 default:
                     throw new NotImplementedException("尚未实现该接口");
