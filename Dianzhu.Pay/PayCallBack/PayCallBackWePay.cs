@@ -24,7 +24,7 @@ namespace Dianzhu.Pay
             total_amount = 0;
             errMsg = string.Empty;
 
-            string json = PHSuit.JsonHelper.Xml2Json((string)callBackParameters, true);
+            string json = "";// PHSuit.JsonHelper.Xml2Json((string)callBackParameters, true);
 
             CallBack callbackParameter = JsonConvert.DeserializeObject<CallBack>(json);
             if (callbackParameter.result_code.ToUpper() == "SUCCESS")
