@@ -108,7 +108,9 @@ namespace Ydb.PayGateway
             {
                 sParaStr += item.Key + "=" + item.Value + "&";
             }
+
             sParStrkey = sParaStr + "key=" + ConfigWePay.key;
+ 
             MD5 md5Obj = MD5.Create();
             string sParaMd5 = string.Empty;
             byte[] d = md5Obj.ComputeHash(Encoding.GetEncoding("Utf-8").GetBytes(sParStrkey));

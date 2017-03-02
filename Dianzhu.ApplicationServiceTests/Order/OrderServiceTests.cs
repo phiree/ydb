@@ -13,7 +13,7 @@ using FizzWare.NBuilder;
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
 using Dianzhu.ApplicationService.Tests;
-namespace Dianzhu.ApplicationService.Order.Tests
+namespace Dianzhu.ApplicationService.Tests.Order
 {
     [TestFixture()]
     public class OrderServiceTests
@@ -22,7 +22,7 @@ namespace Dianzhu.ApplicationService.Order.Tests
         [Test()]
         public void PatchCurrentStatusTest_BusinessConfirm()
         {
-            Assert.AreEqual(1, 1);
+                                                              Assert.AreEqual(1, 1);
             IOrderService orderService = Bootstrap.Container.Resolve<IOrderService>();
             OR.IServiceOrderService serviceOrderService = Bootstrap.Container.Resolve<OR.IServiceOrderService>();
             IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
