@@ -13,7 +13,7 @@ using Ydb.InstantMessage.DomainModel.Reception;
 /// </summary>
 public class ResponseOFP001001 : BaseResponse
 {
-    log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi.OFP001001");
+    log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.HttpApi.OFP001001");
 
     public ResponseOFP001001(BaseRequest request) : base(request) { }
     protected override void BuildRespData()

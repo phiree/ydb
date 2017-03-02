@@ -83,7 +83,7 @@ namespace Ydb.Push.Application
             else
                 log.Warn("目标客户端有误,忽略");
             log.Debug("16");
-
+            log.Debug(string.Format("chatMessage:{0},chatType:{1},fromClient:{2},fromUserName{3}",chatMessage,chatType,fromClient,fromUserName));
             var pushMessage = new PushMessageBuilder().BuildPushMessage(chatMessage, chatType, fromClient, fromUserName,
                 orderId, businessName,
                 orderSerialNo, orderStatus, orderStatusStr);

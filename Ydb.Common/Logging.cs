@@ -21,7 +21,7 @@ namespace Ydb.Common
             hierarchy.Root.RemoveAllAppenders();
 
             var rootLogger = hierarchy.Root;
-            rootLogger.Level = Level.Error;
+            rootLogger.Level = Level.Debug;
             /********/
             CreateLogger(hierarchy, Level.Debug, "Ydb", logFileNameRoot + "Ydb", "YdbAppender", 5, 20);
             CreateLogger(hierarchy, Level.Debug, "Dianzhu", logFileNameRoot + "Dianzhu", "DianzhuAppender", 5, 20);
@@ -54,7 +54,12 @@ namespace Ydb.Common
             // this activates the FileAppender (without it, nothing would be written)
 
             appenderMain.Layout = new PatternLayout(
-                "{date:\"%date\",thread:\"%thread\",leve:\"%-5level\",logger:\"%logger\",filename:\"%file\",linenumber:\"%line\",classname:\"%class\",domain:\"%appdomain\"},message=%message%newline");
+
+
+                "%date %level %logger %message , {date:\"%date\",thread:\"%thread\",leve:\"%-5level\"," + "logger:\"%logger\",filename:\"%file\",linenumber:\"%line\",classname:\"%class\",domain:\"%appdomain\"}"
+                +"%newline"
+                +"---------------------------------------------"
+                +"%newline ");
 
             appenderMain.ActivateOptions();
 

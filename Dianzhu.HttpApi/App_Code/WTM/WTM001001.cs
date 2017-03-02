@@ -23,7 +23,7 @@ using Ydb.Common.Application;
 /// </summary>
 public class ResponseWTM001001 : BaseResponse
 {
-    log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
+    log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.HttpApi");
 
     public ResponseWTM001001(BaseRequest request) : base(request) {
         

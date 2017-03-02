@@ -16,7 +16,7 @@ using FluentValidation.Results;
 /// </summary>
 public class ResponseSVC001006 : BaseResponse
 {
-    log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
+    log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.HttpApi");
 
     public ResponseSVC001006(BaseRequest request) : base(request) { }
     protected override void BuildRespData()

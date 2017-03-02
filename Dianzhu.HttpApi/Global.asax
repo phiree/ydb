@@ -2,14 +2,14 @@
 
 <script runat="server">
 
-    log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
+    log4net.ILog log = log4net.LogManager.GetLogger("Ydb.HttpApi");
 
     void Application_Start(object sender, EventArgs e)
     {
 
-        PHSuit.Logging.Config("Dianzhu.HttpAPI");
-
+       
         Bootstrap.Boot();
+        log.Debug("begin");
  
     }
 
@@ -19,11 +19,8 @@
     {
 
         Exception ex = Server.GetLastError();
-        if (ex.InnerException != null)
-        {
-            log.Error("InnerException:" + ex.InnerException.Message);
-        }
-        log.Error(ex.Message);
+         
+        log.Error(ex.ToString());
     }
 
 

@@ -88,19 +88,33 @@ website.publishproj
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
-    
-   
     <ProjectReference Include="..\Dianzhu.Web.Common\Dianzhu.Web.Common.csproj">
       <Project>{B74CA750-EBD2-4EFD-823A-FC680F498E52}</Project>
       <Name>Dianzhu.Web.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Log4Mongo\Log4Mongo.csproj">
+      <Project>{59D8ECF9-2867-43FD-BF18-EFE2758CF14F}</Project>
+      <Name>Log4Mongo</Name>
     </ProjectReference>
     <ProjectReference Include="..\MediaServer\MediaServer.csproj">
       <Project>{9920DA22-589C-4193-AEAA-363D5C029DFC}</Project>
       <Name>MediaServer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Notice\Ydb.Notice.csproj">
+      <Project>{DB0DD68A-1A9B-4028-B4FB-477E447EDB6E}</Project>
+      <Name>Ydb.Notice</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenfireExtension\OpenfireExtension.csproj">
+      <Project>{8B398F01-B6BB-409F-89EF-B874899C05E0}</Project>
+      <Name>OpenfireExtension</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
       <Name>PHSuit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.ApiClient\Ydb.ApiClient.csproj">
+      <Project>{2355784D-5F6C-4063-837F-5B9999FAC1FE}</Project>
+      <Name>Ydb.ApiClient</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ydb.ApplicationService\Ydb.ApplicationService.csproj">
       <Project>{515A3298-F38B-40E0-968C-5C65EFB2AFFE}</Project>
@@ -129,6 +143,18 @@ website.publishproj
     <ProjectReference Include="..\Ydb.Membership\Ydb.Membership.csproj">
       <Project>{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}</Project>
       <Name>Ydb.Membership</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Order\Ydb.Order.csproj">
+      <Project>{901E2A8A-E608-4477-B9BC-F583D818D87F}</Project>
+      <Name>Ydb.Order</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.PayGateway\Ydb.PayGateway.csproj">
+      <Project>{A54365B5-4B06-4897-A280-38D18ED9EB0E}</Project>
+      <Name>Ydb.PayGateway</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Push\Ydb.Push.csproj">
+      <Project>{E0661833-5498-4F1D-94E7-35C39C5BD8B9}</Project>
+      <Name>Ydb.Push</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(_WebPublishTargetsPath)\Web\Microsoft.WebSite.Publishing.targets" />

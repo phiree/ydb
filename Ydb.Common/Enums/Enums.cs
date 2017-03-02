@@ -665,13 +665,14 @@
         ///     security_key:suSjG+pPCu0gwXOqamNdp0zE3sY29vcHJHe1S429hNU
         ///     CA660838f88147463CAF3a52bae6c30cbd,
         /// </summary>
-        Android_CustomerService
+        Android_CustomerService,
 
         /// <summary>
         /// js客户端
         /// security_key:FJXTdZVLhmFLHO5M3Xweo5kHRmLH3qFdRzLyGFZLeBc
         ///JS1adBF8cbaf594d1ab2f1A68755e70440,
         /// </summary>
+       AdminBusiness
     }
 
     /// <summary>

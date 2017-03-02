@@ -8,11 +8,11 @@ using System.IO;
 using System.Web.SessionState;
 public class DianzhuApi : IHttpHandler,IRequiresSessionState
 {
-    log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
+    log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.HttpApi");
 
     public void ProcessRequest(HttpContext context)
     {
-
+            ilog.Debug("dddd");
         NHibernateUnitOfWork.UnitOfWork.Start();
 
         context.Response.ContentType = "application/json";

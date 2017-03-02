@@ -9,7 +9,7 @@ using Ydb.BusinessResource.Application;
 /// </summary>
 public class ResponseWTM001003 : BaseResponse
 {
-    log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
+    log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.HttpApi");
 
     public ResponseWTM001003(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
