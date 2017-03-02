@@ -431,11 +431,51 @@ namespace Ydb.Order.Application
             order.LatestOrderUpdated = DateTime.Now;
             repoServiceOrder.Add(order);
         }
+
+        /// <summary>
+        /// 修改订单
+        /// </summary>
+        /// <param name="order"></param>
         public void Update(ServiceOrder order)
         {
             order.LatestOrderUpdated = DateTime.Now;
             repoServiceOrder.Update(order);
         }
+
+        /// <summary>
+        /// 修改订单Memo
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="strMemo"></param>
+        [UnitOfWork]
+        public void UpdateMemo(Guid orderId,string strMemo)
+        {
+            ServiceOrder order = repoServiceOrder.FindById(orderId);
+            order.Memo = strMemo;
+            Update(order);
+        }
+
+        /// <summary>
+        /// 修改订单指派人员
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="staffId"></param>
+        [UnitOfWork]
+        public void UpdateStaff(Guid orderId, string staffId)
+        {
+            ServiceOrder order = repoServiceOrder.FindById(orderId);
+            order.StaffId = staffId;
+            Update(order);
+        }
+
+        /// <summary>
+        /// 获取订单
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
+
         public IList<ServiceOrder> GetAll(int pageIndex, int pageSize, out long totalRecords) //获取全部订单
         {
             return repoServiceOrder.GetAll(pageIndex, pageSize, out totalRecords);
@@ -1033,7 +1073,7 @@ namespace Ydb.Order.Application
 
             //更新订单状态
             order.OrderStatus = targetStatus;
-            //Update(order);
+            Update(order);
             //       NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             log.Debug("当前订单状态为:" + targetStatus);
 

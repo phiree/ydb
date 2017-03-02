@@ -470,13 +470,9 @@ namespace Dianzhu.ApplicationService.Order
             //}
             if (!string.IsNullOrEmpty(orderobj.notes))
             {
-                order.Memo = orderobj.notes;
+                ibllserviceorder.UpdateMemo(order.Id, orderobj.notes);
             }
-
-            DateTime dt = DateTime.Now;
-            order.LatestOrderUpdated = dt;
-            //ibllserviceorder.Update(order);
-            //order = ibllserviceorder.GetOne(guidOrder);
+            order = ibllserviceorder.GetOne(order.Id);
 
             //if (order != null && order.LatestOrderUpdated == dt)
             //{
@@ -547,10 +543,10 @@ namespace Dianzhu.ApplicationService.Order
             //    order.Memo = orderobj.notes;
             //}
 
-            DateTime dt = DateTime.Now;
-            order.LatestOrderUpdated = dt;
+            //DateTime dt = DateTime.Now;
+            //order.LatestOrderUpdated = dt;
             //ibllserviceorder.Update(order);
-            //order = ibllserviceorder.GetOne(guidOrder);
+            order = ibllserviceorder.GetOne(guidOrder);
 
             //if (order != null && order.LatestOrderUpdated == dt)
             //{
@@ -728,7 +724,7 @@ namespace Dianzhu.ApplicationService.Order
                     c = 1;
                 }
             }
-
+            order = ibllserviceorder.GetOne(guidOrder);
             orderObj orderobj = Mapper.Map<ServiceOrder, orderObj>(order);
             changeObj(orderobj, order);
             return orderobj;
@@ -1305,11 +1301,12 @@ namespace Dianzhu.ApplicationService.Order
                     oa.OrderId = order.Id.ToString();
                     oa.BusinessId = order.BusinessId;
                     oa.AssignedStaffId = staffID;
-                    order.StaffId = staffID;
-                    order.LatestOrderUpdated = DateTime.Now;
+                    //order.StaffId = staffID;
+                    //order.LatestOrderUpdated = DateTime.Now;
                     //oa.Order.Details[0].Staff.Clear();
                     //oa.Order.Details[0].Staff.Add(staff);
                     bllOrderAssignment.Save(oa);
+                    ibllserviceorder.UpdateStaff(order.Id,staffID);
                     strState = "指派成功";
                     break;
 
@@ -1323,8 +1320,9 @@ namespace Dianzhu.ApplicationService.Order
                     //staff.IsAssigned = true;
                     oa.AssignedStaffId = staffID;
                     oa.AssignedTime = dt;
-                    order.StaffId = staffID;
-                    order.LatestOrderUpdated = DateTime.Now;
+                    //order.StaffId = staffID;
+                    //order.LatestOrderUpdated = DateTime.Now;
+                    ibllserviceorder.UpdateStaff(order.Id, staffID);
                     strState = "改派成功";
                     break;
 
@@ -1337,8 +1335,10 @@ namespace Dianzhu.ApplicationService.Order
                     //staff.IsAssigned = false;
                     oa.Enabled = false;
                     oa.DeAssignedTime = dt;
-                    order.StaffId = null;
-                    order.LatestOrderUpdated = DateTime.Now;
+                    //order.StaffId = null;
+                    //order.LatestOrderUpdated = DateTime.Now;
+                    ibllserviceorder.Update(order);
+                    ibllserviceorder.UpdateStaff(order.Id, null);
                     strState = "取消成功";
                     break;
             }
