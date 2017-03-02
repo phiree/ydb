@@ -68,10 +68,18 @@ public class ResponseCHAT001008:BaseResponse
                     //todo: 需要订单领域的配合.
                     ServiceOrder order = orderService.GetOne(new Guid(chat.SessionId));
                     log.Debug("4");
+
+                    string isDebugFormIosPush = System.Configuration.ConfigurationManager.AppSettings["IsDebugIosPush"];
+                    bool isDebug = false;
+                    if ( isDebugFormIosPush=="true")
+                    {
+                        isDebug = true;
+                    }
+
                     pushService.Push(chat.MessageBody, chat.GetType().Name, chat.ToId,
                         chat.FromResource.ToString(), fromUser.UserName,
-                        chat.SessionId, order.SerialNo, order.OrderStatus.ToString(), order.OrderStatusStr,
-                        order.ServiceBusinessName, chat.ToResource.ToString());
+                        chat.SessionId, order.SerialNo, order.OrderStatus.ToString(), order.GetStatusTitleFriendly(order.OrderStatus),
+                        order.ServiceBusinessName, chat.ToResource.ToString(),isDebug);
 
 
                 }
