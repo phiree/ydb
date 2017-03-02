@@ -42,12 +42,24 @@ public partial class finance_SharePoint : BasePage
     
     protected void btnSaveSharePoint_Click(object sender, EventArgs e)
     {
-        var point = Convert.ToDecimal(tbxSharePoint.Text);
-        //UserTypeSharePointDto defaultSharePoint = new UserTypeSharePointDto();// (point, ddlUserType.SelectedValue);
-        //defaultSharePoint.Point = point;
-        //defaultSharePoint.UserType = ddlUserType.SelectedValue;
-        bllSharePoint.Add(ddlUserType.SelectedValue, point);
-        lblMsg.Text = "保存成功";
-        BindSharePoint();
+        try
+        {
+            var point = Convert.ToDecimal(tbxSharePoint.Text);
+            UserTypeSharePointDto defaultSharePoint = bllSharePoint.GetSharePointInfo(ddlUserType.SelectedValue);
+            if (defaultSharePoint == null)
+            {
+                bllSharePoint.Add(ddlUserType.SelectedValue, point);
+            }
+            else
+            {
+                bllSharePoint.Update(ddlUserType.SelectedValue, point);
+            }
+            lblMsg.Text = "保存成功";
+            BindSharePoint();
+        }
+        catch (Exception ex)
+        {
+            PHSuit.Notification.Alert(Page, ex.Message);
+        }
     }
 }

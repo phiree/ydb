@@ -31,5 +31,12 @@ namespace Ydb.Order.DomainModel.Repository
         /// <returns></returns>
         IList<ServiceOrder> GetOrdersByBusinessList(IList<string> businessIdList, bool isShared);
 
+
+        /// <summary>
+        /// 根据分账统计订单
+        /// </summary>
+        /// <param name="isShared">订单是否分账</param>
+        /// <returns></returns>
+        IList<ServiceOrder> GetOrdersByShared(bool isShared, int pageIndex, int pageSize, out long totalRecords);
     }
 }
