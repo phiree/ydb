@@ -45,15 +45,18 @@ namespace Dianzhu.ApplicationService.Staff
             for (int i = 0; i < listAssignment.Count; i++)
             {
                 string orderId = listAssignment[i].OrderId;
-                staffobj.storeData.assignOrderIDs.Add(orderId);
-                ServiceOrder order = orderService.GetOne(new Guid());
-                if (order.OrderStatus !=  enum_OrderStatus.Finished && order.OrderStatus != enum_OrderStatus.Appraised)
+                ServiceOrder order = orderService.GetOne(new Guid(orderId));
+                if (order != null)
                 {
-                    staffobj.storeData.handleCount++;
-                }
-                else
-                {
-                    staffobj.storeData.finishCount++;
+                    staffobj.storeData.assignOrderIDs.Add(orderId);
+                    if (order.OrderStatus != enum_OrderStatus.Finished && order.OrderStatus != enum_OrderStatus.Appraised)
+                    {
+                        staffobj.storeData.handleCount++;
+                    }
+                    else
+                    {
+                        staffobj.storeData.finishCount++;
+                    }
                 }
             }
         }
