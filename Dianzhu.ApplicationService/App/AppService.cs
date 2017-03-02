@@ -112,9 +112,10 @@ namespace Dianzhu.ApplicationService.App
             {
                 throw new Exception("该设备没有注册！");
             }
-            obj.PushAmount = 0;
-            obj.IsBinding = false;
-            obj.BindChangedTime = DateTime.Now;
+            blldevicebind.Delete(uuId);
+            //obj.PushAmount = 0;
+            //obj.IsBinding = false;
+            //obj.BindChangedTime = DateTime.Now;
             //blldevicebind.SaveOrUpdate(obj);
             return new string[] { "删除成功！" };
         }
@@ -142,8 +143,9 @@ namespace Dianzhu.ApplicationService.App
             {
                 throw new Exception("推送计数应该为正整数！");
             }
-            obj.PushAmount = c;
-            obj.BindChangedTime = DateTime.Now;
+            blldevicebind.UpdatePushAmount(uuId, c);
+            //obj.PushAmount = c;
+            //obj.BindChangedTime = DateTime.Now;
             //blldevicebind.Update(obj);
             //Model.DeviceBind obj1 = blldevicebind.getDevBindByUUID(uuId);
             //blldevicebind.SaveOrUpdate(obj);

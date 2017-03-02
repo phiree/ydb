@@ -60,15 +60,32 @@ namespace Ydb.Push.Application
 
 
         [UnitOfWork]
-        public void Delete(DeviceBind db)
+        public void Delete(Guid uuid)
         {
-            repoDeviceBind.Delete(db);
+            DeviceBind db= repoDeviceBind.getDevBindByUUID(uuid);
+            db.PushAmount = 0;
+            db.IsBinding = false;
+            db.BindChangedTime = DateTime.Now;
+            Update(db);
+            //repoDeviceBind.Delete(db);
         }
 
+        [UnitOfWork]
+        public void UpdatePushAmount(Guid uuid,int pushAmount)
+        {
+            DeviceBind db = repoDeviceBind.getDevBindByUUID(uuid);
+            db.PushAmount = pushAmount;
+            db.BindChangedTime = DateTime.Now;
+            Update(db);
+            //repoDeviceBind.Delete(db);
+        }
+
+        [UnitOfWork]
         public DeviceBind getDevBindByUUID(Guid uuid)
         {
             return repoDeviceBind.getDevBindByUUID(uuid);
         }
+        [UnitOfWork]
         public DeviceBind getDevBindByUserID(string userId)
         {
             return repoDeviceBind.getDevBindByUserID(new Guid( userId));
