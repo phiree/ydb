@@ -284,7 +284,7 @@ namespace Ydb.Finance.Application
                 {
                     withdrawApply.ApplyStatus = "Payfail";
                     withdrawApply.PayStatus = DetailItems[i][5];
-                    withdrawApply.PayRemark = string.Empty;// Dianzhu.Pay.PayCallBackAliBatch.TradeStatus[DetailItems[i][5]];
+                    withdrawApply.PayRemark = DetailItems[i][5];// Dianzhu.Pay.PayCallBackAliBatch.TradeStatus[DetailItems[i][5]];
                     withdrawApply.D3SerialNo = DetailItems[i][6];
                     withdrawApply.D3Time = DetailItems[i][7];
                     withdrawApply.UpdateTime = DateTime.Now;
