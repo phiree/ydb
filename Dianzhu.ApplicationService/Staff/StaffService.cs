@@ -49,7 +49,7 @@ namespace Dianzhu.ApplicationService.Staff
                 if (order != null)
                 {
                     staffobj.storeData.assignOrderIDs.Add(orderId);
-                    if (order.OrderStatus != enum_OrderStatus.Finished && order.OrderStatus != enum_OrderStatus.Appraised)
+                    if (order.OrderStatus != enum_OrderStatus.Finished && order.OrderStatus != enum_OrderStatus.Appraised && order.OrderStatus!=enum_OrderStatus.EndCancel && order.OrderStatus != enum_OrderStatus.EndRefund && order.OrderStatus != enum_OrderStatus.EndIntervention)
                     {
                         staffobj.storeData.handleCount++;
                     }
