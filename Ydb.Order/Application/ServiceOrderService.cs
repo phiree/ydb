@@ -214,11 +214,11 @@ namespace Ydb.Order.Application
             {
                 if (strAssign == "false")
                 {
-                    where = where.And(x => string.IsNullOrEmpty(x.StaffId));
+                    where = where.And(x => x.StaffId=="" || x.StaffId == null);
                 }
                 else
                 {
-                    where = where.And(x => !string.IsNullOrEmpty(x.StaffId));
+                    where = where.And(x => x.StaffId!="" && x.StaffId!=null);
                 }
             }
             if (storeID != Guid.Empty)
@@ -372,11 +372,11 @@ namespace Ydb.Order.Application
             {
                 if (strAssign == "false")
                 {
-                    where = where.And(x => string.IsNullOrEmpty(x.StaffId));
+                    where = where.And(x => x.StaffId == "" || x.StaffId == null);
                 }
                 else
                 {
-                    where = where.And(x => !string.IsNullOrEmpty(x.StaffId));
+                    where = where.And(x => x.StaffId != "" && x.StaffId != null);
                 }
             }
             if (storeID != Guid.Empty)

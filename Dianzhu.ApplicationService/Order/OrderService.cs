@@ -1393,11 +1393,12 @@ namespace Dianzhu.ApplicationService.Order
             oa.OrderId = order.Id.ToString();
             oa.BusinessId = order.BusinessId;
             oa.AssignedStaffId = staffID;
-            order.StaffId = staffID;
-            order.LatestOrderUpdated = DateTime.Now;
+            //order.StaffId = staffID;
+            //order.LatestOrderUpdated = DateTime.Now;
             //oa.Order.Details[0].Staff.Clear();
             //oa.Order.Details[0].Staff.Add(staff);
             bllOrderAssignment.Save(oa);
+            ibllserviceorder.UpdateStaff(order.Id, staffID);
             return new string[] { "指派成功！" };
             //bllstaff.Update(staff);
             //oa = bllassign.GetAssignById(oa.Id);
