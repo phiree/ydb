@@ -1318,10 +1318,11 @@ namespace Dianzhu.ApplicationService.Order
                     }
                     //staff.IsAssigned = false;
                     //staff.IsAssigned = true;
-                    oa.AssignedStaffId = staffID;
-                    oa.AssignedTime = dt;
+                    //oa.AssignedStaffId = staffID;
+                    //oa.AssignedTime = dt;
                     //order.StaffId = staffID;
                     //order.LatestOrderUpdated = DateTime.Now;
+                    bllOrderAssignment.UpdateStaffOfOrder(oa.Id, staffID);
                     ibllserviceorder.UpdateStaff(order.Id, staffID);
                     strState = "改派成功";
                     break;
@@ -1338,7 +1339,7 @@ namespace Dianzhu.ApplicationService.Order
                     //order.StaffId = null;
                     //order.LatestOrderUpdated = DateTime.Now;
                     //ibllserviceorder.Update(order);
-                    bllOrderAssignment.DeleteStaffOfOrder(order, staffID);
+                    bllOrderAssignment.DeleteStaffOfOrder(oa.Id, staffID);
                     ibllserviceorder.UpdateStaff(order.Id, null);
                     strState = "取消成功";
                     break;
@@ -1459,7 +1460,7 @@ namespace Dianzhu.ApplicationService.Order
             //oa.DeAssignedTime = dt;
             //order.StaffId = null;
             //order.LatestOrderUpdated = DateTime.Now;
-            bllOrderAssignment.DeleteStaffOfOrder(order, staffID);
+            bllOrderAssignment.DeleteStaffOfOrder(oa.Id, staffID);
 
             ibllserviceorder.UpdateStaff(order.Id, null);
             return new string[] { "取消成功！" };
