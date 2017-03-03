@@ -1318,10 +1318,11 @@ namespace Dianzhu.ApplicationService.Order
                     }
                     //staff.IsAssigned = false;
                     //staff.IsAssigned = true;
-                    oa.AssignedStaffId = staffID;
-                    oa.AssignedTime = dt;
+                    //oa.AssignedStaffId = staffID;
+                    //oa.AssignedTime = dt;
                     //order.StaffId = staffID;
                     //order.LatestOrderUpdated = DateTime.Now;
+                    bllOrderAssignment.UpdateStaffOfOrder(oa.Id, staffID);
                     ibllserviceorder.UpdateStaff(order.Id, staffID);
                     strState = "改派成功";
                     break;
@@ -1333,11 +1334,12 @@ namespace Dianzhu.ApplicationService.Order
                         throw new Exception("该指派不存在或已取消！");
                     }
                     //staff.IsAssigned = false;
-                    oa.Enabled = false;
-                    oa.DeAssignedTime = dt;
+                    //oa.Enabled = false;
+                    //oa.DeAssignedTime = dt;
                     //order.StaffId = null;
                     //order.LatestOrderUpdated = DateTime.Now;
-                    ibllserviceorder.Update(order);
+                    //ibllserviceorder.Update(order);
+                    bllOrderAssignment.DeleteStaffOfOrder(oa.Id, staffID);
                     ibllserviceorder.UpdateStaff(order.Id, null);
                     strState = "取消成功";
                     break;
@@ -1453,11 +1455,14 @@ namespace Dianzhu.ApplicationService.Order
                 throw new Exception("该指派不存在或已取消！");
             }
             //staff.IsAssigned = false;
-            oa.Enabled = false;
-            DateTime dt = DateTime.Now;
-            oa.DeAssignedTime = dt;
-            order.StaffId = null;
-            order.LatestOrderUpdated = DateTime.Now;
+            //oa.Enabled = false;
+            //DateTime dt = DateTime.Now;
+            //oa.DeAssignedTime = dt;
+            //order.StaffId = null;
+            //order.LatestOrderUpdated = DateTime.Now;
+            bllOrderAssignment.DeleteStaffOfOrder(oa.Id, staffID);
+
+            ibllserviceorder.UpdateStaff(order.Id, null);
             return new string[] { "取消成功！" };
         }
     }
