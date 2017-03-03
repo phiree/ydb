@@ -34,16 +34,17 @@ namespace Ydb.Push.Application
             }
 
         }
+        [UnitOfWork]
         public void Save(DeviceBind db)
         {
             repoDeviceBind.Add(db);
         }
-
+        [UnitOfWork]
         public void Update(DeviceBind db)
         {
             repoDeviceBind.Update(db);
         }
-
+        [UnitOfWork]
         public void SaveOrUpdate(DeviceBind db)
         {
             repoDeviceBind.Update(db);
