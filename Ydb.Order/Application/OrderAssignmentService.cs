@@ -37,6 +37,19 @@ namespace Ydb.Order.Application
             return repoOrderAssignment.FindByOrderAndStaff(order, staffId);
         }
 
+        /// <summary>
+        /// 取消指派
+        /// </summary>
+        /// <param name="order"></param>
+        /// <param name="staffId"></param>
+        public void DeleteStaffOfOrder(ServiceOrder order, string staffId)
+        {
+            OrderAssignment oa= repoOrderAssignment.FindByOrderAndStaff(order, staffId);
+            oa.Enabled = false;
+            oa.DeAssignedTime = DateTime.Now;
+            repoOrderAssignment.Update(oa);
+        }
+
         public IList<OrderAssignment> GetOAListByOrder(ServiceOrder order)
         {
             return repoOrderAssignment.GetOAListByOrder(order);
