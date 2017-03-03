@@ -154,7 +154,8 @@ namespace Ydb.Order.Application
         /// <param name="userType"></param>
         /// <param name="strAssign"></param>
         /// <returns></returns>
-        public IList<ServiceOrder> GetOrders(TraitFilter filter, string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID, string userType, string strAssign)
+        public IList<ServiceOrder> GetOrders(TraitFilter filter, string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, 
+            DateTime beforeThisTime, Guid UserID, string userType, string strAssign)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
 
@@ -260,6 +261,7 @@ namespace Ydb.Order.Application
             // return DALServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
         }
 
+       
         /// <summary>
         /// 根据代理区域获取该区域内所有商户的订单数量，区分是否分账
         /// </summary>
@@ -644,7 +646,9 @@ namespace Ydb.Order.Application
         public void OrderFlow_BusinessConfirm(Guid orderId)
         {
             ServiceOrder order = repoServiceOrder.FindById(orderId);
+            log.Debug("商家确认服务:" + orderId);
             ChangeStatus(order, enum_OrderStatus.Negotiate);
+            log.Debug("确认完成");
         }
         /// <summary>
         /// 商家输入协议
@@ -1064,16 +1068,24 @@ namespace Ydb.Order.Application
 
         private void ChangeStatus(ServiceOrder order, enum_OrderStatus targetStatus)
         {
+            log.Debug("开始改变订单状态");
+            if (order == null) { log.Debug("订单为null"); };
             enum_OrderStatus oldStatus = order.OrderStatus;
+            
+            log.Debug("1");
             OrderServiceFlow.ChangeStatus(order, targetStatus);
 
             //保存订单历史记录
             //order.OrderStatus = oldStatus;
             order.SaveOrderHistory(oldStatus, repoStateChangeHis);
-
+            log.Debug("2");
             //更新订单状态
             order.OrderStatus = targetStatus;
+ 
+            log.Debug("3");
+ 
             Update(order);
+ 
             //       NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             log.Debug("当前订单状态为:" + targetStatus);
 

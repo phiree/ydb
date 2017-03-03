@@ -36,9 +36,11 @@ public partial class DZOrder_Detail : BasePage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        OrderId = new Guid(Request["businessId"]);
-        CurrentBusiness = businessService.GetOne(OrderId);
-        CurrentOrder = bllServeiceOrder.GetOne(new Guid(Request["orderId"]));
+        Guid businessId = new Guid(Request["businessId"]);
+        CurrentBusiness = businessService.GetOne(businessId);
+         OrderId = new Guid(Request["orderId"]);
+        CurrentOrder = bllServeiceOrder.GetOne(OrderId);
+
         BingData();
         BindDoneStatusData();
         BindCustomerInfo();
