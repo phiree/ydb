@@ -28,7 +28,10 @@ namespace Ydb.Push.Application
         public void SetPushAmountZero(Guid userId)
         {
             DeviceBind dBind = getDevBindByUserID(userId.ToString());
-            dBind.SetPushAmountZero();
+            if (dBind != null)
+            {
+                dBind.SetPushAmountZero();
+            }
 
         }
         public void Save(DeviceBind db)
