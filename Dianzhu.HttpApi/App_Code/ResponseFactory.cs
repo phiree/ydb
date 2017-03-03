@@ -42,7 +42,8 @@ public class ResponseFactory
             case "wtm001001":
                 return new ResponseWTM001001(request);
 
-
+            case "shm001007":
+                return new ResponseSHM001007(request);
 
             case "svc001003":
                 return new ResponseSVC001003(request);

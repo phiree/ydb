@@ -154,7 +154,8 @@ namespace Ydb.Order.Application
         /// <param name="userType"></param>
         /// <param name="strAssign"></param>
         /// <returns></returns>
-        public IList<ServiceOrder> GetOrders(TraitFilter filter, string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID, string userType, string strAssign)
+        public IList<ServiceOrder> GetOrders(TraitFilter filter, string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, 
+            DateTime beforeThisTime, Guid UserID, string userType, string strAssign)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
 
@@ -260,6 +261,7 @@ namespace Ydb.Order.Application
             // return DALServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
         }
 
+       
         /// <summary>
         /// 根据代理区域获取该区域内所有商户的订单数量，区分是否分账
         /// </summary>
