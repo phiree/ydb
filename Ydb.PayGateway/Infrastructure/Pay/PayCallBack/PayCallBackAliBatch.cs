@@ -24,7 +24,10 @@ namespace Ydb.PayGateway
         string errMsg;
         public bool DoIgnore(object callbackParameters)
         {
+            return false; 
+            //批量支付只有成功 失败两种状态. 如果成功且打印了succcess,支付宝服务器会停止发送.
             NameValueCollection coll = ParseParameters(callbackParameters.ToString());
+            bool isSuccess = coll["success_details"] != null;
             string trade_status = coll["trade_status"].ToUpper();
             log.Debug("返回结果:" + trade_status);
             if (trade_status == "TRADE_SUCCESS" || trade_status == "TRADE_FINISHED")
@@ -49,6 +52,7 @@ namespace Ydb.PayGateway
         }
         public bool ParseBusinessData(object parameters, out string status, out string success_details, out string fail_details, out string errMsg)
         {
+            status = string.Empty;
             errMsg = string.Empty;
             log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
             NameValueCollection coll = new NameValueCollection();
@@ -76,7 +80,7 @@ namespace Ydb.PayGateway
             log.Debug("参数验证结果:" + isVerified);
             success_details = string.Empty;
             fail_details = string.Empty;
-            status = coll["trade_status"].ToUpper();
+           
             success_details = coll["success_details"];
             fail_details = coll["fail_details"];
             if (isVerified)
