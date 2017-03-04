@@ -75,7 +75,6 @@ public partial class CallBackHandler : BasePage
                 log.Error("回调参数解析错误");
                 return;
             }
-            ServiceOrder order = GetOrder(new Guid(businessOrderId));
             IPaymentService paymentService = Bootstrap.Container.Resolve<IPaymentService>();
             paymentService.PayCallBack(payApi, payedStatus, businessOrderId, platformOrderId);
 

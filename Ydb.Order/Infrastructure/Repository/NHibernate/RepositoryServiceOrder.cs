@@ -333,5 +333,20 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
             return Find(where);
         }
 
+        /// <summary>
+        /// 根据分账统计订单
+        /// </summary>
+        /// <param name="isShared">订单是否分账</param>
+        /// <returns></returns>
+        public IList<ServiceOrder> GetOrdersByShared(bool isShared, int pageIndex, int pageSize, out long totalRecords)
+        {
+            var where = PredicateBuilder.True<ServiceOrder>();
+            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                    && x.OrderStatus != enum_OrderStatus.DraftPushed
+                    && x.OrderStatus != enum_OrderStatus.Search);
+            where = where.And(x => x.IsShared == isShared);
+            return Find(where,pageIndex,pageSize,out totalRecords);
+        }
+
     }
 }

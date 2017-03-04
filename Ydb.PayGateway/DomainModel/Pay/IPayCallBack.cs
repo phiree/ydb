@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 
 /// <summary>
 /// 第三方支付接口
+/// 支付宝:https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.dpUNlK&treeId=193&articleId=105301&docType=1
 /// </summary>
 namespace Ydb.PayGateway.DomainModel.Pay
 {

@@ -8,12 +8,12 @@ using System.IO;
 using System.Web.SessionState;
 public class DianzhuApi : IHttpHandler,IRequiresSessionState
 {
-    log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
+    log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.HttpApi");
 
     public void ProcessRequest(HttpContext context)
     {
-
-        NHibernateUnitOfWork.UnitOfWork.Start();
+            ilog.Debug("dddd");
+      //  NHibernateUnitOfWork.UnitOfWork.Start();
 
         context.Response.ContentType = "application/json";
         context.Response.ContentEncoding = Encoding.UTF8;
@@ -28,7 +28,7 @@ public class DianzhuApi : IHttpHandler,IRequiresSessionState
         context.Response.Write(jsonResponse);
         ilog.Debug("Resonse("+rid+"):"+PHSuit.JsonHelper.FormatJson(jsonResponse));
 
-        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+       // NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
     }
     public bool IsReusable
     {

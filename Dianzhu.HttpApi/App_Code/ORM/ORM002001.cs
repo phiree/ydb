@@ -20,7 +20,7 @@ using Ydb.Order.DomainModel;
 
 public class ResponseORM002001 : BaseResponse
 {
-    log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
+    log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.HttpApi");
     public ResponseORM002001(BaseRequest request) : base(request) { }
     
     protected override void BuildRespData()

@@ -15,5 +15,9 @@ namespace Ydb.Order.Application
         IList<OrderAssignment> GetOAListByOrder(ServiceOrder order);
         IList<OrderAssignment> GetOAListByStaff(string staffId);
         void Save(OrderAssignment db);
+
+        void DeleteStaffOfOrder(Guid AssignId, string staffId);
+
+        void UpdateStaffOfOrder(Guid AssignId, string staffId);
     }
 }

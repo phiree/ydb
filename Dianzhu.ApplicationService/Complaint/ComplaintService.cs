@@ -39,7 +39,7 @@ namespace Dianzhu.ApplicationService.Complaint
             {
                 throw new FormatException("投诉的订单ID不能为空！");
             }
-            if (complaintobj.target!= "customerService" && complaintobj.target!="store")
+            if (complaintobj.target!= "customerService" && complaintobj.target!= "store")
             {
                 throw new FormatException("投诉对象只能是客服和店铺！");
             }

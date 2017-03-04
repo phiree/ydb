@@ -18,7 +18,7 @@ using Ydb.BusinessResource.DomainModel;
 /// </summary>
 public class ResponseWTM001004 : BaseResponse
 {
-    log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
+    log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.HttpApi");
 
     public ResponseWTM001004(BaseRequest request) : base(request) { }
     protected override void BuildRespData()

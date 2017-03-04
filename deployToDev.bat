@@ -83,20 +83,7 @@ endlocal
  
 
  
-setlocal
-:PROMPT
-SET /P AREYOUSURE=------------------------是否发布:6. PushServer网站 (Y/N)?
-
-IF /I "%AREYOUSURE%" NEQ "Y" GOTO ENDY
-"C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe" "%~dp0Dianzhu.Web.PushServer\website.publishproj" /p:deployonbuild=true /p:publishprofile="%~dp0Dianzhu.Web.PushServer\App_Data\PublishProfiles\dev.pubxml" /p:visualstudioversion=14.0 /p:AllowUntrustedCertificate=True /p:username="deployer" /p:password="deployer2016"
-echo 6.PushServer发布成功
-:ENDY
-
-IF /I "%AREYOUSURE%" EQU "Y" GOTO ENDNY
-echo 6.PushServer发布已取消
-:ENDNY
-
-endlocal
+ 
  
 
 

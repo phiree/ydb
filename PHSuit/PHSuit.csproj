@@ -94,7 +94,6 @@
     <Compile Include="ExceptionLoger.cs" />
     <Compile Include="HttpHelper.cs" />
     <Compile Include="IOHelper.cs" />
-    <Compile Include="Logging.cs" />
     <Compile Include="MusicPlayer.cs" />
     <Compile Include="NetHelper.cs" />
     <Compile Include="PHGeography.cs" />

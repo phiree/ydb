@@ -10,12 +10,17 @@
         evaluate:    /\{%(.+?)%\}/g
     };
 
+    var url = YDBan.url;
+
     // 请求URl
     //var globalApiUrl = "shm001007.json";
     var globalApiUrl = document.getElementById("hiApiUrl").value;
 
     // 商家ID
     var merchantID = document.getElementById("merchantID").value;
+
+    // 服务ID
+    var serviceID = url.getUrlParam("serviceId");
 
     // 引入自定义YDBan.event类
     var Event = YDBan.event;
@@ -326,6 +331,7 @@
                 protocolCode : "WTM001003",
                 data : {
                     "merchantID": merchantID,
+                    "svcID": serviceID,
                     "workTimeObj" : _.pick(this.model.attributes, function(value, key, object){
                         return modelFix[key];
                     })
@@ -359,6 +365,7 @@
                 protocolCode : "WTM001003",
                 data : {
                     "merchantID": merchantID,
+                    "svcID": serviceID,
                     "workTimeObj" : _.pick(this.model.attributes, function(value, key, object){
                         return modelFix[key];
                     })
@@ -388,6 +395,7 @@
                 protocolCode : "WTM001003",
                 data : {
                     "merchantID": merchantID,
+                    "svcID": serviceID,
                     "workTimeObj" : _.pick(this.model.attributes, function(value, key, object){
                         return modelFix[key];
                     })

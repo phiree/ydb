@@ -69,8 +69,15 @@ public partial class order_index : BasePage
         {
 
             StatusSelect.Value = "index.aspx?status=" + Request.QueryString["status"].ToString();
-             enum_OrderStatus status = ( enum_OrderStatus)Enum.Parse(typeof( enum_OrderStatus), Request.QueryString["status"].ToString());
-            allServiceOrder = bllServiceOrder.GetAllByOrderStatus(status,page,pager.PageSize,out totalRecords).OrderByDescending(x => x.LatestOrderUpdated).ToList();
+            if (Request.QueryString["status"].ToString() == "Shared")
+            {
+                allServiceOrder = bllServiceOrder.GetOrdersByShared(true, page, pager.PageSize, out totalRecords).OrderByDescending(x => x.LatestOrderUpdated).ToList();
+            }
+            else
+            {
+                enum_OrderStatus status = (enum_OrderStatus)Enum.Parse(typeof(enum_OrderStatus), Request.QueryString["status"].ToString());
+                allServiceOrder = bllServiceOrder.GetAllByOrderStatus(status, page, pager.PageSize, out totalRecords).OrderByDescending(x => x.LatestOrderUpdated).ToList();
+            }
 
         }
         pager.RecordCount = (int)totalRecords;

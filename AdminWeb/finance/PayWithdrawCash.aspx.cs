@@ -79,7 +79,7 @@ public partial class finance_PayWithdrawCash : BasePage
             }
  
             strSubject.TrimEnd('|');
-            IPayRequest pay = PayFactory.CreatePayAPI(Ydb.Common.enum_PayAPI.AlipayBatch, 2, strSerialNo, strSubject);
+            IPayRequest pay = PayFactory.CreatePayAPI(Ydb.Common.enum_PayAPI.AlipayBatch, dAcount, strSerialNo, strSubject, withdrawCashDtoList.Count.ToString ());
                 
               
             //    bllPay.CreatePayBatch(withdrawCashDtoList.Count, strSerialNo, strSubject);

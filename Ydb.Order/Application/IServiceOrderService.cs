@@ -69,6 +69,19 @@ namespace Ydb.Order.Application
         void Update(ServiceOrder order);
 
         /// <summary>
+        /// 修改订单Memo
+        /// </summary>
+        /// <param name="order"></param>
+        void UpdateMemo(Guid orderId, string strMemo);
+
+        /// <summary>
+        /// 修改订单指派人员
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="staffId"></param>
+        void UpdateStaff(Guid orderId, string staffId);
+
+        /// <summary>
         /// 根据代理区域获取该区域内所有商户的订单数量，区分是否分账
         /// </summary>
         /// <param name="businessIdList">该区域内所有商户Id列表</param>
@@ -83,5 +96,12 @@ namespace Ydb.Order.Application
         /// <param name="isShared">订单是否分账</param>
         /// <returns></returns>
         IList<ServiceOrder> GetOrdersByBusinessList(IList<string> businessIdList, bool isShared);
+
+        /// <summary>
+        /// 根据分账统计订单
+        /// </summary>
+        /// <param name="isShared">订单是否分账</param>
+        /// <returns></returns>
+        IList<ServiceOrder> GetOrdersByShared(bool isShared, int pageIndex, int pageSize, out long totalRecords);
     }
 }
