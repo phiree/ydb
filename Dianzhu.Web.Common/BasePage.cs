@@ -12,14 +12,12 @@ namespace Dianzhu.Web.Common
         {
             base.OnPreInit(e);
 
-            NHibernateUnitOfWork.UnitOfWork.Start();
-        }
+    　    }
 
         protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
 
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-        }
+      }
     }
 }
