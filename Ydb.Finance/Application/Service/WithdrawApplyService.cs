@@ -159,6 +159,68 @@ namespace Ydb.Finance.Application
         }
 
         /// <summary>
+        /// 根据条件获取提现申请
+        /// </summary>
+        /// <param name="traitFilter" type="Ydb.Common.Specification.TraitFilter">通用筛选器分页、排序等</param>
+        /// <param name="withdrawApplyFilter" type="Ydb.Finance.Application.WithdrawApplyFilter">提现申请的查询筛选条件</param>
+        /// <returns type="IList<WithdrawApplyDto>">提现申请信息列表</returns>
+        [Ydb.Finance.Infrastructure.UnitOfWork]
+        public long GetWithdrawApplyCount(TraitFilter traitFilter, WithdrawApplyFilter withdrawApplyFilter)
+        {
+            var where = PredicateBuilder.True<WithdrawApply>();
+            if (!string.IsNullOrEmpty(withdrawApplyFilter.ApplyUserId))
+            {
+                where = where.And(x => x.ApplyUserId == withdrawApplyFilter.ApplyUserId);
+            }
+            if (!string.IsNullOrEmpty(withdrawApplyFilter.PaySerialNo))
+            {
+                where = where.And(x => x.PaySerialNo == withdrawApplyFilter.PaySerialNo);
+            }
+            if (withdrawApplyFilter.ApplyStatus != ApplyStatusEnums.None)
+            {
+                where = where.And(x => x.ApplyStatus == withdrawApplyFilter.ApplyStatus.ToString());
+            }
+            if (withdrawApplyFilter.AccountType != AccountTypeEnums.None)
+            {
+                where = where.And(x => x.ReceiveAccount.AccountType == withdrawApplyFilter.AccountType.ToString());
+            }
+            if (!string.IsNullOrEmpty(withdrawApplyFilter.PayUserId))
+            {
+                where = where.And(x => x.PayUserId == withdrawApplyFilter.PayUserId);
+            }
+            if (withdrawApplyFilter.BeginApplyTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.ApplyTime >= withdrawApplyFilter.BeginApplyTime);
+            }
+            if (withdrawApplyFilter.EndApplyTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.ApplyTime <= withdrawApplyFilter.EndApplyTime);
+            }
+            if (withdrawApplyFilter.BeginPayTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.PayTime >= withdrawApplyFilter.BeginPayTime);
+            }
+            if (withdrawApplyFilter.EndPayTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.PayTime <= withdrawApplyFilter.EndPayTime);
+            }
+            WithdrawApply baseone = null;
+            if (!string.IsNullOrEmpty(traitFilter.baseID))
+            {
+                try
+                {
+                    baseone = repositoryWithdrawApply.FindByBaseId(new Guid(traitFilter.baseID));
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("filter.baseID错误，" + ex.Message);
+                }
+            }
+            long count = repositoryWithdrawApply.GetRowCount(where);
+            return count;
+        }
+
+        /// <summary>
         /// 获取代理及其助理的所有提现信息
         /// </summary>
         /// <param name="userIdList"></param>
@@ -173,6 +235,23 @@ namespace Ydb.Finance.Application
             }
             var list =  repositoryWithdrawApply.Find(where).ToList();
             return Mapper.Map<IList<WithdrawApply>, IList<WithdrawApplyDto>>(list);
+        }
+
+        /// <summary>
+        /// 获取用户ID获取体现累计金额
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [Ydb.Finance.Infrastructure.UnitOfWork]
+        public decimal GetTotalWithdrawApplySeccussByUserId(string userId)
+        {
+            decimal d = 0;
+            IList<WithdrawApplyDto> withdrawApplyDtoList = GetWithdrawApplyList(new TraitFilter(), new WithdrawApplyFilter { ApplyUserId = userId, ApplyStatus = ApplyStatusEnums.PaySeccuss });
+            foreach (WithdrawApplyDto w in withdrawApplyDtoList)
+            {
+                d = d + w.ApplyAmount;
+            }
+            return d;
         }
 
         /// <summary>
