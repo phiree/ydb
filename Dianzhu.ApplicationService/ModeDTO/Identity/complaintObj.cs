@@ -74,7 +74,19 @@ namespace Dianzhu.ApplicationService
             }
             set
             {
-                _target = value;
+                if (value.ToLower() == "customerservice")
+                {
+                    _target = "customerService";
+                }
+                else if (value.ToLower() == "store")
+                {
+                    _target = "store";
+                }
+                else
+                {
+                    _target = value;
+                }
+
             }
         }
 

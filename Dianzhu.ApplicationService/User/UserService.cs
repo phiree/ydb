@@ -346,7 +346,7 @@ namespace Dianzhu.ApplicationService.User
         public object PatchCurrentGeolocation(string userID, common_Trait_LocationFiltering cityCode, Customer customer)
         {
             Guid guidUser = utils.CheckGuidID(userID, "userID");
-            Area area=null;
+            Area area= areaService.GetCityByAreaCode(cityCode.code);
             if (!string.IsNullOrEmpty(cityCode.longitude) && !string.IsNullOrEmpty(cityCode.latitude))
             {
                 RespGeo geoObj = utils.Deserialize<RespGeo>(utils.GetCity(cityCode.longitude, cityCode.latitude));
@@ -356,7 +356,7 @@ namespace Dianzhu.ApplicationService.User
                     area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city );
                 }
             }
-            ActionResult actionResult = memberService.ChangeUserCity(guidUser, cityCode.code, cityCode.longitude, cityCode.latitude,area.Id.ToString ());
+            ActionResult actionResult = memberService.ChangeUserCity(guidUser, cityCode.code, cityCode.longitude, cityCode.latitude,area==null?"":area.Id.ToString ());
             if (!actionResult.IsSuccess)
             {
                 throw new Exception(actionResult.ErrMsg);
