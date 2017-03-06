@@ -22,13 +22,15 @@ namespace Dianzhu.Config
         static string[] HttpApiServers = new string[]       { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
         static string[] IMNotifyServers = new string[]      { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
         static string[] PayServers = new string[]           { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", PublicIp };
-        
+        static string[] ImageHandlerServers = new string[] { "localhost", "192.168.1.150", "business.dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
+
 
         static string IMServer = IMServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString(); 
         static string IMDomain = IMDomains.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString(); 
         static string HttpApiServer = HttpApiServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString(); 
         static string ApplicationServer = ApplicationServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString(); 
-        static string IMNotifyServer = IMNotifyServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString(); 
+        static string IMNotifyServer = IMNotifyServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();
+        static string ImageHandlerServer = ImageHandlerServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();
 
         #endregion
         static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");
@@ -91,7 +93,7 @@ namespace Dianzhu.Config
             , {"MediaGetUrl",BuildHttpUrlString(ApplicationServer, PortSet["MediaGetUrl"],"GetFile.ashx?fileName=")   }
             , {"MediaUploadUrlByDate",BuildHttpUrlString(ApplicationServer, PortSet["MediaUploadUrlByDate"],"UploadFileByDate.ashx") }//按日期生成保存路径
 
-            , {"ImageHandler",BuildHttpUrlString(ApplicationServer, "ImageHandler.ashx?imagename=")}
+            , {"ImageHandler",BuildHttpUrlString(ImageHandlerServer, "ImageHandler.ashx?imagename=")}
 
             , {"NoticeSenderId",DictsNotifySenderLogins[IMNotifyServer].Key  }
             , {"NoticeSenderPwd",DictsNotifySenderLogins[IMNotifyServer].Value  }
