@@ -502,10 +502,10 @@ public class MockData
                         D3SerialNo = "D3SerialNo" + i.ToString(),
                         D3Time = "D3Time" + i.ToString(),
                     };
-                    financeWithdrawDtoList.Add(withdraw);
+                    _financeWithdrawDtoList.Add(withdraw);
                 }
             }
-            return financeWithdrawDtoList;
+            return _financeWithdrawDtoList;
         }
     }
     public static FinanceWithdrawTotalDto financeWithdrawTotalDto = new FinanceWithdrawTotalDto { WithdrawNotDeal = 146, WithdrawTotal = 45367, financeWithdrawDtoList= financeWithdrawDtoList };
