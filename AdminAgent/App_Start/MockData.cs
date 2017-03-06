@@ -463,4 +463,53 @@ public class MockData
         }
     }
 
+
+
+    static IList<FinanceWithdrawDto> _financeWithdrawDtoList;
+    /// <summary>
+    /// 
+    /// </summary>
+    public static IList<FinanceWithdrawDto> financeWithdrawDtoList
+    {
+        get
+        {
+            if (_financeWithdrawDtoList == null)
+            {
+                _financeWithdrawDtoList = new List<FinanceWithdrawDto>();
+                for (int i = 1; i < 15; i++)
+                {
+                    FinanceWithdrawDto withdraw = new FinanceWithdrawDto()
+                    {
+                        Id = Guid.NewGuid(),
+                        ApplyUserId = "ApplyUserId" + i.ToString(),
+                        UserNickName = "UserNickName" + i.ToString(),
+                        ApplyAmount = 345+i,
+                        ApplyTime = DateTime.Now.AddMonths(-1).AddDays(i),
+                        ReceiveAccount = "ReceiveAccount" + i.ToString(),
+                        TransferAmount = 305 + i,
+                        ServiceFee = 2,
+                        ApplyStatus = "ApplyStatus" + i.ToString(),
+                        ApplyRemark = "ApplyRemark" + i.ToString(),
+                        Rate = "Rate" + i.ToString(),
+                        PayUserId = "PayUserId" + i.ToString(),
+                        PayTime = DateTime.Now,
+                        PayStatus = "PayStatus" + i.ToString(),
+                        PayRemark = "PayRemark" + i.ToString(),
+                        CreateTime = DateTime.Now.AddMonths(-1).AddDays(i),
+                        UpdateTime = DateTime.Now.AddMonths(-1).AddDays(i),
+                        ApplySerialNo = "ApplySerialNo" + i.ToString(),
+                        PaySerialNo = "PaySerialNo" + i.ToString(),
+                        D3SerialNo = "D3SerialNo" + i.ToString(),
+                        D3Time = "D3Time" + i.ToString(),
+                    };
+                    financeWithdrawDtoList.Add(withdraw);
+                }
+            }
+            return financeWithdrawDtoList;
+        }
+    }
+    public static FinanceWithdrawTotalDto financeWithdrawTotalDto = new FinanceWithdrawTotalDto { WithdrawNotDeal = 146, WithdrawTotal = 45367, financeWithdrawDtoList= financeWithdrawDtoList };
+
+
+
 }

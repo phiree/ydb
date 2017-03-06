@@ -79,8 +79,11 @@
     <Compile Include="ExcelImporter\ServiceTypeAndPointAdapter.cs" />
     <Compile Include="ExcelImporter\ServiceTypeImporter.cs" />
     <Compile Include="Installer.cs" />
+    <Compile Include="ModelDto\enum_IsDone.cs" />
     <Compile Include="ModelDto\FinanceFlowDto.cs" />
     <Compile Include="ModelDto\FinanceTotalDto.cs" />
+    <Compile Include="ModelDto\FinanceWithdrawTotalDto.cs" />
+    <Compile Include="ModelDto\FinanceWithdrawDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExcelImporter\VMServiceTypeAndPoint.cs" />
   </ItemGroup>

@@ -9,6 +9,7 @@ using Ydb.Order.Application;
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
 using Rhino.Mocks;
+using Ydb.ApplicationService.Application.AgentService.DataStatistics;
 
 namespace Ydb.ApplicationService.Application.AgentServiceTests
 {
@@ -18,12 +19,13 @@ namespace Ydb.ApplicationService.Application.AgentServiceTests
         IBusinessService businessService;
         IServiceOrderService serviceOrderService;
         IOrdersService ordersService;
+        IStatisticsCount statisticsCount;
         [SetUp]
         public void Initialize()
         {
             businessService = MockRepository.Mock<IBusinessService>();
             serviceOrderService = MockRepository.Mock<IServiceOrderService>();
-            ordersService = new OrdersService(businessService, serviceOrderService);
+            ordersService = new OrdersService(businessService, serviceOrderService, statisticsCount);
         }
 
         [Test()]

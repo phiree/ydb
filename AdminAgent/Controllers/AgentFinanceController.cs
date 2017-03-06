@@ -143,17 +143,10 @@ namespace AdminAgent.Controllers
             try
             {
                 //接口
-                //BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(memberAgent.Id.ToString());
-                //ViewData["myAccountFinance"] = balanceTotalDto.Total;
-                //ViewData["myAliAccount"] = balanceTotalDto.AccountDto.Account;
-                //IList<FinanceTotalDto> financeTotalDtoList = financeFlowService.GetFinanceTotalList(areaList);
-                //ViewData["agentId"] = memberAgent.Id;
+                //FinanceWithdrawTotalDto financeWithdrawTotalDto = financeFlowService.GetFinanceWithdrawList(areaList, memberAgent);
                 //模拟数据
-                ViewData["myAccountFinance"] = MockData.myAccountFinance;
-                ViewData["myAliAccount"] = MockData.myAliAccount;
-                IList<FinanceTotalDto> financeTotalDtoList = MockData.financeTotalDtoList;
-                return View(financeTotalDtoList);
-                return View();
+                FinanceWithdrawTotalDto financeWithdrawTotalDto = MockData.financeWithdrawTotalDto;
+                return View(financeWithdrawTotalDto);
             }
             catch (Exception ex)
             {

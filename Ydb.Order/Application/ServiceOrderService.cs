@@ -288,6 +288,31 @@ namespace Ydb.Order.Application
         }
 
         /// <summary>
+        /// 根据代理区域获取该区域内所有商户的订单数量，按时间统计
+        /// </summary>
+        /// <param name="businessIdList">该区域内所有商户Id列表</param>
+        /// <param name="isShared">订单是否分账</param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public long GetOrdersCountByBusinessList(IList<string> businessIdList,DateTime beginTime,DateTime endTime, string strDone)
+        {
+            return repoServiceOrder.GetOrdersCountByBusinessList(businessIdList, beginTime,endTime,strDone);
+        }
+
+
+        /// <summary>
+        /// 根据代理区域获取该区域内所有商户的订单列表，按时间统计
+        /// </summary>
+        /// <param name="businessIdList">该区域内所有商户Id列表</param>
+        /// <param name="isShared">订单是否分账</param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public IList<ServiceOrder> GetOrdersByBusinessList(IList<string> businessIdList, DateTime beginTime, DateTime endTime, string strDone)
+        {
+            return repoServiceOrder.GetOrdersByBusinessList(businessIdList, beginTime, endTime, strDone);
+        }
+
+        /// <summary>
         /// 根据分账统计订单
         /// </summary>
         /// <param name="isShared">订单是否分账</param>
