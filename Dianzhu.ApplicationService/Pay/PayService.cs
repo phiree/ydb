@@ -55,6 +55,10 @@ namespace Dianzhu.ApplicationService.Pay
             {
                 throw new Exception("该订单不存在！");
             }
+            if (order.CustomerId != customer.UserID)
+            {
+                throw new Exception("该订单不是你自己的订单！");
+            }
             IList< Payment> payment = null;
             TraitFilter filter1 = utils.CheckFilter(filter, "Payment");
             payment = paymentService.GetPays(filter1, payfilter.payStatus, payfilter.payType, guidOrder, utils.CheckGuidID(customer.UserID, "customer.UserID"));
@@ -85,6 +89,10 @@ namespace Dianzhu.ApplicationService.Pay
             if (order == null)
             {
                 throw new Exception("该订单不存在！");
+            }
+            if (order.CustomerId != customer.UserID)
+            {
+                throw new Exception("该订单不是你自己的订单！");
             }
             countObj c = new countObj();
             c.count = paymentService.GetPaysCount(payfilter.payStatus, payfilter.payType, guidOrder, utils.CheckGuidID(customer.UserID, "customer.UserID")).ToString();
