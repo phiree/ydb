@@ -68,7 +68,10 @@ new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig(
         new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
          // new Application.InstallerMembershipTestDB()
          );
-
+        container.Install(
+        new Ydb.Notice.InstallerNotice(BuildDBConfig("ydb_notice"))
+         // new Application.InstallerMembershipTestDB()
+         );
         container.Install(
            new Ydb.Order.Infrastructure.InstallerOrder(BuildDBConfig("ydb_order"))
             // new Application.InstallerMembershipTestDB()

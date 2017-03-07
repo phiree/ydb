@@ -51,9 +51,7 @@ public class Bootstrap
         container.Install(
           new Ydb.Order.Infrastructure.InstallerOrder(BuildDBConfig("ydb_order"))
           );
-        container.Install(
-         new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb_instantmessage"))
-         );
+        
         container.Install(
           new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
           );

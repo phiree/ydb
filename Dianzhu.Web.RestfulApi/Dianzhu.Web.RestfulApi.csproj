@@ -430,7 +430,9 @@
     <Content Include="Views\Home\LogList.cshtml" />
     <Content Include="Views\Home\LogInfo.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
-    <None Include="Web.150.config" />
+    <None Include="Web.150.config">
+    <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
