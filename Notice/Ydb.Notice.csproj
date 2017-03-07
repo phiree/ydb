@@ -40,9 +40,8 @@
     <Reference Include="FluentNHibernate">
       <HintPath>..\Dianzhu.Web.Pay\Bin\FluentNHibernate.dll</HintPath>
     </Reference>
-     <Reference Include="HibernatingRhinos.Profiler.Appender, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
+    <Reference Include="HibernatingRhinos.Profiler.Appender, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernateProfiler.Appender.3.0.3105.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
- 
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -70,7 +69,9 @@
     <Compile Include="DomainModel\Repository\IRepositoryUserNotice.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryNotice.cs" />
     <Compile Include="DomainModel\UserNotice.cs" />
+    <Compile Include="Infrastructure\YdbNHibernate\Mapping\UserNoticeMap.cs" />
     <Compile Include="Infrastructure\YdbNHibernate\Mapping\NoticeMap.cs" />
+    <Compile Include="Infrastructure\YdbNHibernate\Repository\RepositoryUserNotice.cs" />
     <Compile Include="InstallerNotice.cs" />
     <Compile Include="Infrastructure\YdbNHibernate\UnitOfWork\NHibernateUnitOfWork.cs" />
     <Compile Include="Infrastructure\YdbNHibernate\Repository\NHRepository.cs" />

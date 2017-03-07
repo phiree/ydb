@@ -24,6 +24,10 @@ namespace Ydb.Notice.DomainModel
         public virtual bool IsApproved { get; protected internal set; }
         public virtual Guid ApproverId { get; protected internal set; }
         public virtual DateTime ApprovedTime { get; protected internal set; }
+        /// <summary>
+        /// 审核备注. 
+        /// </summary>
+        public virtual string ApproveMemo { get; set; }
 
         public virtual string TargetUserTypeString
         {
@@ -52,6 +56,20 @@ namespace Ydb.Notice.DomainModel
 
             }
 
+        }
+
+        public virtual void SetApproved(Guid approverId)
+        {
+            IsApproved = true;
+            ApprovedTime = DateTime.Now;
+            ApproverId = approverId;
+        }
+        public virtual void SetRefused(Guid approverId,string refusedReason)
+        {
+            IsApproved = false;
+            ApprovedTime = DateTime.Now;
+            ApproveMemo = DateTime.Now+ refusedReason+Environment.NewLine+ApproveMemo;
+            
         }
     }
 }

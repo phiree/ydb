@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Ydb.Common;
+using System.Linq;
+using Ydb.Common.Application;
 using Ydb.Notice.DomainModel.Repository;
 using Ydb.Notice.Infrastructure.YdbNHibernate.UnitOfWork;
 using M = Ydb.Notice.DomainModel;
@@ -10,10 +12,11 @@ namespace Ydb.Notice.Application
     public class NoticeService : INoticeService
     {
         private readonly IRepositoryNotice repoNotice;
-
-        public NoticeService(IRepositoryNotice repoNotice)
+        private readonly IRepositoryUserNotice repoUserNotice;
+        public NoticeService(IRepositoryNotice repoNotice, IRepositoryUserNotice repoUserNotice)
         {
             this.repoNotice = repoNotice;
+            this.repoUserNotice = repoUserNotice;
         }
 
         [UnitOfWork]
@@ -38,17 +41,26 @@ namespace Ydb.Notice.Application
 
         public void CheckPass(string noticeId, string checkerId)
         {
-            throw new NotImplementedException();
+            M.Notice notice = repoNotice.FindById(new Guid(noticeId));
+            notice.SetApproved(new Guid(checkerId));
+      
         }
+        public void AddNoticeToUser(string noticeId, string userId)
+        {
+            M.Notice notice = repoNotice.FindById(new Guid(noticeId));
+            repoUserNotice.AddNoticeToUser(notice, userId);
 
+        }
         public void CheckRefuse(string noticeId, string checherId, string refuseReason)
         {
-            throw new NotImplementedException();
+            M.Notice notice = repoNotice.FindById(new Guid(noticeId));
+            notice.SetRefused(new Guid(checherId),refuseReason);
         }
 
-        public IList<M.UserNotice> GetNoticeForUser(Guid userId, enum_UserType targetUserType, bool? readed)
+        public IList<M.Notice> GetNoticeForUser(Guid userId,   bool? readed)
         {
-            throw new NotImplementedException();
+          IList<DomainModel.UserNotice> userNotices=  repoUserNotice.FindNoticeToUser(userId.ToString(), readed);
+            return userNotices.Select(x => x.Notice).ToList();
         }
 
         public M.Notice GetOne(string noticeId)
@@ -56,9 +68,27 @@ namespace Ydb.Notice.Application
             return repoNotice.FindById(new Guid(noticeId));
         }
 
-        public M.Notice ReadOne(string noticeId)
+        public ActionResult UserReadNotice(string userId, string noticeId)
         {
-            throw new NotImplementedException();
+            ActionResult result = new ActionResult();
+            try
+            {
+                M.Notice notice = repoNotice.FindById(new Guid(noticeId));
+                M.UserNotice userNotice = repoUserNotice.FindOneNoticeToUser(userId, notice);
+                userNotice.UserReaded();
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = ex.ToString();
+            }
+            return result;
+
+        }
+
+        public IList<M.Notice> GetAll()
+        {
+            return repoNotice.Find(x => true);
         }
     }
 }

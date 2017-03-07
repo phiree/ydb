@@ -57,35 +57,32 @@ namespace Ydb.ApplicationService.Application.AgentService
             var targetUserType = notice.TargetUserType;
             var targetUsers = memberService.GetMembershipsByArea(new List<string> { areaId },
                 (UserType)(int)targetUserType); //todo: 统一Membership领域内的UserTYpe 和 Common里的enum_UserType
-
-            //push 遍历用户发送推送消息
+            
+            //push 遍历用户发送推送消息,并保存推送记录
             foreach (var member in targetUsers)
-                pushService.Push(notice.Title, "ReceptionChatNoticeSys", member.Id.ToString(), string.Empty,
+            { 
+              var pushResult=  pushService.Push(notice.Title, "ReceptionChatNoticeSys", member.Id.ToString(), string.Empty,
                     member.UserName, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                     isDebug);
+                if (!pushResult.IsSuccess)
+                {
+                    result.IsSuccess = false;
+                    result.ErrMsg = pushResult.ErrMsg;
+                    return result;
+                }
+                noticeService.AddNoticeToUser(noticeId, member.Id.ToString());
+            }
             //instantmessage 发送xmpp推送.
-            // 将用户放到组内,根据用户类型分组
+            //用户加入相同的组, 使用广播插件发送
 
-            var groupname = "gg";
+            var groupname = noticeId;
             var userIds = string.Join(",", targetUsers.Select(x => x.Id));
             openfireDbService.AddUsersToGroup(userIds, groupname);
-            
-
             imService.SendBroadcast(Guid.NewGuid(), notice.Title, groupname + "@broadcast");
 
             return result;
         }
 
-        public void SetNoticeReaded(string noticeId, string userId)
-        {
-            //
-            throw new NotImplementedException();
-        }
-
-        public IList<object> GetAllNotice(string userId)
-        {
-            //包含已读和未读
-            throw new NotImplementedException();
-        }
+       
     }
 }

@@ -9,10 +9,29 @@ namespace Ydb.Notice.DomainModel
     /// <summary>
     /// 已读的通知.
     /// </summary>
-    public class UserNotice
+    public class UserNotice:Ydb.Common.Domain.Entity<Guid>
     {
-        public Guid UserId { get; internal set; }
-        public Notice Notice { get; internal set; }
-        public DateTime ReadTime { get; internal set; }
+        public UserNotice()
+        { }
+
+        public  UserNotice(Guid userid, Notice notice)
+        {
+            UserId = userid;
+            this.Notice = notice;
+            IsReaded = false;
+
+        }
+
+        public virtual Guid UserId { get; protected internal set; }
+        public virtual Notice Notice { get; protected internal set; }
+
+        public virtual bool IsReaded { get; protected internal set; }
+        public virtual DateTime ReadTime { get; protected internal set; }
+
+        public virtual void UserReaded()
+        {
+            IsReaded = true;
+            ReadTime = DateTime.Now;
+        }
     }
 }
