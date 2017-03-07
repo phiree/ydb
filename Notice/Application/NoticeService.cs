@@ -51,6 +51,7 @@ namespace Ydb.Notice.Application
             repoUserNotice.AddNoticeToUser(notice, userId);
 
         }
+        [UnitOfWork]
         public void CheckRefuse(string noticeId, string checherId, string refuseReason)
         {
             M.Notice notice = repoNotice.FindById(new Guid(noticeId));

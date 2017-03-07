@@ -14,6 +14,7 @@ namespace Ydb.Notice.Infrastructure.YdbNHibernate.Mapping
         {
             Id(x => x.Id);
             Map(x => x.ApprovedTime);
+            Map(x => x.ApproveMemo);
             Map(x => x.Title);
             Map(x => x.ApproverId);
             Map(x => x.AuthorId);

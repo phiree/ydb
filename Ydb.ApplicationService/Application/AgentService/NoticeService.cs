@@ -16,7 +16,7 @@ namespace Ydb.ApplicationService.Application.AgentService
 {
     public class AgentNoticeService : IAgentNoticeService
     {
-        
+ 
         private readonly IDZMembershipService memberService;
         private readonly INoticeService noticeService;
         private readonly IOpenfireDbService openfireDbService;

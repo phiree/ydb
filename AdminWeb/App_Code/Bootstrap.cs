@@ -69,9 +69,22 @@ new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig(
          // new Application.InstallerMembershipTestDB()
          );
         container.Install(
+     new OpenfireExtension.InstallerOpenfireExtension()
+
+      );
+        container.Install(
         new Ydb.Notice.InstallerNotice(BuildDBConfig("ydb_notice"))
          // new Application.InstallerMembershipTestDB()
          );
+        container.Install(
+       new Ydb.Push.Infrastructure.InstallerPush(BuildDBConfig("ydb_push"))
+       
+        );
+        container.Install(
+       new OpenfireExtension.InstallerOpenfireExtension()
+
+        );
+
         container.Install(
            new Ydb.Order.Infrastructure.InstallerOrder(BuildDBConfig("ydb_order"))
             // new Application.InstallerMembershipTestDB()

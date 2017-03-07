@@ -82,7 +82,13 @@ namespace Dianzhu.Config
             ,{ "192.168.1.150",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
         };
 
-
+        static Dictionary<string, KeyValuePair<string, string>> DictsNoticeSenderLogins = new Dictionary<string, KeyValuePair<string, string>>() {
+             { "localhost",new KeyValuePair<string,string>("db74d7c5-a9be-4dfc-8f06-7926f6d44335","123456") }
+            ,{ "192.168.1.138",new KeyValuePair<string,string>("db74d7c5-a9be-4dfc-8f06-7926f6d44335","123456") }
+            ,{ "dev.ydban.cn",new KeyValuePair<string,string>("db74d7c5-a9be-4dfc-8f06-7926f6d44335","123456") }
+            ,{ "business.ydban.cn",new KeyValuePair<string,string>("db74d7c5-a9be-4dfc-8f06-7926f6d44335","123456") }
+            ,{ "192.168.1.150",new KeyValuePair<string,string>("db74d7c5-a9be-4dfc-8f06-7926f6d44335","123456") }
+        };
         static Dictionary<string, string> DictsAppSettings = new Dictionary<string, string>() {
              {"cdnroot", BuildHttpUrlString(ApplicationServer, PortSet["cdnroot"])}
             , {"ImServer",IMServer  }
@@ -97,7 +103,8 @@ namespace Dianzhu.Config
 
             , {"NoticeSenderId",DictsNotifySenderLogins[IMNotifyServer].Key  }
             , {"NoticeSenderPwd",DictsNotifySenderLogins[IMNotifyServer].Value  }
-
+             , {"AgentNoticeSenderId",DictsNoticeSenderLogins[IMNotifyServer].Key  }
+            , {"AgentNoticeSenderPwd",DictsNoticeSenderLogins[IMNotifyServer].Value  }
             , {"PaySite",BuildHttpUrlString(PayServers[int.Parse(ConfigurationManager.AppSettings["PayServerNum"])],PortSet["PaySite"])   }
 
             , {"OpenfireRestApiBaseUrl",BuildHttpUrlString(IMServer, PortSet["OpenfireRestApiSessionListUrl"],"plugins/restapi/v1/")  }
