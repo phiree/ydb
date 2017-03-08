@@ -28,21 +28,43 @@ namespace Ydb.ApplicationService.Application.AgentService
         /// <summary>
         /// 统计订单每日或每时新增数量列表
         /// </summary>
-        /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="areaIdList"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <returns></returns>
-         StatisticsInfo GetStatisticsNewOrdersCountListByTime(IList<string> areaIdList, string strBeginTime, string strEndTime);
+        StatisticsInfo GetStatisticsNewOrdersCountListByTime(IList<string> areaIdList, DateTime beginTime, DateTime endTime);
 
         /// <summary>
         /// 统计店铺每日或每时累计数量列表
         /// </summary>
-        /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="areaIdList"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="enumDone"></param>
         /// <returns></returns>
-        StatisticsInfo GetStatisticsAllOrdersCountListByTime(IList<string> areaIdList, string strBeginTime, string strEndTime, enum_IsDone enumDone);
+        StatisticsInfo GetStatisticsAllOrdersCountListByTime(IList<string> areaIdList, DateTime beginTime, DateTime endTime, enum_IsDone enumDone);
 
+        /// <summary>
+        /// 根据订单所在子区域统计订单数量列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
         StatisticsInfo GetStatisticsAllOrdersCountListByArea(IList<Area> areaList);
+
+        /// <summary>
+        /// 根据服务类型统计订单交易额
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <param name="deepLevel"></param>
+        /// <returns></returns>
+        StatisticsInfo<string, decimal> GetStatisticsAllOrdersAmountListByType(IList<Area> areaList,int deepLevel);
+
+        /// <summary>
+        /// 根据服务类型统计订单数量
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <param name="deepLevel"></param>
+        /// <returns></returns>
+        StatisticsInfo GetStatisticsAllOrdersCountListByType(IList<Area> areaList, int deepLevel);
     }
 }

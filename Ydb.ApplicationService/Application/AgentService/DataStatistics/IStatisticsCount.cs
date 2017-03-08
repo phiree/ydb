@@ -23,5 +23,7 @@ namespace Ydb.ApplicationService.Application.AgentService.DataStatistics
         StatisticsInfo StatisticsNewOrdersCountListByTime(IList<ServiceOrder> orderList, DateTime beginTime, DateTime endTime, bool IsHour);
         StatisticsInfo StatisticsAllOrdersCountListByTime(IList<ServiceOrder> orderList, DateTime beginTime, DateTime endTime, bool IsHour);
         StatisticsInfo StatisticsAllOrdersCountGroupByArea(IList<ServiceOrder> orderList, IList<Business> businessList, IList<Area> areaList);
+        StatisticsInfo<string, decimal> StatisticsAllOrdersAmountListByType(IList<ServiceOrder> orderList);
+        StatisticsInfo StatisticsAllOrdersCountListByType(IList<ServiceOrder> orderList);
     }
 }

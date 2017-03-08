@@ -43,6 +43,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.ServiceId);
             Map(x => x.ServiceOvertimeForCancel);
             Map(x => x.ServiceTypeName);
+            Map(x => x.ServiceTypeId);
             Map(x => x.TargetAddress);
 
             Map(x => x.TargetCustomerName);

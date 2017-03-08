@@ -67,6 +67,7 @@ namespace Ydb.Order.DomainModel
             UpdateServiceId();
             UpdateServiceOvertimeForCancel();
             UpdateServiceTypeName();
+            UpdateServiceTypeId();
             UpdateTargetAddress();
             UpdateTargetCustomerName();
             UpdateTargetCustomerPhone();
@@ -583,6 +584,23 @@ namespace Ydb.Order.DomainModel
             }
             ServiceTypeName = name.TrimEnd(';');
         }
+
+
+        public virtual string ServiceTypeId
+        {
+
+            get; protected internal set;
+        }
+        private void UpdateServiceTypeId()
+        {
+            string name = string.Empty;
+            foreach (ServiceOrderDetail detail in Details)
+            {
+                name += detail.ServiceSnapShot.ServiceTypeId + ";";
+            }
+            ServiceTypeId = name.TrimEnd(';');
+        }
+
         public virtual string ServiceBusinessOwnerId
         {
             get; protected internal set;

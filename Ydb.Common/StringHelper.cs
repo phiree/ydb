@@ -68,16 +68,16 @@ namespace Ydb.Common
         /// <returns></returns>
         public static DateTime CheckDateTime(string strDateTime, string strType, string strError,bool b)
         {
-            if (strDateTime == null || strDateTime == "")
+            if (string.IsNullOrEmpty(strDateTime))
                 return DateTime.MinValue;
             DateTime dt;
             try
             {
-                string stime = DateTime.ParseExact(strDateTime, strType, null).ToString("yyyy-MM-dd HH:mm:ss");
-                dt = DateTime.Parse(stime);
+                dt = DateTime.ParseExact(strDateTime, strType, null);
+                //dt = DateTime.Parse(stime); .ToString("yyyy-MM-dd HH:mm:ss fff")
                 if (b)
                 {
-                    dt.AddDays(1);
+                    dt=dt.AddDays(1);
                 }
                 return dt;
             }
@@ -87,6 +87,23 @@ namespace Ydb.Common
             }
         }
 
-
+        /// <summary>
+        /// 判断Guid
+        /// </summary>
+        /// <param name="strGuidID">GuidID</param>
+        /// <param name="strError">错误信息</param>
+        /// <returns></returns>
+        public static Guid CheckGuidID(string strGuidID, string strError)
+        {
+            if (string.IsNullOrEmpty(strGuidID))
+                return Guid.Empty;
+            Guid GuidID;
+            bool guididisGuid = Guid.TryParse(strGuidID, out GuidID);
+            if (!guididisGuid)
+            {
+                throw new FormatException(strError + "格式有误");
+            }
+            return GuidID;
+        }
     }
 }

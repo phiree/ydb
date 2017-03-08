@@ -152,26 +152,26 @@ namespace Ydb.Membership.Application
             DateTime endTime, UserType userType);
 
         /// <summary>
-        ///     统计用户每日或每时累计数量列表
+        /// 统计用户每日或每时累计数量列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        StatisticsInfo GetStatisticsAllMembershipsCountListByTime(IList<string> areaList, string strBeginTime,
-            string strEndTime, UserType userType);
+        StatisticsInfo GetStatisticsAllMembershipsCountListByTime(IList<string> areaList, DateTime beginTime,
+           DateTime endTime, UserType userType);
 
         /// <summary>
-        ///     统计用户每日或每时在线活跃度（数量）列表
+        /// 统计用户每日或每时在线活跃度（数量）列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        StatisticsInfo GetStatisticsLoginCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime,
-            UserType userType);
+        StatisticsInfo GetStatisticsLoginCountListByTime(IList<string> areaList, DateTime beginTime,
+            DateTime endTime, UserType userType);
 
         /// <summary>
         ///     根据用户手机系统统计用户数量列表
