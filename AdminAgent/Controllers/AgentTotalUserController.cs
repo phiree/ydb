@@ -7,6 +7,7 @@ using Ydb.Membership.Application;
 using Ydb.Membership.DomainModel.Enums;
 using Ydb.Common.Domain;
 using com = Ydb.Common.Application;
+using Ydb.Common;
 
 namespace AdminAgent.Controllers
 {
@@ -40,11 +41,19 @@ namespace AdminAgent.Controllers
             return View();
         }
 
-        public ActionResult total_user_NewList(string usertype)
+        public ActionResult total_user_NewList(string usertype,string start,string end)
         {
             try
             {
-                StatisticsInfo statisticsInfo = dzMembershipService.GetStatisticsNewMembershipsCountListByTime(areaList, DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), CheckEnums.CheckUserType(usertype));
+                StatisticsInfo statisticsInfo;
+                if (string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end))
+                {
+                    statisticsInfo = dzMembershipService.GetStatisticsNewMembershipsCountListByTime(areaList, DateTime.Now.AddMonths(-1), DateTime.Now, CheckEnums.CheckUserType(usertype));
+                }
+                else
+                {
+                    statisticsInfo = dzMembershipService.GetStatisticsNewMembershipsCountListByTime(areaList, StringHelper.CheckDateTime(start,"yyyyMMdd","查询的开始时间",false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间",true), CheckEnums.CheckUserType(usertype));
+                }
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

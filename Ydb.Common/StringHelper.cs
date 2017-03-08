@@ -60,6 +60,33 @@ namespace Ydb.Common
             
         }
 
-        
+        /// <summary>
+        /// 判断DateTime
+        /// </summary>
+        /// <param name="strDateTime">DateTime</param>
+        /// <param name="strError">错误信息</param>
+        /// <returns></returns>
+        public static DateTime CheckDateTime(string strDateTime, string strType, string strError,bool b)
+        {
+            if (strDateTime == null || strDateTime == "")
+                return DateTime.MinValue;
+            DateTime dt;
+            try
+            {
+                string stime = DateTime.ParseExact(strDateTime, strType, null).ToString("yyyy-MM-dd HH:mm:ss");
+                dt = DateTime.Parse(stime);
+                if (b)
+                {
+                    dt.AddDays(1);
+                }
+                return dt;
+            }
+            catch (Exception e)
+            {
+                throw new FormatException(strError + "格式有误");
+            }
+        }
+
+
     }
 }

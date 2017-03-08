@@ -104,7 +104,7 @@ namespace Ydb.Membership.ApplicationTests
             IList<DZMembership> memberList = new List<DZMembership>();
             repositoryMembership.Stub(x => x.GetUsersByArea(areaList, BeginTime, EndTime, UserType.customer)).Return(memberList);
             statisticsMembershipCount.Stub(x => x.StatisticsNewMembershipsCountListByTime(memberList, BeginTime, EndTime, strBeginTime == strEndTime)).Return(statisticsInfo);
-            StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsNewMembershipsCountListByTime(areaList, strBeginTime, strEndTime, UserType.customer);
+            StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsNewMembershipsCountListByTime(areaList, BeginTime, EndTime, UserType.customer);
             Assert.AreEqual(statisticsInfo, statisticsInfo1);
         }
 

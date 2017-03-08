@@ -470,14 +470,12 @@ namespace Ydb.Membership.Application
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public StatisticsInfo GetStatisticsNewMembershipsCountListByTime(IList<string> areaList, string strBeginTime,
-            string strEndTime, UserType userType)
+        public StatisticsInfo GetStatisticsNewMembershipsCountListByTime(IList<string> areaList, DateTime beginTime,
+            DateTime endTime, UserType userType)
         {
-            var BeginTime = StringHelper.ParseToDate(strBeginTime, false);
-            var EndTime = StringHelper.ParseToDate(strEndTime, true);
-            var memberList = repositoryMembership.GetUsersByArea(areaList, BeginTime, EndTime, userType);
-            var statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipsCountListByTime(memberList, BeginTime,
-                EndTime, strBeginTime == strEndTime);
+            var memberList = repositoryMembership.GetUsersByArea(areaList, beginTime, endTime, userType);
+            var statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipsCountListByTime(memberList, beginTime,
+                endTime, beginTime.ToString("yyyyMMdd") == endTime.ToString("yyyyMMdd"));
             return statisticsInfo;
         }
 

@@ -141,15 +141,15 @@ namespace Ydb.Membership.Application
         long GetCountOfLoginMembershipsLastMonthByArea(IList<string> areaList, UserType userType);
 
         /// <summary>
-        ///     统计用户每日或每时新增数量列表
+        /// 统计用户每日或每时新增数量列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        StatisticsInfo GetStatisticsNewMembershipsCountListByTime(IList<string> areaList, string strBeginTime,
-            string strEndTime, UserType userType);
+        StatisticsInfo GetStatisticsNewMembershipsCountListByTime(IList<string> areaList, DateTime beginTime,
+            DateTime endTime, UserType userType);
 
         /// <summary>
         ///     统计用户每日或每时累计数量列表
