@@ -11,7 +11,7 @@ using Ydb.Common;
 
 namespace AdminAgent.Controllers
 {
-    public class AgentTotalUserController : Controller
+    public class AgentTotalUserController : AgentBaseController
     {
         IDZMembershipService dzMembershipService = Bootstrap.Container.Resolve<IDZMembershipService>();
         IList<string> areaList = new List<string> { "2445", "2446", "2447", "2448", "2449", "2450" };

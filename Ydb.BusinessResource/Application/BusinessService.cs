@@ -256,32 +256,28 @@ namespace Ydb.BusinessResource.Application
         /// 统计店铺每日或每时新增数量列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public StatisticsInfo GetStatisticsNewBusinessesCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime)
+        public StatisticsInfo GetStatisticsNewBusinessesCountListByTime(IList<string> areaList, DateTime beginTime, DateTime endTime)
         {
-            DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
-            DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
-            IList<Business> businessList = repositoryBusiness.GetBusinessesByArea(areaList, BeginTime, EndTime);
-            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsNewBusinessesCountListByTime(businessList, BeginTime, EndTime, strBeginTime == strEndTime);
+            IList<Business> businessList = repositoryBusiness.GetBusinessesByArea(areaList, beginTime, endTime);
+            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsNewBusinessesCountListByTime(businessList, beginTime, endTime, beginTime.ToString("yyyyMMdd") == endTime.ToString("yyyyMMdd"));
             return statisticsInfo;
         }
         /// <summary>
         /// 统计店铺每日或每时累计数量列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public StatisticsInfo GetStatisticsAllBusinessesCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime)
+        public StatisticsInfo GetStatisticsAllBusinessesCountListByTime(IList<string> areaList, DateTime beginTime, DateTime endTime)
         {
-            DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
-            DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
             IList<Business> businessList = repositoryBusiness.GetBusinessesByArea(areaList, DateTime.MinValue, DateTime.MinValue);
-            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsAllBusinessesCountListByTime(businessList, BeginTime, EndTime, strBeginTime == strEndTime);
+            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsAllBusinessesCountListByTime(businessList, beginTime, endTime, beginTime.ToString("yyyyMMdd") == endTime.ToString("yyyyMMdd"));
             return statisticsInfo;
         }
 

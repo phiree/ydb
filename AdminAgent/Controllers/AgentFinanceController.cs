@@ -10,7 +10,7 @@ using Ydb.Finance.Application;
 
 namespace AdminAgent.Controllers
 {
-    public class AgentFinanceController : Controller
+    public class AgentFinanceController : AgentBaseController
     {
         IOrdersService ordersService = Bootstrap.Container.Resolve<IOrdersService>();
         IFinanceFlowService financeFlowService = Bootstrap.Container.Resolve<IFinanceFlowService>();
@@ -20,6 +20,10 @@ namespace AdminAgent.Controllers
         
         IList<string> areaList = new List<string> { "2445", "2446", "2447", "2448", "2449", "2450" };
         MemberDto memberAgent = new MemberDto() { Id=new Guid("002b0b23-e069-4e9b-95ef-d8fb1827cce0") };
+        /// <summary>
+        /// 财务管理分账记录
+        /// </summary>
+        /// <returns></returns>
         public ActionResult finance_account()
         {
             try
@@ -40,7 +44,11 @@ namespace AdminAgent.Controllers
                 return Content(ex.Message);
             }
         }
-
+        /// <summary>
+        /// 提现申请输入提现金额
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult finance_withdraw_apply(string id)
         {
             try
@@ -60,7 +68,13 @@ namespace AdminAgent.Controllers
                 return Content(ex.Message);
             }
         }
-
+        /// <summary>
+        /// 提交提现申请
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="account"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult finance_withdraw_apply(string id,string account, decimal amount)
         {
@@ -77,12 +91,25 @@ namespace AdminAgent.Controllers
             }
         }
 
-
+        /// <summary>
+        /// 绑定账户输入界面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult finance_account_bind(string id)
         {
             return View();
         }
 
+        /// <summary>
+        /// 提交绑定账户
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="account"></param>
+        /// <param name="accountName"></param>
+        /// <param name="accountCode"></param>
+        /// <param name="accountPhone"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult finance_account_bind(string id, string account, string accountName, string accountCode, string accountPhone)
         {
@@ -114,7 +141,11 @@ namespace AdminAgent.Controllers
                 return Content(ex.Message);
             }
         }
-
+        
+        /// <summary>
+        /// 账户余额列表用于提现
+        /// </summary>
+        /// <returns></returns>
         public ActionResult finance_total_list()
         {
             try
@@ -138,6 +169,10 @@ namespace AdminAgent.Controllers
             }
         }
 
+        /// <summary>
+        /// 提现记录列表
+        /// </summary>
+        /// <returns></returns>
         public ActionResult finance_withdraw_history()
         {
             try

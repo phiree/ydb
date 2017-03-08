@@ -12,7 +12,7 @@ using com = Ydb.Common.Application;
 
 namespace AdminAgent.Controllers
 {
-    public class AgentTotalOrderController : Controller
+    public class AgentTotalOrderController : AgentBaseController
     {
 
         IOrdersService ordersService = Bootstrap.Container.Resolve<IOrdersService>();

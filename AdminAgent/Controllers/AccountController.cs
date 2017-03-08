@@ -90,12 +90,19 @@ namespace AdminAgent.Controllers
             var result = SignInStatus.Failure;
             if (validateResult.IsValidated)
             {
+                if (validateResult.ValidatedMember.UserType != "agent")
+                {
+                    ModelState.AddModelError("", "该用户不是代理商。");
+                    return View(model);
+                }
                 var identity = new ClaimsIdentity(new[]
                                 {
                                     new Claim(ClaimTypes.Name, validateResult.ValidatedMember.DisplayName),
                                     new Claim(ClaimTypes.Email, validateResult.ValidatedMember.Email),
-                                    new Claim(ClaimTypes.NameIdentifier,validateResult.ValidatedMember.Id.ToString())
-                                    
+                                    new Claim(ClaimTypes.NameIdentifier,validateResult.ValidatedMember.Id.ToString()),
+                                    new Claim(ClaimTypes.MobilePhone,validateResult.ValidatedMember.Phone),
+                                    new Claim(ClaimTypes.StateOrProvince,validateResult.ValidatedMember.AreaId),
+
                                 },
                                 "ApplicationCookie");
 
