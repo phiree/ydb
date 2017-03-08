@@ -16,7 +16,7 @@ namespace Ydb.Notice.Infrastructure.YdbNHibernate.Repository
         public void AddNoticeToUser(M.Notice notice, string userId)
         {
             DomainModel.UserNotice userNotice = new DomainModel.UserNotice(new Guid( userId), notice);
-            Add(userNotice);
+            SaveOrUpdate(userNotice);
         }
         public IList<UserNotice> FindNoticeToUser(string userId, bool? isReaded)
         {

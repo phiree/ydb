@@ -16,7 +16,7 @@ namespace Ydb.ApplicationService.Application.AgentService
 {
     public class AgentNoticeService : IAgentNoticeService
     {
- 
+        log4net.ILog log;
         private readonly IDZMembershipService memberService;
         private readonly INoticeService noticeService;
         private readonly IOpenfireDbService openfireDbService;
@@ -27,6 +27,7 @@ namespace Ydb.ApplicationService.Application.AgentService
             IDZMembershipService memberService,
             IOpenfireDbService openfireDbService )
         {
+            log = log4net.LogManager.GetLogger(this.GetType().FullName);
             this.noticeService = noticeService;
             this.pushService = pushService;
             this.memberService = memberService;
@@ -47,6 +48,7 @@ namespace Ydb.ApplicationService.Application.AgentService
         /// <returns></returns>
         public ActionResult SendNotice(IInstantMessage imService, string noticeId, bool isDebug)
         {
+            log.Debug("开始发送公告:" + noticeId);
             var result = new ActionResult();
             var notice = noticeService.GetOne(noticeId);
 

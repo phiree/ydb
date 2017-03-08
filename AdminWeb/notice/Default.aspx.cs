@@ -31,7 +31,7 @@ public partial class notice_Default : System.Web.UI.Page
     Guid noticeId;
     protected void gvNotice_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-          noticeId = new Guid(e.CommandArgument.ToString());
+        noticeId = new Guid(e.CommandArgument.ToString());
         GridViewRow row = (GridViewRow)(((Button)e.CommandSource).NamingContainer);
 
         if (e.CommandName.ToLower() == "refuse")
@@ -45,25 +45,10 @@ public partial class notice_Default : System.Web.UI.Page
             string noticesenderId = Dianzhu.Config.Config.GetAppSetting("AgentNoticeSenderId");
 
             string noticesenderPwd = Dianzhu.Config.Config.GetAppSetting("AgentNoticeSenderPwd");
-
+            var im = (IInstantMessage)Application["im"];
             //openconnection
-            try
-            {
-                im.OpenConnection(noticesenderId, noticesenderPwd);
-                im.IMLogined += Im_IMLogined;
-               }
-            catch (Exception ex)
-            { }
-            finally
-            {
-                im.Close();
-            }
+            ActionResult result = agentNoticeService.SendNotice(im, noticeId.ToString());
         }
-    }
-
-    private void Im_IMLogined(string jidUser)
-    {
-        ActionResult result = agentNoticeService.SendNotice(im, noticeId.ToString());
 
     }
 }
