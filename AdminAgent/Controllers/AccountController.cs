@@ -111,22 +111,23 @@ namespace AdminAgent.Controllers
 
                 authManager.SignIn(identity);
                 result = SignInStatus.Success;
-                //登录 openfire
-                var _im = HttpContext.Application["IM"];
-                if(_im==null)
-                {
+                //登录 openfire 
+                //不需要登录了, 发送是在系统后台,
+                //var _im = HttpContext.Application["IM"];
+                //if(_im==null)
+                //{
 
-                    Ydb.InstantMessage.Application.IInstantMessage im = Bootstrap.Container.Resolve<Ydb.InstantMessage.Application.IInstantMessage>();
+                //    Ydb.InstantMessage.Application.IInstantMessage im = Bootstrap.Container.Resolve<Ydb.InstantMessage.Application.IInstantMessage>();
 
-                //= new Dianzhu.CSClient.XMPP.XMPP(server, domain,adapter, Dianzhu.enum_XmppResource.YDBan_IMServer.ToString());
-                //login in
-                string noticesenderId = validateResult.ValidatedMember.Id.ToString();
+                ////= new Dianzhu.CSClient.XMPP.XMPP(server, domain,adapter, Dianzhu.enum_XmppResource.YDBan_IMServer.ToString());
+                ////login in
+                //string noticesenderId = validateResult.ValidatedMember.Id.ToString();
 
-                string noticesenderPwd = validateResult.ValidatedMember.PlainPassword;
+                //string noticesenderPwd = validateResult.ValidatedMember.PlainPassword;
 
-                im.OpenConnection(noticesenderId, noticesenderPwd, "YDBan_Agent");
-                HttpContext.Application["IM"] = im;
-                }
+                //im.OpenConnection(noticesenderId, noticesenderPwd, "YDBan_Agent");
+                //HttpContext.Application["IM"] = im;
+               // }
             }
             else
             {

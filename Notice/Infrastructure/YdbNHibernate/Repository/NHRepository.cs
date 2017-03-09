@@ -9,12 +9,17 @@ using Ydb.Common.Domain;
 using Ydb.Common.Repository;
 using Ydb.Common.Specification;
 using Ydb.Notice.Infrastructure.YdbNHibernate.UnitOfWork;
-
+using log4net;
 namespace Ydb.Notice.Infrastructure.YdbNHibernate.Repository
 {
     public class NHRepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
         where TEntity : Entity<TPrimaryKey>
     {
+        protected ILog Log;
+        public NHRepositoryBase()
+        {
+            Log = LogManager.GetLogger(this.GetType().Name);
+        }
         protected ISession session { get { return NhUnitOfWork.Current.Session; } }
 
         public void Add(TEntity t)

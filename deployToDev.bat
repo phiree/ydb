@@ -81,7 +81,20 @@ echo 5.MediaServer发布已取消
 
 endlocal
  
+setlocal
+:PROMPT
+SET /P AREYOUSURE=------------------------是否发布:6. AdminAgent网站 (Y/N)?
 
+IF /I "%AREYOUSURE%" NEQ "Y" GOTO ENDY
+"C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe" "%~dp0AdminAgent\AdminAgent.csproj" /p:deployonbuild=true /p:publishprofile="%~dp0AdminAgent\Properties\PublishProfiles\dev.pubxml" /p:visualstudioversion=14.0 /p:AllowUntrustedCertificate=True /p:username="deployer" /p:password="deployer2016"
+echo 7.PayServer发布成功
+:ENDY
+
+IF /I "%AREYOUSURE%" EQU "Y" GOTO ENDNY
+echo 7.PayServer发布已取消
+:ENDNY
+
+endlocal
  
  
  

@@ -1,14 +1,14 @@
 ﻿<%@ Application Language="C#" %>
 <%@ Import Namespace="Castle.Windsor" %>
 <%@ Import Namespace="Castle.Windsor.Installer" %>
- 
- 
 <%@ Import Namespace="Ydb.BusinessResource.Application" %>
 <%@ Import Namespace="Ydb.BusinessResource.DomainModel" %>
 <%@ Import Namespace="Ydb.Finance.Application" %>
 <%@ Import Namespace="Ydb.Common.Application" %>
 <%@ Import Namespace="Ydb.Order.Application" %>
 <%@ Import Namespace="Ydb.Order.DomainModel" %>
+<%@ Import Namespace="Ydb.Common.Infrastructure" %>
+<%@ Import Namespace="Ydb.InstantMessage.DomainModel.Chat" %>
 <script runat="server">
     public static IWindsorContainer container;
     //  Dianzhu.IDAL.IUnitOfWork uow = Bootstrap.Container.Resolve<Dianzhu.IDAL.IUnitOfWork>();
@@ -26,7 +26,74 @@
         PHSuit.HttpHelper._SetupRefreshJob(888);
         // timerOrderShare_Elapsed(null, null);
         // var container = Installer.Container;
+
+         Ydb.InstantMessage.Application.IInstantMessage im = Bootstrap.Container.Resolve<Ydb.InstantMessage.Application.IInstantMessage>();
+
+    //= new Dianzhu.CSClient.XMPP.XMPP(server, domain,adapter, Dianzhu.enum_XmppResource.YDBan_IMServer.ToString());
+    //login in
+    string noticesenderId = Dianzhu.Config.Config.GetAppSetting("AgentNoticeSenderId");
+
+    string noticesenderPwd = Dianzhu.Config.Config.GetAppSetting("AgentNoticeSenderPwd");
+
+    im.IMClosed += IMClosed;
+    im.IMLogined += IMLogined;
+    im.IMError += IMError;
+    im.IMAuthError += IMAuthError;
+    im.IMConnectionError += IMConnectionError;
+    im.IMReceivedMessage += IMReceivedMessage;
+    im.IMIQ += IMIQ;
+    im.IMStreamError += IMStreamError;
+    im.OpenConnection(noticesenderId, noticesenderPwd, "YDBan_AgentNoticeSender");
+    Application["IM"] = im;
     }
+    void IMClosed()
+{
+    string emails = ConfigurationManager.AppSettings["MonitorEmails"];
+
+    try
+    {
+
+        if (string.IsNullOrEmpty(emails)) { return; }
+        string[] emailList = emails.Split(',');
+        IEmailService emailService = Bootstrap.Container.Resolve<IEmailService>();
+        emailService.SendEmail(emailList[0], "异常_" + log.Logger.Name, "IMServer掉线了",
+          emailList);
+    }
+    catch (Exception ex)
+    {
+        log.Error(ex.ToString());
+    }
+    log.Warn("Closed");
+}
+void IMLogined(string jidUser)
+{
+    log.Info("Logined:" + jidUser);
+}
+void IMError(string error)
+{
+    log.Error("IMError:" + error);
+}
+void IMAuthError()
+{
+    log.Error("IMAuthError");
+}
+void IMConnectionError(string error)
+{
+    log.Error("ConnectionError:" + error);
+}
+void IMReceivedMessage(ReceptionChatDto chat)
+{
+    log.Debug("ReceiveMsg:" + chat.ToString());
+}
+void IMIQ()
+{
+    log.Debug("Received IQ");
+}
+void IMStreamError()
+{
+
+    log.Error("StreamError");
+}
     void timerOrderShare_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
     {
 
