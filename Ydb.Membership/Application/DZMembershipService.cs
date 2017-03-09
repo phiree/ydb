@@ -475,7 +475,7 @@ namespace Ydb.Membership.Application
         {
             var memberList = repositoryMembership.GetUsersByArea(areaList, beginTime, endTime, userType);
             var statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipsCountListByTime(memberList, beginTime,
-                endTime, beginTime.ToString("yyyyMMdd") == endTime.ToString("yyyyMMdd"));
+                endTime, beginTime.ToString("yyyyMMdd") == endTime.AddDays(-1).ToString("yyyyMMdd"));
             return statisticsInfo;
         }
 
@@ -494,7 +494,7 @@ namespace Ydb.Membership.Application
             var memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue,
                 userType);
             var statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListByTime(memberList, beginTime,
-                endTime, beginTime.ToString("yyyyMMdd") == endTime.ToString("yyyyMMdd"));
+                endTime, beginTime.ToString("yyyyMMdd") == endTime.AddDays(-1).ToString("yyyyMMdd"));
             return statisticsInfo;
         }
 
@@ -514,7 +514,7 @@ namespace Ydb.Membership.Application
                 userType);
             var loginList = repositoryMembershipLoginLog.GetMembershipLoginLogListByTime(beginTime, endTime);
             var statisticsInfo = statisticsMembershipCount.StatisticsLoginCountListByTime(memberList, loginList,
-                beginTime, endTime, beginTime.ToString("yyyyMMdd") == endTime.ToString("yyyyMMdd"));
+                beginTime, endTime, beginTime.ToString("yyyyMMdd") == endTime.AddDays(-1).ToString("yyyyMMdd"));
             return statisticsInfo;
         }
 

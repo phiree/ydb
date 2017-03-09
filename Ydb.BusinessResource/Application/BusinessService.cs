@@ -263,7 +263,7 @@ namespace Ydb.BusinessResource.Application
         public StatisticsInfo GetStatisticsNewBusinessesCountListByTime(IList<string> areaList, DateTime beginTime, DateTime endTime)
         {
             IList<Business> businessList = repositoryBusiness.GetBusinessesByArea(areaList, beginTime, endTime);
-            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsNewBusinessesCountListByTime(businessList, beginTime, endTime, beginTime.ToString("yyyyMMdd") == endTime.ToString("yyyyMMdd"));
+            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsNewBusinessesCountListByTime(businessList, beginTime, endTime, beginTime.ToString("yyyyMMdd") == endTime.AddDays(-1).ToString("yyyyMMdd"));
             return statisticsInfo;
         }
         /// <summary>
@@ -277,7 +277,7 @@ namespace Ydb.BusinessResource.Application
         public StatisticsInfo GetStatisticsAllBusinessesCountListByTime(IList<string> areaList, DateTime beginTime, DateTime endTime)
         {
             IList<Business> businessList = repositoryBusiness.GetBusinessesByArea(areaList, DateTime.MinValue, DateTime.MinValue);
-            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsAllBusinessesCountListByTime(businessList, beginTime, endTime, beginTime.ToString("yyyyMMdd") == endTime.ToString("yyyyMMdd"));
+            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsAllBusinessesCountListByTime(businessList, beginTime, endTime, beginTime.ToString("yyyyMMdd") == endTime.AddDays(-1).ToString("yyyyMMdd"));
             return statisticsInfo;
         }
 

@@ -91,7 +91,7 @@ namespace Ydb.ApplicationService.Application.AgentService
             IList<Business> businessList = businessService.GetAllBusinessesByArea(areaIdList);
             IList<string> businessIdList = businessList.Select(x => x.Id.ToString()).ToList();
             IList<ServiceOrder> orderList = serviceOrderService.GetOrdersByBusinessList(businessIdList, beginTime, endTime, "");
-            StatisticsInfo statisticsInfo = statisticsCount.StatisticsNewOrdersCountListByTime(orderList, beginTime, endTime, beginTime.ToString("yyyyMMdd") == endTime.ToString("yyyyMMdd"));
+            StatisticsInfo statisticsInfo = statisticsCount.StatisticsNewOrdersCountListByTime(orderList, beginTime, endTime, beginTime.ToString("yyyyMMdd") == endTime.AddDays(-1).ToString("yyyyMMdd"));
             return statisticsInfo;
         }
         /// <summary>
@@ -107,7 +107,7 @@ namespace Ydb.ApplicationService.Application.AgentService
             IList<Business> businessList = businessService.GetAllBusinessesByArea(areaIdList);
             IList<string> businessIdList = businessList.Select(x => x.Id.ToString()).ToList();
             IList<ServiceOrder> orderList = serviceOrderService.GetOrdersByBusinessList(businessIdList, DateTime.MinValue, DateTime.MinValue, enumDone.ToString());
-            StatisticsInfo statisticsInfo = statisticsCount.StatisticsAllOrdersCountListByTime(orderList, beginTime, endTime, beginTime.ToString("yyyyMMdd") == endTime.ToString("yyyyMMdd"));
+            StatisticsInfo statisticsInfo = statisticsCount.StatisticsAllOrdersCountListByTime(orderList, beginTime, endTime, beginTime.ToString("yyyyMMdd") == endTime.AddDays(-1).ToString("yyyyMMdd"));
             return statisticsInfo;
         }
 
