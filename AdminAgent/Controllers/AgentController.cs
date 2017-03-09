@@ -14,5 +14,11 @@ namespace AdminAgent.Controllers
             return View();
         }
 
+        // GET: Agent
+        public ActionResult footer()
+        {
+            return View();
+        }
+
     }
 }
