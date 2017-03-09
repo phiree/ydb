@@ -35,7 +35,7 @@ namespace Ydb.Notice.Infrastructure.YdbNHibernate.Repository
             {
                 string errMsg= "没有找到对应的用户通知";
                 Log.Error(errMsg);
-                throw new Exception(errMsg);
+                
 
             }
             return userNotice;

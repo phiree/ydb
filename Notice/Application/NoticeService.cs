@@ -36,31 +36,35 @@ namespace Ydb.Notice.Application
 
         public IList<M.Notice> GetNoticeForAuther(Guid authorId)
         {
-           return repoNotice.Find(x => x.AuthorId == authorId);
+            return repoNotice.Find(x => x.AuthorId == authorId);
         }
 
         public void CheckPass(string noticeId, string checkerId)
         {
             M.Notice notice = repoNotice.FindById(new Guid(noticeId));
             notice.SetApproved(new Guid(checkerId));
-      
+
         }
         public void AddNoticeToUser(string noticeId, string userId)
         {
             M.Notice notice = repoNotice.FindById(new Guid(noticeId));
-            repoUserNotice.AddNoticeToUser(notice, userId);
+            var existed = repoUserNotice.FindOneNoticeToUser(userId, notice);
+            if (null==existed)
+            {
+                repoUserNotice.AddNoticeToUser(notice, userId);
+            }
 
         }
         [UnitOfWork]
         public void CheckRefuse(string noticeId, string checherId, string refuseReason)
         {
             M.Notice notice = repoNotice.FindById(new Guid(noticeId));
-            notice.SetRefused(new Guid(checherId),refuseReason);
+            notice.SetRefused(new Guid(checherId), refuseReason);
         }
 
-        public IList<M.Notice> GetNoticeForUser(Guid userId,   bool? readed)
+        public IList<M.Notice> GetNoticeForUser(Guid userId, bool? readed)
         {
-          IList<DomainModel.UserNotice> userNotices=  repoUserNotice.FindNoticeToUser(userId.ToString(), readed);
+            IList<DomainModel.UserNotice> userNotices = repoUserNotice.FindNoticeToUser(userId.ToString(), readed);
             return userNotices.Select(x => x.Notice).ToList();
         }
 
