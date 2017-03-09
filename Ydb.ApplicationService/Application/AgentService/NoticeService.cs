@@ -51,15 +51,16 @@ namespace Ydb.ApplicationService.Application.AgentService
             log.Debug("开始发送公告:" + noticeId);
             var result = new ActionResult();
             var notice = noticeService.GetOne(noticeId);
-
+            log.Debug("1");
             //发送系统推送 apns,小米推送
             //membership 根据代理商区域和推送目标 查询推送的用户列表
             var agent = memberService.GetUserById(notice.AuthorId.ToString());
             var areaId = agent.AreaId;
+            log.Debug("areaId:"+areaId);
             var targetUserType = notice.TargetUserType;
             var targetUsers = memberService.GetMembershipsByArea(new List<string> { areaId },
                 (UserType)(int)targetUserType); //todo: 统一Membership领域内的UserTYpe 和 Common里的enum_UserType
-            
+            log.Debug("targetUsers:" + targetUsers.Count);
             //push 遍历用户发送推送消息,并保存推送记录
             foreach (var member in targetUsers)
             { 
@@ -70,7 +71,8 @@ namespace Ydb.ApplicationService.Application.AgentService
                 {
                     result.IsSuccess = false;
                     result.ErrMsg = pushResult.ErrMsg;
-                    return result;
+                    log.Error(pushResult.ErrMsg);
+                     
                 }
                 noticeService.AddNoticeToUser(noticeId, member.Id.ToString());
             }
@@ -81,6 +83,8 @@ namespace Ydb.ApplicationService.Application.AgentService
             var userIds = string.Join(",", targetUsers.Select(x => x.Id));
             openfireDbService.AddUsersToGroup(userIds, groupname);
             imService.SendBroadcast(Guid.NewGuid(), notice.Title, groupname + "@broadcast");
+
+           
 
             return result;
         }

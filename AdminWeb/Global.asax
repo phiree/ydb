@@ -1,16 +1,14 @@
 ﻿<%@ Application Language="C#" %>
 <%@ Import Namespace="Castle.Windsor" %>
 <%@ Import Namespace="Castle.Windsor.Installer" %>
- 
- 
 <%@ Import Namespace="Ydb.BusinessResource.Application" %>
 <%@ Import Namespace="Ydb.BusinessResource.DomainModel" %>
 <%@ Import Namespace="Ydb.Finance.Application" %>
 <%@ Import Namespace="Ydb.Common.Application" %>
 <%@ Import Namespace="Ydb.Order.Application" %>
 <%@ Import Namespace="Ydb.Order.DomainModel" %>
-<<%@ Import Namespace="Ydb.Common.Infrastructure" %>
-<<%@ Import Namespace="Ydb.InstantMessage.DomainModel.Chat" %>
+<%@ Import Namespace="Ydb.Common.Infrastructure" %>
+<%@ Import Namespace="Ydb.InstantMessage.DomainModel.Chat" %>
 <script runat="server">
     public static IWindsorContainer container;
     //  Dianzhu.IDAL.IUnitOfWork uow = Bootstrap.Container.Resolve<Dianzhu.IDAL.IUnitOfWork>();

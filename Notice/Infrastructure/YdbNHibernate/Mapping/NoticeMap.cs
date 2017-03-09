@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ydb.Common;
 using M = Ydb.Notice.DomainModel;
 
 namespace Ydb.Notice.Infrastructure.YdbNHibernate.Mapping
@@ -20,7 +21,7 @@ namespace Ydb.Notice.Infrastructure.YdbNHibernate.Mapping
             Map(x => x.AuthorId);
             Map(x => x.Body);
             Map(x => x.IsApproved);
-            Map(x => x.TargetUserType);
+            Map(x => x.TargetUserType).CustomType< enum_UserType>();
             Map(x => x.TimeCreated);
         }
     }
