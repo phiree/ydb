@@ -86,19 +86,19 @@ namespace Ydb.BusinessResource.Application
         /// 统计店铺每日或每时新增数量列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <returns></returns>
-        StatisticsInfo GetStatisticsNewBusinessesCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime);
+        StatisticsInfo GetStatisticsNewBusinessesCountListByTime(IList<string> areaList, DateTime beginTime, DateTime endTime);
 
         /// <summary>
         /// 统计店铺每日或每时累计数量列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <returns></returns>
-        StatisticsInfo GetStatisticsAllBusinessesCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime);
+        StatisticsInfo GetStatisticsAllBusinessesCountListByTime(IList<string> areaList, DateTime beginTime, DateTime endTime);
 
         /// <summary>
         /// 根据店铺年限统计店铺数量列表

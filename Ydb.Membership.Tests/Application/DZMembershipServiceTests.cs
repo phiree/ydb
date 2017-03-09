@@ -104,7 +104,7 @@ namespace Ydb.Membership.ApplicationTests
             IList<DZMembership> memberList = new List<DZMembership>();
             repositoryMembership.Stub(x => x.GetUsersByArea(areaList, BeginTime, EndTime, UserType.customer)).Return(memberList);
             statisticsMembershipCount.Stub(x => x.StatisticsNewMembershipsCountListByTime(memberList, BeginTime, EndTime, strBeginTime == strEndTime)).Return(statisticsInfo);
-            StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsNewMembershipsCountListByTime(areaList, strBeginTime, strEndTime, UserType.customer);
+            StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsNewMembershipsCountListByTime(areaList, BeginTime, EndTime, UserType.customer);
             Assert.AreEqual(statisticsInfo, statisticsInfo1);
         }
 
@@ -120,7 +120,7 @@ namespace Ydb.Membership.ApplicationTests
             IList<DZMembership> memberList = new List<DZMembership>();
             repositoryMembership.Stub(x => x.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, UserType.customer)).Return(memberList);
             statisticsMembershipCount.Stub(x => x.StatisticsAllMembershipsCountListByTime(memberList, BeginTime, EndTime, strBeginTime == strEndTime)).Return(statisticsInfo);
-            StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsAllMembershipsCountListByTime(areaList, strBeginTime, strEndTime, UserType.customer);
+            StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsAllMembershipsCountListByTime(areaList, BeginTime, EndTime, UserType.customer);
             Assert.AreEqual(statisticsInfo, statisticsInfo1);
         }
 
@@ -138,7 +138,7 @@ namespace Ydb.Membership.ApplicationTests
             repositoryMembership.Stub(x => x.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue, UserType.customer)).Return(memberList);
             repositoryMembershipLoginLog.Stub(x => x.GetMembershipLoginLogListByTime(BeginTime, EndTime)).Return(loginList);
             statisticsMembershipCount.Stub(x => x.StatisticsLoginCountListByTime(memberList, loginList, BeginTime, EndTime, strBeginTime == strEndTime)).Return(statisticsInfo);
-            StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsLoginCountListByTime(areaList, strBeginTime, strEndTime, UserType.customer);
+            StatisticsInfo statisticsInfo1 = dzMembershipService.GetStatisticsLoginCountListByTime(areaList, BeginTime, EndTime, UserType.customer);
             Assert.AreEqual(statisticsInfo, statisticsInfo1);
         }
 

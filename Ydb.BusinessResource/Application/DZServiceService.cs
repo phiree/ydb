@@ -317,6 +317,7 @@ namespace Ydb.BusinessResource.Application
                 { 
                 service.ModifyWorkTimePeriod(dayOfWeek,  workTime.TimePeriod,
                     new TimePeriod(new Time(timeBegin), new Time(endtime)),   out errMsg);
+                    workTime.TimePeriod = new TimePeriod(new Time(timeBegin), new Time(endtime));
                 }
                 if (isOpen != null)
                 {

@@ -20,12 +20,15 @@ namespace Ydb.ApplicationService.Application.AgentServiceTests
         IServiceOrderService serviceOrderService;
         IOrdersService ordersService;
         IStatisticsCount statisticsCount;
+        IServiceTypeService serviceTypeService;
         [SetUp]
         public void Initialize()
         {
             businessService = MockRepository.Mock<IBusinessService>();
             serviceOrderService = MockRepository.Mock<IServiceOrderService>();
-            ordersService = new OrdersService(businessService, serviceOrderService, statisticsCount);
+            statisticsCount = MockRepository.Mock<IStatisticsCount>();
+            serviceTypeService = MockRepository.Mock<IServiceTypeService>();
+            ordersService = new OrdersService(businessService, serviceOrderService, statisticsCount, serviceTypeService);
         }
 
         [Test()]

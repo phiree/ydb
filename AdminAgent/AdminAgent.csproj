@@ -232,6 +232,7 @@
     <Compile Include="Controllers\AgentCustomerServiceManageController.cs" />
     <Compile Include="Controllers\AgentFinanceController.cs" />
     <Compile Include="Controllers\AgentTotalBusinessController.cs" />
+    <Compile Include="Controllers\AgentTotalOrderController.cs" />
     <Compile Include="Controllers\AgentTotalUserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -679,6 +680,9 @@
     <Content Include="Views\AgentFinance\finance_total_list.cshtml" />
     <Content Include="Views\AgentFinance\finance_account_bind.cshtml" />
     <Content Include="Views\AgentFinance\finance_withdraw_history.cshtml" />
+    <Content Include="Views\AgentTotalOrder\total_order.cshtml" />
+    <Content Include="Views\AgentTotalOrder\total_order_detail.cshtml" />
+    <Content Include="Views\Agent\footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -691,6 +695,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <None Include="Web.dev.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">

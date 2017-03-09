@@ -30,7 +30,8 @@ namespace Ydb.ApplicationService.Application.AgentService.Tests
                 {new Guid("4570306d-701b-11e6-9ad9-02004c4f4f50"), new Guid("71df3fe7-73da-11e6-99ac-02004c4f4f50")};
             var apptokens = new[]
             {
-                "4eb8954fda72c9bb8d0c0f5f85d99ac0b324c84836806c53d0fe43352f047aa1" //QQ登录 CAT Debug证书
+              //  "4eb8954fda72c9bb8d0c0f5f85d99ac0b324c84836806c53d0fe43352f047aa1" //QQ登录 CAT Debug证书
+                "6c076e6b733dfa1742aadebeff09e06a3f6534c92f56b9ec7e534f885b3ad44e"  //正式证书.
             };
             var areaId = "area1";
             var noticeService = Bootstrap.Container.Resolve<INoticeService>();

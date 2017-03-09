@@ -16,7 +16,7 @@ using Ydb.Order.Application;
 
 namespace AdminAgent.Controllers
 {
-    public class AgentCustomerServiceManageController : Controller
+    public class AgentCustomerServiceManageController : AgentBaseController
     {
         IDZMembershipService dzMembershipService = Bootstrap.Container.Resolve<IDZMembershipService>();
         IUserTypeSharePointService userTypeSharePointService = Bootstrap.Container.Resolve<IUserTypeSharePointService>();

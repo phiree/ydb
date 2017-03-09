@@ -462,65 +462,59 @@ namespace Ydb.Membership.Application
         }
 
         /// <summary>
-        ///     统计用户每日或每时新增数量列表
+        /// 统计用户每日或每时新增数量列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public StatisticsInfo GetStatisticsNewMembershipsCountListByTime(IList<string> areaList, string strBeginTime,
-            string strEndTime, UserType userType)
+        public StatisticsInfo GetStatisticsNewMembershipsCountListByTime(IList<string> areaList, DateTime beginTime,
+            DateTime endTime, UserType userType)
         {
-            var BeginTime = StringHelper.ParseToDate(strBeginTime, false);
-            var EndTime = StringHelper.ParseToDate(strEndTime, true);
-            var memberList = repositoryMembership.GetUsersByArea(areaList, BeginTime, EndTime, userType);
-            var statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipsCountListByTime(memberList, BeginTime,
-                EndTime, strBeginTime == strEndTime);
+            var memberList = repositoryMembership.GetUsersByArea(areaList, beginTime, endTime, userType);
+            var statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipsCountListByTime(memberList, beginTime,
+                endTime, beginTime.ToString("yyyyMMdd") == endTime.AddDays(-1).ToString("yyyyMMdd"));
             return statisticsInfo;
         }
 
         /// <summary>
-        ///     统计用户每日或每时累计数量列表
+        /// 统计用户每日或每时累计数量列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public StatisticsInfo GetStatisticsAllMembershipsCountListByTime(IList<string> areaList, string strBeginTime,
-            string strEndTime, UserType userType)
+        public StatisticsInfo GetStatisticsAllMembershipsCountListByTime(IList<string> areaList, DateTime beginTime,
+            DateTime endTime, UserType userType)
         {
-            var BeginTime = StringHelper.ParseToDate(strBeginTime, false);
-            var EndTime = StringHelper.ParseToDate(strEndTime, true);
             var memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue,
                 userType);
-            var statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListByTime(memberList, BeginTime,
-                EndTime, strBeginTime == strEndTime);
+            var statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListByTime(memberList, beginTime,
+                endTime, beginTime.ToString("yyyyMMdd") == endTime.AddDays(-1).ToString("yyyyMMdd"));
             return statisticsInfo;
         }
 
         /// <summary>
-        ///     统计用户每日或每时在线活跃度（数量）列表
+        /// 统计用户每日或每时在线活跃度（数量）列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public StatisticsInfo GetStatisticsLoginCountListByTime(IList<string> areaList, string strBeginTime,
-            string strEndTime, UserType userType)
+        public StatisticsInfo GetStatisticsLoginCountListByTime(IList<string> areaList, DateTime beginTime,
+            DateTime endTime, UserType userType)
         {
-            var BeginTime = StringHelper.ParseToDate(strBeginTime, false);
-            var EndTime = StringHelper.ParseToDate(strEndTime, true);
             var memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue,
                 userType);
-            var loginList = repositoryMembershipLoginLog.GetMembershipLoginLogListByTime(BeginTime, EndTime);
+            var loginList = repositoryMembershipLoginLog.GetMembershipLoginLogListByTime(beginTime, endTime);
             var statisticsInfo = statisticsMembershipCount.StatisticsLoginCountListByTime(memberList, loginList,
-                BeginTime, EndTime, strBeginTime == strEndTime);
+                beginTime, endTime, beginTime.ToString("yyyyMMdd") == endTime.AddDays(-1).ToString("yyyyMMdd"));
             return statisticsInfo;
         }
 

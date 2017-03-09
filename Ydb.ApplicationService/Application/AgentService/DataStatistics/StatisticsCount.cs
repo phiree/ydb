@@ -14,7 +14,6 @@ namespace Ydb.ApplicationService.Application.AgentService.DataStatistics
 {
     public class StatisticsCount : IStatisticsCount
     {
-
         public IList<FinanceFlowDto> StatisticsFinanceFlowList(IList<BalanceFlowDto> balanceFlowDtoList,IList<MemberDto>memberList )
         {
             IList<FinanceFlowDto> financeFlowDtoList = new List<FinanceFlowDto>();
@@ -157,6 +156,48 @@ namespace Ydb.ApplicationService.Application.AgentService.DataStatistics
                 IList<string> bIdList = blist.Select(x => x.Id.ToString()).ToList();
                 long bc = orderList.Count(x => bIdList.Contains(x.Id.ToString()));
                 statisticsInfo.XYValue.Add(area.Name, bc);
+            }
+            return statisticsInfo;
+        }
+
+        public StatisticsInfo<string,decimal> StatisticsAllOrdersAmountListByType(IList<ServiceOrder> orderList)
+        {
+            StatisticsInfo<string, decimal> statisticsInfo = new StatisticsInfo<string, decimal>();
+            statisticsInfo.YName = "交易金额";
+            statisticsInfo.XName = "订单类型";
+            statisticsInfo.XYValue = new Dictionary<string, decimal>();
+            foreach (ServiceOrder order in orderList)
+            {
+                string serviceTypeId = order.ServiceTypeId;
+                if (statisticsInfo.XYValue.Keys.Contains(serviceTypeId))
+                {
+                    statisticsInfo.XYValue[serviceTypeId] = statisticsInfo.XYValue[serviceTypeId] + order.NegotiateAmount;
+                }
+                else
+                {
+                    statisticsInfo.XYValue.Add(serviceTypeId, order.NegotiateAmount);
+                }
+            }
+            return statisticsInfo;
+        }
+
+        public StatisticsInfo StatisticsAllOrdersCountListByType(IList<ServiceOrder> orderList)
+        {
+            StatisticsInfo statisticsInfo = new StatisticsInfo();
+            statisticsInfo.YName = "订单数量";
+            statisticsInfo.XName = "订单类型";
+            statisticsInfo.XYValue = new Dictionary<string, long>();
+            foreach (ServiceOrder order in orderList)
+            {
+                string serviceTypeId = order.ServiceTypeId;
+                if (statisticsInfo.XYValue.Keys.Contains(serviceTypeId))
+                {
+                    statisticsInfo.XYValue[serviceTypeId]++;
+                }
+                else
+                {
+                    statisticsInfo.XYValue.Add(serviceTypeId, 1);
+                }
             }
             return statisticsInfo;
         }

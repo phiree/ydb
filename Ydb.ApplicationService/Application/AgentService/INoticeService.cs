@@ -19,11 +19,6 @@ namespace Ydb.ApplicationService.Application.AgentService
         /// <returns></returns>
         ActionResult SendNotice(IInstantMessage imService,string noticeId, bool isDebug);
 
-        /// <summary>
-        ///     设置为已读. 如果未读, 则不设置.
-        /// </summary>
-        /// <param name="noticeId"></param>
-        /// <param name="userId"></param>
-        void SetNoticeReaded(string noticeId, string userId);
+       
     }
 }

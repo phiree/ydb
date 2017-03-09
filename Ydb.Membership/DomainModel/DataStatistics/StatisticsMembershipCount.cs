@@ -99,24 +99,25 @@ namespace Ydb.Membership.DomainModel.DataStatistics
             statisticsInfo.YName = "用户数量";
             statisticsInfo.XName = "手机系统";
             statisticsInfo.XYValue = new Dictionary<string, long>();
-            statisticsInfo.XYValue.Add("other", 0);
+            statisticsInfo.XYValue.Add("ios", 0);
+            statisticsInfo.XYValue.Add("android", 0);
             foreach (DZMembership member in memberList)
             {
                 MembershipLoginLog membershipLoginLog = loginList.FirstOrDefault(x => x.MemberId == member.Id.ToString());
                 if (membershipLoginLog==null)
                 {
-                    statisticsInfo.XYValue["other"]++;
+                    statisticsInfo.XYValue["ios"]++;
                 }
                 else
                 {
-                    string appName = membershipLoginLog.AppName.ToString();
-                    if (statisticsInfo.XYValue.Keys.Contains(appName))
+                    string appName = membershipLoginLog.AppName.ToString().ToLower();
+                    if (appName.Contains("ios"))
                     {
-                        statisticsInfo.XYValue[appName]++;
+                        statisticsInfo.XYValue["ios"]++;
                     }
                     else
                     {
-                        statisticsInfo.XYValue.Add(appName, 1);
+                        statisticsInfo.XYValue["android"]++;
                     }
                 }
             }

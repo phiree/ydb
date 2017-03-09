@@ -70,7 +70,9 @@
     <Compile Include="DomainModel\Repository\IRepositoryUserNotice.cs" />
     <Compile Include="DomainModel\Repository\IRepositoryNotice.cs" />
     <Compile Include="DomainModel\UserNotice.cs" />
+    <Compile Include="Infrastructure\YdbNHibernate\Mapping\UserNoticeMap.cs" />
     <Compile Include="Infrastructure\YdbNHibernate\Mapping\NoticeMap.cs" />
+    <Compile Include="Infrastructure\YdbNHibernate\Repository\RepositoryUserNotice.cs" />
     <Compile Include="InstallerNotice.cs" />
     <Compile Include="Infrastructure\YdbNHibernate\UnitOfWork\NHibernateUnitOfWork.cs" />
     <Compile Include="Infrastructure\YdbNHibernate\Repository\NHRepository.cs" />

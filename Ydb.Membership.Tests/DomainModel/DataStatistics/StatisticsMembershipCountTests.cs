@@ -263,9 +263,8 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             Assert.AreEqual("用户数量", statisticsInfo.YName);
             Assert.AreEqual("手机系统", statisticsInfo.XName);
             Assert.AreEqual(3, statisticsInfo.XYValue.Count);
-            Assert.AreEqual(2, statisticsInfo.XYValue["Android_Customer"]);
-            Assert.AreEqual(4, statisticsInfo.XYValue["IOS_Customer"]);
-            Assert.AreEqual(3, statisticsInfo.XYValue["other"]);
+            Assert.AreEqual(2, statisticsInfo.XYValue["android"]);
+            Assert.AreEqual(7, statisticsInfo.XYValue["ios"]);
         }
 
         [Test()]

@@ -273,7 +273,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li>@Html.ActionLink("用户统计", "total_user", "AgentTotalUser")@*<a href="./agent/total_user">用户统计</a>*@</li>
-                            <li>@Html.ActionLink("订单统计", "total_user", "AgentTotalUser")@*<a href="./total-order.html">订单统计</a>*@</li>
+                            <li>@Html.ActionLink("订单统计", "total_order", "AgentTotalOrder")@*<a href="./total-order.html">订单统计</a>*@</li>
                             <li>@Html.ActionLink("商户统计", "total_business", "AgentTotalBusiness")@*<a href="./total-business.html">商户统计</a>*@</li>
                             <li>@Html.ActionLink("助理统计", "total_assistant", "AgentTotalUser")@*<a href="./total-assistant.html">助理统计</a>*@</li>
                             <li>@Html.ActionLink("公告管理", "Index", "AgentNotice")@*<a href="./total-assistant.html">助理统计</a>*@</li>
@@ -369,6 +369,7 @@
             </section>
             <!-- /.sidebar -->
         </aside>
+
         <div class="content-wrapper">
             <section class="content-header">
                 <h1>
@@ -397,9 +398,10 @@
             <!-- Main content -->
             @RenderBody()
             <!-- /.content -->
-        </div>
+       
 
-        <!-- Main Footer -->
+
+        @*<!-- Main Footer -->
         <footer class="main-footer">
             <!-- To the right -->
             <div class="pull-right hidden-xs">
@@ -486,7 +488,7 @@
              immediately after the control sidebar -->
         <div class="control-sidebar-bg"></div>
     </div>
-    <!-- ./wrapper -->
+    <!-- ./wrapper -->*@
 
     
 
