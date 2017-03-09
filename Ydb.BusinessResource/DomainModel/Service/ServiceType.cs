@@ -93,7 +93,7 @@ namespace Ydb.BusinessResource.DomainModel
 
         }
 
-        public string GetNameByDeepLevel(int deeplevel)
+        public virtual string GetNameByDeepLevel(int deeplevel)
         {
             if (deeplevel > DeepLevel)
             {
