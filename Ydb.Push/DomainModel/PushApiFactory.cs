@@ -26,9 +26,9 @@ namespace Ydb.Push.DomainModel
                 case "android":
                     if (string.IsNullOrEmpty(message.OrderId))
                     {
-                        errMsg = "安卓推送,请传入orderid";
-                        log.Error(errMsg);
-                        throw new Exception(errMsg);
+                        errMsg = "安卓推送,没有传入OrderId ";
+                        log.Warn(errMsg);
+                       
                     }
                     return new XMPush.XMPush(httpRequest);
 

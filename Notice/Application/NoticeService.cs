@@ -33,18 +33,19 @@ namespace Ydb.Notice.Application
             repoNotice.Add(notice);
             return notice;
         }
-
+        [UnitOfWork]
         public IList<M.Notice> GetNoticeForAuther(Guid authorId)
         {
             return repoNotice.Find(x => x.AuthorId == authorId);
         }
-
+        [UnitOfWork]
         public void CheckPass(string noticeId, string checkerId)
         {
             M.Notice notice = repoNotice.FindById(new Guid(noticeId));
             notice.SetApproved(new Guid(checkerId));
 
         }
+        [UnitOfWork]
         public void AddNoticeToUser(string noticeId, string userId)
         {
             M.Notice notice = repoNotice.FindById(new Guid(noticeId));
@@ -72,7 +73,7 @@ namespace Ydb.Notice.Application
         {
             return repoNotice.FindById(new Guid(noticeId));
         }
-
+        [UnitOfWork]
         public ActionResult UserReadNotice(string userId, string noticeId)
         {
             ActionResult result = new ActionResult();

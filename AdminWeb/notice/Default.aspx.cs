@@ -38,17 +38,18 @@ public partial class notice_Default : System.Web.UI.Page
         {
             string reason = ((TextBox)row.FindControl("tbxRefuseReason")).Text;
             noticeService.CheckRefuse(noticeId.ToString(), Guid.NewGuid().ToString(), reason);
-            BindList(noticeService.GetAll());
+          
         }
         else if (e.CommandName.ToLower() == "approve")
         {
-            string noticesenderId = Dianzhu.Config.Config.GetAppSetting("AgentNoticeSenderId");
-
-            string noticesenderPwd = Dianzhu.Config.Config.GetAppSetting("AgentNoticeSenderPwd");
+            
             var im = (IInstantMessage)Application["im"];
             //openconnection
             ActionResult result = agentNoticeService.SendNotice(im, noticeId.ToString());
+            // todo: authorId 应该是当前后台的登录用户.
+            noticeService.CheckPass(noticeId.ToString(), Guid.NewGuid().ToString());
         }
+        BindList(noticeService.GetAll());
 
     }
 }
