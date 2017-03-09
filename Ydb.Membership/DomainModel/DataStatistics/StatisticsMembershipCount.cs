@@ -88,8 +88,8 @@ namespace Ydb.Membership.DomainModel.DataStatistics
             statisticsInfo.XName = "性别";
             statisticsInfo.XYValue = new Dictionary<string, long>();
             long l = memberList.Count(x => x.Sex);
-            statisticsInfo.XYValue.Add("男", memberList.Count-l);
-            statisticsInfo.XYValue.Add("女", l);
+            statisticsInfo.XYValue.Add("men", memberList.Count-l);
+            statisticsInfo.XYValue.Add("women", l);
             return statisticsInfo;
         }
 
