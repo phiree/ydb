@@ -58,7 +58,7 @@ namespace Ydb.BusinessResource.ApplicationTests
             IList<Business> businessList = new List<Business>();
             repositoryBusiness.Stub(x => x.GetBusinessesByArea(areaList, BeginTime, EndTime)).Return(businessList);
             statisticsBusinessCount.Stub(x => x.StatisticsNewBusinessesCountListByTime(businessList, BeginTime, EndTime, strBeginTime == strEndTime)).Return(statisticsInfo);
-            StatisticsInfo statisticsInfo1 = businessService.GetStatisticsNewBusinessesCountListByTime(areaList, strBeginTime, strEndTime);
+            StatisticsInfo statisticsInfo1 = businessService.GetStatisticsNewBusinessesCountListByTime(areaList, BeginTime, EndTime);
             Assert.AreEqual(statisticsInfo, statisticsInfo1);
         }
 
@@ -74,7 +74,7 @@ namespace Ydb.BusinessResource.ApplicationTests
             IList<Business> businessList = new List<Business>();
             repositoryBusiness.Stub(x => x.GetBusinessesByArea(areaList, DateTime.MinValue, DateTime.MinValue)).Return(businessList);
             statisticsBusinessCount.Stub(x => x.StatisticsAllBusinessesCountListByTime(businessList, BeginTime, EndTime, strBeginTime == strEndTime)).Return(statisticsInfo);
-            StatisticsInfo statisticsInfo1 = businessService.GetStatisticsAllBusinessesCountListByTime(areaList, strBeginTime, strEndTime);
+            StatisticsInfo statisticsInfo1 = businessService.GetStatisticsAllBusinessesCountListByTime(areaList, BeginTime, EndTime);
             Assert.AreEqual(statisticsInfo, statisticsInfo1);
         }
 

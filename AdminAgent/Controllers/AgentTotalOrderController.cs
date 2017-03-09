@@ -66,7 +66,7 @@ namespace AdminAgent.Controllers
                 }
                 else
                 {
-                    statisticsInfo = ordersService.GetStatisticsNewOrdersCountListByTime(areaList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true), CheckEnums.CheckUserType(usertype));
+                    statisticsInfo = ordersService.GetStatisticsNewOrdersCountListByTime(areaList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true));
                 }
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
