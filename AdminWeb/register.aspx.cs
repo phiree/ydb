@@ -20,6 +20,7 @@ public partial class register : BasePage
     {
         System.Web.Security.MembershipCreateStatus createStatus;
      RegisterResult result=   memberService.RegisterMember(tbxUserName.Text,  tbxPwd.Text,tbxPwd.Text, rblUserType.Text,Request.Url.Scheme+"://"+Request.Url.Authority);
-        lblMsg.Text = result.RegisterSuccess.ToString();
+
+        lblMsg.Text = result.RegisterSuccess ? "注册成功" : "注册失败:" + result.RegisterErrMsg;
     }
 }

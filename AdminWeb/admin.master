@@ -43,9 +43,9 @@
         <div class="container showgrid">
             <div class="span-24 last" id="adminHead">
                 <h1>点助系统管理平台</h1>
-                <h3>
-                    <a href="/"></a>
-                </h3>
+                 
+                       <%=Page.User.Identity.Name %><a href="logoff.aspx">注销</a>
+               
                 <hr />
             </div>
             <div class="clear span-24 " id="adminBody">
@@ -85,6 +85,7 @@
                         <li><a href="/servicetype/import.aspx">服务类别导入</a></li>
                         <li><a href="/test">测试</a></li>
                         <li><a href="/receptionstatus">分配关系</a></li>
+                        <li><a href="/register.aspx">用户注册</a></li>
 
                     </ul>
                 </div>
