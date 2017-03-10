@@ -11,6 +11,17 @@ public partial class advertisement_Default :BasePage
 {
     BLLAdvertisement bllAd = Bootstrap.Container.Resolve<BLLAdvertisement>();
 
+    protected override void OnPreInit(EventArgs e)
+    {
+        NHibernateUnitOfWork.UnitOfWork.Start();//.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+        base.OnPreInit(e);
+    }
+    protected override void OnUnload(EventArgs e)
+    {
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush(System.Data.IsolationLevel.ReadCommitted);
+
+        base.OnUnload(e);
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
