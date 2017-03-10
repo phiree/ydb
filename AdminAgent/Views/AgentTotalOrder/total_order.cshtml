@@ -27,7 +27,7 @@
 
                                     <div class="info-box-content">
                                         <span class="info-box-text">昨日新增</span>
-                                        <span class="info-box-number">1,410</span>
+                                        <span class="info-box-number">@ViewData["NewOrderNumber"]</span>
                                     </div>
                                     <!-- /.info-box-content -->
                                 </div>
@@ -40,7 +40,7 @@
 
                                     <div class="info-box-content">
                                         <span class="info-box-text">同比增长</span>
-                                        <span class="info-box-number">410</span>
+                                        <span class="info-box-number">@ViewData["YearOrderNumber"]</span>
                                     </div>
                                     <!-- /.info-box-content -->
                                 </div>
@@ -53,7 +53,7 @@
 
                                     <div class="info-box-content">
                                         <span class="info-box-text">累计</span>
-                                        <span class="info-box-number">13,648</span>
+                                        <span class="info-box-number">@ViewData["AllOrderNumber"]</span>
                                     </div>
                                     <!-- /.info-box-content -->
                                 </div>
@@ -66,7 +66,7 @@
 
                                     <div class="info-box-content">
                                         <span class="info-box-text">已完成订单</span>
-                                        <span class="info-box-number">93,139</span>
+                                        <span class="info-box-number">@ViewData["AllDoneOrderNumber"]</span>
                                     </div>
                                     <!-- /.info-box-content -->
                                 </div>
@@ -79,7 +79,7 @@
 
                                     <div class="info-box-content">
                                         <span class="info-box-text">未完成订单</span>
-                                        <span class="info-box-number">93,139</span>
+                                        <span class="info-box-number">@ViewData["AllNotDoneOrderNumber"]</span>
                                     </div>
                                     <!-- /.info-box-content -->
                                 </div>
