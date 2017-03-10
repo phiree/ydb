@@ -178,49 +178,74 @@
 
         //Create pie or douhnut chart
         // You can switch between pie and douhnut using the method below.
-
+        
+        var pieDataSex = {
+            labels: [],
+            datasets: [
+                {
+                    data: [1, 1],
+                    backgroundColor: [
+                        "#00c0ef",
+                        "#00a65a"
+                    ],
+                    hoverBackgroundColor: [
+                        "#00c0ef",
+                        "#00a65a"
+                    ]
+                }]
+        };
+        var pieDataSys = {
+            labels: [],
+            datasets: [
+                {
+                    data: [1, 1],
+                    backgroundColor: [
+                        "#00c0ef",
+                        "#00a65a"
+                    ],
+                    hoverBackgroundColor: [
+                        "#00c0ef",
+                        "#00a65a"
+                    ]
+                }]
+        }
+//        var pieOptions = {
+//            //Boolean - Whether we should show a stroke on each segment
+//            segmentShowStroke: true,
+//            //String - The colour of each segment stroke
+//            segmentStrokeColor: "#fff",
+//            //Number - The width of each segment stroke
+//            segmentStrokeWidth: 2,
+//            //Number - The percentage of the chart that we cut out of the middle
+//            percentageInnerCutout: 50, // This is 0 for Pie charts
+//            //Number - Amount of animation steps
+//            animationSteps: 100,
+//            //String - Animation easing effect
+//            animationEasing: "easeOutBounce",
+//            //Boolean - Whether we animate the rotation of the Doughnut
+//            animateRotate: true,
+//            //Boolean - Whether we animate scaling the Doughnut from the centre
+//            animateScale: false,
+//            //Boolean - whether to make the chart responsive to window resizing
+//            responsive: true,
+//            // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+//            maintainAspectRatio: true,
+//            //String - A legend template
+////                legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+//        };
+        var pieOptions = {};
         var pieChartCanvasSex = $("#pieChartSex").get(0).getContext("2d");
         var pieChartCanvasSys = $("#pieChartSys").get(0).getContext("2d");
-        var pieChartSex = new Chart(pieChartCanvasSex);
-        var pieChartSys = new Chart(pieChartCanvasSys);
-        var pieOptions = {
-            //Boolean - Whether we should show a stroke on each segment
-            segmentShowStroke: true,
-            //String - The colour of each segment stroke
-            segmentStrokeColor: "#fff",
-            //Number - The width of each segment stroke
-            segmentStrokeWidth: 2,
-            //Number - The percentage of the chart that we cut out of the middle
-            percentageInnerCutout: 50, // This is 0 for Pie charts
-            //Number - Amount of animation steps
-            animationSteps: 100,
-            //String - Animation easing effect
-            animationEasing: "easeOutBounce",
-            //Boolean - Whether we animate the rotation of the Doughnut
-            animateRotate: true,
-            //Boolean - Whether we animate scaling the Doughnut from the centre
-            animateScale: false,
-            //Boolean - whether to make the chart responsive to window resizing
-            responsive: true,
-            // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-            maintainAspectRatio: true,
-            //String - A legend template
-//                legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-        };
-        var PieData = [
-            {
-                value: 1,
-                color: "#f56954",
-                highlight: "#f56954",
-                label: "n"
-            },
-            {
-                value: 1,
-                color: "#00a65a",
-                highlight: "#00a65a",
-                label: "n"
-            }
-        ];
+        var pieChartSex = new Chart(pieChartCanvasSex, {
+            type: 'doughnut',
+            data: pieDataSex,
+            options: pieOptions
+        });
+        var pieChartSys = new Chart(pieChartCanvasSys, {
+            type: 'doughnut',
+            data: pieDataSys,
+            options: pieOptions
+        });
 
         // 请求用户性别信息
         var sexDef = $.ajax({
@@ -231,22 +256,23 @@
             }
         });
             sexDef.done(function(resp, status, xhr){
-            var PieDataSex = _.clone(PieData);
+            var pieSex = pieDataSex;
             var xyValue = vTool.parseValue(resp.XYValue);
 
             _.each(xyValue.x, function(element, index, list) {
                 if ( element === "men" ){
-                    PieDataSex[index].label = "男";
+                    pieSex.labels[index] = "男";
                     $("#menNo").text(xyValue.y[index]);
                 } else {
-                    PieDataSex[index].label = "女";
+                    pieSex.labels[index] = "女";
                     $("#womenNo").text(xyValue.y[index]);
                 }
 
-                PieDataSex[index].value = (xyValue.y[index] || 1);
+                pieSex.datasets[0].data[index] = (xyValue.y[index] || 1);
             });
 
-            pieChartSex.Doughnut(PieDataSex, pieOptions);
+            pieChartSex.data = pieSex;
+            pieChartSex.update();
         });
 
         // 请求用户系统信息
@@ -258,22 +284,23 @@
             }
         });
             sysDef.done(function(resp, status, xhr){
-            var PieDataSys = _.clone(PieData);
+            var pieSys = pieDataSys;
             var xyValue = vTool.parseValue(resp.XYValue);
 
             _.each(xyValue.x, function(element, index, list) {
                 if ( element === "ios" ){
-                    PieDataSys[index].label = "ios";
+                    pieSys.labels[index] = "ios";
                     $("#iosNo").text(xyValue.y[index]);
                 } else {
-                    PieDataSys[index].label = "android";
+                    pieSys.labels[index] = "android";
                     $("#androidNo").text(xyValue.y[index]);
                 }
 
-                PieDataSys[index].value = (xyValue.y[index] || 1);
+                pieSys.datasets[0].data[index] = (xyValue.y[index] || 1);
             });
 
-            pieChartSys.Doughnut(PieDataSys, pieOptions);
+            pieChartSys.data = pieSys;
+            pieChartSys.update();
 
         });
 
@@ -281,7 +308,6 @@
         //- BAR CHART -
         //-------------
         var barChartCanvas = $("#barChart").get(0).getContext("2d");
-        var barChart = new Chart(barChartCanvas);
         var barChartData = {
             labels: [],
             datasets: [
@@ -324,6 +350,11 @@
             responsive: true,
             maintainAspectRatio: true
         };
+        var barChart = new Chart(barChartCanvas, {
+            type: "bar",
+            data: barChartData,
+            options: barChartOptions
+        });
 
         var totalUser = $.ajax({
             url: '/AgentTotalUser/total_user_AllList',
@@ -359,25 +390,37 @@
             areaValue = vTool.parseValue(argArea[0].XYValue);
 
             totalToday = totalValue.xy[moment().format('YYYYMMDD')];
-            tableData = {
-                list : [],
-                total : +totalToday || 1
-            } ;
 
-            for (var i = 0; i < areaValue.x.length; i++) {
-                tableData.list.push({
-                    title: areaValue.x[i],
-                    value: areaValue.y[i]
-                })
-            }
+            renderTable($("#areaTotalList"), trTpl, areaValue);
 
-            // 渲染barChart
-            barChartData.labels = areaValue.x;
-            barChartData.datasets[0].data = areaValue.y;
-            barChart.Bar(barChartData, barChartOptions);
+            renderPieChart(barChart, barChartData, barChartOptions, areaValue);
 
             // 绘制表格
-            $("#areaTotalList").append(trTpl(tableData));
+            function renderTable(tableBody, trTpl, xyValue){
+                var tableData = {
+                    list : [],
+                    total : +totalToday || 1
+                } ;
+
+                for (var i = 0; i < xyValue.x.length; i++) {
+                    tableData.list.push({
+                        title: xyValue.x[i],
+                        value: xyValue.y[i]
+                    })
+                }
+
+                tableBody.append(trTpl(tableData));
+            }
+
+            // 绘制chart
+            function renderPieChart(chart, chartData, chartOption, xyValue){
+                // 渲染barChart
+                chartData.labels = xyValue.x;
+                chartData.datasets[0].data = xyValue.y;
+
+                chart.data = chartData;
+                chart.update();
+            }
 
         })
 

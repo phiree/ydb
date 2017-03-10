@@ -73,7 +73,8 @@
                     chartData.datasets[0].data = formatData.data;
                 }
 
-                chart.Line(chartData, chartOptions);
+                chart.data = chartData;
+                chart.update();
             }
         }
     });
