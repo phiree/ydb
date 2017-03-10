@@ -23,7 +23,7 @@
                             <div class="col-md-4">
                                 <div class="box">
                                     <div class="box-body">
-                                        <canvas id="pieChart"></canvas>
+                                        <canvas id="pieChartSex"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -34,14 +34,7 @@
 
                                         <div class="info-box-content">
                                             <span class="info-box-text">男</span>
-                                            <span class="info-box-number">41,410</span>
-
-                                            <div class="progress">
-                                                <div class="progress-bar" style="width: 70%"></div>
-                                            </div>
-                                            <span class="progress-description">
-                                                70% Increase in 30 Days
-                                            </span>
+                                            <span class="info-box-number" id="menNo">0</span>
                                         </div>
                                         <!-- /.info-box-content -->
                                     </div>
@@ -53,14 +46,7 @@
 
                                         <div class="info-box-content">
                                             <span class="info-box-text">女</span>
-                                            <span class="info-box-number">41,410</span>
-
-                                            <div class="progress">
-                                                <div class="progress-bar" style="width: 70%"></div>
-                                            </div>
-                                            <span class="progress-description">
-                                                70% Increase in 30 Days
-                                            </span>
+                                            <span class="info-box-number" id="womenNo">0</span>
                                         </div>
                                         <!-- /.info-box-content -->
                                     </div>
@@ -73,7 +59,7 @@
                             <div class="col-md-4">
                                 <div class="box">
                                     <div class="box-body">
-                                        <canvas id="pieChart2"></canvas>
+                                        <canvas id="pieChartSys"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -84,14 +70,7 @@
 
                                         <div class="info-box-content">
                                             <span class="info-box-text">Android</span>
-                                            <span class="info-box-number">41,410</span>
-
-                                            <div class="progress">
-                                                <div class="progress-bar" style="width: 70%"></div>
-                                            </div>
-                                            <span class="progress-description">
-                                                70% Increase in 30 Days
-                                            </span>
+                                            <span class="info-box-number" id="androidNo">0</span>
                                         </div>
                                         <!-- /.info-box-content -->
                                     </div>
@@ -103,14 +82,7 @@
 
                                         <div class="info-box-content">
                                             <span class="info-box-text">iOS</span>
-                                            <span class="info-box-number">41,410</span>
-
-                                            <div class="progress">
-                                                <div class="progress-bar" style="width: 70%"></div>
-                                            </div>
-                                            <span class="progress-description">
-                                                70% Increase in 30 Days
-                                            </span>
+                                            <span class="info-box-number" id="iosNo">0</span>
                                         </div>
                                         <!-- /.info-box-content -->
                                     </div>
@@ -135,52 +107,12 @@
                                     <!-- /.box-header -->
                                     <div class="box-body no-padding">
                                         <table class="table table-striped">
-                                            <tbody>
+                                            <tbody id="areaTotalList">
                                                 <tr>
                                                     <th style="width: 10px">#</th>
-                                                    <th>Task</th>
-                                                    <th>Progress</th>
-                                                    <th style="width: 40px">Label</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td>Update software</td>
-                                                    <td>
-                                                        <div class="progress progress-xs">
-                                                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-red">55%</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2.</td>
-                                                    <td>Clean database</td>
-                                                    <td>
-                                                        <div class="progress progress-xs">
-                                                            <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-yellow">70%</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3.</td>
-                                                    <td>Cron job running</td>
-                                                    <td>
-                                                        <div class="progress progress-xs progress-striped active">
-                                                            <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-light-blue">30%</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4.</td>
-                                                    <td>Fix and squish bugs</td>
-                                                    <td>
-                                                        <div class="progress progress-xs progress-striped active">
-                                                            <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-green">90%</span></td>
+                                                    <th style="width: 100px">地区</th>
+                                                    <th>数量</th>
+                                                    <th style="width: 40px">占比</th>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -202,6 +134,8 @@
 
 </section>
 
+@Html.Action("footer", "Agent", new { id = "" })
+
 <!-- date-range-picker -->
 <script src="../../static/plugins/daterangepicker/moment.min.js"></script>
 <script src="../../static/plugins/daterangepicker/daterangepicker.js"></script>
@@ -209,96 +143,46 @@
 <!-- ChartJS 1.0.1 -->
 <script src="../../static/plugins/chartjs/Chart.min.js"></script>
 
+<!--vtool.js-->
+<script src="../../static/libs/vtool.js"></script>
+
+<!--mock.js-->
+<script src="../../static/libs/mock/mock.js"></script>
+<script src="../../static/libs/mock/data.mock.js"></script>
+
+<!-- underscore 模板 -->
+<script type="text/template" id="trTpl">
+    <% _.each(list, function(ele, index, list){ %>
+    <tr>
+        <td><%= index %></td>
+        <td><%= ele.title %></td>
+        <td>
+            <div class="progress progress-xs">
+                <div class="progress-bar progress-bar-danger" <%= 'style="width:' + (ele.value / total) + '%"' %> ></div>
+            </div>
+        </td>
+        <td><span class="badge bg-red"> <%= ele.value / total + '%' %> </span></td>
+    </tr>
+    <% }); %>
+</script>
 <script>
     $(function(){
         //Date range picker
         $('#reservation').daterangepicker();
         //Date range picker with time picker
 
-        /* ChartJS
-         * -------
-         * Here we will create a few charts using ChartJS
-         */
-        var areaChartData = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [
-                {
-                    label: "Electronics",
-                    fillColor: "rgba(210, 214, 222, 1)",
-                    strokeColor: "rgba(210, 214, 222, 1)",
-                    pointColor: "rgba(210, 214, 222, 1)",
-                    pointStrokeColor: "#c1c7d1",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: [65, 59, 80, 81, 56, 55, 40]
-                },
-                {
-                    label: "Digital Goods",
-                    fillColor: "rgba(60,141,188,0.9)",
-                    strokeColor: "rgba(60,141,188,0.8)",
-                    pointColor: "#3b8bba",
-                    pointStrokeColor: "rgba(60,141,188,1)",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(60,141,188,1)",
-                    data: [28, 48, 40, 19, 86, 27, 90]
-                }
-            ]
-        };
-
-
-        //--------------
-
-        // Get context with jQuery - using jQuery's .get() method.
-//            var areaChartCanvas = $("#areaChart").get(0).getContext("2d");
-        // This will get the first returned node in the jQuery collection.
-//            var areaChart = new Chart(areaChartCanvas);
-
         //-------------
         //- PIE CHART -
         //-------------
         // Get context with jQuery - using jQuery's .get() method.
-        var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
-        var pieChartCanvas2 = $("#pieChart2").get(0).getContext("2d");
-        var pieChart = new Chart(pieChartCanvas);
-        var pieChart2 = new Chart(pieChartCanvas2);
-        var PieData = [
-            {
-                value: 700,
-                color: "#f56954",
-                highlight: "#f56954",
-                label: "Chrome"
-            },
-            {
-                value: 500,
-                color: "#00a65a",
-                highlight: "#00a65a",
-                label: "IE"
-            },
-            {
-                value: 400,
-                color: "#f39c12",
-                highlight: "#f39c12",
-                label: "FireFox"
-            },
-            {
-                value: 600,
-                color: "#00c0ef",
-                highlight: "#00c0ef",
-                label: "Safari"
-            },
-            {
-                value: 300,
-                color: "#3c8dbc",
-                highlight: "#3c8dbc",
-                label: "Opera"
-            },
-            {
-                value: 100,
-                color: "#d2d6de",
-                highlight: "#d2d6de",
-                label: "Navigator"
-            }
-        ];
+
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+
+        var pieChartCanvasSex = $("#pieChartSex").get(0).getContext("2d");
+        var pieChartCanvasSys = $("#pieChartSys").get(0).getContext("2d");
+        var pieChartSex = new Chart(pieChartCanvasSex);
+        var pieChartSys = new Chart(pieChartCanvasSys);
         var pieOptions = {
             //Boolean - Whether we should show a stroke on each segment
             segmentShowStroke: true,
@@ -321,22 +205,98 @@
             // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
             maintainAspectRatio: true,
             //String - A legend template
-            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+//                legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
         };
-        //Create pie or douhnut chart
-        // You can switch between pie and douhnut using the method below.
-        pieChart.Doughnut(PieData, pieOptions);
-        pieChart2.Doughnut(PieData, pieOptions);
+        var PieData = [
+            {
+                value: 1,
+                color: "#f56954",
+                highlight: "#f56954",
+                label: "n"
+            },
+            {
+                value: 1,
+                color: "#00a65a",
+                highlight: "#00a65a",
+                label: "n"
+            }
+        ];
+
+        // 请求用户性别信息
+        var sexDef = $.ajax({
+            url: '/AgentTotalUser/total_user_SexList',
+            type: "GET",
+            data: {
+                usertype: 'customer'
+            }
+        });
+            sexDef.done(function(resp, status, xhr){
+            var PieDataSex = _.clone(PieData);
+            var xyValue = vTool.parseValue(resp.XYValue);
+
+            _.each(xyValue.x, function(element, index, list) {
+                if ( element === "men" ){
+                    PieDataSex[index].label = "男";
+                    $("#menNo").text(xyValue.y[index]);
+                } else {
+                    PieDataSex[index].label = "女";
+                    $("#womenNo").text(xyValue.y[index]);
+                }
+
+                PieDataSex[index].value = (xyValue.y[index] || 1);
+            });
+
+            pieChartSex.Doughnut(PieDataSex, pieOptions);
+        });
+
+        // 请求用户系统信息
+        var sysDef = $.ajax({
+            url: '/AgentTotalUser/total_user_AppNameList',
+            type: "GET",
+            data: {
+                usertype: 'customer'
+            }
+        });
+            sysDef.done(function(resp, status, xhr){
+            var PieDataSys = _.clone(PieData);
+            var xyValue = vTool.parseValue(resp.XYValue);
+
+            _.each(xyValue.x, function(element, index, list) {
+                if ( element === "ios" ){
+                    PieDataSys[index].label = "ios";
+                    $("#iosNo").text(xyValue.y[index]);
+                } else {
+                    PieDataSys[index].label = "android";
+                    $("#androidNo").text(xyValue.y[index]);
+                }
+
+                PieDataSys[index].value = (xyValue.y[index] || 1);
+            });
+
+            pieChartSys.Doughnut(PieDataSys, pieOptions);
+
+        });
 
         //-------------
         //- BAR CHART -
         //-------------
         var barChartCanvas = $("#barChart").get(0).getContext("2d");
         var barChart = new Chart(barChartCanvas);
-        var barChartData = areaChartData;
-        barChartData.datasets[1].fillColor = "#00a65a";
-        barChartData.datasets[1].strokeColor = "#00a65a";
-        barChartData.datasets[1].pointColor = "#00a65a";
+        var barChartData = {
+            labels: [],
+            datasets: [
+                {
+                    label: "Electronics",
+                    fillColor: "#00a65a",
+                    strokeColor: "#00a65a",
+                    pointColor: "#00a65a",
+                    pointStrokeColor: "#c1c7d1",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: []
+                }
+            ]
+        };
         var barChartOptions = {
             //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
             scaleBeginAtZero: true,
@@ -365,11 +325,61 @@
             maintainAspectRatio: true
         };
 
-        barChartOptions.datasetFill = false;
-        barChart.Bar(barChartData, barChartOptions);
+        var totalUser = $.ajax({
+            url: '/AgentTotalUser/total_user_AllList',
+            type: "GET",
+            data: {
+                usertype: 'customer',
+                start: moment().subtract(1, 'days').format('YYYYMMDD'),
+                end: moment().format('YYYYMMDD')
+            }
+        });
+
+        var areaUser = $.ajax({
+            url: '/AgentTotalUser/total_user_AreaList',
+            type: "GET",
+            data: {
+                usertype: 'customer',
+                start: moment().subtract(1, 'days').format('YYYYMMDD'),
+                end: moment().format('YYYYMMDD')
+            },
+            dataType : 'json'
+        });
+
+        var trTpl = _.template($("#trTpl").html());
+
+        $.when(totalUser, areaUser).done(function (argTotal, argArea) {
+            var totalValue, areaValue, totalToday, tableData;
+
+            if ( !(argTotal[1] === "success" && argArea[1] === "success") ){
+                return
+            }
+
+            totalValue = vTool.parseValue(argTotal[0].XYValue);
+            areaValue = vTool.parseValue(argArea[0].XYValue);
+
+            totalToday = totalValue.xy[moment().format('YYYYMMDD')];
+            tableData = {
+                list : [],
+                total : +totalToday || 1
+            } ;
+
+            for (var i = 0; i < areaValue.x.length; i++) {
+                tableData.list.push({
+                    title: areaValue.x[i],
+                    value: areaValue.y[i]
+                })
+            }
+
+            // 渲染barChart
+            barChartData.labels = areaValue.x;
+            barChartData.datasets[0].data = areaValue.y;
+            barChart.Bar(barChartData, barChartOptions);
+
+            // 绘制表格
+            $("#areaTotalList").append(trTpl(tableData));
+
+        })
 
     });
-
-
 </script>
-
