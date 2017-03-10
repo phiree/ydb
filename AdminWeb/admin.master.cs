@@ -11,7 +11,7 @@ public partial class admin : System.Web.UI.MasterPage
     {
         if (!Request.IsAuthenticated)
         {
-            Response.Redirect("login.aspx?returnurl="+HttpUtility.UrlEncode(Request.Url.AbsoluteUri), true);
+            Response.Redirect("/login.aspx?returnurl="+HttpUtility.UrlEncode(Request.Url.AbsoluteUri), true);
         }
         else
         { 
