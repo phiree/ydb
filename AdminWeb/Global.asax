@@ -9,7 +9,7 @@
 <%@ Import Namespace="Ydb.Order.DomainModel" %>
 <%@ Import Namespace="Ydb.Common.Infrastructure" %>
 <%@ Import Namespace="Ydb.InstantMessage.DomainModel.Chat" %>
-<script runat="server">
+<script RunAt="server">
     public static IWindsorContainer container;
     //  Dianzhu.IDAL.IUnitOfWork uow = Bootstrap.Container.Resolve<Dianzhu.IDAL.IUnitOfWork>();
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.AdminWeb");
@@ -19,7 +19,7 @@
         //PHSuit.Logging.Config("Dianzhu.AdminWeb");
         //InitializeWindsor();
         Bootstrap.Boot();
-        System.Timers.Timer timerOrderShare = new System.Timers.Timer(60*1000);
+        System.Timers.Timer timerOrderShare = new System.Timers.Timer(60 * 1000);
         timerOrderShare.Elapsed += new System.Timers.ElapsedEventHandler(timerOrderShare_Elapsed);
 
         timerOrderShare.Start();
@@ -27,83 +27,84 @@
         // timerOrderShare_Elapsed(null, null);
         // var container = Installer.Container;
 
-         Ydb.InstantMessage.Application.IInstantMessage im = Bootstrap.Container.Resolve<Ydb.InstantMessage.Application.IInstantMessage>();
+        Ydb.InstantMessage.Application.IInstantMessage im = Bootstrap.Container.Resolve<Ydb.InstantMessage.Application.IInstantMessage>();
 
-    //= new Dianzhu.CSClient.XMPP.XMPP(server, domain,adapter, Dianzhu.enum_XmppResource.YDBan_IMServer.ToString());
-    //login in
-    string noticesenderId = Dianzhu.Config.Config.GetAppSetting("AgentNoticeSenderId");
+        //= new Dianzhu.CSClient.XMPP.XMPP(server, domain,adapter, Dianzhu.enum_XmppResource.YDBan_IMServer.ToString());
+        //login in
+        string noticesenderId = Dianzhu.Config.Config.GetAppSetting("AgentNoticeSenderId");
 
-    string noticesenderPwd = Dianzhu.Config.Config.GetAppSetting("AgentNoticeSenderPwd");
+        string noticesenderPwd = Dianzhu.Config.Config.GetAppSetting("AgentNoticeSenderPwd");
 
-    im.IMClosed += IMClosed;
-    im.IMLogined += IMLogined;
-    im.IMError += IMError;
-    im.IMAuthError += IMAuthError;
-    im.IMConnectionError += IMConnectionError;
-    im.IMReceivedMessage += IMReceivedMessage;
-    im.IMIQ += IMIQ;
-    im.IMStreamError += IMStreamError;
-    im.OpenConnection(noticesenderId, noticesenderPwd, "YDBan_AgentNoticeSender");
-    Application["IM"] = im;
+        im.IMClosed += IMClosed;
+        im.IMLogined += IMLogined;
+        im.IMError += IMError;
+        im.IMAuthError += IMAuthError;
+        im.IMConnectionError += IMConnectionError;
+        im.IMReceivedMessage += IMReceivedMessage;
+        im.IMIQ += IMIQ;
+        im.IMStreamError += IMStreamError;
+        im.OpenConnection(noticesenderId, noticesenderPwd, "YDBan_AgentNoticeSender");
+        Application["IM"] = im;
     }
     void IMClosed()
-{
-    string emails = ConfigurationManager.AppSettings["MonitorEmails"];
+    {
+        string emails = ConfigurationManager.AppSettings["MonitorEmails"];
 
-    try
+        try
+        {
+
+            if (string.IsNullOrEmpty(emails)) { return; }
+            string[] emailList = emails.Split(',');
+            IEmailService emailService = Bootstrap.Container.Resolve<IEmailService>();
+            emailService.SendEmail(emailList[0], "异常_" + log.Logger.Name, "IMServer掉线了",
+              emailList);
+        }
+        catch (Exception ex)
+        {
+            log.Error(ex.ToString());
+        }
+        log.Warn("Closed");
+    }
+    void IMLogined(string jidUser)
+    {
+        log.Info("Logined:" + jidUser);
+    }
+    void IMError(string error)
+    {
+        log.Error("IMError:" + error);
+    }
+    void IMAuthError()
+    {
+        log.Error("IMAuthError");
+    }
+    void IMConnectionError(string error)
+    {
+        log.Error("ConnectionError:" + error);
+    }
+    void IMReceivedMessage(ReceptionChatDto chat)
+    {
+        log.Debug("ReceiveMsg:" + chat.ToString());
+    }
+    void IMIQ()
+    {
+        log.Debug("Received IQ");
+    }
+    void IMStreamError()
     {
 
-        if (string.IsNullOrEmpty(emails)) { return; }
-        string[] emailList = emails.Split(',');
-        IEmailService emailService = Bootstrap.Container.Resolve<IEmailService>();
-        emailService.SendEmail(emailList[0], "异常_" + log.Logger.Name, "IMServer掉线了",
-          emailList);
+        log.Error("StreamError");
     }
-    catch (Exception ex)
-    {
-        log.Error(ex.ToString());
-    }
-    log.Warn("Closed");
-}
-void IMLogined(string jidUser)
-{
-    log.Info("Logined:" + jidUser);
-}
-void IMError(string error)
-{
-    log.Error("IMError:" + error);
-}
-void IMAuthError()
-{
-    log.Error("IMAuthError");
-}
-void IMConnectionError(string error)
-{
-    log.Error("ConnectionError:" + error);
-}
-void IMReceivedMessage(ReceptionChatDto chat)
-{
-    log.Debug("ReceiveMsg:" + chat.ToString());
-}
-void IMIQ()
-{
-    log.Debug("Received IQ");
-}
-void IMStreamError()
-{
-
-    log.Error("StreamError");
-}
     void timerOrderShare_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
     {
 
         IServiceOrderService bllOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
         IOrderShareService orderShare = Bootstrap.Container.Resolve<IOrderShareService>();
-        //  NHibernateUnitOfWork.UnitOfWork.Start();
+        
 
         int c = 0;
-        Action a = () => {
-            IList< ServiceOrder> ordersForShare= bllOrder.GetOrdersForShare();
+        Action a = () =>
+        {
+            IList<ServiceOrder> ordersForShare = bllOrder.GetOrdersForShare();
             c = ordersForShare.Count;
             if (c > 0)
             {
@@ -120,8 +121,7 @@ void IMStreamError()
         {
             log.Debug("批量分账结束");
         }
-        //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-        //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+        
 
     }
 
@@ -153,7 +153,7 @@ void IMStreamError()
             orderShareParam.BalanceUser.Add(balanceAgent);
         }
 
-        orderShareParam.BalanceUser.Add(new BalanceUserParam { AccountId=order.CustomerServiceId.ToString(),UserType = "customerservice"});
+        orderShareParam.BalanceUser.Add(new BalanceUserParam { AccountId = order.CustomerServiceId.ToString(), UserType = "customerservice" });
 
         return orderShareParam;
     }

@@ -11,7 +11,7 @@ namespace AdminAgent.Models
         [Display(Name = "标题")]
         public string Title { get; set; }
         [Required]
-        [Display(Name = "电子邮件")]
+        [Display(Name = "正文")]
         public string Body { get; set; }
     }
 }
