@@ -9,7 +9,7 @@
 <%@ Import Namespace="Ydb.Order.DomainModel" %>
 <%@ Import Namespace="Ydb.Common.Infrastructure" %>
 <%@ Import Namespace="Ydb.InstantMessage.DomainModel.Chat" %>
-<script runat="server">
+<script RunAt="server">
     public static IWindsorContainer container;
     //  Dianzhu.IDAL.IUnitOfWork uow = Bootstrap.Container.Resolve<Dianzhu.IDAL.IUnitOfWork>();
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.AdminWeb");
@@ -19,7 +19,7 @@
         //PHSuit.Logging.Config("Dianzhu.AdminWeb");
         //InitializeWindsor();
         Bootstrap.Boot();
-        System.Timers.Timer timerOrderShare = new System.Timers.Timer(60*1000);
+        System.Timers.Timer timerOrderShare = new System.Timers.Timer(60 * 1000);
         timerOrderShare.Elapsed += new System.Timers.ElapsedEventHandler(timerOrderShare_Elapsed);
 
         timerOrderShare.Start();
@@ -99,11 +99,12 @@
 
         IServiceOrderService bllOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
         IOrderShareService orderShare = Bootstrap.Container.Resolve<IOrderShareService>();
-        //  NHibernateUnitOfWork.UnitOfWork.Start();
+        
 
         int c = 0;
-        Action a = () => {
-            IList< ServiceOrder> ordersForShare= bllOrder.GetOrdersForShare();
+        Action a = () =>
+        {
+            IList<ServiceOrder> ordersForShare = bllOrder.GetOrdersForShare();
             c = ordersForShare.Count;
             if (c > 0)
             {
@@ -120,8 +121,7 @@
         {
             log.Debug("批量分账结束");
         }
-        //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-        //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+        
 
     }
 
@@ -153,14 +153,10 @@
             orderShareParam.BalanceUser.Add(balanceAgent);
         }
 
-        orderShareParam.BalanceUser.Add(new BalanceUserParam { AccountId=order.CustomerServiceId.ToString(),UserType = "customerservice"});
+        orderShareParam.BalanceUser.Add(new BalanceUserParam { AccountId = order.CustomerServiceId.ToString(), UserType = "customerservice" });
 
         return orderShareParam;
     }
-    void Application_BeginRequest(object sender, EventArgs e)
-    {
-      
-    }
-    void Application_EndRequest(object sender, EventArgs e)
-    { }
+
+
 </script>
