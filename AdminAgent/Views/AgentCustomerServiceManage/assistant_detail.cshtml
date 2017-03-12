@@ -22,9 +22,9 @@
                                         <i class="fa fa-wrench"></i>&nbsp;设置
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">重置密码</a></li>
+                                        <li><a href="#" data-toggle="modal" data-target="#resetPass">重置密码</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="#">@(Model.IsLocked ? "解封账号" : "封停账号")</a></li>
+                                        <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.IsLocked ? "true" : "false") >@(Model.IsLocked ? "解封账号" : "封停账号")</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -149,6 +149,55 @@
         <!-- /.col -->
     </div>
     <!-- /.row -->
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="resetPass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">重置密码</h4>
+                </div>
+                <div class="modal-body">确认重置该助理密码</div>
+                <div class="modal-footer">
+                    <button id="resetPassConf" type="button" class="btn btn-primary">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="toggleFreeze" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel2">@(Model.IsLocked ? "解封账号" : "封停账号")</h4>
+                </div>
+                <div class="modal-body">确认@(Model.IsLocked ? "解封账号" : "封停账号")</div>
+                <div class="modal-footer">
+                    <button id="toggleFreezeConf" type="button" class="btn btn-primary">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="notify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">操作提示</h4>
+                </div>
+                <div class="modal-body">操作提示</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 </section>
 <!-- /.content -->
 
@@ -158,8 +207,14 @@
 <!-- date-range-picker -->
 <script src="../../static/plugins/daterangepicker/moment.min.js"></script>
 <script src="../../static/plugins/daterangepicker/daterangepicker.js"></script>
+
+<script src="../../static/libs/YDBan.lib.js"></script>
+
 <script>
     (function(){
+        var url = YDBan.url;
+        var notify = $("#notify");
+
         //Date range picker
         $('#reservation').daterangepicker();
         //Date range picker with time picker
@@ -186,6 +241,47 @@
                     "previous":   "上一页"
                 }
             }
+        });
+
+        $("#resetPassConf").on("click", function(){
+            $.ajax({
+                url: "/AgentCustomerServiceManage/assistant_detail_recoverypassword",
+                type: "GET",
+                data: {
+                    id: url.getUrlParam("id")
+                },
+                dataType: 'json'
+            }).done(function(resp, status, xhr){
+                if ( status = "success" ){
+                    notify.modal('show');
+                    notify.find(".modal-body").text("操作成功");
+                }
+            }).fail(function(resp, status, xhr){
+                $("#resetPass").modal('hide');
+                notify.find(".modal-body").text("操作失败，请重试");
+                notify.modal('show');
+            })
+        });
+
+        $("#toggleFreezeConf").on("click", function(){
+            $.ajax({
+                url: "/AgentCustomerServiceManage/assistant_detail_Lock",
+                type: "GET",
+                data: {
+                    id: url.getUrlParam("id"),
+                    isLook : $("#isLook").data("look")
+                },
+                dataType: 'json'
+            }).done(function(resp, status, xhr){
+                if ( status = "success" ){
+                    notify.modal('show');
+                    notify.find(".modal-body").text("操作成功");
+                }
+            }).fail(function(resp, status, xhr){
+                $("#toggleFreeze").modal('hide');
+                notify.find(".modal-body").text("操作失败，请重试");
+                notify.modal('show');
+            })
         });
     })();
 </script>
