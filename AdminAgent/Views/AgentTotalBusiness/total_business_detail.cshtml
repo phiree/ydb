@@ -18,33 +18,6 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_2">
-                        <h4>店铺地区分布</h4>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="box">
-                                    <div class="box-body">
-                                        <canvas id="pieChartArea"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="box">
-                                    <div class="box-body no-padding">
-                                        <table class="table table-striped">
-                                            <tbody id="tableArea">
-                                                <tr>
-                                                    <th style="width: 10px">#</th>
-                                                    <th style="width: 100px">地区</th>
-                                                    <th>占比</th>
-                                                    <th style="width: 40px">占比</th>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- /.box-body -->
-                                </div>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <h4>店铺年限</h4>
@@ -105,6 +78,33 @@
                                 </div>
                             </div>
                         </div>
+                        <h4>店铺地区分布</h4>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="box">
+                                    <div class="box-body">
+                                        <canvas id="barCharArea"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <div class="box-body no-padding">
+                                        <table class="table table-striped">
+                                            <tbody id="tableArea">
+                                            <tr>
+                                                <th style="width: 10px">#</th>
+                                                <th style="width: 100px">地区</th>
+                                                <th>占比</th>
+                                                <th style="width: 40px">占比</th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.tab-pane -->
                 </div>
@@ -126,7 +126,7 @@
 <script src="../../static/plugins/chartjs/Chart.min.js"></script>
 
 <!--vtool.js-->
-<script src="../../static/libs/vtool.js"></script>
+<script src="../../static/libs/xytool.js"></script>
 
 <!--mock.js-->
 <script src="../../static/libs/mock/mock.js"></script>
@@ -157,7 +157,8 @@
         // Get context with jQuery - using jQuery's .get() method.
         var pieChartCanvasStuff = $("#pieChartStuff").get(0).getContext("2d");
         var pieChartCanvasAge = $("#pieChartAge").get(0).getContext("2d");
-        var pieChartCanvasArea = $("#pieChartArea").get(0).getContext("2d");
+
+        var barChartCanvasArea = $("#barCharArea").get(0).getContext("2d");
 
         var pieDataStuff = {
             labels: [],
@@ -189,7 +190,8 @@
                     ]
                 }]
         };
-        var pieDataArea = {
+
+        var barChatArea = {
             labels: [],
             datasets: [
                 {
@@ -204,7 +206,9 @@
                     ]
                 }]
         };
+
         var pieOptions = {};
+        var barOptions = {};
 
         var pieChartStuff = new Chart(pieChartCanvasStuff, {
             type: 'doughnut',
@@ -216,10 +220,11 @@
             data: pieDataAge,
             options: pieOptions
         });
-        var pieChartArea = new Chart(pieChartCanvasArea, {
-            type: 'doughnut',
-            data: pieDataArea,
-            options: pieOptions
+
+        var barCharArea = new Chart(barChartCanvasArea, {
+            type: 'bar',
+            data: barChatArea,
+            options: barOptions
         });
 
         var totalBusinessDef = $.ajax({
@@ -266,12 +271,12 @@
                 return
             }
 
-            totalValue = vTool.parseValue(argTotal[0].XYValue);
+            totalValue = xyTool.parseValue(argTotal[0].XYValue);
             totalToday = totalValue.xy[moment().format('YYYYMMDD')];
 
-            var stuffValue = vTool.parseValue(argStuff[0].XYValue);
-            var ageValue = vTool.parseValue(argAge[0].XYValue);
-            var areaValue = vTool.parseValue(argArea[0].XYValue);
+            var stuffValue = xyTool.parseValue(argStuff[0].XYValue);
+            var ageValue = xyTool.parseValue(argAge[0].XYValue);
+            var areaValue = xyTool.parseValue(argArea[0].XYValue);
 
 
             renderTable($("#tableStuff"), trTpl, stuffValue);
@@ -280,7 +285,7 @@
 
             renderPieChart(pieChartStuff, pieDataStuff, pieOptions, stuffValue);
             renderPieChart(pieChartAge, pieDataAge, pieOptions, ageValue);
-            renderPieChart(pieChartArea, pieDataArea, pieOptions, areaValue);
+            renderPieChart(barCharArea, barChatArea, barOptions, areaValue);
 
             // 绘制表格
             function renderTable(tableBody, trTpl, xyValue){

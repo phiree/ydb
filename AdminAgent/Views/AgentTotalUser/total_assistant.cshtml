@@ -59,14 +59,14 @@
                 <div class="box-body">
                     <h4>性别比例</h4>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="box">
                                 <div class="box-body">
                                     <canvas id="pieChartSex"></canvas>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                             <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="info-box bg-aqua">
                                     <span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
@@ -159,14 +159,14 @@
                     <!--</div>-->
                     <h4>地区分布</h4>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-8">
                             <div class="box">
                                 <div class="box-body">
                                     <canvas id="barChart"></canvas>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                             <div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">地区分布排行</h3>
@@ -206,7 +206,7 @@
 <script src="../../static/libs/eventBtn.js"></script>
 
 <!--vtool.js-->
-<script src="../../static/libs/vtool.js"></script>
+<script src="../../static/libs/xytool.js"></script>
 
 <!--mock.js-->
 <script src="../../static/libs/mock/mock.js"></script>
@@ -545,7 +545,7 @@
         });
         sexDef.done(function(resp, status, xhr){
             var pieSex = pieDataSex;
-            var xyValue = vTool.parseValue(resp.XYValue);
+            var xyValue = xyTool.parseValue(resp.XYValue);
 
             _.each(xyValue.x, function(element, index, list) {
                 if ( element === "men" ){
@@ -573,7 +573,7 @@
 //        });
 //        sysDef.done(function(resp, status, xhr){
 //            var pieSys = pieDataSys;
-//            var xyValue = vTool.parseValue(resp.XYValue);
+//            var xyValue = xyTool.parseValue(resp.XYValue);
 //
 //            _.each(xyValue.x, function(element, index, list) {
 //                if ( element === "ios" ){
@@ -674,8 +674,8 @@
                 return
             }
 
-            totalValue = vTool.parseValue(argTotal[0].XYValue);
-            areaValue = vTool.parseValue(argArea[0].XYValue);
+            totalValue = xyTool.parseValue(argTotal[0].XYValue);
+            areaValue = xyTool.parseValue(argArea[0].XYValue);
 
             totalToday = totalValue.xy[moment().format('YYYYMMDD')];
 

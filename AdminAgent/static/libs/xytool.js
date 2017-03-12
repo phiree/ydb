@@ -1,5 +1,5 @@
 (function () {
-    var vTool = {
+    var xyTool = {
         parseValue: function(xyValue){
             if ( !typeof _.isObject(xyValue) ){ throw new Error("xyValue is no a object")}
 
@@ -11,6 +11,6 @@
         }
     };
 
-    window.vTool = vTool;
+    window.xyTool = xyTool;
 
 })();

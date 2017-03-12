@@ -28,6 +28,16 @@ Mock.mock(/\/AgentTotalOrder\/total_order_TypeList/, {
     }
 });
 
+Mock.mock(/\/AgentTotalOrder\/total_order_AmountList/, {
+    "XName":"服务类型",
+    "YName":"订单数量",
+    "XYValue":{
+        "充值": 100,
+        "点餐": 10,
+        "预定": 1000
+    }
+});
+
 Mock.mock(/\/AgentTotalBusiness\/total_business_StuffList/, {
     "XName":"服务类型",
     "YName":"订单总额",
