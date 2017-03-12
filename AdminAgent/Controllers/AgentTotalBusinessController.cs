@@ -46,9 +46,10 @@ namespace AdminAgent.Controllers
         /// <summary>
         /// 新增店铺数量列表
         /// </summary>
-        /// <param name="usertype"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
         /// <returns></returns>
-        public ActionResult total_business_NewList(string usertype,string start, string end)
+        public ActionResult total_business_NewList(string start, string end)
         {
             try
             {
@@ -69,12 +70,33 @@ namespace AdminAgent.Controllers
                 return Content(ex.Message);
             }
         }
+
+        /// <summary>
+        /// 统计店铺总数
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult total_business_Count()
+        {
+            try
+            {
+                Models.TotalCount totalCount = new Models.TotalCount();
+                totalCount.count = businessService.GetCountOfAllBusinessesByArea(CurrentUser.AreaIdList); ;
+                return Json(totalCount, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
         /// <summary>
         /// 累计店铺数量列表
         /// </summary>
-        /// <param name="usertype"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
         /// <returns></returns>
-        public ActionResult total_business_AllList(string usertype, string start, string end)
+        public ActionResult total_business_AllList( string start, string end)
         {
             try
             {
@@ -99,9 +121,8 @@ namespace AdminAgent.Controllers
         /// <summary>
         /// 按年限统计店铺数量
         /// </summary>
-        /// <param name="usertype"></param>
         /// <returns></returns>
-        public ActionResult total_business_LifeList(string usertype)
+        public ActionResult total_business_LifeList()
         {
             try
             {
@@ -118,9 +139,8 @@ namespace AdminAgent.Controllers
         /// <summary>
         /// 按员工数量统计店铺数量
         /// </summary>
-        /// <param name="usertype"></param>
         /// <returns></returns>
-        public ActionResult total_business_StaffList(string usertype)
+        public ActionResult total_business_StaffList()
         {
             try
             {
@@ -137,9 +157,8 @@ namespace AdminAgent.Controllers
         /// <summary>
         /// 按子区域来统计店铺数量
         /// </summary>
-        /// <param name="usertype"></param>
         /// <returns></returns>
-        public ActionResult total_business_AreaList(string usertype)
+        public ActionResult total_business_AreaList()
         {
             try
             {

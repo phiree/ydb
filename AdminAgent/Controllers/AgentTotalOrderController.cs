@@ -77,6 +77,25 @@ namespace AdminAgent.Controllers
         }
 
         /// <summary>
+        /// 统计订单总数
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult total_order_Count()
+        {
+            try
+            {
+                Models.TotalCount totalCount = new Models.TotalCount();
+                totalCount.count = ordersService.GetCountOfAllOrdersByArea(CurrentUser.AreaIdList, enum_IsDone.None);
+                return Json(totalCount, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// 累计订单数量列表
         /// </summary>
         /// <param name="usertype"></param>

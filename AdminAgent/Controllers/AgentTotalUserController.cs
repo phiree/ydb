@@ -69,9 +69,29 @@ namespace AdminAgent.Controllers
                 }
                 else
                 {
-                    statisticsInfo = dzMembershipService.GetStatisticsNewMembershipsCountListByTime(CurrentUser.AreaIdList, StringHelper.CheckDateTime(start,"yyyyMMdd","查询的开始时间",false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间",true), CheckEnums.CheckUserType(usertype));
+                    statisticsInfo = dzMembershipService.GetStatisticsNewMembershipsCountListByTime(CurrentUser.AreaIdList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true), CheckEnums.CheckUserType(usertype));
                 }
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 统计用户总数
+        /// </summary>
+        /// <param name="usertype"></param>
+        /// <returns></returns>
+        public ActionResult total_user_Count(string usertype)
+        {
+            try
+            {
+                Models.TotalCount totalCount = new Models.TotalCount();
+                totalCount.count = dzMembershipService.GetCountOfAllMembershipsByArea(CurrentUser.AreaIdList, UserType.customer);
+                return Json(totalCount, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
