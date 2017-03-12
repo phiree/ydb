@@ -14,7 +14,6 @@ namespace AdminAgent.Controllers
     public class AgentTotalUserController : AgentBaseController
     {
         IDZMembershipService dzMembershipService = Bootstrap.Container.Resolve<IDZMembershipService>();
-        IList<string> areaList = new List<string> { "2445", "2446", "2447", "2448", "2449", "2450" };
         /// <summary>
         /// 用户信息
         /// </summary>
@@ -23,9 +22,9 @@ namespace AdminAgent.Controllers
         {
             try
             {
-                ViewData["NewCustomerNumber"] = dzMembershipService.GetCountOfNewMembershipsYesterdayByArea(areaList, UserType.customer);
-                ViewData["AllCustomerNumber"] = dzMembershipService.GetCountOfAllMembershipsByArea(areaList, UserType.customer);
-                ViewData["LoginCustomerNumber"] = dzMembershipService.GetCountOfLoginMembershipsLastMonthByArea(areaList, UserType.customer);
+                ViewData["NewCustomerNumber"] = dzMembershipService.GetCountOfNewMembershipsYesterdayByArea(CurrentUser.AreaIdList, UserType.customer);
+                ViewData["AllCustomerNumber"] = dzMembershipService.GetCountOfAllMembershipsByArea(CurrentUser.AreaIdList, UserType.customer);
+                ViewData["LoginCustomerNumber"] = dzMembershipService.GetCountOfLoginMembershipsLastMonthByArea(CurrentUser.AreaIdList, UserType.customer);
                 return View();
             }
             catch (Exception ex)
@@ -66,11 +65,11 @@ namespace AdminAgent.Controllers
                 StatisticsInfo statisticsInfo;
                 if (string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end))
                 {
-                    statisticsInfo = dzMembershipService.GetStatisticsNewMembershipsCountListByTime(areaList, DateTime.Now.AddMonths(-1), DateTime.Now, CheckEnums.CheckUserType(usertype));
+                    statisticsInfo = dzMembershipService.GetStatisticsNewMembershipsCountListByTime(CurrentUser.AreaIdList, DateTime.Now.AddMonths(-1), DateTime.Now, CheckEnums.CheckUserType(usertype));
                 }
                 else
                 {
-                    statisticsInfo = dzMembershipService.GetStatisticsNewMembershipsCountListByTime(areaList, StringHelper.CheckDateTime(start,"yyyyMMdd","查询的开始时间",false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间",true), CheckEnums.CheckUserType(usertype));
+                    statisticsInfo = dzMembershipService.GetStatisticsNewMembershipsCountListByTime(CurrentUser.AreaIdList, StringHelper.CheckDateTime(start,"yyyyMMdd","查询的开始时间",false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间",true), CheckEnums.CheckUserType(usertype));
                 }
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
@@ -95,11 +94,11 @@ namespace AdminAgent.Controllers
                 StatisticsInfo statisticsInfo;
                 if (string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end))
                 {
-                    statisticsInfo = dzMembershipService.GetStatisticsAllMembershipsCountListByTime(areaList, DateTime.Now.AddMonths(-1), DateTime.Now, CheckEnums.CheckUserType(usertype));
+                    statisticsInfo = dzMembershipService.GetStatisticsAllMembershipsCountListByTime(CurrentUser.AreaIdList, DateTime.Now.AddMonths(-1), DateTime.Now, CheckEnums.CheckUserType(usertype));
                 }
                 else
                 {
-                    statisticsInfo = dzMembershipService.GetStatisticsAllMembershipsCountListByTime(areaList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true), CheckEnums.CheckUserType(usertype));
+                    statisticsInfo = dzMembershipService.GetStatisticsAllMembershipsCountListByTime(CurrentUser.AreaIdList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true), CheckEnums.CheckUserType(usertype));
                 }
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
@@ -124,11 +123,11 @@ namespace AdminAgent.Controllers
                 StatisticsInfo statisticsInfo;
                 if (string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end))
                 {
-                    statisticsInfo = dzMembershipService.GetStatisticsLoginCountListByTime(areaList, DateTime.Now.AddMonths(-1), DateTime.Now, CheckEnums.CheckUserType(usertype));
+                    statisticsInfo = dzMembershipService.GetStatisticsLoginCountListByTime(CurrentUser.AreaIdList, DateTime.Now.AddMonths(-1), DateTime.Now, CheckEnums.CheckUserType(usertype));
                 }
                 else
                 {
-                    statisticsInfo = dzMembershipService.GetStatisticsLoginCountListByTime(areaList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true), CheckEnums.CheckUserType(usertype));
+                    statisticsInfo = dzMembershipService.GetStatisticsLoginCountListByTime(CurrentUser.AreaIdList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true), CheckEnums.CheckUserType(usertype));
                 }
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
@@ -148,7 +147,7 @@ namespace AdminAgent.Controllers
         {
             try
             {
-                StatisticsInfo statisticsInfo = dzMembershipService.GetStatisticsAllMembershipsCountListBySex(areaList, CheckEnums.CheckUserType(usertype));
+                StatisticsInfo statisticsInfo = dzMembershipService.GetStatisticsAllMembershipsCountListBySex(CurrentUser.AreaIdList, CheckEnums.CheckUserType(usertype));
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -167,7 +166,7 @@ namespace AdminAgent.Controllers
         {
             try
             {
-                StatisticsInfo statisticsInfo = dzMembershipService.GetStatisticsAllMembershipsCountListByAppName(areaList, CheckEnums.CheckUserType(usertype));
+                StatisticsInfo statisticsInfo = dzMembershipService.GetStatisticsAllMembershipsCountListByAppName(CurrentUser.AreaIdList, CheckEnums.CheckUserType(usertype));
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -186,9 +185,7 @@ namespace AdminAgent.Controllers
         {
             try
             {
-                com.IAreaService areaService = Bootstrap.Container.Resolve<com.IAreaService>();
-                IList<Area> AreaList = areaService.GetSubArea("460100");
-                StatisticsInfo statisticsInfo = dzMembershipService.GetStatisticsAllMembershipsCountListByArea(AreaList, CheckEnums.CheckUserType(usertype));
+                StatisticsInfo statisticsInfo = dzMembershipService.GetStatisticsAllMembershipsCountListByArea(CurrentUser.AreaList, CheckEnums.CheckUserType(usertype));
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
