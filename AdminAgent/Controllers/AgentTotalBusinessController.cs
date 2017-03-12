@@ -15,7 +15,6 @@ namespace AdminAgent.Controllers
     public class AgentTotalBusinessController : AgentBaseController
     {
         IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
-        IList<string> areaList = new List<string> { "2445", "2446", "2447", "2448", "2449", "2450" };
         /// <summary>
         /// 商户统计信息
         /// </summary>
@@ -24,10 +23,10 @@ namespace AdminAgent.Controllers
         {
             try
             {
-                ViewData["NewBusinessNumber"] = businessService.GetCountOfNewBusinessesYesterdayByArea(areaList);
-                ViewData["AllBusinessNumber"] = businessService.GetCountOfAllBusinessesByArea(areaList);
-                ViewData["YearBusinessNumber"] = businessService.GetStatisticsRatioYearOnYear(areaList);
-                ViewData["MonthBusinessNumber"] = businessService.GetStatisticsRatioMonthOnMonth(areaList);
+                ViewData["NewBusinessNumber"] = businessService.GetCountOfNewBusinessesYesterdayByArea(CurrentUser.AreaIdList);
+                ViewData["AllBusinessNumber"] = businessService.GetCountOfAllBusinessesByArea(CurrentUser.AreaIdList);
+                ViewData["YearBusinessNumber"] = businessService.GetStatisticsRatioYearOnYear(CurrentUser.AreaIdList);
+                ViewData["MonthBusinessNumber"] = businessService.GetStatisticsRatioMonthOnMonth(CurrentUser.AreaIdList);
                 return View();
             }
             catch (Exception ex)
@@ -56,11 +55,11 @@ namespace AdminAgent.Controllers
                 StatisticsInfo statisticsInfo;
                 if (string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end))
                 {
-                    statisticsInfo = businessService.GetStatisticsNewBusinessesCountListByTime(areaList, DateTime.Now.AddMonths(-1), DateTime.Now);
+                    statisticsInfo = businessService.GetStatisticsNewBusinessesCountListByTime(CurrentUser.AreaIdList, DateTime.Now.AddMonths(-1), DateTime.Now);
                 }
                 else
                 {
-                    statisticsInfo = businessService.GetStatisticsNewBusinessesCountListByTime(areaList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true));
+                    statisticsInfo = businessService.GetStatisticsNewBusinessesCountListByTime(CurrentUser.AreaIdList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true));
                 }
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
@@ -82,11 +81,11 @@ namespace AdminAgent.Controllers
                 StatisticsInfo statisticsInfo;
                 if (string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end))
                 {
-                    statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByTime(areaList, DateTime.Now.AddMonths(-1), DateTime.Now);
+                    statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByTime(CurrentUser.AreaIdList, DateTime.Now.AddMonths(-1), DateTime.Now);
                 }
                 else
                 {
-                    statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByTime(areaList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true));
+                    statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByTime(CurrentUser.AreaIdList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true));
                 }
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
@@ -106,7 +105,7 @@ namespace AdminAgent.Controllers
         {
             try
             {
-                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByLife(areaList);
+                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByLife(CurrentUser.AreaIdList);
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -125,7 +124,7 @@ namespace AdminAgent.Controllers
         {
             try
             {
-                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByStaff(areaList);
+                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByStaff(CurrentUser.AreaIdList);
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -144,9 +143,7 @@ namespace AdminAgent.Controllers
         {
             try
             {
-                com.IAreaService areaService = Bootstrap.Container.Resolve<com.IAreaService>();
-                IList<Area> AreaList = areaService.GetSubArea("460100");
-                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByArea(AreaList);
+                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByArea(CurrentUser.AreaList);
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

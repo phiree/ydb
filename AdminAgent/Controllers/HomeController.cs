@@ -10,7 +10,8 @@ namespace AdminAgent.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            //return View();
+            return RedirectToAction("Index", "Agent");
         }
 
         public ActionResult About()
