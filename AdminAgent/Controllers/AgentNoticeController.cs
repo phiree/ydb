@@ -24,6 +24,7 @@ namespace AdminAgent.Controllers
         // GET: PushMessage
         public ActionResult Index()
         {
+            ViewBag.UserName = CurrentUser.UserName;
             //获取所有公告列表
             IList<M.Notice> allNotice = noticeService.GetNoticeForAuther(CurrentUser.UserId);
             
@@ -31,7 +32,8 @@ namespace AdminAgent.Controllers
         }
         public ActionResult AddNotice()
         {
-             return View();
+            ViewBag.UserName = CurrentUser.UserName;
+            return View();
         }
         /// <summary>
         ///     添加一条公告
@@ -40,19 +42,22 @@ namespace AdminAgent.Controllers
         [HttpPost]
         public ActionResult AddNotice(AddNoticeModel notice)
         {
+            ViewBag.UserName = CurrentUser.UserName;
             noticeService.AddNotice(notice.Title, notice.Body, CurrentUser.UserId,  enum_UserType.admin);
             return View();
         }
 
         public ActionResult NoticeDetail(string noticeId)
         {
+            ViewBag.UserName = CurrentUser.UserName;
             M.Notice notice = noticeService.GetOne(noticeId);
             return View(notice);
         }
 
         public ActionResult SendNotice(string noticeId)
         {
-           // agentNoticeService.SendNotice(noticeId);
+            ViewBag.UserName = CurrentUser.UserName;
+            // agentNoticeService.SendNotice(noticeId);
             return View();
         }
 

@@ -22,6 +22,7 @@ namespace AdminAgent.Controllers
         {
             try
             {
+                ViewBag.UserName = CurrentUser.UserName;
                 ViewData["NewCustomerNumber"] = dzMembershipService.GetCountOfNewMembershipsYesterdayByArea(CurrentUser.AreaIdList, UserType.customer);
                 ViewData["AllCustomerNumber"] = dzMembershipService.GetCountOfAllMembershipsByArea(CurrentUser.AreaIdList, UserType.customer);
                 ViewData["LoginCustomerNumber"] = dzMembershipService.GetCountOfLoginMembershipsLastMonthByArea(CurrentUser.AreaIdList, UserType.customer);
@@ -39,6 +40,7 @@ namespace AdminAgent.Controllers
         /// <returns></returns>
         public ActionResult total_user_detail()
         {
+            ViewBag.UserName = CurrentUser.UserName;
             return View();
         }
 
@@ -48,6 +50,7 @@ namespace AdminAgent.Controllers
         /// <returns></returns>
         public ActionResult total_assistant()
         {
+            ViewBag.UserName = CurrentUser.UserName;
             return View();
         }
 

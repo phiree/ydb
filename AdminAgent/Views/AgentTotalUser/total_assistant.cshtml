@@ -211,7 +211,7 @@
 
 <!--mock.js-->
 <script src="../../static/libs/mock/mock.js"></script>
-<script src="../../static/libs/mock/data.mock.js"></script>
+@*<script src="../../static/libs/mock/data.mock.js"></script>*@
 
 <!-- underscore 模板 -->
 <script type="text/template" id="trTpl">
@@ -255,7 +255,7 @@
         function dateSelectFunc(start, end, label){
             var opt = $.extend(dateReqOption, {
                 data : {
-                    usertype: "customer",
+                    usertype: "customerservice",
                     start: start.format('YYYYMMDD'),
                     end: end.format('YYYYMMDD')
                 }
@@ -541,7 +541,7 @@
             url: '/AgentTotalUser/total_user_SexList',
             type: "GET",
             data: {
-                usertype: 'customer'
+                usertype: 'customerservice'
             }
         });
         sexDef.done(function(resp, status, xhr){
@@ -649,7 +649,7 @@
             url: '/AgentTotalUser/total_user_AllList',
             type: "GET",
             data: {
-                usertype: 'customer',
+                usertype: 'customerservice',
                 start: moment().subtract(1, 'days').format('YYYYMMDD'),
                 end: moment().format('YYYYMMDD')
             }

@@ -23,6 +23,7 @@ namespace AdminAgent.Controllers
         {
             try
             {
+                ViewBag.UserName = CurrentUser.UserName;
                 ViewData["NewBusinessNumber"] = businessService.GetCountOfNewBusinessesYesterdayByArea(CurrentUser.AreaIdList);
                 ViewData["AllBusinessNumber"] = businessService.GetCountOfAllBusinessesByArea(CurrentUser.AreaIdList);
                 ViewData["YearBusinessNumber"] = businessService.GetStatisticsRatioYearOnYear(CurrentUser.AreaIdList);
@@ -41,6 +42,7 @@ namespace AdminAgent.Controllers
         /// <returns></returns>
         public ActionResult total_business_detail()
         {
+            ViewBag.UserName = CurrentUser.UserName;
             return View();
         }
         /// <summary>

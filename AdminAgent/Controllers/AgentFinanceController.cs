@@ -30,6 +30,7 @@ namespace AdminAgent.Controllers
             try
             {
                 //接口
+                ViewBag.UserName = CurrentUser.UserName;
                 ViewData["SharedOrder"] = ordersService.GetOrdersCountByArea(CurrentUser.AreaIdList, true);
                 ViewData["NotSharedOrder"] = ordersService.GetOrdersCountByArea(CurrentUser.AreaIdList, false);
                 MemberDto memberAgent = dzMembershipService.GetUserById(CurrentUser.UserId.ToString());
@@ -56,6 +57,7 @@ namespace AdminAgent.Controllers
             try
             {
                 //接口
+                ViewBag.UserName = CurrentUser.UserName;
                 BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(id);
                 ViewData["myAccountFinance"] = balanceTotalDto.Total;
                 ViewData["myAliAccount"] = balanceTotalDto.AccountDto.Account;
@@ -100,6 +102,7 @@ namespace AdminAgent.Controllers
         /// <returns></returns>
         public ActionResult finance_account_bind(string id)
         {
+            ViewBag.UserName = CurrentUser.UserName;
             return View();
         }
 
@@ -180,6 +183,7 @@ namespace AdminAgent.Controllers
             try
             {
                 //接口
+                ViewBag.UserName = CurrentUser.UserName;
                 MemberDto memberAgent = dzMembershipService.GetUserById(CurrentUser.UserId.ToString());
                 FinanceWithdrawTotalDto financeWithdrawTotalDto = financeFlowService.GetFinanceWithdrawList(CurrentUser.AreaIdList, memberAgent);
                 //模拟数据

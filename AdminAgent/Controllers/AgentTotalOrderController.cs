@@ -25,6 +25,7 @@ namespace AdminAgent.Controllers
             try
             {
                 //接口
+                ViewBag.UserName = CurrentUser.UserName;
                 ViewData["NewOrderNumber"] = ordersService.GetCountOfNewOrdersYesterdayByArea(CurrentUser.AreaIdList);
                 ViewData["AllOrderNumber"] = ordersService.GetCountOfAllOrdersByArea(CurrentUser.AreaIdList, enum_IsDone.None);
                 ViewData["AllDoneOrderNumber"] = ordersService.GetCountOfAllOrdersByArea(CurrentUser.AreaIdList, enum_IsDone.OrderIsDone);
@@ -159,6 +160,7 @@ namespace AdminAgent.Controllers
         /// <returns></returns>
         public ActionResult total_order_detail()
         {
+            ViewBag.UserName = CurrentUser.UserName;
             return View();
         }
 

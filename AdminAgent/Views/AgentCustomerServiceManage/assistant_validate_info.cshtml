@@ -73,6 +73,8 @@
                                 </a>
                             </li>
                         </ul>
+                        @if (!Model.IsVerified)
+                        {
                         <div class="col-xs-8 col-xs-offset-2">
                             <div class="col-xs-4 col-xs-offset-4">
                                 <a id="passAss" class="btn btn-block btn-success">通过</a>
@@ -81,6 +83,7 @@
                                 <a href="javascript:void(0)" class="btn btn-block btn-danger" data-toggle="modal" data-target="#reject">拒绝</a>
                             </div>
                         </div>
+                        }
                     </div>
                 </div>
                 <!-- /.box-body -->
