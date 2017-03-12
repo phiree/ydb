@@ -143,9 +143,7 @@
         function getRequireOptions(options){
             return $.extend({},{
                 type: "GET",
-                data: {
-                    usertype: "customer"
-                }
+                data: {}
             }, options);
         }
 
@@ -245,9 +243,6 @@
             data: lineChartData,
             options : lineChartOptions
         });
-
-//        lineChartOptions.datasetFill = false;
-//        lineChart.Line(lineChartData, lineChartOptions);
 
         // 选择rangeDate 时的请求参数
         var dateReqOption;

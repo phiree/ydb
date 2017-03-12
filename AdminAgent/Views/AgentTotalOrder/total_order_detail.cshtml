@@ -66,7 +66,7 @@
                             <div class="col-md-3">
                                 <div class="box">
                                     <div class="box-body">
-                                        <canvas id="pieChartTotal"></canvas>
+                                        <canvas id="pieChartAmount"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +145,7 @@
 <script src="../../static/plugins/chartjs/Chart.min.js"></script>
 
 <!--vtool.js-->
-<script src="../../static/libs/vtool.js"></script>
+<script src="../../static/libs/xytool.js"></script>
 
 <!--mock.js-->
 <script src="../../static/libs/mock/mock.js"></script>
@@ -230,7 +230,7 @@
         });
         DayDef.done(function(resp, status, xhr){
             var lineDay = lineDataDay;
-            var xyValue = vTool.parseValue(resp.XYValue);
+            var xyValue = xyTool.parseValue(resp.XYValue);
             _.each(xyValue.x, function(element, index, list) {
 
                 lineDay.labels[index] = xyValue.x[index] + ":00";
@@ -251,7 +251,7 @@
         //-------------
         // Get context with jQuery - using jQuery's .get() method.
         var pieChartCanvasSvc = $("#pieChartSvc").get(0).getContext("2d");
-        var pieChartCanvasAmount = $("#pieChartTotal").get(0).getContext("2d");
+        var pieChartCanvasAmount = $("#pieChartAmount").get(0).getContext("2d");
         var pieChartCanvasArea = $("#pieChartArea").get(0).getContext("2d");
 
         var pieDataSvc = {
@@ -361,17 +361,17 @@
                 return
             }
 
-            totalValue = vTool.parseValue(argTotal[0].XYValue);
+            totalValue = xyTool.parseValue(argTotal[0].XYValue);
             totalToday = totalValue.xy[moment().format('YYYYMMDD')];
 
-            var svcValue = vTool.parseValue(argSvc[0].XYValue);
-            var amountValue = vTool.parseValue(argAmount[0].XYValue);
-            var areaValue = vTool.parseValue(argArea[0].XYValue);
+            var svcValue = xyTool.parseValue(argSvc[0].XYValue);
+            var amountValue = xyTool.parseValue(argAmount[0].XYValue);
+            var areaValue = xyTool.parseValue(argArea[0].XYValue);
 
 
             renderTable($("#tableSvc"), trTpl, svcValue);
-            renderTable($("#tableAmount"), trTpl, svcValue);
-            renderTable($("#tableArea"), trTpl, svcValue);
+            renderTable($("#tableAmount"), trTpl, amountValue);
+            renderTable($("#tableArea"), trTpl, areaValue);
 
             renderPieChart(pieChartSvc, pieDataSvc, pieOptions, svcValue);
             renderPieChart(pieChartAmount, pieDataAmount, pieOptions, amountValue);
