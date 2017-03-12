@@ -24,8 +24,6 @@ namespace AdminAgent.Controllers
         IIMUserStatusArchieveService imUserStatusArchieveService= Bootstrap.Container.Resolve<IIMUserStatusArchieveService>();
         IServiceOrderService serviceOrderService = Bootstrap.Container.Resolve<IServiceOrderService>();
         IComplaintService complaintService = Bootstrap.Container.Resolve<IComplaintService>();
-        MemberDto memberAgent = MockData.memberAgent;
-        IList<Area> areaList = MockData.areaList;
         
         /// <summary>
         /// 获取验证助理列表
@@ -36,9 +34,9 @@ namespace AdminAgent.Controllers
             try
             {
                 //模拟数据
-                IDictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto = MockData.dicDto;
+                //IDictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto = MockData.dicDto;
                 //接口
-                //IDictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto = dzMembershipService.GetVerifiedDZMembershipCustomerServiceByArea(areaList);
+                IDictionary<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto = dzMembershipService.GetVerifiedDZMembershipCustomerServiceByArea(CurrentUser.AreaList);
                 foreach (KeyValuePair<Enum_ValiedateCustomerServiceType, IList<DZMembershipCustomerServiceDto>> d in dicDto)
                 {
                     TempData[d.Key.ToString()] = d.Value.Select(x => x.Id.ToString()).ToList();
@@ -67,9 +65,9 @@ namespace AdminAgent.Controllers
                 ViewData["id"] = id;
                 ViewData["type"] = type;
                 //接口
-                //DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
+                DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
                 //模拟数据
-                DZMembershipCustomerServiceDto member = MockData.GetDZMembershipCustomerServiceDtoById(id,type);
+                //DZMembershipCustomerServiceDto member = MockData.GetDZMembershipCustomerServiceDtoById(id,type);
                 return View(member);
             }
             catch (Exception ex)
@@ -149,12 +147,12 @@ namespace AdminAgent.Controllers
             try
             {
                 //模拟数据
-                IDictionary<Enum_LockCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto = MockData.dicLockDto;
-                ViewData["assistantPoint"] = MockData.assistantPoint;
+                //IDictionary<Enum_LockCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto = MockData.dicLockDto;
+                //ViewData["assistantPoint"] = MockData.assistantPoint;
                 //接口
-                //IDictionary<Enum_LockCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto = dzMembershipService.GetLockDZMembershipCustomerServiceByArea(areaList);
-                //string errMsg = "";
-                //ViewData["assistantPoint"] = userTypeSharePointService.GetSharePoint(UserType.customerservice.ToString(), out errMsg);
+                IDictionary<Enum_LockCustomerServiceType, IList<DZMembershipCustomerServiceDto>> dicDto = dzMembershipService.GetLockDZMembershipCustomerServiceByArea(CurrentUser.AreaList);
+                string errMsg = "";
+                ViewData["assistantPoint"] = userTypeSharePointService.GetSharePoint(UserType.customerservice.ToString(), out errMsg);
                 return View(dicDto);
             }
             catch (Exception ex)
@@ -178,15 +176,15 @@ namespace AdminAgent.Controllers
                 ViewData["id"] = id;
                 ViewData["type"] = type;
                 //接口
-                //DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
-                //ViewData["totalOnlineTime"] = imUserStatusArchieveService.GetUserTotalOnlineTime(member.Id.ToString());
-                //ViewData["totalOrderCount"] = serviceOrderService.GetServiceOrderCountWithoutDraft(memberAgent.Id, true);
-                //ViewData["totalComplaintCount"] = complaintService.GetComplaintsCount(Guid.Empty, Guid.Empty, memberAgent.Id);
+                DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
+                ViewData["totalOnlineTime"] = imUserStatusArchieveService.GetUserTotalOnlineTime(member.Id.ToString());
+                ViewData["totalOrderCount"] = serviceOrderService.GetServiceOrderCountWithoutDraft(CurrentUser.UserId, true);
+                ViewData["totalComplaintCount"] = complaintService.GetComplaintsCount(Guid.Empty, Guid.Empty, CurrentUser.UserId);
                 //模拟数据
-                DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
-                ViewData["totalOnlineTime"] = MockData.totalOnlineTime;
-                ViewData["totalOrderCount"] = MockData.totalOrderCount;
-                ViewData["totalComplaintCount"] = MockData.totalComplaintCount;
+                //DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
+                //ViewData["totalOnlineTime"] = MockData.totalOnlineTime;
+                //ViewData["totalOrderCount"] = MockData.totalOrderCount;
+                //ViewData["totalComplaintCount"] = MockData.totalComplaintCount;
                 return View(member);
             }
             catch (Exception ex)
@@ -207,11 +205,11 @@ namespace AdminAgent.Controllers
             try
             {
                 //接口
-                //DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
-                //dzMembershipService.ChangePassword(member.UserName, member.PlainPassword, "123456");
+                DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
+                dzMembershipService.ChangePassword(member.UserName, member.PlainPassword, "123456");
                 //模拟数据
-                DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
-                member.PlainPassword = "123456";
+                //DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
+                //member.PlainPassword = "123456";
                 return View(member);
             }
             catch (Exception ex)
@@ -232,15 +230,15 @@ namespace AdminAgent.Controllers
             try
             {
                 //接口
-                //DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
-                //dzMembershipService.LockDZMembershipCustomerService(member.Id.ToString(), islock, "违规操作");
+                DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
+                dzMembershipService.LockDZMembershipCustomerService(member.Id.ToString(), islock, "违规操作");
                 //模拟数据
-                DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
-                member.IsLocked = islock;
-                if (islock)
-                {
-                    member.LockReason = "违规操作";
-                }
+                //DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
+                //member.IsLocked = islock;
+                //if (islock)
+                //{
+                //    member.LockReason = "违规操作";
+                //}
                 return View(member);
             }
             catch (Exception ex)
@@ -262,10 +260,10 @@ namespace AdminAgent.Controllers
             {
                 ViewData["id"] = id;
                 //接口
-                //DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
-                //IList<ReceptionChatDto> receptionChatDtoList = chatService.GetChats(new TraitFilter(), "", "", "", member.Id.ToString(), member.UserType);
+                DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
+                IList<ReceptionChatDto> receptionChatDtoList = chatService.GetChats(new TraitFilter(), "", "", "", member.Id.ToString(), member.UserType);
                 //模拟数据
-                IList<ReceptionChatDto> receptionChatDtoList = MockData.receptionChatDtoList;
+                //IList<ReceptionChatDto> receptionChatDtoList = MockData.receptionChatDtoList;
                 return View(receptionChatDtoList);
             }
             catch (Exception ex)

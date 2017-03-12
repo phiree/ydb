@@ -16,7 +16,6 @@ namespace AdminAgent.Controllers
     {
 
         IOrdersService ordersService = Bootstrap.Container.Resolve<IOrdersService>();
-        IList<string> areaList = MockData.areaIdList;
         /// <summary>
         /// 订单信息
         /// </summary>
@@ -26,20 +25,20 @@ namespace AdminAgent.Controllers
             try
             {
                 //接口
-                //ViewData["NewOrderNumber"] = ordersService.GetCountOfNewOrdersYesterdayByArea(areaList);
-                //ViewData["AllOrderNumber"] = ordersService.GetCountOfAllOrdersByArea(areaList, enum_IsDone.None);
-                //ViewData["AllDoneOrderNumber"] = ordersService.GetCountOfAllOrdersByArea(areaList, enum_IsDone.OrderIsDone);
-                //ViewData["AllNotDoneOrderNumber"] = ordersService.GetCountOfAllOrdersByArea(areaList, enum_IsDone.OrderNotDone);
-                //ViewData["YearOrderNumber"] = ordersService.GetStatisticsOrderRatioYearOnYear(areaList);
-                //ViewData["MonthOrderNumber"] = ordersService.GetStatisticsOrderRatioMonthOnMonth(areaList);
+                ViewData["NewOrderNumber"] = ordersService.GetCountOfNewOrdersYesterdayByArea(CurrentUser.AreaIdList);
+                ViewData["AllOrderNumber"] = ordersService.GetCountOfAllOrdersByArea(CurrentUser.AreaIdList, enum_IsDone.None);
+                ViewData["AllDoneOrderNumber"] = ordersService.GetCountOfAllOrdersByArea(CurrentUser.AreaIdList, enum_IsDone.OrderIsDone);
+                ViewData["AllNotDoneOrderNumber"] = ordersService.GetCountOfAllOrdersByArea(CurrentUser.AreaIdList, enum_IsDone.OrderNotDone);
+                ViewData["YearOrderNumber"] = ordersService.GetStatisticsOrderRatioYearOnYear(CurrentUser.AreaIdList);
+                ViewData["MonthOrderNumber"] = ordersService.GetStatisticsOrderRatioMonthOnMonth(CurrentUser.AreaIdList);
 
                 //模拟数据
-                ViewData["NewOrderNumber"] = MockData.NewOrderNumber;
-                ViewData["AllOrderNumber"] = MockData.AllOrderNumber;
-                ViewData["AllDoneOrderNumber"] = MockData.AllDoneOrderNumber;
-                ViewData["AllNotDoneOrderNumber"] = MockData.AllNotDoneOrderNumber;
-                ViewData["YearOrderNumber"] = MockData.YearOrderNumber;
-                ViewData["MonthOrderNumber"] = MockData.MonthOrderNumber;
+                //ViewData["NewOrderNumber"] = MockData.NewOrderNumber;
+                //ViewData["AllOrderNumber"] = MockData.AllOrderNumber;
+                //ViewData["AllDoneOrderNumber"] = MockData.AllDoneOrderNumber;
+                //ViewData["AllNotDoneOrderNumber"] = MockData.AllNotDoneOrderNumber;
+                //ViewData["YearOrderNumber"] = MockData.YearOrderNumber;
+                //ViewData["MonthOrderNumber"] = MockData.MonthOrderNumber;
                 return View();
             }
             catch (Exception ex)
@@ -62,11 +61,11 @@ namespace AdminAgent.Controllers
                 StatisticsInfo statisticsInfo;
                 if (string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end))
                 {
-                    statisticsInfo = ordersService.GetStatisticsNewOrdersCountListByTime(areaList,DateTime.Now.AddMonths(-1), DateTime.Now);
+                    statisticsInfo = ordersService.GetStatisticsNewOrdersCountListByTime(CurrentUser.AreaIdList, DateTime.Now.AddMonths(-1), DateTime.Now);
                 }
                 else
                 {
-                    statisticsInfo = ordersService.GetStatisticsNewOrdersCountListByTime(areaList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true));
+                    statisticsInfo = ordersService.GetStatisticsNewOrdersCountListByTime(CurrentUser.AreaIdList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true));
                 }
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
@@ -91,11 +90,11 @@ namespace AdminAgent.Controllers
                 StatisticsInfo statisticsInfo;
                 if (string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end))
                 {
-                    statisticsInfo = ordersService.GetStatisticsAllOrdersCountListByTime(areaList, DateTime.Now.AddMonths(-1), DateTime.Now,enum_IsDone.None);
+                    statisticsInfo = ordersService.GetStatisticsAllOrdersCountListByTime(CurrentUser.AreaIdList, DateTime.Now.AddMonths(-1), DateTime.Now,enum_IsDone.None);
                 }
                 else
                 {
-                    statisticsInfo = ordersService.GetStatisticsAllOrdersCountListByTime(areaList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true), enum_IsDone.None);
+                    statisticsInfo = ordersService.GetStatisticsAllOrdersCountListByTime(CurrentUser.AreaIdList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true), enum_IsDone.None);
                 }
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
@@ -120,11 +119,11 @@ namespace AdminAgent.Controllers
                 StatisticsInfo statisticsInfo;
                 if (string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end))
                 {
-                    statisticsInfo = ordersService.GetStatisticsAllOrdersCountListByTime(areaList, DateTime.Now.AddMonths(-1), DateTime.Now, enum_IsDone.OrderIsDone);
+                    statisticsInfo = ordersService.GetStatisticsAllOrdersCountListByTime(CurrentUser.AreaIdList, DateTime.Now.AddMonths(-1), DateTime.Now, enum_IsDone.OrderIsDone);
                 }
                 else
                 {
-                    statisticsInfo = ordersService.GetStatisticsAllOrdersCountListByTime(areaList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true), enum_IsDone.OrderIsDone);
+                    statisticsInfo = ordersService.GetStatisticsAllOrdersCountListByTime(CurrentUser.AreaIdList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true), enum_IsDone.OrderIsDone);
                 }
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
@@ -153,9 +152,7 @@ namespace AdminAgent.Controllers
         {
             try
             {
-                com.IAreaService areaService = Bootstrap.Container.Resolve<com.IAreaService>();
-                IList<Area> AreaList = areaService.GetSubArea("460100");
-                StatisticsInfo statisticsInfo = ordersService.GetStatisticsAllOrdersCountListByArea(AreaList);
+                StatisticsInfo statisticsInfo = ordersService.GetStatisticsAllOrdersCountListByArea(CurrentUser.AreaList);
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -174,9 +171,7 @@ namespace AdminAgent.Controllers
         {
             try
             {
-                com.IAreaService areaService = Bootstrap.Container.Resolve<com.IAreaService>();
-                IList<Area> AreaList = areaService.GetSubArea("460100");
-                StatisticsInfo<string,decimal> statisticsInfo = ordersService.GetStatisticsAllOrdersAmountListByType(AreaList,0);
+                StatisticsInfo<string,decimal> statisticsInfo = ordersService.GetStatisticsAllOrdersAmountListByType(CurrentUser.AreaList, 0);
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -195,9 +190,7 @@ namespace AdminAgent.Controllers
         {
             try
             {
-                com.IAreaService areaService = Bootstrap.Container.Resolve<com.IAreaService>();
-                IList<Area> AreaList = areaService.GetSubArea("460100");
-                StatisticsInfo statisticsInfo = ordersService.GetStatisticsAllOrdersCountListByType(AreaList,0);
+                StatisticsInfo statisticsInfo = ordersService.GetStatisticsAllOrdersCountListByType(CurrentUser.AreaList, 0);
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
