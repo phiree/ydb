@@ -320,7 +320,7 @@
             chartOptions : lineChartOptions,
             chartDataFormat: chartLabelFormat,
             clickBind : function(e){
-                dateReqOption = getRequireOptions({url: "/AgentTotalUser/total_user_NewList"});
+                dateReqOption = getRequireOptions({url: "/AgentTotalOrder/total_order_NewList"});
                 // 切换不同查询时，初始化daterangepicker
                 dateRange.daterangepicker(dateConfig, dateSelectFunc);
                 $(e.target).addClass("active").siblings(".btn").removeClass("active");
@@ -340,7 +340,7 @@
             chartOptions : lineChartOptions,
             chartDataFormat: chartLabelFormat,
             clickBind : function(e){
-                dateReqOption = getRequireOptions({url: "/AgentTotalUser/total_user_AllList"});
+                dateReqOption = getRequireOptions({ url: "/AgentTotalOrder/total_order_IsDoneList"});
                 dateRange.daterangepicker(dateConfig, dateSelectFunc);
                 $(e.target).addClass("active").siblings(".btn").removeClass("active");
             },
@@ -359,7 +359,7 @@
             chartOptions : lineChartOptions,
             chartDataFormat: chartLabelFormat,
             clickBind : function(e){
-                dateReqOption = getRequireOptions({url: "/AgentTotalUser/total_user_LoginList"});
+                dateReqOption = getRequireOptions({ url: "/AgentTotalOrder/total_order_AllList"});
                 dateRange.daterangepicker(dateConfig, dateSelectFunc);
                 $(e.target).addClass("active").siblings(".btn").removeClass("active");
             },

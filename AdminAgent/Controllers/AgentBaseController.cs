@@ -11,6 +11,7 @@ namespace AdminAgent.Controllers
 {
     public abstract class AgentBaseController: Controller
     {
+        
         protected AppUser CurrentUser => new AppUser(this.User as ClaimsPrincipal);
     }
 

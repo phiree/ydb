@@ -169,7 +169,7 @@ namespace AdminAgent.Controllers
         /// <param name="id"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public ActionResult assistant_detail(string id, string type)
+        public ActionResult assistant_detail(string id, string type)//
         {
             try
             {
@@ -200,7 +200,7 @@ namespace AdminAgent.Controllers
         /// <param name="id"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public ActionResult assistant_detail_recoverypassword(string id, string type)
+        public ActionResult assistant_detail_recoverypassword(string id)//, string type
         {
             try
             {
@@ -225,7 +225,7 @@ namespace AdminAgent.Controllers
         /// <param name="id"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public ActionResult assistant_detail_Lock(string id, string type,bool islock)
+        public ActionResult assistant_detail_Lock(string id, bool islock)//string type,
         {
             try
             {

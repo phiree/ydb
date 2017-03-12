@@ -8,9 +8,11 @@ namespace AdminAgent.Controllers
 {
     public class AgentController : AgentBaseController
     {
+        
         // GET: Agent
         public ActionResult Index()
         {
+            ViewBag.UserName = CurrentUser.UserName;
             return View();
         }
 
