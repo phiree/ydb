@@ -54,7 +54,7 @@
                                     <div class="col-md-6">
                                         <div class="box">
                                             <div class="box-body">
-                                                <canvas id="pieChartStuff"></canvas>
+                                                <canvas id="pieChartStaff"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -62,7 +62,7 @@
                                         <div class="box">
                                             <div class="box-body no-padding">
                                                 <table class="table table-striped">
-                                                    <tbody id="tableStuff">
+                                                    <tbody id="tableStaff">
                                                         <tr>
                                                             <th style="width: 10px">#</th>
                                                             <th>员工人数</th>
@@ -156,12 +156,12 @@
         //- PIE CHART -
         //-------------
         // Get context with jQuery - using jQuery's .get() method.
-        var pieChartCanvasStuff = $("#pieChartStuff").get(0).getContext("2d");
+        var pieChartCanvasStaff = $("#pieChartStaff").get(0).getContext("2d");
         var pieChartCanvasAge = $("#pieChartAge").get(0).getContext("2d");
 
         var barChartCanvasArea = $("#barCharArea").get(0).getContext("2d");
 
-        var pieDataStuff = {
+        var pieDataStaff = {
             labels: [],
             datasets: [
                 {
@@ -211,9 +211,9 @@
         var pieOptions = {};
         var barOptions = {};
 
-        var pieChartStuff = new Chart(pieChartCanvasStuff, {
+        var pieChartStaff = new Chart(pieChartCanvasStaff, {
             type: 'doughnut',
-            data: pieDataStuff,
+            data: pieDataStaff,
             options: pieOptions
         });
         var pieChartAge = new Chart(pieChartCanvasAge, {
@@ -236,8 +236,8 @@
             }
         });
 
-        var stuffBusinessDef = $.ajax({
-            url: '/AgentTotalBusiness/total_business_StuffList',
+        var staffBusinessDef = $.ajax({
+            url: '/AgentTotalBusiness/total_business_StaffList',
             type: "GET",
             data: {
                 usertype: 'customer'
@@ -246,7 +246,7 @@
         });
 
         var ageBusinessDef = $.ajax({
-            url: '/AgentTotalBusiness/total_business_AgeList',
+            url: '/AgentTotalBusiness/total_business_LifeList',
             type: "GET",
             data: {
                 usertype: 'customer'
@@ -265,7 +265,7 @@
 
         var trTpl = _.template($("#trTpl").html());
 
-        $.when(totalBusinessDef, stuffBusinessDef, ageBusinessDef, areaBusinessDef).done(function (argTotal, argStuff, argAge, argArea) {
+        $.when(totalBusinessDef, staffBusinessDef, ageBusinessDef, areaBusinessDef).done(function (argTotal, argStaff, argAge, argArea) {
             var totalValue, totalToday;
 
             if ( !(argTotal[1] === "success") ){
@@ -275,16 +275,16 @@
             totalValue = xyTool.parseValue(argTotal[0].XYValue);
             totalToday = totalValue.xy[moment().format('YYYYMMDD')];
 
-            var stuffValue = xyTool.parseValue(argStuff[0].XYValue);
+            var staffValue = xyTool.parseValue(argStaff[0].XYValue);
             var ageValue = xyTool.parseValue(argAge[0].XYValue);
             var areaValue = xyTool.parseValue(argArea[0].XYValue);
 
 
-            renderTable($("#tableStuff"), trTpl, stuffValue);
+            renderTable($("#tableStaff"), trTpl, staffValue);
             renderTable($("#tableAge"), trTpl, ageValue);
             renderTable($("#tableArea"), trTpl, areaValue);
 
-            renderPieChart(pieChartStuff, pieDataStuff, pieOptions, stuffValue);
+            renderPieChart(pieChartStaff, pieDataStaff, pieOptions, staffValue);
             renderPieChart(pieChartAge, pieDataAge, pieOptions, ageValue);
             renderPieChart(barCharArea, barChatArea, barOptions, areaValue);
 
