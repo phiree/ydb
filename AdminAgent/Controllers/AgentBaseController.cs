@@ -25,7 +25,15 @@ namespace AdminAgent.Controllers
             : base(principal)
         {
             IAreaService areaService = Bootstrap.Container.Resolve<IAreaService>();
-            _UserAreaId= int.Parse(this.FindFirst(ClaimTypes.StateOrProvince).Value ?? "0");
+            int IntAreaId = 0;
+            if (int.TryParse(this.FindFirst(ClaimTypes.StateOrProvince).Value, out IntAreaId))
+            {
+                _UserAreaId = IntAreaId;
+            }
+            else
+            {
+                _UserAreaId = 0;
+            }
             _UserArea = areaService.GetOne(_UserAreaId);
             _AreaList = _UserArea == null ? new List<Area>() : areaService.GetSubArea(_UserArea.Code);
             _AreaIdList = _AreaList.Select(x=>x.Id.ToString ()).ToList();
