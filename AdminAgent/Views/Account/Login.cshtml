@@ -1,17 +1,20 @@
 ﻿@using AdminAgent.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "登录";
+    //ViewBag.Title = "登录";
+    ViewBag.headTitle = "登录";
+    ViewBag.subTitle = "";
+    ViewBag.breadcrumbOl = new List<string>() { "登录"};
 }
 
-<h2>@ViewBag.Title。</h2>
+@*<h2>@ViewBag.Title。</h2>*@
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>使用本地帐户登录。</h4>
+                @*<h4>使用本地帐户登录。</h4>*@
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
@@ -41,9 +44,9 @@
                         <input type="submit" value="登录" class="btn btn-default" />
                     </div>
                 </div>
-                <p>
+                @*<p>
                     @Html.ActionLink("注册为新用户", "Register")
-                </p>
+                </p>*@
                 @* 在为密码重置功能启用帐户确认后启用此项
                     <p>
                         @Html.ActionLink("忘记了密码?", "ForgotPassword")
@@ -58,6 +61,6 @@
     </div>
 </div>
 
-@section Scripts {
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@

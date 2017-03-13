@@ -217,7 +217,13 @@
                                         <a href="#" class="btn btn-default btn-flat">个人中心</a>
                                     </div>*@
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">登出</a>
+                                        @*<a href="#" class="btn btn-default btn-flat">登出</a>*@
+                                        @*@Html.ActionLink("登出", "LogOff", "Account", new { id = "" }, new { @class = "btn btn-default" })*@
+                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <a href="javascript:document.getElementById('logoutForm').submit()">登出</a>
+                                        }
                                     </div>
                                 </li>
                             </ul>
