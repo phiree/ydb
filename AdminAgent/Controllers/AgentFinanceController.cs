@@ -157,8 +157,16 @@ namespace AdminAgent.Controllers
             {
                 //接口
                 BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(CurrentUser.UserId.ToString());
-                ViewData["myAccountFinance"] = balanceTotalDto.Total;
-                ViewData["myAliAccount"] = balanceTotalDto.AccountDto.Account;
+                if (balanceTotalDto == null)
+                {
+                    ViewData["myAccountFinance"] = 0;
+                    ViewData["myAliAccount"] = "未绑定";
+                }
+                else
+                {
+                    ViewData["myAccountFinance"] = balanceTotalDto.Total;
+                    ViewData["myAliAccount"] = balanceTotalDto.AccountDto==null? "未绑定": balanceTotalDto.AccountDto.Account;
+                }
                 IList<FinanceTotalDto> financeTotalDtoList = financeFlowService.GetFinanceTotalList(CurrentUser.AreaIdList);
                 ViewData["agentId"] = CurrentUser.UserId;
                 //模拟数据
