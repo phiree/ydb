@@ -138,12 +138,13 @@ namespace Ydb.ApplicationService.Application.AgentService
             IList<string> businessIdList = businessList.Select(x => x.Id.ToString()).ToList();
             IList<ServiceOrder> orderList = serviceOrderService.GetOrdersByBusinessList(businessIdList, DateTime.MinValue, DateTime.MinValue, "");
             StatisticsInfo<string, decimal> statisticsInfo = statisticsCount.StatisticsAllOrdersAmountListByType(orderList);
-            foreach (KeyValuePair<string, decimal> pair in statisticsInfo.XYValue)
+            IList<string> strKeyList = statisticsInfo.XYValue.Keys.ToList();
+            foreach (string strKey in strKeyList)
             {
-                ServiceType serviceType = serviceTypeService.GetOne(Ydb.Common.StringHelper.CheckGuidID(pair.Key, "服务类型Id"));
+                ServiceType serviceType = serviceTypeService.GetOne(Ydb.Common.StringHelper.CheckGuidID(strKey, "服务类型Id"));
                 string TypeName = serviceType.GetNameByDeepLevel(deepLevel);
-                statisticsInfo.XYValue.Add(TypeName, pair.Value);
-                statisticsInfo.XYValue.Remove(pair.Key);
+                statisticsInfo.XYValue.Add(TypeName, statisticsInfo.XYValue[strKey]);
+                statisticsInfo.XYValue.Remove(strKey);
             }
             return statisticsInfo;
         }
@@ -161,12 +162,13 @@ namespace Ydb.ApplicationService.Application.AgentService
             IList<string> businessIdList = businessList.Select(x => x.Id.ToString()).ToList();
             IList<ServiceOrder> orderList = serviceOrderService.GetOrdersByBusinessList(businessIdList, DateTime.MinValue, DateTime.MinValue, "");
             StatisticsInfo statisticsInfo = statisticsCount.StatisticsAllOrdersCountListByType(orderList);
-            foreach (KeyValuePair<string, long> pair in statisticsInfo.XYValue)
+            IList<string> strKeyList = statisticsInfo.XYValue.Keys.ToList();
+            foreach (string strKey in strKeyList)
             {
-                ServiceType serviceType = serviceTypeService.GetOne(Ydb.Common.StringHelper.CheckGuidID(pair.Key, "服务类型Id"));
+                ServiceType serviceType = serviceTypeService.GetOne(Ydb.Common.StringHelper.CheckGuidID(strKey, "服务类型Id"));
                 string TypeName = serviceType.GetNameByDeepLevel(deepLevel);
-                statisticsInfo.XYValue.Add(TypeName, pair.Value);
-                statisticsInfo.XYValue.Remove(pair.Key);
+                statisticsInfo.XYValue.Add(TypeName, statisticsInfo.XYValue[strKey]);
+                statisticsInfo.XYValue.Remove(strKey);
             }
             return statisticsInfo;
         }

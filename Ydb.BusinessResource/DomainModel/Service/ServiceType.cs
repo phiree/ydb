@@ -106,6 +106,7 @@ namespace Ydb.BusinessResource.DomainModel
                 if (deeplevel == parent.DeepLevel)
                 {
                     typeName= parent.Name;
+                    break;
                 }
                 else
                 {
