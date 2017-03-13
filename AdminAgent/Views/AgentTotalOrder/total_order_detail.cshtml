@@ -220,7 +220,7 @@
 
         // 请求24小时订单信息
         var DayDef = $.ajax({
-            url: '/AgentTotalOrder/total_order_AllList',
+            url: '/AgentTotalOrder/total_order_Count',
             type: "GET",
             data: {
                 usertype: 'customer',
@@ -318,7 +318,16 @@
         });
 
         var totalOrderDef = $.ajax({
-            url: '/AgentTotalOrder/total_order_AllList',
+            url: '/AgentTotalOrder/total_order_Count',
+            type: "GET",
+            data: {
+                usertype: 'customer'
+            }
+        });
+
+
+        var totalAmountDef = $.ajax({
+            url: '/AgentTotalOrder/total_order_Amount',
             type: "GET",
             data: {
                 usertype: 'customer'
@@ -354,34 +363,36 @@
 
         var trTpl = _.template($("#trTpl").html());
 
-        $.when(totalOrderDef, svcOrderDef, svcAmountOrderDef, svcAreaOrderDef).done(function (argTotal, argSvc, argAmount, argArea) {
-            var totalValue, totalToday;
+        $.when(totalOrderDef, totalAmountDef, svcOrderDef, svcAmountOrderDef, svcAreaOrderDef).done(function (argTotal, argTotalAmount, argSvc, argAmount, argArea) {
+            var totalValue, totalToday,totalAmount;
 
             if ( !(argTotal[1] === "success") ){
                 return
             }
 
-            totalValue = xyTool.parseValue(argTotal[0].XYValue);
-            totalToday = totalValue.xy[moment().format('YYYYMMDD')];
+            //totalValue = xyTool.parseValue(argTotal[0].XYValue);
+            //totalToday = totalValue.xy[moment().format('YYYYMMDD')];
+            totalToday = argTotal[0].count;
+            totalAmount = argTotalAmount[0].total;
 
             var svcValue = xyTool.parseValue(argSvc[0].XYValue);
             var amountValue = xyTool.parseValue(argAmount[0].XYValue);
             var areaValue = xyTool.parseValue(argArea[0].XYValue);
 
 
-            renderTable($("#tableSvc"), trTpl, svcValue);
-            renderTable($("#tableAmount"), trTpl, amountValue);
-            renderTable($("#tableArea"), trTpl, areaValue);
+            renderTable($("#tableSvc"), trTpl, svcValue, totalToday);
+            renderTable($("#tableAmount"), trTpl, amountValue, totalAmount);
+            renderTable($("#tableArea"), trTpl, areaValue, totalToday);
 
             renderPieChart(pieChartSvc, pieDataSvc, pieOptions, svcValue);
             renderPieChart(pieChartAmount, pieDataAmount, pieOptions, amountValue);
             renderPieChart(pieChartArea, pieDataArea, pieOptions, areaValue);
 
             // 绘制表格
-            function renderTable(tableBody, trTpl, xyValue){
+            function renderTable(tableBody, trTpl, xyValue,xyTotal){
                 var tableData = {
                     list : [],
-                    total : +totalToday || 1
+                    total: +xyTotal || 1
                 } ;
 
                 for (var i = 0; i < xyValue.x.length; i++) {

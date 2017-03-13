@@ -299,7 +299,7 @@
         });
 
         var totalUser = $.ajax({
-            url: '/AgentTotalUser/total_user_AllList',
+            url: '/AgentTotalUser/total_user_Count',
             type: "GET",
             data: {
                 usertype: 'customer',
@@ -328,10 +328,11 @@
                 return
             }
 
-            totalValue = xyTool.parseValue(argTotal[0].XYValue);
             areaValue = xyTool.parseValue(argArea[0].XYValue);
 
-            totalToday = totalValue.xy[moment().format('YYYYMMDD')];
+            //totalValue = xyTool.parseValue(argTotal[0].count);
+            //totalToday = totalValue.xy[moment().format('YYYYMMDD')];
+            totalToday =argTotal[0].count;
 
             renderTable($("#areaTotalList"), trTpl, areaValue);
 

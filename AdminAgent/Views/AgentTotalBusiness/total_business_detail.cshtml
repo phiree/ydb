@@ -229,7 +229,7 @@
         });
 
         var totalBusinessDef = $.ajax({
-            url: '/AgentTotalBusiness/total_business_AllList',
+            url: '/AgentTotalBusiness/total_business_Count',
             type: "GET",
             data: {
                 usertype: 'customer'
@@ -272,8 +272,9 @@
                 return
             }
 
-            totalValue = xyTool.parseValue(argTotal[0].XYValue);
-            totalToday = totalValue.xy[moment().format('YYYYMMDD')];
+            //totalValue = xyTool.parseValue(argTotal[0].XYValue);
+            //totalToday = totalValue.xy[moment().format('YYYYMMDD')];
+            totalToday = argTotal[0].count;
 
             var staffValue = xyTool.parseValue(argStaff[0].XYValue);
             var ageValue = xyTool.parseValue(argAge[0].XYValue);

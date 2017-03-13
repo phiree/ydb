@@ -172,5 +172,22 @@ namespace Ydb.ApplicationService.Application.AgentService
             }
             return statisticsInfo;
         }
+
+        /// <summary>
+        /// 订单金额合计
+        /// </summary>
+        /// <param name="areaIdList"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="enumDone"></param>
+        /// <returns></returns>
+        public decimal GetStatisticsTotalAmountByArea(IList<string> areaIdList, enum_IsDone enumDone)
+        {
+            IList<Business> businessList = businessService.GetAllBusinessesByArea(areaIdList);
+            IList<string> businessIdList = businessList.Select(x => x.Id.ToString()).ToList();
+            IList<ServiceOrder> orderList = serviceOrderService.GetOrdersByBusinessList(businessIdList, DateTime.MinValue, DateTime.MinValue, enumDone.ToString());
+            decimal TotalAmount = orderList.Sum(x => x.NegotiateAmount);
+            return TotalAmount;
+        }
     }
 }

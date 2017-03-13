@@ -66,5 +66,15 @@ namespace Ydb.ApplicationService.Application.AgentService
         /// <param name="deepLevel"></param>
         /// <returns></returns>
         StatisticsInfo GetStatisticsAllOrdersCountListByType(IList<Area> areaList, int deepLevel);
+
+        /// <summary>
+        /// 订单金额合计
+        /// </summary>
+        /// <param name="areaIdList"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="enumDone"></param>
+        /// <returns></returns>
+        decimal GetStatisticsTotalAmountByArea(IList<string> areaIdList, enum_IsDone enumDone);
     }
 }

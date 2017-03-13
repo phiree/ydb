@@ -8,5 +8,7 @@ namespace AdminAgent.Models
     public class TotalCount
     {
         public long count { get; set; }
+
+        public decimal total { get; set; }
     }
 }

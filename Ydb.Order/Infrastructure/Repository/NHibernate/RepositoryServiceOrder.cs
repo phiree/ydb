@@ -354,6 +354,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
         /// <param name="businessIdList"></param>
         /// <param name="beginTime"></param>
         /// <param name="endTime"></param>
+        /// <param name="strDone"></param>
         /// <returns></returns>
         public IList<ServiceOrder> GetOrdersByBusinessList(IList<string> businessIdList, DateTime beginTime, DateTime endTime,string strDone)
         {
@@ -409,6 +410,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
         /// <param name="businessIdList"></param>
         /// <param name="beginTime"></param>
         /// <param name="endTime"></param>
+        /// <param name="strDone"></param>
         /// <returns></returns>
         public long GetOrdersCountByBusinessList(IList<string> businessIdList, DateTime beginTime, DateTime endTime, string strDone)
         {

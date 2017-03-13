@@ -97,6 +97,25 @@ namespace AdminAgent.Controllers
         }
 
         /// <summary>
+        /// 订单金额合计
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult total_order_Amount()
+        {
+            try
+            {
+                Models.TotalCount totalCount = new Models.TotalCount();
+                totalCount.total = ordersService.GetStatisticsTotalAmountByArea(CurrentUser.AreaIdList, enum_IsDone.None);
+                return Json(totalCount, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// 累计订单数量列表
         /// </summary>
         /// <param name="usertype"></param>
