@@ -70,6 +70,7 @@ public class Bootstrap
                 x.AddProfile<Ydb.Membership.Application.ModelToDtoMappingProfile>();
                 x.AddProfile<Ydb.BusinessResource.Application.ModelToDtoMappingProfile>();
                 x.AddProfile<Ydb.Finance.Application.ModelToDtoMappingProfile>();
+                x.AddProfile<Ydb.Finance.Application.DtoToModelMappingProfile>();
             });
 
 

@@ -59,6 +59,10 @@ namespace AdminAgent.Controllers
                 //接口
                 ViewBag.UserName = CurrentUser.UserName;
                 BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(id);
+                if (balanceTotalDto == null || balanceTotalDto.AccountDto==null)
+                {
+                    throw new Exception("请先绑定该用户的体现账户");
+                }
                 ViewData["myAccountFinance"] = balanceTotalDto.Total;
                 ViewData["myAliAccount"] = balanceTotalDto.AccountDto.Account;
                 //模拟数据
