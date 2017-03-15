@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.DependencyInstaller;
-using Ydb.InstantMessage.Tests;
+ using Ydb.InstantMessage.Tests;
 
 namespace Ydb.InstantMessage.Application.Tests
 {

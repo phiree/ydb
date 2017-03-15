@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.BusinessResource.DomainModel;
-using Dianzhu.Model;
+
 using AutoMapper;
 using Ydb.Order.DomainModel;
 

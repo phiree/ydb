@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using Castle.Windsor;
 using Castle.MicroKernel.Registration;
-using Dianzhu.Model;
-using Dianzhu.IDAL;
-using Dianzhu.DAL;
+
+
+
 
 //using NHibernate;
 using System.Configuration;
@@ -35,10 +35,10 @@ namespace Dianzhu.Web.RestfulApi
         {
             container = new WindsorContainer();
             container.Install(
-                new Dianzhu.DependencyInstaller.InstallerComponent(),
-                new Dianzhu.DependencyInstaller.InstallerInfrstructure(),
-                new Dianzhu.DependencyInstaller.InstallerRepository(),
-                new Dianzhu.DependencyInstaller.InstallerApplicationService()
+                //new Dianzhu.DependencyInstaller.InstallerComponent(),
+                //new Dianzhu.DependencyInstaller.InstallerInfrstructure(),
+                //new Dianzhu.DependencyInstaller.InstallerRepository(),
+                //new Dianzhu.DependencyInstaller.InstallerApplicationService()
                 );
 
 

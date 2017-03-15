@@ -13,8 +13,8 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Filters;
 using System.Web.Http.Results;
-using Dianzhu.Model;
-using Dianzhu.BLL;
+
+
 using System.Configuration;
 using System.Web.Configuration;
 using Dianzhu.ApplicationService;

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
- 
-using Dianzhu.BLL;
+
+
 
 using System.Threading;
 using Ydb.InstantMessage.Application;
@@ -14,6 +14,8 @@ using Ydb.Common.Infrastructure;
 using Ydb.Common;
 using Ydb.Order.Application;
 using Ydb.Order.DomainModel;
+using Ydb.Push.Application;
+
 namespace Dianzhu.CSClient.Presenter
 {
     /// <summary>
@@ -26,14 +28,15 @@ namespace Dianzhu.CSClient.Presenter
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.LoginPresenter");
         IView.ILoginForm loginView;
         IInstantMessage instantMessage;
-        BLLAdvertisement bllAdv;
+        
+
         IServiceOrderService bllServiceOrder;
         IEncryptService encryptService;
         
         IDZMembershipService memberServcie;
 
         public string[] Args { get; set; }
-        public LoginPresenter(IView.ILoginForm loginView, IInstantMessage instantMessage, BLLAdvertisement bllAdv,
+        public LoginPresenter(IView.ILoginForm loginView, IInstantMessage instantMessage, 
             IServiceOrderService bllServiceOrder, IDZMembershipService memberServcie, IEncryptService encryptService
  )
         {
@@ -42,7 +45,7 @@ namespace Dianzhu.CSClient.Presenter
             this.bllServiceOrder = bllServiceOrder;
             this.loginView = loginView;
             this.instantMessage = instantMessage;
-            this.bllAdv = bllAdv;
+        
             loginView.ViewLogin += new IView.ViewLogin(loginView_ViewLogin);
               instantMessage.IMError += new IMError(XMPP_IMError);
             instantMessage.IMConnectionError += new IMConnectionError(instantMessage_IMConenctionError);
@@ -54,8 +57,7 @@ namespace Dianzhu.CSClient.Presenter
         {
 
             long totalRecord;
-            var advList = bllAdv.GetADList(1, 10, out totalRecord);
-            var orderList = bllServiceOrder.GetAll(1,10,out totalRecord);
+             var orderList = bllServiceOrder.GetAll(1,10,out totalRecord);
             foreach (ServiceOrder order in orderList)
             {
                 var amount = order.OrderAmount;

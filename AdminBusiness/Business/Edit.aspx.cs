@@ -4,13 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-//using Dianzhu.Model;
-using Dianzhu.BLL;
+//
+
 using System.Web.UI.HtmlControls;
 using Ydb.Common;
 using Ydb.Common.Domain;
 using System.IO;
-using Dianzhu.IDAL;
+
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Application;
@@ -152,7 +152,6 @@ public partial class Business_Edit : BasePage
         {
              
             businessService.Update(b); }
-        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
         Response.Redirect("/business/detail.aspx?businessid=" + b.Id);
        // Page.ClientScript.RegisterClientScriptBlock(typeof(string), "", @"<script language='javascript' defer>alert('提交成功！');window.document.location.href='" + Request.UrlReferrer.ToString() + "';</script>");
 

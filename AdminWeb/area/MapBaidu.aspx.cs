@@ -42,8 +42,8 @@ public partial class area_MapBaidu : BasePage
                 while (jt!=null)
                 {
                     jt = jt.Next;
-                    IList<Dianzhu.Model.BaiduCity> baiduCitys = JsonConvert.DeserializeObject<IList<Dianzhu.Model.BaiduCity>>(jt.First.ToString());
-                    foreach (Dianzhu.Model.BaiduCity baiduCity in baiduCitys)
+                    IList< BaiduCity> baiduCitys = JsonConvert.DeserializeObject<IList< BaiduCity>>(jt.First.ToString());
+                    foreach ( BaiduCity baiduCity in baiduCitys)
                     {
                         try
                         {

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Web;
 using Castle.Windsor;
 using Castle.MicroKernel.Registration;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
-using Dianzhu.IDAL;
-using Dianzhu.DAL;
-using Dianzhu.BLL;
+using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+
+
+
 using NHibernate;
 using System.Configuration;
 using nhf = FluentNHibernate.Cfg;

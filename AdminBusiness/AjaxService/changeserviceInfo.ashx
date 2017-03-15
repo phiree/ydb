@@ -2,9 +2,8 @@
 
 using System;
 using System.Web;
-using Dianzhu.BLL;
-using Dianzhu.Model;
-    using Ydb.BusinessResource.Application;
+
+     using Ydb.BusinessResource.Application;
     using Ydb.BusinessResource.DomainModel;
 public class changepassword : IHttpHandler,System.Web.SessionState.IRequiresSessionState {
 
@@ -47,7 +46,6 @@ public class changepassword : IHttpHandler,System.Web.SessionState.IRequiresSess
 
             context.Response.Write("{\"result\":\""+is_valid+"\",\"msg\":\""+errMsg+"\",\"data\":\""+service.Enabled+"\"}");  };
 
-        NHibernateUnitOfWork.With.Transaction(ac);
 
     }
 

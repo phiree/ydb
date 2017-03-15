@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
-using Dianzhu.BLL;
+
+
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.BusinessResource.Application;

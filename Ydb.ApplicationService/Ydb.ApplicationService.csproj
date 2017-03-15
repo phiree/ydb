@@ -92,10 +92,6 @@
     <Compile Include="ExcelImporter\VMServiceTypeAndPoint.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
-      <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
-      <Name>Dianzhu.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Notice\Ydb.Notice.csproj">
       <Project>{db0dd68a-1a9b-4028-b4fb-477e447edb6e}</Project>
       <Name>Ydb.Notice</Name>

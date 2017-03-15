@@ -9,18 +9,17 @@ using System.Deployment.Application;
 using System.Threading;
 using System.ComponentModel;
 using System.Windows;
-using Dianzhu.BLL;
+
 using Dianzhu.CSClient.IView;
 using ViewWPF = Dianzhu.CSClient.ViewWPF;
 
 using cw = Castle.Windsor;
 using cmr = Castle.MicroKernel.Registration;
-using Dianzhu.DAL;
-using Dianzhu.IDAL;
-using Dianzhu.Model;
+
+
+
 using NHibernate;
-using DDDCommon.Domain;
-using FluentNHibernate.Cfg;
+ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
 using Application = System.Windows.Forms.Application;
@@ -44,7 +43,7 @@ namespace Dianzhu.CSClient
 {
     static class Program
     {
-        static ILog log = LogManager.GetLogger("Dianzhu.CSClient");
+        static ILog log = LogManager.GetLogger("Ydb.CSClient");
         
         static PIdentityList pIdentityList;
         static PMain mainPresenter;
@@ -227,8 +226,7 @@ namespace Dianzhu.CSClient
             {
                 if (!string.IsNullOrEmpty(chat.SessionId)) 
                 {
-                    NHibernateUnitOfWork.UnitOfWork.Start();//查询服务需开启
-                    
+                     
                     IViewMainForm viewMainForm = Bootstrap.Container.Resolve<IViewMainForm>();
                     viewMainForm.PlayVoice();
                     viewMainForm.FlashTaskBar();
@@ -259,9 +257,7 @@ namespace Dianzhu.CSClient
                         workerCustomerAvatar.RunWorkerCompleted += WorkerCustomerAvatar_RunWorkerCompleted;
                         workerCustomerAvatar.RunWorkerAsync(from);
                     }
-
-                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                    NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+ 
                 }
             }
         }

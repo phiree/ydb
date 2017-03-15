@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
-using Dianzhu.Model;
+
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
 using System.Media;

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
-using Dianzhu.BLL;
+using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

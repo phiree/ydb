@@ -14,7 +14,7 @@ namespace Dianzhu.DependencyInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<BLLAdvertisement>());
+       //     container.Register(Component.For<BLLAdvertisement>());
           //  container.Register(Component.For<BLLArea>());
 
         //    container.Register(Component.For<BLLBusiness>());
@@ -63,7 +63,7 @@ namespace Dianzhu.DependencyInstaller
 
 
             //20160727_longphui_add
-            container.Register(Component.For<BLL.BLLStorageFileInfo>());
+        //    container.Register(Component.For<BLL.BLLStorageFileInfo>());
 
             //20160802_longphui_add
         
@@ -80,7 +80,7 @@ namespace Dianzhu.DependencyInstaller
             //todo: Registering components by conventions https://github.com/castleproject/Windsor/blob/master/docs/registering-components-by-conventions.md
             container.Register(Component.For(typeof(IRepository<,>)).ImplementedBy(typeof(DAL.NHRepositoryBase<,>)));
 
-            container.Register(Component.For<IRepository<Advertisement, Guid>, IDALAdvertisement>().ImplementedBy<DALAdvertisement>());
+       //     container.Register(Component.For<IRepository<Advertisement, Guid>, IDALAdvertisement>().ImplementedBy<DALAdvertisement>());
           //  container.Register(Component.For<IRepository<Area, int>, IDALArea>().ImplementedBy<DALArea>());
 
             //bb
@@ -132,7 +132,7 @@ namespace Dianzhu.DependencyInstaller
             //container.Register(Component.For<IRepository<UserToken, Guid>, IDALUserToken>().ImplementedBy<DAL.Client.DALUserToken>());
 
             //20160727_longphui_add
-            container.Register(Component.For<IRepository<StorageFileInfo, Guid>, IDALStorageFileInfo>().ImplementedBy<DALStorageFileInfo>());
+     //       container.Register(Component.For<IRepository<StorageFileInfo, Guid>, IDALStorageFileInfo>().ImplementedBy<DALStorageFileInfo>());
 
             //20160802_longphui_add
  

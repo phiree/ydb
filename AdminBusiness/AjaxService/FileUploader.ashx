@@ -2,9 +2,8 @@
 
 using System;
 using System.Web;
-using Dianzhu.BLL;
-using Dianzhu.Model;
-using Ydb.Common;
+
+ using Ydb.Common;
     using Ydb.BusinessResource.Application;
      using Ydb.BusinessResource.DomainModel;
 public class FileUploader : IHttpHandler,System.Web.SessionState.IRequiresSessionState {
@@ -20,13 +19,6 @@ public class FileUploader : IHttpHandler,System.Web.SessionState.IRequiresSessio
             return;
         }
 
-        if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
-        {
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-
-        }
-        NHibernateUnitOfWork.UnitOfWork.Start();
 
         context.Response.ContentType = "text/plain";
 
@@ -78,7 +70,6 @@ public class FileUploader : IHttpHandler,System.Web.SessionState.IRequiresSessio
 
         context.Response.Write(imagePath);
 
-        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
 
     }

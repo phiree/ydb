@@ -41,8 +41,7 @@ namespace Dianzhu.Web.Common
             {
                 return;
             }
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+             
         }
 
         private void BeginRequest(object sender, EventArgs e)
@@ -53,7 +52,6 @@ namespace Dianzhu.Web.Common
             {
                 return;
             }
-                NHibernateUnitOfWork.UnitOfWork.Start();
         }
 
         

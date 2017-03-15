@@ -76,10 +76,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">
-      <Project>{d90cdf37-7406-4dae-9ae6-c894d83a796f}</Project>
-      <Name>DDDCommon</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.LocalStorage\Dianzhu.CSClient.LocalStorage.csproj">
       <Project>{6F064359-8BBD-4BDA-9532-D93505472582}</Project>
       <Name>Dianzhu.CSClient.LocalStorage</Name>
@@ -87,10 +83,6 @@
     <ProjectReference Include="..\Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj">
       <Project>{D7AA114D-AD19-4399-B152-969D240053C7}</Project>
       <Name>Dianzhu.CSClient.ViewModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
-      <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
-      <Name>Dianzhu.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ydb.BusinessResource\Ydb.BusinessResource.csproj">
       <Project>{0c2206a1-308f-4090-a4a9-4e7cefd2fd9f}</Project>

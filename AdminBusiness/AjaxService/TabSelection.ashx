@@ -4,8 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Web;
-using Dianzhu.Model;
-using Dianzhu.BLL;
+ 
 using Newtonsoft.Json;
 using NPOI.POIFS.Properties;
 using Newtonsoft.Json.Serialization;

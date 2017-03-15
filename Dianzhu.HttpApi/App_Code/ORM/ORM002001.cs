@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
-using Dianzhu.BLL;
+
 using Dianzhu.Api.Model;
 using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.Application.Dto;
