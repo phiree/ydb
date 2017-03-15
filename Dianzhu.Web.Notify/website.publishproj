@@ -48,6 +48,10 @@ website.publishproj
       <Project>{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}</Project>
       <Name>Dianzhu.Config</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Log4Mongo\Log4Mongo.csproj">
+      <Project>{59D8ECF9-2867-43FD-BF18-EFE2758CF14F}</Project>
+      <Name>Log4Mongo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
       <Name>PHSuit</Name>

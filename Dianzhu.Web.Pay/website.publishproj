@@ -44,14 +44,6 @@ website.publishproj
     </AssemblyAttributes>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">
-      <Project>{D90CDF37-7406-4DAE-9AE6-C894D83A796F}</Project>
-      <Name>DDDCommon</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
-      <Project>{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}</Project>
-      <Name>Dianzhu.BLL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
       <Project>{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}</Project>
       <Name>Dianzhu.Config</Name>
@@ -63,22 +55,6 @@ website.publishproj
     <ProjectReference Include="..\Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj">
       <Project>{D7AA114D-AD19-4399-B152-969D240053C7}</Project>
       <Name>Dianzhu.CSClient.ViewModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
-      <Project>{2E67AA78-6780-42BD-A3AB-AD953781E511}</Project>
-      <Name>Dianzhu.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Dependency\Dianzhu.Dependency.csproj">
-      <Project>{F5F67C69-F9EE-4222-9F83-91C816FC686C}</Project>
-      <Name>Dianzhu.Dependency</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.IDAL\Dianzhu.IDAL.csproj">
-      <Project>{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD}</Project>
-      <Name>Dianzhu.IDAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
-      <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
-      <Name>Dianzhu.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Web.Common\Dianzhu.Web.Common.csproj">
       <Project>{B74CA750-EBD2-4EFD-823A-FC680F498E52}</Project>
@@ -127,10 +103,6 @@ website.publishproj
     <ProjectReference Include="..\Ydb.PayGateway\Ydb.PayGateway.csproj">
       <Project>{A54365B5-4B06-4897-A280-38D18ED9EB0E}</Project>
       <Name>Ydb.PayGateway</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ydb.Web.LogView\Ydb.Web.LogView.csproj">
-      <Project>{939E8BAF-F3DD-47FC-A3CD-92417A30C066}</Project>
-      <Name>Ydb.Web.LogView</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(_WebPublishTargetsPath)\Web\Microsoft.WebSite.Publishing.targets" />
