@@ -1,7 +1,384 @@
 ﻿
 @{
-    ViewBag.Title = "OrderList";
+    ViewBag.headTitle = "订单管理";
+    ViewBag.subTitle = "";
+    ViewBag.breadcrumbOl = new List<string>() { "订单管理", "订单列表" };
 }
 
-<h2>OrderList</h2>
+ <!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">订单列表</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <form action="">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">位置</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control">
+                                                <option>海南</option>
+                                                <option>北京</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">订单状态</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control">
+                                                <option>已完成</option>
+                                                <option>正在处理</option>
+                                                <option>未完成</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">时间范围</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input type="text" class="form-control pull-right" id="reservation">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th width="50px">订单号</th>
+                                <th>服务名称</th>
+                                <th>店铺</th>
+                                <th>归属地</th>
+                                <th>客户名</th>
+                                <th>下单时间</th>
+                                <th>订单状态</th>
+                                <th>负责人</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th width="50px">订单号</th>
+                                <th>服务名称</th>
+                                <th>店铺</th>
+                                <th>归属地</th>
+                                <th>客户名</th>
+                                <th>下单时间</th>
+                                <th>订单状态</th>
+                                <th>负责人</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+
+                            <tr>
+                                <td><a href="./order-detail.html">0</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">1</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">2</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">3</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">4</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">5</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">6</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">7</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">8</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">9</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">10</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">11</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">12</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">13</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">14</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">15</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">16</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">17</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">18</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="./order-detail.html">19</a></td>
+                                <td><a href="./order-detail.html">畅畅关爱</a></td>
+                                <td>畅畅爱心店</td>
+                                <td>海南</td>
+                                <td>小畅畅</td>
+                                <td>2016.07.01</td>
+                                <td>已完成</td>
+                                <td>大畅畅</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+@Html.Action("footer", "Agent", new { id = "" })
+
+
+<!-- REQUIRED JS SCRIPTS -->
+<!-- jQuery 2.2.3 -->
+<script src="../../static/libs/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../../static/libs/bootstrap/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../static/libs/adminLTE/js/app.min.js"></script>
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. Slimscroll is required when using the
+     fixed layout. -->
+
+<script src="../../static/js/navbar-controller.js"></script>
+
+<!-- date-range-picker -->
+<script src="../../static/plugins/daterangepicker/moment.min.js"></script>
+<script src="../../static/plugins/daterangepicker/daterangepicker.js"></script>
+
+<!-- DataTables -->
+<script src="../../static/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../static/plugins/datatables/dataTables.bootstrap.min.js"></script>
+
+
+<script>
+    $(function () {
+
+        //Date range picker
+        $('#reservation').daterangepicker();
+
+        var language = {
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项结果",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "表中数据为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上页",
+                "sNext": "下页",
+                "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        };
+
+        $('#example1').DataTable({
+            language : language
+        });
+    });
+</script>
 

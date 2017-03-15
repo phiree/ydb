@@ -79,7 +79,7 @@ namespace Ydb.Order.Application
         /// </summary>
         /// <param name="orderId"></param>
         /// <param name="staffId"></param>
-        void UpdateStaff(Guid orderId, string staffId);
+        void UpdateStaff(Guid orderId, string staffId,string staffName);
 
         /// <summary>
         /// 根据代理区域获取该区域内所有商户的订单数量，区分是否分账

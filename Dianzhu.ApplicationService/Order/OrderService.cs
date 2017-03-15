@@ -1268,6 +1268,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("改派给同一个人了！");
             }
+            string staffName = "";
             if (strState != "取消指派")
             {
                 Ydb.BusinessResource.DomainModel.Staff staff = staffService.GetStaff(utils.CheckGuidID(order.BusinessId, "order.BusinessId"), utils.CheckGuidID(staffID, "staffID"));
@@ -1279,6 +1280,7 @@ namespace Dianzhu.ApplicationService.Order
                 {
                     throw new Exception("指派或改派的员工不在职！");
                 }
+                staffName = staff.DisplayName;
             }
             //else
             //{
@@ -1306,7 +1308,7 @@ namespace Dianzhu.ApplicationService.Order
                     //oa.Order.Details[0].Staff.Clear();
                     //oa.Order.Details[0].Staff.Add(staff);
                     bllOrderAssignment.Save(oa);
-                    ibllserviceorder.UpdateStaff(order.Id,staffID);
+                    ibllserviceorder.UpdateStaff(order.Id,staffID,staffName);
                     strState = "指派成功";
                     break;
 
@@ -1323,7 +1325,7 @@ namespace Dianzhu.ApplicationService.Order
                     //order.StaffId = staffID;
                     //order.LatestOrderUpdated = DateTime.Now;
                     bllOrderAssignment.UpdateStaffOfOrder(oa.Id, staffID);
-                    ibllserviceorder.UpdateStaff(order.Id, staffID);
+                    ibllserviceorder.UpdateStaff(order.Id, staffID,staffName);
                     strState = "改派成功";
                     break;
 
@@ -1340,7 +1342,7 @@ namespace Dianzhu.ApplicationService.Order
                     //order.LatestOrderUpdated = DateTime.Now;
                     //ibllserviceorder.Update(order);
                     bllOrderAssignment.DeleteStaffOfOrder(oa.Id, staffID);
-                    ibllserviceorder.UpdateStaff(order.Id, null);
+                    ibllserviceorder.UpdateStaff(order.Id, null,staffName);
                     strState = "取消成功";
                     break;
             }
@@ -1400,7 +1402,7 @@ namespace Dianzhu.ApplicationService.Order
             //oa.Order.Details[0].Staff.Clear();
             //oa.Order.Details[0].Staff.Add(staff);
             bllOrderAssignment.Save(oa);
-            ibllserviceorder.UpdateStaff(order.Id, staffID);
+            ibllserviceorder.UpdateStaff(order.Id, staffID, staff.DisplayName);
             return new string[] { "指派成功！" };
             //bllstaff.Update(staff);
             //oa = bllassign.GetAssignById(oa.Id);
@@ -1462,7 +1464,7 @@ namespace Dianzhu.ApplicationService.Order
             //order.LatestOrderUpdated = DateTime.Now;
             bllOrderAssignment.DeleteStaffOfOrder(oa.Id, staffID);
 
-            ibllserviceorder.UpdateStaff(order.Id, null);
+            ibllserviceorder.UpdateStaff(order.Id, null,"");
             return new string[] { "取消成功！" };
         }
     }

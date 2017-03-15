@@ -59,6 +59,7 @@ namespace Ydb.Order.DomainModel
 
 
             //更新 需要根据detail计算的值
+            UpdateServiceName();
             UpdateDescription();
             UpdateOrderAmount();
             UpdateServiceBusinessName();
@@ -290,6 +291,23 @@ namespace Ydb.Order.DomainModel
 
             ServiceBusinessPhone = phone.TrimEnd(';');
         }
+
+        /// <summary>
+        /// 服务名称
+        /// </summary>
+        public virtual string ServiceName
+        {
+            get; protected internal set;
+        }
+        private void UpdateServiceName()
+        {
+            string serviceName = string.Empty;
+            foreach (ServiceOrderDetail detain in Details)
+            {
+                serviceName += detain.ServiceSnapShot.Name + ";";
+            }
+            ServiceName = serviceName.TrimEnd(';');
+        }
         /// <summary>
         /// 服务描述
         /// </summary>
@@ -444,6 +462,36 @@ namespace Ydb.Order.DomainModel
             //}
             get; set;//用于保存指派负责人
         }
+
+        /// <summary>
+        /// 分配的职员名称
+        /// </summary>
+        public virtual string StaffName
+        {
+            //get {
+
+            //    //var l = from detail in Details
+            //    //        select detail into ds
+            //    //        from child in ds.Staff
+            //    //        select child;
+            //    //return l.ToList();
+            //}
+            get {
+                if (string.IsNullOrEmpty(this.StaffId))
+                {
+                    return "未指派";
+                }
+                else
+                {
+                    return this.StaffName; 
+                }
+            }
+            set {
+                this.StaffName = value;
+            }
+        }
+
+
         /// <summary>
         /// OpenFire订单联系人
         /// </summary>
