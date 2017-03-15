@@ -108,7 +108,6 @@ namespace AdminAgent.Controllers
 
                 var ctx = Request.GetOwinContext();
                 var authManager = ctx.Authentication;
-
                 authManager.SignIn(identity);
                 result = SignInStatus.Success;
                 //登录 openfire 

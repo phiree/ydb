@@ -109,13 +109,13 @@ namespace AdminAgent.Controllers
             ViewBag.UserName = CurrentUser.UserName;
             BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(id);
             Response.Cookies["alipayAcc"].Value = "";
-            Response.Cookies["alipayAcc"].Expires = DateTime.Now.AddHours(1);
+            Response.Cookies["alipayAcc"].Expires = DateTime.Now.AddMinutes(20);
             Response.Cookies["owner"].Value = "";
-            Response.Cookies["owner"].Expires = DateTime.Now.AddHours(1);
+            Response.Cookies["owner"].Expires = DateTime.Now.AddMinutes(20);
             Response.Cookies["IDNumber"].Value = "";
-            Response.Cookies["IDNumber"].Expires = DateTime.Now.AddHours(1);
+            Response.Cookies["IDNumber"].Expires = DateTime.Now.AddMinutes(20);
             Response.Cookies["phone"].Value = "";
-            Response.Cookies["phone"].Expires = DateTime.Now.AddHours(1);
+            Response.Cookies["phone"].Expires = DateTime.Now.AddMinutes(20);
             if (balanceTotalDto == null || balanceTotalDto.AccountDto == null)
             {
             }
@@ -179,6 +179,7 @@ namespace AdminAgent.Controllers
             try
             {
                 //接口
+                ViewBag.UserName = CurrentUser.UserName;
                 BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(CurrentUser.UserId.ToString());
                 if (balanceTotalDto == null)
                 {
