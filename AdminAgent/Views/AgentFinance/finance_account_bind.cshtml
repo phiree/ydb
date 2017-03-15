@@ -57,7 +57,7 @@
                     <div class="box-footer">
                         @*<button type="submit" class="btn btn-default">取消</button>*@
                         @Html.ActionLink("取消", "finance_total_list", "AgentFinance", new { id = "" }, new { @class = "btn btn-default" })
-                        <button type="submit" class="btn btn-info pull-right">绑定</button>
+                        <button type="submit" class="btn btn-info pull-right" onclick="return checkAccount();">绑定</button>
                     </div>
                     <!-- /.box-footer -->
                 </form>
@@ -67,3 +67,37 @@
 </section>
 <!-- /.content -->
 @Html.Action("footer", "Agent", new { id = "" })
+
+
+<script>
+    function checkAccount()
+    {
+        var alipayAcc = $("#alipayAcc").val();
+        if (alipayAcc == "")
+        {
+            alert("要绑定的提现账号不能为空！");
+            return false;
+        }
+        var owner = $("#owner").val();
+        if (owner == "") {
+            alert("要绑定的提现账号真实姓名不能为空！");
+            return false;
+        }
+        var IDNumber = $("#IDNumber").val(); 
+        if (IDNumber == "") {
+            alert("要绑定的用户身份证不能为空！");
+            return false;
+        }
+        var phone = $("#phone").val(); 
+        if (phone == "") {
+            alert("要绑定的用户手机号码不能为空！");
+            return false;
+        }
+        if (document.cookie.split(";")[0].split("=")[1]!="" && document.cookie.split(";")[2].split("=")[1] != IDNumber)
+        {
+            alert("输入的身份证和绑定的身份证不一致！");
+            return false;
+        }
+        return true;
+    }
+</script>

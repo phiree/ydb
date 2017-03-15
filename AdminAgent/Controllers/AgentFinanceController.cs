@@ -59,6 +59,10 @@ namespace AdminAgent.Controllers
                 //接口
                 ViewBag.UserName = CurrentUser.UserName;
                 BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(id);
+                if (balanceTotalDto == null || balanceTotalDto.AccountDto==null)
+                {
+                    throw new Exception("请先绑定该用户的体现账户");
+                }
                 ViewData["myAccountFinance"] = balanceTotalDto.Total;
                 ViewData["myAliAccount"] = balanceTotalDto.AccountDto.Account;
                 //模拟数据
@@ -102,7 +106,27 @@ namespace AdminAgent.Controllers
         /// <returns></returns>
         public ActionResult finance_account_bind(string id)
         {
+            int timeSpan = int.Parse(System.Configuration.ConfigurationManager.AppSettings["ExpireTimeSpan"].ToString());
             ViewBag.UserName = CurrentUser.UserName;
+            BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(id);
+            Response.Cookies["alipayAcc"].Value = "";
+            Response.Cookies["alipayAcc"].Expires = DateTime.Now.AddMinutes(timeSpan);
+            Response.Cookies["owner"].Value = "";
+            Response.Cookies["owner"].Expires = DateTime.Now.AddMinutes(timeSpan);
+            Response.Cookies["IDNumber"].Value = "";
+            Response.Cookies["IDNumber"].Expires = DateTime.Now.AddMinutes(timeSpan);
+            Response.Cookies["phone"].Value = "";
+            Response.Cookies["phone"].Expires = DateTime.Now.AddMinutes(timeSpan);
+            if (balanceTotalDto == null || balanceTotalDto.AccountDto == null)
+            {
+            }
+            else
+            {
+                Response.Cookies["alipayAcc"].Value = balanceTotalDto.AccountDto.Account;
+                Response.Cookies["owner"].Value = balanceTotalDto.AccountDto.AccountName;
+                Response.Cookies["IDNumber"].Value = balanceTotalDto.AccountDto.AccountCode;
+                Response.Cookies["phone"].Value = balanceTotalDto.AccountDto.AccountPhone;
+            }
             return View();
         }
 
@@ -156,6 +180,7 @@ namespace AdminAgent.Controllers
             try
             {
                 //接口
+                ViewBag.UserName = CurrentUser.UserName;
                 BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(CurrentUser.UserId.ToString());
                 if (balanceTotalDto == null)
                 {

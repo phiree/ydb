@@ -231,6 +231,7 @@
     <Compile Include="Controllers\AgentController.cs" />
     <Compile Include="Controllers\AgentCustomerServiceManageController.cs" />
     <Compile Include="Controllers\AgentFinanceController.cs" />
+    <Compile Include="Controllers\AgentOrderManagementController.cs" />
     <Compile Include="Controllers\AgentTotalBusinessController.cs" />
     <Compile Include="Controllers\AgentTotalOrderController.cs" />
     <Compile Include="Controllers\AgentTotalUserController.cs" />
@@ -590,6 +591,7 @@
     <Content Include="static\plugins\datatables\extensions\TableTools\images\psd\file_types.psd" />
     <Content Include="static\plugins\datatables\extensions\TableTools\images\psd\printer.psd" />
     <Content Include="static\plugins\datatables\extensions\TableTools\Readme.md" />
+    <Content Include="Views\AgentOrderManagement\OrderList.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

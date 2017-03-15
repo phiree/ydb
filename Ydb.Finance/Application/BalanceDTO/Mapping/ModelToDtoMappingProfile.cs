@@ -24,7 +24,7 @@ namespace Ydb.Finance.Application
             Mapper.CreateMap<BalanceFlow, BalanceFlowDto>()
             .ForAllMembers(opt => opt.NullSubstitute(""));
             Mapper.CreateMap<BalanceTotal, BalanceTotalDto>()
-            .ForAllMembers(opt => opt.NullSubstitute(""));
+            .ForMember(x => x.AccountDto, opt => opt.MapFrom(source => source.Account));
             Mapper.CreateMap<ServiceTypePoint, ServiceTypePointDto>()
             .ForAllMembers(opt => opt.NullSubstitute(""));
             Mapper.CreateMap<UserTypeSharePoint, UserTypeSharePointDto>()
