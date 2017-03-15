@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dianzhu.BLL;
-using Dianzhu.Model;
+
+
 using Ydb.Membership.Application.Dto;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Order.DomainModel;

@@ -2,9 +2,8 @@
 
 using System;
 using System.Web;
-using Dianzhu.BLL;
-using Dianzhu.Model;
-using Ydb.Common;
+
+ using Ydb.Common;
        using Ydb.BusinessResource.Application;
      using Ydb.BusinessResource.DomainModel;
 public class ImageDelete : IHttpHandler{
@@ -13,13 +12,7 @@ public class ImageDelete : IHttpHandler{
 
     public void ProcessRequest(HttpContext context) {
 
-        if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
-        {
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-
-        }
-        NHibernateUnitOfWork.UnitOfWork.Start();
+      
 
         context.Response.ContentType = "text/plain";
 
@@ -33,7 +26,6 @@ public class ImageDelete : IHttpHandler{
         }
 
 
-        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
     }
 

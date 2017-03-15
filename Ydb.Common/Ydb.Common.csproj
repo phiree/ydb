@@ -82,6 +82,7 @@
     <Compile Include="Application\AreaService.cs" />
     <Compile Include="Application\IAreaService.cs" />
     <Compile Include="Domain\Area.cs" />
+    <Compile Include="Domain\City.cs" />
     <Compile Include="Domain\IDomainEntity.cs" />
     <Compile Include="Domain\StatisticsInfo.cs" />
     <Compile Include="Domain\Time.cs" />

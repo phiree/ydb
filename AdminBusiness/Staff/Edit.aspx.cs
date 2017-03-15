@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.BLL;
-using Dianzhu.Model;
+
+
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common;
@@ -125,7 +125,6 @@ public partial class Staff_Edit : BasePage
          
         StaffId = s.Id;
         UploadImage();
-        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
         Response.Redirect("/staff/default.aspx?businessid="+Request["businessId"]);
        
 

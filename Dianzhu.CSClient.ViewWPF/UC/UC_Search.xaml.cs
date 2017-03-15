@@ -16,7 +16,7 @@ using Dianzhu.CSClient.IView;
 using System.ComponentModel;
 using System.Threading;
 using Newtonsoft.Json;
-using Dianzhu.Model;
+
 using Ydb.BusinessResource.DomainModel;
 
 namespace Dianzhu.CSClient.ViewWPF
@@ -404,7 +404,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 try
                 {
-                    NHibernateUnitOfWork.UnitOfWork.Start();
+                  //  NHibernateUnitOfWork.UnitOfWork.Start();
                     Search(targetTime, minPrice, maxPrice, UC_TypeSelect.SelectedTypeId, serviceName, serviceTargetAddressObj.point.lng, serviceTargetAddressObj.point.lat);
                 }
                 catch (Exception ee)
@@ -413,8 +413,8 @@ namespace Dianzhu.CSClient.ViewWPF
                 }
                 finally
                 {
-                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                    NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                   // NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                    //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
                 }
             }
         }

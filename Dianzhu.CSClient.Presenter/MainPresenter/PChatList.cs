@@ -152,7 +152,7 @@ namespace Dianzhu.CSClient.Presenter
             
             try
             {
-                NHibernateUnitOfWork.UnitOfWork.Start();//查询服务需开启
+             //   NHibernateUnitOfWork.UnitOfWork.Start();//查询服务需开启
 
                 if (string.IsNullOrEmpty( identity))
                 {
@@ -196,8 +196,8 @@ namespace Dianzhu.CSClient.Presenter
             }
             finally
             {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+               // NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+              //  NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
         }
     }

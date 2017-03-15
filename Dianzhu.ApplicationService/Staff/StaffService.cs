@@ -330,17 +330,14 @@ namespace Dianzhu.ApplicationService.Staff
                 throw new FormatException("staffID不能为空！");
             }
             BRM.Business business = checkRute(storeID, customer);
-            BRM.Staff staff = null;
+          
             Guid guidStaff = utils.CheckGuidID(staffID, "staffID");
-            
-            //staff.Enable = false;
-            staffService.Delete(guidStaff);
-            //staff = staffService.GetStaff(guidStore, guidStaff);
-            //if (staff == null)
-            //{
-            try
+             try
             {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            
+            staffService.Delete(guidStaff);
+           
+               
             }
             catch
             {

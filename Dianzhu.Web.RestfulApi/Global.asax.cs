@@ -44,8 +44,7 @@ namespace Dianzhu.Web.RestfulApi
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             //log4net.ILog log = log4net.LogManager.GetLogger("Ydb.Result.NoRule.v1.RestfulApi.Web.Dianzhu");
-            NHibernateUnitOfWork.UnitOfWork.Start();
-
+         
             //System.Web.HttpApplication hc = (System.Web.HttpApplication)sender;
             //string strT = hc.Request.Headers.Get("stamp_TIMES");
             //if (!string.IsNullOrEmpty(strT))
@@ -72,8 +71,7 @@ namespace Dianzhu.Web.RestfulApi
             //    //log1.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusCode);
             //    //log1.Info("Info(response.StatusCode)" + strT + ":" + Context.Response.StatusDescription);
             //}
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            //if (!string.IsNullOrEmpty(strT))
+           //if (!string.IsNullOrEmpty(strT))
             //{
             //    log.Info("Info(end)" + strT + ":*******************************************************");
             //}

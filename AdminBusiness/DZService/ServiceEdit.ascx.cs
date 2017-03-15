@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.Model;
-using Dianzhu.BLL;
+
+
 using Ydb.Common;
 using PHSuit;
 using FluentValidation.Results;
@@ -267,7 +267,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
             //             PHSuit.Notification.Alert(Page, "保存成功", redirectUrl);
             //   Response.Redirect(redirectUrl);//PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl);
 
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+           
             Response.Redirect("/dzservice/Service_Edit.aspx?&businessid=" + Request["businessid"] + "&serviceid=" + CurrentService.Id + "&step=4" );
         }   
         else

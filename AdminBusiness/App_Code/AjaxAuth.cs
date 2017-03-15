@@ -20,7 +20,6 @@ public class AjaxAuth
     public static Boolean authAjaxUser(HttpContext context) {
         bool b = true;
 
-        NHibernateUnitOfWork.UnitOfWork.Start();
 
         var user = System.Web.Security.Membership.GetUser();
         // 权限判断
@@ -44,7 +43,6 @@ public class AjaxAuth
 
             b = false;
         }
-        NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork (null);
 
         return b;
     }

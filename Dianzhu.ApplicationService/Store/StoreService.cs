@@ -232,14 +232,14 @@ namespace Dianzhu.ApplicationService.Store
             if (business == null)
             {
                 throw new Exception("该商户不存在该店铺！");
-            }
+            }   try
+            {
             businessService.Delete(business);
             //business = businessService.GetOne(guidStore);
             //if (business == null)
             //{
-            try
-            {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+         
+               
             }
             catch
             {

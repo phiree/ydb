@@ -116,7 +116,7 @@
                 bllOrder.OrderShared(order.Id);
             }
         };
-        NHibernateUnitOfWork.With.Transaction(a);
+        
         if (c > 0)
         {
             log.Debug("批量分账结束");

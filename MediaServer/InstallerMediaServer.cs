@@ -19,11 +19,11 @@ using Ydb.MediaServer.Application;
 
 namespace Ydb.MediaServer.Infrastructure
 {
-    public class InstallerOrder : IWindsorInstaller
+    public class InstallerMediaServer : IWindsorInstaller
     {
         FluentConfiguration dbConfigFinance;
         string sessionFactoryName = "MediaServerSessionFactory";
-        public InstallerOrder(FluentConfiguration dbConfigFinance)
+        public InstallerMediaServer(FluentConfiguration dbConfigFinance)
         {
             this.dbConfigFinance = dbConfigFinance;//Ydb.Finance.Infrastructure.Repository.NHibernate.Mapping.BalanceFlowMap//Dianzhu.DAL.Mapping.AreaMap
         }

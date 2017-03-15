@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
-using Dianzhu.Model;
+
 using System.ComponentModel;
 using System.Globalization;
 using Ydb.InstantMessage.Application;
@@ -144,7 +144,7 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 try
                 {
-                    NHibernateUnitOfWork.UnitOfWork.Start();
+                   // NHibernateUnitOfWork.UnitOfWork.Start();
 
                     string errorMsg = string.Empty;
                     e.Result = PushServices(new List<Guid>() { Guid.Parse( e.Argument.ToString()) }, out errorMsg);
@@ -160,8 +160,8 @@ namespace Dianzhu.CSClient.ViewWPF
                 }
                 finally
                 {
-                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                    NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                   // NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                    //NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
                 }
             }));
         }

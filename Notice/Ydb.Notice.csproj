@@ -81,10 +81,6 @@
     <Compile Include="Infrastructure\YdbNHibernate\Repository\RepositoryNotice.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
-      <Project>{2E67AA78-6780-42BD-A3AB-AD953781E511}</Project>
-      <Name>Dianzhu.DAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Ydb.Common\Ydb.Common.csproj">
       <Project>{f351e700-e016-4a42-9154-54a6d92ecbde}</Project>
       <Name>Ydb.Common</Name>

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.Model;
-using Dianzhu.BLL;
+
+
 using Newtonsoft.Json;
 using System.IO;
 using Ydb.BusinessResource.Application;

@@ -3,8 +3,8 @@
 using System;
 using System.Web;
 using System.Collections.Generic;
-using Dianzhu.BLL;
-using Dianzhu.Model;
+
+
 using Ydb.Common;
        using Ydb.BusinessResource.Application;
      using Ydb.BusinessResource.DomainModel;
@@ -14,13 +14,7 @@ public class ImageLoader : IHttpHandler {
    IBusinessImageService bllBusinessImage =Bootstrap.Container.Resolve<IBusinessImageService>();
 
     public void ProcessRequest (HttpContext context) {
-        if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
-        {
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-
-        }
-        NHibernateUnitOfWork.UnitOfWork.Start();
+       
 
         context.Response.ContentType = "text/plain";
 

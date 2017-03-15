@@ -2,9 +2,8 @@
 
 using System;
 using System.Web;
-using Dianzhu.BLL;
-using Dianzhu.Model;
-using System.Web.Security;
+
+ using System.Web.Security;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 public class is_username_duplicate : IHttpHandler,System.Web.SessionState.IRequiresSessionState {

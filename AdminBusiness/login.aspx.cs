@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
 using Newtonsoft.Json;
-using Dianzhu.BLL;
+
 using Dianzhu.RequestRestful;
 using Ydb.Membership.Application;
 

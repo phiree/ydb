@@ -2,8 +2,7 @@
 
 using System;
 using System.Web;
-using Dianzhu.Model;
-using Dianzhu.BLL;
+ 
 using System.Web.Security;
     using Ydb.BusinessResource.Application;
     using Ydb.BusinessResource.DomainModel;
@@ -21,15 +20,7 @@ public class TagHandler : IHttpHandler,System.Web.SessionState.IRequiresSessionS
             return;
         }
 
-        // UnitOfWork start
-        if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
-        {
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-
-        }
-        NHibernateUnitOfWork.UnitOfWork.Start();
-
+        
 
         context.Response.ContentType = "text/plain";
 
@@ -65,8 +56,7 @@ public class TagHandler : IHttpHandler,System.Web.SessionState.IRequiresSessionS
                 break;
         }
 
-        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-
+       
     }
 
     public bool IsReusable

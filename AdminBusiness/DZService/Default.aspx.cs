@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.BLL;
-using Dianzhu.Model;
+
+
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
 
@@ -27,11 +27,7 @@ public partial class DZService_Default : BasePage
     protected void delbt_Command(object sender, CommandEventArgs e)
     {
         Guid id =new Guid(e.CommandArgument.ToString());
-        bllService.Delete(bllService.GetOne2(id));
-        if (NHibernateUnitOfWork.UnitOfWork.Current != null)
-        {
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-        }
+      
         Response.Redirect(Request.UrlReferrer.ToString());
 
     }

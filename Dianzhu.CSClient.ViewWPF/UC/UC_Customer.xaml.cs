@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
-using Dianzhu.Model;
+
 using System.Windows.Threading;
 using Dianzhu.CSClient.ViewModel;
 

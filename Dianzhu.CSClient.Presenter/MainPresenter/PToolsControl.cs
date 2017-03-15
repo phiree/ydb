@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.CSClient.IView;
-using Dianzhu.Model;
+
 using System.Diagnostics;
 namespace Dianzhu.CSClient.Presenter
 {

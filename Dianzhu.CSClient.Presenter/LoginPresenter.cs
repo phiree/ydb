@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Dianzhu.BLL;
+
 
 using System.Threading;
 using Ydb.InstantMessage.Application;

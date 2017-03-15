@@ -34,10 +34,10 @@ namespace Dianzhu.ApplicationService.Tests
         {
             container = new WindsorContainer();
             container.Install(
-                new Dianzhu.DependencyInstaller.InstallerComponent(),
-                new Dianzhu.DependencyInstaller.InstallerInfrstructure(),
-                new Dianzhu.DependencyInstaller.InstallerRepository(),
-                new Dianzhu.DependencyInstaller.InstallerApplicationService()
+                //new Dianzhu.DependencyInstaller.InstallerComponent(),
+                //new Dianzhu.DependencyInstaller.InstallerInfrstructure(),
+                //new Dianzhu.DependencyInstaller.InstallerRepository(),
+                //new Dianzhu.DependencyInstaller.InstallerApplicationService()
                 );
 
 
