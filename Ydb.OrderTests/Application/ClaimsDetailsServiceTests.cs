@@ -11,11 +11,7 @@ namespace Ydb.Order.Application.Tests
     [TestFixture()]
     public class ClaimsDetailsServiceTests
     {
-        [Test()]
-        public void GetRefundStatusTest()
-        {
-            Assert.Fail();
-        }
+        
  
     }
 }

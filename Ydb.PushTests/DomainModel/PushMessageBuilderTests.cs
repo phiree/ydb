@@ -41,8 +41,9 @@ namespace Ydb.Push.DomainModel.Tests
         {
             inputDto.chatType = "ReceptionChatNoticeOrder";
             inputDto.orderStatus = "EndCancel";
+            inputDto.orderStatStr = "已取消";
             var pushMessage = BuildPushMessage();
-            Assert.AreEqual(string.Format("<订单完成>{0}订单状态已变为{1},快来看看吧", pushMessage.OrderSerialNo, inputDto.orderStatus), pushMessage.DisplayContent);
+            Assert.AreEqual(string.Format("<订单完成>{0}订单状态已变为{1},快来看看吧", pushMessage.OrderSerialNo, inputDto.orderStatStr), pushMessage.DisplayContent);
         }
 
         [Test()]
@@ -50,8 +51,9 @@ namespace Ydb.Push.DomainModel.Tests
         {
             inputDto.chatType = "ReceptionChatNoticeOrder";
             inputDto.orderStatus = "Ended";
+            inputDto.orderStatStr = "已完成";
             var pushMessage = BuildPushMessage();
-            Assert.AreEqual(string.Format("<订单更新>{0}订单状态已变为{1},快来看看吧", pushMessage.OrderSerialNo, inputDto.orderStatus), pushMessage.DisplayContent);
+            Assert.AreEqual(string.Format("<订单更新>{0}订单状态已变为{1},快来看看吧", pushMessage.OrderSerialNo, inputDto.orderStatStr), pushMessage.DisplayContent);
         }
 
         [Test()]
