@@ -93,6 +93,11 @@
             alert("要绑定的用户手机号码不能为空！");
             return false;
         }
+        if (document.cookie.split(";")[2].split("=")[1] != IDNumber)
+        {
+            alert("输入的身份证和绑定的身份证不一致！");
+            return false;
+        }
         return true;
     }
 </script>

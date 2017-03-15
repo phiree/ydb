@@ -107,6 +107,25 @@ namespace AdminAgent.Controllers
         public ActionResult finance_account_bind(string id)
         {
             ViewBag.UserName = CurrentUser.UserName;
+            BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(id);
+            Response.Cookies["alipayAcc"].Value = "";
+            Response.Cookies["alipayAcc"].Expires = DateTime.Now.AddHours(1);
+            Response.Cookies["owner"].Value = "";
+            Response.Cookies["owner"].Expires = DateTime.Now.AddHours(1);
+            Response.Cookies["IDNumber"].Value = "";
+            Response.Cookies["IDNumber"].Expires = DateTime.Now.AddHours(1);
+            Response.Cookies["phone"].Value = "";
+            Response.Cookies["phone"].Expires = DateTime.Now.AddHours(1);
+            if (balanceTotalDto == null || balanceTotalDto.AccountDto == null)
+            {
+            }
+            else
+            {
+                Response.Cookies["alipayAcc"].Value = balanceTotalDto.AccountDto.Account;
+                Response.Cookies["owner"].Value = balanceTotalDto.AccountDto.AccountName;
+                Response.Cookies["IDNumber"].Value = balanceTotalDto.AccountDto.AccountCode;
+                Response.Cookies["phone"].Value = balanceTotalDto.AccountDto.AccountPhone;
+            }
             return View();
         }
 
