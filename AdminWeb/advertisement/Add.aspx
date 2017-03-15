@@ -22,7 +22,7 @@
                 <asp:Label ID="Label2" runat="server" Text="上传图片"></asp:Label>                
             </asp:TableCell>
             <asp:TableCell>
-                <asp:Image runat="server" id="imgAdv" width="150"/>
+                  <asp:Image runat="server" id="imgAdv" width="150"/>
                 <asp:FileUpload ID="flupImg" runat="server" />
             </asp:TableCell>
         </asp:TableRow>

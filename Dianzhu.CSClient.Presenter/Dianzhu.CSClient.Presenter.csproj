@@ -160,6 +160,10 @@
       <Project>{901e2a8a-e608-4477-b9bc-f583d818d87f}</Project>
       <Name>Ydb.Order</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ydb.Push\Ydb.Push.csproj">
+      <Project>{E0661833-5498-4F1D-94E7-35C39C5BD8B9}</Project>
+      <Name>Ydb.Push</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="WMPLib">

@@ -67,12 +67,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\AdvertisementService.cs" />
     <Compile Include="Application\DeviceBindService.cs" />
+    <Compile Include="Application\IAdvertisementService.cs" />
     <Compile Include="Application\IDeviceBindService.cs" />
     <Compile Include="Application\IPushService.cs" />
     <Compile Include="Application\PushService.cs" />
+    <Compile Include="DomainModel\Advertisement.cs" />
     <Compile Include="DomainModel\DeviceBind.cs" />
     <Compile Include="DomainModel\IPushApiFactory.cs" />
+    <Compile Include="DomainModel\IRepository\IRepositoryAdvertisement.cs" />
     <Compile Include="DomainModel\IRepository\IRepositoryDeviceBind.cs" />
     <Compile Include="DomainModel\PushResult.cs" />
     <Compile Include="Infrastructure\InstallerPush.cs" />
@@ -84,7 +88,9 @@
     <Compile Include="Infrastructure\JPush\JPush.cs" />
     <Compile Include="Infrastructure\JPush\JPushRequest.cs" />
     <Compile Include="Infrastructure\JPush\JPushResponse.cs" />
+    <Compile Include="Infrastructure\NHibernate\Mapping\AdvertisementMap.cs" />
     <Compile Include="Infrastructure\NHibernate\Mapping\DeviceBindMap.cs" />
+    <Compile Include="Infrastructure\NHibernate\Repository\RepositoryAdvertisement.cs" />
     <Compile Include="Infrastructure\NHibernate\Repository\RepositoryDeviceBind.cs" />
     <Compile Include="Infrastructure\NHibernate\UnitOfWork\NHibernateUnitOfWork.cs" />
     <Compile Include="Infrastructure\NHibernate\Repository\NHRepository.cs" />

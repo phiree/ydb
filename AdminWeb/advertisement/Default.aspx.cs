@@ -6,22 +6,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
-
+using Ydb.Push.DomainModel;
+using Ydb.Push.Application;
 public partial class advertisement_Default :BasePage
 {
-    BLLAdvertisement bllAd = Bootstrap.Container.Resolve<BLLAdvertisement>();
+   IAdvertisementService advService = Bootstrap.Container.Resolve<IAdvertisementService>();
 
-    protected override void OnPreInit(EventArgs e)
-    {
-        NHibernateUnitOfWork.UnitOfWork.Start();//.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
-        base.OnPreInit(e);
-    }
-    protected override void OnUnload(EventArgs e)
-    {
-        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush(System.Data.IsolationLevel.ReadCommitted);
-
-        base.OnUnload(e);
-    }
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -38,7 +29,7 @@ public partial class advertisement_Default :BasePage
         {
          currentPageIndex=int.Parse(paramPage);
         }
-        gvMember.DataSource = bllAd.GetADList(currentPageIndex, pager.PageSize, out totalRecord);
+        gvMember.DataSource = advService.GetADList(currentPageIndex, pager.PageSize, out totalRecord);
         pager.RecordCount = Convert.ToInt32(totalRecord);
         gvMember.RowDataBound += new GridViewRowEventHandler(gvMember_RowDataBound);
         gvMember.DataBind();

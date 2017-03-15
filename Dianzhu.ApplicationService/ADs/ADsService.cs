@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using System.Security.Cryptography;
-
+using Ydb.Push.Application;
+using Ydb.Push.DomainModel;
 namespace Dianzhu.ApplicationService.ADs
 {
     public class ADsService : IADsService
     {
-        BLL.BLLAdvertisement bllad;
-        public ADsService(BLL.BLLAdvertisement bllad)
+       IAdvertisementService advService;
+        public ADsService(IAdvertisementService advService)
         {
-            this.bllad = bllad;
+            this.advService = advService;
         }
 
         /// <summary>
@@ -24,8 +25,8 @@ namespace Dianzhu.ApplicationService.ADs
         /// <returns></returns>
         public IList<adObj> GetADs(common_Trait_AdFiltering adf,Customer customer)
         {
-            IList<Model.Advertisement> listad = null;
-            listad = bllad.GetADListForUseful(customer.UserType);
+            IList< Advertisement> listad = null;
+            listad = advService.GetADListForUseful(customer.UserType);
             //if (listad == null)
             //{
             //    throw new Exception(Dicts.StateCode[4]);
@@ -34,7 +35,7 @@ namespace Dianzhu.ApplicationService.ADs
             if (listad.Count > 0)
             {
                 string datetimeStr = "";
-                foreach (Model.Advertisement ad in listad)
+                foreach ( Advertisement ad in listad)
                 {
                     datetimeStr += ad.LastUpdateTime.ToString("yyyyMMddHHmmss") + " ";
                 }
@@ -56,7 +57,7 @@ namespace Dianzhu.ApplicationService.ADs
                     }
                 }
             }
-            IList<adObj> adobj = Mapper.Map<IList<Model.Advertisement>, IList<adObj>>(listad);
+            IList<adObj> adobj = Mapper.Map<IList<Advertisement>, IList<adObj>>(listad);
             return adobj;
         }
     }
