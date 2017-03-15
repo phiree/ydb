@@ -27,7 +27,7 @@ namespace AdminAgent
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
-                ExpireTimeSpan = TimeSpan.FromMinutes(1),
+                ExpireTimeSpan = TimeSpan.FromMinutes(int.Parse(System.Configuration.ConfigurationManager.AppSettings["ExpireTimeSpan"].ToString())),
                 Provider = new CookieAuthenticationProvider
                 {
                     // 当用户登录时使应用程序可以验证安全戳。

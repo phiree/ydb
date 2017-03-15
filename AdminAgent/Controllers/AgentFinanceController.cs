@@ -106,16 +106,17 @@ namespace AdminAgent.Controllers
         /// <returns></returns>
         public ActionResult finance_account_bind(string id)
         {
+            int timeSpan = int.Parse(System.Configuration.ConfigurationManager.AppSettings["ExpireTimeSpan"].ToString());
             ViewBag.UserName = CurrentUser.UserName;
             BalanceTotalDto balanceTotalDto = balanceTotalService.GetOneByUserId(id);
             Response.Cookies["alipayAcc"].Value = "";
-            Response.Cookies["alipayAcc"].Expires = DateTime.Now.AddMinutes(20);
+            Response.Cookies["alipayAcc"].Expires = DateTime.Now.AddMinutes(timeSpan);
             Response.Cookies["owner"].Value = "";
-            Response.Cookies["owner"].Expires = DateTime.Now.AddMinutes(20);
+            Response.Cookies["owner"].Expires = DateTime.Now.AddMinutes(timeSpan);
             Response.Cookies["IDNumber"].Value = "";
-            Response.Cookies["IDNumber"].Expires = DateTime.Now.AddMinutes(20);
+            Response.Cookies["IDNumber"].Expires = DateTime.Now.AddMinutes(timeSpan);
             Response.Cookies["phone"].Value = "";
-            Response.Cookies["phone"].Expires = DateTime.Now.AddMinutes(20);
+            Response.Cookies["phone"].Expires = DateTime.Now.AddMinutes(timeSpan);
             if (balanceTotalDto == null || balanceTotalDto.AccountDto == null)
             {
             }
