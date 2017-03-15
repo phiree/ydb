@@ -355,12 +355,12 @@ namespace Ydb.Order.DomainModel
         public virtual string CustomerId { get; set; }
 
         /// <summary>
-        /// 下单时间
+        /// 创建时间
         /// </summary>
         public virtual DateTime OrderCreated { get; set; }
 
         /// <summary>
-        /// 
+        /// 下单时间
         /// </summary>
         public virtual DateTime OrderConfirmTime { get; set; }
 
@@ -463,6 +463,7 @@ namespace Ydb.Order.DomainModel
             get; set;//用于保存指派负责人
         }
 
+        string staffname;
         /// <summary>
         /// 分配的职员名称
         /// </summary>
@@ -483,12 +484,10 @@ namespace Ydb.Order.DomainModel
                 }
                 else
                 {
-                    return this.StaffName; 
+                    return staffname; 
                 }
             }
-            set {
-                this.StaffName = value;
-            }
+            set { staffname = value; }
         }
 
 

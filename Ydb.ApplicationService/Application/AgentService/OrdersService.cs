@@ -189,5 +189,24 @@ namespace Ydb.ApplicationService.Application.AgentService
             decimal TotalAmount = orderList.Sum(x => x.NegotiateAmount);
             return TotalAmount;
         }
+
+        /// <summary>
+        /// 统计订单列表
+        /// </summary>
+        /// <param name = "areaIdList" ></ param >
+        /// < param name="beginTime"></param>
+        /// <param name = "endTime" ></ param >
+        /// < param name="enumDone"></param>
+        /// <returns></returns>
+        public IList<ServiceOrderDto> GetOrdersListByAreaAndTime(IList<string> areaIdList, DateTime beginTime, DateTime endTime, enum_IsDone enumDone)
+        {
+            IList<ServiceOrderDto> serviceOrderDtoList = new List<ServiceOrderDto>();
+            IList<Business> businessList = businessService.GetAllBusinessesByArea(areaIdList);
+            IList<string> businessIdList = businessList.Select(x => x.Id.ToString()).ToList();
+            IList<ServiceOrder> orderList = serviceOrderService.GetOrdersByBusinessList(businessIdList, beginTime, endTime, enumDone.ToString());
+            serviceOrderDtoList = AutoMapper.Mapper.Map<IList<ServiceOrderDto>>(orderList);
+            return serviceOrderDtoList;
+
+        }
     }
 }
