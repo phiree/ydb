@@ -30,6 +30,7 @@ namespace Ydb.ApplicationService
 
 
             Mapper.CreateMap<ServiceOrder, ServiceOrderDto>()
+            .ForMember(x => x.GetStatusTitleFriendly, opt => opt.MapFrom(source => source.GetStatusTitleFriendly(source.OrderStatus)))
             .ForAllMembers(opt => opt.NullSubstitute(""));
         }
     }

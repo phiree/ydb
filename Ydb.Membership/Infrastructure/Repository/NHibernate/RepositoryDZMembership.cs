@@ -246,7 +246,11 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate
             long totalRecord = 0;
             return  (DZMembershipCustomerService)Find(where,1,1,out totalRecord).ToList()[0];
         }
-        
+
+        public IList<DZMembership> GetUsersByIdList(IList<string> memberIdList)
+        {
+            return Find(x => memberIdList.Contains(x.Id.ToString())).ToList();
+        }
 
     }
 }

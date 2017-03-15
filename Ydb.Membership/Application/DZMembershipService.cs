@@ -856,5 +856,10 @@ namespace Ydb.Membership.Application
         {
             return Mapper.Map<IList<DZMembershipCustomerServiceDto>>(dzmembershipDomainService.GetDZMembershipCustomerServiceByArea(areaIdList));
         }
+
+        public IList<MemberDto> GetUsersByIdList(IList<string> memberIdList)
+        {
+            return Mapper.Map<IList<MemberDto>>(repositoryMembership.GetUsersByIdList(memberIdList));
+        }
     }
 }

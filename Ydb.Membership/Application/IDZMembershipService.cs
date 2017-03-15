@@ -284,5 +284,7 @@ namespace Ydb.Membership.Application
         /// <param name="areaList"></param>
         /// <returns></returns>
         IList<DZMembershipCustomerServiceDto> GetDZMembershipCustomerServiceByArea(IList<string> areaIdList);
+
+        IList<MemberDto> GetUsersByIdList(IList<string> memberIdList);
     }
 }

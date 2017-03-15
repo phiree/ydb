@@ -36,7 +36,6 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.IsShared);
 
             //
-            Map(x => x.ServiceName);
             Map(x => x.Description);
             Map(x => x.OrderAmount);
             Map(x => x.ServiceBusinessName);

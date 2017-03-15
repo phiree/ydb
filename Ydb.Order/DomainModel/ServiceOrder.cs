@@ -59,7 +59,6 @@ namespace Ydb.Order.DomainModel
 
 
             //更新 需要根据detail计算的值
-            UpdateServiceName();
             UpdateDescription();
             UpdateOrderAmount();
             UpdateServiceBusinessName();
@@ -293,21 +292,21 @@ namespace Ydb.Order.DomainModel
         }
 
         /// <summary>
-        /// 服务名称
+        /// 服务名称已经有 Title 了
         /// </summary>
-        public virtual string ServiceName
-        {
-            get; protected internal set;
-        }
-        private void UpdateServiceName()
-        {
-            string serviceName = string.Empty;
-            foreach (ServiceOrderDetail detain in Details)
-            {
-                serviceName += detain.ServiceSnapShot.Name + ";";
-            }
-            ServiceName = serviceName.TrimEnd(';');
-        }
+        //public virtual string ServiceName
+        //{
+        //    get; protected internal set;
+        //}
+        //private void UpdateServiceName()
+        //{
+        //    string serviceName = string.Empty;
+        //    foreach (ServiceOrderDetail detain in Details)
+        //    {
+        //        serviceName += detain.ServiceSnapShot.Name + ";";
+        //    }
+        //    ServiceName = serviceName.TrimEnd(';');
+        //}
         /// <summary>
         /// 服务描述
         /// </summary>

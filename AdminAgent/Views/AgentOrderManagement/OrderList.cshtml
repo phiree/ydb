@@ -93,13 +93,13 @@
                             {
                                 <tr>
                                     <td>@(i + 1)</td>
-                                    <td><a href="./assistant_detail?id=@Html.DisplayFor(modelItem => Model[i].Id)">@Html.DisplayFor(modelItem => Model[i].Id)</a></td>
-                                    <td>@Html.DisplayFor(modelItem => Model[i].ServiceName)</td>
+                                    <td><a href="./assistant_detail?id=@Html.DisplayFor(modelItem => Model[i].Id)">@Html.DisplayFor(modelItem => Model[i].SerialNo)</a></td>
+                                    <td>@Html.DisplayFor(modelItem => Model[i].Title)</td>
                                     <td>@Html.DisplayFor(modelItem => Model[i].ServiceBusinessName)</td>
                                     <td>@Html.DisplayFor(modelItem => Model[i].TargetCustomerName)</td>
                                     <td>@Html.DisplayFor(modelItem => Model[i].TargetAddress)</td>
                                     <td>@Html.DisplayFor(modelItem => Model[i].OrderConfirmTime)</td>
-                                    <td>@Html.DisplayFor(modelItem => Model[i].OrderStatus)</td>
+                                    <td>@Html.DisplayFor(modelItem => Model[i].GetStatusTitleFriendly)</td>
                                     <td>@Html.DisplayFor(modelItem => Model[i].StaffName)</td>
                                 </tr>
                             }
