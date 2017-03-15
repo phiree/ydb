@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-namespace Dianzhu.ApplicationService.Tests
+namespace Dianzhu.ApplicationServiceTests
 {
  [SetUpFixture]
  public   class TestSetup
@@ -12,7 +12,7 @@ namespace Dianzhu.ApplicationService.Tests
         [SetUp]
         public void Setup()
         {
-            Bootstrap.Boot();
+        //    Bootstrap.Boot();
         }
     }
 }

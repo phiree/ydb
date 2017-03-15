@@ -446,6 +446,10 @@
       <Project>{0ee24ee8-a508-463c-bc2f-83e52110e643}</Project>
       <Name>Dianzhu.RequestRestful</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MediaServer\MediaServer.csproj">
+      <Project>{9920da22-589c-4193-aeaa-363d5c029dfc}</Project>
+      <Name>MediaServer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122c6d5-6348-4b65-88b7-3c43a6e642f3}</Project>
       <Name>PHSuit</Name>

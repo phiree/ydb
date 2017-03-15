@@ -13,11 +13,7 @@ namespace Ydb.Order.ApplicationTests
     [TestFixture()]
     public class ServiceOrderServiceTests
     {
-        [Test()]
-        public void GetOrdersCountByBusinessListTest()
-        {
-            Assert.Fail();
-        }
+      
     }
 }
 
@@ -33,7 +29,9 @@ namespace Ydb.Order.Application.Tests
             Order.DomainModel.ServiceOrder order = FizzWare.NBuilder.Builder<ServiceOrder>.CreateNew()
                .With(x => x.OrderStatus = Common.enum_OrderStatus.Payed).Build();
             orderService.Save(order);
+          
             orderService.OrderFlow_BusinessConfirm(order.Id);
+           order=  orderService.GetOne(order.Id);
             Assert.AreEqual(Common.enum_OrderStatus.Negotiate, order.OrderStatus);
         }
 
@@ -44,7 +42,7 @@ namespace Ydb.Order.Application.Tests
                  .With(x => x.OrderStatus = Common.enum_OrderStatus.Negotiate).Build();
             orderService.Save(order);
             orderService.OrderFlow_BusinessNegotiate(order.Id, 12m);
-          
+            order = orderService.GetOne(order.Id);
             Assert.AreEqual(12m, order.NegotiateAmount);
             Assert.AreEqual(Common.enum_OrderStatus.isNegotiate, order.OrderStatus);
         }
@@ -57,6 +55,7 @@ namespace Ydb.Order.Application.Tests
             orderService.Save(order);
            
             orderService.OrderFlow_ConfirmDeposit(order.Id);
+            order = orderService.GetOne(order.Id);
             Assert.AreEqual(Common.enum_OrderStatus.Payed, order.OrderStatus);
         }
     }

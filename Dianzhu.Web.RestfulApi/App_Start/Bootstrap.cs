@@ -70,6 +70,9 @@ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb
      new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
      );
             container.Install(
+    new Ydb.MediaServer.Infrastructure.InstallerMediaServer(BuildDBConfig("ydb_mediaserver"))
+    );
+            container.Install(
 
 
                new Ydb.Membership.Infrastructure.InstallerMembership(BuildDBConfig("ydb_membership")),

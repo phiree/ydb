@@ -11,10 +11,7 @@ namespace Ydb.Push.Application.Tests
     [TestFixture()]
     public class PushServiceTests
     {
-        [Test()]
-        public void PushTest()
-        {
-            Assert.Fail();
-        }
+      
+      
     }
 }

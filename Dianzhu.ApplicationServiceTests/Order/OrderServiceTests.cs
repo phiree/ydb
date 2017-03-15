@@ -12,12 +12,17 @@ using Ydb.Membership.DomainModel;
 using FizzWare.NBuilder;
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
-using Dianzhu.ApplicationService.Tests;
-namespace Dianzhu.ApplicationService.Tests.Order
+using Dianzhu.ApplicationService;
+namespace Dianzhu.ApplicationServiceTests
 {
     [TestFixture()]
     public class OrderServiceTests
     {
+        [SetUp]
+        public void SetUp()
+        {
+            Bootstrap.Boot();
+        }
 
         [Test()]
         public void PatchCurrentStatusTest_BusinessConfirm()

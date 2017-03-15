@@ -39,7 +39,7 @@ namespace Dianzhu.CSClient.Presenter.Tests
             double latitude =1, longtitude =2;
             Guid serviceTypeId = Guid.NewGuid();
             decimal minPrice = 1, maxPrice = 2;
-            DateTime targetTime = DateTime.Now;
+            DateTime targetTime = new DateTime(1909,12,1,9,10,11);
             int total;
 
             //dzService.SearchService(name, minPrice, maxPrice, servieTypeId, targetTime, double.Parse(lng), double.Parse(lat), 0, 999, out total);

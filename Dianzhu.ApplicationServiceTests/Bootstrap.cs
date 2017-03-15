@@ -20,7 +20,7 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
 
-namespace Dianzhu.ApplicationService.Tests
+namespace Dianzhu.ApplicationServiceTests
 {
     public class Bootstrap
     {

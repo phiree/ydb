@@ -84,6 +84,7 @@ namespace Ydb.InstantMessage.DomainModel.Reception.Tests
 
             IReceptionSession iSession = MockRepository.Mock<IReceptionSession>();
             iSession.Stub(x => x.IsUserOnline(customerId)).Return(true);
+            iSession.Stub(x => x.IsUserOnline(Dianzhu.Config.Config.GetAppSetting("DiandianLoginId"))).Return(true);
             ReceptionAssigner Assigner = new ReceptionAssigner(iSession, new AssignStratageRandom(iSession));
 
             string assignedCustomerServiceId = Assigner.AssignCustomerLogin(existedReception, customerId);
