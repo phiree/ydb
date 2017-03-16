@@ -7,7 +7,7 @@ using Ydb.ApplicationService.Application.AgentService;
 
 namespace AdminAgent.Controllers
 {
-    public class AgentBusinessManagementController : AgentBaseController
+    public class AgentBusinessManageController : AgentBaseController
     {
         IBusinessOwnerService businessOwnerService = Bootstrap.Container.Resolve<IBusinessOwnerService>();
         // GET: AgentBusinessManagement

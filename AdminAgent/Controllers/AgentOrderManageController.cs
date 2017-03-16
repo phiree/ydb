@@ -8,7 +8,7 @@ using Ydb.ApplicationService.ModelDto;
 using Ydb.Common;
 namespace AdminAgent.Controllers
 {
-    public class AgentOrderManagementController : AgentBaseController
+    public class AgentOrderManageController : AgentBaseController
     {
         IOrdersService ordersService = Bootstrap.Container.Resolve<IOrdersService>();
         // GET: AgentOrderManagement

@@ -165,7 +165,7 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li>@Html.ActionLink("订单列表", "OrderList", "AgentOrderManagement")</li>
+                            <li>@Html.ActionLink("订单列表", "OrderList", "AgentOrderManage")</li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -176,7 +176,18 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li>@Html.ActionLink("商家列表", "BusinessList", "AgentBusinessManagement")</li>
+                            <li>@Html.ActionLink("商家列表", "BusinessList", "AgentBusinessManage")</li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-link"></i> <span>用户管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>@Html.ActionLink("用户列表", "UserList", "AgentUserManage")</li>
                         </ul>
                     </li>
                     <li class="treeview">

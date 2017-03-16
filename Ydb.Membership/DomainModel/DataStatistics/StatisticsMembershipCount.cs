@@ -152,7 +152,10 @@ namespace Ydb.Membership.DomainModel.DataStatistics
                 {
                     DZMembershipCustomerService membershipCustomerService = (DZMembershipCustomerService)member;
                     Area area = areaList.FirstOrDefault(x => x.Id == int.Parse(membershipCustomerService.AreaId));
-                    membershipCustomerService.UserCity = area.Name;
+                    if (area != null)
+                    {
+                        membershipCustomerService.UserCity = area.Name;
+                    }
                     foreach (string strKey in memberKey)
                     {
                         if (CheckCustomerServiceByArea(membershipCustomerService, strKey))
@@ -197,7 +200,10 @@ namespace Ydb.Membership.DomainModel.DataStatistics
             foreach (DZMembership member in memberList)
             {
                 Area area = areaList.FirstOrDefault(x => x.Id == int.Parse(member.AreaId));
-                member.UserCity = area.Name;
+                if (area != null)
+                {
+                    member.UserCity = area.Name;
+                }
                 foreach (string strKey in memberKey)
                 {
                     if (CheckMemberByArea(member, strKey))
