@@ -1,0 +1,396 @@
+﻿
+@{
+    ViewBag.headTitle = "用户管理";
+    ViewBag.subTitle = "用户信息";
+    ViewBag.breadcrumbOl = new List<string>() { "用户管理", "用户列表", "用户信息" };
+}
+
+<!-- Main content -->
+<section class="content">
+    <!-- /.row -->
+    <div class="row">
+        <!-- /.col -->
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header text-center margin-top-10">
+                    <h3 class="box-title text-center">740981978@qq.com<span style="color: #4db2c6">&nbsp;&nbsp;活跃中</span></h3>
+                    <div class="box-tools pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-wrench"></i>&nbsp;设置
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">重置密码</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">封停账号</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body box-profile">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>微信账号：</b> <a class="pull-right">CHENJUNHONG</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>QQ号码：</b> <a class="pull-right">740981978</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>微博账号：</b> <a class="pull-right">daskjdghaskj</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>用户名：</b> <a class="pull-right">陈俊宏大帅逼</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>电话号码：</b> <a class="pull-right">13136099449</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>联系地址：</b> <a class="pull-right">海口市龙华区国贸路海牙大厦1141</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>性别：</b> <a class="pull-right">男</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>累计接单：</b> <a class="pull-right"><span>1232125</span>单</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>首次登录时间：</b> <a class="pull-right">2016.11.12 15:23</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>上次登录时间：</b> <a class="pull-right">2016.12.02 15:23</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>总共下单数量：</b> <a class="pull-right">128单</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>已完成订单：</b> <a class="pull-right">58单</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>未完成订单：</b> <a class="pull-right">70单</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>发起投诉：</b> <a class="pull-right">12个</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>最近一次上线时间：</b> <a class="pull-right">2016.12.02 15:23</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>收到投诉：</b> <a class="pull-right"><span>5</span>单</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h4 class="box-title col-md-12">订单历史</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-horizontal no-padding">
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input type="text" class="form-control pull-right" id="reservation">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>订单编号</th>
+                                        <th>服务名称</th>
+                                        <th>服务时间</th>
+                                        <th>服务地点</th>
+                                        <th>订单状态</th>
+                                        <th>负责人</th>
+                                        <th>详情</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td>YDB6546543143131464464654654650</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB6546543143131464464654654651</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB6546543143131464464654654652</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB6546543143131464464654654653</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB6546543143131464464654654654</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB6546543143131464464654654655</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB6546543143131464464654654656</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB6546543143131464464654654657</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB6546543143131464464654654658</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB6546543143131464464654654659</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB65465431431314644646546546510</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB65465431431314644646546546511</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB65465431431314644646546546512</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB65465431431314644646546546513</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB65465431431314644646546546514</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB65465431431314644646546546515</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB65465431431314644646546546516</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB65465431431314644646546546517</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB65465431431314644646546546518</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>YDB65465431431314644646546546519</td>
+                                        <td>隔壁老王关爱服务</td>
+                                        <td>2016.11.18 11:41</td>
+                                        <td>海南省海口市美兰区人民大道58号海南大学</td>
+                                        <td>已支付定金</td>
+                                        <td>未指派</td>
+                                        <td><a href="#">进入</a></td>
+                                    </tr>
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>订单编号</th>
+                                        <th>服务名称</th>
+                                        <th>服务时间</th>
+                                        <th>服务地点</th>
+                                        <th>订单状态</th>
+                                        <th>负责人</th>
+                                        <th>详情</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. Slimscroll is required when using the
+     fixed layout. -->
+
+<script src="../js/navbar-controller.js"></script>
+<!-- DataTables -->
+<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- date-range-picker -->
+<script src="../plugins/daterangepicker/moment.min.js"></script>
+<script src="../plugins/daterangepicker/daterangepicker.js"></script>
+<script>
+    (function(){
+        //Date range picker
+        $('#reservation').daterangepicker();
+        //Date range picker with time picker
+        //初始化定制数据列表
+        $(".table-striped").DataTable({
+            "order": [[ 0, "asc" ]],
+            "language" :{
+                "decimal":        "",
+                "emptyTable":     "没有数据",
+                "info":           "从_START_ 到 _END_ 条记录——总记录数为 _TOTAL_ 条",
+                "infoEmpty":      "记录数为0",
+                "infoFiltered":   "(全部记录数 _MAX_  条)",
+                "infoPostFix":    "",
+                "thousands":      ",",
+                "lengthMenu":     "显示 _MENU_ 条",
+                "loadingRecords": "加载中...",
+                "processing":     "处理中...",
+                "search":         "查找：",
+                "zeroRecords":    "找不到内容",
+                "paginate": {
+                    "first":      "第一页",
+                    "last":       "最后一页",
+                    "next":       "下一页",
+                    "previous":   "上一页"
+                }
+            }
+        });
+    })();
+</script>

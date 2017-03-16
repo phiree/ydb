@@ -596,6 +596,7 @@
     <Content Include="Views\AgentOrderManage\OrderList.cshtml" />
     <Content Include="Views\AgentBusinessManage\BusinessList.cshtml" />
     <Content Include="Views\AgentUserManage\UserList.cshtml" />
+    <Content Include="Views\AgentUserManage\UserDetail.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

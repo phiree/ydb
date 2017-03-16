@@ -371,7 +371,7 @@ namespace Ydb.Order.Application
                               || x.OrderStatus == enum_OrderStatus.ForceStop)
                         ;
                     break;
-                //case enum_OrderSearchType.Nt:
+                //case enum_OrderSearchType.Nt: 
                 case "pending":
                     where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                          && x.OrderStatus != enum_OrderStatus.DraftPushed
