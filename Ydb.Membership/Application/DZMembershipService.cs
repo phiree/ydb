@@ -695,17 +695,17 @@ namespace Ydb.Membership.Application
         }
 
         /// <summary>
-        ///     封停/解封助理
+        /// 封停/解封
         /// </summary>
         /// <param name="membership"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public ActionResult LockDZMembershipCustomerService(string membershipId, bool isLocked, string strMemo)
+        public ActionResult LockDZMembership(string membershipId, bool isLocked, string strMemo)
         {
             var result = new ActionResult();
             try
             {
-                var dzMembership = dzmembershipDomainService.GetDZMembershipCustomerServiceById(membershipId);
+                var dzMembership = repositoryMembership.FindById(StringHelper.CheckGuidID(membershipId,"用户Id"));
                 dzMembership.LockCustomerService(isLocked, strMemo);
                 //dzmembershipDomainService.UpdateDZMembership(dzMembership);
             }

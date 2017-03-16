@@ -1,0 +1,53 @@
+﻿@model  IList<Ydb.Order.DomainModel.ServiceOrder>
+@{
+    Layout = null;
+}
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>序号</th>
+            <th>订单编号</th>
+            <th>服务名称</th>
+            <th>服务时间</th>
+            <th>服务地点</th>
+            <th>客户姓名</th>
+            <th>客户电话</th>
+            <th>订单状态</th>
+            <th>负责人</th>
+            <th>详情</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < @Model.Count; i++)
+        {
+            <tr>
+                <td>@(i + 1)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].SerialNo)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].Title)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].TargetTime)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].TargetAddress)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].TargetCustomerName)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].TargetCustomerPhone)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].StatusTitleFriendly)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].StaffName)</td>
+                <td><a href="#">进入</a></td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>序号</th>
+            <th>订单编号</th>
+            <th>服务名称</th>
+            <th>服务时间</th>
+            <th>服务地点</th>
+            <th>客户姓名</th>
+            <th>客户电话</th>
+            <th>订单状态</th>
+            <th>负责人</th>
+            <th>详情</th>
+        </tr>
+    </tfoot>
+</table>
+

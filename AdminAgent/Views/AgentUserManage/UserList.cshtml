@@ -45,7 +45,7 @@
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_LockMemberType.UnLocked][i].QQNumber)</td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_LockMemberType.UnLocked][i].WBNumber)</td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_LockMemberType.UnLocked][i].TimeCreated)</td>
-                                        <td><a href="./user-detail.html">进入</a></td>
+                                        <td><a href="./UserDetail?id=@Html.DisplayFor(modelItem => Model[Enum_LockMemberType.UnLocked][i].Id).ToString()">进入</a></td>
                                     </tr>
                                 }
                             </tbody>
@@ -92,7 +92,7 @@
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_LockMemberType.Locked][i].QQNumber)</td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_LockMemberType.Locked][i].WBNumber)</td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_LockMemberType.Locked][i].LockTime)</td>
-                                        <td><a href="./user-detail.html">进入</a></td>
+                                        <td><a href="./UserDetail?id=@Html.DisplayFor(modelItem => Model[Enum_LockMemberType.Locked][i].Id).ToString()">进入</a></td>
                                     </tr>
                                 }
                             </tbody>

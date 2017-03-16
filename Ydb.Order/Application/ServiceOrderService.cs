@@ -408,6 +408,7 @@ namespace Ydb.Order.Application
             {
                 where = where.And(x => x.BusinessId == storeID.ToString());
             }
+            //formanID传""表示未指派
             if (formanID != null)
             {
                 where = where.And(x => x.StaffId == formanID);

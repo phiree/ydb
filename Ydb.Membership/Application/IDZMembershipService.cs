@@ -235,11 +235,11 @@ namespace Ydb.Membership.Application
         ActionResult VerifyDZMembershipCustomerService(string membershipId, bool isVerified, string strMemo);
 
         /// <summary>
-        ///     封停/解封助理
+        /// 封停/解封
         /// </summary>
         /// <param name="membership"></param>
         /// <returns></returns>
-        ActionResult LockDZMembershipCustomerService(string membershipId, bool isLocked, string strMemo);
+        ActionResult LockDZMembership(string membershipId, bool isLocked, string strMemo);
 
         /// <summary>
         ///     根据用户名获取客服

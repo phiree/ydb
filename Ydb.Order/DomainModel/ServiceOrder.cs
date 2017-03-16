@@ -80,6 +80,9 @@ namespace Ydb.Order.DomainModel
 
         }
 
+        public virtual string StatusTitleFriendly {
+            get { return GetStatusTitleFriendly(this.OrderStatus); }
+        }
 
         /// <summary>
         /// 订单状态的标题

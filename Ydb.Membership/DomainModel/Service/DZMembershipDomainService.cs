@@ -103,6 +103,7 @@ namespace Ydb.Membership.DomainModel
                 if (isLogin)
                 {
                     member.LoginTimes += 1;
+                    member.LastLoginTime = DateTime.Now;
                 }
             }
             return member;

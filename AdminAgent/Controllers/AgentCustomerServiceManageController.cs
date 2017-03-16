@@ -237,7 +237,8 @@ namespace AdminAgent.Controllers
                 //接口
                 ViewBag.UserName = CurrentUser.UserName;
                 DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
-                dzMembershipService.LockDZMembershipCustomerService(member.Id.ToString(), islock, "违规操作");
+                member.IsLocked = islock;
+                dzMembershipService.LockDZMembership(member.Id.ToString(), islock, "违规操作");
                 //模拟数据
                 //DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
                 //member.IsLocked = islock;
@@ -265,8 +266,6 @@ namespace AdminAgent.Controllers
             try
             {
                 ViewData["id"] = id;
-                //接口
-                ViewBag.UserName = CurrentUser.UserName;
                 DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
                 IList<ReceptionChatDto> receptionChatDtoList = chatService.GetChats(new TraitFilter(), "", "", "", member.Id.ToString(), member.UserType);
                 //模拟数据
