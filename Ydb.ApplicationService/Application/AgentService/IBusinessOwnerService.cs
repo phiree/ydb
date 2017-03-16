@@ -9,6 +9,6 @@ namespace Ydb.ApplicationService.Application.AgentService
 {
     public interface IBusinessOwnerService
     {
-        IList<MemberDto> GetBusinessOwnerListByArea(IList<string> areaIdList);
+        IList<MemberDto> GetBusinessOwnerListByArea(IList<string> areaIdList, bool isLocked);
     }
 }

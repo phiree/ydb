@@ -228,6 +228,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AgentBaseController.cs" />
+    <Compile Include="Controllers\AgentBusinessManagementController.cs" />
     <Compile Include="Controllers\AgentController.cs" />
     <Compile Include="Controllers\AgentCustomerServiceManageController.cs" />
     <Compile Include="Controllers\AgentFinanceController.cs" />
@@ -592,6 +593,7 @@
     <Content Include="static\plugins\datatables\extensions\TableTools\images\psd\printer.psd" />
     <Content Include="static\plugins\datatables\extensions\TableTools\Readme.md" />
     <Content Include="Views\AgentOrderManagement\OrderList.cshtml" />
+    <Content Include="Views\AgentBusinessManagement\BusinessList.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

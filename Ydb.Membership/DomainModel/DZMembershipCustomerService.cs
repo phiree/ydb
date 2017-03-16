@@ -25,9 +25,6 @@ namespace Ydb.Membership.DomainModel
         public virtual bool IsAgentCustomerService { get; set; }
         public virtual bool IsVerified { get; set; }
         public virtual bool VerificationIsAgree { get; set; }
-        public virtual DateTime LockTime { get; set; }
-        public virtual bool IsLocked { get; set; }
-        public virtual string LockReason { get; set; }
 
 
 
@@ -170,15 +167,6 @@ namespace Ydb.Membership.DomainModel
             }
         }
 
-        /// <summary>
-        /// 封停/解封账号
-        /// </summary>
-        public virtual void LockCustomerService(bool isLocked,string strReason)
-        {
-            this.IsLocked = isLocked;
-            this.LockTime = DateTime.Now;
-            this.LockReason = strReason;
-        }
 
 
     }

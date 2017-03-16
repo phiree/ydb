@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.Common.Domain;
+using Ydb.Membership.Application.Dto;
 
 namespace Ydb.Membership.DomainModel.DataStatisticsTests
 {
@@ -231,29 +232,13 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             Assert.AreEqual("用户数量", statisticsInfo.YName);
             Assert.AreEqual("性别", statisticsInfo.XName);
             Assert.AreEqual(2, statisticsInfo.XYValue.Count);
-        //    Assert.AreEqual(3, statisticsInfo.XYValue["女"]);
-        //    Assert.AreEqual(4, statisticsInfo.XYValue["男"]);
-            /*
-             测试名称:	StatisticsMembershipCount_StatisticsAllMembershipsCountListBySex_Test
-测试全名:	Ydb.Membership.DomainModel.DataStatisticsTests.StatisticsMembershipCountTests.StatisticsMembershipCount_StatisticsAllMembershipsCountListBySex_Test
-测试源:	E:\Projects\dianzhu\src_vs2015\Ydb.Membership.Tests\DomainModel\DataStatistics\StatisticsMembershipCountTests.cs:第 218 行
-测试结果:	未通过
-测试持续时间: 	0:00:00.021
-
-结果 的堆栈跟踪:	
-在 System.Collections.Generic.Dictionary`2.get_Item(TKey key)
-在 Ydb.Membership.DomainModel.DataStatisticsTests.StatisticsMembershipCountTests.StatisticsMembershipCount_StatisticsAllMembershipsCountListBySex_Test() 位置 E:\Projects\dianzhu\src_vs2015\Ydb.Membership.Tests\DomainModel\DataStatistics\StatisticsMembershipCountTests.cs:行号 234
-结果 的消息:	System.Collections.Generic.KeyNotFoundException : 给定关键字不在字典中。
-
-
-             */
+            Assert.AreEqual(3, statisticsInfo.XYValue["women"]);
+            Assert.AreEqual(4, statisticsInfo.XYValue["men"]);
         }
 
         [Test()]
         public void StatisticsMembershipCount_StatisticsAllMembershipsCountListByAppName_Test()
         {
-           
-
             StatisticsMembershipCount statisticsMembershipCount = new StatisticsMembershipCount();
             IList<DZMembership> memberList = new List<DZMembership> {
                 new DZMembership { Id=new Guid("003c0c77-c2a0-4dba-930c-a6b000f80ceb")},
@@ -278,22 +263,9 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             Assert.IsNotNull(statisticsInfo);
             Assert.AreEqual("用户数量", statisticsInfo.YName);
             Assert.AreEqual("手机系统", statisticsInfo.XName);
-          //  Assert.AreEqual(3, statisticsInfo.XYValue.Count);
+            Assert.AreEqual(2, statisticsInfo.XYValue.Count);
             Assert.AreEqual(2, statisticsInfo.XYValue["android"]);
             Assert.AreEqual(7, statisticsInfo.XYValue["ios"]);
-            //todo:
-            /*测试名称:	StatisticsMembershipCount_StatisticsAllMembershipsCountListByAppName_Test
-            测试全名: Ydb.Membership.DomainModel.DataStatisticsTests.StatisticsMembershipCountTests.StatisticsMembershipCount_StatisticsAllMembershipsCountListByAppName_Test
-          测试源:	E:\Projects\dianzhu\src_vs2015\Ydb.Membership.Tests\DomainModel\DataStatistics\StatisticsMembershipCountTests.cs:第 240 行
-          测试结果:	未通过
-          测试持续时间: 	0:00:00.019
-
-结果 的堆栈跟踪:	在 Ydb.Membership.DomainModel.DataStatisticsTests.StatisticsMembershipCountTests.StatisticsMembershipCount_StatisticsAllMembershipsCountListByAppName_Test() 
-位置 E:\Projects\dianzhu\src_vs2015\Ydb.Membership.Tests\DomainModel\DataStatistics\StatisticsMembershipCountTests.cs:行号 265
-结果 的消息:	
-Expected: 3
-  But was:  2
-  */
         }
 
         [Test()]
@@ -372,12 +344,52 @@ Expected: 3
                 new Area {Id=8,Name="北京市丰台区" },
                 new Area {Id=9,Name="北京市石景山区" }
             };
-            IDictionary<string, IList<DZMembershipCustomerService>> dic = statisticsMembershipCount.StatisticsVerifiedCustomerServiceByArea(memberList, areaList,memberKey);
+            IDictionary<string, IList<DZMembershipCustomerService>> dic = statisticsMembershipCount.StatisticsVerifiedCustomerServiceByArea(memberList, areaList, memberKey);
             Assert.AreEqual(4, dic.Count);
             Assert.AreEqual(4, dic["NotVerifiedCustomerService"].Count);
             Assert.AreEqual(7, dic["AgreeVerifiedCustomerService"].Count);
             Assert.AreEqual(3, dic["RefuseVerifiedCustomerService"].Count);
             Assert.AreEqual(4, dic["MyCustomerService"].Count);
+        }
+
+        [Test()]
+        public void StatisticsMembershipCount_StatisticsLockedMemberByArea_Test()
+        {
+            IList<string> memberKey = Ydb.Common.Enums.EnumberHelper.EnumNameToList<Enum_LockMemberType>();
+            StatisticsMembershipCount statisticsMembershipCount = new StatisticsMembershipCount();
+            IList<DZMembership> memberList = new List<DZMembership> {
+                new DZMembership { Id=new Guid("003c0c77-c2a0-4dba-930c-a6b000f80ceb"),AreaId="1"},
+                new DZMembership { Id=new Guid("002c0c77-c2a0-4dba-930c-a6b000f80ceb"),AreaId="1"},
+                new DZMembership { Id=new Guid("00c02067-4900-41b6-b3d4-a68100c47cb9"),AreaId="2",IsLocked=true},
+                new DZMembership { Id=new Guid("015351d4-ba0a-41b2-bc5e-a6b400c11c26"),AreaId="1",},
+                new DZMembershipCustomerService { Id=new Guid("005c0c77-c2a0-4dba-930c-a6b000f80ceb"),AreaId="2",IsLocked=true},
+                new DZMembershipCustomerService { Id=new Guid("03b647cb-a449-4f93-abf3-a67c0098ecdf"),AreaId="1",IsVerified=true,VerificationIsAgree=true},
+                new DZMembership { Id=new Guid("004c0c77-c2a0-4dba-930c-a6b000f80ceb"),AreaId="3",},
+                new DZMembership { Id=new Guid("115351d4-ba0a-41b2-bc5e-a6b400c11c23"),AreaId="1",IsLocked=true},
+                new DZMembership { Id=new Guid("215351d4-ba0a-41b2-bc5e-a6b400c11c25"),AreaId="1"},
+                new DZMembershipCustomerService { Id=new Guid("002c0c77-c2a0-4dba-930c-a6b000f80bce"),AreaId="1"},
+                new DZMembership { Id=new Guid("00c02067-4900-41b6-b3d4-a68100c479cb"),AreaId="2",IsLocked=false},
+                new DZMembership { Id=new Guid("015351d4-ba0a-41b2-bc5e-a6b400c116c2"),AreaId="1",},
+                new DZMembership { Id=new Guid("005c0c77-c2a0-4dba-930c-a6b000f80bce"),AreaId="2",IsLocked=true},
+                new DZMembership { Id=new Guid("03b647cb-a449-4f93-abf3-a67c0098efcd"),AreaId="1"},
+                new DZMembership { Id=new Guid("004c0c77-c2a0-4dba-930c-a6b000f80bce"),AreaId="3",IsLocked=false},
+                new DZMembership { Id=new Guid("115351d4-ba0a-41b2-bc5e-a6b400c113c2"),AreaId="1",},
+            };
+            IList<Area> areaList = new List<Area> {
+                new Area {Id=1,Name="北京市" },
+                new Area {Id=2,Name="北京市市辖区" },
+                new Area {Id=3,Name="北京市东城区" },
+                new Area {Id=4,Name="北京市西城区" },
+                new Area {Id=5,Name="北京市崇文区" },
+                new Area {Id=6,Name="北京市宣武区" },
+                new Area {Id=7,Name="北京市朝阳区" },
+                new Area {Id=8,Name="北京市丰台区" },
+                new Area {Id=9,Name="北京市石景山区" }
+            };
+            IDictionary<string, IList<DZMembership>> dic = statisticsMembershipCount.StatisticsLockedMemberByArea(memberList, areaList, memberKey);
+            Assert.AreEqual(2, dic.Count);
+            Assert.AreEqual(12, dic[Enum_LockMemberType.UnLocked.ToString()].Count);
+            Assert.AreEqual(4, dic[Enum_LockMemberType.Locked.ToString()].Count);
         }
     }
 }

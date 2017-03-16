@@ -270,6 +270,13 @@ namespace Ydb.Membership.Application
         /// <returns></returns>
         IDictionary<Enum_LockCustomerServiceType, IList<DZMembershipCustomerServiceDto>> GetLockDZMembershipCustomerServiceByArea(IList<Area> areaList);
 
+        /// <summary>
+        /// 根据代理区域获取其封锁的用户信息列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        IDictionary<Enum_LockMemberType, IList<MemberDto>> GetLockDZMembershipByArea(IList<Area> areaList, UserType userType);
+
 
         /// <summary>
         ///     根据代理区域获取一条为验证的客服信息

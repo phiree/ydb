@@ -14,6 +14,7 @@ namespace AdminAgent.Controllers
         // GET: AgentOrderManagement
         public ActionResult OrderList(string strStatus, string start, string end)
         {
+            ViewBag.UserName = CurrentUser.UserName;
             enum_IsDone isDone = enum_IsDone.None;
             switch (strStatus)
             {

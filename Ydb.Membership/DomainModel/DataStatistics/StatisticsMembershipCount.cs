@@ -185,5 +185,41 @@ namespace Ydb.Membership.DomainModel.DataStatistics
             }
         }
 
+
+
+        public IDictionary<string, IList<DZMembership>> StatisticsLockedMemberByArea(IList<DZMembership> memberList, IList<Area> areaList, IList<string> memberKey)
+        {
+            IDictionary<string, IList<DZMembership>> dic = new Dictionary<string, IList<DZMembership>>();
+            foreach (string strKey in memberKey)
+            {
+                dic.Add(strKey, new List<DZMembership>());
+            }
+            foreach (DZMembership member in memberList)
+            {
+                Area area = areaList.FirstOrDefault(x => x.Id == int.Parse(member.AreaId));
+                member.UserCity = area.Name;
+                foreach (string strKey in memberKey)
+                {
+                    if (CheckMemberByArea(member, strKey))
+                    {
+                        dic[strKey].Add(member);
+                    }
+                }
+            }
+            return dic;
+        }
+
+        public bool CheckMemberByArea(DZMembership member, string strKey)
+        {
+            switch (strKey)
+            {
+                case "UnLocked":
+                    return !member.IsLocked;
+                case "Locked":
+                    return member.IsLocked;
+                default: return false;
+            }
+        }
+
     }
 }
