@@ -18,6 +18,8 @@ namespace OpenfireExtension
         /// <param name="userids"></param>
         /// <param name="groupname"></param>
         void AddUsersToGroup(string userids, string groupname);
+        IList<string> GetUsersInGroup(string groupName);
+
     }
 
     public class OpenfireDbService : IOpenfireDbService
@@ -29,6 +31,7 @@ namespace OpenfireExtension
             this.encryptService = encryptService;
         }
 
+        
         public void AddUsersToGroup(string userids, string groupname)
         {
             string connectionString = encryptService.Decrypt(System.Configuration.ConfigurationManager.ConnectionStrings["openfire"].ConnectionString, false);
@@ -42,6 +45,26 @@ namespace OpenfireExtension
                 comm.Parameters.AddWithValue("userids", userids);
                 comm.ExecuteNonQuery();
             }
+        }
+        public   IList<string> GetUsersInGroup(string groupName)
+        {
+            IList<string> userNames = new List<string>();
+            string connectionString = encryptService.Decrypt(System.Configuration.ConfigurationManager.ConnectionStrings["openfire"].ConnectionString, false);
+            using (var conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                MySqlCommand comm = new MySqlCommand("select username from ofgroupuser where groupname='"+groupName+"'");
+                comm.Connection = conn;
+                
+               MySqlDataReader reader=  comm.ExecuteReader();
+                while (reader.Read())
+                {
+                    string userName = (string)reader["username"];
+                    userNames.Add(userName);
+                }
+                reader.Close();
+            }
+            return userNames;
         }
     }
 }

@@ -13,5 +13,10 @@ namespace AdminAgent.Models
         [Required]
         [Display(Name = "正文")]
         public string Body { get; set; }
+
+        /// <summary>
+        /// 1,2,4
+        /// </summary>
+        public string  UserType { get; set; }
     }
 }

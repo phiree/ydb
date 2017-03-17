@@ -33,7 +33,10 @@ namespace AdminAgent.Controllers
         public ActionResult AddNotice()
         {
             ViewBag.UserName = CurrentUser.UserName;
-            return View();
+            AddNoticeModel model = new AddNoticeModel();
+            Array enumList = Enum.GetValues(typeof(enum_UserType));
+                ViewBag.EnumList = enumList;
+            return View(model);
         }
         /// <summary>
         ///     添加一条公告
@@ -43,8 +46,18 @@ namespace AdminAgent.Controllers
         public ActionResult AddNotice(AddNoticeModel notice)
         {
             ViewBag.UserName = CurrentUser.UserName;
-            noticeService.AddNotice(notice.Title, notice.Body, CurrentUser.UserId,  enum_UserType.admin);
+            noticeService.AddNotice(notice.Title, notice.Body, CurrentUser.UserId, ParseString(Request["UserType"]));
             return View();
+        }
+        /// <summary>
+        /// 字符串转换为enum值
+        /// </summary>
+        /// <param name="enumValues">逗号隔开的enum值 如, '1,2,4,8'</param>
+        /// <returns></returns>
+        private enum_UserType ParseString(string enumValues)
+        {
+          return (enum_UserType)enumValues.Split(',').Sum(x=>Convert.ToInt32(x));
+             
         }
 
         public ActionResult NoticeDetail(string noticeId)

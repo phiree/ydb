@@ -1,4 +1,6 @@
-﻿namespace Ydb.Common
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Ydb.Common
 {
     public enum enum_ImageType
     {
@@ -376,6 +378,7 @@
         /// <summary>
         ///     普通用户
         /// </summary>
+        [Display(Description ="用户")]
         customer = 1,
 
         /// <summary>
