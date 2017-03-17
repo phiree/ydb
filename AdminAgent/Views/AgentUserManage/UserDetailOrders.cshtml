@@ -31,7 +31,7 @@
                 <td>@Html.DisplayFor(modelItem => Model[i].TargetCustomerPhone)</td>
                 <td>@Html.DisplayFor(modelItem => Model[i].StatusTitleFriendly)</td>
                 <td>@Html.DisplayFor(modelItem => Model[i].StaffName)</td>
-                <td><a href="#">进入</a></td>
+                <td>@Html.ActionLink("进入", "OrderDetail", "AgentOrderManage",new { id= Model[i].Id },new { })</td>
             </tr>
         }
     </tbody>

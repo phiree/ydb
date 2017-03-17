@@ -93,7 +93,7 @@
                             {
                                 <tr>
                                     <td>@(i + 1)</td>
-                                    <td><a href="./OrderDetail?id=@Html.DisplayFor(modelItem => Model[i].Id)">@Html.DisplayFor(modelItem => Model[i].SerialNo)</a></td>
+                                    <td>@Html.ActionLink(Html.DisplayFor(modelItem => Model[i].SerialNo).ToString(), "OrderDetail", "AgentOrderManage", new { id = Html.DisplayFor(modelItem => Model[i].Id) }, new {  })@*<a href="./OrderDetail?id=@Html.DisplayFor(modelItem => Model[i].Id)">@Html.DisplayFor(modelItem => Model[i].SerialNo)</a>*@</td>
                                     <td>@Html.DisplayFor(modelItem => Model[i].Title)</td>
                                     <td>@Html.DisplayFor(modelItem => Model[i].ServiceBusinessName)</td>
                                     <td>@Html.DisplayFor(modelItem => Model[i].TargetCustomerName)</td>

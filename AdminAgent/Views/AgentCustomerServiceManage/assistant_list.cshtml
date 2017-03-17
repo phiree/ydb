@@ -36,7 +36,7 @@
                                 {
                                     <tr>
                                         <td>@(i + 1)</td>
-                                        <td><a href="./assistant_detail?type=@Enum_LockCustomerServiceType.UnLockedCustomerService.ToString()&id=@Html.DisplayFor(modelItem => Model[Enum_LockCustomerServiceType.UnLockedCustomerService][i].Id).ToString()">@Html.DisplayFor(modelItem => Model[Enum_LockCustomerServiceType.UnLockedCustomerService][i].DisplayName)</a></td>
+                                        <td>@Html.ActionLink("进入", "assistant_detail", "AgentCustomerServiceManage", new { id = Html.DisplayFor(modelItem => Model[Enum_LockCustomerServiceType.UnLockedCustomerService][i].Id).ToString(), type = Enum_LockCustomerServiceType.UnLockedCustomerService.ToString() }, new { })@*<a href="./assistant_detail?type=@Enum_LockCustomerServiceType.UnLockedCustomerService.ToString()&id=@Html.DisplayFor(modelItem => Model[Enum_LockCustomerServiceType.UnLockedCustomerService][i].Id).ToString()">@Html.DisplayFor(modelItem => Model[Enum_LockCustomerServiceType.UnLockedCustomerService][i].DisplayName)</a>*@</td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_LockCustomerServiceType.UnLockedCustomerService][i].RealName)</td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_LockCustomerServiceType.UnLockedCustomerService][i].UserCity)</td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_LockCustomerServiceType.UnLockedCustomerService][i].Phone)</td>
@@ -77,7 +77,7 @@
                                 {
                                     <tr>
                                         <td>@(i + 1)</td>
-                                        <td><a href="./assistant_detail?type=@Enum_LockCustomerServiceType.LockedCustomerService.ToString()&id=@Html.DisplayFor(modelItem => Model[Enum_LockCustomerServiceType.LockedCustomerService][i].Id).ToString()">@Html.DisplayFor(modelItem => Model[Enum_LockCustomerServiceType.LockedCustomerService][i].DisplayName)</a></td>
+                                        <td>@Html.ActionLink("进入", "assistant_detail", "AgentCustomerServiceManage", new { id = Html.DisplayFor(modelItem => Model[Enum_LockCustomerServiceType.LockedCustomerService][i].Id).ToString(), type = Enum_LockCustomerServiceType.LockedCustomerService.ToString() }, new { })@*<a href="./assistant_detail?type=@Enum_LockCustomerServiceType.LockedCustomerService.ToString()&id=@Html.DisplayFor(modelItem => Model[Enum_LockCustomerServiceType.LockedCustomerService][i].Id).ToString()">@Html.DisplayFor(modelItem => Model[Enum_LockCustomerServiceType.LockedCustomerService][i].DisplayName)</a>*@</td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_LockCustomerServiceType.LockedCustomerService][i].RealName)</td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_LockCustomerServiceType.LockedCustomerService][i].UserCity)</td>
                                         <td>@Html.DisplayFor(modelItem => Model[Enum_LockCustomerServiceType.LockedCustomerService][i].Phone)</td>
