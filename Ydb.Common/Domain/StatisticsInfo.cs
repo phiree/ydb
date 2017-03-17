@@ -21,4 +21,12 @@ namespace Ydb.Common.Domain
 
         public IDictionary<T, T1> XYValue { get; set; }
     }
+
+    public class StatisticsInfo<T>
+    {
+        public DateTime Date { get; set; }
+
+        public IList<T> List { get; set; }
+
+    }
 }

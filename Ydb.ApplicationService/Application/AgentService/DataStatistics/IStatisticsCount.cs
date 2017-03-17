@@ -25,5 +25,6 @@ namespace Ydb.ApplicationService.Application.AgentService.DataStatistics
         StatisticsInfo StatisticsAllOrdersCountGroupByArea(IList<ServiceOrder> orderList, IList<Business> businessList, IList<Area> areaList);
         StatisticsInfo<string, decimal> StatisticsAllOrdersAmountListByType(IList<ServiceOrder> orderList);
         StatisticsInfo StatisticsAllOrdersCountListByType(IList<ServiceOrder> orderList);
+        
     }
 }

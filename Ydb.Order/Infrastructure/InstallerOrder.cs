@@ -62,6 +62,10 @@ namespace Ydb.Order.Infrastructure
             container.Register(Classes.FromThisAssembly().InSameNamespaceAs<ClaimsService>()
                                .WithService.DefaultInterfaces()
                );
+            container.Register(Classes.FromThisAssembly().InSameNamespaceAs<DomainModel.DataStatistics.StatisticsOrderCount>()
+                               .WithService.DefaultInterfaces()
+               );
+
             //container.Register(Component.For<IBalanceFlowService>().ImplementedBy<BalanceFlowService>());
 
         }

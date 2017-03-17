@@ -42,10 +42,8 @@
       <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
- 
     <Reference Include="HibernatingRhinos.Profiler.Appender, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernateProfiler.Appender.3.0.3105.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
- 
       <Private>True</Private>
     </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
@@ -109,6 +107,8 @@
     <Compile Include="Application\PaymentLogService.cs" />
     <Compile Include="Application\PaymentService.cs" />
     <Compile Include="DomainModel\Complaint.cs" />
+    <Compile Include="DomainModel\DataStatistics\IStatisticsOrderCount.cs" />
+    <Compile Include="DomainModel\DataStatistics\StatisticsOrderCount.cs" />
     <Compile Include="DomainModel\OrderFlow.cs" />
     <Compile Include="Application\OrderPushService.cs" />
     <Compile Include="Application\ServiceOrderAppraiseService.cs" />

@@ -100,6 +100,10 @@ namespace Ydb.Membership.DomainModel
             }
             else
             {
+                if (member.IsLocked)
+                {
+                    errMsg = "账户已封停";
+                }
                 if (isLogin)
                 {
                     member.LoginTimes += 1;

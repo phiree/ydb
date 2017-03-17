@@ -11,6 +11,8 @@ using Ydb.InstantMessage.DomainModel.Chat.Enums;
  
 using Ydb.Common.Specification;
 using Ydb.InstantMessage.Infrastructure;
+using Ydb.Common.Domain;
+using Ydb.InstantMessage.DomainModel.DataStatistics;
 namespace Ydb.InstantMessage.Application
 {
     /// <summary>
@@ -19,10 +21,11 @@ namespace Ydb.InstantMessage.Application
     public class ChatService:IChatService
     {
         IRepositoryChat repositoryChat;
-      
-        public ChatService(IRepositoryChat repositoryChat)
+        IStatisticsInstantMessage statisticsInstantMessage;
+        public ChatService(IRepositoryChat repositoryChat, IStatisticsInstantMessage statisticsInstantMessage)
         {
-         this.repositoryChat = repositoryChat;
+            this.repositoryChat = repositoryChat;
+            this.statisticsInstantMessage = statisticsInstantMessage;
         }
 
         [ UnitOfWork]
@@ -149,6 +152,15 @@ namespace Ydb.InstantMessage.Application
             var list = repositoryChat.GetChats(filter, type, fromTarget, orderID, userID, userType);
 
             return ToDto(list);
+        }
+
+
+        [UnitOfWork]
+        public IList<StatisticsInfo<ReceptionChatDto>> GetChatTimeLine(string orderID)
+        {
+            var list = repositoryChat.GetChats(new TraitFilter(), "", "", orderID, "", "");
+
+            return statisticsInstantMessage.GetChatTimeLine(ToDto(list));
         }
 
         [UnitOfWork]

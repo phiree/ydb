@@ -23,6 +23,7 @@ namespace Ydb.ApplicationService.Application.AgentServiceTests
         IOrdersService ordersService;
         IStatisticsCount statisticsCount;
         IServiceTypeService serviceTypeService;
+        IServiceOrderStateChangeHisService stateChangeHis;
         [SetUp]
         public void Initialize()
         {
@@ -32,7 +33,8 @@ namespace Ydb.ApplicationService.Application.AgentServiceTests
             serviceOrderService = MockRepository.Mock<IServiceOrderService>();
             statisticsCount = MockRepository.Mock<IStatisticsCount>();
             serviceTypeService = MockRepository.Mock<IServiceTypeService>();
-            ordersService = new OrdersService(businessService, serviceOrderService, statisticsCount, serviceTypeService);
+            stateChangeHis = MockRepository.Mock<IServiceOrderStateChangeHisService>();
+            ordersService = new OrdersService(businessService, serviceOrderService, statisticsCount, serviceTypeService, stateChangeHis);
         }
 
         [Test()]

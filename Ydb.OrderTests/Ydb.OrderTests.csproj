@@ -106,6 +106,7 @@
     <Compile Include="Application\TestSetUp.cs" />
     <Compile Include="Bootstraper.cs" />
     <Compile Include="DomainModel\ClaimsTests.cs" />
+    <Compile Include="DomainModel\DataStatistics\StatisticsOrderCountTests.cs" />
     <Compile Include="DomainModel\ServiceOrderTests.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\ClaimsDetailsMapTests.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryServiceOrderTests.cs" />

@@ -9,6 +9,7 @@ using Ydb.Order.DomainModel.Repository;
 using Ydb.PayGateway;
 using Ydb.Common.Infrastructure;
 using Ydb.Order.Infrastructure;
+using Ydb.Common.Domain;
 
 namespace Ydb.Order.Application
 {
@@ -38,11 +39,14 @@ namespace Ydb.Order.Application
         IRepositoryServiceOrderPushedService repoPushedService;
 
         IRefundFactory refundFactory;
+        DomainModel.DataStatistics.IStatisticsOrderCount statisticsOrderCount;
 
 
         public ServiceOrderService(IRepositoryServiceOrder repoServiceOrder, IRepositoryServiceOrderStateChangeHis repoStateChangeHis,
            IRepositoryRefund repoRefund, IRepositoryOrderAssignment repoOrderAssignment,
-           IRepositoryClaims repoClaims, IRepositoryPayment repoPayment, IHttpRequest httpRequest, IRepositoryServiceOrderPushedService repoPushedService, IRefundFactory refundFactory)
+           IRepositoryClaims repoClaims, IRepositoryPayment repoPayment, IHttpRequest httpRequest,
+           IRepositoryServiceOrderPushedService repoPushedService, IRefundFactory refundFactory,
+           DomainModel.DataStatistics.IStatisticsOrderCount statisticsOrderCount)
         {
 
             this.repoServiceOrder = repoServiceOrder;
@@ -55,6 +59,7 @@ namespace Ydb.Order.Application
             this.httpRequest = httpRequest;
             this.repoPushedService = repoPushedService;
             this.refundFactory = refundFactory;
+            this.statisticsOrderCount = statisticsOrderCount;
         }
 
         public int GetServiceOrderCount(Guid userId, enum_OrderSearchType searchType)
@@ -1457,6 +1462,19 @@ namespace Ydb.Order.Application
             return order;
         }
 
+
+
+        /// <summary>
+        /// 获取订单状态的时间线
+        /// </summary>
+        /// <param name="orderStatusList"></param>
+        /// <returns></returns>
+        public IList<StatisticsInfo<ServiceOrderStateChangeHis>> GetOrderStateTimeLine(string orderId)
+        {
+            ServiceOrder serviceOrder = repoServiceOrder.FindById(StringHelper.CheckGuidID(orderId, "订单Id"));
+            IList<ServiceOrderStateChangeHis> serviceOrderStateChangeHis = repoStateChangeHis.GetOrderHisList(serviceOrder);
+            return statisticsOrderCount.GetOrderStateTimeLine(serviceOrderStateChangeHis);
+        }
 
         //查询订单的总金额
         //查询订单的曝光率.

@@ -190,7 +190,7 @@
         //封停/解封
         $("#toggleFreezeConf").on("click", function () {
             $.ajax({
-                url: "/AgentCustomerServiceManage/assistant_detail_Lock",
+                url: "/AgentUserManage/UserDetailLock",
                 type: "GET",
                 data: {
                     id: url.getUrlParam("id"),

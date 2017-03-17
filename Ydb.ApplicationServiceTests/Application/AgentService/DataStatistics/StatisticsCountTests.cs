@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Ydb.Finance.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.ApplicationService.ModelDto;
+using Ydb.Order.DomainModel;
+using Ydb.Common.Domain;
 
 namespace Ydb.ApplicationService.Application.AgentService.DataStatisticsTests
 {
@@ -148,7 +150,7 @@ namespace Ydb.ApplicationService.Application.AgentService.DataStatisticsTests
 
             Assert.AreEqual(4, financeWithdrawTotalDto.WithdrawNotDeal);
             Assert.AreEqual(54, financeWithdrawTotalDto.WithdrawTotal);
-            Assert.AreEqual(10, financeWithdrawTotalDto.financeWithdrawDtoList.Count );
+            Assert.AreEqual(10, financeWithdrawTotalDto.financeWithdrawDtoList.Count);
         }
 
     }

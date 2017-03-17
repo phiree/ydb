@@ -1,0 +1,41 @@
+﻿@using Ydb.Order.DomainModel,
+@using Ydb.Common.Domain;
+@model IList<Ydb.Common.Domain.StatisticsInfo<ServiceOrderStateChangeHis>>
+@{
+    Layout = null;
+}
+
+<div class="col-md-6">
+    <ul class="timeline timeline-inverse">
+        @foreach (StatisticsInfo<ServiceOrderStateChangeHis> TimeLineList in Model)
+        {
+            <!-- timeline time label -->
+            <li class="time-label">
+                <span class="bg-red">
+                    @TimeLineList.Date.ToString("yyyy-MM-dd")
+                </span>
+            </li>
+            foreach (ServiceOrderStateChangeHis OrderStatus in TimeLineList.List)
+            {
+                <!-- /.timeline-label -->
+                <!-- timeline item -->
+                <li>
+                    <i class="fa fa-envelope bg-blue"></i>
+
+                    <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i> @OrderStatus.CreatTime.ToString("HH:mm")</span>
+
+                        <h3 class="timeline-header no-border">
+                            <a href="#">@OrderStatus.NewStatusStr</a> @OrderStatus.NewStatusCon
+                        </h3>
+                    </div>
+
+                </li>
+            }
+        }
+        <li>
+            <i class="fa fa-clock-o bg-gray"></i>
+        </li>
+    </ul>
+</div>
+

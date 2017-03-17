@@ -86,9 +86,9 @@ namespace AdminAgent.Controllers
             try
             {
                 //接口
-                ViewBag.UserName = CurrentUser.UserName;
-                MemberDto member = dzMembershipService.GetUserById(id);
-                member.IsLocked = islock;
+                //ViewBag.UserName = CurrentUser.UserName;
+                //MemberDto member = dzMembershipService.GetUserById(id);
+                //member.IsLocked = islock;
                 dzMembershipService.LockDZMembership(id, islock, "违规操作");
                 //模拟数据
                 //DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
@@ -97,7 +97,7 @@ namespace AdminAgent.Controllers
                 //{
                 //    member.LockReason = "违规操作";
                 //}
-                return View(member);
+                return RedirectToAction("UserDetail");
             }
             catch (Exception ex)
             {

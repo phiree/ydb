@@ -598,6 +598,10 @@
     <Content Include="Views\AgentUserManage\UserList.cshtml" />
     <Content Include="Views\AgentUserManage\UserDetail.cshtml" />
     <Content Include="Views\AgentUserManage\UserDetailOrders.cshtml" />
+    <Content Include="Views\AgentOrderManage\OrderDetail.cshtml" />
+    <Content Include="Views\AgentOrderManage\OrderStatusList.cshtml" />
+    <Content Include="Views\AgentOrderManage\OrderClaimsList.cshtml" />
+    <Content Include="Views\AgentOrderManage\OrderChatHistory.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

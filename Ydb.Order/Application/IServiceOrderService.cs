@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Ydb.Common;
 using Ydb.Common.Specification;
 using Ydb.Order.DomainModel;
+using Ydb.Common.Domain;
 
 namespace Ydb.Order.Application
 {
@@ -121,5 +122,13 @@ namespace Ydb.Order.Application
         /// <param name="isShared">订单是否分账</param>
         /// <returns></returns>
         IList<ServiceOrder> GetOrdersByShared(bool isShared, int pageIndex, int pageSize, out long totalRecords);
+
+
+        /// <summary>
+        /// 获取订单状态的时间线
+        /// </summary>
+        /// <param name="orderStatusList"></param>
+        /// <returns></returns>
+        IList<StatisticsInfo<ServiceOrderStateChangeHis>> GetOrderStateTimeLine(string orderId);
     }
 }

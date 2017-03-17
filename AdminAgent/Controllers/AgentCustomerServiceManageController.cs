@@ -215,7 +215,7 @@ namespace AdminAgent.Controllers
                 //模拟数据
                 //DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
                 //member.PlainPassword = "123456";
-                return View(member);
+                return RedirectToAction("assistant_detail");
             }
             catch (Exception ex)
             {
@@ -235,10 +235,10 @@ namespace AdminAgent.Controllers
             try
             {
                 //接口
-                ViewBag.UserName = CurrentUser.UserName;
-                DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
-                member.IsLocked = islock;
-                dzMembershipService.LockDZMembership(member.Id.ToString(), islock, "违规操作");
+                //ViewBag.UserName = CurrentUser.UserName;
+                //DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
+                //member.IsLocked = islock;
+                dzMembershipService.LockDZMembership(id, islock, "违规操作");
                 //模拟数据
                 //DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
                 //member.IsLocked = islock;
@@ -246,7 +246,7 @@ namespace AdminAgent.Controllers
                 //{
                 //    member.LockReason = "违规操作";
                 //}
-                return View(member);
+                return RedirectToAction("assistant_detail");
             }
             catch (Exception ex)
             {

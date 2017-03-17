@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.ApplicationService.ModelDto;
 using Ydb.Common.Domain;
+using Ydb.Order.DomainModel;
 namespace Ydb.ApplicationService.Application.AgentService
 {
     public interface IOrdersService
@@ -86,5 +87,6 @@ namespace Ydb.ApplicationService.Application.AgentService
         /// < param name="enumDone"></param>
         /// <returns></returns>
         IList<ServiceOrderDto> GetOrdersListByAreaAndTime(IList<string> areaIdList, DateTime beginTime, DateTime endTime, enum_IsDone enumDone);
+
     }
 }

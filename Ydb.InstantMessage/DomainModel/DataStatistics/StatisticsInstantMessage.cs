@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.InstantMessage.DomainModel.Reception;
 using Ydb.Common;
+using Ydb.InstantMessage.DomainModel.Chat;
+using Ydb.Common.Domain;
 
 namespace Ydb.InstantMessage.DomainModel.DataStatistics
 {
@@ -37,6 +39,30 @@ namespace Ydb.InstantMessage.DomainModel.DataStatistics
                 }
             }
             return MathHelper.ChangeDateDiff(lDateDiff);
+        }
+
+        /// <summary>
+        /// 获取聊天记录时间线
+        /// </summary>
+        /// <param name="orderStatusList"></param>
+        /// <returns></returns>
+        public IList<StatisticsInfo<ReceptionChatDto>> GetChatTimeLine(IList<ReceptionChatDto> receptionChatList)
+        {
+            IList<StatisticsInfo<ReceptionChatDto>> ChatTimeLineList = new List<StatisticsInfo<ReceptionChatDto>>();
+            receptionChatList = receptionChatList.OrderByDescending(x => x.SavedTime).ToList();
+            DateTime date = DateTime.MinValue;
+            foreach (ReceptionChatDto chat in receptionChatList)
+            {
+                DateTime dt = DateTime.Parse(chat.SavedTime.ToString("yyyy-MM-dd"));
+                if (date != dt)
+                {
+                    date = dt;
+                    StatisticsInfo<ReceptionChatDto> ChatTimeLine = new StatisticsInfo<ReceptionChatDto> { Date = date, List = new List<ReceptionChatDto>() };
+                    ChatTimeLineList.Add(ChatTimeLine);
+                }
+                ChatTimeLineList[ChatTimeLineList.Count - 1].List.Add(chat);
+            }
+            return ChatTimeLineList;
         }
     }
 }

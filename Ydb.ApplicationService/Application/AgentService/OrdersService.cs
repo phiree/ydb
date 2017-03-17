@@ -10,6 +10,7 @@ using Ydb.ApplicationService.ModelDto;
 using Ydb.Common.Domain;
 using Ydb.Order.DomainModel;
 using Ydb.ApplicationService.Application.AgentService.DataStatistics;
+using Ydb.Common;
 
 namespace Ydb.ApplicationService.Application.AgentService
 {
@@ -19,13 +20,16 @@ namespace Ydb.ApplicationService.Application.AgentService
         IServiceOrderService serviceOrderService;
         IStatisticsCount statisticsCount;
         IServiceTypeService serviceTypeService;
+        IServiceOrderStateChangeHisService stateChangeHis;
         public OrdersService(IBusinessService businessService,
-            IServiceOrderService serviceOrderService, IStatisticsCount statisticsCount, IServiceTypeService serviceTypeService)
+            IServiceOrderService serviceOrderService, IStatisticsCount statisticsCount,
+            IServiceTypeService serviceTypeService, IServiceOrderStateChangeHisService stateChangeHis)
         {
             this.businessService = businessService;
             this.serviceOrderService = serviceOrderService;
             this.statisticsCount = statisticsCount;
             this.serviceTypeService = serviceTypeService;
+            this.stateChangeHis = stateChangeHis;
         }
         public long GetOrdersCountByArea(IList<string> areaIdList, bool isSharea)
         {
@@ -208,5 +212,6 @@ namespace Ydb.ApplicationService.Application.AgentService
             return serviceOrderDtoList;
 
         }
+
     }
 }
