@@ -22,6 +22,8 @@ namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Mapping
             Map(x => x.WebSite);
             Map(x => x.OwnerId);
             Map(x => x.Enabled);
+            Map(x => x.EnabledTime);
+            Map(x => x.EnabledMemo);
             Map(x => x.CreatedTime);
         }
     }

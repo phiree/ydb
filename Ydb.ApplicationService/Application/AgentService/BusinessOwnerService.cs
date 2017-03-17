@@ -34,5 +34,18 @@ namespace Ydb.ApplicationService.Application.AgentService
             }
             return memberDtoList;
         }
+
+
+        public IList<Business> GetBusinessListByArea(IList<string> areaIdList, bool enable)
+        {
+            IList<Business> businessList = businessService.GetAllBusinessesByArea(areaIdList,enable);
+            IList<string> memberIdList = businessList.Select(x => x.OwnerId.ToString()).ToList();
+            IList<MemberDto> memberDtoList = dzMembershipService.GetUsersByIdList(memberIdList);
+            foreach (Business b in businessList)
+            {
+                b.OwnerName = memberDtoList.First(x => x.Id == b.OwnerId).UserName;
+            }
+            return businessList;
+        }
     }
 }

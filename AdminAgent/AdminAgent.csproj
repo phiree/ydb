@@ -603,6 +603,8 @@
     <Content Include="Views\AgentOrderManage\OrderClaimsList.cshtml" />
     <Content Include="Views\AgentOrderManage\OrderChatHistory.cshtml" />
     <Content Include="Views\AgentBusinessManage\BusinessFrozenList.cshtml" />
+    <Content Include="Views\AgentBusinessManage\BusinessStoreFrozenList.cshtml" />
+    <Content Include="Views\AgentBusinessManage\BusinessServiceFrozenList.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -46,6 +46,8 @@ namespace Ydb.BusinessResource.Application
         {
             Business b = GetOne(businessId);
             b.Enabled = false;
+            b.EnabledTime = DateTime.Now;
+            b.EnabledMemo = "封停或删除";
             repositoryBusiness.Update(b);
         }
        [UnitOfWork] 
@@ -250,6 +252,17 @@ namespace Ydb.BusinessResource.Application
         public IList<Business> GetAllBusinessesByArea(IList<string> areaList)
         {
             return repositoryBusiness.GetBusinessesByArea(areaList, DateTime.MinValue, DateTime.MinValue);
+        }
+
+        /// <summary>
+        /// 当前代理区域的所有店铺列表区分是否可用
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public IList<Business> GetAllBusinessesByArea(IList<string> areaList,bool enable)
+        {
+            return repositoryBusiness.GetBusinessesByArea(areaList, DateTime.MinValue, DateTime.MinValue).Where(x=>x.Enabled==enable).ToList();
         }
 
         /// <summary>

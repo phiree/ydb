@@ -83,6 +83,13 @@ namespace Ydb.BusinessResource.Application
         IList<Business> GetAllBusinessesByArea(IList<string> areaList);
 
         /// <summary>
+        /// 当前代理区域的所有店铺列表区分是否可用
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        IList<Business> GetAllBusinessesByArea(IList<string> areaList, bool enable);
+
+        /// <summary>
         /// 统计店铺每日或每时新增数量列表
         /// </summary>
         /// <param name="areaList"></param>

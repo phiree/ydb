@@ -51,9 +51,25 @@ namespace Ydb.BusinessResource.DomainModel
         public virtual Guid OwnerId { get;protected internal set; }
 
         /// <summary>
+        /// 商家用户名.
+        /// </summary>
+        public virtual string OwnerName { get; set; }
+
+        /// <summary>
         /// 店铺是否可用
         /// </summary>
         public virtual bool Enabled { get;protected internal set; }
+
+        /// <summary>
+        /// 店铺是否可用变更时间
+        /// </summary>
+        public virtual DateTime EnabledTime { get; protected internal set; }
+
+
+        /// <summary>
+        /// 封停或删除说明
+        /// </summary>
+        public virtual string EnabledMemo { get; protected internal set; }
 
         /// <summary>
         /// 创建时间
