@@ -40,7 +40,15 @@
                                                 <span class="time"><i class="fa fa-clock-o"></i> @chat.SavedTime.ToString("HH:mm")</span>
 
                                                 <h3 class="timeline-header no-border">
-                                                    <a href="#">@chat.FromResourceName</a> @chat.MessageBody
+                                                    <a href="#">@chat.FromResourceName</a>
+                                                    @if (chat.GetType() == typeof(ReceptionChatMediaDto))
+                                                    {
+                                                        <img src="@chat.MessageBody" class="img-100 img-responsive" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>@chat.MessageBody</span>
+                                                    }
                                                 </h3>
                                             </div>
 

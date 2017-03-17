@@ -158,8 +158,7 @@ namespace Ydb.InstantMessage.Application
         [UnitOfWork]
         public IList<StatisticsInfo<ReceptionChatDto>> GetChatTimeLine(string orderID)
         {
-            var list = repositoryChat.GetChats(new TraitFilter(), "", "", orderID, "", "");
-
+            var list = repositoryChat.GetChatByOrder(orderID);
             return statisticsInstantMessage.GetChatTimeLine(ToDto(list));
         }
 

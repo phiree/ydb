@@ -38,9 +38,10 @@ namespace Ydb.InstantMessage.DomainModel.Chat
             dto.ChatType = ChatType.ToString();
             dto.FromId = FromId;
             dto.ToId = ToId;
-            dto.MessageBody = MessageBody;
+            dto.MessageBody = MedialUrl != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + MedialUrl : "";
             dto.ChatTarget = ChatTarget.ToString();
             dto.FromResource = FromResource.ToString();
+            dto.FromResourceName = FromResourceName;
             dto.ToResource = ToResource.ToString();
             dto.IsReaded = IsReaded;
             dto.IsfromCustomerService = IsfromCustomerService;

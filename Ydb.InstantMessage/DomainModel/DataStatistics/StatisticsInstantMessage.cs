@@ -49,7 +49,7 @@ namespace Ydb.InstantMessage.DomainModel.DataStatistics
         public IList<StatisticsInfo<ReceptionChatDto>> GetChatTimeLine(IList<ReceptionChatDto> receptionChatList)
         {
             IList<StatisticsInfo<ReceptionChatDto>> ChatTimeLineList = new List<StatisticsInfo<ReceptionChatDto>>();
-            receptionChatList = receptionChatList.OrderByDescending(x => x.SavedTime).ToList();
+            //receptionChatList = receptionChatList.OrderByDescending(x => x.SavedTime).ToList();
             DateTime date = DateTime.MinValue;
             foreach (ReceptionChatDto chat in receptionChatList)
             {

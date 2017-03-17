@@ -154,6 +154,7 @@ namespace AdminAgent.Controllers
             try
             {
                 //接口
+                //ViewData["ServiceOrder"] = serviceOrderService.GetOne(StringHelper.CheckGuidID(id, "订单Id"));
                 IList<StatisticsInfo<ReceptionChatDto>> ChatTimeLineList = chatService.GetChatTimeLine(id);
                 //模拟数据
                 //DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
