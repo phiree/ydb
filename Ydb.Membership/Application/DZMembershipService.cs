@@ -856,5 +856,30 @@ namespace Ydb.Membership.Application
         {
             return Mapper.Map<IList<DZMembershipCustomerServiceDto>>(dzmembershipDomainService.GetDZMembershipCustomerServiceByArea(areaIdList));
         }
+
+        public IList<MemberDto> GetUsersByIdList(IList<string> memberIdList)
+        {
+            return Mapper.Map<IList<MemberDto>>(repositoryMembership.GetUsersByIdList(memberIdList));
+        }
+
+
+        /// <summary>
+        /// 根据代理区域获取其封锁的用户信息列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public IDictionary<Enum_LockMemberType, IList<MemberDto>> GetLockDZMembershipByArea(IList<Area> areaList,UserType userType)
+        {
+            IDictionary<Enum_LockMemberType, IList<MemberDto>> dicDto = new Dictionary<Enum_LockMemberType, IList<MemberDto>>();
+            IList<string> AreaIdList = areaList.Select(x => x.Id.ToString()).ToList();
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(AreaIdList, DateTime.MinValue, DateTime.MinValue, userType);
+            IDictionary<string, IList<DZMembership>> dic = statisticsMembershipCount.StatisticsLockedMemberByArea(memberList, areaList, EnumberHelper.EnumNameToList<Enum_LockMemberType>());
+            foreach (KeyValuePair<string, IList<DZMembership>> pair in dic)
+            {
+                dicDto.Add((Enum_LockMemberType)Enum.Parse(typeof(Enum_LockMemberType), pair.Key), Mapper.Map<IList<MemberDto>>(pair.Value));
+            }
+            return dicDto;
+        }
     }
 }

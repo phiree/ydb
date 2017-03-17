@@ -70,7 +70,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\AgentService\BusinessOwnerService.cs" />
     <Compile Include="Application\AgentService\FinanceFlowService.cs" />
+    <Compile Include="Application\AgentService\IBusinessOwnerService.cs" />
     <Compile Include="Application\AgentService\IFinanceFlowService.cs" />
     <Compile Include="Application\AgentService\IOrdersService.cs" />
     <Compile Include="Application\AgentService\INoticeService.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="ModelDto\FinanceTotalDto.cs" />
     <Compile Include="ModelDto\FinanceWithdrawTotalDto.cs" />
     <Compile Include="ModelDto\FinanceWithdrawDto.cs" />
+    <Compile Include="ModelDto\ServiceOrderDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExcelImporter\VMServiceTypeAndPoint.cs" />
   </ItemGroup>

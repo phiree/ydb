@@ -20,6 +20,14 @@ namespace Ydb.Membership.Application.Dto
         public virtual string NickName { get; set; }
         public virtual string Address { get; set; }
         public virtual string QQNumber { get; set; }
+
+
+        public virtual string WXNumber { get; set; }
+        public virtual string WBNumber { get; set; }
+        public virtual DateTime LockTime { get; set; }
+        public virtual bool IsLocked { get; set; }
+        public virtual string LockReason { get; set; }
+
         public virtual string RealName { get; set; }
         public virtual bool Sex { get; set; }
         public virtual DateTime Birthday { get; set; }

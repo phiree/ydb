@@ -50,5 +50,7 @@ namespace Ydb.Membership.DomainModel.Repository
 
         DZMembershipCustomerService GetOneNotVerifiedDZMembershipCustomerServiceByArea(IList<string> areaList);
 
+        IList<DZMembership> GetUsersByIdList(IList<string> memberIdList);
+
     }
 }

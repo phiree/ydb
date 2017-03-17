@@ -16,9 +16,6 @@ namespace Ydb.Membership.Application.Dto
         public bool IsAgentCustomerService { get; set; }
         public bool IsVerified { get; set; }
         public bool VerificationIsAgree { get; set; }
-        public DateTime LockTime { get; set; }
-        public bool IsLocked { get; set; }
-        public string LockReason { get; set; }
         public DZMembershipImageDto DZMembershipDiploma { get; set; }
         public IList<DZMembershipImageDto> DZMembershipCertificates { get; set; }
         public IList<DZMembershipImageDto> DZMembershipOthers { get; set; }

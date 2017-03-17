@@ -18,6 +18,13 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.NickName);
             Map(x => x.Address);
             Map(x => x.QQNumber);
+
+            Map(x => x.WXNumber);
+            Map(x => x.WBNumber);
+            Map(x => x.LockTime);
+            Map(x => x.IsLocked);
+            Map(x => x.LockReason);
+
             Map(x => x.Email); //.Unique();
             Map(x => x.Phone); //.Unique();
             Map(x => x.RealName);

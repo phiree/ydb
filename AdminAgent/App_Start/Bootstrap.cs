@@ -71,6 +71,7 @@ public class Bootstrap
                 x.AddProfile<Ydb.BusinessResource.Application.ModelToDtoMappingProfile>();
                 x.AddProfile<Ydb.Finance.Application.ModelToDtoMappingProfile>();
                 x.AddProfile<Ydb.Finance.Application.DtoToModelMappingProfile>();
+                x.AddProfile<Ydb.ApplicationService.ModelToDtoMappingProfileCrossDomain>();
             });
 
 

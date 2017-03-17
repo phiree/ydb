@@ -7,6 +7,7 @@ using Ydb.BusinessResource.DomainModel;
 
 using AutoMapper;
 using Ydb.Order.DomainModel;
+using Ydb.ApplicationService.ModelDto;
 
 namespace Ydb.ApplicationService
 {
@@ -25,6 +26,11 @@ namespace Ydb.ApplicationService
         {
 
             Mapper.CreateMap<DZService,ServiceSnapShot>()
+            .ForAllMembers(opt => opt.NullSubstitute(""));
+
+
+            Mapper.CreateMap<ServiceOrder, ServiceOrderDto>()
+            .ForMember(x => x.GetStatusTitleFriendly, opt => opt.MapFrom(source => source.GetStatusTitleFriendly(source.OrderStatus)))
             .ForAllMembers(opt => opt.NullSubstitute(""));
         }
     }

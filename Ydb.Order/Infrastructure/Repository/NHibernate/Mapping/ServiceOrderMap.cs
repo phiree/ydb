@@ -32,6 +32,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate.Mapping
 
             //指派的负责人
             Map(x => x.StaffId);
+            Map(x => x.StaffName);
             Map(x => x.IsShared);
 
             //

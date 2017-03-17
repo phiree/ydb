@@ -25,6 +25,7 @@ namespace Ydb.Order.Application
         /// 更新
         /// </summary>
         /// <param name="c"></param>
+        [Ydb.Order.Infrastructure.UnitOfWork]
         public void Update(Complaint c)
         {
             repositoryComplaint.Update(c);
@@ -34,6 +35,7 @@ namespace Ydb.Order.Application
         /// 新建投诉
         /// </summary>
         /// <param name="complaint"></param>
+        [Ydb.Order.Infrastructure.UnitOfWork]
         public void AddComplaint(Complaint complaint)
         {
             repositoryComplaint.Add(complaint);
@@ -47,6 +49,7 @@ namespace Ydb.Order.Application
         /// <param name="storeID"></param>
         /// <param name="customerServiceID"></param>
         /// <returns></returns>
+        [Ydb.Order.Infrastructure.UnitOfWork]
         public IList<Complaint> GetComplaints(TraitFilter filter, Guid orderID, Guid storeID, Guid customerServiceID)
         {
             ServiceOrder order = repositoryServiceOrder.FindById(orderID);
@@ -85,6 +88,7 @@ namespace Ydb.Order.Application
         /// 统计投诉的数量
         /// </summary>
         /// <returns>area实体list</returns>
+        [Ydb.Order.Infrastructure.UnitOfWork]
         public long GetComplaintsCount(Guid orderID, Guid storeID, Guid customerServiceID)
         {
             var where = PredicateBuilder.True<Complaint>();
@@ -108,11 +112,29 @@ namespace Ydb.Order.Application
         /// 条件读取投诉
         /// </summary>
         /// <returns>area实体list</returns>
+        [Ydb.Order.Infrastructure.UnitOfWork]
         public Complaint GetComplaintById(Guid Id)
         {
             return repositoryComplaint.FindById(Id);
 
 
+        }
+
+
+        /// <summary>
+        /// 根据客户的用户Id获取该客户的投诉数量
+        /// </summary>
+        /// <returns>area实体list</returns>
+        [Ydb.Order.Infrastructure.UnitOfWork]
+        public long GetComplaintsCountByOperator(string operatorId)
+        {
+            var where = PredicateBuilder.True<Complaint>();
+            if (!string.IsNullOrEmpty(operatorId))
+            {
+                where = where.And(x => x.OperatorId == operatorId);
+            }
+            long count = repositoryComplaint.GetRowCount(where);
+            return count;
         }
     }
 }

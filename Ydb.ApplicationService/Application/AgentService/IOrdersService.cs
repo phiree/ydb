@@ -7,7 +7,7 @@ using Ydb.ApplicationService.ModelDto;
 using Ydb.Common.Domain;
 namespace Ydb.ApplicationService.Application.AgentService
 {
-   public interface IOrdersService
+    public interface IOrdersService
     {
         long GetOrdersCountByArea(IList<string> areaIdList, bool isSharea);
         long GetCountOfNewOrdersYesterdayByArea(IList<string> areaIdList);
@@ -57,7 +57,7 @@ namespace Ydb.ApplicationService.Application.AgentService
         /// <param name="areaList"></param>
         /// <param name="deepLevel"></param>
         /// <returns></returns>
-        StatisticsInfo<string, decimal> GetStatisticsAllOrdersAmountListByType(IList<Area> areaList,int deepLevel);
+        StatisticsInfo<string, decimal> GetStatisticsAllOrdersAmountListByType(IList<Area> areaList, int deepLevel);
 
         /// <summary>
         /// 根据服务类型统计订单数量
@@ -76,5 +76,15 @@ namespace Ydb.ApplicationService.Application.AgentService
         /// <param name="enumDone"></param>
         /// <returns></returns>
         decimal GetStatisticsTotalAmountByArea(IList<string> areaIdList, enum_IsDone enumDone);
+
+        /// <summary>
+        /// 统计订单列表
+        /// </summary>
+        /// <param name = "areaIdList" ></ param >
+        /// < param name="beginTime"></param>
+        /// <param name = "endTime" ></ param >
+        /// < param name="enumDone"></param>
+        /// <returns></returns>
+        IList<ServiceOrderDto> GetOrdersListByAreaAndTime(IList<string> areaIdList, DateTime beginTime, DateTime endTime, enum_IsDone enumDone);
     }
 }

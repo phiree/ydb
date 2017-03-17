@@ -371,7 +371,7 @@ namespace Ydb.Order.Application
                               || x.OrderStatus == enum_OrderStatus.ForceStop)
                         ;
                     break;
-                //case enum_OrderSearchType.Nt:
+                //case enum_OrderSearchType.Nt: 
                 case "pending":
                     where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                          && x.OrderStatus != enum_OrderStatus.DraftPushed
@@ -488,10 +488,11 @@ namespace Ydb.Order.Application
         /// <param name="orderId"></param>
         /// <param name="staffId"></param>
         [UnitOfWork]
-        public void UpdateStaff(Guid orderId, string staffId)
+        public void UpdateStaff(Guid orderId, string staffId,string staffName)
         {
             ServiceOrder order = repoServiceOrder.FindById(orderId);
             order.StaffId = staffId;
+            order.StaffName = staffName;
             Update(order);
         }
 

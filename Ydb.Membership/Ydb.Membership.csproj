@@ -55,10 +55,8 @@
       <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
- 
     <Reference Include="HibernatingRhinos.Profiler.Appender, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernateProfiler.Appender.3.0.3105.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
- 
       <Private>True</Private>
     </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
@@ -98,6 +96,7 @@
     <Compile Include="Application\Dto\DZMembershipCustomerServiceDto.cs" />
     <Compile Include="Application\Dto\DZMembershipImageDto.cs" />
     <Compile Include="Application\Dto\Enum_LockCustomerServiceType.cs" />
+    <Compile Include="Application\Dto\Enum_LockMemberType.cs" />
     <Compile Include="Application\Dto\Enum_ValiedateCustomerServiceType.cs" />
     <Compile Include="Application\Dto\Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Application\Dto\Mapping\DtoToModelMappingProfile.cs" />
