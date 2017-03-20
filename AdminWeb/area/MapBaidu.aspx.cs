@@ -47,12 +47,14 @@ public partial class area_MapBaidu : BasePage
                     {
                         try
                         {
-                             Area area = bllArea.GetAreaByBaiduName(baiduCity.name);
-                            if (string.IsNullOrEmpty(area.BaiduCode))
-                            {
-                                area.BaiduCode = baiduCity.code;
-                                area.BaiduName = baiduCity.name;
-                            }
+                            bllArea.UpdateAreaWithBaiduMap(baiduCity.code, baiduCity.name);
+                            // Area area = bllArea.GetAreaByBaiduName(baiduCity.name);
+                            //if (string.IsNullOrEmpty(area.BaiduCode))
+                            //{
+
+                            //    area.BaiduCode = baiduCity.code;
+                            //    area.BaiduName = baiduCity.name;
+                            //}
                             lblSuccess.Text = lblSuccess.Text + baiduCity.name + "," + baiduCity.code + "," + baiduCity.key + ";";
                         }
                         catch
