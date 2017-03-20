@@ -25,7 +25,7 @@ namespace Ydb.BusinessResource.Application
         IList<DZTag> GetServiceTags(Guid serviceId);
         IList<ServiceType> GetServiceTypeListByBusiness(Guid businessId);
         int GetSumByBusiness(Business business);
-            ServiceOpenTimeForDay GetWorkTime(Guid serviceId, DateTime targetTime);
+        ServiceOpenTimeForDay GetWorkTime(Guid serviceId, DateTime targetTime);
         ServiceOpenTimeForDay GetWorkitem(string storeID, string serviceID, string workTimeID);
         ServiceOpenTimeForDay GetWorkitem( string workTimeID);
         IList<ServiceOpenTimeForDay> GetWorkTimes(string storeID, string serviceID, DayOfWeek? dayOfWeek, string timeBegin, string timeEnd);
@@ -47,5 +47,12 @@ namespace Ydb.BusinessResource.Application
         /// <param name="enable"></param>
         /// <param name="memo"></param>
         void EnabledDZService(string serviceId, bool enable, string memo);
+
+        /// <summary>
+        /// 获取代理所在区域的服务区分是否封停
+        /// </summary>
+        /// <param name="areaIdList"></param>
+        /// <returns></returns>
+        IList<ServiceDto> GetServicesByArea(IList<string> areaIdList);
     }
 }

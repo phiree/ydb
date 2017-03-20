@@ -15,7 +15,7 @@ namespace Ydb.BusinessResource.DomainModel
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model.DZService");
         public DZService()
         {
-            
+            CreatedTime = DateTime.Now;
             Enabled = true;
             EnabledTime = DateTime.Now;
             IsDeleted = false;

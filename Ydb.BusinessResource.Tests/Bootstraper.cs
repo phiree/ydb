@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ydb.Common.Infrastructure;
+using AutoMapper;
 
 public class Bootstrap
 {
@@ -34,7 +35,10 @@ public class Bootstrap
     }
     public static void Boot()
     {
-
+        Mapper.Initialize(x =>
+        {
+            x.AddProfile<Ydb.BusinessResource.Application.ModelToDtoMappingProfile>();
+        });
         container = new WindsorContainer();
 
         FluentConfiguration dbConfigCommon = Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("test_ydb_common.db3"))

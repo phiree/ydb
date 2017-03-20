@@ -15,10 +15,12 @@ namespace Ydb.ApplicationService.Application.AgentService
     {
         IBusinessService businessService;
         IDZMembershipService dzMembershipService;
-        public BusinessOwnerService(IBusinessService businessService, IDZMembershipService dzMembershipService)
+        IDZServiceService dzServiceService;
+        public BusinessOwnerService(IBusinessService businessService, IDZMembershipService dzMembershipService, IDZServiceService dzServiceService)
         {
             this.businessService = businessService;
             this.dzMembershipService = dzMembershipService;
+            this.dzServiceService = dzServiceService;
         }
 
         public IList<MemberDto> GetBusinessOwnerListByArea(IList<string> areaIdList,bool isLocked)
@@ -46,6 +48,19 @@ namespace Ydb.ApplicationService.Application.AgentService
                 b.OwnerName = memberDtoList.First(x => x.Id == b.OwnerId).UserName;
             }
             return businessList;
+        }
+
+        public IList<ServiceDto> GetServiceListByArea(IList<string> areaIdList, bool enable)
+        {
+            //IList<Business> businessList = businessService.GetAllBusinessesByArea(areaIdList);
+            IList<ServiceDto> serviceDtoList = dzServiceService.GetServicesByArea(areaIdList).Where(x=>x.Enabled==enable).ToList();
+            IList<string> memberIdList = serviceDtoList.Select(x => x.ServiceBusinessOwnerId.ToString()).ToList();
+            IList<MemberDto> memberDtoList = dzMembershipService.GetUsersByIdList(memberIdList);
+            foreach (ServiceDto s in serviceDtoList)
+            {
+                s.ServiceBusinessOwnerName = memberDtoList.First(x => x.Id.ToString() == s.ServiceBusinessOwnerId).UserName;
+            }
+            return serviceDtoList;
         }
     }
 }

@@ -1,0 +1,193 @@
+﻿@model Ydb.Membership.Application.Dto.MemberDto
+@{
+    ViewBag.headTitle = "商家管理";
+    ViewBag.subTitle = "商家详情";
+    ViewBag.breadcrumbOl = new List<string>() { "商家管理", "商家列表", "商家详情" };
+}
+
+  <!-- Main content -->
+<section class="content">
+    <!-- /.row -->
+    <div class="row">
+        <!-- /.col -->
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header text-center margin-top-10">
+                    <h3 class="box-title text-center">@Model.DisplayName<span style="color: #4db2c6">&nbsp;&nbsp;@(Model.IsLocked ? "封停中" : "活跃中")</span></h3>
+                    <div class="box-tools pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-wrench"></i>&nbsp;设置
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                @*<li><a href="#">重置密码</a></li>
+                                <li class="divider"></li>*@
+                                <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.IsLocked ? "true" : "false")>@(Model.IsLocked ? "解封账号" : "封停账号")</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body box-profile">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>商家账号：</b> <a class="pull-right">@Model.UserName</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>绑定手机：</b> <a class="pull-right">@Model.Phone</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>注册时间：</b> <a class="pull-right">@Model.TimeCreated</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>联系地址：</b> <a class="pull-right">@Model.Address</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>累计接单：</b> <a class="pull-right"><span>125</span>单</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">账号营业额</span>
+                                    <span class="info-box-number">1,410.00元</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <div class="info-box">
+                                <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">账号已分账</span>
+                                    <span class="info-box-number">1,410.00元</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="business-card" onclick='location.href="./business-shop-info.html"'>
+                                <div class="business-img"></div>
+                                <dl>
+                                    <dt>店铺名称：</dt>
+                                    <dd>畅畅干洗</dd>
+                                    <dt>店铺地址：</dt>
+                                    <dd>海南省海口市海牙国际大厦</dd>
+                                    <dt>服务数量：</dt>
+                                    <dd>39</dd>
+                                    <dt>订单数量：</dt>
+                                    <dd>4399</dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="business-card" onclick='location.href="./business-shop-info.html"'>
+                                <div class="business-img"></div>
+                                <dl>
+                                    <dt>店铺名称：</dt>
+                                    <dd>畅畅干洗</dd>
+                                    <dt>店铺地址：</dt>
+                                    <dd>海南省海口市海牙国际大厦</dd>
+                                    <dt>服务数量：</dt>
+                                    <dd>39</dd>
+                                    <dt>订单数量：</dt>
+                                    <dd>4399</dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="business-card" onclick='location.href="./business-shop-info.html"'>
+                                <div class="business-img"></div>
+                                <dl>
+                                    <dt>店铺名称：</dt>
+                                    <dd>畅畅干洗</dd>
+                                    <dt>店铺地址：</dt>
+                                    <dd>海南省海口市海牙国际大厦</dd>
+                                    <dt>服务数量：</dt>
+                                    <dd>39</dd>
+                                    <dt>订单数量：</dt>
+                                    <dd>4399</dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="business-card" onclick='location.href="./business-shop-info.html"'>
+                                <div class="business-img"></div>
+                                <dl>
+                                    <dt>店铺名称：</dt>
+                                    <dd>畅畅干洗</dd>
+                                    <dt>店铺地址：</dt>
+                                    <dd>海南省海口市海牙国际大厦</dd>
+                                    <dt>服务数量：</dt>
+                                    <dd>39</dd>
+                                    <dt>订单数量：</dt>
+                                    <dd>4399</dd>
+                                </dl>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+@Html.Action("footer", "Agent", new { id = "" })
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. Slimscroll is required when using the
+     fixed layout. -->
+
+<script src="../js/navbar-controller.js"></script>
+<!-- DataTables -->
+<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- date-range-picker -->
+<script src="../plugins/daterangepicker/moment.min.js"></script>
+<script src="../plugins/daterangepicker/daterangepicker.js"></script>
+<script>
+    (function(){
+        //Date range picker
+        $('#reservation').daterangepicker();
+        //Date range picker with time picker
+        //初始化定制数据列表
+        $(".table-striped").DataTable({
+            "order": [[ 0, "asc" ]],
+            "language" :{
+                "decimal":        "",
+                "emptyTable":     "没有数据",
+                "info":           "从_START_ 到 _END_ 条记录——总记录数为 _TOTAL_ 条",
+                "infoEmpty":      "记录数为0",
+                "infoFiltered":   "(全部记录数 _MAX_  条)",
+                "infoPostFix":    "",
+                "thousands":      ",",
+                "lengthMenu":     "显示 _MENU_ 条",
+                "loadingRecords": "加载中...",
+                "processing":     "处理中...",
+                "search":         "查找：",
+                "zeroRecords":    "找不到内容",
+                "paginate": {
+                    "first":      "第一页",
+                    "last":       "最后一页",
+                    "next":       "下一页",
+                    "previous":   "上一页"
+                }
+            }
+        });
+    })();
+</script>
+

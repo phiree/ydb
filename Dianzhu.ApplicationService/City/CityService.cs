@@ -64,7 +64,6 @@ namespace Dianzhu.ApplicationService.City
                 }
                 listarea = new List<Area>();
                 listarea.Add(area);
-
             }
             else
             {
