@@ -21,6 +21,6 @@ namespace Dianzhu.ApplicationService.City
         /// <param name="filter"></param>
         /// <param name="location"></param>
         /// <returns></returns>
-        IList<cityObj> GetAllCity(common_Trait_Filtering filter, common_Trait_LocationFiltering location);
+        IList<cityObj> GetAllCity(common_Trait_Filtering filter, common_Trait_LocationFiltering location, Customer customer);
     }
 }

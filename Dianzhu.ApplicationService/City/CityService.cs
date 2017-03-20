@@ -7,16 +7,19 @@ using AutoMapper;
 using Ydb.Common.Application;
 using Ydb.Common.Domain;
 using Ydb.Common.Specification;
+using Ydb.Membership.Application;
 
 namespace Dianzhu.ApplicationService.City
 {
     public class CityService: ICityService
     {
         IAreaService areaService;
+        IDZMembershipService memberService;
 
-        public CityService(IAreaService areaService)
+        public CityService(IAreaService areaService, IDZMembershipService memberService)
         {
             this.areaService = areaService;
+            this.memberService = memberService;
         }
 
         /// <summary>
@@ -41,14 +44,22 @@ namespace Dianzhu.ApplicationService.City
         /// <param name="filter"></param>
         /// <param name="location"></param>
         /// <returns></returns>
-        public IList<cityObj> GetAllCity(common_Trait_Filtering filter,common_Trait_LocationFiltering location)
+        public IList<cityObj> GetAllCity(common_Trait_Filtering filter,common_Trait_LocationFiltering location,Customer customer)
         {
             IList<Area> listarea=null;
              Area area;
             if (!string.IsNullOrEmpty(location.longitude) && !string.IsNullOrEmpty(location.latitude))
             {
                 RespGeo geoObj = utils.Deserialize<RespGeo>(utils.GetCity(location.longitude, location.latitude));
-                area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city);
+                area = areaService.GetCityByAreaCode(geoObj.result.addressComponent.adcode);
+                if (area == null)
+                {
+                    area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city + geoObj.result.addressComponent.district);
+                }
+                if (area == null)
+                {
+                    area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city);
+                }
                 //if (location.code != null && location.code != "" && area != null)
                 //{
                 //    if (location.code != area.Code)
@@ -58,9 +69,14 @@ namespace Dianzhu.ApplicationService.City
                 //}
                 if (area == null)
                 {
-                    area = new  Area();
+                    area = new Area();
                     area.Name = geoObj.result.addressComponent.city;
                     area.Code = geoObj.result.cityCode;
+                }
+                else
+                {
+                    Guid guidUser = utils.CheckGuidID(customer.UserID, "userID");
+                    memberService.ChangeUserCity(guidUser, area.Code, location.longitude, location.latitude, area.Id.ToString());
                 }
                 listarea = new List<Area>();
                 listarea.Add(area);

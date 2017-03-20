@@ -48,7 +48,7 @@ namespace Dianzhu.ApplicationService
     }
     public class GeoAddressComponent
     {
-        public string streetNumber { get; set; }
+        public string street_number { get; set; }
         public string street { get; set; }
         public string district { get; set; }
         public string city { get; set; }
@@ -57,5 +57,6 @@ namespace Dianzhu.ApplicationService
         public string counntryCode { get; set; }
         public string direction { get; set; }
         public string distance { get; set; }
+        public string adcode { get; set; }
     }
 }
