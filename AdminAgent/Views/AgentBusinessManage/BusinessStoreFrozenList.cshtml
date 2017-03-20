@@ -9,6 +9,7 @@
             <th>序号</th>
             <th>商户账号</th>
             <th>店铺名称</th>
+            <th>联系电话</th>
             <th>创建时间</th>
             <th>停封时间</th>
             <th>详情</th>
@@ -20,8 +21,8 @@
             <tr>
                 <td>@(i + 1)</td>
                 <td>@Html.ActionLink(Html.DisplayFor(modelItem => Model[i].OwnerName).ToString(), "BusinessDetail", "AgentBusinessManage", new { id = Model[i].OwnerId }, new { })</td>
-                <td>@Html.DisplayFor(modelItem => Model[i].Phone)</td>
                 <td>@Html.DisplayFor(modelItem => Model[i].Name)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].Phone)</td>
                 <td>@Html.DisplayFor(modelItem => Model[i].CreatedTime)</td>
                 <td>@Html.DisplayFor(modelItem => Model[i].EnabledTime)</td>
                 <td>@Html.ActionLink("进入", "BusinessStoreDetail", "AgentBusinessManage", new { id = Model[i].Id }, new { })</td>
@@ -34,6 +35,7 @@
             <th>序号</th>
             <th>商户账号</th>
             <th>店铺名称</th>
+            <th>联系电话</th>
             <th>创建时间</th>
             <th>停封时间</th>
             <th>详情</th>

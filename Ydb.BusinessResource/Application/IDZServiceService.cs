@@ -39,5 +39,13 @@ namespace Ydb.BusinessResource.Application
         IList<DZService> SearchService(string name, decimal priceMin, decimal priceMax, Guid typeId, DateTime datetime,
             double lng, double lat, int pageIndex, int pagesize, out int total);
         void Update(DZService service);
+
+        /// <summary>
+        /// 封停/解封服务
+        /// </summary>
+        /// <param name="serviceId"></param>
+        /// <param name="enable"></param>
+        /// <param name="memo"></param>
+        void EnabledDZService(string serviceId, bool enable, string memo);
     }
 }

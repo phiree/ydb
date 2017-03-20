@@ -42,12 +42,27 @@ namespace Ydb.BusinessResource.Application
             repositoryBusiness.Delete(business);
         }
         [UnitOfWork]
-        public void Disable(Guid  businessId)
+        public void Disable(Guid businessId,bool enable,string memo)
         {
             Business b = GetOne(businessId);
-            b.Enabled = false;
+            if (b == null)
+            {
+                throw new Exception("该店铺不存在！");
+            }
+            if (!enable)
+            {
+                if (!b.Enabled)
+                {
+                    throw new Exception("该店铺已经封停！");
+                }
+                if (memo == "")
+                {
+                    throw new Exception("请输入封停原因！");
+                }
+                b.EnabledMemo = memo;
+            }
+            b.Enabled = enable;
             b.EnabledTime = DateTime.Now;
-            b.EnabledMemo = "封停或删除";
             repositoryBusiness.Update(b);
         }
        [UnitOfWork] 

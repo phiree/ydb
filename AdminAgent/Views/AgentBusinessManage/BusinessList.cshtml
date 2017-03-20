@@ -14,7 +14,8 @@
             <div class="box">
                 <div class="box-header with-border">
                     商家列表
-                    <a class="btn btn-info pull-right" href="./business-frozen-list.html">查看停封商家</a>
+                    @Html.ActionLink("查看停封商家", "BusinessFrozenList", "AgentBusinessManage", new { id = @ViewData["id"] }, new { @class = "btn btn-info pull-right" })
+                    @*<a class="btn btn-info pull-right" href="./business-frozen-list.html">查看停封商家</a>*@
                 </div>
                 <div class="box-body">
                     <table class="table table-bordered table-striped">
