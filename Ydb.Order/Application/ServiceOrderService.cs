@@ -318,6 +318,17 @@ namespace Ydb.Order.Application
         }
 
         /// <summary>
+        /// 根据商户Id列表订单的营业总额
+        /// </summary>
+        /// <param name="businessIdList"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public decimal GetTotalAmountByBusinessList(IList<string> businessIdList)
+        {
+            return repoServiceOrder.GetTotalAmountByBusinessList(businessIdList);
+        }
+
+        /// <summary>
         /// 根据分账统计订单
         /// </summary>
         /// <param name="isShared">订单是否分账</param>

@@ -32,6 +32,7 @@ namespace Ydb.BusinessResource.Application
         public void Delete(Guid staffId)
         {
           Staff  s= repositoryStaff.FindById(staffId);
+            s.Belongto.StaffAmount--;
             repositoryStaff.Delete(s);
         }
         public Staff GetOne(Guid id)
@@ -41,6 +42,11 @@ namespace Ydb.BusinessResource.Application
 
         public void Save(Staff staff)
         {
+            if (staff.Belongto == null)
+            {
+                throw new Exception("该员工没有确定归属的店铺！");
+            }
+            staff.Belongto.StaffAmount++;
             repositoryStaff.Add(staff);
         }
 

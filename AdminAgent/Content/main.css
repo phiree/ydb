@@ -29,4 +29,155 @@
   cursor: not-allowed;
 }
 
+/*后加的*/
+
+.business-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+.business-card:hover {
+  box-shadow: 0 0 5px #aaa;
+}
+.business-card dl {
+  margin-bottom: 0;
+}
+.business-card dt {
+  padding: 2px 0;
+  width: 100px;
+  float: left;
+}
+.business-card dd {
+  padding: 2px 0;
+  margin-left: 100px;
+  text-align: right;
+}
+.business-img {
+  width: 100%;
+  height: 200px;
+  background: #dddddd;
+  margin-bottom: 15px;
+}
+.service-time-list-item {
+  overflow: hidden;
+}
+.service-time-list-item ._item {
+  float: left;
+}
+.service-time-list-item ._item.w-50-per {
+  width: 50%;
+}
+.service-map {
+  height: 200px;
+  background: #ccc;
+}
+.img-100 {
+  height: 100px;
+}
+.checkListContainer {
+  border: 1px solid #ccc;
+  margin-top: 15px;
+  overflow: hidden;
+  display: inline-block;
+}
+/* 多级列表样式 */
+.checkLists {
+  overflow: hidden;
+}
+.checkListWrap {
+  float: left;
+  width: 250px;
+  height: 350px;
+  overflow-y: scroll;
+  background: #fff;
+}
+.checkListWrap::-webkit-scrollbar {
+  width: 5px;
+  background: transparent;
+  border: 0;
+}
+.checkListWrap::-webkit-scrollbar-button {
+  display: none;
+}
+.checkListWrap::-webkit-scrollbar-track {
+  display: none;
+}
+.checkListWrap::-webkit-scrollbar-track-piece {
+  background: #CCCCCC;
+}
+.checkListWrap::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #999;
+}
+.checkListWrap::-webkit-scrollbar-corner {
+  display: none;
+}
+.checkSearchContainer {
+  display: inline-block;
+  position: relative;
+}
+.checkSearchConf {
+  font-size: 14px;
+  line-height: 1.2em;
+}
+.checkSearchClose {
+  display: none;
+  position: absolute;
+  border: 0;
+  right: 4px;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  margin-top: -9px;
+  background: #00c0ef;
+}
+.checkList {
+  margin: 0;
+  padding: 0;
+}
+.checkListItem {
+  line-height: 1.8em;
+  padding: 0 15px;
+  transition: all 0.3s;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.checkListItem:nth-of-type(2n) {
+  background: #fafafa;
+}
+.checkListItem:nth-of-type(2n).searchMark {
+  color: #333;
+  background: #d4f5fe;
+}
+.checkListItem:hover {
+  background: #d5ecff !important;
+  border: 1px solid #1F91CC;
+}
+.checkListItem.selected {
+  background: #1F91CC !important;
+  line-height: 3em;
+  color: #fff !important;
+}
+.checkListItem.searchMark {
+  color: #333;
+  background: #fff;
+}
+.checkListItem.par {
+  position: relative;
+}
+.checkListItem.par:after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 8px;
+  background: #00c0ef;
+  right: 6px;
+  top: 50%;
+  margin-top: -4px;
+}
+.checkListItem.par.selected:after {
+  background: #00c0ef;
+}
+
 /*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFzc2lzdGFudC5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsWUFBQTs7QUFFRjtFQUNFLGdCQUFBOztBQUVGO0VBQ0UsbUJBQUE7O0FBRUY7RUFDRSxrQkFBQTs7QUFFRjtFQUNFLGdCQUFBOztBQUVGO0VBQ0UsaUJBQUE7O0FBRUY7RUFDRSwyQkFBQTs7QUFFRjtFQUNFLHFCQUFBOztBQUVGO0VBQ0UsYUFBQTs7QUFFRjtFQUNFLG1CQUFBIiwic291cmNlc0NvbnRlbnQiOlsiLmhlaWdodDIwIHtcclxuICBoZWlnaHQ6IDIwcHg7XHJcbn1cclxuLm1hcmdpblRvcDUwIHtcclxuICBtYXJnaW4tdG9wOiA1MHB4O1xyXG59XHJcbi5tYXJnaW5Cb3R0b20yMCB7XHJcbiAgbWFyZ2luLWJvdHRvbTogMjBweDtcclxufVxyXG4ubWFyZ2luUmlnaHQyMCB7XHJcbiAgbWFyZ2luLXJpZ2h0OiAyMHB4O1xyXG59XHJcbi5tYXJnaW5Ub3AyMCB7XHJcbiAgbWFyZ2luLXRvcDogMjBweDtcclxufVxyXG4ubWFyZ2luTGVmdDcwIHtcclxuICBtYXJnaW4tbGVmdDogNzBweDtcclxufVxyXG4ubm90aWNlLXRleHQtbGVmdCB7XHJcbiAgdGV4dC1hbGlnbjogbGVmdCAhaW1wb3J0YW50O1xyXG59XHJcbi53b3JkLWJyZWFrLWFsbCB7XHJcbiAgd29yZC1icmVhazpicmVhay1hbGw7XHJcbn1cclxuLmFkLWhlaWdodCB7XHJcbiAgaGVpZ2h0OiAyNDBweDtcclxufVxyXG4uY3Vyc29yLWRpc2FibGUge1xyXG4gIGN1cnNvcjogbm90LWFsbG93ZWQ7XHJcbn0iXSwiZmlsZSI6Im1haW4uY3NzIn0= */

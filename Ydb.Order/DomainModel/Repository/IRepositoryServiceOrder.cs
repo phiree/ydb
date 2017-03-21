@@ -56,5 +56,12 @@ namespace Ydb.Order.DomainModel.Repository
         /// <param name="endTime"></param>
         /// <returns></returns>
         long GetOrdersCountByBusinessList(IList<string> businessIdList, DateTime beginTime, DateTime endTime, string strDone);
+
+        /// <summary>
+        /// 根据商户Id列表订单的营业总额
+        /// </summary>
+        /// <param name="businessIdList"></param>
+        /// <returns></returns>
+        decimal GetTotalAmountByBusinessList(IList<string> businessIdList);
     }
 }

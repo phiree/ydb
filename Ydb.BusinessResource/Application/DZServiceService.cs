@@ -91,6 +91,11 @@ namespace Ydb.BusinessResource.Application
         [UnitOfWork]
         public void Save(DZService service)
         {
+            if (service.Business == null)
+            {
+                throw new Exception("该服务没有确定所属的店铺");
+            }
+            service.Business.ServiceAmount++;
             repositoryDZService.Add(service);
         }
         [UnitOfWork]
@@ -110,6 +115,11 @@ namespace Ydb.BusinessResource.Application
             if (service.Id == Guid.Empty)
             {
                 service.CreatedTime = DateTime.Now;
+                if (service.Business == null)
+                {
+                    throw new Exception("该服务没有确定所属的店铺");
+                }
+                service.Business.ServiceAmount++;
                 repositoryDZService.Add(service);
             }
             else
@@ -130,6 +140,7 @@ namespace Ydb.BusinessResource.Application
         [UnitOfWork]
         public void Delete(DZService dz)
         {
+            dz.Business.ServiceAmount--;
             repositoryDZService.Delete(dz);
         }
         [UnitOfWork]

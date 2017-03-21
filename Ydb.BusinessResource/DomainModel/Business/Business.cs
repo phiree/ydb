@@ -140,6 +140,10 @@ namespace Ydb.BusinessResource.DomainModel
         /// </summary>
         public virtual int StaffAmount { get;protected internal set; }
         /// <summary>
+        /// 服务数量
+        /// </summary>
+        public virtual int ServiceAmount { get; protected internal set; }
+        /// <summary>
         /// 从业时长, 比如 1915年进入该行业的, 则是 百  --年老 --店,该值为100.
         /// </summary>
         public virtual int WorkingYears { get;protected internal set; }
@@ -442,6 +446,13 @@ namespace Ydb.BusinessResource.DomainModel
         /// 图片名称,图片存储路径由配置确定.
         /// </summary>
         public virtual string ImageName { get;protected internal set; }
+
+        public virtual string ImageUrl {
+            get {
+                return string.IsNullOrEmpty(ImageName) ? "" : Dianzhu.Config.Config.GetAppSetting("ImageHandler") + ImageName;
+            }
+        }
+
         /// <summary>
         /// 图片描述
         /// </summary>

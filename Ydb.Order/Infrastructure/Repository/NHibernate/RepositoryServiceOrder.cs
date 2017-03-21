@@ -427,7 +427,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
             {
                 where = where.And(x => x.OrderConfirmTime < endTime);
             }
-            if (!string.IsNullOrEmpty(strDone) && !string.IsNullOrEmpty(strDone))
+            if (!string.IsNullOrEmpty(strDone) && strDone!= "None")
             {
                 if (strDone == "OrderIsDone")
                 {
@@ -459,6 +459,27 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
                    && x.OrderStatus != enum_OrderStatus.Search);
             long count = GetRowCount(where);
             return count;
+        }
+
+        /// <summary>
+        /// 根据商户Id列表订单的营业总额
+        /// </summary>
+        /// <param name="businessIdList"></param>
+        /// <returns></returns>
+        public decimal GetTotalAmountByBusinessList(IList<string> businessIdList)
+        {
+            var where = Ydb.Common.Specification.PredicateBuilder.True<ServiceOrder>();
+            if (businessIdList.Count > 0)
+            {
+                where = where.And(x => businessIdList.Contains(x.BusinessId));
+            }
+            where = where.And(
+                       x => x.OrderStatus == enum_OrderStatus.Finished
+                       || x.OrderStatus == enum_OrderStatus.Appraised
+                       || x.OrderStatus == enum_OrderStatus.Ended
+                       );
+            
+            return Find(where).Sum(x=>x.NegotiateAmount);
         }
 
     }

@@ -8,6 +8,10 @@ using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Membership.Application.Dto;
 using Ydb.Membership.Application;
+using Ydb.Order.Application;
+using Ydb.Order.DomainModel;
+using Ydb.Finance.Application;
+using Ydb.Common;
 
 namespace AdminAgent.Controllers
 {
@@ -16,6 +20,8 @@ namespace AdminAgent.Controllers
         IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
         IBusinessOwnerService businessOwnerService = Bootstrap.Container.Resolve<IBusinessOwnerService>();
         IDZMembershipService dzMembershipService = Bootstrap.Container.Resolve<IDZMembershipService>();
+        IServiceOrderService serviceOrderService = Bootstrap.Container.Resolve<IServiceOrderService>();
+        IBalanceFlowService balanceFlowService = Bootstrap.Container.Resolve<IBalanceFlowService>();
         /// <summary>
         /// 获取活跃商家列表
         /// </summary>
@@ -96,6 +102,13 @@ namespace AdminAgent.Controllers
             try
             {
                 MemberDto memberDto = dzMembershipService.GetUserById(id);
+                IList<Business> businessList = businessService.GetBusinessListByOwner(memberDto.Id);
+                ViewData["StoreList"] = businessList;
+                IList<string> businessIdList = businessList.Select(x => x.Id.ToString()).ToList();
+                IList<ServiceOrder> orderList = serviceOrderService.GetOrdersByBusinessList(businessIdList, DateTime.MinValue, DateTime.MinValue, "");
+                ViewData["OrderCount"] = orderList.Count;
+                ViewData["OrderAmountTotal"] = serviceOrderService.GetTotalAmountByBusinessList(businessIdList);
+                ViewData["FinanceAmountTotal"] = balanceFlowService.GetSumAmountByArea(businessIdList, "OrderShare");
                 return View(memberDto);
             }
             catch (Exception ex)
@@ -104,5 +117,64 @@ namespace AdminAgent.Controllers
                 return Content(ex.Message);
             }
         }
+
+        /// <summary>
+        /// 封停/解封账号
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public ActionResult BusinessDetailLock(string id, bool islock)//string type,
+        {
+            try
+            {
+                //接口
+                //ViewBag.UserName = CurrentUser.UserName;
+                //MemberDto member = dzMembershipService.GetUserById(id);
+                //member.IsLocked = islock;
+                dzMembershipService.LockDZMembership(id, islock, "违规操作");
+                //模拟数据
+                //DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
+                //member.IsLocked = islock;
+                //if (islock)
+                //{
+                //    member.LockReason = "违规操作";
+                //}
+                return RedirectToAction("BusinessDetail");
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// 获取店铺详情
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult BusinessStoreDetail(string id)
+        {
+            //try
+            //{
+            //    MemberDto memberDto = dzMembershipService.GetUserById(id);
+            //    IList<Business> businessList = businessService.GetBusinessListByOwner(memberDto.Id);
+            //    ViewData["StoreList"] = businessList;
+            //    IList<string> businessIdList = businessList.Select(x => x.Id.ToString()).ToList();
+            //    IList<ServiceOrder> orderList = serviceOrderService.GetOrdersByBusinessList(businessIdList, DateTime.MinValue, DateTime.MinValue, "");
+            //    ViewData["OrderCount"] = orderList.Count;
+            //    ViewData["OrderAmountTotal"] = serviceOrderService.GetTotalAmountByBusinessList(businessIdList);
+            //    ViewData["FinanceAmountTotal"] = balanceFlowService.GetSumAmountByArea(businessIdList, "OrderShare");
+            //    return View(memberDto);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Response.StatusCode = 400;
+            //    return Content(ex.Message);
+            //}
+            return View();
+        }
+
     }
 }

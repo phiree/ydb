@@ -115,6 +115,12 @@ namespace Ydb.Order.Application
         /// <returns></returns>
         IList<ServiceOrder> GetOrdersByBusinessList(IList<string> businessIdList, DateTime beginTime, DateTime endTime, string strDone);
 
+        /// <summary>
+        /// 根据商户Id列表订单的营业总额
+        /// </summary>
+        /// <param name="businessIdList"></param>
+        /// <returns></returns>
+        decimal GetTotalAmountByBusinessList(IList<string> businessIdList);
 
         /// <summary>
         /// 根据分账统计订单

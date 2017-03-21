@@ -47,6 +47,27 @@ namespace Ydb.Finance.Application
         }
 
         /// <summary>
+        /// 获取代理及其助理的所有账户分账总额
+        /// </summary>
+        /// <param name="UserList">代理及其助理的用户Id列表</param>
+        /// <returns></returns>
+        [Ydb.Finance.Infrastructure.UnitOfWork]
+        public decimal GetSumAmountByArea(IList<string> UserIdList,string strFlowType)
+        {
+            var where = PredicateBuilder.True<BalanceFlow>();
+            FlowType flowType;
+            if (Enum.TryParse<FlowType>(strFlowType, out flowType))
+            {
+                where = where.And(x => x.FlowType== flowType);
+            }
+            if (UserIdList.Count > 0)
+            {
+                where = where.And(x => UserIdList.Contains(x.AccountId));
+            }
+            return repositoryBalanceFlow.Find(where).Sum(x => x.Amount); 
+        }
+
+        /// <summary>
         /// 根据条件获取账户流水信息
         /// </summary>
         /// <param name="traitFilter" type="Ydb.Common.Specification.TraitFilter">通用筛选器分页、排序等</param>
