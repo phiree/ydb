@@ -23,7 +23,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 @*<li><a href="#">重置密码</a></li>
                                 <li class="divider"></li>*@
-                                <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.IsLocked ? "true" : "false")>@(Model.IsLocked ? "解封账号" : "封停账号")</a></li>
+                                <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.IsLocked ? "true" : "false")>@(Model.IsLocked ? "解封商家" : "封停商家")</a></li>
                             </ul>
                         </div>
                     </div>
@@ -77,9 +77,9 @@
                             @for (int j = 0; j < 4 && j + i * 4 < ((IList<Business>)ViewData["StoreList"]).Count; j++)
                             {
                                 <div class="col-md-3">
-                                    <div class="business-card" onclick='location.href="../BusinessStoreDetail?id=@(((IList<Business>)ViewData["StoreList"])[j + i * 4].Id)"'>
+                                    <div class="business-card" onclick='location.href="../BusinessStoreDetail/@(((IList<Business>)ViewData["StoreList"])[j + i * 4].Id)"'>
                                         <div class="business-img">
-                                            <img src="@(((IList<Business>)ViewData["StoreList"])[j + i * 4].BusinessAvatar.ImageUrl)" style="width:80%;height:70%"/>
+                                            <img src="@(((IList<Business>)ViewData["StoreList"])[j + i * 4].BusinessAvatar.ImageUrl)" style="width:100%;height:100%"/>
                                         </div>
                                         <dl>
                                             <dt>店铺名称：</dt>

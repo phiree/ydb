@@ -1,4 +1,5 @@
-﻿
+﻿@using Ydb.Membership.Application.Dto;
+@model Ydb.BusinessResource.DomainModel.Business
 @{
     ViewBag.headTitle = "商家管理";
     ViewBag.subTitle = "店铺详情";
@@ -8,45 +9,60 @@
  <!-- Main content -->
 <section class="content">
     <div class="box">
+        <div class="box-header text-center margin-top-10">
+            <h3 class="box-title text-center">@Model.Name<span style="color: #4db2c6">&nbsp;&nbsp;@(Model.Enabled ? "封停中" : "活跃中")</span></h3>
+            <div class="box-tools pull-right">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-wrench"></i>&nbsp;设置
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        @*<li><a href="#">重置密码</a></li>
+                        <li class="divider"></li>*@
+                        <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.Enabled ? "true" : "false")>@(Model.Enabled ? "解封店铺" : "封停店铺")</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
         <div class="box-body">
             <div class="no-header">
                 <div class="row">
                     <div class="col-md-4">
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <b>创建时间：</b> <a class="pull-right">155000000@ydban.cn</a>
+                                <b>创建时间：</b> <a class="pull-right">@Model.CreatedTime</a>
                             </li>
                             <li class="list-group-item">
-                                <b>营业额：</b> <a class="pull-right">155000000</a>
+                                <b>营业额：</b> <a class="pull-right">@ViewData["OrderAmountTotal"]</a>
                             </li>
                             <li class="list-group-item">
-                                &nbsp;
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <b>服务数量：</b> <a class="pull-right">155000000@ydban.cn</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>服务种类：</b> <a class="pull-right">155000000</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>员工数量：</b> <a class="pull-right">2016.11.12</a>
+                                <b>审核时间：</b> <a class="pull-right">@Model.DateApproved</a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-md-4">
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <b>总接单量：</b> <a class="pull-right">155000000@ydban.cn</a>
+                                <b>服务数量：</b> <a class="pull-right">@Model.ServiceAmount</a>
                             </li>
                             <li class="list-group-item">
-                                <b>店铺评价：</b> <a class="pull-right">155000000</a>
+                                <b>服务种类：</b> <a class="pull-right">@(string.Join(",", Model.ServiceType.Select(x => x.Name).ToArray()))</a>
                             </li>
                             <li class="list-group-item">
-                                <b>遭到投诉：</b> <a class="pull-right">2016.11.12</a>
+                                <b>员工数量：</b> <a class="pull-right">@Model.StaffAmount</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <b>总接单量：</b> <a class="pull-right">@ViewData["OrderCount"]</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>店铺评价：</b> <a class="pull-right">@ViewData["BusinessAverageAppraise"]</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>遭到投诉：</b> <a class="pull-right">@ViewData["totalComplaintCount"]</a>
                             </li>
                         </ul>
                     </div>
@@ -57,89 +73,113 @@
     </div>
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="./business-shop-info.html">店铺信息</a></li>
-            <li><a href="./business-shop-service.html">服务列表</a></li>
-            <li><a href="./business-shop-order.html">订单列表</a></li>
-            <li><a href="./business-shop-employee.html">员工列表</a></li>
+            <li class="active"><a href="#tab_1" data-toggle="tab" >店铺信息</a></li>
+            <li><a href="#tab_2" data-toggle="tab" onclick="GetTab('../BusinessStoreDetailOrders/@Model.Id', '#tab_2')">服务列表</a></li>
+            <li><a href="#tab_3" data-toggle="tab" onclick="GetTab('../BusinessStoreDetailOrders/@Model.Id', '#tab_3')">订单列表</a></li>
+            <li><a href="#tab_4" data-toggle="tab" onclick="GetTab('../BusinessStoreDetailOrders/@Model.Id', '#tab_4')">员工列表</a></li>@*onclick="alert(4)"*@
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active">
+            <div class="tab-pane active" id="tab_1">
                 <div class="row">
                     <div class="col-md-6">
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <img class="profile-user-img img-responsive" style="width: 120px; height: 120px;" alt="User profile picture">
+                                <img class="profile-user-img img-responsive" style="width: 120px; height: 120px;" alt="User profile picture" src="@Model.BusinessAvatar.ImageUrl">
                             </li>
                             <li class="list-group-item">
-                                <b>店铺地址：</b> <a class="pull-right">XXXXX</a>
+                                <b>店铺地址：</b> <a class="pull-right">@Model.Address</a>
                             </li>
                             <li class="list-group-item">
-                                <b>店铺电话：</b> <a class="pull-right">XXXXXX</a>
+                                <b>店铺电话：</b> <a class="pull-right">@Model.Phone</a>
                             </li>
                             <li class="list-group-item">
-                                <b>从业年限：</b> <a class="pull-right">X</a>
+                                <b>从业年限：</b> <a class="pull-right">@Model.WorkingYears</a>
                             </li>
                             <li class="list-group-item">
-                                <b>员工人数：</b> <a class="pull-right">XXXXXXXXXXX</a>
+                                <b>店铺邮箱：</b> <a class="pull-right">@Model.Email</a>
                             </li>
                             <li class="list-group-item">
-                                <b>店铺介绍：</b> <div class="word-break-all">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
+                                <b>店铺介绍：</b> <div class="word-break-all">@Model.Description</div>
                             </li>
                         </ul>
                     </div>
                     <div class="col-md-6">
-                        <li class="list-group-item">
-                            <img class="profile-user-img img-responsive img-circle" style="width: 120px; height: 120px;" alt="User profile picture">
-                        </li>
-                        <li class="list-group-item">
-                            <b>店主姓名：</b> <a class="pull-right">xxxx</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>性别：</b> <a class="pull-right">xxx</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>联系电话：</b> <a class="pull-right">xxx</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>证件号码：</b> <a class="pull-right">xxx</a>
-                        </li>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <img class="profile-user-img img-responsive img-circle" style="width: 120px; height: 120px;" alt="User profile picture" src="@(((MemberDto)ViewData["BusinessOwner"]).AvatarPathUrl)">
+                            </li>
+                            <li class="list-group-item">
+                                <b>店主姓名：</b> <a class="pull-right">@(((MemberDto)ViewData["BusinessOwner"]).DisplayName)</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>性别：</b> <a class="pull-right">@(((MemberDto)ViewData["BusinessOwner"]).Sex?"女":"男")</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>联系电话：</b> <a class="pull-right">@(((MemberDto)ViewData["BusinessOwner"]).Phone)</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>证件号码：</b> <a class="pull-right">@(((MemberDto)ViewData["BusinessOwner"]).PersonalID)</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="business-card">
-                            <img class="business-img">
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="business-card">
-                            <img class="business-img">
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="business-card">
-                            <img class="business-img">
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="business-card">
-                            <img class="business-img">
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="business-card">
-                            <img class="business-img">
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="business-card">
-                            <img class="business-img">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.tab-pane -->
 
+                @for (int i = 0; i < (Model.BusinessImages.Count / 6 + Model.BusinessImages.Count % 6 > 0 ? 1 : 0); i++)
+                {
+                    <div class="row">
+                        @for (int j = 0; j < 6 && j + i * 6 < Model.BusinessImages.Count; j++)
+                        {
+                            <div class="col-md-2">
+                                <div class="business-card">
+                                    <img class="business-img" src="@Model.BusinessImages[j + i * 6].ImageUrl">
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                }
+                @*<div class="row">
+                    <div class="col-md-2">
+                        <div class="business-card">
+                            <img class="business-img">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="business-card">
+                            <img class="business-img">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="business-card">
+                            <img class="business-img">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="business-card">
+                            <img class="business-img">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="business-card">
+                            <img class="business-img">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="business-card">
+                            <img class="business-img">
+                        </div>
+                    </div>
+                </div>*@
+            </div><!-- /.tab-pane -->
+            <div class="tab-pane" id="tab_2">
+                <center><img src="../../static/img/load.gif" alt='数据加载中...'/></center>
+            </div><!-- /.tab-pane -->
+            <div class="tab-pane" id="tab_3">
+                <center><img src="../../static/img/load.gif" alt='数据加载中...'/></center>
+            </div><!-- /.tab-pane -->
+            <div class="tab-pane" id="tab_4">
+                <center><img src="../../static/img/load.gif" alt='数据加载中...'/></center>
+            </div><!-- /.tab-pane -->
         </div>
         <!-- /.tab-content -->
     </div>
@@ -188,5 +228,46 @@
             }
         });
     })();
+
+    function GetTab(tabUrl, divId) {
+        //debugger
+        //var tab_2=$.trim($(divId)[0].innerHTML);
+        //if ($.trim($(divId)[0].innerHTML) == "<center><img src=\"../../static/img/load.gif\" alt=\"数据加载中...\"></center>") {
+        if ($(divId)[0].children[0].tagName == "CENTER") {
+            $.ajax({
+                url: tabUrl,
+                error: function () {
+                    $(divId).html("数据加载失败！");
+                },
+                success: function (data) {
+                    //debugger
+                    $(divId).html(data);
+                    $(divId+" table.table-striped").DataTable({
+                        "order": [[0, "asc"]],
+                        "language": {
+                            "decimal": "",
+                            "emptyTable": "没有数据",
+                            "info": "从_START_ 到 _END_ 条记录——总记录数为 _TOTAL_ 条",
+                            "infoEmpty": "记录数为0",
+                            "infoFiltered": "(全部记录数 _MAX_  条)",
+                            "infoPostFix": "",
+                            "thousands": ",",
+                            "lengthMenu": "显示 _MENU_ 条",
+                            "loadingRecords": "加载中...",
+                            "processing": "处理中...",
+                            "search": "查找：",
+                            "zeroRecords": "找不到内容",
+                            "paginate": {
+                                "first": "第一页",
+                                "last": "最后一页",
+                                "next": "下一页",
+                                "previous": "上一页"
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
 </script>
 

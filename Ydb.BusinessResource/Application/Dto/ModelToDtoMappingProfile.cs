@@ -31,7 +31,7 @@ namespace Ydb.BusinessResource.Application
              .ForMember(x => x.ServiceBusinessPhone, opt => opt.MapFrom(source => source.Business.Phone))
              .ForMember(x => x.ServiceBusinessOwnerId, opt => opt.MapFrom(source => source.Business.OwnerId.ToString ()))
              .ForMember(x => x.ServiceTypeName, opt => opt.MapFrom(source => source.ServiceType.Name))
-             .ForMember(x => x.ServiceTypeName, opt => opt.MapFrom(source => source.ServiceType.Name))
+             .ForMember(x => x.ServiceTypeFullName, opt => opt.MapFrom(source => source.ServiceType.ToString()))
              .ForMember(x => x.ServiceTypeId, opt => opt.MapFrom(source => source.ServiceType.Id.ToString ()))
             .ForAllMembers(opt => opt.NullSubstitute(""));
         }

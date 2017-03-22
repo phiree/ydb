@@ -15,6 +15,16 @@ namespace Ydb.Order.Application
         {
             repoServiceOrderAppraise.Add(appraise);
         }
+
+        /// <summary>
+        /// 获取店铺的平均评价
+        /// </summary>
+        /// <param name="businessId"></param>
+        /// <returns></returns>
+        public decimal GetBusinessAverageAppraise(string businessId)
+        {
+            return repoServiceOrderAppraise.GetBusinessAverageAppraise(businessId);
+        }
     }
 
 }

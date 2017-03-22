@@ -557,7 +557,7 @@ namespace Ydb.Order.Application
         {
             var where = PredicateBuilder.True<ServiceOrder>();
             where = where.And(x => x.BusinessId == businessId);
-            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
+            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed && x.OrderStatus != enum_OrderStatus.Search);
 
             long long_totalAmount;
             var result = repoServiceOrder.Find(where, pageNum, pageSize, out long_totalAmount).ToList();
@@ -565,6 +565,7 @@ namespace Ydb.Order.Application
             return result;
             // return DALServiceOrder.GetAllOrdersForBusiness(business.Id, pageNum, pageSize, out totalAmount);
         }
+
 
         public IList<ServiceOrder> GetListForCustomer(Guid customerId, int pageNum, int pageSize, out int totalAmount)
         {

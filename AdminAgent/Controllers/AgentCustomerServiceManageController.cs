@@ -183,7 +183,7 @@ namespace AdminAgent.Controllers
                 DZMembershipCustomerServiceDto member = dzMembershipService.GetDZMembershipCustomerServiceById(id);
                 ViewData["totalOnlineTime"] = imUserStatusArchieveService.GetUserTotalOnlineTime(member.Id.ToString());
                 ViewData["totalOrderCount"] = serviceOrderService.GetServiceOrderCountWithoutDraft(CurrentUser.UserId, true);
-                ViewData["totalComplaintCount"] = complaintService.GetComplaintsCount(Guid.Empty, Guid.Empty, CurrentUser.UserId);
+                ViewData["totalComplaintCount"] = complaintService.GetComplaintsCount("", "", CurrentUser.UserId.ToString());
                 //模拟数据
                 //DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
                 //ViewData["totalOnlineTime"] = MockData.totalOnlineTime;
