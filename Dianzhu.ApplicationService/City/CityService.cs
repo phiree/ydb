@@ -8,18 +8,22 @@ using Ydb.Common.Application;
 using Ydb.Common.Domain;
 using Ydb.Common.Specification;
 using Ydb.Membership.Application;
-
+using Ydb.InstantMessage.Application;
+using Ydb.Common.Infrastructure;
 namespace Dianzhu.ApplicationService.City
 {
     public class CityService: ICityService
     {
         IAreaService areaService;
         IDZMembershipService memberService;
-
-        public CityService(IAreaService areaService, IDZMembershipService memberService)
+        IReceptionService receptionService;
+        IHttpRequest httpRequest;
+        public CityService(IAreaService areaService, IDZMembershipService memberService, IReceptionService receptionService, IHttpRequest httpRequest)
         {
             this.areaService = areaService;
             this.memberService = memberService;
+            this.receptionService = receptionService;
+            this.httpRequest  = httpRequest;
         }
 
         /// <summary>
@@ -73,11 +77,7 @@ namespace Dianzhu.ApplicationService.City
                     area.Name = geoObj.result.addressComponent.city;
                     area.Code = geoObj.result.cityCode;
                 }
-                else
-                {
-                    Guid guidUser = utils.CheckGuidID(customer.UserID, "userID");
-                    memberService.ChangeUserCity(guidUser, area.Code, location.longitude, location.latitude, area.Id.ToString());
-                }
+               
                 listarea = new List<Area>();
                 listarea.Add(area);
             }

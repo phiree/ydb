@@ -21,7 +21,7 @@ using Ydb.Common.Domain;
 using Ydb.Order.Application;
 using Ydb.Order.DomainModel;
 using Ydb.InstantMessage.DomainModel.Reception;
-
+using Ydb.Common.Infrastructure;
 namespace Dianzhu.ApplicationService.User
 {
     public class UserService:IUserService
@@ -31,12 +31,14 @@ namespace Dianzhu.ApplicationService.User
         IReceptionService receptionService;
         IAreaService areaService;
         IServiceOrderService bllServiceOrder;
-        public UserService(IDZMembershipService memberService,  IReceptionService receptionService, IServiceOrderService bllServiceOrder, IAreaService areaService)
+        IHttpRequest httpRequest;
+        public UserService(IDZMembershipService memberService,  IReceptionService receptionService, IServiceOrderService bllServiceOrder, IAreaService areaService,IHttpRequest httpRequest)
         {
             this.memberService = memberService;
             this.receptionService = receptionService;
             this.bllServiceOrder = bllServiceOrder;
             this.areaService = areaService;
+            this.httpRequest = httpRequest;
         }
 
         /// <summary>
@@ -370,6 +372,15 @@ namespace Dianzhu.ApplicationService.User
             {
                 throw new Exception(actionResult.ErrMsg);
             }
+            else
+            {
+                
+                httpRequest.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=customer_change_city"
+                            + "&userid=" + customer.UserID + "&areaid=" + area.Id);
+                // receptionService.DeleteReception(customer.UserID);
+
+
+            }
             return new string[] { "修改成功" };
         }
 
@@ -388,8 +399,9 @@ namespace Dianzhu.ApplicationService.User
             }
 
             string errorMessage = string.Empty;
-            IList<MemberDto> meberList = memberService.GetUsersByIdList(receptionService.GetOnlineUserList("ydban_customerservice"));
-            var csOnline = meberList.Select(x => new MemberArea(x.Id.ToString(), x.AreaId)).ToList();
+            IList<MemberDto> meberList = memberService.GetUsersByIdList(receptionService.GetOnlineUserList("YDBan_CustomerService"));
+                                                                                                            
+var csOnline = meberList.Select(x => new MemberArea(x.Id.ToString(), x.AreaId)).ToList();
 
             ReceptionStatusDto rs = receptionService.AssignCustomerLogin(customer.UserID, member.AreaId,out errorMessage, csOnline);
 

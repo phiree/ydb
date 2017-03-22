@@ -392,7 +392,7 @@ namespace Dianzhu.ApplicationService.Order
             //排除草稿单，因为推送服务会有时间差
             if (order.OrderStatus == enum_OrderStatus.Draft || order.OrderStatus == enum_OrderStatus.Search)
             {
-                throw new Exception("没有找到资源！");
+              //  throw new Exception("没有找到资源！");
             }
             orderObj orderobj = Mapper.Map<ServiceOrder, orderObj>(order);
             changeObj(orderobj, order);

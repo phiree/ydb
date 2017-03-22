@@ -56,7 +56,8 @@ namespace Ydb.Common
             appenderMain.Layout = new PatternLayout(
 
 
-                "%date %level %logger %message , {date:\"%date\",thread:\"%thread\",leve:\"%-5level\"," + "logger:\"%logger\",filename:\"%file\",linenumber:\"%line\",classname:\"%class\",domain:\"%appdomain\"}"
+                "%date %level %logger %message ,"
+                +"%newline{date:\"%date\",thread:\"%thread\",leve:\"%-5level\"," + "logger:\"%logger\",filename:\"%file\",linenumber:\"%line\",classname:\"%class\",domain:\"%appdomain\"}"
                 +"%newline"
                 +"---------------------------------------------"
                 +"%newline ");

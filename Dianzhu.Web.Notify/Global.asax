@@ -4,7 +4,7 @@
 
 <script RunAt="server">
 
-    static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
+    static log4net.ILog log = log4net.LogManager.GetLogger("Ydb.Web.Notify");
 void Application_Start(object sender, EventArgs e)
 {
     Bootstrap.Boot();

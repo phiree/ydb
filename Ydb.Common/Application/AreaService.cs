@@ -113,7 +113,7 @@ namespace Ydb.Common.Application
             {
                 return null;
             }
-            Expression<Func<Area, bool>> where = i => (i.Code == areacode && !i.Code.EndsWith("0000") && i.Code.EndsWith("00"))|| i.BaiduCode== areacode;
+            Expression<Func<Area, bool>> where = i => (i.Code == areacode)|| i.BaiduCode== areacode;
             var list = repoArea.FindOne(where);
             return list;
 

@@ -16,5 +16,12 @@ namespace Ydb.InstantMessage.Application
         void SendCSLogoffMessageToDD();
         void UpdateOrderId(Guid Id, string newOrderId);
         void UpdateOrderId(string customerId, string csId, string newOrderId);
+        /// <summary>
+        /// 用户更换地区之后,重新申请客服.
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="onlineCsList"></param>
+        void AssignCustomerChangeLocation(string customerId,string newAreaid, IList<MemberArea> onlineCsList);
+
     }
 }

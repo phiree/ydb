@@ -266,7 +266,7 @@ namespace DianzhuService.Diandian
 
         public string CheckMessage(string MessageBody,Ydb.Common.Infrastructure.IHttpRequest httpRequest)
         {
-            string strResult = "当前没有客服在线，请留言..";
+            string strResult = "当前区域没有客服在线，请留言..";
             Regex reg = new Regex(System.Configuration.ConfigurationManager.AppSettings["CheckRegex"].ToString());
             log.Debug("MessageBody="+ MessageBody+ ",reg="+reg.ToString());
             if (reg.IsMatch(MessageBody))

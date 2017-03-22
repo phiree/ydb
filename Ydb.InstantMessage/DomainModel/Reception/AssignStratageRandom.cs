@@ -71,7 +71,7 @@ namespace Ydb.InstantMessage.DomainModel.Reception
             Dictionary<string, string> assignList = new Dictionary<string, string>();
             foreach (var customer in customerList)
             {
-                var csSameArea = csListOnline.Where(x => x.AreaId == customer.AreaId).ToList();
+                var csSameArea = csListOnline.Where(x => x.AreaId.Contains(customer.AreaId.Substring(0,4))).ToList();
 
                 if ( csSameArea.Count == 0)
                 {

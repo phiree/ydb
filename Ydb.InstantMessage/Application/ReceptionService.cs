@@ -215,6 +215,26 @@ namespace Ydb.InstantMessage.Application
                 }
             }
         }
+        [UnitOfWork]
+        public void AssignCustomerChangeLocation(string customerId,string newAreaId, IList<MemberArea> onlineCsList)
+        {
+            IList<ReceptionStatus> existReceptions = receptionRepository.UpdateCustomerAreaId(customerId, newAreaId);
+          //  existReceptions
+
+            if (existReceptions.Count > 0)
+            {
+                var assignReception = receptionAssigner.AssignCSLogoff(existReceptions, onlineCsList);
+
+                foreach (var item in existReceptions)
+                {
+                    item.ChangeCS(assignReception[item.CustomerId]);
+                    receptionRepository.Update(item);
+
+                    im.SendReAssignToCustomer(assignReception[item.CustomerId], string.Empty, string.Empty,
+                        Guid.NewGuid(), item.CustomerId, XmppResource.YDBan_User.ToString(), item.OrderId);
+                }
+            }
+        }
 
         public IList<string> GetOnlineUserList(string resouceName)
         {

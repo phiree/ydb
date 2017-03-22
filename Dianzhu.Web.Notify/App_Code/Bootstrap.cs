@@ -29,7 +29,9 @@ public class Bootstrap
             new Ydb.Infrastructure.InstallerCommon(BuildDBConfig("ydb_common"))
             );
 
-
+        container.Install(
+          new Ydb.Membership.Infrastructure.InstallerMembership(BuildDBConfig("ydb_membership"))
+          );
 
         container.Install(
 
@@ -40,7 +42,14 @@ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb
         //IEncryptService iEncryptService = container.Resolve<IEncryptService>();
         //Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager
         //   .ConnectionStrings["MongoDB"].ConnectionString, false));
-        Ydb.Common.LoggingConfiguration.Config("Dianzhu.Web.Notify");
+        Ydb.Common.LoggingConfiguration.Config("Ydb.Web.Notify");
+
+     AutoMapper.Mapper.Initialize(x =>
+        {
+      
+            x.AddProfile<Ydb.Membership.Application.ModelToDtoMappingProfile>();
+           
+        });
     }
 
     private static FluentConfiguration BuildDBConfig(string connectionStringName)
