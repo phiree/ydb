@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 
 using Dianzhu.Api.Model;
 using Ydb.InstantMessage.Application;
@@ -12,7 +13,7 @@ using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.Order.Application;
 using Ydb.Order.DomainModel;
-
+using Ydb.InstantMessage.DomainModel.Reception;
 
 /// <summary>
 /// 获取用户的服务订单列表
@@ -73,7 +74,13 @@ public class ResponseORM002001 : BaseResponse
                 
                 ilog.Debug("开始分配客服");
                 string errorMessage = string.Empty;
-                ReceptionStatusDto rsDto = receptionService.AssignCustomerLogin(userId.ToString(),out errorMessage);
+
+               IList<string> onlineCsIdList= receptionService.GetOnlineUserList("ydb_customerservice");
+
+               IList<MemberDto> onlineCsList = memberService.GetUsersByIdList(onlineCsIdList);
+
+                ReceptionStatusDto rsDto = receptionService.AssignCustomerLogin(userId.ToString(),member.AreaId,
+                    out errorMessage,onlineCsList.Select(x=>new MemberArea(x.Id.ToString(),x.AreaId)).ToList() );
                 if (!string.IsNullOrEmpty(errorMessage))
                 {
                     this.state_CODE = Dicts.StateCode[1];

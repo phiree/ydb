@@ -19,7 +19,7 @@ using cmr = Castle.MicroKernel.Registration;
 
 
 using NHibernate;
- using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
 using Application = System.Windows.Forms.Application;
@@ -38,6 +38,7 @@ using Ydb.InstantMessage.DomainModel.Chat;
 using System.IO;
 using System.Reflection;
 using Ydb.Common;
+using Ydb.InstantMessage.DomainModel.Reception;
 
 namespace Dianzhu.CSClient
 {
@@ -176,7 +177,8 @@ namespace Dianzhu.CSClient
                
                 IReceptionService receptionService = Bootstrap.Container.Resolve<IReceptionService>();
                 log.Debug("-------开始 接收离线用户------");
-                IList<ReceptionStatusDto> assignList = receptionService.AssignCSLogin(GlobalViables.CurrentCustomerService.Id.ToString(), 3);
+              
+                IList<ReceptionStatusDto> assignList = receptionService.AssignCSLogin(GlobalViables.CurrentCustomerService.Id.ToString(),GlobalViables.CurrentCustomerService.AreaId, 3);
                 
                 if (assignList.Count > 0)
                 {

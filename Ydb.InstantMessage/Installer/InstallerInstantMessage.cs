@@ -87,7 +87,7 @@ namespace Ydb.InstantMessage.Infrastructure
             container.Register(Component.For<IReceptionSession>().ImplementedBy<ReceptionSessionOpenfireRestapi>()
                 .DependsOn(Dependency.OnValue("restApiUrl", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiBaseUrl")))
                 .DependsOn(Dependency.OnValue("restApiSecretKey", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey")))
-                .Named("OpenfireSession"));
+                .Named("OpenfireSession").IsFallback());
 
         }
 

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
- 
+
 using System.Configuration;
 using AutoMapper;
- using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 using Ydb.Common.Specification;
 using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.Application.Dto;
@@ -20,6 +20,8 @@ using Ydb.Common.Domain;
 
 using Ydb.Order.Application;
 using Ydb.Order.DomainModel;
+using Ydb.InstantMessage.DomainModel.Reception;
+
 namespace Dianzhu.ApplicationService.User
 {
     public class UserService:IUserService
@@ -378,7 +380,10 @@ namespace Dianzhu.ApplicationService.User
             }
 
             string errorMessage = string.Empty;
-            ReceptionStatusDto rs = receptionService.AssignCustomerLogin(customer.UserID, out errorMessage);
+            IList<MemberDto> meberList = memberService.GetUsersByIdList(receptionService.GetOnlineUserList("ydban_customerservice"));
+            var csOnline = meberList.Select(x => new MemberArea(x.Id.ToString(), x.AreaId)).ToList();
+
+            ReceptionStatusDto rs = receptionService.AssignCustomerLogin(customer.UserID, member.AreaId,out errorMessage, csOnline);
 
             MemberDto customerService = memberService.GetUserById( rs.CustomerServiceId);
 

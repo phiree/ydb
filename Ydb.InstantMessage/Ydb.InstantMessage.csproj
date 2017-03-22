@@ -67,10 +67,8 @@
       <HintPath>..\packages\Google.Protobuf.3.0.0\lib\net45\Google.Protobuf.dll</HintPath>
       <Private>True</Private>
     </Reference>
- 
     <Reference Include="HibernatingRhinos.Profiler.Appender, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernateProfiler.Appender.3.0.3105.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
- 
       <Private>True</Private>
     </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
@@ -122,19 +120,21 @@
     <Compile Include="Application\IIMUserStatusService.cs" />
     <Compile Include="Application\IMUserStatusArchieveService.cs" />
     <Compile Include="Application\IMUserStatusService.cs" />
+    <Compile Include="Application\IReceptionService.cs" />
     <Compile Include="DomainModel\Chat\Dto\ReceptionChatDidichuxingDto.cs" />
     <Compile Include="DomainModel\Chat\Model\ReceptionChatDidichuxing.cs" />
     <Compile Include="DomainModel\DataStatistics\IStatisticsInstantMessage.cs" />
     <Compile Include="DomainModel\DataStatistics\StatisticsInstantMessage.cs" />
+    <Compile Include="DomainModel\Reception\AssignStratageSamdeArea.cs" />
     <Compile Include="DomainModel\Reception\IMUserStatus.cs" />
     <Compile Include="DomainModel\Reception\IRepositoryIMUserStatus.cs" />
     <Compile Include="DomainModel\Reception\IRepositoryIMUserStatusArchieve.cs" />
+    <Compile Include="DomainModel\Reception\MemberToAssign.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\Mapping\IMUserStatusMap.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryIMUserStatus.cs" />
     <Compile Include="Infrastructure\Repository\NHibernate\RepositoryIMUserStatusArchieve.cs" />
     <Compile Include="Installer\InstallerInstantMessage.cs" />
     <Compile Include="Application\ReceptionService.cs" />
-    <Compile Include="Application\IReceptionService.cs" />
     <Compile Include="DomainModel\Chat\Enums\ChatTarget.cs" />
     <Compile Include="DomainModel\Chat\Enums\ChatType.cs" />
     <Compile Include="DomainModel\Chat\IMessageAdapter.cs" />

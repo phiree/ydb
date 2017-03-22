@@ -1,7 +1,13 @@
 ﻿<%@ WebHandler Language="C#" Class="IMServerAPI" %>
 
+
 using System;
 using System.Web;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
+using System.Collections.Generic;
+using System.Linq;
+using Ydb.InstantMessage.DomainModel.Reception;
 public class IMServerAPI : IHttpHandler
 {
 
@@ -15,7 +21,7 @@ public class IMServerAPI : IHttpHandler
 
             Ydb.InstantMessage.Application.IInstantMessage im = (Ydb.InstantMessage.Application.IInstantMessage)context.Application["im"];
             Ydb.InstantMessage.Application.IReceptionService receptionService = Bootstrap.Container.Resolve<Ydb.InstantMessage.Application.IReceptionService>();
-
+            Ydb.Membership.Application.IDZMembershipService memberService= Bootstrap.Container.Resolve< IDZMembershipService>();
             switch (type.ToLower())
             {
                 case "systemnotice":
@@ -63,7 +69,9 @@ public class IMServerAPI : IHttpHandler
                     if (Guid.TryParse(struserId, out userId))
                     {
                         receptionService.SendCSLogoffMessageToDD();
-                        receptionService.AssignCSLogoff(struserId);
+                        IList<MemberDto>     meberList= memberService.GetUsersByIdList(    receptionService.GetOnlineUserList("ydban_customerservice"));
+                        var csOnline = meberList.Select(x => new MemberArea(x.Id.ToString(), x.AreaId)).ToList();
+                        receptionService.AssignCSLogoff(struserId,csOnline);
                     }
                     else
                     {

@@ -297,6 +297,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ydb.NoticeTests", "Ydb.Noti
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LogManage", "LogManage", "{B1851CA1-E067-45E3-A041-AA5151A056ED}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Support", "Support", "{DBD85288-4DFA-4E09-AAD8-EE2A34698DFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
