@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Ydb.ApplicationService.Application.AgentService;
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
+using Ydb.Membership.Application.Dto;
+using Ydb.Membership.Application;
 
 namespace AdminAgent.Controllers
 {
@@ -13,6 +15,7 @@ namespace AdminAgent.Controllers
     {
         IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
         IBusinessOwnerService businessOwnerService = Bootstrap.Container.Resolve<IBusinessOwnerService>();
+        IDZMembershipService dzMembershipService = Bootstrap.Container.Resolve<IDZMembershipService>();
         /// <summary>
         /// 获取活跃商家列表
         /// </summary>
@@ -75,7 +78,25 @@ namespace AdminAgent.Controllers
         {
             try
             {
-                return View(businessOwnerService.GetBusinessListByArea(CurrentUser.AreaIdList, false));
+                return View(businessOwnerService.GetServiceListByArea(CurrentUser.AreaIdList, false));
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 获取商家详情
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult BusinessDetail(string id)
+        {
+            try
+            {
+                MemberDto memberDto = dzMembershipService.GetUserById(id);
+                return View(memberDto);
             }
             catch (Exception ex)
             {

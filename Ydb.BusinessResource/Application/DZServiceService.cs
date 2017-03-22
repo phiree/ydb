@@ -460,5 +460,21 @@ namespace Ydb.BusinessResource.Application
             }
             service.EnabledDZService(enable, memo);
         }
+
+        /// <summary>
+        /// 获取代理所在区域的服务区分是否封停
+        /// </summary>
+        /// <param name="areaIdList"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public IList<ServiceDto> GetServicesByArea(IList<string> areaIdList)
+        {
+            var where = PredicateBuilder.True<DZService>();
+            where = where.And(x => areaIdList.Contains(x.Business.AreaBelongTo));
+            var list = repositoryDZService.Find(where).ToList();
+            return AutoMapper.Mapper.Map<IList<ServiceDto>>(list);
+        }
+
+
     }
 }

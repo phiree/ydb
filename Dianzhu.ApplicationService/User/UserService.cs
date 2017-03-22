@@ -351,13 +351,21 @@ namespace Dianzhu.ApplicationService.User
             if (!string.IsNullOrEmpty(cityCode.longitude) && !string.IsNullOrEmpty(cityCode.latitude))
             {
                 RespGeo geoObj = utils.Deserialize<RespGeo>(utils.GetCity(cityCode.longitude, cityCode.latitude));
-                area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city + geoObj.result.addressComponent.district);
+                area = areaService.GetCityByAreaCode(geoObj.result.addressComponent.adcode);
+                if (area == null)
+                {
+                    area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city + geoObj.result.addressComponent.district);
+                }
                 if (area == null)
                 {
                     area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city );
                 }
             }
-            ActionResult actionResult = memberService.ChangeUserCity(guidUser, cityCode.code, cityCode.longitude, cityCode.latitude,area==null?"":area.Id.ToString ());
+            if (area == null)
+            {
+                throw new Exception("该城市不存在！");
+            }
+            ActionResult actionResult = memberService.ChangeUserCity(guidUser, area.Code, cityCode.longitude, cityCode.latitude,area.Id.ToString ());
             if (!actionResult.IsSuccess)
             {
                 throw new Exception(actionResult.ErrMsg);

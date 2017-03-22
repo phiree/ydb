@@ -617,8 +617,6 @@ namespace Ydb.Order.Application
         }
         public IList<ServiceOrder> GetOrderListOfServiceByDateRange(Guid serviceId, DateTime timeBegin, DateTime timeEnd)
         {
-
-
             return repoServiceOrder.GetOrderListOfServiceByDateRange(serviceId, timeBegin, timeEnd);
         }
         public ServiceOrder GetOrderByIdAndCustomer(Guid Id, string customerId)
@@ -1416,7 +1414,6 @@ namespace Ydb.Order.Application
         //查询店铺的所有订单
         public IList<ServiceOrder> GetAllOrdersForBusiness(Guid businessId)
         {
-
             var where = PredicateBuilder.True<ServiceOrder>()
                 .And(x => x.BusinessId == businessId.ToString());
             // .And(x=>x.Details.);
@@ -1430,8 +1427,6 @@ namespace Ydb.Order.Application
                 .And(x => x.BusinessId == businessId.ToString())
                 .And(x => x.OrderStatus == enum_OrderStatus.Finished || x.OrderStatus == enum_OrderStatus.Appraised)
                 ;
-
-
             return repoServiceOrder.Find(where).ToList();
 
             // return DALServiceOrder.GetAllCompleteOrdersForBusiness(businessId);

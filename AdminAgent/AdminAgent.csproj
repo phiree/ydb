@@ -237,6 +237,7 @@
     <Compile Include="Controllers\AgentTotalOrderController.cs" />
     <Compile Include="Controllers\AgentTotalUserController.cs" />
     <Compile Include="Controllers\AgentUserManageController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\AgentNoticeController.cs" />
@@ -605,6 +606,8 @@
     <Content Include="Views\AgentBusinessManage\BusinessFrozenList.cshtml" />
     <Content Include="Views\AgentBusinessManage\BusinessStoreFrozenList.cshtml" />
     <Content Include="Views\AgentBusinessManage\BusinessServiceFrozenList.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\AgentBusinessManage\BusinessDetail.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
