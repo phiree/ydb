@@ -15,10 +15,14 @@ namespace Ydb.InstantMessage.DomainModel.Chat
     {
         public ReceptionChatNoticeCustomerServiceOffline() { }
         public ReceptionChatNoticeCustomerServiceOffline(
-           Guid id, string from, string to, string messageBody, string sessionId, XmppResource resourceFrom, XmppResource resourceTo)
+           Guid id, string from, string to, string messageBody, string sessionId, XmppResource resourceFrom, XmppResource resourceTo,string areaCode)
             : base(id, from, to, messageBody, sessionId, ChatType.Notice, resourceFrom, resourceTo)
         {
-
+            this.AreaCode = areaCode;
+        }
+        public string AreaCode
+        {
+            get;internal set;
         }
     }
 }

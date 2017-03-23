@@ -29,7 +29,7 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
            var list=  Find(x => x.CustomerId == customerId);
             foreach (var i in list)
             {
-                i.AreaId = areaId;
+                i.AreaCode = areaId;
             }
             return list;
         }

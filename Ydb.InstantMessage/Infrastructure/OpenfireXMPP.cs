@@ -152,26 +152,26 @@ namespace Ydb.InstantMessage.Infrastructure
         }
 
         public void SendCSLoginMessage(Guid messageId, string messageBody, string to, string toResource,
-            string sessionId)
+            string sessionId, string areaCode)
         {
             XmppResource resourceTo;
             if (!Enum.TryParse(toResource, out resourceTo))
                 throw new Exception("传入的toResource有误");
             var receptionChatFactoryDD = new ReceptionChatFactory(messageId, string.Empty, to, messageBody, sessionId,
                 XmppResource.Unknow, resourceTo);
-            var chatDD = receptionChatFactoryDD.CreateNoticeCSOnline();
+            var chatDD = receptionChatFactoryDD.CreateNoticeCSOnline(areaCode);
             SendMessage(chatDD);
         }
 
         public void SendCSLogoffMessage(Guid messageId, string messageBody, string to, string toResource,
-            string sessionId)
+            string sessionId,string areaCode)
         {
             XmppResource resourceTo;
             if (!Enum.TryParse(toResource, out resourceTo))
                 throw new Exception("传入的toResource有误");
             var receptionChatFactoryDD = new ReceptionChatFactory(messageId, string.Empty, to, messageBody, sessionId,
                 XmppResource.Unknow, resourceTo);
-            var chatDD = receptionChatFactoryDD.CreateNoticeCSOffline();
+            var chatDD = receptionChatFactoryDD.CreateNoticeCSOffline(areaCode);
             SendMessage(chatDD);
         }
 

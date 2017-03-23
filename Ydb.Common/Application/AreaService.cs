@@ -103,7 +103,7 @@ namespace Ydb.Common.Application
         }
 
         /// <summary>
-        /// 根据areacode获得city
+        /// 根据areacode获得area
         /// </summary>
         /// <param name="areacode">code代码</param>
         /// <returns>area实体</returns>

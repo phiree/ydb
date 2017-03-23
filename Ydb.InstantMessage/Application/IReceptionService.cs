@@ -7,13 +7,13 @@ namespace Ydb.InstantMessage.Application
 {
     public interface IReceptionService
     {
-        IList<ReceptionStatusDto> AssignCSLogin(string csId, string areaId, int amount);
+        IList<ReceptionStatusDto> AssignCSLogin(string csId, string areaCode, int amount);
         void AssignCSLogoff(string csId, IList<MemberArea> onlineCsList);
-        ReceptionStatusDto AssignCustomerLogin(string customerId, string areaId, out string errorMessage, IList<MemberArea> onlineCsList);
+        ReceptionStatusDto AssignCustomerLogin(string customerId, string areaCode, out string errorMessage, IList<MemberArea> onlineCsList);
         void DeleteReception(string customerId);
         IList<string> GetOnlineUserList(string resouceName);
-        void SendCSLoginMessageToDD();
-        void SendCSLogoffMessageToDD();
+        void SendCSLoginMessageToDD(string areaCode);
+        void SendCSLogoffMessageToDD(string areaCode);
         void UpdateOrderId(Guid Id, string newOrderId);
         void UpdateOrderId(string customerId, string csId, string newOrderId);
         /// <summary>
@@ -21,7 +21,7 @@ namespace Ydb.InstantMessage.Application
         /// </summary>
         /// <param name="customerId"></param>
         /// <param name="onlineCsList"></param>
-        void AssignCustomerChangeLocation(string customerId,string newAreaid, IList<MemberArea> onlineCsList);
+        void AssignCustomerChangeLocation(string customerId,string newAreaCode, IList<MemberArea> onlineCsList);
 
     }
 }

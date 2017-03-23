@@ -131,7 +131,7 @@ namespace Ydb.InstantMessage.Application.Tests
             string csId = Guid.NewGuid().ToString();
             string areaId = "areaId";
             var rsList = Builder<ReceptionStatus>.CreateListOfSize(5)
-                     .TheFirst(2).With(x => x.AreaId = areaId)
+                     .TheFirst(2).With(x => x.AreaCode = areaId)
                      .All().With(x => x.CustomerServiceId = diandianId)
                      .Build();
             ;

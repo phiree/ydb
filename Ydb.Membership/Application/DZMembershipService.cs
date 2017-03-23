@@ -268,25 +268,21 @@ namespace Ydb.Membership.Application
                 result.IsSuccess = false;
                 result.ErrMsg = "该用户不存在!";
             }
-            if (!string.IsNullOrEmpty(areaId))
+            if (!string.IsNullOrEmpty(cityCode))
             {
                 //如果没有变化,直接返回.
-                if (member.AreaId == areaId)
+                if (member.UserCity == cityCode)
                 {
                     result.IsSuccess = false;
                     result.ErrMsg = "不需要修改";
                     return result;
                 }
                  
+                member.UserCity = cityCode;
                 member.AreaId = areaId;
 
             }
-            if (!string.IsNullOrEmpty(cityCode))
-            { 
-                
-                member.UserCity = cityCode;
-
-            }
+            
             if (string.IsNullOrEmpty(longitude) ^ string.IsNullOrEmpty(latitude))
             {
                 result.IsSuccess = false;

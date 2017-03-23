@@ -61,14 +61,14 @@ namespace Ydb.InstantMessage.DomainModel.Chat
             return new ReceptionChatNoticePromote(promotionUrl, id, fromId, toId, messageBody, sessionId, fromResource, toResource);
         }
 
-        public ReceptionChat CreateNoticeCSOffline()
+        public ReceptionChat CreateNoticeCSOffline(string csAreaCode)
         {
-            return new ReceptionChatNoticeCustomerServiceOffline(id, fromId, toId, messageBody, sessionId, fromResource, toResource);
+            return new ReceptionChatNoticeCustomerServiceOffline(id, fromId, toId, messageBody, sessionId, fromResource, toResource, csAreaCode);
         }
 
-        public ReceptionChat CreateNoticeCSOnline()
+        public ReceptionChat CreateNoticeCSOnline(string csAreaCode)
         {
-            return new ReceptionChatNoticeCustomerServiceOnline(id, fromId, toId, messageBody, sessionId, fromResource, toResource);
+            return new ReceptionChatNoticeCustomerServiceOnline(id, fromId, toId, messageBody, sessionId, fromResource, toResource, csAreaCode);
         }
 
         public ReceptionChat CreateNoticeUserStatus(string userId, string userStatus)

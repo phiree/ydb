@@ -104,10 +104,12 @@ namespace Ydb.InstantMessage.DomainModel.Chat
                     return chatFactory.CreateReAssign(csId, csAlias, csAvatar);
 
                 case "ihelper:notice:cer:online":
-                    return chatFactory.CreateNoticeCSOnline();
+                    string onlineCsAreaCode = ext_element.SelectSingleElement("areaCode", true).Value;
+                    return chatFactory.CreateNoticeCSOnline(onlineCsAreaCode);
 
                 case "ihelper:notice:cer:offline":
-                    return chatFactory.CreateNoticeCSOffline();
+                    string offlineCsAreaCode = ext_element.SelectSingleElement("areaCode", true).Value;
+                    return chatFactory.CreateNoticeCSOffline(offlineCsAreaCode);
 
                 case "ihelper:notice:draft:new":
                     return chatFactory.CreateNoticeNewOrder();
@@ -207,12 +209,17 @@ namespace Ydb.InstantMessage.DomainModel.Chat
 
                 case "ReceptionChatNoticeCustomerServiceOffline"://7
                     msg.SetAttribute("type", "headline");
+                   
                     extNode.Namespace = "ihelper:notice:cer:offline";
+                    var areaCodeOffLine = new agsXMPP.Xml.Dom.Element("areaCode", ((ReceptionChatNoticeCustomerServiceOffline)chat).AreaCode);
+                    extNode.AddChild(areaCodeOffLine);
                     break;
 
                 case "ReceptionChatNoticeCustomerServiceOnline"://8
                     msg.SetAttribute("type", "headline");
                     extNode.Namespace = "ihelper:notice:cer:online";
+                    var areaCodeOnLine = new agsXMPP.Xml.Dom.Element("areaCode", ((ReceptionChatNoticeCustomerServiceOnline)chat).AreaCode);
+                    extNode.AddChild(areaCodeOnLine);
                     break;
 
                 case "ReceptionChatNoticeNewOrder"://9

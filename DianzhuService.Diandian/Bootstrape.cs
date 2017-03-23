@@ -20,10 +20,11 @@ namespace DianzhuService.Diandian
 
 
             container.Install(
-                new Ydb.Infrastructure.Installer()
+                new Ydb.Infrastructure.Installer(),
+                new Dianzhu.RequestRestful.Installer()
                 );
 
-
+            
 
             //IEncryptService iEncryptService = container.Resolve<IEncryptService>();
             //Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager

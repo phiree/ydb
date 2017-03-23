@@ -11,16 +11,16 @@ namespace Ydb.InstantMessage.DomainModel.Reception
     /// </summary>
     public class MemberArea
     {
-        public MemberArea(string memberId, string areaId)
+        public MemberArea(string memberId, string areaCode)
         {
             this.MemberId = memberId;
-            this.AreaId = areaId;
+            this.AreaCode = areaCode;
         }
         public string MemberId { get; internal set; }
         /// <summary>
         /// 用户所属区域.
         /// </summary>
-        public string AreaId { get; internal set; }
+        public string AreaCode { get; internal set; }
     }
   
 }

@@ -66,7 +66,7 @@ namespace Ydb.InstantMessage.DomainModel.Reception
         {
             Dictionary<string, string> assignList = new Dictionary<string, string>();
 
-            foreach ( var item in existReceptionDD.Where(x=>x.AreaId==cs.AreaId))
+            foreach ( var item in existReceptionDD.Where(x=>x.AreaCode==cs.AreaCode))
             {
                 assignList[item.CustomerId] = cs.MemberId;
             }
@@ -79,7 +79,7 @@ namespace Ydb.InstantMessage.DomainModel.Reception
             Dictionary<string, string> assignList = new Dictionary<string, string>();
 
           //  var onlineList = receptionSession.GetOnlineSessionUser(XmppResource.YDBan_CustomerService);
-            var beleftCustomer = existedReceptionForCustomerService.Select(x => new MemberArea(x.CustomerId,x.AreaId)).ToList();
+            var beleftCustomer = existedReceptionForCustomerService.Select(x => new MemberArea(x.CustomerId,x.AreaCode)).ToList();
 
             assignList = assignStratage.Assign(beleftCustomer, csList, DianDianId);
 
