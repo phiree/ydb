@@ -22,7 +22,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#">重置密码</a></li>
                                     <li class="divider"></li>
-                                <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.Enable ? "true" : "false")>@(Model.Enable ? "用户入职" : "用户离职")</a></li>
+                                <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.Enable ? "false" : "true")>@(Model.Enable ? "员工离职" : "员工入职")</a></li>
                             </ul>
                         </div>
                     </div>
@@ -119,9 +119,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel2">@(Model.Enable ? "用户入职" : "用户离职")</h4>
+                    <h4 class="modal-title" id="myModalLabel2">@(Model.Enable ? "员工离职" : "员工入职")</h4>
                 </div>
-                <div class="modal-body">确认@(Model.Enable ? "用户入职" : "用户离职")</div>
+                <div class="modal-body">确认@(Model.Enable ? "员工离职" : "员工入职")</div>
                 <div class="modal-footer">
                     <button id="toggleFreezeConf" type="button" class="btn btn-primary">确定</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>

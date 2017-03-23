@@ -385,7 +385,7 @@ namespace AdminAgent.Controllers
                 ViewData["MemberUserName"] = member==null?"":member.UserName;
                 ViewData["OrderCount"] = serviceOrderService.GetOrdersCount("", "", staff.Belongto.Id, staff.Id.ToString(), DateTime.MinValue, DateTime.MinValue, Guid.Empty, "", "");
                 ViewData["DoneOrderCount"] = serviceOrderService.GetOrdersCount("done", "", staff.Belongto.Id, staff.Id.ToString(), DateTime.MinValue, DateTime.MinValue, Guid.Empty, "", "");
-                ViewData["BusinessAverageAppraise"] = appraiseService.GetBusinessAverageAppraise(staff.Belongto.Id.ToString(),staff.Id.ToString());
+                ViewData["StaffAverageAppraise"] = appraiseService.GetBusinessAverageAppraise(staff.Belongto.Id.ToString(),staff.Id.ToString());
                 //模拟数据
                 //IList<ReceptionChatDto> receptionChatDtoList = MockData.receptionChatDtoList;
                 return View(staff);

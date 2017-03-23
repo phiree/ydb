@@ -22,7 +22,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 @*<li><a href="#">重置密码</a></li>
                                 <li class="divider"></li>*@
-                                <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.IsLocked ? "true" : "false")>@(Model.IsLocked ? "解封用户" : "封停用户")</a></li>
+                                <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.IsLocked ? "false" : "true")>@(Model.IsLocked ? "解封用户" : "封停用户")</a></li>
                             </ul>
                         </div>
                     </div>
