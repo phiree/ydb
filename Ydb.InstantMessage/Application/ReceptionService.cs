@@ -87,19 +87,19 @@ namespace Ydb.InstantMessage.Application
                                                         + ",orderId" + rsList[j].OrderId);
                     receptionRepository.Delete(rsList[j]);
 
-                    im.SendCSLogoffMessage(Guid.NewGuid(), "客服下线", rsList[j].CustomerId, "YDBan_User", rsList[j].OrderId);
+                     im.SendCSLogoffMessage(Guid.NewGuid(), "客服下线", rsList[j].CustomerId, "YDBan_User", rsList[j].OrderId,string.Empty);
                 }
             }
         }
 
         [UnitOfWork]
-        public ReceptionStatusDto AssignCustomerLogin(string customerId,string areaId, out string errorMessage,IList<MemberArea> onlineCsList)
+        public ReceptionStatusDto AssignCustomerLogin(string customerId,string areaCode, out string errorMessage,IList<MemberArea> onlineCsList)
         {
             ReceptionStatusDto rsDto = new ReceptionStatusDto();
             string assignCS = string.Empty;
             errorMessage = string.Empty;
 
-            MemberArea customerToAssign = new MemberArea(customerId, areaId);
+            MemberArea customerToAssign = new MemberArea(customerId, areaCode);
 
             IList<ReceptionStatus> existReceptions = receptionRepository.FindByCustomerId(customerId);
 
@@ -123,7 +123,7 @@ namespace Ydb.InstantMessage.Application
                 }
                 else
                 {
-                    assignStatus = new ReceptionStatus(customerId, assignCS,areaId, string.Empty);
+                    assignStatus = new ReceptionStatus(customerId, assignCS, areaCode, string.Empty);
                     receptionRepository.Add(assignStatus);
                 }
 
@@ -145,7 +145,7 @@ namespace Ydb.InstantMessage.Application
             }
             else
             {
-                ReceptionStatus status = new ReceptionStatus(customerId, assignCS,areaId, string.Empty);
+                ReceptionStatus status = new ReceptionStatus(customerId, assignCS,areaCode, string.Empty);
                 receptionRepository.Add(status);
 
                 rsDto.Id = status.Id;
@@ -157,16 +157,16 @@ namespace Ydb.InstantMessage.Application
             return rsDto;
         }
 
-        public void SendCSLoginMessageToDD()
+        public void SendCSLoginMessageToDD(string areaCode)
         {
             string ddId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
-            im.SendCSLoginMessage(Guid.NewGuid(), "客服上线", ddId, "YDBan_DianDian", string.Empty);
+            im.SendCSLoginMessage(Guid.NewGuid(), "客服上线", ddId, "YDBan_DianDian","", areaCode);
         }
 
-        public void SendCSLogoffMessageToDD()
+        public void SendCSLogoffMessageToDD(string areaCode)
         {
             string ddId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
-            im.SendCSLogoffMessage(Guid.NewGuid(), "客服下线", ddId, "YDBan_DianDian", string.Empty);
+            im.SendCSLogoffMessage(Guid.NewGuid(), "客服下线", ddId, "YDBan_DianDian","", areaCode);
         }
 
         [UnitOfWork]

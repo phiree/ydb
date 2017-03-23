@@ -23,7 +23,7 @@ namespace Ydb.InstantMessage.DomainModel.Reception
             this.CustomerId = customerId;
             this.LastUpdateTime = DateTime.Now; 
             this.OrderId = orderId;
-            this.AreaId = areaId;
+            this.AreaCode = areaId;
         } 
 
         public virtual void ChangeCS(string csId)
@@ -62,7 +62,7 @@ namespace Ydb.InstantMessage.DomainModel.Reception
 
             return dto;
         }
-        public virtual string AreaId { get; set; }
+        public virtual string AreaCode { get; set; }
 
     }
 

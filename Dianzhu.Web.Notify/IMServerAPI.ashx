@@ -56,7 +56,9 @@ public class IMServerAPI : IHttpHandler
                     Guid CSUserLoginId;
                     if (Guid.TryParse(strCSUserLoginId, out CSUserLoginId))
                     {
-                        receptionService.SendCSLoginMessageToDD();
+                        string areaCodeLoginCs=    memberService.GetUserById(strCSUserLoginId).UserCity;
+
+                        receptionService.SendCSLoginMessageToDD(areaCodeLoginCs);
                     }
                     else
                     {
@@ -68,9 +70,10 @@ public class IMServerAPI : IHttpHandler
                     Guid userId;
                     if (Guid.TryParse(struserId, out userId))
                     {
-                        receptionService.SendCSLogoffMessageToDD();
+                        string areaCodeLogoffCs = memberService.GetUserById(struserId).UserCity;
+                        receptionService.SendCSLogoffMessageToDD(areaCodeLogoffCs);
                         IList<MemberDto>     meberList= memberService.GetUsersByIdList(    receptionService.GetOnlineUserList("YDBan_CustomerService"));
-                        var csOnline = meberList.Select(x => new MemberArea(x.Id.ToString(), x.AreaId)).ToList();
+                        var csOnline = meberList.Select(x => new MemberArea(x.Id.ToString(), x.UserCity)).ToList();
                         receptionService.AssignCSLogoff(struserId,csOnline);
                     }
 
@@ -81,14 +84,16 @@ public class IMServerAPI : IHttpHandler
                     break;
                 case "customer_change_city":
                     string paramCustomerId = context.Request["userid"];
-                         string paramAreaId = context.Request["areaid"];
-                        Guid customerId;
+                    string paramAreaCode= context.Request["areacode"];
+                    Guid customerId;
                     if (Guid.TryParse(paramCustomerId, out customerId))
                     {
-                         
-                        IList<MemberDto>     meberList= memberService.GetUsersByIdList(    receptionService.GetOnlineUserList("YDBan_CustomerService"));
-                        var csOnline = meberList.Select(x => new MemberArea(x.Id.ToString(), x.AreaId)).ToList();
-                        receptionService.AssignCustomerChangeLocation(paramCustomerId,paramAreaId,csOnline);
+
+                        IList<MemberDto>     meberList= memberService.GetUsersByIdList(receptionService.GetOnlineUserList("YDBan_CustomerService"));
+                        var csOnline = meberList.Select(x => new MemberArea(x.Id.ToString(), x.UserCity)).ToList();
+                        receptionService.AssignCustomerChangeLocation(paramCustomerId,paramAreaCode,csOnline);
+
+                        
                     }
 
                     else

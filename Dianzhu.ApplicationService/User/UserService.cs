@@ -376,7 +376,7 @@ namespace Dianzhu.ApplicationService.User
             {
                 
                 httpRequest.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=customer_change_city"
-                            + "&userid=" + customer.UserID + "&areaid=" + area.Id);
+                            + "&userid=" + customer.UserID + "&areacode=" + area.Code);
                 // receptionService.DeleteReception(customer.UserID);
 
 
@@ -401,9 +401,9 @@ namespace Dianzhu.ApplicationService.User
             string errorMessage = string.Empty;
             IList<MemberDto> meberList = memberService.GetUsersByIdList(receptionService.GetOnlineUserList("YDBan_CustomerService"));
                                                                                                             
-var csOnline = meberList.Select(x => new MemberArea(x.Id.ToString(), x.AreaId)).ToList();
+var csOnline = meberList.Select(x => new MemberArea(x.Id.ToString(), x.UserCity)).ToList();
 
-            ReceptionStatusDto rs = receptionService.AssignCustomerLogin(customer.UserID, member.AreaId,out errorMessage, csOnline);
+            ReceptionStatusDto rs = receptionService.AssignCustomerLogin(customer.UserID, member.UserCity,out errorMessage, csOnline);
 
             MemberDto customerService = memberService.GetUserById( rs.CustomerServiceId);
 

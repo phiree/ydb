@@ -145,9 +145,9 @@
     <Compile Include="DomainModel\Chat\Dto\ReceptionChatReAssignDto.cs" />
     <Compile Include="DomainModel\Chat\Model\ReceptionChatReAssign.cs" />
     <Compile Include="DomainModel\Chat\Model\ReceptionChat.cs" />
-    <Compile Include="DomainModel\Chat\ReceptionChatNoticeCustomerServiceOffline.cs" />
+    <Compile Include="DomainModel\Chat\Model\ReceptionChatNoticeCustomerServiceOffline.cs" />
     <Compile Include="DomainModel\Chat\Model\ReceptionChatNoticeOrder.cs" />
-    <Compile Include="DomainModel\Chat\ReceptionChatNoticeCustomerServiceOnline.cs" />
+    <Compile Include="DomainModel\Chat\Model\ReceptionChatNoticeCustomerServiceOnline.cs" />
     <Compile Include="DomainModel\Chat\Model\ReceptionChatPushService.cs" />
     <Compile Include="DomainModel\Chat\Dto\ReceptionChatPushServiceDto.cs" />
     <Compile Include="DomainModel\Chat\Dto\ReceptionChatDto.cs" />

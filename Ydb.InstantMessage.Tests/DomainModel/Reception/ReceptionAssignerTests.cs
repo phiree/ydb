@@ -39,7 +39,7 @@ namespace Ydb.InstantMessage.DomainModel.Reception.Tests
             ReceptionStatus rs = Builder<ReceptionStatus>.CreateNew()
                 .With(x => x.CustomerId = customerId)
                 .With(x => x.CustomerServiceId = customerServiceId)
-                .With(x=>x.AreaId=areaId)
+                .With(x=>x.AreaCode=areaId)
                 .Build();
             IList<ReceptionStatus> existedReception = new List<ReceptionStatus> { rs };
 
@@ -92,7 +92,7 @@ namespace Ydb.InstantMessage.DomainModel.Reception.Tests
             string customerId = Guid.NewGuid().ToString();
             ReceptionStatus rs = Builder<ReceptionStatus>.CreateNew()
                 .With(x => x.CustomerId = customerId)
-                .With(x=>x.AreaId=areaId)
+                .With(x=>x.AreaCode=areaId)
                 .Build();
             IList<ReceptionStatus> existedReception = Builder<ReceptionStatus>.CreateListOfSize(4).Build();
             existedReception.Add(rs);
@@ -125,7 +125,7 @@ namespace Ydb.InstantMessage.DomainModel.Reception.Tests
 
             IList<ReceptionStatus> existedReception = Builder<ReceptionStatus>.CreateListOfSize(3)
                 .TheFirst(3).With(x => x.CustomerServiceId = diandianId)
-                .With(x=>x.AreaId= areaId)
+                .With(x=>x.AreaCode= areaId)
                 .Build();
 
             IReceptionSession iSession = MockRepository.Mock<IReceptionSession>();
@@ -159,7 +159,7 @@ namespace Ydb.InstantMessage.DomainModel.Reception.Tests
             string diandianId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
 
             IList<ReceptionStatus> existReceptions = Builder<ReceptionStatus>.CreateListOfSize(5)
-                .TheFirst(5).With(x => x.CustomerServiceId == customerServiceId).With(x=>x.AreaId=areaId) .Build();
+                .TheFirst(5).With(x => x.CustomerServiceId == customerServiceId).With(x=>x.AreaCode=areaId) .Build();
            
             var csOnline = new List<MemberArea> {new MemberArea(customerServiceId,areaId),new MemberArea("cs1",areaId),new MemberArea("cs2",areaId) };
             IReceptionSession iSession = MockRepository.Mock<IReceptionSession>();
@@ -189,7 +189,7 @@ namespace Ydb.InstantMessage.DomainModel.Reception.Tests
 
             IList<ReceptionStatus> existReceptions = Builder<ReceptionStatus>.CreateListOfSize(5)
                 .TheFirst(5).With(x => x.CustomerServiceId == customerServiceId)
-                .With(x=>x.AreaId=areaId)
+                .With(x=>x.AreaCode=areaId)
                 .Build();
              
 
