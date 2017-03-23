@@ -54,5 +54,13 @@ namespace Ydb.BusinessResource.Application
         /// <param name="areaIdList"></param>
         /// <returns></returns>
         IList<ServiceDto> GetServicesByArea(IList<string> areaIdList);
+
+        /// <summary>
+        /// 获取该服务每天的工作时间
+        /// </summary>
+        /// <param name="serviceId"></param>
+        /// <param name="dayOfWeek"></param>
+        /// <returns></returns>
+        ServiceOpenTimeDto GetOpenTimeByWeek(Guid serviceId, DayOfWeek dayOfWeek);
     }
 }

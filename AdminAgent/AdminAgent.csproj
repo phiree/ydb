@@ -614,6 +614,9 @@
     <Content Include="Views\AgentBusinessManage\BusinessStoreDetail.cshtml" />
     <Content Include="Views\AgentBusinessManage\BusinessStoreDetailOrders.cshtml" />
     <Content Include="Views\AgentBusinessManage\BusinessStoreDetailService.cshtml" />
+    <Content Include="Views\AgentBusinessManage\BusinessStoreDetailStaffs.cshtml" />
+    <Content Include="Views\AgentBusinessManage\BusinessStoreServiceDetail.cshtml" />
+    <Content Include="Views\AgentBusinessManage\BusinessStoreServiceOpenTime.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

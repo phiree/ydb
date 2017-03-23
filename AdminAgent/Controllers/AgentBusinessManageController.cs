@@ -24,6 +24,8 @@ namespace AdminAgent.Controllers
         IBalanceFlowService balanceFlowService = Bootstrap.Container.Resolve<IBalanceFlowService>();
         IComplaintService complaintService = Bootstrap.Container.Resolve<IComplaintService>();
         IServiceOrderAppraiseService appraiseService = Bootstrap.Container.Resolve<IServiceOrderAppraiseService>();
+        IDZServiceService dzServiceService = Bootstrap.Container.Resolve<IDZServiceService>();
+        IStaffService staffService = Bootstrap.Container.Resolve<IStaffService>();
         /// <summary>
         /// 获取活跃商家列表
         /// </summary>
@@ -166,6 +168,7 @@ namespace AdminAgent.Controllers
                 Business business = businessService.GetOne(StringHelper.CheckGuidID(id, "店铺Id"));
                 ViewData["BusinessOwner"] = dzMembershipService.GetUserById(business.OwnerId.ToString());
                 ViewData["OrderCount"]= serviceOrderService.GetOrdersCount("", "", storeId, null, DateTime.MinValue, DateTime.MinValue, Guid.Empty, "", "");
+                ViewData["DoneOrderCount"] = serviceOrderService.GetOrdersCount("done", "", storeId, null, DateTime.MinValue, DateTime.MinValue, Guid.Empty, "", "");
                 ViewData["OrderAmountTotal"] = serviceOrderService.GetTotalAmountByBusinessList(new List<string> { id });
                 ViewData["totalComplaintCount"] = complaintService.GetComplaintsCount("", id, "");
                 ViewData["BusinessAverageAppraise"] = appraiseService.GetBusinessAverageAppraise(id);
@@ -210,16 +213,91 @@ namespace AdminAgent.Controllers
         /// <param name="id"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public ActionResult BusinessStoreDetailOrders(string id)
+        public ActionResult BusinessStoreDetailService(string id)
         {
             try
             {
                 ViewData["id"] = id;
                 //MemberDto member = dzMembershipService.GetUserById(id);
-                IList<ServiceOrder> serviceOrderList = serviceOrderService.GetOrders(new Ydb.Common.Specification.TraitFilter(), "", "", StringHelper.CheckGuidID(id, "店铺Id"), null, DateTime.MinValue, DateTime.MinValue, Guid.Empty, "", "");
+                IList<ServiceDto> serviceDtoList = dzServiceService.GetServices(new Ydb.Common.Specification.TraitFilter(),Guid.Empty,"","",-1, StringHelper.CheckGuidID(id, "店铺Id"));
                 //模拟数据
                 //IList<ReceptionChatDto> receptionChatDtoList = MockData.receptionChatDtoList;
-                return View(serviceOrderList);
+                return View(serviceDtoList);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// 获取店铺的员工信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public ActionResult BusinessStoreDetailStaffs(string id)
+        {
+            try
+            {
+                ViewData["id"] = id;
+                //MemberDto member = dzMembershipService.GetUserById(id);
+                IList<Staff> staffList = staffService.GetStaffs(new Ydb.Common.Specification.TraitFilter(), "", "", "", "","","", StringHelper.CheckGuidID(id, "店铺Id"));
+                //模拟数据
+                //IList<ReceptionChatDto> receptionChatDtoList = MockData.receptionChatDtoList;
+                return View(staffList);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// 获取服务的详细信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public ActionResult BusinessStoreServiceDetail(string id)
+        {
+            try
+            {
+                ViewData["id"] = id;
+                //MemberDto member = dzMembershipService.GetUserById(id);
+                ServiceDto serviceDto = dzServiceService.GetOne(StringHelper.CheckGuidID(id, "服务Id"));
+                //模拟数据
+                //IList<ReceptionChatDto> receptionChatDtoList = MockData.receptionChatDtoList;
+                return View(serviceDto);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// 获取服务的工作时间
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="week"></param>
+        /// <returns></returns>
+        public ActionResult BusinessStoreServiceOpenTime(string id,int week)
+        {
+            try
+            {
+                ViewData["id"] = id;
+                //MemberDto member = dzMembershipService.GetUserById(id);
+                ServiceOpenTimeDto serviceOpenTimeDto = dzServiceService.GetOpenTimeByWeek(StringHelper.CheckGuidID(id, "服务Id"),(DayOfWeek)week);
+                //模拟数据
+                //IList<ReceptionChatDto> receptionChatDtoList = MockData.receptionChatDtoList;
+                return View(serviceOpenTimeDto);
             }
             catch (Exception ex)
             {

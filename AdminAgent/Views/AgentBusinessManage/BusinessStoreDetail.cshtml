@@ -36,7 +36,7 @@
                                 <b>营业额：</b> <a class="pull-right">@ViewData["OrderAmountTotal"]</a>
                             </li>
                             <li class="list-group-item">
-                                <b>审核时间：</b> <a class="pull-right">@Model.DateApproved</a>
+                                <b>店铺评价：</b> <a class="pull-right">@ViewData["BusinessAverageAppraise"]</a>
                             </li>
                         </ul>
                     </div>
@@ -59,7 +59,7 @@
                                 <b>总接单量：</b> <a class="pull-right">@ViewData["OrderCount"]</a>
                             </li>
                             <li class="list-group-item">
-                                <b>店铺评价：</b> <a class="pull-right">@ViewData["BusinessAverageAppraise"]</a>
+                                <b>完成订单：</b> <a class="pull-right">@ViewData["DoneOrderCount"]</a>
                             </li>
                             <li class="list-group-item">
                                 <b>遭到投诉：</b> <a class="pull-right">@ViewData["totalComplaintCount"]</a>
@@ -74,9 +74,9 @@
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#tab_1" data-toggle="tab" >店铺信息</a></li>
-            <li><a href="#tab_2" data-toggle="tab" onclick="GetTab('../BusinessStoreDetailOrders/@Model.Id', '#tab_2')">服务列表</a></li>
+            <li><a href="#tab_2" data-toggle="tab" onclick="GetTab('../BusinessStoreDetailService/@Model.Id', '#tab_2')">服务列表</a></li>
             <li><a href="#tab_3" data-toggle="tab" onclick="GetTab('../BusinessStoreDetailOrders/@Model.Id', '#tab_3')">订单列表</a></li>
-            <li><a href="#tab_4" data-toggle="tab" onclick="GetTab('../BusinessStoreDetailOrders/@Model.Id', '#tab_4')">员工列表</a></li>@*onclick="alert(4)"*@
+            <li><a href="#tab_4" data-toggle="tab" onclick="GetTab('../BusinessStoreDetailStaffs/@Model.Id', '#tab_4')">员工列表</a></li>@*onclick="alert(4)"*@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="tab_1">
@@ -186,6 +186,9 @@
 </section>
 <!-- /.content -->
 
+@Html.Action("footer", "Agent", new { id = "" })
+
+
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the
@@ -265,6 +268,14 @@
                             }
                         }
                     });
+                    if (divId == "#tab_2")
+                    {
+                        // 解析地址
+                        $(".spServiceArea").each(function () {
+                            var jsonServiceArea = $.parseJSON($(this).siblings(".hiServiceArea").val());
+                            $(this).html(jsonServiceArea.serPointAddress);
+                        });
+                    }
                 }
             });
         }

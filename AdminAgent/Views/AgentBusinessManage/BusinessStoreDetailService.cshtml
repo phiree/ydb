@@ -1,4 +1,4 @@
-﻿@model  IList<Ydb.Order.DomainModel.ServiceOrder>
+﻿@model  IList<Ydb.BusinessResource.Application.ServiceDto>
 @{
     Layout = null;
 }
@@ -7,14 +7,12 @@
     <thead>
         <tr>
             <th>序号</th>
-            <th>订单编号</th>
             <th>服务名称</th>
-            <th>服务时间</th>
-            <th>服务地点</th>
-            <th>客户姓名</th>
-            <th>客户电话</th>
-            <th>订单状态</th>
-            <th>负责人</th>
+            <th>服务类型</th>
+            <th width="350px">服务区域</th>
+            <th>服务单价</th>
+            <th>服务定金</th>
+            <th>提前预约</th>
             <th>详情</th>
         </tr>
     </thead>
@@ -23,29 +21,29 @@
         {
             <tr>
                 <td>@(i + 1)</td>
-                <td>@Html.DisplayFor(modelItem => Model[i].SerialNo)</td>
-                <td>@Html.DisplayFor(modelItem => Model[i].Title)</td>
-                <td>@Html.DisplayFor(modelItem => Model[i].TargetTime)</td>
-                <td>@Html.DisplayFor(modelItem => Model[i].TargetAddress)</td>
-                <td>@Html.DisplayFor(modelItem => Model[i].TargetCustomerName)</td>
-                <td>@Html.DisplayFor(modelItem => Model[i].TargetCustomerPhone)</td>
-                <td>@Html.DisplayFor(modelItem => Model[i].StatusTitleFriendly)</td>
-                <td>@Html.DisplayFor(modelItem => Model[i].StaffName)</td>
-                <td>@Html.ActionLink("进入", "OrderDetail", "AgentOrderManage", new { id = Model[i].Id }, new { })</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].ServiceName)</td>
+                <td><span>@Html.DisplayFor(modelItem => Model[i].ServiceTypeFullName)</span></td>
+                <td>
+                    <span class="spServiceArea"></span>
+                    <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='@Html.DisplayFor(modelItem => Model[i].Scope)' />
+                </td>
+                <td>@Html.DisplayFor(modelItem => Model[i].UnitPrice)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].DepositAmount)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].OrderDelay)<span>分钟</span></td>
+                
+                <td>@Html.ActionLink("进入", "BusinessStoreServiceDetail", "AgentBusinessManage", new { id = Model[i].id }, new { })</td>
             </tr>
         }
     </tbody>
     <tfoot>
         <tr>
             <th>序号</th>
-            <th>订单编号</th>
             <th>服务名称</th>
-            <th>服务时间</th>
-            <th>服务地点</th>
-            <th>客户姓名</th>
-            <th>客户电话</th>
-            <th>订单状态</th>
-            <th>负责人</th>
+            <th>服务类型</th>
+            <th>服务区域</th>
+            <th>服务单价</th>
+            <th>服务定金</th>
+            <th>提前预约</th>
             <th>详情</th>
         </tr>
     </tfoot>

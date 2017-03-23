@@ -34,6 +34,13 @@ namespace Ydb.BusinessResource.Application
              .ForMember(x => x.ServiceTypeFullName, opt => opt.MapFrom(source => source.ServiceType.ToString()))
              .ForMember(x => x.ServiceTypeId, opt => opt.MapFrom(source => source.ServiceType.Id.ToString ()))
             .ForAllMembers(opt => opt.NullSubstitute(""));
+
+            Mapper.CreateMap<ServiceOpenTimeForDay, ServiceOpenTimeForDayDto>()
+             .ForMember(x => x.timeStart, opt => opt.MapFrom(source => source.TimePeriod.StartTime.ToString()))
+             .ForMember(x => x.timeEnd, opt => opt.MapFrom(source => source.TimePeriod.EndTime.ToString()));
+            Mapper.CreateMap<ServiceOpenTime, ServiceOpenTimeDto>();
+
+
         }
     }
 }

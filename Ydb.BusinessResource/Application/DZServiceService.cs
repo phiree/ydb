@@ -486,6 +486,17 @@ namespace Ydb.BusinessResource.Application
             return AutoMapper.Mapper.Map<IList<ServiceDto>>(list);
         }
 
-
+        /// <summary>
+        /// 获取该服务每天的工作时间
+        /// </summary>
+        /// <param name="serviceId"></param>
+        /// <param name="dayOfWeek"></param>
+        /// <returns></returns>
+        public ServiceOpenTimeDto GetOpenTimeByWeek(Guid serviceId, DayOfWeek dayOfWeek)
+        {
+            DZService dzService = repositoryDZService.FindById(serviceId);
+            ServiceOpenTime serviceOpenTime = dzService.OpenTimes.Where(x => x.DayOfWeek == dayOfWeek).ToList()[0];
+            return AutoMapper.Mapper.Map<ServiceOpenTimeDto>(serviceOpenTime);
+        }
     }
 }

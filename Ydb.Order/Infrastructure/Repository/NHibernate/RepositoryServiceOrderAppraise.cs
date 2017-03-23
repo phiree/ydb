@@ -23,7 +23,8 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
         {
             var where = PredicateBuilder.True<ServiceOrderAppraise>();
             where = where.And(x => x.Order.BusinessId== businessId);
-            decimal d = Find(where).Average(x => x.Value);
+            var list = Find(where);
+            decimal d = list.Count==0?5:list.Average(x => x.Value);
             return Math.Ceiling(d);
         }
     }
