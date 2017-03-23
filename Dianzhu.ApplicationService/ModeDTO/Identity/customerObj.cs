@@ -147,5 +147,22 @@ namespace Dianzhu.ApplicationService
             }
         }
 
+        string _UserCity = "";
+        /// <summary>
+        /// 区域代码UserCity
+        /// </summary>
+        /// <type>string</type>
+        public string UserCity
+        {
+            get
+            {
+                return _UserCity;
+            }
+            set
+            {
+                _UserCity = value;
+            }
+        }
+
     }
 }

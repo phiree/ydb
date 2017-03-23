@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="IRequestRestful.cs" />
     <Compile Include="ISetRequestParams.cs" />
+    <Compile Include="Model\RequestMethod.cs" />
     <Compile Include="Model\RequestParams.cs" />
     <Compile Include="Model\RequestResponse.cs" />
     <Compile Include="Model\RequestToken.cs" />

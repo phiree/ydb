@@ -32,7 +32,7 @@ namespace Dianzhu.RequestRestful
             }
             
             string requestContentBase64String = "";
-            if (strContent.Trim() != "")
+            if (!string.IsNullOrEmpty(strContent) && strContent.Trim() != "" )
             {
                 byte[] byteData = UTF8Encoding.UTF8.GetBytes(strContent);//strContent.Replace("\r", string.Empty)
                 MD5 md5 = MD5.Create();
