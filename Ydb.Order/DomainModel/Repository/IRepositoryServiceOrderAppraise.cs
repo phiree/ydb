@@ -14,6 +14,6 @@ namespace Ydb.Order.DomainModel.Repository
         /// </summary>
         /// <param name="businessId"></param>
         /// <returns></returns>
-        decimal GetBusinessAverageAppraise(string businessId);
+        decimal GetBusinessAverageAppraise(string businessId, string staffId);
     }
 }

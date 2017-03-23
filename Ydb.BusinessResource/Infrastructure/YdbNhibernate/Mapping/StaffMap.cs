@@ -4,10 +4,6 @@ using System.Linq;
 using System.Text;
 using FluentNHibernate.Mapping;
 using Ydb.BusinessResource.DomainModel;
-using Ydb.BusinessResource.DomainModel;
-
-using Ydb.BusinessResource.DomainModel;
-using Ydb.BusinessResource.DomainModel;
 namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Mapping
 {
     public class StaffMap:ClassMap<Staff>
@@ -24,6 +20,7 @@ namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Mapping
             Map(x => x.Email);
          
             Map(x => x.Enable);
+            Map(x => x.EnableTime);
             Map(x => x.Gender);
             Map(x => x.IsAssigned);
             Map(x => x.LoginName);

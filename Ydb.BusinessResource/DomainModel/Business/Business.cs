@@ -71,6 +71,24 @@ namespace Ydb.BusinessResource.DomainModel
         /// </summary>
         public virtual string EnabledMemo { get; protected internal set; }
 
+        public virtual void EnableBusiness (bool enable,string memo)
+        {
+            //if (!enable)
+            //{
+            //    if (!Enabled)
+            //    {
+            //        throw new Exception("该店铺已经封停！");
+            //    }
+            //    if (memo == "")
+            //    {
+            //        throw new Exception("请输入封停原因！");
+            //    }
+            //}
+            this.Enabled = enable;
+            this.EnabledTime = DateTime.Now;
+            this.EnabledMemo = memo;
+        }
+
         /// <summary>
         /// 创建时间
         /// </summary>

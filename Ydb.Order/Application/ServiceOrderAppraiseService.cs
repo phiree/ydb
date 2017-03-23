@@ -21,9 +21,9 @@ namespace Ydb.Order.Application
         /// </summary>
         /// <param name="businessId"></param>
         /// <returns></returns>
-        public decimal GetBusinessAverageAppraise(string businessId)
+        public decimal GetBusinessAverageAppraise(string businessId,string staffId)
         {
-            return repoServiceOrderAppraise.GetBusinessAverageAppraise(businessId);
+            return repoServiceOrderAppraise.GetBusinessAverageAppraise(businessId, staffId);
         }
     }
 

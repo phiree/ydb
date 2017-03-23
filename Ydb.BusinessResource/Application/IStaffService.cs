@@ -28,6 +28,13 @@ namespace Ydb.BusinessResource.Application
         /// </summary>
         /// <returns></returns>
         void CanelAssign(string staffId);
-        
+
+        /// <summary>
+        /// 入职/离职
+        /// </summary>
+        /// <param name="staffId"></param>
+        /// <param name="enable"></param>
+        void EnableStaff(Guid staffId,bool enable);
+
     }
 }

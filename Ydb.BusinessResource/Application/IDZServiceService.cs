@@ -62,5 +62,13 @@ namespace Ydb.BusinessResource.Application
         /// <param name="dayOfWeek"></param>
         /// <returns></returns>
         ServiceOpenTimeDto GetOpenTimeByWeek(Guid serviceId, DayOfWeek dayOfWeek);
+
+        /// <summary>
+        /// 封停/解封店铺
+        /// </summary>
+        /// <param name="businessId"></param>
+        /// <param name="enable"></param>
+        /// <param name="memo"></param>
+        void EnabledDZService(Guid dzServiceId, bool enable, string memo);
     }
 }

@@ -10,6 +10,6 @@ namespace Ydb.Order.Application
         /// </summary>
         /// <param name="businessId"></param>
         /// <returns></returns>
-        decimal GetBusinessAverageAppraise(string businessId);
+        decimal GetBusinessAverageAppraise(string businessId, string staffId);
     }
 }

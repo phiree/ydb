@@ -19,10 +19,17 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
         /// </summary>
         /// <param name="businessId"></param>
         /// <returns></returns>
-        public decimal GetBusinessAverageAppraise(string businessId)
+        public decimal GetBusinessAverageAppraise(string businessId,string staffId)
         {
             var where = PredicateBuilder.True<ServiceOrderAppraise>();
-            where = where.And(x => x.Order.BusinessId== businessId);
+            if (string.IsNullOrEmpty(businessId))
+            {
+                where = where.And(x => x.Order.BusinessId == businessId);
+            }
+            if (string.IsNullOrEmpty(staffId))
+            {
+                where = where.And(x => x.Order.StaffId == staffId);
+            }
             var list = Find(where);
             decimal d = list.Count==0?5:list.Average(x => x.Value);
             return Math.Ceiling(d);

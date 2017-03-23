@@ -10,7 +10,7 @@
 <section class="content">
     <div class="box">
         <div class="box-header text-center margin-top-10">
-            <h3 class="box-title text-center">@Model.Name<span style="color: #4db2c6">&nbsp;&nbsp;@(Model.Enabled ? "封停中" : "活跃中")</span></h3>
+            <h3 class="box-title text-center">@Model.Name<span style="color: #4db2c6">&nbsp;&nbsp;@(Model.Enabled ? "活跃中" : "封停中")</span></h3>
             <div class="box-tools pull-right">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -183,6 +183,23 @@
         </div>
         <!-- /.tab-content -->
     </div>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="toggleFreeze" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel2">@(Model.Enabled ? "解封店铺" : "封停店铺")</h4>
+                </div>
+                <div class="modal-body">确认@(Model.Enabled ? "解封店铺" : "封停店铺")</div>
+                <div class="modal-footer">
+                    <button id="toggleFreezeConf" type="button" class="btn btn-primary">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 </section>
 <!-- /.content -->
 
@@ -229,6 +246,28 @@
                     "previous":   "上一页"
                 }
             }
+        });
+
+        //封停/解封
+        $("#toggleFreezeConf").on("click", function () {
+            $.ajax({
+                url: "/AgentBusinessManage/BusinessStoreDetailLock",
+                type: "GET",
+                data: {
+                    id: url.getUrlParam("id"),
+                    isLook: $("#isLook").data("look")
+                },
+                dataType: 'json'
+            }).done(function (resp, status, xhr) {
+                if (status = "success") {
+                    notify.modal('show');
+                    notify.find(".modal-body").text("操作成功");
+                }
+            }).fail(function (resp, status, xhr) {
+                $("#toggleFreeze").modal('hide');
+                notify.find(".modal-body").text("操作失败，请重试");
+                notify.modal('show');
+            })
         });
     })();
 

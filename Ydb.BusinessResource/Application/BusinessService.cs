@@ -41,30 +41,30 @@ namespace Ydb.BusinessResource.Application
         {
             repositoryBusiness.Delete(business);
         }
-        [UnitOfWork]
-        public void Disable(Guid businessId,bool enable,string memo)
-        {
-            Business b = GetOne(businessId);
-            if (b == null)
-            {
-                throw new Exception("该店铺不存在！");
-            }
-            if (!enable)
-            {
-                if (!b.Enabled)
-                {
-                    throw new Exception("该店铺已经封停！");
-                }
-                if (memo == "")
-                {
-                    throw new Exception("请输入封停原因！");
-                }
-                b.EnabledMemo = memo;
-            }
-            b.Enabled = enable;
-            b.EnabledTime = DateTime.Now;
-            repositoryBusiness.Update(b);
-        }
+        //[UnitOfWork]
+        //public void Disable(Guid businessId,bool enable,string memo)
+        //{
+        //    Business b = GetOne(businessId);
+        //    if (b == null)
+        //    {
+        //        throw new Exception("该店铺不存在！");
+        //    }
+        //    if (!enable)
+        //    {
+        //        if (!b.Enabled)
+        //        {
+        //            throw new Exception("该店铺已经封停！");
+        //        }
+        //        if (memo == "")
+        //        {
+        //            throw new Exception("请输入封停原因！");
+        //        }
+        //        b.EnabledMemo = memo;
+        //    }
+        //    b.Enabled = enable;
+        //    b.EnabledTime = DateTime.Now;
+        //    repositoryBusiness.Update(b);
+        //}
        [UnitOfWork] 
        public  ActionResult<Business> Add(string name, string phone,string email, Guid ownerId, string latitude, string longtitude
            , string rawAddressFromMapApi, string contact, int workingYears, int staffAmount)
@@ -375,6 +375,22 @@ namespace Ydb.BusinessResource.Application
             long businessCountLastMonth = repositoryBusiness.GetBusinessesCountByArea(areaList, dtBase.AddMonths(-1), dtBase);
             long businessCountBeforeLastMonth = repositoryBusiness.GetBusinessesCountByArea(areaList, dtBase.AddMonths(-2), dtBase.AddMonths(-1));
             return Ydb.Common.MathHelper.GetCalculatedRatio(businessCountLastMonth, businessCountBeforeLastMonth);
+        }
+
+        /// <summary>
+        /// 封停/解封店铺
+        /// </summary>
+        /// <param name="businessId"></param>
+        /// <param name="enable"></param>
+        /// <param name="memo"></param>
+        public void EnableBusiness(Guid businessId, bool enable, string memo)
+        {
+            Business b = repositoryBusiness.FindById(businessId);
+            if (b == null)
+            {
+                throw new Exception("该店铺不存在！");
+            }
+            b.EnableBusiness(enable, memo);
         }
 
     }

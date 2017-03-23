@@ -1,12 +1,11 @@
-﻿@using Ydb.BusinessResource.DomainModel;
-@model Ydb.Membership.Application.Dto.MemberDto
+﻿@model Ydb.BusinessResource.DomainModel.Staff
 @{
     ViewBag.headTitle = "商家管理";
-    ViewBag.subTitle = "商家详情";
-    ViewBag.breadcrumbOl = new List<string>() { "商家管理", "商家列表", "商家详情" };
+    ViewBag.subTitle = "员工详情";
+    ViewBag.breadcrumbOl = new List<string>() { "商家管理", "商家列表", "商家详情", "店铺详情", "员工详情" };
 }
 
-  <!-- Main content -->
+<!-- Main content -->
 <section class="content">
     <!-- /.row -->
     <div class="row">
@@ -14,16 +13,16 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header text-center margin-top-10">
-                    <h3 class="box-title text-center">@Model.DisplayName<span style="color: #4db2c6">&nbsp;&nbsp;@(Model.IsLocked ? "封停中" : "活跃中")</span></h3>
+                    <h3 class="box-title text-center">@Model.DisplayName<span style="color: #4db2c6">&nbsp;&nbsp;@(Model.Enable ? "在职中" : "已离职")</span></h3>
                     <div class="box-tools pull-right">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-wrench"></i>&nbsp;设置
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                @*<li><a href="#">重置密码</a></li>
-                                <li class="divider"></li>*@
-                                <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.IsLocked ? "true" : "false")>@(Model.IsLocked ? "封停商家" : "解封商家")</a></li>
+                                <li><a href="#">重置密码</a></li>
+                                    <li class="divider"></li>
+                                <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.Enable ? "true" : "false")>@(Model.Enable ? "用户入职" : "用户离职")</a></li>
                             </ul>
                         </div>
                     </div>
@@ -33,74 +32,79 @@
                         <div class="col-md-6">
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <b>商家账号：</b> <a class="pull-right">@Model.UserName</a>
+                                    <b>所属店铺：</b> <a class="pull-right">@Model.Belongto.Name</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>绑定手机：</b> <a class="pull-right">@Model.Phone</a>
+                                    <b>员工编号：</b> <a class="pull-right">@Model.Code</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>注册时间：</b> <a class="pull-right">@Model.TimeCreated</a>
+                                    <b>员工姓名：</b> <a class="pull-right">@Model.Name</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>联系电话：</b> <a class="pull-right">@Model.Phone</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>电子邮箱：</b> <a class="pull-right">@Model.Email</a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>联系地址：</b> <a class="pull-right">@Model.Address</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>累计接单：</b> <a class="pull-right"><span>@ViewData["OrderCount"]</span>单</a>
+                                    <b>性别：</b> <a class="pull-right">@Model.Gender</a>
                                 </li>
+                                @*<li class="list-group-item">
+                                        <b>累计接单：</b> <a class="pull-right"><span>1232125</span>单</a>
+                                    </li>*@
                             </ul>
                         </div>
                         <div class="col-md-6">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">账号营业额</span>
-                                    <span class="info-box-number">@ViewData["OrderAmountTotal"]元</span>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>登录账号：</b> <a class="pull-right">@ViewData["MemberUserName"]</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>负责订单数量：</b> <a class="pull-right">@ViewData["OrderCount"]</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>订单完成数量：</b> <a class="pull-right">@ViewData["DoneOrderCount"]</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>评价：</b> <a class="pull-right">@ViewData["StaffAverageAppraise"]</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h4 class="box-title col-md-12">负责订单</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-horizontal no-padding">
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input type="text" class="form-control pull-right" id="reservation">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <div class="info-box">
-                                <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">账号已分账</span>
-                                    <span class="info-box-number">@ViewData["FinanceAmountTotal"]元</span>
-                                </div>
-                                <!-- /.info-box-content -->
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
 
-                    @for (int i = 0; i < ((IList<Business>)ViewData["StoreList"]).Count/4+ (((IList<Business>)ViewData["StoreList"]).Count % 4>0?1:0); i++)
-                    {
-                        <div class="row">
-                            @for (int j = 0; j < 4 && j + i * 4 < ((IList<Business>)ViewData["StoreList"]).Count; j++)
-                            {
-                                <div class="col-md-3">
-                                    <div class="business-card" onclick='location.href="../BusinessStoreDetail/@(((IList<Business>)ViewData["StoreList"])[j + i * 4].Id)"'>
-                                        <div class="business-img">
-                                            <img src="@(((IList<Business>)ViewData["StoreList"])[j + i * 4].BusinessAvatar.ImageUrl)" style="width:100%;height:100%"/>
-                                        </div>
-                                        <dl>
-                                            <dt>店铺名称：</dt>
-                                            <dd>@(((IList<Business>)ViewData["StoreList"])[j + i * 4].Name)</dd>
-                                            <dt>店铺地址：</dt>
-                                            <dd>@(((IList<Business>)ViewData["StoreList"])[j + i * 4].Address)</dd>
-                                            <dt>员工数量：</dt>
-                                            <dd>@(((IList<Business>)ViewData["StoreList"])[j + i * 4].StaffAmount)</dd>
-                                            <dt>服务数量：</dt>
-                                            <dd>@(((IList<Business>)ViewData["StoreList"])[j + i * 4].ServiceAmount)</dd>
-                                            @*<dt>订单数量：</dt>
-                                            <dd>4399</dd>*@
-                                        </dl>
-                                    </div>
-                                </div>
-                            }
+                            @Html.Action("BusinessStoreStaffOrders", "AgentBusinessManage", new { id = @ViewData["id"] })
+
 
                         </div>
-                    }
-                    
-
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -109,16 +113,15 @@
         <!-- /.col -->
     </div>
     <!-- /.row -->
-
     <!-- 模态框（Modal） -->
     <div class="modal fade" id="toggleFreeze" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel2">@(Model.IsLocked ? "封停商家" : "解封商家")</h4>
+                    <h4 class="modal-title" id="myModalLabel2">@(Model.Enable ? "用户入职" : "用户离职")</h4>
                 </div>
-                <div class="modal-body">确认@(Model.IsLocked ? "封停商家" : "解封商家")</div>
+                <div class="modal-body">确认@(Model.Enable ? "用户入职" : "用户离职")</div>
                 <div class="modal-footer">
                     <button id="toggleFreezeConf" type="button" class="btn btn-primary">确定</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -126,11 +129,10 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
     </div>
+
+
 </section>
 <!-- /.content -->
-
-@Html.Action("footer", "Agent", new { id = "" })
-
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the
@@ -173,11 +175,10 @@
             }
         });
 
-        
         //封停/解封
         $("#toggleFreezeConf").on("click", function () {
             $.ajax({
-                url: "/AgentBusinessManage/BusinessDetailLock",
+                url: "/AgentBusinessManage/BusinessStoreStaffDetailLock",
                 type: "GET",
                 data: {
                     id: url.getUrlParam("id"),

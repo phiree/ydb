@@ -124,7 +124,7 @@ namespace AdminAgent.Controllers
         }
 
         /// <summary>
-        /// 封停/解封账号
+        /// 封停/解封商家
         /// </summary>
         /// <param name="id"></param>
         /// <param name="type"></param>
@@ -171,9 +171,40 @@ namespace AdminAgent.Controllers
                 ViewData["DoneOrderCount"] = serviceOrderService.GetOrdersCount("done", "", storeId, null, DateTime.MinValue, DateTime.MinValue, Guid.Empty, "", "");
                 ViewData["OrderAmountTotal"] = serviceOrderService.GetTotalAmountByBusinessList(new List<string> { id });
                 ViewData["totalComplaintCount"] = complaintService.GetComplaintsCount("", id, "");
-                ViewData["BusinessAverageAppraise"] = appraiseService.GetBusinessAverageAppraise(id);
+                ViewData["StaffAverageAppraise"] = appraiseService.GetBusinessAverageAppraise(id,"");
                 //string s = string.Join(",", business.ServiceType.Select(x=>x.Name).ToArray());
                 return View(business);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 封停/解封店铺
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public ActionResult BusinessStoreDetailLock(string id, bool islock)//string type,
+        {
+            try
+            {
+                //接口
+                //ViewBag.UserName = CurrentUser.UserName;
+                //MemberDto member = dzMembershipService.GetUserById(id);
+                //member.IsLocked = islock;
+                businessService.EnableBusiness(StringHelper.CheckGuidID(id,"店铺Id"), islock, "违规操作");
+                //模拟数据
+                //DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
+                //member.IsLocked = islock;
+                //if (islock)
+                //{
+                //    member.LockReason = "违规操作";
+                //}
+                return RedirectToAction("BusinessDetail");
             }
             catch (Exception ex)
             {
@@ -283,6 +314,38 @@ namespace AdminAgent.Controllers
 
 
         /// <summary>
+        /// 封停/解封服务
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public ActionResult BusinessStoreServiceDetailLock(string id, bool islock)//string type,
+        {
+            try
+            {
+                //接口
+                //ViewBag.UserName = CurrentUser.UserName;
+                //MemberDto member = dzMembershipService.GetUserById(id);
+                //member.IsLocked = islock;
+                dzServiceService.EnabledDZService(StringHelper.CheckGuidID(id, "服务Id"), islock, "违规操作");
+                //模拟数据
+                //DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
+                //member.IsLocked = islock;
+                //if (islock)
+                //{
+                //    member.LockReason = "违规操作";
+                //}
+                return RedirectToAction("BusinessDetail");
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+
+        /// <summary>
         /// 获取服务的工作时间
         /// </summary>
         /// <param name="id"></param>
@@ -298,6 +361,91 @@ namespace AdminAgent.Controllers
                 //模拟数据
                 //IList<ReceptionChatDto> receptionChatDtoList = MockData.receptionChatDtoList;
                 return View(serviceOpenTimeDto);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 获取员工的详细信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public ActionResult BusinessStoreStaffDetail(string id)
+        {
+            try
+            {
+                ViewData["id"] = id;
+                Staff staff = staffService.GetOne(StringHelper.CheckGuidID(id, "员工Id"));
+                ViewData["MemberUserName"] = dzMembershipService.GetUserById(staff.UserID).UserName;
+                ViewData["OrderCount"] = serviceOrderService.GetOrdersCount("", "", staff.Belongto.Id, staff.Id.ToString(), DateTime.MinValue, DateTime.MinValue, Guid.Empty, "", "");
+                ViewData["DoneOrderCount"] = serviceOrderService.GetOrdersCount("done", "", staff.Belongto.Id, staff.Id.ToString(), DateTime.MinValue, DateTime.MinValue, Guid.Empty, "", "");
+                ViewData["BusinessAverageAppraise"] = appraiseService.GetBusinessAverageAppraise(staff.Belongto.Id.ToString(),staff.Id.ToString());
+                //模拟数据
+                //IList<ReceptionChatDto> receptionChatDtoList = MockData.receptionChatDtoList;
+                return View(staff);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// 封停/解封服务
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public ActionResult BusinessStoreStaffDetailLock(string id, bool islock)//string type,
+        {
+            try
+            {
+                //接口
+                //ViewBag.UserName = CurrentUser.UserName;
+                //MemberDto member = dzMembershipService.GetUserById(id);
+                //member.IsLocked = islock;
+                staffService.EnableStaff(StringHelper.CheckGuidID(id, "用户Id"), islock);
+                //模拟数据
+                //DZMembershipCustomerServiceDto member = MockData.GetLockDZMembershipCustomerServiceDtoById(id, type);
+                //member.IsLocked = islock;
+                //if (islock)
+                //{
+                //    member.LockReason = "违规操作";
+                //}
+                return RedirectToAction("BusinessDetail");
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// 获取员工的订单信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public ActionResult BusinessStoreStaffOrders(string id)
+        {
+            try
+            {
+                ViewData["id"] = id;
+                Staff staff = staffService.GetOne(StringHelper.CheckGuidID(id, "员工Id"));
+                //MemberDto member = dzMembershipService.GetUserById(id);
+                IList<ServiceOrder> serviceOrderList = serviceOrderService.GetOrders(new Ydb.Common.Specification.TraitFilter(), "", "", staff.Belongto.Id, id, DateTime.MinValue, DateTime.MinValue, Guid.Empty, "", "");
+                //模拟数据
+                //IList<ReceptionChatDto> receptionChatDtoList = MockData.receptionChatDtoList;
+                return View(serviceOrderList);
             }
             catch (Exception ex)
             {

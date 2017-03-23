@@ -276,5 +276,21 @@ namespace Ydb.BusinessResource.Application
             Staff assigningStaff = repositoryStaff.FindById(new Guid(staffId));
             assigningStaff.IsAssigned = false;
         }
+
+        /// <summary>
+        /// 入职/离职
+        /// </summary>
+        /// <param name="staffId"></param>
+        /// <param name="enable"></param>
+        [UnitOfWork]
+        public void EnableStaff(Guid staffId, bool enable)
+        {
+            Staff s = repositoryStaff.FindById(staffId);
+            if (s == null)
+            {
+                throw new Exception("该员工不存在！");
+            }
+            s.EnableStaff(enable);
+        }
     }
 }
