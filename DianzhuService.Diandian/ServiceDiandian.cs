@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Linq;
+using Dianzhu.RequestRestful;
 
 namespace DianzhuService.Diandian
 {
@@ -140,6 +141,11 @@ namespace DianzhuService.Diandian
                         return;
                 }
                 string userAreaCode = GetUserAreaCode(customerId);
+                if (string.IsNullOrEmpty(userAreaCode))
+                {
+                    log.Error("获取用户AreaCode失败");
+                    return;
+                }
                 if (GetAreaCsCount(userAreaCode)>0)
                 {
                     //发送客服离线消息给用户
@@ -215,8 +221,9 @@ namespace DianzhuService.Diandian
 
         }
 
-
-
+        Dianzhu.RequestRestful.IRequestRestful restReq = Bootstrap.Container.Resolve<Dianzhu.RequestRestful.IRequestRestful>();
+        string restApiBaseUrl = Dianzhu.Config.Config.GetAppSetting("RestApiSite");
+        string token = string.Empty;
         private void XMPPConnection_OnLogin(object sender)
         {
             log.Debug("登录完成");
@@ -225,6 +232,19 @@ namespace DianzhuService.Diandian
             tmHeartBeat.Elapsed += TmHeartBeat_Elapsed;
             tmHeartBeat.Interval = 5 * 60 * 1000;
             tmHeartBeat.Start();
+
+
+
+            RequestResponse resp =  restReq.RequestRestfulApiForAuthenticated(restApiBaseUrl, loginId, pwd);
+            if (resp.code)
+            {
+                token = resp.data;
+            }
+            else
+            {
+                log.Error("认证失败");
+            }
+          
         }
 
         private void TmHeartBeat_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -237,13 +257,13 @@ namespace DianzhuService.Diandian
             GlobalViables.XMPPConnection.Send(iqHeartBeat);
             log.Debug("HeartBeat" + iqHeartBeat.ToString());
         }
-
+        string loginId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
+        string pwd = Dianzhu.Config.Config.GetAppSetting("DiandianLoginPwd");
         protected override void OnStart(string[] args)
         {
             
             log.Debug("打开服务器连接..");
-            string loginId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
-            string pwd = Dianzhu.Config.Config.GetAppSetting("DiandianLoginPwd");
+            
             GlobalViables.XMPPConnection.Open(loginId, pwd);
  
         }
@@ -288,8 +308,16 @@ namespace DianzhuService.Diandian
 
         public string GetUserAreaCode(string userId)
         {
+            string areaCode = string.Empty;
             Ydb.Common.Infrastructure.IHttpRequest httpRequest = Bootstrap.Container.Resolve<Ydb.Common.Infrastructure.IHttpRequest>();
-            return "460106";
+
+            RequestResponse resp= restReq.RequestRestfulApiForUserCity(restApiBaseUrl, userId, token);
+            if (resp.code)
+            {
+                areaCode = resp.data;
+            }
+            return areaCode;
+           
         }
     }
 
