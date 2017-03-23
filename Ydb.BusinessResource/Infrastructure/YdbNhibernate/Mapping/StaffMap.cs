@@ -4,10 +4,6 @@ using System.Linq;
 using System.Text;
 using FluentNHibernate.Mapping;
 using Ydb.BusinessResource.DomainModel;
-using Ydb.BusinessResource.DomainModel;
-
-using Ydb.BusinessResource.DomainModel;
-using Ydb.BusinessResource.DomainModel;
 namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Mapping
 {
     public class StaffMap:ClassMap<Staff>
@@ -19,11 +15,12 @@ namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Mapping
             Map(x => x.Age);
             Map(x => x.Address);
             HasMany<BusinessImage>(x => x.StaffAvatar).Cascade.AllDeleteOrphan(). Not.LazyLoad();
-            References<Business>(x => x.Belongto);
+            References<Business>(x => x.Belongto).Not.LazyLoad();
          
             Map(x => x.Email);
          
             Map(x => x.Enable);
+            Map(x => x.EnableTime);
             Map(x => x.Gender);
             Map(x => x.IsAssigned);
             Map(x => x.LoginName);

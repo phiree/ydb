@@ -448,18 +448,18 @@ namespace Ydb.BusinessResource.DomainModel
         /// <param name="memo"></param>
         public virtual void EnabledDZService(bool enable, string memo)
         {
-            if (!enable)
-            {
-                if (!this.Enabled)
-                {
-                    throw new Exception("该服务已经封停！");
-                }
-                if (memo == "")
-                {
-                    throw new Exception("请输入封停原因！");
-                }
-                this.EnabledMemo = memo;
-            }
+            //if (!enable)
+            //{
+            //    if (!this.Enabled)
+            //    {
+            //        throw new Exception("该服务已经封停！");
+            //    }
+            //    if (memo == "")
+            //    {
+            //        throw new Exception("请输入封停原因！");
+            //    }
+            //}
+            this.EnabledMemo = memo;
             this.EnabledTime = DateTime.Now;
             this.Enabled = enable;
         }

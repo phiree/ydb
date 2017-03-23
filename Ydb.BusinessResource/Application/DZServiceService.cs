@@ -91,6 +91,11 @@ namespace Ydb.BusinessResource.Application
         [UnitOfWork]
         public void Save(DZService service)
         {
+            if (service.Business == null)
+            {
+                throw new Exception("该服务没有确定所属的店铺");
+            }
+            service.Business.ServiceAmount++;
             repositoryDZService.Add(service);
         }
         [UnitOfWork]
@@ -110,6 +115,11 @@ namespace Ydb.BusinessResource.Application
             if (service.Id == Guid.Empty)
             {
                 service.CreatedTime = DateTime.Now;
+                if (service.Business == null)
+                {
+                    throw new Exception("该服务没有确定所属的店铺");
+                }
+                service.Business.ServiceAmount++;
                 repositoryDZService.Add(service);
             }
             else
@@ -130,6 +140,7 @@ namespace Ydb.BusinessResource.Application
         [UnitOfWork]
         public void Delete(DZService dz)
         {
+            dz.Business.ServiceAmount--;
             repositoryDZService.Delete(dz);
         }
         [UnitOfWork]
@@ -475,6 +486,35 @@ namespace Ydb.BusinessResource.Application
             return AutoMapper.Mapper.Map<IList<ServiceDto>>(list);
         }
 
+        /// <summary>
+        /// 获取该服务每天的工作时间
+        /// </summary>
+        /// <param name="serviceId"></param>
+        /// <param name="dayOfWeek"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public ServiceOpenTimeDto GetOpenTimeByWeek(Guid serviceId, DayOfWeek dayOfWeek)
+        {
+            DZService dzService = repositoryDZService.FindById(serviceId);
+            ServiceOpenTime serviceOpenTime = dzService.OpenTimes.Where(x => x.DayOfWeek == dayOfWeek).ToList()[0];
+            return AutoMapper.Mapper.Map<ServiceOpenTimeDto>(serviceOpenTime);
+        }
 
+        /// <summary>
+        /// 封停/解封店铺
+        /// </summary>
+        /// <param name="businessId"></param>
+        /// <param name="enable"></param>
+        /// <param name="memo"></param>
+        [UnitOfWork]
+        public void EnabledDZService(Guid dzServiceId, bool enable, string memo)
+        {
+            DZService dzService = repositoryDZService.FindById(dzServiceId);
+            if (dzService == null)
+            {
+                throw new Exception("该店铺不存在！");
+            }
+            dzService.EnabledDZService(enable, memo);
+        }
     }
 }

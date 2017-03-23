@@ -324,6 +324,9 @@
     <Content Include="static\img\adminLTE\user7-128x128.jpg" />
     <Content Include="static\img\adminLTE\user8-128x128.jpg" />
     <Content Include="static\img\empty.png" />
+    <Content Include="static\img\load.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="static\libs\adminLTE\css\AdminLTE.css" />
     <Content Include="static\libs\adminLTE\css\AdminLTE.min.css" />
     <Content Include="static\libs\adminLTE\css\skins\skin-black-light.css" />
@@ -608,6 +611,14 @@
     <Content Include="Views\AgentBusinessManage\BusinessServiceFrozenList.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\AgentBusinessManage\BusinessDetail.cshtml" />
+    <Content Include="Views\AgentBusinessManage\BusinessStoreDetail.cshtml" />
+    <Content Include="Views\AgentBusinessManage\BusinessStoreDetailOrders.cshtml" />
+    <Content Include="Views\AgentBusinessManage\BusinessStoreDetailService.cshtml" />
+    <Content Include="Views\AgentBusinessManage\BusinessStoreDetailStaffs.cshtml" />
+    <Content Include="Views\AgentBusinessManage\BusinessStoreServiceDetail.cshtml" />
+    <Content Include="Views\AgentBusinessManage\BusinessStoreServiceOpenTime.cshtml" />
+    <Content Include="Views\AgentBusinessManage\BusinessStoreStaffDetail.cshtml" />
+    <Content Include="Views\AgentBusinessManage\BusinessStoreStaffOrders.cshtml" />
     <None Include="Web.dev.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

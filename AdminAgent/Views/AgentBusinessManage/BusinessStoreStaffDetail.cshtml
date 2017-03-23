@@ -1,8 +1,8 @@
-﻿@model Ydb.Membership.Application.Dto.MemberDto
+﻿@model Ydb.BusinessResource.DomainModel.Staff
 @{
-    ViewBag.headTitle = "用户管理";
-    ViewBag.subTitle = "用户详情";
-    ViewBag.breadcrumbOl = new List<string>() { "用户管理", "用户列表", "用户详情" };
+    ViewBag.headTitle = "商家管理";
+    ViewBag.subTitle = "员工详情";
+    ViewBag.breadcrumbOl = new List<string>() { "商家管理", "商家列表", "商家详情", "店铺详情", "员工详情" };
 }
 
 <!-- Main content -->
@@ -13,16 +13,16 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header text-center margin-top-10">
-                    <h3 class="box-title text-center">@Model.DisplayName<span style="color: #4db2c6">&nbsp;&nbsp;@(Model.IsLocked ? "封停中" : "活跃中")</span></h3>
+                    <h3 class="box-title text-center">@Model.DisplayName<span style="color: #4db2c6">&nbsp;&nbsp;@(Model.Enable ? "在职中" : "已离职")</span></h3>
                     <div class="box-tools pull-right">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-wrench"></i>&nbsp;设置
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                @*<li><a href="#">重置密码</a></li>
-                                <li class="divider"></li>*@
-                                <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.IsLocked ? "false" : "true")>@(Model.IsLocked ? "解封用户" : "封停用户")</a></li>
+                                <li><a href="#">重置密码</a></li>
+                                    <li class="divider"></li>
+                                <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.Enable ? "false" : "true")>@(Model.Enable ? "员工离职" : "员工入职")</a></li>
                             </ul>
                         </div>
                     </div>
@@ -32,62 +32,50 @@
                         <div class="col-md-6">
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <b>微信账号：</b> <a class="pull-right">@Model.WXNumber</a>
+                                    <b>所属店铺：</b> <a class="pull-right">@Model.Belongto.Name</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>QQ号码：</b> <a class="pull-right">@Model.QQNumber</a>
+                                    <b>员工编号：</b> <a class="pull-right">@Model.Code</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>微博账号：</b> <a class="pull-right">@Model.WBNumber</a>
+                                    <b>员工姓名：</b> <a class="pull-right">@Model.Name</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>用户名：</b> <a class="pull-right">@Model.UserName</a>
+                                    <b>联系电话：</b> <a class="pull-right">@Model.Phone</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>电话号码：</b> <a class="pull-right">@Model.Phone</a>
+                                    <b>电子邮箱：</b> <a class="pull-right">@Model.Email</a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>联系地址：</b> <a class="pull-right">@Model.Address</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>性别：</b> <a class="pull-right">@(Model.Sex ? "女" : "男")</a>
+                                    <b>性别：</b> <a class="pull-right">@Model.Gender</a>
                                 </li>
                                 @*<li class="list-group-item">
-                                    <b>累计接单：</b> <a class="pull-right"><span>1232125</span>单</a>
-                                </li>*@
+                                        <b>累计接单：</b> <a class="pull-right"><span>1232125</span>单</a>
+                                    </li>*@
                             </ul>
                         </div>
                         <div class="col-md-6">
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <b>首次登录时间：</b> <a class="pull-right">@Model.TimeCreated</a>
+                                    <b>登录账号：</b> <a class="pull-right">@ViewData["MemberUserName"]</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>上次登录时间：</b> <a class="pull-right">@Model.LastLoginTime</a>
+                                    <b>负责订单数量：</b> <a class="pull-right">@ViewData["OrderCount"]</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>总共下单数量：</b> <a class="pull-right">@ViewData["totalOrderCount"]</a>
+                                    <b>订单完成数量：</b> <a class="pull-right">@ViewData["DoneOrderCount"]</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>已完成订单：</b> <a class="pull-right">@ViewData["totalDoneOrderCount"]</a>
+                                    <b>评价：</b> <a class="pull-right">@ViewData["StaffAverageAppraise"]</a>
                                 </li>
-                                <li class="list-group-item">
-                                    <b>未完成订单：</b> <a class="pull-right">@ViewData["totalNotDoneOrderCount"]</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>发起投诉：</b> <a class="pull-right">@ViewData["totalComplaintCount"]</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>累计在线时间：</b> <a class="pull-right">@ViewData["totalOnlineTime"]</a>
-                                </li>
-                                @*<li class="list-group-item">
-                                    <b>收到投诉：</b> <a class="pull-right"><span>5</span>单</a>
-                                </li>*@
                             </ul>
                         </div>
                     </div>
                     <div class="row">
-                        <h4 class="box-title col-md-12">订单历史</h4>
+                        <h4 class="box-title col-md-12">负责订单</h4>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -111,8 +99,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            
-                            @Html.Action("UserDetailOrders", "AgentUserManage", new { id = @ViewData["id"] })
+
+                            @Html.Action("BusinessStoreStaffOrders", "AgentBusinessManage", new { id = @ViewData["id"] })
 
 
                         </div>
@@ -125,16 +113,15 @@
         <!-- /.col -->
     </div>
     <!-- /.row -->
-
     <!-- 模态框（Modal） -->
     <div class="modal fade" id="toggleFreeze" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel2">@(Model.IsLocked ? "解封账号" : "封停账号")</h4>
+                    <h4 class="modal-title" id="myModalLabel2">@(Model.Enable ? "员工离职" : "员工入职")</h4>
                 </div>
-                <div class="modal-body">确认@(Model.IsLocked ? "解封账号" : "封停账号")</div>
+                <div class="modal-body">确认@(Model.Enable ? "员工离职" : "员工入职")</div>
                 <div class="modal-footer">
                     <button id="toggleFreezeConf" type="button" class="btn btn-primary">确定</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -142,9 +129,10 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
     </div>
+
+
 </section>
 <!-- /.content -->
-
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the
@@ -190,7 +178,7 @@
         //封停/解封
         $("#toggleFreezeConf").on("click", function () {
             $.ajax({
-                url: "/AgentUserManage/UserDetailLock",
+                url: "/AgentBusinessManage/BusinessStoreStaffDetailLock",
                 type: "GET",
                 data: {
                     id: url.getUrlParam("id"),
@@ -210,3 +198,4 @@
         });
     })();
 </script>
+

@@ -121,6 +121,12 @@ namespace Ydb.Membership.DomainModel
         /// 头像图片相对路径.
         /// </summary>
         public virtual string AvatarUrl { get; set; }
+        public virtual string AvatarPathUrl {
+            get {
+                return string.IsNullOrEmpty(AvatarUrl) ? "" : Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + AvatarUrl;
+            }
+        }
+
         public virtual string DisplayName
         {
             get { return string.IsNullOrEmpty(NickName) ? UserName : NickName; }

@@ -89,20 +89,20 @@ namespace Ydb.Order.Application
         /// </summary>
         /// <returns>area实体list</returns>
         [Ydb.Order.Infrastructure.UnitOfWork]
-        public long GetComplaintsCount(Guid orderID, Guid storeID, Guid customerServiceID)
+        public long GetComplaintsCount(string orderID, string storeID, string customerServiceID)
         {
             var where = PredicateBuilder.True<Complaint>();
-            if (orderID != Guid.Empty)
+            if (string.IsNullOrEmpty(orderID))
             {
-                where = where.And(x => x.OrderId == orderID.ToString());
+                where = where.And(x => x.OrderId == orderID);
             }
-            if (storeID != Guid.Empty)
+            if (string.IsNullOrEmpty(storeID))
             {
-                where = where.And(x => x.BusinessId == storeID.ToString());
+                where = where.And(x => x.BusinessId == storeID);
             }
-            if (customerServiceID != Guid.Empty)
+            if (string.IsNullOrEmpty(customerServiceID))
             {
-                where = where.And(x => x.CustomerServiceId == customerServiceID.ToString());
+                where = where.And(x => x.CustomerServiceId == customerServiceID);
             }
             long count = repositoryComplaint.GetRowCount(where);
             return count;

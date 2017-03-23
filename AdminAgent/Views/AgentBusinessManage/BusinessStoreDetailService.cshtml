@@ -1,0 +1,50 @@
+﻿@model  IList<Ydb.BusinessResource.Application.ServiceDto>
+@{
+    Layout = null;
+}
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>序号</th>
+            <th>服务名称</th>
+            <th>服务类型</th>
+            <th width="350px">服务区域</th>
+            <th>服务单价</th>
+            <th>服务定金</th>
+            <th>提前预约</th>
+            <th>详情</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < @Model.Count; i++)
+        {
+            <tr>
+                <td>@(i + 1)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].ServiceName)</td>
+                <td><span>@Html.DisplayFor(modelItem => Model[i].ServiceTypeFullName)</span></td>
+                <td>
+                    <span class="spServiceArea"></span>
+                    <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='@Html.DisplayFor(modelItem => Model[i].Scope)' />
+                </td>
+                <td>@Html.DisplayFor(modelItem => Model[i].UnitPrice)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].DepositAmount)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].OrderDelay)<span>分钟</span></td>
+                
+                <td>@Html.ActionLink("进入", "BusinessStoreServiceDetail", "AgentBusinessManage", new { id = Model[i].id }, new { })</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>序号</th>
+            <th>服务名称</th>
+            <th>服务类型</th>
+            <th>服务区域</th>
+            <th>服务单价</th>
+            <th>服务定金</th>
+            <th>提前预约</th>
+            <th>详情</th>
+        </tr>
+    </tfoot>
+</table>

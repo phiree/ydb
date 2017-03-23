@@ -56,7 +56,7 @@ namespace Ydb.BusinessResource.Application
         /// <param name="ownerId"></param>
         /// <returns></returns>
          long GetStoresCount(string alias, Guid ownerId);
-          void Disable(Guid businessId, bool enable, string memo);
+          //void Disable(Guid businessId, bool enable, string memo);
         void ApprovedEnable(Guid businessId);
         void ApprovedDisable(Guid businessId);
 
@@ -141,6 +141,14 @@ namespace Ydb.BusinessResource.Application
         /// <param name="areaList"></param>
         /// <returns></returns>
         string GetStatisticsRatioMonthOnMonth(IList<string> areaList);
+
+        /// <summary>
+        /// 封停/解封商家
+        /// </summary>
+        /// <param name="businessId"></param>
+        /// <param name="enable"></param>
+        /// <param name="memo"></param>
+        void EnableBusiness(Guid businessId, bool enable, string memo);
 
     }
 }

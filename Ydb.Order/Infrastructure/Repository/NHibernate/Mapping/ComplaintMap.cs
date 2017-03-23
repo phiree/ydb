@@ -16,6 +16,8 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate.Mapping
         {
             Id(x => x.Id);
             Map(x => x.OrderId);
+            Map(x => x.CustomerServiceId);
+            Map(x => x.BusinessId);
             Map(x => x.Target).CustomType<enum_ChatTarget>();
             Map(x => x.Content);
 

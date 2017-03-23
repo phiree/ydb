@@ -67,5 +67,46 @@ namespace Dianzhu.RequestRestful
             }
             return responseRest;
         }
+
+        /// <summary>
+        /// 请求用户认证
+        /// </summary>
+        /// <param name="serviceUrl"></param>
+        /// <param name="loginName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public RequestResponse RequestRestfulApiForAuthenticated(string serviceUrl, string loginName, string password)
+        {
+            //用户认证
+            RequestParams rp = new RequestParams();
+            rp.method = "1";
+            rp.url = serviceUrl.TrimEnd('/') + "/api/v1/authorization";
+            rp.content = "{\n\"loginName\":\"" + loginName + "\",\n\"password\":\"" + password + "\"\n}";
+            rp = SetCommon.SetParams("UA811Cd5343a1a41e4beB35227868541f8", "WDcajjuVXA6TToFfm1MWhFFgn6bsXTt8VNsGLjcqGMg=", rp);
+            IRequestRestful req = new Dianzhu.RequestRestful.RequestRestful();
+            RequestResponse res = req.RequestRestfulApi(rp);
+            return res;
+        }
+
+        /// <summary>
+        /// 请求RestfulApi获取UserCity
+        /// </summary>
+        /// <param name="serviceUrl"></param>
+        /// <param name="userId"></param>
+        /// <param name="userToken"></param>
+        /// <returns></returns>
+        public RequestResponse RequestRestfulApiForUserCity(string serviceUrl,string userId,string userToken)
+        {
+            //用户认证
+            RequestParams rp = new RequestParams();
+            rp.method = "0";
+            rp.url = serviceUrl.TrimEnd('/') + "/api/v1/Customers/"+ userId;
+            rp.content = "";
+            rp.token = userToken;
+            rp = SetCommon.SetParams("UA811Cd5343a1a41e4beB35227868541f8", "WDcajjuVXA6TToFfm1MWhFFgn6bsXTt8VNsGLjcqGMg=", rp);
+            IRequestRestful req = new Dianzhu.RequestRestful.RequestRestful();
+            RequestResponse res = req.RequestRestfulApi(rp);
+            return res;
+        }
     }
 }

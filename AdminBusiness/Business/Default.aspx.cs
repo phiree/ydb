@@ -88,7 +88,7 @@ public partial class Business_Default : BasePage
         {
             string strBusinessId = e.CommandArgument.ToString();
             Guid businessId = new Guid(strBusinessId);
-          businessService.Disable(businessId,false,"删除服务");
+          businessService.EnableBusiness(businessId,false,"删除服务");
             
             BindBusinessList();
         }

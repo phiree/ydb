@@ -1,4 +1,5 @@
-﻿@model Ydb.Membership.Application.Dto.MemberDto
+﻿@using Ydb.BusinessResource.DomainModel;
+@model Ydb.Membership.Application.Dto.MemberDto
 @{
     ViewBag.headTitle = "商家管理";
     ViewBag.subTitle = "商家详情";
@@ -22,7 +23,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 @*<li><a href="#">重置密码</a></li>
                                 <li class="divider"></li>*@
-                                <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.IsLocked ? "true" : "false")>@(Model.IsLocked ? "解封账号" : "封停账号")</a></li>
+                                <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.IsLocked ? "false" : "true")>@(Model.IsLocked ? "解封商家" : "封停商家")</a></li>
                             </ul>
                         </div>
                     </div>
@@ -44,7 +45,7 @@
                                     <b>联系地址：</b> <a class="pull-right">@Model.Address</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>累计接单：</b> <a class="pull-right"><span>125</span>单</a>
+                                    <b>累计接单：</b> <a class="pull-right"><span>@ViewData["OrderCount"]</span>单</a>
                                 </li>
                             </ul>
                         </div>
@@ -54,7 +55,7 @@
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">账号营业额</span>
-                                    <span class="info-box-number">1,410.00元</span>
+                                    <span class="info-box-number">@ViewData["OrderAmountTotal"]元</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -63,76 +64,42 @@
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">账号已分账</span>
-                                    <span class="info-box-number">1,410.00元</span>
+                                    <span class="info-box-number">@ViewData["FinanceAmountTotal"]元</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="business-card" onclick='location.href="./business-shop-info.html"'>
-                                <div class="business-img"></div>
-                                <dl>
-                                    <dt>店铺名称：</dt>
-                                    <dd>畅畅干洗</dd>
-                                    <dt>店铺地址：</dt>
-                                    <dd>海南省海口市海牙国际大厦</dd>
-                                    <dt>服务数量：</dt>
-                                    <dd>39</dd>
-                                    <dt>订单数量：</dt>
-                                    <dd>4399</dd>
-                                </dl>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="business-card" onclick='location.href="./business-shop-info.html"'>
-                                <div class="business-img"></div>
-                                <dl>
-                                    <dt>店铺名称：</dt>
-                                    <dd>畅畅干洗</dd>
-                                    <dt>店铺地址：</dt>
-                                    <dd>海南省海口市海牙国际大厦</dd>
-                                    <dt>服务数量：</dt>
-                                    <dd>39</dd>
-                                    <dt>订单数量：</dt>
-                                    <dd>4399</dd>
-                                </dl>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="business-card" onclick='location.href="./business-shop-info.html"'>
-                                <div class="business-img"></div>
-                                <dl>
-                                    <dt>店铺名称：</dt>
-                                    <dd>畅畅干洗</dd>
-                                    <dt>店铺地址：</dt>
-                                    <dd>海南省海口市海牙国际大厦</dd>
-                                    <dt>服务数量：</dt>
-                                    <dd>39</dd>
-                                    <dt>订单数量：</dt>
-                                    <dd>4399</dd>
-                                </dl>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="business-card" onclick='location.href="./business-shop-info.html"'>
-                                <div class="business-img"></div>
-                                <dl>
-                                    <dt>店铺名称：</dt>
-                                    <dd>畅畅干洗</dd>
-                                    <dt>店铺地址：</dt>
-                                    <dd>海南省海口市海牙国际大厦</dd>
-                                    <dt>服务数量：</dt>
-                                    <dd>39</dd>
-                                    <dt>订单数量：</dt>
-                                    <dd>4399</dd>
-                                </dl>
-                            </div>
-                        </div>
+                    @for (int i = 0; i < ((IList<Business>)ViewData["StoreList"]).Count/4+ (((IList<Business>)ViewData["StoreList"]).Count % 4>0?1:0); i++)
+                    {
+                        <div class="row">
+                            @for (int j = 0; j < 4 && j + i * 4 < ((IList<Business>)ViewData["StoreList"]).Count; j++)
+                            {
+                                <div class="col-md-3">
+                                    <div class="business-card" onclick='location.href="../BusinessStoreDetail/@(((IList<Business>)ViewData["StoreList"])[j + i * 4].Id)"'>
+                                        <div class="business-img">
+                                            <img src="@(((IList<Business>)ViewData["StoreList"])[j + i * 4].BusinessAvatar.ImageUrl)" style="width:100%;height:100%"/>
+                                        </div>
+                                        <dl>
+                                            <dt>店铺名称：</dt>
+                                            <dd>@(((IList<Business>)ViewData["StoreList"])[j + i * 4].Name)</dd>
+                                            <dt>店铺地址：</dt>
+                                            <dd>@(((IList<Business>)ViewData["StoreList"])[j + i * 4].Address)</dd>
+                                            <dt>员工数量：</dt>
+                                            <dd>@(((IList<Business>)ViewData["StoreList"])[j + i * 4].StaffAmount)</dd>
+                                            <dt>服务数量：</dt>
+                                            <dd>@(((IList<Business>)ViewData["StoreList"])[j + i * 4].ServiceAmount)</dd>
+                                            @*<dt>订单数量：</dt>
+                                            <dd>4399</dd>*@
+                                        </dl>
+                                    </div>
+                                </div>
+                            }
 
-                    </div>
+                        </div>
+                    }
+                    
 
                 </div>
                 <!-- /.box-body -->
@@ -142,6 +109,23 @@
         <!-- /.col -->
     </div>
     <!-- /.row -->
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="toggleFreeze" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel2">@(Model.IsLocked ? "解封商家" : "封停商家")</h4>
+                </div>
+                <div class="modal-body">确认@(Model.IsLocked ? "解封商家" : "封停商家")</div>
+                <div class="modal-footer">
+                    <button id="toggleFreezeConf" type="button" class="btn btn-primary">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 </section>
 <!-- /.content -->
 
@@ -152,13 +136,13 @@
      user experience. Slimscroll is required when using the
      fixed layout. -->
 
-<script src="../js/navbar-controller.js"></script>
+<script src="../../static/js/navbar-controller.js"></script>
 <!-- DataTables -->
-<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="../../static/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../static/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <!-- date-range-picker -->
-<script src="../plugins/daterangepicker/moment.min.js"></script>
-<script src="../plugins/daterangepicker/daterangepicker.js"></script>
+<script src="../../static/plugins/daterangepicker/moment.min.js"></script>
+<script src="../../static/plugins/daterangepicker/daterangepicker.js"></script>
 <script>
     (function(){
         //Date range picker
@@ -187,6 +171,29 @@
                     "previous":   "上一页"
                 }
             }
+        });
+
+        
+        //封停/解封
+        $("#toggleFreezeConf").on("click", function () {
+            $.ajax({
+                url: "/AgentBusinessManage/BusinessDetailLock",
+                type: "GET",
+                data: {
+                    id: url.getUrlParam("id"),
+                    isLook: $("#isLook").data("look")
+                },
+                dataType: 'json'
+            }).done(function (resp, status, xhr) {
+                if (status = "success") {
+                    notify.modal('show');
+                    notify.find(".modal-body").text("操作成功");
+                }
+            }).fail(function (resp, status, xhr) {
+                $("#toggleFreeze").modal('hide');
+                notify.find(".modal-body").text("操作失败，请重试");
+                notify.modal('show');
+            })
         });
     })();
 </script>
