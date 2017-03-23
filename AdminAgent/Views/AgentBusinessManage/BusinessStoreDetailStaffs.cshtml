@@ -27,7 +27,7 @@
                 <td>@Html.DisplayFor(modelItem => Model[i].Code)</td>
                 <td>@Html.DisplayFor(modelItem => Model[i].Phone)</td>
                 <td>@Html.DisplayFor(modelItem => Model[i].Email)</td>
-                <td>@Html.ActionLink("进入", "StaffDetail", "AgentBusinessManage", new { id = Model[i].Id }, new { })</td>
+                <td>@Html.ActionLink("进入", "BusinessStoreStaffDetail", "AgentBusinessManage", new { id = Model[i].Id }, new { })</td>
             </tr>
         }
     </tbody>

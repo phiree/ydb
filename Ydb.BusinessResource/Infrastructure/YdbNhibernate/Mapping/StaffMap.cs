@@ -15,7 +15,7 @@ namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Mapping
             Map(x => x.Age);
             Map(x => x.Address);
             HasMany<BusinessImage>(x => x.StaffAvatar).Cascade.AllDeleteOrphan(). Not.LazyLoad();
-            References<Business>(x => x.Belongto);
+            References<Business>(x => x.Belongto).Not.LazyLoad();
          
             Map(x => x.Email);
          

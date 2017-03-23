@@ -381,7 +381,8 @@ namespace AdminAgent.Controllers
             {
                 ViewData["id"] = id;
                 Staff staff = staffService.GetOne(StringHelper.CheckGuidID(id, "员工Id"));
-                ViewData["MemberUserName"] = dzMembershipService.GetUserById(staff.UserID).UserName;
+                MemberDto member = string.IsNullOrEmpty(staff.UserID) ? null : dzMembershipService.GetUserById(staff.UserID);
+                ViewData["MemberUserName"] = member==null?"":member.UserName;
                 ViewData["OrderCount"] = serviceOrderService.GetOrdersCount("", "", staff.Belongto.Id, staff.Id.ToString(), DateTime.MinValue, DateTime.MinValue, Guid.Empty, "", "");
                 ViewData["DoneOrderCount"] = serviceOrderService.GetOrdersCount("done", "", staff.Belongto.Id, staff.Id.ToString(), DateTime.MinValue, DateTime.MinValue, Guid.Empty, "", "");
                 ViewData["BusinessAverageAppraise"] = appraiseService.GetBusinessAverageAppraise(staff.Belongto.Id.ToString(),staff.Id.ToString());
