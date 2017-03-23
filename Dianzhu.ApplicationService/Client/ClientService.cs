@@ -79,6 +79,13 @@ IMembershipLoginLogService membershipLoginLogService
             string userUri = "";
             switch (dzm.UserType)
             {
+                case "diandian":
+                    if (apiName != "ABc907a34381Cdyj8g3ed1F90ac8f82h3b")
+                    {
+                        throw new Exception("用户不是点点！");
+                    }
+                    userUri = strPath + "/api/v1/customers/" + dzm.Id;
+                    break;
                 case "customer":
                     if (apiName != "UI3f4185e97b3E4a4496594eA3b904d60d" && apiName != "UA811Cd5343a1a41e4beB35227868541f8")
                     {
