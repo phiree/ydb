@@ -672,10 +672,19 @@ namespace Ydb.Common
 
         /// <summary>
         /// js客户端
-        /// security_key:FJXTdZVLhmFLHO5M3Xweo5kHRmLH3qFdRzLyGFZLeBc
-        ///JS1adBF8cbaf594d1ab2f1A68755e70440,
+        /// security_key:2bdKTgh9SiNlGnSajt4E6c4w1ZoZJfb9ATKrzCZ1a3A=
+        ///ABc907a34381Cd436eBfed1F90ac8f823b,
         /// </summary>
-       AdminBusiness
+        AdminBusiness,
+
+        /// <summary>
+        /// js客户端
+        /// security_key:2bdKTgh9fjr93gh34f7gnc4w1ZoZJfb9ATKrzCZ1a3A=
+        ///ABc907a34381Cdyj8g3ed1F90ac8f82h3b,
+        /// </summary>
+        Diandian
+
+
     }
 
     /// <summary>

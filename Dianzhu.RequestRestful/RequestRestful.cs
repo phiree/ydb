@@ -82,7 +82,7 @@ namespace Dianzhu.RequestRestful
             rp.method = "1";
             rp.url = serviceUrl.TrimEnd('/') + "/api/v1/authorization";
             rp.content = "{\n\"loginName\":\"" + loginName + "\",\n\"password\":\"" + password + "\"\n}";
-            rp = SetCommon.SetParams("UA811Cd5343a1a41e4beB35227868541f8", "WDcajjuVXA6TToFfm1MWhFFgn6bsXTt8VNsGLjcqGMg=", rp);
+            rp = SetCommon.SetParams("ABc907a34381Cdyj8g3ed1F90ac8f82h3b", "2bdKTgh9fjr93gh34f7gnc4w1ZoZJfb9ATKrzCZ1a3A=", rp);
             IRequestRestful req = new Dianzhu.RequestRestful.RequestRestful();
             RequestResponse res = req.RequestRestfulApi(rp);
             if (res.code)
@@ -108,7 +108,7 @@ namespace Dianzhu.RequestRestful
             rp.url = serviceUrl.TrimEnd('/') + "/api/v1/Customers/"+ userId;
             rp.content = "";
             rp.token = userToken;
-            rp = SetCommon.SetParams("UA811Cd5343a1a41e4beB35227868541f8", "WDcajjuVXA6TToFfm1MWhFFgn6bsXTt8VNsGLjcqGMg=", rp);
+            rp = SetCommon.SetParams("ABc907a34381Cdyj8g3ed1F90ac8f82h3b", "2bdKTgh9fjr93gh34f7gnc4w1ZoZJfb9ATKrzCZ1a3A=", rp);
             IRequestRestful req = new Dianzhu.RequestRestful.RequestRestful();
             RequestResponse res = req.RequestRestfulApi(rp);
             if (res.code)
