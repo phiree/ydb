@@ -85,6 +85,11 @@ namespace Dianzhu.RequestRestful
             rp = SetCommon.SetParams("UA811Cd5343a1a41e4beB35227868541f8", "WDcajjuVXA6TToFfm1MWhFFgn6bsXTt8VNsGLjcqGMg=", rp);
             IRequestRestful req = new Dianzhu.RequestRestful.RequestRestful();
             RequestResponse res = req.RequestRestfulApi(rp);
+            if (res.code)
+            {
+                Newtonsoft.Json.Linq.JObject jo = (Newtonsoft.Json.Linq.JObject)JsonConvert.DeserializeObject(res.data);
+                res.data = jo["token"].ToString();
+            }
             return res;
         }
 
@@ -106,6 +111,11 @@ namespace Dianzhu.RequestRestful
             rp = SetCommon.SetParams("UA811Cd5343a1a41e4beB35227868541f8", "WDcajjuVXA6TToFfm1MWhFFgn6bsXTt8VNsGLjcqGMg=", rp);
             IRequestRestful req = new Dianzhu.RequestRestful.RequestRestful();
             RequestResponse res = req.RequestRestfulApi(rp);
+            if (res.code)
+            {
+                Newtonsoft.Json.Linq.JObject jo = (Newtonsoft.Json.Linq.JObject)JsonConvert.DeserializeObject(res.data);
+                res.data = jo["UserCity"].ToString();
+            }
             return res;
         }
     }

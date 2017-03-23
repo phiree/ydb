@@ -72,6 +72,7 @@ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb
             container.Install(
     new Ydb.MediaServer.Infrastructure.InstallerMediaServer(BuildDBConfig("ydb_mediaserver"))
     );
+
             container.Install(
 
 
