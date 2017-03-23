@@ -3,6 +3,7 @@ using Ydb.Membership.Application;
 using Dianzhu.Api.Model;
 using Newtonsoft.Json;
 using Ydb.BusinessResource.Application;
+using Ydb.Common;
 
 /// <summary>
 /// 修改员工信息
@@ -49,7 +50,7 @@ public class ResponseWTM001003 : BaseResponse
                 if (endTime != null) {  workTimeObj.endTime = "Y"; }
                 if (week != null) {   workTimeObj.week = "Y"; }
                 if (open != null) {  workTimeObj.open = "Y "; }
-                if (maxOrder != null) {   workTimeObj.maxOrder = "Y"; }
+                  workTimeObj.maxOrder = "Y"; 
 
                 
                 RespDataWTM001003 respData = new RespDataWTM001003(workTime_id );

@@ -22,9 +22,11 @@ public partial class login : System.Web.UI.Page
     {
 
         ValidateResult validateResult = memberService.Login(tbxUserName.Text, tbxPwd.Text);
-        var result = SignInStatus.Failure;
+        
+   
         if (validateResult.IsValidated)
         {
+            var result = SignInStatus.Failure;
             if (validateResult.ValidatedMember.UserType != "admin")
             {
                 lblMsg.Text = "登录失败:not admin";

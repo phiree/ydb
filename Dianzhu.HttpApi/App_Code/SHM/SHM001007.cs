@@ -14,6 +14,7 @@ using Ydb.Order.Application;
 using Ydb.Order.DomainModel;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Membership.Application;
+using Ydb.Common;
 /// <summary>
 /// 获取用户的服务订单列表
 /// </summary>

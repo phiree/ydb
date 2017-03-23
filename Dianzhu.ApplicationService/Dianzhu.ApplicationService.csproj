@@ -166,7 +166,6 @@
     <Compile Include="Common\WePayChatUserObj.cs" />
     <Compile Include="Complaint\ComplaintService.cs" />
     <Compile Include="Complaint\IComplaintService.cs" />
-    <Compile Include="Dicts.cs" />
     <Compile Include="InstallerApplicationService.cs" />
     <Compile Include="jwt\DefaultJsonSerializer.cs" />
     <Compile Include="jwt\IJsonSerializer.cs" />

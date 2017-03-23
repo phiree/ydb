@@ -106,13 +106,7 @@ namespace Dianzhu.CSClient
 
             
             encryptService = Bootstrap.Container.Resolve<Ydb.Common.Infrastructure.IEncryptService>();
-            bool isValidConfig = CheckConfig();
-            if (!isValidConfig)
-            {
-                MessageBox.Show("配置错误,程序即将退出");
-                Application.ExitThread();
-                return;
-            }
+           
             memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
             localChatManager = Bootstrap.Container.Resolve<LocalChatManager>();
 
@@ -451,33 +445,7 @@ namespace Dianzhu.CSClient
             }                
         }
 
-        static bool CheckConfig()
-        {
-            return true;
-            log.Debug("--开始 检查配置是否冲突");
-            //need: openfire服务器 数据库,api服务器,三者目标ip应该相等.
-            bool isValidConfig = false;
-            string connectionString =encryptService.Decrypt(System.Configuration.ConfigurationManager
-                .ConnectionStrings["DianzhuConnectionString"].ConnectionString, false);
-            System.Text.RegularExpressions.Match m = System.Text.RegularExpressions.Regex.Match(connectionString, @"(?<=data\s+source\=).+?(?=;)");
-            string ofserver = Dianzhu.Config.Config.GetAppSetting("ImServer");
-            System.Text.RegularExpressions.Match m2 = System.Text.RegularExpressions.Regex.Match(Dianzhu.Config.Config.GetAppSetting("APIBaseURL"), "(?<=https?://).+?(?=:" + Dianzhu.Config.Config.GetAppSetting("GetHttpAPIPort") + ")");
-
-            if (ofserver == m.Value && m.Value == m2.Value)
-            {
-                isValidConfig = true;
-            }
-            else
-            {
-                log.Error(m.Value + "," + m2.Value + "," + ofserver);
-            }
-            log.Debug("--结束 检查配置是否冲突");
-            return isValidConfig;
-
-
-
-
-        }
+        
         static void cDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             try
@@ -486,7 +454,7 @@ namespace Dianzhu.CSClient
 
                 MessageBox.Show(e.ExceptionObject.ToString());
             }
-            catch (Exception ex)
+            catch 
             {
 
             }

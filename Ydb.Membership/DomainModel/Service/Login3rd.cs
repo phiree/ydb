@@ -11,6 +11,8 @@ using Ydb.Membership.DomainModel.Enums;
 using System.Web;
 using Ydb.Membership.Infrastructure;
 using Ydb.Common.Infrastructure;
+using Ydb.Common;
+
 namespace Ydb.Membership.DomainModel.Service
 {
    public  class Login3rd:ILogin3rd

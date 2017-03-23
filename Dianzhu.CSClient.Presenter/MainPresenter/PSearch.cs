@@ -163,24 +163,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 if (GlobalViables.AllServiceType == null) { return; }
                 viewSearch.InitType(GlobalViables.AllServiceType);
-
-                return;
-
-                System.Threading.Thread.Sleep(1000);
-                if (this.ServiceTypeListTmp != null) { return; }
-
-
-                this.ServiceTypeListTmp = typeService.GetTopList();
-                this.ServiceTypeCach = new Dictionary<ServiceType, IList<ServiceType>>();
-
-                foreach (ServiceType t in ServiceTypeListTmp)
-                {
-                    if (!ServiceTypeCach.ContainsKey(t))
-                    {
-                        ServiceTypeCach.Add(t, null);
-                    }
-                }
-               
+ 
             }
             catch (Exception ee)
             {

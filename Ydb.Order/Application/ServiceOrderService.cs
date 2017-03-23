@@ -524,12 +524,7 @@ namespace Ydb.Order.Application
         public IList<ServiceOrder> GetAll(int pageIndex, int pageSize, out long totalRecords) //获取全部订单
         {
             return repoServiceOrder.GetAll(pageIndex, pageSize, out totalRecords);
-            //  iuow.BeginTransaction();
-            var where = PredicateBuilder.True<ServiceOrder>();
-            var all = repoServiceOrder.Find(where, pageIndex, pageSize, out totalRecords);
-            // iuow.Commit();
-            return all;
-            ///return DALServiceOrder.GetAll<ServiceOrder>();
+           
         }
 
         public IList<ServiceOrder> GetAllByOrderStatus(enum_OrderStatus status, int pageIndex, int pageSize, out long totalRecords)

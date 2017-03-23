@@ -76,7 +76,7 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             };
             DateTime beginTime = DateTime.Parse("2017-01-01");
             DateTime endTime = DateTime.Parse("2017-01-02");
-            bool IsHour = true;
+          
             StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipsCountListByTime(memberList, beginTime, endTime, true);
             Assert.IsNotNull(statisticsInfo);
             Assert.AreEqual("新增用户", statisticsInfo.YName);
@@ -135,7 +135,7 @@ namespace Ydb.Membership.DomainModel.DataStatisticsTests
             };
             DateTime beginTime = DateTime.Parse("2017-01-01");
             DateTime endTime = DateTime.Parse("2017-01-02");
-            bool IsHour = true;
+          
             StatisticsInfo statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListByTime(memberList, beginTime, endTime, true);
             Assert.IsNotNull(statisticsInfo);
             Assert.AreEqual("累计用户", statisticsInfo.YName);

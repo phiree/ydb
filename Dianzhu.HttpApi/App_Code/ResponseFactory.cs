@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
- 
+using Ydb.Common;
 
 public class ResponseFactory
 {
