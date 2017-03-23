@@ -268,8 +268,25 @@ namespace Ydb.Membership.Application
                 result.IsSuccess = false;
                 result.ErrMsg = "该用户不存在!";
             }
+            if (!string.IsNullOrEmpty(areaId))
+            {
+                //如果没有变化,直接返回.
+                if (member.AreaId == areaId)
+                {
+                    result.IsSuccess = false;
+                    result.ErrMsg = "不需要修改";
+                    return result;
+                }
+                 
+                member.AreaId = areaId;
+
+            }
             if (!string.IsNullOrEmpty(cityCode))
+            { 
+                
                 member.UserCity = cityCode;
+
+            }
             if (string.IsNullOrEmpty(longitude) ^ string.IsNullOrEmpty(latitude))
             {
                 result.IsSuccess = false;
@@ -279,9 +296,8 @@ namespace Ydb.Membership.Application
                 member.Longitude = longitude;
             if (!string.IsNullOrEmpty(latitude))
                 member.Latitude = latitude;
-            if (!string.IsNullOrEmpty(areaId))
-                member.AreaId = areaId;
-            repositoryMembership.Update(member);
+          
+            //repositoryMembership.Update(member);
             return result;
         }
 

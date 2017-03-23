@@ -113,7 +113,7 @@ namespace Ydb.Common.Application
             {
                 return null;
             }
-            Expression<Func<Area, bool>> where = i => (i.Code == areacode && !i.Code.EndsWith("0000") && i.Code.EndsWith("00"))|| i.BaiduCode== areacode;
+            Expression<Func<Area, bool>> where = i => (i.Code == areacode)|| i.BaiduCode== areacode;
             var list = repoArea.FindOne(where);
             return list;
 
@@ -205,8 +205,26 @@ namespace Ydb.Common.Application
             return list;
 
         }
+      
+        public ActionResult  UpdateAreaWithBaiduMap( string baiduCode, string baiduName)
+        {
+            ActionResult result = new ActionResult();
+            Area area = GetAreaByBaiduName(baiduName);
+            if (area != null)
+            {
+                area.BaiduName = baiduName;
+                area.BaiduCode = baiduCode;
+                //支撑域没有用application层的unitofwork.
+                repoArea.Update(area);
+            }
+            else
+            {
+                result.IsSuccess = false;
+                result.ErrMsg = "没有找到对应区域:" + baiduName;
+            }
+            return result;
 
-
+        }
 
         public void ParseAddress(string rawAddressFromMapApi, out  Area area, out double latitude, out double longtitude)
         {

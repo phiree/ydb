@@ -14,7 +14,7 @@ namespace Dianzhu.ApplicationService
         public string UserType { get; set; }
 
         public string UserID { get; set; }
-
+        
         public Customer getCustomer(string token,string apiKey,bool isVerify)
         {
             string strCustomerJson = "";

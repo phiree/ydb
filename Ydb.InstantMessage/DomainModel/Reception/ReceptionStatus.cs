@@ -17,12 +17,13 @@ namespace Ydb.InstantMessage.DomainModel.Reception
         /// <summary>
         /// 构造
         /// </summary>
-        public ReceptionStatus(string customerId, string customerServiceId,string orderId)
+        public ReceptionStatus(string customerId, string customerServiceId,string orderId,string areaId)
         {
             this.CustomerServiceId = customerServiceId;
             this.CustomerId = customerId;
             this.LastUpdateTime = DateTime.Now; 
             this.OrderId = orderId;
+            this.AreaId = areaId;
         } 
 
         public virtual void ChangeCS(string csId)
@@ -61,6 +62,7 @@ namespace Ydb.InstantMessage.DomainModel.Reception
 
             return dto;
         }
+        public virtual string AreaId { get; set; }
 
     }
 

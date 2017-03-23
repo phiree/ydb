@@ -12,9 +12,9 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
     {
 
         
-        public IList<ReceptionStatus> FindByCustomerId(string customerServiceId)
+        public IList<ReceptionStatus> FindByCustomerId(string customerId)
         {
-            return  Find(x => x.CustomerId == customerServiceId);
+            return  Find(x => x.CustomerId == customerId);
         }
         public IList<ReceptionStatus> FindByCustomerServiceId(string csId)
         {
@@ -23,6 +23,15 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
         public IList<ReceptionStatus> FindByDiandian(string diandianId,int amount)
         {
             return  Find(x => x.CustomerServiceId == diandianId).Take(amount).ToList();
+        }
+        public IList<ReceptionStatus> UpdateCustomerAreaId(string customerId, string areaId)
+        {
+           var list=  Find(x => x.CustomerId == customerId);
+            foreach (var i in list)
+            {
+                i.AreaId = areaId;
+            }
+            return list;
         }
  
     }

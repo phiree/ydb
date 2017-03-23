@@ -15,6 +15,12 @@ namespace Ydb.Common.Application
         IList<Area> GetSubArea(string areacode);
        Area GetAreaByBaiduName(string areaname);
         void ParseAddress(string rawAddressFromMapApi, out Area area, out double latitude, out double longtitude);
+        /// <summary>
+        /// 写入百度地图api 对应的 名称和代码
+        /// </summary>
+        /// <param name="baiduCode"></param>
+        /// <param name="baiduName"></param>
+        ActionResult UpdateAreaWithBaiduMap(string baiduCode, string baiduName);
 
     }
 }
