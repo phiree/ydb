@@ -113,6 +113,10 @@ namespace Ydb.InstantMessage.DomainModel.Chat
 
                 case "ihelper:notice:draft:new":
                     return chatFactory.CreateNoticeNewOrder();
+                case "ihelper:notice:cer:changearea":
+                    string customerAreaCode = ext_element.SelectSingleElement("areaCode", true).Value;
+                    string customerId = ext_element.SelectSingleElement("customerId", true).Value;
+                    return chatFactory.CreateNoticeCustomerChangeArea(customerAreaCode,customerId);
 
                 default:
                     throw new Exception("未知的命名空间");
@@ -221,7 +225,14 @@ namespace Ydb.InstantMessage.DomainModel.Chat
                     var areaCodeOnLine = new agsXMPP.Xml.Dom.Element("areaCode", ((ReceptionChatNoticeCustomerServiceOnline)chat).AreaCode);
                     extNode.AddChild(areaCodeOnLine);
                     break;
-
+                case "ReceptionChatNoticeCustomeChangeArea"://8
+                    msg.SetAttribute("type", "headline");
+                    extNode.Namespace = "ihelper:notice:cer:changearea";
+                    var areaCodeNew = new agsXMPP.Xml.Dom.Element("areaCode", ((ReceptionChatNoticeCustomerChangeArea)chat).NewAreaCode);
+                    var customerIdNode = new agsXMPP.Xml.Dom.Element("customerId", ((ReceptionChatNoticeCustomerChangeArea)chat).CustomerId);
+                    extNode.AddChild(areaCodeNew);
+                    extNode.AddChild(customerIdNode);
+                    break;
                 case "ReceptionChatNoticeNewOrder"://9
                     msg.SetAttribute("type", "headline");
                     extNode.Namespace = "ihelper:notice:draft:new";

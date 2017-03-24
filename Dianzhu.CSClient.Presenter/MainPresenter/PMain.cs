@@ -23,7 +23,7 @@ namespace Dianzhu.CSClient.Presenter
             IViewFormShowMessage viewFormShowMessage)
         {
             this.viewMainForm = viewMainForm;
-            this.viewMainForm.CSName = GlobalViables.CurrentCustomerService.NickName;
+            this.viewMainForm.CSName = GlobalViables.CurrentCustomerService.NickName+"("+GlobalViables.CurrentCustomerService.UserCity+")";
             this.iIM = iIM;
             this.bllLoginLog = bllLoginLog;
             this.viewFormShowMessage = viewFormShowMessage;
@@ -31,9 +31,10 @@ namespace Dianzhu.CSClient.Presenter
             iIM.IMStreamError += IIM_IMStreamError;
             iIM.IMClosed += IIM_IMClosed;
             
+            
         }
 
-       
+      
 
         public IViewMainForm Form
         {

@@ -282,17 +282,15 @@ namespace Ydb.InstantMessage.Infrastructure
                     switch (chat.GetType().Name)
                     {
                         case "ReceptionChat":
-                            dtoChat = chat.ToDto();
-                            break;
-
+                            
                         case "ReceptionChatMedia":
-                            dtoChat = ((ReceptionChatMedia)chat).ToDto();
-                            break;
+                            
 
                         case "ReceptionChatPushService":
-                            dtoChat = ((ReceptionChatPushService)chat).ToDto();
+                            
+                        case "ReceptionChatNoticeCustomerChangeArea":
+                            dtoChat = chat.ToDto();
                             break;
-
                         case "ReceptionChatNoticeCustomerServiceOnline":
                         case "ReceptionChatNoticeCustomerServiceOffline":
                         case "ReceptionChatNoticeOrder":
@@ -370,6 +368,17 @@ namespace Ydb.InstantMessage.Infrastructure
             log.Debug("Connection closed");
             if (IMClosed == null) return;
             IMClosed();
+        }
+
+        public void SendCustomerChangeAreaMessage(Guid messageId, string messageBody, string to, string toResource, string sessionId, string areaCode,string customerId)
+        {
+            XmppResource resourceTo;
+            if (!Enum.TryParse(toResource, out resourceTo))
+                throw new Exception("传入的toResource有误");
+            var receptionChatFactoryDD = new ReceptionChatFactory(messageId, string.Empty, to, messageBody, sessionId,
+                XmppResource.Unknow, resourceTo);
+            var chatDD = receptionChatFactoryDD.CreateNoticeCustomerChangeArea(areaCode, customerId);
+            SendMessage(chatDD);
         }
     }
 }

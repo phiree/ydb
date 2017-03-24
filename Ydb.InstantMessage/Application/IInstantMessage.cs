@@ -90,6 +90,8 @@ namespace   Ydb.InstantMessage.Application
         /// <param name="toResource"></param>
         /// <param name="sessionId"></param>
         void SendCSLogoffMessage(Guid messageId, string messageBody, string to, string toResource, string sessionId,string areaCode);
+
+        void SendCustomerChangeAreaMessage(Guid messageId, string messageBody, string to, string toResource, string sessionId, string areaCode,string customerId);
         /// <summary>
         /// 发送订单状态变更消息
         /// </summary>

@@ -70,6 +70,10 @@ namespace Ydb.InstantMessage.DomainModel.Chat
         {
             return new ReceptionChatNoticeCustomerServiceOnline(id, fromId, toId, messageBody, sessionId, fromResource, toResource, csAreaCode);
         }
+        public ReceptionChat CreateNoticeCustomerChangeArea(string csAreaCode,string customerId)
+        {
+            return new ReceptionChatNoticeCustomerChangeArea(id, fromId, toId, messageBody, sessionId, fromResource, toResource, csAreaCode,customerId);
+        }
 
         public ReceptionChat CreateNoticeUserStatus(string userId, string userStatus)
         {

@@ -223,15 +223,21 @@ namespace Ydb.InstantMessage.Application
 
             if (existReceptions.Count > 0)
             {
+                 
                 var assignReception = receptionAssigner.AssignCSLogoff(existReceptions, onlineCsList);
 
                 foreach (var item in existReceptions)
                 {
+                    //通知客服,删除对应的客户tab 
+                    im.SendCustomerChangeAreaMessage(Guid.NewGuid(), string.Empty, item.CustomerServiceId, "YDBan_CustomerService", item.OrderId, string.Empty,item.CustomerId);
+                        //
                     item.ChangeCS(assignReception[item.CustomerId]);
                     receptionRepository.Update(item);
 
+                    //重新分配客服.
                     im.SendReAssignToCustomer(assignReception[item.CustomerId], string.Empty, string.Empty,
                         Guid.NewGuid(), item.CustomerId, XmppResource.YDBan_User.ToString(), item.OrderId);
+                   
                 }
             }
         }

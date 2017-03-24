@@ -218,12 +218,13 @@ namespace Dianzhu.CSClient
         {
             string errMsg = string.Empty;
             //判断信息类型
+            IViewMainForm viewMainForm = Bootstrap.Container.Resolve<IViewMainForm>();
             if (chat.ChatType == enum_ChatType.Chat.ToString())
             {
-                if (!string.IsNullOrEmpty(chat.SessionId)) 
+                if (!string.IsNullOrEmpty(chat.SessionId))
                 {
-                     
-                    IViewMainForm viewMainForm = Bootstrap.Container.Resolve<IViewMainForm>();
+
+                  
                     viewMainForm.PlayVoice();
                     viewMainForm.FlashTaskBar();
 
@@ -253,7 +254,30 @@ namespace Dianzhu.CSClient
                         workerCustomerAvatar.RunWorkerCompleted += WorkerCustomerAvatar_RunWorkerCompleted;
                         workerCustomerAvatar.RunWorkerAsync(from);
                     }
- 
+
+                }
+            }
+            else if (chat.ChatType.ToLower() == enum_ChatType.Notice.ToString().ToLower())
+            {
+                if (chat.OriginalClassName == "ReceptionChatNoticeCustomerChangeArea")
+                {
+                   string customerChangedArea=  chat.CustomerChangedArea;
+                    if (IdentityManager.DeleteCustomer(customerChangedArea))
+                    { 
+                        bool isActive = IdentityManager.CurrentCustomerId == customerChangedArea;
+                   
+
+                    viewMainForm.RemoveIdentityTab(
+                        PHSuit.StringHelper.SafeNameForWpfControl(IdentityManager.CurrentCustomerId,
+                    GlobalViables.PRE_TAB_CUSTOMER), isActive);
+
+                        viewTabContentList.Remove(customerChangedArea);
+                        pIdentityList.RemoveIdentity(customerChangedArea);
+
+                        IReceptionService receptionService = Bootstrap.Container.Resolve<IReceptionService>();
+                        receptionService.DeleteReception(customerChangedArea);
+                    }
+
                 }
             }
         }

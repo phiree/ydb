@@ -154,7 +154,7 @@ endlocal
 
 setlocal
 :PROMPT
-SET /P AREYOUSURE=------------------------是否发布:10.CSClient(确认是否已经将正确的编译版本发布到了本地)(Y/N)?
+SET /P AREYOUSURE=------------------------是否发布:10.CSClient(确认是否已经将正确的编译版本发布到了本地.密码是1)(Y/N)?
 
 IF /I "%AREYOUSURE%" NEQ "Y" GOTO ENDY
 ncftpput -R   -u yf     -P 2121 dev.ydban.cn  /publish/csclient/   E:\Projects\dianzhu\publish\csclient\deploy\*
@@ -171,7 +171,7 @@ endlocal
 
 setlocal
 :PROMPT
-SET /P AREYOUSURE=------------------------是否发布:11.DianDian(确认是否已经编译正确)(Y/N)?
+SET /P AREYOUSURE=------------------------是否发布:11.DianDian(确认是否已经编译正确,密码是1)(Y/N)?
 
 IF /I "%AREYOUSURE%" NEQ "Y" GOTO ENDY
 ::使用dev配置编译点点

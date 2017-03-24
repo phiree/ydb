@@ -123,6 +123,7 @@
     <Compile Include="Application\IReceptionService.cs" />
     <Compile Include="DomainModel\Chat\Dto\ReceptionChatDidichuxingDto.cs" />
     <Compile Include="DomainModel\Chat\Model\ReceptionChatDidichuxing.cs" />
+    <Compile Include="DomainModel\Chat\Model\ReceptionChatNoticeCustomeChangeArea.cs" />
     <Compile Include="DomainModel\DataStatistics\IStatisticsInstantMessage.cs" />
     <Compile Include="DomainModel\DataStatistics\StatisticsInstantMessage.cs" />
     <Compile Include="DomainModel\Reception\AssignStratageSamdeArea.cs" />

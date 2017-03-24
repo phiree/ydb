@@ -140,7 +140,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
         public virtual ReceptionChatDto ToDto()
         {
             ReceptionChatDto dto = new ReceptionChatDto();
-
+            dto.OriginalClassName = this.GetType().Name;
             dto.Id = Id;
             dto.SessionId = SessionId;
             dto.SavedTime = SavedTime;
