@@ -874,6 +874,11 @@ namespace Ydb.Membership.Application
             return Mapper.Map<IList<MemberDto>>(repositoryMembership.GetUsersByIdList(memberIdList));
         }
 
+        public IList<MemberDto> GetUsersByIdList(IList<string> memberIdList, IList<string> areaIdList)
+        {
+            return Mapper.Map<IList<MemberDto>>(repositoryMembership.GetUsersByIdList(memberIdList, areaIdList));
+        }
+
 
         /// <summary>
         /// 根据代理区域获取其封锁的用户信息列表

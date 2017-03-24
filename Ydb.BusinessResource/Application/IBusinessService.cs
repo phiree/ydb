@@ -32,7 +32,7 @@ namespace Ydb.BusinessResource.Application
         /// <summary>
         /// 解析传递过来的 string, 
         /// </summary>
-         IList<Business> GetBusinessListByOwner(Guid memberId);
+         IList<Business> GetBusinessListByOwner(Guid memberId,IList<string>areaIdList);
         //如果图片保存不是通过编辑 Business 对象来完成的(比如 通过ajax mediaserver)
 
 

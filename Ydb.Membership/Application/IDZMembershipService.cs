@@ -293,5 +293,6 @@ namespace Ydb.Membership.Application
         IList<DZMembershipCustomerServiceDto> GetDZMembershipCustomerServiceByArea(IList<string> areaIdList);
 
         IList<MemberDto> GetUsersByIdList(IList<string> memberIdList);
+        IList<MemberDto> GetUsersByIdList(IList<string> memberIdList, IList<string> areaIdList);
     }
 }

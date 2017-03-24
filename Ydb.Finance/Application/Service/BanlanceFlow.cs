@@ -39,10 +39,8 @@ namespace Ydb.Finance.Application
         public IList<BalanceFlowDto> GetBalanceFlowByArea(IList<string> UserIdList)
         {
             var where = PredicateBuilder.True<BalanceFlow>();
-            if (UserIdList.Count>0)
-            {
-                where = where.And(x => UserIdList.Contains(x.AccountId));
-            }
+            
+            where = where.And(x => UserIdList.Contains(x.AccountId));
             return Mapper.Map<IList<BalanceFlow>, IList<BalanceFlowDto>>(repositoryBalanceFlow.Find(where));
         }
 
@@ -60,10 +58,8 @@ namespace Ydb.Finance.Application
             {
                 where = where.And(x => x.FlowType== flowType);
             }
-            if (UserIdList.Count > 0)
-            {
-                where = where.And(x => UserIdList.Contains(x.AccountId));
-            }
+            
+            where = where.And(x => UserIdList.Contains(x.AccountId));
             return repositoryBalanceFlow.Find(where).Sum(x => x.Amount); 
         }
 

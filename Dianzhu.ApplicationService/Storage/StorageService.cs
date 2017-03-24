@@ -68,7 +68,7 @@ namespace Dianzhu.ApplicationService.Storage
             utils.Base64ToAudio(fileBase4.data, out strSize);
             string[] strs = strFileName.Split(new string[]{"_length_"}, StringSplitOptions.None);
             
-            StorageFileInfo fileinfo = storageService.Save("", strFileName, "voice", string.Empty, string.Empty, strs[1], strSize, DateTime.Now, customer.UserID);
+            StorageFileInfo fileinfo = storageService.Save("", strs[0], "voice", string.Empty, string.Empty, strs[1], strSize, DateTime.Now, customer.UserID);
             audioObj audioobj = Mapper.Map<StorageFileInfo, audioObj>(fileinfo);
             return audioobj;
         }

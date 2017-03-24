@@ -38,10 +38,8 @@ namespace Ydb.Finance.Application
         public IList<BalanceTotalDto> GetBalanceTotalByArea(IList<string> UserIdList)
         {
             var where = PredicateBuilder.True<BalanceTotal>();
-            if (UserIdList.Count > 0)
-            {
-                where = where.And(x => UserIdList.Contains(x.UserId));
-            }
+            
+            where = where.And(x => UserIdList.Contains(x.UserId));
             return Mapper.Map<IList<BalanceTotal>, IList<BalanceTotalDto>>(repositoryBalanceTotal.Find(where));
         }
     }

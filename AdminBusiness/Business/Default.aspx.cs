@@ -33,7 +33,7 @@ public partial class Business_Default : BasePage
     protected void BindBusinessList()
     {
 
-        var businessList = businessService.GetBusinessListByOwner(CurrentUser.Id).Where(x=>x.Enabled);
+        var businessList = businessService.GetBusinessListByOwner(CurrentUser.Id,new List<string>()).Where(x=>x.Enabled);
         
         rptBusinessList.DataSource = businessList;
         // rptBusinessList.ItemCommand+=new RepeaterCommandEventHandler(rptBusinessList_ItemCommand);

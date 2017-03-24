@@ -300,10 +300,8 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
         public long GetOrdersCountByBusinessList(IList<string> businessIdList, bool isShared)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            if (businessIdList.Count > 0)
-            {
-                where = where.And(x => businessIdList.Contains(x.BusinessId));
-            }
+            
+            where = where.And(x => businessIdList.Contains(x.BusinessId));
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                     && x.OrderStatus != enum_OrderStatus.DraftPushed
                     && x.OrderStatus != enum_OrderStatus.Search);
@@ -322,10 +320,8 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
         public IList<ServiceOrder> GetOrdersByBusinessList(IList<string> businessIdList, bool isShared)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            if (businessIdList.Count > 0)
-            {
-                where = where.And(x => businessIdList.Contains(x.BusinessId));
-            }
+            
+            where = where.And(x => businessIdList.Contains(x.BusinessId));
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                     && x.OrderStatus != enum_OrderStatus.DraftPushed
                     && x.OrderStatus != enum_OrderStatus.Search);
@@ -359,10 +355,9 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
         public IList<ServiceOrder> GetOrdersByBusinessList(IList<string> businessIdList, DateTime beginTime, DateTime endTime,string strDone)
         {
             var where = Ydb.Common.Specification.PredicateBuilder.True<ServiceOrder>();
-            if (businessIdList.Count > 0)
-            {
-                where = where.And(x => businessIdList.Contains(x.BusinessId));
-            }
+            
+            where = where.And(x => businessIdList.Contains(x.BusinessId));
+            
             if (beginTime != DateTime.MinValue)
             {
                 where = where.And(x => x.OrderConfirmTime >= beginTime);
@@ -415,10 +410,8 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
         public long GetOrdersCountByBusinessList(IList<string> businessIdList, DateTime beginTime, DateTime endTime, string strDone)
         {
             var where = Ydb.Common.Specification.PredicateBuilder.True<ServiceOrder>();
-            if (businessIdList.Count > 0)
-            {
-                where = where.And(x => businessIdList.Contains(x.BusinessId));
-            }
+            
+            where = where.And(x => businessIdList.Contains(x.BusinessId));
             if (beginTime != DateTime.MinValue)
             {
                 where = where.And(x => x.OrderConfirmTime >= beginTime);
@@ -469,10 +462,8 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
         public decimal GetTotalAmountByBusinessList(IList<string> businessIdList)
         {
             var where = Ydb.Common.Specification.PredicateBuilder.True<ServiceOrder>();
-            if (businessIdList.Count > 0)
-            {
-                where = where.And(x => businessIdList.Contains(x.BusinessId));
-            }
+            
+            where = where.And(x => businessIdList.Contains(x.BusinessId));
             where = where.And(
                        x => x.OrderStatus == enum_OrderStatus.Finished
                        || x.OrderStatus == enum_OrderStatus.Appraised

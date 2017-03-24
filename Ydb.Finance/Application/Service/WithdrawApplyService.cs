@@ -229,10 +229,8 @@ namespace Ydb.Finance.Application
         public IList<WithdrawApplyDto> GetWithdrawApplyListByArea(IList<string> userIdList)
         {
             var where = PredicateBuilder.True<WithdrawApply>();
-            if (userIdList.Count >0)
-            {
-                where = where.And(x => userIdList.Contains(x.ApplyUserId));
-            }
+            
+            where = where.And(x => userIdList.Contains(x.ApplyUserId));
             var list =  repositoryWithdrawApply.Find(where).ToList();
             return Mapper.Map<IList<WithdrawApply>, IList<WithdrawApplyDto>>(list);
         }
