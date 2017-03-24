@@ -247,7 +247,7 @@ namespace Dianzhu.CSClient
 
                     // 用户头像的本地化处理
                     MemberDto from = memberService.GetUserById(chat.FromId);
-                    if (from.AvatarUrl != null)
+                    if (!string.IsNullOrEmpty(from.AvatarUrl))
                     {
                         workerCustomerAvatar = new BackgroundWorker();
                         workerCustomerAvatar.DoWork += WorkerCustomerAvatar_DoWork;

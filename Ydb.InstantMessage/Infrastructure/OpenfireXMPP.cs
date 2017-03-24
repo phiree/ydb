@@ -282,15 +282,18 @@ namespace Ydb.InstantMessage.Infrastructure
                     switch (chat.GetType().Name)
                     {
                         case "ReceptionChat":
-                            
-                        case "ReceptionChatMedia":
-                            
-
-                        case "ReceptionChatPushService":
-                            
                         case "ReceptionChatNoticeCustomerChangeArea":
                             dtoChat = chat.ToDto();
                             break;
+                        case "ReceptionChatMedia":
+                            dtoChat = ((ReceptionChatMedia)chat).ToDto();
+                            break;
+
+                        case "ReceptionChatPushService":
+                            dtoChat = ((ReceptionChatPushService)chat).ToDto();
+                            break;
+
+                       
                         case "ReceptionChatNoticeCustomerServiceOnline":
                         case "ReceptionChatNoticeCustomerServiceOffline":
                         case "ReceptionChatNoticeOrder":
