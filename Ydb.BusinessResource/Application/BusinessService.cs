@@ -144,9 +144,16 @@ namespace Ydb.BusinessResource.Application
         /// <summary>
         /// 解析传递过来的 string, 
         /// </summary>
-        public IList<Business> GetBusinessListByOwner(Guid memberId)
+        public IList<Business> GetBusinessListByOwner(Guid memberId,IList<string> areaIdList)
         {
-            return repositoryBusiness.Find(x => x.OwnerId == memberId);
+            if (areaIdList.Count > 0)
+            {
+                return repositoryBusiness.Find(x => x.OwnerId == memberId && areaIdList.Contains(x.AreaBelongTo));
+            }
+            else
+            {
+                return repositoryBusiness.Find(x => x.OwnerId == memberId);
+            }
             //     return DALBusiness.GetBusinessListByOwner(memberId);
         }
         //如果图片保存不是通过编辑 Business 对象来完成的(比如 通过ajax mediaserver)

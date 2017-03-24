@@ -27,7 +27,7 @@ namespace Ydb.ApplicationService.Application.AgentService
         {
             IList<Business> businessList = businessService.GetAllBusinessesByArea(areaIdList);
             IList<string> memberIdList = businessList.Select(x => x.OwnerId.ToString()).ToList();
-            IList<MemberDto> memberDtoList = dzMembershipService.GetUsersByIdList(memberIdList);
+            IList<MemberDto> memberDtoList = dzMembershipService.GetUsersByIdList(memberIdList,areaIdList);
             memberDtoList = memberDtoList.Where(x => x.IsLocked == isLocked).ToList();
             //RecoveryCode
             foreach (MemberDto m in memberDtoList)

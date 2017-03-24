@@ -52,5 +52,7 @@ namespace Ydb.Membership.DomainModel.Repository
 
         IList<DZMembership> GetUsersByIdList(IList<string> memberIdList);
 
+        IList<DZMembership> GetUsersByIdList(IList<string> memberIdList, IList<string> areaIdList);
+
     }
 }

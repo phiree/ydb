@@ -242,7 +242,11 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate
         public DZMembershipCustomerService GetOneNotVerifiedDZMembershipCustomerServiceByArea(IList<string> areaList)
         {
             var where = Ydb.Common.Specification.PredicateBuilder.True<DZMembership>();
-            where = where.And(x => x.UserType == UserType.customerservice && x is DZMembershipCustomerService && areaList.Contains(x.AreaId));
+            where = where.And(x => x.UserType == UserType.customerservice && x is DZMembershipCustomerService);
+            if (areaList.Count > 0)
+            {
+                where = where.And(x => areaList.Contains(x.AreaId));
+            }
             long totalRecord = 0;
             return  (DZMembershipCustomerService)Find(where,1,1,out totalRecord).ToList()[0];
         }
@@ -250,6 +254,18 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate
         public IList<DZMembership> GetUsersByIdList(IList<string> memberIdList)
         {
             return Find(x => memberIdList.Contains(x.Id.ToString())).ToList();
+        }
+
+        public IList<DZMembership> GetUsersByIdList(IList<string> memberIdList,IList<string> areaIdList)
+        {
+            if (areaIdList.Count > 0)
+            {
+                return Find(x => memberIdList.Contains(x.Id.ToString()) || (areaIdList.Contains(x.AreaId)&& x.UserType== UserType.business)).ToList();
+            }
+            else
+            {
+                return Find(x =>x.UserType==UserType.business).ToList();
+            }
         }
 
     }

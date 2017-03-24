@@ -154,7 +154,7 @@ namespace Ydb.ApplicationService.Application.AgentService.DataStatistics
             {
                 IList<Business> blist = businessList.Where(x => x.AreaBelongTo == area.Id.ToString()).ToList();
                 IList<string> bIdList = blist.Select(x => x.Id.ToString()).ToList();
-                long bc = orderList.Count(x => bIdList.Contains(x.Id.ToString()));
+                long bc = orderList.Count(x => bIdList.Contains(x.BusinessId));
                 statisticsInfo.XYValue.Add(area.Name, bc);
             }
             return statisticsInfo;

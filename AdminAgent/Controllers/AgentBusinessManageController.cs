@@ -107,7 +107,7 @@ namespace AdminAgent.Controllers
             {
                 ViewBag.UserName = CurrentUser.UserName;
                 MemberDto memberDto = dzMembershipService.GetUserById(id);
-                IList<Business> businessList = businessService.GetBusinessListByOwner(memberDto.Id);
+                IList<Business> businessList = businessService.GetBusinessListByOwner(memberDto.Id,CurrentUser.AreaIdList);
                 ViewData["StoreList"] = businessList;
                 IList<string> businessIdList = businessList.Select(x => x.Id.ToString()).ToList();
                 IList<ServiceOrder> orderList = serviceOrderService.GetOrdersByBusinessList(businessIdList, DateTime.MinValue, DateTime.MinValue, "");
