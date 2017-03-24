@@ -260,7 +260,7 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate
         {
             if (areaIdList.Count > 0)
             {
-                return Find(x => memberIdList.Contains(x.Id.ToString()) || areaIdList.Contains(x.AreaId)).ToList();
+                return Find(x => memberIdList.Contains(x.Id.ToString()) || (areaIdList.Contains(x.AreaId)&& x.UserType== UserType.business)).ToList();
             }
             else
             {
