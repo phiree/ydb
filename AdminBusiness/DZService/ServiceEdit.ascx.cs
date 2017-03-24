@@ -50,7 +50,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         
         if (!IsPostBack)
         {
-//            LoadInit();
+ 
             if (!IsNew)
             {
                 LoadForm();
@@ -65,22 +65,13 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         //获取该店铺其他服务
         if (CurrentService.Id != new Guid())
         {
-            int total;
+             
             otherServiceLocation = "[";
-            /*
-            IList<DZService> areaCodes = bllService.GetOtherServiceByBusiness(CurrentService.Business.Id, CurrentService.Id, 0, 9999, out total);
-            foreach (DZService a in areaCodes)
-            {
-                otherServiceLocation += a.BusinessAreaCode + ",";
-            }
-            otherServiceLocation = otherServiceLocation.TrimEnd(',');*/
+           
             otherServiceLocation += "]";
         }
     }
-//    public void LoadInit()
-//    {
-//        LoadServicePeriod();
-//    }
+ 
 
     void rptProperties_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {

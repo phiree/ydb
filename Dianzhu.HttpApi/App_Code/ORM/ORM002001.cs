@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Security;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
 
 using Dianzhu.Api.Model;
 using Ydb.InstantMessage.Application;
 using Ydb.InstantMessage.Application.Dto;
-using Ydb.Membership.Application;
-using Ydb.Membership.Application.Dto;
 using Ydb.Order.Application;
 using Ydb.Order.DomainModel;
 using Ydb.InstantMessage.DomainModel.Reception;

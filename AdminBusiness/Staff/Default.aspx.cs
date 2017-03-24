@@ -32,7 +32,7 @@ public partial class Staff_Default : BasePage
     }
     private void BindList()
     {
-        int total=30;
+       
         Business b = CurrentBusiness;
         string strIndex = Request["page"];
         int index = 0;

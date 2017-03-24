@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Dianzhu.ApplicationService.Assign
 {
@@ -24,7 +20,6 @@ namespace Dianzhu.ApplicationService.Assign
         /// <param name="customer"></param>
         /// <returns></returns>
         IList<assignObj> GetAssigns(common_Trait_Filtering filter, common_Trait_AssignFiltering assign, Customer customer);
-
 
         /// <summary>
         /// 统计指派的数量

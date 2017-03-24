@@ -35,7 +35,7 @@ public partial class Pay_Default : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        string orderId = Request["orderId"];
+          orderId = Request["orderId"];
         string paramPayTarget = Request["paytarget"];
       bool isPayTarget=  Enum.TryParse<enum_PayTarget>(paramPayTarget, out payTarget);
        

@@ -1,17 +1,16 @@
-﻿using System;
+﻿using AutoMapper;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
 using System.Security.Cryptography;
+using System.Text;
 using Ydb.Push.Application;
 using Ydb.Push.DomainModel;
+
 namespace Dianzhu.ApplicationService.ADs
 {
     public class ADsService : IADsService
     {
-       IAdvertisementService advService;
+        private IAdvertisementService advService;
+
         public ADsService(IAdvertisementService advService)
         {
             this.advService = advService;
@@ -23,19 +22,19 @@ namespace Dianzhu.ApplicationService.ADs
         /// <param name="adf"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public IList<adObj> GetADs(common_Trait_AdFiltering adf,Customer customer)
+        public IList<adObj> GetADs(common_Trait_AdFiltering adf, Customer customer)
         {
-            IList< Advertisement> listad = null;
+            IList<Advertisement> listad = null;
             listad = advService.GetADListForUseful(customer.UserType);
             //if (listad == null)
             //{
             //    throw new Exception(Dicts.StateCode[4]);
             //}
-            
+
             if (listad.Count > 0)
             {
                 string datetimeStr = "";
-                foreach ( Advertisement ad in listad)
+                foreach (Advertisement ad in listad)
                 {
                     datetimeStr += ad.LastUpdateTime.ToString("yyyyMMddHHmmss") + " ";
                 }

@@ -26,7 +26,7 @@ public partial class login : System.Web.UI.Page
    
         if (validateResult.IsValidated)
         {
-            var result = SignInStatus.Failure;
+            
             if (validateResult.ValidatedMember.UserType != "admin")
             {
                 lblMsg.Text = "登录失败:not admin";
@@ -48,7 +48,7 @@ public partial class login : System.Web.UI.Page
             var authManager = ctx.Authentication;
 
             authManager.SignIn(identity);
-            result = SignInStatus.Success;
+          
 
             string returnurl = Request["returnurl"];
             if (returnurl == null) { returnurl = "/"; }

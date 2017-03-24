@@ -24,14 +24,7 @@ public class BaseRequest
         get
         {
             return false;
-            if (string.IsNullOrEmpty(appName))
-            {
-                return true;
-            }
-            else
-            {
-                return appName.ToLower() != "adminbusiness";
-            }
+             
         }
     }
 }

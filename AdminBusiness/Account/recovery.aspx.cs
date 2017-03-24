@@ -15,7 +15,7 @@ public partial class ForgetPassword :Dianzhu.Web.Common.BasePage
 
    
     IDZMembershipService memberService= Bootstrap.Container.Resolve<IDZMembershipService>();
-    MemberDto member;
+     
     string recoveryString;
     protected void Page_Load(object sender, EventArgs e)
     {

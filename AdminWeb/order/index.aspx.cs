@@ -17,11 +17,9 @@ using Ydb.Order.DomainModel;
 public partial class order_index : BasePage
 {
     public IServiceOrderService bllServiceOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
-    ServiceOrder serviceorder;
-    public int page;
+     public int page;
     string linkStr;//链接字符串
-    PagedDataSource pds;
-    
+     
     protected override void OnInit(EventArgs e)
     {
         base.OnInit(e);

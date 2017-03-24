@@ -23,8 +23,6 @@ public class ImageLoader : IHttpHandler {
 
         Business b = businessService.GetOne(new Guid(strBusinessId));
 
-        enum_ImageType enum_imagetype = enum_ImageType.Business_Show;
-
         // 返回对应类型图片url
         switch (imageType) {
             case "businesslicense":

@@ -1,33 +1,29 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using AutoMapper;
-
-using Ydb.Membership.Application;
-using Ydb.Membership.Application.Dto;
 using Ydb.BusinessResource.Application;
 using Ydb.Common;
-using S=Ydb.ApiClient.Application;
-using M= Ydb.ApiClient.DomainModel;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
+using M = Ydb.ApiClient.DomainModel;
+using S = Ydb.ApiClient.Application;
+
 namespace Dianzhu.ApplicationService.Client
 {
-    public class ClientService:IClientService
+    public class ClientService : IClientService
     {
-       S.IClientService ibllclient;
-       S.IRefreshTokenService ibllrefreshtoken;
-        IUserTokenService userTokenService = null;
-        
-        IDZMembershipService memberService;
-        IStaffService staffService;
-        
-        IMembershipLoginLogService membershipLoginLogService;
+        private S.IClientService ibllclient;
+        private S.IRefreshTokenService ibllrefreshtoken;
+        private IUserTokenService userTokenService = null;
+
+        private IDZMembershipService memberService;
+        private IStaffService staffService;
+
+        private IMembershipLoginLogService membershipLoginLogService;
 
         public ClientService(IUserTokenService userTokenService, IStaffService staffService,
 IMembershipLoginLogService membershipLoginLogService
-            ,IDZMembershipService memberService, S.IClientService ibllclient,
+            , IDZMembershipService memberService, S.IClientService ibllclient,
         S.IRefreshTokenService ibllrefreshtoken)
         {
             this.ibllclient = ibllclient;
@@ -35,7 +31,7 @@ IMembershipLoginLogService membershipLoginLogService
             //this.ibllclient = ibllclient;
             //this.ibllrefreshtoken = ibllrefreshtoken;
             this.userTokenService = userTokenService;
-        
+
             this.staffService = staffService;
             this.memberService = memberService;
             this.membershipLoginLogService = membershipLoginLogService;
@@ -50,13 +46,12 @@ IMembershipLoginLogService membershipLoginLogService
         /// <param name="apiKey"></param>
         /// <param name="strPath"></param>
         /// <returns></returns>
-        public UserTokentDTO CreateToken(string loginName, string password, string apiName, string apiKey,string strPath,string appName)
+        public UserTokentDTO CreateToken(string loginName, string password, string apiName, string apiKey, string strPath, string appName)
         {
-
             log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.ClientController.NoRule.v1.RestfulApi.Web.Dianzhu");
-            ValidateResult validateResult=   memberService.Login(loginName, password);
-            
-            if (!validateResult.IsValidated )
+            ValidateResult validateResult = memberService.Login(loginName, password);
+
+            if (!validateResult.IsValidated)
             {
                 //throw new Exception("用户名或密码错误！");
                 throw new Exception("001002");
@@ -72,7 +67,6 @@ IMembershipLoginLogService membershipLoginLogService
             //}
             MemberDto dzm = validateResult.ValidatedMember;
 
-
             //用户登录记录
             membershipLoginLogService.MemberLogin(dzm.Id.ToString(), "", (enum_appName)Enum.Parse(typeof(enum_appName), appName));
 
@@ -86,13 +80,15 @@ IMembershipLoginLogService membershipLoginLogService
                     }
                     userUri = strPath + "/api/v1/customers/" + dzm.Id;
                     break;
+
                 case "customer":
                     if (apiName != "UI3f4185e97b3E4a4496594eA3b904d60d" && apiName != "UA811Cd5343a1a41e4beB35227868541f8")
                     {
                         throw new Exception("用户类型不正确，不能登录该App！");
                     }
-                    userUri = strPath+"/api/v1/customers/" +dzm.Id;
+                    userUri = strPath + "/api/v1/customers/" + dzm.Id;
                     break;
+
                 case "business":
                     if (apiName != "MI354d5aaa55Ff42fba7716C4e70e015f2" && apiName != "MAA6096436548346B0b70ffb58A9b0426d" && apiName != "ABc907a34381Cd436eBfed1F90ac8f823b")
                     {
@@ -100,6 +96,7 @@ IMembershipLoginLogService membershipLoginLogService
                     }
                     userUri = strPath + "/api/v1/merchants/" + dzm.Id;
                     break;
+
                 case "customerservice":
                     if (apiName != "CI5baFa6180f5d4b9D85026073884c3566" && apiName != "CA660838f88147463CAF3a52bae6c30cbd")
                     {
@@ -107,14 +104,16 @@ IMembershipLoginLogService membershipLoginLogService
                     }
                     userUri = strPath + "/api/v1/CustomerServices/" + dzm.Id;
                     break;
+
                 case "staff":
                     if (apiName != "MI354d5aaa55Ff42fba7716C4e70e015f2" && apiName != "MAA6096436548346B0b70ffb58A9b0426d")
                     {
                         throw new Exception("用户类型不正确，不能登录该App！");
                     }
-             Ydb.BusinessResource.DomainModel. Staff staff = staffService.GetOneByUserID(Guid.Empty, dzm.Id.ToString()) ;
+                    Ydb.BusinessResource.DomainModel.Staff staff = staffService.GetOneByUserID(Guid.Empty, dzm.Id.ToString());
                     userUri = strPath + "/api/v1/stores/" + staff.Belongto.Id + "/staffs/" + staff.Id;
                     break;
+
                 default:
                     throw new Exception("用户类型不正确，不能登录该App！");
             }
@@ -125,10 +124,10 @@ IMembershipLoginLogService membershipLoginLogService
             customer.UserID = dzm.Id.ToString();
             UserTokentDTO usertokendto = new UserTokentDTO();
             usertokendto.userEndpoint = userUri;
-            usertokendto.token= JWT.JsonWebToken.Encode(customer, apiKey, JWT.JwtHashAlgorithm.HS256);
+            usertokendto.token = JWT.JsonWebToken.Encode(customer, apiKey, JWT.JwtHashAlgorithm.HS256);
 
             //Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.token, Flag = 1, CreatedTime = DateTime.Now };
-            
+
             ilog.Debug("PostToken(Baegin1):" + dzm.Id.ToString() + "_" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
             //if (bllusertoken.addToken(usertoken))
             //{
@@ -139,11 +138,11 @@ IMembershipLoginLogService membershipLoginLogService
 
             DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Local);
             TimeSpan currentTs = DateTime.Now - epochStart;
-            string requestTimeStamp = currentTs.TotalSeconds.ToString ();
+            string requestTimeStamp = currentTs.TotalSeconds.ToString();
             System.Runtime.Caching.MemoryCache.Default.Remove(dzm.Id.ToString());
             System.Runtime.Caching.MemoryCache.Default.Add(dzm.Id.ToString(), usertokendto.token, DateTimeOffset.UtcNow.AddSeconds(172800));
             //ilog.Debug("PostToken(End):" + loginName + "_" + DateTime.Now.ToString("yyyyMMddHHmmss"));
-            
+
             return usertokendto;
         }
 
@@ -153,7 +152,7 @@ IMembershipLoginLogService membershipLoginLogService
         /// <param name="client"></param>
         public void RegisterClient(ClientDTO clientdto)
         {
-          M.Client client= Mapper.Map<ClientDTO, M.Client>(clientdto);
+            M.Client client = Mapper.Map<ClientDTO, M.Client>(clientdto);
             ibllclient.RegisterClient(client);
         }
 
@@ -164,7 +163,7 @@ IMembershipLoginLogService membershipLoginLogService
         /// <returns></returns>
         public ClientDTO FindClient(string clientId)
         {
-            M.Client client= ibllclient.FindClient(clientId);
+            M.Client client = ibllclient.FindClient(clientId);
             ClientDTO clientdto = Mapper.Map<M.Client, ClientDTO>(client);
             return clientdto;
         }
@@ -205,7 +204,7 @@ IMembershipLoginLogService membershipLoginLogService
         /// <returns></returns>
         public RefreshTokenDTO FindRefreshToken(string refreshTokenId)
         {
-            M.RefreshToken refreshtoken= ibllrefreshtoken.FindRefreshToken(refreshTokenId);
+            M.RefreshToken refreshtoken = ibllrefreshtoken.FindRefreshToken(refreshTokenId);
             RefreshTokenDTO tokendto = Mapper.Map<M.RefreshToken, RefreshTokenDTO>(refreshtoken);
             return tokendto;
         }
@@ -216,8 +215,8 @@ IMembershipLoginLogService membershipLoginLogService
         /// <returns></returns>
         public IList<RefreshTokenDTO> GetAllRefreshTokens()
         {
-            IList<M.RefreshToken > refreshtoken = ibllrefreshtoken.GetAllRefreshTokens();
-            IList < RefreshTokenDTO> tokendto = Mapper.Map< IList<M.RefreshToken>, IList< RefreshTokenDTO> >(refreshtoken);
+            IList<M.RefreshToken> refreshtoken = ibllrefreshtoken.GetAllRefreshTokens();
+            IList<RefreshTokenDTO> tokendto = Mapper.Map<IList<M.RefreshToken>, IList<RefreshTokenDTO>>(refreshtoken);
             return tokendto;
         }
 

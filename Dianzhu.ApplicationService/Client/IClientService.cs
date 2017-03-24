@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dianzhu.ApplicationService.Client
 {
-    public interface IClientService:IDisposable
+    public interface IClientService : IDisposable
     {
         /// <summary>
         /// 创建Token值
@@ -17,7 +14,7 @@ namespace Dianzhu.ApplicationService.Client
         /// <param name="apiKey"></param>
         /// <param name="strPath"></param>
         /// <returns></returns>
-        UserTokentDTO CreateToken(string loginName, string password, string apiName, string apiKey, string strPath,string appName);
+        UserTokentDTO CreateToken(string loginName, string password, string apiName, string apiKey, string strPath, string appName);
 
         /// <summary>
         /// 注册客户端
@@ -55,7 +52,7 @@ namespace Dianzhu.ApplicationService.Client
         /// </summary>
         /// <param name="refreshTokenId"></param>
         /// <returns></returns>
-        RefreshTokenDTO  FindRefreshToken(string refreshTokenId);
+        RefreshTokenDTO FindRefreshToken(string refreshTokenId);
 
         /// <summary>
         /// 获取所有的RefreshToken

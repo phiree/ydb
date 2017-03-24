@@ -42,9 +42,9 @@ public partial class RefundCallBackHandler : BasePage
        
         enum_PayAPI payApi;
       
-        string refundId, platformOrderId;
+        string refundId;
         decimal totalAmount;
-        string success_details, fail_details;
+        
         ////微信代码已删除, 因为微信退款通知是同步返回的,无需回调.
 
 
