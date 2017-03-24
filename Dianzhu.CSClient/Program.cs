@@ -268,7 +268,7 @@ namespace Dianzhu.CSClient
                    
 
                     viewMainForm.RemoveIdentityTab(
-                        PHSuit.StringHelper.SafeNameForWpfControl(IdentityManager.CurrentCustomerId,
+                        PHSuit.StringHelper.SafeNameForWpfControl(customerChangedArea,
                     GlobalViables.PRE_TAB_CUSTOMER), isActive);
 
                         viewTabContentList.Remove(customerChangedArea);

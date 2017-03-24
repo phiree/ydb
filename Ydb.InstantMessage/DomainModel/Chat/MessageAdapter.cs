@@ -225,7 +225,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
                     var areaCodeOnLine = new agsXMPP.Xml.Dom.Element("areaCode", ((ReceptionChatNoticeCustomerServiceOnline)chat).AreaCode);
                     extNode.AddChild(areaCodeOnLine);
                     break;
-                case "ReceptionChatNoticeCustomeChangeArea"://8
+                case "ReceptionChatNoticeCustomerChangeArea"://8
                     msg.SetAttribute("type", "headline");
                     extNode.Namespace = "ihelper:notice:cer:changearea";
                     var areaCodeNew = new agsXMPP.Xml.Dom.Element("areaCode", ((ReceptionChatNoticeCustomerChangeArea)chat).NewAreaCode);
