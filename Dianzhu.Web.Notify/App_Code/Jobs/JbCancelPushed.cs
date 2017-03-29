@@ -24,7 +24,6 @@ using Ydb.Order.Application;
             try
             {
                 string orderId = context.JobDetail.JobDataMap["orderId"].ToString();
-
                   var result= orderService.OrderFlow_Canceled(new Guid(orderId));
             if (!result)
             {

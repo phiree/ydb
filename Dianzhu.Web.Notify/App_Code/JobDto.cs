@@ -17,5 +17,6 @@ public class JobDto
     public DateTime PreviousFireTime { get; set; }
     public DateTime NextFireTime { get; internal set; }
     public DateTime StartTime { get; set; }
+    public string OrderId { get; set; }
 }
 

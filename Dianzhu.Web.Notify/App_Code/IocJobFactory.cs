@@ -14,11 +14,7 @@ public class IocJobFactory:IJobFactory
     IWindsorContainer container;
     public IocJobFactory(IWindsorContainer container)
     {
-
         this.container = container;
-        //
-        // TODO: 在此处添加构造函数逻辑
-        //
     }
 
     public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)

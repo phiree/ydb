@@ -12,14 +12,16 @@ using Ydb.Order.Application;
  
     public class YdbJobManager
     {
-        static IScheduler scheduler = Bootstrap.Container.Resolve<IScheduler>();
+        IScheduler scheduler; //Bootstrap.Container.Resolve<IScheduler>();
         IServiceOrderService orderService;
          
 
-        public YdbJobManager(IServiceOrderService orderService)
+        public YdbJobManager(IServiceOrderService orderService,IScheduler scheduler, IJobFactory jobFactory)
         {
             this.orderService = orderService;
-            scheduler.JobFactory  = Bootstrap.Container.Resolve<IJobFactory>();
+        this.scheduler = scheduler;
+        scheduler.JobFactory = jobFactory;
+        
         }
         public IList<IJobExecutionContext> CreateJob(string orderid,string type)
         {
@@ -61,12 +63,14 @@ using Ydb.Order.Application;
                    
                     var detail = scheduler.GetJobDetail(jobKey);
                     var triggers = scheduler.GetTriggersOfJob(jobKey);
+                var orderId = detail.JobDataMap["orderId"].ToString();
 
 
                     foreach (ITrigger trigger in triggers)
                     {
                         JobDto dto = new JobDto();
 
+                    dto.OrderId = orderId;
                         dto.StartTime = trigger.StartTimeUtc.LocalDateTime;
                         dto.GroupName = group;
                         dto.JobName  = jobKey.Name;
