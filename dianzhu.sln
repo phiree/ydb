@@ -116,7 +116,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Notify", "Dianzhu.Web.Notify\", "{0B7AB42A-DED4-41A7-8A94-265686227268}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
-		ProjectReferences = "{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}|Ydb.InstantMessage.dll;{3d510583-1c11-48fb-8380-12e183e5914b}|Ydb.Infrastructure.dll;{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}|Ydb.Membership.dll;{59D8ECF9-2867-43FD-BF18-EFE2758CF14F}|Log4Mongo.dll;"
+		ProjectReferences = "{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{F351E700-E016-4A42-9154-54A6D92ECBDE}|Ydb.Common.dll;{A141EB7D-6E71-43C1-9CA7-12AF1B74C1C7}|Ydb.InstantMessage.dll;{3d510583-1c11-48fb-8380-12e183e5914b}|Ydb.Infrastructure.dll;{6A7ED67D-846D-46C6-84B0-82B8556F0B8F}|Ydb.Membership.dll;{59D8ECF9-2867-43FD-BF18-EFE2758CF14F}|Log4Mongo.dll;{515a3298-f38b-40e0-968c-5c65efb2affe}|Ydb.ApplicationService.dll;{8B398F01-B6BB-409F-89EF-B874899C05E0}|OpenfireExtension.dll;{0C2206A1-308F-4090-A4A9-4E7CEFD2FD9F}|Ydb.BusinessResource.dll;{343214F8-A523-4BDA-B783-4D77942269B9}|Ydb.Finance.dll;{DB0DD68A-1A9B-4028-B4FB-477E447EDB6E}|Ydb.Notice.dll;{901E2A8A-E608-4477-B9BC-F583D818D87F}|Ydb.Order.dll;{A54365B5-4B06-4897-A280-38D18ED9EB0E}|Ydb.PayGateway.dll;{E0661833-5498-4F1D-94E7-35C39C5BD8B9}|Ydb.Push.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_50182"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.Web.Notify\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50182\"

@@ -17,6 +17,7 @@ namespace Ydb.Order.Application
     /// <summary>
     /// 订单业务逻辑
     /// </summary>
+    [Serializable]
     public class ServiceOrderService : IServiceOrderService
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
@@ -1194,6 +1195,7 @@ namespace Ydb.Order.Application
             switch (oldStatus)
             {
                 case enum_OrderStatus.Created:
+                case enum_OrderStatus.DraftPushed:
                     log.Debug("订单为Created，取消成功");
                     //order.OrderStatus = oldStatus;
                     ChangeStatus(order, enum_OrderStatus.Canceled);

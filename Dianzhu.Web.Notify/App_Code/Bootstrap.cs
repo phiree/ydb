@@ -1,8 +1,12 @@
-﻿using Castle.Windsor;
- 
+﻿using Castle.MicroKernel.Registration;
+using Castle.Windsor;
+
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
 using System.Configuration;
 /// <summary>
 /// Summary description for Installer
@@ -20,6 +24,17 @@ public class Bootstrap
     {
         container = new WindsorContainer();
 
+         
+
+        container.Register(Component.For<IJobFactory>()
+            .Instance(new IocJobFactory(container)));
+        container.Register(Component.For<JbCancelPushed>());
+        container.Register(Component.For<JbRemindCustomerPay>());
+        container.Register(Component.For<IScheduler>()
+                  .Instance(StdSchedulerFactory.GetDefaultScheduler()));
+
+        container.Register(Component.For<YdbJobManager>()
+            );
 
         container.Install(
             new Ydb.Infrastructure.Installer()
@@ -29,27 +44,72 @@ public class Bootstrap
             new Ydb.Infrastructure.InstallerCommon(BuildDBConfig("ydb_common"))
             );
 
-        container.Install(
-          new Ydb.Membership.Infrastructure.InstallerMembership(BuildDBConfig("ydb_membership"))
-          );
 
         container.Install(
-
- 
-new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb_instantmessage"))
+new Ydb.Finance.Infrastructure.InstallerFinance(BuildDBConfig("ydb_finance"))
             );
 
-        //IEncryptService iEncryptService = container.Resolve<IEncryptService>();
-        //Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager
-        //   .ConnectionStrings["MongoDB"].ConnectionString, false));
-        Ydb.Common.LoggingConfiguration.Config("Ydb.Web.Notify");
+        container.Install(
 
-     AutoMapper.Mapper.Initialize(x =>
+
+new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb_instantmessage"))
+            );
+        container.Install(
+
+
+new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig("ydb_businessresource"))
+            );
+        container.Install(
+
+
+           new Ydb.Membership.Infrastructure.InstallerMembership(BuildDBConfig("ydb_membership"))
+
+            // new Application.InstallerMembershipTestDB()
+
+            );
+
+
+        container.Install(
+            new Ydb.ApplicationService.Installer()
+            );
+        container.Install(
+        new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
+         // new Application.InstallerMembershipTestDB()
+         );
+        container.Install(
+     new OpenfireExtension.InstallerOpenfireExtension()
+
+      );
+        container.Install(
+        new Ydb.Notice.InstallerNotice(BuildDBConfig("ydb_notice"))
+         // new Application.InstallerMembershipTestDB()
+         );
+        container.Install(
+       new Ydb.Push.Infrastructure.InstallerPush(BuildDBConfig("ydb_push"))
+
+        );
+        container.Install(
+       new OpenfireExtension.InstallerOpenfireExtension()
+
+        );
+
+        container.Install(
+           new Ydb.Order.Infrastructure.InstallerOrder(BuildDBConfig("ydb_order"))
+            // new Application.InstallerMembershipTestDB()
+            );
+
+        // Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
+        AutoMapper.Mapper.Initialize(x =>
         {
-      
-            x.AddProfile<Ydb.Membership.Application.ModelToDtoMappingProfile>();
-           
+            Ydb.Membership.Application.AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
+            Ydb.Finance.Application.AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
         });
+
+        Ydb.Common.LoggingConfiguration.Config("Ydb.Web.Notify");
+        Common.Logging.LogManager.Adapter = new Common.Logging.Simple.ConsoleOutLoggerFactoryAdapter { Level = Common.Logging.LogLevel.Debug };
+
+
+
     }
 
     private static FluentConfiguration BuildDBConfig(string connectionStringName)

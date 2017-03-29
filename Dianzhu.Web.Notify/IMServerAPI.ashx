@@ -8,6 +8,7 @@ using Ydb.Membership.Application.Dto;
 using System.Collections.Generic;
 using System.Linq;
 using Ydb.InstantMessage.DomainModel.Reception;
+ 
 public class IMServerAPI : IHttpHandler
 {
 
@@ -22,6 +23,7 @@ public class IMServerAPI : IHttpHandler
             Ydb.InstantMessage.Application.IInstantMessage im = (Ydb.InstantMessage.Application.IInstantMessage)context.Application["im"];
             Ydb.InstantMessage.Application.IReceptionService receptionService = Bootstrap.Container.Resolve<Ydb.InstantMessage.Application.IReceptionService>();
             Ydb.Membership.Application.IDZMembershipService memberService= Bootstrap.Container.Resolve< IDZMembershipService>();
+            
             switch (type.ToLower())
             {
                 case "systemnotice":
@@ -93,14 +95,27 @@ public class IMServerAPI : IHttpHandler
                         var csOnline = meberList.Select(x => new MemberArea(x.Id.ToString(), x.UserCity)).ToList();
                         receptionService.AssignCustomerChangeLocation(paramCustomerId,paramAreaCode,csOnline);
 
-                        
+
                     }
+
 
                     else
                     {
                         throw new Exception("传入的csId无效:" + paramCustomerId);
                     }
                     break;
+                //和任务相关的
+                case "ytask":
+                    string taskOrderId=context.Request["orderId"];
+                    string taskType = context.Request["tasktype"];
+                        
+
+                    YdbJobManager sm = Bootstrap.Container.Resolve<YdbJobManager>();
+                    sm.CreateJob(taskOrderId, taskType);
+                 //   jobFactory.CreateJob(taskOrderId, taskType);
+                    break;
+
+
             }
         }
         catch (Exception ee)

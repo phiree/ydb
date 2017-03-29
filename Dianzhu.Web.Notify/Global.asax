@@ -15,7 +15,7 @@ void Application_Start(object sender, EventArgs e)
     string host = System.Net.Dns.GetHostName();
     PHSuit.HttpHelper._SetupRefreshJob(8039);
     Ydb.InstantMessage.Application.IInstantMessage im = Bootstrap.Container.Resolve<Ydb.InstantMessage.Application.IInstantMessage>();
-
+    
     //= new Dianzhu.CSClient.XMPP.XMPP(server, domain,adapter, Dianzhu.enum_XmppResource.YDBan_IMServer.ToString());
     //login in
     string noticesenderId = Dianzhu.Config.Config.GetAppSetting("NoticeSenderId");

@@ -19,6 +19,9 @@ namespace Ydb.ApplicationService
             container.Register(Classes.FromThisAssembly().InSameNamespaceAs<Application.AgentService.DataStatistics.StatisticsCount>()
                               .WithService.DefaultInterfaces());
             container.Register(Component.For<ExcelImporter.ServiceTypeImporter>());
+
+      
+           
         }
     }
 }
