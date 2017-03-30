@@ -42,7 +42,7 @@ namespace Ydb.InstantMessage.Application.Tests
         { var receptionService = Bootstrap.Container.Resolve<IReceptionService>();
            
             var customerId = Guid.NewGuid().ToString();
-            var customerAreaId = "area1";
+            var customerAreaId = "a1111";
             string errorMessage = string.Empty;
             //在线客服
             var csList = new List<MemberArea> { new MemberArea("cs1", customerAreaId), new MemberArea("cs2", customerAreaId) };
@@ -63,10 +63,10 @@ namespace Ydb.InstantMessage.Application.Tests
         {
             var receptionService = Bootstrap.Container.Resolve<IReceptionService>();
             var customerId = Guid.NewGuid().ToString();
-            var customerAreaId = "area1";
+            var customerAreaId = "a1111";
             string errorMessage = string.Empty;
             //在线客服
-            var csList = new List<MemberArea> { new MemberArea("cs1", customerAreaId), new MemberArea("cs2", "area2") };
+            var csList = new List<MemberArea> { new MemberArea("cs1", customerAreaId), new MemberArea("cs2", "a2222") };
             int assignto1 = 0, assignto2 = 0;
             for (int i = 0; i < 10; i++)
             {
@@ -153,7 +153,7 @@ namespace Ydb.InstantMessage.Application.Tests
         {
             var repoRs = Bootstrap.Container.Resolve<IRepositoryReception>();
             var receptionService = Bootstrap.Container.Resolve<IReceptionService>();
-            string areaId = "a1";
+            string areaId = "areacode1";
             string csId = Guid.NewGuid().ToString();
             IList<MemberArea> onlineCsList = new List<MemberArea> {
           new MemberArea("cs1", areaId),
@@ -177,7 +177,7 @@ namespace Ydb.InstantMessage.Application.Tests
             var receptionService = Bootstrap.Container.Resolve<IReceptionService>();
 
 
-            string areaId = "a1";
+            string areaId = "areacode1";
             string csId = Guid.NewGuid().ToString();
             IList<MemberArea> onlineCsList = new List<MemberArea> {
           new MemberArea("cs1", "a2"),

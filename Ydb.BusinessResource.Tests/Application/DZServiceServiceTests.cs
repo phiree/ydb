@@ -67,21 +67,17 @@ namespace Ydb.BusinessResource.Application.Tests
         {
             Bootstrap.Boot();
         }
-        [Category("dddd")]
-        [Test()]
-        public void SaveServiceTest()
-        {
-            //add Service
-            DZService service = Builder<DZService>.CreateNew().Build();
-            IDZServiceService dzServie = Bootstrap.Container.Resolve<IDZServiceService>();
-            dzServie.Save(service);
-
-        }
+         
 
         [Test()]
         public void GetOneServiceTest()
         {
-            DZService service = Builder<DZService>.CreateNew().Build();
+            Business b = Builder<Business>.CreateNew().Build();
+            IBusinessService bs = Bootstrap.Container.Resolve<IBusinessService>();
+          ActionResult<Business> resultAddBusiness=  bs.Add(b.Name,b.Phone,b.Email,b.OwnerId,b.Latitude.ToString(),b.Longitude.ToString(),b.RawAddressFromMapAPI,b.Contact,b.WorkingYears,b.StaffAmount);
+            DZService service = Builder<DZService>.CreateNew().
+               With(x=>x.Business=resultAddBusiness.ResultObject)
+                .Build();
             IDZServiceService dzServie = Bootstrap.Container.Resolve<IDZServiceService>();
             dzServie.Save(service);
 

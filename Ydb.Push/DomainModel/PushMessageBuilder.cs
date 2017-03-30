@@ -50,6 +50,9 @@ namespace Ydb.Push.DomainModel
                         pushMessage.DisplayContent = "[" + orderBusinessName + "]" + chatMessage;
                         break;
 
+                    case "YDBan_User":
+                        pushMessage.DisplayContent = "[" + fromUserName + "]" + chatMessage;
+                        break;
                     default:
                         pushMessage.DisplayContent = "[一点办]" + chatMessage;
                         break;

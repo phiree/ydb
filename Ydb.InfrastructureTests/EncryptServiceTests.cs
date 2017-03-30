@@ -53,11 +53,8 @@ namespace Ydb.Infrastructure.Tests
 
             var l=   dbConfig.BuildForServer("localhost", "root", "root");
             Console.WriteLine(l[0]);
-            Assert.AreEqual("localhost_dianzhu___data source=localhost;database=dianzhu;uid=root;pwd=root;port=3306;", l[0]);
-            Assert.AreEqual("localhost_ydb_finance___data source=localhost;database=ydb_finance;uid=root;pwd=root;port=3306;", l[1]);
-            var l2 = dbConfig.ReplaceDianzhuDb("dianzhu_publish_test").BuildForServer("192.168.1.172", "root", "root");
-
-            Assert.AreEqual("192.168.1.172_dianzhu_publish_test___data source=192.168.1.172;database=dianzhu_publish_test;uid=root;pwd=root;port=3306;", l2[0]);
+              Assert.AreEqual("localhost_ydb_finance___data source=localhost;database=ydb_finance;uid=root;pwd=root;port=3306;", l[0]);
+           
 
         }
         [Test]
