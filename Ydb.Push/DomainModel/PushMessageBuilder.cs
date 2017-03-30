@@ -51,9 +51,10 @@ namespace Ydb.Push.DomainModel
                         break;
 
                     default:
-                        pushMessage.DisplayContent = "[" + fromUserName + "]" + chatMessage;
+                        pushMessage.DisplayContent = "[一点办]" + chatMessage;
                         break;
                 }
+                log.Debug("推送内容:" + pushMessage.DisplayContent);
             }
             else
             {
