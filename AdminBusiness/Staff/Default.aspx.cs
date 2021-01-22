@@ -8,8 +8,8 @@ using System.Web.UI.WebControls;
 
 //using Dianzhu.ApplicationService;
 //using Dianzhu.ApplicationService.Staff;
-using Dianzhu.BLL;
-using Dianzhu.Model;
+
+
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Specification;
@@ -32,7 +32,7 @@ public partial class Staff_Default : BasePage
     }
     private void BindList()
     {
-        int total=30;
+       
         Business b = CurrentBusiness;
         string strIndex = Request["page"];
         int index = 0;
@@ -55,7 +55,6 @@ public partial class Staff_Default : BasePage
         {
             Guid id = new Guid(e.CommandArgument.ToString());
              staffService.Delete( id );
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             BindList();
         }
     }

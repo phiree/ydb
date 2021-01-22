@@ -53,12 +53,8 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
 
             var query = Query(order);
             IList<ServiceOrderStateChangeHis> orderList = query.List().OrderBy(x => x.Number).ToList();
-
-            if (orderList.Count > 0)
-            {
-                return orderList;
-            }
-            return null;
+            
+            return orderList;
 
         }
 

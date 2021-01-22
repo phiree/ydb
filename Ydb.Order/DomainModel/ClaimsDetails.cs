@@ -63,6 +63,23 @@ namespace Ydb.Order.DomainModel
         /// 20160622_longphui_modify
         ///public virtual string ResourcesUrl { get; set; }
         public virtual IList<string> ClaimsDetailsResourcesUrl { get; set; }
+
+        /// <summary>
+        /// 投诉的图片链接
+        /// </summary>
+        public virtual IList<string> ClaimsDetailsResourcesPathUrl
+        {
+            get
+            {
+                IList<string> pathUrl = new List<string>();
+                for (int i = 0; i < ClaimsDetailsResourcesUrl.Count; i++)
+                {
+                    pathUrl.Add(ClaimsDetailsResourcesUrl[i] != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + ClaimsDetailsResourcesUrl[i] : "");
+                }
+                return pathUrl;
+            }
+        }
+
         /// <summary>
         /// 创建时间
         /// </summary>

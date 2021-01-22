@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-
+using Ydb.MediaServer.Application;
+using Ydb.MediaServer.DomainModel;
 namespace Dianzhu.ApplicationService.Storage
 {
     public class StorageService : IStorageService
     {
-        BLL.BLLStorageFileInfo bllFileInfo;
-        public StorageService(BLL.BLLStorageFileInfo bllFileInfo)
+      //  BLL.BLLStorageFileInfo bllFileInfo;
+        IStorageFileInfoService storageService;
+        public StorageService(IStorageFileInfoService storageService)
         {
-            this.bllFileInfo = bllFileInfo;
+            this.storageService = storageService;
         }
 
         /// <summary>
@@ -37,17 +39,9 @@ namespace Dianzhu.ApplicationService.Storage
             string strWidth = "";
             string strSize = "";
             utils.Base64ToImage(fileBase4.data, out strHeight, out strWidth,out strSize);
-            Model.StorageFileInfo fileinfo = new Model.StorageFileInfo();
-            fileinfo.OriginalFileName = "";
-            fileinfo.FileName = strFileName;
-            fileinfo.FileType = "image";
-            fileinfo.Height = strHeight;
-            fileinfo.Width = strWidth;
-            fileinfo.Size = strSize;
-            fileinfo.UploadTime = DateTime.Now;
-            fileinfo.UploadUser = customer.UserID;
-            bllFileInfo.Save(fileinfo);
-            imageObj imageobj = Mapper.Map<Model.StorageFileInfo, imageObj>(fileinfo);
+            
+            StorageFileInfo fileinfo=storageService.Save("",strFileName,"image",strHeight,strWidth,string.Empty, strSize,DateTime.Now,customer.UserID);
+            imageObj imageobj = Mapper.Map<StorageFileInfo, imageObj>(fileinfo);
             return imageobj;
         }
 
@@ -73,16 +67,9 @@ namespace Dianzhu.ApplicationService.Storage
             string strSize = "";
             utils.Base64ToAudio(fileBase4.data, out strSize);
             string[] strs = strFileName.Split(new string[]{"_length_"}, StringSplitOptions.None);
-            Model.StorageFileInfo fileinfo = new Model.StorageFileInfo();
-            fileinfo.OriginalFileName = "";
-            fileinfo.FileName = strs[0];
-            fileinfo.FileType = "voice";
-            fileinfo.Size = strSize;
-            fileinfo.Length= strs[1];
-            fileinfo.UploadTime = DateTime.Now;
-            fileinfo.UploadUser = customer.UserID;
-            bllFileInfo.Save(fileinfo);
-            audioObj audioobj = Mapper.Map<Model.StorageFileInfo, audioObj>(fileinfo);
+            
+            StorageFileInfo fileinfo = storageService.Save("", strs[0], "voice", string.Empty, string.Empty, strs[1], strSize, DateTime.Now, customer.UserID);
+            audioObj audioobj = Mapper.Map<StorageFileInfo, audioObj>(fileinfo);
             return audioobj;
         }
     }

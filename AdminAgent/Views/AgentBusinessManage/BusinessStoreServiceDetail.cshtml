@@ -1,0 +1,264 @@
+﻿
+@model Ydb.BusinessResource.Application.ServiceDto
+@{
+    ViewBag.headTitle = "商家管理";
+    ViewBag.subTitle = "服务详情";
+    ViewBag.breadcrumbOl = new List<string>() { "商家管理", "商家列表", "商家详情", "店铺详情" ,"服务详情" };
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="box">
+                <div class="box-header text-center margin-top-10">
+                    <h3 class="box-title text-center">@Model.ServiceName<span style="color: #4db2c6">&nbsp;&nbsp;@(Model.Enabled ?  "活跃中" : "封停中" )</span></h3>
+                    <div class="box-tools pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-wrench"></i>&nbsp;设置
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                @*<li><a href="#">重置密码</a></li>
+                        <li class="divider"></li>*@
+                                <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.Enabled ? "false" : "true")>@(Model.Enabled ? "封停服务" : "解封服务")</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="no-header">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <b>所属店铺：</b> <a class="pull-right">@Model.ServiceBusinessName</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>服务类型：</b> <a class="pull-right">@Model.ServiceTypeFullName</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>服务区域：</b> <a class="pull-right">
+                                                            <span class="spServiceArea"></span>
+                                                            <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='@Model.Scope' />
+                                                          </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>服务介绍：</b>
+                                        <div class="word-break-all">
+                                            @Model.Description
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <b>服务单价：</b> <a class="pull-right">@Model.UnitPrice.ToString("f2")<span>元/@(Model.ChargeUnit== "Day" ? "天":
+                                                                                                                          Model.ChargeUnit == "Hour" ? "小时":
+                                                                                                                          Model.ChargeUnit == "Month" ? "天" :
+                                                                                                                          Model.ChargeUnit == "Times" ? "次" : "(次)")</span></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>付款方式：</b> <a class="pull-right">@(Model.AllowedPayType== "Offline"? "线下支付": Model.AllowedPayType == "线上支付"? "线上支付" : "线上/线下")</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>收取订金：</b> <a class="pull-right">@Model.DepositAmount.ToString("f2")<span>元</span></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>服务起步价：</b> <a class="pull-right">@Model.MinPrice.ToString("f2")<span>元</span></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>提前预约：</b> <a class="pull-right">@Model.OrderDelay<span>分钟</span></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>上门服务：</b> <a class="pull-right">@(Model.ServiceMode== "ToHouse"? "提供上门服务" : "不提供上门")</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>服务对象：</b> <a class="pull-right">@(Model.IsForBusiness? "不限" : "私人/个体")</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <b>覆盖范围：</b>
+                                        <div class="service-map" id="serviceArea">
+
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_1" data-toggle="tab" >星期一</a></li>
+                    <li><a href="#tab_2" data-toggle="tab" >星期二</a></li>
+                    <li><a href="#tab_3" data-toggle="tab" >星期三</a></li>
+                    <li><a href="#tab_4" data-toggle="tab" >星期四</a></li>
+                    <li><a href="#tab_5" data-toggle="tab" >星期五</a></li>
+                    <li><a href="#tab_6" data-toggle="tab" >星期六</a></li>
+                    <li><a href="#tab_7" data-toggle="tab" >星期日</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
+                        @Html.Action("BusinessStoreServiceOpenTime", "AgentBusinessManage", new { id = Model.id, week = 1 })
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_2">
+                        @Html.Action("BusinessStoreServiceOpenTime", "AgentBusinessManage", new { id = Model.id, week = 2 })
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_3">
+                        @Html.Action("BusinessStoreServiceOpenTime", "AgentBusinessManage", new { id = Model.id, week = 3 })
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_4">
+                        @Html.Action("BusinessStoreServiceOpenTime", "AgentBusinessManage", new { id = Model.id, week = 4 })
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_5">
+                        @Html.Action("BusinessStoreServiceOpenTime", "AgentBusinessManage", new { id = Model.id, week = 5 })
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_6">
+                        @Html.Action("BusinessStoreServiceOpenTime", "AgentBusinessManage", new { id = Model.id, week = 6 })
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_7">
+                        @Html.Action("BusinessStoreServiceOpenTime", "AgentBusinessManage", new { id = Model.id, week = 0 })
+                    </div>
+                    <!-- /.tab-pane -->
+
+                </div>
+                <!-- /.tab-content -->
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="toggleFreeze" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel2">@(Model.Enabled ? "封停服务" : "解封服务")</h4>
+                </div>
+                <div class="modal-body">确认@(Model.Enabled ? "封停服务" : "解封服务")</div>
+                <div class="modal-footer">
+                    <button id="toggleFreezeConf" type="button" class="btn btn-primary">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</section>
+<!-- /.content -->
+
+@Html.Action("footer", "Agent", new { id = "" })
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. Slimscroll is required when using the
+     fixed layout. -->
+
+<script src="../../static/js/navbar-controller.js"></script>
+<!-- DataTables -->
+<script src="../../static/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../static/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- date-range-picker -->
+<script src="../../static/plugins/daterangepicker/moment.min.js"></script>
+<script src="../../static/plugins/daterangepicker/daterangepicker.js"></script>
+<script>
+    (function(){
+        //Date range picker
+        $('#reservation').daterangepicker();
+        //Date range picker with time picker
+        //初始化定制数据列表
+        $(".table-striped").DataTable({
+            "order": [[ 0, "asc" ]],
+            "language" :{
+                "decimal":        "",
+                "emptyTable":     "没有数据",
+                "info":           "从_START_ 到 _END_ 条记录——总记录数为 _TOTAL_ 条",
+                "infoEmpty":      "记录数为0",
+                "infoFiltered":   "(全部记录数 _MAX_  条)",
+                "infoPostFix":    "",
+                "thousands":      ",",
+                "lengthMenu":     "显示 _MENU_ 条",
+                "loadingRecords": "加载中...",
+                "processing":     "处理中...",
+                "search":         "查找：",
+                "zeroRecords":    "找不到内容",
+                "paginate": {
+                    "first":      "第一页",
+                    "last":       "最后一页",
+                    "next":       "下一页",
+                    "previous":   "上一页"
+                }
+            }
+        });
+
+        //封停/解封
+        $("#toggleFreezeConf").on("click", function () {
+            $.ajax({
+                url: "/AgentBusinessManage/BusinessStoreServiceDetailLock",
+                type: "GET",
+                data: {
+                    id: url.getUrlParam("id"),
+                    isLook: $("#isLook").data("look")
+                },
+                dataType: 'json'
+            }).done(function (resp, status, xhr) {
+                if (status = "success") {
+                    notify.modal('show');
+                    notify.find(".modal-body").text("操作成功");
+                }
+            }).fail(function (resp, status, xhr) {
+                $("#toggleFreeze").modal('hide');
+                notify.find(".modal-body").text("操作失败，请重试");
+                notify.modal('show');
+            })
+        });
+    })();
+
+    //hiServiceArea
+    function initializeServiceDetailMap() {
+        var objServiceArea = $.parseJSON($("#hiServiceArea").val());
+        var map = new BMap.Map("serviceArea", { enableMapClick: false });
+        var point = new BMap.Point(objServiceArea.serPointCirle.lng, objServiceArea.serPointCirle.lat);
+        var marker = new BMap.Marker(point); // 创建点
+        var circle = new BMap.Circle(point, objServiceArea.serPointCirle.radius, { strokeColor: "blue", strokeWeight: 2, strokeOpacity: 0.5 });
+        map.disableDoubleClickZoom();
+        map.disableDragging();
+
+        map.centerAndZoom(point, 15);
+        map.addOverlay(marker);
+        map.addOverlay(circle);
+    }
+
+    // 百度地图异步调用
+    function loadBaiduMapScript() {
+        var script = document.createElement("script");
+        script.src = "http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc&callback=initializeServiceDetailMap";
+        document.body.appendChild(script);
+    }
+
+    $(document).ready(function () {
+        // 解析地址
+        $(".spServiceArea").each(function () {
+            var jsonServiceArea = $.parseJSON($(this).siblings(".hiServiceArea").val());
+            $(this).html(jsonServiceArea.serPointAddress);
+        });
+        loadBaiduMapScript();
+    });
+</script>

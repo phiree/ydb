@@ -104,13 +104,19 @@ namespace Ydb.InstantMessage.DomainModel.Chat
                     return chatFactory.CreateReAssign(csId, csAlias, csAvatar);
 
                 case "ihelper:notice:cer:online":
-                    return chatFactory.CreateNoticeCSOnline();
+                    string onlineCsAreaCode = ext_element.SelectSingleElement("areaCode", true).Value;
+                    return chatFactory.CreateNoticeCSOnline(onlineCsAreaCode);
 
                 case "ihelper:notice:cer:offline":
-                    return chatFactory.CreateNoticeCSOffline();
+                    string offlineCsAreaCode = ext_element.SelectSingleElement("areaCode", true).Value;
+                    return chatFactory.CreateNoticeCSOffline(offlineCsAreaCode);
 
                 case "ihelper:notice:draft:new":
                     return chatFactory.CreateNoticeNewOrder();
+                case "ihelper:notice:cer:changearea":
+                    string customerAreaCode = ext_element.SelectSingleElement("areaCode", true).Value;
+                    string customerId = ext_element.SelectSingleElement("customerId", true).Value;
+                    return chatFactory.CreateNoticeCustomerChangeArea(customerAreaCode,customerId);
 
                 default:
                     throw new Exception("未知的命名空间");
@@ -207,14 +213,26 @@ namespace Ydb.InstantMessage.DomainModel.Chat
 
                 case "ReceptionChatNoticeCustomerServiceOffline"://7
                     msg.SetAttribute("type", "headline");
+                   
                     extNode.Namespace = "ihelper:notice:cer:offline";
+                    var areaCodeOffLine = new agsXMPP.Xml.Dom.Element("areaCode", ((ReceptionChatNoticeCustomerServiceOffline)chat).AreaCode);
+                    extNode.AddChild(areaCodeOffLine);
                     break;
 
                 case "ReceptionChatNoticeCustomerServiceOnline"://8
                     msg.SetAttribute("type", "headline");
                     extNode.Namespace = "ihelper:notice:cer:online";
+                    var areaCodeOnLine = new agsXMPP.Xml.Dom.Element("areaCode", ((ReceptionChatNoticeCustomerServiceOnline)chat).AreaCode);
+                    extNode.AddChild(areaCodeOnLine);
                     break;
-
+                case "ReceptionChatNoticeCustomerChangeArea"://8
+                    msg.SetAttribute("type", "headline");
+                    extNode.Namespace = "ihelper:notice:cer:changearea";
+                    var areaCodeNew = new agsXMPP.Xml.Dom.Element("areaCode", ((ReceptionChatNoticeCustomerChangeArea)chat).NewAreaCode);
+                    var customerIdNode = new agsXMPP.Xml.Dom.Element("customerId", ((ReceptionChatNoticeCustomerChangeArea)chat).CustomerId);
+                    extNode.AddChild(areaCodeNew);
+                    extNode.AddChild(customerIdNode);
+                    break;
                 case "ReceptionChatNoticeNewOrder"://9
                     msg.SetAttribute("type", "headline");
                     extNode.Namespace = "ihelper:notice:draft:new";

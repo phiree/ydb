@@ -34,6 +34,21 @@ namespace Ydb.Finance.Application
         IList<WithdrawApplyDto> GetWithdrawApplyList(TraitFilter traitFilter, WithdrawApplyFilter withdrawApplyFilter);
 
         /// <summary>
+        /// 根据条件获取提现申请数量
+        /// </summary>
+        /// <param name="traitFilter" type="Ydb.Common.Specification.TraitFilter">通用筛选器分页、排序等</param>
+        /// <param name="withdrawApplyFilter" type="Ydb.Finance.Application.WithdrawApplyFilter">提现申请的查询筛选条件</param>
+        /// <returns type="IList<WithdrawApplyDto>">提现申请信息列表</returns>
+        long GetWithdrawApplyCount(TraitFilter traitFilter, WithdrawApplyFilter withdrawApplyFilter);
+
+        /// <summary>
+        /// 获取用户ID获取体现累计金额
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        decimal GetTotalWithdrawApplySeccussByUserId(string userId);
+
+        /// <summary>
         /// 支付操作
         /// </summary>
         /// <param name="withdrawApplyIds" type="IList<Guid>">要支付的提现申请Id列表</param>

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
-using Dianzhu.BLL;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
- 
+using Ydb.Common;
 
 public class ResponseFactory
 {
@@ -42,7 +42,8 @@ public class ResponseFactory
             case "wtm001001":
                 return new ResponseWTM001001(request);
 
-
+            case "shm001007":
+                return new ResponseSHM001007(request);
 
             case "svc001003":
                 return new ResponseSVC001003(request);

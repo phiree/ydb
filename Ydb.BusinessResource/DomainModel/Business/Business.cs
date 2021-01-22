@@ -51,9 +51,43 @@ namespace Ydb.BusinessResource.DomainModel
         public virtual Guid OwnerId { get;protected internal set; }
 
         /// <summary>
+        /// 商家用户名.
+        /// </summary>
+        public virtual string OwnerName { get; set; }
+
+        /// <summary>
         /// 店铺是否可用
         /// </summary>
         public virtual bool Enabled { get;protected internal set; }
+
+        /// <summary>
+        /// 店铺是否可用变更时间
+        /// </summary>
+        public virtual DateTime EnabledTime { get; protected internal set; }
+
+
+        /// <summary>
+        /// 封停或删除说明
+        /// </summary>
+        public virtual string EnabledMemo { get; protected internal set; }
+
+        public virtual void EnableBusiness (bool enable,string memo)
+        {
+            //if (!enable)
+            //{
+            //    if (!Enabled)
+            //    {
+            //        throw new Exception("该店铺已经封停！");
+            //    }
+            //    if (memo == "")
+            //    {
+            //        throw new Exception("请输入封停原因！");
+            //    }
+            //}
+            this.Enabled = enable;
+            this.EnabledTime = DateTime.Now;
+            this.EnabledMemo = memo;
+        }
 
         /// <summary>
         /// 创建时间
@@ -123,6 +157,10 @@ namespace Ydb.BusinessResource.DomainModel
         /// 员工总人数
         /// </summary>
         public virtual int StaffAmount { get;protected internal set; }
+        /// <summary>
+        /// 服务数量
+        /// </summary>
+        public virtual int ServiceAmount { get; protected internal set; }
         /// <summary>
         /// 从业时长, 比如 1915年进入该行业的, 则是 百  --年老 --店,该值为100.
         /// </summary>
@@ -426,6 +464,13 @@ namespace Ydb.BusinessResource.DomainModel
         /// 图片名称,图片存储路径由配置确定.
         /// </summary>
         public virtual string ImageName { get;protected internal set; }
+
+        public virtual string ImageUrl {
+            get {
+                return string.IsNullOrEmpty(ImageName) ? "" : Dianzhu.Config.Config.GetAppSetting("ImageHandler") + ImageName;
+            }
+        }
+
         /// <summary>
         /// 图片描述
         /// </summary>

@@ -18,14 +18,16 @@ namespace Ydb.ApplicationService.Application.AgentService
         IStatisticsCount statisticsCount;
         IBalanceFlowService balanceFlowService;
         IBalanceTotalService balanceTotalService;
+        IWithdrawApplyService withdrawApplyService;
         public FinanceFlowService(IDZMembershipService dzMembershipService,
             IStatisticsCount statisticsCount,IBalanceFlowService balanceFlowService,
-            IBalanceTotalService balanceTotalService)
+            IBalanceTotalService balanceTotalService, IWithdrawApplyService withdrawApplyService)
         {
             this.dzMembershipService = dzMembershipService;
             this.statisticsCount = statisticsCount;
             this.balanceFlowService = balanceFlowService;
             this.balanceTotalService = balanceTotalService;
+            this.withdrawApplyService = withdrawApplyService;
         }
 
         public IList<FinanceFlowDto> GetFinanceFlowList(IList<string> areaList, MemberDto memberAgent)
@@ -47,13 +49,20 @@ namespace Ydb.ApplicationService.Application.AgentService
             return financeTotalDtoList;
         }
 
-        public IList<FinanceTotalDto> GetFinanceWithdrawList(IList<string> areaList)
+        public FinanceWithdrawTotalDto GetFinanceWithdrawList(IList<string> areaList,MemberDto memberAgent)
         {
-            IList<DZMembershipCustomerServiceDto> memberList = dzMembershipService.GetDZMembershipCustomerServiceByArea(areaList);
+            IList<DZMembershipCustomerServiceDto> memberList = dzMembershipService.GetDZMembershipCustomerServiceByArea(areaList).Where (x=>x.IsAgentCustomerService).ToList();
             IList<string> UserIdList = memberList.Select(x => x.Id.ToString()).ToList();
-            IList<BalanceTotalDto> balanceTotalDtoList = balanceTotalService.GetBalanceTotalByArea(UserIdList);
-            IList<FinanceTotalDto> financeTotalDtoList = statisticsCount.StatisticsFinanceTotalList(balanceTotalDtoList, memberList);
-            return financeTotalDtoList;
+            UserIdList.Add(memberAgent.Id.ToString());
+            IList<WithdrawApplyDto> withdrawApplyDtoList = withdrawApplyService.GetWithdrawApplyListByArea(UserIdList);
+            IList<MemberDto> memberDtoList = new List<MemberDto>();
+            memberDtoList.Add(memberAgent);
+            foreach (DZMembershipCustomerServiceDto cs in memberList)
+            {
+                memberDtoList.Add(cs);
+            }
+            FinanceWithdrawTotalDto financeWithdrawTotalDto = statisticsCount.StatisticsFinanceWithdrawList(withdrawApplyDtoList, memberDtoList);
+            return financeWithdrawTotalDto;
         }
     }
 }

@@ -30,11 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core">
-      <HintPath>..\Dianzhu.Web.PushServer\Bin\Castle.Core.dll</HintPath>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Castle.Windsor">
-      <HintPath>..\Dianzhu.Web.PushServer\Bin\Castle.Windsor.dll</HintPath>
+    <Reference Include="Castle.Windsor, Version=3.4.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.3.4.0\lib\net45\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\Dianzhu.Web.Pay\Bin\FluentNHibernate.dll</HintPath>
@@ -65,12 +67,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\AdvertisementService.cs" />
     <Compile Include="Application\DeviceBindService.cs" />
+    <Compile Include="Application\IAdvertisementService.cs" />
     <Compile Include="Application\IDeviceBindService.cs" />
     <Compile Include="Application\IPushService.cs" />
     <Compile Include="Application\PushService.cs" />
+    <Compile Include="DomainModel\Advertisement.cs" />
     <Compile Include="DomainModel\DeviceBind.cs" />
     <Compile Include="DomainModel\IPushApiFactory.cs" />
+    <Compile Include="DomainModel\IRepository\IRepositoryAdvertisement.cs" />
     <Compile Include="DomainModel\IRepository\IRepositoryDeviceBind.cs" />
     <Compile Include="DomainModel\PushResult.cs" />
     <Compile Include="Infrastructure\InstallerPush.cs" />
@@ -82,7 +88,9 @@
     <Compile Include="Infrastructure\JPush\JPush.cs" />
     <Compile Include="Infrastructure\JPush\JPushRequest.cs" />
     <Compile Include="Infrastructure\JPush\JPushResponse.cs" />
+    <Compile Include="Infrastructure\NHibernate\Mapping\AdvertisementMap.cs" />
     <Compile Include="Infrastructure\NHibernate\Mapping\DeviceBindMap.cs" />
+    <Compile Include="Infrastructure\NHibernate\Repository\RepositoryAdvertisement.cs" />
     <Compile Include="Infrastructure\NHibernate\Repository\RepositoryDeviceBind.cs" />
     <Compile Include="Infrastructure\NHibernate\UnitOfWork\NHibernateUnitOfWork.cs" />
     <Compile Include="Infrastructure\NHibernate\Repository\NHRepository.cs" />
@@ -99,6 +107,7 @@
     <Content Include="lib\JdSoft.Apns.Notifications.dll" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="推送证书.zip" />
   </ItemGroup>

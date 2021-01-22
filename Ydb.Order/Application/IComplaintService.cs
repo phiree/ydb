@@ -36,12 +36,18 @@ namespace Ydb.Order.Application
         /// 统计投诉的数量
         /// </summary>
         /// <returns>area实体list</returns>
-        long GetComplaintsCount(Guid orderID, Guid storeID, Guid customerServiceID);
+        long GetComplaintsCount(string orderID, string storeID, string customerServiceID);
 
         /// <summary>
         /// 条件读取投诉
         /// </summary>
         /// <returns>area实体list</returns>
         Complaint GetComplaintById(Guid Id);
+
+        /// <summary>
+        /// 根据客户的用户Id获取该客户的投诉数量
+        /// </summary>
+        /// <returns>area实体list</returns>
+        long GetComplaintsCountByOperator(string operatorId);
     }
 }

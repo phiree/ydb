@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.Model;
-using Dianzhu.BLL;
-using Dianzhu.IDAL;
+
+
+
 using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Application;
@@ -33,7 +33,7 @@ public partial class Business_Default : BasePage
     protected void BindBusinessList()
     {
 
-        var businessList = businessService.GetBusinessListByOwner(CurrentUser.Id).Where(x=>x.Enabled);
+        var businessList = businessService.GetBusinessListByOwner(CurrentUser.Id,new List<string>()).Where(x=>x.Enabled);
         
         rptBusinessList.DataSource = businessList;
         // rptBusinessList.ItemCommand+=new RepeaterCommandEventHandler(rptBusinessList_ItemCommand);
@@ -88,7 +88,7 @@ public partial class Business_Default : BasePage
         {
             string strBusinessId = e.CommandArgument.ToString();
             Guid businessId = new Guid(strBusinessId);
-          businessService.Disable(businessId);
+          businessService.EnableBusiness(businessId,false,"删除服务");
             
             BindBusinessList();
         }

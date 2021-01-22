@@ -5,8 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Ydb.Finance.Application;
-using Dianzhu.IDAL;
-using Dianzhu.Model;
+
+
 public partial class Finance_Default : BasePage
 {
     //Dianzhu.BLL.IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();

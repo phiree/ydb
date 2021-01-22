@@ -16,6 +16,7 @@ namespace Ydb.BusinessResource.DomainModel
 
             StaffAvatar = new List<BusinessImage>();
             Enable = true;
+            EnableTime = DateTime.Now;
         }
     
         /// <summary>
@@ -79,7 +80,12 @@ namespace Ydb.BusinessResource.DomainModel
         /// 是否在职
         /// </summary>
         public virtual bool Enable { get; set; }
-        
+
+        /// <summary>
+        /// 是否在职变更时间
+        /// </summary>
+        public virtual DateTime EnableTime { get; set; }
+
         /// <summary>
         /// 职员的头像. 可能会有多个,但是只有一个是
         /// </summary>
@@ -124,6 +130,19 @@ namespace Ydb.BusinessResource.DomainModel
             newStaff.IsAssigned = IsAssigned;
             newStaff.Photo = Photo;
             newStaff.Enable = Enable;
+        }
+
+        public virtual void EnableStaff(bool enable)
+        {
+            //if (!enable)
+            //{
+            //    if (!Enabled)
+            //    {
+            //        throw new Exception("该员工已经离职！");
+            //    }
+            //}
+            this.Enable = enable;
+            this.EnableTime = DateTime.Now;
         }
 
     }

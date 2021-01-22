@@ -141,37 +141,37 @@ namespace Ydb.Membership.Application
         long GetCountOfLoginMembershipsLastMonthByArea(IList<string> areaList, UserType userType);
 
         /// <summary>
-        ///     统计用户每日或每时新增数量列表
+        /// 统计用户每日或每时新增数量列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        StatisticsInfo GetStatisticsNewMembershipsCountListByTime(IList<string> areaList, string strBeginTime,
-            string strEndTime, UserType userType);
+        StatisticsInfo GetStatisticsNewMembershipsCountListByTime(IList<string> areaList, DateTime beginTime,
+            DateTime endTime, UserType userType);
 
         /// <summary>
-        ///     统计用户每日或每时累计数量列表
+        /// 统计用户每日或每时累计数量列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        StatisticsInfo GetStatisticsAllMembershipsCountListByTime(IList<string> areaList, string strBeginTime,
-            string strEndTime, UserType userType);
+        StatisticsInfo GetStatisticsAllMembershipsCountListByTime(IList<string> areaList, DateTime beginTime,
+           DateTime endTime, UserType userType);
 
         /// <summary>
-        ///     统计用户每日或每时在线活跃度（数量）列表
+        /// 统计用户每日或每时在线活跃度（数量）列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        StatisticsInfo GetStatisticsLoginCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime,
-            UserType userType);
+        StatisticsInfo GetStatisticsLoginCountListByTime(IList<string> areaList, DateTime beginTime,
+            DateTime endTime, UserType userType);
 
         /// <summary>
         ///     根据用户手机系统统计用户数量列表
@@ -235,11 +235,11 @@ namespace Ydb.Membership.Application
         ActionResult VerifyDZMembershipCustomerService(string membershipId, bool isVerified, string strMemo);
 
         /// <summary>
-        ///     封停/解封助理
+        /// 封停/解封
         /// </summary>
         /// <param name="membership"></param>
         /// <returns></returns>
-        ActionResult LockDZMembershipCustomerService(string membershipId, bool isLocked, string strMemo);
+        ActionResult LockDZMembership(string membershipId, bool isLocked, string strMemo);
 
         /// <summary>
         ///     根据用户名获取客服
@@ -270,6 +270,13 @@ namespace Ydb.Membership.Application
         /// <returns></returns>
         IDictionary<Enum_LockCustomerServiceType, IList<DZMembershipCustomerServiceDto>> GetLockDZMembershipCustomerServiceByArea(IList<Area> areaList);
 
+        /// <summary>
+        /// 根据代理区域获取其封锁的用户信息列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        IDictionary<Enum_LockMemberType, IList<MemberDto>> GetLockDZMembershipByArea(IList<Area> areaList, UserType userType);
+
 
         /// <summary>
         ///     根据代理区域获取一条为验证的客服信息
@@ -284,5 +291,8 @@ namespace Ydb.Membership.Application
         /// <param name="areaList"></param>
         /// <returns></returns>
         IList<DZMembershipCustomerServiceDto> GetDZMembershipCustomerServiceByArea(IList<string> areaIdList);
+
+        IList<MemberDto> GetUsersByIdList(IList<string> memberIdList);
+        IList<MemberDto> GetUsersByIdList(IList<string> memberIdList, IList<string> areaIdList);
     }
 }

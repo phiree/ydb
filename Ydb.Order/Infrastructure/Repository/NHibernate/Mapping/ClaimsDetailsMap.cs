@@ -20,7 +20,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate.Mapping
             //20160622_longphui_modify
             //Map(x => x.ResourcesUrl).Length(1000);
             HasMany(x => x.ClaimsDetailsResourcesUrl)
-            .Cascade.AllDeleteOrphan().KeyColumn("ResourcesUrlId").EntityName("ClaimsDetailsResourcesUrl").Element("ResourcesUrl");
+            .Cascade.AllDeleteOrphan().KeyColumn("ResourcesUrlId").EntityName("ClaimsDetailsResourcesUrl").Element("ResourcesUrl").Not.LazyLoad();
 
             Map(x => x.CreatTime);
             Map(x => x.MemberId);

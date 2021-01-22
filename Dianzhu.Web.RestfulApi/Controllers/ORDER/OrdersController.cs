@@ -150,7 +150,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
             try
             {
                 GetRequestHeader.GetTraitHeaders("get/orders/{orderID}/allStatusList");
-                return Json(iorder.GetAllStatusList(orderID));
+                return Json(iorder.GetAllStatusList(orderID).OrderBy(x=>x.createTime));
             }
             catch (Exception ex)
             {

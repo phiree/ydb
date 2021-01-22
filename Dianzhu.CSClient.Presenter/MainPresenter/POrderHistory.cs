@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
  
-using Dianzhu.BLL;
+
 using Dianzhu.CSClient.IView;
 using System.ComponentModel;
 using Dianzhu.CSClient.ViewModel;
@@ -62,7 +62,6 @@ namespace Dianzhu.CSClient.Presenter
         {
             try
             {
-                NHibernateUnitOfWork.UnitOfWork.Start();
                 int totalAmount;
                 viewOrderHistory.OrderPage = 1;
 
@@ -110,8 +109,8 @@ namespace Dianzhu.CSClient.Presenter
             }
             finally
             {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+               // NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
         }
 
@@ -119,7 +118,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             try
             {
-                NHibernateUnitOfWork.UnitOfWork.Start();//查询订单需开启
+               // NHibernateUnitOfWork.UnitOfWork.Start();//查询订单需开启
 
                 viewOrderHistory.ShowListLoadingMsg();
                 int totalAmount;
@@ -158,8 +157,8 @@ namespace Dianzhu.CSClient.Presenter
             }
             finally
             {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+               // NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+               // NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
             }
         }
 

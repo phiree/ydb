@@ -45,6 +45,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
             dto.MessageBody = MessageBody;
             dto.ChatTarget = ChatTarget.ToString();
             dto.FromResource = FromResource.ToString();
+            dto.FromResourceName = FromResourceName;
             dto.ToResource = ToResource.ToString();
             dto.IsReaded = IsReaded;
             dto.IsfromCustomerService = IsfromCustomerService;

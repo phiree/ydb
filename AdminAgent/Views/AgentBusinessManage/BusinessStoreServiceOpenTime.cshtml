@@ -1,0 +1,41 @@
+﻿@using Ydb.BusinessResource.Application;
+@model  ServiceOpenTimeDto
+@{
+    Layout = null;
+}
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <b>当日接单量：</b> <a class="pull-right">@Model.MaxOrderForDay<span>单</span></a>
+    </li>
+    @foreach (ServiceOpenTimeForDayDto forday in @Model.OpenTimeForDay)
+    {
+        <li class="list-group-item">
+            <div class="service-time-list-item">
+                <div class="_item w-50-per">
+                    <div>服务时间：</div>
+                    <div>@forday.timeStart - @forday.timeEnd</div>
+                </div>
+                <div class="_item w-50-per">
+                    <div>接单上限：</div>
+                    <div>@forday.MaxOrderForOpenTime<span>单</span></div>
+                </div>
+                <a class="pull-right">@(forday.Enabled?"已启用": "未启用")</a>
+            </div>
+        </li>
+
+    }
+    @*<li class="list-group-item">
+        <div class="service-time-list-item">
+            <div class="_item w-50-per">
+                <div>服务时间：</div>
+                <div>08:59 - 09:10</div>
+            </div>
+            <div class="_item w-50-per">
+                <div>接单上限：</div>
+                <div>100单</div>
+            </div>
+        </div>
+    </li>*@
+</ul>
+

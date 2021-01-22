@@ -1,11 +1,18 @@
 ﻿<%@ WebHandler Language="C#" Class="IMServerAPI" %>
 
+
 using System;
 using System.Web;
+using Ydb.Membership.Application;
+using Ydb.Membership.Application.Dto;
+using System.Collections.Generic;
+using System.Linq;
+using Ydb.InstantMessage.DomainModel.Reception;
+ 
 public class IMServerAPI : IHttpHandler
 {
 
-    log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
+    log4net.ILog log = log4net.LogManager.GetLogger("Ydb.Web.Notify");
 
     public void ProcessRequest(HttpContext context)
     {
@@ -15,7 +22,8 @@ public class IMServerAPI : IHttpHandler
 
             Ydb.InstantMessage.Application.IInstantMessage im = (Ydb.InstantMessage.Application.IInstantMessage)context.Application["im"];
             Ydb.InstantMessage.Application.IReceptionService receptionService = Bootstrap.Container.Resolve<Ydb.InstantMessage.Application.IReceptionService>();
-
+            Ydb.Membership.Application.IDZMembershipService memberService= Bootstrap.Container.Resolve< IDZMembershipService>();
+            
             switch (type.ToLower())
             {
                 case "systemnotice":
@@ -50,7 +58,9 @@ public class IMServerAPI : IHttpHandler
                     Guid CSUserLoginId;
                     if (Guid.TryParse(strCSUserLoginId, out CSUserLoginId))
                     {
-                        receptionService.SendCSLoginMessageToDD();
+                        string areaCodeLoginCs=    memberService.GetUserById(strCSUserLoginId).UserCity;
+
+                        receptionService.SendCSLoginMessageToDD(areaCodeLoginCs);
                     }
                     else
                     {
@@ -62,14 +72,50 @@ public class IMServerAPI : IHttpHandler
                     Guid userId;
                     if (Guid.TryParse(struserId, out userId))
                     {
-                        receptionService.SendCSLogoffMessageToDD();
-                        receptionService.AssignCSLogoff(struserId);
+                        string areaCodeLogoffCs = memberService.GetUserById(struserId).UserCity;
+                        receptionService.SendCSLogoffMessageToDD(areaCodeLogoffCs);
+                        IList<MemberDto>     meberList= memberService.GetUsersByIdList(    receptionService.GetOnlineUserList("YDBan_CustomerService"));
+                        var csOnline = meberList.Select(x => new MemberArea(x.Id.ToString(), x.UserCity)).ToList();
+                        receptionService.AssignCSLogoff(struserId,csOnline);
                     }
+
                     else
                     {
                         throw new Exception("传入的csId无效:" + struserId);
                     }
                     break;
+                case "customer_change_city":
+                    string paramCustomerId = context.Request["userid"];
+                    string paramAreaCode= context.Request["areacode"];
+                    Guid customerId;
+                    if (Guid.TryParse(paramCustomerId, out customerId))
+                    {
+
+                        IList<MemberDto>     meberList= memberService.GetUsersByIdList(receptionService.GetOnlineUserList("YDBan_CustomerService"));
+                        var csOnline = meberList.Select(x => new MemberArea(x.Id.ToString(), x.UserCity)).ToList();
+                        receptionService.AssignCustomerChangeLocation(paramCustomerId,paramAreaCode,csOnline);
+
+
+                    }
+
+
+                    else
+                    {
+                        throw new Exception("传入的csId无效:" + paramCustomerId);
+                    }
+                    break;
+                //和任务相关的
+                case "ytask":
+                    string taskOrderId=context.Request["orderId"];
+                    string taskType = context.Request["tasktype"];
+                        
+
+                    YdbJobManager sm = Bootstrap.Container.Resolve<YdbJobManager>();
+                    sm.CreateJob(taskOrderId, taskType);
+                 //   jobFactory.CreateJob(taskOrderId, taskType);
+                    break;
+
+
             }
         }
         catch (Exception ee)

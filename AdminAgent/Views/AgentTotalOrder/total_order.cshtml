@@ -1,0 +1,380 @@
+﻿
+@{
+    ViewBag.headTitle = "订单统计";
+    ViewBag.subTitle = "订单信息";
+    ViewBag.breadcrumbOl = new List<string>() { "统计", "订单统计", "订单信息" };
+}
+
+ <!-- Main content -->
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a>订单信息</a></li>
+                    <li>@Html.ActionLink("订单属性", "total_order_detail", "AgentTotalOrder")@*<a href="./total-order-detail.html">订单属性</a>*@</li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
+
+                        <!-- 标签信息 -->
+                        <div class="row">
+                            <div class="col-md-2 col-sm-6 col-xs-12">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">昨日新增</span>
+                                        <span class="info-box-number">@ViewData["NewOrderNumber"]</span>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                                <!-- /.info-box -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-2 col-sm-6 col-xs-12">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">同比增长</span>
+                                        <span class="info-box-number">@ViewData["YearOrderNumber"]</span>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                                <!-- /.info-box -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-2 col-sm-6 col-xs-12">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-yellow"><i class="fa fa-files-o"></i></span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">累计</span>
+                                        <span class="info-box-number">@ViewData["AllOrderNumber"]</span>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                                <!-- /.info-box -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-2 col-sm-6 col-xs-12">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-red"><i class="fa fa-star-o"></i></span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">已完成订单</span>
+                                        <span class="info-box-number">@ViewData["AllDoneOrderNumber"]</span>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                                <!-- /.info-box -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-2 col-sm-6 col-xs-12">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-red"><i class="fa fa-star-o"></i></span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">未完成订单</span>
+                                        <span class="info-box-number">@ViewData["AllNotDoneOrderNumber"]</span>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                                <!-- /.info-box -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <div class="btn-group">
+                            <button id="riseOrder" type="button" class="btn btn-default btn-event">新增订单量</button>
+                            <button id="finishOrder" type="button" class="btn btn-default btn-event">完成订单量</button>
+                            <button id="totalOrder" type="button" class="btn btn-default btn-event">累计订单量</button>
+                            @*<button type="button" class="btn btn-default btn-event">净增订单量</button>*@
+                        </div>
+                        <form role="form" lpformnum="2">
+                            <div class="box-body">
+                                <!-- select -->
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">时间范围</label>
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </div>
+                                                        <input type="text" class="form-control pull-right" id="reservation">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box">
+                                            <div class="box-body">
+                                                <div class="chart">
+                                                    <canvas id="lineChart" height="250" width="787"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- /.tab-pane -->
+
+                </div>
+                <!-- /.tab-content -->
+            </div>
+            <!-- nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+    </div>
+
+
+</section>
+<!-- /.content -->
+@Html.Action("footer", "Agent", new { id = "" })
+
+<!-- date-range-picker -->
+<script src="../../static/plugins/daterangepicker/moment.min.js"></script>
+<script src="../../static/plugins/daterangepicker/daterangepicker.js"></script>
+
+<!-- ChartJS 1.0.1 -->
+<script src="../../static/plugins/chartjs/Chart.min.js"></script>
+
+<script src="../../static/libs/eventBtn.js"></script>
+
+<script>
+    $(function(){
+
+        //-------------
+        //- LINE CHART -
+        //--------------
+        function getRequireOptions(options){
+            return $.extend({},{
+                type: "GET",
+                data: {
+                    usertype: "customer"
+                }
+            }, options);
+        }
+
+        function chartLabelFormat(labels, arrayData){
+            return {
+                labels : (function(){
+                    return _.map(labels, function(element, index, list){
+                        return element.slice(4).replace(/(.{2})/,'$1\-')
+                    })
+                })(),
+                data: arrayData
+            }
+        }
+
+        function dateSelectFunc(start, end, label){
+            var opt = $.extend(dateReqOption, {
+                data : {
+                    usertype: "customer",
+                    start: start.format('YYYYMMDD'),
+                    end: end.format('YYYYMMDD')
+                }
+            });
+
+            var def = $.ajax(opt);
+
+            def.done(function(resp, statue, xhr){
+                var value = resp.XYValue;
+                var format = chartLabelFormat || void 0;
+
+                if ( typeof _.isObject(value) ) {
+                    lineChartData.labels = _.keys(value);
+                    lineChartData.datasets[0].data = _.values(value);
+
+                    if ( typeof format === "function") {
+                        var formatData = format(lineChartData.labels, lineChartData.datasets[0].data);
+                        lineChartData.labels = formatData.labels;
+                        lineChartData.datasets[0].data = formatData.data;
+                    }
+
+
+                    lineChart.data = lineChartData;
+                    lineChart.update();
+                }
+            });
+            console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+        };
+
+
+        var lineChartCanvas = $("#lineChart").get(0).getContext("2d");
+        var lineChartData = {
+            labels: [],
+            datasets: [
+                {
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "rgba(75,192,192,0.4)",
+                    borderColor: "rgba(75,192,192,1)",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: []
+                }
+            ]
+        };
+        var lineChartOptions = {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        stepSize: 1,
+                        beginAtZero:true
+                    }
+                }]
+            },
+            legend: {
+                display: false
+            }
+        };
+
+        var lineChart = new Chart(lineChartCanvas, {
+            type: 'line',
+            data: lineChartData,
+            options : lineChartOptions
+        });
+
+        // 选择rangeDate 时的请求参数
+        var dateReqOption;
+
+        // rangeDatePicker 配置
+        var dateConfig = {
+            "ranges": {
+                '今天': [moment(), moment()],
+                '昨天': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                '最近7天': [moment().subtract(6, 'days'), moment()],
+                '最近30天': [moment().subtract(29, 'days'), moment()],
+                '这个月': [moment().startOf('month'), moment().endOf('month')],
+                '上个月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            "locale": {
+                "format": "MM/DD/YYYY",
+                "separator": " - ",
+                "applyLabel": "确定",
+                "cancelLabel": "取消",
+                "fromLabel": "From",
+                "toLabel": "To",
+                "customRangeLabel": "自定义时间段",
+                "weekLabel": "W",
+                "daysOfWeek": [
+                    "日",
+                    "一",
+                    "二",
+                    "三",
+                    "四",
+                    "五",
+                    "六"
+                ],
+                "monthNames": [
+                    "一月",
+                    "二月",
+                    "三月",
+                    "四月",
+                    "五月",
+                    "六月",
+                    "七月",
+                    "八月",
+                    "九月",
+                    "十月",
+                    "十一月",
+                    "十二月"
+                ],
+                "firstDay": 1
+            },
+            "startDate": moment().subtract(29, 'days'),
+            "endDate": moment()
+        };
+
+        //Date range picker with time picker
+        var dateRange = $('#reservation').daterangepicker(dateConfig, dateSelectFunc);
+
+        // 图标按钮类实例
+        var riseUser = new LineBtn("#riseOrder", {
+            chart : lineChart,
+            chartData : lineChartData,
+            chartOptions : lineChartOptions,
+            chartDataFormat: chartLabelFormat,
+            clickBind : function(e){
+                dateReqOption = getRequireOptions({url: "/AgentTotalOrder/total_order_NewList"});
+                // 切换不同查询时，初始化daterangepicker
+                dateRange.daterangepicker(dateConfig, dateSelectFunc);
+                $(e.target).addClass("active").siblings(".btn").removeClass("active");
+            },
+            reqOptions : {
+                url : '/AgentTotalOrder/total_order_NewList',
+                type: "GET",
+                data: {
+                    usertype: "customer"
+                }
+            }
+        });
+
+        var totalUser = new LineBtn("#finishOrder", {
+            chart : lineChart,
+            chartData : lineChartData,
+            chartOptions : lineChartOptions,
+            chartDataFormat: chartLabelFormat,
+            clickBind : function(e){
+                dateReqOption = getRequireOptions({ url: "/AgentTotalOrder/total_order_IsDoneList"});
+                dateRange.daterangepicker(dateConfig, dateSelectFunc);
+                $(e.target).addClass("active").siblings(".btn").removeClass("active");
+            },
+            reqOptions : {
+                url : '/AgentTotalOrder/total_order_IsDoneList',
+                type: "GET",
+                data: {
+                    usertype: "customer"
+                }
+            }
+        });
+
+        var activeUser = new LineBtn("#totalOrder", {
+            chart : lineChart,
+            chartData : lineChartData,
+            chartOptions : lineChartOptions,
+            chartDataFormat: chartLabelFormat,
+            clickBind : function(e){
+                dateReqOption = getRequireOptions({ url: "/AgentTotalOrder/total_order_AllList"});
+                dateRange.daterangepicker(dateConfig, dateSelectFunc);
+                $(e.target).addClass("active").siblings(".btn").removeClass("active");
+            },
+            reqOptions : {
+                url : '/AgentTotalOrder/total_order_AllList',
+                type: "GET",
+                data: {
+                    usertype: "customer"
+                }
+            }
+        });
+
+        $('#riseOrder').click();
+
+    });
+
+</script>
+

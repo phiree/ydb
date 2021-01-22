@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ydb.Common.Specification;
 using Ydb.InstantMessage.DomainModel.Chat;
+using Ydb.Common.Domain;
 namespace Ydb.InstantMessage.Application
 {
     /// <summary>
@@ -109,5 +110,7 @@ namespace Ydb.InstantMessage.Application
         /// </summary>
         /// <param name="chatId"></param>
         void SetChatUnread(string chatId);
+
+        IList<StatisticsInfo<ReceptionChatDto>> GetChatTimeLine(string orderID);
     }
 }

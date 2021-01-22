@@ -48,6 +48,7 @@ namespace Ydb.BusinessResource.Application
             ServiceDto serviceDto = AutoMapper.Mapper.Map<ServiceDto>(service);
             return serviceDto;
         }
+        [UnitOfWork]
         public virtual ServiceOpenTimeForDay GetWorkTime(Guid serviceId, DateTime targetTime)
         {
             DZService service = repositoryDZService.FindById(serviceId);
@@ -68,14 +69,17 @@ namespace Ydb.BusinessResource.Application
 
 
         }
+        [UnitOfWork]
         public DZService GetOneByBusAndId(Business business, Guid svcId)
         {
             return repositoryDZService.GetOneByBusAndId(business, svcId);
         }
+        [UnitOfWork]
         public int GetSumByBusiness(Business business)
         {
             return repositoryDZService.GetSumByBusiness(business);
         }
+        [UnitOfWork]
         public virtual IList<ServiceType> GetServiceTypeListByBusiness(Guid businessId)
         {
             int totalRecord;
@@ -87,12 +91,19 @@ namespace Ydb.BusinessResource.Application
         [UnitOfWork]
         public void Save(DZService service)
         {
+            if (service.Business == null)
+            {
+                throw new Exception("该服务没有确定所属的店铺");
+            }
+            service.Business.ServiceAmount++;
             repositoryDZService.Add(service);
         }
+        [UnitOfWork]
         public void Update(DZService service)
         {
             repositoryDZService.Update(service);
         }
+        [UnitOfWork]
         public void SaveOrUpdate(DZService service, out ValidationResult validationResult)
         {
             ValidatorDZService v = new ValidatorDZService();
@@ -104,6 +115,11 @@ namespace Ydb.BusinessResource.Application
             if (service.Id == Guid.Empty)
             {
                 service.CreatedTime = DateTime.Now;
+                if (service.Business == null)
+                {
+                    throw new Exception("该服务没有确定所属的店铺");
+                }
+                service.Business.ServiceAmount++;
                 repositoryDZService.Add(service);
             }
             else
@@ -116,14 +132,18 @@ namespace Ydb.BusinessResource.Application
 
         }
 
+        [UnitOfWork]
         public IList<DZService> GetAll()
         {
             return repositoryDZService.Find(x => true);
         }
+        [UnitOfWork]
         public void Delete(DZService dz)
         {
+            dz.Business.ServiceAmount--;
             repositoryDZService.Delete(dz);
         }
+        [UnitOfWork]
         public IList<DZService> SearchService(string name, decimal priceMin, decimal priceMax, Guid typeId, DateTime datetime, double lng, double lat, int pageIndex, int pagesize, out int total)
         {
             return repositoryDZService.SearchService(name, priceMin, priceMax, typeId, datetime, lng, lat, pageIndex, pagesize, out total);
@@ -134,6 +154,7 @@ namespace Ydb.BusinessResource.Application
         /// </summary>
         /// <param name="service"></param>
         /// <returns></returns>
+        [UnitOfWork]
         public IList<DZTag> GetServiceTags(Guid serviceId)
         {
             return repositoryDZTag.GetTagsForService(serviceId);
@@ -149,6 +170,7 @@ namespace Ydb.BusinessResource.Application
         /// <param name="startAt"></param>
         /// <param name="storeID"></param>
         /// <returns></returns>
+        [UnitOfWork]
         public IList<ServiceDto> GetServices(TraitFilter filter, Guid typeId, string strName, string introduce, decimal startAt, Guid storeID)
         {
             var where = PredicateBuilder.True<DZService>();
@@ -203,6 +225,7 @@ namespace Ydb.BusinessResource.Application
         /// <param name="startAt"></param>
         /// <param name="storeID"></param>
         /// <returns></returns>
+        [UnitOfWork]
         public long GetServicesCount(Guid typeId, string strName, string introduce, decimal startAt, Guid storeID)
         {
             var where = PredicateBuilder.True<DZService>();
@@ -237,6 +260,7 @@ namespace Ydb.BusinessResource.Application
         /// <param name="storeID"></param>
         /// <param name="serviceID"></param>
         /// <returns></returns>
+        [UnitOfWork]
         public ServiceDto GetService(Guid storeID, Guid serviceID)
         {
             var where = PredicateBuilder.True<DZService>();
@@ -317,6 +341,7 @@ namespace Ydb.BusinessResource.Application
                 { 
                 service.ModifyWorkTimePeriod(dayOfWeek,  workTime.TimePeriod,
                     new TimePeriod(new Time(timeBegin), new Time(endtime)),   out errMsg);
+                    workTime.TimePeriod = new TimePeriod(new Time(timeBegin), new Time(endtime));
                 }
                 if (isOpen != null)
                 {
@@ -340,7 +365,7 @@ namespace Ydb.BusinessResource.Application
  
             return result;
         }
-       
+
         /// <summary>
         /// 查询工作时间项
         /// </summary>
@@ -350,6 +375,7 @@ namespace Ydb.BusinessResource.Application
         /// <param name="timeBegin"></param>
         /// <param name="timeEnd"></param>
         /// <returns></returns>
+        [UnitOfWork]
         public IList<ServiceOpenTimeForDay> GetWorkTimes(string storeID, string serviceID, DayOfWeek? dayOfWeek, string timeBegin, string timeEnd)
         {
             IList<ServiceOpenTimeForDay> list = new List<ServiceOpenTimeForDay>();
@@ -383,6 +409,7 @@ namespace Ydb.BusinessResource.Application
             return list;
         }
 
+        [UnitOfWork]
         public ServiceOpenTimeForDay GetWorkitem(string storeID, string serviceID, string workTimeID)
         {
             DZService service = repositoryDZService.FindById(new Guid(serviceID));
@@ -426,6 +453,68 @@ namespace Ydb.BusinessResource.Application
         public DZService GetOne2(Guid serviceId)
         {
           return  repositoryDZService.FindById(serviceId);
+        }
+
+        /// <summary>
+        /// 封停/解封服务
+        /// </summary>
+        /// <param name="serviceId"></param>
+        /// <param name="enable"></param>
+        /// <param name="memo"></param>
+        [UnitOfWork]
+        public void EnabledDZService(string serviceId, bool enable, string memo)
+        {
+            var service = repositoryDZService.FindById(Ydb.Common.StringHelper.CheckGuidID(serviceId,"服务Id"));
+            if (service == null)
+            {
+                throw new Exception("该服务不存在！");
+            }
+            service.EnabledDZService(enable, memo);
+        }
+
+        /// <summary>
+        /// 获取代理所在区域的服务区分是否封停
+        /// </summary>
+        /// <param name="areaIdList"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public IList<ServiceDto> GetServicesByArea(IList<string> areaIdList)
+        {
+            var where = PredicateBuilder.True<DZService>();
+            where = where.And(x => areaIdList.Contains(x.Business.AreaBelongTo));
+            var list = repositoryDZService.Find(where).ToList();
+            return AutoMapper.Mapper.Map<IList<ServiceDto>>(list);
+        }
+
+        /// <summary>
+        /// 获取该服务每天的工作时间
+        /// </summary>
+        /// <param name="serviceId"></param>
+        /// <param name="dayOfWeek"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public ServiceOpenTimeDto GetOpenTimeByWeek(Guid serviceId, DayOfWeek dayOfWeek)
+        {
+            DZService dzService = repositoryDZService.FindById(serviceId);
+            ServiceOpenTime serviceOpenTime = dzService.OpenTimes.Where(x => x.DayOfWeek == dayOfWeek).ToList()[0];
+            return AutoMapper.Mapper.Map<ServiceOpenTimeDto>(serviceOpenTime);
+        }
+
+        /// <summary>
+        /// 封停/解封店铺
+        /// </summary>
+        /// <param name="businessId"></param>
+        /// <param name="enable"></param>
+        /// <param name="memo"></param>
+        [UnitOfWork]
+        public void EnabledDZService(Guid dzServiceId, bool enable, string memo)
+        {
+            DZService dzService = repositoryDZService.FindById(dzServiceId);
+            if (dzService == null)
+            {
+                throw new Exception("该店铺不存在！");
+            }
+            dzService.EnabledDZService(enable, memo);
         }
     }
 }

@@ -15,7 +15,7 @@
                 <div class="info-box-content">
                     <span class="info-box-text">账户余额</span>
                     <span class="info-box-number">@ViewData["myAccountFinance"]</span>
-                    <span class="info-box-number text-right">@Html.ActionLink("提现", "finance_withdraw_apply", "AgentFinance",new {id=@ViewData["agentId"] }, new { @class = "btn btn-info" })</span>
+                    <span class="info-box-number text-right">@Html.ActionLink("提现", "finance_withdraw_apply", "AgentFinance",new {id=@ViewData["agentId"] }, new { @class = "btn btn-info",onclick = "return checkAccount();" })</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -28,7 +28,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">支付宝账号</span>
-                    <span class="info-box-number">@ViewData["myAliAccount"]</span>
+                    <span class="info-box-number" id="myAliAccount">@ViewData["myAliAccount"]</span>
                     <span class="info-box-number text-right">@Html.ActionLink("绑定/更改", "finance_account_bind", "AgentFinance", new { id = @ViewData["agentId"].ToString() }, new { @class = "btn btn-success" })@*<a href="finance-account-bind.html" class="btn btn-success">绑定/更改</a>*@</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -160,12 +160,23 @@
     </div>
 </section>
 <!-- /.content -->
+@Html.Action("footer", "Agent", new { id = "" })
 <!-- DataTables -->
-<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="../../static/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../static/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 
 <script>
+    function checkAccount()
+    {
+        var myAliAccount = document.getElementById("myAliAccount").innerText;
+        if(myAliAccount=="未绑定")
+        {
+            alert("请先绑定该用户的体现账户");
+            return false;
+        }
+        return true;
+    }
     $(function () {
         var language = {
             "sProcessing": "处理中...",

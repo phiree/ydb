@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dianzhu.ApplicationService
 {
-    class baiduMap
+    internal class baiduMap
     {
     }
+
     /// <summary>
     /// 坐标转换后的josn数据转为对象
     /// </summary>
@@ -17,6 +15,7 @@ namespace Dianzhu.ApplicationService
         public int status { get; set; }
         public IList<RespXY> result { get; set; }
     }
+
     public class RespXY
     {
         public double x { get; set; }
@@ -31,6 +30,7 @@ namespace Dianzhu.ApplicationService
         public int status { get; set; }
         public GeoResult result { get; set; }
     }
+
     public class GeoResult
     {
         public GeoLocation location { get; set; }
@@ -41,14 +41,16 @@ namespace Dianzhu.ApplicationService
         public IList<Object> poiRegions { get; set; }
         public string semtic_description { get; set; }
     }
+
     public class GeoLocation
     {
         public double lng { get; set; }
         public double lat { get; set; }
     }
+
     public class GeoAddressComponent
     {
-        public string streetNumber { get; set; }
+        public string street_number { get; set; }
         public string street { get; set; }
         public string district { get; set; }
         public string city { get; set; }
@@ -57,5 +59,6 @@ namespace Dianzhu.ApplicationService
         public string counntryCode { get; set; }
         public string direction { get; set; }
         public string distance { get; set; }
+        public string adcode { get; set; }
     }
 }

@@ -1,9 +1,6 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using System.Configuration;
-using System.Diagnostics;
 using System.Net;
 
 namespace Dianzhu.Config
@@ -14,27 +11,30 @@ namespace Dianzhu.Config
     public static partial class Config
     {
         #region 服务器定义
-        
+
         //本地服务器,局域网测试服务器,远程服务器,正式服务器
-        static string[] IMServers = new string[]            { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
-        static string[] IMDomains = new string[]            { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
-        static string[] ApplicationServers = new string[]   { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
-        static string[] HttpApiServers = new string[]       { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
-        static string[] IMNotifyServers = new string[]      { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
-        static string[] PayServers = new string[]           { "localhost",  "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", PublicIp };
-        
+        private static string[] IMServers = new string[] { "localhost", "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
 
-        static string IMServer = IMServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString(); 
-        static string IMDomain = IMDomains.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString(); 
-        static string HttpApiServer = HttpApiServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString(); 
-        static string ApplicationServer = ApplicationServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString(); 
-        static string IMNotifyServer = IMNotifyServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString(); 
+        private static string[] IMDomains = new string[] { "localhost", "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
+        private static string[] ApplicationServers = new string[] { "localhost", "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
+        private static string[] HttpApiServers = new string[] { "localhost", "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
+        private static string[] IMNotifyServers = new string[] { "localhost", "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
+        private static string[] PayServers = new string[] { "localhost", "192.168.1.150", "dev.ydban.cn", "business.ydban.cn", PublicIp };
+        private static string[] ImageHandlerServers = new string[] { "localhost", "192.168.1.150", "business.dev.ydban.cn", "business.ydban.cn", "192.168.1.138" };
 
-        #endregion
-        static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");
+        private static string IMServer = IMServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();
+        private static string IMDomain = IMDomains.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();
+        private static string HttpApiServer = HttpApiServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();
+        private static string ApplicationServer = ApplicationServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();
+        private static string IMNotifyServer = IMNotifyServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();
+        private static string ImageHandlerServer = ImageHandlerServers.GetValue(int.Parse(ConfigurationManager.AppSettings["ServerNum"])).ToString();
+
+        #endregion 服务器定义
+
+        private static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");
 
         //配置访问协议(http/https)的访问端口
-        static Dictionary<string, int>HttpPort = new Dictionary<string, int>()
+        private static Dictionary<string, int> HttpPort = new Dictionary<string, int>()
         {
             { "cdnroot",886 },
             { "RestApiAuthUrl",8041 },
@@ -46,7 +46,8 @@ namespace Dianzhu.Config
             { "APIBaseURL",8037 },
             { "NotifyServer",8039 }
         };
-        static Dictionary<string, int> HttpsPort = new Dictionary<string, int>()
+
+        private static Dictionary<string, int> HttpsPort = new Dictionary<string, int>()
         {
             { "cdnroot",686 },
             { "RestApiAuthUrl",6041 },
@@ -58,21 +59,22 @@ namespace Dianzhu.Config
             { "APIBaseURL",6037 },
             { "NotifyServer",6039 }
         };
-        static bool UseHttps = bool.Parse(ConfigurationManager.AppSettings["UseHttps"]);
-        static Dictionary<string, int> PortSet = UseHttps ? HttpsPort : HttpPort;
-        static string strHttp = UseHttps ? "https" : "http";
 
+        private static bool UseHttps = bool.Parse(ConfigurationManager.AppSettings["UseHttps"]);
+        private static Dictionary<string, int> PortSet = UseHttps ? HttpsPort : HttpPort;
+        private static string strHttp = UseHttps ? "https" : "http";
 
-        static Dictionary<string, KeyValuePair<string, string>> DictsDianDianLogins = new Dictionary<string, KeyValuePair<string, string>>() {
+        private static Dictionary<string, KeyValuePair<string, string>> DictsDianDianLogins = new Dictionary<string, KeyValuePair<string, string>>() {
              { "localhost",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
             ,{ "dev.ydban.cn",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
             ,{ "business.ydban.cn",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","123456") }
             ,{ "192.168.1.150",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
             ,{ "192.168.1.138",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
         };
+
         //通知中心登陆用户账号，不同数据库服务器有不同的值
         //todo: 需要使用 username登陆 而不是id
-        static Dictionary<string, KeyValuePair<string, string>> DictsNotifySenderLogins = new Dictionary<string, KeyValuePair<string, string>>() {
+        private static Dictionary<string, KeyValuePair<string, string>> DictsNotifySenderLogins = new Dictionary<string, KeyValuePair<string, string>>() {
              { "localhost",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
             ,{ "192.168.1.138",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
             ,{ "dev.ydban.cn",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
@@ -80,8 +82,15 @@ namespace Dianzhu.Config
             ,{ "192.168.1.150",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
         };
 
+        private static Dictionary<string, KeyValuePair<string, string>> DictsNoticeSenderLogins = new Dictionary<string, KeyValuePair<string, string>>() {
+             { "localhost",new KeyValuePair<string,string>("db74d7c5-a9be-4dfc-8f06-7926f6d44335","123456") }
+            ,{ "192.168.1.138",new KeyValuePair<string,string>("db74d7c5-a9be-4dfc-8f06-7926f6d44335","123456") }
+            ,{ "dev.ydban.cn",new KeyValuePair<string,string>("db74d7c5-a9be-4dfc-8f06-7926f6d44335","123456") }
+            ,{ "business.ydban.cn",new KeyValuePair<string,string>("db74d7c5-a9be-4dfc-8f06-7926f6d44335","123456") }
+            ,{ "192.168.1.150",new KeyValuePair<string,string>("db74d7c5-a9be-4dfc-8f06-7926f6d44335","123456") }
+        };
 
-        static Dictionary<string, string> DictsAppSettings = new Dictionary<string, string>() {
+        private static Dictionary<string, string> DictsAppSettings = new Dictionary<string, string>() {
              {"cdnroot", BuildHttpUrlString(ApplicationServer, PortSet["cdnroot"])}
             , {"ImServer",IMServer  }
             , {"ImDomain",IMDomain  }
@@ -91,11 +100,12 @@ namespace Dianzhu.Config
             , {"MediaGetUrl",BuildHttpUrlString(ApplicationServer, PortSet["MediaGetUrl"],"GetFile.ashx?fileName=")   }
             , {"MediaUploadUrlByDate",BuildHttpUrlString(ApplicationServer, PortSet["MediaUploadUrlByDate"],"UploadFileByDate.ashx") }//按日期生成保存路径
 
-            , {"ImageHandler",BuildHttpUrlString(ApplicationServer, "ImageHandler.ashx?imagename=")}
+            , {"ImageHandler",BuildHttpUrlString(ImageHandlerServer, "ImageHandler.ashx?imagename=")}
 
             , {"NoticeSenderId",DictsNotifySenderLogins[IMNotifyServer].Key  }
             , {"NoticeSenderPwd",DictsNotifySenderLogins[IMNotifyServer].Value  }
-
+             , {"AgentNoticeSenderId",DictsNoticeSenderLogins[IMNotifyServer].Key  }
+            , {"AgentNoticeSenderPwd",DictsNoticeSenderLogins[IMNotifyServer].Value  }
             , {"PaySite",BuildHttpUrlString(PayServers[int.Parse(ConfigurationManager.AppSettings["PayServerNum"])],PortSet["PaySite"])   }
 
             , {"OpenfireRestApiBaseUrl",BuildHttpUrlString(IMServer, PortSet["OpenfireRestApiSessionListUrl"],"plugins/restapi/v1/")  }
@@ -105,7 +115,7 @@ namespace Dianzhu.Config
             , {"APIBaseURL",BuildHttpUrlString(HttpApiServer, PortSet["APIBaseURL"],"DianzhuApi.ashx")  }
 
             , {"GetHttpAPIPort", PortSet["APIBaseURL"].ToString()}
-            
+
             , {"NotifyServer",BuildHttpUrlString(IMNotifyServer, PortSet["NotifyServer"], "IMServerAPI.ashx?")   }
             , {"BaiduGeocodingAPI","https://api.map.baidu.com/geocoder/v2/?s=1&ak="  }//http://api.map.baidu.com/geocoder/v2/?ak=
             , {"BaiduTranAPI","https://api.map.baidu.com/geoconv/v1/?s=1&ak="  }//http://api.map.baidu.com/geoconv/v1/?ak=
@@ -135,20 +145,24 @@ namespace Dianzhu.Config
 
         static private string BuildHttpUrlString(string server)
         {
-            return string.Format(strHttp+"://{0}/", server);
+            return string.Format(strHttp + "://{0}/", server);
         }
+
         static private string BuildHttpUrlString(string server, int port)
         {
             return string.Format(strHttp + "://{0}:{1}/", server, port);
         }
+
         static private string BuildHttpUrlString(string server, string path)
         {
             return string.Format(strHttp + "://{0}/{1}", server, path);
         }
+
         static private string BuildHttpUrlString(string server, int port, string path)
         {
             return string.Format(strHttp + "://{0}:{1}/{2}", server, port, path);
         }
+
         public static string GetAppSetting(string key)
         {
             string errMsg = string.Empty;
@@ -157,7 +171,6 @@ namespace Dianzhu.Config
                 string settingValue = DictsAppSettings[key];
                 if (!string.IsNullOrEmpty(settingValue))
                 {
-
                 }
                 else
                 {
@@ -172,21 +185,20 @@ namespace Dianzhu.Config
                 ilog.Error(errMsg);
                 throw new System.Exception(errMsg);
             }
-
         }
 
         private static string publicIp;
+
         public static string PublicIp
         {
-            get { 
-                if(string.IsNullOrEmpty(publicIp))
+            get
+            {
+                if (string.IsNullOrEmpty(publicIp))
                 {
                     publicIp = new WebClient().DownloadString("http://icanhazip.com").Replace("\n", string.Empty);
                 }
                 return publicIp;
             }
         }
-
     }
-
 }

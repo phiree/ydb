@@ -42,17 +42,19 @@ public partial class area_MapBaidu : BasePage
                 while (jt!=null)
                 {
                     jt = jt.Next;
-                    IList<Dianzhu.Model.BaiduCity> baiduCitys = JsonConvert.DeserializeObject<IList<Dianzhu.Model.BaiduCity>>(jt.First.ToString());
-                    foreach (Dianzhu.Model.BaiduCity baiduCity in baiduCitys)
+                    IList< BaiduCity> baiduCitys = JsonConvert.DeserializeObject<IList< BaiduCity>>(jt.First.ToString());
+                    foreach ( BaiduCity baiduCity in baiduCitys)
                     {
                         try
                         {
-                             Area area = bllArea.GetAreaByBaiduName(baiduCity.name);
-                            if (string.IsNullOrEmpty(area.BaiduCode))
-                            {
-                                area.BaiduCode = baiduCity.code;
-                                area.BaiduName = baiduCity.name;
-                            }
+                            bllArea.UpdateAreaWithBaiduMap(baiduCity.code, baiduCity.name);
+                            // Area area = bllArea.GetAreaByBaiduName(baiduCity.name);
+                            //if (string.IsNullOrEmpty(area.BaiduCode))
+                            //{
+
+                            //    area.BaiduCode = baiduCity.code;
+                            //    area.BaiduName = baiduCity.name;
+                            //}
                             lblSuccess.Text = lblSuccess.Text + baiduCity.name + "," + baiduCity.code + "," + baiduCity.key + ";";
                         }
                         catch

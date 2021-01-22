@@ -29,10 +29,10 @@ namespace Ydb.InstantMessage.DomainModel.Reception
         /// <summary>
         /// 用户上线分配，如果返回为空，则分配失败
         /// </summary>
-        /// <param name="existedReceptionForCustomer"></param>
+        /// <param name="existedReceptionForCustomer">已经存在的分配关系. 用户修改城市之后需要移除该关系.</param>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        public string AssignCustomerLogin(IList<ReceptionStatus> existedReceptionForCustomer,string customerId)
+        public string AssignCustomerLogin(IList<ReceptionStatus> existedReceptionForCustomer,MemberArea customerToAssign,IList<MemberArea> csList)
         {
             string csId = string.Empty;
             
@@ -54,32 +54,34 @@ namespace Ydb.InstantMessage.DomainModel.Reception
 
             if (string.IsNullOrEmpty(csId))
             {
-                var onlineList = receptionSession.GetOnlineSessionUser(XmppResource.YDBan_CustomerService);
-                Dictionary<string, string> assignResult = assignStratage.Assign(new List<string> { customerId }, onlineList, DianDianId);
-                csId = assignResult[customerId];
+              //  var onlineList = receptionSession.GetOnlineSessionUser(XmppResource.YDBan_CustomerService);
+                Dictionary<string, string> assignResult = assignStratage.Assign(new List<MemberArea> { customerToAssign }, csList, DianDianId);
+                csId = assignResult[customerToAssign.MemberId];
             }
 
             return csId;
         }
 
-        public Dictionary<string, string> AssignCSLogin(IList<ReceptionStatus> existReceptionDD, string csId)
+        public Dictionary<string, string> AssignCSLogin(IList<ReceptionStatus> existReceptionDD, MemberArea cs)
         {
             Dictionary<string, string> assignList = new Dictionary<string, string>();
 
-            foreach (var item in existReceptionDD)
+            foreach ( var item in existReceptionDD.Where(x=>x.AreaCode==cs.AreaCode))
             {
-                assignList[item.CustomerId] = csId;
+                assignList[item.CustomerId] = cs.MemberId;
             }
 
             return assignList;
         }
 
-        public Dictionary<string, string> AssignCSLogoff(IList<ReceptionStatus> existedReceptionForCustomerService)
+        public Dictionary<string, string> AssignCSLogoff(IList<ReceptionStatus> existedReceptionForCustomerService,IList<MemberArea> csList)
         {
             Dictionary<string, string> assignList = new Dictionary<string, string>();
 
-            var onlineList = receptionSession.GetOnlineSessionUser(XmppResource.YDBan_CustomerService);
-            assignList = assignStratage.Assign(existedReceptionForCustomerService.Select(x => x.CustomerId).ToList(), onlineList, DianDianId);
+          //  var onlineList = receptionSession.GetOnlineSessionUser(XmppResource.YDBan_CustomerService);
+            var beleftCustomer = existedReceptionForCustomerService.Select(x => new MemberArea(x.CustomerId,x.AreaCode)).ToList();
+
+            assignList = assignStratage.Assign(beleftCustomer, csList, DianDianId);
 
             return assignList;
         }

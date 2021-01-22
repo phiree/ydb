@@ -14,8 +14,7 @@ public class VMBusinessAdapter
     {
         this.orderService = orderService;
     }
-    string errMsg;
-    public VMShop Adapt( Business business)
+     public VMShop Adapt( Business business)
     {
         VMShop vmShop = new VMShop();
         vmShop.BusinessName = business.Name;

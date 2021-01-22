@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
 using Newtonsoft.Json;
-using Dianzhu.BLL;
+
 using Dianzhu.RequestRestful;
 using Ydb.Membership.Application;
 
@@ -33,8 +33,6 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
             Response.Cookies.Add(errorTime);
         }
 
-
-        string errorMsg;
         var isValid = memberService.ValidateUser(tbxUserName.Text, tbxPassword.Text, true);
         if (isValid.IsValidated)
         {
@@ -81,8 +79,7 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
 
             lblMsg.Text = isValid.ValidateErrMsg;// "用户名或密码错误";
             lblMsg.CssClass = "lblMsg lblMsgShow";
-
-            // PHSuit.Notification.Show(Page,"","登录失败",Request.RawUrl);
+ 
         }
     }
 
@@ -100,31 +97,13 @@ public partial class login : Dianzhu.Web.Common.BasePage // System.Web.UI.Page
         IRequestRestful req = new RequestRestful();
 
         RequestResponse res = new RequestResponse();
-
-        //测试userToken重复保存问题
-        //System .Threading.Thread t1 = new System.Threading.Thread(() => ReqResponse1(username, password));
-        //System.Threading.Thread t2 = new System.Threading.Thread(() => ReqResponse1(username, password));
-        //t1.Start();
-        //t2.Start();
+ 
         res = req.RequestRestfulApi(rp);
         return res;
         
 
     }
-
-    //测试userToken重复保存问题
-    //private static void ReqResponse1(object username, object password)
-    //{
-    //    RequestParams rp = new RequestParams();
-    //    rp.method = "1";
-    //    rp.url = Dianzhu.Config.Config.GetAppSetting("RestApiAuthUrl");
-    //    //rp.url = "http://192.168.1.177:52554/api/v1/authorization";
-    //    rp.content = "{\n\"loginName\":\"" + username + "\",\n\"password\":\"" + password + "\"\n}";
-    //    rp = SetCommon.SetParams("ABc907a34381Cd436eBfed1F90ac8f823b", "2bdKTgh9SiNlGnSajt4E6c4w1ZoZJfb9ATKrzCZ1a3A=", rp);
-    //    IRequestRestful req = new RequestRestful();
-    //    RequestResponse res = new RequestResponse();
-    //    res = req.RequestRestfulApi(rp);
-    //}
+ 
 
 
 }

@@ -38,6 +38,22 @@ namespace Ydb.Order.DomainModel
         /// 投诉的图片链接
         /// </summary>
         public virtual IList<string> ComplaitResourcesUrl { get; set; }
+
+
+        /// <summary>
+        /// 投诉的图片链接
+        /// </summary>
+        public virtual IList<string> ComplaitResourcesPathUrl {
+            get {
+                IList<string> pathUrl =new List<string>();
+                for (int i = 0; i < ComplaitResourcesUrl.Count; i++)
+                {
+                    pathUrl.Add(ComplaitResourcesUrl[i] != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + ComplaitResourcesUrl[i] : "");
+                }
+                return pathUrl;
+            }
+        }
+
         /// <summary>
         /// 创建时间
         /// </summary>

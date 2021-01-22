@@ -9,6 +9,7 @@ using Ydb.Order.DomainModel.Repository;
 using Ydb.PayGateway;
 using Ydb.Common.Infrastructure;
 using Ydb.Order.Infrastructure;
+using Ydb.Common.Domain;
 
 namespace Ydb.Order.Application
 {
@@ -16,6 +17,7 @@ namespace Ydb.Order.Application
     /// <summary>
     /// 订单业务逻辑
     /// </summary>
+    [Serializable]
     public class ServiceOrderService : IServiceOrderService
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
@@ -30,7 +32,7 @@ namespace Ydb.Order.Application
         IRepositoryClaims repoClaims;
         IRepositoryPayment repoPayment;
 
-       
+
         IRepositoryRefund repoRefund;
 
         //20160616_longphui_add
@@ -38,11 +40,14 @@ namespace Ydb.Order.Application
         IRepositoryServiceOrderPushedService repoPushedService;
 
         IRefundFactory refundFactory;
-        
+        DomainModel.DataStatistics.IStatisticsOrderCount statisticsOrderCount;
+
 
         public ServiceOrderService(IRepositoryServiceOrder repoServiceOrder, IRepositoryServiceOrderStateChangeHis repoStateChangeHis,
-           IRepositoryRefund repoRefund,   IRepositoryOrderAssignment repoOrderAssignment,
-           IRepositoryClaims repoClaims, IRepositoryPayment repoPayment,IHttpRequest httpRequest,  IRepositoryServiceOrderPushedService repoPushedService, IRefundFactory refundFactory)
+           IRepositoryRefund repoRefund, IRepositoryOrderAssignment repoOrderAssignment,
+           IRepositoryClaims repoClaims, IRepositoryPayment repoPayment, IHttpRequest httpRequest,
+           IRepositoryServiceOrderPushedService repoPushedService, IRefundFactory refundFactory,
+           DomainModel.DataStatistics.IStatisticsOrderCount statisticsOrderCount)
         {
 
             this.repoServiceOrder = repoServiceOrder;
@@ -50,11 +55,12 @@ namespace Ydb.Order.Application
             this.repoStateChangeHis = repoStateChangeHis;
             this.repoClaims = repoClaims;
             this.repoPayment = repoPayment;
-       
+
             this.repoRefund = repoRefund;
             this.httpRequest = httpRequest;
             this.repoPushedService = repoPushedService;
             this.refundFactory = refundFactory;
+            this.statisticsOrderCount = statisticsOrderCount;
         }
 
         public int GetServiceOrderCount(Guid userId, enum_OrderSearchType searchType)
@@ -154,7 +160,8 @@ namespace Ydb.Order.Application
         /// <param name="userType"></param>
         /// <param name="strAssign"></param>
         /// <returns></returns>
-        public IList<ServiceOrder> GetOrders(TraitFilter filter, string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, DateTime beforeThisTime, Guid UserID, string userType, string strAssign)
+        public IList<ServiceOrder> GetOrders(TraitFilter filter, string statusSort, string status, Guid storeID, string formanID, DateTime afterThisTime, 
+            DateTime beforeThisTime, Guid UserID, string userType, string strAssign)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
 
@@ -213,11 +220,11 @@ namespace Ydb.Order.Application
             {
                 if (strAssign == "false")
                 {
-                    where = where.And(x => string.IsNullOrEmpty(x.StaffId));
+                    where = where.And(x => x.StaffId=="" || x.StaffId == null);
                 }
                 else
                 {
-                    where = where.And(x => !string.IsNullOrEmpty(x.StaffId));
+                    where = where.And(x => x.StaffId!="" && x.StaffId!=null);
                 }
             }
             if (storeID != Guid.Empty)
@@ -260,6 +267,7 @@ namespace Ydb.Order.Application
             // return DALServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
         }
 
+       
         /// <summary>
         /// 根据代理区域获取该区域内所有商户的订单数量，区分是否分账
         /// </summary>
@@ -283,6 +291,53 @@ namespace Ydb.Order.Application
         public IList<ServiceOrder> GetOrdersByBusinessList(IList<string> businessIdList, bool isShared)
         {
             return repoServiceOrder.GetOrdersByBusinessList(businessIdList, isShared);
+        }
+
+        /// <summary>
+        /// 根据代理区域获取该区域内所有商户的订单数量，按时间统计
+        /// </summary>
+        /// <param name="businessIdList">该区域内所有商户Id列表</param>
+        /// <param name="isShared">订单是否分账</param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public long GetOrdersCountByBusinessList(IList<string> businessIdList,DateTime beginTime,DateTime endTime, string strDone)
+        {
+            return repoServiceOrder.GetOrdersCountByBusinessList(businessIdList, beginTime,endTime,strDone);
+        }
+
+
+        /// <summary>
+        /// 根据代理区域获取该区域内所有商户的订单列表，按时间统计
+        /// </summary>
+        /// <param name="businessIdList">该区域内所有商户Id列表</param>
+        /// <param name="isShared">订单是否分账</param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public IList<ServiceOrder> GetOrdersByBusinessList(IList<string> businessIdList, DateTime beginTime, DateTime endTime, string strDone)
+        {
+            return repoServiceOrder.GetOrdersByBusinessList(businessIdList, beginTime, endTime, strDone);
+        }
+
+        /// <summary>
+        /// 根据商户Id列表订单的营业总额
+        /// </summary>
+        /// <param name="businessIdList"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public decimal GetTotalAmountByBusinessList(IList<string> businessIdList)
+        {
+            return repoServiceOrder.GetTotalAmountByBusinessList(businessIdList);
+        }
+
+        /// <summary>
+        /// 根据分账统计订单
+        /// </summary>
+        /// <param name="isShared">订单是否分账</param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public IList<ServiceOrder> GetOrdersByShared(bool isShared, int pageIndex, int pageSize, out long totalRecords)
+        {
+            return repoServiceOrder.GetOrdersByShared(isShared,  pageIndex,  pageSize, out  totalRecords);
         }
 
 
@@ -333,7 +388,7 @@ namespace Ydb.Order.Application
                               || x.OrderStatus == enum_OrderStatus.ForceStop)
                         ;
                     break;
-                //case enum_OrderSearchType.Nt:
+                //case enum_OrderSearchType.Nt: 
                 case "pending":
                     where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                          && x.OrderStatus != enum_OrderStatus.DraftPushed
@@ -359,17 +414,18 @@ namespace Ydb.Order.Application
             {
                 if (strAssign == "false")
                 {
-                    where = where.And(x => string.IsNullOrEmpty(x.StaffId));
+                    where = where.And(x => x.StaffId == "" || x.StaffId == null);
                 }
                 else
                 {
-                    where = where.And(x => !string.IsNullOrEmpty(x.StaffId));
+                    where = where.And(x => x.StaffId != "" && x.StaffId != null);
                 }
             }
             if (storeID != Guid.Empty)
             {
                 where = where.And(x => x.BusinessId == storeID.ToString());
             }
+            //formanID传""表示未指派
             if (formanID != null)
             {
                 where = where.And(x => x.StaffId == formanID);
@@ -420,20 +476,56 @@ namespace Ydb.Order.Application
             order.LatestOrderUpdated = DateTime.Now;
             repoServiceOrder.Add(order);
         }
+
+        /// <summary>
+        /// 修改订单
+        /// </summary>
+        /// <param name="order"></param>
         public void Update(ServiceOrder order)
         {
             order.LatestOrderUpdated = DateTime.Now;
             repoServiceOrder.Update(order);
         }
+
+        /// <summary>
+        /// 修改订单Memo
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="strMemo"></param>
+        [UnitOfWork]
+        public void UpdateMemo(Guid orderId,string strMemo)
+        {
+            ServiceOrder order = repoServiceOrder.FindById(orderId);
+            order.Memo = strMemo;
+            Update(order);
+        }
+
+        /// <summary>
+        /// 修改订单指派人员
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="staffId"></param>
+        [UnitOfWork]
+        public void UpdateStaff(Guid orderId, string staffId,string staffName)
+        {
+            ServiceOrder order = repoServiceOrder.FindById(orderId);
+            order.StaffId = staffId;
+            order.StaffName = staffName;
+            Update(order);
+        }
+
+        /// <summary>
+        /// 获取订单
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
+
         public IList<ServiceOrder> GetAll(int pageIndex, int pageSize, out long totalRecords) //获取全部订单
         {
             return repoServiceOrder.GetAll(pageIndex, pageSize, out totalRecords);
-            //  iuow.BeginTransaction();
-            var where = PredicateBuilder.True<ServiceOrder>();
-            var all = repoServiceOrder.Find(where, pageIndex, pageSize, out totalRecords);
-            // iuow.Commit();
-            return all;
-            ///return DALServiceOrder.GetAll<ServiceOrder>();
+           
         }
 
         public IList<ServiceOrder> GetAllByOrderStatus(enum_OrderStatus status, int pageIndex, int pageSize, out long totalRecords)
@@ -461,7 +553,7 @@ namespace Ydb.Order.Application
         {
             var where = PredicateBuilder.True<ServiceOrder>();
             where = where.And(x => x.BusinessId == businessId);
-            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
+            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed && x.OrderStatus != enum_OrderStatus.Search);
 
             long long_totalAmount;
             var result = repoServiceOrder.Find(where, pageNum, pageSize, out long_totalAmount).ToList();
@@ -469,6 +561,7 @@ namespace Ydb.Order.Application
             return result;
             // return DALServiceOrder.GetAllOrdersForBusiness(business.Id, pageNum, pageSize, out totalAmount);
         }
+
 
         public IList<ServiceOrder> GetListForCustomer(Guid customerId, int pageNum, int pageSize, out int totalAmount)
         {
@@ -495,7 +588,7 @@ namespace Ydb.Order.Application
         [UnitOfWork]
         public void Delete(Guid orderId)
         {
-          ServiceOrder order=   repoServiceOrder.FindById(orderId);
+            ServiceOrder order = repoServiceOrder.FindById(orderId);
             repoServiceOrder.Delete(order);
             // DALServiceOrder.Delete(order);
         }
@@ -532,8 +625,6 @@ namespace Ydb.Order.Application
         }
         public IList<ServiceOrder> GetOrderListOfServiceByDateRange(Guid serviceId, DateTime timeBegin, DateTime timeEnd)
         {
-
-
             return repoServiceOrder.GetOrderListOfServiceByDateRange(serviceId, timeBegin, timeEnd);
         }
         public ServiceOrder GetOrderByIdAndCustomer(Guid Id, string customerId)
@@ -557,10 +648,10 @@ namespace Ydb.Order.Application
         /// <param name="serviceSnapshot"></param>
         /// <param name="worktimeSnapshot"></param>
         [UnitOfWork]
-        public void OrderFlow_ConfirmOrder(Guid orderId,string serviceId)
+        public void OrderFlow_ConfirmOrder(Guid orderId, string serviceId)
         {
             ServiceOrder order = repoServiceOrder.FindById(orderId);
-          var pushedService=  repoPushedService.FindByOrder(order);
+            var pushedService = repoPushedService.FindByOrder(order);
 
             order.Confirm_Order(repoPushedService, serviceId, repoPayment, repoClaims);
         }
@@ -570,7 +661,7 @@ namespace Ydb.Order.Application
         /// </summary>
         /// <param name="order"></param>
         [UnitOfWork]
-        public void OrderFlow_PayDepositAndWaiting(Guid  orderId)
+        public void OrderFlow_PayDepositAndWaiting(Guid orderId)
         {
             ServiceOrder order = repoServiceOrder.FindById(orderId);
             ChangeStatus(order, enum_OrderStatus.checkPayWithDeposit);
@@ -593,7 +684,9 @@ namespace Ydb.Order.Application
         public void OrderFlow_BusinessConfirm(Guid orderId)
         {
             ServiceOrder order = repoServiceOrder.FindById(orderId);
+            log.Debug("商家确认服务:" + orderId);
             ChangeStatus(order, enum_OrderStatus.Negotiate);
+            log.Debug("确认完成");
         }
         /// <summary>
         /// 商家输入协议
@@ -717,14 +810,14 @@ namespace Ydb.Order.Application
         /// </summary>
         /// <param name="order"></param>
         [UnitOfWork]
-        public bool OrderFlow_CustomerRefund(string  orderId, bool isNeedRefund, decimal refundAmount)
+        public bool OrderFlow_CustomerRefund(string orderId, bool isNeedRefund, decimal refundAmount)
         {
             ServiceOrder order = repoServiceOrder.FindById(new Guid(orderId));
             bool refund = false;
             enum_OrderStatus oldStatus = order.OrderStatus;
             log.Debug("当前订单状态:" + oldStatus.ToString());
 
-             
+
             OrderServiceFlow.ChangeStatus(order, enum_OrderStatus.Refund);
             log.Debug("订单状态可改为 isRefund");
             order.OrderStatus = oldStatus;
@@ -779,7 +872,7 @@ namespace Ydb.Order.Application
             enum_OrderStatus oldStatus = order.OrderStatus;
             log.Debug("当前订单状态:" + oldStatus.ToString());
 
-              OrderServiceFlow.ChangeStatus(order, enum_OrderStatus.isRefund);
+            OrderServiceFlow.ChangeStatus(order, enum_OrderStatus.isRefund);
             log.Debug("订单状态可改为 isRefund");
 
             order.OrderStatus = oldStatus;
@@ -817,11 +910,11 @@ namespace Ydb.Order.Application
             if (ApplyRefund(payment, claimsDetails.Amount, "商家同意理赔时退还尾款"))
             {
                 log.Debug("更新订单状态");
-            
+
                 ChangeStatus(order, enum_OrderStatus.EndRefund);
                 log.Debug("记录商户操作");
 
-                claims.AddDetailsFromClaims(  string.Empty, 0, null, enum_ChatTarget.store, memberId);
+                claims.AddDetailsFromClaims(string.Empty, 0, null, enum_ChatTarget.store, memberId);
                 //repoClaims.Update(claims);
             }
             else
@@ -859,7 +952,7 @@ namespace Ydb.Order.Application
             }
 
             log.Debug("记录商户操作");
-            claims.AddDetailsFromClaims(  context, amount, resourcesUrl, enum_ChatTarget.store, memberId);
+            claims.AddDetailsFromClaims(context, amount, resourcesUrl, enum_ChatTarget.store, memberId);
             // dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.AskPayWithRefund);
@@ -883,7 +976,7 @@ namespace Ydb.Order.Application
 
             log.Debug("记录商户操作");
 
-            claims.AddDetailsFromClaims(  string.Empty, 0, null, enum_ChatTarget.store, memberId);
+            claims.AddDetailsFromClaims(string.Empty, 0, null, enum_ChatTarget.store, memberId);
             //dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.RejectRefund);
@@ -921,7 +1014,7 @@ namespace Ydb.Order.Application
             order.ApplyPay(enum_PayTarget.Compensation, repoPayment, repoClaims);
 
             log.Debug("记录用户操作");
-            claims.AddDetailsFromClaims(  string.Empty, 0, null, enum_ChatTarget.user, memberId);
+            claims.AddDetailsFromClaims(string.Empty, 0, null, enum_ChatTarget.user, memberId);
             //dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.WaitingPayWithRefund);
@@ -1010,19 +1103,27 @@ namespace Ydb.Order.Application
 
 
         //订单状态改变通用方法
-     
+
         private void ChangeStatus(ServiceOrder order, enum_OrderStatus targetStatus)
         {
+            log.Debug("开始改变订单状态");
+            if (order == null) { log.Debug("订单为null"); };
             enum_OrderStatus oldStatus = order.OrderStatus;
+            
+            log.Debug("1");
             OrderServiceFlow.ChangeStatus(order, targetStatus);
 
             //保存订单历史记录
             //order.OrderStatus = oldStatus;
             order.SaveOrderHistory(oldStatus, repoStateChangeHis);
-
+            log.Debug("2");
             //更新订单状态
             order.OrderStatus = targetStatus;
-            //Update(order);
+ 
+            log.Debug("3");
+ 
+            Update(order);
+ 
             //       NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             log.Debug("当前订单状态为:" + targetStatus);
 
@@ -1048,7 +1149,7 @@ namespace Ydb.Order.Application
             }
             string uriParameterByStore = uriParameter + "&userid=" + order.ServiceBusinessOwnerId
                                                       + "&toresource=" + enum_XmppResource.YDBan_Store;
-          
+
             httpRequest.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice" + uriParameterByStore);
 
             //发送给指派的员工
@@ -1058,11 +1159,11 @@ namespace Ydb.Order.Application
             }
             string uriParameterByStaff = uriParameter + "&userid=" + order.StaffId
                                                       + "&toresource=" + enum_XmppResource.YDBan_Staff;
-          
+
             httpRequest.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice" + uriParameterByStaff);
 
         }
- 
+
         [UnitOfWork]
         public void OrderFlow_EndCancel(Guid orderId)
         {
@@ -1094,6 +1195,7 @@ namespace Ydb.Order.Application
             switch (oldStatus)
             {
                 case enum_OrderStatus.Created:
+                case enum_OrderStatus.DraftPushed:
                     log.Debug("订单为Created，取消成功");
                     //order.OrderStatus = oldStatus;
                     ChangeStatus(order, enum_OrderStatus.Canceled);
@@ -1118,7 +1220,7 @@ namespace Ydb.Order.Application
 
         private bool JudgeCanceled(ServiceOrder order)
         {
-            
+
             bool isCanceled = false;
             var targetTime = order.Details[0].TargetTime;
             if (DateTime.Now <= targetTime)
@@ -1218,7 +1320,7 @@ namespace Ydb.Order.Application
         [UnitOfWork]
         public bool ApplyRefund(Payment payment, decimal refundAmount, string refundReason)
         {
-          return   ApplyRefund(payment, refundAmount, refundReason, string.Empty);
+            return ApplyRefund(payment, refundAmount, refundReason, string.Empty);
         }
 
         #region 退款
@@ -1228,13 +1330,13 @@ namespace Ydb.Order.Application
         /// <param name="payment"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public bool ApplyRefund(Payment payment, decimal refundAmount, string refundReason,string operatorId)
+        public bool ApplyRefund(Payment payment, decimal refundAmount, string refundReason, string operatorId)
         {
             //申请退款记录.
             Refund refund = new Refund(payment.Order, payment, payment.Amount, refundAmount, refundReason, payment.PlatformTradeNo, enum_RefundStatus.Fail, string.Empty);
             repoRefund.Add(refund);
-           //调用API 执行退款
-            IRefundApi refundApi = refundFactory.CreateRefund(payment.PayApi,refund.Id,refundAmount,payment.Amount,payment.PlatformTradeNo,operatorId);
+            //调用API 执行退款
+            IRefundApi refundApi = refundFactory.CreateRefund(payment.PayApi, refund.Id, refundAmount, payment.Amount, payment.PlatformTradeNo, operatorId);
             bool refundResult = refundApi.GetRefundResponse();
 
             if (refundResult)
@@ -1273,7 +1375,7 @@ namespace Ydb.Order.Application
             repoOrderAssignment.Update(oa);
         }
         #endregion
- 
+
 
         public enum_OrderStatus GetOrderStatusPrevious(Guid orderId, enum_OrderStatus status)
         {
@@ -1321,7 +1423,6 @@ namespace Ydb.Order.Application
         //查询店铺的所有订单
         public IList<ServiceOrder> GetAllOrdersForBusiness(Guid businessId)
         {
-
             var where = PredicateBuilder.True<ServiceOrder>()
                 .And(x => x.BusinessId == businessId.ToString());
             // .And(x=>x.Details.);
@@ -1335,8 +1436,6 @@ namespace Ydb.Order.Application
                 .And(x => x.BusinessId == businessId.ToString())
                 .And(x => x.OrderStatus == enum_OrderStatus.Finished || x.OrderStatus == enum_OrderStatus.Appraised)
                 ;
-
-
             return repoServiceOrder.Find(where).ToList();
 
             // return DALServiceOrder.GetAllCompleteOrdersForBusiness(businessId);
@@ -1353,7 +1452,8 @@ namespace Ydb.Order.Application
         }
         [UnitOfWork]
         public void OrderShared(Guid orderId)
-        { ServiceOrder   order = repoServiceOrder.FindById(orderId);
+        {
+            ServiceOrder order = repoServiceOrder.FindById(orderId);
             order.IsShared = true;
             Update(order);
         }
@@ -1367,12 +1467,25 @@ namespace Ydb.Order.Application
         }
 
 
+
+        /// <summary>
+        /// 获取订单状态的时间线
+        /// </summary>
+        /// <param name="orderStatusList"></param>
+        /// <returns></returns>
+        public IList<StatisticsInfo<ServiceOrderStateChangeHis>> GetOrderStateTimeLine(string orderId)
+        {
+            ServiceOrder serviceOrder = repoServiceOrder.FindById(StringHelper.CheckGuidID(orderId, "订单Id"));
+            IList<ServiceOrderStateChangeHis> serviceOrderStateChangeHis = repoStateChangeHis.GetOrderHisList(serviceOrder);
+            return statisticsOrderCount.GetOrderStateTimeLine(serviceOrderStateChangeHis);
+        }
+
         //查询订单的总金额
         //查询订单的曝光率.
     }
     /// <summary>
     /// 支付宝退款返回数据
     /// </summary>
-   
+
 
 }

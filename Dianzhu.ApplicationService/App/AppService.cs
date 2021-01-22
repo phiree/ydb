@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
-using Ydb.Push.DomainModel;
 using Ydb.Push.Application;
+using Ydb.Push.DomainModel;
+
 namespace Dianzhu.ApplicationService.App
 {
     public class AppService : IAppService
     {
+        private IDeviceBindService blldevicebind;
+        private IDZMembershipService memberService;
 
-       IDeviceBindService blldevicebind;
-        IDZMembershipService memberService;
         public AppService(IDeviceBindService blldevicebind, IDZMembershipService memberService)
         {
             this.blldevicebind = blldevicebind;
@@ -27,13 +23,13 @@ namespace Dianzhu.ApplicationService.App
         /// <param name="id"></param>
         /// <param name="appobj"></param>
         /// <returns></returns>
-        public object PostDeviceBind(string id ,appObj appobj)
+        public object PostDeviceBind(string id, appObj appobj)
         {
             if (string.IsNullOrEmpty(id))
             {
                 throw new FormatException("appUUID不能为空");
             }
-            Guid uuId= utils.CheckGuidID(id, "appUUID");
+            Guid uuId = utils.CheckGuidID(id, "appUUID");
             //if (appobj.appToken.Length > 64)
             //{
             //    throw new FormatException("Token长度超过64");
@@ -43,7 +39,7 @@ namespace Dianzhu.ApplicationService.App
             //    throw new FormatException("Token长度不够64");
             //}
             //Model.DeviceBind devicebind = Mapper.Map<appObj, Model.DeviceBind>(appobj);
-             DeviceBind devicebind = new  DeviceBind();
+            DeviceBind devicebind = new DeviceBind();
             if (!string.IsNullOrEmpty(appobj.userID))
             {
                 Guid userId = utils.CheckGuidID(appobj.userID, "UserId");
@@ -58,7 +54,7 @@ namespace Dianzhu.ApplicationService.App
             {
                 devicebind.DZMembershipId = "匿名用户";
             }
-            DateTime dt= DateTime.Now;
+            DateTime dt = DateTime.Now;
             devicebind.IsBinding = true;
             devicebind.SaveTime = dt;
             devicebind.AppUUID = uuId;
@@ -106,15 +102,16 @@ namespace Dianzhu.ApplicationService.App
         /// <returns></returns>
         public object DeleteDeviceBind(string id)
         {
-            Guid uuId=utils.CheckGuidID(id, "appUUID"); 
-       DeviceBind obj = blldevicebind.getDevBindByUUID(uuId);
+            Guid uuId = utils.CheckGuidID(id, "appUUID");
+            DeviceBind obj = blldevicebind.getDevBindByUUID(uuId);
             if (obj == null)
             {
                 throw new Exception("该设备没有注册！");
             }
-            obj.PushAmount = 0;
-            obj.IsBinding = false;
-            obj.BindChangedTime = DateTime.Now;
+            blldevicebind.Delete(uuId);
+            //obj.PushAmount = 0;
+            //obj.IsBinding = false;
+            //obj.BindChangedTime = DateTime.Now;
             //blldevicebind.SaveOrUpdate(obj);
             return new string[] { "删除成功！" };
         }
@@ -125,10 +122,10 @@ namespace Dianzhu.ApplicationService.App
         /// <param name="id"></param>
         /// <param name="pushCount"></param>
         /// <returns></returns>
-        public object PatchDeviceBind(string id,string pushCount)
+        public object PatchDeviceBind(string id, string pushCount)
         {
             Guid uuId = utils.CheckGuidID(id, "appUUID");
-        DeviceBind obj = blldevicebind.getDevBindByUUID(uuId);
+            DeviceBind obj = blldevicebind.getDevBindByUUID(uuId);
             if (obj == null)
             {
                 throw new Exception("该设备没有注册！");
@@ -142,8 +139,9 @@ namespace Dianzhu.ApplicationService.App
             {
                 throw new Exception("推送计数应该为正整数！");
             }
-            obj.PushAmount = c;
-            obj.BindChangedTime = DateTime.Now;
+            blldevicebind.UpdatePushAmount(uuId, c);
+            //obj.PushAmount = c;
+            //obj.BindChangedTime = DateTime.Now;
             //blldevicebind.Update(obj);
             //Model.DeviceBind obj1 = blldevicebind.getDevBindByUUID(uuId);
             //blldevicebind.SaveOrUpdate(obj);

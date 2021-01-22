@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.BLL;
- 
+
+
 using System.Configuration;
 using AutoMapper;
-using DDDCommon;
 using System.Text.RegularExpressions;
 using Ydb.Common.Specification;
 using Ydb.InstantMessage.Application;
@@ -21,6 +20,8 @@ using Ydb.Common.Domain;
 
 using Ydb.Order.Application;
 using Ydb.Order.DomainModel;
+using Ydb.InstantMessage.DomainModel.Reception;
+using Ydb.Common.Infrastructure;
 namespace Dianzhu.ApplicationService.User
 {
     public class UserService:IUserService
@@ -30,12 +31,14 @@ namespace Dianzhu.ApplicationService.User
         IReceptionService receptionService;
         IAreaService areaService;
         IServiceOrderService bllServiceOrder;
-        public UserService(IDZMembershipService memberService,  IReceptionService receptionService, IServiceOrderService bllServiceOrder, IAreaService areaService)
+        IHttpRequest httpRequest;
+        public UserService(IDZMembershipService memberService,  IReceptionService receptionService, IServiceOrderService bllServiceOrder, IAreaService areaService,IHttpRequest httpRequest)
         {
             this.memberService = memberService;
             this.receptionService = receptionService;
             this.bllServiceOrder = bllServiceOrder;
             this.areaService = areaService;
+            this.httpRequest = httpRequest;
         }
 
         /// <summary>
@@ -346,20 +349,37 @@ namespace Dianzhu.ApplicationService.User
         public object PatchCurrentGeolocation(string userID, common_Trait_LocationFiltering cityCode, Customer customer)
         {
             Guid guidUser = utils.CheckGuidID(userID, "userID");
-            Area area=null;
+            Area area= areaService.GetCityByAreaCode(cityCode.code);
             if (!string.IsNullOrEmpty(cityCode.longitude) && !string.IsNullOrEmpty(cityCode.latitude))
             {
                 RespGeo geoObj = utils.Deserialize<RespGeo>(utils.GetCity(cityCode.longitude, cityCode.latitude));
-                area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city + geoObj.result.addressComponent.district);
+                area = areaService.GetCityByAreaCode(geoObj.result.addressComponent.adcode);
+                if (area == null)
+                {
+                    area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city + geoObj.result.addressComponent.district);
+                }
                 if (area == null)
                 {
                     area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city );
                 }
             }
-            ActionResult actionResult = memberService.ChangeUserCity(guidUser, cityCode.code, cityCode.longitude, cityCode.latitude,area.Id.ToString ());
+            if (area == null)
+            {
+                throw new Exception("该城市不存在！");
+            }
+            ActionResult actionResult = memberService.ChangeUserCity(guidUser, area.Code, cityCode.longitude, cityCode.latitude,area.Id.ToString ());
             if (!actionResult.IsSuccess)
             {
                 throw new Exception(actionResult.ErrMsg);
+            }
+            else
+            {
+                
+                httpRequest.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=customer_change_city"
+                            + "&userid=" + customer.UserID + "&areacode=" + area.Code);
+                // receptionService.DeleteReception(customer.UserID);
+
+
             }
             return new string[] { "修改成功" };
         }
@@ -379,7 +399,11 @@ namespace Dianzhu.ApplicationService.User
             }
 
             string errorMessage = string.Empty;
-            ReceptionStatusDto rs = receptionService.AssignCustomerLogin(customer.UserID, out errorMessage);
+            IList<MemberDto> meberList = memberService.GetUsersByIdList(receptionService.GetOnlineUserList("YDBan_CustomerService"));
+                                                                                                            
+var csOnline = meberList.Select(x => new MemberArea(x.Id.ToString(), x.UserCity)).ToList();
+
+            ReceptionStatusDto rs = receptionService.AssignCustomerLogin(customer.UserID, member.UserCity,out errorMessage, csOnline);
 
             MemberDto customerService = memberService.GetUserById( rs.CustomerServiceId);
 

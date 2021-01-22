@@ -1,5 +1,5 @@
 ﻿using Castle.Windsor;
-using Dianzhu.DependencyInstaller;
+
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
@@ -20,10 +20,7 @@ public class Bootstrap
     {
         container = new WindsorContainer();
         container.Install(
-              new InstallerComponent(),
-           new InstallerInfrstructure(),
-           new InstallerRepository(),
-           new InstallerApplicationService(),
+             
            new InstallerAdminWeb()
             );
 
@@ -68,6 +65,22 @@ new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig(
         new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
          // new Application.InstallerMembershipTestDB()
          );
+        container.Install(
+     new OpenfireExtension.InstallerOpenfireExtension()
+
+      );
+        container.Install(
+        new Ydb.Notice.InstallerNotice(BuildDBConfig("ydb_notice"))
+         // new Application.InstallerMembershipTestDB()
+         );
+        container.Install(
+       new Ydb.Push.Infrastructure.InstallerPush(BuildDBConfig("ydb_push"))
+       
+        );
+        container.Install(
+       new OpenfireExtension.InstallerOpenfireExtension()
+
+        );
 
         container.Install(
            new Ydb.Order.Infrastructure.InstallerOrder(BuildDBConfig("ydb_order"))

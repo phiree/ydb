@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dianzhu.ApplicationService
+﻿namespace Dianzhu.ApplicationService
 {
     public class common_Trait_BillModelFiltering
     {
@@ -20,8 +14,8 @@ namespace Dianzhu.ApplicationService
         /// <type>string</type>
         public string endTime { get; set; }
 
+        private string _serviceTypeLevel = "1";
 
-        string _serviceTypeLevel = "1";
         /// <summary>
         /// 按服务类型的层级的来返回明细内容，默认按level 2查询
         /// </summary>
@@ -56,7 +50,6 @@ namespace Dianzhu.ApplicationService
         /// <type>string</type>
         public string billType { get; set; }
 
-        
         /// <summary>
         /// 订单ID
         /// </summary>

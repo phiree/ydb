@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
-using Dianzhu.BLL;
+using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 /// <summary>
@@ -23,7 +23,7 @@ public class BaseResponse
     protected BaseRequest request;
     public BaseResponse(BaseRequest request)
     {
-         Log= log4net.LogManager.GetLogger("Dianzhu.HttpApi."+this.GetType().ToString());
+         Log= log4net.LogManager.GetLogger("Ydb.HttpApi."+this.GetType().ToString());
         this.err_Msg = string.Empty;
         this.request = request;
         this.protocol_CODE = request.protocol_CODE;

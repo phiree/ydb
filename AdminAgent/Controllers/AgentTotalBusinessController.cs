@@ -7,22 +7,27 @@ using Ydb.BusinessResource.Application;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.Common.Domain;
 using com = Ydb.Common.Application;
+using Ydb.Common;
 
 
 namespace AdminAgent.Controllers
 {
-    public class AgentTotalBusinessController : Controller
+    public class AgentTotalBusinessController : AgentBaseController
     {
         IBusinessService businessService = Bootstrap.Container.Resolve<IBusinessService>();
-        IList<string> areaList = new List<string> { "2445", "2446", "2447", "2448", "2449", "2450" };
+        /// <summary>
+        /// 商户统计信息
+        /// </summary>
+        /// <returns></returns>
         public ActionResult total_business()
         {
             try
             {
-                ViewData["NewBusinessNumber"] = businessService.GetCountOfNewBusinessesYesterdayByArea(areaList);
-                ViewData["AllBusinessNumber"] = businessService.GetCountOfAllBusinessesByArea(areaList);
-                ViewData["YearBusinessNumber"] = businessService.GetStatisticsRatioYearOnYear(areaList);
-                ViewData["MonthBusinessNumber"] = businessService.GetStatisticsRatioMonthOnMonth(areaList);
+                ViewBag.UserName = CurrentUser.UserName;
+                ViewData["NewBusinessNumber"] = businessService.GetCountOfNewBusinessesYesterdayByArea(CurrentUser.AreaIdList);
+                ViewData["AllBusinessNumber"] = businessService.GetCountOfAllBusinessesByArea(CurrentUser.AreaIdList);
+                ViewData["YearBusinessNumber"] = businessService.GetStatisticsRatioYearOnYear(CurrentUser.AreaIdList);
+                ViewData["MonthBusinessNumber"] = businessService.GetStatisticsRatioMonthOnMonth(CurrentUser.AreaIdList);
                 return View();
             }
             catch (Exception ex)
@@ -31,17 +36,34 @@ namespace AdminAgent.Controllers
                 return Content(ex.Message);
             }
         }
-
+        /// <summary>
+        /// 商户分析
+        /// </summary>
+        /// <returns></returns>
         public ActionResult total_business_detail()
         {
+            ViewBag.UserName = CurrentUser.UserName;
             return View();
         }
-
-        public ActionResult total_business_NewList(string usertype)
+        /// <summary>
+        /// 新增店铺数量列表
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public ActionResult total_business_NewList(string start, string end)
         {
             try
             {
-                StatisticsInfo statisticsInfo = businessService.GetStatisticsNewBusinessesCountListByTime(areaList, DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+                StatisticsInfo statisticsInfo;
+                if (string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end))
+                {
+                    statisticsInfo = businessService.GetStatisticsNewBusinessesCountListByTime(CurrentUser.AreaIdList, DateTime.Now.AddMonths(-1), DateTime.Now);
+                }
+                else
+                {
+                    statisticsInfo = businessService.GetStatisticsNewBusinessesCountListByTime(CurrentUser.AreaIdList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true));
+                }
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -51,11 +73,44 @@ namespace AdminAgent.Controllers
             }
         }
 
-        public ActionResult total_business_AllList(string usertype)
+        /// <summary>
+        /// 统计店铺总数
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult total_business_Count()
         {
             try
             {
-                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByTime(areaList, DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+                Models.TotalCount totalCount = new Models.TotalCount();
+                totalCount.count = businessService.GetCountOfAllBusinessesByArea(CurrentUser.AreaIdList); ;
+                return Json(totalCount, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = 400;
+                return Content(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 累计店铺数量列表
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public ActionResult total_business_AllList( string start, string end)
+        {
+            try
+            {
+                StatisticsInfo statisticsInfo;
+                if (string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end))
+                {
+                    statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByTime(CurrentUser.AreaIdList, DateTime.Now.AddMonths(-1), DateTime.Now);
+                }
+                else
+                {
+                    statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByTime(CurrentUser.AreaIdList, StringHelper.CheckDateTime(start, "yyyyMMdd", "查询的开始时间", false), StringHelper.CheckDateTime(end, "yyyyMMdd", "查询的结束时间", true));
+                }
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -65,11 +120,15 @@ namespace AdminAgent.Controllers
             }
         }
 
-        public ActionResult total_business_LifeList(string usertype)
+        /// <summary>
+        /// 按年限统计店铺数量
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult total_business_LifeList()
         {
             try
             {
-                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByLife(areaList);
+                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByLife(CurrentUser.AreaIdList);
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -79,11 +138,15 @@ namespace AdminAgent.Controllers
             }
         }
 
-        public ActionResult total_business_StaffList(string usertype)
+        /// <summary>
+        /// 按员工数量统计店铺数量
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult total_business_StaffList()
         {
             try
             {
-                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByStaff(areaList);
+                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByStaff(CurrentUser.AreaIdList);
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -93,13 +156,15 @@ namespace AdminAgent.Controllers
             }
         }
 
-        public ActionResult total_business_AreaList(string usertype)
+        /// <summary>
+        /// 按子区域来统计店铺数量
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult total_business_AreaList()
         {
             try
             {
-                com.IAreaService areaService = Bootstrap.Container.Resolve<com.IAreaService>();
-                IList<Area> AreaList = areaService.GetSubArea("460100");
-                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByArea(AreaList);
+                StatisticsInfo statisticsInfo = businessService.GetStatisticsAllBusinessesCountListByArea(CurrentUser.AreaList);
                 return Json(statisticsInfo, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

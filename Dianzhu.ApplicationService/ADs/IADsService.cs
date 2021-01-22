@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Dianzhu.ApplicationService.ADs
 {
@@ -14,6 +10,6 @@ namespace Dianzhu.ApplicationService.ADs
         /// <param name="adf"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        IList<adObj> GetADs(common_Trait_AdFiltering adf,Customer customer);
+        IList<adObj> GetADs(common_Trait_AdFiltering adf, Customer customer);
     }
 }

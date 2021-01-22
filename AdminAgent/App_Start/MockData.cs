@@ -31,6 +31,31 @@ public class MockData
     /// </summary>
     public static IList<string> areaIdList = areaList.Select(x => x.Id.ToString()).ToList();
 
+    /// <summary>
+    /// 新增订单
+    /// </summary>
+    public static string NewOrderNumber = "23";
+    /// <summary>
+    /// 累计订单
+    /// </summary>
+    public static string AllOrderNumber = "26463";
+    /// <summary>
+    /// 完成订单
+    /// </summary>
+    public static string AllDoneOrderNumber = "5623";
+    /// <summary>
+    /// 未完成订单
+    /// </summary>
+    public static string AllNotDoneOrderNumber = "123";
+    /// <summary>
+    /// 同比
+    /// </summary>
+    public static string YearOrderNumber = "1.4";
+    /// <summary>
+    /// 环比
+    /// </summary>
+    public static string MonthOrderNumber = "1.1";
+
     static IList<DZMembershipCustomerServiceDto> _memberNotVerifiedList;
     /// <summary>
     /// 
@@ -462,5 +487,54 @@ public class MockData
             return _financeTatolDtoList;
         }
     }
+
+
+
+    static IList<FinanceWithdrawDto> _financeWithdrawDtoList;
+    /// <summary>
+    /// 
+    /// </summary>
+    public static IList<FinanceWithdrawDto> financeWithdrawDtoList
+    {
+        get
+        {
+            if (_financeWithdrawDtoList == null)
+            {
+                _financeWithdrawDtoList = new List<FinanceWithdrawDto>();
+                for (int i = 1; i < 15; i++)
+                {
+                    FinanceWithdrawDto withdraw = new FinanceWithdrawDto()
+                    {
+                        Id = Guid.NewGuid(),
+                        ApplyUserId = "ApplyUserId" + i.ToString(),
+                        UserNickName = "UserNickName" + i.ToString(),
+                        ApplyAmount = 345+i,
+                        ApplyTime = DateTime.Now.AddMonths(-1).AddDays(i),
+                        ReceiveAccount = "ReceiveAccount" + i.ToString(),
+                        TransferAmount = 305 + i,
+                        ServiceFee = 2,
+                        ApplyStatus = "ApplyStatus" + i.ToString(),
+                        ApplyRemark = "ApplyRemark" + i.ToString(),
+                        Rate = "Rate" + i.ToString(),
+                        PayUserId = "PayUserId" + i.ToString(),
+                        PayTime = DateTime.Now,
+                        PayStatus = "PayStatus" + i.ToString(),
+                        PayRemark = "PayRemark" + i.ToString(),
+                        CreateTime = DateTime.Now.AddMonths(-1).AddDays(i),
+                        UpdateTime = DateTime.Now.AddMonths(-1).AddDays(i),
+                        ApplySerialNo = "ApplySerialNo" + i.ToString(),
+                        PaySerialNo = "PaySerialNo" + i.ToString(),
+                        D3SerialNo = "D3SerialNo" + i.ToString(),
+                        D3Time = "D3Time" + i.ToString(),
+                    };
+                    _financeWithdrawDtoList.Add(withdraw);
+                }
+            }
+            return _financeWithdrawDtoList;
+        }
+    }
+    public static FinanceWithdrawTotalDto financeWithdrawTotalDto = new FinanceWithdrawTotalDto { WithdrawNotDeal = 146, WithdrawTotal = 45367, financeWithdrawDtoList= financeWithdrawDtoList };
+
+
 
 }

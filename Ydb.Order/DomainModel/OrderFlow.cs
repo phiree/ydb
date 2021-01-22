@@ -61,7 +61,9 @@ namespace Ydb.Order.DomainModel
                 { enum_OrderStatus.EndWarranty,new List<enum_OrderStatus>() {enum_OrderStatus.Appraised }},
 
                 //订单取消状态可从哪些状态变更而来
-                { enum_OrderStatus.Canceled,new List<enum_OrderStatus>() {enum_OrderStatus.Created,
+                { enum_OrderStatus.Canceled,new List<enum_OrderStatus>() {
+                    enum_OrderStatus.DraftPushed,
+                    enum_OrderStatus.Created,
                                                                            enum_OrderStatus.checkPayWithDeposit,
                                                                             enum_OrderStatus.Payed,
                                                                              enum_OrderStatus.Negotiate,

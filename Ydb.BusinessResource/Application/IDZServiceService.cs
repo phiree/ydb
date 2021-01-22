@@ -25,7 +25,7 @@ namespace Ydb.BusinessResource.Application
         IList<DZTag> GetServiceTags(Guid serviceId);
         IList<ServiceType> GetServiceTypeListByBusiness(Guid businessId);
         int GetSumByBusiness(Business business);
-            ServiceOpenTimeForDay GetWorkTime(Guid serviceId, DateTime targetTime);
+        ServiceOpenTimeForDay GetWorkTime(Guid serviceId, DateTime targetTime);
         ServiceOpenTimeForDay GetWorkitem(string storeID, string serviceID, string workTimeID);
         ServiceOpenTimeForDay GetWorkitem( string workTimeID);
         IList<ServiceOpenTimeForDay> GetWorkTimes(string storeID, string serviceID, DayOfWeek? dayOfWeek, string timeBegin, string timeEnd);
@@ -39,5 +39,36 @@ namespace Ydb.BusinessResource.Application
         IList<DZService> SearchService(string name, decimal priceMin, decimal priceMax, Guid typeId, DateTime datetime,
             double lng, double lat, int pageIndex, int pagesize, out int total);
         void Update(DZService service);
+
+        /// <summary>
+        /// 封停/解封服务
+        /// </summary>
+        /// <param name="serviceId"></param>
+        /// <param name="enable"></param>
+        /// <param name="memo"></param>
+        void EnabledDZService(string serviceId, bool enable, string memo);
+
+        /// <summary>
+        /// 获取代理所在区域的服务区分是否封停
+        /// </summary>
+        /// <param name="areaIdList"></param>
+        /// <returns></returns>
+        IList<ServiceDto> GetServicesByArea(IList<string> areaIdList);
+
+        /// <summary>
+        /// 获取该服务每天的工作时间
+        /// </summary>
+        /// <param name="serviceId"></param>
+        /// <param name="dayOfWeek"></param>
+        /// <returns></returns>
+        ServiceOpenTimeDto GetOpenTimeByWeek(Guid serviceId, DayOfWeek dayOfWeek);
+
+        /// <summary>
+        /// 封停/解封店铺
+        /// </summary>
+        /// <param name="businessId"></param>
+        /// <param name="enable"></param>
+        /// <param name="memo"></param>
+        void EnabledDZService(Guid dzServiceId, bool enable, string memo);
     }
 }

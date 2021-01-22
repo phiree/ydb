@@ -17,7 +17,7 @@ namespace Ydb.InstantMessage.DomainModel.Enums
         /// </summary>
         YDBan_Store = 52,
         /// <summary>
-        /// 客服工具
+        /// 客服工具 
         /// </summary>
         YDBan_CustomerService = 54,
         /// <summary>

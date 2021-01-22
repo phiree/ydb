@@ -24,6 +24,7 @@ namespace AdminAgent.Controllers
         // GET: PushMessage
         public ActionResult Index()
         {
+            ViewBag.UserName = CurrentUser.UserName;
             //获取所有公告列表
             IList<M.Notice> allNotice = noticeService.GetNoticeForAuther(CurrentUser.UserId);
             
@@ -31,7 +32,11 @@ namespace AdminAgent.Controllers
         }
         public ActionResult AddNotice()
         {
-             return View();
+            ViewBag.UserName = CurrentUser.UserName;
+            AddNoticeModel model = new AddNoticeModel();
+            Array enumList = Enum.GetValues(typeof(enum_UserType));
+                ViewBag.EnumList = enumList;
+            return View(model);
         }
         /// <summary>
         ///     添加一条公告
@@ -40,19 +45,32 @@ namespace AdminAgent.Controllers
         [HttpPost]
         public ActionResult AddNotice(AddNoticeModel notice)
         {
-            noticeService.AddNotice(notice.Title, notice.Body, CurrentUser.UserId,  enum_UserType.admin);
+            ViewBag.UserName = CurrentUser.UserName;
+            noticeService.AddNotice(notice.Title, notice.Body, CurrentUser.UserId, ParseString(Request["UserType"]));
             return View();
+        }
+        /// <summary>
+        /// 字符串转换为enum值
+        /// </summary>
+        /// <param name="enumValues">逗号隔开的enum值 如, '1,2,4,8'</param>
+        /// <returns></returns>
+        private enum_UserType ParseString(string enumValues)
+        {
+          return (enum_UserType)enumValues.Split(',').Sum(x=>Convert.ToInt32(x));
+             
         }
 
         public ActionResult NoticeDetail(string noticeId)
         {
+            ViewBag.UserName = CurrentUser.UserName;
             M.Notice notice = noticeService.GetOne(noticeId);
             return View(notice);
         }
 
         public ActionResult SendNotice(string noticeId)
         {
-           // agentNoticeService.SendNotice(noticeId);
+            ViewBag.UserName = CurrentUser.UserName;
+            // agentNoticeService.SendNotice(noticeId);
             return View();
         }
 

@@ -25,7 +25,8 @@ namespace Ydb.ApplicationService.Application.AgentServiceTests
         IBalanceFlowService balanceFlowService;
         IFinanceFlowService financeFlowService;
         IBalanceTotalService balanceTotalService;
-    [SetUp]
+        IWithdrawApplyService withdrawApplyService;
+        [SetUp]
         public void Initialize()
         {
             dzMembershipService = MockRepository.Mock<IDZMembershipService>();
@@ -33,7 +34,8 @@ namespace Ydb.ApplicationService.Application.AgentServiceTests
             statisticsCount = MockRepository.Mock<IStatisticsCount>();
             balanceFlowService = MockRepository.Mock<IBalanceFlowService>();
             balanceTotalService = MockRepository.Mock<IBalanceTotalService>();
-            financeFlowService = new FinanceFlowService(dzMembershipService, statisticsCount, balanceFlowService, balanceTotalService);
+            withdrawApplyService = MockRepository.Mock<IWithdrawApplyService>();
+            financeFlowService = new FinanceFlowService(dzMembershipService, statisticsCount, balanceFlowService, balanceTotalService, withdrawApplyService);
         }
 
         [Test()]
@@ -47,7 +49,6 @@ namespace Ydb.ApplicationService.Application.AgentServiceTests
             UserIdList.Add(memberAgent.Id.ToString());
             IList<BalanceFlowDto> balanceFlowDtoList = new List<BalanceFlowDto>();
             balanceFlowService.Stub(x => x.GetBalanceFlowByArea(UserIdList)).Return(balanceFlowDtoList);
-            dzMembershipService.GetCountOfNewMembershipsYesterdayByArea(areaList, UserType.customer);
             IList<FinanceFlowDto> financeFlowDto = new List<FinanceFlowDto>();
             statisticsCount.Stub(x => x.StatisticsFinanceFlowList(balanceFlowDtoList, memberList)).Return(financeFlowDto);
             IList<FinanceFlowDto> financeFlowDto1 = financeFlowService.GetFinanceFlowList(areaList, memberAgent);
@@ -69,6 +70,30 @@ namespace Ydb.ApplicationService.Application.AgentServiceTests
             IList<FinanceTotalDto> financeTotalDto1 = financeFlowService.GetFinanceTotalList(areaList);
             Assert.IsNotNull(financeTotalDto1);
             Assert.AreEqual(financeTotalDto, financeTotalDto1);
+        }
+
+        [Test()]
+        public void FinanceFlowService_GetFinanceWithdrawList_Test()
+        {
+            IList<string> areaList = new List<string> { "areaId" };
+            MemberDto memberAgent = new MemberDto() { Id=Guid.NewGuid()};
+            IList<DZMembershipCustomerServiceDto> memberList = new List<DZMembershipCustomerServiceDto>();
+            dzMembershipService.Stub(x => x.GetDZMembershipCustomerServiceByArea(areaList)).Return(memberList);
+            IList<string> UserIdList = memberList.Select(x => x.Id.ToString()).ToList();
+            UserIdList.Add(memberAgent.Id.ToString());
+            IList<MemberDto> memberDtoList = new List<MemberDto>();
+            memberDtoList.Add(memberAgent);
+            foreach (DZMembershipCustomerServiceDto cs in memberList)
+            {
+                memberDtoList.Add(cs);
+            }
+            IList<WithdrawApplyDto> withdrawApplyDtoList = new List<WithdrawApplyDto>();
+            withdrawApplyService.Stub(x => x.GetWithdrawApplyListByArea(UserIdList)).Return(withdrawApplyDtoList);
+            FinanceWithdrawTotalDto financeWithdrawTotalDto = new FinanceWithdrawTotalDto();
+            statisticsCount.Stub(x => x.StatisticsFinanceWithdrawList(withdrawApplyDtoList, memberDtoList)).Return(financeWithdrawTotalDto);
+            FinanceWithdrawTotalDto financeWithdrawTotalDto1 = financeFlowService.GetFinanceWithdrawList(areaList, memberAgent);
+            Assert.IsNotNull(financeWithdrawTotalDto1);
+            Assert.AreEqual(financeWithdrawTotalDto, financeWithdrawTotalDto1);
         }
     }
 }

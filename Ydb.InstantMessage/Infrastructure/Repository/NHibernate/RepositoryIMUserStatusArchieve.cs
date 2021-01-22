@@ -11,7 +11,7 @@ namespace Ydb.InstantMessage.Infrastructure.Repository.NHibernate
     {
         public IList<IMUserStatusArchieve> GetAllUserStatusArchieveById(string userId)
         {
-            return Find(x => x.Id == new Guid(userId)).OrderBy(x => x.ArchieveTime).ToList();
+            return Find(x => x.UserID == new Guid(userId)).OrderBy(x => x.ArchieveTime).ToList();
         }
     }
 }

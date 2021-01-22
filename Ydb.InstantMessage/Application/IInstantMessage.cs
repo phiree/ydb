@@ -80,7 +80,7 @@ namespace   Ydb.InstantMessage.Application
         /// <param name="to"></param>
         /// <param name="toResource"></param>
         /// <param name="sessionId"></param>
-        void SendCSLoginMessage(Guid messageId, string messageBody, string to, string toResource, string sessionId);
+        void SendCSLoginMessage(Guid messageId, string messageBody, string to, string toResource, string sessionId,string areaCode);
         /// <summary>
         /// 发送客服下线通知
         /// </summary>
@@ -89,7 +89,9 @@ namespace   Ydb.InstantMessage.Application
         /// <param name="to"></param>
         /// <param name="toResource"></param>
         /// <param name="sessionId"></param>
-        void SendCSLogoffMessage(Guid messageId, string messageBody, string to, string toResource, string sessionId);
+        void SendCSLogoffMessage(Guid messageId, string messageBody, string to, string toResource, string sessionId,string areaCode);
+
+        void SendCustomerChangeAreaMessage(Guid messageId, string messageBody, string to, string toResource, string sessionId, string areaCode,string customerId);
         /// <summary>
         /// 发送订单状态变更消息
         /// </summary>

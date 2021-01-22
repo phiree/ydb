@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Castle.Windsor;
-using Dianzhu.DependencyInstaller;
-using FluentNHibernate.Cfg;
+ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using Ydb.Common.Infrastructure;
 /// <summary>
@@ -53,12 +52,13 @@ namespace Dianzhu.CSClient
               new Ydb.BusinessResource.Infrastructure.InstallerBusinessResource(BuildDBConfig("ydb_businessresource"))
               );
 
+            container.Install(
+             new Ydb.MediaServer.Infrastructure.InstallerMediaServer(BuildDBConfig("ydb_mediaserver"))
+             );
+
 
             container.Install(
-                  new InstallerComponent(),
-               new InstallerInfrstructure(),
-               new InstallerRepository(),
-               new InstallerApplicationService(),
+            
                new InstallerUI()
                 );
 
@@ -71,7 +71,7 @@ namespace Dianzhu.CSClient
             //IEncryptService iEncryptService = container.Resolve<IEncryptService>();
             //Ydb.Common.LoggingConfiguration.Config(iEncryptService.Decrypt(System.Configuration.ConfigurationManager
             //   .ConnectionStrings["MongoDB"].ConnectionString, false));
-            Ydb.Common.LoggingConfiguration.Config("Dianzhu.CSClient");
+            Ydb.Common.LoggingConfiguration.Config("Ydb.CSClient");
         }
 
         private static FluentConfiguration BuildDBConfig(string connectionStringName)

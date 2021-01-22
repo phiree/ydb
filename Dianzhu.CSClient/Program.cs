@@ -9,17 +9,16 @@ using System.Deployment.Application;
 using System.Threading;
 using System.ComponentModel;
 using System.Windows;
-using Dianzhu.BLL;
+
 using Dianzhu.CSClient.IView;
 using ViewWPF = Dianzhu.CSClient.ViewWPF;
 
 using cw = Castle.Windsor;
 using cmr = Castle.MicroKernel.Registration;
-using Dianzhu.DAL;
-using Dianzhu.IDAL;
-using Dianzhu.Model;
+
+
+
 using NHibernate;
-using DDDCommon.Domain;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
@@ -39,12 +38,13 @@ using Ydb.InstantMessage.DomainModel.Chat;
 using System.IO;
 using System.Reflection;
 using Ydb.Common;
+using Ydb.InstantMessage.DomainModel.Reception;
 
 namespace Dianzhu.CSClient
 {
     static class Program
     {
-        static ILog log = LogManager.GetLogger("Dianzhu.CSClient");
+        static ILog log = LogManager.GetLogger("Ydb.CSClient");
         
         static PIdentityList pIdentityList;
         static PMain mainPresenter;
@@ -106,13 +106,7 @@ namespace Dianzhu.CSClient
 
             
             encryptService = Bootstrap.Container.Resolve<Ydb.Common.Infrastructure.IEncryptService>();
-            bool isValidConfig = CheckConfig();
-            if (!isValidConfig)
-            {
-                MessageBox.Show("配置错误,程序即将退出");
-                Application.ExitThread();
-                return;
-            }
+           
             memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
             localChatManager = Bootstrap.Container.Resolve<LocalChatManager>();
 
@@ -177,7 +171,8 @@ namespace Dianzhu.CSClient
                
                 IReceptionService receptionService = Bootstrap.Container.Resolve<IReceptionService>();
                 log.Debug("-------开始 接收离线用户------");
-                IList<ReceptionStatusDto> assignList = receptionService.AssignCSLogin(GlobalViables.CurrentCustomerService.Id.ToString(), 3);
+              
+                IList<ReceptionStatusDto> assignList = receptionService.AssignCSLogin(GlobalViables.CurrentCustomerService.Id.ToString(),GlobalViables.CurrentCustomerService.AreaId, 3);
                 
                 if (assignList.Count > 0)
                 {
@@ -223,13 +218,13 @@ namespace Dianzhu.CSClient
         {
             string errMsg = string.Empty;
             //判断信息类型
+            IViewMainForm viewMainForm = Bootstrap.Container.Resolve<IViewMainForm>();
             if (chat.ChatType == enum_ChatType.Chat.ToString())
             {
-                if (!string.IsNullOrEmpty(chat.SessionId)) 
+                if (!string.IsNullOrEmpty(chat.SessionId))
                 {
-                    NHibernateUnitOfWork.UnitOfWork.Start();//查询服务需开启
-                    
-                    IViewMainForm viewMainForm = Bootstrap.Container.Resolve<IViewMainForm>();
+
+                  
                     viewMainForm.PlayVoice();
                     viewMainForm.FlashTaskBar();
 
@@ -252,7 +247,7 @@ namespace Dianzhu.CSClient
 
                     // 用户头像的本地化处理
                     MemberDto from = memberService.GetUserById(chat.FromId);
-                    if (from.AvatarUrl != null)
+                    if (!string.IsNullOrEmpty(from.AvatarUrl))
                     {
                         workerCustomerAvatar = new BackgroundWorker();
                         workerCustomerAvatar.DoWork += WorkerCustomerAvatar_DoWork;
@@ -260,8 +255,29 @@ namespace Dianzhu.CSClient
                         workerCustomerAvatar.RunWorkerAsync(from);
                     }
 
-                    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-                    NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                }
+            }
+            else if (chat.ChatType.ToLower() == enum_ChatType.Notice.ToString().ToLower())
+            {
+                if (chat.OriginalClassName == "ReceptionChatNoticeCustomerChangeArea")
+                {
+                   string customerChangedArea=  chat.CustomerChangedArea;
+                    if (IdentityManager.DeleteCustomer(customerChangedArea))
+                    { 
+                        bool isActive = IdentityManager.CurrentCustomerId == customerChangedArea;
+                   
+
+                    viewMainForm.RemoveIdentityTab(
+                        PHSuit.StringHelper.SafeNameForWpfControl(customerChangedArea,
+                    GlobalViables.PRE_TAB_CUSTOMER), isActive);
+
+                        viewTabContentList.Remove(customerChangedArea);
+                        pIdentityList.RemoveIdentity(customerChangedArea);
+
+                        IReceptionService receptionService = Bootstrap.Container.Resolve<IReceptionService>();
+                        receptionService.DeleteReception(customerChangedArea);
+                    }
+
                 }
             }
         }
@@ -453,33 +469,7 @@ namespace Dianzhu.CSClient
             }                
         }
 
-        static bool CheckConfig()
-        {
-            return true;
-            log.Debug("--开始 检查配置是否冲突");
-            //need: openfire服务器 数据库,api服务器,三者目标ip应该相等.
-            bool isValidConfig = false;
-            string connectionString =encryptService.Decrypt(System.Configuration.ConfigurationManager
-                .ConnectionStrings["DianzhuConnectionString"].ConnectionString, false);
-            System.Text.RegularExpressions.Match m = System.Text.RegularExpressions.Regex.Match(connectionString, @"(?<=data\s+source\=).+?(?=;)");
-            string ofserver = Dianzhu.Config.Config.GetAppSetting("ImServer");
-            System.Text.RegularExpressions.Match m2 = System.Text.RegularExpressions.Regex.Match(Dianzhu.Config.Config.GetAppSetting("APIBaseURL"), "(?<=https?://).+?(?=:" + Dianzhu.Config.Config.GetAppSetting("GetHttpAPIPort") + ")");
-
-            if (ofserver == m.Value && m.Value == m2.Value)
-            {
-                isValidConfig = true;
-            }
-            else
-            {
-                log.Error(m.Value + "," + m2.Value + "," + ofserver);
-            }
-            log.Debug("--结束 检查配置是否冲突");
-            return isValidConfig;
-
-
-
-
-        }
+        
         static void cDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             try
@@ -488,7 +478,7 @@ namespace Dianzhu.CSClient
 
                 MessageBox.Show(e.ExceptionObject.ToString());
             }
-            catch (Exception ex)
+            catch 
             {
 
             }

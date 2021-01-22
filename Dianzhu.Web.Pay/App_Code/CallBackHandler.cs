@@ -11,8 +11,8 @@ using System.Web.UI.HtmlControls;
 using System.Collections.Specialized;
 using System.Collections.Generic;
  
-using Dianzhu.BLL;
-using Dianzhu.Model;
+
+
 using Ydb.Order.Application;
 using Ydb.Common;
 using Ydb.PayGateway;
@@ -75,7 +75,6 @@ public partial class CallBackHandler : BasePage
                 log.Error("回调参数解析错误");
                 return;
             }
-            ServiceOrder order = GetOrder(new Guid(businessOrderId));
             IPaymentService paymentService = Bootstrap.Container.Resolve<IPaymentService>();
             paymentService.PayCallBack(payApi, payedStatus, businessOrderId, platformOrderId);
 

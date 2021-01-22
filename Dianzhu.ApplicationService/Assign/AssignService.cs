@@ -1,24 +1,22 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using Ydb.Common.Specification;
 using Ydb.BusinessResource.Application;
-using BRM= Ydb.BusinessResource.DomainModel;
 using Ydb.Common;
+using Ydb.Common.Specification;
 using Ydb.Order.Application;
 using Ydb.Order.DomainModel;
+using BRM = Ydb.BusinessResource.DomainModel;
 
 namespace Dianzhu.ApplicationService.Assign
 {
-    public class AssignService:IAssignService
+    public class AssignService : IAssignService
     {
-       IOrderAssignmentService bllassign;
-      
-        IStaffService staffService;
-       IServiceOrderService ibllorder;
+        private IOrderAssignmentService bllassign;
+
+        private IStaffService staffService;
+        private IServiceOrderService ibllorder;
+
         public AssignService(IOrderAssignmentService bllassign, IStaffService staffService, IServiceOrderService ibllorder)
         {
             this.bllassign = bllassign;
@@ -32,7 +30,7 @@ namespace Dianzhu.ApplicationService.Assign
         /// <param name="assignobj"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public assignObj PostAssign(assignObj assignobj,Customer customer)
+        public assignObj PostAssign(assignObj assignobj, Customer customer)
         {
             if (string.IsNullOrEmpty(assignobj.orderID))
             {
@@ -48,11 +46,11 @@ namespace Dianzhu.ApplicationService.Assign
             {
                 throw new Exception("该商户指派的订单不存在！");
             }
-            if (!string.IsNullOrEmpty( order.StaffId ))
+            if (!string.IsNullOrEmpty(order.StaffId))
             {
                 throw new Exception("该订单已经指派！");
             }
-            BRM. Staff staff = staffService.GetStaff(new Guid( order.BusinessId), utils.CheckGuidID(assignobj.staffID, "assignobj.staffID"));
+            BRM.Staff staff = staffService.GetStaff(new Guid(order.BusinessId), utils.CheckGuidID(assignobj.staffID, "assignobj.staffID"));
             if (staff == null)
             {
                 throw new Exception("在指派订单所属的店铺中不存在该指派的员工！");
@@ -73,12 +71,11 @@ namespace Dianzhu.ApplicationService.Assign
             oa.OrderId = assignobj.orderID;
             oa.AssignedStaffId = assignobj.staffID;
             order.StaffId = assignobj.staffID;
-      
+
             bllassign.Save(oa);
-        
+
             assignobj = Mapper.Map<OrderAssignment, assignObj>(oa);
             return assignobj;
-          
         }
 
         /// <summary>
@@ -88,10 +85,10 @@ namespace Dianzhu.ApplicationService.Assign
         /// <param name="assign"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public IList<assignObj> GetAssigns(common_Trait_Filtering filter, common_Trait_AssignFiltering assign,Customer customer)
+        public IList<assignObj> GetAssigns(common_Trait_Filtering filter, common_Trait_AssignFiltering assign, Customer customer)
         {
             IList<OrderAssignment> listassign = null;
-         TraitFilter    filter1 = utils.CheckFilter(filter, "OrderAssignment");
+            TraitFilter filter1 = utils.CheckFilter(filter, "OrderAssignment");
             listassign = bllassign.GetAssigns(filter1, utils.CheckGuidID(assign.staffID, "assign.staffID"), utils.CheckGuidID(assign.orderID, "assign.orderID"), utils.CheckGuidID(assign.storeID, "assign.storeID"), utils.CheckGuidID(customer.UserID, "customer.UserID"));
             if (listassign == null)
             {
@@ -136,11 +133,11 @@ namespace Dianzhu.ApplicationService.Assign
             {
                 throw new Exception("该商户不存在该订单！");
             }
-            if (string.IsNullOrEmpty( order.StaffId))
+            if (string.IsNullOrEmpty(order.StaffId))
             {
                 throw new Exception("该订单还没有被指派过！");
             }
-            if (order.OrderStatus ==enum_OrderStatus.Finished || order.OrderStatus ==enum_OrderStatus.Appraised)
+            if (order.OrderStatus == enum_OrderStatus.Finished || order.OrderStatus == enum_OrderStatus.Appraised)
             {
                 throw new Exception("该订单的服务已经完成，无法再取消指派！");
             }
@@ -167,7 +164,7 @@ namespace Dianzhu.ApplicationService.Assign
             oa.Enabled = false;
             DateTime dt = DateTime.Now;
             oa.DeAssignedTime = dt;
-            order.StaffId= null;
+            order.StaffId = null;
             //oa.Order.Details[0].Staff.Clear();
             //oa.Order.Details[0].Staff.Add(staff);
             //bllassign.Save(oa);

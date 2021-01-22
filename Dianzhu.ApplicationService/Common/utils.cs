@@ -139,8 +139,7 @@ namespace Dianzhu.ApplicationService
         /// <returns></returns>
         public static common_Trait_400_Rsponses SetRes_Error(Exception ex)
         {
-            NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
-            NHibernateUnitOfWork.UnitOfWork.Start();
+           
             common_Trait_400_Rsponses res_Error = new common_Trait_400_Rsponses();
             switch (ex.Message)
             {

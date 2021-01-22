@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.Model;
-using Dianzhu.BLL;
+
+
 using System.Web.Security;
 using System.Text.RegularExpressions;
 using Ydb.Membership.Application;
@@ -36,7 +36,7 @@ public partial class Assistant_AssistantRegister : Dianzhu.Web.Common.BasePage
         }
         bool sendSuccess = true;
         FormsAuthentication.SetAuthCookie(userName, true);
-        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+      
         Response.Redirect("/register_suc.aspx?send=" + sendSuccess + "&customerService=true" , true);
     }
 

@@ -35,7 +35,7 @@ public partial class Pay_Default : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        string orderId = Request["orderId"];
+          orderId = Request["orderId"];
         string paramPayTarget = Request["paytarget"];
       bool isPayTarget=  Enum.TryParse<enum_PayTarget>(paramPayTarget, out payTarget);
        
@@ -72,7 +72,7 @@ public partial class Pay_Default : System.Web.UI.Page
         //在线支付
         if (payType == enum_PayType.Online)
         {
-            IPayRequest pay = PayFactory.CreatePayAPI(payAPI,payment.Amount,payment.Id.ToString(),payment.Memo);
+            IPayRequest pay = PayFactory.CreatePayAPI(payAPI,payment.Amount,payment.Id.ToString(),payment.Memo,"");
             requestString = pay.CreatePayRequest();
             
             Response.Write(requestString);

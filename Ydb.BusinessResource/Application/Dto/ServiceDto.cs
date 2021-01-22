@@ -9,6 +9,7 @@ namespace Ydb.BusinessResource.Application
     public class ServiceDto
     {
         public virtual Guid id { get; set; }
+        public virtual DateTime CreatedTime { get; set; }
         public virtual string ServiceName { get; set; }
         public virtual string Description { get; set; }
         public virtual bool IsCompensationAdvance { get; set; }
@@ -22,17 +23,22 @@ namespace Ydb.BusinessResource.Application
         public virtual string ServiceMode { get; set; }
 
         public virtual string ServiceTypeName { get; set; }
+        public virtual string ServiceTypeFullName { get; set; }
         public virtual string ServiceTypeId { get; set; }
 
         public virtual string ServiceBusinessId { get; set; }
 
         public virtual string ServiceBusinessOwnerId { get; set;}
 
+        public virtual string ServiceBusinessOwnerName { get; set; }
+
         public virtual string ServiceBusinessName { get; set; }
         public virtual string ServiceBusinessPhone { get; set; }
         public virtual bool IsForBusiness { get; set; }
 
         public virtual bool Enabled { get; set; }
+        public virtual DateTime EnabledTime { get; set; }
+        public virtual string EnabledMemo { get; set; }
         public virtual string AllowedPayType { get; set; }
         public virtual int OrderDelay { get; set; }
         public virtual string Scope { get; set; }

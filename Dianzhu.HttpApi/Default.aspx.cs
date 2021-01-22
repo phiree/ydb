@@ -18,7 +18,7 @@ public partial class _Default : System.Web.UI.Page
     {
         if(!string.IsNullOrEmpty( Request["refresh"]))
             { 
-        ILog log = LogManager.GetLogger("Dianzhu.HttpApi");
+        ILog log = LogManager.GetLogger("Ydb.HttpApi");
         log.Debug("被调用");
         }
 

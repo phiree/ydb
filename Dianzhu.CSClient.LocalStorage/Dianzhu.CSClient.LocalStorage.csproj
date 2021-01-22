@@ -54,25 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">
-      <Project>{d90cdf37-7406-4dae-9ae6-c894d83a796f}</Project>
-      <Name>DDDCommon</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
-      <Project>{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}</Project>
-      <Name>Dianzhu.BLL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj">
       <Project>{D7AA114D-AD19-4399-B152-969D240053C7}</Project>
       <Name>Dianzhu.CSClient.ViewModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.IDAL\Dianzhu.IDAL.csproj">
-      <Project>{43e8ffa6-60e9-40ca-a7a8-cec8008519dd}</Project>
-      <Name>Dianzhu.IDAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
-      <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
-      <Name>Dianzhu.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ydb.BusinessResource\Ydb.BusinessResource.csproj">
       <Project>{0c2206a1-308f-4090-a4a9-4e7cefd2fd9f}</Project>

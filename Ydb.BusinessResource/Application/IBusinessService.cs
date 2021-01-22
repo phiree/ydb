@@ -32,7 +32,7 @@ namespace Ydb.BusinessResource.Application
         /// <summary>
         /// 解析传递过来的 string, 
         /// </summary>
-         IList<Business> GetBusinessListByOwner(Guid memberId);
+         IList<Business> GetBusinessListByOwner(Guid memberId,IList<string>areaIdList);
         //如果图片保存不是通过编辑 Business 对象来完成的(比如 通过ajax mediaserver)
 
 
@@ -56,7 +56,7 @@ namespace Ydb.BusinessResource.Application
         /// <param name="ownerId"></param>
         /// <returns></returns>
          long GetStoresCount(string alias, Guid ownerId);
-          void Disable(Guid businessId);
+          //void Disable(Guid businessId, bool enable, string memo);
         void ApprovedEnable(Guid businessId);
         void ApprovedDisable(Guid businessId);
 
@@ -83,22 +83,29 @@ namespace Ydb.BusinessResource.Application
         IList<Business> GetAllBusinessesByArea(IList<string> areaList);
 
         /// <summary>
+        /// 当前代理区域的所有店铺列表区分是否可用
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        IList<Business> GetAllBusinessesByArea(IList<string> areaList, bool enable);
+
+        /// <summary>
         /// 统计店铺每日或每时新增数量列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <returns></returns>
-        StatisticsInfo GetStatisticsNewBusinessesCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime);
+        StatisticsInfo GetStatisticsNewBusinessesCountListByTime(IList<string> areaList, DateTime beginTime, DateTime endTime);
 
         /// <summary>
         /// 统计店铺每日或每时累计数量列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <returns></returns>
-        StatisticsInfo GetStatisticsAllBusinessesCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime);
+        StatisticsInfo GetStatisticsAllBusinessesCountListByTime(IList<string> areaList, DateTime beginTime, DateTime endTime);
 
         /// <summary>
         /// 根据店铺年限统计店铺数量列表
@@ -134,6 +141,14 @@ namespace Ydb.BusinessResource.Application
         /// <param name="areaList"></param>
         /// <returns></returns>
         string GetStatisticsRatioMonthOnMonth(IList<string> areaList);
+
+        /// <summary>
+        /// 封停/解封商家
+        /// </summary>
+        /// <param name="businessId"></param>
+        /// <param name="enable"></param>
+        /// <param name="memo"></param>
+        void EnableBusiness(Guid businessId, bool enable, string memo);
 
     }
 }

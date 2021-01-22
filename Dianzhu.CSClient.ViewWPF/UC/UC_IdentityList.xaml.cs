@@ -70,6 +70,8 @@ namespace Dianzhu.CSClient.ViewWPF
                 if (ucCustomer != null)
                 {
                     RemoveUIForNotTopPanel(ucCustomer, cbtnName);
+
+                    RemoveUIForTopPanel(ucCustomer, cbtnName);
                 }
             };
             if (!Dispatcher.CheckAccess())

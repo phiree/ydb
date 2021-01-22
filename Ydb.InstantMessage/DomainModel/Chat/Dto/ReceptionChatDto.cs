@@ -27,9 +27,13 @@ namespace Ydb.InstantMessage.DomainModel.Chat
         public string MessageBody { get;  set; }//消息的内容
         public string ChatTarget { get;  set; } //聊天状态，接待方是平台客服还是商家客服
         public string FromResource { get;  set; }//from 的资源名
+        public string FromResourceName { get; set; }//from 的资源名
         public string ToResource { get;  set; }//to 的资源名
         public bool IsReaded { get;  set; }
         public bool IsfromCustomerService { get;  set; }
+        //原本的类名
+        public string OriginalClassName { get; set; }
+        public string CustomerChangedArea { get; set; }
 
         public override string ToString()
         {

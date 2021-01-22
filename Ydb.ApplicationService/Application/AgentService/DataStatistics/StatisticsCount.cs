@@ -7,12 +7,13 @@ using Ydb.Common.Domain;
 using Ydb.Finance.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.ApplicationService.ModelDto;
+using Ydb.Order.DomainModel;
+using Ydb.BusinessResource.DomainModel;
 
 namespace Ydb.ApplicationService.Application.AgentService.DataStatistics
 {
     public class StatisticsCount : IStatisticsCount
     {
-
         public IList<FinanceFlowDto> StatisticsFinanceFlowList(IList<BalanceFlowDto> balanceFlowDtoList,IList<MemberDto>memberList )
         {
             IList<FinanceFlowDto> financeFlowDtoList = new List<FinanceFlowDto>();
@@ -67,5 +68,140 @@ namespace Ydb.ApplicationService.Application.AgentService.DataStatistics
         }
 
 
+        public FinanceWithdrawTotalDto StatisticsFinanceWithdrawList(IList<WithdrawApplyDto> withdrawApplyDtoList, IList<MemberDto> memberList)
+        {
+            FinanceWithdrawTotalDto financeWithdrawTotalDto = new FinanceWithdrawTotalDto();
+            financeWithdrawTotalDto.financeWithdrawDtoList = new List<FinanceWithdrawDto>();
+            foreach (MemberDto member in memberList)
+            {
+                IList<WithdrawApplyDto> applyList = withdrawApplyDtoList.Where(x => x.ApplyUserId == member.Id.ToString()).ToList();
+                foreach (WithdrawApplyDto withdrawApplyDto in applyList)
+                {
+                    FinanceWithdrawDto financeWithdrawDto = new FinanceWithdrawDto();
+                    financeWithdrawDto.Id = withdrawApplyDto.Id;
+                    financeWithdrawDto.ApplyUserId = withdrawApplyDto.ApplyUserId;
+                    financeWithdrawDto.UserNickName = member.DisplayName;
+                    financeWithdrawDto.ApplyAmount = withdrawApplyDto.ApplyAmount;
+                    financeWithdrawDto.ApplyTime = withdrawApplyDto.ApplyTime;
+                    financeWithdrawDto.ReceiveAccount = withdrawApplyDto.ReceiveAccount.Account;
+                    financeWithdrawDto.TransferAmount = withdrawApplyDto.TransferAmount;
+                    financeWithdrawDto.ServiceFee = withdrawApplyDto.ServiceFee;
+                    financeWithdrawDto.ApplyStatus = withdrawApplyDto.ApplyStatus.ToString();
+                    financeWithdrawDto.ApplyRemark = withdrawApplyDto.ApplyRemark;
+                    financeWithdrawDto.Rate = withdrawApplyDto.Rate;
+                    financeWithdrawDto.PayUserId = withdrawApplyDto.PayUserId;
+                    financeWithdrawDto.PayTime = withdrawApplyDto.PayTime;
+                    financeWithdrawDto.PayStatus = withdrawApplyDto.PayStatus;
+                    financeWithdrawDto.PayRemark = withdrawApplyDto.PayRemark;
+                    financeWithdrawDto.CreateTime = withdrawApplyDto.CreateTime;
+                    financeWithdrawDto.UpdateTime = withdrawApplyDto.UpdateTime;
+                    financeWithdrawDto.ApplySerialNo = withdrawApplyDto.ApplySerialNo;
+                    financeWithdrawDto.PaySerialNo = withdrawApplyDto.PaySerialNo;
+                    financeWithdrawDto.D3SerialNo = withdrawApplyDto.D3SerialNo;
+                    financeWithdrawDto.D3Time = withdrawApplyDto.D3Time;
+                    financeWithdrawTotalDto.financeWithdrawDtoList.Add(financeWithdrawDto);
+                }
+            }
+            financeWithdrawTotalDto.WithdrawNotDeal = financeWithdrawTotalDto.financeWithdrawDtoList.Count(x => x.ApplyStatus =="ApplyWithdraw");
+            financeWithdrawTotalDto.WithdrawTotal = financeWithdrawTotalDto.financeWithdrawDtoList.Where(x => x.ApplyStatus == "PaySeccuss").Sum(x => x.ApplyAmount);
+            return financeWithdrawTotalDto;
+        }
+
+
+
+        public StatisticsInfo StatisticsNewOrdersCountListByTime(IList<ServiceOrder> orderList, DateTime beginTime, DateTime endTime, bool IsHour)
+        {
+            StatisticsInfo statisticsInfo = new StatisticsInfo();
+            statisticsInfo.YName = "新增订单";
+            statisticsInfo.XName = IsHour ? "时" : "日";
+            statisticsInfo.XYValue = new Dictionary<string, long>();
+            while (beginTime < endTime)
+            {
+                DateTime middleTime = IsHour ? beginTime.AddHours(1) : beginTime.AddDays(1);
+                string strKey = IsHour ? beginTime.Hour.ToString() : beginTime.ToString("yyyyMMdd");
+                statisticsInfo.XYValue.Add(strKey, 0);
+                statisticsInfo.XYValue[strKey] = orderList.Count(x => x.OrderConfirmTime >= beginTime && x.OrderConfirmTime < middleTime);
+                beginTime = middleTime;
+            }
+            return statisticsInfo;
+        }
+
+        public StatisticsInfo StatisticsAllOrdersCountListByTime(IList<ServiceOrder> orderList, DateTime beginTime, DateTime endTime, bool IsHour)
+        {
+            StatisticsInfo statisticsInfo = new StatisticsInfo();
+            statisticsInfo.YName = "累计订单";
+            statisticsInfo.XName = IsHour ? "时" : "日";
+            statisticsInfo.XYValue = new Dictionary<string, long>();
+            while (beginTime < endTime)
+            {
+                DateTime middleTime = IsHour ? beginTime.AddHours(1) : beginTime.AddDays(1);
+                string strKey = IsHour ? beginTime.Hour.ToString() : beginTime.ToString("yyyyMMdd");
+                statisticsInfo.XYValue.Add(strKey, 0);
+                statisticsInfo.XYValue[strKey] = orderList.Count(x => x.OrderConfirmTime < middleTime);
+                beginTime = middleTime;
+            }
+            return statisticsInfo;
+        }
+
+
+        public StatisticsInfo StatisticsAllOrdersCountGroupByArea(IList<ServiceOrder> orderList, IList<Business> businessList, IList<Area> areaList)
+        {
+            StatisticsInfo statisticsInfo = new StatisticsInfo();
+            statisticsInfo.YName = "订单数量";
+            statisticsInfo.XName = "区域";
+            statisticsInfo.XYValue = new Dictionary<string, long>();
+            foreach (Area area in areaList)
+            {
+                IList<Business> blist = businessList.Where(x => x.AreaBelongTo == area.Id.ToString()).ToList();
+                IList<string> bIdList = blist.Select(x => x.Id.ToString()).ToList();
+                long bc = orderList.Count(x => bIdList.Contains(x.BusinessId));
+                statisticsInfo.XYValue.Add(area.Name, bc);
+            }
+            return statisticsInfo;
+        }
+
+        public StatisticsInfo<string,decimal> StatisticsAllOrdersAmountListByType(IList<ServiceOrder> orderList)
+        {
+            StatisticsInfo<string, decimal> statisticsInfo = new StatisticsInfo<string, decimal>();
+            statisticsInfo.YName = "交易金额";
+            statisticsInfo.XName = "订单类型";
+            statisticsInfo.XYValue = new Dictionary<string, decimal>();
+            foreach (ServiceOrder order in orderList)
+            {
+                string serviceTypeId = order.ServiceTypeId;
+                if (statisticsInfo.XYValue.Keys.Contains(serviceTypeId))
+                {
+                    statisticsInfo.XYValue[serviceTypeId] = statisticsInfo.XYValue[serviceTypeId] + order.NegotiateAmount;
+                }
+                else
+                {
+                    statisticsInfo.XYValue.Add(serviceTypeId, order.NegotiateAmount);
+                }
+            }
+            return statisticsInfo;
+        }
+
+        public StatisticsInfo StatisticsAllOrdersCountListByType(IList<ServiceOrder> orderList)
+        {
+            StatisticsInfo statisticsInfo = new StatisticsInfo();
+            statisticsInfo.YName = "订单数量";
+            statisticsInfo.XName = "订单类型";
+            statisticsInfo.XYValue = new Dictionary<string, long>();
+            foreach (ServiceOrder order in orderList)
+            {
+                string serviceTypeId = order.ServiceTypeId;
+                if (statisticsInfo.XYValue.Keys.Contains(serviceTypeId))
+                {
+                    statisticsInfo.XYValue[serviceTypeId]++;
+                }
+                else
+                {
+                    statisticsInfo.XYValue.Add(serviceTypeId, 1);
+                }
+            }
+            return statisticsInfo;
+        }
+
+        
     }
 }

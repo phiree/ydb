@@ -22,6 +22,8 @@ namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Mapping
             Map(x => x.WebSite);
             Map(x => x.OwnerId);
             Map(x => x.Enabled);
+            Map(x => x.EnabledTime);
+            Map(x => x.EnabledMemo);
             Map(x => x.CreatedTime);
         }
     }
@@ -45,6 +47,7 @@ namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Mapping
             HasMany<BusinessImage>(x => x.BusinessImages).Cascade.AllDeleteOrphan().Not.LazyLoad();
             Map(x => x.ChargePersonIdCardNo);
             Map(x => x.StaffAmount);
+            Map(x => x.ServiceAmount); 
             Map(x => x.ChargePersonIdCardType).CustomType<enum_IDCardType>();
             Map(x => x.PromoteScope);
             

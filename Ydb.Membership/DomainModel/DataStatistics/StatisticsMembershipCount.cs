@@ -88,8 +88,8 @@ namespace Ydb.Membership.DomainModel.DataStatistics
             statisticsInfo.XName = "性别";
             statisticsInfo.XYValue = new Dictionary<string, long>();
             long l = memberList.Count(x => x.Sex);
-            statisticsInfo.XYValue.Add("男", memberList.Count-l);
-            statisticsInfo.XYValue.Add("女", l);
+            statisticsInfo.XYValue.Add("men", memberList.Count-l);
+            statisticsInfo.XYValue.Add("women", l);
             return statisticsInfo;
         }
 
@@ -99,24 +99,25 @@ namespace Ydb.Membership.DomainModel.DataStatistics
             statisticsInfo.YName = "用户数量";
             statisticsInfo.XName = "手机系统";
             statisticsInfo.XYValue = new Dictionary<string, long>();
-            statisticsInfo.XYValue.Add("other", 0);
+            statisticsInfo.XYValue.Add("ios", 0);
+            statisticsInfo.XYValue.Add("android", 0);
             foreach (DZMembership member in memberList)
             {
                 MembershipLoginLog membershipLoginLog = loginList.FirstOrDefault(x => x.MemberId == member.Id.ToString());
                 if (membershipLoginLog==null)
                 {
-                    statisticsInfo.XYValue["other"]++;
+                    statisticsInfo.XYValue["ios"]++;
                 }
                 else
                 {
-                    string appName = membershipLoginLog.AppName.ToString();
-                    if (statisticsInfo.XYValue.Keys.Contains(appName))
+                    string appName = membershipLoginLog.AppName.ToString().ToLower();
+                    if (appName.Contains("ios"))
                     {
-                        statisticsInfo.XYValue[appName]++;
+                        statisticsInfo.XYValue["ios"]++;
                     }
                     else
                     {
-                        statisticsInfo.XYValue.Add(appName, 1);
+                        statisticsInfo.XYValue["android"]++;
                     }
                 }
             }
@@ -151,7 +152,10 @@ namespace Ydb.Membership.DomainModel.DataStatistics
                 {
                     DZMembershipCustomerService membershipCustomerService = (DZMembershipCustomerService)member;
                     Area area = areaList.FirstOrDefault(x => x.Id == int.Parse(membershipCustomerService.AreaId));
-                    membershipCustomerService.UserCity = area.Name;
+                    if (area != null)
+                    {
+                        membershipCustomerService.UserCity = area.Name;
+                    }
                     foreach (string strKey in memberKey)
                     {
                         if (CheckCustomerServiceByArea(membershipCustomerService, strKey))
@@ -181,6 +185,45 @@ namespace Ydb.Membership.DomainModel.DataStatistics
                 case "LockedCustomerService":
                     return member.IsVerified && member.VerificationIsAgree && member.IsLocked;
                 default:return false;
+            }
+        }
+
+
+
+        public IDictionary<string, IList<DZMembership>> StatisticsLockedMemberByArea(IList<DZMembership> memberList, IList<Area> areaList, IList<string> memberKey)
+        {
+            IDictionary<string, IList<DZMembership>> dic = new Dictionary<string, IList<DZMembership>>();
+            foreach (string strKey in memberKey)
+            {
+                dic.Add(strKey, new List<DZMembership>());
+            }
+            foreach (DZMembership member in memberList)
+            {
+                Area area = areaList.FirstOrDefault(x => x.Id == int.Parse(member.AreaId));
+                if (area != null)
+                {
+                    member.UserCity = area.Name;
+                }
+                foreach (string strKey in memberKey)
+                {
+                    if (CheckMemberByArea(member, strKey))
+                    {
+                        dic[strKey].Add(member);
+                    }
+                }
+            }
+            return dic;
+        }
+
+        public bool CheckMemberByArea(DZMembership member, string strKey)
+        {
+            switch (strKey)
+            {
+                case "UnLocked":
+                    return !member.IsLocked;
+                case "Locked":
+                    return member.IsLocked;
+                default: return false;
             }
         }
 

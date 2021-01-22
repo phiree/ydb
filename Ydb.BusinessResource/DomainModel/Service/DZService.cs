@@ -15,8 +15,9 @@ namespace Ydb.BusinessResource.DomainModel
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model.DZService");
         public DZService()
         {
-            
+            CreatedTime = DateTime.Now;
             Enabled = true;
+            EnabledTime = DateTime.Now;
             IsDeleted = false;
             InitOpenTimes();
 
@@ -226,6 +227,14 @@ namespace Ydb.BusinessResource.DomainModel
         /// 是否开启
         /// </summary>
         public virtual bool Enabled { get; set; }
+        /// <summary>
+        /// 开启/封停时间
+        /// </summary>
+        public virtual DateTime EnabledTime { get; set; }
+        /// <summary>
+        /// 封停说明
+        /// </summary>
+        public virtual string EnabledMemo { get; set; }
         public virtual IList<ServiceOpenTime> OpenTimes { get; set; }
         /// <summary>
         /// 是否为先付
@@ -430,6 +439,29 @@ namespace Ydb.BusinessResource.DomainModel
 
             ServiceOpenTimeForDay workTime = serviceOpenTime.GetItem(period);
             return workTime;
+        }
+
+        /// <summary>
+        /// 可用/封停
+        /// </summary>
+        /// <param name="enable"></param>
+        /// <param name="memo"></param>
+        public virtual void EnabledDZService(bool enable, string memo)
+        {
+            //if (!enable)
+            //{
+            //    if (!this.Enabled)
+            //    {
+            //        throw new Exception("该服务已经封停！");
+            //    }
+            //    if (memo == "")
+            //    {
+            //        throw new Exception("请输入封停原因！");
+            //    }
+            //}
+            this.EnabledMemo = memo;
+            this.EnabledTime = DateTime.Now;
+            this.Enabled = enable;
         }
 
 

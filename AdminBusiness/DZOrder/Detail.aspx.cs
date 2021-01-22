@@ -1,4 +1,4 @@
-﻿using Dianzhu.BLL;
+﻿
  
 using PHSuit;
 using System;
@@ -24,7 +24,7 @@ public partial class DZOrder_Detail : BasePage
     IServiceOrderStateChangeHisService bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<IServiceOrderStateChangeHisService>();
     IDZMembershipService memberService = Bootstrap.Container.Resolve<IDZMembershipService>();
      public ServiceOrder CurrentOrder;
-    public Business CurrentBusiness;
+  
     Guid OrderId;
     public string merchantID
     {
@@ -36,9 +36,11 @@ public partial class DZOrder_Detail : BasePage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        OrderId = new Guid(Request["businessId"]);
-        CurrentBusiness = businessService.GetOne(OrderId);
-        CurrentOrder = bllServeiceOrder.GetOne(new Guid(Request["orderId"]));
+        Guid businessId = new Guid(Request["businessId"]);
+      
+         OrderId = new Guid(Request["orderId"]);
+        CurrentOrder = bllServeiceOrder.GetOne(OrderId);
+
         BingData();
         BindDoneStatusData();
         BindCustomerInfo();

@@ -45,15 +45,18 @@ namespace Dianzhu.ApplicationService.Staff
             for (int i = 0; i < listAssignment.Count; i++)
             {
                 string orderId = listAssignment[i].OrderId;
-                staffobj.storeData.assignOrderIDs.Add(orderId);
-                ServiceOrder order = orderService.GetOne(new Guid());
-                if (order.OrderStatus !=  enum_OrderStatus.Finished && order.OrderStatus != enum_OrderStatus.Appraised)
+                ServiceOrder order = orderService.GetOne(new Guid(orderId));
+                if (order != null)
                 {
-                    staffobj.storeData.handleCount++;
-                }
-                else
-                {
-                    staffobj.storeData.finishCount++;
+                    staffobj.storeData.assignOrderIDs.Add(orderId);
+                    if (order.OrderStatus != enum_OrderStatus.Finished && order.OrderStatus != enum_OrderStatus.Appraised && order.OrderStatus!=enum_OrderStatus.EndCancel && order.OrderStatus != enum_OrderStatus.EndRefund && order.OrderStatus != enum_OrderStatus.EndIntervention)
+                    {
+                        staffobj.storeData.handleCount++;
+                    }
+                    else
+                    {
+                        staffobj.storeData.finishCount++;
+                    }
                 }
             }
         }
@@ -327,17 +330,14 @@ namespace Dianzhu.ApplicationService.Staff
                 throw new FormatException("staffID不能为空！");
             }
             BRM.Business business = checkRute(storeID, customer);
-            BRM.Staff staff = null;
+          
             Guid guidStaff = utils.CheckGuidID(staffID, "staffID");
-            
-            //staff.Enable = false;
-            staffService.Delete(guidStaff);
-            //staff = staffService.GetStaff(guidStore, guidStaff);
-            //if (staff == null)
-            //{
-            try
+             try
             {
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            
+            staffService.Delete(guidStaff);
+           
+               
             }
             catch
             {

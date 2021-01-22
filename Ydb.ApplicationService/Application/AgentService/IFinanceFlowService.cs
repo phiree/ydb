@@ -14,5 +14,7 @@ namespace Ydb.ApplicationService.Application.AgentService
         IList<FinanceFlowDto> GetFinanceFlowList(IList<string> areaList,MemberDto memberAgent);
 
         IList<FinanceTotalDto> GetFinanceTotalList(IList<string> areaList);
+
+        FinanceWithdrawTotalDto GetFinanceWithdrawList(IList<string> areaList, MemberDto memberAgent);
     }
 }

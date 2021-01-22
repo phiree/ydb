@@ -68,7 +68,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Advertisement.cs" />
     <Compile Include="StorageManager\StorageFileInfo.cs" />
     <Compile Include="City.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,0 +1,44 @@
+﻿@model IList<Ydb.BusinessResource.Application.ServiceDto>
+@{
+    Layout = null;
+}
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>序号</th>
+            <th>商户账号</th>
+            <th>店铺名称</th>
+            <th>服务名称</th>
+            <th>创建时间</th>
+            <th>停封时间</th>
+            <th>详情</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < @Model.Count; i++)
+        {
+            <tr>
+                <td>@(i + 1)</td>
+                <td>@Html.ActionLink(Html.DisplayFor(modelItem => Model[i].ServiceBusinessOwnerName).ToString(), "BusinessDetail", "AgentBusinessManage", new { id = Model[i].ServiceBusinessOwnerId }, new { })</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].ServiceBusinessName)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].ServiceName)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].CreatedTime)</td>
+                <td>@Html.DisplayFor(modelItem => Model[i].EnabledTime)</td>
+                <td>@Html.ActionLink("进入", "BusinessServiceDetail", "AgentBusinessManage", new { id = Model[i].id }, new { })</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>序号</th>
+            <th>商户账号</th>
+            <th>店铺名称</th>
+            <th>服务名称</th>
+            <th>创建时间</th>
+            <th>停封时间</th>
+            <th>详情</th>
+        </tr>
+   </tfoot>
+</table>
+

@@ -31,5 +31,37 @@ namespace Ydb.Order.DomainModel.Repository
         /// <returns></returns>
         IList<ServiceOrder> GetOrdersByBusinessList(IList<string> businessIdList, bool isShared);
 
+
+        /// <summary>
+        /// 根据分账统计订单
+        /// </summary>
+        /// <param name="isShared">订单是否分账</param>
+        /// <returns></returns>
+        IList<ServiceOrder> GetOrdersByShared(bool isShared, int pageIndex, int pageSize, out long totalRecords);
+
+        /// <summary>
+        /// 根据商户Id列表和时间获取代理及其助理的订单列表
+        /// </summary>
+        /// <param name="businessIdList"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
+        IList<ServiceOrder> GetOrdersByBusinessList(IList<string> businessIdList, DateTime beginTime, DateTime endTime, string strDone);
+
+        /// <summary>
+        /// 根据商户Id列表和时间获取代理及其助理的订单数量
+        /// </summary>
+        /// <param name="businessIdList"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
+        long GetOrdersCountByBusinessList(IList<string> businessIdList, DateTime beginTime, DateTime endTime, string strDone);
+
+        /// <summary>
+        /// 根据商户Id列表订单的营业总额
+        /// </summary>
+        /// <param name="businessIdList"></param>
+        /// <returns></returns>
+        decimal GetTotalAmountByBusinessList(IList<string> businessIdList);
     }
 }

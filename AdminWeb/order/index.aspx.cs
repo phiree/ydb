@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.BLL;
+
  
 using System.Data;
 using Ydb.Common;
@@ -17,11 +17,9 @@ using Ydb.Order.DomainModel;
 public partial class order_index : BasePage
 {
     public IServiceOrderService bllServiceOrder = Bootstrap.Container.Resolve<IServiceOrderService>();
-    ServiceOrder serviceorder;
-    public int page;
+     public int page;
     string linkStr;//链接字符串
-    PagedDataSource pds;
-    
+     
     protected override void OnInit(EventArgs e)
     {
         base.OnInit(e);
@@ -69,8 +67,15 @@ public partial class order_index : BasePage
         {
 
             StatusSelect.Value = "index.aspx?status=" + Request.QueryString["status"].ToString();
-             enum_OrderStatus status = ( enum_OrderStatus)Enum.Parse(typeof( enum_OrderStatus), Request.QueryString["status"].ToString());
-            allServiceOrder = bllServiceOrder.GetAllByOrderStatus(status,page,pager.PageSize,out totalRecords).OrderByDescending(x => x.LatestOrderUpdated).ToList();
+            if (Request.QueryString["status"].ToString() == "Shared")
+            {
+                allServiceOrder = bllServiceOrder.GetOrdersByShared(true, page, pager.PageSize, out totalRecords).OrderByDescending(x => x.LatestOrderUpdated).ToList();
+            }
+            else
+            {
+                enum_OrderStatus status = (enum_OrderStatus)Enum.Parse(typeof(enum_OrderStatus), Request.QueryString["status"].ToString());
+                allServiceOrder = bllServiceOrder.GetAllByOrderStatus(status, page, pager.PageSize, out totalRecords).OrderByDescending(x => x.LatestOrderUpdated).ToList();
+            }
 
         }
         pager.RecordCount = (int)totalRecords;

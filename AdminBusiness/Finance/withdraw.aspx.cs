@@ -51,7 +51,7 @@ public partial class Finance_withdraw : BasePage
                     lblTotalAmount.Text = "0";
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 PHSuit.Notification.Alert(Page, "没有businessid参数！", "default.aspx");
             }

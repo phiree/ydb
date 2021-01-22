@@ -92,10 +92,33 @@ namespace Ydb.BusinessResource.DomainModel
             return fulleTypeName;
 
         }
-        
-        
+
+        public virtual string GetNameByDeepLevel(int deeplevel)
+        {
+            if (deeplevel > DeepLevel)
+            {
+                throw new Exception("传入的层级大于该类型本身的层级！");
+            }
+            ServiceType parent = this;
+            string typeName = "";
+            do
+            {
+                if (deeplevel == parent.DeepLevel)
+                {
+                    typeName= parent.Name;
+                    break;
+                }
+                else
+                {
+                    parent = parent.Parent;
+                }
+            } while (parent != null);
+            return typeName;
+        }
 
 
-        
+
+
+
     }
 }

@@ -7,6 +7,8 @@ using Ydb.Common.Domain;
 using Ydb.Finance.Application;
 using Ydb.Membership.Application.Dto;
 using Ydb.ApplicationService.ModelDto;
+using Ydb.Order.DomainModel;
+using Ydb.BusinessResource.DomainModel;
 
 namespace Ydb.ApplicationService.Application.AgentService.DataStatistics
 {
@@ -15,5 +17,14 @@ namespace Ydb.ApplicationService.Application.AgentService.DataStatistics
         IList<FinanceFlowDto> StatisticsFinanceFlowList(IList<BalanceFlowDto> balanceFlowDtoList, IList<MemberDto> memberList);
 
         IList<FinanceTotalDto> StatisticsFinanceTotalList(IList<BalanceTotalDto> balanceTotalDtoList, IList<DZMembershipCustomerServiceDto> memberList);
+
+        FinanceWithdrawTotalDto StatisticsFinanceWithdrawList(IList<WithdrawApplyDto> withdrawApplyDtoList, IList<MemberDto> memberList);
+
+        StatisticsInfo StatisticsNewOrdersCountListByTime(IList<ServiceOrder> orderList, DateTime beginTime, DateTime endTime, bool IsHour);
+        StatisticsInfo StatisticsAllOrdersCountListByTime(IList<ServiceOrder> orderList, DateTime beginTime, DateTime endTime, bool IsHour);
+        StatisticsInfo StatisticsAllOrdersCountGroupByArea(IList<ServiceOrder> orderList, IList<Business> businessList, IList<Area> areaList);
+        StatisticsInfo<string, decimal> StatisticsAllOrdersAmountListByType(IList<ServiceOrder> orderList);
+        StatisticsInfo StatisticsAllOrdersCountListByType(IList<ServiceOrder> orderList);
+        
     }
 }

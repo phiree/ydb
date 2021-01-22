@@ -18,73 +18,6 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_2">
-                        <h4>店铺地区分布</h4>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="box">
-                                    <div class="box-body">
-                                        <canvas id="pieChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="box">
-                                    <div class="box-body no-padding">
-                                        <table class="table table-striped">
-                                            <tbody>
-                                                <tr>
-                                                    <th style="width: 10px">#</th>
-                                                    <th>Task</th>
-                                                    <th>Progress</th>
-                                                    <th style="width: 40px">Label</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td>Update software</td>
-                                                    <td>
-                                                        <div class="progress progress-xs">
-                                                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-red">55%</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2.</td>
-                                                    <td>Clean database</td>
-                                                    <td>
-                                                        <div class="progress progress-xs">
-                                                            <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-yellow">70%</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3.</td>
-                                                    <td>Cron job running</td>
-                                                    <td>
-                                                        <div class="progress progress-xs progress-striped active">
-                                                            <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-light-blue">30%</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4.</td>
-                                                    <td>Fix and squish bugs</td>
-                                                    <td>
-                                                        <div class="progress progress-xs progress-striped active">
-                                                            <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-green">90%</span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- /.box-body -->
-                                </div>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <h4>店铺年限</h4>
@@ -92,7 +25,7 @@
                                     <div class="col-md-6">
                                         <div class="box">
                                             <div class="box-body">
-                                                <canvas id="pieChart1"></canvas>
+                                                <canvas id="pieChartAge"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -100,52 +33,12 @@
                                         <div class="box">
                                             <div class="box-body no-padding">
                                                 <table class="table table-striped">
-                                                    <tbody>
+                                                    <tbody id="tableAge">
                                                         <tr>
                                                             <th style="width: 10px">#</th>
-                                                            <th>Task</th>
-                                                            <th>Progress</th>
-                                                            <th style="width: 40px">Label</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>1.</td>
-                                                            <td>Update software</td>
-                                                            <td>
-                                                                <div class="progress progress-xs">
-                                                                    <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                                                </div>
-                                                            </td>
-                                                            <td><span class="badge bg-red">55%</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>2.</td>
-                                                            <td>Clean database</td>
-                                                            <td>
-                                                                <div class="progress progress-xs">
-                                                                    <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                                                                </div>
-                                                            </td>
-                                                            <td><span class="badge bg-yellow">70%</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>3.</td>
-                                                            <td>Cron job running</td>
-                                                            <td>
-                                                                <div class="progress progress-xs progress-striped active">
-                                                                    <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                                                                </div>
-                                                            </td>
-                                                            <td><span class="badge bg-light-blue">30%</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>4.</td>
-                                                            <td>Fix and squish bugs</td>
-                                                            <td>
-                                                                <div class="progress progress-xs progress-striped active">
-                                                                    <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                                                                </div>
-                                                            </td>
-                                                            <td><span class="badge bg-green">90%</span></td>
+                                                            <th>年限</th>
+                                                            <th>占比</th>
+                                                            <th style="width: 40px">占比</th>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -161,7 +54,7 @@
                                     <div class="col-md-6">
                                         <div class="box">
                                             <div class="box-body">
-                                                <canvas id="pieChart4"></canvas>
+                                                <canvas id="pieChartStaff"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -169,52 +62,12 @@
                                         <div class="box">
                                             <div class="box-body no-padding">
                                                 <table class="table table-striped">
-                                                    <tbody>
+                                                    <tbody id="tableStaff">
                                                         <tr>
                                                             <th style="width: 10px">#</th>
-                                                            <th>Task</th>
-                                                            <th>Progress</th>
-                                                            <th style="width: 40px">Label</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>1.</td>
-                                                            <td>Update software</td>
-                                                            <td>
-                                                                <div class="progress progress-xs">
-                                                                    <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                                                </div>
-                                                            </td>
-                                                            <td><span class="badge bg-red">55%</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>2.</td>
-                                                            <td>Clean database</td>
-                                                            <td>
-                                                                <div class="progress progress-xs">
-                                                                    <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                                                                </div>
-                                                            </td>
-                                                            <td><span class="badge bg-yellow">70%</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>3.</td>
-                                                            <td>Cron job running</td>
-                                                            <td>
-                                                                <div class="progress progress-xs progress-striped active">
-                                                                    <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                                                                </div>
-                                                            </td>
-                                                            <td><span class="badge bg-light-blue">30%</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>4.</td>
-                                                            <td>Fix and squish bugs</td>
-                                                            <td>
-                                                                <div class="progress progress-xs progress-striped active">
-                                                                    <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                                                                </div>
-                                                            </td>
-                                                            <td><span class="badge bg-green">90%</span></td>
+                                                            <th>员工人数</th>
+                                                            <th>占比</th>
+                                                            <th style="width: 40px">占比</th>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -227,57 +80,31 @@
                         </div>
                         <h4>店铺地区分布</h4>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <div class="box">
                                     <div class="box-body">
-                                        <canvas id="barChart"></canvas>
+                                        <canvas id="barCharArea"></canvas>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-8">
-                                <form role="form" lpformnum="2">
-                                    <div class="box-body">
-                                        <!-- select -->
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-horizontal">
-                                                    <div class="form-group">
-                                                        <label class="col-md-5 control-label">海南省</label>
-                                                        <div class="col-md-5">
-                                                            <select class="form-control">
-                                                                <option>option 1</option>
-                                                                <option>option 2</option>
-                                                                <option>option 3</option>
-                                                                <option>option 4</option>
-                                                                <option>option 5</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-horizontal">
-                                                    <div class="form-group">
-                                                        <label class="col-md-5 control-label">海口市</label>
-                                                        <div class="col-md-5">
-                                                            <select class="form-control">
-                                                                <option>option 1</option>
-                                                                <option>option 2</option>
-                                                                <option>option 3</option>
-                                                                <option>option 4</option>
-                                                                <option>option 5</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="col-md-4">
+                                <div class="box">
+                                    <div class="box-body no-padding">
+                                        <table class="table table-striped">
+                                            <tbody id="tableArea">
+                                            <tr>
+                                                <th style="width: 10px">#</th>
+                                                <th style="width: 100px">地区</th>
+                                                <th>占比</th>
+                                                <th style="width: 40px">占比</th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-
-                                </form>
+                                    <!-- /.box-body -->
+                                </div>
                             </div>
                         </div>
-
                     </div>
                     <!-- /.tab-pane -->
                 </div>
@@ -290,175 +117,206 @@
 
 </section>
 <!-- /.content -->
+@Html.Action("footer", "Agent", new { id = "" })
 
 <!-- date-range-picker -->
-<script src="../../plugins/daterangepicker/moment.min.js"></script>
-<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+<script src="../../static/plugins/daterangepicker/moment.min.js"></script>
+<script src="../../static/plugins/daterangepicker/daterangepicker.js"></script>
 
 <!-- ChartJS 1.0.1 -->
-<script src="../../plugins/chartjs/Chart.min.js"></script>
+<script src="../../static/plugins/chartjs/Chart.min.js"></script>
+
+<!--vtool.js-->
+<script src="../../static/libs/xytool.js"></script>
+
+<!--mock.js-->
+<script src="../../static/libs/mock/mock.js"></script>
+@*<script src="../../static/libs/mock/data.mock.js"></script>*@
+
+<!-- underscore 模板 -->
+<script type="text/template" id="trTpl">
+    <% _.each(list, function(ele, index, list){ %>
+    <tr>
+        <td><%= index %></td>
+        <td><%= ele.title %></td>
+        <td>
+            <div class="progress progress-xs">
+                <div class="progress-bar progress-bar-danger" <%= 'style="width:' + (ele.value / total) + '%"' %> ></div>
+            </div>
+        </td>
+        <td><span class="badge bg-red"> <%= ele.value / total + '%' %> </span></td>
+    </tr>
+    <% }); %>
+</script>
 
 <script>
     $(function(){
-        //Date range picker
-        $('#reservation').daterangepicker();
-        //Date range picker with time picker
-
-        /* ChartJS
-         * -------
-         * Here we will create a few charts using ChartJS
-         */
-        var areaChartData = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [
-                {
-                    label: "Electronics",
-                    fillColor: "rgba(210, 214, 222, 1)",
-                    strokeColor: "rgba(210, 214, 222, 1)",
-                    pointColor: "rgba(210, 214, 222, 1)",
-                    pointStrokeColor: "#c1c7d1",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: [65, 59, 80, 81, 56, 55, 40]
-                },
-                {
-                    label: "Digital Goods",
-                    fillColor: "rgba(60,141,188,0.9)",
-                    strokeColor: "rgba(60,141,188,0.8)",
-                    pointColor: "#3b8bba",
-                    pointStrokeColor: "rgba(60,141,188,1)",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(60,141,188,1)",
-                    data: [28, 48, 40, 19, 86, 27, 90]
-                }
-            ]
-        };
-
-
-        //--------------
-
-        // Get context with jQuery - using jQuery's .get() method.
-//            var areaChartCanvas = $("#areaChart").get(0).getContext("2d");
-        // This will get the first returned node in the jQuery collection.
-//            var areaChart = new Chart(areaChartCanvas);
 
         //-------------
         //- PIE CHART -
         //-------------
         // Get context with jQuery - using jQuery's .get() method.
-        var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
-        var pieChartCanvas1 = $("#pieChart1").get(0).getContext("2d");
-        var pieChartCanvas4 = $("#pieChart4").get(0).getContext("2d");
-        var pieChart = new Chart(pieChartCanvas);
-        var pieChart1 = new Chart(pieChartCanvas1);
-        var pieChart4 = new Chart(pieChartCanvas4);
-        var PieData = [
-            {
-                value: 700,
-                color: "#f56954",
-                highlight: "#f56954",
-                label: "Chrome"
-            },
-            {
-                value: 500,
-                color: "#00a65a",
-                highlight: "#00a65a",
-                label: "IE"
-            },
-            {
-                value: 400,
-                color: "#f39c12",
-                highlight: "#f39c12",
-                label: "FireFox"
-            },
-            {
-                value: 600,
-                color: "#00c0ef",
-                highlight: "#00c0ef",
-                label: "Safari"
-            },
-            {
-                value: 300,
-                color: "#3c8dbc",
-                highlight: "#3c8dbc",
-                label: "Opera"
-            },
-            {
-                value: 100,
-                color: "#d2d6de",
-                highlight: "#d2d6de",
-                label: "Navigator"
+        var pieChartCanvasStaff = $("#pieChartStaff").get(0).getContext("2d");
+        var pieChartCanvasAge = $("#pieChartAge").get(0).getContext("2d");
+
+        var barChartCanvasArea = $("#barCharArea").get(0).getContext("2d");
+
+        var pieDataStaff = {
+            labels: [],
+            datasets: [
+                {
+                    data: [1, 1],
+                    backgroundColor: [
+                        "#00c0ef",
+                        "#00a65a"
+                    ],
+                    hoverBackgroundColor: [
+                        "#00c0ef",
+                        "#00a65a"
+                    ]
+                }]
+        };
+        var pieDataAge = {
+            labels: [],
+            datasets: [
+                {
+                    data: [1, 1],
+                    backgroundColor: [
+                        "#00c0ef",
+                        "#00a65a"
+                    ],
+                    hoverBackgroundColor: [
+                        "#00c0ef",
+                        "#00a65a"
+                    ]
+                }]
+        };
+
+        var barChatArea = {
+            labels: [],
+            datasets: [
+                {
+                    data: [1, 1],
+                    backgroundColor: [
+                        "#00c0ef",
+                        "#00a65a"
+                    ],
+                    hoverBackgroundColor: [
+                        "#00c0ef",
+                        "#00a65a"
+                    ]
+                }]
+        };
+
+        var pieOptions = {};
+        var barOptions = {};
+
+        var pieChartStaff = new Chart(pieChartCanvasStaff, {
+            type: 'doughnut',
+            data: pieDataStaff,
+            options: pieOptions
+        });
+        var pieChartAge = new Chart(pieChartCanvasAge, {
+            type: 'doughnut',
+            data: pieDataAge,
+            options: pieOptions
+        });
+
+        var barCharArea = new Chart(barChartCanvasArea, {
+            type: 'bar',
+            data: barChatArea,
+            options: barOptions
+        });
+
+        var totalBusinessDef = $.ajax({
+            url: '/AgentTotalBusiness/total_business_Count',
+            type: "GET",
+            data: {
+                usertype: 'customer'
             }
-        ];
-        var pieOptions = {
-            //Boolean - Whether we should show a stroke on each segment
-            segmentShowStroke: true,
-            //String - The colour of each segment stroke
-            segmentStrokeColor: "#fff",
-            //Number - The width of each segment stroke
-            segmentStrokeWidth: 2,
-            //Number - The percentage of the chart that we cut out of the middle
-            percentageInnerCutout: 50, // This is 0 for Pie charts
-            //Number - Amount of animation steps
-            animationSteps: 100,
-            //String - Animation easing effect
-            animationEasing: "easeOutBounce",
-            //Boolean - Whether we animate the rotation of the Doughnut
-            animateRotate: true,
-            //Boolean - Whether we animate scaling the Doughnut from the centre
-            animateScale: false,
-            //Boolean - whether to make the chart responsive to window resizing
-            responsive: true,
-            // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-            maintainAspectRatio: true,
-            //String - A legend template
-            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-        };
-        //Create pie or douhnut chart
-        // You can switch between pie and douhnut using the method below.
-        pieChart.Doughnut(PieData, pieOptions);
-        pieChart1.Doughnut(PieData, pieOptions);
-        pieChart4.Doughnut(PieData, pieOptions);
+        });
 
-        //-------------
-        //- BAR CHART -
-        //-------------
-        var barChartCanvas = $("#barChart").get(0).getContext("2d");
-        var barChart = new Chart(barChartCanvas);
-        var barChartData = areaChartData;
-        barChartData.datasets[1].fillColor = "#00a65a";
-        barChartData.datasets[1].strokeColor = "#00a65a";
-        barChartData.datasets[1].pointColor = "#00a65a";
-        var barChartOptions = {
-            //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-            scaleBeginAtZero: true,
-            //Boolean - Whether grid lines are shown across the chart
-            scaleShowGridLines: true,
-            //String - Colour of the grid lines
-            scaleGridLineColor: "rgba(0,0,0,.05)",
-            //Number - Width of the grid lines
-            scaleGridLineWidth: 1,
-            //Boolean - Whether to show horizontal lines (except X axis)
-            scaleShowHorizontalLines: true,
-            //Boolean - Whether to show vertical lines (except Y axis)
-            scaleShowVerticalLines: true,
-            //Boolean - If there is a stroke on each bar
-            barShowStroke: true,
-            //Number - Pixel width of the bar stroke
-            barStrokeWidth: 2,
-            //Number - Spacing between each of the X value sets
-            barValueSpacing: 5,
-            //Number - Spacing between data sets within X values
-            barDatasetSpacing: 1,
-            //String - A legend template
-            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
-            //Boolean - whether to make the chart responsive
-            responsive: true,
-            maintainAspectRatio: true
-        };
+        var staffBusinessDef = $.ajax({
+            url: '/AgentTotalBusiness/total_business_StaffList',
+            type: "GET",
+            data: {
+                usertype: 'customer'
+            },
+            dataType: 'json'
+        });
 
-        barChartOptions.datasetFill = false;
-        barChart.Bar(barChartData, barChartOptions);
+        var ageBusinessDef = $.ajax({
+            url: '/AgentTotalBusiness/total_business_LifeList',
+            type: "GET",
+            data: {
+                usertype: 'customer'
+            },
+            dataType: 'json'
+        });
+
+        var areaBusinessDef = $.ajax({
+            url: '/AgentTotalBusiness/total_business_AreaList',
+            type: "GET",
+            data: {
+                usertype: 'customer'
+            },
+            dataType: 'json'
+        });
+
+        var trTpl = _.template($("#trTpl").html());
+
+        $.when(totalBusinessDef, staffBusinessDef, ageBusinessDef, areaBusinessDef).done(function (argTotal, argStaff, argAge, argArea) {
+            var totalValue, totalToday;
+
+            if ( !(argTotal[1] === "success") ){
+                return
+            }
+
+            //totalValue = xyTool.parseValue(argTotal[0].XYValue);
+            //totalToday = totalValue.xy[moment().format('YYYYMMDD')];
+            totalToday = argTotal[0].count;
+
+            var staffValue = xyTool.parseValue(argStaff[0].XYValue);
+            var ageValue = xyTool.parseValue(argAge[0].XYValue);
+            var areaValue = xyTool.parseValue(argArea[0].XYValue);
+
+
+            renderTable($("#tableStaff"), trTpl, staffValue);
+            renderTable($("#tableAge"), trTpl, ageValue);
+            renderTable($("#tableArea"), trTpl, areaValue);
+
+            renderPieChart(pieChartStaff, pieDataStaff, pieOptions, staffValue);
+            renderPieChart(pieChartAge, pieDataAge, pieOptions, ageValue);
+            renderPieChart(barCharArea, barChatArea, barOptions, areaValue);
+
+            // 绘制表格
+            function renderTable(tableBody, trTpl, xyValue){
+                var tableData = {
+                    list : [],
+                    total : +totalToday || 1
+                } ;
+
+                for (var i = 0; i < xyValue.x.length; i++) {
+                    tableData.list.push({
+                        title: xyValue.x[i],
+                        value: xyValue.y[i]
+                    })
+                }
+
+                tableBody.append(trTpl(tableData));
+            }
+
+            // 绘制chart
+            function renderPieChart(chart, chartData, chartOption, xyValue){
+                // 渲染barChart
+                chartData.labels = xyValue.x;
+                chartData.datasets[0].data = xyValue.y;
+
+                chart.data = chartData;
+                chart.update();
+            }
+
+        })
 
     });
 

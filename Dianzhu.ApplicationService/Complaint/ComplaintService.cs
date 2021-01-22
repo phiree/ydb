@@ -39,7 +39,7 @@ namespace Dianzhu.ApplicationService.Complaint
             {
                 throw new FormatException("投诉的订单ID不能为空！");
             }
-            if (complaintobj.target!= "customerService" && complaintobj.target!="store")
+            if (complaintobj.target!= "customerService" && complaintobj.target!= "store")
             {
                 throw new FormatException("投诉对象只能是客服和店铺！");
             }
@@ -71,11 +71,22 @@ namespace Dianzhu.ApplicationService.Complaint
                 throw new Exception("不能投诉别人的订单！");
             }
             m.Complaint complaint = Mapper.Map<complaintObj, m.Complaint>(complaintobj);
+            if (complaint.Target == Ydb.Common.enum_ComplaintTarget.store)
+            {
+                complaint.BusinessId = order.BusinessId;
+                complaint.CustomerServiceId = "";
+            }
+            else
+            {
+                complaint.BusinessId = "";
+                complaint.CustomerServiceId = order.CustomerServiceId;
+            }
             //complaint.Target= (enum_ComplaintTarget)Enum.Parse(typeof(enum_ComplaintTarget), complaintobj.target); 
             for (int i = 0; i < complaintobj.resourcesUrls.Count; i++)
             {
                 complaint.ComplaitResourcesUrl.Add(utils.GetFileName(complaintobj.resourcesUrls[i], "MediaGetUrl"));
             }
+            
             //Guid g = new Guid();
             //bool b = g == complaint.Id;
             complaintService.AddComplaint(complaint);
@@ -131,7 +142,7 @@ namespace Dianzhu.ApplicationService.Complaint
         public countObj GetComplaintsCount(common_Trait_ComplainFiltering complaint)
         {
             countObj c = new countObj();
-            c.count = complaintService.GetComplaintsCount(utils.CheckGuidID(complaint.orderID, "orderID"), utils.CheckGuidID(complaint.storeID, "storeID"), utils.CheckGuidID(complaint.customerServiceID, "customerServiceID")).ToString();
+            c.count = complaintService.GetComplaintsCount(complaint.orderID, complaint.storeID, complaint.customerServiceID).ToString();
             return c; 
 
         }

@@ -16,7 +16,12 @@ namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Repository
     public class NHRepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
         where TEntity : Entity<TPrimaryKey>
     {
-
+        log4net.ILog log;
+        public log4net.ILog Log {
+            get {
+                return log4net.LogManager.GetLogger(this.GetType().FullName);
+            }
+        }
 
         
         protected ISession session { get { return NhUnitOfWork.Current.Session; } }

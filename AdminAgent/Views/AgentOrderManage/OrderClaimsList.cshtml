@@ -1,0 +1,36 @@
+﻿@using Ydb.Order.DomainModel;
+@model IList<Ydb.Order.DomainModel.ClaimsDetails>
+@{
+    Layout = null;
+}
+
+@if (Model.Count > 0)
+{
+    foreach (ClaimsDetails claimsDetails in Model)
+    {
+        <div class="row">
+            <div class="box">
+                <div class="box-header with-border">理赔：<a>@claimsDetails.Target.ToString()</a> <span class="pull-right">@claimsDetails.CreatTime</span></div>
+                <div class="box-body">
+                    <div class="row">
+                        @foreach (string url in @claimsDetails.ClaimsDetailsResourcesPathUrl)
+                        {
+                            <div class="col-md-3">
+                                <img class="img-100 img-responsive" src="@url" alt="">
+                            </div>
+                        }
+                    </div>
+                    <div class="">
+                        <p>理赔详情：</p>
+                        <p class="word-break-all">@claimsDetails.Context</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="box"><div class="box-header with-border">没有理赔信息</div></div>
+}
+

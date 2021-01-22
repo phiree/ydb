@@ -73,17 +73,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">
-      <Project>{d90cdf37-7406-4dae-9ae6-c894d83a796f}</Project>
-      <Name>DDDCommon</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
       <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
       <Name>Dianzhu.Config</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
-      <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
-      <Name>Dianzhu.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122c6d5-6348-4b65-88b7-3c43a6e642f3}</Project>
@@ -108,6 +100,10 @@
     <ProjectReference Include="..\Ydb.Order\Ydb.Order.csproj">
       <Project>{901e2a8a-e608-4477-b9bc-f583d818d87f}</Project>
       <Name>Ydb.Order</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ydb.Push\Ydb.Push.csproj">
+      <Project>{E0661833-5498-4F1D-94E7-35C39C5BD8B9}</Project>
+      <Name>Ydb.Push</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

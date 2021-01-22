@@ -1,8 +1,8 @@
 ﻿@model IList<Ydb.ApplicationService.ModelDto.FinanceFlowDto>
 @{
     ViewBag.headTitle = "财务管理";
-    ViewBag.subTitle = "分账管理";
-    ViewBag.breadcrumbOl = new List<string>() { "财务管理", "分账管理" };
+    ViewBag.subTitle = "分账记录";
+    ViewBag.breadcrumbOl = new List<string>() { "财务管理", "分账记录" };
 }
 
 <!-- Main content -->
@@ -90,10 +90,11 @@
         </div>
     </div>
 </section>
+@Html.Action("footer", "Agent", new { id = "" })
 <!-- /.content -->
 <!-- DataTables -->
-<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="../../static/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../static/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 
 <script>

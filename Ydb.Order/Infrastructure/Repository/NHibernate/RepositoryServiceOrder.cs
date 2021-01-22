@@ -300,10 +300,8 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
         public long GetOrdersCountByBusinessList(IList<string> businessIdList, bool isShared)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            if (businessIdList.Count > 0)
-            {
-                where = where.And(x => businessIdList.Contains(x.BusinessId));
-            }
+            
+            where = where.And(x => businessIdList.Contains(x.BusinessId));
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                     && x.OrderStatus != enum_OrderStatus.DraftPushed
                     && x.OrderStatus != enum_OrderStatus.Search);
@@ -322,15 +320,157 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate
         public IList<ServiceOrder> GetOrdersByBusinessList(IList<string> businessIdList, bool isShared)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            if (businessIdList.Count > 0)
-            {
-                where = where.And(x => businessIdList.Contains(x.BusinessId));
-            }
+            
+            where = where.And(x => businessIdList.Contains(x.BusinessId));
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
                     && x.OrderStatus != enum_OrderStatus.DraftPushed
                     && x.OrderStatus != enum_OrderStatus.Search);
             where = where.And(x => x.IsShared == isShared);
             return Find(where);
+        }
+
+        /// <summary>
+        /// 根据分账统计订单
+        /// </summary>
+        /// <param name="isShared">订单是否分账</param>
+        /// <returns></returns>
+        public IList<ServiceOrder> GetOrdersByShared(bool isShared, int pageIndex, int pageSize, out long totalRecords)
+        {
+            var where = PredicateBuilder.True<ServiceOrder>();
+            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                    && x.OrderStatus != enum_OrderStatus.DraftPushed
+                    && x.OrderStatus != enum_OrderStatus.Search);
+            where = where.And(x => x.IsShared == isShared);
+            return Find(where,pageIndex,pageSize,out totalRecords);
+        }
+
+        /// <summary>
+        /// 根据商户Id列表和时间获取代理及其助理的订单列表
+        /// </summary>
+        /// <param name="businessIdList"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="strDone"></param>
+        /// <returns></returns>
+        public IList<ServiceOrder> GetOrdersByBusinessList(IList<string> businessIdList, DateTime beginTime, DateTime endTime,string strDone)
+        {
+            var where = Ydb.Common.Specification.PredicateBuilder.True<ServiceOrder>();
+            
+            where = where.And(x => businessIdList.Contains(x.BusinessId));
+            
+            if (beginTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.OrderConfirmTime >= beginTime);
+            }
+            if (endTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.OrderConfirmTime < endTime);
+            }
+            if (strDone!="None" && !string.IsNullOrEmpty(strDone))
+            {
+                if (strDone == "OrderIsDone")
+                {
+                    where = where.And(
+                       x => x.OrderStatus == enum_OrderStatus.Finished
+                       || x.OrderStatus == enum_OrderStatus.Appraised
+                       || x.OrderStatus == enum_OrderStatus.EndWarranty
+                       || x.OrderStatus == enum_OrderStatus.EndCancel
+                       || x.OrderStatus == enum_OrderStatus.EndRefund
+                       || x.OrderStatus == enum_OrderStatus.EndIntervention
+                       || x.OrderStatus == enum_OrderStatus.ForceStop
+                       );
+                }
+                else
+                {
+                    where = where.And(
+                       x => x.OrderStatus != enum_OrderStatus.Finished
+                       && x.OrderStatus != enum_OrderStatus.Appraised
+                       && x.OrderStatus != enum_OrderStatus.EndWarranty
+                       && x.OrderStatus != enum_OrderStatus.EndCancel
+                       && x.OrderStatus != enum_OrderStatus.EndRefund
+                       && x.OrderStatus != enum_OrderStatus.EndIntervention
+                       && x.OrderStatus != enum_OrderStatus.ForceStop
+                       );
+                }
+            }
+            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                   && x.OrderStatus != enum_OrderStatus.DraftPushed
+                   && x.OrderStatus != enum_OrderStatus.Search);
+            return Find(where).ToList();
+        }
+
+        /// <summary>
+        /// 根据商户Id列表和时间获取代理及其助理的订单数量
+        /// </summary>
+        /// <param name="businessIdList"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="strDone"></param>
+        /// <returns></returns>
+        public long GetOrdersCountByBusinessList(IList<string> businessIdList, DateTime beginTime, DateTime endTime, string strDone)
+        {
+            var where = Ydb.Common.Specification.PredicateBuilder.True<ServiceOrder>();
+            
+            where = where.And(x => businessIdList.Contains(x.BusinessId));
+            if (beginTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.OrderConfirmTime >= beginTime);
+            }
+            if (endTime != DateTime.MinValue)
+            {
+                where = where.And(x => x.OrderConfirmTime < endTime);
+            }
+            if (!string.IsNullOrEmpty(strDone) && strDone!= "None")
+            {
+                if (strDone == "OrderIsDone")
+                {
+                    where = where.And(
+                       x => x.OrderStatus == enum_OrderStatus.Finished
+                       || x.OrderStatus == enum_OrderStatus.Appraised
+                       || x.OrderStatus == enum_OrderStatus.EndWarranty
+                       || x.OrderStatus == enum_OrderStatus.EndCancel
+                       || x.OrderStatus == enum_OrderStatus.EndRefund
+                       || x.OrderStatus == enum_OrderStatus.EndIntervention
+                       || x.OrderStatus == enum_OrderStatus.ForceStop
+                       );
+                }
+                else
+                {
+                    where = where.And(
+                       x => x.OrderStatus != enum_OrderStatus.Finished
+                       && x.OrderStatus != enum_OrderStatus.Appraised
+                       && x.OrderStatus != enum_OrderStatus.EndWarranty
+                       && x.OrderStatus != enum_OrderStatus.EndCancel
+                       && x.OrderStatus != enum_OrderStatus.EndRefund
+                       && x.OrderStatus != enum_OrderStatus.EndIntervention
+                       && x.OrderStatus != enum_OrderStatus.ForceStop
+                       );
+                }
+            }
+            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                   && x.OrderStatus != enum_OrderStatus.DraftPushed
+                   && x.OrderStatus != enum_OrderStatus.Search);
+            long count = GetRowCount(where);
+            return count;
+        }
+
+        /// <summary>
+        /// 根据商户Id列表订单的营业总额
+        /// </summary>
+        /// <param name="businessIdList"></param>
+        /// <returns></returns>
+        public decimal GetTotalAmountByBusinessList(IList<string> businessIdList)
+        {
+            var where = Ydb.Common.Specification.PredicateBuilder.True<ServiceOrder>();
+            
+            where = where.And(x => businessIdList.Contains(x.BusinessId));
+            where = where.And(
+                       x => x.OrderStatus == enum_OrderStatus.Finished
+                       || x.OrderStatus == enum_OrderStatus.Appraised
+                       || x.OrderStatus == enum_OrderStatus.Ended
+                       );
+            
+            return Find(where).Sum(x=>x.NegotiateAmount);
         }
 
     }

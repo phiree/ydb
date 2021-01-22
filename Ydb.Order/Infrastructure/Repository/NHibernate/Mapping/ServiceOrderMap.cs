@@ -32,6 +32,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate.Mapping
 
             //指派的负责人
             Map(x => x.StaffId);
+            Map(x => x.StaffName);
             Map(x => x.IsShared);
 
             //
@@ -43,6 +44,7 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.ServiceId);
             Map(x => x.ServiceOvertimeForCancel);
             Map(x => x.ServiceTypeName);
+            Map(x => x.ServiceTypeId);
             Map(x => x.TargetAddress);
 
             Map(x => x.TargetCustomerName);

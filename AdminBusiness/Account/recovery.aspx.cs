@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.BLL;
-using Dianzhu.Model;
+
+
 using System.Web.Security;
 using Ydb.Membership.Application;
 using Ydb.Membership.Application.Dto;
@@ -15,7 +15,7 @@ public partial class ForgetPassword :Dianzhu.Web.Common.BasePage
 
    
     IDZMembershipService memberService= Bootstrap.Container.Resolve<IDZMembershipService>();
-    MemberDto member;
+     
     string recoveryString;
     protected void Page_Load(object sender, EventArgs e)
     {

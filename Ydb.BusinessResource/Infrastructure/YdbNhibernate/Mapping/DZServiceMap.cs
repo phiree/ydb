@@ -28,6 +28,8 @@ namespace Ydb.BusinessResource.Infrastructure.YdbNHibernate.Mapping
             Map(x => x.ServiceMode).CustomType<int>();
             Map(x => x.UnitPrice);
             Map(x => x.Enabled);
+            Map(x => x.EnabledTime);
+            Map(x => x.EnabledMemo);
             Map(x => x.IsDeleted);
             Map(x => x.CreatedTime);
             Map(x => x.LastModifiedTime);

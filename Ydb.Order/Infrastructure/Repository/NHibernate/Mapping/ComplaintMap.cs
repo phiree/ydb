@@ -16,13 +16,15 @@ namespace Ydb.Order.Infrastructure.Repository.NHibernate.Mapping
         {
             Id(x => x.Id);
             Map(x => x.OrderId);
+            Map(x => x.CustomerServiceId);
+            Map(x => x.BusinessId);
             Map(x => x.Target).CustomType<enum_ChatTarget>();
             Map(x => x.Content);
 
             //20160614_longphui_modify
             //Map(x => x.ResourcesUrl);//.Length(1000);
             HasMany(x => x.ComplaitResourcesUrl)
-            .Cascade.AllDeleteOrphan().KeyColumn("ResourcesUrlId").EntityName("ComplaitResourcesUrl").Element("ResourcesUrl");
+            .Cascade.AllDeleteOrphan().KeyColumn("ResourcesUrlId").EntityName("ComplaitResourcesUrl").Element("ResourcesUrl").Not.LazyLoad();
             //HasMany<string>(x => x.ResourcesUrl).Cascade.AllDeleteOrphan();
             Map(x => x.Status).CustomType<enum_ComplaintStatus>();
 

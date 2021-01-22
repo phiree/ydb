@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Dianzhu.Model;
+
 using Ydb.Common;
-using Dianzhu.BLL;
+
 using Dianzhu.Api.Model;
 using System.Collections.Specialized;
 using PHSuit;
@@ -20,7 +20,7 @@ using Ydb.BusinessResource.DomainModel;
 /// </summary>
 public class ResponseWTM001006 : BaseResponse
 {
-    log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
+    log4net.ILog ilog = log4net.LogManager.GetLogger("Ydb.HttpApi");
 
     public ResponseWTM001006(BaseRequest request) : base(request) { }
     protected override void BuildRespData()

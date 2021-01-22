@@ -1,7 +1,7 @@
 ﻿using Dianzhu.CSClient.LocalStorage;
 using Dianzhu.CSClient.ViewModel;
-using Dianzhu.IDAL;
-using Dianzhu.Model;
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

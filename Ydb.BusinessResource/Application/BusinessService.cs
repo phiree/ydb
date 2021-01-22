@@ -41,13 +41,30 @@ namespace Ydb.BusinessResource.Application
         {
             repositoryBusiness.Delete(business);
         }
-        [UnitOfWork]
-        public void Disable(Guid  businessId)
-        {
-            Business b = GetOne(businessId);
-            b.Enabled = false;
-            repositoryBusiness.Update(b);
-        }
+        //[UnitOfWork]
+        //public void Disable(Guid businessId,bool enable,string memo)
+        //{
+        //    Business b = GetOne(businessId);
+        //    if (b == null)
+        //    {
+        //        throw new Exception("该店铺不存在！");
+        //    }
+        //    if (!enable)
+        //    {
+        //        if (!b.Enabled)
+        //        {
+        //            throw new Exception("该店铺已经封停！");
+        //        }
+        //        if (memo == "")
+        //        {
+        //            throw new Exception("请输入封停原因！");
+        //        }
+        //        b.EnabledMemo = memo;
+        //    }
+        //    b.Enabled = enable;
+        //    b.EnabledTime = DateTime.Now;
+        //    repositoryBusiness.Update(b);
+        //}
        [UnitOfWork] 
        public  ActionResult<Business> Add(string name, string phone,string email, Guid ownerId, string latitude, string longtitude
            , string rawAddressFromMapApi, string contact, int workingYears, int staffAmount)
@@ -127,9 +144,16 @@ namespace Ydb.BusinessResource.Application
         /// <summary>
         /// 解析传递过来的 string, 
         /// </summary>
-        public IList<Business> GetBusinessListByOwner(Guid memberId)
+        public IList<Business> GetBusinessListByOwner(Guid memberId,IList<string> areaIdList)
         {
-            return repositoryBusiness.Find(x => x.OwnerId == memberId);
+            if (areaIdList.Count > 0)
+            {
+                return repositoryBusiness.Find(x => x.OwnerId == memberId && areaIdList.Contains(x.AreaBelongTo));
+            }
+            else
+            {
+                return repositoryBusiness.Find(x => x.OwnerId == memberId);
+            }
             //     return DALBusiness.GetBusinessListByOwner(memberId);
         }
         //如果图片保存不是通过编辑 Business 对象来完成的(比如 通过ajax mediaserver)
@@ -253,35 +277,42 @@ namespace Ydb.BusinessResource.Application
         }
 
         /// <summary>
+        /// 当前代理区域的所有店铺列表区分是否可用
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public IList<Business> GetAllBusinessesByArea(IList<string> areaList,bool enable)
+        {
+            return repositoryBusiness.GetBusinessesByArea(areaList, DateTime.MinValue, DateTime.MinValue).Where(x=>x.Enabled==enable).ToList();
+        }
+
+        /// <summary>
         /// 统计店铺每日或每时新增数量列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public StatisticsInfo GetStatisticsNewBusinessesCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime)
+        public StatisticsInfo GetStatisticsNewBusinessesCountListByTime(IList<string> areaList, DateTime beginTime, DateTime endTime)
         {
-            DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
-            DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
-            IList<Business> businessList = repositoryBusiness.GetBusinessesByArea(areaList, BeginTime, EndTime);
-            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsNewBusinessesCountListByTime(businessList, BeginTime, EndTime, strBeginTime == strEndTime);
+            IList<Business> businessList = repositoryBusiness.GetBusinessesByArea(areaList, beginTime, endTime);
+            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsNewBusinessesCountListByTime(businessList, beginTime, endTime, beginTime.ToString("yyyyMMdd") == endTime.AddDays(-1).ToString("yyyyMMdd"));
             return statisticsInfo;
         }
         /// <summary>
         /// 统计店铺每日或每时累计数量列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public StatisticsInfo GetStatisticsAllBusinessesCountListByTime(IList<string> areaList, string strBeginTime, string strEndTime)
+        public StatisticsInfo GetStatisticsAllBusinessesCountListByTime(IList<string> areaList, DateTime beginTime, DateTime endTime)
         {
-            DateTime BeginTime = Common.StringHelper.ParseToDate(strBeginTime, false);
-            DateTime EndTime = Common.StringHelper.ParseToDate(strEndTime, true);
             IList<Business> businessList = repositoryBusiness.GetBusinessesByArea(areaList, DateTime.MinValue, DateTime.MinValue);
-            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsAllBusinessesCountListByTime(businessList, BeginTime, EndTime, strBeginTime == strEndTime);
+            StatisticsInfo statisticsInfo = statisticsBusinessCount.StatisticsAllBusinessesCountListByTime(businessList, beginTime, endTime, beginTime.ToString("yyyyMMdd") == endTime.AddDays(-1).ToString("yyyyMMdd"));
             return statisticsInfo;
         }
 
@@ -351,6 +382,22 @@ namespace Ydb.BusinessResource.Application
             long businessCountLastMonth = repositoryBusiness.GetBusinessesCountByArea(areaList, dtBase.AddMonths(-1), dtBase);
             long businessCountBeforeLastMonth = repositoryBusiness.GetBusinessesCountByArea(areaList, dtBase.AddMonths(-2), dtBase.AddMonths(-1));
             return Ydb.Common.MathHelper.GetCalculatedRatio(businessCountLastMonth, businessCountBeforeLastMonth);
+        }
+
+        /// <summary>
+        /// 封停/解封店铺
+        /// </summary>
+        /// <param name="businessId"></param>
+        /// <param name="enable"></param>
+        /// <param name="memo"></param>
+        public void EnableBusiness(Guid businessId, bool enable, string memo)
+        {
+            Business b = repositoryBusiness.FindById(businessId);
+            if (b == null)
+            {
+                throw new Exception("该店铺不存在！");
+            }
+            b.EnableBusiness(enable, memo);
         }
 
     }

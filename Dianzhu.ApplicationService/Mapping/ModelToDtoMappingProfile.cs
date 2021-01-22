@@ -8,13 +8,13 @@ using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.Membership.Application.Dto;
 using Ydb.BusinessResource.DomainModel;
 using Ydb.BusinessResource.Application;
-using Dianzhu.Model;
+ 
 using Ydb.Common;
 using Ydb.Common.Domain;
 using Ydb.Order.DomainModel;
 using Ydb.Push.DomainModel;
 using M=Ydb.ApiClient.DomainModel;
-
+using Ydb.MediaServer.DomainModel;
 namespace Dianzhu.ApplicationService.Mapping
 {
 
@@ -225,15 +225,15 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.content, opt => opt.MapFrom(source => source.Order.GetStatusContextFriendly(source.NewStatus)))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
-            Mapper.CreateMap<Model.StorageFileInfo, imageObj>()
+            Mapper.CreateMap< StorageFileInfo, imageObj>()
            .ForMember(x => x.url, opt => opt.MapFrom(source => string.IsNullOrEmpty(source.FileName) ? "": Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.FileName ))
            .ForAllMembers(opt => opt.NullSubstitute(""));
 
-            Mapper.CreateMap<Model.StorageFileInfo, avatarImageObj>()
+            Mapper.CreateMap< StorageFileInfo, avatarImageObj>()
            .ForMember(x => x.url, opt => opt.MapFrom(source => string.IsNullOrEmpty(source.FileName) ? "" : Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.FileName ))
            .ForAllMembers(opt => opt.NullSubstitute(""));
 
-            Mapper.CreateMap<Model.StorageFileInfo, audioObj>()
+            Mapper.CreateMap< StorageFileInfo, audioObj>()
           .ForMember(x => x.url, opt => opt.MapFrom(source => string.IsNullOrEmpty(source.FileName) ? "" : Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + source.FileName ))
           .ForAllMembers(opt => opt.NullSubstitute(""));
 

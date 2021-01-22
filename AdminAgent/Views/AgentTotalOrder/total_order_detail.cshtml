@@ -1,0 +1,420 @@
+﻿
+@{
+    ViewBag.headTitle = "订单统计";
+    ViewBag.subTitle = "订单属性";
+    ViewBag.breadcrumbOl = new List<string>() { "统计", "订单统计", "订单属性" };
+}
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li>@Html.ActionLink("订单信息", "total_order", "AgentTotalOrder")@*<a href="./total-order.html">订单信息</a>*@</li>
+                    <li class="active"><a >订单属性</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_2">
+                        <h4>二十四小时单量曲线</h4>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box">
+                                    <div class="box-body">
+                                        <div class="chart">
+                                            <canvas id="lineChartDay" height="250" width="787"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4>订单服务类型统计</h4>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="box">
+                                    <div class="box-body">
+                                        <canvas id="pieChartSvc"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="box">
+                                    <div class="box-header">
+                                        <h3 class="box-title">订单服务类型排行</h3>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body no-padding">
+                                        <table class="table table-striped">
+                                            <tbody id="tableSvc">
+                                                <tr>
+                                                    <th style="width: 10px">#</th>
+                                                    <th style="width: 150px">服务类型</th>
+                                                    <th>咱比</th>
+                                                    <th style="width: 40px">占比</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                            </div>
+                        </div>
+                        <h4>订单服务类型交易额统计<small> 交易总额</small></h4>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="box">
+                                    <div class="box-body">
+                                        <canvas id="pieChartAmount"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="box">
+                                    <div class="box-header">
+                                        <h3 class="box-title">订单交易额</h3>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body no-padding">
+                                        <table class="table table-striped">
+                                            <tbody id="tableAmount">
+                                                <tr>
+                                                    <th style="width: 10px">#</th>
+                                                    <th style="width: 150px">服务类型</th>
+                                                    <th>占比</th>
+                                                    <th style="width: 40px">占比</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                            </div>
+                        </div>
+                        <h4>下单地区分布</h4>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="box">
+                                    <div class="box-body">
+                                        <canvas id="pieChartArea"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="box">
+                                    <div class="box-header">
+                                        <h3 class="box-title">下单地区分布</h3>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body no-padding">
+                                        <table class="table table-striped">
+                                            <tbody id="tableArea">
+                                                <tr>
+                                                    <th style="width: 10px">#</th>
+                                                    <th style="width: 150px">地区</th>
+                                                    <th>占比</th>
+                                                    <th style="width: 40px">占比</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+            </div>
+            <!-- nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+    </div>
+
+</section>
+<!-- /.content -->
+@Html.Action("footer", "Agent", new { id = "" })
+
+<!-- date-range-picker -->
+<script src="../../static/plugins/daterangepicker/moment.min.js"></script>
+<script src="../../static/plugins/daterangepicker/daterangepicker.js"></script>
+
+<!-- ChartJS 1.0.1 -->
+<script src="../../static/plugins/chartjs/Chart.min.js"></script>
+
+<!--vtool.js-->
+<script src="../../static/libs/xytool.js"></script>
+
+<!--mock.js-->
+<script src="../../static/libs/mock/mock.js"></script>
+@*<script src="../../static/libs/mock/data.mock.js"></script>*@
+
+<!-- underscore 模板 -->
+<script type="text/template" id="trTpl">
+    <% _.each(list, function(ele, index, list){ %>
+    <tr>
+        <td><%= index %></td>
+        <td><%= ele.title %></td>
+        <td>
+            <div class="progress progress-xs">
+                <div class="progress-bar progress-bar-danger" <%= 'style="width:' + (ele.value / total) + '%"' %> ></div>
+            </div>
+        </td>
+        <td><span class="badge bg-red"> <%= ele.value / total + '%' %> </span></td>
+    </tr>
+    <% }); %>
+</script>
+<script>
+    $(function(){
+
+
+        //-------------
+        //- LINE CHART -
+        //--------------
+        var lineDataDay = {
+            labels: [],
+            datasets: [
+                {
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "rgba(75,192,192,0.4)",
+                    borderColor: "rgba(75,192,192,1)",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: []
+                }
+            ]
+        };
+        var lineChartOptions = {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        stepSize: 1,
+                        beginAtZero:true
+                    }
+                }]
+            },
+            legend: {
+                display: false
+            }
+        };
+        var lineChartDayCanvas = $("#lineChartDay").get(0).getContext("2d");
+        var lineChartDay = new Chart(lineChartDayCanvas, {
+            type: "line",
+            data: lineDataDay,
+            options : lineChartOptions
+        });
+
+        // 请求24小时订单信息
+        var DayDef = $.ajax({
+            url: '/AgentTotalOrder/total_order_AllList',
+            type: "GET",
+            data: {
+                usertype: 'customer',
+                start: moment().format("YYYYMMDD"),
+                end: moment().format("YYYYMMDD")
+            }
+        });
+        DayDef.done(function(resp, status, xhr){
+            var lineDay = lineDataDay;
+            var xyValue = xyTool.parseValue(resp.XYValue);
+            _.each(xyValue.x, function(element, index, list) {
+
+                lineDay.labels[index] = xyValue.x[index] + ":00";
+                lineDay.datasets[0].data[index] = xyValue.y[index];
+            });
+
+            lineChartDay.data = lineDay;
+            lineChartDay.update();
+        });
+
+        // Get context with jQuery - using jQuery's .get() method.
+//            var areaChartCanvas = $("#areaChart").get(0).getContext("2d");
+        // This will get the first returned node in the jQuery collection.
+//            var areaChart = new Chart(areaChartCanvas);
+
+        //-------------
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        var pieChartCanvasSvc = $("#pieChartSvc").get(0).getContext("2d");
+        var pieChartCanvasAmount = $("#pieChartAmount").get(0).getContext("2d");
+        var pieChartCanvasArea = $("#pieChartArea").get(0).getContext("2d");
+
+        var pieDataSvc = {
+            labels: [],
+            datasets: [
+                {
+                    data: [1, 1],
+                    backgroundColor: [
+                        "#00c0ef",
+                        "#00a65a"
+                    ],
+                    hoverBackgroundColor: [
+                        "#00c0ef",
+                        "#00a65a"
+                    ]
+                }]
+        };
+        var pieDataAmount = {
+            labels: [],
+            datasets: [
+                {
+                    data: [1, 1],
+                    backgroundColor: [
+                        "#00c0ef",
+                        "#00a65a"
+                    ],
+                    hoverBackgroundColor: [
+                        "#00c0ef",
+                        "#00a65a"
+                    ]
+                }]
+        };
+        var pieDataArea = {
+            labels: [],
+            datasets: [
+                {
+                    data: [1, 1],
+                    backgroundColor: [
+                        "#00c0ef",
+                        "#00a65a"
+                    ],
+                    hoverBackgroundColor: [
+                        "#00c0ef",
+                        "#00a65a"
+                    ]
+                }]
+        };
+        var pieOptions = {};
+
+        var pieChartSvc = new Chart(pieChartCanvasSvc, {
+            type: 'doughnut',
+            data: pieDataSvc,
+            options: pieOptions
+        });
+        var pieChartAmount = new Chart(pieChartCanvasAmount, {
+            type: 'doughnut',
+            data: pieDataAmount,
+            options: pieOptions
+        });
+        var pieChartArea = new Chart(pieChartCanvasArea, {
+            type: 'doughnut',
+            data: pieDataArea,
+            options: pieOptions
+        });
+
+        var totalOrderDef = $.ajax({
+            url: '/AgentTotalOrder/total_order_Count',
+            type: "GET",
+            data: {
+                usertype: 'customer'
+            }
+        });
+
+
+        var totalAmountDef = $.ajax({
+            url: '/AgentTotalOrder/total_order_Amount',
+            type: "GET",
+            data: {
+                usertype: 'customer'
+            }
+        });
+
+        var svcOrderDef = $.ajax({
+            url: '/AgentTotalOrder/total_order_TypeList',
+            type: "GET",
+            data: {
+                usertype: 'customer'
+            },
+            dataType: 'json'
+        });
+
+        var svcAmountOrderDef = $.ajax({
+            url: '/AgentTotalOrder/total_order_AmountList',
+            type: "GET",
+            data: {
+                usertype: 'customer'
+            },
+            dataType: 'json'
+        });
+
+        var svcAreaOrderDef = $.ajax({
+            url: '/AgentTotalOrder/total_order_AreaList',
+            type: "GET",
+            data: {
+                usertype: 'customer'
+            },
+            dataType: 'json'
+        });
+
+        var trTpl = _.template($("#trTpl").html());
+
+        $.when(totalOrderDef, totalAmountDef, svcOrderDef, svcAmountOrderDef, svcAreaOrderDef).done(function (argTotal, argTotalAmount, argSvc, argAmount, argArea) {
+            var totalValue, totalToday,totalAmount;
+
+            if ( !(argTotal[1] === "success") ){
+                return
+            }
+
+            //totalValue = xyTool.parseValue(argTotal[0].XYValue);
+            //totalToday = totalValue.xy[moment().format('YYYYMMDD')];
+            totalToday = argTotal[0].count;
+            totalAmount = argTotalAmount[0].total;
+
+            var svcValue = xyTool.parseValue(argSvc[0].XYValue);
+            var amountValue = xyTool.parseValue(argAmount[0].XYValue);
+            var areaValue = xyTool.parseValue(argArea[0].XYValue);
+
+
+            renderTable($("#tableSvc"), trTpl, svcValue, totalToday);
+            renderTable($("#tableAmount"), trTpl, amountValue, totalAmount);
+            renderTable($("#tableArea"), trTpl, areaValue, totalToday);
+
+            renderPieChart(pieChartSvc, pieDataSvc, pieOptions, svcValue);
+            renderPieChart(pieChartAmount, pieDataAmount, pieOptions, amountValue);
+            renderPieChart(pieChartArea, pieDataArea, pieOptions, areaValue);
+
+            // 绘制表格
+            function renderTable(tableBody, trTpl, xyValue,xyTotal){
+                var tableData = {
+                    list : [],
+                    total: +xyTotal || 1
+                } ;
+
+                for (var i = 0; i < xyValue.x.length; i++) {
+                    tableData.list.push({
+                        title: xyValue.x[i],
+                        value: xyValue.y[i]
+                    })
+                }
+
+                tableBody.append(trTpl(tableData));
+            }
+
+            // 绘制chart
+            function renderPieChart(chart, chartData, chartOption, xyValue){
+                // 渲染barChart
+                chartData.labels = xyValue.x;
+                chartData.datasets[0].data = xyValue.y;
+
+                chart.data = chartData;
+                chart.update();
+            }
+
+        })
+    });
+</script>

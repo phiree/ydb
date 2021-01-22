@@ -6,10 +6,18 @@ using System.Web.Mvc;
 
 namespace AdminAgent.Controllers
 {
-    public class AgentController : Controller
+    public class AgentController : AgentBaseController
     {
+        
         // GET: Agent
         public ActionResult Index()
+        {
+            ViewBag.UserName = CurrentUser.UserName;
+            return View();
+        }
+
+        // GET: Agent
+        public ActionResult footer()
         {
             return View();
         }

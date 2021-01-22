@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.Model;
-using Dianzhu.BLL;
+
+
 using System.Web.Security;
 using System.Text.RegularExpressions;
 using Ydb.Membership.Application;

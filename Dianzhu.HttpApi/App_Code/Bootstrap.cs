@@ -1,5 +1,5 @@
 ﻿using Castle.Windsor;
-using Dianzhu.DependencyInstaller;
+
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
@@ -19,14 +19,9 @@ public class Bootstrap
     public static void Boot()
     {
         container = new WindsorContainer();
-        container.Install(
-              new InstallerComponent(),
-           new InstallerInfrstructure(),
-           new InstallerRepository(),
-           new InstallerApplicationService()
-            );
+        
 
-
+        Ydb.Common.LoggingConfiguration.Config("Ydb.HttpApi");
 
 
         container.Install(
@@ -39,12 +34,7 @@ public class Bootstrap
             new Ydb.Infrastructure.InstallerCommon(BuildDBConfig("ydb_common"))
             );
 
-        container.Install(
-          new Ydb.Order.Infrastructure.InstallerOrder(BuildDBConfig("ydb_order"))
-          );
-        container.Install(
-        new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
-        );
+      
 
         container.Install(
 
@@ -68,6 +58,13 @@ new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb
           // new Application.InstallerMembershipTestDB()
 
           );
+        container.Install(
+      new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
+      );
+        container.Install(
+        new Ydb.Order.Infrastructure.InstallerOrder(BuildDBConfig("ydb_order"))
+        );
+      
         // Dianzhu.ApplicationService.Mapping.AutoMapperConfiguration.Configure();
         AutoMapper.Mapper.Initialize(x =>
         {

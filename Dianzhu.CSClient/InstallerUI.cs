@@ -7,9 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.CSClient.IView;
-using Dianzhu.BLL;
-using Dianzhu.IDAL;
+
+
 using Ydb.BusinessResource.Application;
+using Dianzhu.CSClient.LocalStorage;
 
 namespace Dianzhu.CSClient
 {
@@ -17,6 +18,7 @@ namespace Dianzhu.CSClient
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            InstallComponent(container, store);
 
             container.Register(Component.For<Presenter.PMain>());
             container.Register(Component.For<CSClient.Presenter.LoginPresenter>());
@@ -51,6 +53,12 @@ namespace Dianzhu.CSClient
 
             container.Register(Component.For<IViewTypeSelect>().ImplementedBy<ViewWPF.UC_TypeSelect>().LifestyleTransient());
 
+
+        }
+        private void InstallComponent(IWindsorContainer container, IConfigurationStore store)
+        {
+            container.Register(Component.For<Dianzhu.CSClient.LocalStorage.LocalChatManager>().ImplementedBy<ChatManagerInMemory>());
+            container.Register(Component.For<Dianzhu.CSClient.LocalStorage.LocalUIDataManager>().ImplementedBy<UIDataManagerInMemory>());
 
         }
     }

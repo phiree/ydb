@@ -73,14 +73,17 @@
                                 </a>
                             </li>
                         </ul>
+                        @if (!Model.IsVerified)
+                        {
                         <div class="col-xs-8 col-xs-offset-2">
                             <div class="col-xs-4 col-xs-offset-4">
-                                <a href="javascript:void(0)" class="btn btn-block btn-success">通过</a>
+                                <a id="passAss" class="btn btn-block btn-success">通过</a>
                             </div>
                             <div class="col-xs-4 col-xs-offset-4" style="margin-top: 20px">
                                 <a href="javascript:void(0)" class="btn btn-block btn-danger" data-toggle="modal" data-target="#reject">拒绝</a>
                             </div>
                         </div>
+                        }
                     </div>
                 </div>
                 <!-- /.box-body -->
@@ -97,8 +100,24 @@
                     </div>
                     <div class="modal-body">确定拒绝该助理审核</div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">确定</button>
+                        <button id="rejectConf" type="button" class="btn btn-primary">确定</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="notify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">助理审核</h4>
+                    </div>
+                    <div class="modal-body">操作作成功，改助理已通过审核</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->
@@ -107,7 +126,54 @@
     <!-- /.row -->
 </section>
 <!-- /.content -->
+@Html.Action("footer", "Agent", new { id = "" })
 <!-- DataTables -->
-<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="../../static/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../static/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
+<script src="../../static/libs/YDBan.lib.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var url = YDBan.url;
+
+        $("#passAss").on("click", function(){
+            $.ajax({
+                url: "/AgentCustomerServiceManage/assistant_validate_info_agree",
+                type: "GET",
+                data: {
+                    id: url.getUrlParam("id")
+                },
+                dataType: 'json'
+            }).done(function(resp, status, xhr){
+                if ( status = "success" ){
+                    $("#notify").modal('show');
+                    $("#notify").find(".modal-body").text("操作成功");
+                }
+            }).fail(function(resp, status, xhr){
+                $("#notify").find(".modal-body").text("操作失败，请重试");
+                $("#notify").modal('show');
+            })
+        });
+
+        $("#rejectConf").on("click", function(){
+            $.ajax({
+                url: "/AgentCustomerServiceManage/assistant_validate_info_refuse",
+                type: "GET",
+                data: {
+                    id: url.getUrlParam("id")
+                },
+                dataType: 'json'
+            }).done(function(resp, status, xhr){
+                if ( status = "success" ){
+                    $("#notify").modal('show');
+                    $("#notify").find(".modal-body").text("操作成功");
+                }
+            }).fail(function(resp, status, xhr){
+                $("#reject").modal('hide');
+                $("#notify").find(".modal-body").text("操作失败，请重试");
+                $("#notify").modal('show');
+            })
+        });
+    })
+</script>

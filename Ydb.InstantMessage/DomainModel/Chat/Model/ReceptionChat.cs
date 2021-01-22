@@ -83,6 +83,36 @@ namespace Ydb.InstantMessage.DomainModel.Chat
 
         public virtual ChatTarget ChatTarget { get; protected internal set; } //聊天状态，接待方是平台客服还是商家客服
         public virtual XmppResource FromResource { get; protected internal set; }//from 的资源名
+        public virtual string FromResourceName
+        {
+            get
+            {
+                string strName = "";
+                switch (FromResource)
+                {
+                    case XmppResource.YDBan_CustomerService:
+                        strName = "客服";
+                        break;
+                    case XmppResource.YDBan_User:
+                        strName = "用户";
+                        break;
+                    case XmppResource.YDBan_Store:
+                        strName = "商户";
+                        break;
+                    case XmppResource.YDBan_DianDian:
+                        strName = "点点";
+                        break;
+                    case XmppResource.YDBan_Staff:
+                        strName = "员工";
+                        break;
+                    case XmppResource.YDBan_IMServer:
+                        strName = "推送";
+                        break;
+                }
+                return strName;
+            }
+        }
+
         public virtual XmppResource ToResource { get; protected internal set; }//to 的资源名
 
         public virtual bool IsReaded { get; protected internal set; }
@@ -110,7 +140,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
         public virtual ReceptionChatDto ToDto()
         {
             ReceptionChatDto dto = new ReceptionChatDto();
-
+            dto.OriginalClassName = this.GetType().Name;
             dto.Id = Id;
             dto.SessionId = SessionId;
             dto.SavedTime = SavedTime;
@@ -123,6 +153,7 @@ namespace Ydb.InstantMessage.DomainModel.Chat
             dto.MessageBody = MessageBody;
             dto.ChatTarget = ChatTarget.ToString();
             dto.FromResource = FromResource.ToString();
+            dto.FromResourceName = FromResourceName;
             dto.ToResource = ToResource.ToString();
             dto.IsReaded = IsReaded;
             dto.IsfromCustomerService = IsfromCustomerService;

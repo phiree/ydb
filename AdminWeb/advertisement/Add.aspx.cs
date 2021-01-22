@@ -1,5 +1,5 @@
-﻿using Dianzhu.BLL;
-using Dianzhu.Model;
+﻿
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,11 +7,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using Ydb.Push.DomainModel;
+using Ydb.Push.Application;
 using MediaServer;
+ 
+
 public partial class advertisement_Add : BasePage
 {
-    BLLAdvertisement bllAd = Bootstrap.Container.Resolve<BLLAdvertisement>();
+    IAdvertisementService advService = Bootstrap.Container.Resolve<IAdvertisementService>();
 
     Guid id = Guid.Empty;
     string imgUrlOld = string.Empty;
@@ -22,14 +25,15 @@ public partial class advertisement_Add : BasePage
             return id == Guid.Empty;
         }
     }
-    Advertisement adObj = new Advertisement();
+   public Advertisement adObj = new Advertisement();
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         string idStr = Request["Id"];
         Guid.TryParse(idStr, out id);
         if (!IsNew)
         {
-            adObj = bllAd.GetByUid(id);
+            adObj = advService.GetByUid(id);
             imgUrlOld = adObj.ImgUrl;
         }
         if (!IsPostBack)
@@ -42,7 +46,7 @@ public partial class advertisement_Add : BasePage
     protected void LoadForm()
     {
         txtNum.Text = adObj.Num.ToString();
-        imgAdv.ImageUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + adObj.ImgUrl;        
+        imgAdv.ImageUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + adObj.ImgUrl+"_150X150";        
         txtUrl.Text = adObj.Url;
         txtStartTime.Text = adObj.StartTime.ToString();
         txtEndTime.Text = adObj.EndTime.ToString();
@@ -129,10 +133,10 @@ public partial class advertisement_Add : BasePage
     {
         UpdateForm();
         if (IsNew)
-        { bllAd.Save(adObj); }
+        { advService.Save(adObj); }
         else
         {
-            bllAd.Update(adObj);
+            advService.Update(adObj);
         }
        
         if (IsNew)

@@ -20,9 +20,6 @@ namespace Ydb.Membership.Infrastructure.Repository.NHibernate.Mapping
             Map(x => x.IsAgentCustomerService);
             Map(x => x.IsVerified);
             Map(x => x.VerificationIsAgree);
-            Map(x => x.LockTime);
-            Map(x => x.IsLocked);
-            Map(x => x.LockReason);
         }
     }
 }

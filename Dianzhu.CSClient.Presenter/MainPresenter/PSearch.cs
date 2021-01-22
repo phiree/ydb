@@ -163,24 +163,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 if (GlobalViables.AllServiceType == null) { return; }
                 viewSearch.InitType(GlobalViables.AllServiceType);
-
-                return;
-
-                System.Threading.Thread.Sleep(1000);
-                if (this.ServiceTypeListTmp != null) { return; }
-
-
-                this.ServiceTypeListTmp = typeService.GetTopList();
-                this.ServiceTypeCach = new Dictionary<ServiceType, IList<ServiceType>>();
-
-                foreach (ServiceType t in ServiceTypeListTmp)
-                {
-                    if (!ServiceTypeCach.ContainsKey(t))
-                    {
-                        ServiceTypeCach.Add(t, null);
-                    }
-                }
-               
+ 
             }
             catch (Exception ee)
             {
@@ -230,7 +213,7 @@ namespace Dianzhu.CSClient.Presenter
             if (oldOrder.OrderStatus !=  enum_OrderStatus.Draft)
             {
                 oldOrder = CreateDraftOrder(GlobalViables.CurrentCustomerService.Id.ToString(), identity);
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+             //   NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             }
 
             foreach (var serviceId in pushedServices)
@@ -238,12 +221,12 @@ namespace Dianzhu.CSClient.Presenter
                 service = dzService.GetOne2(serviceId);
                 ServiceSnapShot serviceSnapshot = Mapper.Map<ServiceSnapShot>(service);
 
-                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+             //   NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
                 serviceOrderPushedServices.Add(new ServiceOrderPushedService(oldOrder, serviceId.ToString(),serviceSnapshot,viewSearch.UnitAmount, viewSearch.ServiceCustomerName, viewSearch.ServiceCustomerPhone, viewSearch.ServiceTargetAddress, viewSearch.TargetTime, viewSearch.ServiceMemo ));
             }
             bllPushService.Push(oldOrder.Id, serviceOrderPushedServices, viewSearch.ServiceTargetAddress, viewSearch.SearchKeywordTime);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+        //    NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //获取之前orderid
             string serialNoForOrder = serialNoBuilder.GetSerialNo("FW" + DateTime.Now.ToString("yyyyMMddHHmmssfff"),2);
@@ -251,7 +234,7 @@ namespace Dianzhu.CSClient.Presenter
             oldOrder.OrderStatus = enum_OrderStatus.DraftPushed;
             oldOrder.CustomerServiceId = GlobalViables.CurrentCustomerService.Id.ToString();
             bllServiceOrder.Update(oldOrder);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+           // NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             
             //ReceptionChatFactory chatFactory = new ReceptionChatFactory(Guid.NewGuid(), GlobalViables.CurrentCustomerService.Id.ToString(),
@@ -324,7 +307,6 @@ namespace Dianzhu.CSClient.Presenter
             }
             //生成新的草稿单
             ServiceOrder newOrder = CreateDraftOrder(GlobalViables.CurrentCustomerService.Id.ToString(), identity);
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
             //更新当前订单
             //IdentityTypeOfOrder type;

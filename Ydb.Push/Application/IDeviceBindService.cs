@@ -5,9 +5,11 @@ namespace Ydb.Push.Application
 {
     public interface IDeviceBindService
     {
-        void Delete(DeviceBind db);
+        void Delete(Guid uuid);
+        void UpdatePushAmount(Guid uuid, int pushAmount);
         DeviceBind getDevBindByUserID(string userId);
         DeviceBind getDevBindByUUID(Guid uuid);
+        void SetPushAmountZero(Guid userId);
         void Save(DeviceBind db);
         void SaveOrUpdate(DeviceBind db);
         void Update(DeviceBind db);

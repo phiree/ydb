@@ -58,10 +58,8 @@
     <Reference Include="FluentValidation">
       <HintPath>..\AdminWeb\Bin\FluentValidation.dll</HintPath>
     </Reference>
-
     <Reference Include="HibernatingRhinos.Profiler.Appender, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernateProfiler.Appender.3.0.3105.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
-
       <Private>True</Private>
     </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
@@ -98,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\Dto\ServiceOpenTimeDto.cs" />
+    <Compile Include="Application\Dto\ServiceOpenTimeForDayDto.cs" />
     <Compile Include="Application\IDZServiceService.cs" />
     <Compile Include="Application\IServiceOpenTimeForDayService.cs" />
     <Compile Include="Application\IServiceOpenTimeService.cs" />

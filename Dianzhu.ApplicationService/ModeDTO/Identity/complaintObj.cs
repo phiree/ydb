@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.Model;
+
 using Ydb.Common;
 
 namespace Dianzhu.ApplicationService
@@ -74,7 +74,19 @@ namespace Dianzhu.ApplicationService
             }
             set
             {
-                _target = value;
+                if (value.ToLower() == "customerservice")
+                {
+                    _target = "customerService";
+                }
+                else if (value.ToLower() == "store")
+                {
+                    _target = "store";
+                }
+                else
+                {
+                    _target = value;
+                }
+
             }
         }
 

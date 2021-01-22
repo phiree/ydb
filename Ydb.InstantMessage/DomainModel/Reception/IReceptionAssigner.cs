@@ -10,10 +10,10 @@ namespace Ydb.InstantMessage.DomainModel.Reception
 
     public interface IReceptionAssigner
     {
-        string AssignCustomerLogin(IList<ReceptionStatus> existedReception, string customerId);
+        string AssignCustomerLogin(IList<ReceptionStatus> existedReceptionForCustomer, MemberArea customerToAssign, IList<MemberArea> csList);
 
-        Dictionary<string, string> AssignCSLogin(IList<ReceptionStatus> existReceptionDD, string csId);
+          Dictionary<string, string> AssignCSLogin(IList<ReceptionStatus> existReceptionDD, MemberArea cs);
 
-        Dictionary<string, string> AssignCSLogoff(IList<ReceptionStatus> existReceptionCS);
+        Dictionary<string, string> AssignCSLogoff(IList<ReceptionStatus> existedReceptionForCustomerService, IList<MemberArea> csList);
     }
 }

@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
+
 namespace Ydb.Common.Enums
 {
     public class EnumberHelper
     {
+        // Manage.Extension.EnumExt.GetSelectList(typeof(TableStatus));
         public static List<EnumberEntity> EnumToList<T>()
         {
             List<EnumberEntity> list = new List<EnumberEntity>();

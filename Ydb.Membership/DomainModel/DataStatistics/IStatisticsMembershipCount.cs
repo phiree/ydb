@@ -17,5 +17,7 @@ namespace Ydb.Membership.DomainModel.DataStatistics
         StatisticsInfo StatisticsAllMembershipsCountListByAppName(IList<DZMembership> memberList, IList<MembershipLoginLog> loginList);
         StatisticsInfo StatisticsAllMembershipsCountGroupByArea(IList<DZMembership> memberList, IList<Area> areaList);
         IDictionary<string, IList<DZMembershipCustomerService>> StatisticsVerifiedCustomerServiceByArea(IList<DZMembership> memberList, IList<Area> areaList, IList<string> memberKey);
+
+        IDictionary<string, IList<DZMembership>> StatisticsLockedMemberByArea(IList<DZMembership> memberList, IList<Area> areaList, IList<string> memberKey);
     }
 }

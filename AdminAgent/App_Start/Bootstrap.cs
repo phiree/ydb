@@ -52,9 +52,6 @@ public class Bootstrap
           new Ydb.Order.Infrastructure.InstallerOrder(BuildDBConfig("ydb_order"))
           );
         container.Install(
-         new Ydb.InstantMessage.Infrastructure.InstallerInstantMessage(BuildDBConfig("ydb_instantmessage"))
-         );
-        container.Install(
           new Ydb.PayGateway.InstallerPayGateway(BuildDBConfig("ydb_paygateway"))
           );
         container.Install(
@@ -73,6 +70,8 @@ public class Bootstrap
                 x.AddProfile<Ydb.Membership.Application.ModelToDtoMappingProfile>();
                 x.AddProfile<Ydb.BusinessResource.Application.ModelToDtoMappingProfile>();
                 x.AddProfile<Ydb.Finance.Application.ModelToDtoMappingProfile>();
+                x.AddProfile<Ydb.Finance.Application.DtoToModelMappingProfile>();
+                x.AddProfile<Ydb.ApplicationService.ModelToDtoMappingProfileCrossDomain>();
             });
 
 

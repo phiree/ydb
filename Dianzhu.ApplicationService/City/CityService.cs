@@ -1,22 +1,28 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
 using Ydb.Common.Application;
 using Ydb.Common.Domain;
+using Ydb.Common.Infrastructure;
 using Ydb.Common.Specification;
+using Ydb.InstantMessage.Application;
+using Ydb.Membership.Application;
 
 namespace Dianzhu.ApplicationService.City
 {
-    public class CityService: ICityService
+    public class CityService : ICityService
     {
-        IAreaService areaService;
+        private IAreaService areaService;
+        private IDZMembershipService memberService;
+        private IReceptionService receptionService;
+        private IHttpRequest httpRequest;
 
-        public CityService(IAreaService areaService)
+        public CityService(IAreaService areaService, IDZMembershipService memberService, IReceptionService receptionService, IHttpRequest httpRequest)
         {
             this.areaService = areaService;
+            this.memberService = memberService;
+            this.receptionService = receptionService;
+            this.httpRequest = httpRequest;
         }
 
         /// <summary>
@@ -31,7 +37,7 @@ namespace Dianzhu.ApplicationService.City
             {
                 throw new Exception("没有找到资源！");
             }
-            cityObj cityobj = Mapper.Map< Area, cityObj>(area);
+            cityObj cityobj = Mapper.Map<Area, cityObj>(area);
             return cityobj;
         }
 
@@ -41,14 +47,22 @@ namespace Dianzhu.ApplicationService.City
         /// <param name="filter"></param>
         /// <param name="location"></param>
         /// <returns></returns>
-        public IList<cityObj> GetAllCity(common_Trait_Filtering filter,common_Trait_LocationFiltering location)
+        public IList<cityObj> GetAllCity(common_Trait_Filtering filter, common_Trait_LocationFiltering location, Customer customer)
         {
-            IList<Area> listarea=null;
-             Area area;
+            IList<Area> listarea = null;
+            Area area;
             if (!string.IsNullOrEmpty(location.longitude) && !string.IsNullOrEmpty(location.latitude))
             {
                 RespGeo geoObj = utils.Deserialize<RespGeo>(utils.GetCity(location.longitude, location.latitude));
-                area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city);
+                area = areaService.GetCityByAreaCode(geoObj.result.addressComponent.adcode);
+                if (area == null)
+                {
+                    area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city + geoObj.result.addressComponent.district);
+                }
+                if (area == null)
+                {
+                    area = areaService.GetAreaByAreaname(geoObj.result.addressComponent.province + geoObj.result.addressComponent.city);
+                }
                 //if (location.code != null && location.code != "" && area != null)
                 //{
                 //    if (location.code != area.Code)
@@ -58,13 +72,13 @@ namespace Dianzhu.ApplicationService.City
                 //}
                 if (area == null)
                 {
-                    area = new  Area();
+                    area = new Area();
                     area.Name = geoObj.result.addressComponent.city;
                     area.Code = geoObj.result.cityCode;
                 }
+
                 listarea = new List<Area>();
                 listarea.Add(area);
-
             }
             else
             {
@@ -90,7 +104,6 @@ namespace Dianzhu.ApplicationService.City
             }
             IList<cityObj> listcity = Mapper.Map<IList<Area>, IList<cityObj>>(listarea);
             return listcity;
-
         }
     }
 }

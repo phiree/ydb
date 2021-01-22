@@ -269,7 +269,20 @@ namespace Ydb.Membership.Application
                 result.ErrMsg = "该用户不存在!";
             }
             if (!string.IsNullOrEmpty(cityCode))
+            {
+                //如果没有变化,直接返回.
+                if (member.UserCity == cityCode)
+                {
+                    result.IsSuccess = false;
+                    result.ErrMsg = "不需要修改";
+                    return result;
+                }
+                 
                 member.UserCity = cityCode;
+                member.AreaId = areaId;
+
+            }
+            
             if (string.IsNullOrEmpty(longitude) ^ string.IsNullOrEmpty(latitude))
             {
                 result.IsSuccess = false;
@@ -279,9 +292,8 @@ namespace Ydb.Membership.Application
                 member.Longitude = longitude;
             if (!string.IsNullOrEmpty(latitude))
                 member.Latitude = latitude;
-            if (!string.IsNullOrEmpty(areaId))
-                member.AreaId = areaId;
-            repositoryMembership.Update(member);
+          
+            //repositoryMembership.Update(member);
             return result;
         }
 
@@ -462,65 +474,59 @@ namespace Ydb.Membership.Application
         }
 
         /// <summary>
-        ///     统计用户每日或每时新增数量列表
+        /// 统计用户每日或每时新增数量列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public StatisticsInfo GetStatisticsNewMembershipsCountListByTime(IList<string> areaList, string strBeginTime,
-            string strEndTime, UserType userType)
+        public StatisticsInfo GetStatisticsNewMembershipsCountListByTime(IList<string> areaList, DateTime beginTime,
+            DateTime endTime, UserType userType)
         {
-            var BeginTime = StringHelper.ParseToDate(strBeginTime, false);
-            var EndTime = StringHelper.ParseToDate(strEndTime, true);
-            var memberList = repositoryMembership.GetUsersByArea(areaList, BeginTime, EndTime, userType);
-            var statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipsCountListByTime(memberList, BeginTime,
-                EndTime, strBeginTime == strEndTime);
+            var memberList = repositoryMembership.GetUsersByArea(areaList, beginTime, endTime, userType);
+            var statisticsInfo = statisticsMembershipCount.StatisticsNewMembershipsCountListByTime(memberList, beginTime,
+                endTime, beginTime.ToString("yyyyMMdd") == endTime.AddDays(-1).ToString("yyyyMMdd"));
             return statisticsInfo;
         }
 
         /// <summary>
-        ///     统计用户每日或每时累计数量列表
+        /// 统计用户每日或每时累计数量列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public StatisticsInfo GetStatisticsAllMembershipsCountListByTime(IList<string> areaList, string strBeginTime,
-            string strEndTime, UserType userType)
+        public StatisticsInfo GetStatisticsAllMembershipsCountListByTime(IList<string> areaList, DateTime beginTime,
+            DateTime endTime, UserType userType)
         {
-            var BeginTime = StringHelper.ParseToDate(strBeginTime, false);
-            var EndTime = StringHelper.ParseToDate(strEndTime, true);
             var memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue,
                 userType);
-            var statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListByTime(memberList, BeginTime,
-                EndTime, strBeginTime == strEndTime);
+            var statisticsInfo = statisticsMembershipCount.StatisticsAllMembershipsCountListByTime(memberList, beginTime,
+                endTime, beginTime.ToString("yyyyMMdd") == endTime.AddDays(-1).ToString("yyyyMMdd"));
             return statisticsInfo;
         }
 
         /// <summary>
-        ///     统计用户每日或每时在线活跃度（数量）列表
+        /// 统计用户每日或每时在线活跃度（数量）列表
         /// </summary>
         /// <param name="areaList"></param>
-        /// <param name="strBeginTime"></param>
-        /// <param name="strEndTime"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public StatisticsInfo GetStatisticsLoginCountListByTime(IList<string> areaList, string strBeginTime,
-            string strEndTime, UserType userType)
+        public StatisticsInfo GetStatisticsLoginCountListByTime(IList<string> areaList, DateTime beginTime,
+            DateTime endTime, UserType userType)
         {
-            var BeginTime = StringHelper.ParseToDate(strBeginTime, false);
-            var EndTime = StringHelper.ParseToDate(strEndTime, true);
             var memberList = repositoryMembership.GetUsersByArea(areaList, DateTime.MinValue, DateTime.MinValue,
                 userType);
-            var loginList = repositoryMembershipLoginLog.GetMembershipLoginLogListByTime(BeginTime, EndTime);
+            var loginList = repositoryMembershipLoginLog.GetMembershipLoginLogListByTime(beginTime, endTime);
             var statisticsInfo = statisticsMembershipCount.StatisticsLoginCountListByTime(memberList, loginList,
-                BeginTime, EndTime, strBeginTime == strEndTime);
+                beginTime, endTime, beginTime.ToString("yyyyMMdd") == endTime.AddDays(-1).ToString("yyyyMMdd"));
             return statisticsInfo;
         }
 
@@ -701,17 +707,17 @@ namespace Ydb.Membership.Application
         }
 
         /// <summary>
-        ///     封停/解封助理
+        /// 封停/解封
         /// </summary>
         /// <param name="membership"></param>
         /// <returns></returns>
         [UnitOfWork]
-        public ActionResult LockDZMembershipCustomerService(string membershipId, bool isLocked, string strMemo)
+        public ActionResult LockDZMembership(string membershipId, bool isLocked, string strMemo)
         {
             var result = new ActionResult();
             try
             {
-                var dzMembership = dzmembershipDomainService.GetDZMembershipCustomerServiceById(membershipId);
+                var dzMembership = repositoryMembership.FindById(StringHelper.CheckGuidID(membershipId,"用户Id"));
                 dzMembership.LockCustomerService(isLocked, strMemo);
                 //dzmembershipDomainService.UpdateDZMembership(dzMembership);
             }
@@ -861,6 +867,36 @@ namespace Ydb.Membership.Application
         public IList<DZMembershipCustomerServiceDto> GetDZMembershipCustomerServiceByArea(IList<string> areaIdList)
         {
             return Mapper.Map<IList<DZMembershipCustomerServiceDto>>(dzmembershipDomainService.GetDZMembershipCustomerServiceByArea(areaIdList));
+        }
+
+        public IList<MemberDto> GetUsersByIdList(IList<string> memberIdList)
+        {
+            return Mapper.Map<IList<MemberDto>>(repositoryMembership.GetUsersByIdList(memberIdList));
+        }
+
+        public IList<MemberDto> GetUsersByIdList(IList<string> memberIdList, IList<string> areaIdList)
+        {
+            return Mapper.Map<IList<MemberDto>>(repositoryMembership.GetUsersByIdList(memberIdList, areaIdList));
+        }
+
+
+        /// <summary>
+        /// 根据代理区域获取其封锁的用户信息列表
+        /// </summary>
+        /// <param name="areaList"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public IDictionary<Enum_LockMemberType, IList<MemberDto>> GetLockDZMembershipByArea(IList<Area> areaList,UserType userType)
+        {
+            IDictionary<Enum_LockMemberType, IList<MemberDto>> dicDto = new Dictionary<Enum_LockMemberType, IList<MemberDto>>();
+            IList<string> AreaIdList = areaList.Select(x => x.Id.ToString()).ToList();
+            IList<DZMembership> memberList = repositoryMembership.GetUsersByArea(AreaIdList, DateTime.MinValue, DateTime.MinValue, userType);
+            IDictionary<string, IList<DZMembership>> dic = statisticsMembershipCount.StatisticsLockedMemberByArea(memberList, areaList, EnumberHelper.EnumNameToList<Enum_LockMemberType>());
+            foreach (KeyValuePair<string, IList<DZMembership>> pair in dic)
+            {
+                dicDto.Add((Enum_LockMemberType)Enum.Parse(typeof(Enum_LockMemberType), pair.Key), Mapper.Map<IList<MemberDto>>(pair.Value));
+            }
+            return dicDto;
         }
     }
 }

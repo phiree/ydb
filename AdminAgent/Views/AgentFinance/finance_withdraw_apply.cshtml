@@ -41,7 +41,7 @@
                     <div class="box-footer">
                         @*<button type="submit" class="btn btn-default">取消</button>*@
                         @Html.ActionLink("取消", "finance_total_list", "AgentFinance", new { id = "" }, new { @class = "btn btn-default" })
-                        <button type="submit" class="btn btn-info pull-right">提现</button>
+                        <button type="submit" class="btn btn-info pull-right" onclick="return checkAccount();">提现</button>
                     </div>
                     <!-- /.box-footer -->
                 </form>
@@ -50,10 +50,37 @@
     </div>
 </section>
 <!-- /.content -->
+@Html.Action("footer", "Agent", new { id = "" })
 
 <!-- DataTables -->
-<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="../../static/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../static/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 
 
+<script>
+    function checkAmount()
+    {
+        var inputMoney = $("#inputMoney").val();
+        if (inputMoney == "")
+        {
+            alert("提现金额不能为空！");
+            return false;
+        }
+        try
+        {
+            var intMoney = parseInt(inputMoney);
+            if (intMoney < 2)
+            {
+                alert("提现金额必须是大于1的整数！");
+                return false;
+            }
+        }
+        catch(err)
+        {
+            alert("提现金额必须是大于1的整数！");
+            return false;
+        }
+        return true;
+    }
+</script>

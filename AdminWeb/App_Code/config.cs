@@ -8,8 +8,8 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
-using Dianzhu.BLL;
-using Dianzhu.Model;
+
+
 using Ydb.Order.DomainModel;
 /// <summary>
 /// config 的摘要说明

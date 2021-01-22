@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.Model;
-using Dianzhu.BLL;
+
+
 using Ydb.Common;
 using PHSuit;
 using FluentValidation.Results;
@@ -50,7 +50,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         
         if (!IsPostBack)
         {
-//            LoadInit();
+ 
             if (!IsNew)
             {
                 LoadForm();
@@ -65,22 +65,13 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         //获取该店铺其他服务
         if (CurrentService.Id != new Guid())
         {
-            int total;
+             
             otherServiceLocation = "[";
-            /*
-            IList<DZService> areaCodes = bllService.GetOtherServiceByBusiness(CurrentService.Business.Id, CurrentService.Id, 0, 9999, out total);
-            foreach (DZService a in areaCodes)
-            {
-                otherServiceLocation += a.BusinessAreaCode + ",";
-            }
-            otherServiceLocation = otherServiceLocation.TrimEnd(',');*/
+           
             otherServiceLocation += "]";
         }
     }
-//    public void LoadInit()
-//    {
-//        LoadServicePeriod();
-//    }
+ 
 
     void rptProperties_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
@@ -267,7 +258,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
             //             PHSuit.Notification.Alert(Page, "保存成功", redirectUrl);
             //   Response.Redirect(redirectUrl);//PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl);
 
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+           
             Response.Redirect("/dzservice/Service_Edit.aspx?&businessid=" + Request["businessid"] + "&serviceid=" + CurrentService.Id + "&step=4" );
         }   
         else

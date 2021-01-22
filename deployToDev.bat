@@ -81,22 +81,22 @@ echo 5.MediaServer发布已取消
 
 endlocal
  
-
- 
 setlocal
 :PROMPT
-SET /P AREYOUSURE=------------------------是否发布:6. PushServer网站 (Y/N)?
+SET /P AREYOUSURE=------------------------是否发布:6. AdminAgent网站 (Y/N)?
 
 IF /I "%AREYOUSURE%" NEQ "Y" GOTO ENDY
-"C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe" "%~dp0Dianzhu.Web.PushServer\website.publishproj" /p:deployonbuild=true /p:publishprofile="%~dp0Dianzhu.Web.PushServer\App_Data\PublishProfiles\dev.pubxml" /p:visualstudioversion=14.0 /p:AllowUntrustedCertificate=True /p:username="deployer" /p:password="deployer2016"
-echo 6.PushServer发布成功
+"C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe" "%~dp0AdminAgent\AdminAgent.csproj" /p:deployonbuild=true /p:publishprofile="%~dp0AdminAgent\Properties\PublishProfiles\dev.pubxml" /p:visualstudioversion=14.0 /p:AllowUntrustedCertificate=True /p:username="deployer" /p:password="deployer2016"
+echo 7.PayServer发布成功
 :ENDY
 
 IF /I "%AREYOUSURE%" EQU "Y" GOTO ENDNY
-echo 6.PushServer发布已取消
+echo 7.PayServer发布已取消
 :ENDNY
 
 endlocal
+ 
+ 
  
 
 
@@ -154,7 +154,7 @@ endlocal
 
 setlocal
 :PROMPT
-SET /P AREYOUSURE=------------------------是否发布:10.CSClient(确认是否已经将正确的编译版本发布到了本地)(Y/N)?
+SET /P AREYOUSURE=------------------------是否发布:10.CSClient(确认是否已经将正确的编译版本发布到了本地.密码是1)(Y/N)?
 
 IF /I "%AREYOUSURE%" NEQ "Y" GOTO ENDY
 ncftpput -R   -u yf     -P 2121 dev.ydban.cn  /publish/csclient/   E:\Projects\dianzhu\publish\csclient\deploy\*
@@ -171,7 +171,7 @@ endlocal
 
 setlocal
 :PROMPT
-SET /P AREYOUSURE=------------------------是否发布:11.DianDian(确认是否已经编译正确)(Y/N)?
+SET /P AREYOUSURE=------------------------是否发布:11.DianDian(确认是否已经编译正确,密码是1)(Y/N)?
 
 IF /I "%AREYOUSURE%" NEQ "Y" GOTO ENDY
 ::使用dev配置编译点点

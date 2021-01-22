@@ -1,4 +1,4 @@
-﻿
+﻿@model  Ydb.ApplicationService.ModelDto.FinanceWithdrawTotalDto
 @{
     ViewBag.headTitle = "财务管理";
     ViewBag.subTitle = "提现记录";
@@ -14,7 +14,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">累计体现金额</span>
-                    <span class="info-box-number">2016.09.09 12:12:56</span>
+                    <span class="info-box-number">@Model.WithdrawTotal</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -27,7 +27,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">待转账单量</span>
-                    <span class="info-box-number">420</span>
+                    <span class="info-box-number">@Model.WithdrawNotDeal</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -106,51 +106,20 @@
                                 </tr>
                             </tfoot>
                             <tbody>
-                                <tr>
-                                    <td>132456</td>
-                                    <td>test@test.com</td>
-                                    <td>$123</td>
-                                    <td>get@alipay.com</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>某某某</td>
-                                </tr>
-                                <tr>
-                                    <td>132456</td>
-                                    <td>test@test.com</td>
-                                    <td>$123</td>
-                                    <td>get@alipay.com</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>某某某</td>
-                                </tr>
-                                <tr>
-                                    <td>132456</td>
-                                    <td>test@test.com</td>
-                                    <td>$123</td>
-                                    <td>get@alipay.com</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>某某某</td>
-                                </tr>
-                                <tr>
-                                    <td>132456</td>
-                                    <td>test@test.com</td>
-                                    <td>$123</td>
-                                    <td>get@alipay.com</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>某某某</td>
-                                </tr>
-                                <tr>
-                                    <td>132456</td>
-                                    <td>test@test.com</td>
-                                    <td>$123</td>
-                                    <td>get@alipay.com</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>2016-16-12 12:34:12</td>
-                                    <td>某某某</td>
-                                </tr>
+                                @for (int i = 0; i < @Model.financeWithdrawDtoList.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@(i + 1)</td>
+                                        <td>@*<a href="./order.html">*@@Html.DisplayFor(modelItem => @Model.financeWithdrawDtoList[i].ApplySerialNo)@*</a>*@</td>
+                                        <td>@Html.DisplayFor(modelItem => @Model.financeWithdrawDtoList[i].UserNickName)</td>
+                                        <td>@Html.DisplayFor(modelItem => @Model.financeWithdrawDtoList[i].ApplyTime)</td>
+                                        <td>@Html.DisplayFor(modelItem => @Model.financeWithdrawDtoList[i].ReceiveAccount)</td>
+                                        <td>@Html.DisplayFor(modelItem => @Model.financeWithdrawDtoList[i].ApplyAmount)</td>
+                                        <td>@Html.DisplayFor(modelItem => @Model.financeWithdrawDtoList[i].TransferAmount)</td>
+                                        <td>@Html.DisplayFor(modelItem => @Model.financeWithdrawDtoList[i].PayTime)</td>
+                                        <td>@Html.DisplayFor(modelItem => @Model.financeWithdrawDtoList[i].PayStatus)</td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </form>
@@ -162,10 +131,11 @@
     </div>
 </section>
 <!-- /.content -->
+@Html.Action("footer", "Agent", new { id = "" })
 
 <!-- DataTables -->
-<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="../../static/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../static/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 
 <script>

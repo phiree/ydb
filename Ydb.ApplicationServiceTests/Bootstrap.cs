@@ -43,6 +43,7 @@ public class Bootstrap
         {
             AutoMapperConfiguration.AutoMapperFinance.Invoke(x);
             Ydb.Membership.Application.AutoMapperConfiguration.AutoMapperMembership.Invoke(x);
+            x.AddProfile<Ydb.ApplicationService.ModelToDtoMappingProfileCrossDomain>();
         });
 
         LoggingConfiguration.Config("ApplicationTest.log");

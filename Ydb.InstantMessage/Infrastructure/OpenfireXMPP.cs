@@ -152,26 +152,26 @@ namespace Ydb.InstantMessage.Infrastructure
         }
 
         public void SendCSLoginMessage(Guid messageId, string messageBody, string to, string toResource,
-            string sessionId)
+            string sessionId, string areaCode)
         {
             XmppResource resourceTo;
             if (!Enum.TryParse(toResource, out resourceTo))
                 throw new Exception("传入的toResource有误");
             var receptionChatFactoryDD = new ReceptionChatFactory(messageId, string.Empty, to, messageBody, sessionId,
                 XmppResource.Unknow, resourceTo);
-            var chatDD = receptionChatFactoryDD.CreateNoticeCSOnline();
+            var chatDD = receptionChatFactoryDD.CreateNoticeCSOnline(areaCode);
             SendMessage(chatDD);
         }
 
         public void SendCSLogoffMessage(Guid messageId, string messageBody, string to, string toResource,
-            string sessionId)
+            string sessionId,string areaCode)
         {
             XmppResource resourceTo;
             if (!Enum.TryParse(toResource, out resourceTo))
                 throw new Exception("传入的toResource有误");
             var receptionChatFactoryDD = new ReceptionChatFactory(messageId, string.Empty, to, messageBody, sessionId,
                 XmppResource.Unknow, resourceTo);
-            var chatDD = receptionChatFactoryDD.CreateNoticeCSOffline();
+            var chatDD = receptionChatFactoryDD.CreateNoticeCSOffline(areaCode);
             SendMessage(chatDD);
         }
 
@@ -282,9 +282,9 @@ namespace Ydb.InstantMessage.Infrastructure
                     switch (chat.GetType().Name)
                     {
                         case "ReceptionChat":
+                        case "ReceptionChatNoticeCustomerChangeArea":
                             dtoChat = chat.ToDto();
                             break;
-
                         case "ReceptionChatMedia":
                             dtoChat = ((ReceptionChatMedia)chat).ToDto();
                             break;
@@ -293,6 +293,7 @@ namespace Ydb.InstantMessage.Infrastructure
                             dtoChat = ((ReceptionChatPushService)chat).ToDto();
                             break;
 
+                       
                         case "ReceptionChatNoticeCustomerServiceOnline":
                         case "ReceptionChatNoticeCustomerServiceOffline":
                         case "ReceptionChatNoticeOrder":
@@ -370,6 +371,17 @@ namespace Ydb.InstantMessage.Infrastructure
             log.Debug("Connection closed");
             if (IMClosed == null) return;
             IMClosed();
+        }
+
+        public void SendCustomerChangeAreaMessage(Guid messageId, string messageBody, string to, string toResource, string sessionId, string areaCode,string customerId)
+        {
+            XmppResource resourceTo;
+            if (!Enum.TryParse(toResource, out resourceTo))
+                throw new Exception("传入的toResource有误");
+            var receptionChatFactoryDD = new ReceptionChatFactory(messageId, string.Empty, to, messageBody, sessionId,
+                XmppResource.Unknow, resourceTo);
+            var chatDD = receptionChatFactoryDD.CreateNoticeCustomerChangeArea(areaCode, customerId);
+            SendMessage(chatDD);
         }
     }
 }

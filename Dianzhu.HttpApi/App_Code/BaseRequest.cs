@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Dianzhu.Model;using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
-using Dianzhu.BLL;
+using Ydb.Membership.Application;using Ydb.Membership.Application.Dto;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 /// <summary>
@@ -24,14 +24,7 @@ public class BaseRequest
         get
         {
             return false;
-            if (string.IsNullOrEmpty(appName))
-            {
-                return true;
-            }
-            else
-            {
-                return appName.ToLower() != "adminbusiness";
-            }
+             
         }
     }
 }

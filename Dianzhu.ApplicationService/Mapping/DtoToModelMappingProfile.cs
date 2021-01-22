@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Dianzhu.Model;
-using Dianzhu.DAL;
+
+
 using Ydb.InstantMessage.DomainModel.Chat;
 using Ydb.Membership.Application.Dto;
 using Ydb.BusinessResource.DomainModel;
@@ -13,6 +13,8 @@ using Ydb.Common;
 using Ydb.Common.Domain;
 using Ydb.Order.DomainModel;
 using M = Ydb.ApiClient.DomainModel;
+using Ydb.Push.DomainModel;
+
 namespace Dianzhu.ApplicationService.Mapping
 {
 
@@ -49,7 +51,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.OperatorId, opt => opt.MapFrom(source => source.senderID))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
-            Mapper.CreateMap<adObj, Model.Advertisement>()
+            Mapper.CreateMap<adObj,  Advertisement>()
             .ForMember(x => x.LastUpdateTime, opt => opt.MapFrom(source => source.updateTime))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 

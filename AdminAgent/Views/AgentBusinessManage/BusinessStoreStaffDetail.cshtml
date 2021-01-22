@@ -1,0 +1,201 @@
+﻿@model Ydb.BusinessResource.DomainModel.Staff
+@{
+    ViewBag.headTitle = "商家管理";
+    ViewBag.subTitle = "员工详情";
+    ViewBag.breadcrumbOl = new List<string>() { "商家管理", "商家列表", "商家详情", "店铺详情", "员工详情" };
+}
+
+<!-- Main content -->
+<section class="content">
+    <!-- /.row -->
+    <div class="row">
+        <!-- /.col -->
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header text-center margin-top-10">
+                    <h3 class="box-title text-center">@Model.DisplayName<span style="color: #4db2c6">&nbsp;&nbsp;@(Model.Enable ? "在职中" : "已离职")</span></h3>
+                    <div class="box-tools pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-wrench"></i>&nbsp;设置
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">重置密码</a></li>
+                                    <li class="divider"></li>
+                                <li><a href="#" id="isLook" data-toggle="modal" data-target="#toggleFreeze" data-look=@(Model.Enable ? "false" : "true")>@(Model.Enable ? "员工离职" : "员工入职")</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body box-profile">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>所属店铺：</b> <a class="pull-right">@Model.Belongto.Name</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>员工编号：</b> <a class="pull-right">@Model.Code</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>员工姓名：</b> <a class="pull-right">@Model.Name</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>联系电话：</b> <a class="pull-right">@Model.Phone</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>电子邮箱：</b> <a class="pull-right">@Model.Email</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>联系地址：</b> <a class="pull-right">@Model.Address</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>性别：</b> <a class="pull-right">@Model.Gender</a>
+                                </li>
+                                @*<li class="list-group-item">
+                                        <b>累计接单：</b> <a class="pull-right"><span>1232125</span>单</a>
+                                    </li>*@
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>登录账号：</b> <a class="pull-right">@ViewData["MemberUserName"]</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>负责订单数量：</b> <a class="pull-right">@ViewData["OrderCount"]</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>订单完成数量：</b> <a class="pull-right">@ViewData["DoneOrderCount"]</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>评价：</b> <a class="pull-right">@ViewData["StaffAverageAppraise"]</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h4 class="box-title col-md-12">负责订单</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-horizontal no-padding">
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input type="text" class="form-control pull-right" id="reservation">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            @Html.Action("BusinessStoreStaffOrders", "AgentBusinessManage", new { id = @ViewData["id"] })
+
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="toggleFreeze" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel2">@(Model.Enable ? "员工离职" : "员工入职")</h4>
+                </div>
+                <div class="modal-body">确认@(Model.Enable ? "员工离职" : "员工入职")</div>
+                <div class="modal-footer">
+                    <button id="toggleFreezeConf" type="button" class="btn btn-primary">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+
+</section>
+<!-- /.content -->
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. Slimscroll is required when using the
+     fixed layout. -->
+
+<script src="../../static/js/navbar-controller.js"></script>
+<!-- DataTables -->
+<script src="../../static/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../static/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- date-range-picker -->
+<script src="../../static/plugins/daterangepicker/moment.min.js"></script>
+<script src="../../static/plugins/daterangepicker/daterangepicker.js"></script>
+<script>
+    (function(){
+        //Date range picker
+        $('#reservation').daterangepicker();
+        //Date range picker with time picker
+        //初始化定制数据列表
+        $(".table-striped").DataTable({
+            "order": [[ 0, "asc" ]],
+            "language" :{
+                "decimal":        "",
+                "emptyTable":     "没有数据",
+                "info":           "从_START_ 到 _END_ 条记录——总记录数为 _TOTAL_ 条",
+                "infoEmpty":      "记录数为0",
+                "infoFiltered":   "(全部记录数 _MAX_  条)",
+                "infoPostFix":    "",
+                "thousands":      ",",
+                "lengthMenu":     "显示 _MENU_ 条",
+                "loadingRecords": "加载中...",
+                "processing":     "处理中...",
+                "search":         "查找：",
+                "zeroRecords":    "找不到内容",
+                "paginate": {
+                    "first":      "第一页",
+                    "last":       "最后一页",
+                    "next":       "下一页",
+                    "previous":   "上一页"
+                }
+            }
+        });
+
+        //封停/解封
+        $("#toggleFreezeConf").on("click", function () {
+            $.ajax({
+                url: "/AgentBusinessManage/BusinessStoreStaffDetailLock",
+                type: "GET",
+                data: {
+                    id: url.getUrlParam("id"),
+                    isLook: $("#isLook").data("look")
+                },
+                dataType: 'json'
+            }).done(function (resp, status, xhr) {
+                if (status = "success") {
+                    notify.modal('show');
+                    notify.find(".modal-body").text("操作成功");
+                }
+            }).fail(function (resp, status, xhr) {
+                $("#toggleFreeze").modal('hide');
+                notify.find(".modal-body").text("操作失败，请重试");
+                notify.modal('show');
+            })
+        });
+    })();
+</script>
+

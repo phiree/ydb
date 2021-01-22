@@ -219,7 +219,10 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                     common_Body = new common_Trait_LocationFiltering();
                 }
                 Customer customer = GetRequestHeader.GetTraitHeaders("patch/customers/{customerID}/currentGeolocation");
+
+
                 return Json(iuserservice.PatchCurrentGeolocation(userID, common_Body, customer));
+
                 //return Json("没有用户定位信息记录！");
             }
             catch (Exception ex)
